@@ -164,6 +164,53 @@ If loading was successful, the selection contains the imported SVG
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.h" line="43"/>
+        <source>createParagraphStyle(...)
+
+Creates a paragraph style. This function takes the following keyword parameters:
+
+&quot;name&quot; [required] -&gt; specifies the name of the paragraphstyle to create
+
+linespacingmode [optional] -&gt; specifies the linespacing mode; possible modes are:
+
+fixed linespacing:          0
+
+automatic linespacing:      1
+
+baseline grid linespacing:  2
+
+linespacing [optional] -&gt; specifies the linespacing if using fixed linespacing
+
+alignment [optional] -&gt; specifies the alignment of the paragraph
+
+-&gt; left:     0
+
+-&gt; center:   1
+
+-&gt; right:    2
+
+-&gt; justify:  3
+
+-&gt; extend:   4
+
+leftmargin [optional], rightmargin [optional] -&gt; specify the margin
+
+gapbefore [optional], gapafter [optional] -&gt; specify the gaps to the heading and following paragraphs
+
+firstindent [optional] -&gt; the indent of the first line
+
+hasdropcap [optional] -&gt; specifies if there are caps (1 = yes, 0 = no)
+
+dropcaplines [optional] -&gt; height (in lines) of the caps if used
+
+dropcapoffset [optional] -&gt; offset of the caps if used
+
+&quot;charstyle&quot; [optional] -&gt; char style to use
+
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>@default</name>
@@ -1518,7 +1565,7 @@ May raise WrongFrameTypeError if the target frame is not an text frame
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.h" line="354"/>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="382"/>
         <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
 
 Returns true if the text frame &quot;name&quot; is a PDF bookmark.
@@ -2007,7 +2054,7 @@ May raise IndexError if the page number is out of range.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.h" line="342"/>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="370"/>
         <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
 
 Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
@@ -2017,26 +2064,146 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdmisc.h" line="329"/>
+        <source>moveSelectionToFront()
+
+Moves current selection to front.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdmisc.h" line="338"/>
+        <source>moveSelectionToFront()
+
+Moves current selection to back.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdpage.h" line="198"/>
+        <source>importPage(&quot;fromDoc&quot;, (pageList), [create, imortwhere, importwherePage])
+
+Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This functions maps the &quot;Page-&gt;Import&quot; dropdown menu function.
+fromDoc: string; the filename of the document to import pages from
+pageList: tuple with page numbers of pages to import
+create: number; 0 to replace existing pages, 1 (default) to insert new pages
+importWhere: number; the page number (of the current document) at which import the pages
+importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.h" line="80"/>
+        <source>createCharStyle(...)
+
+Creates a character style. This function takes the following keyword parameters:
+
+&quot;name&quot; [required] -&gt; name of the char style to create
+
+&quot;font&quot; [optional] -&gt; name of the font to use
+
+fontsize [optional] -&gt; font size to set (double)
+
+&quot;features&quot; [optional] -&gt; nearer typographic details can be defined by a string that might contain the following phrases comma-seperated (without spaces!):
+
+-&gt; inherit
+
+-&gt; bold
+
+-&gt; italic
+
+-&gt; underline
+
+-&gt; underlinewords
+
+-&gt; strike
+
+-&gt; superscript
+
+-&gt; subscript
+
+-&gt; outline
+
+-&gt; shadowed
+
+-&gt; allcaps
+
+-&gt; smallcaps
+
+&quot;fillcolor&quot; [optional], &quot;fillshade&quot; [optional] -&gt; specify fill options
+
+&quot;strokecolor&quot; [optional], &quot;strokeshade&quot; [optional] -&gt; specify stroke options
+
+baselineoffset [optional] -&gt; offset of the baseline
+
+shadowxoffset [optional], shadowyoffset [optional] -&gt; offset of the shadow if used
+
+outlinewidth [optional] -&gt; width of the outline if used
+
+underlineoffset [optional], underlinewidth [optional] -&gt; underline options if used
+
+strikethruoffset [optional], strikethruwidth [optional] -&gt; strikethru options if used
+
+scaleh [optional], scalev [optional] -&gt; scale of the chars
+
+tracking [optional] -&gt; tracking of the text
+
+&quot;language&quot; [optional] -&gt; language code
+
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="341"/>
+        <source>hyphenateText([&quot;name&quot;]) -&gt; bool
+
+Does hyphenation on text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="355"/>
+        <source>dehyphenateText([&quot;name&quot;]) -&gt; bool
+
+Does dehyphenation on text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/guiapp.h" line="106"/>
+        <source>scrollDocument(x,y)
+
+Scroll the document in main GUI window by x and y.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AIPlug</name>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="116"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="120"/>
         <source>Importing: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="119"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="123"/>
         <source>Analyzing File:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="273"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="278"/>
         <source>Group%1</source>
         <translation type="unfinished">Grupp%1</translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="2190"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="2210"/>
         <source>Generating Items</source>
         <translation type="unfinished">Elementide genereerimine</translation>
     </message>
@@ -2044,27 +2211,27 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 <context>
     <name>About</name>
     <message>
-        <location filename="../about.cpp" line="46"/>
+        <location filename="../about.cpp" line="49"/>
         <source>About Scribus %1</source>
         <translation>Scribus %1 info</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="73"/>
+        <location filename="../about.cpp" line="76"/>
         <source>%1 %2 %3</source>
         <translation>%1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="81"/>
+        <location filename="../about.cpp" line="84"/>
         <source>%3-%2-%1 %4 %5</source>
         <translation>%3-%2-%1 %4 %5</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="131"/>
+        <location filename="../about.cpp" line="134"/>
         <source>Using Ghostscript version %1</source>
         <translation>Ghostscripti versioon %1</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="133"/>
+        <location filename="../about.cpp" line="136"/>
         <source>No Ghostscript version available</source>
         <translation>Ghostscripti versioon pole teada</translation>
     </message>
@@ -2074,102 +2241,102 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">&lt;b&gt;Scribuse versioon %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="134"/>
+        <location filename="../about.cpp" line="137"/>
         <source>Build ID:</source>
         <translation>Ehitamise ID:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="136"/>
+        <location filename="../about.cpp" line="139"/>
         <source>&amp;About</source>
         <translation>&amp;Info</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="142"/>
+        <location filename="../about.cpp" line="145"/>
         <source>Development Team:</source>
         <translation>Arendajate meeskond:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="154"/>
+        <location filename="../about.cpp" line="159"/>
         <source>Contributions from:</source>
         <translation>Kaasautorid:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="173"/>
+        <location filename="../about.cpp" line="179"/>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation>Mac OS&amp;#174; X Aqua port:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="181"/>
+        <location filename="../about.cpp" line="187"/>
         <source>Windows&amp;#174; Port:</source>
         <translation>Windows&amp;#174; port:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="185"/>
+        <location filename="../about.cpp" line="191"/>
         <source>Official Documentation:</source>
         <translation>Ametlik dokumentatsioon:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="193"/>
+        <location filename="../about.cpp" line="199"/>
         <source>Other Documentation:</source>
         <translation>Muu dokumentatsioon:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="201"/>
+        <location filename="../about.cpp" line="207"/>
         <source>Tango Project Icons:</source>
         <translation>Tango projekti ikoonid:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="207"/>
+        <location filename="../about.cpp" line="213"/>
         <source>A&amp;uthors</source>
         <translation>A&amp;utorid</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="215"/>
+        <location filename="../about.cpp" line="221"/>
         <source>Official Translations and Translators:</source>
         <translation>Ametlikud tõlked ja tõlkijad:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="342"/>
+        <location filename="../about.cpp" line="353"/>
         <source>Previous Translation Contributors:</source>
         <translation>Varasemad tõlkijad:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="383"/>
+        <location filename="../about.cpp" line="394"/>
         <source>&amp;Translations</source>
         <translation>&amp;Tõlked</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="389"/>
+        <location filename="../about.cpp" line="400"/>
         <source>Homepage</source>
         <translation>Kodulehekülg</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="391"/>
+        <location filename="../about.cpp" line="402"/>
         <source>Online Reference</source>
         <translation>Dokumentatsioon internetis</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="393"/>
+        <location filename="../about.cpp" line="404"/>
         <source>Wiki</source>
         <translation>Wiki</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="395"/>
+        <location filename="../about.cpp" line="406"/>
         <source>Bugs and Feature Requests</source>
         <translation>Veateated ja soovid</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="397"/>
+        <location filename="../about.cpp" line="408"/>
         <source>Mailing List</source>
         <translation>Meililist</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="404"/>
+        <location filename="../about.cpp" line="415"/>
         <source>&amp;Online</source>
         <translation>I&amp;nternet</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="423"/>
+        <location filename="../about.cpp" line="434"/>
         <source>&amp;Close</source>
         <translation>S&amp;ulge</translation>
     </message>
@@ -2179,14 +2346,14 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">See dialoog näitab Scribuse versiooni, ehitamise aega ja kompileeritud teekide toetust. Lühendis C-C-T-F tähendab C littlecms&apos;i, teine C CUPS-i, T TIFF-i ja F Fontconfig&apos;i tuge. Viimane täht näitab renderdajat: C=cairo või A=libart. Teegi toe puudumist näitab *. Samuti näeb siin Ghostscripti versiooni, mille Scribus leidis.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="407"/>
+        <location filename="../about.cpp" line="418"/>
         <source>&amp;Updates</source>
         <translation>&amp;Uuendused</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="411"/>
         <source>Check for &amp;Updates</source>
-        <translation>Kontrolli &amp;uuendusi</translation>
+        <translation type="obsolete">Kontrolli &amp;uuendusi</translation>
     </message>
     <message>
         <location filename="" line="136966688"/>
@@ -2194,49 +2361,59 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">See dialoog näitab Scribuse versiooni, ehitamise aega ja kompileeritud teekide toetust. Lühendis C-C-T-F tähendab C littlecms&apos;i, teine C CUPS-i, T TIFF-i ja F Fontconfig&apos;i tuge. Viimane täht näitab renderdajat: C=cairo või A=libart. Teegi toe puudumist näitab *. Samuti näeb siin Ghostscripti versiooni, mille Scribus leidis. Windowsi versioon ei kasuta Fontconfig&apos;i ega CUPS-i teeke.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="436"/>
+        <location filename="../about.cpp" line="447"/>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation>Scribuse uuenduste kontrollimine. Masinast ei saadeta selleks välja mingeid andmeid.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="177"/>
+        <location filename="../about.cpp" line="183"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="198"/>
+        <location filename="../about.cpp" line="204"/>
         <source>Splash Screen:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="432"/>
+        <location filename="../about.cpp" line="443"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="433"/>
+        <location filename="../about.cpp" line="444"/>
         <source>The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.Last Letter is the renderer C=cairo or Q=Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="434"/>
+        <location filename="../about.cpp" line="445"/>
         <source>Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="435"/>
+        <location filename="../about.cpp" line="446"/>
         <source>The Windows version does not use fontconfig or CUPS libraries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="134"/>
+        <location filename="../about.cpp" line="137"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="134"/>
+        <location filename="../about.cpp" line="137"/>
         <source>Scribus Version</source>
         <translation type="unfinished">Scribuse versioon</translation>
+    </message>
+    <message>
+        <location filename="../about.cpp" line="478"/>
+        <source>Check for Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../about.cpp" line="476"/>
+        <source>Abort Update Check</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2318,157 +2495,157 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 <context>
     <name>ActionManager</name>
     <message>
-        <location filename="../actionmanager.cpp" line="1206"/>
+        <location filename="../actionmanager.cpp" line="1245"/>
         <source>&amp;New</source>
         <translation>&amp;Uus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1207"/>
+        <location filename="../actionmanager.cpp" line="1246"/>
         <source>&amp;Open...</source>
         <translation>&amp;Ava...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1208"/>
+        <location filename="../actionmanager.cpp" line="1247"/>
         <source>&amp;Close</source>
         <translation>S&amp;ulge</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1209"/>
+        <location filename="../actionmanager.cpp" line="1248"/>
         <source>&amp;Save</source>
         <translation>&amp;Salvesta</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1210"/>
+        <location filename="../actionmanager.cpp" line="1249"/>
         <source>Save &amp;As...</source>
         <translation>Salvesta &amp;kui...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1211"/>
+        <location filename="../actionmanager.cpp" line="1250"/>
         <source>Re&amp;vert to Saved</source>
         <translation>&amp;Taasta salvestatud versioon</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1212"/>
+        <location filename="../actionmanager.cpp" line="1251"/>
         <source>Collect for O&amp;utput...</source>
         <translation>Ko&amp;gu väljundiks...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1213"/>
+        <location filename="../actionmanager.cpp" line="1252"/>
         <source>Get Text...</source>
         <translation>Hangi tekst...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1214"/>
+        <location filename="../actionmanager.cpp" line="1253"/>
         <source>Append &amp;Text...</source>
         <translation>Lisa &amp;tekst...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1215"/>
+        <location filename="../actionmanager.cpp" line="1254"/>
         <source>Get Image...</source>
         <translation>Hangi pilt...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1216"/>
+        <location filename="../actionmanager.cpp" line="1255"/>
         <source>Save &amp;Text...</source>
         <translation>Salvesta &amp;tekst...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1217"/>
+        <location filename="../actionmanager.cpp" line="1256"/>
         <source>Save as &amp;EPS...</source>
         <translation>Salvesta &amp;EPS-failina...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1218"/>
+        <location filename="../actionmanager.cpp" line="1257"/>
         <source>Save as P&amp;DF...</source>
         <translation>Salvesta P&amp;DF-failina...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1219"/>
+        <location filename="../actionmanager.cpp" line="1258"/>
         <source>Document &amp;Setup...</source>
         <translation>Dokumendi &amp;seadistused...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1221"/>
+        <location filename="../actionmanager.cpp" line="1260"/>
         <source>&amp;Print...</source>
         <translation>&amp;Trüki...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1222"/>
+        <location filename="../actionmanager.cpp" line="1261"/>
         <source>Print Previe&amp;w</source>
         <translation>T&amp;rükkimise eelvaatlus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1223"/>
+        <location filename="../actionmanager.cpp" line="1262"/>
         <source>&amp;Quit</source>
         <translation>&amp;Välju</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1225"/>
+        <location filename="../actionmanager.cpp" line="1264"/>
         <source>&amp;Undo</source>
         <translation>&amp;Võta tagasi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1226"/>
+        <location filename="../actionmanager.cpp" line="1265"/>
         <source>&amp;Redo</source>
         <translation>&amp;Tee uuesti</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1227"/>
+        <location filename="../actionmanager.cpp" line="1266"/>
         <source>&amp;Item Action Mode</source>
         <translation>Val&amp;itud elemendi režiim</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1228"/>
+        <location filename="../actionmanager.cpp" line="1267"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Lõika</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1231"/>
+        <location filename="../actionmanager.cpp" line="1270"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopeeri</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1232"/>
+        <location filename="../actionmanager.cpp" line="1271"/>
         <source>&amp;Paste</source>
         <translation>&amp;Aseta</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1233"/>
+        <location filename="../actionmanager.cpp" line="1272"/>
         <source>Paste (&amp;Absolute)</source>
         <translation>Aseta (a&amp;bsoluutselt)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1234"/>
+        <location filename="../actionmanager.cpp" line="1273"/>
         <source>C&amp;lear</source>
         <translation>&amp;Puhasta</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1235"/>
+        <location filename="../actionmanager.cpp" line="1274"/>
         <source>Select &amp;All</source>
         <translation>&amp;Vali kõik</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1236"/>
+        <location filename="../actionmanager.cpp" line="1275"/>
         <source>&amp;Deselect All</source>
         <translation>&amp;Tühista kõik valikud</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1237"/>
+        <location filename="../actionmanager.cpp" line="1276"/>
         <source>&amp;Search/Replace...</source>
         <translation>Ot&amp;si/asenda...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1238"/>
+        <location filename="../actionmanager.cpp" line="1277"/>
         <source>Edit Image...</source>
         <translation>Redigeeri pilti...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1240"/>
+        <location filename="../actionmanager.cpp" line="1279"/>
         <source>C&amp;olors...</source>
         <translation>Vä&amp;rvid...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1242"/>
+        <location filename="../actionmanager.cpp" line="1281"/>
         <source>S&amp;tyles...</source>
         <translation>S&amp;tiilid...</translation>
     </message>
@@ -2483,364 +2660,364 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">&amp;Joone stiilid...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1243"/>
+        <location filename="../actionmanager.cpp" line="1282"/>
         <source>&amp;Master Pages...</source>
         <translation>Le&amp;heküljetoorikud...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1244"/>
+        <location filename="../actionmanager.cpp" line="1283"/>
         <source>&amp;JavaScripts...</source>
         <translation>&amp;JavaScriptid...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1220"/>
+        <location filename="../actionmanager.cpp" line="1259"/>
         <source>P&amp;references...</source>
         <translation>&amp;Seadistused...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1251"/>
+        <location filename="../actionmanager.cpp" line="1290"/>
         <source>%1 pt</source>
         <translation>%1 pt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1266"/>
+        <location filename="../actionmanager.cpp" line="1305"/>
         <source>&amp;Other...</source>
         <translation>&amp;Muu...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1254"/>
+        <location filename="../actionmanager.cpp" line="1293"/>
         <source>&amp;Left</source>
         <translation>&amp;Vasakule</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1255"/>
+        <location filename="../actionmanager.cpp" line="1294"/>
         <source>&amp;Center</source>
         <translation>&amp;Keskele</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1256"/>
+        <location filename="../actionmanager.cpp" line="1295"/>
         <source>&amp;Right</source>
         <translation>&amp;Paremale</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1257"/>
+        <location filename="../actionmanager.cpp" line="1296"/>
         <source>&amp;Block</source>
         <translation>&amp;Rööpjoondus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1258"/>
+        <location filename="../actionmanager.cpp" line="1297"/>
         <source>&amp;Forced</source>
         <translation>Pü&amp;siv rööpjoondus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1263"/>
+        <location filename="../actionmanager.cpp" line="1302"/>
         <source>&amp;%1 %</source>
         <translation>&amp;%1 %</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1267"/>
+        <location filename="../actionmanager.cpp" line="1306"/>
         <source>&amp;Normal</source>
         <translation>&amp;Normaalne</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1268"/>
+        <location filename="../actionmanager.cpp" line="1307"/>
         <source>&amp;Underline</source>
         <translation>Alla&amp;joonitud</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1269"/>
+        <location filename="../actionmanager.cpp" line="1308"/>
         <source>Underline &amp;Words</source>
         <translation>&amp;Sõnade allajoonimine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1270"/>
+        <location filename="../actionmanager.cpp" line="1309"/>
         <source>&amp;Strike Through</source>
         <translation>&amp;Läbikriipsutatud</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1271"/>
+        <location filename="../actionmanager.cpp" line="1310"/>
         <source>&amp;All Caps</source>
         <translation>S&amp;uurtähed</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1272"/>
+        <location filename="../actionmanager.cpp" line="1311"/>
         <source>Small &amp;Caps</source>
         <translation>&amp;Kapiteelkiri</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1273"/>
+        <location filename="../actionmanager.cpp" line="1312"/>
         <source>Su&amp;perscript</source>
         <translation>Ü&amp;laindeks</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1274"/>
+        <location filename="../actionmanager.cpp" line="1313"/>
         <source>Su&amp;bscript</source>
         <translation>Ala&amp;indeks</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1275"/>
+        <location filename="../actionmanager.cpp" line="1314"/>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
         <translation>K&amp;ontuur</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1276"/>
+        <location filename="../actionmanager.cpp" line="1315"/>
         <source>S&amp;hadow</source>
         <translation>&amp;Vari</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1278"/>
+        <location filename="../actionmanager.cpp" line="1317"/>
         <source>&amp;Image Effects</source>
         <translation>&amp;Pildiefektid</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1279"/>
+        <location filename="../actionmanager.cpp" line="1318"/>
         <source>&amp;Tabulators...</source>
         <translation>&amp;Tabeldusmärgid...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1282"/>
+        <location filename="../actionmanager.cpp" line="1321"/>
         <source>D&amp;uplicate</source>
         <translation>&amp;Klooni</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1283"/>
+        <location filename="../actionmanager.cpp" line="1322"/>
         <source>&amp;Multiple Duplicate</source>
         <translation>Klooni &amp;mitmekordselt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1284"/>
+        <location filename="../actionmanager.cpp" line="1323"/>
         <source>&amp;Delete</source>
         <translation>K&amp;ustuta</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1285"/>
+        <location filename="../actionmanager.cpp" line="1324"/>
         <source>&amp;Group</source>
         <translation>&amp;Rühmita</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1286"/>
+        <location filename="../actionmanager.cpp" line="1325"/>
         <source>&amp;Ungroup</source>
         <translation>Lõh&amp;u rühm</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1287"/>
+        <location filename="../actionmanager.cpp" line="1326"/>
         <source>Is &amp;Locked</source>
         <translation>&amp;Lukustatud</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1288"/>
+        <location filename="../actionmanager.cpp" line="1327"/>
         <source>Si&amp;ze is Locked</source>
         <translation>&amp;Suurus lukustatud</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1289"/>
+        <location filename="../actionmanager.cpp" line="1328"/>
         <source>&amp;Printing Enabled</source>
         <translation>&amp;Trükkimine lubatud</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1290"/>
+        <location filename="../actionmanager.cpp" line="1329"/>
         <source>&amp;Flip Horizontally</source>
         <translation>Pee&amp;gelda rõhtsalt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1291"/>
+        <location filename="../actionmanager.cpp" line="1330"/>
         <source>&amp;Flip Vertically</source>
         <translation>Pee&amp;gelda püstiselt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1292"/>
+        <location filename="../actionmanager.cpp" line="1331"/>
         <source>Lower to &amp;Bottom</source>
         <translation>V&amp;ii kõige taha</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1293"/>
+        <location filename="../actionmanager.cpp" line="1332"/>
         <source>Raise to &amp;Top</source>
         <translation>Too &amp;kõige ette</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1294"/>
+        <location filename="../actionmanager.cpp" line="1333"/>
         <source>&amp;Lower</source>
         <translation>&amp;Vii tahapoole</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1295"/>
+        <location filename="../actionmanager.cpp" line="1334"/>
         <source>&amp;Raise</source>
         <translation>&amp;Too ettepoole</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1296"/>
+        <location filename="../actionmanager.cpp" line="1335"/>
         <source>Send to S&amp;crapbook</source>
         <translation>Saada &amp;visandimappi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1298"/>
+        <location filename="../actionmanager.cpp" line="1337"/>
         <source>&amp;Attributes...</source>
         <translation>&amp;Atribuudid...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1299"/>
+        <location filename="../actionmanager.cpp" line="1338"/>
         <source>More Info...</source>
         <translation>Rohkem infot...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1300"/>
+        <location filename="../actionmanager.cpp" line="1339"/>
         <source>I&amp;mage Visible</source>
         <translation>Pilt &amp;nähtaval</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1301"/>
+        <location filename="../actionmanager.cpp" line="1340"/>
         <source>&amp;Update Image</source>
         <translation>&amp;Uuenda pilti</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1302"/>
+        <location filename="../actionmanager.cpp" line="1341"/>
         <source>Adjust Frame to Image</source>
         <translation>Sobita pilt kasti</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1303"/>
+        <location filename="../actionmanager.cpp" line="1342"/>
         <source>Extended Image Properties</source>
         <translation>Pildi laiendatud omadused</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1304"/>
+        <location filename="../actionmanager.cpp" line="1343"/>
         <source>&amp;Low Resolution</source>
         <translation>&amp;Madala kvaliteediga</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1305"/>
+        <location filename="../actionmanager.cpp" line="1344"/>
         <source>&amp;Normal Resolution</source>
         <translation>&amp;Normaalse kvaliteediga</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1306"/>
+        <location filename="../actionmanager.cpp" line="1345"/>
         <source>&amp;Full Resolution</source>
         <translation>&amp;Täieliku kvaliteediga</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1307"/>
+        <location filename="../actionmanager.cpp" line="1346"/>
         <source>Is PDF &amp;Bookmark</source>
         <translation>On PDF-i &amp;järjehoidja</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1308"/>
+        <location filename="../actionmanager.cpp" line="1347"/>
         <source>Is PDF A&amp;nnotation</source>
         <translation>On PDF-i &amp;annotatsioon</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1309"/>
+        <location filename="../actionmanager.cpp" line="1348"/>
         <source>Annotation P&amp;roperties</source>
         <translation>A&amp;nnotatsiooni omadused</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1310"/>
+        <location filename="../actionmanager.cpp" line="1349"/>
         <source>Field P&amp;roperties</source>
         <translation>&amp;Välja omadused</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1311"/>
+        <location filename="../actionmanager.cpp" line="1350"/>
         <source>&amp;Edit Shape...</source>
         <translation>&amp;Muuda kuju...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1312"/>
+        <location filename="../actionmanager.cpp" line="1351"/>
         <source>&amp;Attach Text to Path</source>
         <translation>Lis&amp;a tekst trajektoorile</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1313"/>
+        <location filename="../actionmanager.cpp" line="1352"/>
         <source>&amp;Detach Text from Path</source>
         <translation>&amp;Haagi tekst trajektoori küljest lahti</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1314"/>
+        <location filename="../actionmanager.cpp" line="1353"/>
         <source>&amp;Combine Polygons</source>
         <translation>Ü&amp;henda hulknurgad</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1315"/>
+        <location filename="../actionmanager.cpp" line="1354"/>
         <source>Split &amp;Polygons</source>
         <translation>Lah&amp;uta hulknurgad</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1316"/>
+        <location filename="../actionmanager.cpp" line="1355"/>
         <source>&amp;Bezier Curve</source>
         <translation>&amp;Bezier&apos; kõver</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1317"/>
+        <location filename="../actionmanager.cpp" line="1356"/>
         <source>&amp;Image Frame</source>
         <translation>P&amp;ildikast</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1318"/>
+        <location filename="../actionmanager.cpp" line="1357"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>&amp;Kontuurid</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1319"/>
+        <location filename="../actionmanager.cpp" line="1358"/>
         <source>&amp;Polygon</source>
         <translation>&amp;Hulknurk</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1320"/>
+        <location filename="../actionmanager.cpp" line="1359"/>
         <source>&amp;Text Frame</source>
         <translation>&amp;Tekstikast</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1324"/>
+        <location filename="../actionmanager.cpp" line="1363"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Glüüf...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1325"/>
+        <location filename="../actionmanager.cpp" line="1364"/>
         <source>Sample Text</source>
         <translation>Näidistekst</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1329"/>
+        <location filename="../actionmanager.cpp" line="1368"/>
         <source>&amp;Insert...</source>
         <translation>L&amp;isa...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1330"/>
+        <location filename="../actionmanager.cpp" line="1369"/>
         <source>Im&amp;port...</source>
         <translation>Im&amp;pordi...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1331"/>
+        <location filename="../actionmanager.cpp" line="1370"/>
         <source>&amp;Delete...</source>
         <translation>&amp;Eemalda...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1332"/>
+        <location filename="../actionmanager.cpp" line="1371"/>
         <source>&amp;Copy...</source>
         <translation>&amp;Kopeeri...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1333"/>
+        <location filename="../actionmanager.cpp" line="1372"/>
         <source>&amp;Move...</source>
         <translation>&amp;Liiguta...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1334"/>
+        <location filename="../actionmanager.cpp" line="1373"/>
         <source>&amp;Apply Master Page...</source>
         <translation>&amp;Rakenda leheküljetoorikut...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1335"/>
+        <location filename="../actionmanager.cpp" line="1374"/>
         <source>Convert to Master Page...</source>
         <translation>Salvesta leheküljetoorikuna...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1336"/>
+        <location filename="../actionmanager.cpp" line="1375"/>
         <source>Manage &amp;Guides...</source>
         <translation>Halda &amp;juhtjooni...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1337"/>
+        <location filename="../actionmanager.cpp" line="1376"/>
         <source>Manage Page Properties...</source>
         <translation>Halda lehekülje omadusi...</translation>
     </message>
@@ -2850,22 +3027,22 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">So&amp;bita aknasse</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1342"/>
+        <location filename="../actionmanager.cpp" line="1381"/>
         <source>&amp;50%</source>
         <translation>&amp;50%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1343"/>
+        <location filename="../actionmanager.cpp" line="1382"/>
         <source>&amp;75%</source>
         <translation>&amp;75%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1344"/>
+        <location filename="../actionmanager.cpp" line="1383"/>
         <source>&amp;100%</source>
         <translation>&amp;100%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1345"/>
+        <location filename="../actionmanager.cpp" line="1384"/>
         <source>&amp;200%</source>
         <translation>&amp;200%</translation>
     </message>
@@ -2875,128 +3052,128 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">&amp;Pisipildid</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1348"/>
+        <location filename="../actionmanager.cpp" line="1387"/>
         <source>Show &amp;Margins</source>
         <translation>&amp;Veeriste näitamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1350"/>
+        <location filename="../actionmanager.cpp" line="1389"/>
         <source>Show &amp;Frames</source>
         <translation>&amp;Kastide näitamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1352"/>
+        <location filename="../actionmanager.cpp" line="1391"/>
         <source>Show &amp;Images</source>
         <translation>P&amp;iltide näitamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1353"/>
+        <location filename="../actionmanager.cpp" line="1392"/>
         <source>Show &amp;Grid</source>
         <translation>&amp;Alusvõrgu näitamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1354"/>
+        <location filename="../actionmanager.cpp" line="1393"/>
         <source>Show G&amp;uides</source>
         <translation>&amp;Juhtjoonte näitamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1356"/>
+        <location filename="../actionmanager.cpp" line="1395"/>
         <source>Show &amp;Baseline Grid</source>
         <translation>Al&amp;usjoonte näitamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1357"/>
+        <location filename="../actionmanager.cpp" line="1396"/>
         <source>Show &amp;Text Chain</source>
         <translation>&amp;Tekstiahela näitamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1358"/>
+        <location filename="../actionmanager.cpp" line="1397"/>
         <source>Show Control Characters</source>
         <translation>Mittetrükitavate märkide näitamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1359"/>
+        <location filename="../actionmanager.cpp" line="1398"/>
         <source>Show Rulers</source>
         <translation>Joonlaudade näitamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1360"/>
+        <location filename="../actionmanager.cpp" line="1399"/>
         <source>Rulers relative to Page</source>
         <translation>Joonlauad on seotud leheküljega</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1361"/>
+        <location filename="../actionmanager.cpp" line="1400"/>
         <source>Sn&amp;ap to Grid</source>
         <translation>Tõmme &amp;alusvõrgule</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1362"/>
+        <location filename="../actionmanager.cpp" line="1401"/>
         <source>Sna&amp;p to Guides</source>
         <translation>Tõmme &amp;juhtjoontele</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1366"/>
+        <location filename="../actionmanager.cpp" line="1406"/>
         <source>&amp;Properties</source>
         <translation>&amp;Omadused</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1367"/>
+        <location filename="../actionmanager.cpp" line="1407"/>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
         <translation>&amp;Struktuur</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1368"/>
+        <location filename="../actionmanager.cpp" line="1408"/>
         <source>&amp;Scrapbook</source>
         <translation>&amp;Visandimapp</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1369"/>
+        <location filename="../actionmanager.cpp" line="1409"/>
         <source>&amp;Layers</source>
         <translation>&amp;Kihid</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1370"/>
+        <location filename="../actionmanager.cpp" line="1410"/>
         <source>&amp;Arrange Pages</source>
         <translation>L&amp;ehekülgede korraldamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1371"/>
+        <location filename="../actionmanager.cpp" line="1411"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Järjehoidjad</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1372"/>
+        <location filename="../actionmanager.cpp" line="1412"/>
         <source>&amp;Measurements</source>
         <translation>&amp;Mõõdud</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1373"/>
+        <location filename="../actionmanager.cpp" line="1413"/>
         <source>Action &amp;History</source>
         <translation>T&amp;oimingute ajalugu</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1374"/>
+        <location filename="../actionmanager.cpp" line="1414"/>
         <source>Preflight &amp;Verifier</source>
         <translation>Trük&amp;ieelne kontroll</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1375"/>
+        <location filename="../actionmanager.cpp" line="1415"/>
         <source>&amp;Align and Distribute</source>
         <translation>Joo&amp;ndus ja jaotus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1376"/>
+        <location filename="../actionmanager.cpp" line="1416"/>
         <source>&amp;Tools</source>
         <translation>&amp;Tööriistad</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1377"/>
+        <location filename="../actionmanager.cpp" line="1417"/>
         <source>P&amp;DF Tools</source>
         <translation>P&amp;DF-i tööriistad</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1380"/>
+        <location filename="../actionmanager.cpp" line="1420"/>
         <source>Select Item</source>
         <translation>Vali element</translation>
     </message>
@@ -3021,52 +3198,52 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">&amp;Vabakäejoon</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1381"/>
+        <location filename="../actionmanager.cpp" line="1421"/>
         <source>Rotate Item</source>
         <translation>Pööra elementi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1382"/>
+        <location filename="../actionmanager.cpp" line="1422"/>
         <source>Zoom in or out</source>
         <translation>Suurenda või vähenda</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1383"/>
+        <location filename="../actionmanager.cpp" line="1423"/>
         <source>Zoom in</source>
         <translation>Suurenda</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1384"/>
+        <location filename="../actionmanager.cpp" line="1424"/>
         <source>Zoom out</source>
         <translation>Vähenda</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1385"/>
+        <location filename="../actionmanager.cpp" line="1425"/>
         <source>Edit Contents of Frame</source>
         <translation>Redigeeri kasti sisu</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1386"/>
+        <location filename="../actionmanager.cpp" line="1426"/>
         <source>Edit Text...</source>
         <translation>Redigeeri teksti...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1387"/>
+        <location filename="../actionmanager.cpp" line="1427"/>
         <source>Link Text Frames</source>
         <translation>Lingi tekstikastid</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1388"/>
+        <location filename="../actionmanager.cpp" line="1428"/>
         <source>Unlink Text Frames</source>
         <translation>Eemalda tekstikastide link</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1389"/>
+        <location filename="../actionmanager.cpp" line="1429"/>
         <source>&amp;Eye Dropper</source>
         <translation>&amp;Värvivalija</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1390"/>
+        <location filename="../actionmanager.cpp" line="1430"/>
         <source>Copy Item Properties</source>
         <translation>Kopeeri elemendi omadused</translation>
     </message>
@@ -3116,187 +3293,187 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Lisa vabakäejoon</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1402"/>
+        <location filename="../actionmanager.cpp" line="1442"/>
         <source>Insert PDF Push Button</source>
         <translation>Lisa PDF-i kinnitusnupp</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1403"/>
+        <location filename="../actionmanager.cpp" line="1443"/>
         <source>Insert PDF Text Field</source>
         <translation>Lisa PDF-i tekstiväli</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1404"/>
+        <location filename="../actionmanager.cpp" line="1444"/>
         <source>Insert PDF Check Box</source>
         <translation>Lisa PDF-i märkekast</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1405"/>
+        <location filename="../actionmanager.cpp" line="1445"/>
         <source>Insert PDF Combo Box</source>
         <translation>Lisa PDF-i liitkast</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1406"/>
+        <location filename="../actionmanager.cpp" line="1446"/>
         <source>Insert PDF List Box</source>
         <translation>Lisa PDF-i nimekirjakast</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1407"/>
+        <location filename="../actionmanager.cpp" line="1447"/>
         <source>Insert Text Annotation</source>
         <translation>Lisa teksti annotatsioon</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1408"/>
+        <location filename="../actionmanager.cpp" line="1448"/>
         <source>Insert Link Annotation</source>
         <translation>Lisa lingi annotatsioon</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1412"/>
         <source>&amp;Manage Pictures</source>
-        <translation>Piltide &amp;haldamine</translation>
+        <translation type="obsolete">Piltide &amp;haldamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1413"/>
+        <location filename="../actionmanager.cpp" line="1453"/>
         <source>&amp;Hyphenate Text</source>
         <translation>&amp;Poolitamise lubamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1414"/>
+        <location filename="../actionmanager.cpp" line="1454"/>
         <source>Dehyphenate Text</source>
         <translation>Poolitamise keelamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1415"/>
+        <location filename="../actionmanager.cpp" line="1455"/>
         <source>&amp;Generate Table Of Contents</source>
         <translation>Sisukorra &amp;genereerimine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1418"/>
+        <location filename="../actionmanager.cpp" line="1458"/>
         <source>&amp;Cascade</source>
         <translation>&amp;Kaskaadi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1419"/>
+        <location filename="../actionmanager.cpp" line="1459"/>
         <source>&amp;Tile</source>
         <translation>&amp;Paanidena</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1422"/>
+        <location filename="../actionmanager.cpp" line="1462"/>
         <source>&amp;About Scribus</source>
         <translation>&amp;Scribuse info</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1423"/>
         <source>&amp;About Plug-ins</source>
-        <translation>&amp;Pluginate info</translation>
+        <translation type="obsolete">&amp;Pluginate info</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1424"/>
+        <location filename="../actionmanager.cpp" line="1464"/>
         <source>About &amp;Qt</source>
         <translation>&amp;Qt info</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1425"/>
+        <location filename="../actionmanager.cpp" line="1465"/>
         <source>Toolti&amp;ps</source>
         <translation>&amp;Vihjed</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1426"/>
+        <location filename="../actionmanager.cpp" line="1466"/>
         <source>Scribus &amp;Manual...</source>
         <translation>S&amp;cribuse käsiraamat...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1433"/>
+        <location filename="../actionmanager.cpp" line="1474"/>
         <source>Toggle Palettes</source>
         <translation>Lülita palette</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1434"/>
+        <location filename="../actionmanager.cpp" line="1475"/>
         <source>Toggle Guides</source>
         <translation>Lülita juhtjooni</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1443"/>
+        <location filename="../actionmanager.cpp" line="1484"/>
         <source>Smart &amp;Hyphen</source>
         <translation>&amp;Poolituskoht</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1444"/>
+        <location filename="../actionmanager.cpp" line="1485"/>
         <source>Non Breaking Dash</source>
         <translation>Sidekriips</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1445"/>
+        <location filename="../actionmanager.cpp" line="1486"/>
         <source>Non Breaking &amp;Space</source>
         <translation>&amp;Sisetühik</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1446"/>
+        <location filename="../actionmanager.cpp" line="1487"/>
         <source>Page &amp;Number</source>
         <translation>Lehekülje&amp;number</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1447"/>
+        <location filename="../actionmanager.cpp" line="1488"/>
         <source>New Line</source>
         <translation>Uus rida</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1448"/>
+        <location filename="../actionmanager.cpp" line="1489"/>
         <source>Frame Break</source>
         <translation>Kasti katkestus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1449"/>
+        <location filename="../actionmanager.cpp" line="1490"/>
         <source>Column Break</source>
         <translation>Veeru katkestus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1452"/>
+        <location filename="../actionmanager.cpp" line="1493"/>
         <source>Copyright</source>
         <translation>Autoriõigus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1453"/>
+        <location filename="../actionmanager.cpp" line="1494"/>
         <source>Registered Trademark</source>
         <translation>Registreeritud kaubamärk</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1454"/>
+        <location filename="../actionmanager.cpp" line="1495"/>
         <source>Trademark</source>
         <translation>Kaubamärk</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1455"/>
+        <location filename="../actionmanager.cpp" line="1496"/>
         <source>Solidus</source>
         <translation>Kaldkriips</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1456"/>
+        <location filename="../actionmanager.cpp" line="1497"/>
         <source>Bullet</source>
         <translation>Täpp</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1457"/>
+        <location filename="../actionmanager.cpp" line="1498"/>
         <source>Middle Dot</source>
         <translation>Punkt keskel</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1458"/>
+        <location filename="../actionmanager.cpp" line="1499"/>
         <source>Em Dash</source>
         <translation>Pikk mõttekriips</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1459"/>
+        <location filename="../actionmanager.cpp" line="1500"/>
         <source>En Dash</source>
         <translation>Lühike mõttekriips</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1460"/>
+        <location filename="../actionmanager.cpp" line="1501"/>
         <source>Figure Dash</source>
         <translation>Arvuvahemiku kriips</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1461"/>
+        <location filename="../actionmanager.cpp" line="1502"/>
         <source>Quotation Dash</source>
         <translation>Tsitaadikriips</translation>
     </message>
@@ -3391,32 +3568,32 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">CJK kahekordne parempoolne</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1482"/>
+        <location filename="../actionmanager.cpp" line="1523"/>
         <source>En Space</source>
         <translation>Enn-tühik</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1483"/>
+        <location filename="../actionmanager.cpp" line="1524"/>
         <source>Em Space</source>
         <translation>Emm-tühik</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1484"/>
+        <location filename="../actionmanager.cpp" line="1525"/>
         <source>Thin Space</source>
         <translation>Kitsas tühik</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1485"/>
+        <location filename="../actionmanager.cpp" line="1526"/>
         <source>Thick Space</source>
         <translation>Lai tühik</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1486"/>
+        <location filename="../actionmanager.cpp" line="1527"/>
         <source>Mid Space</source>
         <translation>Keskmine tühik</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1487"/>
+        <location filename="../actionmanager.cpp" line="1528"/>
         <source>Hair Space</source>
         <translation>Juuksekarvatühik</translation>
     </message>
@@ -3441,42 +3618,42 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Lisa leheküljenumber</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1499"/>
+        <location filename="../actionmanager.cpp" line="1540"/>
         <source>ff</source>
         <translation>ff</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1500"/>
+        <location filename="../actionmanager.cpp" line="1541"/>
         <source>fi</source>
         <translation>fi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1501"/>
+        <location filename="../actionmanager.cpp" line="1542"/>
         <source>fl</source>
         <translation>fl</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1502"/>
+        <location filename="../actionmanager.cpp" line="1543"/>
         <source>ffi</source>
         <translation>ffi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1503"/>
+        <location filename="../actionmanager.cpp" line="1544"/>
         <source>ffl</source>
         <translation>ffl</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1504"/>
+        <location filename="../actionmanager.cpp" line="1545"/>
         <source>ft</source>
         <translation>ft</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1505"/>
+        <location filename="../actionmanager.cpp" line="1546"/>
         <source>st</source>
         <translation>st</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1355"/>
+        <location filename="../actionmanager.cpp" line="1394"/>
         <source>Show Text Frame Columns</source>
         <translation>Tekstikasti veergude näitamine</translation>
     </message>
@@ -3486,241 +3663,266 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Hangi tekst 2...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1323"/>
+        <location filename="../actionmanager.cpp" line="1362"/>
         <source>&amp;Frame...</source>
         <translation>&amp;Kast...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1347"/>
+        <location filename="../actionmanager.cpp" line="1386"/>
         <source>Preview Mode</source>
         <translation>Eelvaatluse režiim</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1351"/>
+        <location filename="../actionmanager.cpp" line="1390"/>
         <source>Show Layer Indicators</source>
         <translation>Kihi indikaatorite näitamine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1241"/>
+        <location filename="../actionmanager.cpp" line="1280"/>
         <source>Patterns...</source>
         <translation>Mustrid...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1297"/>
+        <location filename="../actionmanager.cpp" line="1336"/>
         <source>Send to Patterns</source>
         <translation>Lisatakse mustritesse</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1326"/>
+        <location filename="../actionmanager.cpp" line="1365"/>
         <source>Sticky Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1340"/>
+        <location filename="../actionmanager.cpp" line="1379"/>
         <source>&amp;Fit to Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1341"/>
+        <location filename="../actionmanager.cpp" line="1380"/>
         <source>Fit to Width</source>
         <translation type="unfinished">Mahutamine laiusele</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1349"/>
+        <location filename="../actionmanager.cpp" line="1388"/>
         <source>Show Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1450"/>
+        <location filename="../actionmanager.cpp" line="1491"/>
         <source>&amp;Zero Width Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1451"/>
+        <location filename="../actionmanager.cpp" line="1492"/>
         <source>Zero Width NB Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1463"/>
+        <location filename="../actionmanager.cpp" line="1504"/>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
         <translation type="unfinished">Ülakoma</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1464"/>
+        <location filename="../actionmanager.cpp" line="1505"/>
         <source>Straight Double</source>
         <comment>Unicode 0x0022</comment>
         <translation type="unfinished">Sirged topelt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1465"/>
+        <location filename="../actionmanager.cpp" line="1506"/>
         <source>Single Left</source>
         <comment>Unicode 0x2018</comment>
         <translation type="unfinished">Ühekordne vasakpoolne</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1466"/>
+        <location filename="../actionmanager.cpp" line="1507"/>
         <source>Single Right</source>
         <comment>Unicode 0x2019</comment>
         <translation type="unfinished">Ühekordne parempoolne</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1467"/>
+        <location filename="../actionmanager.cpp" line="1508"/>
         <source>Double Left</source>
         <comment>Unicode 0x201C</comment>
         <translation type="unfinished">Kahekordne vasakpoolne</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1468"/>
+        <location filename="../actionmanager.cpp" line="1509"/>
         <source>Double Right</source>
         <comment>Unicode 0x201D</comment>
         <translation type="unfinished">Kahekordne parempoolne</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1469"/>
+        <location filename="../actionmanager.cpp" line="1510"/>
         <source>Single Reversed</source>
         <comment>Unicode 0x201B</comment>
         <translation type="unfinished">Ühekordne ümberpööratud</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1470"/>
+        <location filename="../actionmanager.cpp" line="1511"/>
         <source>Double Reversed</source>
         <comment>Unicode 0x201F</comment>
         <translation type="unfinished">Kahekordne ümberpööratud</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1471"/>
+        <location filename="../actionmanager.cpp" line="1512"/>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
         <translation type="unfinished">Ühekordne vasakpoolne prantsuse</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1472"/>
+        <location filename="../actionmanager.cpp" line="1513"/>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
         <translation type="unfinished">Ühekordne parempoolne prantsuse</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1473"/>
+        <location filename="../actionmanager.cpp" line="1514"/>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
         <translation type="unfinished">Kahekordne vasakpoolne prantsuse</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1474"/>
+        <location filename="../actionmanager.cpp" line="1515"/>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
         <translation type="unfinished">Kahekordne parempoolne prantsuse</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1475"/>
+        <location filename="../actionmanager.cpp" line="1516"/>
         <source>Low Single Comma</source>
         <comment>Unicode 0x201A</comment>
         <translation type="unfinished">Ühekordne alumine koma</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1476"/>
+        <location filename="../actionmanager.cpp" line="1517"/>
         <source>Low Double Comma</source>
         <comment>Unicode 0x201E</comment>
         <translation type="unfinished">Kahekordne alumine koma</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1477"/>
+        <location filename="../actionmanager.cpp" line="1518"/>
         <source>CJK Single Left</source>
         <comment>Unicode 0x300C</comment>
         <translation type="unfinished">CJK ühekordne vasakpoolne</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1478"/>
+        <location filename="../actionmanager.cpp" line="1519"/>
         <source>CJK Single Right</source>
         <comment>Unicode 0x300D</comment>
         <translation type="unfinished">CJK ühekordne parempoolne</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1479"/>
+        <location filename="../actionmanager.cpp" line="1520"/>
         <source>CJK Double Left</source>
         <comment>Unicode 0x300E</comment>
         <translation type="unfinished">CJK kahekordne vasakpoolne</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1480"/>
+        <location filename="../actionmanager.cpp" line="1521"/>
         <source>CJK Double Right</source>
         <comment>Unicode 0x300F</comment>
         <translation type="unfinished">CJK kahekordne parempoolne</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1346"/>
+        <location filename="../actionmanager.cpp" line="1385"/>
         <source>&amp;400%</source>
         <translation type="unfinished">&amp;200% {400%?}</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1239"/>
+        <location filename="../actionmanager.cpp" line="1278"/>
         <source>Edit Latex Source...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1392"/>
+        <location filename="../actionmanager.cpp" line="1432"/>
         <source>Insert &amp;Text Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1393"/>
+        <location filename="../actionmanager.cpp" line="1433"/>
         <source>Insert &amp;Image Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1394"/>
+        <location filename="../actionmanager.cpp" line="1434"/>
         <source>Insert &amp;Latex Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1395"/>
+        <location filename="../actionmanager.cpp" line="1435"/>
         <source>Insert T&amp;able</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1396"/>
+        <location filename="../actionmanager.cpp" line="1436"/>
         <source>Insert &amp;Shape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1397"/>
+        <location filename="../actionmanager.cpp" line="1437"/>
         <source>Insert &amp;Polygon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1398"/>
+        <location filename="../actionmanager.cpp" line="1438"/>
         <source>Insert &amp;Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1399"/>
+        <location filename="../actionmanager.cpp" line="1439"/>
         <source>Insert &amp;Bezier Curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1400"/>
+        <location filename="../actionmanager.cpp" line="1440"/>
         <source>Insert &amp;Freehand Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1427"/>
+        <location filename="../actionmanager.cpp" line="1467"/>
         <source>Scribus Homepage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1428"/>
+        <location filename="../actionmanager.cpp" line="1468"/>
         <source>Scribus Online Documentation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1429"/>
+        <location filename="../actionmanager.cpp" line="1469"/>
         <source>Scribus Wiki</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1430"/>
+        <location filename="../actionmanager.cpp" line="1470"/>
         <source>Getting Started with Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1402"/>
+        <source>Show Context Menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1452"/>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1463"/>
+        <source>&amp;About Plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1471"/>
+        <source>Check updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1476"/>
+        <source>Insert Unicode Character Begin Sequence</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3798,47 +4000,47 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 <context>
     <name>AlignDistributePalette</name>
     <message>
-        <location filename="../aligndistribute.cpp" line="79"/>
+        <location filename="../aligndistribute.cpp" line="90"/>
         <source>Align and Distribute</source>
         <translation>Joondus ja jaotus</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="80"/>
+        <location filename="../aligndistribute.cpp" line="91"/>
         <source>Align</source>
         <translation type="unfinished">Joondus</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="82"/>
+        <location filename="../aligndistribute.cpp" line="93"/>
         <source>&amp;Relative to:</source>
         <translation>&amp;Joondamise alus:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="85"/>
+        <location filename="../aligndistribute.cpp" line="96"/>
         <source>First Selected</source>
         <translation>Esimene valitud</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="86"/>
+        <location filename="../aligndistribute.cpp" line="97"/>
         <source>Last Selected</source>
         <translation>Viimane valitud</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="87"/>
+        <location filename="../aligndistribute.cpp" line="98"/>
         <source>Page</source>
         <translation>Lehekülg</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="88"/>
+        <location filename="../aligndistribute.cpp" line="99"/>
         <source>Margins</source>
         <translation>Veerised</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="89"/>
+        <location filename="../aligndistribute.cpp" line="100"/>
         <source>Guide</source>
         <translation>Juhtjoon</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="90"/>
+        <location filename="../aligndistribute.cpp" line="101"/>
         <source>Selection</source>
         <translation>Valik</translation>
     </message>
@@ -3853,12 +4055,12 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Objektide vasaku serva joondamine ankru parema serva järgi</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="98"/>
+        <location filename="../aligndistribute.cpp" line="109"/>
         <source>Align bottoms</source>
         <translation>Joondamine alumise serva järgi</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="100"/>
+        <location filename="../aligndistribute.cpp" line="111"/>
         <source>Align right sides</source>
         <translation>Joondamine parema serva järgi</translation>
     </message>
@@ -3868,17 +4070,17 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Objektide ülemise serva joondamine ankru alumise serva järgi</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="104"/>
+        <location filename="../aligndistribute.cpp" line="115"/>
         <source>Center on vertical axis</source>
         <translation>Tsentreerimine püstteljel</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="106"/>
+        <location filename="../aligndistribute.cpp" line="117"/>
         <source>Align left sides</source>
         <translation>Joondamine vasaku serva järgi</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="108"/>
+        <location filename="../aligndistribute.cpp" line="119"/>
         <source>Center on horizontal axis</source>
         <translation>Tsentreerimine rõhtteljel</translation>
     </message>
@@ -3888,17 +4090,17 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Objektide alumise serva joondamine ankru ülemise serva järgi</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="112"/>
+        <location filename="../aligndistribute.cpp" line="123"/>
         <source>Align tops</source>
         <translation>Joondamine ülemise serva järgi</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="114"/>
+        <location filename="../aligndistribute.cpp" line="125"/>
         <source>&amp;Selected Guide:</source>
         <translation>&amp;Valitud juhtjoon:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="81"/>
+        <location filename="../aligndistribute.cpp" line="92"/>
         <source>Distribute</source>
         <translation type="unfinished">Jaotus</translation>
     </message>
@@ -3913,17 +4115,17 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Objektide rõhtsate vahede võrdsustamine määratud väärtuse järgi</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="122"/>
+        <location filename="../aligndistribute.cpp" line="133"/>
         <source>Distribute right sides equidistantly</source>
         <translation>Paremate servade võrdsed vahed</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="124"/>
+        <location filename="../aligndistribute.cpp" line="135"/>
         <source>Distribute bottoms equidistantly</source>
         <translation>Alumiste servade võrdsed vahed</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="126"/>
+        <location filename="../aligndistribute.cpp" line="137"/>
         <source>Distribute centers equidistantly horizontally</source>
         <translation>Rõhtsuunas keskmete võrdsed vahed</translation>
     </message>
@@ -3938,42 +4140,42 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Objektide püstiste vahede võrdsustamine määratud väärtuse järgi</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="132"/>
+        <location filename="../aligndistribute.cpp" line="143"/>
         <source>Distribute left sides equidistantly</source>
         <translation>Vasakute servade võrdsed vahed</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="134"/>
+        <location filename="../aligndistribute.cpp" line="145"/>
         <source>Distribute centers equidistantly vertically</source>
         <translation>Püstsuunas keskmete võrdsed vahed</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="136"/>
+        <location filename="../aligndistribute.cpp" line="147"/>
         <source>Distribute tops equidistantly</source>
         <translation>Ülemiste servade võrdsed vahed</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="146"/>
+        <location filename="../aligndistribute.cpp" line="157"/>
         <source>&amp;Distance:</source>
         <translation>Va&amp;hemaa:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="147"/>
+        <location filename="../aligndistribute.cpp" line="158"/>
         <source>Distribute the items with the distance specified</source>
         <translation>Elementide jaotus määratud vahemaa järgi</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="149"/>
+        <location filename="../aligndistribute.cpp" line="160"/>
         <source>None Selected</source>
         <translation>Valik puudub</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="429"/>
+        <location filename="../aligndistribute.cpp" line="440"/>
         <source>Y: %1%2</source>
         <translation>Y: %1%2</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="437"/>
+        <location filename="../aligndistribute.cpp" line="448"/>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
     </message>
@@ -3998,62 +4200,62 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Objektide ja lehekülje üla- ja alaserva püstiste vahede võrdsustamine</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="94"/>
+        <location filename="../aligndistribute.cpp" line="105"/>
         <source>Align right sides of items to left side of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="96"/>
+        <location filename="../aligndistribute.cpp" line="107"/>
         <source>Align left sides of items to right side of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="102"/>
+        <location filename="../aligndistribute.cpp" line="113"/>
         <source>Align tops of items to bottom of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="110"/>
+        <location filename="../aligndistribute.cpp" line="121"/>
         <source>Align bottoms of items to top of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="117"/>
+        <location filename="../aligndistribute.cpp" line="128"/>
         <source>Make horizontal gaps between items equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="119"/>
+        <location filename="../aligndistribute.cpp" line="130"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="128"/>
+        <location filename="../aligndistribute.cpp" line="139"/>
         <source>Make vertical gaps between items equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="130"/>
+        <location filename="../aligndistribute.cpp" line="141"/>
         <source>Make vertical gaps between items equal to the value specified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="138"/>
+        <location filename="../aligndistribute.cpp" line="149"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="144"/>
+        <location filename="../aligndistribute.cpp" line="155"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="142"/>
+        <location filename="../aligndistribute.cpp" line="153"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="140"/>
+        <location filename="../aligndistribute.cpp" line="151"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4061,27 +4263,27 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 <context>
     <name>AlignSelect</name>
     <message>
-        <location filename="../alignselect.cpp" line="100"/>
+        <location filename="../alignselect.cpp" line="110"/>
         <source>Align Text Left</source>
         <translation>Joonda tekst vasakule</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="101"/>
+        <location filename="../alignselect.cpp" line="111"/>
         <source>Align Text Right</source>
         <translation>Joonda tekst paremale</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="102"/>
+        <location filename="../alignselect.cpp" line="112"/>
         <source>Align Text Center</source>
         <translation>Joonda tekst keskele</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="103"/>
+        <location filename="../alignselect.cpp" line="113"/>
         <source>Align Text Justified</source>
         <translation>Rööpjoondus</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="104"/>
+        <location filename="../alignselect.cpp" line="114"/>
         <source>Align Text Forced Justified</source>
         <translation>Püsiv rööpjoondus</translation>
     </message>
@@ -4872,92 +5074,92 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Normaalne</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="260"/>
+        <location filename="../applytemplatedialog.cpp" line="267"/>
         <source>Apply Master Page</source>
         <translation>Leheküljetooriku rakendamine</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="261"/>
+        <location filename="../applytemplatedialog.cpp" line="268"/>
         <source>&amp;Master Page:</source>
         <translation>&amp;Leheküljetoorik:</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="262"/>
+        <location filename="../applytemplatedialog.cpp" line="269"/>
         <source>Apply To</source>
         <translation>Rakendatakse</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="263"/>
+        <location filename="../applytemplatedialog.cpp" line="270"/>
         <source>Current &amp;page</source>
         <translation>&amp;Aktiivsele leheküljele</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="264"/>
+        <location filename="../applytemplatedialog.cpp" line="271"/>
         <source>Alt+P</source>
         <translation>Alt+P</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="265"/>
+        <location filename="../applytemplatedialog.cpp" line="272"/>
         <source>&amp;Even pages</source>
         <translation>&amp;Paarislehekülgedele</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="266"/>
+        <location filename="../applytemplatedialog.cpp" line="273"/>
         <source>Alt+E</source>
         <translation>Alt+E</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="267"/>
+        <location filename="../applytemplatedialog.cpp" line="274"/>
         <source>O&amp;dd pages</source>
         <translation>Paa&amp;ritutele lehekülgedele</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="268"/>
+        <location filename="../applytemplatedialog.cpp" line="275"/>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="269"/>
+        <location filename="../applytemplatedialog.cpp" line="276"/>
         <source>&amp;All pages</source>
         <translation>&amp;Kõigile lehekülgedele</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="270"/>
+        <location filename="../applytemplatedialog.cpp" line="277"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="271"/>
+        <location filename="../applytemplatedialog.cpp" line="278"/>
         <source>&amp;Within range</source>
         <translation>&amp;Vahemikule</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="272"/>
+        <location filename="../applytemplatedialog.cpp" line="279"/>
         <source>Alt+W</source>
         <translation>Alt+W</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="273"/>
+        <location filename="../applytemplatedialog.cpp" line="280"/>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
         <translation>Valitud leheküljetooriku rakendamine paaris-, paaritutele või kõigile lehekülgedele määratud vahemikus</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="274"/>
+        <location filename="../applytemplatedialog.cpp" line="281"/>
         <source>to</source>
         <translation>kuni</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="276"/>
+        <location filename="../applytemplatedialog.cpp" line="283"/>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="278"/>
+        <location filename="../applytemplatedialog.cpp" line="285"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="51"/>
+        <location filename="../applytemplatedialog.cpp" line="52"/>
         <source>Possible Hyphenation</source>
         <translation type="unfinished">Võimalik poolitus</translation>
     </message>
@@ -4971,16 +5173,184 @@ May raise WrongFrameTypeError if the target frame is not a text frame
     </message>
 </context>
 <context>
+    <name>AspellPlugin</name>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="31"/>
+        <source>Spell-Checker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="63"/>
+        <source>Spell-checking support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="68"/>
+        <source>Adds support for spell-checking via aspell. Languages can be chosen from among the installed aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="69"/>
+        <source>0.1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AspellPluginBase</name>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="13"/>
+        <source>Spell Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="49"/>
+        <source>Mis-spelling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="99"/>
+        <source>Replacement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="140"/>
+        <source>Active dictionary: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="183"/>
+        <source>Personal
+Dictionary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="212"/>
+        <source>&amp;Add Word</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="241"/>
+        <source>&amp;Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="266"/>
+        <source>C&amp;hange All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="291"/>
+        <source>&amp;Skip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="310"/>
+        <source>S&amp;kip All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="351"/>
+        <source>&amp;Exit</source>
+        <translation type="unfinished">&amp;Välju</translation>
+    </message>
+</context>
+<context>
+    <name>AspellPluginImpl</name>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
+        <source>Loaded </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
+        <source>default </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
+        <source> aspell dictionary.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="57"/>
+        <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in aspell speller configuration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="64"/>
+        <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating aspell speller.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="211"/>
+        <source>Spell-Checker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="211"/>
+        <source>Spell-checking completed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="222"/>
+        <source>Spell-checking done.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="329"/>
+        <source>AspellPluginImpl::on_fskipAllBtn_clicked(): Unable to skip all instances of &quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="330"/>
+        <source> by adding it to the session list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="352"/>
+        <source>AspellPluginImpl::on_faddWordBtn_clicked(): Unable to add word to personal list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AutoformButtonGroup</name>
+    <message>
+        <location filename="../autoformbuttongroup.cpp" line="1212"/>
+        <source>Arrows</source>
+        <translation type="unfinished">Nooled</translation>
+    </message>
+    <message>
+        <location filename="../autoformbuttongroup.cpp" line="1213"/>
+        <source>Flow Chart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../autoformbuttongroup.cpp" line="1214"/>
+        <source>Jigsaw</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../autoformbuttongroup.cpp" line="1215"/>
+        <source>Specials</source>
+        <translation type="unfinished">Erisümbolid</translation>
+    </message>
+</context>
+<context>
     <name>Barcode</name>
     <message>
         <location filename="../plugins/barcodegenerator/barcode.cpp" line="22"/>
         <source>&amp;Barcode Generator...</source>
-        <translation>Ri&amp;bakoodi generaator...</translation>
+        <translation type="obsolete">Ri&amp;bakoodi generaator...</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcode.cpp" line="37"/>
+        <location filename="../plugins/barcodegenerator/barcode.cpp" line="40"/>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
         <translation>Scribuse kasutajaliides puhtas PostScriptis loodud ribakoodi generaatorile</translation>
+    </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcode.cpp" line="23"/>
+        <source>&amp;Barcode...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5056,12 +5426,12 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation>Varieeruv arv kuueteistkümnendsüsteemi märke</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="286"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="296"/>
         <source>Error opening file: %1</source>
         <translation>Viga faili avamisel: %1</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="317"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="330"/>
         <source>Barcode incomplete</source>
         <translation>Ribakood pole täielik</translation>
     </message>
@@ -5079,169 +5449,189 @@ Kui viimast arvu ei ole antud, arvutatakse (tab)(tab)(tab)(tab)(tab)(tab)(tab)(t
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="104"/>
+        <source>Select Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="144"/>
+        <source>Select Barcode Type</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BarcodeGeneratorBase</name>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="15"/>
         <source>Barcode Creator</source>
-        <translation>Ribakoodi generaator</translation>
+        <translation type="obsolete">Ribakoodi generaator</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="193"/>
         <source>Barcode</source>
-        <translation>Ribakood</translation>
+        <translation type="obsolete">Ribakood</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="311"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="152"/>
         <source>&amp;Type:</source>
         <translation>&amp;Tüüp:</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="291"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="132"/>
         <source>Co&amp;de:</source>
         <translation>Koo&amp;d:</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="304"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="145"/>
         <source>Select one of the available barcode type here</source>
         <translation>Vali mõni saadaolevatest ribakoodi tüüpidest</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="284"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="125"/>
         <source>The numeric representation of the code itself. See the help message below</source>
         <translation>Kood ise arvuna. Vaata täpsemalt allolevat abiteadet.</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="274"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="115"/>
         <source>Reset the barcode samples</source>
         <translation>Lähtesta ribakoodi näited</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="247"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="90"/>
         <source>&amp;Include text in barcode</source>
         <translation>Tekst&amp;i kaasamine ribakoodi</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="250"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="93"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="244"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="87"/>
         <source>If checked, there will be numbers in the barcode too</source>
         <translation>Märkimise korral võib ribakoodis olla ka tähti</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="234"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="77"/>
         <source>&amp;Guard whitespace</source>
         <translation>Tühimär&amp;gi kaitse</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="237"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="80"/>
         <source>Alt+G</source>
         <translation>Alt+G</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="231"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="74"/>
         <source>Draw arrows to be sure of space next the code</source>
         <translation>Noolte joonistamine koodi järel tühiku tagamiseks</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="221"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="64"/>
         <source>I&amp;nclude checksum</source>
         <translation>Ko&amp;ntrollsumma kaasamine</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="224"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="67"/>
         <source>Alt+N</source>
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="218"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="61"/>
         <source>Generate and include a checksum in barcode</source>
         <translation>Kontrollsumma genereerimine ja kaasamine ribakoodi</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="208"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="51"/>
         <source>Incl&amp;ude checksum digit</source>
         <translation>Kontrolls&amp;umma arvu kaasamine</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="211"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="54"/>
         <source>Alt+U</source>
         <translation>Alt+U</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="205"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="48"/>
         <source>Include the checksum digit in the barcode text</source>
         <translation>Kontrollsumma arvu lisamine ribakoodi teksti</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="30"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="168"/>
         <source>Colors</source>
         <translation>Värvid</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="58"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="208"/>
         <source>&amp;Background</source>
         <translation>&amp;Taust</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="61"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="211"/>
         <source>Alt+B</source>
         <translation>Alt+B</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="55"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="205"/>
         <source>Background color - under the code lines</source>
         <translation>Taustavärv ribade taga</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="90"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="240"/>
         <source>&amp;Lines</source>
         <translation>&amp;Ribad</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="93"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="243"/>
         <source>Alt+L</source>
         <translation>Alt+L</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="87"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="237"/>
         <source>Color of the lines in barcode</source>
         <translation>Ribakoodi ribade värv</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="122"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="272"/>
         <source>&amp;Text</source>
         <translation>&amp;Tekst</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="125"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="275"/>
         <source>Alt+T</source>
         <translation>Alt+T</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="119"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="269"/>
         <source>Color of the text and numbers</source>
         <translation>Teksti ja arvude värv</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="154"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="304"/>
         <source>Hints and help is shown here</source>
         <translation>Siin näeb vihjeid ja abi</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="164"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="314"/>
         <source>Preview of the result. 72dpi sample.</source>
         <translation>Tulemuse eelvaatlus. 72dpi näide.</translation>
+    </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="15"/>
+        <source>Insert Barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="24"/>
+        <source>Format</source>
+        <translation type="unfinished">Vorming</translation>
     </message>
 </context>
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="684"/>
+        <location filename="../scrapbookpalette.cpp" line="698"/>
         <source>Choose a Scrapbook Directory</source>
         <translation>Visandimapi kataloogi valik</translation>
     </message>
@@ -5251,105 +5641,130 @@ Kui viimast arvu ei ole antud, arvutatakse (tab)(tab)(tab)(tab)(tab)(tab)(tab)(t
         <translation type="obsolete">Visandimapp (*.scs)</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="720"/>
+        <location filename="../scrapbookpalette.cpp" line="737"/>
         <source>Choose a scrapbook file to import</source>
         <translation>Imporditava visandimapifaili valik</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="740"/>
+        <location filename="../scrapbookpalette.cpp" line="759"/>
         <source>Choose a Directory</source>
         <translation>Kataloogi valik</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="796"/>
+        <location filename="../scrapbookpalette.cpp" line="837"/>
         <source>Rename</source>
         <translation>Nimeta ümber</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="798"/>
+        <location filename="../scrapbookpalette.cpp" line="839"/>
         <source>Delete</source>
         <translation>Kustuta</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1017"/>
+        <location filename="../scrapbookpalette.cpp" line="1120"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
         <translation>Nimi &quot;%1&quot; ei ole unikaalne.
 Palun vali mõni muu nimi.</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1214"/>
+        <location filename="../scrapbookpalette.cpp" line="1344"/>
         <source>Object</source>
         <translation>Objekt</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1123"/>
+        <location filename="../scrapbookpalette.cpp" line="1257"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nimi:</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1123"/>
+        <location filename="../scrapbookpalette.cpp" line="1257"/>
         <source>New Entry</source>
         <translation>Uus kirje</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1311"/>
+        <location filename="../scrapbookpalette.cpp" line="1444"/>
         <source>Scrapbook</source>
         <translation>Visandimapp</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1312"/>
+        <location filename="../scrapbookpalette.cpp" line="1445"/>
         <source>Create a new scrapbook page</source>
         <translation>Loo uus visandimapi lehekülg</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1313"/>
+        <location filename="../scrapbookpalette.cpp" line="1446"/>
         <source>Load an existing scrapbook</source>
         <translation>Ava olemasolev visandimapp</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1314"/>
+        <location filename="../scrapbookpalette.cpp" line="1447"/>
         <source>Save the selected scrapbook</source>
         <translation>Salvesta valitud visandimapp</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1315"/>
+        <location filename="../scrapbookpalette.cpp" line="1448"/>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
         <translation>Impordi visandimapifail Scribuse versioonist &lt;=1.3.2</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1316"/>
+        <location filename="../scrapbookpalette.cpp" line="1449"/>
         <source>Close the selected scrapbook</source>
         <translation>Sulge valitud visandimapp</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="803"/>
+        <location filename="../scrapbookpalette.cpp" line="844"/>
         <source>Copy To:</source>
         <translation>Kopeerimine:</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="804"/>
+        <location filename="../scrapbookpalette.cpp" line="845"/>
         <source>Move To:</source>
         <translation>Liigutamine:</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="552"/>
+        <location filename="../scrapbookpalette.cpp" line="560"/>
         <source>Main</source>
         <translation>Peamine</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="554"/>
+        <location filename="../scrapbookpalette.cpp" line="562"/>
         <source>Copied Items</source>
         <translation>Kopeeritud elemendid</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1010"/>
+        <location filename="../scrapbookpalette.cpp" line="1113"/>
         <source>New Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="719"/>
+        <location filename="../scrapbookpalette.cpp" line="739"/>
         <source>Scrapbook (*.scs *.SCS)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="833"/>
+        <source>Paste to Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="889"/>
+        <source>Save as...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="892"/>
+        <source>Close</source>
+        <translation type="unfinished">Sulge</translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="895"/>
+        <source>Delete Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="1068"/>
+        <source>Do you really want to delete all entries?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5379,7 +5794,7 @@ Palun vali mõni muu nimi.</translation>
 <context>
     <name>BookPalette</name>
     <message>
-        <location filename="../bookmarkpalette.cpp" line="39"/>
+        <location filename="../bookmarkpalette.cpp" line="51"/>
         <source>Bookmarks</source>
         <translation>Järjehoidjad</translation>
     </message>
@@ -5507,12 +5922,12 @@ Palun vali mõni muu nimi.</translation>
     <message>
         <location filename="../cmsprefs.cpp" line="43"/>
         <source>&amp;RGB Pictures:</source>
-        <translation>&amp;RGB pildid:</translation>
+        <translation type="obsolete">&amp;RGB pildid:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="51"/>
         <source>&amp;CMYK Pictures:</source>
-        <translation>&amp;CMYK pildid:</translation>
+        <translation type="obsolete">&amp;CMYK pildid:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="59"/>
@@ -5562,7 +5977,7 @@ Palun vali mõni muu nimi.</translation>
     <message>
         <location filename="../cmsprefs.cpp" line="98"/>
         <source>Pictures:</source>
-        <translation>Pildid:</translation>
+        <translation type="obsolete">Pildid:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="106"/>
@@ -5665,6 +6080,21 @@ It is recommended that you enable this if you have photos in your document.</sou
         <translation>Mustpunkti kompenseerimisega saab parandada fotode kontrasti.
 Kui dokumendis leidub fotosid, on soovitatav see valik sisse lülitada.</translation>
     </message>
+    <message>
+        <location filename="../cmsprefs.cpp" line="43"/>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cmsprefs.cpp" line="51"/>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cmsprefs.cpp" line="98"/>
+        <source>Images:</source>
+        <translation type="unfinished">Pildid:</translation>
+    </message>
 </context>
 <context>
     <name>CMYKChoose</name>
@@ -5684,17 +6114,17 @@ Kui dokumendis leidub fotosid, on soovitatav see valik sisse lülitada.</transla
         <translation>Värvi&amp;mudel</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1001"/>
+        <location filename="../cmykfw.cpp" line="987"/>
         <source>CMYK</source>
         <translation>CMYK</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1003"/>
+        <location filename="../cmykfw.cpp" line="992"/>
         <source>RGB</source>
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="870"/>
+        <location filename="../cmykfw.cpp" line="845"/>
         <source>Web Safe RGB</source>
         <translation>Web Safe RGB</translation>
     </message>
@@ -5706,7 +6136,7 @@ Kui dokumendis leidub fotosid, on soovitatav see valik sisse lülitada.</transla
     <message>
         <location filename="../cmykfw.cpp" line="128"/>
         <source>Is Registration Color</source>
-        <translation>Kokkutrükivärv</translation>
+        <translation type="obsolete">Kokkutrükivärv</translation>
     </message>
     <message>
         <location filename="../cmykfw.cpp" line="139"/>
@@ -5724,22 +6154,22 @@ Kui dokumendis leidub fotosid, on soovitatav see valik sisse lülitada.</transla
         <translation>HSV-värvikaart</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="811"/>
+        <location filename="../cmykfw.cpp" line="786"/>
         <source>C:</source>
         <translation>C:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="810"/>
+        <location filename="../cmykfw.cpp" line="785"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="812"/>
+        <location filename="../cmykfw.cpp" line="787"/>
         <source>M:</source>
         <translation>M:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="813"/>
+        <location filename="../cmykfw.cpp" line="788"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
@@ -5749,32 +6179,32 @@ Kui dokumendis leidub fotosid, on soovitatav see valik sisse lülitada.</transla
         <translation>K:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="430"/>
+        <location filename="../cmykfw.cpp" line="440"/>
         <source>Dynamic Color Bars</source>
         <translation>Dünaamilised värviribad</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="433"/>
+        <location filename="../cmykfw.cpp" line="438"/>
         <source>Static Color Bars</source>
         <translation>Staatilised värviribad</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="855"/>
+        <location filename="../cmykfw.cpp" line="830"/>
         <source>R:</source>
         <translation>R:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="856"/>
+        <location filename="../cmykfw.cpp" line="831"/>
         <source>G:</source>
         <translation>G:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="857"/>
+        <location filename="../cmykfw.cpp" line="832"/>
         <source>B:</source>
         <translation>B:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1073"/>
+        <location filename="../cmykfw.cpp" line="1065"/>
         <source>You cannot create a color named &quot;%1&quot;.
 It is a reserved name for transparent color</source>
         <translation>Värvi nimega &quot;%1&quot; ei saa luua.
@@ -5788,7 +6218,7 @@ See nimi on reserveeritud läbipaistvale värvile.</translation>
     <message>
         <location filename="../cmykfw.cpp" line="385"/>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation>Selle valimine võimaldab trükkimise kõigil plaatidel. Kokkutrükivärve kasutatakse enamasti selliste printeritähiste jaoks, nagu kärpimisääred, registreerimismärgid ja nii edasi. Tavaliselt ei kasutata neid küljenduses endas.</translation>
+        <translation type="obsolete">Selle valimine võimaldab trükkimise kõigil plaatidel. Kokkutrükivärve kasutatakse enamasti selliste printeritähiste jaoks, nagu kärpimisääred, registreerimismärgid ja nii edasi. Tavaliselt ei kasutata neid küljenduses endas.</translation>
     </message>
     <message>
         <location filename="" line="136966688"/>
@@ -5796,7 +6226,7 @@ See nimi on reserveeritud läbipaistvale värvile.</translation>
         <translation type="obsolete">Kui värvihaldus on lubatud, hoiatab kolmnurkne märk värvi ees, et see võib jääda parajasti valitud printeriprofiili värviulatusest välja. See tähendab, et trükkimisel ei pruugi värv olla täpselt selline, nagu seda näeb ekraanil. Lähemalt räägib värviulatuse hoiatustest käsiraamat värvihalduse osas.</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1082"/>
+        <location filename="../cmykfw.cpp" line="1074"/>
         <source>The name of the color already exists,
 please choose another one.</source>
         <translation>Selle nimega värv on juba olemas, palun vali mõni muu nimi.</translation>
@@ -5807,8 +6237,14 @@ please choose another one.</source>
         <translation>Selle valimisel muudetakse värv spot-värviks, luues plaatide või separeerimise jaoks täiendava värvi. Enamasti on seda mõtet kasutada siis, kui logo või mõned muud värvid peavad olema äärmiselt täpsed või neid ei saa tekitada CMYK-i abil. Heaks näiteks on metallik- ja fluorestsensvärv, mida CMYK-iga on raske saavutada.</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="891"/>
+        <location filename="../cmykfw.cpp" line="866"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cmykfw.cpp" line="1058"/>
+        <source>You cannot create a color without a name
+Please give it a name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5866,37 +6302,37 @@ please choose another one.</source>
         <translation type="obsolete">Täielik värvipimedus</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="320"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="319"/>
         <source>Merging colors</source>
         <translation>Värvide ühendamine</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="325"/>
         <source>Error: </source>
         <translation>Viga: </translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="325"/>
         <source>Color %1 exists already!</source>
         <translation>Värv %1 on juba olemas!</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="331"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="330"/>
         <source>Color %1 appended.</source>
         <translation>Värv %1 lisatud.</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="335"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="334"/>
         <source>Now opening the color manager.</source>
         <translation>Avatakse värvihaldur.</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="338"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="337"/>
         <source>Color Merging</source>
         <translation>Värvide ühendamine</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="489"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="488"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation>Soovitud värvi ei leitud. Arvatavasti valisid musta, halli või valge. Seda värvi pole võimalik töödelda.</translation>
     </message>
@@ -6295,12 +6731,12 @@ please choose another one.</source>
         <translation type="obsolete">Märgi valimine:</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="128"/>
+        <location filename="../charselect.ui" line="112"/>
         <source>Font:</source>
         <translation>Font:</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="151"/>
+        <location filename="../charselect.ui" line="135"/>
         <source>Character Class:</source>
         <translation>Märgiklass:</translation>
     </message>
@@ -6310,12 +6746,12 @@ please choose another one.</source>
         <translation type="obsolete">L&amp;isatava märgi kood:</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="227"/>
+        <location filename="../charselect.ui" line="214"/>
         <source>&amp;Insert</source>
         <translation>L&amp;isa</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="237"/>
+        <location filename="../charselect.ui" line="224"/>
         <source>C&amp;lear</source>
         <translation>&amp;Puhasta</translation>
     </message>
@@ -6325,12 +6761,12 @@ please choose another one.</source>
         <translation type="obsolete">S&amp;ulge</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="224"/>
+        <location filename="../charselect.ui" line="211"/>
         <source>Insert the characters at the cursor in the text</source>
         <translation>Lisab märgid teksti kursori asukohta</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="234"/>
+        <location filename="../charselect.ui" line="221"/>
         <source>Delete the current selection(s).</source>
         <translation>Kustutab aktiivse valiku.</translation>
     </message>
@@ -6345,203 +6781,188 @@ please choose another one.</source>
         <translation type="obsolete">Siia saab otse kirjutada Unicode&apos;i neljakohalise arvväärtuse</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="245"/>
+        <location filename="../charselect.cpp" line="250"/>
         <source>Full Character Set</source>
         <translation>Täielik märgistik</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="250"/>
+        <location filename="../charselect.cpp" line="255"/>
         <source>Basic Latin</source>
         <translation>Ladina alusosa</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="256"/>
+        <location filename="../charselect.cpp" line="261"/>
         <source>Latin-1 Supplement</source>
         <translation>Latin-1 täiendosa</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="262"/>
+        <location filename="../charselect.cpp" line="267"/>
         <source>Latin Extended-A</source>
         <translation>Ladina laiendatud A</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="268"/>
+        <location filename="../charselect.cpp" line="273"/>
         <source>Latin Extended-B</source>
         <translation>Ladina laiendatud B</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="274"/>
+        <location filename="../charselect.cpp" line="279"/>
         <source>General Punctuation</source>
         <translation>Üldised kirjavahemärgid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="280"/>
+        <location filename="../charselect.cpp" line="285"/>
         <source>Super- and Subscripts</source>
         <translation>Üla- ja alaindeksid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="286"/>
+        <location filename="../charselect.cpp" line="291"/>
         <source>Currency Symbols</source>
         <translation>Rahasümbolid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="292"/>
+        <location filename="../charselect.cpp" line="297"/>
         <source>Letterlike Symbols</source>
         <translation>Tähelaadsed sümbolid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="298"/>
+        <location filename="../charselect.cpp" line="303"/>
         <source>Number Forms</source>
         <translation>Arvuvormid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="304"/>
+        <location filename="../charselect.cpp" line="309"/>
         <source>Arrows</source>
         <translation>Nooled</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="310"/>
+        <location filename="../charselect.cpp" line="315"/>
         <source>Mathematical Operators</source>
         <translation>Matemaatilised märgid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="316"/>
+        <location filename="../charselect.cpp" line="321"/>
         <source>Box Drawing</source>
         <translation>Joonekombinatsioonid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="322"/>
+        <location filename="../charselect.cpp" line="327"/>
         <source>Block Elements</source>
         <translation>Plokid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="328"/>
+        <location filename="../charselect.cpp" line="333"/>
         <source>Geometric Shapes</source>
         <translation>Geomeetrilised kujundid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="334"/>
+        <location filename="../charselect.cpp" line="339"/>
         <source>Miscellaneous Symbols</source>
         <translation>Mitmesugused sümbolid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="340"/>
+        <location filename="../charselect.cpp" line="345"/>
         <source>Dingbats</source>
         <translation>Piltmärgid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="346"/>
+        <location filename="../charselect.cpp" line="351"/>
         <source>Small Form Variants</source>
         <translation>Väikesed märgid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="352"/>
+        <location filename="../charselect.cpp" line="357"/>
         <source>Ligatures</source>
         <translation>Ligatuurid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="358"/>
+        <location filename="../charselect.cpp" line="363"/>
         <source>Specials</source>
         <translation>Erisümbolid</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="364"/>
+        <location filename="../charselect.cpp" line="369"/>
         <source>Greek</source>
         <translation>Kreeka</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="370"/>
+        <location filename="../charselect.cpp" line="375"/>
         <source>Greek Extended</source>
         <translation>Kreeka laiendatud</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="376"/>
+        <location filename="../charselect.cpp" line="381"/>
         <source>Cyrillic</source>
         <translation>Kirillitsa</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="382"/>
+        <location filename="../charselect.cpp" line="387"/>
         <source>Cyrillic Supplement</source>
         <translation>Kirillitsa täiendosa</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="388"/>
+        <location filename="../charselect.cpp" line="393"/>
         <source>Arabic</source>
         <translation>Araabia</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="394"/>
+        <location filename="../charselect.cpp" line="399"/>
         <source>Arabic Extended A</source>
         <translation>Araabia laiendatud A</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="400"/>
+        <location filename="../charselect.cpp" line="405"/>
         <source>Arabic Extended B</source>
         <translation>Araabia laiendatud B</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="406"/>
+        <location filename="../charselect.cpp" line="411"/>
         <source>Hebrew</source>
         <translation>Heebrea</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="180"/>
+        <location filename="../charselect.ui" line="164"/>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
         <translation>Hiire paremat klahvi all hoides näeb pisipilti. Klahviga Insert saab glüüfi allolevasse valikukasti lisada, klahviga Delete viimati lisatud glüüfi eemaldada</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="36"/>
+        <location filename="../charselect.cpp" line="38"/>
         <source>Scribus Char Palette (*.ucp);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="104"/>
+        <location filename="../charselect.ui" line="88"/>
         <source>Enhanced Palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="25"/>
+        <location filename="../charselect.ui" line="19"/>
         <source>Quick Palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="49"/>
-        <source>Hide Enhanced</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charselect.cpp" line="565"/>
+        <location filename="../charselect.cpp" line="584"/>
         <source>Choose a filename to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="625"/>
+        <location filename="../charselect.cpp" line="644"/>
         <source>Error</source>
         <translation type="unfinished">Viga</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="592"/>
+        <location filename="../charselect.cpp" line="611"/>
         <source>Error reading file %1 - file is corrupted propably.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="606"/>
+        <location filename="../charselect.cpp" line="625"/>
         <source>Choose a filename to save under</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="626"/>
+        <location filename="../charselect.cpp" line="645"/>
         <source>Cannot write file %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charselect.cpp" line="634"/>
-        <source>Clean the Palette?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charselect.cpp" line="635"/>
-        <source>You will clean all characters from this palette. Are you sure?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6552,7 +6973,22 @@ please choose another one.</source>
     <message>
         <location filename="../charselect.ui" line="56"/>
         <source>&amp;Search</source>
-        <translation type="unfinished">Ot&amp;si</translation>
+        <translation type="obsolete">Ot&amp;si</translation>
+    </message>
+    <message>
+        <location filename="../charselect.cpp" line="653"/>
+        <source>Empty the Palette?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charselect.cpp" line="654"/>
+        <source>You will remove all characters from this palette. Are you sure?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charselect.ui" line="30"/>
+        <source>Hide/Show Enhanced Palette</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6566,7 +7002,7 @@ please choose another one.</source>
 <context>
     <name>CharTableView</name>
     <message>
-        <location filename="../chartableview.cpp" line="23"/>
+        <location filename="../chartableview.cpp" line="22"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6574,132 +7010,132 @@ please choose another one.</source>
 <context>
     <name>CheckDocument</name>
     <message>
-        <location filename="../checkDocument.cpp" line="248"/>
+        <location filename="../checkDocument.cpp" line="250"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="252"/>
+        <location filename="../checkDocument.cpp" line="254"/>
         <source>No Problems found</source>
         <translation>Probleeme ei esinenud</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="628"/>
+        <location filename="../checkDocument.cpp" line="630"/>
         <source>Page </source>
         <translation>Lehekülg</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="796"/>
+        <location filename="../checkDocument.cpp" line="798"/>
         <source>Free Objects</source>
         <translation>Vabad objektid</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="802"/>
+        <location filename="../checkDocument.cpp" line="804"/>
         <source>Problems found</source>
         <translation>Esines probleeme</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="816"/>
+        <location filename="../checkDocument.cpp" line="824"/>
         <source>Preflight Verifier</source>
         <translation>Trükieelne kontroll</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="818"/>
+        <location filename="../checkDocument.cpp" line="826"/>
         <source>Items</source>
         <translation>Elemendid</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="819"/>
+        <location filename="../checkDocument.cpp" line="827"/>
         <source>Problems</source>
         <translation>Probleemid</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="822"/>
+        <location filename="../checkDocument.cpp" line="830"/>
         <source>Current Profile:</source>
         <translation>Aktiivne profiil:</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="823"/>
+        <location filename="../checkDocument.cpp" line="831"/>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Ignoreeri vigu</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="824"/>
+        <location filename="../checkDocument.cpp" line="832"/>
         <source>Check again</source>
         <translation>Kontrolli uuesti</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="826"/>
+        <location filename="../checkDocument.cpp" line="834"/>
         <source>Glyphs missing</source>
         <translation>Puuduvad glüüfid</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="827"/>
+        <location filename="../checkDocument.cpp" line="835"/>
         <source>Text overflow</source>
         <translation>Teksti ülejooksmine</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="828"/>
+        <location filename="../checkDocument.cpp" line="836"/>
         <source>Object is not on a Page</source>
         <translation>Objekt ei paikne leheküljel</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="829"/>
+        <location filename="../checkDocument.cpp" line="837"/>
         <source>Missing Image</source>
         <translation>Puuduv pilt</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="830"/>
+        <location filename="../checkDocument.cpp" line="838"/>
         <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
         <translation>Pildi lahutus on alla %1 DPI, praegu %2 x %3 DPI-d</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="831"/>
+        <location filename="../checkDocument.cpp" line="839"/>
         <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
         <translation>Pildi lahutus on üle %1 DPI, praegu %2 x %3 DPI-d</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="832"/>
+        <location filename="../checkDocument.cpp" line="840"/>
         <source>Object has transparency</source>
         <translation>Objekt on läbipaistev</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="833"/>
+        <location filename="../checkDocument.cpp" line="841"/>
         <source>Object is a PDF Annotation or Field</source>
         <translation>Objekt on PDF-i annotatsioon või väli</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="834"/>
+        <location filename="../checkDocument.cpp" line="842"/>
         <source>Object is a placed PDF</source>
         <translation>Objekt on põimitud PDF-fail</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="835"/>
+        <location filename="../checkDocument.cpp" line="843"/>
         <source>Image is GIF</source>
         <translation>Pilt on GIF</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="253"/>
+        <location filename="../checkDocument.cpp" line="255"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="274"/>
+        <location filename="../checkDocument.cpp" line="276"/>
         <source>Transparency used</source>
         <translation>Läbipaistvuse kasutamine</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="277"/>
+        <location filename="../checkDocument.cpp" line="279"/>
         <source>Blendmode used</source>
         <translation>Ühtesulamise kasutamine</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="284"/>
+        <location filename="../checkDocument.cpp" line="286"/>
         <source>Layer &quot;%1&quot;</source>
         <translation>Kiht &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="836"/>
+        <location filename="../checkDocument.cpp" line="844"/>
         <source>Annotation uses a non TrueType font</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6720,17 +7156,17 @@ please choose another one.</source>
 <context>
     <name>CollectForOutput</name>
     <message>
-        <location filename="../collect4output.cpp" line="52"/>
+        <location filename="../collect4output.cpp" line="53"/>
         <source>Choose a Directory</source>
         <translation>Kataloogi valik</translation>
     </message>
     <message>
-        <location filename="../collect4output.cpp" line="68"/>
+        <location filename="../collect4output.cpp" line="69"/>
         <source>Collecting...</source>
         <translation>Kogumine...</translation>
     </message>
     <message>
-        <location filename="../collect4output.cpp" line="87"/>
+        <location filename="../collect4output.cpp" line="88"/>
         <source>Cannot collect the file: 
 %1</source>
         <translation>Faili ei õnnestunud koguda:
@@ -6742,7 +7178,7 @@ please choose another one.</source>
         <translation type="obsolete">Hoiatus</translation>
     </message>
     <message>
-        <location filename="../collect4output.cpp" line="73"/>
+        <location filename="../collect4output.cpp" line="74"/>
         <source>Cannot collect all files for output for file:
 %1</source>
         <translation>Ei õnnestunud koguda kõigi faile väljundiks failile:
@@ -6752,107 +7188,107 @@ please choose another one.</source>
 <context>
     <name>ColorManager</name>
     <message>
-        <location filename="../colorm.cpp" line="54"/>
+        <location filename="../colorm.cpp" line="53"/>
         <source>Colors</source>
         <translation>Värvid</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="80"/>
+        <location filename="../colorm.cpp" line="79"/>
         <source>&amp;Import</source>
         <translation>&amp;Impordi</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="82"/>
+        <location filename="../colorm.cpp" line="81"/>
         <source>&amp;New</source>
         <translation>&amp;Uus</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="84"/>
+        <location filename="../colorm.cpp" line="83"/>
         <source>&amp;Edit</source>
         <translation>&amp;Redigeeri</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="88"/>
+        <location filename="../colorm.cpp" line="87"/>
         <source>D&amp;uplicate</source>
         <translation>&amp;Klooni</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="91"/>
+        <location filename="../colorm.cpp" line="90"/>
         <source>&amp;Delete</source>
         <translation>K&amp;ustuta</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="96"/>
+        <location filename="../colorm.cpp" line="95"/>
         <source>&amp;Remove Unused</source>
         <translation>&amp;Eemalda kasutud</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="103"/>
+        <location filename="../colorm.cpp" line="102"/>
         <source>Color Sets</source>
         <translation>Värvikomplektid</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="109"/>
+        <location filename="../colorm.cpp" line="108"/>
         <source>Current Color Set:</source>
         <translation>Aktiivne värvikomplekt:</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="152"/>
+        <location filename="../colorm.cpp" line="139"/>
         <source>&amp;Save Color Set</source>
         <translation>&amp;Salvesta värvikomplekt</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="171"/>
+        <location filename="../colorm.cpp" line="158"/>
         <source>Choose a color set to load</source>
         <translation>Vali avatav värvikomplekt</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="172"/>
+        <location filename="../colorm.cpp" line="159"/>
         <source>Save the current color set</source>
         <translation>Salvesta aktiivne värvikomplekt</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="177"/>
+        <location filename="../colorm.cpp" line="164"/>
         <source>Remove unused colors from current document&apos;s color set</source>
         <translation>Eemalda kasutamata värvid dokumendi aktiivsest värvikomplektist</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="179"/>
+        <location filename="../colorm.cpp" line="166"/>
         <source>Import colors to the current set from an existing document</source>
         <translation>Impordi olemasolevast dokumendist värvid aktiivsesse värvikomplekti</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="180"/>
+        <location filename="../colorm.cpp" line="167"/>
         <source>Create a new color within the current set</source>
         <translation>Loo aktiivses värvikomplektis uus värv</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="181"/>
+        <location filename="../colorm.cpp" line="168"/>
         <source>Edit the currently selected color</source>
         <translation>Redigeeri valitud värvi</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="182"/>
+        <location filename="../colorm.cpp" line="169"/>
         <source>Make a copy of the currently selected color</source>
         <translation>Kopeeri valitud värv</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="183"/>
+        <location filename="../colorm.cpp" line="170"/>
         <source>Delete the currently selected color</source>
         <translation>Kustuta valitud värv</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="184"/>
+        <location filename="../colorm.cpp" line="171"/>
         <source>Make the current colorset the default color set</source>
         <translation>Muuda aktiivne värvikomplekt vaikimisi värvikomplektiks</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="202"/>
+        <location filename="../colorm.cpp" line="189"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nimi:</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="202"/>
+        <location filename="../colorm.cpp" line="189"/>
         <source>Choose a Name</source>
         <translation>Nime valik</translation>
     </message>
@@ -6872,17 +7308,17 @@ please choose another one.</source>
         <translation type="obsolete">Dokumendid (*.sla *.scd);;Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="568"/>
+        <location filename="../colorm.cpp" line="584"/>
         <source>Copy of %1</source>
         <translation>%1 koopia</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="579"/>
+        <location filename="../colorm.cpp" line="595"/>
         <source>New Color</source>
         <translation>Uus värv</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="185"/>
+        <location filename="../colorm.cpp" line="172"/>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation>Kui värvihaldus on lubatud, hoiatab kolmnurkne märk värvi ees, et see võib jääda parajasti valitud printeriprofiili värviulatusest välja. See tähendab, et trükkimisel ei pruugi värv olla täpselt selline, nagu seda näeb ekraanil. Lähemalt räägib värviulatuse hoiatustest käsiraamat värvihalduse osas.</translation>
     </message>
@@ -7100,12 +7536,12 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation>&amp;Värviratas...</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheel.cpp" line="63"/>
+        <location filename="../plugins/colorwheel/colorwheel.cpp" line="64"/>
         <source>Color setting helper</source>
         <translation>Värviseadistuste abiline</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheel.cpp" line="64"/>
+        <location filename="../plugins/colorwheel/colorwheel.cpp" line="65"/>
         <source>Color selector with color theory included.</source>
         <translation>Värvivalija, mis arvestab värviteooriat.</translation>
     </message>
@@ -7113,59 +7549,59 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CommonStrings</name>
     <message>
-        <location filename="../commonstrings.cpp" line="186"/>
+        <location filename="../commonstrings.cpp" line="222"/>
         <source>&amp;Apply</source>
         <translation>&amp;Rakenda</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="189"/>
+        <location filename="../commonstrings.cpp" line="225"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Loobu</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="193"/>
+        <location filename="../commonstrings.cpp" line="229"/>
         <source>None</source>
         <comment>color name</comment>
         <translation>Puudub</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="196"/>
+        <location filename="../commonstrings.cpp" line="232"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="199"/>
+        <location filename="../commonstrings.cpp" line="235"/>
         <source>&amp;Save</source>
         <translation>&amp;Salvesta</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="202"/>
+        <location filename="../commonstrings.cpp" line="238"/>
         <source>Warning</source>
         <translation>Hoiatus</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="210"/>
+        <location filename="../commonstrings.cpp" line="263"/>
         <source>Custom</source>
         <comment>CommonStrings, custom page size</comment>
         <translation>Kohandatud</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="216"/>
+        <location filename="../commonstrings.cpp" line="269"/>
         <source>Single Page</source>
         <translation>Üks lehekülg</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="217"/>
+        <location filename="../commonstrings.cpp" line="270"/>
         <source>Double Sided</source>
         <translation>Kaks lehekülge</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="218"/>
+        <location filename="../commonstrings.cpp" line="271"/>
         <source>3-Fold</source>
         <translation>Kolm lehekülge</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="219"/>
+        <location filename="../commonstrings.cpp" line="272"/>
         <source>4-Fold</source>
         <translation>4 lehekülge</translation>
     </message>
@@ -7195,117 +7631,117 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation type="obsolete">Parempoolne</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="247"/>
+        <location filename="../commonstrings.cpp" line="300"/>
         <source>Monday</source>
         <translation>Esmaspäev</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="248"/>
+        <location filename="../commonstrings.cpp" line="301"/>
         <source>Tuesday</source>
         <translation>Teisipäev</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="249"/>
+        <location filename="../commonstrings.cpp" line="302"/>
         <source>Wednesday</source>
         <translation>Kolmapäev</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="250"/>
+        <location filename="../commonstrings.cpp" line="303"/>
         <source>Thursday</source>
         <translation>Neljapäev</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="251"/>
+        <location filename="../commonstrings.cpp" line="304"/>
         <source>Friday</source>
         <translation>Reede</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="252"/>
+        <location filename="../commonstrings.cpp" line="305"/>
         <source>Saturday</source>
         <translation>Laupäev</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="253"/>
+        <location filename="../commonstrings.cpp" line="306"/>
         <source>Sunday</source>
         <translation>Pühapäev</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="254"/>
+        <location filename="../commonstrings.cpp" line="307"/>
         <source>January</source>
         <translation>Jaanuar</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="255"/>
+        <location filename="../commonstrings.cpp" line="308"/>
         <source>February</source>
         <translation>Veebruar</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="256"/>
+        <location filename="../commonstrings.cpp" line="309"/>
         <source>March</source>
         <translation>Märts</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="257"/>
+        <location filename="../commonstrings.cpp" line="310"/>
         <source>April</source>
         <translation>Aprill</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="258"/>
+        <location filename="../commonstrings.cpp" line="311"/>
         <source>May</source>
         <translation>Mai</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="259"/>
+        <location filename="../commonstrings.cpp" line="312"/>
         <source>June</source>
         <translation>Juuni</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="260"/>
+        <location filename="../commonstrings.cpp" line="313"/>
         <source>July</source>
         <translation>Juuli</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="261"/>
+        <location filename="../commonstrings.cpp" line="314"/>
         <source>August</source>
         <translation>August</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="262"/>
+        <location filename="../commonstrings.cpp" line="315"/>
         <source>September</source>
         <translation>September</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="263"/>
+        <location filename="../commonstrings.cpp" line="316"/>
         <source>October</source>
         <translation>Oktoober</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="264"/>
+        <location filename="../commonstrings.cpp" line="317"/>
         <source>November</source>
         <translation>November</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="265"/>
+        <location filename="../commonstrings.cpp" line="318"/>
         <source>December</source>
         <translation>Detsember</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="204"/>
+        <location filename="../commonstrings.cpp" line="240"/>
         <source>Yes</source>
         <translation>Jah</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="205"/>
+        <location filename="../commonstrings.cpp" line="241"/>
         <source>No</source>
         <translation>Ei</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="206"/>
+        <location filename="../commonstrings.cpp" line="242"/>
         <source>&amp;Yes</source>
         <translation>&amp;Jah</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="207"/>
+        <location filename="../commonstrings.cpp" line="243"/>
         <source>&amp;No</source>
         <translation>&amp;Ei</translation>
     </message>
@@ -7330,215 +7766,324 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation type="obsolete">Normaalne paremal</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="226"/>
+        <location filename="../commonstrings.cpp" line="279"/>
         <source>Left Page</source>
         <comment>Left page location</comment>
         <translation type="unfinished">Vasakpoolne</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="227"/>
+        <location filename="../commonstrings.cpp" line="280"/>
         <source>Middle</source>
         <comment>Middle page location</comment>
         <translation type="unfinished">Keskmine</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="228"/>
+        <location filename="../commonstrings.cpp" line="281"/>
         <source>Middle Left</source>
         <comment>Middle Left page location</comment>
         <translation type="unfinished">Vasak keskmine</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="229"/>
+        <location filename="../commonstrings.cpp" line="282"/>
         <source>Middle Right</source>
         <comment>Middle Right page location</comment>
         <translation type="unfinished">Parem keskmine</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="230"/>
+        <location filename="../commonstrings.cpp" line="283"/>
         <source>Right Page</source>
         <comment>Right page location</comment>
         <translation type="unfinished">Parempoolne</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="233"/>
+        <location filename="../commonstrings.cpp" line="286"/>
         <source>Normal</source>
         <comment>Default single master page</comment>
         <translation type="unfinished">Normaalne</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="235"/>
+        <location filename="../commonstrings.cpp" line="288"/>
         <source>Normal Left</source>
         <comment>Default left master page</comment>
         <translation type="unfinished">Normaalne vasakul</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="237"/>
+        <location filename="../commonstrings.cpp" line="290"/>
         <source>Normal Middle</source>
         <comment>Default middle master page</comment>
         <translation type="unfinished">Normaalne keskel</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="239"/>
+        <location filename="../commonstrings.cpp" line="292"/>
         <source>Normal Right</source>
         <comment>Default right master page</comment>
         <translation type="unfinished">Normaalne paremal</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="273"/>
+        <location filename="../commonstrings.cpp" line="326"/>
         <source>Normal Vision</source>
         <comment>Color Blindness - Normal Vision</comment>
         <translation type="unfinished">Tavaline nägemine</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="274"/>
+        <location filename="../commonstrings.cpp" line="327"/>
         <source>Protanopia (Red)</source>
         <comment>Color Blindness - Red Color Blind</comment>
         <translation type="unfinished">Protanoopia (punane)</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="275"/>
+        <location filename="../commonstrings.cpp" line="328"/>
         <source>Deuteranopia (Green)</source>
         <comment>Color Blindness - Greed Color Blind</comment>
         <translation type="unfinished">Deuteranoopia (roheline)</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="276"/>
+        <location filename="../commonstrings.cpp" line="329"/>
         <source>Tritanopia (Blue)</source>
         <comment>Color Blindness - Blue Color Blind</comment>
         <translation type="unfinished">Tritanoopia (sinine)</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="277"/>
+        <location filename="../commonstrings.cpp" line="330"/>
         <source>Full Color Blindness</source>
         <comment>Color Blindness - Full Color Blindness</comment>
         <translation type="unfinished">Täielik värvipimedus</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="279"/>
+        <location filename="../commonstrings.cpp" line="332"/>
         <source>Custom: </source>
         <comment>Custom Tab Fill Option</comment>
         <translation type="unfinished">Kohandatud: </translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="192"/>
+        <location filename="../commonstrings.cpp" line="228"/>
         <source>None</source>
         <translation type="unfinished">Puudub</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="241"/>
+        <location filename="../commonstrings.cpp" line="294"/>
         <source>Solid Line</source>
         <translation type="unfinished">Ühtlane joon</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="242"/>
+        <location filename="../commonstrings.cpp" line="295"/>
         <source>Dashed Line</source>
         <translation type="unfinished">Punktiirjoon</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="243"/>
+        <location filename="../commonstrings.cpp" line="296"/>
         <source>Dotted Line</source>
         <translation type="unfinished">Punktjoon</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="244"/>
+        <location filename="../commonstrings.cpp" line="297"/>
         <source>Dash Dot Line</source>
         <translation type="unfinished">Kriipspunktjoon</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="245"/>
+        <location filename="../commonstrings.cpp" line="298"/>
         <source>Dash Dot Dot Line</source>
         <translation type="unfinished">Kriipspunktpunktjoon</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="281"/>
+        <location filename="../commonstrings.cpp" line="334"/>
         <source>None</source>
         <comment>Optical Margin Setting</comment>
         <translation type="unfinished">Puudub</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="282"/>
+        <location filename="../commonstrings.cpp" line="335"/>
         <source>Left Protruding</source>
         <comment>Optical Margin Setting</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="283"/>
+        <location filename="../commonstrings.cpp" line="336"/>
         <source>Right Protruding</source>
         <comment>Optical Margin Setting</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="284"/>
+        <location filename="../commonstrings.cpp" line="337"/>
         <source>Left Hanging Punctuation</source>
         <comment>Optical Margin Setting</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="285"/>
+        <location filename="../commonstrings.cpp" line="338"/>
         <source>Right Hanging Punctuation</source>
         <comment>Optical Margin Setting</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="286"/>
+        <location filename="../commonstrings.cpp" line="339"/>
         <source>Default</source>
         <comment>Optical Margin Setting</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="289"/>
+        <location filename="../commonstrings.cpp" line="342"/>
         <source>Min. Word Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="290"/>
+        <location filename="../commonstrings.cpp" line="343"/>
         <source>Max. Word Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="293"/>
+        <location filename="../commonstrings.cpp" line="346"/>
         <source>Min. Glyph Extension</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="294"/>
+        <location filename="../commonstrings.cpp" line="347"/>
         <source>Max. Glyph Extension</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="267"/>
+        <location filename="../commonstrings.cpp" line="320"/>
         <source>RGB</source>
         <comment>Colorspace</comment>
         <translation type="unfinished">RGB</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="268"/>
+        <location filename="../commonstrings.cpp" line="321"/>
         <source>CMYK</source>
         <comment>Colorspace</comment>
         <translation type="unfinished">CMYK</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="269"/>
+        <location filename="../commonstrings.cpp" line="322"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
         <translation type="unfinished">Halltoonid</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="270"/>
+        <location filename="../commonstrings.cpp" line="323"/>
         <source>Duotone</source>
         <comment>Colorspace</comment>
         <translation type="unfinished">Duotone</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="271"/>
+        <location filename="../commonstrings.cpp" line="324"/>
         <source>Unknown</source>
         <comment>Colorspace (Unknown)</comment>
         <translation type="unfinished">Teadmata</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="297"/>
+        <location filename="../commonstrings.cpp" line="350"/>
         <source>PostScript</source>
         <translation type="unfinished">PostScript</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="245"/>
+        <source>Text Frame</source>
+        <translation type="unfinished">Tekstikast</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="246"/>
+        <source>Image Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="247"/>
+        <source>Line</source>
+        <translation type="unfinished">Joon</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="248"/>
+        <source>Polygon</source>
+        <translation type="unfinished">Hulknurk</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="249"/>
+        <source>Polyline</source>
+        <translation type="unfinished">Kompleksjoon</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="250"/>
+        <source>Text on a Path</source>
+        <translation type="unfinished">Trajektoori tekst</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="251"/>
+        <source>LaTeX Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="252"/>
+        <source>Multiple</source>
+        <comment>Multiple frame types</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="253"/>
+        <source>PDF Push Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="254"/>
+        <source>PDF Text Field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="255"/>
+        <source>PDF Check Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="256"/>
+        <source>PDF Combo Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="257"/>
+        <source>PDF List Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="258"/>
+        <source>PDF Text Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="259"/>
+        <source>PDF Link Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="357"/>
+        <source>PostScript Level 1</source>
+        <translation type="unfinished">PostScript tase 1</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="359"/>
+        <source>PostScript Level 2</source>
+        <translation type="unfinished">PostScript tase 2</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="361"/>
+        <source>PostScript Level 3</source>
+        <translation type="unfinished">PostScript tase 3</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="363"/>
+        <source>Windows GDI</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ContextMenu</name>
+    <message>
+        <location filename="../contextmenu.cpp" line="191"/>
+        <source>Preview Settings</source>
+        <translation type="unfinished">Eelvaatluse seadistused</translation>
+    </message>
+    <message>
+        <location filename="../contextmenu.cpp" line="379"/>
+        <source>Paste File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7570,167 +8115,167 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>Cpalette</name>
     <message>
-        <location filename="../cpalette.cpp" line="813"/>
+        <location filename="../cpalette.cpp" line="899"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="818"/>
+        <location filename="../cpalette.cpp" line="904"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="834"/>
+        <location filename="../cpalette.cpp" line="920"/>
         <source>Shade:</source>
         <translation>Varjund:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="835"/>
+        <location filename="../cpalette.cpp" line="921"/>
         <source>Opacity:</source>
         <translation>Läbipaistmatus:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="836"/>
+        <location filename="../cpalette.cpp" line="922"/>
         <source>X1:</source>
         <translation>X1:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="837"/>
+        <location filename="../cpalette.cpp" line="923"/>
         <source>Y1:</source>
         <translation>Y1:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="838"/>
+        <location filename="../cpalette.cpp" line="924"/>
         <source>X2:</source>
         <translation>X2:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="839"/>
+        <location filename="../cpalette.cpp" line="925"/>
         <source>Y2:</source>
         <translation>Y2:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="840"/>
+        <location filename="../cpalette.cpp" line="926"/>
         <source>Move Vector</source>
         <translation>Liiguta vektorit</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="857"/>
+        <location filename="../cpalette.cpp" line="943"/>
         <source>Normal</source>
         <translation>Normaalne</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="845"/>
+        <location filename="../cpalette.cpp" line="931"/>
         <source>Horizontal Gradient</source>
         <translation>Rõhtne üleminek</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="846"/>
+        <location filename="../cpalette.cpp" line="932"/>
         <source>Vertical Gradient</source>
         <translation>Püstine üleminek</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="847"/>
+        <location filename="../cpalette.cpp" line="933"/>
         <source>Diagonal Gradient</source>
         <translation>Diagonaalne üleminek</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="848"/>
+        <location filename="../cpalette.cpp" line="934"/>
         <source>Cross Diagonal Gradient</source>
         <translation>Ristdiagonaalne üleminek</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="849"/>
+        <location filename="../cpalette.cpp" line="935"/>
         <source>Radial Gradient</source>
         <translation>Radiaalne üleminek</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="850"/>
+        <location filename="../cpalette.cpp" line="936"/>
         <source>Free linear Gradient</source>
         <translation>Vaba lineaarne üleminek</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="851"/>
+        <location filename="../cpalette.cpp" line="937"/>
         <source>Free radial Gradient</source>
         <translation>Vaba radiaalne üleminek</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="874"/>
+        <location filename="../cpalette.cpp" line="961"/>
         <source>Edit Line Color Properties</source>
         <translation>Muuda joonevärvi omadusi</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="875"/>
+        <location filename="../cpalette.cpp" line="962"/>
         <source>Edit Fill Color Properties</source>
         <translation>Muuda täitevärvi omadusi</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="876"/>
+        <location filename="../cpalette.cpp" line="963"/>
         <source>Saturation of color</source>
         <translation>Värviküllastus</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="877"/>
+        <location filename="../cpalette.cpp" line="964"/>
         <source>Normal or gradient fill method</source>
         <translation>Normaalne või ülemineku täitmise meetod</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="878"/>
+        <location filename="../cpalette.cpp" line="965"/>
         <source>Set the transparency for the color selected</source>
         <translation>Määra valitud värvi läbipaistvus</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="879"/>
+        <location filename="../cpalette.cpp" line="966"/>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
         <translation>Liiguta üleminekuvektori algust hiire vasakut nuppu ja üleminekuvektori lõppu hiire paremat nuppu all hoides</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="854"/>
+        <location filename="../cpalette.cpp" line="940"/>
         <source>Transparency Settings</source>
         <translation>Läbipaistvuse seadistused</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="855"/>
+        <location filename="../cpalette.cpp" line="941"/>
         <source>Blend Mode:</source>
         <translation>Ühtesulamise režiim:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="858"/>
+        <location filename="../cpalette.cpp" line="944"/>
         <source>Darken</source>
         <translation>Tumendamine</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="859"/>
+        <location filename="../cpalette.cpp" line="945"/>
         <source>Lighten</source>
         <translation>Helendamine</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="860"/>
+        <location filename="../cpalette.cpp" line="946"/>
         <source>Multiply</source>
         <translation>Korrutamine</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="861"/>
+        <location filename="../cpalette.cpp" line="947"/>
         <source>Screen</source>
         <translation>Ekraan</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="862"/>
+        <location filename="../cpalette.cpp" line="948"/>
         <source>Overlay</source>
         <translation>Ülekatmine</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="863"/>
+        <location filename="../cpalette.cpp" line="949"/>
         <source>Hard Light</source>
         <translation>Külm valgus</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="864"/>
+        <location filename="../cpalette.cpp" line="950"/>
         <source>Soft Light</source>
         <translation>Soe valgus</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="865"/>
+        <location filename="../cpalette.cpp" line="951"/>
         <source>Difference</source>
         <translation>Lahutamine</translation>
     </message>
@@ -7740,84 +8285,89 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation type="obsolete">Väljajätmine</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="867"/>
+        <location filename="../cpalette.cpp" line="953"/>
         <source>Color Dodge</source>
         <translation>Värvi helestamine</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="868"/>
+        <location filename="../cpalette.cpp" line="954"/>
         <source>Color Burn</source>
         <translation>Värvi tumestamine</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="869"/>
+        <location filename="../cpalette.cpp" line="955"/>
         <source>Hue</source>
         <translation>Toon</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="870"/>
+        <location filename="../cpalette.cpp" line="956"/>
         <source>Saturation</source>
         <translation>Küllastus</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="871"/>
+        <location filename="../cpalette.cpp" line="957"/>
         <source>Color</source>
         <translation>Värv</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="872"/>
+        <location filename="../cpalette.cpp" line="958"/>
         <source>Luminosity</source>
         <translation>Valgsus</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="821"/>
+        <location filename="../cpalette.cpp" line="907"/>
         <source>Offsets</source>
         <translation>Nihe</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="822"/>
+        <location filename="../cpalette.cpp" line="908"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="824"/>
+        <location filename="../cpalette.cpp" line="910"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="826"/>
+        <location filename="../cpalette.cpp" line="912"/>
         <source>Scaling</source>
         <translation>Skaleerimine</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="831"/>
+        <location filename="../cpalette.cpp" line="917"/>
         <source>Rotation</source>
         <translation>Pööramine</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="832"/>
+        <location filename="../cpalette.cpp" line="918"/>
         <source>Angle</source>
         <translation>Nurk</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="852"/>
+        <location filename="../cpalette.cpp" line="938"/>
         <source>Pattern</source>
         <translation>Muster</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="866"/>
+        <location filename="../cpalette.cpp" line="952"/>
         <source>Exclusion</source>
         <translation>VäljajätmineVäljajätmine</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="827"/>
+        <location filename="../cpalette.cpp" line="913"/>
         <source>X-Scale:</source>
         <translation>X-skaala:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="829"/>
+        <location filename="../cpalette.cpp" line="915"/>
         <source>Y-Scale:</source>
         <translation>Y-skaala:</translation>
+    </message>
+    <message>
+        <location filename="../cpalette.cpp" line="959"/>
+        <source>Display only used Colors</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8241,49 +8791,49 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CurveWidget</name>
     <message>
-        <location filename="../curvewidget.cpp" line="411"/>
+        <location filename="../curvewidget.cpp" line="414"/>
         <source>Open</source>
         <translation>Avamine</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="446"/>
+        <location filename="../curvewidget.cpp" line="449"/>
         <source>Curve Files (*.scu);;All Files (*)</source>
         <translation>Trajektoorifailid (*.scu);;Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="446"/>
+        <location filename="../curvewidget.cpp" line="449"/>
         <source>Save as</source>
         <translation>Salvestamine</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="480"/>
+        <location filename="../curvewidget.cpp" line="483"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Ei õnnestunud kirjutada faili:
 %1</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="500"/>
+        <location filename="../curvewidget.cpp" line="509"/>
         <source>Inverts the curve</source>
         <translation>Inverteerib trajektoori</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="501"/>
+        <location filename="../curvewidget.cpp" line="510"/>
         <source>Resets the curve</source>
         <translation>Lähtestab trajektoori</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="502"/>
+        <location filename="../curvewidget.cpp" line="511"/>
         <source>Switches between linear and cubic interpolation of the curve</source>
         <translation>Lülitab trajektoori lineaarse ja kolmanda astme intepolatsiooni vahel</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="503"/>
+        <location filename="../curvewidget.cpp" line="512"/>
         <source>Loads a curve</source>
         <translation>Laadib trajektoori</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="504"/>
+        <location filename="../curvewidget.cpp" line="513"/>
         <source>Saves this curve</source>
         <translation>Salvestab trajektoori</translation>
     </message>
@@ -8394,6 +8944,19 @@ Selle saab määrata seadistustes.</translation>
         <location filename="" line="136966688"/>
         <source>K:</source>
         <translation type="obsolete">K:</translation>
+    </message>
+</context>
+<context>
+    <name>DashEditor</name>
+    <message>
+        <location filename="../dasheditor.cpp" line="363"/>
+        <source>Value:</source>
+        <translation type="unfinished">Väärtus:</translation>
+    </message>
+    <message>
+        <location filename="../dasheditor.cpp" line="364"/>
+        <source>Offset:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8649,52 +9212,52 @@ Selle saab määrata seadistustes.</translation>
 <context>
     <name>DocSections</name>
     <message>
-        <location filename="../docsections.cpp" line="61"/>
+        <location filename="../docsections.cpp" line="72"/>
         <source>Add a page numbering section to the document. The new section will be added after the currently selected section.</source>
         <translation>Lisa dokumendile lehekülgede nummerdamise sektsioon. Uus sektsioon lisatakse valitud sektsiooni järele.</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="62"/>
+        <location filename="../docsections.cpp" line="73"/>
         <source>Delete the currently selected section.</source>
         <translation>Kustuta valitud sektsioon</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="68"/>
+        <location filename="../docsections.cpp" line="79"/>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
         <translation>&lt;b&gt;Nimi:&lt;/b&gt; sektsiooni nimi, nt Indeks; võib ka ära jääda&lt;br/&gt;&lt;b&gt;Näitamine:&lt;/b&gt; märkimise korral näidatakse sektsioonis leheküljenumbreid, kui seda vajab üks või enam tekstikasti.&lt;br/&gt;&lt;b&gt;Alates:&lt;/b&gt; lehekülg, millest antud sektsiooni indeks algab.&lt;br/&gt;&lt;b&gt;Kuni:&lt;/b&gt; lehekülg, milleni antud sektsiooni indeks ulatub.&lt;br/&gt;&lt;b&gt;Stiil:&lt;/b&gt; kasutatav leheküljenumbri stiil.&lt;br/&gt;&lt;b&gt;Algus:&lt;/b&gt; indeks stiili vahemikus, millest alustatakse. Kui nt. Algus=2 ja Stiil=a,b,c, ..., algavad numbrid b-ga. Dokumendi esimese sektsiooni korral asendab see senise esimese lehekülje numbri uues failiaknas.</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>1, 2, 3, ...</source>
         <translation>1, 2, 3, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>i, ii, iii, ...</source>
         <translation>i, ii, iii, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>I, II, III, ...</source>
         <translation>I, II, III, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>a, b, c, ...</source>
         <translation>a, b, c, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>A, B, C, ...</source>
         <translation>A, B, C, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="190"/>
+        <location filename="../docsections.cpp" line="201"/>
         <source>Page Number Out Of Bounds</source>
         <translation>Leheküljenumber väljub piiridest</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="190"/>
+        <location filename="../docsections.cpp" line="201"/>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
         <translation>Sisestatud väärtus väljub aktiivse dokumendi leheküljenumbrite vahemikust (%1-%2).</translation>
     </message>
@@ -8878,7 +9441,7 @@ Selle saab määrata seadistustes.</translation>
         <translation>String</translation>
     </message>
     <message>
-        <location filename="../docitemattrprefs.ui" line="19"/>
+        <location filename="../docitemattrprefs.ui" line="13"/>
         <source>Document Item Attributes</source>
         <translation type="unfinished">Dokumendi elemendi atribuudid</translation>
     </message>
@@ -9042,410 +9605,6 @@ Selle saab määrata seadistustes.</translation>
     </message>
 </context>
 <context>
-    <name>PrintDialog</name>
-    <message>
-        <location filename="../printdialog.cpp" line="67"/>
-        <source>Setup Printer</source>
-        <translation>Printeri seadistused</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="74"/>
-        <source>Print Destination</source>
-        <translation>Trükkimise sihtkoht</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="797"/>
-        <source>File</source>
-        <translation>Fail</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="115"/>
-        <source>&amp;Options...</source>
-        <translation>&amp;Valikud...</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="127"/>
-        <source>&amp;File:</source>
-        <translation>&amp;Fail:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="133"/>
-        <source>C&amp;hange...</source>
-        <translation>&amp;Muuda...</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="140"/>
-        <source>A&amp;lternative Printer Command</source>
-        <translation>Al&amp;ternatiivne trükkimiskäsk</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="149"/>
-        <source>Co&amp;mmand:</source>
-        <translation>Kä&amp;sk:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="157"/>
-        <source>Range</source>
-        <translation>Vahemik</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="162"/>
-        <source>Print &amp;All</source>
-        <translation>&amp;Kõik</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="634"/>
-        <source>Print Current Pa&amp;ge</source>
-        <translation>&amp;Aktiivne lehekülg</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="166"/>
-        <source>Print &amp;Range</source>
-        <translation>T&amp;rükkimisvahemik</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="186"/>
-        <source>N&amp;umber of Copies:</source>
-        <translation>Koo&amp;piate arv:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="582"/>
-        <source>Print Normal</source>
-        <translation>Normaalne trükk</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="199"/>
-        <source>Print Separations</source>
-        <translation>Trükkimine separeeritult</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="203"/>
-        <source>Print in Color if Available</source>
-        <translation>Värvitrükk (kui võimalik)</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="204"/>
-        <source>Print in Grayscale</source>
-        <translation>Halltoonis trükk</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="822"/>
-        <source>All</source>
-        <translation>Kõik</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="821"/>
-        <source>Cyan</source>
-        <translation>Tsüaan</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="820"/>
-        <source>Magenta</source>
-        <translation>Magenta</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="819"/>
-        <source>Yellow</source>
-        <translation>Kollane</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="818"/>
-        <source>Black</source>
-        <translation>Must</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="221"/>
-        <source>PostScript Level 1</source>
-        <translation>PostScript tase 1</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="222"/>
-        <source>PostScript Level 2</source>
-        <translation>PostScript tase 2</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="223"/>
-        <source>PostScript Level 3</source>
-        <translation>PostScript tase 3</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="226"/>
-        <source>Options</source>
-        <translation>Valikud</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="232"/>
-        <source>Page</source>
-        <translation>Lehekülg</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="238"/>
-        <source>Mirror Page(s) Horizontal</source>
-        <translation>Lehekülgede peegeldamine rõhtsalt</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="241"/>
-        <source>Mirror Page(s) Vertical</source>
-        <translation>Lehekülgede peegeldamine püstiselt</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="244"/>
-        <source>Set Media Size</source>
-        <translation>Andmekandja suuruse määramine</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="246"/>
-        <source>Clip to Page Margins</source>
-        <translation>Kärpimine lehekülje veeriste juures</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="250"/>
-        <source>Color</source>
-        <translation>Värv</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="256"/>
-        <source>Apply Under Color Removal</source>
-        <translation>UCR-i (Under Color Removal) rakendamine</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="259"/>
-        <source>Convert Spot Colors to Process Colors</source>
-        <translation>Spot-värvide teisendamine protsessivärvideks</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="262"/>
-        <source>Force Overprint Mode</source>
-        <translation>Ületrükirežiim</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="263"/>
-        <source>Apply ICC Profiles</source>
-        <translation type="obsolete">ICC profiilide rakendamine</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="271"/>
-        <source>Advanced Options</source>
-        <translation>Muud valikud</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="348"/>
-        <source>Preview...</source>
-        <translation>Eelvaatlus...</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="353"/>
-        <source>&amp;Print</source>
-        <translation>&amp;Trüki</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="377"/>
-        <source>Do not show objects outside the margins on the printed page</source>
-        <translation>Trükitava lehekülje veeristest väljapoole jäävaid objekte ei näidata</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="380"/>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Sisesta komadega eradatud arvud või märgid:
-* tähistab kõiki lehekülgi, 1-5 lehekülgede vahemikku,
-konkreetsed leheküljenumbrid vastavaid lehekülgi.</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="381"/>
-        <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation>Alternatiivse trükkimishalduri (nt. kprinter või gtklp) kasutamine täiendavate trükkimisvalikute huvides</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="382"/>
-        <source>Sets the PostScript Level.
- Setting to Level 1 or 2 can create huge files</source>
-        <translation>PostScripti taseme määramine.
-Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="383"/>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Võimalus lülitada välja mõningad tsüaanist, kollasest ja magentast koosnevad halli toonid ning kasutada selle asemel musta. UCR mõjutab kõige rohkem piltide neid osi, kus valitsevad neutraalsed ja/või tumedad toonid, mis on suhteliselt lähedal hallile. Selle valiku kasutamisel võib paraneda mõningate piltide trükikvaliteet, kuid alati tuleb seda katse-eksituse meetodil ise järele proovida. UCR vähendab üleküllastuse võimalust CMY värvides.</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="384"/>
-        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Sisselülitamisel teisendatakse spot-värvid komposiitvärvideks. Kui sa ei kavatse just saata trükikotta spot-värve, on mõttekas see sisse lülitada.</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="385"/>
-        <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation>Sisselülitamisel kehtestatakse dokumendile üldine ületrükirežiim, mis tühistab objektide määratlused</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="383"/>
-        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation type="obsolete">Võimaldab värvihalduse korral põimida trükkimisandmetesse ICC profiilid</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="388"/>
-        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>Võimaldab konkreetselt määrata kindlaks PostScript-faili andmekandja (paberi, kile vms.) suuruse. Kui printer seda otseselt ei nõua, ei ole seda mõtet sisse lülitada.</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="570"/>
-        <source>Failed to retrieve printer settings</source>
-        <translation>Printeri seadistuste hankimine ebaõnnestus</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="620"/>
-        <source>Save as</source>
-        <translation>Salvestamine</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="620"/>
-        <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation>PostScript-failid (*.ps);;Kõik failid (*)</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="278"/>
-        <source>Printer Marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="283"/>
-        <source>Crop Marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="285"/>
-        <source>Bleed Marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="287"/>
-        <source>Registration Marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="289"/>
-        <source>Color Bars</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="292"/>
-        <source>Offset:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="297"/>
-        <source>Marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="304"/>
-        <source>Bleed Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="310"/>
-        <source>Top:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="315"/>
-        <source>Bottom:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="320"/>
-        <source>Left:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="325"/>
-        <source>Right:</source>
-        <translation type="unfinished">Paremal:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="329"/>
-        <source>Use Document Bleeds</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="333"/>
-        <source>Bleeds</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="336"/>
-        <source>Inside:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="337"/>
-        <source>Outside:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="394"/>
-        <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished">Lõikevaru füüsilise lehekülje ülaservas</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="395"/>
-        <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished">Lõikevaru füüsilise lehekülje allservas</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="396"/>
-        <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished">Lõikevaru füüsilise lehekülje vasakus servas</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="397"/>
-        <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished">Lõikevaru füüsilise lehekülje paremas servas</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="389"/>
-        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="390"/>
-        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="391"/>
-        <source>Add registration marks which are added to each separation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="392"/>
-        <source>Add color calibration bars</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="393"/>
-        <source>Indicate the distance offset for the registration marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="398"/>
-        <source>Use the existing bleed settings from the document preferences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="267"/>
-        <source>Apply Color Profiles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="387"/>
-        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>EPSPlug</name>
     <message>
         <location filename="" line="136966688"/>
@@ -9453,12 +9612,12 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
         <translation type="obsolete">PostScripti import</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="74"/>
+        <location filename="../plugins/psimport/importps.cpp" line="77"/>
         <source>Analyzing PostScript:</source>
         <translation>PostScripti analüüsimine:</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="502"/>
+        <location filename="../plugins/psimport/importps.cpp" line="506"/>
         <source>Importing File:
 %1
 failed!</source>
@@ -9467,32 +9626,32 @@ failed!</source>
 import ebaõnnestus!</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="503"/>
+        <location filename="../plugins/psimport/importps.cpp" line="507"/>
         <source>Fatal Error</source>
         <translation>Saatuslik viga</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="508"/>
+        <location filename="../plugins/psimport/importps.cpp" line="512"/>
         <source>Generating Items</source>
         <translation>Elementide genereerimine</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="857"/>
+        <location filename="../plugins/psimport/importps.cpp" line="861"/>
         <source>Converting of %1 images failed!</source>
         <translation>%1 pildi teisendamine ebaõnnestus!</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="858"/>
+        <location filename="../plugins/psimport/importps.cpp" line="862"/>
         <source>Error</source>
         <translation>Viga</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="728"/>
+        <location filename="../plugins/psimport/importps.cpp" line="732"/>
         <source>Group%1</source>
         <translation>Grupp%1</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="71"/>
+        <location filename="../plugins/psimport/importps.cpp" line="74"/>
         <source>Importing: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9658,6 +9817,14 @@ import ebaõnnestus!</translation>
         <location filename="../edit1format.cpp" line="448"/>
         <source>Auto</source>
         <translation type="obsolete">Automaatne</translation>
+    </message>
+</context>
+<context>
+    <name>EditToolBar</name>
+    <message>
+        <location filename="../ui/edittoolbar.cpp" line="29"/>
+        <source>Edit</source>
+        <translation type="unfinished">Redigeerimine</translation>
     </message>
 </context>
 <context>
@@ -9929,12 +10096,12 @@ import ebaõnnestus!</translation>
 <context>
     <name>ExportBitmap</name>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="183"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="189"/>
         <source>File exists. Overwrite?</source>
         <translation>Fail on olemas. Kas kirjutada üle?</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="184"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="190"/>
         <source>exists already. Overwrite?</source>
         <translation>on juba olemas. Kas kirjutada üle?</translation>
     </message>
@@ -9942,6 +10109,21 @@ import ebaõnnestus!</translation>
         <location filename="" line="136966688"/>
         <source>All</source>
         <translation type="obsolete">Kõik</translation>
+    </message>
+    <message>
+        <location filename="../plugins/pixmapexport/export.cpp" line="203"/>
+        <source>Save as Image</source>
+        <translation type="unfinished">Salvestamine pildina</translation>
+    </message>
+    <message>
+        <location filename="../plugins/pixmapexport/export.cpp" line="177"/>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/pixmapexport/export.cpp" line="204"/>
+        <source>Error writing the output file(s).</source>
+        <translation type="unfinished">Viga väljundfaili kirjutamisel.</translation>
     </message>
 </context>
 <context>
@@ -10304,43 +10486,143 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
 <context>
     <name>FileLoader</name>
     <message>
-        <location filename="../fileloader.cpp" line="597"/>
+        <location filename="../fileloader.cpp" line="590"/>
         <source>Some fonts used by this document have been substituted:</source>
         <translation>Mõned selles dokumendis kasutatavad fondid on asendatud:</translation>
     </message>
     <message>
-        <location filename="../fileloader.cpp" line="601"/>
+        <location filename="../fileloader.cpp" line="594"/>
         <source> was replaced by: </source>
         <translation> asendati fondiga: </translation>
     </message>
 </context>
 <context>
+    <name>FileToolBar</name>
+    <message>
+        <location filename="../ui/filetoolbar.cpp" line="31"/>
+        <source>File</source>
+        <translation type="unfinished">Fail</translation>
+    </message>
+</context>
+<context>
     <name>FontComboH</name>
     <message>
-        <location filename="../fontcombo.cpp" line="137"/>
+        <location filename="../fontcombo.cpp" line="148"/>
         <source>Face:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../fontcombo.cpp" line="138"/>
+        <location filename="../fontcombo.cpp" line="149"/>
         <source>Style:</source>
         <translation type="unfinished">Stiil:</translation>
     </message>
 </context>
 <context>
+    <name>FontListModel</name>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="63"/>
+        <source>Font Name</source>
+        <translation type="unfinished">Fondi nimi</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="65"/>
+        <source>Use Font</source>
+        <translation type="unfinished">Kasutusel</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="67"/>
+        <source>Family</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="69"/>
+        <source>Style</source>
+        <translation type="unfinished">Stiil</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="71"/>
+        <source>Variant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="73"/>
+        <source>Type</source>
+        <translation type="unfinished">Tüüp</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="75"/>
+        <source>Format</source>
+        <translation type="unfinished">Vorming</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="77"/>
+        <source>Embed in PostScript</source>
+        <translation type="unfinished">Põimimine PostScripti</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="79"/>
+        <source>Subset</source>
+        <translation type="unfinished">Alamhulk</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="81"/>
+        <source>Access</source>
+        <translation type="unfinished">Õigused</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="83"/>
+        <source>Used in Doc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="85"/>
+        <source>Path to Font File</source>
+        <translation type="unfinished">Fondifaili asukoht</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="144"/>
+        <source>Unknown</source>
+        <comment>font type</comment>
+        <translation type="unfinished">Teadmata</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="157"/>
+        <source>Unknown</source>
+        <comment>font format</comment>
+        <translation type="unfinished">Teadmata</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="164"/>
+        <source>User</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Kasutaja</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="165"/>
+        <source>System</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Süsteem</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="190"/>
+        <source>Click to change the value</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FontPrefs</name>
     <message>
-        <location filename="../fontprefs.cpp" line="46"/>
+        <location filename="../fontprefs.cpp" line="48"/>
         <source>Available Fonts</source>
         <translation>Saadaolevad fondid</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="46"/>
+        <location filename="../fontprefs.cpp" line="48"/>
         <source>Font Substitutions</source>
         <translation>Fondiasendused</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="46"/>
+        <location filename="../fontprefs.cpp" line="48"/>
         <source>Additional Paths</source>
         <translation>Lisaasukohad</translation>
     </message>
@@ -10380,42 +10662,42 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <translation type="obsolete">PostScript</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="79"/>
+        <location filename="../fontprefs.cpp" line="58"/>
         <source>&amp;Available Fonts</source>
         <translation>&amp;Saadaolevad fondid</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="87"/>
+        <location filename="../fontprefs.cpp" line="66"/>
         <source>Font Name</source>
         <translation>Fondi nimi</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="88"/>
+        <location filename="../fontprefs.cpp" line="67"/>
         <source>Replacement</source>
         <translation>Asendus</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="103"/>
+        <location filename="../fontprefs.cpp" line="82"/>
         <source>&amp;Delete</source>
         <translation>K&amp;ustuta</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="109"/>
+        <location filename="../fontprefs.cpp" line="88"/>
         <source>Font &amp;Substitutions</source>
         <translation>&amp;Fondiasendused</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="128"/>
+        <location filename="../fontprefs.cpp" line="107"/>
         <source>C&amp;hange...</source>
         <translation>&amp;Muuda...</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="130"/>
+        <location filename="../fontprefs.cpp" line="109"/>
         <source>A&amp;dd...</source>
         <translation>Lis&amp;a...</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="132"/>
+        <location filename="../fontprefs.cpp" line="111"/>
         <source>&amp;Remove</source>
         <translation>&amp;Eemalda</translation>
     </message>
@@ -10425,12 +10707,12 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <translation type="obsolete">Fontide asukohad saab määrata ainult seadistustes ja ainult siis, kui ükski dokument pole avatud. Sulge kõik avatud dokumendid ning muuda siis fontide asukohta menüükäsuga Redigeerimine-&gt;Seadistused.</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="156"/>
+        <location filename="../fontprefs.cpp" line="135"/>
         <source>Additional &amp;Paths</source>
         <translation>Lis&amp;aasukohad</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="299"/>
+        <location filename="../fontprefs.cpp" line="247"/>
         <source>Choose a Directory</source>
         <translation>Kataloogi valik</translation>
     </message>
@@ -10441,35 +10723,35 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <translation type="obsolete">Põimimine PostScripti</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="151"/>
+        <location filename="../fontprefs.cpp" line="130"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../fontprefs.cpp" line="57"/>
         <source>Use Font</source>
-        <translation type="unfinished">Kasutusel</translation>
+        <translation type="obsolete">Kasutusel</translation>
     </message>
     <message>
         <location filename="../fontprefs.cpp" line="58"/>
         <source>Embed in PostScript</source>
-        <translation type="unfinished">Põimimine PostScripti</translation>
+        <translation type="obsolete">Põimimine PostScripti</translation>
     </message>
     <message>
         <location filename="../fontprefs.cpp" line="59"/>
         <source>Subset</source>
-        <translation type="unfinished">Alamhulk</translation>
+        <translation type="obsolete">Alamhulk</translation>
     </message>
     <message>
         <location filename="../fontprefs.cpp" line="60"/>
         <source>Path to Font File</source>
-        <translation type="unfinished">Fondifaili asukoht</translation>
+        <translation type="obsolete">Fondifaili asukoht</translation>
     </message>
 </context>
 <context>
     <name>FontPreview</name>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="111"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
         <translation>Põdur Zagrebi tšellomängija-följetonist Ciqo külmetas kehvas garaažis</translation>
@@ -10481,7 +10763,7 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <translation type="obsolete">Lisa valitud font stiili- ja fondimenüüsse</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="164"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="104"/>
         <source>Leave preview</source>
         <comment>font preview</comment>
         <translation>Sulge eelvaatlus</translation>
@@ -10489,15 +10771,15 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="165"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation>Siin saab kiiresti vajaliku fondi leida. Otsing on tõstutundetu. Otsingus võib kasutada metamärke (*, ?, [...]). Näide: t* leiab kõik fondid, mille alguses seisab t või T. *bold* leiab kõik fondid, mille nimes esineb sõna bold, bolder vms.</translation>
+        <translation type="obsolete">Siin saab kiiresti vajaliku fondi leida. Otsing on tõstutundetu. Otsingus võib kasutada metamärke (*, ?, [...]). Näide: t* leiab kõik fondid, mille alguses seisab t või T. *bold* leiab kõik fondid, mille nimes esineb sõna bold, bolder vms.</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="166"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="106"/>
         <source>Start searching</source>
         <translation>Alusta otsimist</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="167"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="107"/>
         <source>Size of the selected font</source>
         <translation>Valitud fondi suurus</translation>
     </message>
@@ -10510,38 +10792,38 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="97"/>
         <source>User</source>
         <comment>font preview</comment>
-        <translation>Kasutaja</translation>
+        <translation type="obsolete">Kasutaja</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="98"/>
         <source>System</source>
         <comment>font preview</comment>
-        <translation>Süsteem</translation>
+        <translation type="obsolete">Süsteem</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="42"/>
         <source>Font Name</source>
-        <translation type="unfinished">Fondi nimi</translation>
+        <translation type="obsolete">Fondi nimi</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="43"/>
         <source>Doc</source>
-        <translation type="unfinished">Dok</translation>
+        <translation type="obsolete">Dok</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="44"/>
         <source>Type</source>
-        <translation type="unfinished">Tüüp</translation>
+        <translation type="obsolete">Tüüp</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="45"/>
         <source>Subset</source>
-        <translation type="unfinished">Alamhulk</translation>
+        <translation type="obsolete">Alamhulk</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
         <source>Access</source>
-        <translation type="unfinished">Õigused</translation>
+        <translation type="obsolete">Õigused</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="13"/>
@@ -10549,47 +10831,47 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <translation type="unfinished">Fontide eelvaatlus</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="41"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="53"/>
         <source>&amp;Quick Search:</source>
         <translation type="unfinished">&amp;Kiirotsing:</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="57"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="69"/>
         <source>&amp;Search</source>
         <translation type="unfinished">Ot&amp;si</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="60"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="72"/>
         <source>Alt+S</source>
         <translation type="unfinished">Alt+S</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="125"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="146"/>
         <source>&amp;Font Size:</source>
         <translation type="unfinished">&amp;Fondi suurus:</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="148"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="169"/>
         <source>Text</source>
         <translation type="unfinished">Tekst</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="158"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="179"/>
         <source>Sample text to display</source>
         <translation type="unfinished">Näitetekst</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="165"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="186"/>
         <source>Se&amp;t</source>
         <translation type="unfinished">&amp;Määra</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="168"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="189"/>
         <source>Alt+T</source>
         <translation type="unfinished">Alt+T</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="175"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="196"/>
         <source>Reset the text</source>
         <translation type="unfinished">Lähtesta tekst</translation>
     </message>
@@ -10604,13 +10886,18 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="209"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="239"/>
         <source>&amp;Close</source>
         <translation type="unfinished">S&amp;ulge</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="212"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="242"/>
         <source>Alt+C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="105"/>
+        <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. The given text is taken as substring.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10720,12 +11007,12 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <translation>&amp;Fontide eelvaatlus...</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="65"/>
+        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="66"/>
         <source>Font Preview dialog</source>
         <translation>Fontide eelvaatluse dialoog</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="66"/>
+        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="67"/>
         <source>Sorting, searching and browsing available fonts.</source>
         <translation>Saadaolevate fontide sortimine, otsimine ja sirvimine.</translation>
     </message>
@@ -10776,17 +11063,17 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
 <context>
     <name>GradientEditor</name>
     <message>
-        <location filename="../gradienteditor.cpp" line="320"/>
+        <location filename="../gradienteditor.cpp" line="333"/>
         <source>Add, change or remove color stops here</source>
         <translation>Lisa, muuda või eemalda värvimarkereid</translation>
     </message>
     <message>
-        <location filename="../gradienteditor.cpp" line="311"/>
+        <location filename="../gradienteditor.cpp" line="324"/>
         <source>Position:</source>
         <translation>Asukoht:</translation>
     </message>
     <message>
-        <location filename="../gradienteditor.cpp" line="312"/>
+        <location filename="../gradienteditor.cpp" line="325"/>
         <source> %</source>
         <translation> %</translation>
     </message>
@@ -10809,12 +11096,12 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <translation type="obsolete">Uus juhtjoon</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="40"/>
+        <location filename="../guidemanager.ui" line="43"/>
         <source>&amp;Single</source>
         <translation type="unfinished">Ü&amp;ksik</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="149"/>
+        <location filename="../guidemanager.ui" line="152"/>
         <source>Horizontals</source>
         <translation type="unfinished">Rõhtjooned</translation>
     </message>
@@ -10824,148 +11111,153 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <translation type="obsolete">Juhtjoon</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="61"/>
+        <location filename="../guidemanager.ui" line="64"/>
         <source>&amp;Add</source>
         <translation type="unfinished">Lis&amp;a</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="359"/>
+        <location filename="../guidemanager.ui" line="362"/>
         <source>Alt+A</source>
         <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="71"/>
+        <location filename="../guidemanager.ui" line="74"/>
         <source>D&amp;elete</source>
         <translation type="unfinished">K&amp;ustuta</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="310"/>
+        <location filename="../guidemanager.ui" line="313"/>
         <source>Alt+E</source>
         <translation type="unfinished">Alt+E</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="236"/>
+        <location filename="../guidemanager.ui" line="239"/>
         <source>Verticals</source>
         <translation type="unfinished">Püstjooned</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="97"/>
+        <location filename="../guidemanager.ui" line="100"/>
         <source>A&amp;dd</source>
         <translation type="unfinished">L&amp;isa</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="100"/>
+        <location filename="../guidemanager.ui" line="103"/>
         <source>Alt+D</source>
         <translation type="unfinished">Alt+D</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="107"/>
+        <location filename="../guidemanager.ui" line="110"/>
         <source>De&amp;lete</source>
         <translation type="unfinished">&amp;Kustuta</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="125"/>
+        <location filename="../guidemanager.ui" line="128"/>
         <source>Alt+L</source>
         <translation type="unfinished">Alt+L</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="122"/>
+        <location filename="../guidemanager.ui" line="125"/>
         <source>&amp;Lock Guides</source>
         <translation type="unfinished">&amp;Juhtjoonte lukustamine</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="323"/>
+        <location filename="../guidemanager.ui" line="326"/>
         <source>Appl&amp;y to All Pages</source>
         <translation type="unfinished">&amp;Rakendamine kõigile lehekülgedele</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="326"/>
+        <location filename="../guidemanager.ui" line="329"/>
         <source>Alt+Y</source>
         <translation type="unfinished">Alt+Y</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="143"/>
+        <location filename="../guidemanager.ui" line="146"/>
         <source>&amp;Column/Row</source>
         <translation type="unfinished">&amp;Veerg/rida</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="155"/>
+        <location filename="../guidemanager.ui" line="158"/>
         <source>&amp;Number:</source>
         <translation type="unfinished">&amp;Arv:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="178"/>
+        <location filename="../guidemanager.ui" line="181"/>
         <source>U&amp;se Gap:</source>
         <translation type="unfinished">&amp;Vahe:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="181"/>
+        <location filename="../guidemanager.ui" line="184"/>
         <source>Alt+S</source>
         <translation type="unfinished">Alt+S</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="278"/>
+        <location filename="../guidemanager.ui" line="281"/>
         <source>Refer To</source>
         <translation type="unfinished">Sidumine</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="284"/>
+        <location filename="../guidemanager.ui" line="287"/>
         <source>&amp;Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="346"/>
+        <location filename="../guidemanager.ui" line="349"/>
         <source>Alt+P</source>
         <translation type="unfinished">Alt+P</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="297"/>
+        <location filename="../guidemanager.ui" line="300"/>
         <source>M&amp;argins</source>
         <translation type="unfinished">V&amp;eerised</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="307"/>
+        <location filename="../guidemanager.ui" line="310"/>
         <source>S&amp;election</source>
         <translation type="unfinished">&amp;Valik</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="242"/>
+        <location filename="../guidemanager.ui" line="245"/>
         <source>Nu&amp;mber:</source>
         <translation type="unfinished">A&amp;rv:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="265"/>
+        <location filename="../guidemanager.ui" line="268"/>
         <source>Use &amp;Gap:</source>
         <translation type="unfinished">Va&amp;he:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="268"/>
+        <location filename="../guidemanager.ui" line="271"/>
         <source>Alt+G</source>
         <translation type="unfinished">Alt+G</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="334"/>
+        <location filename="../guidemanager.ui" line="337"/>
         <source>&amp;Misc</source>
         <translation type="unfinished">&amp;Muud</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="340"/>
+        <location filename="../guidemanager.ui" line="343"/>
         <source>Delete all guides from the current page</source>
         <translation type="unfinished">Kõigi juhtjoonte kustutamine aktiivselt lehelt</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="343"/>
+        <location filename="../guidemanager.ui" line="346"/>
         <source>Delete Guides from Current &amp;Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="353"/>
+        <location filename="../guidemanager.ui" line="356"/>
         <source>Delete all guides from the current document</source>
         <translation type="unfinished">Kõigi juhtjoonte kustutamine aktiivsest dokumendist</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="356"/>
+        <location filename="../guidemanager.ui" line="359"/>
         <source>Delete Guides from &amp;All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../guidemanager.ui" line="15"/>
+        <source>Guide Manager</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11215,7 +11507,7 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <translation type="obsolete">&amp;Välju</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="275"/>
+        <location filename="../helpbrowser.cpp" line="289"/>
         <source>&amp;File</source>
         <translation>&amp;Fail</translation>
     </message>
@@ -11225,22 +11517,22 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <translation>Ot&amp;si...</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="282"/>
+        <location filename="../helpbrowser.cpp" line="296"/>
         <source>Find &amp;Next</source>
         <translation>Otsi &amp;järgmine</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="283"/>
+        <location filename="../helpbrowser.cpp" line="297"/>
         <source>Find &amp;Previous</source>
         <translation>Otsi &amp;eelmine</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="276"/>
+        <location filename="../helpbrowser.cpp" line="290"/>
         <source>&amp;Edit</source>
         <translation>&amp;Redigeerimine</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="284"/>
+        <location filename="../helpbrowser.cpp" line="298"/>
         <source>&amp;Add Bookmark</source>
         <translation>Lis&amp;a järjehoidja</translation>
     </message>
@@ -11250,12 +11542,12 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <translation>&amp;Kustuta kõik</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="277"/>
+        <location filename="../helpbrowser.cpp" line="291"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Järjehoidjad</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="273"/>
+        <location filename="../helpbrowser.cpp" line="287"/>
         <source>Scribus Online Help</source>
         <translation>Scribuse abi</translation>
     </message>
@@ -11273,22 +11565,22 @@ Palun otsi saidilt http://docs.scribus.net värsket dokumentatsiooni
 ja saidilt www.scribus.net allalaadimisvõimalusi.</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="364"/>
+        <location filename="../helpbrowser.cpp" line="377"/>
         <source>Find</source>
         <translation>Otsimine</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="364"/>
+        <location filename="../helpbrowser.cpp" line="377"/>
         <source>Search Term:</source>
         <translation>Otsingusõna:</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="396"/>
+        <location filename="../helpbrowser.cpp" line="409"/>
         <source>New Bookmark</source>
         <translation>Uus järjehoidja</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="396"/>
+        <location filename="../helpbrowser.cpp" line="409"/>
         <source>New Bookmark&apos;s Title:</source>
         <translation>Uue järjehoidja nimi:</translation>
     </message>
@@ -11328,12 +11620,12 @@ ja saidilt www.scribus.net allalaadimisvõimalusi.</translation>
         <translation type="unfinished">Lis&amp;a</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="280"/>
+        <location filename="../helpbrowser.cpp" line="294"/>
         <source>&amp;Quit</source>
         <translation type="unfinished">&amp;Välju</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="702"/>
+        <location filename="../helpbrowser.cpp" line="715"/>
         <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
         <translation type="unfinished"></translation>
@@ -11342,39 +11634,24 @@ ja saidilt www.scribus.net allalaadimisvõimalusi.</translation>
 <context>
     <name>HelpBrowser2</name>
     <message>
-        <location filename="../ui/hb2.ui" line="13"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ui/hb2.ui" line="30"/>
         <source>&amp;Contents</source>
-        <translation type="unfinished">&amp;Sisukord</translation>
-    </message>
-    <message>
-        <location filename="../ui/hb2.ui" line="84"/>
-        <source>1</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Sisukord</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="49"/>
         <source>Se&amp;arch</source>
-        <translation type="unfinished">O&amp;tsing</translation>
-    </message>
-    <message>
-        <location filename="../ui/hb2.ui" line="57"/>
-        <source>Searching is case insensitive</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">O&amp;tsing</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="64"/>
         <source>&amp;Search</source>
-        <translation type="unfinished">Ot&amp;si</translation>
+        <translation type="obsolete">Ot&amp;si</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="77"/>
         <source>Book&amp;marks</source>
-        <translation type="unfinished">&amp;Järjehoidjad</translation>
+        <translation type="obsolete">&amp;Järjehoidjad</translation>
     </message>
 </context>
 <context>
@@ -11689,6 +11966,30 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ImportXfigPlugin</name>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="58"/>
+        <source>Import Xfig...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="79"/>
+        <source>Imports Xfig Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="80"/>
+        <source>Imports most Xfig files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="128"/>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Kõik toetatud vormingud</translation>
+    </message>
+</context>
+<context>
     <name>Imposition</name>
     <message>
         <location filename="../plugins/imposition/imposition.cpp" line="72"/>
@@ -11860,12 +12161,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionplugin.cpp" line="66"/>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="69"/>
         <source>Imposition dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionplugin.cpp" line="67"/>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="70"/>
         <source>Imposition on grids, booklets and folds</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12671,198 +12972,200 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LatexEditor</name>
     <message>
-        <location filename="../latexeditor.ui" line="13"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../latexeditor.ui" line="30"/>
+        <location filename="../latexeditor.ui" line="32"/>
         <source>Enter Code:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="42"/>
+        <location filename="../latexeditor.ui" line="44"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="49"/>
+        <location filename="../latexeditor.ui" line="51"/>
         <source>Revert</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="62"/>
+        <location filename="../latexeditor.ui" line="122"/>
         <source>Program Messages:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="81"/>
-        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../latexeditor.ui" line="93"/>
+        <location filename="../latexeditor.ui" line="162"/>
         <source>Status: Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="103"/>
+        <location filename="../latexeditor.ui" line="148"/>
         <source>Kill Program</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="118"/>
+        <location filename="../latexeditor.ui" line="65"/>
         <source>Options</source>
         <translation type="unfinished">Valikud</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="126"/>
+        <location filename="../latexeditor.ui" line="73"/>
         <source>Resolution:</source>
         <translation type="unfinished">Lahutus:</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="133"/>
+        <location filename="../latexeditor.ui" line="80"/>
         <source>Automatic</source>
         <translation type="unfinished">Automaatne</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="136"/>
+        <location filename="../latexeditor.ui" line="83"/>
         <source> DPI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="153"/>
+        <location filename="../latexeditor.ui" line="96"/>
         <source>Program:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="161"/>
-        <source>LaTeX</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../latexeditor.ui" line="171"/>
+        <location filename="../latexeditor.ui" line="108"/>
         <source>Use Preamble</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="178"/>
-        <source>Update Application Settings</source>
+        <location filename="../latexeditor.cpp" line="180"/>
+        <source>Status: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="199"/>
-        <source>Fonts and Colors</source>
+        <location filename="../latexeditor.cpp" line="183"/>
+        <source>Error</source>
+        <translation type="unfinished">Viga</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="185"/>
+        <source>Finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="211"/>
-        <source>Will be filled later</source>
+        <location filename="../latexeditor.cpp" line="188"/>
+        <source>Running</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="368"/>
+        <source>No item selected!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="370"/>
+        <source>Insert symbol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="13"/>
+        <source>Editor</source>
+        <translation type="unfinished">Redaktor</translation>
     </message>
 </context>
 <context>
     <name>LayerPalette</name>
     <message>
-        <location filename="../layers.cpp" line="274"/>
+        <location filename="../layers.cpp" line="280"/>
         <source>Delete Layer</source>
         <translation>Kihi kustutamine</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="275"/>
+        <location filename="../layers.cpp" line="281"/>
         <source>Do you want to delete all objects on this layer too?</source>
         <translation>Kas kustutada ka kõik selle kihi objektid?</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="484"/>
+        <location filename="../layers.cpp" line="511"/>
         <source>Layers</source>
         <translation>Kihid</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="505"/>
+        <location filename="../layers.cpp" line="532"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="511"/>
+        <location filename="../layers.cpp" line="538"/>
         <source>Add a new layer</source>
         <translation>Lisa uus kiht</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="513"/>
+        <location filename="../layers.cpp" line="540"/>
         <source>Delete layer</source>
         <translation>Kustuta kiht</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="514"/>
+        <location filename="../layers.cpp" line="541"/>
         <source>Raise layer</source>
         <translation>Too kiht ettepoole</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="515"/>
+        <location filename="../layers.cpp" line="542"/>
         <source>Lower layer</source>
         <translation>Vii kiht tahapoole</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="503"/>
+        <location filename="../layers.cpp" line="530"/>
         <source>Opacity:</source>
         <translation>Läbipaistmatus:</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="504"/>
+        <location filename="../layers.cpp" line="531"/>
         <source> %</source>
         <translation>(sp)%</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="485"/>
+        <location filename="../layers.cpp" line="512"/>
         <source>Blend Mode:</source>
         <translation>Ühtesulamise režiim:</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="487"/>
+        <location filename="../layers.cpp" line="514"/>
         <source>Normal</source>
         <translation>Normaalne</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="488"/>
+        <location filename="../layers.cpp" line="515"/>
         <source>Darken</source>
         <translation>Tumendamine</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="489"/>
+        <location filename="../layers.cpp" line="516"/>
         <source>Lighten</source>
         <translation>Helendamine</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="490"/>
+        <location filename="../layers.cpp" line="517"/>
         <source>Multiply</source>
         <translation>Korrutamine</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="491"/>
+        <location filename="../layers.cpp" line="518"/>
         <source>Screen</source>
         <translation>Ekraan</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="492"/>
+        <location filename="../layers.cpp" line="519"/>
         <source>Overlay</source>
         <translation>Ülekatmine</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="493"/>
+        <location filename="../layers.cpp" line="520"/>
         <source>Hard Light</source>
         <translation>Külm valgus</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="494"/>
+        <location filename="../layers.cpp" line="521"/>
         <source>Soft Light</source>
         <translation>Soe valgus</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="495"/>
+        <location filename="../layers.cpp" line="522"/>
         <source>Difference</source>
         <translation>Lahutamine</translation>
     </message>
@@ -12872,131 +13175,177 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Väljajätmine</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="497"/>
+        <location filename="../layers.cpp" line="524"/>
         <source>Color Dodge</source>
         <translation>Värvi helestamine</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="498"/>
+        <location filename="../layers.cpp" line="525"/>
         <source>Color Burn</source>
         <translation>Värvi tumestamine</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="496"/>
+        <location filename="../layers.cpp" line="523"/>
         <source>Exclusion</source>
         <translation>Väljajätmine</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="499"/>
+        <location filename="../layers.cpp" line="526"/>
         <source>Hue</source>
         <translation>Toon</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="500"/>
+        <location filename="../layers.cpp" line="527"/>
         <source>Saturation</source>
         <translation>Küllastus</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="501"/>
+        <location filename="../layers.cpp" line="528"/>
         <source>Color</source>
         <translation>Värv</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="502"/>
+        <location filename="../layers.cpp" line="529"/>
         <source>Luminosity</source>
         <translation>Valgsus</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="516"/>
+        <location filename="../layers.cpp" line="543"/>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
         <translation type="unfinished">Kihi indikaatori värv - igale kihile omistatakse värv, kui kihi indikaatorid on sisse lülitatud. Topeltklõpsuga saab värvi redigeerida. </translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="517"/>
+        <location filename="../layers.cpp" line="544"/>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
         <translation type="unfinished">Kiht on nähtaval - märke eemaldamisel ei ole kihti näha </translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="518"/>
+        <location filename="../layers.cpp" line="545"/>
         <source>Print Layer - Uncheck to disable printing. </source>
         <translation type="unfinished">Kihi trükkimine - märke eemaldamisel kihti ei trükita. </translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="519"/>
+        <location filename="../layers.cpp" line="546"/>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
         <translation type="unfinished">Kihi lukustamine - märke eemaldamisel ei ole kiht lukustatud </translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="520"/>
+        <location filename="../layers.cpp" line="547"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
         <translation type="unfinished">Tekst kulgeb ümber alumiste kihtide objektide - märkimisel kulgeb tekstikastide tekst ümber teiste objektide, isegi kui need asuvad alumistel kihtidel</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="521"/>
+        <location filename="../layers.cpp" line="548"/>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
         <translation type="unfinished">Kontuurirežiim - lülitab punktiirjoone näitamist objektide ümber, mis kiirendab väga keeruliste objektide kuvamist.</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="522"/>
+        <location filename="../layers.cpp" line="549"/>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
         <translation type="unfinished">Kihi nimi - topeltklõpsuga kihi nimel saab seda redigeerida</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="512"/>
+        <location filename="../layers.cpp" line="539"/>
         <source>Duplicates the current layer</source>
         <translation>Kloonib aktiivse kihi</translation>
     </message>
 </context>
 <context>
+    <name>LegacyMode</name>
+    <message>
+        <location filename="../canvasmode_legacy.cpp" line="4973"/>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Kõik failid (*)</translation>
+    </message>
+    <message>
+        <location filename="../canvasmode_legacy.cpp" line="4976"/>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LensDialogBase</name>
     <message>
-        <location filename="../lensdialogbase.ui" line="13"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="13"/>
         <source>Optical Lens</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="64"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="64"/>
         <source>Add Lens</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="71"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="71"/>
         <source>Remove Lens</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="98"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="98"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="105"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="105"/>
         <source>-</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="123"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="123"/>
         <source>Lens Parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="147"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="147"/>
         <source>X Pos:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="164"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="164"/>
         <source>Y Pos:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="181"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="198"/>
         <source>Radius:</source>
         <translation type="unfinished">Raadius:</translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="198"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="215"/>
         <source>Strength:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="181"/>
+        <source>Magnification Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="191"/>
+        <source>Fish Eye Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LensEffectsPlugin</name>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="66"/>
+        <source>Lens Effects...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="70"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="86"/>
+        <source>Lens Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="87"/>
+        <source>Apply fancy lens effects</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13188,47 +13537,47 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LoremManager</name>
     <message>
-        <location filename="../loremipsum.cpp" line="123"/>
+        <location filename="../loremipsum.cpp" line="131"/>
         <source>Select Lorem Ipsum</source>
         <translation>Lorem Ipsumi valik</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="188"/>
+        <location filename="../loremipsum.cpp" line="196"/>
         <source>Author:</source>
         <translation>Autor:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="190"/>
+        <location filename="../loremipsum.cpp" line="198"/>
         <source>Get More:</source>
         <translation>Allikas:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="192"/>
+        <location filename="../loremipsum.cpp" line="200"/>
         <source>XML File:</source>
         <translation>XML-fail:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="211"/>
+        <location filename="../loremipsum.cpp" line="229"/>
         <source>Lorem Ipsum</source>
         <translation>Lorem Ipsum</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="212"/>
+        <location filename="../loremipsum.cpp" line="230"/>
         <source>Paragraphs:</source>
         <translation>Lõigud:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="214"/>
+        <location filename="../loremipsum.cpp" line="232"/>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="216"/>
+        <location filename="../loremipsum.cpp" line="234"/>
         <source>Alt+C</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="217"/>
+        <location filename="../loremipsum.cpp" line="235"/>
         <source>Standard Lorem Ipsum</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13314,27 +13663,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MarginWidget</name>
     <message>
-        <location filename="../marginWidget.cpp" line="36"/>
+        <location filename="../marginwidget.cpp" line="36"/>
         <source>Preset Layouts:</source>
         <translation>Valmispaigutused:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="49"/>
+        <location filename="../marginwidget.cpp" line="49"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;All:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="51"/>
+        <location filename="../marginwidget.cpp" line="51"/>
         <source>&amp;Top:</source>
         <translation>Ü&amp;lal:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="208"/>
+        <location filename="../marginwidget.cpp" line="208"/>
         <source>&amp;Right:</source>
         <translation>&amp;Paremal:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="207"/>
+        <location filename="../marginwidget.cpp" line="207"/>
         <source>&amp;Left:</source>
         <translation>&amp;Vasakul:</translation>
     </message>
@@ -13344,27 +13693,27 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Veeriseseadistusi rakendatakse kõigile lehekülgedele</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="88"/>
+        <location filename="../marginwidget.cpp" line="88"/>
         <source>Apply the margin changes to all existing pages in the document</source>
         <translation>Veeriste muudatused rakendatakse kõigile dokumendi olemasolevatele lehekülgedele</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="100"/>
+        <location filename="../marginwidget.cpp" line="100"/>
         <source>Printer Margins...</source>
         <translation>Printeri veerised...</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="102"/>
+        <location filename="../marginwidget.cpp" line="102"/>
         <source>Import the margins for the selected page size from the available printers.</source>
         <translation>Veeriste import valitud leheküljesuurusele saadaolevatelt printeritelt</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="153"/>
+        <location filename="../marginwidget.cpp" line="153"/>
         <source>Distance between the top margin guide and the edge of the page</source>
         <translation>Vahemaa ülemise veerisejoone ja lehekülje serva vahel</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="154"/>
+        <location filename="../marginwidget.cpp" line="154"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
         <translation>Vahemaa alumise veerisejoone ja lehekülje serva vahel</translation>
     </message>
@@ -13379,102 +13728,102 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Vahemaa parema veerisejoone ja lehekülje serva vahel. Kui valitud on kaks lehekülge kõrvuti, saab seda veeriste vahet kasutada köitmiseks vajalike veeriste korrigeerimiseks.</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="207"/>
+        <location filename="../marginwidget.cpp" line="207"/>
         <source>&amp;Inside:</source>
         <translation>S&amp;isemine:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="208"/>
+        <location filename="../marginwidget.cpp" line="208"/>
         <source>O&amp;utside:</source>
         <translation>Vä&amp;limine:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="77"/>
+        <location filename="../marginwidget.cpp" line="77"/>
         <source>Apply settings to:</source>
         <translation>Seadistuste rakendamine:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="80"/>
+        <location filename="../marginwidget.cpp" line="80"/>
         <source>All Document Pages</source>
         <translation>Dokumendi kõigile lehekülgedele</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="84"/>
+        <location filename="../marginwidget.cpp" line="84"/>
         <source>All Master Pages</source>
         <translation>Kõigile leheküljetoorikutele</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="89"/>
+        <location filename="../marginwidget.cpp" line="89"/>
         <source>Apply the margin changes to all existing master pages in the document</source>
         <translation>Veeriste muudatused rakendatakse dokumendi kõigile leheküljetoorikutele</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="106"/>
+        <location filename="../marginwidget.cpp" line="106"/>
         <source>Margin Guides</source>
         <translation type="unfinished">Veerisejooned</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="124"/>
+        <location filename="../marginwidget.cpp" line="124"/>
         <source>Top:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="129"/>
+        <location filename="../marginwidget.cpp" line="129"/>
         <source>Bottom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="140"/>
+        <location filename="../marginwidget.cpp" line="140"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation type="unfinished">Lõikevaru füüsilise lehekülje ülaservas</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="141"/>
+        <location filename="../marginwidget.cpp" line="141"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation type="unfinished">Lõikevaru füüsilise lehekülje allservas</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="142"/>
+        <location filename="../marginwidget.cpp" line="142"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation type="unfinished">Lõikevaru füüsilise lehekülje vasakus servas</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="143"/>
+        <location filename="../marginwidget.cpp" line="143"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation type="unfinished">Lõikevaru füüsilise lehekülje paremas servas</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="149"/>
+        <location filename="../marginwidget.cpp" line="149"/>
         <source>Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="213"/>
+        <location filename="../marginwidget.cpp" line="213"/>
         <source>Inside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="214"/>
+        <location filename="../marginwidget.cpp" line="214"/>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="218"/>
+        <location filename="../marginwidget.cpp" line="218"/>
         <source>Left:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="219"/>
+        <location filename="../marginwidget.cpp" line="219"/>
         <source>Right:</source>
         <translation type="unfinished">Paremal:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="155"/>
+        <location filename="../marginwidget.cpp" line="155"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="156"/>
+        <location filename="../marginwidget.cpp" line="156"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13482,32 +13831,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MasterPagesPalette</name>
     <message>
-        <location filename="../masterpagepalette.cpp" line="38"/>
+        <location filename="../masterpagepalette.cpp" line="39"/>
         <source>Edit Master Pages</source>
         <translation>Leheküljetoorikute redigeerimine</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="78"/>
+        <location filename="../masterpagepalette.cpp" line="79"/>
         <source>Duplicate the selected master page</source>
         <translation>Klooni valitud leheküljetoorik</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="79"/>
+        <location filename="../masterpagepalette.cpp" line="80"/>
         <source>Delete the selected master page</source>
         <translation>Kustuta valitud leheküljetoorik</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="80"/>
+        <location filename="../masterpagepalette.cpp" line="81"/>
         <source>Add a new master page</source>
         <translation>Lisa uus leheküljetoorik</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="81"/>
+        <location filename="../masterpagepalette.cpp" line="82"/>
         <source>Import master pages from another document</source>
         <translation>Impordi leheküljetoorikuid mõnest muust dokumendist</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="109"/>
+        <location filename="../masterpagepalette.cpp" line="110"/>
         <source>Do you really want to delete this master page?</source>
         <translation>Kas tõesti kustutada see leheküljetoorik?</translation>
     </message>
@@ -13522,12 +13871,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Ei</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="134"/>
+        <location filename="../masterpagepalette.cpp" line="137"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nimi:</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="134"/>
+        <location filename="../masterpagepalette.cpp" line="137"/>
         <source>New Master Page</source>
         <translation>Uus leheküljetoorik</translation>
     </message>
@@ -13537,22 +13886,22 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%1 koopia</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="236"/>
         <source>Name:</source>
         <translation>Nimi:</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="236"/>
         <source>New MasterPage</source>
         <translation>Uus leheküljetoorik</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="236"/>
         <source>New Master Page %1</source>
         <translation>Uus leheküljetoorik %1</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="280"/>
+        <location filename="../masterpagepalette.cpp" line="289"/>
         <source>Copy #%1 of </source>
         <translation>Koopia nr. %1 toorikust </translation>
     </message>
@@ -13562,27 +13911,27 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Normaalne</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="366"/>
+        <location filename="../masterpagepalette.cpp" line="379"/>
         <source>Unable to Rename Master Page</source>
         <translation>Leheküljetooriku ümbernimetamine ebaõnnestus</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="366"/>
+        <location filename="../masterpagepalette.cpp" line="379"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation>Normaalset lehekülge ei saa ümber nimetada.</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="370"/>
+        <location filename="../masterpagepalette.cpp" line="383"/>
         <source>Rename Master Page</source>
         <translation>Leheküljetooriku ümbernimetamine</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="370"/>
+        <location filename="../masterpagepalette.cpp" line="383"/>
         <source>New Name:</source>
         <translation>Uus nimi:</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="132"/>
+        <location filename="../masterpagepalette.cpp" line="135"/>
         <source>Copy #%1 of %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13618,52 +13967,52 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">pt</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="115"/>
+        <location filename="../measurements.cpp" line="127"/>
         <source>Distances</source>
         <translation>Mõõtmine</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="117"/>
+        <location filename="../measurements.cpp" line="129"/>
         <source>X1:</source>
         <translation>X1:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="118"/>
+        <location filename="../measurements.cpp" line="130"/>
         <source>Y1:</source>
         <translation>Y1:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="119"/>
+        <location filename="../measurements.cpp" line="131"/>
         <source>X2:</source>
         <translation>X2:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="120"/>
+        <location filename="../measurements.cpp" line="132"/>
         <source>Y2:</source>
         <translation>Y2:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="121"/>
+        <location filename="../measurements.cpp" line="133"/>
         <source>DX:</source>
         <translation>DX:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="122"/>
+        <location filename="../measurements.cpp" line="134"/>
         <source>DY:</source>
         <translation>DY:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="123"/>
+        <location filename="../measurements.cpp" line="135"/>
         <source>Angle:</source>
         <translation>Nurk:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="124"/>
+        <location filename="../measurements.cpp" line="136"/>
         <source>Length:</source>
         <translation>Pikkus:</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="../measurements.cpp" line="109"/>
+        <location filename="../measurements.cpp" line="111"/>
         <source> °</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13782,12 +14131,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ModeToolBar</name>
     <message>
-        <location filename="../modetoolbar.cpp" line="38"/>
+        <location filename="../ui/modetoolbar.cpp" line="39"/>
         <source>Tools</source>
         <translation>Tööriistad</translation>
     </message>
     <message>
-        <location filename="../modetoolbar.cpp" line="110"/>
+        <location filename="../ui/modetoolbar.cpp" line="120"/>
         <source>Properties...</source>
         <translation>Omadused...</translation>
     </message>
@@ -13838,1081 +14187,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../movepage.cpp" line="78"/>
         <source>Move Page(s):</source>
         <translation>Lehekülgede liigutamine:</translation>
-    </message>
-</context>
-<context>
-    <name>PropertiesPalette</name>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4433"/>
-        <source>Fixed Linespacing</source>
-        <translation>Fikseeritud reavahe</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4434"/>
-        <source>Automatic Linespacing</source>
-        <translation>Automaatne reavahe</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4435"/>
-        <source>Align to Baseline Grid</source>
-        <translation>Joondamine alusjoontele</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3228"/>
-        <source>&amp;X1:</source>
-        <translation>&amp;X1:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3229"/>
-        <source>X&amp;2:</source>
-        <translation>X&amp;2:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3230"/>
-        <source>Y&amp;1:</source>
-        <translation>Y&amp;1:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3231"/>
-        <source>&amp;Y2:</source>
-        <translation>&amp;Y2:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4422"/>
-        <source>&amp;X-Pos:</source>
-        <translation>&amp;X-asukoht:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4333"/>
-        <source>&amp;Width:</source>
-        <translation>&amp;Laius:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4423"/>
-        <source>&amp;Y-Pos:</source>
-        <translation>&amp;Y-asukoht:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4334"/>
-        <source>&amp;Height:</source>
-        <translation>&amp;Kõrgus:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4694"/>
-        <source>Distance between columns</source>
-        <translation>Veergude vahe</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3021"/>
-        <source>Column width</source>
-        <translation>Veeru laius</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4526"/>
-        <source>No Style</source>
-        <translation>Stiil puudub</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4204"/>
-        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation>Nimi &quot;%1&quot; ei ole unikaalne.&lt;br/&gt;Palun vali mõni muu nimi.</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4319"/>
-        <source>Properties</source>
-        <translation>Omadused</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4321"/>
-        <source>X, Y, &amp;Z</source>
-        <translation>X, Y, &amp;Z</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4322"/>
-        <source>&amp;Text</source>
-        <translation>&amp;Tekst</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4323"/>
-        <source>&amp;Image</source>
-        <translation>P&amp;ilt</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4324"/>
-        <source>&amp;Shape</source>
-        <translation>&amp;Kujund</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4325"/>
-        <source>&amp;Line</source>
-        <translation>&amp;Joon</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4326"/>
-        <source>&amp;Colors</source>
-        <translation>&amp;Värvid</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4329"/>
-        <source>Name</source>
-        <translation>Nimi</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4330"/>
-        <source>Geometry</source>
-        <translation>Geomeetria</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4335"/>
-        <source>&amp;Rotation:</source>
-        <translation>Pöö&amp;ramine:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4336"/>
-        <source>Basepoint:</source>
-        <translation>Baaspunkt:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4337"/>
-        <source>Level</source>
-        <translation>Tase</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4340"/>
-        <source>Shape:</source>
-        <translation>Kujund:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4341"/>
-        <source>&amp;Edit Shape...</source>
-        <translation>&amp;Muuda kuju...</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4361"/>
-        <source>R&amp;ound
-Corners:</source>
-        <translation>Ümarad
-n&amp;urgad:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4362"/>
-        <source>Distance of Text</source>
-        <translation>Teksti kaugus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4363"/>
-        <source>Colu&amp;mns:</source>
-        <translation>V&amp;eergude arv:</translation>
-    </message>
-    <message>
-        <location filename="" line="136966688"/>
-        <source>&amp;Gap:</source>
-        <translation type="obsolete">Va&amp;he:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4370"/>
-        <source>To&amp;p:</source>
-        <translation>Ü&amp;lal:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4371"/>
-        <source>&amp;Bottom:</source>
-        <translation>&amp;All:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4372"/>
-        <source>&amp;Left:</source>
-        <translation>&amp;Vasakul:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4373"/>
-        <source>&amp;Right:</source>
-        <translation>&amp;Paremal:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4374"/>
-        <source>T&amp;abulators...</source>
-        <translation>&amp;Tabeldusmärgid...</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4375"/>
-        <source>Path Text Properties</source>
-        <translation>Trajektoori teksti omadused</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4381"/>
-        <source>Show Curve</source>
-        <translation>Trajektoori näitamine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4383"/>
-        <source>Start Offset:</source>
-        <translation>Alguse nihe:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4384"/>
-        <source>Distance from Curve:</source>
-        <translation>Kaugus trajektoorist:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4385"/>
-        <source>Fill Rule</source>
-        <translation>Täitmise reegel</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4386"/>
-        <source>Even-Odd</source>
-        <translation>Paaris-paaritu</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4387"/>
-        <source>Non Zero</source>
-        <translation>Mittenull</translation>
-    </message>
-    <message>
-        <location filename="" line="136966688"/>
-        <source>Text &amp;Flows Around Frame</source>
-        <translation type="obsolete">Teksti&amp;voog ümber kasti</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4397"/>
-        <source>Use &amp;Bounding Box</source>
-        <translation>Üm&amp;britsev kast</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4398"/>
-        <source>&amp;Use Contour Line</source>
-        <translation>Kont&amp;uurjoon</translation>
-    </message>
-    <message>
-        <location filename="" line="136966688"/>
-        <source>St&amp;yle:</source>
-        <translation type="obsolete">St&amp;iil:</translation>
-    </message>
-    <message>
-        <location filename="" line="136966688"/>
-        <source>Lan&amp;guage:</source>
-        <translation type="obsolete">&amp;Keel:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4419"/>
-        <source>&amp;Free Scaling</source>
-        <translation>&amp;Vaba skaleerimine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4420"/>
-        <source>Actual X-DPI:</source>
-        <translation>Tegelik X-DPI:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4421"/>
-        <source>Actual Y-DPI:</source>
-        <translation>Tegelik Y-DPI:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4424"/>
-        <source>X-Sc&amp;ale:</source>
-        <translation>X-sk&amp;aala:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4425"/>
-        <source>Y-Scal&amp;e:</source>
-        <translation>Y-s&amp;kaala:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4426"/>
-        <source>Scale &amp;To Frame Size</source>
-        <translation>Skaleerimine kas&amp;ti suuruse järgi</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4427"/>
-        <source>P&amp;roportional</source>
-        <translation>P&amp;roportsionaalne</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4430"/>
-        <source>Input Profile:</source>
-        <translation>Sisendprofiil:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4431"/>
-        <source>Rendering Intent:</source>
-        <translation>Renderdamisviis:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4438"/>
-        <source>Perceptual</source>
-        <translation>Pertseptuaalne</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4439"/>
-        <source>Relative Colorimetric</source>
-        <translation>Suhteline kolorimeetriline</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4440"/>
-        <source>Saturation</source>
-        <translation>Küllastus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4441"/>
-        <source>Absolute Colorimetric</source>
-        <translation>Absoluutne kolorimeetriline</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4445"/>
-        <source>Left Point</source>
-        <translation>Vasak ots</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4446"/>
-        <source>End Points</source>
-        <translation>Otspunktid</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4448"/>
-        <source>&amp;Basepoint:</source>
-        <translation>&amp;Baaspunkt:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4449"/>
-        <source>T&amp;ype of Line:</source>
-        <translation>&amp;Joone tüüp:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4450"/>
-        <source>Start Arrow:</source>
-        <translation>Algusnool:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4451"/>
-        <source>End Arrow:</source>
-        <translation>Lõppnool:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4461"/>
-        <source>Line &amp;Width:</source>
-        <translation>J&amp;oone jämedus:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4462"/>
-        <source>Ed&amp;ges:</source>
-        <translation>Se&amp;rvad:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4465"/>
-        <source>Miter Join</source>
-        <translation>Nurkühendus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4466"/>
-        <source>Bevel Join</source>
-        <translation>Längühendus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4467"/>
-        <source>Round Join</source>
-        <translation>Ümarühendus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4472"/>
-        <source>Flat Cap</source>
-        <translation>Lameots</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4473"/>
-        <source>Square Cap</source>
-        <translation>Ruutots</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4474"/>
-        <source>Round Cap</source>
-        <translation>Ümarots</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4476"/>
-        <source>&amp;Endings:</source>
-        <translation>&amp;Otsad:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4478"/>
-        <source>Cell Lines</source>
-        <translation>Lahtri jooned</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4479"/>
-        <source>Line at Top</source>
-        <translation>Joon üleval</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4480"/>
-        <source>Line at the Left</source>
-        <translation>Joon vasakul</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4481"/>
-        <source>Line at the Right </source>
-        <translation>Joon paremal </translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4482"/>
-        <source>Line at Bottom</source>
-        <translation>Joon all</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4484"/>
-        <source>Overprinting</source>
-        <translation>Ületrükk</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4485"/>
-        <source>Knockout</source>
-        <translation>Väljajätmine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4486"/>
-        <source>Overprint</source>
-        <translation>Ületrükk</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4488"/>
-        <source> %</source>
-        <translation> %</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4500"/>
-        <source> pt</source>
-        <translation> pt</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4621"/>
-        <source>Name of selected object</source>
-        <translation>Valitud objekti nimi</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4622"/>
-        <source>Horizontal position of current basepoint</source>
-        <translation>Aktiivse baaspunkti asukoht rõhtteljel</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4623"/>
-        <source>Vertical position of current basepoint</source>
-        <translation>Aktiivse baaspunkti asukoht püstteljel</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4624"/>
-        <source>Width</source>
-        <translation>Laius</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4625"/>
-        <source>Height</source>
-        <translation>Kõrgus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4626"/>
-        <source>Rotation of object at current basepoint</source>
-        <translation>Objekti pööramine aktiivse baaspunkti suhtes</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4627"/>
-        <source>Point from which measurements or rotation angles are referenced</source>
-        <translation>Punkt, millest arvestatakse mõõte või pööramisnurka</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4628"/>
-        <source>Select top left for basepoint</source>
-        <translation>Vali baaspunktiks ülemine vasak punkt</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4629"/>
-        <source>Select top right for basepoint</source>
-        <translation>Vali baaspunktiks ülemine parem punkt</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4630"/>
-        <source>Select bottom left for basepoint</source>
-        <translation>Vali baaspunktiks alumine vasak punkt</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4631"/>
-        <source>Select bottom right for basepoint</source>
-        <translation>Vali baaspunktiks alumine parem punkt</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4632"/>
-        <source>Select center for basepoint</source>
-        <translation>Vali baaspunktiks keskpunkt</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4635"/>
-        <source>Flip Horizontal</source>
-        <translation>Peegelda rõhtsalt</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4636"/>
-        <source>Flip Vertical</source>
-        <translation>Peegelda püstiselt</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4637"/>
-        <source>Move one level up</source>
-        <translation>Liiguta üks tase ettepoole</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4638"/>
-        <source>Move one level down</source>
-        <translation>Liiguta üks tase tahapoole</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4639"/>
-        <source>Move to front</source>
-        <translation>Liiguta kõige ette</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4640"/>
-        <source>Move to back</source>
-        <translation>Liiguta kõige taha</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4641"/>
-        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
-        <translation>Tähistab taset, millel objekt asub. 0 tähendab, et objekt asub kõige all.</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4642"/>
-        <source>Lock or unlock the object</source>
-        <translation>Lukusta objekt või eemalda lukustus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4643"/>
-        <source>Lock or unlock the size of the object</source>
-        <translation>Lukusta objekti suurus või eemalda lukustus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4619"/>
-        <source>Enable or disable printing of the object</source>
-        <translation type="obsolete">Luba või keela objekti trükkimine</translation>
-    </message>
-    <message>
-        <location filename="" line="136966688"/>
-        <source>Make text in lower frames flow around the object shape</source>
-        <translation type="obsolete">Sunnib allpool asuvate kastide teksti kulgema ümber objekti</translation>
-    </message>
-    <message>
-        <location filename="" line="136966688"/>
-        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation type="obsolete">Tekstivoo määramiseks kasutatakse objektipiirete asemel neid ümbritsevat kasti</translation>
-    </message>
-    <message>
-        <location filename="" line="136966688"/>
-        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation type="obsolete">Tekstivoo jaoks kasutatakse teist joont, mis tugineb kastipiiretele</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4657"/>
-        <source>Font of selected text or object</source>
-        <translation>Valitud teksti või objekti font</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4658"/>
-        <source>Font Size</source>
-        <translation>Fondi suurus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4659"/>
-        <source>Offset to baseline of characters</source>
-        <translation>Nihe märkide alusjoone suhtes</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4660"/>
-        <source>Scaling width of characters</source>
-        <translation>Märkide skaleerimislaius</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4661"/>
-        <source>Scaling height of characters</source>
-        <translation>Märkide skaleerimiskõrgus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4662"/>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation>Teksti äärejoone ja/või varju värv (sõltuvalt valikust). Kui mõlemad on valitud, kasutatakse üht ja sama värvi.</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4663"/>
-        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation>Valitud teksti värv. Kui sisse on lülitatud kontuuriefekt, on see täidise värv. Kui sisse on lülitatud varjuefekt, on see kõige ülemine värv.</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4664"/>
-        <source>Saturation of color of text stroke</source>
-        <translation>Teksti äärejoone värvi küllastus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4665"/>
-        <source>Saturation of color of text fill</source>
-        <translation>Teksti täidise värvi küllastus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4666"/>
-        <source>Right to Left Writing</source>
-        <translation>Kirjutamine paremalt vasakule</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4667"/>
-        <source>Manual Tracking</source>
-        <translation>Märkide koondamine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4668"/>
-        <source>Line Spacing</source>
-        <translation>Reavahe</translation>
-    </message>
-    <message>
-        <location filename="" line="136966688"/>
-        <source>Click to select the line spacing mode</source>
-        <translation type="obsolete">Klõpsa reavahe režiimi valimiseks</translation>
-    </message>
-    <message>
-        <location filename="" line="136966688"/>
-        <source>Style of current paragraph</source>
-        <translation type="obsolete">Aktiivse lõigu stiil</translation>
-    </message>
-    <message>
-        <location filename="" line="136966688"/>
-        <source>Hyphenation language of frame</source>
-        <translation type="obsolete">Tekstikastis kasutatav keel</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4682"/>
-        <source>Change settings for left or end points</source>
-        <translation>Vasaku või otspunktide seadistuste muutmine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4683"/>
-        <source>Pattern of line</source>
-        <translation>Joone muster</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4684"/>
-        <source>Thickness of line</source>
-        <translation>Joone jämedus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4685"/>
-        <source>Type of line joins</source>
-        <translation>Jooneühenduste tüüp</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4686"/>
-        <source>Type of line end</source>
-        <translation>Jooneotste tüüp</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4687"/>
-        <source>Line style of current object</source>
-        <translation>Aktiivse objekti joonestiil</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4689"/>
-        <source>Choose the shape of frame...</source>
-        <translation>Vali kasti kuju...</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4690"/>
-        <source>Edit shape of the frame...</source>
-        <translation>Muuda kasti kuju...</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4691"/>
-        <source>Set radius of corner rounding</source>
-        <translation>Määra nurkade ümardamise raadius</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4692"/>
-        <source>Number of columns in text frame</source>
-        <translation>Veergude arv tekstikastis</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4693"/>
-        <source>Switches between Gap or Column width</source>
-        <translation>Vahe või veerulaiuse lülitamine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4695"/>
-        <source>Distance of text from top of frame</source>
-        <translation>Teksti kaugus kasti ülaservast</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4696"/>
-        <source>Distance of text from bottom of frame</source>
-        <translation>Teksti kaugus kasti alaservast</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4697"/>
-        <source>Distance of text from left of frame</source>
-        <translation>Teksti kaugus kasti vasakust servast</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4698"/>
-        <source>Distance of text from right of frame</source>
-        <translation>Teksti kaugus kasti paremast servast</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4699"/>
-        <source>Edit tab settings of text frame...</source>
-        <translation>Muuda tekstikasti tabeldusmärke...</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4701"/>
-        <source>Allow the image to be a different size to the frame</source>
-        <translation>Võimaldab pildil olla kastist erineva suurusega</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4702"/>
-        <source>Horizontal offset of image within frame</source>
-        <translation>Pildi rõhtsuunaline nihe kastis</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4703"/>
-        <source>Vertical offset of image within frame</source>
-        <translation>Pildi püstsuunaline nihe kastis</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4704"/>
-        <source>Resize the image horizontally</source>
-        <translation>Pildi suuruse muutmine rõhtsuunas</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4705"/>
-        <source>Resize the image vertically</source>
-        <translation>Pildi suuruse muutmine püstsuunas</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4706"/>
-        <source>Keep the X and Y scaling the same</source>
-        <translation>X- ja Y-skaala hoitakse võrdsena</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4707"/>
-        <source>Keep the aspect ratio</source>
-        <translation>Säilitatakse proportsioon</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4708"/>
-        <source>Make the image fit within the size of the frame</source>
-        <translation>Pilt sobitatakse kasti suurusega</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4709"/>
-        <source>Use image proportions rather than those of the frame</source>
-        <translation>Kasti proportsioonide asemel kasutatakse pildi proportsioone</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4710"/>
-        <source>Source profile of the image</source>
-        <translation>Pildi lähteprofiil</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4711"/>
-        <source>Rendering intent for the image</source>
-        <translation>Pildi renderdamisviis</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4366"/>
-        <source>Gap:</source>
-        <translation>Vahe:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4367"/>
-        <source>Width:</source>
-        <translation>Laius:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4394"/>
-        <source>Text &amp;Flow Around Frame</source>
-        <translation>Teksti&amp;voog ümber kasti</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4395"/>
-        <source>Disabled</source>
-        <translation>Keelatud</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4396"/>
-        <source>Use Frame &amp;Shape</source>
-        <translation>Kasti ku&amp;jundi kasutamine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4428"/>
-        <source>Image Effects</source>
-        <translation>Pildiefektid</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4429"/>
-        <source>Extended Image Properties</source>
-        <translation>Pildi laiendatud omadused</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4651"/>
-        <source>Disable text flow from lower frames around object</source>
-        <translation>Alumiste kastide teksti kulgemine ümber objekti keelatakse</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4652"/>
-        <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation>Kasti kujundi kasutamine objekti all asuvate tekstikastide tekstivoo jaoks.</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4653"/>
-        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Kasti kujundi asemel kasutatakse alati nelinurkset ümbritsevat kasti objekti all asuvate tekstiraamide tekstivoo jaoks. </translation>
-    </message>
-    <message>
-        <location filename="" line="136966688"/>
-        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="obsolete">Algselt kasti kujundil põhineva teise joone kasutamine objekti all asuvate tekstikastide tekstivoo jaoks. </translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4342"/>
-        <source>Transparency Settings</source>
-        <translation>Läbipaistvuse seadistused</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4327"/>
-        <source>&amp;Group</source>
-        <translation>&amp;Rühmitamine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4343"/>
-        <source>Opacity:</source>
-        <translation>Läbipaistmatus:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4344"/>
-        <source>Blend Mode:</source>
-        <translation>Ühtesulamise režiim:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4346"/>
-        <source>Normal</source>
-        <translation>Normaalne</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4347"/>
-        <source>Darken</source>
-        <translation>Tumendamine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4348"/>
-        <source>Lighten</source>
-        <translation>Helendamine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4349"/>
-        <source>Multiply</source>
-        <translation>Korrutamine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4350"/>
-        <source>Screen</source>
-        <translation>Ekraan</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4351"/>
-        <source>Overlay</source>
-        <translation>Ülekatmine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4352"/>
-        <source>Hard Light</source>
-        <translation>Külm valgus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4353"/>
-        <source>Soft Light</source>
-        <translation>Soe valgus</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4354"/>
-        <source>Difference</source>
-        <translation>Lahutamine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4355"/>
-        <source>Exclusion</source>
-        <translation>Väljajätmine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4356"/>
-        <source>Color Dodge</source>
-        <translation>Värvi helestamine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4357"/>
-        <source>Color Burn</source>
-        <translation>Värvi tumestamine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4358"/>
-        <source>Hue</source>
-        <translation>Toon</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4360"/>
-        <source>Color</source>
-        <translation>Värv</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4633"/>
-        <source>Group the selected objects</source>
-        <translation>Valitud objektide rühmitamine</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4634"/>
-        <source>Destroys the selected group</source>
-        <translation>Kustutab valitud rühma</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="2415"/>
-        <source>Auto</source>
-        <translation type="unfinished">Automaatne</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4654"/>
-        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4669"/>
-        <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4377"/>
-        <source>Default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4378"/>
-        <source>Stair Step</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4379"/>
-        <source>Skew</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4380"/>
-        <source>Flip Text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4382"/>
-        <source>Type:</source>
-        <translation type="unfinished">Tüüp:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4399"/>
-        <source>Use Image Clip Path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4400"/>
-        <source>Paragraph St&amp;yle:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4401"/>
-        <source>Character St&amp;yle:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4402"/>
-        <source>Optical Margins:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4413"/>
-        <source>Word Tracking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4417"/>
-        <source>Min:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4415"/>
-        <source>Norm:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4416"/>
-        <source>Glyph Extension</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4418"/>
-        <source>Max:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4655"/>
-        <source>Use the clipping path of the image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4670"/>
-        <source>Paragraph style of currently selected text or paragraph</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4671"/>
-        <source>Character style of currently selected text or paragraph</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4672"/>
-        <source>Remove Direct Paragraph Formatting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4673"/>
-        <source>Remove Direct Character Formatting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4676"/>
-        <source>Minimal width of spaces between words</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4677"/>
-        <source>Normal width of spaces between words</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4678"/>
-        <source>Minimal shrinkage of glyphs for justification</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4679"/>
-        <source>Maximal extension of glyphs for justification</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4680"/>
-        <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4644"/>
-        <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15437,12 +14711,12 @@ n&amp;urgad:</translation>
         <translation>Uus &amp;mallist...</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="78"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="79"/>
         <source>Load documents with predefined layout</source>
         <translation>Laadib valmispaigutusega dokumente</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="80"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="81"/>
         <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
         <translation>Teiste või enda loodud dokumendipõhja avamine (tagab dokumentidele ühtse stiili).</translation>
     </message>
@@ -15450,215 +14724,215 @@ n&amp;urgad:</translation>
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="839"/>
+        <location filename="../nodeeditpalette.cpp" line="878"/>
         <source>Nodes</source>
         <translation>Sõlmed</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="840"/>
+        <location filename="../nodeeditpalette.cpp" line="879"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="842"/>
+        <location filename="../nodeeditpalette.cpp" line="881"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>&amp;Absoluutsed koordinaadid</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="843"/>
+        <location filename="../nodeeditpalette.cpp" line="884"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-asukoht:</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="844"/>
+        <location filename="../nodeeditpalette.cpp" line="885"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-asukoht:</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="845"/>
+        <location filename="../nodeeditpalette.cpp" line="886"/>
         <source>Edit &amp;Contour Line</source>
         <translation>&amp;Kontuurjoone redigeerimine</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="846"/>
+        <location filename="../nodeeditpalette.cpp" line="887"/>
         <source>&amp;Reset Contour Line</source>
         <translation>Lä&amp;htesta kontuurjoon</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="851"/>
+        <location filename="../nodeeditpalette.cpp" line="889"/>
         <source>&amp;End Editing</source>
         <translation>Lõp&amp;eta redigeerimine</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="852"/>
+        <location filename="../nodeeditpalette.cpp" line="890"/>
         <source>Move Nodes</source>
         <translation>Sõlmede liigutamine</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="853"/>
+        <location filename="../nodeeditpalette.cpp" line="891"/>
         <source>Move Control Points</source>
         <translation>Kontrollpunktide liigutamine</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="854"/>
+        <location filename="../nodeeditpalette.cpp" line="892"/>
         <source>Add Nodes</source>
         <translation>Sõlmede lisamine</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="855"/>
+        <location filename="../nodeeditpalette.cpp" line="893"/>
         <source>Delete Nodes</source>
         <translation>Sõlmede kustutamine</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="856"/>
+        <location filename="../nodeeditpalette.cpp" line="894"/>
         <source>Move Control Points Independently</source>
         <translation>Kontrollpunktide liigutamine ükshaaval</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="857"/>
+        <location filename="../nodeeditpalette.cpp" line="895"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Kontrollpunktide liigutamine sümmeetriliselt</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="858"/>
+        <location filename="../nodeeditpalette.cpp" line="896"/>
         <source>Reset Control Points</source>
         <translation>Kontrollpunktide lähtestamine</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="859"/>
+        <location filename="../nodeeditpalette.cpp" line="897"/>
         <source>Reset this Control Point</source>
         <translation>Konkreetse kontrollpunkti lähtestamine</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="860"/>
+        <location filename="../nodeeditpalette.cpp" line="898"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Hulknurga avamine või Bezier&apos; kõvera lõikamine</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="861"/>
+        <location filename="../nodeeditpalette.cpp" line="899"/>
         <source>Close this Bezier Curve</source>
         <translation>Bezier&apos; kõvera sulgemine</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="862"/>
+        <location filename="../nodeeditpalette.cpp" line="900"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Asukoha peegeldamine rõhtsuunas</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="863"/>
+        <location filename="../nodeeditpalette.cpp" line="901"/>
         <source>Mirror the Path Vertically</source>
         <translation>Asukoha peegeldamine püstsuunas</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="864"/>
+        <location filename="../nodeeditpalette.cpp" line="902"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Asukoha nihe rõhtsuunas paremale</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="865"/>
+        <location filename="../nodeeditpalette.cpp" line="903"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Asukoha nihe rõhtsuunas vasakule</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="866"/>
+        <location filename="../nodeeditpalette.cpp" line="904"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Asukoha nihe püstsuunas üles</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="867"/>
+        <location filename="../nodeeditpalette.cpp" line="905"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Asukoha nihe püstsuunas alla</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="868"/>
+        <location filename="../nodeeditpalette.cpp" line="906"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Asukoha pööramine vastupäeva</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="869"/>
+        <location filename="../nodeeditpalette.cpp" line="907"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Asukoha pööramine päripäeva</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="870"/>
+        <location filename="../nodeeditpalette.cpp" line="908"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation>Asukoha suuruse kärpimine määratud protsendi võrra</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="871"/>
+        <location filename="../nodeeditpalette.cpp" line="909"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Asukoha suuruse suurendamine määratud protsendi võrra</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="872"/>
+        <location filename="../nodeeditpalette.cpp" line="910"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation>Asukoha suuruse kärpimine määratud väärtuse võrra</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="873"/>
+        <location filename="../nodeeditpalette.cpp" line="911"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation>Asukoha suuruse suurendamine määratud väärtuse võrra</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="874"/>
+        <location filename="../nodeeditpalette.cpp" line="912"/>
         <source>Angle of Rotation</source>
         <translation>Pööramisnurk</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="875"/>
+        <location filename="../nodeeditpalette.cpp" line="913"/>
         <source>% to Enlarge or Shrink By</source>
         <translation>Suurendamise või vähendamise protsent</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="876"/>
+        <location filename="../nodeeditpalette.cpp" line="914"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Suurendamise või vähendamise väärtus</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="877"/>
+        <location filename="../nodeeditpalette.cpp" line="915"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Kontuurjoone redigeerimise lubamine</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="878"/>
+        <location filename="../nodeeditpalette.cpp" line="916"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Kontuurjoone lähtestamine kasti esialgsele kujule</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="880"/>
+        <location filename="../nodeeditpalette.cpp" line="918"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation>Sisselülitamisel kasutatakse leheküljega, vastasel juhul objektiga seotud koordinaate.</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="847"/>
+        <location filename="../nodeeditpalette.cpp" line="888"/>
         <source>Set Contour to Image Clip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="879"/>
+        <location filename="../nodeeditpalette.cpp" line="917"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="849"/>
-        <source>Lens Effects...</source>
+        <location filename="../nodeeditpalette.cpp" line="882"/>
+        <source>to Canvas</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="850"/>
-        <source>Apply fancy Lens Effects</source>
+        <location filename="../nodeeditpalette.cpp" line="883"/>
+        <source>to Page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="294"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="301"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>See dokument ei paista olevat OpenOffice Draw&apos; fail.</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="666"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="674"/>
         <source>Group%1</source>
         <translation type="unfinished">Grupp%1</translation>
     </message>
@@ -15666,39 +14940,39 @@ n&amp;urgad:</translation>
 <context>
     <name>OODrawImportPlugin</name>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="94"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="95"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation>Impordi &amp;OpenOffice.org Draw...</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="109"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="110"/>
         <source>Imports OpenOffice.org Draw Files</source>
         <translation>Impordib OpenOffice.org Draw&apos; faile</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="110"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="111"/>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Impordib OpenOffice.org Draw&apos; failid aktiivsesse dokumenti, muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="124"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="125"/>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenDocument 1.0 Draw</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="136"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="137"/>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="200"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="207"/>
         <source>This file contains some unsupported features</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="198"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="205"/>
         <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15813,14 +15087,47 @@ n&amp;urgad:</translation>
     </message>
 </context>
 <context>
+    <name>OutlinePalette</name>
+    <message>
+        <location filename="../outlinepalette.cpp" line="858"/>
+        <source>Element</source>
+        <translation type="unfinished">Element</translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="270"/>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation type="unfinished">Nimi &quot;%1&quot; ei ole unikaalne.&lt;br/&gt;Palun vali mõni muu nimi.</translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="826"/>
+        <source>Group </source>
+        <translation type="unfinished">Grupp </translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="731"/>
+        <source>Page </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="786"/>
+        <source>Free Objects</source>
+        <translation type="unfinished">Vabad objektid</translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="857"/>
+        <source>Outline</source>
+        <translation type="unfinished">Struktuur</translation>
+    </message>
+</context>
+<context>
     <name>OutlineValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="95"/>
+        <location filename="../styleselect.cpp" line="97"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="96"/>
+        <location filename="../styleselect.cpp" line="98"/>
         <source>Linewidth</source>
         <translation>Joone jämedus</translation>
     </message>
@@ -15828,7 +15135,7 @@ n&amp;urgad:</translation>
 <context>
     <name>PDFExportDialog</name>
     <message>
-        <location filename="../pdfopts.cpp" line="152"/>
+        <location filename="../pdfopts.cpp" line="151"/>
         <source>Save as PDF</source>
         <translation>Salvestamine PDF-failina</translation>
     </message>
@@ -15863,22 +15170,22 @@ n&amp;urgad:</translation>
         <translation>Salvestamisnupp ei ole aktiivne, kui püüad eksportida PDF/X-3 ning PDF/X-3 kaardil puudub infostring.</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="211"/>
+        <location filename="../pdfopts.cpp" line="210"/>
         <source>Save as</source>
         <translation>Salvestamine</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="211"/>
+        <location filename="../pdfopts.cpp" line="210"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-failid (*.pdf);;Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="153"/>
+        <location filename="../pdfopts.cpp" line="152"/>
         <source>%1 does not exists and will be created, continue?</source>
         <translation>%1 puudub, mistõttu see luuakse. Kas jätkata?</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="176"/>
+        <location filename="../pdfopts.cpp" line="175"/>
         <source>Cannot create directory: 
 %1</source>
         <translation>Kataloogi ei õnnestunud luua: (new line)
@@ -15888,40 +15195,60 @@ n&amp;urgad:</translation>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../pdflib_core.cpp" line="127"/>
+        <location filename="../pdflib_core.cpp" line="130"/>
         <source>Saving PDF</source>
         <translation type="unfinished">PDF-i salvestamine</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="131"/>
+        <location filename="../pdflib_core.cpp" line="134"/>
         <source>Exporting Master Page:</source>
         <translation type="unfinished">Leheküljetooriku eksport:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="131"/>
+        <location filename="../pdflib_core.cpp" line="134"/>
         <source>Exporting Page:</source>
         <translation type="unfinished">Lehekülje eksport:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="131"/>
+        <location filename="../pdflib_core.cpp" line="134"/>
         <source>Exporting Items on Current Page:</source>
         <translation type="unfinished">Aktiivse lehekülje elementide eksport:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2315"/>
+        <location filename="../pdflib_core.cpp" line="2435"/>
         <source>Page:</source>
         <translation type="unfinished">Lehekülg:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2328"/>
+        <location filename="../pdflib_core.cpp" line="2448"/>
         <source>Date:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pdflib_core.cpp" line="6955"/>
+        <source>Failed to load an image : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pdflib_core.cpp" line="6960"/>
+        <source>Failed to write an image : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pdflib_core.cpp" line="6965"/>
+        <source>Failed to load an image mask : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pdflib_core.cpp" line="6970"/>
+        <source>Insufficient memory for processing an image</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PDFToolBar</name>
     <message>
-        <location filename="../modetoolbar.cpp" line="115"/>
+        <location filename="../ui/pdftoolbar.cpp" line="29"/>
         <source>PDF Tools</source>
         <translation>PDF-i tööriistad</translation>
     </message>
@@ -15957,7 +15284,7 @@ n&amp;urgad:</translation>
 <context>
     <name>PPreview</name>
     <message>
-        <location filename="../preview.cpp" line="80"/>
+        <location filename="../preview.cpp" line="81"/>
         <source>Print Preview</source>
         <translation>Trükkimise eelvaatlus</translation>
     </message>
@@ -15972,82 +15299,82 @@ n&amp;urgad:</translation>
         <translation type="obsolete">&amp;Graafika antialias</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="133"/>
+        <location filename="../preview.cpp" line="134"/>
         <source>Display Trans&amp;parency</source>
         <translation>Lä&amp;bipaistvuse näitamine</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="247"/>
+        <location filename="../preview.cpp" line="249"/>
         <source>&amp;Under Color Removal</source>
         <translation>&amp;Under Color Removal</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="138"/>
+        <location filename="../preview.cpp" line="139"/>
         <source>&amp;Display CMYK</source>
         <translation>CMYK-i &amp;näitamine</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="250"/>
+        <location filename="../preview.cpp" line="252"/>
         <source>Force Overprint Mode</source>
         <translation>Ületrükirežiim</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="145"/>
+        <location filename="../preview.cpp" line="207"/>
         <source>&amp;C</source>
         <translation>&amp;C</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="150"/>
+        <location filename="../preview.cpp" line="212"/>
         <source>&amp;M</source>
         <translation>&amp;M</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="155"/>
+        <location filename="../preview.cpp" line="217"/>
         <source>&amp;Y</source>
         <translation>&amp;Y</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="160"/>
+        <location filename="../preview.cpp" line="222"/>
         <source>&amp;K</source>
         <translation>&amp;K</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="173"/>
+        <location filename="../preview.cpp" line="151"/>
         <source>Separation Name</source>
         <translation>Värvilahutuse nimi</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="185"/>
+        <location filename="../preview.cpp" line="163"/>
         <source>Cyan</source>
         <translation>Tsüaan</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="192"/>
+        <location filename="../preview.cpp" line="170"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="199"/>
+        <location filename="../preview.cpp" line="177"/>
         <source>Yellow</source>
         <translation>Kollane</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="206"/>
+        <location filename="../preview.cpp" line="184"/>
         <source>Black</source>
         <translation>Must</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="271"/>
+        <location filename="../preview.cpp" line="273"/>
         <source>Scaling:</source>
         <translation>Skaleerimine:</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="292"/>
+        <location filename="../preview.cpp" line="294"/>
         <source>Close</source>
         <translation>Sulge</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="295"/>
+        <location filename="../preview.cpp" line="297"/>
         <source>Print...</source>
         <translation>Trüki...</translation>
     </message>
@@ -16062,112 +15389,112 @@ n&amp;urgad:</translation>
         <translation type="obsolete">Võimaldab TrueType fontide, OpenType fontide, EPS-i, PDF-i ja vektorgraafika ilusamat esitamist aknas, seda küll mõningase eelvaatluse aeglustumisega. See puudutab ainult Type 1 fonte.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="321"/>
+        <location filename="../preview.cpp" line="326"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Näitab läbipaistvust ja dokumendi läbipaistvaid elemente. Vajalik on Ghostscript 7.07 või uuem.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="322"/>
+        <location filename="../preview.cpp" line="327"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>Trükkimise eelvaatlusel simuleeritakse RGB värvide asemel CMYK värve</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="323"/>
+        <location filename="../preview.cpp" line="328"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Võimalus lülitada välja mõningad tsüaanist, kollasest ja magentast koosnevad halli toonid ning kasutada selle asemel musta. UCR mõjutab kõige rohkem piltide neid osi, kus valitsevad neutraalsed ja/või tumedad toonid, mis on suhteliselt lähedal hallile. Selle valiku kasutamisel võib paraneda mõningate piltide trükikvaliteet, kuid alati tuleb seda katse-eksituse meetodil ise järele proovida. UCR vähendab üleküllastuse võimalust CMY värvides.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="324"/>
+        <location filename="../preview.cpp" line="329"/>
         <source>Resize the scale of the page.</source>
         <translation>Lehekülje skaleerimise muutmine.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="347"/>
+        <location filename="../preview.cpp" line="352"/>
         <source>Enable/disable the C (Cyan) ink plate</source>
         <translation>C värvi (tsüaan) lubamine/keelamine</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="348"/>
+        <location filename="../preview.cpp" line="353"/>
         <source>Enable/disable the M (Magenta) ink plate</source>
         <translation>M värvi (magenta) lubamine/keelamine</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="349"/>
+        <location filename="../preview.cpp" line="354"/>
         <source>Enable/disable the Y (Yellow) ink plate</source>
         <translation>Y värvi (kollane) lubamine/keelamine</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="350"/>
+        <location filename="../preview.cpp" line="355"/>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>K värvi (must) lubamine/keelamine</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="613"/>
+        <location filename="../preview.cpp" line="627"/>
         <source>All</source>
         <translation>Kõik</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="1100"/>
+        <location filename="../preview.cpp" line="1115"/>
         <source>File</source>
         <translation>Fail</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="128"/>
+        <location filename="../preview.cpp" line="129"/>
         <source>Enable &amp;Antialiasing</source>
         <translation>&amp;Antialiase lubamine</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="279"/>
+        <location filename="../preview.cpp" line="281"/>
         <source>Fit to Width</source>
         <translation>Mahutamine laiusele</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="280"/>
+        <location filename="../preview.cpp" line="282"/>
         <source>Fit to Height</source>
         <translation>Mahutamine kõrgusele</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="281"/>
+        <location filename="../preview.cpp" line="283"/>
         <source>Fit to Page</source>
         <translation>Mahutamine leheküljele</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="320"/>
+        <location filename="../preview.cpp" line="325"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation>Võimaldab Type 1 fontide, TrueType fontide, OpenType fontide, EPS-i, PDF-i ja vektorgraafika ilusamat esitamist aknas, seda küll mõningase eelvaatluse aeglustumisega</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="122"/>
+        <location filename="../preview.cpp" line="123"/>
         <source>Display Settings</source>
         <translation>Vaateseadistused</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="229"/>
+        <location filename="../preview.cpp" line="231"/>
         <source>Print Settings</source>
         <translation>Trükkimisseadistused</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="235"/>
+        <location filename="../preview.cpp" line="237"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation>Lehekülgede peegeldamine rõhtsalt</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="238"/>
+        <location filename="../preview.cpp" line="240"/>
         <source>Mirror Page(s) Vertical</source>
         <translation>Lehekülgede peegeldamine püstiselt</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="241"/>
+        <location filename="../preview.cpp" line="243"/>
         <source>Clip to Page Margins</source>
         <translation>Kärpimine lehekülje veeriste juures</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="244"/>
+        <location filename="../preview.cpp" line="246"/>
         <source>Print in Grayscale</source>
         <translation>Halltoonis trükk</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="253"/>
+        <location filename="../preview.cpp" line="255"/>
         <source>Convert Spot Colors</source>
         <translation>Spot-värvidesse teisendamine</translation>
     </message>
@@ -16177,12 +15504,12 @@ n&amp;urgad:</translation>
         <translation type="obsolete">ICC profiilide rakendamine</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="325"/>
+        <location filename="../preview.cpp" line="330"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Sisselülitamisel teisendatakse spot-värvid komposiitvärvideks. Kui sa ei kavatse just saata trükikotta spot-värve, on mõttekas see sisse lülitada.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="326"/>
+        <location filename="../preview.cpp" line="331"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation>Sisselülitamisel kehtestatakse dokumendile üldine ületrükirežiim, mis tühistab objektide määratlused</translation>
     </message>
@@ -16192,12 +15519,12 @@ n&amp;urgad:</translation>
         <translation type="obsolete">Võimaldab värvihalduse korral põimida trükkimisandmetesse ICC profiilid</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="256"/>
+        <location filename="../preview.cpp" line="258"/>
         <source>Apply Color Profiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="327"/>
+        <location filename="../preview.cpp" line="332"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16205,14 +15532,34 @@ n&amp;urgad:</translation>
 <context>
     <name>PSLib</name>
     <message>
-        <location filename="../pslib.cpp" line="1694"/>
+        <location filename="../pslib.cpp" line="1697"/>
         <source>Processing Master Page:</source>
         <translation>Leheküljetooriku töötlemine:</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1694"/>
+        <location filename="../pslib.cpp" line="1697"/>
         <source>Exporting Page:</source>
         <translation>Lehekülje eksport:</translation>
+    </message>
+    <message>
+        <location filename="../pslib.cpp" line="1628"/>
+        <source>Failed to write data for an image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pslib.cpp" line="1633"/>
+        <source>Failed to load an image : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pslib.cpp" line="1638"/>
+        <source>Failed to load an image mask : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pslib.cpp" line="1643"/>
+        <source>Insufficient memory for processing an image</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16294,37 +15641,37 @@ n&amp;urgad:</translation>
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../pageitem.cpp" line="361"/>
+        <location filename="../pageitem.cpp" line="362"/>
         <source>Image</source>
         <translation>Pilt</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="365"/>
+        <location filename="../pageitem.cpp" line="366"/>
         <source>Text</source>
         <translation>Tekst</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="369"/>
+        <location filename="../pageitem.cpp" line="370"/>
         <source>Line</source>
         <translation>Joon</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="373"/>
+        <location filename="../pageitem.cpp" line="374"/>
         <source>Polygon</source>
         <translation>Hulknurk</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="377"/>
+        <location filename="../pageitem.cpp" line="378"/>
         <source>Polyline</source>
         <translation>Kompleksjoon</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="381"/>
+        <location filename="../pageitem.cpp" line="382"/>
         <source>PathText</source>
         <translation>Trajektooritekst</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="3377"/>
+        <location filename="../pageitem.cpp" line="3460"/>
         <source>Copy of</source>
         <translation>Koopia -</translation>
     </message>
@@ -16355,7 +15702,7 @@ n&amp;urgad:</translation>
     <message>
         <location filename="../pageitemattributes.ui" line="13"/>
         <source>Page Item Attributes</source>
-        <translation type="unfinished">Lehekülje elemendi atribuudid</translation>
+        <translation type="obsolete">Lehekülje elemendi atribuudid</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="58"/>
@@ -16436,6 +15783,11 @@ n&amp;urgad:</translation>
         <location filename="../pageitemattributes.ui" line="48"/>
         <source>Relationship To</source>
         <translation type="unfinished">Seos elemendiga</translation>
+    </message>
+    <message>
+        <location filename="../pageitemattributes.ui" line="13"/>
+        <source>Attributes</source>
+        <translation type="unfinished">Atribuudid</translation>
     </message>
 </context>
 <context>
@@ -16531,122 +15883,119 @@ n&amp;urgad:</translation>
     <message>
         <location filename="../pageitem_imageframe.cpp" line="244"/>
         <source>Picture</source>
-        <translation type="unfinished">Pilt</translation>
+        <translation type="obsolete">Pilt</translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="332"/>
+        <location filename="../pageitem_imageframe.cpp" line="333"/>
         <source>Preview Settings</source>
         <translation type="unfinished">Eelvaatluse seadistused</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_imageframe.cpp" line="401"/>
+        <source>Image</source>
+        <translation type="unfinished">Pilt</translation>
     </message>
 </context>
 <context>
     <name>PageItem_LatexFrame</name>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="47"/>
+        <location filename="../pageitem_latexframe.cpp" line="669"/>
         <source>Latex</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="66"/>
-        <source>\section*{Manual}
-Your \LaTeX-frames setup is working when you can read this text!\\
-Placing formulas is very easy:\\
-Right click $\Rightarrow$ Edit Latex Source\\
-And replace this text with your own. Here is an example:
-\begin{verbatim}\[J = \int r^2 \mathrm{d}m\]\end{verbatim}
-becomes
-\[J = \int r^2 \mathrm{d}m\]
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pageitem_latexframe.cpp" line="539"/>
+        <location filename="../pageitem_latexframe.cpp" line="676"/>
         <source>Error</source>
         <translation type="unfinished">Viga</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="219"/>
+        <location filename="../pageitem_latexframe.cpp" line="193"/>
         <source>Running the external application failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="285"/>
+        <location filename="../pageitem_latexframe.cpp" line="259"/>
         <source>Could not create a temporary file to run the application!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="362"/>
+        <location filename="../pageitem_latexframe.cpp" line="335"/>
         <source>Information</source>
         <translation type="unfinished">Info</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="308"/>
+        <location filename="../pageitem_latexframe.cpp" line="279"/>
         <source>Please specify a latex executable in the preferences!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="356"/>
+        <location filename="../pageitem_latexframe.cpp" line="329"/>
         <source>An editor for this frame is already running!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="364"/>
+        <location filename="../pageitem_latexframe.cpp" line="337"/>
         <source>Please specify an editor in the preferences!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="451"/>
+        <location filename="../pageitem_latexframe.cpp" line="429"/>
         <source>Could not create a temporary file to run the external editor!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="515"/>
+        <location filename="../pageitem_latexframe.cpp" line="492"/>
         <source>Running the editor failed with exitcode %d!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="531"/>
+        <location filename="../pageitem_latexframe.cpp" line="508"/>
         <source>Running the editor &quot;%1&quot; failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="547"/>
+        <location filename="../pageitem_latexframe.cpp" line="536"/>
         <source>Running the application &quot;%1&quot; failed!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pageitem_latexframe.cpp" line="631"/>
-        <source>Latex-Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pageitem_latexframe.cpp" line="634"/>
-        <source>Command: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pageitem_latexframe.cpp" line="639"/>
-        <source>DPI: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pageitem_latexframe.cpp" line="644"/>
-        <source>Status: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="647"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="649"/>
+        <location filename="../pageitem_latexframe.cpp" line="681"/>
         <source>Running</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="651"/>
-        <source>Errorcode </source>
+        <location filename="../pageitem_latexframe.cpp" line="526"/>
+        <source>The application &quot;%1&quot; failed to start!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="530"/>
+        <source>The application &quot;%1&quot; crashed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="670"/>
+        <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="671"/>
+        <source>DPI</source>
+        <translation type="unfinished">DPI</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="673"/>
+        <source>State</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="678"/>
+        <source>Finished</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16676,32 +16025,32 @@ becomes
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3313"/>
+        <location filename="../pageitem_textframe.cpp" line="3321"/>
         <source>Linked Text</source>
         <translation type="unfinished">Lingitud tekst</translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3315"/>
+        <location filename="../pageitem_textframe.cpp" line="3323"/>
         <source>Text Frame</source>
         <translation type="unfinished">Tekstikast</translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3319"/>
+        <location filename="../pageitem_textframe.cpp" line="3327"/>
         <source>Paragraphs: </source>
         <translation type="unfinished">Lõike: </translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3327"/>
+        <location filename="../pageitem_textframe.cpp" line="3335"/>
         <source>Lines: </source>
         <translation type="unfinished">Read: </translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3333"/>
+        <location filename="../pageitem_textframe.cpp" line="3341"/>
         <source>Words: </source>
         <translation type="unfinished">Sõnu: </translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3341"/>
+        <location filename="../pageitem_textframe.cpp" line="3349"/>
         <source>Chars: </source>
         <translation type="unfinished">Märke: </translation>
     </message>
@@ -16737,12 +16086,12 @@ becomes
         <translation type="obsolete">Parem keskmine</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="557"/>
+        <location filename="../pagepalette.cpp" line="573"/>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
         <translation>Lohista leheküljed või leheküljetoorikud kustutamiseks prügikasti</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="558"/>
+        <location filename="../pagepalette.cpp" line="574"/>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
         <translation>Siin on näha kõik leheküljetoorikud. Uue lehekülje loomiseks lohista toorik allolevasse leheküljekasti.</translation>
     </message>
@@ -16752,17 +16101,17 @@ becomes
         <translation type="obsolete">Normaalne</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="853"/>
+        <location filename="../pagepalette.cpp" line="881"/>
         <source>Arrange Pages</source>
         <translation>Lehekülgede korraldamine</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="854"/>
+        <location filename="../pagepalette.cpp" line="882"/>
         <source>Available Master Pages:</source>
         <translation>Saadaolevad leheküljetoorikud:</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="855"/>
+        <location filename="../pagepalette.cpp" line="883"/>
         <source>Document Pages:</source>
         <translation>Dokumendi leheküljed:</translation>
     </message>
@@ -16775,7 +16124,7 @@ becomes
         <translation type="obsolete">%1 (kokku %1)</translation>
     </message>
     <message>
-        <location filename="../pageselector.cpp" line="247"/>
+        <location filename="../pageselector.cpp" line="258"/>
         <source>%1 of %2</source>
         <translation>%1 (kokku %2)</translation>
     </message>
@@ -16902,24 +16251,190 @@ becomes
     </message>
 </context>
 <context>
+    <name>PathCutPlugin</name>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="70"/>
+        <source>Cut Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="76"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="100"/>
+        <source>Cuts a Polygon by a Polyline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="119"/>
+        <source>Qt Version too old</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="119"/>
+        <source>This plugin requires at least version 4.3.3 of the Qt library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="150"/>
+        <source>Error</source>
+        <translation type="unfinished">Viga</translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="150"/>
+        <source>The cutting line must cross the polygon and
+both end points must lie outside of the polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathFinderBase</name>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="13"/>
+        <source>Boolean Path Operations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="149"/>
+        <source>Keep a copy of the original Item after applying the operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="152"/>
+        <source>keep</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="94"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="186"/>
+        <source>=</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="265"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="341"/>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="362"/>
+        <source>Swap Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="386"/>
+        <source>Options</source>
+        <translation type="unfinished">Valikud</translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="407"/>
+        <source>Result gets Color of:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="417"/>
+        <source>first Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="427"/>
+        <source>second Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathFinderDialog</name>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderdialog.cpp" line="91"/>
+        <source>Result gets Color of:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderdialog.cpp" line="115"/>
+        <source>Intersection gets Color of:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathFinderPlugin</name>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="71"/>
+        <source>Path Operations...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="75"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="100"/>
+        <source>Path Operations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="101"/>
+        <source>Apply fancy boolean operations to paths.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="120"/>
+        <source>Qt Version too old</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="120"/>
+        <source>This plugin requires at least version 4.3.3 of the Qt library</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathStrokerPlugin</name>
+    <message>
+        <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="93"/>
+        <source>Create Path from Stroke</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="72"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="94"/>
+        <source>Converts the stroke of a Path to a filled Path.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PatternDialog</name>
     <message>
-        <location filename="../patterndialog.cpp" line="96"/>
+        <location filename="../patterndialog.cpp" line="99"/>
         <source>Choose a Directory</source>
         <translation>Kataloogi valik</translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="124"/>
+        <location filename="../patterndialog.cpp" line="127"/>
         <source>Loading Patterns</source>
         <translation>Mustrite laadimine</translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="199"/>
+        <location filename="../patterndialog.cpp" line="224"/>
         <source>All Files (*)</source>
         <translation>Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="202"/>
+        <location filename="../patterndialog.cpp" line="235"/>
         <source>Open</source>
         <translation>Ava</translation>
     </message>
@@ -17088,12 +16603,12 @@ becomes
 <context>
     <name>PicSearchOptions</name>
     <message>
-        <location filename="../picsearchoptions.cpp" line="49"/>
+        <location filename="../picsearchoptions.cpp" line="47"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
         <translation type="unfinished">Märkimisel otsitakse failisüsteemist failinimesid suur- ja väiketähtede erinevust arvestamata. Arvesta, et see on vaikevalik ainult vähestes operatsioonisüsteemides, nt. MS Windowsis</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="56"/>
+        <location filename="../picsearchoptions.cpp" line="54"/>
         <source>Cancel Search</source>
         <translation type="unfinished">Katkesta otsing</translation>
     </message>
@@ -17103,17 +16618,17 @@ becomes
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="83"/>
+        <location filename="../picsearchoptions.cpp" line="79"/>
         <source>Select a base directory for search</source>
         <translation type="unfinished">Otsingu baaskataloogi valik</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="138"/>
+        <location filename="../picsearchoptions.cpp" line="126"/>
         <source>Scribus - Image Search</source>
         <translation type="unfinished">Scribus - pildiotsing</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="138"/>
+        <location filename="../picsearchoptions.cpp" line="126"/>
         <source>The search failed: %1</source>
         <translation type="unfinished">Otsing ebaõnnestus: %1</translation>
     </message>
@@ -17152,13 +16667,19 @@ becomes
         <source>Search recursively</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../picsearchoptions.cpp" line="90"/>
+        <source>Base directory for search does not exist.
+Please choose another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PicStatus</name>
     <message>
         <location filename="../picstatus.ui" line="16"/>
         <source>Manage Pictures</source>
-        <translation>Piltide haldamine</translation>
+        <translation type="obsolete">Piltide haldamine</translation>
     </message>
     <message>
         <location filename="" line="136966688"/>
@@ -17221,7 +16742,7 @@ becomes
         <translation type="obsolete">Otsingu baaskataloogi valik</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="291"/>
+        <location filename="../picstatus.cpp" line="399"/>
         <source>Scribus - Image Search</source>
         <translation>Scribus - pildiotsing</translation>
     </message>
@@ -17231,7 +16752,7 @@ becomes
         <translation type="obsolete">Otsing ebaõnnestus: %1</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="291"/>
+        <location filename="../picstatus.cpp" line="399"/>
         <source>No images named &quot;%1&quot; were found.</source>
         <translation>Pilti nimega &quot;%1&quot; ei leitud.</translation>
     </message>
@@ -17266,47 +16787,47 @@ becomes
         <translation type="obsolete">Märkimisel otsitakse failisüsteemist failinimesid suur- ja väiketähtede erinevust arvestamata. Arvesta, et see on vaikevalik ainult vähestes operatsioonisüsteemides, nt. MS Windowsis</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="142"/>
+        <location filename="../picstatus.cpp" line="243"/>
         <source>Not on a Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="157"/>
+        <location filename="../picstatus.cpp" line="258"/>
         <source>JPG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="160"/>
+        <location filename="../picstatus.cpp" line="261"/>
         <source>TIFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="163"/>
+        <location filename="../picstatus.cpp" line="264"/>
         <source>PSD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="166"/>
+        <location filename="../picstatus.cpp" line="267"/>
         <source>EPS/PS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="169"/>
+        <location filename="../picstatus.cpp" line="270"/>
         <source>PDF</source>
         <translation type="unfinished">PDF</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="172"/>
+        <location filename="../picstatus.cpp" line="273"/>
         <source>JPG2000</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="178"/>
+        <location filename="../picstatus.cpp" line="279"/>
         <source>emb. PSD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="184"/>
+        <location filename="../picstatus.cpp" line="285"/>
         <source>Unknown</source>
         <translation type="unfinished">Teadmata</translation>
     </message>
@@ -17331,7 +16852,7 @@ becomes
         <translation type="obsolete">Duotone</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="201"/>
+        <location filename="../picstatus.cpp" line="303"/>
         <source>n/a</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17450,6 +16971,21 @@ becomes
         <source>Extended Image Properties...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../picstatus.cpp" line="218"/>
+        <source>Sort by Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../picstatus.cpp" line="220"/>
+        <source>Sort by Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../picstatus.ui" line="16"/>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PixmapExportPlugin</name>
@@ -17459,27 +16995,27 @@ becomes
         <translation>Salvesta p&amp;ildina...</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="78"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="79"/>
         <source>Export As Image</source>
         <translation>Eksport pildina</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="79"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="80"/>
         <source>Exports selected pages as bitmap images.</source>
         <translation>Ekspordib valitud leheküljed bittrasterpiltidena.</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="129"/>
         <source>Save as Image</source>
-        <translation>Salvestamine pildina</translation>
+        <translation type="obsolete">Salvestamine pildina</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="130"/>
         <source>Error writing the output file(s).</source>
-        <translation>Viga väljundfaili kirjutamisel.</translation>
+        <translation type="obsolete">Viga väljundfaili kirjutamisel.</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="133"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="130"/>
         <source>Export successful</source>
         <translation>Eksport õnnestus</translation>
     </message>
@@ -17487,67 +17023,67 @@ becomes
 <context>
     <name>PluginManager</name>
     <message>
-        <location filename="../pluginmanager.cpp" line="69"/>
+        <location filename="../pluginmanager.cpp" line="71"/>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
         <translation>Pluginat ei leitud</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="58"/>
+        <location filename="../pluginmanager.cpp" line="60"/>
         <source>unknown error</source>
         <comment>plugin manager</comment>
         <translation>tundmatu viga</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="94"/>
+        <location filename="../pluginmanager.cpp" line="96"/>
         <source>Cannot find symbol (%1)</source>
         <comment>plugin manager</comment>
         <translation>Sümbolit ei leitud (%1)</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="154"/>
+        <location filename="../pluginmanager.cpp" line="156"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
         <translation>Plugin: %1 laadimine</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="258"/>
+        <location filename="../pluginmanager.cpp" line="260"/>
         <source>init failed</source>
         <comment>plugin load error</comment>
         <translation>init ebaõnnestus</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="264"/>
+        <location filename="../pluginmanager.cpp" line="266"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
         <translation>tundmatu plugina tüüp</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="268"/>
+        <location filename="../pluginmanager.cpp" line="270"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
         <translation>Plugin; %1 laaditud</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="272"/>
+        <location filename="../pluginmanager.cpp" line="274"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation>Plugin: %1 laadimine ebaõnnestus: %2</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="312"/>
+        <location filename="../pluginmanager.cpp" line="340"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
         <translation>Plugin: %1 initsialiseerimine korras </translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="315"/>
+        <location filename="../pluginmanager.cpp" line="342"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
         <translation>Plugin: %1 ebaõnnestus initsialiseerimise järel</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="225"/>
+        <location filename="../pluginmanager.cpp" line="227"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation>Tekkis probleem %1 plugina laadimisel (%2 pluginast). Arvatavasti põhjustas seda mingi sõltuvusprobleem või vanade pluginate olemasolu paigaldamiskataloogis. Kui puhastad paigaldamiskataloogi ja taaspaigaldamisel tekib endiselt probleem, anna sellest palun teada veebisaidil bugs.scribus.net.</translation>
     </message>
@@ -17679,7 +17215,7 @@ becomes
         <translation type="obsolete">Kohandatud</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="71"/>
+        <location filename="../prefs.cpp" line="72"/>
         <source>Preferences</source>
         <translation>Seadistused</translation>
     </message>
@@ -17774,7 +17310,7 @@ becomes
         <translation type="obsolete">Muud&amp;a...</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="74"/>
+        <location filename="../prefs.cpp" line="75"/>
         <source>General</source>
         <translation>Üldine</translation>
     </message>
@@ -17849,62 +17385,62 @@ becomes
         <translation type="obsolete">Toimingute ajaloo pikkus</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="77"/>
+        <location filename="../prefs.cpp" line="78"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="80"/>
+        <location filename="../prefs.cpp" line="81"/>
         <source>Guides</source>
         <translation>Juhtjooned</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="83"/>
+        <location filename="../prefs.cpp" line="84"/>
         <source>Typography</source>
         <translation>Tüpograafia</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="86"/>
+        <location filename="../prefs.cpp" line="87"/>
         <source>Tools</source>
         <translation>Tööriistad</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="89"/>
+        <location filename="../prefs.cpp" line="90"/>
         <source>Hyphenator</source>
         <translation>Poolitaja</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="92"/>
+        <location filename="../prefs.cpp" line="93"/>
         <source>Fonts</source>
         <translation>Fondid</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="98"/>
+        <location filename="../prefs.cpp" line="99"/>
         <source>Preflight Verifier</source>
         <translation>Trükieelne kontroll</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="103"/>
+        <location filename="../prefs.cpp" line="104"/>
         <source>Color Management</source>
         <translation>Värvihaldus</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="118"/>
+        <location filename="../prefs.cpp" line="119"/>
         <source>PDF Export</source>
         <translation>PDF-i eksport</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="123"/>
+        <location filename="../prefs.cpp" line="124"/>
         <source>Document Item Attributes</source>
         <translation>Dokumendi elemendi atribuudid</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="128"/>
+        <location filename="../prefs.cpp" line="129"/>
         <source>Table of Contents and Indexes</source>
         <translation>Sisukord ja registrid</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="131"/>
+        <location filename="../prefs.cpp" line="132"/>
         <source>Keyboard Shortcuts</source>
         <translation>Kiirklahvid</translation>
     </message>
@@ -18004,12 +17540,12 @@ becomes
         <translation type="obsolete">Vaate kohandamiseks lohista allpool joonlaual liugurit.</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="137"/>
+        <location filename="../prefs.cpp" line="138"/>
         <source>Display</source>
         <translation>Vaade</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="140"/>
+        <location filename="../prefs.cpp" line="141"/>
         <source>External Tools</source>
         <translation>Välised tööriistad</translation>
     </message>
@@ -18044,12 +17580,12 @@ becomes
         <translation type="obsolete">Lõikude arv:</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="143"/>
+        <location filename="../prefs.cpp" line="144"/>
         <source>Miscellaneous</source>
         <translation>Muud</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="147"/>
+        <location filename="../prefs.cpp" line="148"/>
         <source>Plugins</source>
         <translation>Pluginad</translation>
     </message>
@@ -18209,12 +17745,12 @@ becomes
         <translation type="obsolete">Kataloogi valik</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="134"/>
+        <location filename="../prefs.cpp" line="135"/>
         <source>Scrapbook</source>
         <translation>Visandimapp</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="95"/>
+        <location filename="../prefs.cpp" line="96"/>
         <source>Printer</source>
         <translation type="unfinished">Printer</translation>
     </message>
@@ -18227,37 +17763,37 @@ becomes
         <translation type="obsolete">Salvesta...</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="184"/>
+        <location filename="../prefsdialogbase.cpp" line="192"/>
         <source>&amp;Defaults</source>
         <translation>&amp;Vaikeväärtused</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="193"/>
+        <location filename="../prefsdialogbase.cpp" line="201"/>
         <source>Save Preferences</source>
         <translation>Seadistuste salvestamine</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="183"/>
+        <location filename="../prefsdialogbase.cpp" line="191"/>
         <source>Export...</source>
         <translation>Ekspordi...</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="185"/>
+        <location filename="../prefsdialogbase.cpp" line="193"/>
         <source>&amp;Apply</source>
         <translation>&amp;Rakenda</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="186"/>
+        <location filename="../prefsdialogbase.cpp" line="194"/>
         <source>All preferences can be reset here</source>
         <translation>Siin saab lähtestada kõik seadistused</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="187"/>
+        <location filename="../prefsdialogbase.cpp" line="195"/>
         <source>Apply all changes without closing the dialog</source>
         <translation>Kõigi muudatuste rakendamine ilma dialoogi sulgemata</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="188"/>
+        <location filename="../prefsdialogbase.cpp" line="196"/>
         <source>Export current preferences into file</source>
         <translation>Kehtivate seadistuste eksportimine faili</translation>
     </message>
@@ -18265,44 +17801,44 @@ becomes
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../prefsmanager.cpp" line="1899"/>
+        <location filename="../prefsmanager.cpp" line="2014"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="676"/>
+        <location filename="../prefsmanager.cpp" line="787"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Kas migreerida Scribuse vanad seadistused?</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="678"/>
+        <location filename="../prefsmanager.cpp" line="789"/>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation>Scribus tuvastas Scribus 1.2 seadistustefailide olemasolu.
 Kas soovid need migreerida Scribuse uude versiooni?</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1540"/>
+        <location filename="../prefsmanager.cpp" line="1648"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>Seadistustefaili &quot;%1&quot; avamine kirjutamiseks ebaõnnestus: %2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1552"/>
+        <location filename="../prefsmanager.cpp" line="1660"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Seadistustefaili &quot;%1&quot; kirjutamine ebaõnnestus: QIODevice olekukood %2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1566"/>
+        <location filename="../prefsmanager.cpp" line="1674"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Seadistustefaili &quot;%1&quot; avamine ebaõnnestus: %2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1576"/>
+        <location filename="../prefsmanager.cpp" line="1684"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>Seadistuste XML-i lugemine failist &quot;%1&quot; ebaõnnestus: %2 real %3, veerus %4</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1899"/>
+        <location filename="../prefsmanager.cpp" line="2014"/>
         <source>Postscript</source>
         <translation>PostScript</translation>
     </message>
@@ -18322,23 +17858,23 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
         <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2221"/>
+        <location filename="../prefsmanager.cpp" line="2346"/>
         <source>Error Writing Preferences</source>
         <translation>Viga seadistuste salvestamisel</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2227"/>
+        <location filename="../prefsmanager.cpp" line="2352"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus ei suutnud seadistusi salvestada:&lt;br&gt;%1&lt;br&gt;Palun kontrolli faili ja kataloogi õigusi ning kettaruumi.</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2240"/>
+        <location filename="../prefsmanager.cpp" line="2365"/>
         <source>Error Loading Preferences</source>
         <translation>Viga seadistuste laadimisel</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2245"/>
+        <location filename="../prefsmanager.cpp" line="2370"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus ei suutnud seadistusi laadida:&lt;br&gt;%1&lt;br&gt;Laaditakse vaikeseadistused.</translation>
     </message>
@@ -18351,33 +17887,33 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
 <context>
     <name>PresetLayout</name>
     <message>
-        <location filename="../marginWidget.cpp" line="482"/>
+        <location filename="../marginwidget.cpp" line="482"/>
         <source>None</source>
         <comment>layout type</comment>
         <translation>Puudub</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="483"/>
+        <location filename="../marginwidget.cpp" line="483"/>
         <source>Gutenberg</source>
         <translation>Gutenberg</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="484"/>
+        <location filename="../marginwidget.cpp" line="484"/>
         <source>Magazine</source>
         <translation>Ajakiri</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="485"/>
+        <location filename="../marginwidget.cpp" line="485"/>
         <source>Fibonacci</source>
         <translation>Fibonacci</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="486"/>
+        <location filename="../marginwidget.cpp" line="486"/>
         <source>Golden Mean</source>
         <translation>Kuldne keskmine</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="487"/>
+        <location filename="../marginwidget.cpp" line="487"/>
         <source>Nine Parts</source>
         <translation>Üheksa osa</translation>
     </message>
@@ -18387,9 +17923,1498 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
         <translation type="obsolete">Siin saab valida lehekülje valmispaigutuse. &apos;Puudub&apos; jätab veerised endiseks, Gutenberg määratleb need klassikaliselt, &apos;Magazine&apos; aga kõik veerised võrdseks. Aluseks võetakse vasak/sisemise veerise väärtus.</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="490"/>
+        <location filename="../marginwidget.cpp" line="490"/>
         <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation>Siin saab valida eelmääratud kujunduse. &apos;Puudub&apos; jätab veerised puutumata, Gutenberg kehtestab klassikalised veerised, &apos;Ajakiri&apos; määrab kõigile veeristele sama väärtuse. Aluseks võetakse vasaku/sisemise veerise väärtus.</translation>
+    </message>
+</context>
+<context>
+    <name>PrintDialog</name>
+    <message>
+        <location filename="../printdialog.cpp" line="67"/>
+        <source>Setup Printer</source>
+        <translation>Printeri seadistused</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="74"/>
+        <source>Print Destination</source>
+        <translation>Trükkimise sihtkoht</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="560"/>
+        <source>File</source>
+        <translation>Fail</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="89"/>
+        <source>&amp;Options...</source>
+        <translation>&amp;Valikud...</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="100"/>
+        <source>&amp;File:</source>
+        <translation>&amp;Fail:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="106"/>
+        <source>C&amp;hange...</source>
+        <translation>&amp;Muuda...</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="113"/>
+        <source>A&amp;lternative Printer Command</source>
+        <translation>Al&amp;ternatiivne trükkimiskäsk</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="122"/>
+        <source>Co&amp;mmand:</source>
+        <translation>Kä&amp;sk:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="130"/>
+        <source>Range</source>
+        <translation>Vahemik</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="135"/>
+        <source>Print &amp;All</source>
+        <translation>&amp;Kõik</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="643"/>
+        <source>Print Current Pa&amp;ge</source>
+        <translation>&amp;Aktiivne lehekülg</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="139"/>
+        <source>Print &amp;Range</source>
+        <translation>T&amp;rükkimisvahemik</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="159"/>
+        <source>N&amp;umber of Copies:</source>
+        <translation>Koo&amp;piate arv:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="594"/>
+        <source>Print Normal</source>
+        <translation>Normaalne trükk</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="172"/>
+        <source>Print Separations</source>
+        <translation>Trükkimine separeeritult</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="176"/>
+        <source>Print in Color if Available</source>
+        <translation>Värvitrükk (kui võimalik)</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="177"/>
+        <source>Print in Grayscale</source>
+        <translation>Halltoonis trükk</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="796"/>
+        <source>All</source>
+        <translation>Kõik</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="795"/>
+        <source>Cyan</source>
+        <translation>Tsüaan</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="794"/>
+        <source>Magenta</source>
+        <translation>Magenta</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="793"/>
+        <source>Yellow</source>
+        <translation>Kollane</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="792"/>
+        <source>Black</source>
+        <translation>Must</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="221"/>
+        <source>PostScript Level 1</source>
+        <translation type="obsolete">PostScript tase 1</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="222"/>
+        <source>PostScript Level 2</source>
+        <translation type="obsolete">PostScript tase 2</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="223"/>
+        <source>PostScript Level 3</source>
+        <translation type="obsolete">PostScript tase 3</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="190"/>
+        <source>Options</source>
+        <translation>Valikud</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="196"/>
+        <source>Page</source>
+        <translation>Lehekülg</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="202"/>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation>Lehekülgede peegeldamine rõhtsalt</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="205"/>
+        <source>Mirror Page(s) Vertical</source>
+        <translation>Lehekülgede peegeldamine püstiselt</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="208"/>
+        <source>Set Media Size</source>
+        <translation>Andmekandja suuruse määramine</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="210"/>
+        <source>Clip to Page Margins</source>
+        <translation>Kärpimine lehekülje veeriste juures</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="214"/>
+        <source>Color</source>
+        <translation>Värv</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="220"/>
+        <source>Apply Under Color Removal</source>
+        <translation>UCR-i (Under Color Removal) rakendamine</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="223"/>
+        <source>Convert Spot Colors to Process Colors</source>
+        <translation>Spot-värvide teisendamine protsessivärvideks</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="226"/>
+        <source>Force Overprint Mode</source>
+        <translation>Ületrükirežiim</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="263"/>
+        <source>Apply ICC Profiles</source>
+        <translation type="obsolete">ICC profiilide rakendamine</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="232"/>
+        <source>Advanced Options</source>
+        <translation>Muud valikud</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="303"/>
+        <source>Preview...</source>
+        <translation>Eelvaatlus...</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="308"/>
+        <source>&amp;Print</source>
+        <translation>&amp;Trüki</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="375"/>
+        <source>Do not show objects outside the margins on the printed page</source>
+        <translation>Trükitava lehekülje veeristest väljapoole jäävaid objekte ei näidata</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="378"/>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Sisesta komadega eradatud arvud või märgid:
+* tähistab kõiki lehekülgi, 1-5 lehekülgede vahemikku,
+konkreetsed leheküljenumbrid vastavaid lehekülgi.</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="379"/>
+        <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
+        <translation>Alternatiivse trükkimishalduri (nt. kprinter või gtklp) kasutamine täiendavate trükkimisvalikute huvides</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="380"/>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files</source>
+        <translation>PostScripti taseme määramine.
+Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="381"/>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation>Võimalus lülitada välja mõningad tsüaanist, kollasest ja magentast koosnevad halli toonid ning kasutada selle asemel musta. UCR mõjutab kõige rohkem piltide neid osi, kus valitsevad neutraalsed ja/või tumedad toonid, mis on suhteliselt lähedal hallile. Selle valiku kasutamisel võib paraneda mõningate piltide trükikvaliteet, kuid alati tuleb seda katse-eksituse meetodil ise järele proovida. UCR vähendab üleküllastuse võimalust CMY värvides.</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="382"/>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation>Sisselülitamisel teisendatakse spot-värvid komposiitvärvideks. Kui sa ei kavatse just saata trükikotta spot-värve, on mõttekas see sisse lülitada.</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="383"/>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation>Sisselülitamisel kehtestatakse dokumendile üldine ületrükirežiim, mis tühistab objektide määratlused</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="383"/>
+        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
+        <translation type="obsolete">Võimaldab värvihalduse korral põimida trükkimisandmetesse ICC profiilid</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="385"/>
+        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
+        <translation>Võimaldab konkreetselt määrata kindlaks PostScript-faili andmekandja (paberi, kile vms.) suuruse. Kui printer seda otseselt ei nõua, ei ole seda mõtet sisse lülitada.</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="570"/>
+        <source>Failed to retrieve printer settings</source>
+        <translation>Printeri seadistuste hankimine ebaõnnestus</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="629"/>
+        <source>Save as</source>
+        <translation>Salvestamine</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="629"/>
+        <source>PostScript Files (*.ps);;All Files (*)</source>
+        <translation>PostScript-failid (*.ps);;Kõik failid (*)</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="239"/>
+        <source>Printer Marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="244"/>
+        <source>Crop Marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="246"/>
+        <source>Bleed Marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="248"/>
+        <source>Registration Marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="250"/>
+        <source>Color Bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="253"/>
+        <source>Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="258"/>
+        <source>Marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="265"/>
+        <source>Bleed Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="271"/>
+        <source>Top:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="276"/>
+        <source>Bottom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="281"/>
+        <source>Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="286"/>
+        <source>Right:</source>
+        <translation type="unfinished">Paremal:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="290"/>
+        <source>Use Document Bleeds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="294"/>
+        <source>Bleeds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="355"/>
+        <source>Inside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="356"/>
+        <source>Outside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="391"/>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation type="unfinished">Lõikevaru füüsilise lehekülje ülaservas</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="392"/>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation type="unfinished">Lõikevaru füüsilise lehekülje allservas</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="393"/>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation type="unfinished">Lõikevaru füüsilise lehekülje vasakus servas</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="394"/>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation type="unfinished">Lõikevaru füüsilise lehekülje paremas servas</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="386"/>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="387"/>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="388"/>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="389"/>
+        <source>Add color calibration bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="390"/>
+        <source>Indicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="395"/>
+        <source>Use the existing bleed settings from the document preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="229"/>
+        <source>Apply Color Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="384"/>
+        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette</name>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4581"/>
+        <source>Fixed Linespacing</source>
+        <translation>Fikseeritud reavahe</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4582"/>
+        <source>Automatic Linespacing</source>
+        <translation>Automaatne reavahe</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4583"/>
+        <source>Align to Baseline Grid</source>
+        <translation>Joondamine alusjoontele</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3350"/>
+        <source>&amp;X1:</source>
+        <translation>&amp;X1:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3351"/>
+        <source>X&amp;2:</source>
+        <translation>X&amp;2:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3352"/>
+        <source>Y&amp;1:</source>
+        <translation>Y&amp;1:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3353"/>
+        <source>&amp;Y2:</source>
+        <translation>&amp;Y2:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4570"/>
+        <source>&amp;X-Pos:</source>
+        <translation>&amp;X-asukoht:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4479"/>
+        <source>&amp;Width:</source>
+        <translation>&amp;Laius:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4571"/>
+        <source>&amp;Y-Pos:</source>
+        <translation>&amp;Y-asukoht:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4480"/>
+        <source>&amp;Height:</source>
+        <translation>&amp;Kõrgus:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4849"/>
+        <source>Distance between columns</source>
+        <translation>Veergude vahe</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3101"/>
+        <source>Column width</source>
+        <translation>Veeru laius</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4681"/>
+        <source>No Style</source>
+        <translation>Stiil puudub</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4341"/>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation>Nimi &quot;%1&quot; ei ole unikaalne.&lt;br/&gt;Palun vali mõni muu nimi.</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4465"/>
+        <source>Properties</source>
+        <translation>Omadused</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4467"/>
+        <source>X, Y, &amp;Z</source>
+        <translation>X, Y, &amp;Z</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4468"/>
+        <source>&amp;Text</source>
+        <translation>&amp;Tekst</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4469"/>
+        <source>&amp;Image</source>
+        <translation>P&amp;ilt</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4470"/>
+        <source>&amp;Shape</source>
+        <translation>&amp;Kujund</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4471"/>
+        <source>&amp;Line</source>
+        <translation>&amp;Joon</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4472"/>
+        <source>&amp;Colors</source>
+        <translation>&amp;Värvid</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4475"/>
+        <source>Name</source>
+        <translation>Nimi</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4476"/>
+        <source>Geometry</source>
+        <translation>Geomeetria</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4481"/>
+        <source>&amp;Rotation:</source>
+        <translation>Pöö&amp;ramine:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4482"/>
+        <source>Basepoint:</source>
+        <translation>Baaspunkt:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4483"/>
+        <source>Level</source>
+        <translation>Tase</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4489"/>
+        <source>Shape:</source>
+        <translation>Kujund:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4341"/>
+        <source>&amp;Edit Shape...</source>
+        <translation type="obsolete">&amp;Muuda kuju...</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4509"/>
+        <source>R&amp;ound
+Corners:</source>
+        <translation>Ümarad
+n&amp;urgad:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4510"/>
+        <source>Distance of Text</source>
+        <translation>Teksti kaugus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4511"/>
+        <source>Colu&amp;mns:</source>
+        <translation>V&amp;eergude arv:</translation>
+    </message>
+    <message>
+        <location filename="" line="136966688"/>
+        <source>&amp;Gap:</source>
+        <translation type="obsolete">Va&amp;he:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4518"/>
+        <source>To&amp;p:</source>
+        <translation>Ü&amp;lal:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4519"/>
+        <source>&amp;Bottom:</source>
+        <translation>&amp;All:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4520"/>
+        <source>&amp;Left:</source>
+        <translation>&amp;Vasakul:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4521"/>
+        <source>&amp;Right:</source>
+        <translation>&amp;Paremal:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4522"/>
+        <source>T&amp;abulators...</source>
+        <translation>&amp;Tabeldusmärgid...</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4523"/>
+        <source>Path Text Properties</source>
+        <translation>Trajektoori teksti omadused</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4529"/>
+        <source>Show Curve</source>
+        <translation>Trajektoori näitamine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4531"/>
+        <source>Start Offset:</source>
+        <translation>Alguse nihe:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4532"/>
+        <source>Distance from Curve:</source>
+        <translation>Kaugus trajektoorist:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4533"/>
+        <source>Fill Rule</source>
+        <translation>Täitmise reegel</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4534"/>
+        <source>Even-Odd</source>
+        <translation>Paaris-paaritu</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4535"/>
+        <source>Non Zero</source>
+        <translation>Mittenull</translation>
+    </message>
+    <message>
+        <location filename="" line="136966688"/>
+        <source>Text &amp;Flows Around Frame</source>
+        <translation type="obsolete">Teksti&amp;voog ümber kasti</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4545"/>
+        <source>Use &amp;Bounding Box</source>
+        <translation>Üm&amp;britsev kast</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4546"/>
+        <source>&amp;Use Contour Line</source>
+        <translation>Kont&amp;uurjoon</translation>
+    </message>
+    <message>
+        <location filename="" line="136966688"/>
+        <source>St&amp;yle:</source>
+        <translation type="obsolete">St&amp;iil:</translation>
+    </message>
+    <message>
+        <location filename="" line="136966688"/>
+        <source>Lan&amp;guage:</source>
+        <translation type="obsolete">&amp;Keel:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4567"/>
+        <source>&amp;Free Scaling</source>
+        <translation>&amp;Vaba skaleerimine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4568"/>
+        <source>Actual X-DPI:</source>
+        <translation>Tegelik X-DPI:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4569"/>
+        <source>Actual Y-DPI:</source>
+        <translation>Tegelik Y-DPI:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4572"/>
+        <source>X-Sc&amp;ale:</source>
+        <translation>X-sk&amp;aala:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4573"/>
+        <source>Y-Scal&amp;e:</source>
+        <translation>Y-s&amp;kaala:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4574"/>
+        <source>Scale &amp;To Frame Size</source>
+        <translation>Skaleerimine kas&amp;ti suuruse järgi</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4575"/>
+        <source>P&amp;roportional</source>
+        <translation>P&amp;roportsionaalne</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4578"/>
+        <source>Input Profile:</source>
+        <translation>Sisendprofiil:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4579"/>
+        <source>Rendering Intent:</source>
+        <translation>Renderdamisviis:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4586"/>
+        <source>Perceptual</source>
+        <translation>Pertseptuaalne</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4587"/>
+        <source>Relative Colorimetric</source>
+        <translation>Suhteline kolorimeetriline</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4588"/>
+        <source>Saturation</source>
+        <translation>Küllastus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4589"/>
+        <source>Absolute Colorimetric</source>
+        <translation>Absoluutne kolorimeetriline</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4598"/>
+        <source>Left Point</source>
+        <translation>Vasak ots</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4599"/>
+        <source>End Points</source>
+        <translation>Otspunktid</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4601"/>
+        <source>&amp;Basepoint:</source>
+        <translation>&amp;Baaspunkt:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4602"/>
+        <source>T&amp;ype of Line:</source>
+        <translation>&amp;Joone tüüp:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4603"/>
+        <source>Start Arrow:</source>
+        <translation>Algusnool:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4604"/>
+        <source>End Arrow:</source>
+        <translation>Lõppnool:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4614"/>
+        <source>Line &amp;Width:</source>
+        <translation>J&amp;oone jämedus:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4615"/>
+        <source>Ed&amp;ges:</source>
+        <translation>Se&amp;rvad:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4618"/>
+        <source>Miter Join</source>
+        <translation>Nurkühendus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4619"/>
+        <source>Bevel Join</source>
+        <translation>Längühendus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4620"/>
+        <source>Round Join</source>
+        <translation>Ümarühendus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4625"/>
+        <source>Flat Cap</source>
+        <translation>Lameots</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4626"/>
+        <source>Square Cap</source>
+        <translation>Ruutots</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4627"/>
+        <source>Round Cap</source>
+        <translation>Ümarots</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4629"/>
+        <source>&amp;Endings:</source>
+        <translation>&amp;Otsad:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4631"/>
+        <source>Cell Lines</source>
+        <translation>Lahtri jooned</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4632"/>
+        <source>Line at Top</source>
+        <translation>Joon üleval</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4633"/>
+        <source>Line at the Left</source>
+        <translation>Joon vasakul</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4634"/>
+        <source>Line at the Right </source>
+        <translation>Joon paremal </translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4635"/>
+        <source>Line at Bottom</source>
+        <translation>Joon all</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4637"/>
+        <source>Overprinting</source>
+        <translation>Ületrükk</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4638"/>
+        <source>Knockout</source>
+        <translation>Väljajätmine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4639"/>
+        <source>Overprint</source>
+        <translation>Ületrükk</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4641"/>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4655"/>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4776"/>
+        <source>Name of selected object</source>
+        <translation>Valitud objekti nimi</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4777"/>
+        <source>Horizontal position of current basepoint</source>
+        <translation>Aktiivse baaspunkti asukoht rõhtteljel</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4778"/>
+        <source>Vertical position of current basepoint</source>
+        <translation>Aktiivse baaspunkti asukoht püstteljel</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4779"/>
+        <source>Width</source>
+        <translation>Laius</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4780"/>
+        <source>Height</source>
+        <translation>Kõrgus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4781"/>
+        <source>Rotation of object at current basepoint</source>
+        <translation>Objekti pööramine aktiivse baaspunkti suhtes</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4782"/>
+        <source>Point from which measurements or rotation angles are referenced</source>
+        <translation>Punkt, millest arvestatakse mõõte või pööramisnurka</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4783"/>
+        <source>Select top left for basepoint</source>
+        <translation>Vali baaspunktiks ülemine vasak punkt</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4784"/>
+        <source>Select top right for basepoint</source>
+        <translation>Vali baaspunktiks ülemine parem punkt</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4785"/>
+        <source>Select bottom left for basepoint</source>
+        <translation>Vali baaspunktiks alumine vasak punkt</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4786"/>
+        <source>Select bottom right for basepoint</source>
+        <translation>Vali baaspunktiks alumine parem punkt</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4787"/>
+        <source>Select center for basepoint</source>
+        <translation>Vali baaspunktiks keskpunkt</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4790"/>
+        <source>Flip Horizontal</source>
+        <translation>Peegelda rõhtsalt</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4791"/>
+        <source>Flip Vertical</source>
+        <translation>Peegelda püstiselt</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4792"/>
+        <source>Move one level up</source>
+        <translation>Liiguta üks tase ettepoole</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4793"/>
+        <source>Move one level down</source>
+        <translation>Liiguta üks tase tahapoole</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4794"/>
+        <source>Move to front</source>
+        <translation>Liiguta kõige ette</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4795"/>
+        <source>Move to back</source>
+        <translation>Liiguta kõige taha</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4796"/>
+        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
+        <translation>Tähistab taset, millel objekt asub. 0 tähendab, et objekt asub kõige all.</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4797"/>
+        <source>Lock or unlock the object</source>
+        <translation>Lukusta objekt või eemalda lukustus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4798"/>
+        <source>Lock or unlock the size of the object</source>
+        <translation>Lukusta objekti suurus või eemalda lukustus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4619"/>
+        <source>Enable or disable printing of the object</source>
+        <translation type="obsolete">Luba või keela objekti trükkimine</translation>
+    </message>
+    <message>
+        <location filename="" line="136966688"/>
+        <source>Make text in lower frames flow around the object shape</source>
+        <translation type="obsolete">Sunnib allpool asuvate kastide teksti kulgema ümber objekti</translation>
+    </message>
+    <message>
+        <location filename="" line="136966688"/>
+        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
+        <translation type="obsolete">Tekstivoo määramiseks kasutatakse objektipiirete asemel neid ümbritsevat kasti</translation>
+    </message>
+    <message>
+        <location filename="" line="136966688"/>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
+        <translation type="obsolete">Tekstivoo jaoks kasutatakse teist joont, mis tugineb kastipiiretele</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4812"/>
+        <source>Font of selected text or object</source>
+        <translation>Valitud teksti või objekti font</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4813"/>
+        <source>Font Size</source>
+        <translation>Fondi suurus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4814"/>
+        <source>Offset to baseline of characters</source>
+        <translation>Nihe märkide alusjoone suhtes</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4815"/>
+        <source>Scaling width of characters</source>
+        <translation>Märkide skaleerimislaius</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4816"/>
+        <source>Scaling height of characters</source>
+        <translation>Märkide skaleerimiskõrgus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4817"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation>Teksti äärejoone ja/või varju värv (sõltuvalt valikust). Kui mõlemad on valitud, kasutatakse üht ja sama värvi.</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4818"/>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation>Valitud teksti värv. Kui sisse on lülitatud kontuuriefekt, on see täidise värv. Kui sisse on lülitatud varjuefekt, on see kõige ülemine värv.</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4819"/>
+        <source>Saturation of color of text stroke</source>
+        <translation>Teksti äärejoone värvi küllastus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4820"/>
+        <source>Saturation of color of text fill</source>
+        <translation>Teksti täidise värvi küllastus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4821"/>
+        <source>Right to Left Writing</source>
+        <translation>Kirjutamine paremalt vasakule</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4822"/>
+        <source>Manual Tracking</source>
+        <translation>Märkide koondamine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4823"/>
+        <source>Line Spacing</source>
+        <translation>Reavahe</translation>
+    </message>
+    <message>
+        <location filename="" line="136966688"/>
+        <source>Click to select the line spacing mode</source>
+        <translation type="obsolete">Klõpsa reavahe režiimi valimiseks</translation>
+    </message>
+    <message>
+        <location filename="" line="136966688"/>
+        <source>Style of current paragraph</source>
+        <translation type="obsolete">Aktiivse lõigu stiil</translation>
+    </message>
+    <message>
+        <location filename="" line="136966688"/>
+        <source>Hyphenation language of frame</source>
+        <translation type="obsolete">Tekstikastis kasutatav keel</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4837"/>
+        <source>Change settings for left or end points</source>
+        <translation>Vasaku või otspunktide seadistuste muutmine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4838"/>
+        <source>Pattern of line</source>
+        <translation>Joone muster</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4839"/>
+        <source>Thickness of line</source>
+        <translation>Joone jämedus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4840"/>
+        <source>Type of line joins</source>
+        <translation>Jooneühenduste tüüp</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4841"/>
+        <source>Type of line end</source>
+        <translation>Jooneotste tüüp</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4842"/>
+        <source>Line style of current object</source>
+        <translation>Aktiivse objekti joonestiil</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4844"/>
+        <source>Choose the shape of frame...</source>
+        <translation>Vali kasti kuju...</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4845"/>
+        <source>Edit shape of the frame...</source>
+        <translation>Muuda kasti kuju...</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4846"/>
+        <source>Set radius of corner rounding</source>
+        <translation>Määra nurkade ümardamise raadius</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4847"/>
+        <source>Number of columns in text frame</source>
+        <translation>Veergude arv tekstikastis</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4848"/>
+        <source>Switches between Gap or Column width</source>
+        <translation>Vahe või veerulaiuse lülitamine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4850"/>
+        <source>Distance of text from top of frame</source>
+        <translation>Teksti kaugus kasti ülaservast</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4851"/>
+        <source>Distance of text from bottom of frame</source>
+        <translation>Teksti kaugus kasti alaservast</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4852"/>
+        <source>Distance of text from left of frame</source>
+        <translation>Teksti kaugus kasti vasakust servast</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4853"/>
+        <source>Distance of text from right of frame</source>
+        <translation>Teksti kaugus kasti paremast servast</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4854"/>
+        <source>Edit tab settings of text frame...</source>
+        <translation>Muuda tekstikasti tabeldusmärke...</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4856"/>
+        <source>Allow the image to be a different size to the frame</source>
+        <translation>Võimaldab pildil olla kastist erineva suurusega</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4857"/>
+        <source>Horizontal offset of image within frame</source>
+        <translation>Pildi rõhtsuunaline nihe kastis</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4858"/>
+        <source>Vertical offset of image within frame</source>
+        <translation>Pildi püstsuunaline nihe kastis</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4859"/>
+        <source>Resize the image horizontally</source>
+        <translation>Pildi suuruse muutmine rõhtsuunas</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4860"/>
+        <source>Resize the image vertically</source>
+        <translation>Pildi suuruse muutmine püstsuunas</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4861"/>
+        <source>Keep the X and Y scaling the same</source>
+        <translation>X- ja Y-skaala hoitakse võrdsena</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4862"/>
+        <source>Keep the aspect ratio</source>
+        <translation>Säilitatakse proportsioon</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4863"/>
+        <source>Make the image fit within the size of the frame</source>
+        <translation>Pilt sobitatakse kasti suurusega</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4864"/>
+        <source>Use image proportions rather than those of the frame</source>
+        <translation>Kasti proportsioonide asemel kasutatakse pildi proportsioone</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4865"/>
+        <source>Source profile of the image</source>
+        <translation>Pildi lähteprofiil</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4866"/>
+        <source>Rendering intent for the image</source>
+        <translation>Pildi renderdamisviis</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4514"/>
+        <source>Gap:</source>
+        <translation>Vahe:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4515"/>
+        <source>Width:</source>
+        <translation>Laius:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4542"/>
+        <source>Text &amp;Flow Around Frame</source>
+        <translation>Teksti&amp;voog ümber kasti</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4543"/>
+        <source>Disabled</source>
+        <translation>Keelatud</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4544"/>
+        <source>Use Frame &amp;Shape</source>
+        <translation>Kasti ku&amp;jundi kasutamine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4576"/>
+        <source>Image Effects</source>
+        <translation>Pildiefektid</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4577"/>
+        <source>Extended Image Properties</source>
+        <translation>Pildi laiendatud omadused</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4806"/>
+        <source>Disable text flow from lower frames around object</source>
+        <translation>Alumiste kastide teksti kulgemine ümber objekti keelatakse</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4807"/>
+        <source>Use the frame shape for text flow of text frames below the object.</source>
+        <translation>Kasti kujundi kasutamine objekti all asuvate tekstikastide tekstivoo jaoks.</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4808"/>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation>Kasti kujundi asemel kasutatakse alati nelinurkset ümbritsevat kasti objekti all asuvate tekstiraamide tekstivoo jaoks. </translation>
+    </message>
+    <message>
+        <location filename="" line="136966688"/>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="obsolete">Algselt kasti kujundil põhineva teise joone kasutamine objekti all asuvate tekstikastide tekstivoo jaoks. </translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4490"/>
+        <source>Transparency Settings</source>
+        <translation>Läbipaistvuse seadistused</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4473"/>
+        <source>&amp;Group</source>
+        <translation>&amp;Rühmitamine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4491"/>
+        <source>Opacity:</source>
+        <translation>Läbipaistmatus:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4492"/>
+        <source>Blend Mode:</source>
+        <translation>Ühtesulamise režiim:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4494"/>
+        <source>Normal</source>
+        <translation>Normaalne</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4495"/>
+        <source>Darken</source>
+        <translation>Tumendamine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4496"/>
+        <source>Lighten</source>
+        <translation>Helendamine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4497"/>
+        <source>Multiply</source>
+        <translation>Korrutamine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4498"/>
+        <source>Screen</source>
+        <translation>Ekraan</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4499"/>
+        <source>Overlay</source>
+        <translation>Ülekatmine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4500"/>
+        <source>Hard Light</source>
+        <translation>Külm valgus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4501"/>
+        <source>Soft Light</source>
+        <translation>Soe valgus</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4502"/>
+        <source>Difference</source>
+        <translation>Lahutamine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4503"/>
+        <source>Exclusion</source>
+        <translation>Väljajätmine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4504"/>
+        <source>Color Dodge</source>
+        <translation>Värvi helestamine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4505"/>
+        <source>Color Burn</source>
+        <translation>Värvi tumestamine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4506"/>
+        <source>Hue</source>
+        <translation>Toon</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4508"/>
+        <source>Color</source>
+        <translation>Värv</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4788"/>
+        <source>Group the selected objects</source>
+        <translation>Valitud objektide rühmitamine</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4789"/>
+        <source>Destroys the selected group</source>
+        <translation>Kustutab valitud rühma</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="2483"/>
+        <source>Auto</source>
+        <translation type="unfinished">Automaatne</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4809"/>
+        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4824"/>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4525"/>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4526"/>
+        <source>Stair Step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4527"/>
+        <source>Skew</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4528"/>
+        <source>Flip Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4530"/>
+        <source>Type:</source>
+        <translation type="unfinished">Tüüp:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4547"/>
+        <source>Use Image Clip Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4548"/>
+        <source>Paragraph St&amp;yle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4549"/>
+        <source>Character St&amp;yle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4550"/>
+        <source>Optical Margins:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4561"/>
+        <source>Word Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4565"/>
+        <source>Min:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4563"/>
+        <source>Norm:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4564"/>
+        <source>Glyph Extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4566"/>
+        <source>Max:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4810"/>
+        <source>Use the clipping path of the image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4825"/>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4826"/>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4827"/>
+        <source>Remove Direct Paragraph Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4828"/>
+        <source>Remove Direct Character Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4831"/>
+        <source>Minimal width of spaces between words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4832"/>
+        <source>Normal width of spaces between words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4833"/>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4834"/>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4835"/>
+        <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4799"/>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4594"/>
+        <source>Custom</source>
+        <translation type="unfinished">Kohandatud</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4488"/>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished">&amp;Redigeeri...</translation>
     </message>
 </context>
 <context>
@@ -19058,12 +20083,12 @@ Palun kontrolli asukohta ja nime.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="2594"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="2614"/>
         <source>Copy #%1 of </source>
         <translation>Koopia nr. %1  - </translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="1078"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="1093"/>
         <source>Background</source>
         <translation>Taust</translation>
     </message>
@@ -19073,12 +20098,12 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Teksti import</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="192"/>
+        <location filename="../util_formats.cpp" line="195"/>
         <source>All Supported Formats</source>
         <translation>Kõik toetatud vormingud</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="239"/>
+        <location filename="../util_formats.cpp" line="242"/>
         <source>All Files (*)</source>
         <translation>Kõik failid (*)</translation>
     </message>
@@ -19138,7 +20163,7 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Hollandi</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="195"/>
+        <location filename="../langmgr.cpp" line="196"/>
         <source>English</source>
         <translation>Inglise</translation>
     </message>
@@ -19253,57 +20278,57 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Vene</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="109"/>
+        <location filename="../langmgr.cpp" line="108"/>
         <source>Swedish</source>
         <translation>Rootsi</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="104"/>
+        <location filename="../langmgr.cpp" line="103"/>
         <source>Spanish</source>
         <translation>Hispaania</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="105"/>
+        <location filename="../langmgr.cpp" line="104"/>
         <source>Spanish (Latin)</source>
         <translation>Hispaania (Lad-Am)</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="106"/>
+        <location filename="../langmgr.cpp" line="105"/>
         <source>Slovak</source>
         <translation>Slovaki</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="107"/>
+        <location filename="../langmgr.cpp" line="106"/>
         <source>Slovenian</source>
         <translation>Sloveeni</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="108"/>
+        <location filename="../langmgr.cpp" line="107"/>
         <source>Serbian</source>
         <translation>Serbia</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="111"/>
+        <location filename="../langmgr.cpp" line="110"/>
         <source>Thai</source>
         <translation>Tai</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="113"/>
+        <location filename="../langmgr.cpp" line="112"/>
         <source>Turkish</source>
         <translation>Türgi</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="114"/>
+        <location filename="../langmgr.cpp" line="113"/>
         <source>Ukranian</source>
         <translation>Ukraina</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="116"/>
+        <location filename="../langmgr.cpp" line="115"/>
         <source>Welsh</source>
         <translation>Uelsi</translation>
     </message>
     <message>
-        <location filename="../main_win32.cpp" line="251"/>
+        <location filename="../main_win32.cpp" line="259"/>
         <source>Scribus Crash</source>
         <translation>Scribuse krahh</translation>
     </message>
@@ -19313,22 +20338,22 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Scribust tabas krahh signaaliga #%1</translation>
     </message>
     <message>
-        <location filename="../main_win32.cpp" line="253"/>
+        <location filename="../main_win32.cpp" line="261"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
-        <location filename="../main_win32.cpp" line="228"/>
+        <location filename="../main_win32.cpp" line="236"/>
         <source>Scribus crashes due to the following exception : %1</source>
         <translation>Scribust tabas krahh järgmise erindi tõttu: %1</translation>
     </message>
     <message>
-        <location filename="../page.cpp" line="81"/>
+        <location filename="../page.cpp" line="80"/>
         <source>Page</source>
         <translation>Lehekülg</translation>
     </message>
     <message>
-        <location filename="../page.cpp" line="90"/>
+        <location filename="../page.cpp" line="89"/>
         <source>Master Page </source>
         <translation>Leheküljetoorik </translation>
     </message>
@@ -19442,37 +20467,37 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>elemendil &lt;lpiSettingsEntry&gt; puudub atribuut `name&apos;</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="2146"/>
+        <location filename="../pslib.cpp" line="2085"/>
         <source>All</source>
         <translation>Kõik</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1684"/>
+        <location filename="../pslib.cpp" line="1687"/>
         <source>Exporting PostScript File</source>
         <translation>PostScript-faili eksport</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1686"/>
+        <location filename="../pslib.cpp" line="1689"/>
         <source>Printing File</source>
         <translation>Faili trükkimine</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1860"/>
+        <location filename="../pslib.cpp" line="1871"/>
         <source>Black</source>
         <translation>Must</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1862"/>
+        <location filename="../pslib.cpp" line="1873"/>
         <source>Cyan</source>
         <translation>Tsüaan</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1864"/>
+        <location filename="../pslib.cpp" line="1875"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1866"/>
+        <location filename="../pslib.cpp" line="1877"/>
         <source>Yellow</source>
         <translation>Kollane</translation>
     </message>
@@ -19502,7 +20527,7 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation type="obsolete">Font %1 on vigane ja jäetakse kõrvale</translation>
     </message>
     <message>
-        <location filename="../fonts/scface_ps.h" line="236"/>
+        <location filename="../fonts/scface_ps.h" line="216"/>
         <source>Font %1 cannot be read, no embedding</source>
         <translation>Fondi %1 lugemine ebaõnnestus, ei põimita</translation>
     </message>
@@ -19597,7 +20622,7 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>memcpy suhtaadress: %1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="570"/>
+        <location filename="../scribus.cpp" line="575"/>
         <source>Scribus Development Version</source>
         <translation>Scribuse arendusversioon</translation>
     </message>
@@ -19607,32 +20632,32 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation type="obsolete">Kasutad Scribus 1.3.x arendusversiooni. Redigeeritav dokument on loodud Scribuse versiooniga 1.2.3 või vanemaga. Salvestamisel ei saa seda enam Scribus 1.2.3 või vanemas kasutada, kui sa ei vali just Fail-&gt;Salvesta kui. Kas soovid kindlasti jätkata?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3423"/>
+        <location filename="../scribus.cpp" line="3646"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Üritad importida rohkem lehekülgi, kui neid leidub aktiivses dokumendis alates aktiivsest leheküljest.&lt;/p&gt;Vali üks järgmistest võimalustest:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Loo&lt;/b&gt; puuduvad leheküljed&lt;/li&gt;&lt;li&gt;&lt;b&gt;Impordi&lt;/b&gt; leheküljed viimase leheküljeni&lt;/li&gt;&lt;li&gt;&lt;b&gt;Loobu&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3424"/>
+        <location filename="../scribus.cpp" line="3647"/>
         <source>C&amp;reate</source>
         <translation>&amp;Loo</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3425"/>
+        <location filename="../scribus.cpp" line="3648"/>
         <source>&amp;Import</source>
         <translation>&amp;Impordi</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4027"/>
+        <location filename="../scribus.cpp" line="4251"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Dokumenti tehtud muudatused pole salvestatud, nüüd aga soovisid need tühistada. Kas soovid jätkata?</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="235"/>
+        <location filename="../scribuscore.cpp" line="240"/>
         <source>Initializing...</source>
         <translation>Initsialiseerimine...</translation>
     </message>
     <message>
-        <location filename="../scwinprint.cpp" line="118"/>
+        <location filename="../scprintengine_gdi.cpp" line="126"/>
         <source>Save as</source>
         <translation>Salvestamine</translation>
     </message>
@@ -19727,12 +20752,12 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Tsiitserod (c)</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="453"/>
+        <location filename="../util.cpp" line="378"/>
         <source>File exists</source>
         <translation>Fail on olemas</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="454"/>
+        <location filename="../util.cpp" line="379"/>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation>Fail nimega &apos;%1&apos; on juba olemas.&lt;br/&gt;Kas asendada see failiga, mida soovisid salvestada?</translation>
     </message>
@@ -19742,23 +20767,23 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation type="obsolete">&amp;Asenda</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="617"/>
+        <location filename="../util.cpp" line="541"/>
         <source>page</source>
         <comment>page export</comment>
         <translation>lk</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcode.cpp" line="29"/>
+        <location filename="../plugins/barcodegenerator/barcode.cpp" line="32"/>
         <source>Barcode Generator</source>
         <translation>Ribakoodi generaator</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheel.cpp" line="55"/>
+        <location filename="../plugins/colorwheel/colorwheel.cpp" line="56"/>
         <source>Color Wheel</source>
         <translation>Värviratas</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="57"/>
+        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="58"/>
         <source>Font Preview</source>
         <translation>Fontide eelvaatlus</translation>
     </message>
@@ -19768,12 +20793,12 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Minu plugin</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="70"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="71"/>
         <source>New From Template</source>
         <translation>Uus mallist</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="116"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="117"/>
         <source>Document Template: </source>
         <translation>Dokumendimall: </translation>
     </message>
@@ -19888,7 +20913,7 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Ümbrised</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="260"/>
+        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="261"/>
         <source>Own Templates</source>
         <translation>Enda mallid</translation>
     </message>
@@ -19948,12 +20973,12 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation type="obsolete">Kõik toetatud vormingud (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="147"/>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="128"/>
         <source>Open</source>
         <translation>Avamine</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="65"/>
+        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="66"/>
         <source>Save As Template</source>
         <translation>Salvestamine mallina</translation>
     </message>
@@ -20018,13 +21043,13 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Dokumendi avamine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmddoc.cpp" line="180"/>
+        <location filename="../plugins/scriptplugin/cmddoc.cpp" line="181"/>
         <source>Failed to save document.</source>
         <comment>python error</comment>
         <translation>Dokumendi salvestamine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmddoc.cpp" line="217"/>
+        <location filename="../plugins/scriptplugin/cmddoc.cpp" line="219"/>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
         <translation>Ühik väljaspool piire. Kasuta mõnda  scribus.UNIT_* konstanti.</translation>
@@ -20071,43 +21096,43 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Tüübid klapivad, aga omaduse määramine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="26"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="27"/>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
         <translation>Sihtmärk ei ole pildikast.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="384"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="393"/>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
         <translation>Määratud element ei ole pildikast.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="205"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="212"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>Vähem kui kaht elementi ei saa rühmitada</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="230"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="237"/>
         <source>Can&apos;t group less than two items</source>
         <comment>python error</comment>
         <translation>Vähem kui kaht elementi ei saa rühmitada</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="238"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="245"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>Rühmitamiseks on vajalik valik või elementide nimekiri</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="272"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="279"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
         <translation>0% võrra ei saa skaleerida.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="390"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="391"/>
         <source>Font not found.</source>
         <comment>python error</comment>
         <translation>Fonti ei leitud.</translation>
@@ -20125,25 +21150,25 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Pikselrastri salvestamine ebaõnnestus</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="689"/>
+        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="690"/>
         <source>Cannot have an empty layer name.</source>
         <comment>python error</comment>
         <translation>Kihil ei saa nimi puududa.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="728"/>
+        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="729"/>
         <source>Layer not found.</source>
         <comment>python error</comment>
         <translation>Kihti ei leitud.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="694"/>
+        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="695"/>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
         <translation>Viimast kihti ei saa eemaldada.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="745"/>
+        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="746"/>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
         <translation>Nimeta kihti ei ole võimalik luua.</translation>
@@ -20203,37 +21228,37 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Stiili saab määrata ainult tekstikastile.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="57"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="58"/>
         <source>Failed to save EPS.</source>
         <comment>python error</comment>
         <translation>EPS-i salvestamine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="144"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="149"/>
         <source>Page number out of range.</source>
         <comment>python error</comment>
         <translation>Leheküljenumber väljub piiridest.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="134"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="139"/>
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
         <translation>Määratud leheküljetooriku nimele ei vasta ükski olemasolev toorik.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="287"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="292"/>
         <source>argument is not list: must be list of float values.</source>
         <comment>python error</comment>
         <translation>argument ei ole nimekiri: peab olema murdarvväärtuste nimekiri.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="247"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="252"/>
         <source>argument contains non-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>argument sisaldab mittearvulisi väärtusi: peab olema murdarvväärtuste nimekiri.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="298"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="303"/>
         <source>argument contains no-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>argument sisaldab mittearvulisi väärtusi: peab olema murdarvväärtuste nimekiri.</translation>
@@ -20269,169 +21294,169 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Joone stiili ei leitud.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="27"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="28"/>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti fondi suuruse hankimine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="53"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="54"/>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti fondi hankimine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="79"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="80"/>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti teksti suuruse hankimine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="115"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="116"/>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti veergude arvu hankimine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="133"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="134"/>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti reavahe hankimine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="151"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="152"/>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti veergude vahe hankimine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="201"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="202"/>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti teksti hankimine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="234"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="235"/>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti teksti määramine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="266"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="267"/>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
         <translation>Teksti lisamine mitte-tekstikasti ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="273"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="274"/>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
         <translation>Lisamise indeks väljub piiridest.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="302"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="303"/>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
         <translation>Joondus väljub piiridest. Kasutada mõnda  scribus.ALIGN* konstanti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="310"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="311"/>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti teksti joonduse määramine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="336"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="337"/>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
         <translation>Fondi suurus väljub piiridest, peab olema 1 &lt;= suurus &lt;= 512.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="345"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="346"/>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti fondi suuruse määramine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="374"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="375"/>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti fondi määramine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="408"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="409"/>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
         <translation>Reavahe väljub piiridest, peab olema &gt;=0,1.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="416"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="417"/>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti reavahe määramine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="435"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="436"/>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
         <translation>Veergude vahe väljub piiridest, peab olema positiivne.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="443"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="444"/>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti veergude vahe määramine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="462"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="463"/>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
         <translation>Veergude arv väljub piiridest, peab olema &gt; 1.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="470"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="471"/>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti veergude arvu määramine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="501"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="502"/>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>Valiku indeks väljub piiridest</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="506"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="507"/>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
         <translation>Teksti valimine mitte-tekstikastis ebaõnnestus</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="543"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="544"/>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
         <translation>Teksti kustutamine mitte-tekstikastis ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="575"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="576"/>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Teksti täidise määramine mitte-tekstikastis ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="611"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="612"/>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Teksti äärejoone määramine mitte-tekstikastis ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="653"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="654"/>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Teksti varjundi määramine mitte-tekstikastis ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="693"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="694"/>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
         <translation>Linkida saab ainult tekstikaste.</translation>
@@ -20443,31 +21468,31 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation type="obsolete">Sihtkast peab olema tühi.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="703"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="704"/>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
         <translation>Sihtkast on seotud teise kastiga.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="708"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="709"/>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
         <translation>Sihtkast on seotud teise kasti külge.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="713"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="714"/>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
         <translation>Lähte- ja sihtkoht on üks ja sama objekt.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="738"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="739"/>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti linkimist ei saa eemaldada.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="744"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="745"/>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
         <translation>Objekt ei ole lingitud tekstikast, lingi eemaldamine ei ole võimalik.</translation>
@@ -20479,25 +21504,25 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation type="obsolete">Objekt on viimane kast jadas, linki ei saa eemaldada. Selle asemel võib lingi eemaldada eelmiselt kastilt.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="793"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="794"/>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikasti ei saa kontuuriks teisendada.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="818"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="819"/>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
         <translation>Ülejooksmist saab kontrollida ainult tekstikastides</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="861"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="911"/>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikastile ei saa järjehoidjat seada</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="895"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="945"/>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
         <translation>Mitte-tekstikastist ei õnnestunud infot hankida</translation>
@@ -20533,43 +21558,43 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Atribuut &apos;allTypes&apos; on AINULT LUGEMISEKS</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/objimageexport.cpp" line="187"/>
+        <location filename="../plugins/scriptplugin/objimageexport.cpp" line="188"/>
         <source>Failed to export image</source>
         <comment>python error</comment>
         <translation>Pildi eksport ebaõnnestus</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="543"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="547"/>
         <source>&amp;Execute Script...</source>
         <translation>Kä&amp;ivita skript...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="544"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="548"/>
         <source>Show &amp;Console</source>
         <translation>&amp;Näita konsooli</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="545"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
         <source>&amp;About Script...</source>
         <translation>Sk&amp;ripti info...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="547"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="551"/>
         <source>&amp;Script</source>
         <translation>&amp;Skript</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="548"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="552"/>
         <source>&amp;Scribus Scripts</source>
         <translation>&amp;Scribuse skriptid</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="553"/>
         <source>&amp;Recent Scripts</source>
         <translation>&amp;Viimati kasutatud skriptid</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="516"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="520"/>
         <source>About Script</source>
         <translation>Skripti info</translation>
     </message>
@@ -20579,7 +21604,7 @@ Palun kontrolli asukohta ja nime.</translation>
         <translation>Skriptija</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="748"/>
+        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="756"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -20654,24 +21679,24 @@ funktsiooni dokumentatsioonis, ehkki, nagu Pythoni koodi puhul
         <translation>Standardseadistus: </translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="83"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="84"/>
         <source>Short Words</source>
         <translation>Lühendid</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="121"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="124"/>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
         <translation>Lühendite töötlemine. Palun oota...</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="140"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="143"/>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
         <translation>Lühendite töötlemine. Tehtud.</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="94"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="95"/>
         <source>SVG Export</source>
         <translation>SVG eksport</translation>
     </message>
@@ -20698,7 +21723,7 @@ funktsiooni dokumentatsioonis, ehkki, nagu Pythoni koodi puhul
 %1?</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="96"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="97"/>
         <source>SVG Import</source>
         <translation>SVG import</translation>
     </message>
@@ -20708,12 +21733,12 @@ funktsiooni dokumentatsioonis, ehkki, nagu Pythoni koodi puhul
         <translation>Vana .sla-vormingu toetus</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="102"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="103"/>
         <source>OpenOffice.org Draw Importer</source>
         <translation>OpenOffice.org Draw&apos; importija</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="170"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="171"/>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
         <translation>OpenOffice.org Draw (*.sxd *.odg);;Kõik failid (*)</translation>
     </message>
@@ -20802,7 +21827,7 @@ Välised lingid
         <translation>Tekstifiltrid</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/txtim/txtim.cpp" line="20"/>
+        <location filename="../plugins/gettext/txtim/txtim.cpp" line="21"/>
         <source>Text Files</source>
         <translation>Tekstifailid</translation>
     </message>
@@ -20907,7 +21932,7 @@ Välised lingid
         <translation>Eesti</translation>
     </message>
     <message>
-        <location filename="../fonts/scface_ps.h" line="49"/>
+        <location filename="../fonts/scface_ps.h" line="53"/>
         <source>Font %1 is broken (no Face), discarding it</source>
         <translation>Font %1 on vigane (Face puudub), jäetakse kõrvale</translation>
     </message>
@@ -21042,7 +22067,7 @@ Välised lingid
         <translation>E</translation>
     </message>
     <message>
-        <location filename="../scimgdataloader_tiff.cpp" line="868"/>
+        <location filename="../scimgdataloader_tiff.cpp" line="924"/>
         <source>%1 may be corrupted : missing resolution tags</source>
         <translation>%1 võib olla vigane: lahutussildid puuduvad</translation>
     </message>
@@ -21085,13 +22110,13 @@ Välised lingid
         <translation>See fail ei paista olevat PDB-dokument. Kui oled selles siiski kindel, anna teada veast.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="97"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="98"/>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
         <translation>Mittetekstikasti ridade arvu ei õnnestu hankida.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="571"/>
+        <location filename="../scribus.cpp" line="576"/>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation>Sul töötab Scribus 1.3.x arendusversioon. Dokument, millega töötad, on loodud Scribus 1.2.x abil.  Faili salvestamine versioonis 1.3.x muudab võimatuks selle edasise redigeerimise Scribus 1.2.x versioonides. Kui soovid säilitada võimaluse redigeerida faili versioonis 1.2.x, salvesta fail teise nimega ning redigeeri edaspidi uue nimega faili, mis jätab originaali puutumata. Kas oled kindel, et soovid jätkata?</translation>
     </message>
@@ -21116,7 +22141,7 @@ Välised lingid
         <translation>Inglise (Ameerika)</translation>
     </message>
     <message>
-        <location filename="../scimgdataloader_jpeg.cpp" line="310"/>
+        <location filename="../scimgdataloader_jpeg.cpp" line="312"/>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation>%1 võib olla vigane: lahutussildid puuduvad või on väärad</translation>
     </message>
@@ -21152,7 +22177,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation type="obsolete">Scribus 1.3.0-&gt;1.3.3.7 toetus</translation>
     </message>
     <message>
-        <location filename="../fonts/scface_ps.h" line="76"/>
+        <location filename="../fonts/scface_ps.cpp" line="98"/>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21167,74 +22192,39 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation type="unfinished">Scribus 1.2.x toetus {1.3.0-&gt;1.3.3.?}</translation>
     </message>
     <message>
-        <location filename="../serializer.cpp" line="347"/>
+        <location filename="../serializer.cpp" line="349"/>
         <source>Copy of %1 (%2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="72"/>
         <source>Image</source>
-        <translation type="unfinished">Pilt</translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="78"/>
-        <source>PDF Push Button</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="81"/>
-        <source>PDF Text Field</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="84"/>
-        <source>PDF Check Box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="87"/>
-        <source>PDF Combo Box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="90"/>
-        <source>PDF List Box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="93"/>
-        <source>PDF Text Annotation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="96"/>
-        <source>PDF Link Annotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Pilt</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="99"/>
         <source>Text</source>
-        <translation type="unfinished">Tekst</translation>
+        <translation type="obsolete">Tekst</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="104"/>
         <source>Line</source>
-        <translation type="unfinished">Joon</translation>
+        <translation type="obsolete">Joon</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="107"/>
         <source>Polygon</source>
-        <translation type="unfinished">Hulknurk</translation>
+        <translation type="obsolete">Hulknurk</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="110"/>
         <source>Polyline</source>
-        <translation type="unfinished">Kompleksjoon</translation>
+        <translation type="obsolete">Kompleksjoon</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="113"/>
         <source>PathText</source>
-        <translation type="unfinished">Trajektooritekst</translation>
+        <translation type="obsolete">Trajektooritekst</translation>
     </message>
     <message>
         <location filename="../units.cpp" line="163"/>
@@ -21252,7 +22242,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="115"/>
+        <location filename="../langmgr.cpp" line="114"/>
         <source>Vietnamese</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21267,13 +22257,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="161"/>
-        <source>&#xb0;</source>
-        <comment>degrees, unicode 0xB0</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="90"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="89"/>
         <source>WMF Import</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21282,18 +22266,13 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <source>New Layer</source>
         <translation type="unfinished">Uus kiht</translation>
     </message>
-    <message encoding="UTF-8">
-        <location filename="../langmgr.cpp" line="91"/>
-        <source>Norwegian (Bokm�l)</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="71"/>
         <source>Adobe Illustrator Importer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionplugin.cpp" line="58"/>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="61"/>
         <source>Imposition</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21303,79 +22282,198 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="122"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="123"/>
         <source>%1;;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="141"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="142"/>
         <source>Do you really want to overwrite the file:
 %1 ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="33"/>
+        <location filename="../util_formats.cpp" line="34"/>
         <source>Encapsulated PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="34"/>
+        <location filename="../util_formats.cpp" line="35"/>
         <source>GIF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="35"/>
+        <location filename="../util_formats.cpp" line="36"/>
         <source>JPEG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="36"/>
+        <location filename="../util_formats.cpp" line="37"/>
         <source>Pattern Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="37"/>
+        <location filename="../util_formats.cpp" line="38"/>
         <source>PDF Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="38"/>
+        <location filename="../util_formats.cpp" line="39"/>
         <source>PNG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="39"/>
+        <location filename="../util_formats.cpp" line="40"/>
         <source>PostScript</source>
         <translation type="unfinished">PostScript</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="40"/>
+        <location filename="../util_formats.cpp" line="41"/>
         <source>Adobe Photoshop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="41"/>
+        <location filename="../util_formats.cpp" line="42"/>
         <source>TIFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="42"/>
+        <location filename="../util_formats.cpp" line="43"/>
         <source>XPM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="43"/>
+        <location filename="../util_formats.cpp" line="44"/>
         <source>Windows Meta File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="44"/>
+        <location filename="../util_formats.cpp" line="45"/>
         <source>Scalable Vector Graphics</source>
         <translation type="unfinished">Skaleeritav vektorgraafika</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="45"/>
+        <location filename="../util_formats.cpp" line="46"/>
         <source>Adobe Illustrator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fonts/scface_ps.cpp" line="104"/>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fonts/scface_ps.cpp" line="111"/>
+        <source>No metrics found for font %1, ignoring font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="../langmgr.cpp" line="91"/>
+        <source>Norwegian (Bokm�l)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexhelpers.cpp" line="433"/>
+        <source>Error</source>
+        <translation type="unfinished">Viga</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="224"/>
+        <source>Configfile %1 not found or the file is not readable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexhelpers.cpp" line="435"/>
+        <source>Parsing the configfile %1 failed! Depending on the type of the error latexframes might not work correctly!
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="384"/>
+        <source>second argument is not tuple: must be tuple of int values.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="396"/>
+        <source>second argument contains non-numeric values: must be list of int values.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.cpp" line="49"/>
+        <source>Cannot have an empty paragraph style name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.cpp" line="69"/>
+        <source>hasdropcap has to be 0 or 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.cpp" line="121"/>
+        <source>Cannot have an empty char style name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="868"/>
+        <source>Can only hyphenate text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="891"/>
+        <source>Can only dehyphenate text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="78"/>
+        <source>Lens Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="91"/>
+        <source>PathCutter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="92"/>
+        <source>PathFinder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="85"/>
+        <source>PathStroker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="55"/>
+        <source>Spell check (aspell)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="79"/>
+        <source>Subdivide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="71"/>
+        <source>Xfig Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../units.cpp" line="161"/>
+        <source>~</source>
+        <comment>degrees, unicode 0xB0</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="47"/>
+        <source>Xfig File</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -21531,7 +22629,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation type="obsolete">Kohandatud</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="62"/>
+        <location filename="../reformdoc.cpp" line="63"/>
         <source>Document Setup</source>
         <translation>Dokumendi seadistused</translation>
     </message>
@@ -21601,17 +22699,17 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation type="obsolete">&amp;Intervall:</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="65"/>
+        <location filename="../reformdoc.cpp" line="66"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="68"/>
+        <location filename="../reformdoc.cpp" line="69"/>
         <source>Document Information</source>
         <translation>Dokumendi info</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="71"/>
+        <location filename="../reformdoc.cpp" line="72"/>
         <source>Guides</source>
         <translation>Juhtjooned</translation>
     </message>
@@ -21701,57 +22799,57 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation type="obsolete">Püstsuunas:</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="75"/>
+        <location filename="../reformdoc.cpp" line="76"/>
         <source>Display</source>
         <translation>Vaade</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="78"/>
+        <location filename="../reformdoc.cpp" line="79"/>
         <source>Typography</source>
         <translation>Tüpograafia</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="81"/>
+        <location filename="../reformdoc.cpp" line="82"/>
         <source>Tools</source>
         <translation>Tööriistad</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="84"/>
+        <location filename="../reformdoc.cpp" line="85"/>
         <source>Hyphenator</source>
         <translation>Poolitaja</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="87"/>
+        <location filename="../reformdoc.cpp" line="88"/>
         <source>Fonts</source>
         <translation>Fondid</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="90"/>
+        <location filename="../reformdoc.cpp" line="91"/>
         <source>Preflight Verifier</source>
         <translation>Trükieelne kontroll</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="95"/>
+        <location filename="../reformdoc.cpp" line="96"/>
         <source>PDF Export</source>
         <translation>PDF-i eksport</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="100"/>
+        <location filename="../reformdoc.cpp" line="101"/>
         <source>Document Item Attributes</source>
         <translation>Dokumendi elemendi atribuudid</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="105"/>
+        <location filename="../reformdoc.cpp" line="106"/>
         <source>Table of Contents and Indexes</source>
         <translation>Sisukord ja registrid</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="109"/>
+        <location filename="../reformdoc.cpp" line="110"/>
         <source>Sections</source>
         <translation>Sektsioonid</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="115"/>
+        <location filename="../reformdoc.cpp" line="116"/>
         <source>Color Management</source>
         <translation>Värvihaldus</translation>
     </message>
@@ -21791,7 +22889,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation type="obsolete">Lehekülje suuruse muudatused rakendatakse kõigile dokumendi olemasolevatele lehekülgedele</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="471"/>
+        <location filename="../reformdoc.cpp" line="444"/>
         <source>Adjusting Colors</source>
         <translation>Värvide kohandamine</translation>
     </message>
@@ -21988,62 +23086,62 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
 <context>
     <name>SMCStyleWidget</name>
     <message>
-        <location filename="../smcstylewidget.cpp" line="67"/>
+        <location filename="../smcstylewidget.cpp" line="80"/>
         <source>Parent style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="68"/>
+        <location filename="../smcstylewidget.cpp" line="81"/>
         <source>Font face</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="69"/>
+        <location filename="../smcstylewidget.cpp" line="82"/>
         <source>Font size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="70"/>
+        <location filename="../smcstylewidget.cpp" line="83"/>
         <source>Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="71"/>
+        <location filename="../smcstylewidget.cpp" line="84"/>
         <source>Baseline offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="72"/>
+        <location filename="../smcstylewidget.cpp" line="85"/>
         <source>Horizontal scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="73"/>
+        <location filename="../smcstylewidget.cpp" line="86"/>
         <source>Vertical scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="74"/>
+        <location filename="../smcstylewidget.cpp" line="87"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="75"/>
+        <location filename="../smcstylewidget.cpp" line="88"/>
         <source>Fill color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="76"/>
+        <location filename="../smcstylewidget.cpp" line="89"/>
         <source>Fill shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="77"/>
+        <location filename="../smcstylewidget.cpp" line="90"/>
         <source>Stroke color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="78"/>
+        <location filename="../smcstylewidget.cpp" line="91"/>
         <source>Stroke shade</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22058,7 +23156,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="426"/>
+        <location filename="../smcstylewidget.cpp" line="439"/>
         <source>Shade</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22091,32 +23189,32 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <location filename="../smtextstyles.cpp" line="1494"/>
+        <location filename="../smtextstyles.cpp" line="1495"/>
         <source>Properties</source>
         <translation>Omadused</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1195"/>
+        <location filename="../smtextstyles.cpp" line="1196"/>
         <source>Character Styles</source>
         <translation>Märgistiilid</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1200"/>
+        <location filename="../smtextstyles.cpp" line="1201"/>
         <source>Character Style</source>
         <translation>Märgistiil</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1323"/>
+        <location filename="../smtextstyles.cpp" line="1324"/>
         <source>New Style</source>
         <translation>Uus stiil</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1336"/>
+        <location filename="../smtextstyles.cpp" line="1337"/>
         <source>Clone of %1</source>
         <translation>%1 kloon</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1362"/>
+        <location filename="../smtextstyles.cpp" line="1363"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation>%1 (%2)</translation>
@@ -22141,7 +23239,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
 <context>
     <name>SMLineStyle</name>
     <message>
-        <location filename="../smlinestyle.cpp" line="30"/>
+        <location filename="../smlinestyle.cpp" line="33"/>
         <source>Properties</source>
         <translation>Omadused</translation>
     </message>
@@ -22151,63 +23249,63 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation type="obsolete">Read</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="39"/>
+        <location filename="../smlinestyle.cpp" line="42"/>
         <source>Line Styles</source>
         <translation>Joone stiilid</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="44"/>
+        <location filename="../smlinestyle.cpp" line="47"/>
         <source>Line Style</source>
         <translation>Joone stiil</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="187"/>
+        <location filename="../smlinestyle.cpp" line="190"/>
         <source>New Style</source>
         <translation>Uus stiil</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="197"/>
+        <location filename="../smlinestyle.cpp" line="200"/>
         <source>Clone of %1</source>
         <translation>%1 kloon</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="213"/>
+        <location filename="../smlinestyle.cpp" line="216"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="581"/>
+        <location filename="../smlinestyle.cpp" line="572"/>
         <source> pt</source>
         <translation>(sp)pt</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="676"/>
+        <location filename="../smlinestyle.cpp" line="652"/>
         <source>Solid Line</source>
         <translation>Ühtlane joon</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="664"/>
+        <location filename="../smlinestyle.cpp" line="655"/>
         <source>Dashed Line</source>
         <translation>Punktiirjoon</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="667"/>
+        <location filename="../smlinestyle.cpp" line="658"/>
         <source>Dotted Line</source>
         <translation>Punktjoon</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="670"/>
+        <location filename="../smlinestyle.cpp" line="661"/>
         <source>Dash Dot Line</source>
         <translation>Kriipspunktjoon</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="673"/>
+        <location filename="../smlinestyle.cpp" line="664"/>
         <source>Dash Dot Dot Line</source>
         <translation>Kriipspunktpunktjoon</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="657"/>
+        <location filename="../smlinestyle.cpp" line="648"/>
         <source> pt </source>
         <translation>(sp)pt(sp)</translation>
     </message>
@@ -22215,77 +23313,77 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
 <context>
     <name>SMLineStyleWidget</name>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="34"/>
+        <location filename="../smlinestylewidget.cpp" line="36"/>
         <source>Flat Cap</source>
         <translation type="unfinished">Lameots</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="35"/>
+        <location filename="../smlinestylewidget.cpp" line="37"/>
         <source>Square Cap</source>
         <translation type="unfinished">Ruutots</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="36"/>
+        <location filename="../smlinestylewidget.cpp" line="38"/>
         <source>Round Cap</source>
         <translation type="unfinished">Ümarots</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="38"/>
+        <location filename="../smlinestylewidget.cpp" line="40"/>
         <source>Miter Join</source>
         <translation type="unfinished">Nurkühendus</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="39"/>
+        <location filename="../smlinestylewidget.cpp" line="41"/>
         <source>Bevel Join</source>
         <translation type="unfinished">Längühendus</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="40"/>
+        <location filename="../smlinestylewidget.cpp" line="42"/>
         <source>Round Join</source>
         <translation type="unfinished">Ümarühendus</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="52"/>
+        <location filename="../smlinestylewidget.cpp" line="62"/>
         <source>Add a new line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="53"/>
+        <location filename="../smlinestylewidget.cpp" line="63"/>
         <source>Remove a line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="54"/>
+        <location filename="../smlinestylewidget.cpp" line="64"/>
         <source>Line style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="55"/>
+        <location filename="../smlinestylewidget.cpp" line="65"/>
         <source>Line width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="56"/>
+        <location filename="../smlinestylewidget.cpp" line="66"/>
         <source>End style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="57"/>
+        <location filename="../smlinestylewidget.cpp" line="67"/>
         <source>Join style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="58"/>
+        <location filename="../smlinestylewidget.cpp" line="68"/>
         <source>Line color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="59"/>
+        <location filename="../smlinestylewidget.cpp" line="69"/>
         <source>Line shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="162"/>
+        <location filename="../smlinestylewidget.cpp" line="151"/>
         <source> pt</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22303,17 +23401,17 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
 <context>
     <name>SMPStyleWidget</name>
     <message>
-        <location filename="../smpstylewidget.cpp" line="238"/>
+        <location filename="../smpstylewidget.cpp" line="250"/>
         <source>Fixed Linespacing</source>
         <translation>Fikseeritud reavahe</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="239"/>
+        <location filename="../smpstylewidget.cpp" line="251"/>
         <source>Automatic Linespacing</source>
         <translation>Automaatne reavahe</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="240"/>
+        <location filename="../smpstylewidget.cpp" line="252"/>
         <source>Align to Baseline Grid</source>
         <translation>Joondamine alusjoontele</translation>
     </message>
@@ -22348,7 +23446,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation>Omadused</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="87"/>
+        <location filename="../smpstylewidget.cpp" line="99"/>
         <source>Character Style</source>
         <translation>Märgistiil</translation>
     </message>
@@ -22373,57 +23471,57 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation type="obsolete">Eellase märgistiil</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="64"/>
+        <location filename="../smpstylewidget.cpp" line="76"/>
         <source>Alignment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="55"/>
+        <location filename="../smpstylewidget.cpp" line="67"/>
         <source>Parent Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="56"/>
+        <location filename="../smpstylewidget.cpp" line="68"/>
         <source>Line Spacing Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="57"/>
+        <location filename="../smpstylewidget.cpp" line="69"/>
         <source>Line Spacing</source>
         <translation type="unfinished">Reavahe</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="58"/>
+        <location filename="../smpstylewidget.cpp" line="70"/>
         <source>Space Above</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="59"/>
+        <location filename="../smpstylewidget.cpp" line="71"/>
         <source>Space Below</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="62"/>
+        <location filename="../smpstylewidget.cpp" line="74"/>
         <source>Drop Cap Lines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="63"/>
+        <location filename="../smpstylewidget.cpp" line="75"/>
         <source>Drop Cap Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="65"/>
+        <location filename="../smpstylewidget.cpp" line="77"/>
         <source>First Line Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="66"/>
+        <location filename="../smpstylewidget.cpp" line="78"/>
         <source>Left Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="67"/>
+        <location filename="../smpstylewidget.cpp" line="79"/>
         <source>Right Indent</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22451,27 +23549,27 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
 <context>
     <name>SMParagraphStyle</name>
     <message>
-        <location filename="../smtextstyles.cpp" line="53"/>
+        <location filename="../smtextstyles.cpp" line="56"/>
         <source>Paragraph Styles</source>
         <translation>Lõigustiilid</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="58"/>
+        <location filename="../smtextstyles.cpp" line="61"/>
         <source>Paragraph Style</source>
         <translation>Lõigustiil</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="206"/>
+        <location filename="../smtextstyles.cpp" line="209"/>
         <source>New Style</source>
         <translation>Uus stiil</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="219"/>
+        <location filename="../smtextstyles.cpp" line="222"/>
         <source>Clone of %1</source>
         <translation>%1 kloon</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="246"/>
+        <location filename="../smtextstyles.cpp" line="249"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation>%1 (%2)</translation>
@@ -22625,12 +23723,12 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
 <context>
     <name>SToolBAlign</name>
     <message>
-        <location filename="../story.cpp" line="1130"/>
+        <location filename="../story.cpp" line="1231"/>
         <source>Style Settings</source>
         <translation>Stiiliseadistused</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1147"/>
+        <location filename="../story.cpp" line="1258"/>
         <source>Style of current paragraph</source>
         <translation>Aktiivse lõigu stiil</translation>
     </message>
@@ -22638,17 +23736,17 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
 <context>
     <name>SToolBColorF</name>
     <message>
-        <location filename="../story.cpp" line="888"/>
+        <location filename="../story.cpp" line="958"/>
         <source>Fill Color Settings</source>
         <translation>Täidise värvi seadistused</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="914"/>
+        <location filename="../story.cpp" line="995"/>
         <source>Color of text fill</source>
         <translation>Teksti täidise värv</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="915"/>
+        <location filename="../story.cpp" line="996"/>
         <source>Saturation of color of text fill</source>
         <translation>Teksti täidise värvi küllastus</translation>
     </message>
@@ -22656,17 +23754,17 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
 <context>
     <name>SToolBColorS</name>
     <message>
-        <location filename="../story.cpp" line="952"/>
+        <location filename="../story.cpp" line="1033"/>
         <source>Stroke Color Settings</source>
         <translation>Äärejoone värvi seadistused</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="977"/>
+        <location filename="../story.cpp" line="1068"/>
         <source>Color of text stroke</source>
         <translation>Teksti äärejoone värv</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="978"/>
+        <location filename="../story.cpp" line="1069"/>
         <source>Saturation of color of text stroke</source>
         <translation>Teksti äärejoone värvi küllastus</translation>
     </message>
@@ -22674,37 +23772,37 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
 <context>
     <name>SToolBFont</name>
     <message>
-        <location filename="../story.cpp" line="1167"/>
+        <location filename="../story.cpp" line="1278"/>
         <source>Font Settings</source>
         <translation>Fondiseadistused</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1176"/>
+        <location filename="../story.cpp" line="1287"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1195"/>
+        <location filename="../story.cpp" line="1306"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1211"/>
+        <location filename="../story.cpp" line="1332"/>
         <source>Font of selected text</source>
         <translation>Valitud teksti font</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1212"/>
+        <location filename="../story.cpp" line="1333"/>
         <source>Font Size</source>
         <translation>Fondi suurus</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1213"/>
+        <location filename="../story.cpp" line="1334"/>
         <source>Scaling width of characters</source>
         <translation>Märkide skaleerimislaius</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1214"/>
+        <location filename="../story.cpp" line="1335"/>
         <source>Scaling height of characters</source>
         <translation>Märkide skaleerimiskõrgus</translation>
     </message>
@@ -22712,17 +23810,17 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
 <context>
     <name>SToolBStyle</name>
     <message>
-        <location filename="../story.cpp" line="1010"/>
+        <location filename="../story.cpp" line="1101"/>
         <source>Character Settings</source>
         <translation>Märkide seadistused</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1022"/>
+        <location filename="../story.cpp" line="1113"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1042"/>
+        <location filename="../story.cpp" line="1143"/>
         <source>Manual Tracking</source>
         <translation>Märkide koondamine</translation>
     </message>
@@ -22735,12 +23833,12 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
         <translation>Salvesta &amp;SVG-failina...</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="101"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="102"/>
         <source>Exports SVG Files</source>
         <translation>Ekspordib SVG-faile</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="102"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="103"/>
         <source>Exports the current page into an SVG file.</source>
         <translation>Ekspordib aktiivse lehekülje SVG-failina.</translation>
     </message>
@@ -22748,17 +23846,17 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="88"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="89"/>
         <source>Import &amp;SVG...</source>
         <translation>Impordi &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="103"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="104"/>
         <source>Imports SVG Files</source>
         <translation>Impordib SVG-faile</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="104"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="105"/>
         <source>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Impordib SVG-failid aktiivsesse dokumenti,
@@ -22770,12 +23868,12 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <translation type="obsolete">Skaleeritav vektorgraafika</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="181"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="188"/>
         <source>SVG file contains some unsupported features</source>
         <translation>SVG-fail sisaldab mõningaid toetamata omadusi</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="179"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="186"/>
         <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22783,7 +23881,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="902"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="921"/>
         <source>Group%1</source>
         <translation>Grupp%1</translation>
     </message>
@@ -22878,7 +23976,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <translation>Redigeeri etteantud seadistust. Salvestamisel kirjutab see üle süsteemse seadistuse.</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="121"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="122"/>
         <source>Short Words</source>
         <translation>Lühendid</translation>
     </message>
@@ -22888,22 +23986,22 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <translation type="obsolete">Kasutaja seadistus on juba olemas. Kas tõesti see üle kirjutada?</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="122"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="123"/>
         <source>Cannot write file %1.</source>
         <translation>Faili %1 kirjutamine ebaõnnestus.</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="129"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="130"/>
         <source>User settings saved</source>
         <translation>Kasutaja seadistus salvestatud</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="140"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="141"/>
         <source>System wide configuration reloaded</source>
         <translation>Süsteemne seadistus uuesti laaditud</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="154"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="155"/>
         <source>Cannot open file %1</source>
         <translation>Faili %1 avamine ebaõnnestus</translation>
     </message>
@@ -22921,12 +24019,12 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <translation>Salvesta &amp;mallina...</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="73"/>
+        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="74"/>
         <source>Save a document as a template</source>
         <translation>Dokumendi salvestamine mallina</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="75"/>
+        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="76"/>
         <source>Save a document as a template. Good way to ease the initial work for documents with a constant look</source>
         <translation>Salvestab dokumendi mallina. See lihtsustab tunduvalt tööd selliste dokumentidega, millel peab olema ühtne välimus.</translation>
     </message>
@@ -22952,22 +24050,22 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
 <context>
     <name>ScInputDialog</name>
     <message>
-        <location filename="../scinputdialog.cpp" line="67"/>
+        <location filename="../scinputdialog.cpp" line="80"/>
         <source>Input Dialog</source>
         <translation>Sisestamisdialoog</translation>
     </message>
     <message>
-        <location filename="../scinputdialog.cpp" line="68"/>
+        <location filename="../scinputdialog.cpp" line="81"/>
         <source>InputDialog</source>
         <translation>Sisestamisdialoog</translation>
     </message>
     <message>
-        <location filename="../scinputdialog.cpp" line="69"/>
+        <location filename="../scinputdialog.cpp" line="82"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
-        <location filename="../scinputdialog.cpp" line="71"/>
+        <location filename="../scinputdialog.cpp" line="84"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Loobu</translation>
     </message>
@@ -22975,26 +24073,34 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
 <context>
     <name>ScPlugin</name>
     <message>
-        <location filename="../scplugin.cpp" line="49"/>
+        <location filename="../scplugin.cpp" line="45"/>
         <source>Load/Save/Import/Export</source>
         <translation>Laadimine/Salvestamine/Import/Eksport</translation>
     </message>
     <message>
-        <location filename="../scplugin.cpp" line="51"/>
+        <location filename="../scplugin.cpp" line="47"/>
         <source>Persistent</source>
         <comment>plugin manager plugin type</comment>
         <translation>Püsiv</translation>
     </message>
     <message>
-        <location filename="../scplugin.cpp" line="53"/>
+        <location filename="../scplugin.cpp" line="49"/>
         <source>Action</source>
         <comment>plugin manager plugin type</comment>
         <translation>Toiming</translation>
     </message>
     <message>
-        <location filename="../scplugin.cpp" line="57"/>
+        <location filename="../scplugin.cpp" line="53"/>
         <source>Unknown</source>
         <translation>Teadmata</translation>
+    </message>
+</context>
+<context>
+    <name>ScPrintEngine_GDI</name>
+    <message>
+        <location filename="../scprintengine_gdi.cpp" line="336"/>
+        <source>Printing...</source>
+        <translation type="unfinished">Trükkimine...</translation>
     </message>
 </context>
 <context>
@@ -23071,7 +24177,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <message>
         <location filename="../scwinprint.cpp" line="323"/>
         <source>Printing...</source>
-        <translation>Trükkimine...</translation>
+        <translation type="obsolete">Trükkimine...</translation>
     </message>
 </context>
 <context>
@@ -23113,7 +24219,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <translation>Scribus 1.3.4 dokument</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="3326"/>
+        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="3352"/>
         <source>Copy #%1 of </source>
         <translation>Koopia nr. %1  - </translation>
     </message>
@@ -23126,7 +24232,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <translation type="obsolete">Scribus 1.3.0-&gt;1.3.3.2 dokument</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="3039"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="3059"/>
         <source>Copy #%1 of </source>
         <translation>Koopia nr. %1  - </translation>
     </message>
@@ -23147,17 +24253,17 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
 <context>
     <name>ScribusCore</name>
     <message>
-        <location filename="../scribuscore.cpp" line="167"/>
+        <location filename="../scribuscore.cpp" line="170"/>
         <source>Initializing Plugins</source>
         <translation>Pluginate initsialiseerimine</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="179"/>
+        <location filename="../scribuscore.cpp" line="182"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation>Kiirklahvide initsialiseerimine</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="181"/>
+        <location filename="../scribuscore.cpp" line="184"/>
         <source>Reading Preferences</source>
         <translation>Seadistuste lugemine</translation>
     </message>
@@ -23167,32 +24273,32 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <translation type="obsolete">ICC profiilide lugemine</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="326"/>
+        <location filename="../scribuscore.cpp" line="331"/>
         <source>Searching for Fonts</source>
         <translation>Fontide otsimine</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="331"/>
+        <location filename="../scribuscore.cpp" line="336"/>
         <source>There are no fonts found on your system.</source>
         <translation>Süsteemist ei leitud ühtegi fonti.</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="332"/>
+        <location filename="../scribuscore.cpp" line="337"/>
         <source>Exiting now.</source>
         <translation>Lõpetatakse.</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="333"/>
+        <location filename="../scribuscore.cpp" line="338"/>
         <source>Fatal Error</source>
         <translation>Saatuslik viga</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="336"/>
+        <location filename="../scribuscore.cpp" line="341"/>
         <source>Font System Initialized</source>
         <translation>Fondisüsteem initsialiseeritud</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="191"/>
+        <location filename="../scribuscore.cpp" line="196"/>
         <source>Reading Color Profiles</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23200,12 +24306,12 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
 <context>
     <name>ScribusDoc</name>
     <message>
-        <location filename="../scribusdoc.cpp" line="217"/>
+        <location filename="../scribusdoc.cpp" line="223"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="452"/>
+        <location filename="../scribusdoc.cpp" line="463"/>
         <source>Background</source>
         <translation>Taust</translation>
     </message>
@@ -23225,37 +24331,37 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <translation type="obsolete">Normaalne</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6836"/>
+        <location filename="../scribusdoc.cpp" line="6992"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Kas tõesti puhastada kogu tekst?</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6879"/>
+        <location filename="../scribusdoc.cpp" line="7035"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Kasutuselolevat elementi ei saa kustutada</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6879"/>
+        <location filename="../scribusdoc.cpp" line="7035"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Elementi %1 redigeeritakse parajasti looredaktoris. Kustutamisoperatsioon katkestatakse.</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7354"/>
+        <location filename="../scribusdoc.cpp" line="7545"/>
         <source>Some objects are locked.</source>
         <translation>Mõned objektid on lukustatud.</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7350"/>
+        <location filename="../scribusdoc.cpp" line="7541"/>
         <source>&amp;Unlock All</source>
         <translation>Eemalda kõigi l&amp;ukustus</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7351"/>
+        <location filename="../scribusdoc.cpp" line="7542"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Jäta lukustatud objektid vahele</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="704"/>
+        <location filename="../scribusdoc.cpp" line="715"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation>ICC profiilide avamisel tekkis viga, värvihaldus on välja lülitatud.</translation>
     </message>
@@ -23269,7 +24375,7 @@ Nihe rõhtsuunas: %2
 Nihe püstsuunas: %3</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="8467"/>
+        <location filename="../scribusdoc.cpp" line="8675"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
@@ -23278,32 +24384,32 @@ Vahe rõhtsuunas: %2
 Vahe püstsuunas: %3</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="836"/>
+        <location filename="../scribusdoc.cpp" line="847"/>
         <source>Adjusting Colors</source>
         <translation>Värvide kohandamine</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="404"/>
+        <location filename="../scribusdoc.cpp" line="415"/>
         <source>Default Paragraph Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="419"/>
+        <location filename="../scribusdoc.cpp" line="430"/>
         <source>Default Character Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5671"/>
+        <location filename="../scribusdoc.cpp" line="5796"/>
         <source>remove direct paragraph formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5906"/>
+        <location filename="../scribusdoc.cpp" line="6048"/>
         <source>remove direct char formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="8439"/>
+        <location filename="../scribusdoc.cpp" line="8649"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -23311,9 +24417,14 @@ Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="9465"/>
+        <location filename="../scribusdoc.cpp" line="9694"/>
         <source>Group%1</source>
         <translation type="unfinished">Grupp%1</translation>
+    </message>
+    <message>
+        <location filename="../scribusdoc.cpp" line="2592"/>
+        <source>Copy_of_</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23321,225 +24432,225 @@ Rotation: %4</source>
     <message>
         <location filename="../scribus.cpp" line="306"/>
         <source>Setting up Shortcuts</source>
-        <translation>Kiirklahvide seadmine</translation>
+        <translation type="obsolete">Kiirklahvide seadmine</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="321"/>
+        <location filename="../scribus.cpp" line="333"/>
         <source>Initializing Story Editor</source>
         <translation>Looredaktori initsialiseerimine</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="328"/>
+        <location filename="../scribus.cpp" line="339"/>
         <source>Initializing Hyphenator</source>
         <translation>Poolitaja initsialiseerimine</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="334"/>
+        <location filename="../scribus.cpp" line="345"/>
         <source>Reading Scrapbook</source>
         <translation>Visandimapi lugemine</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="373"/>
         <source>File</source>
-        <translation>Fail</translation>
+        <translation type="obsolete">Fail</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="386"/>
         <source>Edit</source>
-        <translation>Redigeerimine</translation>
+        <translation type="obsolete">Redigeerimine</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8974"/>
+        <location filename="../scribus.cpp" line="9297"/>
         <source>&amp;File</source>
         <translation>&amp;Fail</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8975"/>
+        <location filename="../scribus.cpp" line="9298"/>
         <source>Open &amp;Recent</source>
         <translation>Ava &amp;viimati kasutatud</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8977"/>
+        <location filename="../scribus.cpp" line="9300"/>
         <source>&amp;Import</source>
         <translation>&amp;Impordi</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8978"/>
+        <location filename="../scribus.cpp" line="9301"/>
         <source>&amp;Export</source>
         <translation>&amp;Ekspordi</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8979"/>
+        <location filename="../scribus.cpp" line="9302"/>
         <source>&amp;Edit</source>
         <translation>&amp;Redigeerimine</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8980"/>
+        <location filename="../scribus.cpp" line="9303"/>
         <source>Contents</source>
         <translation>Sisu</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8981"/>
+        <location filename="../scribus.cpp" line="9304"/>
         <source>St&amp;yle</source>
         <translation>St&amp;iil</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8982"/>
+        <location filename="../scribus.cpp" line="9305"/>
         <source>&amp;Color</source>
         <translation>&amp;Värv</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8983"/>
+        <location filename="../scribus.cpp" line="9306"/>
         <source>&amp;Size</source>
         <translation>&amp;Suurus</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8984"/>
+        <location filename="../scribus.cpp" line="9307"/>
         <source>&amp;Shade</source>
         <translation>&amp;Varjund</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8985"/>
+        <location filename="../scribus.cpp" line="9308"/>
         <source>&amp;Font</source>
         <translation>&amp;Font</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8986"/>
+        <location filename="../scribus.cpp" line="9309"/>
         <source>&amp;Effects</source>
         <translation>&amp;Efektid</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8987"/>
+        <location filename="../scribus.cpp" line="9310"/>
         <source>&amp;Item</source>
         <translation>&amp;Element</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="710"/>
+        <location filename="../scribus.cpp" line="715"/>
         <source>Preview Settings</source>
         <translation>Eelvaatluse seadistused</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="695"/>
+        <location filename="../scribus.cpp" line="700"/>
         <source>Level</source>
         <translation>Tase</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="701"/>
+        <location filename="../scribus.cpp" line="706"/>
         <source>Send to La&amp;yer</source>
         <translation>Saatmine ki&amp;hile</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8991"/>
+        <location filename="../scribus.cpp" line="9314"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;PDF-i valikud</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="8992"/>
         <source>&amp;Shape</source>
-        <translation>&amp;Kuju</translation>
+        <translation type="obsolete">&amp;Kuju</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8993"/>
+        <location filename="../scribus.cpp" line="9316"/>
         <source>C&amp;onvert To</source>
         <translation>T&amp;eisendamine</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8994"/>
+        <location filename="../scribus.cpp" line="9318"/>
         <source>I&amp;nsert</source>
         <translation>L&amp;isamine</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="772"/>
+        <location filename="../scribus.cpp" line="778"/>
         <source>&amp;Character</source>
         <translation>&amp;Märk</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="789"/>
+        <location filename="../scribus.cpp" line="795"/>
         <source>&amp;Quote</source>
         <translation>&amp;Jutumärk</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="814"/>
+        <location filename="../scribus.cpp" line="820"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation>&amp;Tühikud ja katkestused</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8998"/>
+        <location filename="../scribus.cpp" line="9322"/>
         <source>Liga&amp;ture</source>
         <translation>Li&amp;gatuur</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8999"/>
+        <location filename="../scribus.cpp" line="9323"/>
         <source>&amp;Page</source>
         <translation>&amp;Lehekülg</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9000"/>
+        <location filename="../scribus.cpp" line="9324"/>
         <source>&amp;View</source>
         <translation>&amp;Vaade</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9002"/>
+        <location filename="../scribus.cpp" line="9326"/>
         <source>E&amp;xtras</source>
         <translation>E&amp;kstra</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9003"/>
+        <location filename="../scribus.cpp" line="9327"/>
         <source>&amp;Windows</source>
         <translation>&amp;Aknad</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9004"/>
+        <location filename="../scribus.cpp" line="9328"/>
         <source>&amp;Help</source>
         <translation>A&amp;bi</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9005"/>
+        <location filename="../scribus.cpp" line="9329"/>
         <source>&amp;Alignment</source>
         <translation>&amp;Joondus</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9017"/>
+        <location filename="../scribus.cpp" line="9341"/>
         <source>Ready</source>
         <translation>Valmis</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3930"/>
+        <location filename="../scribus.cpp" line="4154"/>
         <source>Open</source>
         <translation>Avamine</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3390"/>
+        <location filename="../scribus.cpp" line="3613"/>
         <source>Importing Pages...</source>
         <translation>Lehekülgede import...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3419"/>
+        <location filename="../scribus.cpp" line="3642"/>
         <source>Import Page(s)</source>
         <translation>Lehekülgede import</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3461"/>
+        <location filename="../scribus.cpp" line="3684"/>
         <source>Import done</source>
         <translation>Import tehtud</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3465"/>
+        <location filename="../scribus.cpp" line="3688"/>
         <source>Found nothing to import</source>
         <translation>Ei leitud midagi importida</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3580"/>
+        <location filename="../scribus.cpp" line="3804"/>
         <source>Fatal Error</source>
         <translation>Saatuslik viga</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3580"/>
+        <location filename="../scribus.cpp" line="3804"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Fail %1 ei ole sobivas vormingus</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3601"/>
+        <location filename="../scribus.cpp" line="3825"/>
         <source>Loading...</source>
         <translation>Laadimine...</translation>
     </message>
@@ -23554,12 +24665,12 @@ Rotation: %4</source>
         <translation type="obsolete">Mõned dokumendis kasutatud ICC profiilid ei ole paigaldatud:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3748"/>
+        <location filename="../scribus.cpp" line="3972"/>
         <source> was replaced by: </source>
         <translation> asendati profiiliga: </translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3780"/>
+        <location filename="../scribus.cpp" line="4004"/>
         <source>(converted)</source>
         <translation>(teisendatud)</translation>
     </message>
@@ -23574,7 +24685,7 @@ Rotation: %4</source>
         <translation type="obsolete">Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7722"/>
+        <location filename="../scribus.cpp" line="8018"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Ei õnnestunud kirjutada faili:
@@ -23591,17 +24702,17 @@ Rotation: %4</source>
         <translation type="obsolete">Dokumendid (*.sla *.scd);;Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4102"/>
+        <location filename="../scribus.cpp" line="4329"/>
         <source>Save As</source>
         <translation>Salvestamine</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4128"/>
+        <location filename="../scribus.cpp" line="4358"/>
         <source>Saving...</source>
         <translation>Salvestamine...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7442"/>
+        <location filename="../scribus.cpp" line="7716"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus avastas vigu. Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
@@ -23616,47 +24727,47 @@ Rotation: %4</source>
         <translation type="obsolete">&amp;Katkesta</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4387"/>
+        <location filename="../scribus.cpp" line="4618"/>
         <source>Printing...</source>
         <translation>Trükkimine...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7553"/>
+        <location filename="../scribus.cpp" line="7832"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4446"/>
+        <location filename="../scribus.cpp" line="4659"/>
         <source>Printing failed!</source>
         <translation>Trükkimine ebaõnnestus!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4575"/>
+        <location filename="../scribus.cpp" line="4749"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Kasutuselolevat elementi ei saa lõigata</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4575"/>
+        <location filename="../scribus.cpp" line="4749"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Elementi %1 redigeeritakse parajasti looredaktoris. Lõikamisoperatsioon katkestatakse.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5215"/>
+        <location filename="../scribus.cpp" line="5402"/>
         <source>About Qt</source>
         <translation>Qt info</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5220"/>
+        <location filename="../scribus.cpp" line="5414"/>
         <source>Scribus Manual</source>
         <translation>Scribuse käsiraamat</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7576"/>
+        <location filename="../scribus.cpp" line="7855"/>
         <source>Save as</source>
         <translation>Salvestamine</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5245"/>
+        <location filename="../scribus.cpp" line="5439"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Tekstifailid (*.txt);;Kõik failid (*)</translation>
     </message>
@@ -23681,27 +24792,27 @@ Rotation: %4</source>
         <translation type="obsolete">Uus leheküljetoorik %1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6646"/>
+        <location filename="../scribus.cpp" line="6900"/>
         <source>&amp;Size:</source>
         <translation>&amp;Suurus:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6646"/>
+        <location filename="../scribus.cpp" line="6900"/>
         <source>Size</source>
         <translation>Suurus</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6676"/>
+        <location filename="../scribus.cpp" line="6930"/>
         <source>&amp;Shade:</source>
         <translation>&amp;Varjund:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6676"/>
+        <location filename="../scribus.cpp" line="6930"/>
         <source>Shade</source>
         <translation>Varjund</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6778"/>
+        <location filename="../scribus.cpp" line="7032"/>
         <source>No Style</source>
         <translation>Stiil puudub</translation>
     </message>
@@ -23715,32 +24826,32 @@ Nihe rõhtsuunas: %2
 Nihe püstsuunas: %3</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7340"/>
+        <location filename="../scribus.cpp" line="7613"/>
         <source>The following programs are missing:</source>
         <translation>Järgmised programmid puuduvad:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7342"/>
+        <location filename="../scribus.cpp" line="7615"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
         <translation>Ghostscript: ei saa kasutada EPS-pilte ega trükkimise eelvaatlust</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7344"/>
+        <location filename="../scribus.cpp" line="7617"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
         <translation>Ghostscript: ei saa kasutada EPS-pilte ega PostScript trükkimise eelvaatlust</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7389"/>
+        <location filename="../scribus.cpp" line="7663"/>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
         <translation>Ghostscript puudub: ei saa kasutada PostScript trükkimise eelvaatlust</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7478"/>
+        <location filename="../scribus.cpp" line="7752"/>
         <source>All</source>
         <translation>Kõik</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7522"/>
+        <location filename="../scribus.cpp" line="7801"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus avastas vigu.
@@ -23752,124 +24863,124 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
         <translation type="obsolete">EPS-failid (*.eps);;Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7607"/>
+        <location filename="../scribus.cpp" line="7898"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Avastati mõned vead.
 Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7699"/>
+        <location filename="../scribus.cpp" line="7992"/>
         <source>-Page%1</source>
         <translation>-lk%1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8064"/>
+        <location filename="../scribus.cpp" line="8363"/>
         <source>Some objects are locked.</source>
         <translation>Mõned objektid on lukustatud.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8060"/>
+        <location filename="../scribus.cpp" line="8359"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Lukusta kõik</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8061"/>
+        <location filename="../scribus.cpp" line="8360"/>
         <source>&amp;Unlock All</source>
         <translation>Eemalda kõigi l&amp;ukustus</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8747"/>
+        <location filename="../scribus.cpp" line="9068"/>
         <source>Information</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8747"/>
+        <location filename="../scribus.cpp" line="9068"/>
         <source>The program %1 is already running!</source>
         <translation>Programm %1 juba töötab!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8785"/>
+        <location filename="../scribus.cpp" line="9107"/>
         <source>The program %1 is missing!</source>
         <translation>Programm %1 puudub!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8899"/>
+        <location filename="../scribus.cpp" line="9221"/>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
         <translation>Valitud värv puudub dokumendi värvikomplektis. Palun anna uuele värvile nimi.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8902"/>
+        <location filename="../scribus.cpp" line="9224"/>
         <source>Color Not Found</source>
         <translation>Värvi ei leitud</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8906"/>
+        <location filename="../scribus.cpp" line="9228"/>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
         <translation>Valitud nimi on juba olemas. Palun anna uuele värvile mõni muu nimi.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8988"/>
+        <location filename="../scribus.cpp" line="9311"/>
         <source>&amp;Level</source>
         <translation>&amp;Tase</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8989"/>
+        <location filename="../scribus.cpp" line="9312"/>
         <source>Send to Layer</source>
         <translation>Saatmine kihile</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8990"/>
+        <location filename="../scribus.cpp" line="9313"/>
         <source>Previe&amp;w Settings</source>
         <translation>Eel&amp;vaatluse seadistused</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8995"/>
+        <location filename="../scribus.cpp" line="9319"/>
         <source>Character</source>
         <translation>Märk</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8996"/>
+        <location filename="../scribus.cpp" line="9320"/>
         <source>Quote</source>
         <translation>Jutumärk</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8997"/>
+        <location filename="../scribus.cpp" line="9321"/>
         <source>Space</source>
         <translation>Tühik</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9001"/>
+        <location filename="../scribus.cpp" line="9325"/>
         <source>&amp;Tools</source>
         <translation>&amp;Tööriistad</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9013"/>
+        <location filename="../scribus.cpp" line="9337"/>
         <source>X-Pos:</source>
         <translation>X-asukoht:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9014"/>
+        <location filename="../scribus.cpp" line="9338"/>
         <source>Y-Pos:</source>
         <translation>Y-asukoht:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9138"/>
+        <location filename="../scribus.cpp" line="9491"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Kas tõesti asendada olemasolev pilt?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8976"/>
+        <location filename="../scribus.cpp" line="9299"/>
         <source>Paste Recent</source>
         <translation>Aseta viimati kasutatud</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="2405"/>
         <source>Updating Pictures</source>
-        <translation>Piltide uuendamine</translation>
+        <translation type="obsolete">Piltide uuendamine</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4099"/>
+        <location filename="../scribus.cpp" line="4326"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Dokumendid (*.sla *.sla.gz);;Kõik failid (*)</translation>
     </message>
@@ -23884,165 +24995,186 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
         <translation type="obsolete">Grupp%1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3960"/>
+        <location filename="../scribus.cpp" line="4184"/>
         <source>Do you really want to clear all your text?</source>
         <translation type="unfinished">Kas tõesti puhastada kogu tekst?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="270"/>
+        <location filename="../scribus.cpp" line="278"/>
         <source>Scribus </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9006"/>
+        <location filename="../scribus.cpp" line="9330"/>
         <source>Online &amp;Tutorials</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3745"/>
+        <location filename="../scribus.cpp" line="3969"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7576"/>
+        <location filename="../scribus.cpp" line="7855"/>
         <source>%1;;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="317"/>
+        <source>Applying User Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="2489"/>
+        <source>Updating Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="4342"/>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="4714"/>
+        <source>Print engine initialization failed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ScribusQApp</name>
     <message>
-        <location filename="../scribusapp.cpp" line="200"/>
+        <location filename="../scribusapp.cpp" line="199"/>
         <source>Invalid argument: </source>
         <translation>Vigane argument: </translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="220"/>
+        <location filename="../scribusapp.cpp" line="219"/>
         <source>File %1 does not exist, aborting.</source>
         <translation>Faili %1 ei ole olemas, lõpetatakse.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="401"/>
+        <location filename="../scribusapp.cpp" line="405"/>
         <source>Usage: scribus [option ... ] [file]</source>
         <translation>Kasutamine: scribus [võti ...] [fail]</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="402"/>
+        <location filename="../scribusapp.cpp" line="406"/>
         <source>Options:</source>
         <translation>Võtmed:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="404"/>
+        <location filename="../scribusapp.cpp" line="408"/>
         <source>Print help (this message) and exit</source>
         <translation>Abi näitamine ja väljumine</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="405"/>
+        <location filename="../scribusapp.cpp" line="409"/>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
         <translation>xx kasutamine keele lühendina, näiteks &apos;et&apos; või &apos;en&apos;</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="406"/>
+        <location filename="../scribusapp.cpp" line="410"/>
         <source>List the currently installed interface languages</source>
         <translation>Kasutajaliidese paigaldatud keelte nimekiri</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="403"/>
+        <location filename="../scribusapp.cpp" line="407"/>
         <source>Show information on the console when fonts are being loaded</source>
         <translation>Info näitamine konsoolis fontide laadimisel</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="407"/>
+        <location filename="../scribusapp.cpp" line="411"/>
         <source>Do not show the splashscreen on startup</source>
         <translation>Käivitamisel ei näidata käivitusekraani</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="408"/>
+        <location filename="../scribusapp.cpp" line="412"/>
         <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
         <translation>Käivitamisel ei näidata enam käivitusekraani. Kirjutab kataloogi ~/.scribus tühja faili nimega .neversplash.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="413"/>
+        <location filename="../scribusapp.cpp" line="417"/>
         <source>Output version information and exit</source>
         <translation>Näitab versiooni ja väljub</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="411"/>
+        <location filename="../scribusapp.cpp" line="415"/>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
         <translation>Vahetab dialooginuppude järjekorra (nt. Loobu/Ei/Jah tavalise Jah/Ei/Loobu asemel)</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="409"/>
+        <location filename="../scribusapp.cpp" line="413"/>
         <source>filename</source>
         <translation>failinimi</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="409"/>
+        <location filename="../scribusapp.cpp" line="413"/>
         <source>Use filename as path for user given preferences</source>
         <translation>Failinimi määrab kasutaja seadistuste asukoha</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="432"/>
+        <location filename="../scribusapp.cpp" line="436"/>
         <source>Installed interface languages for Scribus are as follows:</source>
         <translation>Scribuse kasutajaliidese paigaldatud keeled on järgmised:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="440"/>
+        <location filename="../scribusapp.cpp" line="444"/>
         <source>To override the default language choice:</source>
         <translation>Vaikimisi valitud keele tühistamiseks anna käsk:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="441"/>
+        <location filename="../scribusapp.cpp" line="445"/>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
         <translation>scribus -l xx või scribus --lang xx, kus xx on sinu valitud keel.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="446"/>
+        <location filename="../scribusapp.cpp" line="450"/>
         <source>Scribus Version</source>
         <translation>Scribuse versioon</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="455"/>
+        <location filename="../scribusapp.cpp" line="459"/>
         <source>Scribus, Open Source Desktop Publishing</source>
         <translation>Scribus - avatud lähtekoodiga küljendusprogramm</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="463"/>
+        <location filename="../scribusapp.cpp" line="467"/>
         <source>Homepage</source>
         <translation>Kodulehekülg</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="464"/>
+        <location filename="../scribusapp.cpp" line="468"/>
         <source>Documentation</source>
         <translation>Dokumentatsioon</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="465"/>
+        <location filename="../scribusapp.cpp" line="469"/>
         <source>Wiki</source>
         <translation>Wiki</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="466"/>
+        <location filename="../scribusapp.cpp" line="470"/>
         <source>Issues</source>
         <translation>Vead</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="412"/>
+        <location filename="../scribusapp.cpp" line="416"/>
         <source>Download a file from the Scribus website and show the latest available version.</source>
         <translation>Fail laaditakse alla Scribuse veebisaidilt ja näidatakse uusimat saadaolevat versiooni.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="417"/>
+        <location filename="../scribusapp.cpp" line="421"/>
         <source>Display a console window</source>
         <translation>Näidatakse konsooliaknas</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="410"/>
+        <location filename="../scribusapp.cpp" line="414"/>
         <source>Show location ICC profile information on console while starting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="218"/>
+        <location filename="../scribusapp.cpp" line="217"/>
         <source>Invalid argument: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24050,7 +25182,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
 <context>
     <name>ScribusView</name>
     <message>
-        <location filename="../scribusview.cpp" line="201"/>
+        <location filename="../scribusview.cpp" line="205"/>
         <source> %</source>
         <translation> %</translation>
     </message>
@@ -24060,22 +25192,22 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
         <translation type="obsolete">Kiht</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="949"/>
+        <location filename="../scribusview.cpp" line="1023"/>
         <source>Copy Here</source>
         <translation>Kopeeri siia</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="950"/>
+        <location filename="../scribusview.cpp" line="1024"/>
         <source>Move Here</source>
         <translation>Liiguta siia</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="951"/>
+        <location filename="../scribusview.cpp" line="1025"/>
         <source>Cancel</source>
         <translation>Loobu</translation>
     </message>
     <message>
-        <location filename="../canvasmode_nodeedit.cpp" line="498"/>
+        <location filename="../contextmenu.cpp" line="365"/>
         <source>&amp;Paste</source>
         <translation>&amp;Aseta</translation>
     </message>
@@ -24085,27 +25217,27 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
         <translation type="obsolete">Pilt</translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="257"/>
+        <location filename="../pageitem_imageframe.cpp" line="406"/>
         <source>File: </source>
         <translation>Fail: </translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="262"/>
+        <location filename="../pageitem_imageframe.cpp" line="407"/>
         <source>Original PPI: </source>
         <translation>Originaali PPI: </translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="267"/>
+        <location filename="../pageitem_imageframe.cpp" line="408"/>
         <source>Actual PPI: </source>
         <translation>Tegelik PPI: </translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="272"/>
+        <location filename="../pageitem_imageframe.cpp" line="409"/>
         <source>Colorspace: </source>
         <translation>Värviruum: </translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="277"/>
+        <location filename="../pageitem_imageframe.cpp" line="413"/>
         <source>Unknown</source>
         <translation>Teadmata</translation>
     </message>
@@ -24155,22 +25287,22 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
         <translation type="obsolete">Märke: </translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4368"/>
+        <location filename="../pageitem.cpp" line="4663"/>
         <source>Print: </source>
         <translation>Trükkimine: </translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4371"/>
+        <location filename="../pageitem.cpp" line="4665"/>
         <source>Enabled</source>
         <translation>Lubatud</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4373"/>
+        <location filename="../pageitem.cpp" line="4667"/>
         <source>Disabled</source>
         <translation>Keelatud</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4383"/>
+        <location filename="../contextmenu.cpp" line="135"/>
         <source>In&amp;fo</source>
         <translation>In&amp;fo</translation>
     </message>
@@ -24180,37 +25312,37 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
         <translation type="obsolete">Eelvaatluse seadistused</translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3384"/>
+        <location filename="../pageitem_textframe.cpp" line="3392"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;PDF-i valikud</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4420"/>
+        <location filename="../contextmenu.cpp" line="254"/>
         <source>Send to La&amp;yer</source>
         <translation>Saatmine ki&amp;hile</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4449"/>
+        <location filename="../contextmenu.cpp" line="288"/>
         <source>Le&amp;vel</source>
         <translation>&amp;Tase</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4469"/>
+        <location filename="../contextmenu.cpp" line="313"/>
         <source>Conve&amp;rt to</source>
         <translation>T&amp;eisendamine</translation>
     </message>
     <message>
         <location filename="../canvasmode_legacy.cpp" line="4480"/>
         <source>&amp;Delete</source>
-        <translation>K&amp;ustuta</translation>
+        <translation type="obsolete">K&amp;ustuta</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4485"/>
+        <location filename="../contextmenu.cpp" line="345"/>
         <source>Contents</source>
         <translation>Sisu</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1687"/>
+        <location filename="../canvasmode_legacy.cpp" line="2001"/>
         <source>Linking Text Frames</source>
         <translation>Tekstikastide linkimine</translation>
     </message>
@@ -24220,22 +25352,22 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
         <translation type="obsolete">Üritad linkida täidetud kastiga või sama kasti endaga.</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3116"/>
+        <location filename="../scribusview.cpp" line="2333"/>
         <source>Page %1 to %2</source>
         <translation>Lehekülg %1 kuni %2</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="4560"/>
+        <location filename="../scribusview.cpp" line="3825"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Kasutuselolevat elementi ei saa teisendada</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="4560"/>
+        <location filename="../scribusview.cpp" line="3825"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Elementi %1 redigeeritakse parajasti looredaktoris. Antud elemendi kontuuriks teisendamise operatsioon jäetakse vahele.</translation>
     </message>
     <message>
-        <location filename="../canvasmode_nodeedit.cpp" line="515"/>
+        <location filename="../contextmenu.cpp" line="371"/>
         <source>Paste Recent</source>
         <translation>Aseta viimati kasutatud</translation>
     </message>
@@ -24250,17 +25382,17 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
         <translation type="obsolete">Read: </translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="4260"/>
+        <location filename="../scribusview.cpp" line="3500"/>
         <source>Group%1</source>
         <translation>Grupp%1</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="326"/>
+        <location filename="../scribusview.cpp" line="348"/>
         <source>Enables the Preview Mode</source>
         <translation>Lülitab sisse eelvaatluse režiimi</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="327"/>
+        <location filename="../scribusview.cpp" line="349"/>
         <source>Here you can select the visual appearance of the display
 You can choose between normal and several color blindness forms</source>
         <translation>Siin saab kindlaks määrata vaate väljanägemise(new line)
@@ -24292,37 +25424,37 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="obsolete">Täielik värvipimedus</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="325"/>
+        <location filename="../scribusview.cpp" line="347"/>
         <source>Switches Color Management on or off</source>
         <translation>Lülitab värvihalduse sisse või välja</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="365"/>
+        <location filename="../scribusview.cpp" line="389"/>
         <source>Preview Mode</source>
         <translation type="unfinished">Eelvaatluse režiim</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="366"/>
+        <location filename="../scribusview.cpp" line="390"/>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="2326"/>
+        <location filename="../canvasmode_legacy.cpp" line="2854"/>
         <source>Enter Object Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="283"/>
+        <location filename="../pageitem_imageframe.cpp" line="420"/>
         <source>No Image Loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1681"/>
+        <location filename="../canvasmode_legacy.cpp" line="1995"/>
         <source>You are trying to link a frame to itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1688"/>
+        <location filename="../canvasmode_legacy.cpp" line="2002"/>
         <source>You are trying to link a frame which is already linked.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24330,12 +25462,12 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
 <context>
     <name>ScribusWin</name>
     <message>
-        <location filename="../scribuswin.cpp" line="107"/>
+        <location filename="../scribuswin.cpp" line="109"/>
         <source>Document:</source>
         <translation>Dokumenti:</translation>
     </message>
     <message>
-        <location filename="../scribuswin.cpp" line="109"/>
+        <location filename="../scribuswin.cpp" line="111"/>
         <source>has been changed since the last save.</source>
         <translation>on pärast viimast salvestamist muudetud.</translation>
     </message>
@@ -24361,27 +25493,27 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
 <context>
     <name>ScripterCore</name>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="570"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="574"/>
         <source>Script error</source>
         <translation>Skripti viga</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="351"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="353"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation>Kui kasutad ametlikku skripti, anna sellest palun teada aadressil &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="353"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="355"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>See teade leidub ka lõikepuhvris. Käsuga Ctrl+V saab selle veajälitusse asetada.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="420"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="424"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>Sisestatud käsu puhul tekkis sisemine viga. Üksikasjad saadeti standardveaväljundisse. </translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="493"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="497"/>
         <source>Examine Script</source>
         <translation>Skripti uurimine</translation>
     </message>
@@ -24391,27 +25523,27 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="obsolete">Pythoni skriptid (*.py);; Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="506"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="510"/>
         <source>Documentation for:</source>
         <translation>Dokumentatsioon:</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="515"/>
         <source>Script</source>
         <translation>Skript</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="515"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation> ei sisalda ühtegi docstringi!</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="572"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="576"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Pythoni plugina seadistamine ebaõnnestus. Vead saadeti standardveaväljundisse. </translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="493"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="497"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation>Pythoni skriptid (*.py *.PY);; Kõik failid (*)</translation>
     </message>
@@ -24544,7 +25676,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
 <context>
     <name>SeList</name>
     <message>
-        <location filename="../pagepalette.cpp" line="55"/>
+        <location filename="../pagepalette.cpp" line="57"/>
         <source>Show Page Previews</source>
         <translation>Näita lehekülgede eelvaatlust</translation>
     </message>
@@ -24552,7 +25684,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
 <context>
     <name>SearchReplace</name>
     <message>
-        <location filename="../search.cpp" line="638"/>
+        <location filename="../search.cpp" line="600"/>
         <source>Search/Replace</source>
         <translation>Otsimine/asendamine</translation>
     </message>
@@ -24682,7 +25814,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation>Otsing lõpetatud</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="639"/>
+        <location filename="../search.cpp" line="601"/>
         <source>Search finished, found %1 matches</source>
         <translation>Otsing lõpetatud, leiti %1 sobivust</translation>
     </message>
@@ -24736,17 +25868,17 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
 <context>
     <name>ShadowValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="123"/>
+        <location filename="../styleselect.cpp" line="125"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="122"/>
+        <location filename="../styleselect.cpp" line="124"/>
         <source>X-Offset</source>
         <translation>X-nihe</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="124"/>
+        <location filename="../styleselect.cpp" line="126"/>
         <source>Y-Offset</source>
         <translation>Y-nihe</translation>
     </message>
@@ -24760,12 +25892,12 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation>Lü&amp;hendid...</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="156"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="159"/>
         <source>Short Words</source>
         <translation>Lühendid</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="98"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="99"/>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
         <translation>Spetsiaalne plugin sisetühiku lisamiseks lühendite ette või järele. Saadaval järgmistele keeltele: </translation>
     </message>
@@ -24793,57 +25925,57 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation>&amp;Määra klahv</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="104"/>
+        <location filename="../shortcutwidget.cpp" line="116"/>
         <source>Alt</source>
         <translation>Alt</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="104"/>
+        <location filename="../shortcutwidget.cpp" line="116"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="104"/>
+        <location filename="../shortcutwidget.cpp" line="116"/>
         <source>Shift</source>
         <translation>Shift</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="104"/>
+        <location filename="../shortcutwidget.cpp" line="116"/>
         <source>Meta</source>
         <translation>Meta</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="65"/>
+        <location filename="../shortcutwidget.cpp" line="77"/>
         <source>Meta+</source>
         <translation>Meta+</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="69"/>
+        <location filename="../shortcutwidget.cpp" line="81"/>
         <source>Shift+</source>
         <translation>Shift+</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="73"/>
+        <location filename="../shortcutwidget.cpp" line="85"/>
         <source>Alt+</source>
         <translation>Alt+</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="77"/>
+        <location filename="../shortcutwidget.cpp" line="89"/>
         <source>Ctrl+</source>
         <translation>Ctrl+</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="33"/>
+        <location filename="../shortcutwidget.cpp" line="45"/>
         <source>No shortcut for the style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="34"/>
+        <location filename="../shortcutwidget.cpp" line="46"/>
         <source>Style has user defined shortcut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="35"/>
+        <location filename="../shortcutwidget.cpp" line="47"/>
         <source>Assign a shortcut for the style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24851,14 +25983,14 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
 <context>
     <name>SideBar</name>
     <message>
-        <location filename="../story.cpp" line="160"/>
+        <location filename="../story.cpp" line="187"/>
         <source>No Style</source>
-        <translation type="obsolete">Stiil puudub</translation>
+        <translation type="unfinished">Stiil puudub</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="123"/>
+        <location filename="../story.cpp" line="138"/>
         <source>Edit Styles...</source>
-        <translation type="obsolete">Redigeeri stiile...</translation>
+        <translation type="unfinished">Redigeeri stiile...</translation>
     </message>
 </context>
 <context>
@@ -24930,47 +26062,47 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
 <context>
     <name>StoryEditor</name>
     <message>
-        <location filename="../story.cpp" line="1694"/>
+        <location filename="../story.cpp" line="1827"/>
         <source>&amp;File</source>
         <translation>&amp;Fail</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1703"/>
+        <location filename="../story.cpp" line="1836"/>
         <source>&amp;Edit</source>
         <translation>&amp;Redigeerimine</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1715"/>
+        <location filename="../story.cpp" line="1848"/>
         <source>&amp;Insert</source>
         <translation>L&amp;isamine</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1716"/>
+        <location filename="../story.cpp" line="1849"/>
         <source>Character</source>
         <translation>Märk</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1717"/>
+        <location filename="../story.cpp" line="1850"/>
         <source>Quote</source>
         <translation>Jutumärk</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1516"/>
+        <location filename="../story.cpp" line="1637"/>
         <source>Spaces &amp;&amp; Breaks</source>
         <translation>Tühikud ja katkestused</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1528"/>
+        <location filename="../story.cpp" line="1649"/>
         <source>Ligature</source>
         <translation>Ligatuur</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1722"/>
+        <location filename="../story.cpp" line="1855"/>
         <source>&amp;Settings</source>
         <translation>&amp;Seadistused</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1813"/>
+        <location filename="../story.cpp" line="1951"/>
         <source>Story Editor</source>
         <translation>Looredaktor</translation>
     </message>
@@ -24980,172 +26112,172 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="obsolete">&amp;Uus</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1695"/>
+        <location filename="../story.cpp" line="1828"/>
         <source>Clear All Text</source>
         <translation>Puhasta kogu tekst</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1696"/>
+        <location filename="../story.cpp" line="1829"/>
         <source>&amp;Reload Text from Frame</source>
         <translation>&amp;Laadi tekst kastist uuesti</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1697"/>
+        <location filename="../story.cpp" line="1830"/>
         <source>&amp;Save to File...</source>
         <translation>&amp;Salvesta failina...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1698"/>
+        <location filename="../story.cpp" line="1831"/>
         <source>&amp;Load from File...</source>
         <translation>L&amp;aadi failist...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1699"/>
+        <location filename="../story.cpp" line="1832"/>
         <source>Save &amp;Document</source>
         <translation>Salvesta &amp;dokument</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1700"/>
+        <location filename="../story.cpp" line="1833"/>
         <source>&amp;Update Text Frame and Exit</source>
         <translation>&amp;Uuenda tekstikasti ja välju</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1701"/>
+        <location filename="../story.cpp" line="1834"/>
         <source>&amp;Exit Without Updating Text Frame</source>
         <translation>&amp;Välju tekstikasti uuendamata</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1704"/>
+        <location filename="../story.cpp" line="1837"/>
         <source>Select &amp;All</source>
         <translation>&amp;Vali kõik</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1705"/>
+        <location filename="../story.cpp" line="1838"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Lõika</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1706"/>
+        <location filename="../story.cpp" line="1839"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopeeri</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1707"/>
+        <location filename="../story.cpp" line="1840"/>
         <source>&amp;Paste</source>
         <translation>&amp;Aseta</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1708"/>
+        <location filename="../story.cpp" line="1841"/>
         <source>C&amp;lear</source>
         <translation>&amp;Puhasta</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1709"/>
+        <location filename="../story.cpp" line="1842"/>
         <source>&amp;Search/Replace...</source>
         <translation>Ot&amp;si/asenda...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1710"/>
+        <location filename="../story.cpp" line="1843"/>
         <source>&amp;Edit Styles...</source>
         <translation>&amp;Redigeeri stiile...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1711"/>
+        <location filename="../story.cpp" line="1844"/>
         <source>&amp;Fonts Preview...</source>
         <translation>&amp;Fontide eelvaatlus...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1712"/>
+        <location filename="../story.cpp" line="1845"/>
         <source>&amp;Update Text Frame</source>
         <translation>&amp;Uuenda tekstikasti</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1718"/>
+        <location filename="../story.cpp" line="1851"/>
         <source>Space</source>
         <translation>Tühik</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1719"/>
+        <location filename="../story.cpp" line="1852"/>
         <source>&amp;Insert Glyph...</source>
         <translation>L&amp;isa glüüf...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1723"/>
+        <location filename="../story.cpp" line="1856"/>
         <source>&amp;Background...</source>
         <translation>&amp;Taust...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1724"/>
+        <location filename="../story.cpp" line="1857"/>
         <source>&amp;Display Font...</source>
         <translation>&amp;Kasutatav font...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1725"/>
+        <location filename="../story.cpp" line="1858"/>
         <source>&amp;Smart text selection</source>
         <translation>&amp;Nutikas teksti valimine</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1730"/>
+        <location filename="../story.cpp" line="1863"/>
         <source>File</source>
         <translation>Fail</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1732"/>
+        <location filename="../story.cpp" line="1865"/>
         <source>Current Paragraph:</source>
         <translation>Aktiivne lõik:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1737"/>
+        <location filename="../story.cpp" line="1870"/>
         <source>Words: </source>
         <translation>Sõnu: </translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1738"/>
+        <location filename="../story.cpp" line="1871"/>
         <source>Chars: </source>
         <translation>Märke: </translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1735"/>
+        <location filename="../story.cpp" line="1868"/>
         <source>Totals:</source>
         <translation>Kokku:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1736"/>
+        <location filename="../story.cpp" line="1869"/>
         <source>Paragraphs: </source>
         <translation>Lõike: </translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1797"/>
+        <location filename="../story.cpp" line="1932"/>
         <source>Story Editor - %1</source>
         <translation>Looredaktor - %1</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1853"/>
+        <location filename="../story.cpp" line="1991"/>
         <source>Do you want to save your changes?</source>
         <translation>Kas salvestada tehtud muudatused?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2437"/>
+        <location filename="../story.cpp" line="2573"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>Kas tõesti loobuda kõigist muudatustest?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2466"/>
+        <location filename="../story.cpp" line="2602"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Kas tõesti puhastada kogu tekst?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2927"/>
+        <location filename="../story.cpp" line="3061"/>
         <source>Open</source>
         <translation>Avamine</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2962"/>
+        <location filename="../story.cpp" line="3096"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Tekstifailid (*.txt);;Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2962"/>
+        <location filename="../story.cpp" line="3096"/>
         <source>Save as</source>
         <translation>Salvestamine</translation>
     </message>
@@ -25153,22 +26285,22 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
 <context>
     <name>StrikeValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="29"/>
+        <location filename="../styleselect.cpp" line="31"/>
         <source>Auto</source>
         <translation>Automaatne</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="40"/>
+        <location filename="../styleselect.cpp" line="42"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="39"/>
+        <location filename="../styleselect.cpp" line="41"/>
         <source>Displacement</source>
         <translation>Nihe</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="41"/>
+        <location filename="../styleselect.cpp" line="43"/>
         <source>Linewidth</source>
         <translation>Joone jämedus</translation>
     </message>
@@ -25181,22 +26313,22 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="obsolete">Valitud on rohkem kui üks element</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="340"/>
+        <location filename="../stylemanager.ui" line="351"/>
         <source>Name:</source>
         <translation>Nimi:</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="489"/>
+        <location filename="../stylemanager.ui" line="500"/>
         <source>&amp;Reset</source>
         <translation>Lä&amp;htesta</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="467"/>
+        <location filename="../stylemanager.ui" line="478"/>
         <source>&amp;Apply</source>
         <translation>&amp;Rakenda</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="445"/>
+        <location filename="../stylemanager.ui" line="456"/>
         <source>&lt;&lt; &amp;Done</source>
         <translation type="unfinished">&lt;&lt; &amp;Tehtud</translation>
     </message>
@@ -25206,233 +26338,261 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="obsolete">&amp;Redigeeri &gt;&gt;</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="158"/>
+        <location filename="../stylemanager.ui" line="169"/>
         <source>&amp;New</source>
         <translation>&amp;Uus</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="224"/>
+        <location filename="../stylemanager.ui" line="235"/>
         <source>&amp;Import</source>
         <translation>&amp;Impordi</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="189"/>
+        <location filename="../stylemanager.ui" line="200"/>
         <source>&amp;Clone</source>
         <translation>&amp;Klooni</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="240"/>
+        <location filename="../stylemanager.ui" line="251"/>
         <source>&amp;Delete</source>
         <translation>K&amp;ustuta</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="94"/>
+        <location filename="../stylemanager.cpp" line="106"/>
         <source>Reset all changes</source>
         <translation>Lähtesta kõik muudatused</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="95"/>
+        <location filename="../stylemanager.cpp" line="107"/>
         <source>Apply all changes</source>
         <translation>Rakenda kõik muudatused</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="89"/>
+        <location filename="../stylemanager.cpp" line="101"/>
         <source>Apply all changes and exit edit mode</source>
         <translation>Rakenda kõik muudatused ja välju redigeerimisrežiimist</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="96"/>
+        <location filename="../stylemanager.cpp" line="108"/>
         <source>Create a new style</source>
         <translation>Loo uus stiil</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="97"/>
+        <location filename="../stylemanager.cpp" line="109"/>
         <source>Import styles from another document</source>
         <translation>Impordi stiilid teisest dokumendist</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="98"/>
+        <location filename="../stylemanager.cpp" line="110"/>
         <source>Clone selected style</source>
         <translation>Klooni valitud stiil</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="99"/>
+        <location filename="../stylemanager.cpp" line="111"/>
         <source>Delete selected styles</source>
         <translation>Kustuta valitud stiilid</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="601"/>
+        <location filename="../stylemanager.cpp" line="618"/>
         <source>New</source>
         <translation>Uus</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="145"/>
+        <location filename="../stylemanager.cpp" line="157"/>
         <source>Import</source>
         <translation>Impordi</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="148"/>
+        <location filename="../stylemanager.cpp" line="160"/>
         <source>Clone</source>
         <translation>Klooni</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="149"/>
+        <location filename="../stylemanager.cpp" line="161"/>
         <source>Send to Scrapbook</source>
         <translation>Saada visandimappi</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="151"/>
+        <location filename="../stylemanager.cpp" line="163"/>
         <source>Delete</source>
         <translation>Kustuta</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="689"/>
+        <location filename="../stylemanager.cpp" line="708"/>
         <source>&amp;Edit</source>
         <translation>&amp;Redigeeri</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="108"/>
+        <location filename="../stylemanager.cpp" line="120"/>
         <source>&amp;Done</source>
         <translation>&amp;Tehtud</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="67"/>
+        <location filename="../stylemanager.ui" line="78"/>
         <source>Shortcut</source>
         <translation>Kiirklahv</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="62"/>
+        <location filename="../stylemanager.ui" line="73"/>
         <source>Name</source>
         <translation type="unfinished">Nimi</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="91"/>
+        <location filename="../stylemanager.cpp" line="103"/>
         <source>Edit styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="93"/>
+        <location filename="../stylemanager.cpp" line="105"/>
         <source>Name of the selected style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="147"/>
+        <location filename="../stylemanager.cpp" line="159"/>
         <source>Edit</source>
         <translation type="unfinished">Redigeerimine</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="588"/>
+        <location filename="../stylemanager.cpp" line="605"/>
         <source>New %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="978"/>
+        <location filename="../stylemanager.cpp" line="997"/>
         <source>This key sequence is already in use</source>
         <translation type="unfinished">See klahvikombinatsioon on juba kasutusel</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1066"/>
+        <location filename="../stylemanager.cpp" line="1085"/>
         <source>More than one style selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="283"/>
+        <location filename="../stylemanager.cpp" line="295"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="283"/>
+        <location filename="../stylemanager.cpp" line="295"/>
         <source>documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="161"/>
+        <location filename="../stylemanager.ui" line="172"/>
         <source>Alt+N</source>
         <translation type="unfinished">Alt+N</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="186"/>
+        <location filename="../stylemanager.ui" line="197"/>
         <source>Clone copies the style to make similar styles easily.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="192"/>
+        <location filename="../stylemanager.ui" line="203"/>
         <source>Alt+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="227"/>
+        <location filename="../stylemanager.ui" line="238"/>
         <source>Alt+I</source>
         <translation type="unfinished">Alt+I</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="448"/>
+        <location filename="../stylemanager.ui" line="459"/>
         <source>Alt+D</source>
         <translation type="unfinished">Alt+D</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="371"/>
+        <location filename="../stylemanager.ui" line="382"/>
         <source>Please select a unique name for the style</source>
         <translation type="unfinished">Palun vali stiilile unikaalne nimi</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="470"/>
+        <location filename="../stylemanager.ui" line="481"/>
         <source>Alt+A</source>
         <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="492"/>
+        <location filename="../stylemanager.ui" line="503"/>
         <source>Alt+R</source>
         <translation type="unfinished">Alt+R</translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="22"/>
+        <source>Style Manager</source>
+        <translation type="unfinished">Stiilihaldur</translation>
     </message>
 </context>
 <context>
     <name>StyleSelect</name>
     <message>
-        <location filename="../styleselect.cpp" line="254"/>
+        <location filename="../styleselect.cpp" line="269"/>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
         <translation>Teksti allajoonimine. Nuppu all hoides saab määrata joone jämeduse ja nihke.</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="255"/>
+        <location filename="../styleselect.cpp" line="270"/>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
         <translation>Ainult sõnade allajoonimine. Nuppu all hoides saab määrata joone jämeduse ja nihke.</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="256"/>
+        <location filename="../styleselect.cpp" line="271"/>
         <source>All Caps</source>
         <translation>Suurtähed</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="257"/>
+        <location filename="../styleselect.cpp" line="272"/>
         <source>Small Caps</source>
         <translation>Kapiteelkiri</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="258"/>
+        <location filename="../styleselect.cpp" line="273"/>
         <source>Subscript</source>
         <translation>Alaindeks</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="259"/>
+        <location filename="../styleselect.cpp" line="274"/>
         <source>Superscript</source>
         <translation>Ülaindeks</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="260"/>
+        <location filename="../styleselect.cpp" line="275"/>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
         <translation>Läbikriipsutamine. Nuppu all hoides saab määrata joone jämeduse ja nihke.</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="261"/>
+        <location filename="../styleselect.cpp" line="276"/>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
         <translation>Kontuur. Nuppu all hoides saab määrata kontuuri äärejoone jämeduse.</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="262"/>
+        <location filename="../styleselect.cpp" line="277"/>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
         <translation>Varjuga tekst. Nuppu all hoides saab määrata varju nihke.</translation>
+    </message>
+</context>
+<context>
+    <name>SubdividePlugin</name>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="66"/>
+        <source>Subdivide Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="70"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="87"/>
+        <source>Subdivide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="88"/>
+        <source>Subdivide selected Path</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25496,22 +26656,22 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
 <context>
     <name>TOCIndexPrefs</name>
     <message>
-        <location filename="../tocindexprefs.cpp" line="105"/>
+        <location filename="../tocindexprefs.cpp" line="114"/>
         <source>None</source>
         <translation>Puudub</translation>
     </message>
     <message>
         <location filename="../tocindexprefs.cpp" line="107"/>
         <source>At the beginning</source>
-        <translation>Alguses</translation>
+        <translation type="obsolete">Alguses</translation>
     </message>
     <message>
         <location filename="../tocindexprefs.cpp" line="109"/>
         <source>At the end</source>
-        <translation>Lõpus</translation>
+        <translation type="obsolete">Lõpus</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="111"/>
+        <location filename="../tocindexprefs.cpp" line="120"/>
         <source>Not Shown</source>
         <translation>Ei näidata</translation>
     </message>
@@ -25521,77 +26681,77 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation>Sisukord ja registrid</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="26"/>
+        <location filename="../tocindexprefs.ui" line="35"/>
         <source>Table Of Contents</source>
         <translation>Sisukord</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="60"/>
+        <location filename="../tocindexprefs.ui" line="96"/>
         <source>&amp;Add</source>
         <translation>Lis&amp;a</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="63"/>
+        <location filename="../tocindexprefs.ui" line="99"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="70"/>
+        <location filename="../tocindexprefs.ui" line="106"/>
         <source>&amp;Delete</source>
         <translation>K&amp;ustuta</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="73"/>
+        <location filename="../tocindexprefs.ui" line="109"/>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="100"/>
+        <location filename="../tocindexprefs.ui" line="157"/>
         <source>The frame the table of contents will be placed into</source>
         <translation>Kast, kuhu sisukord paigutatakse</translation>
     </message>
     <message>
         <location filename="../tocindexprefs.ui" line="107"/>
         <source>Page Numbers Placed:</source>
-        <translation>Leheküljenumbrite asukoht:</translation>
+        <translation type="obsolete">Leheküljenumbrite asukoht:</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="117"/>
+        <location filename="../tocindexprefs.ui" line="174"/>
         <source>Item Attribute Name:</source>
         <translation>Elemendi atribuudi nimi:</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="127"/>
+        <location filename="../tocindexprefs.ui" line="184"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
         <translation>Elemendi atribuut, mis kehtestatakse kastidele kirjete loomise alusena</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="134"/>
+        <location filename="../tocindexprefs.ui" line="191"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
         <translation>Kirjete leheküljenumbrid võib asetada rea lõppu, algusesse või jätta üldse näitamata</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="144"/>
+        <location filename="../tocindexprefs.ui" line="201"/>
         <source>List Non-Printing Entries</source>
         <translation>Mittetrükitavate kirjete kaasamine</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="141"/>
+        <location filename="../tocindexprefs.ui" line="198"/>
         <source>Include frames that are set to not print as well</source>
         <translation>Kastide kaasamine, mida ei trükita</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="151"/>
+        <location filename="../tocindexprefs.ui" line="208"/>
         <source>The paragraph style used for the entry lines</source>
         <translation>Kirjeridade lõigustiil</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="158"/>
+        <location filename="../tocindexprefs.ui" line="215"/>
         <source>Paragraph Style:</source>
         <translation>Lõigustiil:</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="168"/>
+        <location filename="../tocindexprefs.ui" line="225"/>
         <source>Destination Frame:</source>
         <translation>Sihtraam:</translation>
     </message>
@@ -25601,8 +26761,23 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="obsolete">Re&amp;gister</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="247"/>
+        <location filename="../tocindexprefs.cpp" line="256"/>
         <source>Table of Contents %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tocindexprefs.ui" line="164"/>
+        <source>Page Number Placement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tocindexprefs.cpp" line="116"/>
+        <source>Beginning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tocindexprefs.cpp" line="118"/>
+        <source>End</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -25827,7 +27002,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     <message>
         <location filename="../tabdisplay.cpp" line="36"/>
         <source>Turns the display of pictures on or off</source>
-        <translation>Piltide näitamise lubamine või keelamine</translation>
+        <translation type="obsolete">Piltide näitamise lubamine või keelamine</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="37"/>
@@ -25865,179 +27040,189 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="31"/>
+        <location filename="../tabdisplay.ui" line="43"/>
         <source>General</source>
         <translation type="unfinished">Üldine</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="43"/>
+        <location filename="../tabdisplay.ui" line="295"/>
         <source>Adjust Display Size</source>
         <translation type="unfinished">Vaate suuruse kohandamine</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="79"/>
+        <location filename="../tabdisplay.ui" line="362"/>
         <source>Scale%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="110"/>
+        <location filename="../tabdisplay.ui" line="319"/>
         <source>To adjust the display drag the ruler below with the slider.</source>
         <translation type="unfinished">Vaate kohandamiseks lohista allpool joonlaual liugurit.</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="123"/>
+        <location filename="../tabdisplay.ui" line="242"/>
         <source>Gaps Between Pages</source>
         <translation type="unfinished">Lehtede vahed</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="138"/>
+        <location filename="../tabdisplay.ui" line="269"/>
         <source>Vertical:</source>
         <translation type="unfinished">Püstsuunas:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="151"/>
+        <location filename="../tabdisplay.ui" line="282"/>
         <source>Horizontal:</source>
         <translation type="unfinished">Rõhtsuunas:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="164"/>
+        <location filename="../tabdisplay.ui" line="144"/>
         <source>Scratch Space</source>
         <translation type="unfinished">Sodiala</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="179"/>
+        <location filename="../tabdisplay.ui" line="171"/>
         <source>&amp;Bottom:</source>
         <translation type="unfinished">&amp;All:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="195"/>
+        <location filename="../tabdisplay.ui" line="187"/>
         <source>&amp;Top:</source>
         <translation type="unfinished">Ü&amp;lal:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="211"/>
+        <location filename="../tabdisplay.ui" line="203"/>
         <source>&amp;Right:</source>
         <translation type="unfinished">&amp;Paremal:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="234"/>
+        <location filename="../tabdisplay.ui" line="226"/>
         <source>&amp;Left:</source>
         <translation type="unfinished">&amp;Vasakul:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="250"/>
+        <location filename="../tabdisplay.ui" line="49"/>
         <source>Page Display</source>
         <translation type="unfinished">Lehekülje vaade</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="262"/>
+        <location filename="../tabdisplay.ui" line="73"/>
         <source>Show Bleed Area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="269"/>
+        <location filename="../tabdisplay.ui" line="80"/>
         <source>Display &amp;Unprintable Area in Margin Color</source>
         <translation type="unfinished">&amp;Mittetrükitavat ala näidatakse veerise värviga</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="272"/>
+        <location filename="../tabdisplay.ui" line="83"/>
         <source>Alt+U</source>
         <translation type="unfinished">Alt+U</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="279"/>
+        <location filename="../tabdisplay.ui" line="90"/>
         <source>Show Layer Indicators</source>
         <translation type="unfinished">Kihi indikaatorite näitamine</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="289"/>
+        <location filename="../tabdisplay.ui" line="100"/>
         <source>Show Frames</source>
         <translation type="unfinished">Kastide näitamine</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="299"/>
+        <location filename="../tabdisplay.ui" line="110"/>
         <source>Show Text Chains</source>
         <translation type="unfinished">Tekstiahela näitamine</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="309"/>
+        <location filename="../tabdisplay.ui" line="120"/>
         <source>Rulers Relative to Page</source>
         <translation type="unfinished">Joonlauad on seotud leheküljega</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="316"/>
+        <location filename="../tabdisplay.ui" line="127"/>
         <source>Show Text Control Characters</source>
         <translation type="unfinished">Mittetrükitavate märkide näitamine</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="323"/>
         <source>Show Pictures</source>
-        <translation type="unfinished">Piltide näitamine</translation>
+        <translation type="obsolete">Piltide näitamine</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="350"/>
+        <location filename="../tabdisplay.ui" line="416"/>
         <source>Colors</source>
         <translation type="unfinished">Värvid</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="378"/>
+        <location filename="../tabdisplay.ui" line="456"/>
         <source>Pages:</source>
         <translation type="unfinished">Leheküljed:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="398"/>
+        <location filename="../tabdisplay.ui" line="497"/>
         <source>Selected Page Border:</source>
         <translation type="unfinished">Valitud lehekülje ääris:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="453"/>
+        <location filename="../tabdisplay.ui" line="561"/>
         <source>Fill Color:</source>
         <translation type="unfinished">Täidise värv:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="487"/>
+        <location filename="../tabdisplay.ui" line="595"/>
         <source>Frames</source>
         <translation type="unfinished">Kastid</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="507"/>
+        <location filename="../tabdisplay.ui" line="639"/>
         <source>Grouped:</source>
         <translation type="unfinished">Rühmitatud:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="536"/>
+        <location filename="../tabdisplay.ui" line="668"/>
         <source>Annotation:</source>
         <translation type="unfinished">Annotatsioon:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="629"/>
+        <location filename="../tabdisplay.ui" line="773"/>
         <source>Selected:</source>
         <translation type="unfinished">Valitud:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="639"/>
+        <location filename="../tabdisplay.ui" line="783"/>
         <source>Linked:</source>
         <translation type="unfinished">Lingitud:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="675"/>
+        <location filename="../tabdisplay.ui" line="831"/>
         <source>Locked:</source>
         <translation type="unfinished">Lukustatud:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="723"/>
+        <location filename="../tabdisplay.ui" line="879"/>
         <source>Normal:</source>
         <translation type="unfinished">Normaalsed:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="738"/>
+        <location filename="../tabdisplay.ui" line="894"/>
         <source>Text:</source>
         <translation type="unfinished">Tekst:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="785"/>
+        <location filename="../tabdisplay.ui" line="953"/>
         <source>Control Characters:</source>
         <translation type="unfinished">Mittetrükitavad märgid:</translation>
+    </message>
+    <message>
+        <location filename="../tabdisplay.cpp" line="36"/>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabdisplay.ui" line="134"/>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -26369,17 +27554,17 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
 <context>
     <name>TabExternalToolsWidget</name>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="125"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="114"/>
         <source>Locate Ghostscript</source>
         <translation>Ghostscripti asukoht</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="133"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="122"/>
         <source>Locate your image editor</source>
         <translation>Pildiredaktori asukoht</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="141"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="130"/>
         <source>Locate your web browser</source>
         <translation>Brauseri asukoht</translation>
     </message>
@@ -26389,42 +27574,42 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="unfinished">Välised tööriistad</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="255"/>
+        <location filename="../tabexternaltoolswidget.ui" line="237"/>
         <source>Web Browser to launch with links from the Help system</source>
         <translation type="unfinished">Brauser abisüsteemi linkide avamiseks</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="258"/>
+        <location filename="../tabexternaltoolswidget.ui" line="240"/>
         <source>Web Browser</source>
         <translation type="unfinished">Brauser</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="498"/>
+        <location filename="../tabexternaltoolswidget.ui" line="367"/>
         <source>&amp;Change...</source>
         <translation type="unfinished">&amp;Muuda...</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="501"/>
+        <location filename="../tabexternaltoolswidget.ui" line="370"/>
         <source>Alt+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="292"/>
+        <location filename="../tabexternaltoolswidget.ui" line="274"/>
         <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
         <translation type="unfinished">&lt;qt&gt;Brauseri asukoht failisüsteemis. Seda kasutatakse abisüsteemi väliste linkide avamiseks.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="299"/>
+        <location filename="../tabexternaltoolswidget.ui" line="281"/>
         <source>Name of &amp;Executable:</source>
         <translation type="unfinished">Käivitatava faili n&amp;imi:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="198"/>
+        <location filename="../tabexternaltoolswidget.ui" line="180"/>
         <source>Image Processing Tool</source>
         <translation type="unfinished">Pilditöötlusrakendus</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="232"/>
+        <location filename="../tabexternaltoolswidget.ui" line="214"/>
         <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
         <translation type="unfinished">&lt;qt&gt;Graafikaredaktori asukoht failisüsteemis. Kui kasutad GIMP-i ja sinu distributsioon seda sisaldab, soovitame kasutada selle varianti &apos;gimp-remote&apos;, mis lubab redigeerida pilti ka juba töötavas GIMP-i eksemplaris.&lt;/qt&gt;</translation>
     </message>
@@ -26434,52 +27619,52 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="unfinished">PostScripti interpretaator</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="60"/>
+        <location filename="../tabexternaltoolswidget.ui" line="91"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation type="unfinished">Teksti antialias EPS- ja PDF-failide renderdamiseks ekraanil</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="63"/>
+        <location filename="../tabexternaltoolswidget.ui" line="94"/>
         <source>Antialias &amp;Text</source>
         <translation type="unfinished">&amp;Teksti antialias</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="66"/>
+        <location filename="../tabexternaltoolswidget.ui" line="97"/>
         <source>Alt+T</source>
         <translation type="unfinished">Alt+T</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="89"/>
+        <location filename="../tabexternaltoolswidget.ui" line="120"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
         <translation type="unfinished">Graafika antialias EPS- ja PDF-failide renderdamiseks ekraanil</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="92"/>
+        <location filename="../tabexternaltoolswidget.ui" line="123"/>
         <source>Antialias &amp;Graphics</source>
         <translation type="unfinished">&amp;Graafika antialias</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="95"/>
+        <location filename="../tabexternaltoolswidget.ui" line="126"/>
         <source>Alt+G</source>
         <translation type="unfinished">Alt+G</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="433"/>
+        <location filename="../tabexternaltoolswidget.ui" line="441"/>
         <source>Resolution:</source>
         <translation type="unfinished">Lahutus:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="446"/>
+        <location filename="../tabexternaltoolswidget.ui" line="454"/>
         <source> dpi</source>
         <translation type="unfinished"> dpi</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="338"/>
+        <location filename="../tabexternaltoolswidget.ui" line="42"/>
         <source>&amp;Name of Executable:</source>
         <translation type="unfinished">Käivitatava faili &amp;nimi:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="176"/>
+        <location filename="../tabexternaltoolswidget.ui" line="55"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
         <translation type="unfinished">&lt;qt&gt;Ghostscripti interpretaatori asukoha lisamine. Windowsi korral on oluline tähele panna, et kasutada tuleb programmi nimega gswin32c.exe - MITTE AGA gswin32.exe. Viimane võib Scribuse käivitamisel kaasa tuua hangumise.&lt;/qt&gt;</translation>
     </message>
@@ -26489,84 +27674,99 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="obsolete">&amp;Muuda..</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="617"/>
+        <location filename="../tabexternaltoolswidget.ui" line="521"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
         <translation type="unfinished">Väliste tööriistade uus otsing, kui neid ei leidu juba määratud asukohas</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="620"/>
+        <location filename="../tabexternaltoolswidget.ui" line="524"/>
         <source>&amp;Rescan</source>
         <translation type="unfinished">Uu&amp;ri uuesti</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="623"/>
+        <location filename="../tabexternaltoolswidget.ui" line="527"/>
         <source>Alt+R</source>
         <translation type="unfinished">Alt+R</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="149"/>
-        <source>Locate your LaTeX executable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="157"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="138"/>
         <source>Locate your LaTeX editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="315"/>
+        <location filename="../tabexternaltoolswidget.ui" line="297"/>
         <source>LaTeX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="351"/>
-        <source>&lt;qt&gt;Path to LaTeX executable. Must be a program that produces one of the formats supported by image frames!&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabexternaltoolswidget.ui" line="387"/>
-        <source>Output file extension:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabexternaltoolswidget.ui" line="416"/>
+        <location filename="../tabexternaltoolswidget.ui" line="381"/>
         <source>Start with empty frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="423"/>
+        <location filename="../tabexternaltoolswidget.ui" line="418"/>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="426"/>
+        <location filename="../tabexternaltoolswidget.ui" line="421"/>
         <source>Force DPI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="478"/>
-        <source>Latex Editor:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabexternaltoolswidget.ui" line="491"/>
+        <location filename="../tabexternaltoolswidget.ui" line="360"/>
         <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="511"/>
+        <location filename="../tabexternaltoolswidget.ui" line="407"/>
         <source>Use Embedded Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabexternaltoolswidget.ui" line="527"/>
-        <source>Preamble:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="548"/>
         <source>End:</source>
-        <translation type="unfinished">Lõpp:</translation>
+        <translation type="obsolete">Lõpp:</translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.cpp" line="160"/>
+        <source>Locate a Configuration file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.cpp" line="162"/>
+        <source>Configuration files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="303"/>
+        <source>Configurations:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="312"/>
+        <source>Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="319"/>
+        <source>Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="326"/>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="333"/>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="347"/>
+        <source>External Latex Editor:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -26705,57 +27905,57 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
 <context>
     <name>TabGeneral</name>
     <message>
-        <location filename="../tabgeneral.cpp" line="66"/>
+        <location filename="../tabgeneral.cpp" line="65"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
         <translation>Scribuse vaikimisi töökeele valimine. Tühjaksjätmisel kasutatakse keskkonnamuutujatega määratud väärtust. Seda saab siiski tühistada, kui Scribust käsurealt käivitades vastav võti lisada</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="67"/>
+        <location filename="../tabgeneral.cpp" line="66"/>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation>Menüüs Fail näidatavate viimati kasutatud dokumentide arv</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="68"/>
+        <location filename="../tabgeneral.cpp" line="67"/>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
         <translation>Ridade arv, mille võrra Scribus kerib hiireratta liigutamisel</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="69"/>
+        <location filename="../tabgeneral.cpp" line="68"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
         <translation>Akna dekoratsioonide ja välimuse vaikeväärtus. Scribus kasutab kõiki saadaolevaid KDE või Qt teemasid, kui Qt on seadistatud leidma KDE pluginaid.</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="70"/>
+        <location filename="../tabgeneral.cpp" line="69"/>
         <source>Default font size for the menus and windows</source>
         <translation>Menüüde ja akende fondi vaikesuurus</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="71"/>
+        <location filename="../tabgeneral.cpp" line="70"/>
         <source>Default font size for the tool windows</source>
         <translation>Tööriistaakende fondi vaikesuurus</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="72"/>
+        <location filename="../tabgeneral.cpp" line="71"/>
         <source>Default documents directory</source>
         <translation>Dokumentide vaikimisi kataloog</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="74"/>
+        <location filename="../tabgeneral.cpp" line="73"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
         <translation>ICC profiilide vaikimisi kataloog. Seda ei saa muuta, kui mõni dokument on avatud. Vaikimisi otsib Scribus neid Mac OS X ja Windowsi korral süsteemsetest kataloogidest. Linuxi ja Unixi korral otsib Scribus neid kataloogidest $home/.color/icc,/usr/share/color/icc ja /usr/local/share/color/icc.(sp)</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="75"/>
+        <location filename="../tabgeneral.cpp" line="74"/>
         <source>Default Scripter scripts directory</source>
         <translation>Skriptija vaikimisi skriptide kataloog</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="76"/>
+        <location filename="../tabgeneral.cpp" line="75"/>
         <source>Additional directory for document templates</source>
         <translation>Täiendav dokumendimallide kataloog</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="132"/>
+        <location filename="../tabgeneral.cpp" line="131"/>
         <source>Choose a Directory</source>
         <translation>Kataloogi valik</translation>
     </message>
@@ -26890,7 +28090,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="73"/>
+        <location filename="../tabgeneral.cpp" line="72"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27231,50 +28431,50 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation>Klahvikomplektide XML-failid (*.ksxml)</translation>
+        <translation type="obsolete">Klahvikomplektide XML-failid (*.ksxml)</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="551"/>
         <source>Alt</source>
         <translation>Alt</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="551"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="551"/>
         <source>Shift</source>
         <translation>Shift</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="551"/>
         <source>Meta</source>
         <translation>Meta</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="478"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="501"/>
         <source>Meta+</source>
         <translation>Meta+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="482"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="505"/>
         <source>Shift+</source>
         <translation>Shift+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="486"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="509"/>
         <source>Alt+</source>
         <translation>Alt+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="490"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="513"/>
         <source>Ctrl+</source>
         <translation>Ctrl+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="500"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="523"/>
         <source>This key sequence is already in use</source>
         <translation>See klahvikombinatsioon on juba kasutusel</translation>
     </message>
@@ -27409,23 +28609,28 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation type="unfinished">Saadaolevad kiirklahvikomplektid</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="131"/>
-        <source>Choose a file to read</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
-        <source>Choose a file to save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="233"/>
         <source>Export Keyboard Shortcuts to File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="233"/>
         <source>Enter the name of the shortcut set:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="154"/>
+        <source>Select a Key set file to read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="162"/>
+        <source>Key Set XML Files (*.xml)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="162"/>
+        <source>Select a Key set file to save to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -27844,7 +29049,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <translation>Esitlusefektide lu&amp;bamine</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1759"/>
+        <location filename="../tabpdfoptions.cpp" line="1758"/>
         <source>Page</source>
         <translation>Lehekülg</translation>
     </message>
@@ -27976,7 +29181,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     <message>
         <location filename="../tabpdfoptions.cpp" line="532"/>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>Efekti r&amp;akendamine kõigil lehekülgedel</translation>
+        <translation type="obsolete">Efekti r&amp;akendamine kõigil lehekülgedel</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="535"/>
@@ -28071,7 +29276,7 @@ when PDF document is opened:</source>
 käivitatav JavaScript:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1169"/>
+        <location filename="../tabpdfoptions.cpp" line="1168"/>
         <source>No Script</source>
         <translation>Skript puudub</translation>
     </message>
@@ -28291,67 +29496,67 @@ käivitatav JavaScript:</translation>
         <translation type="obsolete">PDF/X-&amp;3</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="897"/>
+        <location filename="../tabpdfoptions.cpp" line="896"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
         <translation>Fontide põimimine PDF-faili. Põimitud fondid aitavad säilitada dokumendi kujunduse ja välimuse.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="898"/>
+        <location filename="../tabpdfoptions.cpp" line="897"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Lülitab sisse esitlusefektid, mida saab kasutada Adobe&amp;#174; Reader&amp;#174; ja teiste PDF-näitajate korral, mis toetavad täisekraanirežiimi.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="899"/>
+        <location filename="../tabpdfoptions.cpp" line="898"/>
         <source>Show page previews of each page listed above.</source>
         <translation>Kõigi ülalolevate lehekülgede eelvaatluse näitamine</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="900"/>
+        <location filename="../tabpdfoptions.cpp" line="899"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Aeg, mille jooksul lehekülge näidatakse enne esitluse alustamist. 0 tähendab lehekülgede automaatse ülemineku keelamist.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="901"/>
+        <location filename="../tabpdfoptions.cpp" line="900"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation>Efekti esitamise aeg. Lühem aeg kiirendab efekti esitamist, pikem aeglustab.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="902"/>
+        <location filename="../tabpdfoptions.cpp" line="901"/>
         <source>Type of the display effect.</source>
         <translation>Efekti tüüp</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="903"/>
+        <location filename="../tabpdfoptions.cpp" line="902"/>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
         <translation>Ridade liigutamise suund segunemise ja lõhkumise efekti korral</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="904"/>
+        <location filename="../tabpdfoptions.cpp" line="903"/>
         <source>Starting position for the box and split effects.</source>
         <translation>Alguspositsioon kasti ja lõhkumise efekti korral</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="905"/>
+        <location filename="../tabpdfoptions.cpp" line="904"/>
         <source>Direction of the glitter or wipe effects.</source>
         <translation>Sädeluse või pühkimise efekti suund</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="906"/>
+        <location filename="../tabpdfoptions.cpp" line="905"/>
         <source>Apply the selected effect to all pages.</source>
         <translation>Valitud efekti kasutatakse kõigil lehekülgedel</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="939"/>
+        <location filename="../tabpdfoptions.cpp" line="938"/>
         <source>Export all pages to PDF</source>
         <translation>Kõigi lehekülgede eksport PDF-failina</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="940"/>
+        <location filename="../tabpdfoptions.cpp" line="939"/>
         <source>Export a range of pages to PDF</source>
         <translation>Lehekülgede vahemiku eksport PDF-failina</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="943"/>
+        <location filename="../tabpdfoptions.cpp" line="942"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
         <translation>Sisesta komadega eradatud arvud või märgid: * tähistab kõiki lehekülgi, 1-5 lehekülgede vahemikku, konkreetsed leheküljenumbrid vastavaid lehekülgi.</translation>
     </message>
@@ -28361,37 +29566,37 @@ käivitatav JavaScript:</translation>
         <translation type="obsolete">Määrab PDF-faili ühilduvuse. Vaikimisi on PDF 1.3, mis tagab suurima ühilduvuse. PDF 1.4 võimaldab kasutada läbipaistvust, 128-bitist krüptimist ja muid toredaid omadusi. PDF 1.5 on vajalik siis, kui soovid säilitada PDF-failis objekte erinevatel kihtidel. PDF/X-3 on mõeldud PDF-faili eksportimiseks juhul, kui soovid RGB värvihaldust trükikodades trükkimiseks. Seda saab valida juhul, kui värvihaldus on sisse lülitatud. Seda tasub kasutada ainult siis, kui see sobib sinu printeriga või kui näiteks trükid välja digitaalsel neljavärvi-laserprinteril.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="946"/>
+        <location filename="../tabpdfoptions.cpp" line="945"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation>Määrab lehekülgede sidumise külje PDF-is. Kui sa just ei pea seda kindlasti muutma, jäta kehtima vaikevalik (vasak).</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="947"/>
+        <location filename="../tabpdfoptions.cpp" line="946"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
         <translation>Genereerib PDF-failis iga lehekülje pisipildid. Mõned näitajad kasutavad pisipilte liikumise hõlbustamiseks.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="948"/>
+        <location filename="../tabpdfoptions.cpp" line="947"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
         <translation>Genereerib PDF-i artiklid, millest on abi lingitud artiklite vahel liikumisel PDF-is.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="949"/>
+        <location filename="../tabpdfoptions.cpp" line="948"/>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
         <translation>Dokumendi kihid eksporditakse PDF-faili ainult juhul, kui valitud on PDF 1.5.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="950"/>
+        <location filename="../tabpdfoptions.cpp" line="949"/>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
         <translation>Kaasab dokumendis loodud järjehoidjad. Neist on abi pikkades PDF-dokumentides liikumisel.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="951"/>
+        <location filename="../tabpdfoptions.cpp" line="950"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
         <translation>Teksti ja vektorkgraafika eksportimise lahutus. See ei mõjuta bittrasterpiltide, nt. fotode lahutust.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="952"/>
+        <location filename="../tabpdfoptions.cpp" line="951"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
         <translation>Lülitab sisse teksti ja graafika kadudeta tihendamise. See oleks mõttekas ära märkida, kui just pole teisiti nõutud. See vähendab PDF-faili suurust.</translation>
     </message>
@@ -28411,147 +29616,147 @@ käivitatav JavaScript:</translation>
         <translation type="obsolete">Bittrasterpiltide lahutuse muutmine määratud DPI-le. Märkimatajätmisel renderdatakse neid loomuliku lahutusega. Sisselülitamise korral läheb vaja rohkem mälu ning eksport muutub aeglasemaks.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="956"/>
+        <location filename="../tabpdfoptions.cpp" line="955"/>
         <source>DPI (Dots Per Inch) for image export.</source>
         <translation>DPI (punkti tolli kohta) piltide eksportimiseks</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="957"/>
+        <location filename="../tabpdfoptions.cpp" line="956"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Turvavõimaluste sisselülitamine eksporditud PDF-failis. PDF 1.3 korral kaitstakse PDF-i 40-bitise krüptimisega. PDF 1.4 koral kaitstakse PDF-i 128-bitise krüptimisega. Lahtiütlus: PDF-i krüptimine ei ole nii usaldusväärne nagu GPG või PGP krüptimine ning sel on teatud piirangud.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="958"/>
+        <location filename="../tabpdfoptions.cpp" line="957"/>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
         <translation>Ülemparooli valimine, mis lubab või keelab kõik turvavõimalused eksporditud PDF-is</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="959"/>
+        <location filename="../tabpdfoptions.cpp" line="958"/>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation>Parooli valimine kasutajale PDF-i lugemiseks</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="960"/>
+        <location filename="../tabpdfoptions.cpp" line="959"/>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
         <translation>PDF-i trükkimise lubamine. Märkimatajätmisel on trükkimine keelatud. </translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="961"/>
+        <location filename="../tabpdfoptions.cpp" line="960"/>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
         <translation>PDF-i muutmise lubamine. Märkimatajätmisel on muutmine keelatud.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="962"/>
+        <location filename="../tabpdfoptions.cpp" line="961"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
         <translation>Teksti või graafika kopeerimise lubamine PDF-ist. Märkimatajätmisel ei saa teksti ega graafikat kopeerida.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="963"/>
+        <location filename="../tabpdfoptions.cpp" line="962"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
         <translation>Annotatsioonide ja väljade lisamise lubamine PDF-ile. Märkimatajätmisel on annotatsioonide ja väljade redigeerimine keelatud.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="964"/>
+        <location filename="../tabpdfoptions.cpp" line="963"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation>PDF-i väljundi värvimudel. Ekraan / veeb sobib PDF-ile, mida kasutatakse ekraanil vaatamiseks ja trükkimiseks tavalistes tindiprinterites. Printer sobib trükkimiseks neljavärvi-CMYK-printeris. Halltoonid sobib halltoonides PDF-i loomiseks.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="965"/>
+        <location filename="../tabpdfoptions.cpp" line="964"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>See on täppisseadistus, mis ei ole vaikimisi sisse lülitatud. See tuleks sisse lülitada ainult siis, kui trükikoda seda konkreetselt nõuab ja sul on olemas kõik üksikasjad. Vastasel juhtul ei pruugi eksporditud PDF-i trükkimine korralikult välja tulla ning see ei pruugi olla päris porditav erinevates süsteemides.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="966"/>
+        <location filename="../tabpdfoptions.cpp" line="965"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Värviprofiili põimimine ühtlaste värvide tarbeks</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="967"/>
+        <location filename="../tabpdfoptions.cpp" line="966"/>
         <source>Color profile for solid colors</source>
         <translation>Värviprofiil ühtlaste värvide tarbeks</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="968"/>
+        <location filename="../tabpdfoptions.cpp" line="967"/>
         <source>Rendering intent for solid colors</source>
         <translation>Renderdamisviis ühtlaste värvide tarbeks</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="969"/>
+        <location filename="../tabpdfoptions.cpp" line="968"/>
         <source>Embed a color profile for images</source>
         <translation>Värviprofiili põimimine piltide tarbeks</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="970"/>
+        <location filename="../tabpdfoptions.cpp" line="969"/>
         <source>Do not use color profiles that are embedded in source images</source>
         <translation>Keelab kasutada lähtepiltidesse põimitud värviprofiile</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="971"/>
+        <location filename="../tabpdfoptions.cpp" line="970"/>
         <source>Color profile for images</source>
         <translation>Värviprofiil piltide tarbeks</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="972"/>
+        <location filename="../tabpdfoptions.cpp" line="971"/>
         <source>Rendering intent for images</source>
         <translation>Renderdamisviis piltide tarbeks</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="990"/>
+        <location filename="../tabpdfoptions.cpp" line="989"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
         <translation>Väljundprofiil trükkimiseks. Võimaluse korral tuleks seda konsulteerida trükikojaga. </translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="991"/>
+        <location filename="../tabpdfoptions.cpp" line="990"/>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation>PDF/X-3 kohustuslik string, mille puudumisel PDF/X-3 ei vasta nõuetele. Soovitatav on kasutada siin dokumendi pealkirja.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="985"/>
+        <location filename="../tabpdfoptions.cpp" line="984"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Lõikevaru füüsilise lehekülje ülaservas</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="986"/>
+        <location filename="../tabpdfoptions.cpp" line="985"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation>Lõikevaru füüsilise lehekülje allservas</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="987"/>
+        <location filename="../tabpdfoptions.cpp" line="986"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation>Lõikevaru füüsilise lehekülje vasakus servas</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="988"/>
+        <location filename="../tabpdfoptions.cpp" line="987"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Lõikevaru füüsilise lehekülje paremas servas</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="973"/>
+        <location filename="../tabpdfoptions.cpp" line="972"/>
         <source>Mirror Page(s) horizontally</source>
         <translation>Lehekülgede peegeldamine rõhtsalt</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="974"/>
+        <location filename="../tabpdfoptions.cpp" line="973"/>
         <source>Mirror Page(s) vertically</source>
         <translation>Lehekülgede peegeldamine püstiselt</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="975"/>
+        <location filename="../tabpdfoptions.cpp" line="974"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation>Sisselülitamisel kehtestatakse dokumendile üldine ületrükirežiim, mis tühistab objektide määratlused</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="976"/>
+        <location filename="../tabpdfoptions.cpp" line="975"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Sisselülitamisel teisendatakse spot-värvid komposiitvärvideks. Kui sa ei kavatse just saata trükikotta spot-värve, on mõttekas see sisse lülitada.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="977"/>
+        <location filename="../tabpdfoptions.cpp" line="976"/>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>Trükitava lehekülje veeristest väljapoole jäävaid objekte ei näidata</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="945"/>
+        <location filename="../tabpdfoptions.cpp" line="944"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Määrab PDF-faili ühilduvuse.&lt;br/&gt;Vaikimisi on &lt;b&gt;PDF 1.3&lt;/b&gt;, mis tagab suurima ühilduvuse.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt; võimaldab kasutada läbipaistvust, 128-bitist krüptimist ja muid toredaid omadusi.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; on vajalik siis, kui soovid säilitada PDF-failis objekte erinevatel kihtidel.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; on mõeldud PDF-faili eksportimiseks juhul, kui soovid RGB värvihaldust trükikodades trükkimiseks. Seda saab valida juhul, kui värvihaldus on sisse lülitatud. Seda tasub kasutada ainult siis, kui see sobib sinu printeriga või kui näiteks trükid välja digitaalsel neljavärvi-laserprinteril.</translation>
     </message>
@@ -28641,27 +29846,27 @@ käivitatav JavaScript:</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="907"/>
+        <location filename="../tabpdfoptions.cpp" line="906"/>
         <source>Convert all glyphs in the document to outlines.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="953"/>
+        <location filename="../tabpdfoptions.cpp" line="952"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="954"/>
+        <location filename="../tabpdfoptions.cpp" line="953"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1344"/>
+        <location filename="../tabpdfoptions.cpp" line="1343"/>
         <source>Inside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1345"/>
+        <location filename="../tabpdfoptions.cpp" line="1344"/>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28676,102 +29881,102 @@ käivitatav JavaScript:</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="909"/>
+        <location filename="../tabpdfoptions.cpp" line="908"/>
         <source>Show the document in single page mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="910"/>
+        <location filename="../tabpdfoptions.cpp" line="909"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="911"/>
+        <location filename="../tabpdfoptions.cpp" line="910"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="912"/>
+        <location filename="../tabpdfoptions.cpp" line="911"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="913"/>
+        <location filename="../tabpdfoptions.cpp" line="912"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="914"/>
+        <location filename="../tabpdfoptions.cpp" line="913"/>
         <source>Enables viewing the document in full screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="915"/>
+        <location filename="../tabpdfoptions.cpp" line="914"/>
         <source>Display the bookmarks upon opening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="916"/>
+        <location filename="../tabpdfoptions.cpp" line="915"/>
         <source>Display the page thumbnails upon opening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="917"/>
+        <location filename="../tabpdfoptions.cpp" line="916"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="918"/>
+        <location filename="../tabpdfoptions.cpp" line="917"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="919"/>
+        <location filename="../tabpdfoptions.cpp" line="918"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="920"/>
+        <location filename="../tabpdfoptions.cpp" line="919"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="955"/>
+        <location filename="../tabpdfoptions.cpp" line="954"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="979"/>
+        <location filename="../tabpdfoptions.cpp" line="978"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="980"/>
+        <location filename="../tabpdfoptions.cpp" line="979"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="981"/>
+        <location filename="../tabpdfoptions.cpp" line="980"/>
         <source>Add registration marks to each separation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="982"/>
+        <location filename="../tabpdfoptions.cpp" line="981"/>
         <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="983"/>
+        <location filename="../tabpdfoptions.cpp" line="982"/>
         <source>Add document information which includes the document title and page numbers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="984"/>
+        <location filename="../tabpdfoptions.cpp" line="983"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="989"/>
+        <location filename="../tabpdfoptions.cpp" line="988"/>
         <source>Use the existing bleed settings from the document preferences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28783,6 +29988,11 @@ käivitatav JavaScript:</translation>
     <message>
         <location filename="../tabpdfoptions.cpp" line="755"/>
         <source>Do not use embedded color profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabpdfoptions.cpp" line="532"/>
+        <source>&amp;Apply Effect to all Pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28866,203 +30076,203 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="45"/>
+        <location filename="../tabprinter.ui" line="57"/>
         <source>Options</source>
         <translation type="unfinished">Valikud</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="57"/>
+        <location filename="../tabprinter.ui" line="81"/>
         <source>Page</source>
         <translation type="unfinished">Lehekülg</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="69"/>
+        <location filename="../tabprinter.ui" line="105"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation type="unfinished">Lehekülgede peegeldamine rõhtsalt</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="76"/>
+        <location filename="../tabprinter.ui" line="112"/>
         <source>Mirror Page(s) Vertical</source>
         <translation type="unfinished">Lehekülgede peegeldamine püstiselt</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="83"/>
+        <location filename="../tabprinter.ui" line="119"/>
         <source>Set Media Size</source>
         <translation type="unfinished">Andmekandja suuruse määramine</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="90"/>
+        <location filename="../tabprinter.ui" line="126"/>
         <source>Clip to Page Margins</source>
         <translation type="unfinished">Kärpimine lehekülje veeriste juures</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="100"/>
-        <source>Postscript Options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabprinter.ui" line="112"/>
+        <location filename="../tabprinter.ui" line="160"/>
         <source>Print in Grayscale</source>
         <translation type="unfinished">Halltoonis trükk</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="119"/>
+        <location filename="../tabprinter.ui" line="167"/>
         <source>Print in Color if Available</source>
         <translation type="unfinished">Värvitrükk (kui võimalik)</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="130"/>
+        <location filename="../tabprinter.ui" line="178"/>
         <source>Level 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="135"/>
+        <location filename="../tabprinter.ui" line="183"/>
         <source>Level 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="140"/>
+        <location filename="../tabprinter.ui" line="188"/>
         <source>Level 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="151"/>
+        <location filename="../tabprinter.ui" line="199"/>
         <source>General</source>
         <translation type="unfinished">Üldine</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="163"/>
+        <location filename="../tabprinter.ui" line="223"/>
         <source>Print Separations</source>
         <translation type="unfinished">Trükkimine separeeritult</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="170"/>
+        <location filename="../tabprinter.ui" line="230"/>
         <source>Print Normal</source>
         <translation type="unfinished">Normaalne trükk</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="183"/>
+        <location filename="../tabprinter.ui" line="243"/>
         <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="195"/>
+        <location filename="../tabprinter.ui" line="267"/>
         <source>Apply Under Color Removal</source>
         <translation type="unfinished">UCR-i (Under Color Removal) rakendamine</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="202"/>
+        <location filename="../tabprinter.ui" line="274"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation type="unfinished">Spot-värvide teisendamine protsessivärvideks</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="209"/>
+        <location filename="../tabprinter.ui" line="281"/>
         <source>Force Overprint Mode</source>
         <translation type="unfinished">Ületrükirežiim</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="216"/>
+        <location filename="../tabprinter.ui" line="288"/>
         <source>Apply ICC Profiles</source>
         <translation type="unfinished">ICC profiilide rakendamine</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="227"/>
+        <location filename="../tabprinter.ui" line="299"/>
         <source>Marks &amp;&amp; Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="239"/>
+        <location filename="../tabprinter.ui" line="323"/>
         <source>Bleed Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="254"/>
+        <location filename="../tabprinter.ui" line="350"/>
         <source>Top:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="264"/>
+        <location filename="../tabprinter.ui" line="360"/>
         <source>Bottom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="277"/>
+        <location filename="../tabprinter.ui" line="373"/>
         <source>Left:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="290"/>
+        <location filename="../tabprinter.ui" line="386"/>
         <source>Right:</source>
         <translation type="unfinished">Paremal:</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="306"/>
+        <location filename="../tabprinter.ui" line="402"/>
         <source>Printer Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="318"/>
+        <location filename="../tabprinter.ui" line="426"/>
         <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="321"/>
+        <location filename="../tabprinter.ui" line="429"/>
         <source>Color Bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="331"/>
+        <location filename="../tabprinter.ui" line="439"/>
         <source>Offset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="341"/>
+        <location filename="../tabprinter.ui" line="449"/>
         <source>Add registration marks which are added to each separation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="344"/>
+        <location filename="../tabprinter.ui" line="452"/>
         <source>Registration Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="351"/>
+        <location filename="../tabprinter.ui" line="459"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="354"/>
+        <location filename="../tabprinter.ui" line="462"/>
         <source>Bleed Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="361"/>
+        <location filename="../tabprinter.ui" line="469"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="364"/>
+        <location filename="../tabprinter.ui" line="472"/>
         <source>Crop Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="378"/>
+        <location filename="../tabprinter.ui" line="486"/>
         <source>Print Destination</source>
         <translation type="unfinished">Trükkimise sihtkoht</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="390"/>
+        <location filename="../tabprinter.ui" line="510"/>
         <source>Alternative Printer Command</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="408"/>
+        <location filename="../tabprinter.ui" line="537"/>
         <source>Command:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="38"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabprinter.ui" line="136"/>
+        <source>PostScript Options</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -29324,7 +30534,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
         <translation>Va&amp;he:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="962"/>
+        <location filename="../tabtools.cpp" line="920"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Põdur Zagrebi tšellomängija-följetonist Ciqo külmetas kehvas garaažis</translation>
     </message>
@@ -29401,7 +30611,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
     <message>
         <location filename="../tabtools.cpp" line="374"/>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>Pildi &amp;skaleerimine vastavalt kasti suurusele</translation>
+        <translation type="obsolete">Pildi &amp;skaleerimine vastavalt kasti suurusele</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="380"/>
@@ -29461,7 +30671,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
     <message>
         <location filename="../tabtools.cpp" line="524"/>
         <source>Picture Frame Properties</source>
-        <translation>Pildikasti omadused</translation>
+        <translation type="obsolete">Pildikasti omadused</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="525"/>
@@ -29516,7 +30726,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
     <message>
         <location filename="../tabtools.cpp" line="536"/>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Pildikastid võimaldavad piltide skaleerimist iga väärtuse järgi</translation>
+        <translation type="obsolete">Pildikastid võimaldavad piltide skaleerimist iga väärtuse järgi</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="537"/>
@@ -29536,17 +30746,17 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
     <message>
         <location filename="../tabtools.cpp" line="540"/>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Pildikasti pildid skaleeritakse kasti suuruse järgi</translation>
+        <translation type="obsolete">Pildikasti pildid skaleeritakse kasti suuruse järgi</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="541"/>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Automaatselt skaleeritud pildid säilitavad algsed proportsioonid</translation>
+        <translation type="obsolete">Automaatselt skaleeritud pildid säilitavad algsed proportsioonid</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="542"/>
         <source>Fill color of picture frames</source>
-        <translation>Pildikastide täidise värv</translation>
+        <translation type="obsolete">Pildikastide täidise värv</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="547"/>
@@ -29748,6 +30958,36 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
         <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../tabtools.cpp" line="374"/>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="524"/>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="536"/>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="540"/>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="541"/>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="542"/>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -29892,7 +31132,7 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
     <message>
         <location filename="../tabruler.cpp" line="490"/>
         <source>Full Stop</source>
-        <translation>Punkt</translation>
+        <translation type="obsolete">Punkt</translation>
     </message>
     <message>
         <location filename="../tabruler.cpp" line="491"/>
@@ -29990,6 +31230,11 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
         <source>Position of Tab</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../tabruler.cpp" line="490"/>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TextBrowser</name>
@@ -30014,57 +31259,57 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
     <message>
         <location filename="../outlinepalette.cpp" line="1097"/>
         <source>Free Objects</source>
-        <translation>Vabad objektid</translation>
+        <translation type="obsolete">Vabad objektid</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="1134"/>
         <source>Group </source>
-        <translation>Grupp </translation>
+        <translation type="obsolete">Grupp </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="1042"/>
         <source>Page </source>
-        <translation>Lehekülg </translation>
+        <translation type="obsolete">Lehekülg </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="1156"/>
         <source>Outline</source>
-        <translation>Struktuur</translation>
+        <translation type="obsolete">Struktuur</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="1157"/>
         <source>Element</source>
-        <translation>Element</translation>
+        <translation type="obsolete">Element</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="319"/>
         <source>Picture</source>
-        <translation type="unfinished">Pilt</translation>
+        <translation type="obsolete">Pilt</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="294"/>
         <source>File: </source>
-        <translation type="unfinished">Fail: </translation>
+        <translation type="obsolete">Fail: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="298"/>
         <source>Original PPI: </source>
-        <translation type="unfinished">Originaali PPI: </translation>
+        <translation type="obsolete">Originaali PPI: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="302"/>
         <source>Actual PPI: </source>
-        <translation type="unfinished">Tegelik PPI: </translation>
+        <translation type="obsolete">Tegelik PPI: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="306"/>
         <source>Colorspace: </source>
-        <translation type="unfinished">Värviruum: </translation>
+        <translation type="obsolete">Värviruum: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="311"/>
         <source>Unknown</source>
-        <translation type="unfinished">Teadmata</translation>
+        <translation type="obsolete">Teadmata</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="321"/>
@@ -30087,44 +31332,39 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
         <translation type="obsolete">Duotone</translation>
     </message>
     <message>
-        <location filename="../outlinepalette.cpp" line="321"/>
-        <source>No Image Loaded</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../outlinepalette.cpp" line="345"/>
         <source>Linked Text</source>
-        <translation type="unfinished">Lingitud tekst</translation>
+        <translation type="obsolete">Lingitud tekst</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="347"/>
         <source>Text Frame</source>
-        <translation type="unfinished">Tekstikast</translation>
+        <translation type="obsolete">Tekstikast</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="350"/>
         <source>Text on a Path</source>
-        <translation type="unfinished">Trajektoori tekst</translation>
+        <translation type="obsolete">Trajektoori tekst</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="353"/>
         <source>Paragraphs: </source>
-        <translation type="unfinished">Lõike: </translation>
+        <translation type="obsolete">Lõike: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="360"/>
         <source>Lines: </source>
-        <translation type="unfinished">Read: </translation>
+        <translation type="obsolete">Read: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="364"/>
         <source>Words: </source>
-        <translation type="unfinished">Sõnu: </translation>
+        <translation type="obsolete">Sõnu: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="371"/>
         <source>Chars: </source>
-        <translation type="unfinished">Märke: </translation>
+        <translation type="obsolete">Märke: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="377"/>
@@ -30134,83 +31374,68 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
     <message>
         <location filename="../outlinepalette.cpp" line="383"/>
         <source>Enabled</source>
-        <translation type="unfinished">Lubatud</translation>
+        <translation type="obsolete">Lubatud</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="385"/>
         <source>Disabled</source>
-        <translation type="unfinished">Keelatud</translation>
+        <translation type="obsolete">Keelatud</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="393"/>
         <source>In&amp;fo</source>
-        <translation type="unfinished">In&amp;fo</translation>
+        <translation type="obsolete">In&amp;fo</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="420"/>
         <source>Preview Settings</source>
-        <translation type="unfinished">Eelvaatluse seadistused</translation>
+        <translation type="obsolete">Eelvaatluse seadistused</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="461"/>
         <source>&amp;PDF Options</source>
-        <translation type="unfinished">&amp;PDF-i valikud</translation>
+        <translation type="obsolete">&amp;PDF-i valikud</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="485"/>
         <source>Send to La&amp;yer</source>
-        <translation type="unfinished">Saatmine ki&amp;hile</translation>
+        <translation type="obsolete">Saatmine ki&amp;hile</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="494"/>
         <source>Le&amp;vel</source>
-        <translation type="unfinished">&amp;Tase</translation>
+        <translation type="obsolete">&amp;Tase</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="545"/>
         <source>Conve&amp;rt to</source>
-        <translation type="unfinished">T&amp;eisendamine</translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="548"/>
-        <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">T&amp;eisendamine</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="556"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">K&amp;ustuta</translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="578"/>
-        <source>Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="380"/>
-        <source>Export: </source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">K&amp;ustuta</translation>
     </message>
 </context>
 <context>
     <name>UnderlineValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="62"/>
+        <location filename="../styleselect.cpp" line="64"/>
         <source>Auto</source>
         <translation>Automaatne</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="73"/>
+        <location filename="../styleselect.cpp" line="75"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="72"/>
+        <location filename="../styleselect.cpp" line="74"/>
         <source>Displacement</source>
         <translation>Nihe</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="74"/>
+        <location filename="../styleselect.cpp" line="76"/>
         <source>Linewidth</source>
         <translation>Joone jämedus</translation>
     </message>
@@ -30218,719 +31443,729 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
 <context>
     <name>UndoManager</name>
     <message>
-        <location filename="../undomanager.cpp" line="680"/>
+        <location filename="../undomanager.cpp" line="780"/>
         <source>Add vertical guide</source>
         <translation>Püstise juhtjoone lisamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="681"/>
+        <location filename="../undomanager.cpp" line="781"/>
         <source>Add horizontal guide</source>
         <translation>Rõhtsa juhtjoone lisamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="682"/>
+        <location filename="../undomanager.cpp" line="782"/>
         <source>Remove vertical guide</source>
         <translation>Püstise juhtjoone eemaldamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="683"/>
+        <location filename="../undomanager.cpp" line="783"/>
         <source>Remove horizontal guide</source>
         <translation>Rõhtsa juhtjoone eemaldamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="686"/>
+        <location filename="../undomanager.cpp" line="786"/>
         <source>Move vertical guide</source>
         <translation>Püstise juhtjoone liigutamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="687"/>
+        <location filename="../undomanager.cpp" line="787"/>
         <source>Move horizontal guide</source>
         <translation>Rõhtsa juhtjoone liigutamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="688"/>
+        <location filename="../undomanager.cpp" line="788"/>
         <source>Lock guides</source>
         <translation>Juhtjoonte lukustamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="689"/>
+        <location filename="../undomanager.cpp" line="789"/>
         <source>Unlock guides</source>
         <translation>Juhtjoonte lukustuse eemaldamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="690"/>
+        <location filename="../undomanager.cpp" line="790"/>
         <source>Move</source>
         <translation>Liigutamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="691"/>
+        <location filename="../undomanager.cpp" line="791"/>
         <source>Resize</source>
         <translation>Suuruse muutmine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="692"/>
+        <location filename="../undomanager.cpp" line="792"/>
         <source>Rotate</source>
         <translation>Pööramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="693"/>
+        <location filename="../undomanager.cpp" line="793"/>
         <source>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</source>
         <translation>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="694"/>
+        <location filename="../undomanager.cpp" line="794"/>
         <source>W1: %1, H1: %2
 W2: %3, H2: %4</source>
         <translation>L1: %1, K1: %2
 L2: %3, K2: %4</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="695"/>
+        <location filename="../undomanager.cpp" line="795"/>
         <source>Change Image Offset</source>
         <translation>Pildi nihke muutmine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="696"/>
+        <location filename="../undomanager.cpp" line="796"/>
         <source>Change Image Scale</source>
         <translation>Pildi skaleerimise muutmine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="697"/>
+        <location filename="../undomanager.cpp" line="797"/>
         <source>X1: %1, Y1: %2
 X2: %4, Y2: %5</source>
         <translation>X1: %1, Y1: %2
 X2: %4, Y2: %5</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="698"/>
+        <location filename="../undomanager.cpp" line="798"/>
         <source>X: %1, Y: %2
 X: %4, Y: %5</source>
         <translation>X: %1, Y: %2
 X: %4, Y: %5</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="699"/>
+        <location filename="../undomanager.cpp" line="799"/>
         <source>Selection</source>
         <translation>Valik</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="700"/>
+        <location filename="../undomanager.cpp" line="800"/>
         <source>Group</source>
         <translation>Rühmitamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="701"/>
+        <location filename="../undomanager.cpp" line="801"/>
         <source>Selection/Group</source>
         <translation>Valik/rühmitamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="702"/>
+        <location filename="../undomanager.cpp" line="802"/>
         <source>Create</source>
         <translation>Loomine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="703"/>
+        <location filename="../undomanager.cpp" line="803"/>
         <source>X: %1, Y: %2
 W: %3, H: %4</source>
         <translation>X: %1, Y: %2
 L: %3, K: %4</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="704"/>
+        <location filename="../undomanager.cpp" line="804"/>
         <source>Align/Distribute</source>
         <translation>Joondamine/jaotamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="705"/>
+        <location filename="../undomanager.cpp" line="805"/>
         <source>Items involved</source>
         <translation>Asjassepuutuvad elemendid</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="706"/>
+        <location filename="../undomanager.cpp" line="806"/>
         <source>Cancel</source>
         <translation>Loobumine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="707"/>
+        <location filename="../undomanager.cpp" line="807"/>
         <source>Set fill color</source>
         <translation>Täidise värvi määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="708"/>
+        <location filename="../undomanager.cpp" line="808"/>
         <source>Color1: %1, Color2: %2</source>
         <translation>Värv1: %1, Värv2: %2</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="709"/>
+        <location filename="../undomanager.cpp" line="809"/>
         <source>Set fill color shade</source>
         <translation>Täidise värvi varjundi määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="710"/>
+        <location filename="../undomanager.cpp" line="810"/>
         <source>Set line color</source>
         <translation>Joone värvi määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="711"/>
+        <location filename="../undomanager.cpp" line="811"/>
         <source>Set line color shade</source>
         <translation>Joone värvi varjundi määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="712"/>
+        <location filename="../undomanager.cpp" line="812"/>
         <source>Flip horizontally</source>
         <translation>Peegeldamine rõhtsalt</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="713"/>
+        <location filename="../undomanager.cpp" line="813"/>
         <source>Flip vertically</source>
         <translation>Peegeldamine püstiselt</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="714"/>
+        <location filename="../undomanager.cpp" line="814"/>
         <source>Lock</source>
         <translation>Lukustamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="715"/>
+        <location filename="../undomanager.cpp" line="815"/>
         <source>Unlock</source>
         <translation>Lukustuse eemaldamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="716"/>
+        <location filename="../undomanager.cpp" line="816"/>
         <source>Lock size</source>
         <translation>Suuruse lukustamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="717"/>
+        <location filename="../undomanager.cpp" line="817"/>
         <source>Unlock size</source>
         <translation>Suuruse lukustuse eemaldamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="718"/>
+        <location filename="../undomanager.cpp" line="818"/>
         <source>Enable Item Printing</source>
         <translation>Elemendi trükkimise lubamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="719"/>
+        <location filename="../undomanager.cpp" line="819"/>
         <source>Disable Item Printing</source>
         <translation>Elemendi trükkimise keelamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="720"/>
+        <location filename="../undomanager.cpp" line="820"/>
         <source>Ungroup</source>
         <translation>Rühma lõhkumine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="721"/>
+        <location filename="../undomanager.cpp" line="821"/>
         <source>Delete</source>
         <translation>Kustutamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="722"/>
+        <location filename="../undomanager.cpp" line="822"/>
         <source>Rename</source>
         <translation>Ümbernimetamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="723"/>
+        <location filename="../undomanager.cpp" line="823"/>
         <source>From %1
 to %2</source>
         <translation>%1
 -&gt; %2</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="724"/>
+        <location filename="../undomanager.cpp" line="824"/>
         <source>Apply Master Page</source>
         <translation>Leheküljetooriku rakendamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="725"/>
+        <location filename="../undomanager.cpp" line="825"/>
         <source>Paste</source>
         <translation>Asetamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="726"/>
+        <location filename="../undomanager.cpp" line="826"/>
         <source>Cut</source>
         <translation>Lõikamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="727"/>
+        <location filename="../undomanager.cpp" line="827"/>
         <source>Set fill color transparency</source>
         <translation>Täidise värvi läbipaistvuse määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="728"/>
+        <location filename="../undomanager.cpp" line="828"/>
         <source>Set line color transparency</source>
         <translation>Joone värvi läbipaistvuse määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="729"/>
+        <location filename="../undomanager.cpp" line="829"/>
         <source>Set line style</source>
         <translation>Joone stiili määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="730"/>
+        <location filename="../undomanager.cpp" line="830"/>
         <source>Set the style of line end</source>
         <translation>Jooneotsa stiili määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="731"/>
+        <location filename="../undomanager.cpp" line="831"/>
         <source>Set the style of line join</source>
         <translation>Joonte ühenduse stiili määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="732"/>
+        <location filename="../undomanager.cpp" line="832"/>
         <source>Set line width</source>
         <translation>Joone jämeduse määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="733"/>
+        <location filename="../undomanager.cpp" line="833"/>
         <source>No style</source>
         <translation>Stiil puudub</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="734"/>
+        <location filename="../undomanager.cpp" line="834"/>
         <source>Set custom line style</source>
         <translation>Kohandatud joone stiili määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="735"/>
+        <location filename="../undomanager.cpp" line="835"/>
         <source>Do not use custom line style</source>
         <translation>Kohandatud joonestiili mittekasutamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="736"/>
+        <location filename="../undomanager.cpp" line="836"/>
         <source>Set start arrow</source>
         <translation>Algusnoole määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="737"/>
+        <location filename="../undomanager.cpp" line="837"/>
         <source>Set end arrow</source>
         <translation>Lõpunoole määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="739"/>
+        <location filename="../undomanager.cpp" line="839"/>
         <source>Create table</source>
         <translation>Tabeli loomine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="740"/>
+        <location filename="../undomanager.cpp" line="840"/>
         <source>Rows: %1, Cols: %2</source>
         <translation>Ridu: %1, Veerge: %2</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="741"/>
+        <location filename="../undomanager.cpp" line="841"/>
         <source>Set font</source>
         <translation>Fondi määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="742"/>
+        <location filename="../undomanager.cpp" line="842"/>
         <source>Set font size</source>
         <translation>Fondi suuruse määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="743"/>
+        <location filename="../undomanager.cpp" line="843"/>
         <source>Set font width</source>
         <translation>Fondi laiuse määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="744"/>
+        <location filename="../undomanager.cpp" line="844"/>
         <source>Set font height</source>
         <translation>Fondi kõrguse määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="745"/>
+        <location filename="../undomanager.cpp" line="845"/>
         <source>Set font fill color</source>
         <translation>Fondi täidise värvi määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="746"/>
+        <location filename="../undomanager.cpp" line="846"/>
         <source>Set font stroke color</source>
         <translation>Fondi äärejoone värvi määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="747"/>
+        <location filename="../undomanager.cpp" line="847"/>
         <source>Set font fill color shade</source>
         <translation>Fondi täidise värvi varjundi määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="748"/>
+        <location filename="../undomanager.cpp" line="848"/>
         <source>Set font stroke color shade</source>
         <translation>Fondi äärejoone värvi varjundi määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="749"/>
+        <location filename="../undomanager.cpp" line="849"/>
         <source>Set kerning</source>
         <translation>Tähemärkide koondamise määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="750"/>
+        <location filename="../undomanager.cpp" line="850"/>
         <source>Set line spacing</source>
         <translation>Reavahe määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="751"/>
+        <location filename="../undomanager.cpp" line="851"/>
         <source>Set paragraph style</source>
         <translation>Lõigustiili määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="752"/>
+        <location filename="../undomanager.cpp" line="852"/>
         <source>Set language</source>
         <translation>Keele määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="753"/>
+        <location filename="../undomanager.cpp" line="853"/>
         <source>Align text</source>
         <translation>Teksti joondamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="754"/>
+        <location filename="../undomanager.cpp" line="854"/>
         <source>Set font effect</source>
         <translation>Fondefekti määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="755"/>
+        <location filename="../undomanager.cpp" line="855"/>
         <source>Image frame</source>
         <translation>Pildikast</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="756"/>
+        <location filename="../undomanager.cpp" line="856"/>
         <source>Text frame</source>
         <translation>Tekstikast</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="758"/>
+        <location filename="../undomanager.cpp" line="858"/>
         <source>Polygon</source>
         <translation>Hulknurk</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="759"/>
+        <location filename="../undomanager.cpp" line="859"/>
         <source>Bezier curve</source>
         <translation>Bezier&apos; kõver</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="760"/>
+        <location filename="../undomanager.cpp" line="860"/>
         <source>Polyline</source>
         <translation>Kompleksjoon</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="761"/>
+        <location filename="../undomanager.cpp" line="861"/>
         <source>Text on a Path</source>
         <translation>Trajektoori tekst</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="762"/>
+        <location filename="../undomanager.cpp" line="862"/>
         <source>Convert to</source>
         <translation>Teisendamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="763"/>
+        <location filename="../undomanager.cpp" line="863"/>
         <source>Import SVG image</source>
         <translation>SVG-pildi import</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="764"/>
+        <location filename="../undomanager.cpp" line="864"/>
         <source>Import EPS image</source>
         <translation>EPS-pildi eksport</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="765"/>
+        <location filename="../undomanager.cpp" line="865"/>
         <source>Import OpenOffice.org Draw image</source>
         <translation>OpenOffice.org Draw&apos; pildi import</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="766"/>
+        <location filename="../undomanager.cpp" line="868"/>
         <source>Scratch space</source>
         <translation>Sodiala</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="768"/>
+        <location filename="../undomanager.cpp" line="870"/>
         <source>Text flows around the frame</source>
         <translation>Tekstivoog ümber kasti</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="769"/>
+        <location filename="../undomanager.cpp" line="871"/>
         <source>Text flows around bounding box</source>
         <translation>Tekstivoog ümber ümbritseva kasti</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="770"/>
+        <location filename="../undomanager.cpp" line="872"/>
         <source>Text flows around contour line</source>
         <translation>Tekstivoog ümber kontuurjoone</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="772"/>
+        <location filename="../undomanager.cpp" line="874"/>
         <source>No text flow</source>
         <translation>Tekstivoog puudub</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="774"/>
+        <location filename="../undomanager.cpp" line="876"/>
         <source>No bounding box</source>
         <translation>Ümbritsev kast puudub</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="775"/>
+        <location filename="../undomanager.cpp" line="877"/>
         <source>No contour line</source>
         <translation>Kontuurjoon puudub</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="776"/>
+        <location filename="../undomanager.cpp" line="878"/>
         <source>Page %1</source>
         <translation>Lehekülg %1</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="777"/>
+        <location filename="../undomanager.cpp" line="879"/>
         <source>Set image scaling</source>
         <translation>Pildi skaleerimise määramine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="778"/>
+        <location filename="../undomanager.cpp" line="880"/>
         <source>Frame size</source>
         <translation>Kasti suurus</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="779"/>
+        <location filename="../undomanager.cpp" line="881"/>
         <source>Free scaling</source>
         <translation>Vaba skaleerimine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="780"/>
+        <location filename="../undomanager.cpp" line="882"/>
         <source>Keep aspect ratio</source>
         <translation>Proportsiooni säilitamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="781"/>
+        <location filename="../undomanager.cpp" line="883"/>
         <source>Break aspect ratio</source>
         <translation>Proportsiooni mittesäilitamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="806"/>
+        <location filename="../undomanager.cpp" line="908"/>
         <source>Edit contour line</source>
         <translation>Kontuurjoone redigeerimine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="783"/>
+        <location filename="../undomanager.cpp" line="885"/>
         <source>Edit shape</source>
         <translation>Kuju redigeerimine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="784"/>
+        <location filename="../undomanager.cpp" line="886"/>
         <source>Reset contour line</source>
         <translation>Kontuurjoone lähtestamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="785"/>
+        <location filename="../undomanager.cpp" line="887"/>
         <source>Add page</source>
         <translation>Lehekülje lisamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="786"/>
+        <location filename="../undomanager.cpp" line="888"/>
         <source>Add pages</source>
         <translation>Lehekülgede lisamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="787"/>
+        <location filename="../undomanager.cpp" line="889"/>
         <source>Delete page</source>
         <translation>Lehekülje kustutamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="788"/>
+        <location filename="../undomanager.cpp" line="890"/>
         <source>Delete pages</source>
         <translation>Lehekülgede kustutamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="789"/>
+        <location filename="../undomanager.cpp" line="891"/>
         <source>Add layer</source>
         <translation>Kihi lisamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="790"/>
+        <location filename="../undomanager.cpp" line="892"/>
         <source>Delete layer</source>
         <translation>Kihi kustutamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="791"/>
+        <location filename="../undomanager.cpp" line="893"/>
         <source>Rename layer</source>
         <translation>Kihi ümbernimetamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="792"/>
+        <location filename="../undomanager.cpp" line="894"/>
         <source>Raise layer</source>
         <translation>Kihi toomine ettepoole</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="793"/>
+        <location filename="../undomanager.cpp" line="895"/>
         <source>Lower layer</source>
         <translation>Kihi viimine tahapoole</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="794"/>
+        <location filename="../undomanager.cpp" line="896"/>
         <source>Send to layer</source>
         <translation>Saatmine kihile</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="795"/>
+        <location filename="../undomanager.cpp" line="897"/>
         <source>Enable printing of layer</source>
         <translation>Kihi trükkimise lubamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="796"/>
+        <location filename="../undomanager.cpp" line="898"/>
         <source>Disable printing of layer</source>
         <translation>Kihi trükkimise keelamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="797"/>
+        <location filename="../undomanager.cpp" line="899"/>
         <source>Change name of the layer</source>
         <translation>Kihi nime muutmine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="798"/>
+        <location filename="../undomanager.cpp" line="900"/>
         <source>Get image</source>
         <translation>Pildi hankimine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="800"/>
+        <location filename="../undomanager.cpp" line="902"/>
         <source>Multiple duplicate</source>
         <translation>Mitmekordne kloonimine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="801"/>
+        <location filename="../undomanager.cpp" line="903"/>
         <source>Apply text style</source>
         <translation>Tekstistiili rakendamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="802"/>
+        <location filename="../undomanager.cpp" line="904"/>
         <source>&amp;Undo: %1</source>
         <comment>f.e. Undo: Move</comment>
         <translation>&amp;Võta tagasi: %1</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="803"/>
+        <location filename="../undomanager.cpp" line="905"/>
         <source>&amp;Undo</source>
         <translation>&amp;Võta tagasi</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="804"/>
+        <location filename="../undomanager.cpp" line="906"/>
         <source>&amp;Redo: %1</source>
         <comment>f.e. Redo: Move</comment>
         <translation>&amp;Tee uuesti: %1</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="805"/>
+        <location filename="../undomanager.cpp" line="907"/>
         <source>&amp;Redo</source>
         <translation>&amp;Tee uuesti</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="773"/>
+        <location filename="../undomanager.cpp" line="875"/>
         <source>No object frame</source>
         <translation>Objekti kast puudub</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="807"/>
+        <location filename="../undomanager.cpp" line="909"/>
         <source>Reset control point</source>
         <translation>Kontrollpunkti lähtestamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="808"/>
+        <location filename="../undomanager.cpp" line="910"/>
         <source>Reset control points</source>
         <translation>Kontrollpunktide lähtestamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="809"/>
+        <location filename="../undomanager.cpp" line="911"/>
         <source>Apply image effects</source>
         <translation>Pildiefektide rakendamine</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="810"/>
+        <location filename="../undomanager.cpp" line="912"/>
         <source>Insert frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="811"/>
+        <location filename="../undomanager.cpp" line="913"/>
         <source>Adjust frame to the image size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="738"/>
+        <location filename="../undomanager.cpp" line="838"/>
         <source>Set start and end arrows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="684"/>
+        <location filename="../undomanager.cpp" line="784"/>
         <source>Remove vertical auto guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="685"/>
+        <location filename="../undomanager.cpp" line="785"/>
         <source>Remove horizontal auto guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="771"/>
+        <location filename="../undomanager.cpp" line="873"/>
         <source>Text flows around image clipping path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="812"/>
+        <location filename="../undomanager.cpp" line="914"/>
         <source>Remove all guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="813"/>
+        <location filename="../undomanager.cpp" line="915"/>
         <source>Remove page guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="814"/>
+        <location filename="../undomanager.cpp" line="916"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="815"/>
+        <location filename="../undomanager.cpp" line="917"/>
         <source>Copy page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="816"/>
+        <location filename="../undomanager.cpp" line="918"/>
         <source>Convert to outlines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="757"/>
+        <location filename="../undomanager.cpp" line="857"/>
         <source>Latex frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="799"/>
+        <location filename="../undomanager.cpp" line="901"/>
         <source>Change formula</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../undomanager.cpp" line="866"/>
+        <source>Import AI drawing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../undomanager.cpp" line="867"/>
+        <source>Import XFig drawing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UndoPalette</name>
     <message>
-        <location filename="../undogui.cpp" line="279"/>
+        <location filename="../undogui.cpp" line="281"/>
         <source>Initial State</source>
         <translation>Esialgne olek</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="296"/>
+        <location filename="../undogui.cpp" line="308"/>
         <source>Action History</source>
         <translation>Toimingute ajalugu</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="297"/>
+        <location filename="../undogui.cpp" line="309"/>
         <source>Show selected object only</source>
         <translation>Ainult valitud objekti näitamine</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="298"/>
+        <location filename="../undogui.cpp" line="310"/>
         <source>&amp;Undo</source>
         <translation>&amp;Võta tagasi</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="299"/>
+        <location filename="../undogui.cpp" line="311"/>
         <source>&amp;Redo</source>
         <translation>&amp;Tee uuesti</translation>
     </message>
@@ -30938,7 +32173,7 @@ to %2</source>
 <context>
     <name>UndoWidget</name>
     <message>
-        <location filename="../undogui.cpp" line="146"/>
+        <location filename="../undogui.cpp" line="147"/>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
@@ -30949,7 +32184,7 @@ to %2</source>
     <message>
         <location filename="../unicodesearch.cpp" line="47"/>
         <source>&amp;Search</source>
-        <translation type="unfinished">Ot&amp;si</translation>
+        <translation type="obsolete">Ot&amp;si</translation>
     </message>
 </context>
 <context>
@@ -30968,60 +32203,75 @@ to %2</source>
 <context>
     <name>UpgradeChecker</name>
     <message>
-        <location filename="../upgradechecker.cpp" line="85"/>
+        <location filename="../upgradechecker.cpp" line="86"/>
         <source>Attempting to get the Scribus version update file</source>
         <translation>Üritatakse hankida Scribuse versiooni uuendusfail</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="86"/>
+        <location filename="../upgradechecker.cpp" line="87"/>
         <source>(No data on your computer will be sent to an external location)</source>
         <translation>(Sinu arvutist ei saadeta kuskile mujale mingeid andmeid)</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="106"/>
+        <location filename="../upgradechecker.cpp" line="108"/>
         <source>Timed out when attempting to get update file.</source>
         <translation>Aegumine uuendusfaili hankimisel.</translation>
     </message>
     <message>
         <location filename="../upgradechecker.cpp" line="111"/>
         <source>Error when attempting to get update file: %1</source>
-        <translation>Viga uuendusfaili hankimisel: %1</translation>
+        <translation type="obsolete">Viga uuendusfaili hankimisel: %1</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="141"/>
+        <location filename="../upgradechecker.cpp" line="137"/>
         <source>File not found on server</source>
         <translation>Serverist ei leitud faili</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="143"/>
+        <location filename="../upgradechecker.cpp" line="139"/>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
         <translation>Ei õnnestunud avada versiooni faili: %1
 Viga: %2 real %3, veerus %4</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="218"/>
+        <location filename="../upgradechecker.cpp" line="220"/>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
         <translation>Scribuse uuenduse otsimisel tekkis viga, palun kontrolli oma Internetiühendust.</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="222"/>
+        <location filename="../upgradechecker.cpp" line="224"/>
         <source>No updates are available for your version of Scribus %1</source>
         <translation>Sinu Scribuse versioonile %1 ei ole uuendusi</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="225"/>
+        <location filename="../upgradechecker.cpp" line="227"/>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
         <translation>Sinu Scribuse versioonile %1 on vähemalt üks uuendus:</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="229"/>
+        <location filename="../upgradechecker.cpp" line="231"/>
         <source>Please visit www.scribus.net for details.</source>
         <translation>Palun külasta täpsema teabe saamiseks saiti www.scribus.net.</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="226"/>
-        <source>This list may contain development versions.</source>
+        <location filename="../upgradechecker.cpp" line="120"/>
+        <source>Finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../upgradechecker.cpp" line="215"/>
+        <source>Operation canceled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../upgradechecker.cpp" line="228"/>
+        <source>This list may contain development/unstable versions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../upgradechecker.cpp" line="311"/>
+        <source>Error: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -31196,7 +32446,7 @@ Would you like to start the system&apos;s default browser instead?</source>
 <context>
     <name>WMFImport</name>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimport.cpp" line="515"/>
+        <location filename="../plugins/wmfimplugin/wmfimport.cpp" line="663"/>
         <source>Group%1</source>
         <translation type="unfinished">Grupp%1</translation>
     </message>
@@ -31204,30 +32454,53 @@ Would you like to start the system&apos;s default browser instead?</source>
 <context>
     <name>WMFImportPlugin</name>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="82"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="81"/>
         <source>Import &amp;WMF...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="96"/>
         <source>Imports WMF Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="98"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
         <source>Imports most WMF files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="173"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="172"/>
         <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="175"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="174"/>
         <source>WMF file contains some unsupported features</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>XfigPlug</name>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="142"/>
+        <source>Importing: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="145"/>
+        <source>Analyzing File:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="298"/>
+        <source>Group%1</source>
+        <translation type="unfinished">Grupp%1</translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="1589"/>
+        <source>Generating Items</source>
+        <translation type="unfinished">Elementide genereerimine</translation>
     </message>
 </context>
 <context>
@@ -31394,127 +32667,127 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Uus mallist</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="31"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="32"/>
         <source>&amp;Remove</source>
         <translation>&amp;Eemalda</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="32"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="33"/>
         <source>&amp;Open</source>
         <translation>&amp;Ava</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="57"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="59"/>
         <source>All</source>
         <translation>Kõik</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="128"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="146"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="130"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="148"/>
         <source>Page Size</source>
         <translation>Lehekülje suurus</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="132"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="150"/>
         <source>Colors</source>
         <translation>Värvid</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="134"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="152"/>
         <source>Description</source>
         <translation>Kirjeldus</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="136"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="154"/>
         <source>Usage</source>
         <translation>Kasutamine</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="138"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="156"/>
         <source>Created with</source>
         <translation>Loodud versiooniga</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="140"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="158"/>
         <source>Date</source>
         <translation>Kuupäev</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="142"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="160"/>
         <source>Author</source>
         <translation>Autor</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="163"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="181"/>
         <source>Downloading Templates</source>
         <translation>Mallide allalaadimine</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="166"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="184"/>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
         <translation>Dokumendimalle leiab aadressil http://www.scribus.net/ sektsioonis Downloads.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="169"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="187"/>
         <source>Installing Templates</source>
         <translation>Mallide paigaldamine</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="175"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="193"/>
         <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
         <translation>Ekstrakti pakett mallikataloogi ~/.scribus/templates aktiivse kasutaja või PREFIX/share/scribus/templates kõigi süsteemi kasutajate jaoks.  </translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="178"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="196"/>
         <source>Preparing a template</source>
         <translation>Malli ettevalmistamine</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="180"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="198"/>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
         <translation>Kontrolli, et kasutaud pilte ja fonte võib vabalt kasutada. Kui fonte ei ole lubatud jagada, ära neid malli salvestamisel kogu.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="181"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="199"/>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
         <translation>Malli looja peab ka kontrollima, et eespool mallide paigaldamises räägitu kehtib ka tema malli kohta. See tähendab, et kasutajal peab olema võimalus mallipakett alla laadida, pakkida see mallikataloogi lahti ja seejärel kasutama hakata.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="183"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="201"/>
         <source>Removing a template</source>
         <translation>Malli eemaldamine</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="185"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="203"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
         <translation>Malli eemaldamine dialoogis &apos;Uus mallist&apos; eemaldab ainult kirje failist template.xml, kuid ei kustuta dokumendifaili. Eemaldamist võimaldavat hüpikmenüüd näeb ainult siis, kui sul on faili template.xml kirjutamisõigus.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="188"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="206"/>
         <source>Translating template.xml</source>
         <translation>Faili template.xml tõlkimine</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="190"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="208"/>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Kopeeri olemasolev fail template.xml nimega template.KEEL.xml (kasuta sama keelekoodi, mis vastab sinu keele qm-failile), näiteks eesti keele puhul template.et.xml. Koopia peab asuma originaalse failiga template.xml samas kataloogis, et Scribus seda laadida saaks.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="62"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="74"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Info</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="86"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="110"/>
         <source>&amp;Image</source>
         <translation type="unfinished">P&amp;ilt</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="114"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="150"/>
         <source>&amp;Help</source>
         <translation type="unfinished">A&amp;bi</translation>
     </message>

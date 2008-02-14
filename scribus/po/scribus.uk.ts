@@ -310,6 +310,53 @@ If loading was successful, the selection contains the imported SVG
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.h" line="43"/>
+        <source>createParagraphStyle(...)
+
+Creates a paragraph style. This function takes the following keyword parameters:
+
+&quot;name&quot; [required] -&gt; specifies the name of the paragraphstyle to create
+
+linespacingmode [optional] -&gt; specifies the linespacing mode; possible modes are:
+
+fixed linespacing:          0
+
+automatic linespacing:      1
+
+baseline grid linespacing:  2
+
+linespacing [optional] -&gt; specifies the linespacing if using fixed linespacing
+
+alignment [optional] -&gt; specifies the alignment of the paragraph
+
+-&gt; left:     0
+
+-&gt; center:   1
+
+-&gt; right:    2
+
+-&gt; justify:  3
+
+-&gt; extend:   4
+
+leftmargin [optional], rightmargin [optional] -&gt; specify the margin
+
+gapbefore [optional], gapafter [optional] -&gt; specify the gaps to the heading and following paragraphs
+
+firstindent [optional] -&gt; the indent of the first line
+
+hasdropcap [optional] -&gt; specifies if there are caps (1 = yes, 0 = no)
+
+dropcaplines [optional] -&gt; height (in lines) of the caps if used
+
+dropcapoffset [optional] -&gt; offset of the caps if used
+
+&quot;charstyle&quot; [optional] -&gt; char style to use
+
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>@default</name>
@@ -2378,7 +2425,7 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 </translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.h" line="354"/>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="382"/>
         <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
 
 Returns true if the text frame &quot;name&quot; is a PDF bookmark.
@@ -3259,7 +3306,7 @@ May raise IndexError if the page number is out of range.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.h" line="342"/>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="370"/>
         <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
 
 Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
@@ -3269,26 +3316,146 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdmisc.h" line="329"/>
+        <source>moveSelectionToFront()
+
+Moves current selection to front.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdmisc.h" line="338"/>
+        <source>moveSelectionToFront()
+
+Moves current selection to back.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdpage.h" line="198"/>
+        <source>importPage(&quot;fromDoc&quot;, (pageList), [create, imortwhere, importwherePage])
+
+Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This functions maps the &quot;Page-&gt;Import&quot; dropdown menu function.
+fromDoc: string; the filename of the document to import pages from
+pageList: tuple with page numbers of pages to import
+create: number; 0 to replace existing pages, 1 (default) to insert new pages
+importWhere: number; the page number (of the current document) at which import the pages
+importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.h" line="80"/>
+        <source>createCharStyle(...)
+
+Creates a character style. This function takes the following keyword parameters:
+
+&quot;name&quot; [required] -&gt; name of the char style to create
+
+&quot;font&quot; [optional] -&gt; name of the font to use
+
+fontsize [optional] -&gt; font size to set (double)
+
+&quot;features&quot; [optional] -&gt; nearer typographic details can be defined by a string that might contain the following phrases comma-seperated (without spaces!):
+
+-&gt; inherit
+
+-&gt; bold
+
+-&gt; italic
+
+-&gt; underline
+
+-&gt; underlinewords
+
+-&gt; strike
+
+-&gt; superscript
+
+-&gt; subscript
+
+-&gt; outline
+
+-&gt; shadowed
+
+-&gt; allcaps
+
+-&gt; smallcaps
+
+&quot;fillcolor&quot; [optional], &quot;fillshade&quot; [optional] -&gt; specify fill options
+
+&quot;strokecolor&quot; [optional], &quot;strokeshade&quot; [optional] -&gt; specify stroke options
+
+baselineoffset [optional] -&gt; offset of the baseline
+
+shadowxoffset [optional], shadowyoffset [optional] -&gt; offset of the shadow if used
+
+outlinewidth [optional] -&gt; width of the outline if used
+
+underlineoffset [optional], underlinewidth [optional] -&gt; underline options if used
+
+strikethruoffset [optional], strikethruwidth [optional] -&gt; strikethru options if used
+
+scaleh [optional], scalev [optional] -&gt; scale of the chars
+
+tracking [optional] -&gt; tracking of the text
+
+&quot;language&quot; [optional] -&gt; language code
+
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="341"/>
+        <source>hyphenateText([&quot;name&quot;]) -&gt; bool
+
+Does hyphenation on text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="355"/>
+        <source>dehyphenateText([&quot;name&quot;]) -&gt; bool
+
+Does dehyphenation on text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/guiapp.h" line="106"/>
+        <source>scrollDocument(x,y)
+
+Scroll the document in main GUI window by x and y.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AIPlug</name>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="116"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="120"/>
         <source>Importing: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="119"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="123"/>
         <source>Analyzing File:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="273"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="278"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="2190"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="2210"/>
         <source>Generating Items</source>
         <translation type="unfinished">Генерація об&apos;єктів</translation>
     </message>
@@ -3296,107 +3463,107 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 <context>
     <name>About</name>
     <message>
-        <location filename="../about.cpp" line="154"/>
+        <location filename="../about.cpp" line="159"/>
         <source>Contributions from:</source>
         <translation>У співпраці з:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="136"/>
+        <location filename="../about.cpp" line="139"/>
         <source>&amp;About</source>
         <translation>&amp;Про</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="207"/>
+        <location filename="../about.cpp" line="213"/>
         <source>A&amp;uthors</source>
         <translation>&amp;Автори</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="383"/>
+        <location filename="../about.cpp" line="394"/>
         <source>&amp;Translations</source>
         <translation>&amp;Перекладачі</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="404"/>
+        <location filename="../about.cpp" line="415"/>
         <source>&amp;Online</source>
         <translation>&amp;Веб ресурси</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="423"/>
+        <location filename="../about.cpp" line="434"/>
         <source>&amp;Close</source>
         <translation>&amp;Зачинити</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="142"/>
+        <location filename="../about.cpp" line="145"/>
         <source>Development Team:</source>
         <translation>Команда розробників:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="185"/>
+        <location filename="../about.cpp" line="191"/>
         <source>Official Documentation:</source>
         <translation>Офіційна документація:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="193"/>
+        <location filename="../about.cpp" line="199"/>
         <source>Other Documentation:</source>
         <translation>Інша документація:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="389"/>
+        <location filename="../about.cpp" line="400"/>
         <source>Homepage</source>
         <translation>Домашня сторінка</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="391"/>
+        <location filename="../about.cpp" line="402"/>
         <source>Online Reference</source>
         <translation>Документація на Інтернеті</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="395"/>
+        <location filename="../about.cpp" line="406"/>
         <source>Bugs and Feature Requests</source>
         <translation>Звітування про помилки в програмі та заявки на нові можливості</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="397"/>
+        <location filename="../about.cpp" line="408"/>
         <source>Mailing List</source>
         <translation>Список розсилки</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="215"/>
+        <location filename="../about.cpp" line="221"/>
         <source>Official Translations and Translators:</source>
         <translation>Офіційні переклади та перекладачі:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="342"/>
+        <location filename="../about.cpp" line="353"/>
         <source>Previous Translation Contributors:</source>
         <translation>Попередні учасники перекладання:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="46"/>
+        <location filename="../about.cpp" line="49"/>
         <source>About Scribus %1</source>
         <translation>Про Scribus %1</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="393"/>
+        <location filename="../about.cpp" line="404"/>
         <source>Wiki</source>
         <translation>Вікі</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="73"/>
+        <location filename="../about.cpp" line="76"/>
         <source>%1 %2 %3</source>
         <translation>%1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="81"/>
+        <location filename="../about.cpp" line="84"/>
         <source>%3-%2-%1 %4 %5</source>
         <translation>%3-%2-%1 %4 %5</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="131"/>
+        <location filename="../about.cpp" line="134"/>
         <source>Using Ghostscript version %1</source>
         <translation>Використовує Ghostscript версії %1</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="133"/>
+        <location filename="../about.cpp" line="136"/>
         <source>No Ghostscript version available</source>
         <translation>Не знайдено жодної версії Ghostscript</translation>
     </message>
@@ -3406,7 +3573,7 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">&lt;b&gt;Scribus версії %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="134"/>
+        <location filename="../about.cpp" line="137"/>
         <source>Build ID:</source>
         <translation>Збірка:</translation>
     </message>
@@ -3418,12 +3585,12 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 певної бібліотеки позначається зірочкою (*). На цій панелі також показано версію Ghostscript знайдену Scribus.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="173"/>
+        <location filename="../about.cpp" line="179"/>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation>Мак ОС&amp;#174; Х Аква Порт:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="181"/>
+        <location filename="../about.cpp" line="187"/>
         <source>Windows&amp;#174; Port:</source>
         <translation>Віндоус&amp;#174; Порт:</translation>
     </message>
@@ -3433,64 +3600,69 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Березень</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="201"/>
+        <location filename="../about.cpp" line="207"/>
         <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="407"/>
+        <location filename="../about.cpp" line="418"/>
         <source>&amp;Updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="411"/>
-        <source>Check for &amp;Updates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../about.cpp" line="436"/>
+        <location filename="../about.cpp" line="447"/>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="177"/>
+        <location filename="../about.cpp" line="183"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="198"/>
+        <location filename="../about.cpp" line="204"/>
         <source>Splash Screen:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="432"/>
+        <location filename="../about.cpp" line="443"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="433"/>
+        <location filename="../about.cpp" line="444"/>
         <source>The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.Last Letter is the renderer C=cairo or Q=Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="434"/>
+        <location filename="../about.cpp" line="445"/>
         <source>Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="435"/>
+        <location filename="../about.cpp" line="446"/>
         <source>The Windows version does not use fontconfig or CUPS libraries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="134"/>
+        <location filename="../about.cpp" line="137"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="134"/>
+        <location filename="../about.cpp" line="137"/>
         <source>Scribus Version</source>
         <translation type="unfinished">Версія Scribus</translation>
+    </message>
+    <message>
+        <location filename="../about.cpp" line="478"/>
+        <source>Check for Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../about.cpp" line="476"/>
+        <source>Abort Update Check</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3572,57 +3744,57 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 <context>
     <name>ActionManager</name>
     <message>
-        <location filename="../actionmanager.cpp" line="1206"/>
+        <location filename="../actionmanager.cpp" line="1245"/>
         <source>&amp;New</source>
         <translation>&amp;Новий</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1207"/>
+        <location filename="../actionmanager.cpp" line="1246"/>
         <source>&amp;Open...</source>
         <translation>&amp;Відчинити...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1208"/>
+        <location filename="../actionmanager.cpp" line="1247"/>
         <source>&amp;Close</source>
         <translation>&amp;Зачинити</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1209"/>
+        <location filename="../actionmanager.cpp" line="1248"/>
         <source>&amp;Save</source>
         <translation>&amp;Записати</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1210"/>
+        <location filename="../actionmanager.cpp" line="1249"/>
         <source>Save &amp;As...</source>
         <translation>Записати &amp;як...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1211"/>
+        <location filename="../actionmanager.cpp" line="1250"/>
         <source>Re&amp;vert to Saved</source>
         <translation>Повернутися до за&amp;писаного</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1212"/>
+        <location filename="../actionmanager.cpp" line="1251"/>
         <source>Collect for O&amp;utput...</source>
         <translation>Зібрати для в&amp;иводу...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1213"/>
+        <location filename="../actionmanager.cpp" line="1252"/>
         <source>Get Text...</source>
         <translation>Вставити текст...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1214"/>
+        <location filename="../actionmanager.cpp" line="1253"/>
         <source>Append &amp;Text...</source>
         <translation>Додати &amp;текст...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1215"/>
+        <location filename="../actionmanager.cpp" line="1254"/>
         <source>Get Image...</source>
         <translation>Вставити зображення...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1216"/>
+        <location filename="../actionmanager.cpp" line="1255"/>
         <source>Save &amp;Text...</source>
         <translation>Записати &amp;текст...</translation>
     </message>
@@ -3632,77 +3804,77 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Записати сторінку як &amp;ЕPS...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1218"/>
+        <location filename="../actionmanager.cpp" line="1257"/>
         <source>Save as P&amp;DF...</source>
         <translation>Записати як &amp;РDF...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1219"/>
+        <location filename="../actionmanager.cpp" line="1258"/>
         <source>Document &amp;Setup...</source>
         <translation>Установки &amp;Документа...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1221"/>
+        <location filename="../actionmanager.cpp" line="1260"/>
         <source>&amp;Print...</source>
         <translation>&amp;Друк...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1223"/>
+        <location filename="../actionmanager.cpp" line="1262"/>
         <source>&amp;Quit</source>
         <translation>&amp;Вихід</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1225"/>
+        <location filename="../actionmanager.cpp" line="1264"/>
         <source>&amp;Undo</source>
         <translation>&amp;Відміна</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1226"/>
+        <location filename="../actionmanager.cpp" line="1265"/>
         <source>&amp;Redo</source>
         <translation>&amp;Повтор</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1227"/>
+        <location filename="../actionmanager.cpp" line="1266"/>
         <source>&amp;Item Action Mode</source>
         <translation>&amp;Режим дії Об&apos;єкта</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1228"/>
+        <location filename="../actionmanager.cpp" line="1267"/>
         <source>Cu&amp;t</source>
         <translation>Ви&amp;різати</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1231"/>
+        <location filename="../actionmanager.cpp" line="1270"/>
         <source>&amp;Copy</source>
         <translation>&amp;Скопіювати</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1232"/>
+        <location filename="../actionmanager.cpp" line="1271"/>
         <source>&amp;Paste</source>
         <translation>&amp;Вклеїти</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1235"/>
+        <location filename="../actionmanager.cpp" line="1274"/>
         <source>Select &amp;All</source>
         <translation>Виді&amp;лити все</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1236"/>
+        <location filename="../actionmanager.cpp" line="1275"/>
         <source>&amp;Deselect All</source>
         <translation>&amp;Убрати всі виділення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1237"/>
+        <location filename="../actionmanager.cpp" line="1276"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Пошук/Заміна...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1238"/>
+        <location filename="../actionmanager.cpp" line="1277"/>
         <source>Edit Image...</source>
         <translation>Редагувати зображення...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1240"/>
+        <location filename="../actionmanager.cpp" line="1279"/>
         <source>C&amp;olors...</source>
         <translation>&amp;Кольори...</translation>
     </message>
@@ -3717,317 +3889,317 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Стилі &amp;ліній...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1243"/>
+        <location filename="../actionmanager.cpp" line="1282"/>
         <source>&amp;Master Pages...</source>
         <translation>&amp;Головні сторінки...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1220"/>
+        <location filename="../actionmanager.cpp" line="1259"/>
         <source>P&amp;references...</source>
         <translation>&amp;Установки...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1251"/>
+        <location filename="../actionmanager.cpp" line="1290"/>
         <source>%1 pt</source>
         <translation>%1 тчк</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1266"/>
+        <location filename="../actionmanager.cpp" line="1305"/>
         <source>&amp;Other...</source>
         <translation>&amp;Інше...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1254"/>
+        <location filename="../actionmanager.cpp" line="1293"/>
         <source>&amp;Left</source>
         <translation>&amp;Ліве</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1255"/>
+        <location filename="../actionmanager.cpp" line="1294"/>
         <source>&amp;Center</source>
         <translation>По &amp;центру</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1256"/>
+        <location filename="../actionmanager.cpp" line="1295"/>
         <source>&amp;Right</source>
         <translation>&amp;Праве</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1257"/>
+        <location filename="../actionmanager.cpp" line="1296"/>
         <source>&amp;Block</source>
         <translation>&amp;Блок</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1258"/>
+        <location filename="../actionmanager.cpp" line="1297"/>
         <source>&amp;Forced</source>
         <translation>&amp;Вимушене</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1263"/>
+        <location filename="../actionmanager.cpp" line="1302"/>
         <source>&amp;%1 %</source>
         <translation>&amp;%1 %</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1267"/>
+        <location filename="../actionmanager.cpp" line="1306"/>
         <source>&amp;Normal</source>
         <translation>&amp;Звичайне</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1268"/>
+        <location filename="../actionmanager.cpp" line="1307"/>
         <source>&amp;Underline</source>
         <translation>&amp;Підкреслення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1269"/>
+        <location filename="../actionmanager.cpp" line="1308"/>
         <source>Underline &amp;Words</source>
         <translation>Підкреслення &amp;Слів</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1270"/>
+        <location filename="../actionmanager.cpp" line="1309"/>
         <source>&amp;Strike Through</source>
         <translation>&amp;Перекреслення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1271"/>
+        <location filename="../actionmanager.cpp" line="1310"/>
         <source>&amp;All Caps</source>
         <translation>Всі ве&amp;ликі літери</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1272"/>
+        <location filename="../actionmanager.cpp" line="1311"/>
         <source>Small &amp;Caps</source>
         <translation>Ка&amp;пітель</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1273"/>
+        <location filename="../actionmanager.cpp" line="1312"/>
         <source>Su&amp;perscript</source>
         <translation>В&amp;ерхній індекс</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1274"/>
+        <location filename="../actionmanager.cpp" line="1313"/>
         <source>Su&amp;bscript</source>
         <translation>Ни&amp;жній індекс</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1276"/>
+        <location filename="../actionmanager.cpp" line="1315"/>
         <source>S&amp;hadow</source>
         <translation>Т&amp;інь</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1278"/>
+        <location filename="../actionmanager.cpp" line="1317"/>
         <source>&amp;Image Effects</source>
         <translation>Ефекти зо&amp;браження</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1279"/>
+        <location filename="../actionmanager.cpp" line="1318"/>
         <source>&amp;Tabulators...</source>
         <translation>&amp;Табулятори...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1282"/>
+        <location filename="../actionmanager.cpp" line="1321"/>
         <source>D&amp;uplicate</source>
         <translation>&amp;Дублювати</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1283"/>
+        <location filename="../actionmanager.cpp" line="1322"/>
         <source>&amp;Multiple Duplicate</source>
         <translation>&amp;Багаторазове дублювання</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1284"/>
+        <location filename="../actionmanager.cpp" line="1323"/>
         <source>&amp;Delete</source>
         <translation>&amp;Видалити</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1285"/>
+        <location filename="../actionmanager.cpp" line="1324"/>
         <source>&amp;Group</source>
         <translation>З&amp;групувати</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1286"/>
+        <location filename="../actionmanager.cpp" line="1325"/>
         <source>&amp;Ungroup</source>
         <translation>&amp;Розгрупувати</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1287"/>
+        <location filename="../actionmanager.cpp" line="1326"/>
         <source>Is &amp;Locked</source>
         <translation>&amp;Замкнуті</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1288"/>
+        <location filename="../actionmanager.cpp" line="1327"/>
         <source>Si&amp;ze is Locked</source>
         <translation>&amp;Розмір замкнутий</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1292"/>
+        <location filename="../actionmanager.cpp" line="1331"/>
         <source>Lower to &amp;Bottom</source>
         <translation>Опустити на &amp;дно</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1293"/>
+        <location filename="../actionmanager.cpp" line="1332"/>
         <source>Raise to &amp;Top</source>
         <translation>Підняти на&amp;гору</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1294"/>
+        <location filename="../actionmanager.cpp" line="1333"/>
         <source>&amp;Lower</source>
         <translation>&amp;Опустити</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1295"/>
+        <location filename="../actionmanager.cpp" line="1334"/>
         <source>&amp;Raise</source>
         <translation>&amp;Підняти</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1296"/>
+        <location filename="../actionmanager.cpp" line="1335"/>
         <source>Send to S&amp;crapbook</source>
         <translation>Послат в &amp;чорновик</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1298"/>
+        <location filename="../actionmanager.cpp" line="1337"/>
         <source>&amp;Attributes...</source>
         <translation>&amp;Атрибути...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1300"/>
+        <location filename="../actionmanager.cpp" line="1339"/>
         <source>I&amp;mage Visible</source>
         <translation>&amp;Зображення видиме</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1301"/>
+        <location filename="../actionmanager.cpp" line="1340"/>
         <source>&amp;Update Image</source>
         <translation>По&amp;новити зображення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1302"/>
+        <location filename="../actionmanager.cpp" line="1341"/>
         <source>Adjust Frame to Image</source>
         <translation>Установити розмір рамки по розміру зображення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1303"/>
+        <location filename="../actionmanager.cpp" line="1342"/>
         <source>Extended Image Properties</source>
         <translation>Додаткові властивості зображення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1304"/>
+        <location filename="../actionmanager.cpp" line="1343"/>
         <source>&amp;Low Resolution</source>
         <translation>&amp;Низьке розрішення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1305"/>
+        <location filename="../actionmanager.cpp" line="1344"/>
         <source>&amp;Normal Resolution</source>
         <translation>&amp;Звичайне розрішення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1306"/>
+        <location filename="../actionmanager.cpp" line="1345"/>
         <source>&amp;Full Resolution</source>
         <translation>&amp;Повне розрішення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1307"/>
+        <location filename="../actionmanager.cpp" line="1346"/>
         <source>Is PDF &amp;Bookmark</source>
         <translation>&amp;Закладка PDF</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1308"/>
+        <location filename="../actionmanager.cpp" line="1347"/>
         <source>Is PDF A&amp;nnotation</source>
         <translation>&amp;Аннотація PDF</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1309"/>
+        <location filename="../actionmanager.cpp" line="1348"/>
         <source>Annotation P&amp;roperties</source>
         <translation>В&amp;ластивості аннотації</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1310"/>
+        <location filename="../actionmanager.cpp" line="1349"/>
         <source>Field P&amp;roperties</source>
         <translation>Властивості &amp;поля</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1311"/>
+        <location filename="../actionmanager.cpp" line="1350"/>
         <source>&amp;Edit Shape...</source>
         <translation>&amp;Редагувати форму...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1312"/>
+        <location filename="../actionmanager.cpp" line="1351"/>
         <source>&amp;Attach Text to Path</source>
         <translation>При&amp;єднати текст до шляху</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1313"/>
+        <location filename="../actionmanager.cpp" line="1352"/>
         <source>&amp;Detach Text from Path</source>
         <translation>В&amp;ідєднати текст від шляху</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1314"/>
+        <location filename="../actionmanager.cpp" line="1353"/>
         <source>&amp;Combine Polygons</source>
         <translation>Скомбінув&amp;ати полігони</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1315"/>
+        <location filename="../actionmanager.cpp" line="1354"/>
         <source>Split &amp;Polygons</source>
         <translation>Розділ&amp;ити полігони</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1316"/>
+        <location filename="../actionmanager.cpp" line="1355"/>
         <source>&amp;Bezier Curve</source>
         <translation>Крива &amp;Безьє</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1317"/>
+        <location filename="../actionmanager.cpp" line="1356"/>
         <source>&amp;Image Frame</source>
         <translation>Рамка &amp;зображення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1319"/>
+        <location filename="../actionmanager.cpp" line="1358"/>
         <source>&amp;Polygon</source>
         <translation>Полі&amp;гон</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1320"/>
+        <location filename="../actionmanager.cpp" line="1359"/>
         <source>&amp;Text Frame</source>
         <translation>&amp;Текстова рамка</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1324"/>
+        <location filename="../actionmanager.cpp" line="1363"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Символ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1325"/>
+        <location filename="../actionmanager.cpp" line="1364"/>
         <source>Sample Text</source>
         <translation>Зразковий текст</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1329"/>
+        <location filename="../actionmanager.cpp" line="1368"/>
         <source>&amp;Insert...</source>
         <translation>&amp;Вставити...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1330"/>
+        <location filename="../actionmanager.cpp" line="1369"/>
         <source>Im&amp;port...</source>
         <translation>&amp;Імпортувати...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1331"/>
+        <location filename="../actionmanager.cpp" line="1370"/>
         <source>&amp;Delete...</source>
         <translation>&amp;Видалити...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1332"/>
+        <location filename="../actionmanager.cpp" line="1371"/>
         <source>&amp;Copy...</source>
         <translation>&amp;Скопіювати...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1333"/>
+        <location filename="../actionmanager.cpp" line="1372"/>
         <source>&amp;Move...</source>
         <translation>&amp;Перемістити...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1334"/>
+        <location filename="../actionmanager.cpp" line="1373"/>
         <source>&amp;Apply Master Page...</source>
         <translation>&amp;Застосувати головну сторінку...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1336"/>
+        <location filename="../actionmanager.cpp" line="1375"/>
         <source>Manage &amp;Guides...</source>
         <translation>Установка роз&amp;мітки...</translation>
     </message>
@@ -4037,22 +4209,22 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">&amp;Змінити до розміру вікна</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1342"/>
+        <location filename="../actionmanager.cpp" line="1381"/>
         <source>&amp;50%</source>
         <translation>&amp;50%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1343"/>
+        <location filename="../actionmanager.cpp" line="1382"/>
         <source>&amp;75%</source>
         <translation>&amp;75%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1344"/>
+        <location filename="../actionmanager.cpp" line="1383"/>
         <source>&amp;100%</source>
         <translation>&amp;100%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1345"/>
+        <location filename="../actionmanager.cpp" line="1384"/>
         <source>&amp;200%</source>
         <translation>&amp;200%</translation>
     </message>
@@ -4062,107 +4234,107 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">&amp;Мініатюрні зображення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1348"/>
+        <location filename="../actionmanager.cpp" line="1387"/>
         <source>Show &amp;Margins</source>
         <translation>Показати &amp;розмітку полів</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1350"/>
+        <location filename="../actionmanager.cpp" line="1389"/>
         <source>Show &amp;Frames</source>
         <translation>Показати ра&amp;мки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1352"/>
+        <location filename="../actionmanager.cpp" line="1391"/>
         <source>Show &amp;Images</source>
         <translation>&amp;Показати зображення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1353"/>
+        <location filename="../actionmanager.cpp" line="1392"/>
         <source>Show &amp;Grid</source>
         <translation>Показати &amp;сітку</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1354"/>
+        <location filename="../actionmanager.cpp" line="1393"/>
         <source>Show G&amp;uides</source>
         <translation>Показати розм&amp;ітку</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1356"/>
+        <location filename="../actionmanager.cpp" line="1395"/>
         <source>Show &amp;Baseline Grid</source>
         <translation>Показати &amp;базову сітку</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1357"/>
+        <location filename="../actionmanager.cpp" line="1396"/>
         <source>Show &amp;Text Chain</source>
         <translation>Показати лан&amp;цюг тексту</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1358"/>
+        <location filename="../actionmanager.cpp" line="1397"/>
         <source>Show Control Characters</source>
         <translation>Показати контрольні знаки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1361"/>
+        <location filename="../actionmanager.cpp" line="1400"/>
         <source>Sn&amp;ap to Grid</source>
         <translation>П&amp;ритягування до сітки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1362"/>
+        <location filename="../actionmanager.cpp" line="1401"/>
         <source>Sna&amp;p to Guides</source>
         <translation>Притягування до розмітк&amp;и</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1366"/>
+        <location filename="../actionmanager.cpp" line="1406"/>
         <source>&amp;Properties</source>
         <translation>&amp;Властивості</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1368"/>
+        <location filename="../actionmanager.cpp" line="1408"/>
         <source>&amp;Scrapbook</source>
         <translation>&amp;Чорновик</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1369"/>
+        <location filename="../actionmanager.cpp" line="1409"/>
         <source>&amp;Layers</source>
         <translation>П&amp;лани</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1371"/>
+        <location filename="../actionmanager.cpp" line="1411"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Закладки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1372"/>
+        <location filename="../actionmanager.cpp" line="1412"/>
         <source>&amp;Measurements</source>
         <translation>&amp;Виміри</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1373"/>
+        <location filename="../actionmanager.cpp" line="1413"/>
         <source>Action &amp;History</source>
         <translation>Покрокова &amp;історія</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1374"/>
+        <location filename="../actionmanager.cpp" line="1414"/>
         <source>Preflight &amp;Verifier</source>
         <translation>&amp;Попередня перевірка</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1375"/>
+        <location filename="../actionmanager.cpp" line="1415"/>
         <source>&amp;Align and Distribute</source>
         <translation>&amp;Розташувати/Вирівняти</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1376"/>
+        <location filename="../actionmanager.cpp" line="1416"/>
         <source>&amp;Tools</source>
         <translation>&amp;Інструменти</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1377"/>
+        <location filename="../actionmanager.cpp" line="1417"/>
         <source>P&amp;DF Tools</source>
         <translation>PDF &amp;Інструменти</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1380"/>
+        <location filename="../actionmanager.cpp" line="1420"/>
         <source>Select Item</source>
         <translation>Вибрати об&apos;єкт</translation>
     </message>
@@ -4187,52 +4359,52 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">&amp;Вільна лінія</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1381"/>
+        <location filename="../actionmanager.cpp" line="1421"/>
         <source>Rotate Item</source>
         <translation>Повернути об&apos;єкт</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1382"/>
+        <location filename="../actionmanager.cpp" line="1422"/>
         <source>Zoom in or out</source>
         <translation>Змінити масштаб зображення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1383"/>
+        <location filename="../actionmanager.cpp" line="1423"/>
         <source>Zoom in</source>
         <translation>Збільшити масштаб зображення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1384"/>
+        <location filename="../actionmanager.cpp" line="1424"/>
         <source>Zoom out</source>
         <translation>Зменшити масштаб зображення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1385"/>
+        <location filename="../actionmanager.cpp" line="1425"/>
         <source>Edit Contents of Frame</source>
         <translation>Редагувати зміст рамки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1386"/>
+        <location filename="../actionmanager.cpp" line="1426"/>
         <source>Edit Text...</source>
         <translation>Редагувати текст...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1387"/>
+        <location filename="../actionmanager.cpp" line="1427"/>
         <source>Link Text Frames</source>
         <translation>Установити зв&apos;язок між текстовими рамками</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1388"/>
+        <location filename="../actionmanager.cpp" line="1428"/>
         <source>Unlink Text Frames</source>
         <translation>Розірвати зв&apos;язок між текстовими рамками</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1389"/>
+        <location filename="../actionmanager.cpp" line="1429"/>
         <source>&amp;Eye Dropper</source>
         <translation>&amp;Селектор кольору</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1390"/>
+        <location filename="../actionmanager.cpp" line="1430"/>
         <source>Copy Item Properties</source>
         <translation>Копіювати властивості об&apos;єкта</translation>
     </message>
@@ -4284,110 +4456,110 @@ May raise WrongFrameTypeError if the target frame is not a text frame
     <message>
         <location filename="../actionmanager.cpp" line="1412"/>
         <source>&amp;Manage Pictures</source>
-        <translation>Керування &amp;зображеннями</translation>
+        <translation type="obsolete">Керування &amp;зображеннями</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1413"/>
+        <location filename="../actionmanager.cpp" line="1453"/>
         <source>&amp;Hyphenate Text</source>
         <translation>Пе&amp;ренос тексту</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1415"/>
+        <location filename="../actionmanager.cpp" line="1455"/>
         <source>&amp;Generate Table Of Contents</source>
         <translation>&amp;Генерувати зміст</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1422"/>
+        <location filename="../actionmanager.cpp" line="1462"/>
         <source>&amp;About Scribus</source>
         <translation>&amp;Про програму Scribus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1424"/>
+        <location filename="../actionmanager.cpp" line="1464"/>
         <source>About &amp;Qt</source>
         <translation>Про &amp;систему Qt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1425"/>
+        <location filename="../actionmanager.cpp" line="1465"/>
         <source>Toolti&amp;ps</source>
         <translation>Пі&amp;дказки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1426"/>
+        <location filename="../actionmanager.cpp" line="1466"/>
         <source>Scribus &amp;Manual...</source>
         <translation>&amp;Довідка по Scribus...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1443"/>
+        <location filename="../actionmanager.cpp" line="1484"/>
         <source>Smart &amp;Hyphen</source>
         <translation>Розумний знак &amp;переносу</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1444"/>
+        <location filename="../actionmanager.cpp" line="1485"/>
         <source>Non Breaking Dash</source>
         <translation>Непереносне тире</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1445"/>
+        <location filename="../actionmanager.cpp" line="1486"/>
         <source>Non Breaking &amp;Space</source>
         <translation>Непереносний промі&amp;жок</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1446"/>
+        <location filename="../actionmanager.cpp" line="1487"/>
         <source>Page &amp;Number</source>
         <translation>Номер &amp;сторінки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1447"/>
+        <location filename="../actionmanager.cpp" line="1488"/>
         <source>New Line</source>
         <translation>Нова лінія</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1448"/>
+        <location filename="../actionmanager.cpp" line="1489"/>
         <source>Frame Break</source>
         <translation>Розрив рамки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1449"/>
+        <location filename="../actionmanager.cpp" line="1490"/>
         <source>Column Break</source>
         <translation>Розрив колонки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1452"/>
+        <location filename="../actionmanager.cpp" line="1493"/>
         <source>Copyright</source>
         <translation>Копірайт</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1453"/>
+        <location filename="../actionmanager.cpp" line="1494"/>
         <source>Registered Trademark</source>
         <translation>Зареєстрована торгова марка</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1454"/>
+        <location filename="../actionmanager.cpp" line="1495"/>
         <source>Trademark</source>
         <translation>Торгова марка</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1456"/>
+        <location filename="../actionmanager.cpp" line="1497"/>
         <source>Bullet</source>
         <translation>Куля</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1458"/>
+        <location filename="../actionmanager.cpp" line="1499"/>
         <source>Em Dash</source>
         <translation>Ем риска</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1459"/>
+        <location filename="../actionmanager.cpp" line="1500"/>
         <source>En Dash</source>
         <translation>Ен риска</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1460"/>
+        <location filename="../actionmanager.cpp" line="1501"/>
         <source>Figure Dash</source>
         <translation>Фігурна риска</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1461"/>
+        <location filename="../actionmanager.cpp" line="1502"/>
         <source>Quotation Dash</source>
         <translation>Цитатна риска</translation>
     </message>
@@ -4482,133 +4654,133 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">CJK подвійний правий</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1433"/>
+        <location filename="../actionmanager.cpp" line="1474"/>
         <source>Toggle Palettes</source>
         <translation>Переключити палітри</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1434"/>
+        <location filename="../actionmanager.cpp" line="1475"/>
         <source>Toggle Guides</source>
         <translation>Переключити направляючі</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1337"/>
+        <location filename="../actionmanager.cpp" line="1376"/>
         <source>Manage Page Properties...</source>
         <translation>Керування установками сторінки...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1360"/>
+        <location filename="../actionmanager.cpp" line="1399"/>
         <source>Rulers relative to Page</source>
         <translation>Лінійки відносні до сторінки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1370"/>
+        <location filename="../actionmanager.cpp" line="1410"/>
         <source>&amp;Arrange Pages</source>
         <translation>&amp;Розмістити сторінки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1414"/>
+        <location filename="../actionmanager.cpp" line="1454"/>
         <source>Dehyphenate Text</source>
         <translation>Видалити переноси тексту</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1222"/>
+        <location filename="../actionmanager.cpp" line="1261"/>
         <source>Print Previe&amp;w</source>
         <translation>Перегляд перед д&amp;руком</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1244"/>
+        <location filename="../actionmanager.cpp" line="1283"/>
         <source>&amp;JavaScripts...</source>
         <translation>&amp;JavaScript сценарії...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1335"/>
+        <location filename="../actionmanager.cpp" line="1374"/>
         <source>Convert to Master Page...</source>
         <translation>Конвертувати в головну сторінку...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1418"/>
+        <location filename="../actionmanager.cpp" line="1458"/>
         <source>&amp;Cascade</source>
         <translation>&amp;Каскадне розміщення</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1419"/>
+        <location filename="../actionmanager.cpp" line="1459"/>
         <source>&amp;Tile</source>
         <translation>&amp;Мозаїчне розміщення</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1423"/>
         <source>&amp;About Plug-ins</source>
-        <translation>&amp;Про модулі</translation>
+        <translation type="obsolete">&amp;Про модулі</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1299"/>
+        <location filename="../actionmanager.cpp" line="1338"/>
         <source>More Info...</source>
         <translation>Додаткова інформація...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1289"/>
+        <location filename="../actionmanager.cpp" line="1328"/>
         <source>&amp;Printing Enabled</source>
         <translation>&amp;Друк ввімкнено</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1290"/>
+        <location filename="../actionmanager.cpp" line="1329"/>
         <source>&amp;Flip Horizontally</source>
         <translation>&amp;Перевернути по горизонталі</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1291"/>
+        <location filename="../actionmanager.cpp" line="1330"/>
         <source>&amp;Flip Vertically</source>
         <translation>&amp;Перевернути по вертикалі</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1359"/>
+        <location filename="../actionmanager.cpp" line="1398"/>
         <source>Show Rulers</source>
         <translation>Показати лінійки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1367"/>
+        <location filename="../actionmanager.cpp" line="1407"/>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
         <translation>С&amp;хема</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1455"/>
+        <location filename="../actionmanager.cpp" line="1496"/>
         <source>Solidus</source>
         <translation>Солідус</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1457"/>
+        <location filename="../actionmanager.cpp" line="1498"/>
         <source>Middle Dot</source>
         <translation>Середня точка</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1482"/>
+        <location filename="../actionmanager.cpp" line="1523"/>
         <source>En Space</source>
         <translation>Ен проміжок</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1483"/>
+        <location filename="../actionmanager.cpp" line="1524"/>
         <source>Em Space</source>
         <translation>Ем проміжок</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1484"/>
+        <location filename="../actionmanager.cpp" line="1525"/>
         <source>Thin Space</source>
         <translation>Вузький проміжок</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1485"/>
+        <location filename="../actionmanager.cpp" line="1526"/>
         <source>Thick Space</source>
         <translation>Широкий проміжок</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1486"/>
+        <location filename="../actionmanager.cpp" line="1527"/>
         <source>Mid Space</source>
         <translation>Середній проміжок</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1487"/>
+        <location filename="../actionmanager.cpp" line="1528"/>
         <source>Hair Space</source>
         <translation>Волосинний проміжок</translation>
     </message>
@@ -4633,348 +4805,373 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Вставити номер сторінки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1499"/>
+        <location filename="../actionmanager.cpp" line="1540"/>
         <source>ff</source>
         <translation>Лігатура ff</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1500"/>
+        <location filename="../actionmanager.cpp" line="1541"/>
         <source>fi</source>
         <translation>Лігатура fi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1501"/>
+        <location filename="../actionmanager.cpp" line="1542"/>
         <source>fl</source>
         <translation>Лігатура fl</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1502"/>
+        <location filename="../actionmanager.cpp" line="1543"/>
         <source>ffi</source>
         <translation>Лігатура ffi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1503"/>
+        <location filename="../actionmanager.cpp" line="1544"/>
         <source>ffl</source>
         <translation>Лігатура ffl</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1504"/>
+        <location filename="../actionmanager.cpp" line="1545"/>
         <source>ft</source>
         <translation>Лігатура ft</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1505"/>
+        <location filename="../actionmanager.cpp" line="1546"/>
         <source>st</source>
         <translation>Лігатура st</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1242"/>
+        <location filename="../actionmanager.cpp" line="1281"/>
         <source>S&amp;tyles...</source>
         <translation>С&amp;тилі...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1275"/>
+        <location filename="../actionmanager.cpp" line="1314"/>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
         <translation>С&amp;хема документу</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1318"/>
+        <location filename="../actionmanager.cpp" line="1357"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>&amp;Контури</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1233"/>
+        <location filename="../actionmanager.cpp" line="1272"/>
         <source>Paste (&amp;Absolute)</source>
         <translation>Вставка (&amp;Абсолютна)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1234"/>
+        <location filename="../actionmanager.cpp" line="1273"/>
         <source>C&amp;lear</source>
         <translation>О&amp;чистити</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1402"/>
+        <location filename="../actionmanager.cpp" line="1442"/>
         <source>Insert PDF Push Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1403"/>
+        <location filename="../actionmanager.cpp" line="1443"/>
         <source>Insert PDF Text Field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1404"/>
+        <location filename="../actionmanager.cpp" line="1444"/>
         <source>Insert PDF Check Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1405"/>
+        <location filename="../actionmanager.cpp" line="1445"/>
         <source>Insert PDF Combo Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1406"/>
+        <location filename="../actionmanager.cpp" line="1446"/>
         <source>Insert PDF List Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1407"/>
+        <location filename="../actionmanager.cpp" line="1447"/>
         <source>Insert Text Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1408"/>
+        <location filename="../actionmanager.cpp" line="1448"/>
         <source>Insert Link Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1217"/>
+        <location filename="../actionmanager.cpp" line="1256"/>
         <source>Save as &amp;EPS...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1355"/>
+        <location filename="../actionmanager.cpp" line="1394"/>
         <source>Show Text Frame Columns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1323"/>
+        <location filename="../actionmanager.cpp" line="1362"/>
         <source>&amp;Frame...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1347"/>
+        <location filename="../actionmanager.cpp" line="1386"/>
         <source>Preview Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1351"/>
+        <location filename="../actionmanager.cpp" line="1390"/>
         <source>Show Layer Indicators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1241"/>
+        <location filename="../actionmanager.cpp" line="1280"/>
         <source>Patterns...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1297"/>
+        <location filename="../actionmanager.cpp" line="1336"/>
         <source>Send to Patterns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1326"/>
+        <location filename="../actionmanager.cpp" line="1365"/>
         <source>Sticky Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1340"/>
+        <location filename="../actionmanager.cpp" line="1379"/>
         <source>&amp;Fit to Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1341"/>
+        <location filename="../actionmanager.cpp" line="1380"/>
         <source>Fit to Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1349"/>
+        <location filename="../actionmanager.cpp" line="1388"/>
         <source>Show Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1450"/>
+        <location filename="../actionmanager.cpp" line="1491"/>
         <source>&amp;Zero Width Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1451"/>
+        <location filename="../actionmanager.cpp" line="1492"/>
         <source>Zero Width NB Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1463"/>
+        <location filename="../actionmanager.cpp" line="1504"/>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
         <translation type="unfinished">Апостроф</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1464"/>
+        <location filename="../actionmanager.cpp" line="1505"/>
         <source>Straight Double</source>
         <comment>Unicode 0x0022</comment>
         <translation type="unfinished">Пряма подвійна</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1465"/>
+        <location filename="../actionmanager.cpp" line="1506"/>
         <source>Single Left</source>
         <comment>Unicode 0x2018</comment>
         <translation type="unfinished">Пряма ліва</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1466"/>
+        <location filename="../actionmanager.cpp" line="1507"/>
         <source>Single Right</source>
         <comment>Unicode 0x2019</comment>
         <translation type="unfinished">Пряма права</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1467"/>
+        <location filename="../actionmanager.cpp" line="1508"/>
         <source>Double Left</source>
         <comment>Unicode 0x201C</comment>
         <translation type="unfinished">Подвійна ліва</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1468"/>
+        <location filename="../actionmanager.cpp" line="1509"/>
         <source>Double Right</source>
         <comment>Unicode 0x201D</comment>
         <translation type="unfinished">Подвійна права</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1469"/>
+        <location filename="../actionmanager.cpp" line="1510"/>
         <source>Single Reversed</source>
         <comment>Unicode 0x201B</comment>
         <translation type="unfinished">Одинарна зворотня</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1470"/>
+        <location filename="../actionmanager.cpp" line="1511"/>
         <source>Double Reversed</source>
         <comment>Unicode 0x201F</comment>
         <translation type="unfinished">Подвійна зворотня</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1471"/>
+        <location filename="../actionmanager.cpp" line="1512"/>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
         <translation type="unfinished">Одинарний лівий Гуілемет</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1472"/>
+        <location filename="../actionmanager.cpp" line="1513"/>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
         <translation type="unfinished">Одинарний правий Гуілемет</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1473"/>
+        <location filename="../actionmanager.cpp" line="1514"/>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
         <translation type="unfinished">Подвійний лівий Гуілемет</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1474"/>
+        <location filename="../actionmanager.cpp" line="1515"/>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
         <translation type="unfinished">Подвійний правий Гуілемет</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1475"/>
+        <location filename="../actionmanager.cpp" line="1516"/>
         <source>Low Single Comma</source>
         <comment>Unicode 0x201A</comment>
         <translation type="unfinished">Низька одинарна кома</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1476"/>
+        <location filename="../actionmanager.cpp" line="1517"/>
         <source>Low Double Comma</source>
         <comment>Unicode 0x201E</comment>
         <translation type="unfinished">Низька подвійна кома</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1477"/>
+        <location filename="../actionmanager.cpp" line="1518"/>
         <source>CJK Single Left</source>
         <comment>Unicode 0x300C</comment>
         <translation type="unfinished">CJK одинарний лівий</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1478"/>
+        <location filename="../actionmanager.cpp" line="1519"/>
         <source>CJK Single Right</source>
         <comment>Unicode 0x300D</comment>
         <translation type="unfinished">CJK одинарний правий</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1479"/>
+        <location filename="../actionmanager.cpp" line="1520"/>
         <source>CJK Double Left</source>
         <comment>Unicode 0x300E</comment>
         <translation type="unfinished">CJK подвійний лівий</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1480"/>
+        <location filename="../actionmanager.cpp" line="1521"/>
         <source>CJK Double Right</source>
         <comment>Unicode 0x300F</comment>
         <translation type="unfinished">CJK подвійний правий</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1346"/>
+        <location filename="../actionmanager.cpp" line="1385"/>
         <source>&amp;400%</source>
         <translation type="unfinished">&amp;200% {400%?}</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1239"/>
+        <location filename="../actionmanager.cpp" line="1278"/>
         <source>Edit Latex Source...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1392"/>
+        <location filename="../actionmanager.cpp" line="1432"/>
         <source>Insert &amp;Text Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1393"/>
+        <location filename="../actionmanager.cpp" line="1433"/>
         <source>Insert &amp;Image Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1394"/>
+        <location filename="../actionmanager.cpp" line="1434"/>
         <source>Insert &amp;Latex Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1395"/>
+        <location filename="../actionmanager.cpp" line="1435"/>
         <source>Insert T&amp;able</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1396"/>
+        <location filename="../actionmanager.cpp" line="1436"/>
         <source>Insert &amp;Shape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1397"/>
+        <location filename="../actionmanager.cpp" line="1437"/>
         <source>Insert &amp;Polygon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1398"/>
+        <location filename="../actionmanager.cpp" line="1438"/>
         <source>Insert &amp;Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1399"/>
+        <location filename="../actionmanager.cpp" line="1439"/>
         <source>Insert &amp;Bezier Curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1400"/>
+        <location filename="../actionmanager.cpp" line="1440"/>
         <source>Insert &amp;Freehand Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1427"/>
+        <location filename="../actionmanager.cpp" line="1467"/>
         <source>Scribus Homepage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1428"/>
+        <location filename="../actionmanager.cpp" line="1468"/>
         <source>Scribus Online Documentation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1429"/>
+        <location filename="../actionmanager.cpp" line="1469"/>
         <source>Scribus Wiki</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1430"/>
+        <location filename="../actionmanager.cpp" line="1470"/>
         <source>Getting Started with Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1402"/>
+        <source>Show Context Menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1452"/>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1463"/>
+        <source>&amp;About Plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1471"/>
+        <source>Check updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1476"/>
+        <source>Insert Unicode Character Begin Sequence</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5042,42 +5239,42 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 <context>
     <name>AlignDistributePalette</name>
     <message>
-        <location filename="../aligndistribute.cpp" line="79"/>
+        <location filename="../aligndistribute.cpp" line="90"/>
         <source>Align and Distribute</source>
         <translation>Розташувати/Вирівняти</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="80"/>
+        <location filename="../aligndistribute.cpp" line="91"/>
         <source>Align</source>
         <translation type="unfinished">Вирівняти</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="82"/>
+        <location filename="../aligndistribute.cpp" line="93"/>
         <source>&amp;Relative to:</source>
         <translation>В&amp;ідносно до:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="85"/>
+        <location filename="../aligndistribute.cpp" line="96"/>
         <source>First Selected</source>
         <translation>Перший вибраний</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="86"/>
+        <location filename="../aligndistribute.cpp" line="97"/>
         <source>Last Selected</source>
         <translation>Останній вибраний</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="87"/>
+        <location filename="../aligndistribute.cpp" line="98"/>
         <source>Page</source>
         <translation>Сторінка</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="88"/>
+        <location filename="../aligndistribute.cpp" line="99"/>
         <source>Margins</source>
         <translation>Поля</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="90"/>
+        <location filename="../aligndistribute.cpp" line="101"/>
         <source>Selection</source>
         <translation>Вибірка</translation>
     </message>
@@ -5092,12 +5289,12 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Вирівняти ліві краї об&quot;єктів по правій стороні якоря</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="98"/>
+        <location filename="../aligndistribute.cpp" line="109"/>
         <source>Align bottoms</source>
         <translation>Вирівняти нижні сторони</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="100"/>
+        <location filename="../aligndistribute.cpp" line="111"/>
         <source>Align right sides</source>
         <translation>Вирівняти по правому краю</translation>
     </message>
@@ -5107,17 +5304,17 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Вирівняти об&quot;єкти по низу якоря</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="104"/>
+        <location filename="../aligndistribute.cpp" line="115"/>
         <source>Center on vertical axis</source>
         <translation>Центрувати по вертикальній вісі</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="106"/>
+        <location filename="../aligndistribute.cpp" line="117"/>
         <source>Align left sides</source>
         <translation>Вирівняти по лівому краю</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="108"/>
+        <location filename="../aligndistribute.cpp" line="119"/>
         <source>Center on horizontal axis</source>
         <translation>Центрувати по горизонтальній вісі</translation>
     </message>
@@ -5127,12 +5324,12 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Вирівняти низи об&quot;єктів по верху якоря</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="112"/>
+        <location filename="../aligndistribute.cpp" line="123"/>
         <source>Align tops</source>
         <translation>Вирівняти верхи</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="81"/>
+        <location filename="../aligndistribute.cpp" line="92"/>
         <source>Distribute</source>
         <translation type="unfinished">Розсередити</translation>
     </message>
@@ -5147,17 +5344,17 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Установити задані горизонтальні проміжки між об&quot;єктами</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="122"/>
+        <location filename="../aligndistribute.cpp" line="133"/>
         <source>Distribute right sides equidistantly</source>
         <translation>Рівномірно розподілити об&quot;єкти по правому краю</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="124"/>
+        <location filename="../aligndistribute.cpp" line="135"/>
         <source>Distribute bottoms equidistantly</source>
         <translation>Рівномірно розподілити об&quot;єкти по нижньому краю</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="126"/>
+        <location filename="../aligndistribute.cpp" line="137"/>
         <source>Distribute centers equidistantly horizontally</source>
         <translation> Рівномірно розподілити об&quot;єкти по центрах</translation>
     </message>
@@ -5172,27 +5369,27 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Установити задані вертикальні проміжки між об&quot;єктами</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="132"/>
+        <location filename="../aligndistribute.cpp" line="143"/>
         <source>Distribute left sides equidistantly</source>
         <translation>Рівномірно розподілити об&quot;єкти по лівому краю</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="134"/>
+        <location filename="../aligndistribute.cpp" line="145"/>
         <source>Distribute centers equidistantly vertically</source>
         <translation> Рівномірно розподілити об&quot;єкти по центрах по вертикалі</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="136"/>
+        <location filename="../aligndistribute.cpp" line="147"/>
         <source>Distribute tops equidistantly</source>
         <translation>Рівномірно розподілити об&quot;єкти по верхньому краю</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="146"/>
+        <location filename="../aligndistribute.cpp" line="157"/>
         <source>&amp;Distance:</source>
         <translation>&amp;Відстань:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="147"/>
+        <location filename="../aligndistribute.cpp" line="158"/>
         <source>Distribute the items with the distance specified</source>
         <translation>Розподілити об&quot;єкти на вказану відстань</translation>
     </message>
@@ -5207,87 +5404,87 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">&amp;Розімкнути всі об&quot;єкти</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="89"/>
+        <location filename="../aligndistribute.cpp" line="100"/>
         <source>Guide</source>
         <translation>Направляюча</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="114"/>
+        <location filename="../aligndistribute.cpp" line="125"/>
         <source>&amp;Selected Guide:</source>
         <translation>&amp;Вибрана направляюча:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="149"/>
+        <location filename="../aligndistribute.cpp" line="160"/>
         <source>None Selected</source>
         <translation>Нічого не було вибрано</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="429"/>
+        <location filename="../aligndistribute.cpp" line="440"/>
         <source>Y: %1%2</source>
         <translation>Y: %1%2</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="437"/>
+        <location filename="../aligndistribute.cpp" line="448"/>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="94"/>
+        <location filename="../aligndistribute.cpp" line="105"/>
         <source>Align right sides of items to left side of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="96"/>
+        <location filename="../aligndistribute.cpp" line="107"/>
         <source>Align left sides of items to right side of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="102"/>
+        <location filename="../aligndistribute.cpp" line="113"/>
         <source>Align tops of items to bottom of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="110"/>
+        <location filename="../aligndistribute.cpp" line="121"/>
         <source>Align bottoms of items to top of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="117"/>
+        <location filename="../aligndistribute.cpp" line="128"/>
         <source>Make horizontal gaps between items equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="119"/>
+        <location filename="../aligndistribute.cpp" line="130"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="128"/>
+        <location filename="../aligndistribute.cpp" line="139"/>
         <source>Make vertical gaps between items equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="130"/>
+        <location filename="../aligndistribute.cpp" line="141"/>
         <source>Make vertical gaps between items equal to the value specified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="138"/>
+        <location filename="../aligndistribute.cpp" line="149"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="144"/>
+        <location filename="../aligndistribute.cpp" line="155"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="142"/>
+        <location filename="../aligndistribute.cpp" line="153"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="140"/>
+        <location filename="../aligndistribute.cpp" line="151"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5295,27 +5492,27 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 <context>
     <name>AlignSelect</name>
     <message>
-        <location filename="../alignselect.cpp" line="100"/>
+        <location filename="../alignselect.cpp" line="110"/>
         <source>Align Text Left</source>
         <translation>Вирівняти текст по лівому краю</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="101"/>
+        <location filename="../alignselect.cpp" line="111"/>
         <source>Align Text Right</source>
         <translation>Вирівняти текст по правому краю</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="102"/>
+        <location filename="../alignselect.cpp" line="112"/>
         <source>Align Text Center</source>
         <translation>Вирівняти текст по центру</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="103"/>
+        <location filename="../alignselect.cpp" line="113"/>
         <source>Align Text Justified</source>
         <translation>Вирівняти текст з обох сторін</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="104"/>
+        <location filename="../alignselect.cpp" line="114"/>
         <source>Align Text Forced Justified</source>
         <translation>Змусити вирівняти текст з обох сторін</translation>
     </message>
@@ -6106,92 +6303,92 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">Звичайна</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="260"/>
+        <location filename="../applytemplatedialog.cpp" line="267"/>
         <source>Apply Master Page</source>
         <translation>Застосувати головну сторінку</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="261"/>
+        <location filename="../applytemplatedialog.cpp" line="268"/>
         <source>&amp;Master Page:</source>
         <translation>&amp;Головна сторінка:</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="262"/>
+        <location filename="../applytemplatedialog.cpp" line="269"/>
         <source>Apply To</source>
         <translation>Застосувати до</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="263"/>
+        <location filename="../applytemplatedialog.cpp" line="270"/>
         <source>Current &amp;page</source>
         <translation>Активна &amp;сторінка</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="264"/>
+        <location filename="../applytemplatedialog.cpp" line="271"/>
         <source>Alt+P</source>
         <translation>Alt+P</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="265"/>
+        <location filename="../applytemplatedialog.cpp" line="272"/>
         <source>&amp;Even pages</source>
         <translation>&amp;Парні сторінки</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="266"/>
+        <location filename="../applytemplatedialog.cpp" line="273"/>
         <source>Alt+E</source>
         <translation>Alt+E</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="267"/>
+        <location filename="../applytemplatedialog.cpp" line="274"/>
         <source>O&amp;dd pages</source>
         <translation>&amp;Непарні сторінки</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="268"/>
+        <location filename="../applytemplatedialog.cpp" line="275"/>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="269"/>
+        <location filename="../applytemplatedialog.cpp" line="276"/>
         <source>&amp;All pages</source>
         <translation>&amp;Всі сторінки</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="270"/>
+        <location filename="../applytemplatedialog.cpp" line="277"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="271"/>
+        <location filename="../applytemplatedialog.cpp" line="278"/>
         <source>&amp;Within range</source>
         <translation>В д&amp;іапазоні</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="272"/>
+        <location filename="../applytemplatedialog.cpp" line="279"/>
         <source>Alt+W</source>
         <translation>Alt+W</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="274"/>
+        <location filename="../applytemplatedialog.cpp" line="281"/>
         <source>to</source>
         <translation>до</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="276"/>
+        <location filename="../applytemplatedialog.cpp" line="283"/>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="278"/>
+        <location filename="../applytemplatedialog.cpp" line="285"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="273"/>
+        <location filename="../applytemplatedialog.cpp" line="280"/>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
         <translation>Застосувати вибрану головну сторінку до непарних, парних, чи всіх сторінок в цьому діапазоні</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="51"/>
+        <location filename="../applytemplatedialog.cpp" line="52"/>
         <source>Possible Hyphenation</source>
         <translation type="unfinished">Можливий перенос</translation>
     </message>
@@ -6205,22 +6402,190 @@ May raise WrongFrameTypeError if the target frame is not a text frame
     </message>
 </context>
 <context>
+    <name>AspellPlugin</name>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="31"/>
+        <source>Spell-Checker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="63"/>
+        <source>Spell-checking support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="68"/>
+        <source>Adds support for spell-checking via aspell. Languages can be chosen from among the installed aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="69"/>
+        <source>0.1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AspellPluginBase</name>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="13"/>
+        <source>Spell Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="49"/>
+        <source>Mis-spelling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="99"/>
+        <source>Replacement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="140"/>
+        <source>Active dictionary: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="183"/>
+        <source>Personal
+Dictionary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="212"/>
+        <source>&amp;Add Word</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="241"/>
+        <source>&amp;Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="266"/>
+        <source>C&amp;hange All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="291"/>
+        <source>&amp;Skip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="310"/>
+        <source>S&amp;kip All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="351"/>
+        <source>&amp;Exit</source>
+        <translation type="unfinished">В&amp;ийти</translation>
+    </message>
+</context>
+<context>
+    <name>AspellPluginImpl</name>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
+        <source>Loaded </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
+        <source>default </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
+        <source> aspell dictionary.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="57"/>
+        <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in aspell speller configuration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="64"/>
+        <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating aspell speller.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="211"/>
+        <source>Spell-Checker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="211"/>
+        <source>Spell-checking completed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="222"/>
+        <source>Spell-checking done.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="329"/>
+        <source>AspellPluginImpl::on_fskipAllBtn_clicked(): Unable to skip all instances of &quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="330"/>
+        <source> by adding it to the session list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="352"/>
+        <source>AspellPluginImpl::on_faddWordBtn_clicked(): Unable to add word to personal list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AutoformButtonGroup</name>
+    <message>
+        <location filename="../autoformbuttongroup.cpp" line="1212"/>
+        <source>Arrows</source>
+        <translation type="unfinished">Стрілки</translation>
+    </message>
+    <message>
+        <location filename="../autoformbuttongroup.cpp" line="1213"/>
+        <source>Flow Chart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../autoformbuttongroup.cpp" line="1214"/>
+        <source>Jigsaw</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../autoformbuttongroup.cpp" line="1215"/>
+        <source>Specials</source>
+        <translation type="unfinished">Особливі</translation>
+    </message>
+</context>
+<context>
     <name>Barcode</name>
     <message>
         <location filename="../plugins/barcodegenerator/barcode.cpp" line="22"/>
         <source>&amp;Barcode Generator...</source>
-        <translation>&amp;Генератор штрих-кодів...</translation>
+        <translation type="obsolete">&amp;Генератор штрих-кодів...</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcode.cpp" line="37"/>
+        <location filename="../plugins/barcodegenerator/barcode.cpp" line="40"/>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
         <translation>Інтерфейс Scribus для самостійного генератора Postscript штрих-кодів</translation>
+    </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcode.cpp" line="23"/>
+        <source>&amp;Barcode...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>BarcodeGenerator</name>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="286"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="296"/>
         <source>Error opening file: %1</source>
         <translation>Відчинити файл: %1 не вдалося</translation>
     </message>
@@ -6295,7 +6660,7 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation>Змінне число шістнадцятеричних знаків</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="317"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="330"/>
         <source>Barcode incomplete</source>
         <translation>Штрих-код неповний</translation>
     </message>
@@ -6304,189 +6669,209 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="104"/>
+        <source>Select Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="144"/>
+        <source>Select Barcode Type</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BarcodeGeneratorBase</name>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="15"/>
         <source>Barcode Creator</source>
-        <translation>Редактор штрих-кодів</translation>
+        <translation type="obsolete">Редактор штрих-кодів</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="193"/>
         <source>Barcode</source>
-        <translation>Штрих-код</translation>
+        <translation type="obsolete">Штрих-код</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="311"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="152"/>
         <source>&amp;Type:</source>
         <translation>&amp;Тип:</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="304"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="145"/>
         <source>Select one of the available barcode type here</source>
         <translation>Виберіть один з усталених типів штрих-кодів</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="284"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="125"/>
         <source>The numeric representation of the code itself. See the help message below</source>
         <translation>Чисельне представлення штрих-коду. Дивіться інформаційне повідомлення внизу</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="274"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="115"/>
         <source>Reset the barcode samples</source>
         <translation>Перезавантажити зразки штрих-кодів</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="247"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="90"/>
         <source>&amp;Include text in barcode</source>
         <translation>&amp;Включити текст в штрих-код</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="250"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="93"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="244"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="87"/>
         <source>If checked, there will be numbers in the barcode too</source>
         <translation>Якщо вибрано, в штрих-коді будуть присутні цифри</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="234"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="77"/>
         <source>&amp;Guard whitespace</source>
         <translation>&amp;Оберігати проміжки</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="237"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="80"/>
         <source>Alt+G</source>
         <translation>Alt+G</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="231"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="74"/>
         <source>Draw arrows to be sure of space next the code</source>
         <translation>Рисувати стрілки для явного представлення простору біля коду</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="30"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="168"/>
         <source>Colors</source>
         <translation>Кольори</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="58"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="208"/>
         <source>&amp;Background</source>
         <translation>&amp;Фон</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="61"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="211"/>
         <source>Alt+B</source>
         <translation>Alt+B</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="55"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="205"/>
         <source>Background color - under the code lines</source>
         <translation>Фоновий колір - під штрихами коду</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="90"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="240"/>
         <source>&amp;Lines</source>
         <translation>&amp;Штрихи</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="93"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="243"/>
         <source>Alt+L</source>
         <translation>Alt+L</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="87"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="237"/>
         <source>Color of the lines in barcode</source>
         <translation>Колір штрихів штрих-коду</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="122"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="272"/>
         <source>&amp;Text</source>
         <translation>&amp;Текст</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="125"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="275"/>
         <source>Alt+T</source>
         <translation>Alt+T</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="119"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="269"/>
         <source>Color of the text and numbers</source>
         <translation>Колір тексту на цифр</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="154"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="304"/>
         <source>Hints and help is shown here</source>
         <translation>Тут показуються підказки та допомога</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="164"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="314"/>
         <source>Preview of the result. 72dpi sample.</source>
         <translation>Попередній перегляд результатів. 72тнд зразок.</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="291"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="132"/>
         <source>Co&amp;de:</source>
         <translation>Ко&amp;д:</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="221"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="64"/>
         <source>I&amp;nclude checksum</source>
         <translation>В&amp;ключити контрольну суму</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="224"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="67"/>
         <source>Alt+N</source>
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="218"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="61"/>
         <source>Generate and include a checksum in barcode</source>
         <translation>Згенерувати та включити в штрих-код контрольну суму</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="208"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="51"/>
         <source>Incl&amp;ude checksum digit</source>
         <translation>Вк&amp;лючити контрольну цифру</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="211"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="54"/>
         <source>Alt+U</source>
         <translation>Alt+U</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="205"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="48"/>
         <source>Include the checksum digit in the barcode text</source>
         <translation>Включити в текст штрих-коду контрольну цифру</translation>
+    </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="15"/>
+        <source>Insert Barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="24"/>
+        <source>Format</source>
+        <translation type="unfinished">Формат</translation>
     </message>
 </context>
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1311"/>
+        <location filename="../scrapbookpalette.cpp" line="1444"/>
         <source>Scrapbook</source>
         <translation>Чорновик</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="798"/>
+        <location filename="../scrapbookpalette.cpp" line="839"/>
         <source>Delete</source>
         <translation>Видалити</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1214"/>
+        <location filename="../scrapbookpalette.cpp" line="1344"/>
         <source>Object</source>
         <translation>Об&apos;єкт</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1123"/>
+        <location filename="../scrapbookpalette.cpp" line="1257"/>
         <source>New Entry</source>
         <translation>Новий екземпляр</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="796"/>
+        <location filename="../scrapbookpalette.cpp" line="837"/>
         <source>Rename</source>
         <translation>Перейменувати</translation>
     </message>
@@ -6521,85 +6906,110 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation type="obsolete">&amp;Попередній перегляд</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1123"/>
+        <location filename="../scrapbookpalette.cpp" line="1257"/>
         <source>&amp;Name:</source>
         <translation>&amp;Ім&apos;я:</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1017"/>
+        <location filename="../scrapbookpalette.cpp" line="1120"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
         <translation>Ім&apos;я &quot;%1&quot; вже використане.
 Будь-ласка виберіть інше.</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="684"/>
+        <location filename="../scrapbookpalette.cpp" line="698"/>
         <source>Choose a Scrapbook Directory</source>
         <translation>Виберіть директорію для чорновика</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="740"/>
+        <location filename="../scrapbookpalette.cpp" line="759"/>
         <source>Choose a Directory</source>
         <translation>Виберіть директорію</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="720"/>
+        <location filename="../scrapbookpalette.cpp" line="737"/>
         <source>Choose a scrapbook file to import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1312"/>
+        <location filename="../scrapbookpalette.cpp" line="1445"/>
         <source>Create a new scrapbook page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1313"/>
+        <location filename="../scrapbookpalette.cpp" line="1446"/>
         <source>Load an existing scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1314"/>
+        <location filename="../scrapbookpalette.cpp" line="1447"/>
         <source>Save the selected scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1315"/>
+        <location filename="../scrapbookpalette.cpp" line="1448"/>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1316"/>
+        <location filename="../scrapbookpalette.cpp" line="1449"/>
         <source>Close the selected scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="803"/>
+        <location filename="../scrapbookpalette.cpp" line="844"/>
         <source>Copy To:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="804"/>
+        <location filename="../scrapbookpalette.cpp" line="845"/>
         <source>Move To:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="552"/>
+        <location filename="../scrapbookpalette.cpp" line="560"/>
         <source>Main</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="554"/>
+        <location filename="../scrapbookpalette.cpp" line="562"/>
         <source>Copied Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1010"/>
+        <location filename="../scrapbookpalette.cpp" line="1113"/>
         <source>New Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="719"/>
+        <location filename="../scrapbookpalette.cpp" line="739"/>
         <source>Scrapbook (*.scs *.SCS)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="833"/>
+        <source>Paste to Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="889"/>
+        <source>Save as...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="892"/>
+        <source>Close</source>
+        <translation type="unfinished">Зачинити</translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="895"/>
+        <source>Delete Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="1068"/>
+        <source>Do you really want to delete all entries?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6629,7 +7039,7 @@ Please choose another.</source>
 <context>
     <name>BookPalette</name>
     <message>
-        <location filename="../bookmarkpalette.cpp" line="39"/>
+        <location filename="../bookmarkpalette.cpp" line="51"/>
         <source>Bookmarks</source>
         <translation>Закладки</translation>
     </message>
@@ -6878,12 +7288,12 @@ It is recommended that you enable this if you have photos in your document.</sou
     <message>
         <location filename="../cmsprefs.cpp" line="43"/>
         <source>&amp;RGB Pictures:</source>
-        <translation>&amp;RGB зображення:</translation>
+        <translation type="obsolete">&amp;RGB зображення:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="51"/>
         <source>&amp;CMYK Pictures:</source>
-        <translation>&amp;CMYK зображення:</translation>
+        <translation type="obsolete">&amp;CMYK зображення:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="139"/>
@@ -6903,11 +7313,6 @@ It is recommended that you enable this if you have photos in your document.</sou
     <message>
         <location filename="../cmsprefs.cpp" line="67"/>
         <source>&amp;CMYK Solid Colors:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../cmsprefs.cpp" line="98"/>
-        <source>Pictures:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6948,6 +7353,21 @@ Relative Colorimetric or Perceptual should be chosen.</source>
 all colors, rgb or cmyk, are converted to printer color space.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../cmsprefs.cpp" line="43"/>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cmsprefs.cpp" line="51"/>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cmsprefs.cpp" line="98"/>
+        <source>Images:</source>
+        <translation type="unfinished">Зображення:</translation>
+    </message>
 </context>
 <context>
     <name>CMYKChoose</name>
@@ -6957,17 +7377,17 @@ all colors, rgb or cmyk, are converted to printer color space.</source>
         <translation>Редагування кольору</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1001"/>
+        <location filename="../cmykfw.cpp" line="987"/>
         <source>CMYK</source>
         <translation>CMYK</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1003"/>
+        <location filename="../cmykfw.cpp" line="992"/>
         <source>RGB</source>
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="870"/>
+        <location filename="../cmykfw.cpp" line="845"/>
         <source>Web Safe RGB</source>
         <translation>RGB для web</translation>
     </message>
@@ -6982,17 +7402,17 @@ all colors, rgb or cmyk, are converted to printer color space.</source>
         <translation>Старий</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="811"/>
+        <location filename="../cmykfw.cpp" line="786"/>
         <source>C:</source>
         <translation>C:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="812"/>
+        <location filename="../cmykfw.cpp" line="787"/>
         <source>M:</source>
         <translation>M:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="813"/>
+        <location filename="../cmykfw.cpp" line="788"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
@@ -7002,32 +7422,32 @@ all colors, rgb or cmyk, are converted to printer color space.</source>
         <translation>K:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="430"/>
+        <location filename="../cmykfw.cpp" line="440"/>
         <source>Dynamic Color Bars</source>
         <translation>Динамічні кольорові полоси</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="433"/>
+        <location filename="../cmykfw.cpp" line="438"/>
         <source>Static Color Bars</source>
         <translation>Статичні кольорові полоси</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="855"/>
+        <location filename="../cmykfw.cpp" line="830"/>
         <source>R:</source>
         <translation>R:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="856"/>
+        <location filename="../cmykfw.cpp" line="831"/>
         <source>G:</source>
         <translation>G:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="857"/>
+        <location filename="../cmykfw.cpp" line="832"/>
         <source>B:</source>
         <translation>B:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="810"/>
+        <location filename="../cmykfw.cpp" line="785"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -7054,10 +7474,10 @@ all colors, rgb or cmyk, are converted to printer color space.</source>
     <message>
         <location filename="../cmykfw.cpp" line="128"/>
         <source>Is Registration Color</source>
-        <translation>Реєстраційний колір</translation>
+        <translation type="obsolete">Реєстраційний колір</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1073"/>
+        <location filename="../cmykfw.cpp" line="1065"/>
         <source>You cannot create a color named &quot;%1&quot;.
 It is a reserved name for transparent color</source>
         <translation>Ви не можете створити колір з назвою &quot;%1&quot;.
@@ -7069,12 +7489,7 @@ It is a reserved name for transparent color</source>
         <translation type="obsolete">Назва кольору не являється неповторною</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="385"/>
-        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../cmykfw.cpp" line="1082"/>
+        <location filename="../cmykfw.cpp" line="1074"/>
         <source>The name of the color already exists,
 please choose another one.</source>
         <translation type="unfinished"></translation>
@@ -7085,8 +7500,14 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="891"/>
+        <location filename="../cmykfw.cpp" line="866"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cmykfw.cpp" line="1058"/>
+        <source>You cannot create a color without a name
+Please give it a name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7126,37 +7547,37 @@ please choose another one.</source>
         <translation type="obsolete">Повний дальтонізм</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="320"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="319"/>
         <source>Merging colors</source>
         <translation type="unfinished">Поєднання кольорів</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="325"/>
         <source>Error: </source>
         <translation type="unfinished">Помилка:</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="325"/>
         <source>Color %1 exists already!</source>
         <translation type="unfinished">Колір %1 вже існує!</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="331"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="330"/>
         <source>Color %1 appended.</source>
         <translation type="unfinished">Колір %1 додано.</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="335"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="334"/>
         <source>Now opening the color manager.</source>
         <translation type="unfinished">Відкриття менеджера кольорів.</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="338"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="337"/>
         <source>Color Merging</source>
         <translation type="unfinished">Об&quot;єднання кольорів</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="489"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="488"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation type="unfinished">Неможливо знайти зазначений колір. Ви, можливо, вибрали чорний, сірий, чи білий. Цей колір не може бути опрацьовано.</translation>
     </message>
@@ -7497,22 +7918,22 @@ please choose another one.</source>
         <translation type="obsolete">Вибрати символ:</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="128"/>
+        <location filename="../charselect.ui" line="112"/>
         <source>Font:</source>
         <translation>Шрифт:</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="151"/>
+        <location filename="../charselect.ui" line="135"/>
         <source>Character Class:</source>
         <translation>Символьний клас:</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="227"/>
+        <location filename="../charselect.ui" line="214"/>
         <source>&amp;Insert</source>
         <translation>&amp;Вставити</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="237"/>
+        <location filename="../charselect.ui" line="224"/>
         <source>C&amp;lear</source>
         <translation>О&amp;чистити</translation>
     </message>
@@ -7522,152 +7943,152 @@ please choose another one.</source>
         <translation type="obsolete">&amp;Зачинити</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="224"/>
+        <location filename="../charselect.ui" line="211"/>
         <source>Insert the characters at the cursor in the text</source>
         <translation>Вставити символи в текст в місці знаходження курсора</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="234"/>
+        <location filename="../charselect.ui" line="221"/>
         <source>Delete the current selection(s).</source>
         <translation>Видалити активну вибірку.</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="245"/>
+        <location filename="../charselect.cpp" line="250"/>
         <source>Full Character Set</source>
         <translation>Повний набір символів</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="250"/>
+        <location filename="../charselect.cpp" line="255"/>
         <source>Basic Latin</source>
         <translation>Елементарна Латиниця</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="256"/>
+        <location filename="../charselect.cpp" line="261"/>
         <source>Latin-1 Supplement</source>
         <translation>Latin-1 додаток</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="262"/>
+        <location filename="../charselect.cpp" line="267"/>
         <source>Latin Extended-A</source>
         <translation>Розширена латиниця-А</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="268"/>
+        <location filename="../charselect.cpp" line="273"/>
         <source>Latin Extended-B</source>
         <translation>Розширена латиниця-B</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="274"/>
+        <location filename="../charselect.cpp" line="279"/>
         <source>General Punctuation</source>
         <translation>Основні знаки пунктуації</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="280"/>
+        <location filename="../charselect.cpp" line="285"/>
         <source>Super- and Subscripts</source>
         <translation>Верхній та нижній індекси</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="286"/>
+        <location filename="../charselect.cpp" line="291"/>
         <source>Currency Symbols</source>
         <translation>Знаки валют</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="292"/>
+        <location filename="../charselect.cpp" line="297"/>
         <source>Letterlike Symbols</source>
         <translation>Літерні символи</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="298"/>
+        <location filename="../charselect.cpp" line="303"/>
         <source>Number Forms</source>
         <translation>Числові форми</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="304"/>
+        <location filename="../charselect.cpp" line="309"/>
         <source>Arrows</source>
         <translation>Стрілки</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="310"/>
+        <location filename="../charselect.cpp" line="315"/>
         <source>Mathematical Operators</source>
         <translation>Математичні оператори</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="316"/>
+        <location filename="../charselect.cpp" line="321"/>
         <source>Box Drawing</source>
         <translation>Знаки рисування стінок</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="322"/>
+        <location filename="../charselect.cpp" line="327"/>
         <source>Block Elements</source>
         <translation>Блокові елементи</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="328"/>
+        <location filename="../charselect.cpp" line="333"/>
         <source>Geometric Shapes</source>
         <translation>Геометричні форми</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="334"/>
+        <location filename="../charselect.cpp" line="339"/>
         <source>Miscellaneous Symbols</source>
         <translation>Різні символи</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="340"/>
+        <location filename="../charselect.cpp" line="345"/>
         <source>Dingbats</source>
         <translation>Іконки</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="346"/>
+        <location filename="../charselect.cpp" line="351"/>
         <source>Small Form Variants</source>
         <translation>Зменшені варіанти</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="352"/>
+        <location filename="../charselect.cpp" line="357"/>
         <source>Ligatures</source>
         <translation>Лігатури</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="358"/>
+        <location filename="../charselect.cpp" line="363"/>
         <source>Specials</source>
         <translation>Особливі</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="364"/>
+        <location filename="../charselect.cpp" line="369"/>
         <source>Greek</source>
         <translation>Грецька</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="370"/>
+        <location filename="../charselect.cpp" line="375"/>
         <source>Greek Extended</source>
         <translation>Розширена грецька</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="376"/>
+        <location filename="../charselect.cpp" line="381"/>
         <source>Cyrillic</source>
         <translation>Кирилиця</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="382"/>
+        <location filename="../charselect.cpp" line="387"/>
         <source>Cyrillic Supplement</source>
         <translation>Розширена кирилиця</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="388"/>
+        <location filename="../charselect.cpp" line="393"/>
         <source>Arabic</source>
         <translation>Арабська</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="394"/>
+        <location filename="../charselect.cpp" line="399"/>
         <source>Arabic Extended A</source>
         <translation>Розширена арабська А</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="400"/>
+        <location filename="../charselect.cpp" line="405"/>
         <source>Arabic Extended B</source>
         <translation>Розширена арабська B</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="406"/>
+        <location filename="../charselect.cpp" line="411"/>
         <source>Hebrew</source>
         <translation>Іврит</translation>
     </message>
@@ -7687,65 +8108,50 @@ please choose another one.</source>
         <translation type="obsolete">Вставте чотиризначне  значення Юнікоду прямо в цьому місці</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="180"/>
+        <location filename="../charselect.ui" line="164"/>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
         <translation type="unfinished">Ви можете побачити зменшене зображення, якщо Ви натиснете та будете тримати праву кнопку
 миші. Клавіша &quot;Вставити&quot; вставляє знак у вибірку внизу а клавіша &quot;Видалити&quot; видаляє
 останній вставлений знак</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="36"/>
+        <location filename="../charselect.cpp" line="38"/>
         <source>Scribus Char Palette (*.ucp);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="104"/>
+        <location filename="../charselect.ui" line="88"/>
         <source>Enhanced Palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="25"/>
+        <location filename="../charselect.ui" line="19"/>
         <source>Quick Palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="49"/>
-        <source>Hide Enhanced</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charselect.cpp" line="565"/>
+        <location filename="../charselect.cpp" line="584"/>
         <source>Choose a filename to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="625"/>
+        <location filename="../charselect.cpp" line="644"/>
         <source>Error</source>
         <translation type="unfinished">Помилка</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="592"/>
+        <location filename="../charselect.cpp" line="611"/>
         <source>Error reading file %1 - file is corrupted propably.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="606"/>
+        <location filename="../charselect.cpp" line="625"/>
         <source>Choose a filename to save under</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="626"/>
+        <location filename="../charselect.cpp" line="645"/>
         <source>Cannot write file %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charselect.cpp" line="634"/>
-        <source>Clean the Palette?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../charselect.cpp" line="635"/>
-        <source>You will clean all characters from this palette. Are you sure?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7756,7 +8162,22 @@ please choose another one.</source>
     <message>
         <location filename="../charselect.ui" line="56"/>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Пошук</translation>
+        <translation type="obsolete">&amp;Пошук</translation>
+    </message>
+    <message>
+        <location filename="../charselect.cpp" line="653"/>
+        <source>Empty the Palette?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charselect.cpp" line="654"/>
+        <source>You will remove all characters from this palette. Are you sure?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charselect.ui" line="30"/>
+        <source>Hide/Show Enhanced Palette</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7778,7 +8199,7 @@ please choose another one.</source>
 <context>
     <name>CharTableView</name>
     <message>
-        <location filename="../chartableview.cpp" line="23"/>
+        <location filename="../chartableview.cpp" line="22"/>
         <source>Delete</source>
         <translation type="unfinished">Видалити</translation>
     </message>
@@ -7786,22 +8207,22 @@ please choose another one.</source>
 <context>
     <name>CheckDocument</name>
     <message>
-        <location filename="../checkDocument.cpp" line="826"/>
+        <location filename="../checkDocument.cpp" line="834"/>
         <source>Glyphs missing</source>
         <translation>Відсутні знаки</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="827"/>
+        <location filename="../checkDocument.cpp" line="835"/>
         <source>Text overflow</source>
         <translation>Текст виходить за рамку</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="828"/>
+        <location filename="../checkDocument.cpp" line="836"/>
         <source>Object is not on a Page</source>
         <translation>Об&quot;єкт відсутній на сторінці</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="829"/>
+        <location filename="../checkDocument.cpp" line="837"/>
         <source>Missing Image</source>
         <translation>Відсутнє зображення</translation>
     </message>
@@ -7811,112 +8232,112 @@ please choose another one.</source>
         <translation type="obsolete">Зображення має значення DPI менше ніж %1 DPI</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="832"/>
+        <location filename="../checkDocument.cpp" line="840"/>
         <source>Object has transparency</source>
         <translation>Об&quot;єкт містить прозорість</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="833"/>
+        <location filename="../checkDocument.cpp" line="841"/>
         <source>Object is a PDF Annotation or Field</source>
         <translation>Об&quot;єкт являється анотацією або полем PDF</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="834"/>
+        <location filename="../checkDocument.cpp" line="842"/>
         <source>Object is a placed PDF</source>
         <translation>Об&quot;єкт являються вміщеним PDF</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="248"/>
+        <location filename="../checkDocument.cpp" line="250"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="252"/>
+        <location filename="../checkDocument.cpp" line="254"/>
         <source>No Problems found</source>
         <translation>Проблем не знайдено</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="628"/>
+        <location filename="../checkDocument.cpp" line="630"/>
         <source>Page </source>
         <translation>Сторінка</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="796"/>
+        <location filename="../checkDocument.cpp" line="798"/>
         <source>Free Objects</source>
         <translation>Вільні об&quot;єкти</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="802"/>
+        <location filename="../checkDocument.cpp" line="804"/>
         <source>Problems found</source>
         <translation>Знайдено проблеми</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="816"/>
+        <location filename="../checkDocument.cpp" line="824"/>
         <source>Preflight Verifier</source>
         <translation>Передекспортна перевірка</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="818"/>
+        <location filename="../checkDocument.cpp" line="826"/>
         <source>Items</source>
         <translation>Об&quot;єкти</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="819"/>
+        <location filename="../checkDocument.cpp" line="827"/>
         <source>Problems</source>
         <translation>Проблеми</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="822"/>
+        <location filename="../checkDocument.cpp" line="830"/>
         <source>Current Profile:</source>
         <translation>Активний профіль:</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="823"/>
+        <location filename="../checkDocument.cpp" line="831"/>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Ігнорувати помилки</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="824"/>
+        <location filename="../checkDocument.cpp" line="832"/>
         <source>Check again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="830"/>
+        <location filename="../checkDocument.cpp" line="838"/>
         <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="831"/>
+        <location filename="../checkDocument.cpp" line="839"/>
         <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="835"/>
+        <location filename="../checkDocument.cpp" line="843"/>
         <source>Image is GIF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="253"/>
+        <location filename="../checkDocument.cpp" line="255"/>
         <source>OK</source>
         <translation type="unfinished">Гаразд</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="274"/>
+        <location filename="../checkDocument.cpp" line="276"/>
         <source>Transparency used</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="277"/>
+        <location filename="../checkDocument.cpp" line="279"/>
         <source>Blendmode used</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="284"/>
+        <location filename="../checkDocument.cpp" line="286"/>
         <source>Layer &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="836"/>
+        <location filename="../checkDocument.cpp" line="844"/>
         <source>Annotation uses a non TrueType font</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7937,12 +8358,12 @@ please choose another one.</source>
 <context>
     <name>CollectForOutput</name>
     <message>
-        <location filename="../collect4output.cpp" line="52"/>
+        <location filename="../collect4output.cpp" line="53"/>
         <source>Choose a Directory</source>
         <translation>Виберіть директорію</translation>
     </message>
     <message>
-        <location filename="../collect4output.cpp" line="68"/>
+        <location filename="../collect4output.cpp" line="69"/>
         <source>Collecting...</source>
         <translation>Збірка...</translation>
     </message>
@@ -7952,14 +8373,14 @@ please choose another one.</source>
         <translation type="obsolete">Застереження</translation>
     </message>
     <message>
-        <location filename="../collect4output.cpp" line="73"/>
+        <location filename="../collect4output.cpp" line="74"/>
         <source>Cannot collect all files for output for file:
 %1</source>
         <translation>Неможливо зібрати всі файли для виводу для файла:
 %1</translation>
     </message>
     <message>
-        <location filename="../collect4output.cpp" line="87"/>
+        <location filename="../collect4output.cpp" line="88"/>
         <source>Cannot collect the file: 
 %1</source>
         <translation>Неможливо зібрати файл: 
@@ -7969,107 +8390,107 @@ please choose another one.</source>
 <context>
     <name>ColorManager</name>
     <message>
-        <location filename="../colorm.cpp" line="54"/>
+        <location filename="../colorm.cpp" line="53"/>
         <source>Colors</source>
         <translation>Кольори</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="80"/>
+        <location filename="../colorm.cpp" line="79"/>
         <source>&amp;Import</source>
         <translation>І&amp;мпортувати</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="82"/>
+        <location filename="../colorm.cpp" line="81"/>
         <source>&amp;New</source>
         <translation>&amp;Новий</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="84"/>
+        <location filename="../colorm.cpp" line="83"/>
         <source>&amp;Edit</source>
         <translation>&amp;Редагувати</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="88"/>
+        <location filename="../colorm.cpp" line="87"/>
         <source>D&amp;uplicate</source>
         <translation>&amp;Дублювати</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="91"/>
+        <location filename="../colorm.cpp" line="90"/>
         <source>&amp;Delete</source>
         <translation>&amp;Видалити</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="96"/>
+        <location filename="../colorm.cpp" line="95"/>
         <source>&amp;Remove Unused</source>
         <translation>Видалити &amp;невикористані</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="103"/>
+        <location filename="../colorm.cpp" line="102"/>
         <source>Color Sets</source>
         <translation>Набори кольорів</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="109"/>
+        <location filename="../colorm.cpp" line="108"/>
         <source>Current Color Set:</source>
         <translation>Активний набір кольорів:</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="152"/>
+        <location filename="../colorm.cpp" line="139"/>
         <source>&amp;Save Color Set</source>
         <translation>Зберегти &amp;набір кольорів</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="171"/>
+        <location filename="../colorm.cpp" line="158"/>
         <source>Choose a color set to load</source>
         <translation>Вибрати набір кольорів для завантаження</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="172"/>
+        <location filename="../colorm.cpp" line="159"/>
         <source>Save the current color set</source>
         <translation>Записати активний набір кольорів</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="177"/>
+        <location filename="../colorm.cpp" line="164"/>
         <source>Remove unused colors from current document&apos;s color set</source>
         <translation>Видалити невикористані кольори з набору кольорів активного документа</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="179"/>
+        <location filename="../colorm.cpp" line="166"/>
         <source>Import colors to the current set from an existing document</source>
         <translation>Імпортувати кольори з існуючого документу в активний набір</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="180"/>
+        <location filename="../colorm.cpp" line="167"/>
         <source>Create a new color within the current set</source>
         <translation>Створити новий колір в активному наборі</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="181"/>
+        <location filename="../colorm.cpp" line="168"/>
         <source>Edit the currently selected color</source>
         <translation>Редагувати вибраний колір</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="182"/>
+        <location filename="../colorm.cpp" line="169"/>
         <source>Make a copy of the currently selected color</source>
         <translation>Зробити копію вибраного кольору</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="183"/>
+        <location filename="../colorm.cpp" line="170"/>
         <source>Delete the currently selected color</source>
         <translation>Видалити вибраний колір</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="184"/>
+        <location filename="../colorm.cpp" line="171"/>
         <source>Make the current colorset the default color set</source>
         <translation>Використовувати активний набір кольорів, як основний</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="202"/>
+        <location filename="../colorm.cpp" line="189"/>
         <source>&amp;Name:</source>
         <translation>&amp;Назва:</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="202"/>
+        <location filename="../colorm.cpp" line="189"/>
         <source>Choose a Name</source>
         <translation>Вибрати назву</translation>
     </message>
@@ -8089,17 +8510,17 @@ please choose another one.</source>
         <translation type="obsolete">Документи (*.sla *.scd);;Всі файли (*)</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="568"/>
+        <location filename="../colorm.cpp" line="584"/>
         <source>Copy of %1</source>
         <translation>Копія %1</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="579"/>
+        <location filename="../colorm.cpp" line="595"/>
         <source>New Color</source>
         <translation>Новий колір</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="185"/>
+        <location filename="../colorm.cpp" line="172"/>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8447,12 +8868,12 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation>&amp;Колесо кольорів...</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheel.cpp" line="63"/>
+        <location filename="../plugins/colorwheel/colorwheel.cpp" line="64"/>
         <source>Color setting helper</source>
         <translation>Допомога для кольорових установок</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheel.cpp" line="64"/>
+        <location filename="../plugins/colorwheel/colorwheel.cpp" line="65"/>
         <source>Color selector with color theory included.</source>
         <translation>Вибір кольору з включеною теорією кольору.</translation>
     </message>
@@ -8460,47 +8881,47 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CommonStrings</name>
     <message>
-        <location filename="../commonstrings.cpp" line="186"/>
+        <location filename="../commonstrings.cpp" line="222"/>
         <source>&amp;Apply</source>
         <translation>&amp;Застосувати</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="189"/>
+        <location filename="../commonstrings.cpp" line="225"/>
         <source>&amp;Cancel</source>
         <translation>В&amp;ихід</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="196"/>
+        <location filename="../commonstrings.cpp" line="232"/>
         <source>&amp;OK</source>
         <translation>&amp;Гаразд</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="199"/>
+        <location filename="../commonstrings.cpp" line="235"/>
         <source>&amp;Save</source>
         <translation>&amp;Записати</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="202"/>
+        <location filename="../commonstrings.cpp" line="238"/>
         <source>Warning</source>
         <translation>Застереження</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="216"/>
+        <location filename="../commonstrings.cpp" line="269"/>
         <source>Single Page</source>
         <translation>Одна сторінка</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="217"/>
+        <location filename="../commonstrings.cpp" line="270"/>
         <source>Double Sided</source>
         <translation>Двохстороння</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="218"/>
+        <location filename="../commonstrings.cpp" line="271"/>
         <source>3-Fold</source>
         <translation>3-х сторіночна складка</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="219"/>
+        <location filename="../commonstrings.cpp" line="272"/>
         <source>4-Fold</source>
         <translation>4-х сторіночна складка</translation>
     </message>
@@ -8530,342 +8951,451 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation type="obsolete">Права сторінка</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="193"/>
+        <location filename="../commonstrings.cpp" line="229"/>
         <source>None</source>
         <comment>color name</comment>
         <translation>Нічого</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="210"/>
+        <location filename="../commonstrings.cpp" line="263"/>
         <source>Custom</source>
         <comment>CommonStrings, custom page size</comment>
         <translation>Нестандартний</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="247"/>
+        <location filename="../commonstrings.cpp" line="300"/>
         <source>Monday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="248"/>
+        <location filename="../commonstrings.cpp" line="301"/>
         <source>Tuesday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="249"/>
+        <location filename="../commonstrings.cpp" line="302"/>
         <source>Wednesday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="250"/>
+        <location filename="../commonstrings.cpp" line="303"/>
         <source>Thursday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="251"/>
+        <location filename="../commonstrings.cpp" line="304"/>
         <source>Friday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="252"/>
+        <location filename="../commonstrings.cpp" line="305"/>
         <source>Saturday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="253"/>
+        <location filename="../commonstrings.cpp" line="306"/>
         <source>Sunday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="254"/>
+        <location filename="../commonstrings.cpp" line="307"/>
         <source>January</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="255"/>
+        <location filename="../commonstrings.cpp" line="308"/>
         <source>February</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="256"/>
+        <location filename="../commonstrings.cpp" line="309"/>
         <source>March</source>
         <translation type="unfinished">Березень</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="257"/>
+        <location filename="../commonstrings.cpp" line="310"/>
         <source>April</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="258"/>
+        <location filename="../commonstrings.cpp" line="311"/>
         <source>May</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="259"/>
+        <location filename="../commonstrings.cpp" line="312"/>
         <source>June</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="260"/>
+        <location filename="../commonstrings.cpp" line="313"/>
         <source>July</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="261"/>
+        <location filename="../commonstrings.cpp" line="314"/>
         <source>August</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="262"/>
+        <location filename="../commonstrings.cpp" line="315"/>
         <source>September</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="263"/>
+        <location filename="../commonstrings.cpp" line="316"/>
         <source>October</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="264"/>
+        <location filename="../commonstrings.cpp" line="317"/>
         <source>November</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="265"/>
+        <location filename="../commonstrings.cpp" line="318"/>
         <source>December</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="204"/>
+        <location filename="../commonstrings.cpp" line="240"/>
         <source>Yes</source>
         <translation type="unfinished">Так</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="205"/>
+        <location filename="../commonstrings.cpp" line="241"/>
         <source>No</source>
         <translation type="unfinished">Ні</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="206"/>
+        <location filename="../commonstrings.cpp" line="242"/>
         <source>&amp;Yes</source>
         <translation type="unfinished">&amp;Так</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="207"/>
+        <location filename="../commonstrings.cpp" line="243"/>
         <source>&amp;No</source>
         <translation type="unfinished">&amp;Ні</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="226"/>
+        <location filename="../commonstrings.cpp" line="279"/>
         <source>Left Page</source>
         <comment>Left page location</comment>
         <translation type="unfinished">Ліва сторінка</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="227"/>
+        <location filename="../commonstrings.cpp" line="280"/>
         <source>Middle</source>
         <comment>Middle page location</comment>
         <translation type="unfinished">Середня</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="228"/>
+        <location filename="../commonstrings.cpp" line="281"/>
         <source>Middle Left</source>
         <comment>Middle Left page location</comment>
         <translation type="unfinished">Середня ліва</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="229"/>
+        <location filename="../commonstrings.cpp" line="282"/>
         <source>Middle Right</source>
         <comment>Middle Right page location</comment>
         <translation type="unfinished">Середня права</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="230"/>
+        <location filename="../commonstrings.cpp" line="283"/>
         <source>Right Page</source>
         <comment>Right page location</comment>
         <translation type="unfinished">Права сторінка</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="233"/>
+        <location filename="../commonstrings.cpp" line="286"/>
         <source>Normal</source>
         <comment>Default single master page</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="235"/>
+        <location filename="../commonstrings.cpp" line="288"/>
         <source>Normal Left</source>
         <comment>Default left master page</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="237"/>
+        <location filename="../commonstrings.cpp" line="290"/>
         <source>Normal Middle</source>
         <comment>Default middle master page</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="239"/>
+        <location filename="../commonstrings.cpp" line="292"/>
         <source>Normal Right</source>
         <comment>Default right master page</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="273"/>
+        <location filename="../commonstrings.cpp" line="326"/>
         <source>Normal Vision</source>
         <comment>Color Blindness - Normal Vision</comment>
         <translation type="unfinished">Нормальний зір</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="274"/>
+        <location filename="../commonstrings.cpp" line="327"/>
         <source>Protanopia (Red)</source>
         <comment>Color Blindness - Red Color Blind</comment>
         <translation type="unfinished">Протанопія (Червоний)</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="275"/>
+        <location filename="../commonstrings.cpp" line="328"/>
         <source>Deuteranopia (Green)</source>
         <comment>Color Blindness - Greed Color Blind</comment>
         <translation type="unfinished">Дейтеранопія (Зелений)</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="276"/>
+        <location filename="../commonstrings.cpp" line="329"/>
         <source>Tritanopia (Blue)</source>
         <comment>Color Blindness - Blue Color Blind</comment>
         <translation type="unfinished">Тританопія (Синій)</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="277"/>
+        <location filename="../commonstrings.cpp" line="330"/>
         <source>Full Color Blindness</source>
         <comment>Color Blindness - Full Color Blindness</comment>
         <translation type="unfinished">Повний дальтонізм</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="279"/>
+        <location filename="../commonstrings.cpp" line="332"/>
         <source>Custom: </source>
         <comment>Custom Tab Fill Option</comment>
         <translation type="unfinished">Нестандартний: </translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="192"/>
+        <location filename="../commonstrings.cpp" line="228"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="241"/>
+        <location filename="../commonstrings.cpp" line="294"/>
         <source>Solid Line</source>
         <translation type="unfinished">Суцільна лінія</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="242"/>
+        <location filename="../commonstrings.cpp" line="295"/>
         <source>Dashed Line</source>
         <translation type="unfinished">Переривчаста лінія</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="243"/>
+        <location filename="../commonstrings.cpp" line="296"/>
         <source>Dotted Line</source>
         <translation type="unfinished">Лінія з точок</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="244"/>
+        <location filename="../commonstrings.cpp" line="297"/>
         <source>Dash Dot Line</source>
         <translation type="unfinished">Переривчасто точкова лінія</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="245"/>
+        <location filename="../commonstrings.cpp" line="298"/>
         <source>Dash Dot Dot Line</source>
         <translation type="unfinished">Риска-точка-точка лінія</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="281"/>
+        <location filename="../commonstrings.cpp" line="334"/>
         <source>None</source>
         <comment>Optical Margin Setting</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="282"/>
+        <location filename="../commonstrings.cpp" line="335"/>
         <source>Left Protruding</source>
         <comment>Optical Margin Setting</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="283"/>
+        <location filename="../commonstrings.cpp" line="336"/>
         <source>Right Protruding</source>
         <comment>Optical Margin Setting</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="284"/>
+        <location filename="../commonstrings.cpp" line="337"/>
         <source>Left Hanging Punctuation</source>
         <comment>Optical Margin Setting</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="285"/>
+        <location filename="../commonstrings.cpp" line="338"/>
         <source>Right Hanging Punctuation</source>
         <comment>Optical Margin Setting</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="286"/>
+        <location filename="../commonstrings.cpp" line="339"/>
         <source>Default</source>
         <comment>Optical Margin Setting</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="289"/>
+        <location filename="../commonstrings.cpp" line="342"/>
         <source>Min. Word Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="290"/>
+        <location filename="../commonstrings.cpp" line="343"/>
         <source>Max. Word Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="293"/>
+        <location filename="../commonstrings.cpp" line="346"/>
         <source>Min. Glyph Extension</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="294"/>
+        <location filename="../commonstrings.cpp" line="347"/>
         <source>Max. Glyph Extension</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="267"/>
+        <location filename="../commonstrings.cpp" line="320"/>
         <source>RGB</source>
         <comment>Colorspace</comment>
         <translation type="unfinished">RGB</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="268"/>
+        <location filename="../commonstrings.cpp" line="321"/>
         <source>CMYK</source>
         <comment>Colorspace</comment>
         <translation type="unfinished">CMYK</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="269"/>
+        <location filename="../commonstrings.cpp" line="322"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="270"/>
+        <location filename="../commonstrings.cpp" line="323"/>
         <source>Duotone</source>
         <comment>Colorspace</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="271"/>
+        <location filename="../commonstrings.cpp" line="324"/>
         <source>Unknown</source>
         <comment>Colorspace (Unknown)</comment>
         <translation type="unfinished">Невідомий</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="297"/>
+        <location filename="../commonstrings.cpp" line="350"/>
         <source>PostScript</source>
         <translation type="unfinished">Постскрипт</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="245"/>
+        <source>Text Frame</source>
+        <translation type="unfinished">Текстова рамка</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="246"/>
+        <source>Image Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="247"/>
+        <source>Line</source>
+        <translation type="unfinished">Лінія</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="248"/>
+        <source>Polygon</source>
+        <translation type="unfinished">Полігон</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="249"/>
+        <source>Polyline</source>
+        <translation type="unfinished">Багатосегментна лінія</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="250"/>
+        <source>Text on a Path</source>
+        <translation type="unfinished">Текст на шляху</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="251"/>
+        <source>LaTeX Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="252"/>
+        <source>Multiple</source>
+        <comment>Multiple frame types</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="253"/>
+        <source>PDF Push Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="254"/>
+        <source>PDF Text Field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="255"/>
+        <source>PDF Check Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="256"/>
+        <source>PDF Combo Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="257"/>
+        <source>PDF List Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="258"/>
+        <source>PDF Text Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="259"/>
+        <source>PDF Link Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="357"/>
+        <source>PostScript Level 1</source>
+        <translation type="unfinished">Постскрипт 1-го рівня</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="359"/>
+        <source>PostScript Level 2</source>
+        <translation type="unfinished">Постскрипт 2-го рівня</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="361"/>
+        <source>PostScript Level 3</source>
+        <translation type="unfinished">Постскрипт 3-го рівня</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="363"/>
+        <source>Windows GDI</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ContextMenu</name>
+    <message>
+        <location filename="../contextmenu.cpp" line="191"/>
+        <source>Preview Settings</source>
+        <translation type="unfinished">Установки попереднього перегляду перед друком</translation>
+    </message>
+    <message>
+        <location filename="../contextmenu.cpp" line="379"/>
+        <source>Paste File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8897,167 +9427,167 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>Cpalette</name>
     <message>
-        <location filename="../cpalette.cpp" line="857"/>
+        <location filename="../cpalette.cpp" line="943"/>
         <source>Normal</source>
         <translation>Звичайний</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="845"/>
+        <location filename="../cpalette.cpp" line="931"/>
         <source>Horizontal Gradient</source>
         <translation>Горизонтальний градієнт</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="846"/>
+        <location filename="../cpalette.cpp" line="932"/>
         <source>Vertical Gradient</source>
         <translation>Вертикальний градієнт</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="847"/>
+        <location filename="../cpalette.cpp" line="933"/>
         <source>Diagonal Gradient</source>
         <translation>Діагональний градієнт</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="848"/>
+        <location filename="../cpalette.cpp" line="934"/>
         <source>Cross Diagonal Gradient</source>
         <translation>Крос-діагональний градієнт</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="849"/>
+        <location filename="../cpalette.cpp" line="935"/>
         <source>Radial Gradient</source>
         <translation>Радіальний градієнт</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="835"/>
+        <location filename="../cpalette.cpp" line="921"/>
         <source>Opacity:</source>
         <translation>Непрозорість:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="818"/>
+        <location filename="../cpalette.cpp" line="904"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="834"/>
+        <location filename="../cpalette.cpp" line="920"/>
         <source>Shade:</source>
         <translation>Тінь:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="874"/>
+        <location filename="../cpalette.cpp" line="961"/>
         <source>Edit Line Color Properties</source>
         <translation>Редагувати установки кольору лінії</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="875"/>
+        <location filename="../cpalette.cpp" line="962"/>
         <source>Edit Fill Color Properties</source>
         <translation>Редагувати установки кольору заливки</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="876"/>
+        <location filename="../cpalette.cpp" line="963"/>
         <source>Saturation of color</source>
         <translation>Насиченість кольору</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="877"/>
+        <location filename="../cpalette.cpp" line="964"/>
         <source>Normal or gradient fill method</source>
         <translation>Нормальний або градієнтний метод заливки</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="878"/>
+        <location filename="../cpalette.cpp" line="965"/>
         <source>Set the transparency for the color selected</source>
         <translation>Зробити вибраний колір прозорим</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="850"/>
+        <location filename="../cpalette.cpp" line="936"/>
         <source>Free linear Gradient</source>
         <translation>Вільний лінійний градієнт</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="836"/>
+        <location filename="../cpalette.cpp" line="922"/>
         <source>X1:</source>
         <translation>X1:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="837"/>
+        <location filename="../cpalette.cpp" line="923"/>
         <source>Y1:</source>
         <translation>Y1:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="813"/>
+        <location filename="../cpalette.cpp" line="899"/>
         <source> pt</source>
         <translation> тчк</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="838"/>
+        <location filename="../cpalette.cpp" line="924"/>
         <source>X2:</source>
         <translation>X2:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="839"/>
+        <location filename="../cpalette.cpp" line="925"/>
         <source>Y2:</source>
         <translation>Y2:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="851"/>
+        <location filename="../cpalette.cpp" line="937"/>
         <source>Free radial Gradient</source>
         <translation>Вільний радіальний градієнт</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="840"/>
+        <location filename="../cpalette.cpp" line="926"/>
         <source>Move Vector</source>
         <translation>Перемістити вектор</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="879"/>
+        <location filename="../cpalette.cpp" line="966"/>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
         <translation>Перемістити початок вектора градієнта натиснувши ліву клавішу миші, або перемістити кінець вектора градієнта натиснувши праву клавішу миші</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="854"/>
+        <location filename="../cpalette.cpp" line="940"/>
         <source>Transparency Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="855"/>
+        <location filename="../cpalette.cpp" line="941"/>
         <source>Blend Mode:</source>
         <translation type="unfinished">Режим змішування:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="858"/>
+        <location filename="../cpalette.cpp" line="944"/>
         <source>Darken</source>
         <translation type="unfinished">Затемнити</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="859"/>
+        <location filename="../cpalette.cpp" line="945"/>
         <source>Lighten</source>
         <translation type="unfinished">Зробити світлішим</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="860"/>
+        <location filename="../cpalette.cpp" line="946"/>
         <source>Multiply</source>
         <translation type="unfinished">Перемножити</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="861"/>
+        <location filename="../cpalette.cpp" line="947"/>
         <source>Screen</source>
         <translation type="unfinished">Екран</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="862"/>
+        <location filename="../cpalette.cpp" line="948"/>
         <source>Overlay</source>
         <translation type="unfinished">Перекрити</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="863"/>
+        <location filename="../cpalette.cpp" line="949"/>
         <source>Hard Light</source>
         <translation type="unfinished">Різке світло</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="864"/>
+        <location filename="../cpalette.cpp" line="950"/>
         <source>Soft Light</source>
         <translation type="unfinished">М&apos;яке світло</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="865"/>
+        <location filename="../cpalette.cpp" line="951"/>
         <source>Difference</source>
         <translation type="unfinished">Різниця</translation>
     </message>
@@ -9067,83 +9597,88 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation type="obsolete">Виключення</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="867"/>
+        <location filename="../cpalette.cpp" line="953"/>
         <source>Color Dodge</source>
         <translation type="unfinished">Уникання кольору</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="868"/>
+        <location filename="../cpalette.cpp" line="954"/>
         <source>Color Burn</source>
         <translation type="unfinished">Випалення кольором</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="869"/>
+        <location filename="../cpalette.cpp" line="955"/>
         <source>Hue</source>
         <translation type="unfinished">Відтінок</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="870"/>
+        <location filename="../cpalette.cpp" line="956"/>
         <source>Saturation</source>
         <translation type="unfinished">Насичення</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="871"/>
+        <location filename="../cpalette.cpp" line="957"/>
         <source>Color</source>
         <translation type="unfinished">Колір</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="872"/>
+        <location filename="../cpalette.cpp" line="958"/>
         <source>Luminosity</source>
         <translation type="unfinished">Яскравість</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="821"/>
+        <location filename="../cpalette.cpp" line="907"/>
         <source>Offsets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="822"/>
+        <location filename="../cpalette.cpp" line="908"/>
         <source>X:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="824"/>
+        <location filename="../cpalette.cpp" line="910"/>
         <source>Y:</source>
         <translation type="unfinished">Y:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="826"/>
+        <location filename="../cpalette.cpp" line="912"/>
         <source>Scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="831"/>
+        <location filename="../cpalette.cpp" line="917"/>
         <source>Rotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="832"/>
+        <location filename="../cpalette.cpp" line="918"/>
         <source>Angle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="852"/>
+        <location filename="../cpalette.cpp" line="938"/>
         <source>Pattern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="866"/>
+        <location filename="../cpalette.cpp" line="952"/>
         <source>Exclusion</source>
         <translation type="unfinished">Виключення</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="827"/>
+        <location filename="../cpalette.cpp" line="913"/>
         <source>X-Scale:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="829"/>
+        <location filename="../cpalette.cpp" line="915"/>
         <source>Y-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cpalette.cpp" line="959"/>
+        <source>Display only used Colors</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9454,49 +9989,49 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CurveWidget</name>
     <message>
-        <location filename="../curvewidget.cpp" line="411"/>
+        <location filename="../curvewidget.cpp" line="414"/>
         <source>Open</source>
         <translation type="unfinished">Відчинити</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="446"/>
+        <location filename="../curvewidget.cpp" line="449"/>
         <source>Curve Files (*.scu);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="446"/>
+        <location filename="../curvewidget.cpp" line="449"/>
         <source>Save as</source>
         <translation type="unfinished">Записати як</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="480"/>
+        <location filename="../curvewidget.cpp" line="483"/>
         <source>Cannot write the file: 
 %1</source>
         <translation type="unfinished">Неможливо записати файл: 
 %1</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="500"/>
+        <location filename="../curvewidget.cpp" line="509"/>
         <source>Inverts the curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="501"/>
+        <location filename="../curvewidget.cpp" line="510"/>
         <source>Resets the curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="502"/>
+        <location filename="../curvewidget.cpp" line="511"/>
         <source>Switches between linear and cubic interpolation of the curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="503"/>
+        <location filename="../curvewidget.cpp" line="512"/>
         <source>Loads a curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="504"/>
+        <location filename="../curvewidget.cpp" line="513"/>
         <source>Saves this curve</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9622,6 +10157,19 @@ This can be set in the Preferences.</source>
         <location filename="" line="136960432"/>
         <source>Set &amp;HSV</source>
         <translation type="obsolete">Набір &amp;HSV</translation>
+    </message>
+</context>
+<context>
+    <name>DashEditor</name>
+    <message>
+        <location filename="../dasheditor.cpp" line="363"/>
+        <source>Value:</source>
+        <translation type="unfinished">Значення:</translation>
+    </message>
+    <message>
+        <location filename="../dasheditor.cpp" line="364"/>
+        <source>Offset:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9876,52 +10424,52 @@ This can be set in the Preferences.</source>
 <context>
     <name>DocSections</name>
     <message>
-        <location filename="../docsections.cpp" line="61"/>
+        <location filename="../docsections.cpp" line="72"/>
         <source>Add a page numbering section to the document. The new section will be added after the currently selected section.</source>
         <translation>Додати розділ для нумерування сторінок до документа. Новий розділ буде додано за вибраним розділом.</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="62"/>
+        <location filename="../docsections.cpp" line="73"/>
         <source>Delete the currently selected section.</source>
         <translation>Видалити вибраний розділ.</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>1, 2, 3, ...</source>
         <translation>1, 2, 3, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>i, ii, iii, ...</source>
         <translation>i, ii, iii, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>I, II, III, ...</source>
         <translation>I, II, III, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>a, b, c, ...</source>
         <translation>a, b, c, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>A, B, C, ...</source>
         <translation>A, B, C, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="190"/>
+        <location filename="../docsections.cpp" line="201"/>
         <source>Page Number Out Of Bounds</source>
         <translation>Число сторінок виходить за межі</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="190"/>
+        <location filename="../docsections.cpp" line="201"/>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
         <translation>Введене Вами значення виходить за діапазон номерів сторінок активного документа (%1-%2).</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="68"/>
+        <location filename="../docsections.cpp" line="79"/>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
         <translation>&lt;b&gt;Назва:&lt;/b&gt; Необов&apos;язкова назва розділу, напр. Індекс &lt;br/&gt;&lt;b&gt;Показ:&lt;/b&gt; Виберіть, щоб показати номери сторінок в цьому розділі, якщо необхідні для цього текстові рамки присутні. &lt;br/&gt;&lt;b&gt;Від:&lt;/b&gt; Початковий індекс для цього розділу.&lt;br/&gt;&lt;b&gt;До:&lt;/b&gt; Індекс кінця р&lt;br/&gt;&lt;b&gt;Стиль:&lt;/b&gt; Виберіть для використання стиль нумерації сторінок. &lt;br/&gt;&lt;b&gt;Старт:&lt;/b&gt; Початковий індекс в діапазоні стилю. Напр., якщо Старт=2 і Стиль=а,б,в..., то нумерація сторінок почнеться з б. Для першого розділу документа це заміщує старий номер першої сторінки у діалоговому вікні нового файла.</translation>
     </message>
@@ -10105,7 +10653,7 @@ This can be set in the Preferences.</source>
         <translation>Нічого</translation>
     </message>
     <message>
-        <location filename="../docitemattrprefs.ui" line="19"/>
+        <location filename="../docitemattrprefs.ui" line="13"/>
         <source>Document Item Attributes</source>
         <translation type="unfinished">Атрибути об&apos;єкта документа</translation>
     </message>
@@ -10269,419 +10817,9 @@ This can be set in the Preferences.</source>
     </message>
 </context>
 <context>
-    <name>PrintDialog</name>
-    <message>
-        <location filename="../printdialog.cpp" line="67"/>
-        <source>Setup Printer</source>
-        <translation>Налаштування принтера</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="797"/>
-        <source>File</source>
-        <translation>Файл</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="226"/>
-        <source>Options</source>
-        <translation>Установки</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="822"/>
-        <source>All</source>
-        <translation>Всі кольори</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="620"/>
-        <source>Save as</source>
-        <translation>Записати як</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="821"/>
-        <source>Cyan</source>
-        <translation>Салатовий</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="820"/>
-        <source>Magenta</source>
-        <translation>Малиновий</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="819"/>
-        <source>Yellow</source>
-        <translation>Жовтий</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="818"/>
-        <source>Black</source>
-        <translation>Чорний</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="380"/>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Вмістити список елементів, розділений комами де елемент
-може &quot;бути для всіх сторінок, 1-5 для діапазона сторінок, або
-номер окремої сторінки.</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="74"/>
-        <source>Print Destination</source>
-        <translation>Призначення для друку</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="115"/>
-        <source>&amp;Options...</source>
-        <translation>&amp;Установки...</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="127"/>
-        <source>&amp;File:</source>
-        <translation>&amp;Файл:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="133"/>
-        <source>C&amp;hange...</source>
-        <translation>З&amp;мінити...</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="140"/>
-        <source>A&amp;lternative Printer Command</source>
-        <translation>&amp;Альтернативна команда для принтера</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="149"/>
-        <source>Co&amp;mmand:</source>
-        <translation>&amp;Команда:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="157"/>
-        <source>Range</source>
-        <translation>Діапазон</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="162"/>
-        <source>Print &amp;All</source>
-        <translation>Друкувати &amp;все</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="634"/>
-        <source>Print Current Pa&amp;ge</source>
-        <translation>Друкувати активну &amp;сторінку</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="166"/>
-        <source>Print &amp;Range</source>
-        <translation>Друкувати &amp;діапазон</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="186"/>
-        <source>N&amp;umber of Copies:</source>
-        <translation>Число ко&amp;пій:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="353"/>
-        <source>&amp;Print</source>
-        <translation>&amp;Друк</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="582"/>
-        <source>Print Normal</source>
-        <translation>Звичайний друк</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="199"/>
-        <source>Print Separations</source>
-        <translation>Друкувати окремі кольори</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="203"/>
-        <source>Print in Color if Available</source>
-        <translation>Друкувати в кольорі, якщо можливо</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="204"/>
-        <source>Print in Grayscale</source>
-        <translation>Друкувати у відтінках сірого кольору</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="221"/>
-        <source>PostScript Level 1</source>
-        <translation>Постскрипт 1-го рівня</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="222"/>
-        <source>PostScript Level 2</source>
-        <translation>Постскрипт 2-го рівня</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="223"/>
-        <source>PostScript Level 3</source>
-        <translation>Постскрипт 3-го рівня</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="232"/>
-        <source>Page</source>
-        <translation>Сторінка</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="238"/>
-        <source>Mirror Page(s) Horizontal</source>
-        <translation>Віддзеркалити сторінку(и) горизонтально</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="241"/>
-        <source>Mirror Page(s) Vertical</source>
-        <translation>Віддзеркалити сторінку(и) вертикально</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="244"/>
-        <source>Set Media Size</source>
-        <translation>Установити розмір паперу</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="250"/>
-        <source>Color</source>
-        <translation>Колір</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="256"/>
-        <source>Apply Under Color Removal</source>
-        <translation>Виконати видалення кольорів</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="259"/>
-        <source>Convert Spot Colors to Process Colors</source>
-        <translation>Конвертувати точкові кольори в процесні кольори</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="263"/>
-        <source>Apply ICC Profiles</source>
-        <translation type="obsolete">Застосувати ICC профілі</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="271"/>
-        <source>Advanced Options</source>
-        <translation>Додаткові установки</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="348"/>
-        <source>Preview...</source>
-        <translation>Попередній перегляд...</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="382"/>
-        <source>Sets the PostScript Level.
- Setting to Level 1 or 2 can create huge files</source>
-        <translation>Установлює рівень Постскрипту.
- Вибір 1-го чи 2-го рівня може призвести
-до створення дуже великих файлів</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="620"/>
-        <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation>Постскрипт файли (*.ps);;Всі файли (*)</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="381"/>
-        <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation>Використовуйте альтернативний менеджер друку, такий як kprinter чи gtklp, щоб мати 
-доступ до додаткових установок друку</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="383"/>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Метод заміни деяких відтінків сірого, які насправді складаються з салатового, жовтого та фуксинового кольорів, на 
-чорний колір. UCR найбільше впливає на частини зображень з нейтральними та або темними відтінками близькими до
-сірого. Використання цього методу може покращити якість друку деяких зображень. У певних випадках потребується
-експериментальний підбір варіантів. UCR знижує ймовірність перенасичення паперу СЖФ чорнилами.</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="384"/>
-        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Дозволяє конвертування реєстрових кольорів в композитні. Якщо Ви не збираєтеся друкувати Ваш документ в
-комерційній друкарні реєстровими кольорами, краще залиште цю установку ввімкненою.</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="383"/>
-        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation type="obsolete">Дозволяє вставку кольорових профілів в потік даних для друку при ввімкненому управлінні кольорами</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="388"/>
-        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>Дозволяє явну установку розміру паперу для ПостСкрипт файла. Не рекомендується без запиту від професійного друкаря.</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="570"/>
-        <source>Failed to retrieve printer settings</source>
-        <translation>Не вдалося отримати установки прінтера</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="246"/>
-        <source>Clip to Page Margins</source>
-        <translation>Обрізати по полях сторінки</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="377"/>
-        <source>Do not show objects outside the margins on the printed page</source>
-        <translation>Не показувати об&apos;єкти за полями на друкованій сторінці</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="262"/>
-        <source>Force Overprint Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="385"/>
-        <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="278"/>
-        <source>Printer Marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="283"/>
-        <source>Crop Marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="285"/>
-        <source>Bleed Marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="287"/>
-        <source>Registration Marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="289"/>
-        <source>Color Bars</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="292"/>
-        <source>Offset:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="297"/>
-        <source>Marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="304"/>
-        <source>Bleed Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="310"/>
-        <source>Top:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="315"/>
-        <source>Bottom:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="320"/>
-        <source>Left:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="325"/>
-        <source>Right:</source>
-        <translation type="unfinished">Праве:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="329"/>
-        <source>Use Document Bleeds</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="333"/>
-        <source>Bleeds</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="336"/>
-        <source>Inside:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="337"/>
-        <source>Outside:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="394"/>
-        <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з верхньої сторони фізичної сторінки</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="395"/>
-        <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з нижньої сторони фізичної сторінки</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="396"/>
-        <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з лівої сторони фізичної сторінки</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="397"/>
-        <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з правої сторони фізичної сторінки</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="389"/>
-        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="390"/>
-        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="391"/>
-        <source>Add registration marks which are added to each separation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="392"/>
-        <source>Add color calibration bars</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="393"/>
-        <source>Indicate the distance offset for the registration marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="398"/>
-        <source>Use the existing bleed settings from the document preferences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="267"/>
-        <source>Apply Color Profiles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="387"/>
-        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>EPSPlug</name>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="502"/>
+        <location filename="../plugins/psimport/importps.cpp" line="506"/>
         <source>Importing File:
 %1
 failed!</source>
@@ -10690,17 +10828,17 @@ failed!</source>
 не вдалося!</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="503"/>
+        <location filename="../plugins/psimport/importps.cpp" line="507"/>
         <source>Fatal Error</source>
         <translation>Фатальна помилка</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="858"/>
+        <location filename="../plugins/psimport/importps.cpp" line="862"/>
         <source>Error</source>
         <translation>Помилка</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="508"/>
+        <location filename="../plugins/psimport/importps.cpp" line="512"/>
         <source>Generating Items</source>
         <translation>Генерація об&apos;єктів</translation>
     </message>
@@ -10710,22 +10848,22 @@ failed!</source>
         <translation type="obsolete">Імпортування постскрипту</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="74"/>
+        <location filename="../plugins/psimport/importps.cpp" line="77"/>
         <source>Analyzing PostScript:</source>
         <translation>Аналіз постскрипту:</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="857"/>
+        <location filename="../plugins/psimport/importps.cpp" line="861"/>
         <source>Converting of %1 images failed!</source>
         <translation>Конвертувати зображення %1 не вдалося!</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="728"/>
+        <location filename="../plugins/psimport/importps.cpp" line="732"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="71"/>
+        <location filename="../plugins/psimport/importps.cpp" line="74"/>
         <source>Importing: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10886,6 +11024,14 @@ failed!</source>
         <location filename="../edit1format.cpp" line="374"/>
         <source>Click to select the line spacing mode</source>
         <translation type="obsolete">Кляцніть для вибору режиму установки міжрядкових проміжків</translation>
+    </message>
+</context>
+<context>
+    <name>EditToolBar</name>
+    <message>
+        <location filename="../ui/edittoolbar.cpp" line="29"/>
+        <source>Edit</source>
+        <translation type="unfinished">Редагувати</translation>
     </message>
 </context>
 <context>
@@ -11157,14 +11303,29 @@ failed!</source>
 <context>
     <name>ExportBitmap</name>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="183"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="189"/>
         <source>File exists. Overwrite?</source>
         <translation type="unfinished">Файл вже існує. Переписати поверх?</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="184"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="190"/>
         <source>exists already. Overwrite?</source>
         <translation type="unfinished">вже існує. Переписати поверх?</translation>
+    </message>
+    <message>
+        <location filename="../plugins/pixmapexport/export.cpp" line="203"/>
+        <source>Save as Image</source>
+        <translation type="unfinished">Записати, як зображення</translation>
+    </message>
+    <message>
+        <location filename="../plugins/pixmapexport/export.cpp" line="177"/>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/pixmapexport/export.cpp" line="204"/>
+        <source>Error writing the output file(s).</source>
+        <translation type="unfinished">Помилка при запису вихідного файла(ів).</translation>
     </message>
 </context>
 <context>
@@ -11524,93 +11685,193 @@ Use 72 dpi for Images intended for the Screen</source>
 <context>
     <name>FileLoader</name>
     <message>
-        <location filename="../fileloader.cpp" line="597"/>
+        <location filename="../fileloader.cpp" line="590"/>
         <source>Some fonts used by this document have been substituted:</source>
         <translation>Деякі шрифти, використані в цьому документі, були підмінені:</translation>
     </message>
     <message>
-        <location filename="../fileloader.cpp" line="601"/>
+        <location filename="../fileloader.cpp" line="594"/>
         <source> was replaced by: </source>
         <translation>був підмінений на:</translation>
     </message>
 </context>
 <context>
+    <name>FileToolBar</name>
+    <message>
+        <location filename="../ui/filetoolbar.cpp" line="31"/>
+        <source>File</source>
+        <translation type="unfinished">Файл</translation>
+    </message>
+</context>
+<context>
     <name>FontComboH</name>
     <message>
-        <location filename="../fontcombo.cpp" line="137"/>
+        <location filename="../fontcombo.cpp" line="148"/>
         <source>Face:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../fontcombo.cpp" line="138"/>
+        <location filename="../fontcombo.cpp" line="149"/>
         <source>Style:</source>
         <translation type="unfinished">Стиль:</translation>
     </message>
 </context>
 <context>
+    <name>FontListModel</name>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="63"/>
+        <source>Font Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="65"/>
+        <source>Use Font</source>
+        <translation type="unfinished">Використовувати шрифт</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="67"/>
+        <source>Family</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="69"/>
+        <source>Style</source>
+        <translation type="unfinished">Стиль</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="71"/>
+        <source>Variant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="73"/>
+        <source>Type</source>
+        <translation type="unfinished">Тип</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="75"/>
+        <source>Format</source>
+        <translation type="unfinished">Формат</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="77"/>
+        <source>Embed in PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="79"/>
+        <source>Subset</source>
+        <translation type="unfinished">Вибірка</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="81"/>
+        <source>Access</source>
+        <translation type="unfinished">Доступ</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="83"/>
+        <source>Used in Doc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="85"/>
+        <source>Path to Font File</source>
+        <translation type="unfinished">Шлях до файла шрифта</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="144"/>
+        <source>Unknown</source>
+        <comment>font type</comment>
+        <translation type="unfinished">Невідомий</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="157"/>
+        <source>Unknown</source>
+        <comment>font format</comment>
+        <translation type="unfinished">Невідомий</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="164"/>
+        <source>User</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Користувач</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="165"/>
+        <source>System</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Система</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="190"/>
+        <source>Click to change the value</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FontPrefs</name>
     <message>
-        <location filename="../fontprefs.cpp" line="46"/>
+        <location filename="../fontprefs.cpp" line="48"/>
         <source>Available Fonts</source>
         <translation>Доступні шрифти</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="46"/>
+        <location filename="../fontprefs.cpp" line="48"/>
         <source>Font Substitutions</source>
         <translation>Підміна шрифтів</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="46"/>
+        <location filename="../fontprefs.cpp" line="48"/>
         <source>Additional Paths</source>
         <translation>Додаткові шляхи</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="87"/>
+        <location filename="../fontprefs.cpp" line="66"/>
         <source>Font Name</source>
         <translation>Ім&apos;я шрифта</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="88"/>
+        <location filename="../fontprefs.cpp" line="67"/>
         <source>Replacement</source>
         <translation>Підміна</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="299"/>
+        <location filename="../fontprefs.cpp" line="247"/>
         <source>Choose a Directory</source>
         <translation>Вибрати директорію</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="79"/>
+        <location filename="../fontprefs.cpp" line="58"/>
         <source>&amp;Available Fonts</source>
         <translation>&amp;Доступні шрифти</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="109"/>
+        <location filename="../fontprefs.cpp" line="88"/>
         <source>Font &amp;Substitutions</source>
         <translation>&amp;Підміна шрифтів</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="156"/>
+        <location filename="../fontprefs.cpp" line="135"/>
         <source>Additional &amp;Paths</source>
         <translation>Д&amp;одаткові шляхи до шрифтів</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="103"/>
+        <location filename="../fontprefs.cpp" line="82"/>
         <source>&amp;Delete</source>
         <translation>&amp;Видалити</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="128"/>
+        <location filename="../fontprefs.cpp" line="107"/>
         <source>C&amp;hange...</source>
         <translation>З&amp;мінити...</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="130"/>
+        <location filename="../fontprefs.cpp" line="109"/>
         <source>A&amp;dd...</source>
         <translation>&amp;Додати...</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="132"/>
+        <location filename="../fontprefs.cpp" line="111"/>
         <source>&amp;Remove</source>
         <translation>Ви&amp;далити</translation>
     </message>
@@ -11656,29 +11917,24 @@ Use 72 dpi for Images intended for the Screen</source>
 Зачиніть усі відчинені документи і зайдіть в Редагувати&gt;Установки, щоб змінити шлях пошуку шрифтів.</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="151"/>
+        <location filename="../fontprefs.cpp" line="130"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../fontprefs.cpp" line="57"/>
         <source>Use Font</source>
-        <translation type="unfinished">Використовувати шрифт</translation>
-    </message>
-    <message>
-        <location filename="../fontprefs.cpp" line="58"/>
-        <source>Embed in PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Використовувати шрифт</translation>
     </message>
     <message>
         <location filename="../fontprefs.cpp" line="59"/>
         <source>Subset</source>
-        <translation type="unfinished">Вибірка</translation>
+        <translation type="obsolete">Вибірка</translation>
     </message>
     <message>
         <location filename="../fontprefs.cpp" line="60"/>
         <source>Path to Font File</source>
-        <translation type="unfinished">Шлях до файла шрифта</translation>
+        <translation type="obsolete">Шлях до файла шрифта</translation>
     </message>
 </context>
 <context>
@@ -11690,23 +11946,23 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation type="obsolete">Додати вибраний шрифт в меню Стиль, Шрифт</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="164"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="104"/>
         <source>Leave preview</source>
         <comment>font preview</comment>
         <translation>Вихід з попереднього перегляду</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="166"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="106"/>
         <source>Start searching</source>
         <translation>Почати пошук</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="167"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="107"/>
         <source>Size of the selected font</source>
         <translation>Розмір вибраного шрифта</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="111"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
         <translation>Реве та стогне Дніпр широкий, сердитий вітер завива</translation>
@@ -11715,13 +11971,13 @@ Use 72 dpi for Images intended for the Screen</source>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="97"/>
         <source>User</source>
         <comment>font preview</comment>
-        <translation>Користувач</translation>
+        <translation type="obsolete">Користувач</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="98"/>
         <source>System</source>
         <comment>font preview</comment>
-        <translation>Система</translation>
+        <translation type="obsolete">Система</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -11731,32 +11987,27 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="165"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation>Друкування тексту тут дозволяє проводити швидкий пошук імен шрифтів. Пошук залежить від реєстру літер. Ви можете задавати розповсюджені шаблони (*, ?, [...]) у фразі для пошуку. Наприклад т* покаже всі шрифти, назви яких починаються з т чи Т. *жирн* покаже всі шрифти з жирний чи жирніший і т.п. в назві.</translation>
-    </message>
-    <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="42"/>
-        <source>Font Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Друкування тексту тут дозволяє проводити швидкий пошук імен шрифтів. Пошук залежить від реєстру літер. Ви можете задавати розповсюджені шаблони (*, ?, [...]) у фразі для пошуку. Наприклад т* покаже всі шрифти, назви яких починаються з т чи Т. *жирн* покаже всі шрифти з жирний чи жирніший і т.п. в назві.</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="43"/>
         <source>Doc</source>
-        <translation type="unfinished">Документ</translation>
+        <translation type="obsolete">Документ</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="44"/>
         <source>Type</source>
-        <translation type="unfinished">Тип</translation>
+        <translation type="obsolete">Тип</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="45"/>
         <source>Subset</source>
-        <translation type="unfinished">Вибірка</translation>
+        <translation type="obsolete">Вибірка</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
         <source>Access</source>
-        <translation type="unfinished">Доступ</translation>
+        <translation type="obsolete">Доступ</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="13"/>
@@ -11764,47 +12015,47 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation type="unfinished">Попередній перегляд шрифтів</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="41"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="53"/>
         <source>&amp;Quick Search:</source>
         <translation type="unfinished">&amp;Швидкий пошук:</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="57"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="69"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Пошук</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="60"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="72"/>
         <source>Alt+S</source>
         <translation type="unfinished">Alt+S</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="125"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="146"/>
         <source>&amp;Font Size:</source>
         <translation type="unfinished">&amp;Розмір шрифта:</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="148"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="169"/>
         <source>Text</source>
         <translation type="unfinished">Текст</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="158"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="179"/>
         <source>Sample text to display</source>
         <translation type="unfinished">Зразок тексту для показу</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="165"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="186"/>
         <source>Se&amp;t</source>
         <translation type="unfinished">На&amp;бір</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="168"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="189"/>
         <source>Alt+T</source>
         <translation type="unfinished">Alt+T</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="175"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="196"/>
         <source>Reset the text</source>
         <translation type="unfinished">Перезавантажити текст</translation>
     </message>
@@ -11814,13 +12065,18 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation type="obsolete">&amp;Добавити</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="209"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="239"/>
         <source>&amp;Close</source>
         <translation type="unfinished">&amp;Зачинити</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="212"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="242"/>
         <source>Alt+C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="105"/>
+        <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. The given text is taken as substring.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11930,12 +12186,12 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation>&amp;Попередній перегляд шрифта...</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="65"/>
+        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="66"/>
         <source>Font Preview dialog</source>
         <translation>Діалогове вікно для попереднього перегляду шрифта</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="66"/>
+        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="67"/>
         <source>Sorting, searching and browsing available fonts.</source>
         <translation>Сортування, пошук, та перегляд доступних шрифтів.</translation>
     </message>
@@ -11987,17 +12243,17 @@ Use 72 dpi for Images intended for the Screen</source>
 <context>
     <name>GradientEditor</name>
     <message>
-        <location filename="../gradienteditor.cpp" line="311"/>
+        <location filename="../gradienteditor.cpp" line="324"/>
         <source>Position:</source>
         <translation>Позиція:</translation>
     </message>
     <message>
-        <location filename="../gradienteditor.cpp" line="312"/>
+        <location filename="../gradienteditor.cpp" line="325"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../gradienteditor.cpp" line="320"/>
+        <location filename="../gradienteditor.cpp" line="333"/>
         <source>Add, change or remove color stops here</source>
         <translation>Додати, змінити, чи видалити кольорові зупинки тут</translation>
     </message>
@@ -12025,12 +12281,12 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation type="obsolete">Поз. &amp;У:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="61"/>
+        <location filename="../guidemanager.ui" line="64"/>
         <source>&amp;Add</source>
         <translation type="unfinished">&amp;Додати</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="71"/>
+        <location filename="../guidemanager.ui" line="74"/>
         <source>D&amp;elete</source>
         <translation type="unfinished">&amp;Видалити</translation>
     </message>
@@ -12040,17 +12296,17 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation type="obsolete">Поз. &amp;Х:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="97"/>
+        <location filename="../guidemanager.ui" line="100"/>
         <source>A&amp;dd</source>
         <translation type="unfinished">&amp;Додати</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="107"/>
+        <location filename="../guidemanager.ui" line="110"/>
         <source>De&amp;lete</source>
         <translation type="unfinished">&amp;Видалити</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="122"/>
+        <location filename="../guidemanager.ui" line="125"/>
         <source>&amp;Lock Guides</source>
         <translation type="unfinished">&amp;Замкнути направляючі</translation>
     </message>
@@ -12085,7 +12341,7 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation type="obsolete">Зверніться до:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="284"/>
+        <location filename="../guidemanager.ui" line="287"/>
         <source>&amp;Page</source>
         <translation type="unfinished">С&amp;торінка</translation>
     </message>
@@ -12141,128 +12397,133 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation type="obsolete">Пуста направляюча (0.0) вже існує</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="40"/>
+        <location filename="../guidemanager.ui" line="43"/>
         <source>&amp;Single</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="149"/>
+        <location filename="../guidemanager.ui" line="152"/>
         <source>Horizontals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="359"/>
+        <location filename="../guidemanager.ui" line="362"/>
         <source>Alt+A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="310"/>
+        <location filename="../guidemanager.ui" line="313"/>
         <source>Alt+E</source>
         <translation type="unfinished">Alt+E</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="236"/>
+        <location filename="../guidemanager.ui" line="239"/>
         <source>Verticals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="100"/>
+        <location filename="../guidemanager.ui" line="103"/>
         <source>Alt+D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="125"/>
+        <location filename="../guidemanager.ui" line="128"/>
         <source>Alt+L</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="323"/>
+        <location filename="../guidemanager.ui" line="326"/>
         <source>Appl&amp;y to All Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="326"/>
+        <location filename="../guidemanager.ui" line="329"/>
         <source>Alt+Y</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="143"/>
+        <location filename="../guidemanager.ui" line="146"/>
         <source>&amp;Column/Row</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="155"/>
+        <location filename="../guidemanager.ui" line="158"/>
         <source>&amp;Number:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="178"/>
+        <location filename="../guidemanager.ui" line="181"/>
         <source>U&amp;se Gap:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="181"/>
+        <location filename="../guidemanager.ui" line="184"/>
         <source>Alt+S</source>
         <translation type="unfinished">Alt+S</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="278"/>
+        <location filename="../guidemanager.ui" line="281"/>
         <source>Refer To</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="346"/>
+        <location filename="../guidemanager.ui" line="349"/>
         <source>Alt+P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="297"/>
+        <location filename="../guidemanager.ui" line="300"/>
         <source>M&amp;argins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="307"/>
+        <location filename="../guidemanager.ui" line="310"/>
         <source>S&amp;election</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="242"/>
+        <location filename="../guidemanager.ui" line="245"/>
         <source>Nu&amp;mber:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="265"/>
+        <location filename="../guidemanager.ui" line="268"/>
         <source>Use &amp;Gap:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="268"/>
+        <location filename="../guidemanager.ui" line="271"/>
         <source>Alt+G</source>
         <translation type="unfinished">Alt+G</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="334"/>
+        <location filename="../guidemanager.ui" line="337"/>
         <source>&amp;Misc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="340"/>
+        <location filename="../guidemanager.ui" line="343"/>
         <source>Delete all guides from the current page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="343"/>
+        <location filename="../guidemanager.ui" line="346"/>
         <source>Delete Guides from Current &amp;Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="353"/>
+        <location filename="../guidemanager.ui" line="356"/>
         <source>Delete all guides from the current document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="356"/>
+        <location filename="../guidemanager.ui" line="359"/>
         <source>Delete Guides from &amp;All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../guidemanager.ui" line="15"/>
+        <source>Guide Manager</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12348,7 +12609,7 @@ and www.scribus.net for downloads.</source>
         <translation type="obsolete">Ссилка</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="273"/>
+        <location filename="../helpbrowser.cpp" line="287"/>
         <source>Scribus Online Help</source>
         <translation>Допомога по Scribus на вебі</translation>
     </message>
@@ -12363,12 +12624,12 @@ and www.scribus.net for downloads.</source>
         <translation>&amp;Пошук</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="364"/>
+        <location filename="../helpbrowser.cpp" line="377"/>
         <source>Find</source>
         <translation>Шукати</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="364"/>
+        <location filename="../helpbrowser.cpp" line="377"/>
         <source>Search Term:</source>
         <translation>Термін для пошуку:</translation>
     </message>
@@ -12413,17 +12674,17 @@ and www.scribus.net for downloads.</source>
         <translation type="obsolete">Пошук не залежить від реєстру</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="396"/>
+        <location filename="../helpbrowser.cpp" line="409"/>
         <source>New Bookmark</source>
         <translation>Нова закладка</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="396"/>
+        <location filename="../helpbrowser.cpp" line="409"/>
         <source>New Bookmark&apos;s Title:</source>
         <translation>Назва нової закладки:</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="275"/>
+        <location filename="../helpbrowser.cpp" line="289"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
@@ -12433,22 +12694,22 @@ and www.scribus.net for downloads.</source>
         <translation>&amp;Пошук...</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="282"/>
+        <location filename="../helpbrowser.cpp" line="296"/>
         <source>Find &amp;Next</source>
         <translation>Знайти &amp;наступний</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="283"/>
+        <location filename="../helpbrowser.cpp" line="297"/>
         <source>Find &amp;Previous</source>
         <translation>Знайти &amp;попередній</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="276"/>
+        <location filename="../helpbrowser.cpp" line="290"/>
         <source>&amp;Edit</source>
         <translation>&amp;Редагувати</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="284"/>
+        <location filename="../helpbrowser.cpp" line="298"/>
         <source>&amp;Add Bookmark</source>
         <translation>&amp;Добавити закладку</translation>
     </message>
@@ -12458,7 +12719,7 @@ and www.scribus.net for downloads.</source>
         <translation>Вид&amp;алити Все</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="277"/>
+        <location filename="../helpbrowser.cpp" line="291"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Закладки</translation>
     </message>
@@ -12503,12 +12764,12 @@ and www.scribus.net for downloads.</source>
         <translation type="unfinished">&amp;Додати</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="280"/>
+        <location filename="../helpbrowser.cpp" line="294"/>
         <source>&amp;Quit</source>
         <translation type="unfinished">&amp;Вихід</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="702"/>
+        <location filename="../helpbrowser.cpp" line="715"/>
         <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
         <translation type="unfinished"></translation>
@@ -12517,39 +12778,24 @@ and www.scribus.net for downloads.</source>
 <context>
     <name>HelpBrowser2</name>
     <message>
-        <location filename="../ui/hb2.ui" line="13"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ui/hb2.ui" line="30"/>
         <source>&amp;Contents</source>
-        <translation type="unfinished">&amp;Зміст</translation>
-    </message>
-    <message>
-        <location filename="../ui/hb2.ui" line="84"/>
-        <source>1</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Зміст</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="49"/>
         <source>Se&amp;arch</source>
-        <translation type="unfinished">По&amp;шук</translation>
-    </message>
-    <message>
-        <location filename="../ui/hb2.ui" line="57"/>
-        <source>Searching is case insensitive</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">По&amp;шук</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="64"/>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Пошук</translation>
+        <translation type="obsolete">&amp;Пошук</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="77"/>
         <source>Book&amp;marks</source>
-        <translation type="unfinished">Заклад&amp;ки</translation>
+        <translation type="obsolete">Заклад&amp;ки</translation>
     </message>
 </context>
 <context>
@@ -12850,6 +13096,30 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ImportXfigPlugin</name>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="58"/>
+        <source>Import Xfig...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="79"/>
+        <source>Imports Xfig Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="80"/>
+        <source>Imports most Xfig files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="128"/>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Всі формати, що підтримуються</translation>
+    </message>
+</context>
+<context>
     <name>Imposition</name>
     <message>
         <location filename="../plugins/imposition/imposition.cpp" line="72"/>
@@ -13021,12 +13291,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionplugin.cpp" line="66"/>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="69"/>
         <source>Imposition dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionplugin.cpp" line="67"/>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="70"/>
         <source>Imposition on grids, booklets and folds</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13623,198 +13893,200 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LatexEditor</name>
     <message>
-        <location filename="../latexeditor.ui" line="13"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../latexeditor.ui" line="30"/>
+        <location filename="../latexeditor.ui" line="32"/>
         <source>Enter Code:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="42"/>
+        <location filename="../latexeditor.ui" line="44"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="49"/>
+        <location filename="../latexeditor.ui" line="51"/>
         <source>Revert</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="62"/>
+        <location filename="../latexeditor.ui" line="122"/>
         <source>Program Messages:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="81"/>
-        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../latexeditor.ui" line="93"/>
+        <location filename="../latexeditor.ui" line="162"/>
         <source>Status: Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="103"/>
+        <location filename="../latexeditor.ui" line="148"/>
         <source>Kill Program</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="118"/>
+        <location filename="../latexeditor.ui" line="65"/>
         <source>Options</source>
         <translation type="unfinished">Установки</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="126"/>
+        <location filename="../latexeditor.ui" line="73"/>
         <source>Resolution:</source>
         <translation type="unfinished">Розрішення:</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="133"/>
+        <location filename="../latexeditor.ui" line="80"/>
         <source>Automatic</source>
         <translation type="unfinished">Автоматичний</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="136"/>
+        <location filename="../latexeditor.ui" line="83"/>
         <source> DPI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="153"/>
+        <location filename="../latexeditor.ui" line="96"/>
         <source>Program:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="161"/>
-        <source>LaTeX</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../latexeditor.ui" line="171"/>
+        <location filename="../latexeditor.ui" line="108"/>
         <source>Use Preamble</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="178"/>
-        <source>Update Application Settings</source>
+        <location filename="../latexeditor.cpp" line="180"/>
+        <source>Status: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="199"/>
-        <source>Fonts and Colors</source>
+        <location filename="../latexeditor.cpp" line="183"/>
+        <source>Error</source>
+        <translation type="unfinished">Помилка</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="185"/>
+        <source>Finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="211"/>
-        <source>Will be filled later</source>
+        <location filename="../latexeditor.cpp" line="188"/>
+        <source>Running</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="368"/>
+        <source>No item selected!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="370"/>
+        <source>Insert symbol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="13"/>
+        <source>Editor</source>
+        <translation type="unfinished">Редактор</translation>
     </message>
 </context>
 <context>
     <name>LayerPalette</name>
     <message>
-        <location filename="../layers.cpp" line="484"/>
+        <location filename="../layers.cpp" line="511"/>
         <source>Layers</source>
         <translation>Плани</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="274"/>
+        <location filename="../layers.cpp" line="280"/>
         <source>Delete Layer</source>
         <translation>Видалити план</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="505"/>
+        <location filename="../layers.cpp" line="532"/>
         <source>Name</source>
         <translation>Ім&apos;я</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="275"/>
+        <location filename="../layers.cpp" line="281"/>
         <source>Do you want to delete all objects on this layer too?</source>
         <translation>Ви бажаєте також видалити всі об&apos;єкти на цьому плані?</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="511"/>
+        <location filename="../layers.cpp" line="538"/>
         <source>Add a new layer</source>
         <translation>Додати новий план</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="513"/>
+        <location filename="../layers.cpp" line="540"/>
         <source>Delete layer</source>
         <translation>Видалити план</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="514"/>
+        <location filename="../layers.cpp" line="541"/>
         <source>Raise layer</source>
         <translation>Підняти план на вищий рівень</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="515"/>
+        <location filename="../layers.cpp" line="542"/>
         <source>Lower layer</source>
         <translation>Опустити план на нижчий рівень</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="503"/>
+        <location filename="../layers.cpp" line="530"/>
         <source>Opacity:</source>
         <translation type="unfinished">Непрозорість:</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="504"/>
+        <location filename="../layers.cpp" line="531"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="485"/>
+        <location filename="../layers.cpp" line="512"/>
         <source>Blend Mode:</source>
         <translation type="unfinished">Режим змішування:</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="487"/>
+        <location filename="../layers.cpp" line="514"/>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="488"/>
+        <location filename="../layers.cpp" line="515"/>
         <source>Darken</source>
         <translation type="unfinished">Затемнити</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="489"/>
+        <location filename="../layers.cpp" line="516"/>
         <source>Lighten</source>
         <translation type="unfinished">Зробити світлішим</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="490"/>
+        <location filename="../layers.cpp" line="517"/>
         <source>Multiply</source>
         <translation type="unfinished">Перемножити</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="491"/>
+        <location filename="../layers.cpp" line="518"/>
         <source>Screen</source>
         <translation type="unfinished">Екран</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="492"/>
+        <location filename="../layers.cpp" line="519"/>
         <source>Overlay</source>
         <translation type="unfinished">Перекрити</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="493"/>
+        <location filename="../layers.cpp" line="520"/>
         <source>Hard Light</source>
         <translation type="unfinished">Різке світло</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="494"/>
+        <location filename="../layers.cpp" line="521"/>
         <source>Soft Light</source>
         <translation type="unfinished">М&apos;яке світло</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="495"/>
+        <location filename="../layers.cpp" line="522"/>
         <source>Difference</source>
         <translation type="unfinished">Різниця</translation>
     </message>
@@ -13824,131 +14096,177 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Виключення</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="497"/>
+        <location filename="../layers.cpp" line="524"/>
         <source>Color Dodge</source>
         <translation type="unfinished">Уникання кольору</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="498"/>
+        <location filename="../layers.cpp" line="525"/>
         <source>Color Burn</source>
         <translation type="unfinished">Випалення кольором</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="496"/>
+        <location filename="../layers.cpp" line="523"/>
         <source>Exclusion</source>
         <translation type="unfinished">Виключення</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="499"/>
+        <location filename="../layers.cpp" line="526"/>
         <source>Hue</source>
         <translation type="unfinished">Відтінок</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="500"/>
+        <location filename="../layers.cpp" line="527"/>
         <source>Saturation</source>
         <translation type="unfinished">Насичення</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="501"/>
+        <location filename="../layers.cpp" line="528"/>
         <source>Color</source>
         <translation type="unfinished">Колір</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="502"/>
+        <location filename="../layers.cpp" line="529"/>
         <source>Luminosity</source>
         <translation type="unfinished">Яскравість</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="512"/>
+        <location filename="../layers.cpp" line="539"/>
         <source>Duplicates the current layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="516"/>
+        <location filename="../layers.cpp" line="543"/>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="517"/>
+        <location filename="../layers.cpp" line="544"/>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="518"/>
+        <location filename="../layers.cpp" line="545"/>
         <source>Print Layer - Uncheck to disable printing. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="519"/>
+        <location filename="../layers.cpp" line="546"/>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="520"/>
+        <location filename="../layers.cpp" line="547"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="521"/>
+        <location filename="../layers.cpp" line="548"/>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="522"/>
+        <location filename="../layers.cpp" line="549"/>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
+    <name>LegacyMode</name>
+    <message>
+        <location filename="../canvasmode_legacy.cpp" line="4973"/>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Всі файли (*)</translation>
+    </message>
+    <message>
+        <location filename="../canvasmode_legacy.cpp" line="4976"/>
+        <source>Open</source>
+        <translation type="unfinished">Відчинити</translation>
+    </message>
+</context>
+<context>
     <name>LensDialogBase</name>
     <message>
-        <location filename="../lensdialogbase.ui" line="13"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="13"/>
         <source>Optical Lens</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="64"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="64"/>
         <source>Add Lens</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="71"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="71"/>
         <source>Remove Lens</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="98"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="98"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="105"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="105"/>
         <source>-</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="123"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="123"/>
         <source>Lens Parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="147"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="147"/>
         <source>X Pos:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="164"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="164"/>
         <source>Y Pos:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="181"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="198"/>
         <source>Radius:</source>
         <translation type="unfinished">Радіус:</translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="198"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="215"/>
         <source>Strength:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="181"/>
+        <source>Magnification Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="191"/>
+        <source>Fish Eye Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LensEffectsPlugin</name>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="66"/>
+        <source>Lens Effects...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="70"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="86"/>
+        <source>Lens Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="87"/>
+        <source>Apply fancy lens effects</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14140,47 +14458,47 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LoremManager</name>
     <message>
-        <location filename="../loremipsum.cpp" line="123"/>
+        <location filename="../loremipsum.cpp" line="131"/>
         <source>Select Lorem Ipsum</source>
         <translation>Вибрати Lorem Ipsum</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="188"/>
+        <location filename="../loremipsum.cpp" line="196"/>
         <source>Author:</source>
         <translation>Автор:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="190"/>
+        <location filename="../loremipsum.cpp" line="198"/>
         <source>Get More:</source>
         <translation>Добавити ще:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="192"/>
+        <location filename="../loremipsum.cpp" line="200"/>
         <source>XML File:</source>
         <translation>Файл XML:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="211"/>
+        <location filename="../loremipsum.cpp" line="229"/>
         <source>Lorem Ipsum</source>
         <translation>Lorem Ipsum</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="212"/>
+        <location filename="../loremipsum.cpp" line="230"/>
         <source>Paragraphs:</source>
         <translation>Абзаци:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="214"/>
+        <location filename="../loremipsum.cpp" line="232"/>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="216"/>
+        <location filename="../loremipsum.cpp" line="234"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="217"/>
+        <location filename="../loremipsum.cpp" line="235"/>
         <source>Standard Lorem Ipsum</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14261,47 +14579,47 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MarginWidget</name>
     <message>
-        <location filename="../marginWidget.cpp" line="49"/>
+        <location filename="../marginwidget.cpp" line="49"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Низ:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="51"/>
+        <location filename="../marginwidget.cpp" line="51"/>
         <source>&amp;Top:</source>
         <translation>&amp;Верх:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="208"/>
+        <location filename="../marginwidget.cpp" line="208"/>
         <source>&amp;Right:</source>
         <translation>&amp;Правий край:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="207"/>
+        <location filename="../marginwidget.cpp" line="207"/>
         <source>&amp;Left:</source>
         <translation>&amp;Лівий край:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="153"/>
+        <location filename="../marginwidget.cpp" line="153"/>
         <source>Distance between the top margin guide and the edge of the page</source>
         <translation>Відстань від границі верхнього поля сторінки до її краю</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="154"/>
+        <location filename="../marginwidget.cpp" line="154"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
         <translation>Відстань від границі нижнього поля сторінки до її краю</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="207"/>
+        <location filename="../marginwidget.cpp" line="207"/>
         <source>&amp;Inside:</source>
         <translation>&amp;Зсередини:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="208"/>
+        <location filename="../marginwidget.cpp" line="208"/>
         <source>O&amp;utside:</source>
         <translation>Зз&amp;овні:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="36"/>
+        <location filename="../marginwidget.cpp" line="36"/>
         <source>Preset Layouts:</source>
         <translation>Попередньо підготовлені схеми розміщення:</translation>
     </message>
@@ -14311,7 +14629,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Застосувати установки полів до всіх сторінок</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="88"/>
+        <location filename="../marginwidget.cpp" line="88"/>
         <source>Apply the margin changes to all existing pages in the document</source>
         <translation>Застосувати зміни полів до всіх існуючих сторінок документа</translation>
     </message>
@@ -14326,102 +14644,102 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Відстань між направляючою правого поля і краєм сторінки. Якщо були вибрані дзеркальні сторінки, цей простір на полях може використовуватися для забезпечення достатніх полів для переплітання</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="100"/>
+        <location filename="../marginwidget.cpp" line="100"/>
         <source>Printer Margins...</source>
         <translation>Поля принтера...</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="102"/>
+        <location filename="../marginwidget.cpp" line="102"/>
         <source>Import the margins for the selected page size from the available printers.</source>
         <translation>Імпортувати поля для вибраного розміру сторінки від доступних принтерів.</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="77"/>
+        <location filename="../marginwidget.cpp" line="77"/>
         <source>Apply settings to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="80"/>
+        <location filename="../marginwidget.cpp" line="80"/>
         <source>All Document Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="84"/>
+        <location filename="../marginwidget.cpp" line="84"/>
         <source>All Master Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="89"/>
+        <location filename="../marginwidget.cpp" line="89"/>
         <source>Apply the margin changes to all existing master pages in the document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="106"/>
+        <location filename="../marginwidget.cpp" line="106"/>
         <source>Margin Guides</source>
         <translation type="unfinished">Розмітка полів</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="124"/>
+        <location filename="../marginwidget.cpp" line="124"/>
         <source>Top:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="129"/>
+        <location filename="../marginwidget.cpp" line="129"/>
         <source>Bottom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="140"/>
+        <location filename="../marginwidget.cpp" line="140"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation type="unfinished">Розмір поля для перекриття з верхньої сторони фізичної сторінки</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="141"/>
+        <location filename="../marginwidget.cpp" line="141"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation type="unfinished">Розмір поля для перекриття з нижньої сторони фізичної сторінки</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="142"/>
+        <location filename="../marginwidget.cpp" line="142"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation type="unfinished">Розмір поля для перекриття з лівої сторони фізичної сторінки</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="143"/>
+        <location filename="../marginwidget.cpp" line="143"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation type="unfinished">Розмір поля для перекриття з правої сторони фізичної сторінки</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="149"/>
+        <location filename="../marginwidget.cpp" line="149"/>
         <source>Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="213"/>
+        <location filename="../marginwidget.cpp" line="213"/>
         <source>Inside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="214"/>
+        <location filename="../marginwidget.cpp" line="214"/>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="218"/>
+        <location filename="../marginwidget.cpp" line="218"/>
         <source>Left:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="219"/>
+        <location filename="../marginwidget.cpp" line="219"/>
         <source>Right:</source>
         <translation type="unfinished">Праве:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="155"/>
+        <location filename="../marginwidget.cpp" line="155"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="156"/>
+        <location filename="../marginwidget.cpp" line="156"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14429,12 +14747,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MasterPagesPalette</name>
     <message>
-        <location filename="../masterpagepalette.cpp" line="38"/>
+        <location filename="../masterpagepalette.cpp" line="39"/>
         <source>Edit Master Pages</source>
         <translation>Редагувати майстер сторінки</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="109"/>
+        <location filename="../masterpagepalette.cpp" line="110"/>
         <source>Do you really want to delete this master page?</source>
         <translation>Ви справді бажаєте видалити цю майстер сторінку?</translation>
     </message>
@@ -14449,12 +14767,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Так</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="134"/>
+        <location filename="../masterpagepalette.cpp" line="137"/>
         <source>&amp;Name:</source>
         <translation>&amp;Ім&apos;я:</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="134"/>
+        <location filename="../masterpagepalette.cpp" line="137"/>
         <source>New Master Page</source>
         <translation>Нова майстер сторінка</translation>
     </message>
@@ -14464,17 +14782,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Копія %1</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="236"/>
         <source>Name:</source>
         <translation>Ім&apos;я:</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="236"/>
         <source>New MasterPage</source>
         <translation>Нова майстер сторінка</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="280"/>
+        <location filename="../masterpagepalette.cpp" line="289"/>
         <source>Copy #%1 of </source>
         <translation>Копія %1 з </translation>
     </message>
@@ -14484,52 +14802,52 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Звичайна</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="78"/>
+        <location filename="../masterpagepalette.cpp" line="79"/>
         <source>Duplicate the selected master page</source>
         <translation>Здублювати вибрану майстер сторінку</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="79"/>
+        <location filename="../masterpagepalette.cpp" line="80"/>
         <source>Delete the selected master page</source>
         <translation>Видалити вибрану майстер сторінку</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="80"/>
+        <location filename="../masterpagepalette.cpp" line="81"/>
         <source>Add a new master page</source>
         <translation>Додати нову майстер сторінку</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="81"/>
+        <location filename="../masterpagepalette.cpp" line="82"/>
         <source>Import master pages from another document</source>
         <translation>Імпортувати майстер сторінки з іншого документа</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="236"/>
         <source>New Master Page %1</source>
         <translation>Нова майстер сторінка %1</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="366"/>
+        <location filename="../masterpagepalette.cpp" line="379"/>
         <source>Unable to Rename Master Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="366"/>
+        <location filename="../masterpagepalette.cpp" line="379"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="370"/>
+        <location filename="../masterpagepalette.cpp" line="383"/>
         <source>Rename Master Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="370"/>
+        <location filename="../masterpagepalette.cpp" line="383"/>
         <source>New Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="132"/>
+        <location filename="../masterpagepalette.cpp" line="135"/>
         <source>Copy #%1 of %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14560,47 +14878,47 @@ p, li { white-space: pre-wrap; }
 <context encoding="UTF-8">
     <name>Measurements</name>
     <message>
-        <location filename="../measurements.cpp" line="115"/>
+        <location filename="../measurements.cpp" line="127"/>
         <source>Distances</source>
         <translation>Відстані</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="117"/>
+        <location filename="../measurements.cpp" line="129"/>
         <source>X1:</source>
         <translation>X1:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="118"/>
+        <location filename="../measurements.cpp" line="130"/>
         <source>Y1:</source>
         <translation>Y1:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="119"/>
+        <location filename="../measurements.cpp" line="131"/>
         <source>X2:</source>
         <translation>X2:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="120"/>
+        <location filename="../measurements.cpp" line="132"/>
         <source>Y2:</source>
         <translation>Y2:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="121"/>
+        <location filename="../measurements.cpp" line="133"/>
         <source>DX:</source>
         <translation>DX:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="122"/>
+        <location filename="../measurements.cpp" line="134"/>
         <source>DY:</source>
         <translation>DY:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="123"/>
+        <location filename="../measurements.cpp" line="135"/>
         <source>Angle:</source>
         <translation>Кут:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="124"/>
+        <location filename="../measurements.cpp" line="136"/>
         <source>Length:</source>
         <translation>Довжина:</translation>
     </message>
@@ -14610,7 +14928,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">тчк</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="../measurements.cpp" line="109"/>
+        <location filename="../measurements.cpp" line="111"/>
         <source> °</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14729,12 +15047,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ModeToolBar</name>
     <message>
-        <location filename="../modetoolbar.cpp" line="38"/>
+        <location filename="../ui/modetoolbar.cpp" line="39"/>
         <source>Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../modetoolbar.cpp" line="110"/>
+        <location filename="../ui/modetoolbar.cpp" line="120"/>
         <source>Properties...</source>
         <translation type="unfinished">Властивості...</translation>
     </message>
@@ -14785,1086 +15103,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../movepage.cpp" line="58"/>
         <source>Number of copies:</source>
         <translation>Число копій:</translation>
-    </message>
-</context>
-<context>
-    <name>PropertiesPalette</name>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4319"/>
-        <source>Properties</source>
-        <translation>Властивості</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4329"/>
-        <source>Name</source>
-        <translation>Ім&apos;я</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4330"/>
-        <source>Geometry</source>
-        <translation>Геометрія</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4500"/>
-        <source> pt</source>
-        <translation> тчк</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4336"/>
-        <source>Basepoint:</source>
-        <translation>Точка відліку:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4337"/>
-        <source>Level</source>
-        <translation>План</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4340"/>
-        <source>Shape:</source>
-        <translation>Фігура:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4362"/>
-        <source>Distance of Text</source>
-        <translation>Відстань від тексту</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4381"/>
-        <source>Show Curve</source>
-        <translation>Показати криву</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4383"/>
-        <source>Start Offset:</source>
-        <translation>Почати відступ:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4384"/>
-        <source>Distance from Curve:</source>
-        <translation>Відстань від кривої:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4488"/>
-        <source> %</source>
-        <translation>%</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4430"/>
-        <source>Input Profile:</source>
-        <translation>Профіль вводу:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4431"/>
-        <source>Rendering Intent:</source>
-        <translation>Схема перерахунку кольорів:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4438"/>
-        <source>Perceptual</source>
-        <translation>Уявний</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4439"/>
-        <source>Relative Colorimetric</source>
-        <translation>Відносна кольорометрія</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4440"/>
-        <source>Saturation</source>
-        <translation>Насичення</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4441"/>
-        <source>Absolute Colorimetric</source>
-        <translation>Абсолютна кольорометрія</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4445"/>
-        <source>Left Point</source>
-        <translation>Ліва точка</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4446"/>
-        <source>End Points</source>
-        <translation>Кінцеві точки</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4465"/>
-        <source>Miter Join</source>
-        <translation>Фацеточне з&apos;єднання</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4466"/>
-        <source>Bevel Join</source>
-        <translation>Фасочне з&apos;єднання</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4467"/>
-        <source>Round Join</source>
-        <translation>Заокруглене з&apos;єднання</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4472"/>
-        <source>Flat Cap</source>
-        <translation>Пласка верхівка</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4473"/>
-        <source>Square Cap</source>
-        <translation>Квадратна верхівка</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4474"/>
-        <source>Round Cap</source>
-        <translation>Заокруглена верхівка</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4526"/>
-        <source>No Style</source>
-        <translation>Стиль не встановлено</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4658"/>
-        <source>Font Size</source>
-        <translation>Розмір шрифта</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4668"/>
-        <source>Line Spacing</source>
-        <translation>Проміжки між рядками</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4621"/>
-        <source>Name of selected object</source>
-        <translation>Назва вибраного об&apos;єкту</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4622"/>
-        <source>Horizontal position of current basepoint</source>
-        <translation>Горизонтальна позиція активної точки відліку</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4623"/>
-        <source>Vertical position of current basepoint</source>
-        <translation>Вертикальна позиція активної точки відліку</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4624"/>
-        <source>Width</source>
-        <translation>Ширина</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4625"/>
-        <source>Height</source>
-        <translation>Висота</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4626"/>
-        <source>Rotation of object at current basepoint</source>
-        <translation>Кут повороту об&apos;єкту від активної точки відліку</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4627"/>
-        <source>Point from which measurements or rotation angles are referenced</source>
-        <translation>Точка, відносно якої вимірюються відстані та кути обертання</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4628"/>
-        <source>Select top left for basepoint</source>
-        <translation>Вибрати верхній лівий кут, як точку відліку</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4629"/>
-        <source>Select top right for basepoint</source>
-        <translation>Вибрати верхній правий кут, як точку відліку</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4630"/>
-        <source>Select bottom left for basepoint</source>
-        <translation>Вибрати нижній лівий кут, як точку відліку</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4631"/>
-        <source>Select bottom right for basepoint</source>
-        <translation>Вибрати нижній правий кут, як точку відліку</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4632"/>
-        <source>Select center for basepoint</source>
-        <translation>Вибрати центр, як точку відліку</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4635"/>
-        <source>Flip Horizontal</source>
-        <translation>Перевернути по горизонталі</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4636"/>
-        <source>Flip Vertical</source>
-        <translation>Перевернути по вертикалі</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4637"/>
-        <source>Move one level up</source>
-        <translation>Перемістити на один план вгору</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4638"/>
-        <source>Move one level down</source>
-        <translation>Перемістити на один план вниз</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4639"/>
-        <source>Move to front</source>
-        <translation>Перемістити на передній план</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4640"/>
-        <source>Move to back</source>
-        <translation>Перемістити на задній план</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4642"/>
-        <source>Lock or unlock the object</source>
-        <translation>Замкнути або відімкнути об&apos;єкт</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4643"/>
-        <source>Lock or unlock the size of the object</source>
-        <translation>Закнути або відімкнути розмір об&apos;єкта</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4619"/>
-        <source>Enable or disable printing of the object</source>
-        <translation type="obsolete">Дозволити або заборонити друкування об&apos;екта</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4657"/>
-        <source>Font of selected text or object</source>
-        <translation>Шрифт вибраного тексту чи об&apos;єкта</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4660"/>
-        <source>Scaling width of characters</source>
-        <translation>Масштабування ширини знаків</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4664"/>
-        <source>Saturation of color of text stroke</source>
-        <translation>Насиченість кольору знакових силуетів</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4665"/>
-        <source>Saturation of color of text fill</source>
-        <translation>Насиченість кольору заповнення знаків</translation>
-    </message>
-    <message>
-        <location filename="" line="136960432"/>
-        <source>Style of current paragraph</source>
-        <translation type="obsolete">Стиль активного абзацу</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4682"/>
-        <source>Change settings for left or end points</source>
-        <translation>Змінити установки для лівих та правих закінчень</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4683"/>
-        <source>Pattern of line</source>
-        <translation>Вид лінії</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4684"/>
-        <source>Thickness of line</source>
-        <translation>Товщина лінії</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4685"/>
-        <source>Type of line joins</source>
-        <translation>Тип з&apos;єднань ліній</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4686"/>
-        <source>Type of line end</source>
-        <translation>Тип закінчення лінії</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4687"/>
-        <source>Line style of current object</source>
-        <translation>Стиль ліній активного об&apos;єкту</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4689"/>
-        <source>Choose the shape of frame...</source>
-        <translation>Вибрати форму рамки...</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4690"/>
-        <source>Edit shape of the frame...</source>
-        <translation>Редагувати форму рамки...</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4691"/>
-        <source>Set radius of corner rounding</source>
-        <translation>Установити радіус заокруглення кутів</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4692"/>
-        <source>Number of columns in text frame</source>
-        <translation>Число стовпців в текстовій рамці</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4694"/>
-        <source>Distance between columns</source>
-        <translation>Інтервал між стовпцями</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4695"/>
-        <source>Distance of text from top of frame</source>
-        <translation>Відстань від верхівки рамки до тексту </translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4696"/>
-        <source>Distance of text from bottom of frame</source>
-        <translation>Відстань від тексту до низу рамки</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4697"/>
-        <source>Distance of text from left of frame</source>
-        <translation>Відстань від лівої сторони рамки до тексту</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4698"/>
-        <source>Distance of text from right of frame</source>
-        <translation>Відстань від тексту до правої сторони рамки</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4699"/>
-        <source>Edit tab settings of text frame...</source>
-        <translation>Редагувати установки відступів текстової рамки...</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4701"/>
-        <source>Allow the image to be a different size to the frame</source>
-        <translation>Дозволити неспівпадання розмірів зображення та рамки</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4702"/>
-        <source>Horizontal offset of image within frame</source>
-        <translation>Горизонтальне зміщення зображення в рамці</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4703"/>
-        <source>Vertical offset of image within frame</source>
-        <translation>Вертикальне зміщення зображення в рамці</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4704"/>
-        <source>Resize the image horizontally</source>
-        <translation>Змінити розмір зображення по горизонталі</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4705"/>
-        <source>Resize the image vertically</source>
-        <translation>Змінити розмір зображення по вертикалі</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4706"/>
-        <source>Keep the X and Y scaling the same</source>
-        <translation>Утримувати масштаб по вісях X та Y однаковим</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4708"/>
-        <source>Make the image fit within the size of the frame</source>
-        <translation>Змусити зображення вміститися в рамку</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4709"/>
-        <source>Use image proportions rather than those of the frame</source>
-        <translation>Використовувати відношення сторін зображення, а не рамки</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4478"/>
-        <source>Cell Lines</source>
-        <translation>Лінії обрамлення клітин таблиці</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4479"/>
-        <source>Line at Top</source>
-        <translation>Лінія верхньої сторони</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4480"/>
-        <source>Line at the Left</source>
-        <translation>Лінія лівої сторони</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4481"/>
-        <source>Line at the Right </source>
-        <translation>Лінія правої сторони</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4482"/>
-        <source>Line at Bottom</source>
-        <translation>Лінія нижньої сторони</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4707"/>
-        <source>Keep the aspect ratio</source>
-        <translation>Зберігати відношення сторін</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4710"/>
-        <source>Source profile of the image</source>
-        <translation>Стартовий профіль зображення</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4711"/>
-        <source>Rendering intent for the image</source>
-        <translation>Схема перерахунку кольорів зображення</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4693"/>
-        <source>Switches between Gap or Column width</source>
-        <translation>Вибір між шириною стовпців або проміжком між стовпцями</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3021"/>
-        <source>Column width</source>
-        <translation>Ширина стовпця</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4375"/>
-        <source>Path Text Properties</source>
-        <translation>Властивості текстового шляху</translation>
-    </message>
-    <message>
-        <location filename="" line="136960432"/>
-        <source>Make text in lower frames flow around the object shape</source>
-        <translation type="obsolete">Змусити текст в рамках на задніх планах обтікати форму об&apos;єкта</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4641"/>
-        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
-        <translation>Вказує на план, на якому розташовано об&apos;єкт. Нуль означає, що об&apos;єкт знаходиться на самому нижньому плані</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4321"/>
-        <source>X, Y, &amp;Z</source>
-        <translation>X, Y, &amp;Z</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4324"/>
-        <source>&amp;Shape</source>
-        <translation>&amp;Фігура</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4322"/>
-        <source>&amp;Text</source>
-        <translation>&amp;Текст</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4323"/>
-        <source>&amp;Image</source>
-        <translation>&amp;Зображення</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4325"/>
-        <source>&amp;Line</source>
-        <translation>&amp;Лінія</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4326"/>
-        <source>&amp;Colors</source>
-        <translation>&amp;Кольори</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4422"/>
-        <source>&amp;X-Pos:</source>
-        <translation>Поз. &amp;Х:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4423"/>
-        <source>&amp;Y-Pos:</source>
-        <translation>Поз. &amp;У:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4333"/>
-        <source>&amp;Width:</source>
-        <translation>&amp;Ширина:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4334"/>
-        <source>&amp;Height:</source>
-        <translation>&amp;Висота:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4335"/>
-        <source>&amp;Rotation:</source>
-        <translation>&amp;Кут повороту:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4341"/>
-        <source>&amp;Edit Shape...</source>
-        <translation>&amp;Редагувати форму...</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4361"/>
-        <source>R&amp;ound
-Corners:</source>
-        <translation>З&amp;аокруглення
-кутів:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4363"/>
-        <source>Colu&amp;mns:</source>
-        <translation>&amp;Стовпці:</translation>
-    </message>
-    <message>
-        <location filename="" line="136960432"/>
-        <source>&amp;Gap:</source>
-        <translation type="obsolete">&amp;Проміжок:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4370"/>
-        <source>To&amp;p:</source>
-        <translation>&amp;Верх:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4371"/>
-        <source>&amp;Bottom:</source>
-        <translation>&amp;Низ:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4372"/>
-        <source>&amp;Left:</source>
-        <translation>&amp;Лівий край:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4373"/>
-        <source>&amp;Right:</source>
-        <translation>&amp;Правий край:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4374"/>
-        <source>T&amp;abulators...</source>
-        <translation>&amp;Табулятори...</translation>
-    </message>
-    <message>
-        <location filename="" line="136960432"/>
-        <source>Text &amp;Flows Around Frame</source>
-        <translation type="obsolete">Текст &amp;огинає рамку</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4397"/>
-        <source>Use &amp;Bounding Box</source>
-        <translation>Використовувати об&amp;межуючу рамку</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4398"/>
-        <source>&amp;Use Contour Line</source>
-        <translation>Використовувати &amp;контурну лінію</translation>
-    </message>
-    <message>
-        <location filename="" line="136960432"/>
-        <source>St&amp;yle:</source>
-        <translation type="obsolete">&amp;Стиль:</translation>
-    </message>
-    <message>
-        <location filename="" line="136960432"/>
-        <source>Lan&amp;guage:</source>
-        <translation type="obsolete">&amp;Мова:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4419"/>
-        <source>&amp;Free Scaling</source>
-        <translation>&amp;Вільне масштабування</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4424"/>
-        <source>X-Sc&amp;ale:</source>
-        <translation>Масштабування по шкалі &amp;X:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4425"/>
-        <source>Y-Scal&amp;e:</source>
-        <translation>Масштабування по шкалі &amp;Y:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4426"/>
-        <source>Scale &amp;To Frame Size</source>
-        <translation>Установити масштаб по розміру &amp;рамки</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4427"/>
-        <source>P&amp;roportional</source>
-        <translation>&amp;Пропорційно</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4448"/>
-        <source>&amp;Basepoint:</source>
-        <translation>Точка ві&amp;дліку:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4449"/>
-        <source>T&amp;ype of Line:</source>
-        <translation>&amp;Тип лінії:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4461"/>
-        <source>Line &amp;Width:</source>
-        <translation>Тов&amp;щина лінії:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4462"/>
-        <source>Ed&amp;ges:</source>
-        <translation>&amp;Краї:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4476"/>
-        <source>&amp;Endings:</source>
-        <translation>&amp;Кінці:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3228"/>
-        <source>&amp;X1:</source>
-        <translation>&amp;X1:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3229"/>
-        <source>X&amp;2:</source>
-        <translation>&amp;X2:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3230"/>
-        <source>Y&amp;1:</source>
-        <translation>&amp;Y1:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3231"/>
-        <source>&amp;Y2:</source>
-        <translation>&amp;Y2:</translation>
-    </message>
-    <message>
-        <location filename="" line="136960432"/>
-        <source>Hyphenation language of frame</source>
-        <translation type="obsolete">Установки мови переносів для рамки</translation>
-    </message>
-    <message>
-        <location filename="" line="136960432"/>
-        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation type="obsolete">Використовувати прямокутник замість форми рамки для огинання тексту</translation>
-    </message>
-    <message>
-        <location filename="" line="136960432"/>
-        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation type="obsolete">Використовувати другу лінію, основану на формі рамки, для огинання тексту</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4666"/>
-        <source>Right to Left Writing</source>
-        <translation>Написання зправа наліво</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4667"/>
-        <source>Manual Tracking</source>
-        <translation>Слідкування вручну</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4433"/>
-        <source>Fixed Linespacing</source>
-        <translation>Фіксований міжрядковий проміжок</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4434"/>
-        <source>Automatic Linespacing</source>
-        <translation>Автоматичний міжрядковий проміжок</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4435"/>
-        <source>Align to Baseline Grid</source>
-        <translation>Вирівняти по базовій сітці</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4420"/>
-        <source>Actual X-DPI:</source>
-        <translation>Справжні X-DPI:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4421"/>
-        <source>Actual Y-DPI:</source>
-        <translation>Справжні Y-DPI:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4450"/>
-        <source>Start Arrow:</source>
-        <translation>Початок стрілки:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4451"/>
-        <source>End Arrow:</source>
-        <translation>Кінець стрілки:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4659"/>
-        <source>Offset to baseline of characters</source>
-        <translation>Відступ від основи знаків</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4661"/>
-        <source>Scaling height of characters</source>
-        <translation>Масштабування висоти знаків</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4204"/>
-        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation>Назва &quot;%1&quot; не являється неповторною.&lt;br/&gt;Будь-ласка виберіть іншу.</translation>
-    </message>
-    <message>
-        <location filename="" line="136960432"/>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="obsolete">Колір текстового контура. Доступний лише з прикрасою тексту &quot;контурний&quot;.</translation>
-    </message>
-    <message>
-        <location filename="" line="136960432"/>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="obsolete">Колір заповнення тексту. Доступний лише з прикрасою тексту &quot;контурний&quot;.</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4385"/>
-        <source>Fill Rule</source>
-        <translation>Правило заливки</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4386"/>
-        <source>Even-Odd</source>
-        <translation>Непарний-парний</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4387"/>
-        <source>Non Zero</source>
-        <translation>Не нульовий</translation>
-    </message>
-    <message>
-        <location filename="" line="136960432"/>
-        <source>Click to select the line spacing mode</source>
-        <translation type="obsolete">Кляцніть для вибору режиму установки міжрядкових проміжків</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4484"/>
-        <source>Overprinting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4485"/>
-        <source>Knockout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4486"/>
-        <source>Overprint</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4662"/>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4663"/>
-        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4366"/>
-        <source>Gap:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4367"/>
-        <source>Width:</source>
-        <translation type="unfinished">Товщина:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4394"/>
-        <source>Text &amp;Flow Around Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4395"/>
-        <source>Disabled</source>
-        <translation type="unfinished">Вимкнено</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4396"/>
-        <source>Use Frame &amp;Shape</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4428"/>
-        <source>Image Effects</source>
-        <translation type="unfinished">Ефекти зображення</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4429"/>
-        <source>Extended Image Properties</source>
-        <translation type="unfinished">Додаткові властивості зображення</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4651"/>
-        <source>Disable text flow from lower frames around object</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4652"/>
-        <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4653"/>
-        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4342"/>
-        <source>Transparency Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4327"/>
-        <source>&amp;Group</source>
-        <translation type="unfinished">З&amp;групувати</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4343"/>
-        <source>Opacity:</source>
-        <translation type="unfinished">Непрозорість:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4344"/>
-        <source>Blend Mode:</source>
-        <translation type="unfinished">Режим змішування:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4346"/>
-        <source>Normal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4347"/>
-        <source>Darken</source>
-        <translation type="unfinished">Затемнити</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4348"/>
-        <source>Lighten</source>
-        <translation type="unfinished">Зробити світлішим</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4349"/>
-        <source>Multiply</source>
-        <translation type="unfinished">Перемножити</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4350"/>
-        <source>Screen</source>
-        <translation type="unfinished">Екран</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4351"/>
-        <source>Overlay</source>
-        <translation type="unfinished">Перекрити</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4352"/>
-        <source>Hard Light</source>
-        <translation type="unfinished">Різке світло</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4353"/>
-        <source>Soft Light</source>
-        <translation type="unfinished">М&apos;яке світло</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4354"/>
-        <source>Difference</source>
-        <translation type="unfinished">Різниця</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4355"/>
-        <source>Exclusion</source>
-        <translation type="unfinished">Виключення</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4356"/>
-        <source>Color Dodge</source>
-        <translation type="unfinished">Уникання кольору</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4357"/>
-        <source>Color Burn</source>
-        <translation type="unfinished">Випалення кольором</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4358"/>
-        <source>Hue</source>
-        <translation type="unfinished">Відтінок</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4360"/>
-        <source>Color</source>
-        <translation type="unfinished">Колір</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4633"/>
-        <source>Group the selected objects</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4634"/>
-        <source>Destroys the selected group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="2415"/>
-        <source>Auto</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4654"/>
-        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4669"/>
-        <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4377"/>
-        <source>Default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4378"/>
-        <source>Stair Step</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4379"/>
-        <source>Skew</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4380"/>
-        <source>Flip Text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4382"/>
-        <source>Type:</source>
-        <translation type="unfinished">Тип:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4399"/>
-        <source>Use Image Clip Path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4400"/>
-        <source>Paragraph St&amp;yle:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4401"/>
-        <source>Character St&amp;yle:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4402"/>
-        <source>Optical Margins:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4413"/>
-        <source>Word Tracking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4417"/>
-        <source>Min:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4415"/>
-        <source>Norm:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4416"/>
-        <source>Glyph Extension</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4418"/>
-        <source>Max:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4655"/>
-        <source>Use the clipping path of the image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4670"/>
-        <source>Paragraph style of currently selected text or paragraph</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4671"/>
-        <source>Character style of currently selected text or paragraph</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4672"/>
-        <source>Remove Direct Paragraph Formatting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4673"/>
-        <source>Remove Direct Character Formatting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4676"/>
-        <source>Minimal width of spaces between words</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4677"/>
-        <source>Normal width of spaces between words</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4678"/>
-        <source>Minimal shrinkage of glyphs for justification</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4679"/>
-        <source>Maximal extension of glyphs for justification</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4680"/>
-        <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4644"/>
-        <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16349,12 +15587,12 @@ Corners:</source>
         <translation>Новий з &amp;шаблона...</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="78"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="79"/>
         <source>Load documents with predefined layout</source>
         <translation>Завантажити документи певного типу</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="80"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="81"/>
         <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
         <translation>Створити документ з Вашого чи чужого шаблона (наприклад для дотримання певного стилю документа).</translation>
     </message>
@@ -16362,215 +15600,215 @@ Corners:</source>
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="839"/>
+        <location filename="../nodeeditpalette.cpp" line="878"/>
         <source>Nodes</source>
         <translation>Вузли</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="852"/>
+        <location filename="../nodeeditpalette.cpp" line="890"/>
         <source>Move Nodes</source>
         <translation>Перемістити вузли</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="853"/>
+        <location filename="../nodeeditpalette.cpp" line="891"/>
         <source>Move Control Points</source>
         <translation>Перемістити контрольні точки</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="854"/>
+        <location filename="../nodeeditpalette.cpp" line="892"/>
         <source>Add Nodes</source>
         <translation>Додати вузли</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="855"/>
+        <location filename="../nodeeditpalette.cpp" line="893"/>
         <source>Delete Nodes</source>
         <translation>Видалити вузли</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="858"/>
+        <location filename="../nodeeditpalette.cpp" line="896"/>
         <source>Reset Control Points</source>
         <translation>Повернути контрольні точки до початкового стану</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="859"/>
+        <location filename="../nodeeditpalette.cpp" line="897"/>
         <source>Reset this Control Point</source>
         <translation>Повернути цю контрольну точку до початкового стану</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="842"/>
+        <location filename="../nodeeditpalette.cpp" line="881"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>&amp;Абсолютні координати</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="843"/>
+        <location filename="../nodeeditpalette.cpp" line="884"/>
         <source>&amp;X-Pos:</source>
         <translation>Поз. &amp;Х:</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="844"/>
+        <location filename="../nodeeditpalette.cpp" line="885"/>
         <source>&amp;Y-Pos:</source>
         <translation>Поз. &amp;У:</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="845"/>
+        <location filename="../nodeeditpalette.cpp" line="886"/>
         <source>Edit &amp;Contour Line</source>
         <translation>Редагувати &amp;контурну лінію</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="846"/>
+        <location filename="../nodeeditpalette.cpp" line="887"/>
         <source>&amp;Reset Contour Line</source>
         <translation>Повернути &amp;контурну лінію в початковий стан</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="851"/>
+        <location filename="../nodeeditpalette.cpp" line="889"/>
         <source>&amp;End Editing</source>
         <translation>&amp;Закінчити редагування</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="856"/>
+        <location filename="../nodeeditpalette.cpp" line="894"/>
         <source>Move Control Points Independently</source>
         <translation>Переміщати контрольні точки незалежно</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="857"/>
+        <location filename="../nodeeditpalette.cpp" line="895"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Переміщати контрольні точки симетрично</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="860"/>
+        <location filename="../nodeeditpalette.cpp" line="898"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Роз&apos;єднує полігон або розрізає криву Безьє</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="861"/>
+        <location filename="../nodeeditpalette.cpp" line="899"/>
         <source>Close this Bezier Curve</source>
         <translation>З&apos;єднати кінці кривої Безьє</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="862"/>
+        <location filename="../nodeeditpalette.cpp" line="900"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Віддзеркалити шлях горизонтально</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="863"/>
+        <location filename="../nodeeditpalette.cpp" line="901"/>
         <source>Mirror the Path Vertically</source>
         <translation>Віддзеркалити шлях вертикально</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="865"/>
+        <location filename="../nodeeditpalette.cpp" line="903"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Зсунути шлях горизонтально вліво</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="866"/>
+        <location filename="../nodeeditpalette.cpp" line="904"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Зсунути шлях вертикально вверх</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="867"/>
+        <location filename="../nodeeditpalette.cpp" line="905"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Зсунути шлях вертикально вниз</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="868"/>
+        <location filename="../nodeeditpalette.cpp" line="906"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Повернути шлях проти годинної стрілки</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="869"/>
+        <location filename="../nodeeditpalette.cpp" line="907"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Повернути шлях по годинній стрілці</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="871"/>
+        <location filename="../nodeeditpalette.cpp" line="909"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Збільшити розмір шляху на вказані %</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="874"/>
+        <location filename="../nodeeditpalette.cpp" line="912"/>
         <source>Angle of Rotation</source>
         <translation>Кут повороту</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="877"/>
+        <location filename="../nodeeditpalette.cpp" line="915"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Активувати режим редагування контурної лінії</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="878"/>
+        <location filename="../nodeeditpalette.cpp" line="916"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Повернути контурну лінію до початкової форми рамки</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="864"/>
+        <location filename="../nodeeditpalette.cpp" line="902"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Зсунути шлях горизонтально вправо</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="840"/>
+        <location filename="../nodeeditpalette.cpp" line="879"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="880"/>
+        <location filename="../nodeeditpalette.cpp" line="918"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation>Коли вибрано, використовувати координати відносно до сторінки. В іншому випадку координати відносні до об&apos;єкта.</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="870"/>
+        <location filename="../nodeeditpalette.cpp" line="908"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation>Зменшити розмір шляху на вказані %</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="872"/>
+        <location filename="../nodeeditpalette.cpp" line="910"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation>Зменшити розмір шляху на показане значення</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="873"/>
+        <location filename="../nodeeditpalette.cpp" line="911"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation>Збільшити розмір шляху на показане значення</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="875"/>
+        <location filename="../nodeeditpalette.cpp" line="913"/>
         <source>% to Enlarge or Shrink By</source>
         <translation>% збільшення чи зменшення</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="876"/>
+        <location filename="../nodeeditpalette.cpp" line="914"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Значення для збільшення чи зменшення</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="847"/>
+        <location filename="../nodeeditpalette.cpp" line="888"/>
         <source>Set Contour to Image Clip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="879"/>
+        <location filename="../nodeeditpalette.cpp" line="917"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="849"/>
-        <source>Lens Effects...</source>
+        <location filename="../nodeeditpalette.cpp" line="882"/>
+        <source>to Canvas</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="850"/>
-        <source>Apply fancy Lens Effects</source>
+        <location filename="../nodeeditpalette.cpp" line="883"/>
+        <source>to Page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="294"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="301"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Цей документ не схожий на файл OpenOffice Draw.</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="666"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="674"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16578,40 +15816,40 @@ Corners:</source>
 <context>
     <name>OODrawImportPlugin</name>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="94"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="95"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation>Імпортувати файл  &amp;OpenOffice.org Draw...</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="109"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="110"/>
         <source>Imports OpenOffice.org Draw Files</source>
         <translation>Імпортує файли OpenOffice.org Draw</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="110"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="111"/>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Імпортує більшість файлів OpenOffice.org Draw в активний документ, конвертуючи їхні векторні дані в об&apos;єкти
  Scribus.</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="124"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="125"/>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenDocument 1.0 Draw</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="136"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="137"/>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="200"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="207"/>
         <source>This file contains some unsupported features</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="198"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="205"/>
         <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16731,14 +15969,47 @@ Scribus.</translation>
     </message>
 </context>
 <context>
+    <name>OutlinePalette</name>
+    <message>
+        <location filename="../outlinepalette.cpp" line="858"/>
+        <source>Element</source>
+        <translation type="unfinished">Елемент</translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="270"/>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation type="unfinished">Назва &quot;%1&quot; не являється неповторною.&lt;br/&gt;Будь-ласка виберіть іншу.</translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="826"/>
+        <source>Group </source>
+        <translation type="unfinished">Група</translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="731"/>
+        <source>Page </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="786"/>
+        <source>Free Objects</source>
+        <translation type="unfinished">Вільні об&quot;єкти</translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="857"/>
+        <source>Outline</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OutlineValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="95"/>
+        <location filename="../styleselect.cpp" line="97"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="96"/>
+        <location filename="../styleselect.cpp" line="98"/>
         <source>Linewidth</source>
         <translation>Товщина лінії</translation>
     </message>
@@ -16746,7 +16017,7 @@ Scribus.</translation>
 <context>
     <name>PDFExportDialog</name>
     <message>
-        <location filename="../pdfopts.cpp" line="152"/>
+        <location filename="../pdfopts.cpp" line="151"/>
         <source>Save as PDF</source>
         <translation>Записати як PDF</translation>
     </message>
@@ -16771,12 +16042,12 @@ Scribus.</translation>
         <translation>&amp;Записати</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="211"/>
+        <location filename="../pdfopts.cpp" line="210"/>
         <source>Save as</source>
         <translation>Записати як</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="211"/>
+        <location filename="../pdfopts.cpp" line="210"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF файли (*.pdf);;Всі файли (*)</translation>
     </message>
@@ -16792,12 +16063,12 @@ Scribus.</translation>
         <translation>Кнопка запису буде недоступна, якщо Ви намагаєтеся експортувати PDF/X-3 і інформаційний рядок відсутній з закладки PDF/X-3.</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="153"/>
+        <location filename="../pdfopts.cpp" line="152"/>
         <source>%1 does not exists and will be created, continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="176"/>
+        <location filename="../pdfopts.cpp" line="175"/>
         <source>Cannot create directory: 
 %1</source>
         <translation type="unfinished"></translation>
@@ -16806,40 +16077,60 @@ Scribus.</translation>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../pdflib_core.cpp" line="127"/>
+        <location filename="../pdflib_core.cpp" line="130"/>
         <source>Saving PDF</source>
         <translation type="unfinished">Запис PDF</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="131"/>
+        <location filename="../pdflib_core.cpp" line="134"/>
         <source>Exporting Master Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="131"/>
+        <location filename="../pdflib_core.cpp" line="134"/>
         <source>Exporting Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="131"/>
+        <location filename="../pdflib_core.cpp" line="134"/>
         <source>Exporting Items on Current Page:</source>
         <translation type="unfinished">Експортування об&apos;єктів з активної сторінки:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2315"/>
+        <location filename="../pdflib_core.cpp" line="2435"/>
         <source>Page:</source>
         <translation type="unfinished">Сторінка:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2328"/>
+        <location filename="../pdflib_core.cpp" line="2448"/>
         <source>Date:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pdflib_core.cpp" line="6955"/>
+        <source>Failed to load an image : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pdflib_core.cpp" line="6960"/>
+        <source>Failed to write an image : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pdflib_core.cpp" line="6965"/>
+        <source>Failed to load an image mask : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pdflib_core.cpp" line="6970"/>
+        <source>Insufficient memory for processing an image</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PDFToolBar</name>
     <message>
-        <location filename="../modetoolbar.cpp" line="115"/>
+        <location filename="../ui/pdftoolbar.cpp" line="29"/>
         <source>PDF Tools</source>
         <translation type="unfinished">PDF Інструменти</translation>
     </message>
@@ -16875,43 +16166,43 @@ Scribus.</translation>
 <context>
     <name>PPreview</name>
     <message>
-        <location filename="../preview.cpp" line="80"/>
+        <location filename="../preview.cpp" line="81"/>
         <source>Print Preview</source>
         <translation>Перегляд перед друком</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="613"/>
+        <location filename="../preview.cpp" line="627"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="321"/>
+        <location filename="../preview.cpp" line="326"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Показує прозорість та прозорі об&apos;єкти в документі. Вимагає Ghostscript 7.07 чи новіший</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="322"/>
+        <location filename="../preview.cpp" line="327"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>Створює перегляд перед друком використовуючи симуляцію  
 звичайних  CMYK чорнил замість RGB кольорів</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="347"/>
+        <location filename="../preview.cpp" line="352"/>
         <source>Enable/disable the C (Cyan) ink plate</source>
         <translation>Ввімкнути/вимкнути C (Салатову) чорнильну пластину</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="348"/>
+        <location filename="../preview.cpp" line="353"/>
         <source>Enable/disable the M (Magenta) ink plate</source>
         <translation>Ввімкнути/вимкнути М (Малинову) чорнильну пластину</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="349"/>
+        <location filename="../preview.cpp" line="354"/>
         <source>Enable/disable the Y (Yellow) ink plate</source>
         <translation>Ввімкнути/вимкнути Y (Жовту) чорнильну пластину</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="350"/>
+        <location filename="../preview.cpp" line="355"/>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Ввімкнути/вимкнути К (Чорну) чорнильну пластину</translation>
     </message>
@@ -16926,72 +16217,72 @@ Scribus.</translation>
         <translation type="obsolete">Антиаліасинг &amp;графіки</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="133"/>
+        <location filename="../preview.cpp" line="134"/>
         <source>Display Trans&amp;parency</source>
         <translation>Показувати п&amp;розорість</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="138"/>
+        <location filename="../preview.cpp" line="139"/>
         <source>&amp;Display CMYK</source>
         <translation>Показувати &amp;CMYK</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="145"/>
+        <location filename="../preview.cpp" line="207"/>
         <source>&amp;C</source>
         <translation>&amp;C</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="150"/>
+        <location filename="../preview.cpp" line="212"/>
         <source>&amp;M</source>
         <translation>&amp;M</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="155"/>
+        <location filename="../preview.cpp" line="217"/>
         <source>&amp;Y</source>
         <translation>&amp;Y</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="160"/>
+        <location filename="../preview.cpp" line="222"/>
         <source>&amp;K</source>
         <translation>&amp;K</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="247"/>
+        <location filename="../preview.cpp" line="249"/>
         <source>&amp;Under Color Removal</source>
         <translation>У &amp;видаленні &amp;кольорів</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="173"/>
+        <location filename="../preview.cpp" line="151"/>
         <source>Separation Name</source>
         <translation>Ім&apos;я кольорового розділення</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="185"/>
+        <location filename="../preview.cpp" line="163"/>
         <source>Cyan</source>
         <translation>Салатовий</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="192"/>
+        <location filename="../preview.cpp" line="170"/>
         <source>Magenta</source>
         <translation>Малиновий</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="199"/>
+        <location filename="../preview.cpp" line="177"/>
         <source>Yellow</source>
         <translation>Жовтий</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="206"/>
+        <location filename="../preview.cpp" line="184"/>
         <source>Black</source>
         <translation>Чорний</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="271"/>
+        <location filename="../preview.cpp" line="273"/>
         <source>Scaling:</source>
         <translation>Масштабування:</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="295"/>
+        <location filename="../preview.cpp" line="297"/>
         <source>Print...</source>
         <translation>Друк...</translation>
     </message>
@@ -17006,7 +16297,7 @@ Scribus.</translation>
         <translation type="obsolete">Забезпечує біль приємний вигляд шрифтів TrueType та OpenType, EPS, PDF, та векторної графіки у вікні попереднього перегляду за рахунок невеликого сповільненя процесу перегляду</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="323"/>
+        <location filename="../preview.cpp" line="328"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Метод видалення деяких відтінків сірого, скомпонованих з салатового,
 жовтого та малинового кольорів, і використання чорного кольору натомість.
@@ -17017,82 +16308,82 @@ UCR найбільше впливає на ті частини зображен�
 ймовірність перенасичення паперу СЖМ чорнилами.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="324"/>
+        <location filename="../preview.cpp" line="329"/>
         <source>Resize the scale of the page.</source>
         <translation>Змінити масштаб сторінки.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="292"/>
+        <location filename="../preview.cpp" line="294"/>
         <source>Close</source>
         <translation>Зачинити</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="1100"/>
+        <location filename="../preview.cpp" line="1115"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="250"/>
+        <location filename="../preview.cpp" line="252"/>
         <source>Force Overprint Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="128"/>
+        <location filename="../preview.cpp" line="129"/>
         <source>Enable &amp;Antialiasing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="279"/>
+        <location filename="../preview.cpp" line="281"/>
         <source>Fit to Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="280"/>
+        <location filename="../preview.cpp" line="282"/>
         <source>Fit to Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="281"/>
+        <location filename="../preview.cpp" line="283"/>
         <source>Fit to Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="320"/>
+        <location filename="../preview.cpp" line="325"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="122"/>
+        <location filename="../preview.cpp" line="123"/>
         <source>Display Settings</source>
         <translation type="unfinished">Установки показу</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="229"/>
+        <location filename="../preview.cpp" line="231"/>
         <source>Print Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="235"/>
+        <location filename="../preview.cpp" line="237"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation type="unfinished">Віддзеркалити сторінку(и) горизонтально</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="238"/>
+        <location filename="../preview.cpp" line="240"/>
         <source>Mirror Page(s) Vertical</source>
         <translation type="unfinished">Віддзеркалити сторінку(и) вертикально</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="241"/>
+        <location filename="../preview.cpp" line="243"/>
         <source>Clip to Page Margins</source>
         <translation type="unfinished">Обрізати по полях сторінки</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="244"/>
+        <location filename="../preview.cpp" line="246"/>
         <source>Print in Grayscale</source>
         <translation type="unfinished">Друкувати у відтінках сірого кольору</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="253"/>
+        <location filename="../preview.cpp" line="255"/>
         <source>Convert Spot Colors</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17102,12 +16393,12 @@ UCR найбільше впливає на ті частини зображен�
         <translation type="obsolete">Застосувати ICC профілі</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="325"/>
+        <location filename="../preview.cpp" line="330"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="326"/>
+        <location filename="../preview.cpp" line="331"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17117,12 +16408,12 @@ UCR найбільше впливає на ті частини зображен�
         <translation type="obsolete">Дозволяє вставку кольорових профілів в потік даних для друку при ввімкненому управлінні кольорами</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="256"/>
+        <location filename="../preview.cpp" line="258"/>
         <source>Apply Color Profiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="327"/>
+        <location filename="../preview.cpp" line="332"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17140,13 +16431,33 @@ UCR найбільше впливає на ті частини зображен�
         <translation type="obsolete">Експортування сторінок:</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1694"/>
+        <location filename="../pslib.cpp" line="1697"/>
         <source>Processing Master Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1694"/>
+        <location filename="../pslib.cpp" line="1697"/>
         <source>Exporting Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pslib.cpp" line="1628"/>
+        <source>Failed to write data for an image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pslib.cpp" line="1633"/>
+        <source>Failed to load an image : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pslib.cpp" line="1638"/>
+        <source>Failed to load an image mask : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pslib.cpp" line="1643"/>
+        <source>Insufficient memory for processing an image</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17189,37 +16500,37 @@ UCR найбільше впливає на ті частини зображен�
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../pageitem.cpp" line="361"/>
+        <location filename="../pageitem.cpp" line="362"/>
         <source>Image</source>
         <translation>Зображення</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="365"/>
+        <location filename="../pageitem.cpp" line="366"/>
         <source>Text</source>
         <translation>Текст</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="369"/>
+        <location filename="../pageitem.cpp" line="370"/>
         <source>Line</source>
         <translation>Лінія</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="373"/>
+        <location filename="../pageitem.cpp" line="374"/>
         <source>Polygon</source>
         <translation>Полігон</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="377"/>
+        <location filename="../pageitem.cpp" line="378"/>
         <source>Polyline</source>
         <translation>Багатосегментна лінія</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="381"/>
+        <location filename="../pageitem.cpp" line="382"/>
         <source>PathText</source>
         <translation>Текст на шляху</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="3377"/>
+        <location filename="../pageitem.cpp" line="3460"/>
         <source>Copy of</source>
         <translation>Копія</translation>
     </message>
@@ -17250,7 +16561,7 @@ UCR найбільше впливає на ті частини зображен�
     <message>
         <location filename="../pageitemattributes.ui" line="13"/>
         <source>Page Item Attributes</source>
-        <translation type="unfinished">Атрибути об&apos;єкта сторінки</translation>
+        <translation type="obsolete">Атрибути об&apos;єкта сторінки</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="58"/>
@@ -17331,6 +16642,11 @@ UCR найбільше впливає на ті частини зображен�
         <location filename="../pageitemattributes.ui" line="48"/>
         <source>Relationship To</source>
         <translation type="unfinished">Зв&apos;язок з</translation>
+    </message>
+    <message>
+        <location filename="../pageitemattributes.ui" line="13"/>
+        <source>Attributes</source>
+        <translation type="unfinished">Аттрибути</translation>
     </message>
 </context>
 <context>
@@ -17426,122 +16742,119 @@ UCR найбільше впливає на ті частини зображен�
     <message>
         <location filename="../pageitem_imageframe.cpp" line="244"/>
         <source>Picture</source>
-        <translation type="unfinished">Зображення</translation>
+        <translation type="obsolete">Зображення</translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="332"/>
+        <location filename="../pageitem_imageframe.cpp" line="333"/>
         <source>Preview Settings</source>
         <translation type="unfinished">Установки попереднього перегляду перед друком</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_imageframe.cpp" line="401"/>
+        <source>Image</source>
+        <translation type="unfinished">Зображення</translation>
     </message>
 </context>
 <context>
     <name>PageItem_LatexFrame</name>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="47"/>
+        <location filename="../pageitem_latexframe.cpp" line="669"/>
         <source>Latex</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="66"/>
-        <source>\section*{Manual}
-Your \LaTeX-frames setup is working when you can read this text!\\
-Placing formulas is very easy:\\
-Right click $\Rightarrow$ Edit Latex Source\\
-And replace this text with your own. Here is an example:
-\begin{verbatim}\[J = \int r^2 \mathrm{d}m\]\end{verbatim}
-becomes
-\[J = \int r^2 \mathrm{d}m\]
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pageitem_latexframe.cpp" line="539"/>
+        <location filename="../pageitem_latexframe.cpp" line="676"/>
         <source>Error</source>
         <translation type="unfinished">Помилка</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="219"/>
+        <location filename="../pageitem_latexframe.cpp" line="193"/>
         <source>Running the external application failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="285"/>
+        <location filename="../pageitem_latexframe.cpp" line="259"/>
         <source>Could not create a temporary file to run the application!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="362"/>
+        <location filename="../pageitem_latexframe.cpp" line="335"/>
         <source>Information</source>
         <translation type="unfinished">Інформація</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="308"/>
+        <location filename="../pageitem_latexframe.cpp" line="279"/>
         <source>Please specify a latex executable in the preferences!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="356"/>
+        <location filename="../pageitem_latexframe.cpp" line="329"/>
         <source>An editor for this frame is already running!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="364"/>
+        <location filename="../pageitem_latexframe.cpp" line="337"/>
         <source>Please specify an editor in the preferences!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="451"/>
+        <location filename="../pageitem_latexframe.cpp" line="429"/>
         <source>Could not create a temporary file to run the external editor!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="515"/>
+        <location filename="../pageitem_latexframe.cpp" line="492"/>
         <source>Running the editor failed with exitcode %d!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="531"/>
+        <location filename="../pageitem_latexframe.cpp" line="508"/>
         <source>Running the editor &quot;%1&quot; failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="547"/>
+        <location filename="../pageitem_latexframe.cpp" line="536"/>
         <source>Running the application &quot;%1&quot; failed!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pageitem_latexframe.cpp" line="631"/>
-        <source>Latex-Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pageitem_latexframe.cpp" line="634"/>
-        <source>Command: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pageitem_latexframe.cpp" line="639"/>
-        <source>DPI: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pageitem_latexframe.cpp" line="644"/>
-        <source>Status: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="647"/>
         <source>OK</source>
-        <translation type="unfinished">Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="649"/>
+        <location filename="../pageitem_latexframe.cpp" line="681"/>
         <source>Running</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="651"/>
-        <source>Errorcode </source>
+        <location filename="../pageitem_latexframe.cpp" line="526"/>
+        <source>The application &quot;%1&quot; failed to start!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="530"/>
+        <source>The application &quot;%1&quot; crashed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="670"/>
+        <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="671"/>
+        <source>DPI</source>
+        <translation type="unfinished">DPI</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="673"/>
+        <source>State</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="678"/>
+        <source>Finished</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17571,32 +16884,32 @@ becomes
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3313"/>
+        <location filename="../pageitem_textframe.cpp" line="3321"/>
         <source>Linked Text</source>
         <translation type="unfinished">Зв&apos;язаний текст</translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3315"/>
+        <location filename="../pageitem_textframe.cpp" line="3323"/>
         <source>Text Frame</source>
         <translation type="unfinished">Текстова рамка</translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3319"/>
+        <location filename="../pageitem_textframe.cpp" line="3327"/>
         <source>Paragraphs: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3327"/>
+        <location filename="../pageitem_textframe.cpp" line="3335"/>
         <source>Lines: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3333"/>
+        <location filename="../pageitem_textframe.cpp" line="3341"/>
         <source>Words: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3341"/>
+        <location filename="../pageitem_textframe.cpp" line="3349"/>
         <source>Chars: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -17632,12 +16945,12 @@ becomes
         <translation type="obsolete">Середня права</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="557"/>
+        <location filename="../pagepalette.cpp" line="573"/>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
         <translation>Перетягніть сторінки або майстер сторінки на іконку сміттєвої корзини для їх видалення</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="558"/>
+        <location filename="../pagepalette.cpp" line="574"/>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
         <translation>Тут містяться всі Ваші майстер сторінки. Для створення нової сторінки перетягніть майстер 
 сторінку в поле перегляду сторінок внизу</translation>
@@ -17648,17 +16961,17 @@ becomes
         <translation type="obsolete">Звичайна</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="853"/>
+        <location filename="../pagepalette.cpp" line="881"/>
         <source>Arrange Pages</source>
         <translation>Розташувати сторінки</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="854"/>
+        <location filename="../pagepalette.cpp" line="882"/>
         <source>Available Master Pages:</source>
         <translation>Доступні майстер сторінки:</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="855"/>
+        <location filename="../pagepalette.cpp" line="883"/>
         <source>Document Pages:</source>
         <translation>Сторінки документа:</translation>
     </message>
@@ -17671,7 +16984,7 @@ becomes
         <translation type="obsolete">%1 з %1</translation>
     </message>
     <message>
-        <location filename="../pageselector.cpp" line="247"/>
+        <location filename="../pageselector.cpp" line="258"/>
         <source>%1 of %2</source>
         <translation>%1 з %2</translation>
     </message>
@@ -17798,24 +17111,190 @@ becomes
     </message>
 </context>
 <context>
+    <name>PathCutPlugin</name>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="70"/>
+        <source>Cut Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="76"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="100"/>
+        <source>Cuts a Polygon by a Polyline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="119"/>
+        <source>Qt Version too old</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="119"/>
+        <source>This plugin requires at least version 4.3.3 of the Qt library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="150"/>
+        <source>Error</source>
+        <translation type="unfinished">Помилка</translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="150"/>
+        <source>The cutting line must cross the polygon and
+both end points must lie outside of the polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathFinderBase</name>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="13"/>
+        <source>Boolean Path Operations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="149"/>
+        <source>Keep a copy of the original Item after applying the operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="152"/>
+        <source>keep</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="94"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="186"/>
+        <source>=</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="265"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="341"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="362"/>
+        <source>Swap Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="386"/>
+        <source>Options</source>
+        <translation type="unfinished">Установки</translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="407"/>
+        <source>Result gets Color of:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="417"/>
+        <source>first Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="427"/>
+        <source>second Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathFinderDialog</name>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderdialog.cpp" line="91"/>
+        <source>Result gets Color of:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderdialog.cpp" line="115"/>
+        <source>Intersection gets Color of:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathFinderPlugin</name>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="71"/>
+        <source>Path Operations...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="75"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="100"/>
+        <source>Path Operations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="101"/>
+        <source>Apply fancy boolean operations to paths.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="120"/>
+        <source>Qt Version too old</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="120"/>
+        <source>This plugin requires at least version 4.3.3 of the Qt library</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathStrokerPlugin</name>
+    <message>
+        <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="93"/>
+        <source>Create Path from Stroke</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="72"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="94"/>
+        <source>Converts the stroke of a Path to a filled Path.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PatternDialog</name>
     <message>
-        <location filename="../patterndialog.cpp" line="96"/>
+        <location filename="../patterndialog.cpp" line="99"/>
         <source>Choose a Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="124"/>
+        <location filename="../patterndialog.cpp" line="127"/>
         <source>Loading Patterns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="199"/>
+        <location filename="../patterndialog.cpp" line="224"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Всі файли (*)</translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="202"/>
+        <location filename="../patterndialog.cpp" line="235"/>
         <source>Open</source>
         <translation type="unfinished">Відчинити</translation>
     </message>
@@ -17964,12 +17443,12 @@ becomes
 <context>
     <name>PicSearchOptions</name>
     <message>
-        <location filename="../picsearchoptions.cpp" line="49"/>
+        <location filename="../picsearchoptions.cpp" line="47"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="56"/>
+        <location filename="../picsearchoptions.cpp" line="54"/>
         <source>Cancel Search</source>
         <translation type="unfinished">Відмінити пошук</translation>
     </message>
@@ -17979,17 +17458,17 @@ becomes
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="83"/>
+        <location filename="../picsearchoptions.cpp" line="79"/>
         <source>Select a base directory for search</source>
         <translation type="unfinished">Вибрати базову директорію для пошуку</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="138"/>
+        <location filename="../picsearchoptions.cpp" line="126"/>
         <source>Scribus - Image Search</source>
         <translation type="unfinished">Scribus - пошук зображень</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="138"/>
+        <location filename="../picsearchoptions.cpp" line="126"/>
         <source>The search failed: %1</source>
         <translation type="unfinished">Пошук був безуспішним: %1</translation>
     </message>
@@ -18026,6 +17505,12 @@ becomes
     <message>
         <location filename="../picsearchoptions.ui" line="142"/>
         <source>Search recursively</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../picsearchoptions.cpp" line="90"/>
+        <source>Base directory for search does not exist.
+Please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18089,10 +17574,10 @@ becomes
     <message>
         <location filename="../picstatus.ui" line="16"/>
         <source>Manage Pictures</source>
-        <translation>Керувати зображеннями</translation>
+        <translation type="obsolete">Керувати зображеннями</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="291"/>
+        <location filename="../picstatus.cpp" line="399"/>
         <source>Scribus - Image Search</source>
         <translation>Scribus - пошук зображень</translation>
     </message>
@@ -18102,7 +17587,7 @@ becomes
         <translation type="obsolete">Пошук був безуспішним: %1</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="291"/>
+        <location filename="../picstatus.cpp" line="399"/>
         <source>No images named &quot;%1&quot; were found.</source>
         <translation>Зображень з назвою &quot;%1&quot; не знайдено.</translation>
     </message>
@@ -18117,47 +17602,47 @@ becomes
         <translation type="unfinished">Зачинити</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="142"/>
+        <location filename="../picstatus.cpp" line="243"/>
         <source>Not on a Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="157"/>
+        <location filename="../picstatus.cpp" line="258"/>
         <source>JPG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="160"/>
+        <location filename="../picstatus.cpp" line="261"/>
         <source>TIFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="163"/>
+        <location filename="../picstatus.cpp" line="264"/>
         <source>PSD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="166"/>
+        <location filename="../picstatus.cpp" line="267"/>
         <source>EPS/PS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="169"/>
+        <location filename="../picstatus.cpp" line="270"/>
         <source>PDF</source>
         <translation type="unfinished">PDF</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="172"/>
+        <location filename="../picstatus.cpp" line="273"/>
         <source>JPG2000</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="178"/>
+        <location filename="../picstatus.cpp" line="279"/>
         <source>emb. PSD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="184"/>
+        <location filename="../picstatus.cpp" line="285"/>
         <source>Unknown</source>
         <translation type="unfinished">Невідомий</translation>
     </message>
@@ -18172,7 +17657,7 @@ becomes
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="201"/>
+        <location filename="../picstatus.cpp" line="303"/>
         <source>n/a</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18291,6 +17776,21 @@ becomes
         <source>Extended Image Properties...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../picstatus.cpp" line="218"/>
+        <source>Sort by Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../picstatus.cpp" line="220"/>
+        <source>Sort by Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../picstatus.ui" line="16"/>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PixmapExportPlugin</name>
@@ -18300,27 +17800,27 @@ becomes
         <translation>Записати, як зо&amp;браження...</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="78"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="79"/>
         <source>Export As Image</source>
         <translation>Експортувати, як зображення</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="79"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="80"/>
         <source>Exports selected pages as bitmap images.</source>
         <translation>Експортувати вибрані сторінки, як растрові зображення.</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="129"/>
         <source>Save as Image</source>
-        <translation type="unfinished">Записати, як зображення</translation>
+        <translation type="obsolete">Записати, як зображення</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="130"/>
         <source>Error writing the output file(s).</source>
-        <translation type="unfinished">Помилка при запису вихідного файла(ів).</translation>
+        <translation type="obsolete">Помилка при запису вихідного файла(ів).</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="133"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="130"/>
         <source>Export successful</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18328,67 +17828,67 @@ becomes
 <context>
     <name>PluginManager</name>
     <message>
-        <location filename="../pluginmanager.cpp" line="69"/>
+        <location filename="../pluginmanager.cpp" line="71"/>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
         <translation>Неможливо знайти модуль</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="58"/>
+        <location filename="../pluginmanager.cpp" line="60"/>
         <source>unknown error</source>
         <comment>plugin manager</comment>
         <translation>невідома помилка</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="94"/>
+        <location filename="../pluginmanager.cpp" line="96"/>
         <source>Cannot find symbol (%1)</source>
         <comment>plugin manager</comment>
         <translation>Неможливо знайти символ (%1)</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="154"/>
+        <location filename="../pluginmanager.cpp" line="156"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
         <translation>Модуль: завантаження %1</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="258"/>
+        <location filename="../pluginmanager.cpp" line="260"/>
         <source>init failed</source>
         <comment>plugin load error</comment>
         <translation>Ініціалізація не досягла успіху</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="264"/>
+        <location filename="../pluginmanager.cpp" line="266"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
         <translation>Невідомий тип модуля</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="268"/>
+        <location filename="../pluginmanager.cpp" line="270"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
         <translation>Модуль: %1 завантажений</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="272"/>
+        <location filename="../pluginmanager.cpp" line="274"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation>Модуль: %1 неможливо завантажити: %2</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="312"/>
+        <location filename="../pluginmanager.cpp" line="340"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="315"/>
+        <location filename="../pluginmanager.cpp" line="342"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="225"/>
+        <location filename="../pluginmanager.cpp" line="227"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18515,37 +18015,37 @@ becomes
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../prefs.cpp" line="71"/>
+        <location filename="../prefs.cpp" line="72"/>
         <source>Preferences</source>
         <translation>Установки</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="74"/>
+        <location filename="../prefs.cpp" line="75"/>
         <source>General</source>
         <translation>Загальні</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="77"/>
+        <location filename="../prefs.cpp" line="78"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="80"/>
+        <location filename="../prefs.cpp" line="81"/>
         <source>Guides</source>
         <translation>Розмітка</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="83"/>
+        <location filename="../prefs.cpp" line="84"/>
         <source>Typography</source>
         <translation>Типографія</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="86"/>
+        <location filename="../prefs.cpp" line="87"/>
         <source>Tools</source>
         <translation>Інструменти</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="137"/>
+        <location filename="../prefs.cpp" line="138"/>
         <source>Display</source>
         <translation>Відображення</translation>
     </message>
@@ -18605,7 +18105,7 @@ becomes
         <translation type="obsolete">Вибрати директорію</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="140"/>
+        <location filename="../prefs.cpp" line="141"/>
         <source>External Tools</source>
         <translation>Зовнішні інструменти</translation>
     </message>
@@ -18845,37 +18345,37 @@ becomes
         <translation type="obsolete">Розмір історії подій</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="89"/>
+        <location filename="../prefs.cpp" line="90"/>
         <source>Hyphenator</source>
         <translation>Переносник</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="92"/>
+        <location filename="../prefs.cpp" line="93"/>
         <source>Fonts</source>
         <translation>Шрифти</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="103"/>
+        <location filename="../prefs.cpp" line="104"/>
         <source>Color Management</source>
         <translation>Керування кольорами</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="118"/>
+        <location filename="../prefs.cpp" line="119"/>
         <source>PDF Export</source>
         <translation>Експорт PDF</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="123"/>
+        <location filename="../prefs.cpp" line="124"/>
         <source>Document Item Attributes</source>
         <translation>Атрибути об&apos;єкта документа</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="128"/>
+        <location filename="../prefs.cpp" line="129"/>
         <source>Table of Contents and Indexes</source>
         <translation>Зміст та індекси</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="131"/>
+        <location filename="../prefs.cpp" line="132"/>
         <source>Keyboard Shortcuts</source>
         <translation>Набори гарячих клавіш</translation>
     </message>
@@ -18930,12 +18430,12 @@ becomes
         <translation type="obsolete">Попередній перегляд активних стилів абзаців видимий при редагуванні стилів</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="143"/>
+        <location filename="../prefs.cpp" line="144"/>
         <source>Miscellaneous</source>
         <translation>Різне</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="147"/>
+        <location filename="../prefs.cpp" line="148"/>
         <source>Plugins</source>
         <translation>Модулі</translation>
     </message>
@@ -18955,7 +18455,7 @@ becomes
         <translation type="obsolete">Додаткова директорія для шаблонів</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="98"/>
+        <location filename="../prefs.cpp" line="99"/>
         <source>Preflight Verifier</source>
         <translation>Передекспортна перевірка</translation>
     </message>
@@ -19119,12 +18619,12 @@ Scribus виконає пошук в системних директоріях �
         <translation type="obsolete">Розміщення інтерпретатора Ghostscript в файловій системі.</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="134"/>
+        <location filename="../prefs.cpp" line="135"/>
         <source>Scrapbook</source>
         <translation type="unfinished">Чорновик</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="95"/>
+        <location filename="../prefs.cpp" line="96"/>
         <source>Printer</source>
         <translation type="unfinished">Прінтер</translation>
     </message>
@@ -19132,7 +18632,7 @@ Scribus виконає пошук в системних директоріях �
 <context>
     <name>PrefsDialogBase</name>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="184"/>
+        <location filename="../prefsdialogbase.cpp" line="192"/>
         <source>&amp;Defaults</source>
         <translation>По &amp;умовчанню</translation>
     </message>
@@ -19142,32 +18642,32 @@ Scribus виконає пошук в системних директоріях �
         <translation type="obsolete">Записати...</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="193"/>
+        <location filename="../prefsdialogbase.cpp" line="201"/>
         <source>Save Preferences</source>
         <translation>Записати установки</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="183"/>
+        <location filename="../prefsdialogbase.cpp" line="191"/>
         <source>Export...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="185"/>
+        <location filename="../prefsdialogbase.cpp" line="193"/>
         <source>&amp;Apply</source>
         <translation type="unfinished">&amp;Застосувати</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="186"/>
+        <location filename="../prefsdialogbase.cpp" line="194"/>
         <source>All preferences can be reset here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="187"/>
+        <location filename="../prefsdialogbase.cpp" line="195"/>
         <source>Apply all changes without closing the dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="188"/>
+        <location filename="../prefsdialogbase.cpp" line="196"/>
         <source>Export current preferences into file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19175,7 +18675,7 @@ Scribus виконає пошук в системних директоріях �
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../prefsmanager.cpp" line="1899"/>
+        <location filename="../prefsmanager.cpp" line="2014"/>
         <source>Postscript</source>
         <translation>Постскрипт</translation>
     </message>
@@ -19195,60 +18695,60 @@ Scribus виконає пошук в системних директоріях �
         <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="676"/>
+        <location filename="../prefsmanager.cpp" line="787"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Конвертувати старі установки?</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="678"/>
+        <location filename="../prefsmanager.cpp" line="789"/>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation>Scribus знайшов файл з установками формату Scribus 1.2.
 Ви бажаєте конвертувати їх у формат нової версії Scribus?</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1899"/>
+        <location filename="../prefsmanager.cpp" line="2014"/>
         <source>PostScript</source>
         <translation>Постскрипт</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1540"/>
+        <location filename="../prefsmanager.cpp" line="1648"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>Неможливо відчинити файл з установками &quot;%1&quot; для запису: %2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1552"/>
+        <location filename="../prefsmanager.cpp" line="1660"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Запис у файл установок &quot;%1&quot; неможливий: код статуса QIODevice %2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1566"/>
+        <location filename="../prefsmanager.cpp" line="1674"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Неможливо відчинити файл установок &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1576"/>
+        <location filename="../prefsmanager.cpp" line="1684"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>Неможливо прочитати ХМЛ установки з &quot;%1&quot;: %2 в рядку %3, колонка %4</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2221"/>
+        <location filename="../prefsmanager.cpp" line="2346"/>
         <source>Error Writing Preferences</source>
         <translation>Помилка запису установок</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2227"/>
+        <location filename="../prefsmanager.cpp" line="2352"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus не зміг записати свої установки:&lt;br&gt;%1&lt;br&gt;Будь-ласка перевірте дозволи на запис файлів та директорій та наявність вільного простіру на диску.</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2240"/>
+        <location filename="../prefsmanager.cpp" line="2365"/>
         <source>Error Loading Preferences</source>
         <translation>Помилка зчитування установок</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2245"/>
+        <location filename="../prefsmanager.cpp" line="2370"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus не зміг зчитати свої установки:&lt;br&gt;%1&lt;br&gt;Будуть використані стандартні установки.</translation>
     </message>
@@ -19261,27 +18761,27 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>PresetLayout</name>
     <message>
-        <location filename="../marginWidget.cpp" line="484"/>
+        <location filename="../marginwidget.cpp" line="484"/>
         <source>Magazine</source>
         <translation>Журнал</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="485"/>
+        <location filename="../marginwidget.cpp" line="485"/>
         <source>Fibonacci</source>
         <translation>Фібоначчі</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="486"/>
+        <location filename="../marginwidget.cpp" line="486"/>
         <source>Golden Mean</source>
         <translation>Золота середина</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="487"/>
+        <location filename="../marginwidget.cpp" line="487"/>
         <source>Nine Parts</source>
         <translation>Дев&apos;ять частин</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="483"/>
+        <location filename="../marginwidget.cpp" line="483"/>
         <source>Gutenberg</source>
         <translation>Гутенберг</translation>
     </message>
@@ -19292,15 +18792,1515 @@ Do you want to migrate them to the new Scribus version?</source>
  класичному стилі. &apos;Журнальний&apos; установлює всі поля до однакового значення. Головним є ліве/внутрішнє значення.</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="482"/>
+        <location filename="../marginwidget.cpp" line="482"/>
         <source>None</source>
         <comment>layout type</comment>
         <translation>Ніякого</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="490"/>
+        <location filename="../marginwidget.cpp" line="490"/>
         <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PrintDialog</name>
+    <message>
+        <location filename="../printdialog.cpp" line="67"/>
+        <source>Setup Printer</source>
+        <translation>Налаштування принтера</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="560"/>
+        <source>File</source>
+        <translation>Файл</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="190"/>
+        <source>Options</source>
+        <translation>Установки</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="796"/>
+        <source>All</source>
+        <translation>Всі кольори</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="629"/>
+        <source>Save as</source>
+        <translation>Записати як</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="795"/>
+        <source>Cyan</source>
+        <translation>Салатовий</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="794"/>
+        <source>Magenta</source>
+        <translation>Малиновий</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="793"/>
+        <source>Yellow</source>
+        <translation>Жовтий</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="792"/>
+        <source>Black</source>
+        <translation>Чорний</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="378"/>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Вмістити список елементів, розділений комами де елемент
+може &quot;бути для всіх сторінок, 1-5 для діапазона сторінок, або
+номер окремої сторінки.</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="74"/>
+        <source>Print Destination</source>
+        <translation>Призначення для друку</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="89"/>
+        <source>&amp;Options...</source>
+        <translation>&amp;Установки...</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="100"/>
+        <source>&amp;File:</source>
+        <translation>&amp;Файл:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="106"/>
+        <source>C&amp;hange...</source>
+        <translation>З&amp;мінити...</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="113"/>
+        <source>A&amp;lternative Printer Command</source>
+        <translation>&amp;Альтернативна команда для принтера</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="122"/>
+        <source>Co&amp;mmand:</source>
+        <translation>&amp;Команда:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="130"/>
+        <source>Range</source>
+        <translation>Діапазон</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="135"/>
+        <source>Print &amp;All</source>
+        <translation>Друкувати &amp;все</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="643"/>
+        <source>Print Current Pa&amp;ge</source>
+        <translation>Друкувати активну &amp;сторінку</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="139"/>
+        <source>Print &amp;Range</source>
+        <translation>Друкувати &amp;діапазон</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="159"/>
+        <source>N&amp;umber of Copies:</source>
+        <translation>Число ко&amp;пій:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="308"/>
+        <source>&amp;Print</source>
+        <translation>&amp;Друк</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="594"/>
+        <source>Print Normal</source>
+        <translation>Звичайний друк</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="172"/>
+        <source>Print Separations</source>
+        <translation>Друкувати окремі кольори</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="176"/>
+        <source>Print in Color if Available</source>
+        <translation>Друкувати в кольорі, якщо можливо</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="177"/>
+        <source>Print in Grayscale</source>
+        <translation>Друкувати у відтінках сірого кольору</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="221"/>
+        <source>PostScript Level 1</source>
+        <translation type="obsolete">Постскрипт 1-го рівня</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="222"/>
+        <source>PostScript Level 2</source>
+        <translation type="obsolete">Постскрипт 2-го рівня</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="223"/>
+        <source>PostScript Level 3</source>
+        <translation type="obsolete">Постскрипт 3-го рівня</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="196"/>
+        <source>Page</source>
+        <translation>Сторінка</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="202"/>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation>Віддзеркалити сторінку(и) горизонтально</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="205"/>
+        <source>Mirror Page(s) Vertical</source>
+        <translation>Віддзеркалити сторінку(и) вертикально</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="208"/>
+        <source>Set Media Size</source>
+        <translation>Установити розмір паперу</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="214"/>
+        <source>Color</source>
+        <translation>Колір</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="220"/>
+        <source>Apply Under Color Removal</source>
+        <translation>Виконати видалення кольорів</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="223"/>
+        <source>Convert Spot Colors to Process Colors</source>
+        <translation>Конвертувати точкові кольори в процесні кольори</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="263"/>
+        <source>Apply ICC Profiles</source>
+        <translation type="obsolete">Застосувати ICC профілі</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="232"/>
+        <source>Advanced Options</source>
+        <translation>Додаткові установки</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="303"/>
+        <source>Preview...</source>
+        <translation>Попередній перегляд...</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="380"/>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files</source>
+        <translation>Установлює рівень Постскрипту.
+ Вибір 1-го чи 2-го рівня може призвести
+до створення дуже великих файлів</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="629"/>
+        <source>PostScript Files (*.ps);;All Files (*)</source>
+        <translation>Постскрипт файли (*.ps);;Всі файли (*)</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="379"/>
+        <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
+        <translation>Використовуйте альтернативний менеджер друку, такий як kprinter чи gtklp, щоб мати 
+доступ до додаткових установок друку</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="381"/>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation>Метод заміни деяких відтінків сірого, які насправді складаються з салатового, жовтого та фуксинового кольорів, на 
+чорний колір. UCR найбільше впливає на частини зображень з нейтральними та або темними відтінками близькими до
+сірого. Використання цього методу може покращити якість друку деяких зображень. У певних випадках потребується
+експериментальний підбір варіантів. UCR знижує ймовірність перенасичення паперу СЖФ чорнилами.</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="382"/>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation>Дозволяє конвертування реєстрових кольорів в композитні. Якщо Ви не збираєтеся друкувати Ваш документ в
+комерційній друкарні реєстровими кольорами, краще залиште цю установку ввімкненою.</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="383"/>
+        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
+        <translation type="obsolete">Дозволяє вставку кольорових профілів в потік даних для друку при ввімкненому управлінні кольорами</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="385"/>
+        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
+        <translation>Дозволяє явну установку розміру паперу для ПостСкрипт файла. Не рекомендується без запиту від професійного друкаря.</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="570"/>
+        <source>Failed to retrieve printer settings</source>
+        <translation>Не вдалося отримати установки прінтера</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="210"/>
+        <source>Clip to Page Margins</source>
+        <translation>Обрізати по полях сторінки</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="375"/>
+        <source>Do not show objects outside the margins on the printed page</source>
+        <translation>Не показувати об&apos;єкти за полями на друкованій сторінці</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="226"/>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="383"/>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="239"/>
+        <source>Printer Marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="244"/>
+        <source>Crop Marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="246"/>
+        <source>Bleed Marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="248"/>
+        <source>Registration Marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="250"/>
+        <source>Color Bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="253"/>
+        <source>Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="258"/>
+        <source>Marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="265"/>
+        <source>Bleed Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="271"/>
+        <source>Top:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="276"/>
+        <source>Bottom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="281"/>
+        <source>Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="286"/>
+        <source>Right:</source>
+        <translation type="unfinished">Праве:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="290"/>
+        <source>Use Document Bleeds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="294"/>
+        <source>Bleeds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="355"/>
+        <source>Inside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="356"/>
+        <source>Outside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="391"/>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation type="unfinished">Розмір поля для перекриття з верхньої сторони фізичної сторінки</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="392"/>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation type="unfinished">Розмір поля для перекриття з нижньої сторони фізичної сторінки</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="393"/>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation type="unfinished">Розмір поля для перекриття з лівої сторони фізичної сторінки</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="394"/>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation type="unfinished">Розмір поля для перекриття з правої сторони фізичної сторінки</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="386"/>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="387"/>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="388"/>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="389"/>
+        <source>Add color calibration bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="390"/>
+        <source>Indicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="395"/>
+        <source>Use the existing bleed settings from the document preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="229"/>
+        <source>Apply Color Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="384"/>
+        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette</name>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4465"/>
+        <source>Properties</source>
+        <translation>Властивості</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4475"/>
+        <source>Name</source>
+        <translation>Ім&apos;я</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4476"/>
+        <source>Geometry</source>
+        <translation>Геометрія</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4655"/>
+        <source> pt</source>
+        <translation> тчк</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4482"/>
+        <source>Basepoint:</source>
+        <translation>Точка відліку:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4483"/>
+        <source>Level</source>
+        <translation>План</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4489"/>
+        <source>Shape:</source>
+        <translation>Фігура:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4510"/>
+        <source>Distance of Text</source>
+        <translation>Відстань від тексту</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4529"/>
+        <source>Show Curve</source>
+        <translation>Показати криву</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4531"/>
+        <source>Start Offset:</source>
+        <translation>Почати відступ:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4532"/>
+        <source>Distance from Curve:</source>
+        <translation>Відстань від кривої:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4641"/>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4578"/>
+        <source>Input Profile:</source>
+        <translation>Профіль вводу:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4579"/>
+        <source>Rendering Intent:</source>
+        <translation>Схема перерахунку кольорів:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4586"/>
+        <source>Perceptual</source>
+        <translation>Уявний</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4587"/>
+        <source>Relative Colorimetric</source>
+        <translation>Відносна кольорометрія</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4588"/>
+        <source>Saturation</source>
+        <translation>Насичення</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4589"/>
+        <source>Absolute Colorimetric</source>
+        <translation>Абсолютна кольорометрія</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4598"/>
+        <source>Left Point</source>
+        <translation>Ліва точка</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4599"/>
+        <source>End Points</source>
+        <translation>Кінцеві точки</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4618"/>
+        <source>Miter Join</source>
+        <translation>Фацеточне з&apos;єднання</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4619"/>
+        <source>Bevel Join</source>
+        <translation>Фасочне з&apos;єднання</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4620"/>
+        <source>Round Join</source>
+        <translation>Заокруглене з&apos;єднання</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4625"/>
+        <source>Flat Cap</source>
+        <translation>Пласка верхівка</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4626"/>
+        <source>Square Cap</source>
+        <translation>Квадратна верхівка</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4627"/>
+        <source>Round Cap</source>
+        <translation>Заокруглена верхівка</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4681"/>
+        <source>No Style</source>
+        <translation>Стиль не встановлено</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4813"/>
+        <source>Font Size</source>
+        <translation>Розмір шрифта</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4823"/>
+        <source>Line Spacing</source>
+        <translation>Проміжки між рядками</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4776"/>
+        <source>Name of selected object</source>
+        <translation>Назва вибраного об&apos;єкту</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4777"/>
+        <source>Horizontal position of current basepoint</source>
+        <translation>Горизонтальна позиція активної точки відліку</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4778"/>
+        <source>Vertical position of current basepoint</source>
+        <translation>Вертикальна позиція активної точки відліку</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4779"/>
+        <source>Width</source>
+        <translation>Ширина</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4780"/>
+        <source>Height</source>
+        <translation>Висота</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4781"/>
+        <source>Rotation of object at current basepoint</source>
+        <translation>Кут повороту об&apos;єкту від активної точки відліку</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4782"/>
+        <source>Point from which measurements or rotation angles are referenced</source>
+        <translation>Точка, відносно якої вимірюються відстані та кути обертання</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4783"/>
+        <source>Select top left for basepoint</source>
+        <translation>Вибрати верхній лівий кут, як точку відліку</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4784"/>
+        <source>Select top right for basepoint</source>
+        <translation>Вибрати верхній правий кут, як точку відліку</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4785"/>
+        <source>Select bottom left for basepoint</source>
+        <translation>Вибрати нижній лівий кут, як точку відліку</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4786"/>
+        <source>Select bottom right for basepoint</source>
+        <translation>Вибрати нижній правий кут, як точку відліку</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4787"/>
+        <source>Select center for basepoint</source>
+        <translation>Вибрати центр, як точку відліку</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4790"/>
+        <source>Flip Horizontal</source>
+        <translation>Перевернути по горизонталі</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4791"/>
+        <source>Flip Vertical</source>
+        <translation>Перевернути по вертикалі</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4792"/>
+        <source>Move one level up</source>
+        <translation>Перемістити на один план вгору</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4793"/>
+        <source>Move one level down</source>
+        <translation>Перемістити на один план вниз</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4794"/>
+        <source>Move to front</source>
+        <translation>Перемістити на передній план</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4795"/>
+        <source>Move to back</source>
+        <translation>Перемістити на задній план</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4797"/>
+        <source>Lock or unlock the object</source>
+        <translation>Замкнути або відімкнути об&apos;єкт</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4798"/>
+        <source>Lock or unlock the size of the object</source>
+        <translation>Закнути або відімкнути розмір об&apos;єкта</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4619"/>
+        <source>Enable or disable printing of the object</source>
+        <translation type="obsolete">Дозволити або заборонити друкування об&apos;екта</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4812"/>
+        <source>Font of selected text or object</source>
+        <translation>Шрифт вибраного тексту чи об&apos;єкта</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4815"/>
+        <source>Scaling width of characters</source>
+        <translation>Масштабування ширини знаків</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4819"/>
+        <source>Saturation of color of text stroke</source>
+        <translation>Насиченість кольору знакових силуетів</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4820"/>
+        <source>Saturation of color of text fill</source>
+        <translation>Насиченість кольору заповнення знаків</translation>
+    </message>
+    <message>
+        <location filename="" line="136960432"/>
+        <source>Style of current paragraph</source>
+        <translation type="obsolete">Стиль активного абзацу</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4837"/>
+        <source>Change settings for left or end points</source>
+        <translation>Змінити установки для лівих та правих закінчень</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4838"/>
+        <source>Pattern of line</source>
+        <translation>Вид лінії</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4839"/>
+        <source>Thickness of line</source>
+        <translation>Товщина лінії</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4840"/>
+        <source>Type of line joins</source>
+        <translation>Тип з&apos;єднань ліній</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4841"/>
+        <source>Type of line end</source>
+        <translation>Тип закінчення лінії</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4842"/>
+        <source>Line style of current object</source>
+        <translation>Стиль ліній активного об&apos;єкту</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4844"/>
+        <source>Choose the shape of frame...</source>
+        <translation>Вибрати форму рамки...</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4845"/>
+        <source>Edit shape of the frame...</source>
+        <translation>Редагувати форму рамки...</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4846"/>
+        <source>Set radius of corner rounding</source>
+        <translation>Установити радіус заокруглення кутів</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4847"/>
+        <source>Number of columns in text frame</source>
+        <translation>Число стовпців в текстовій рамці</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4849"/>
+        <source>Distance between columns</source>
+        <translation>Інтервал між стовпцями</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4850"/>
+        <source>Distance of text from top of frame</source>
+        <translation>Відстань від верхівки рамки до тексту </translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4851"/>
+        <source>Distance of text from bottom of frame</source>
+        <translation>Відстань від тексту до низу рамки</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4852"/>
+        <source>Distance of text from left of frame</source>
+        <translation>Відстань від лівої сторони рамки до тексту</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4853"/>
+        <source>Distance of text from right of frame</source>
+        <translation>Відстань від тексту до правої сторони рамки</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4854"/>
+        <source>Edit tab settings of text frame...</source>
+        <translation>Редагувати установки відступів текстової рамки...</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4856"/>
+        <source>Allow the image to be a different size to the frame</source>
+        <translation>Дозволити неспівпадання розмірів зображення та рамки</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4857"/>
+        <source>Horizontal offset of image within frame</source>
+        <translation>Горизонтальне зміщення зображення в рамці</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4858"/>
+        <source>Vertical offset of image within frame</source>
+        <translation>Вертикальне зміщення зображення в рамці</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4859"/>
+        <source>Resize the image horizontally</source>
+        <translation>Змінити розмір зображення по горизонталі</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4860"/>
+        <source>Resize the image vertically</source>
+        <translation>Змінити розмір зображення по вертикалі</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4861"/>
+        <source>Keep the X and Y scaling the same</source>
+        <translation>Утримувати масштаб по вісях X та Y однаковим</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4863"/>
+        <source>Make the image fit within the size of the frame</source>
+        <translation>Змусити зображення вміститися в рамку</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4864"/>
+        <source>Use image proportions rather than those of the frame</source>
+        <translation>Використовувати відношення сторін зображення, а не рамки</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4631"/>
+        <source>Cell Lines</source>
+        <translation>Лінії обрамлення клітин таблиці</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4632"/>
+        <source>Line at Top</source>
+        <translation>Лінія верхньої сторони</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4633"/>
+        <source>Line at the Left</source>
+        <translation>Лінія лівої сторони</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4634"/>
+        <source>Line at the Right </source>
+        <translation>Лінія правої сторони</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4635"/>
+        <source>Line at Bottom</source>
+        <translation>Лінія нижньої сторони</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4862"/>
+        <source>Keep the aspect ratio</source>
+        <translation>Зберігати відношення сторін</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4865"/>
+        <source>Source profile of the image</source>
+        <translation>Стартовий профіль зображення</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4866"/>
+        <source>Rendering intent for the image</source>
+        <translation>Схема перерахунку кольорів зображення</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4848"/>
+        <source>Switches between Gap or Column width</source>
+        <translation>Вибір між шириною стовпців або проміжком між стовпцями</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3101"/>
+        <source>Column width</source>
+        <translation>Ширина стовпця</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4523"/>
+        <source>Path Text Properties</source>
+        <translation>Властивості текстового шляху</translation>
+    </message>
+    <message>
+        <location filename="" line="136960432"/>
+        <source>Make text in lower frames flow around the object shape</source>
+        <translation type="obsolete">Змусити текст в рамках на задніх планах обтікати форму об&apos;єкта</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4796"/>
+        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
+        <translation>Вказує на план, на якому розташовано об&apos;єкт. Нуль означає, що об&apos;єкт знаходиться на самому нижньому плані</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4467"/>
+        <source>X, Y, &amp;Z</source>
+        <translation>X, Y, &amp;Z</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4470"/>
+        <source>&amp;Shape</source>
+        <translation>&amp;Фігура</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4468"/>
+        <source>&amp;Text</source>
+        <translation>&amp;Текст</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4469"/>
+        <source>&amp;Image</source>
+        <translation>&amp;Зображення</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4471"/>
+        <source>&amp;Line</source>
+        <translation>&amp;Лінія</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4472"/>
+        <source>&amp;Colors</source>
+        <translation>&amp;Кольори</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4570"/>
+        <source>&amp;X-Pos:</source>
+        <translation>Поз. &amp;Х:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4571"/>
+        <source>&amp;Y-Pos:</source>
+        <translation>Поз. &amp;У:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4479"/>
+        <source>&amp;Width:</source>
+        <translation>&amp;Ширина:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4480"/>
+        <source>&amp;Height:</source>
+        <translation>&amp;Висота:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4481"/>
+        <source>&amp;Rotation:</source>
+        <translation>&amp;Кут повороту:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4341"/>
+        <source>&amp;Edit Shape...</source>
+        <translation type="obsolete">&amp;Редагувати форму...</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4509"/>
+        <source>R&amp;ound
+Corners:</source>
+        <translation>З&amp;аокруглення
+кутів:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4511"/>
+        <source>Colu&amp;mns:</source>
+        <translation>&amp;Стовпці:</translation>
+    </message>
+    <message>
+        <location filename="" line="136960432"/>
+        <source>&amp;Gap:</source>
+        <translation type="obsolete">&amp;Проміжок:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4518"/>
+        <source>To&amp;p:</source>
+        <translation>&amp;Верх:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4519"/>
+        <source>&amp;Bottom:</source>
+        <translation>&amp;Низ:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4520"/>
+        <source>&amp;Left:</source>
+        <translation>&amp;Лівий край:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4521"/>
+        <source>&amp;Right:</source>
+        <translation>&amp;Правий край:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4522"/>
+        <source>T&amp;abulators...</source>
+        <translation>&amp;Табулятори...</translation>
+    </message>
+    <message>
+        <location filename="" line="136960432"/>
+        <source>Text &amp;Flows Around Frame</source>
+        <translation type="obsolete">Текст &amp;огинає рамку</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4545"/>
+        <source>Use &amp;Bounding Box</source>
+        <translation>Використовувати об&amp;межуючу рамку</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4546"/>
+        <source>&amp;Use Contour Line</source>
+        <translation>Використовувати &amp;контурну лінію</translation>
+    </message>
+    <message>
+        <location filename="" line="136960432"/>
+        <source>St&amp;yle:</source>
+        <translation type="obsolete">&amp;Стиль:</translation>
+    </message>
+    <message>
+        <location filename="" line="136960432"/>
+        <source>Lan&amp;guage:</source>
+        <translation type="obsolete">&amp;Мова:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4567"/>
+        <source>&amp;Free Scaling</source>
+        <translation>&amp;Вільне масштабування</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4572"/>
+        <source>X-Sc&amp;ale:</source>
+        <translation>Масштабування по шкалі &amp;X:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4573"/>
+        <source>Y-Scal&amp;e:</source>
+        <translation>Масштабування по шкалі &amp;Y:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4574"/>
+        <source>Scale &amp;To Frame Size</source>
+        <translation>Установити масштаб по розміру &amp;рамки</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4575"/>
+        <source>P&amp;roportional</source>
+        <translation>&amp;Пропорційно</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4601"/>
+        <source>&amp;Basepoint:</source>
+        <translation>Точка ві&amp;дліку:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4602"/>
+        <source>T&amp;ype of Line:</source>
+        <translation>&amp;Тип лінії:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4614"/>
+        <source>Line &amp;Width:</source>
+        <translation>Тов&amp;щина лінії:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4615"/>
+        <source>Ed&amp;ges:</source>
+        <translation>&amp;Краї:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4629"/>
+        <source>&amp;Endings:</source>
+        <translation>&amp;Кінці:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3350"/>
+        <source>&amp;X1:</source>
+        <translation>&amp;X1:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3351"/>
+        <source>X&amp;2:</source>
+        <translation>&amp;X2:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3352"/>
+        <source>Y&amp;1:</source>
+        <translation>&amp;Y1:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3353"/>
+        <source>&amp;Y2:</source>
+        <translation>&amp;Y2:</translation>
+    </message>
+    <message>
+        <location filename="" line="136960432"/>
+        <source>Hyphenation language of frame</source>
+        <translation type="obsolete">Установки мови переносів для рамки</translation>
+    </message>
+    <message>
+        <location filename="" line="136960432"/>
+        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
+        <translation type="obsolete">Використовувати прямокутник замість форми рамки для огинання тексту</translation>
+    </message>
+    <message>
+        <location filename="" line="136960432"/>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
+        <translation type="obsolete">Використовувати другу лінію, основану на формі рамки, для огинання тексту</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4821"/>
+        <source>Right to Left Writing</source>
+        <translation>Написання зправа наліво</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4822"/>
+        <source>Manual Tracking</source>
+        <translation>Слідкування вручну</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4581"/>
+        <source>Fixed Linespacing</source>
+        <translation>Фіксований міжрядковий проміжок</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4582"/>
+        <source>Automatic Linespacing</source>
+        <translation>Автоматичний міжрядковий проміжок</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4583"/>
+        <source>Align to Baseline Grid</source>
+        <translation>Вирівняти по базовій сітці</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4568"/>
+        <source>Actual X-DPI:</source>
+        <translation>Справжні X-DPI:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4569"/>
+        <source>Actual Y-DPI:</source>
+        <translation>Справжні Y-DPI:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4603"/>
+        <source>Start Arrow:</source>
+        <translation>Початок стрілки:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4604"/>
+        <source>End Arrow:</source>
+        <translation>Кінець стрілки:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4814"/>
+        <source>Offset to baseline of characters</source>
+        <translation>Відступ від основи знаків</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4816"/>
+        <source>Scaling height of characters</source>
+        <translation>Масштабування висоти знаків</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4341"/>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation>Назва &quot;%1&quot; не являється неповторною.&lt;br/&gt;Будь-ласка виберіть іншу.</translation>
+    </message>
+    <message>
+        <location filename="" line="136960432"/>
+        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
+        <translation type="obsolete">Колір текстового контура. Доступний лише з прикрасою тексту &quot;контурний&quot;.</translation>
+    </message>
+    <message>
+        <location filename="" line="136960432"/>
+        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
+        <translation type="obsolete">Колір заповнення тексту. Доступний лише з прикрасою тексту &quot;контурний&quot;.</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4533"/>
+        <source>Fill Rule</source>
+        <translation>Правило заливки</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4534"/>
+        <source>Even-Odd</source>
+        <translation>Непарний-парний</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4535"/>
+        <source>Non Zero</source>
+        <translation>Не нульовий</translation>
+    </message>
+    <message>
+        <location filename="" line="136960432"/>
+        <source>Click to select the line spacing mode</source>
+        <translation type="obsolete">Кляцніть для вибору режиму установки міжрядкових проміжків</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4637"/>
+        <source>Overprinting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4638"/>
+        <source>Knockout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4639"/>
+        <source>Overprint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4817"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4818"/>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4514"/>
+        <source>Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4515"/>
+        <source>Width:</source>
+        <translation type="unfinished">Товщина:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4542"/>
+        <source>Text &amp;Flow Around Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4543"/>
+        <source>Disabled</source>
+        <translation type="unfinished">Вимкнено</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4544"/>
+        <source>Use Frame &amp;Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4576"/>
+        <source>Image Effects</source>
+        <translation type="unfinished">Ефекти зображення</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4577"/>
+        <source>Extended Image Properties</source>
+        <translation type="unfinished">Додаткові властивості зображення</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4806"/>
+        <source>Disable text flow from lower frames around object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4807"/>
+        <source>Use the frame shape for text flow of text frames below the object.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4808"/>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4490"/>
+        <source>Transparency Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4473"/>
+        <source>&amp;Group</source>
+        <translation type="unfinished">З&amp;групувати</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4491"/>
+        <source>Opacity:</source>
+        <translation type="unfinished">Непрозорість:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4492"/>
+        <source>Blend Mode:</source>
+        <translation type="unfinished">Режим змішування:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4494"/>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4495"/>
+        <source>Darken</source>
+        <translation type="unfinished">Затемнити</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4496"/>
+        <source>Lighten</source>
+        <translation type="unfinished">Зробити світлішим</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4497"/>
+        <source>Multiply</source>
+        <translation type="unfinished">Перемножити</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4498"/>
+        <source>Screen</source>
+        <translation type="unfinished">Екран</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4499"/>
+        <source>Overlay</source>
+        <translation type="unfinished">Перекрити</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4500"/>
+        <source>Hard Light</source>
+        <translation type="unfinished">Різке світло</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4501"/>
+        <source>Soft Light</source>
+        <translation type="unfinished">М&apos;яке світло</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4502"/>
+        <source>Difference</source>
+        <translation type="unfinished">Різниця</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4503"/>
+        <source>Exclusion</source>
+        <translation type="unfinished">Виключення</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4504"/>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Уникання кольору</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4505"/>
+        <source>Color Burn</source>
+        <translation type="unfinished">Випалення кольором</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4506"/>
+        <source>Hue</source>
+        <translation type="unfinished">Відтінок</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4508"/>
+        <source>Color</source>
+        <translation type="unfinished">Колір</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4788"/>
+        <source>Group the selected objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4789"/>
+        <source>Destroys the selected group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="2483"/>
+        <source>Auto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4809"/>
+        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4824"/>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4525"/>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4526"/>
+        <source>Stair Step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4527"/>
+        <source>Skew</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4528"/>
+        <source>Flip Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4530"/>
+        <source>Type:</source>
+        <translation type="unfinished">Тип:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4547"/>
+        <source>Use Image Clip Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4548"/>
+        <source>Paragraph St&amp;yle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4549"/>
+        <source>Character St&amp;yle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4550"/>
+        <source>Optical Margins:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4561"/>
+        <source>Word Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4565"/>
+        <source>Min:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4563"/>
+        <source>Norm:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4564"/>
+        <source>Glyph Extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4566"/>
+        <source>Max:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4810"/>
+        <source>Use the clipping path of the image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4825"/>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4826"/>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4827"/>
+        <source>Remove Direct Paragraph Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4828"/>
+        <source>Remove Direct Character Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4831"/>
+        <source>Minimal width of spaces between words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4832"/>
+        <source>Normal width of spaces between words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4833"/>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4834"/>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4835"/>
+        <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4799"/>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4594"/>
+        <source>Custom</source>
+        <translation type="unfinished">Нестандартний</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4488"/>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished">&amp;Редагувати...</translation>
     </message>
 </context>
 <context>
@@ -19964,7 +20964,7 @@ Check path and filename.</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../scribuscore.cpp" line="235"/>
+        <location filename="../scribuscore.cpp" line="240"/>
         <source>Initializing...</source>
         <translation>Ініціалізація...</translation>
     </message>
@@ -19981,12 +20981,12 @@ Check path and filename.</source>
 %1 ?</translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="147"/>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="128"/>
         <source>Open</source>
         <translation>Відчинити</translation>
     </message>
     <message>
-        <location filename="../scwinprint.cpp" line="118"/>
+        <location filename="../scprintengine_gdi.cpp" line="126"/>
         <source>Save as</source>
         <translation>Записати як</translation>
     </message>
@@ -20011,7 +21011,7 @@ Check path and filename.</source>
         <translation type="obsolete">Ні</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="1078"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="1093"/>
         <source>Background</source>
         <translation>Фон</translation>
     </message>
@@ -20051,7 +21051,7 @@ Check path and filename.</source>
         <translation type="obsolete">Всі доступні формати (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="239"/>
+        <location filename="../util_formats.cpp" line="242"/>
         <source>All Files (*)</source>
         <translation>Всі файли (*)</translation>
     </message>
@@ -20156,7 +21156,7 @@ Check path and filename.</source>
         <translation>Розгортки</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="260"/>
+        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="261"/>
         <source>Own Templates</source>
         <translation>Шаблони користувача</translation>
     </message>
@@ -20166,22 +21166,22 @@ Check path and filename.</source>
         <translation>PDF презентації</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="548"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="552"/>
         <source>&amp;Scribus Scripts</source>
         <translation>С&amp;ценарії Scribus</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="543"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="547"/>
         <source>&amp;Execute Script...</source>
         <translation>&amp;Виконати сценарій...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="553"/>
         <source>&amp;Recent Scripts</source>
         <translation>&amp;Недавно виконані сценарії</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="544"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="548"/>
         <source>Show &amp;Console</source>
         <translation>Покзати ко&amp;нсоль</translation>
     </message>
@@ -20191,7 +21191,7 @@ Check path and filename.</source>
         <translation>Імпорт тексту</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="192"/>
+        <location filename="../util_formats.cpp" line="195"/>
         <source>All Supported Formats</source>
         <translation>Всі формати, що підтримуються</translation>
     </message>
@@ -20206,7 +21206,7 @@ Check path and filename.</source>
         <translation>html</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/txtim/txtim.cpp" line="20"/>
+        <location filename="../plugins/gettext/txtim/txtim.cpp" line="21"/>
         <source>Text Files</source>
         <translation>Текстові файли</translation>
     </message>
@@ -20293,7 +21293,7 @@ External Links
         <translation>Голландська</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="195"/>
+        <location filename="../langmgr.cpp" line="196"/>
         <source>English</source>
         <translation>Англійська</translation>
     </message>
@@ -20383,115 +21383,115 @@ External Links
         <translation>Російська</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="109"/>
+        <location filename="../langmgr.cpp" line="108"/>
         <source>Swedish</source>
         <translation>Шведська</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="104"/>
+        <location filename="../langmgr.cpp" line="103"/>
         <source>Spanish</source>
         <translation>Іспанська</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="105"/>
+        <location filename="../langmgr.cpp" line="104"/>
         <source>Spanish (Latin)</source>
         <translation>Іспанська (Латинь)</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="106"/>
+        <location filename="../langmgr.cpp" line="105"/>
         <source>Slovak</source>
         <translation>Словацька</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="107"/>
+        <location filename="../langmgr.cpp" line="106"/>
         <source>Slovenian</source>
         <translation>Словенська</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="108"/>
+        <location filename="../langmgr.cpp" line="107"/>
         <source>Serbian</source>
         <translation>Сербська</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="545"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
         <source>&amp;About Script...</source>
         <translation>&amp;Про скрипт...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="516"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="520"/>
         <source>About Script</source>
         <translation>Про скрипт</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="27"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="28"/>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо визначити розмір шрифта в нетекстовій рамці.
 </translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="53"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="54"/>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо визначити шрифт в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="79"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="80"/>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо визначити розмір тексту в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="115"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="116"/>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо визначити число колонок тексту в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="133"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="134"/>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо визначити міжрядковий інтервал в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="151"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="152"/>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо визначити дистанцію між колонками тексту в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="201"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="202"/>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо повернути текст з нетекстової рамки.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="234"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="235"/>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо установити текст в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="266"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="267"/>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо вставити текст в нетекстову рамку.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="302"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="303"/>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
         <translation>Вирівнювання виходить за доступний діапазон. Використайте
 одну з констант ALIGN*.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="501"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="502"/>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>Індекс вибірки виходить за доступний діапазон</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="744"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="745"/>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
         <translation>Об&apos;єкт не являється зв&apos;язаною текстовою рамкою, неможливо розімкнути.</translation>
@@ -20503,14 +21503,14 @@ External Links
         <translation type="obsolete">Об&apos;єкт являється останньою рамкою в серії, неможливо роз&apos;єднати. Роз&apos;єднайте попередню рамку натомість.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmddoc.cpp" line="217"/>
+        <location filename="../plugins/scriptplugin/cmddoc.cpp" line="219"/>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
         <translation>Одиниця виходить за доступний діапазон. Використайте одну з
 scribus.UNIT_* констант.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="26"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="27"/>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
         <translation>Рамка призначення не є рамкою для зображень.</translation>
@@ -20575,13 +21575,13 @@ scribus.UNIT_* констант.</translation>
         <translation>Стандартна конфігурація:</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="121"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="124"/>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
         <translation>Опрацювання коротких слів. Будь-ласка почекайте...</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="140"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="143"/>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
         <translation>Опрацювання коротких слів закінчено.</translation>
@@ -20592,17 +21592,17 @@ scribus.UNIT_* констант.</translation>
         <translation>Африкаанс</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="113"/>
+        <location filename="../langmgr.cpp" line="112"/>
         <source>Turkish</source>
         <translation>Турецька</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="114"/>
+        <location filename="../langmgr.cpp" line="113"/>
         <source>Ukranian</source>
         <translation>Українська</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="116"/>
+        <location filename="../langmgr.cpp" line="115"/>
         <source>Welsh</source>
         <translation>Уельська</translation>
     </message>
@@ -20631,7 +21631,7 @@ scribus.UNIT_* констант.</translation>
         <translation>Атрибут &apos;allTypes&apos; може бути лише зчитаним</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/objimageexport.cpp" line="187"/>
+        <location filename="../plugins/scriptplugin/objimageexport.cpp" line="188"/>
         <source>Failed to export image</source>
         <comment>python error</comment>
         <translation>Не вдалося експортувати зображення</translation>
@@ -20655,19 +21655,19 @@ scribus.UNIT_* констант.</translation>
         <translation>Колір не знайдено в стандартних кольорах.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="272"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="279"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
         <translation>Змінити масштаб на 0% неможливо.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="384"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="393"/>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
         <translation>Вказаний об&apos;єкт не являється рамкою для зображень.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="390"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="391"/>
         <source>Font not found.</source>
         <comment>python error</comment>
         <translation>Шрифт не знайдено.</translation>
@@ -20679,127 +21679,127 @@ scribus.UNIT_* констант.</translation>
         <translation>Неможливо заповнити пустий зразок.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="689"/>
+        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="690"/>
         <source>Cannot have an empty layer name.</source>
         <comment>python error</comment>
         <translation>Неможливо використати пусте ім&apos;я плану.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="728"/>
+        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="729"/>
         <source>Layer not found.</source>
         <comment>python error</comment>
         <translation>План не знайдено.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="694"/>
+        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="695"/>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
         <translation>Неможливо видалити останній план.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="745"/>
+        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="746"/>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
         <translation>Неможливо створити план без імені.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="273"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="274"/>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
         <translation>Індекс вставки виходить за доступний діапазон.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="310"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="311"/>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо встановити вирівнювання тексту в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="336"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="337"/>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
         <translation>Розмір шрифта виходить за доступний діапазон - повинен бути 1 &lt;= розмір &lt;= 512.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="345"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="346"/>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо установити розмір шрифта в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="374"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="375"/>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо установити шрифт в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="408"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="409"/>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
         <translation>Міжрядковий інтервал виходить за межі дозволеного, має бути  &gt;= 0.1.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="416"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="417"/>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо установити міжрядковий інтервал в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="435"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="436"/>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
         <translation>Дистанція між колонками тексту виходить за дозволений проміжок. Повинна бути позитивною.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="443"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="444"/>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо установити дистанцію між колонками тексту в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="462"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="463"/>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
         <translation>Число колонок тексту виходить за доступний діапазон - повинен бути &gt; 1.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="470"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="471"/>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо установити число колонок тексту в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="506"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="507"/>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
         <translation>Неможливо вибрати текст в нетекстовій рамці</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="543"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="544"/>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо видалити текст в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="575"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="576"/>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо установити заповнення текста в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="611"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="612"/>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо установити контур текста в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="653"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="654"/>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Неможливо установити тінь текста в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="693"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="694"/>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
         <translation>Установити зв&apos;язок можна лише між текстовими рамками.</translation>
@@ -20811,43 +21811,43 @@ scribus.UNIT_* констант.</translation>
         <translation type="obsolete">Рамка призначення повинна бути пустою.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="703"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="704"/>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
         <translation>Рамка призначення зв&apos;язана з іншою рамкою.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="708"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="709"/>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
         <translation>Інша рамка зв&apos;язана з рамкою призначення.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="713"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="714"/>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
         <translation>Джерело та ціль є одним і тим же об&apos;єктом.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="738"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="739"/>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
         <translation>Видалити зв&apos;язок можна лише між текстовими рамками.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="793"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="794"/>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
         <translation>Неможливо конвертувати нетекстову рамку в контур.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="861"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="911"/>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
         <translation>Неможливо установити закладку в нетекстовій рамці</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="895"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="945"/>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
         <translation>Неможливо визначити інформацію з нетекстової рамки</translation>
@@ -20873,7 +21873,7 @@ scribus.UNIT_* констант.</translation>
         <translation>Португальська (Бр)</translation>
     </message>
     <message>
-        <location filename="../main_win32.cpp" line="251"/>
+        <location filename="../main_win32.cpp" line="259"/>
         <source>Scribus Crash</source>
         <translation>Аварійний вихід Scribus</translation>
     </message>
@@ -20883,7 +21883,7 @@ scribus.UNIT_* констант.</translation>
         <translation>Аварійний вихід Scribus з приводу сигнала номер %1</translation>
     </message>
     <message>
-        <location filename="../main_win32.cpp" line="253"/>
+        <location filename="../main_win32.cpp" line="261"/>
         <source>&amp;OK</source>
         <translation>&amp;Гаразд</translation>
     </message>
@@ -20893,12 +21893,12 @@ scribus.UNIT_* констант.</translation>
         <translation type="obsolete">Нестандартний</translation>
     </message>
     <message>
-        <location filename="../page.cpp" line="81"/>
+        <location filename="../page.cpp" line="80"/>
         <source>Page</source>
         <translation>Сторінка</translation>
     </message>
     <message>
-        <location filename="../page.cpp" line="90"/>
+        <location filename="../page.cpp" line="89"/>
         <source>Master Page </source>
         <translation>Головна сторінка</translation>
     </message>
@@ -21027,7 +22027,7 @@ scribus.UNIT_* констант.</translation>
         <translation type="obsolete">Шрифт %1 містить помилку (FreeType2) і буде видалено</translation>
     </message>
     <message>
-        <location filename="../fonts/scface_ps.h" line="49"/>
+        <location filename="../fonts/scface_ps.h" line="53"/>
         <source>Font %1 is broken (no Face), discarding it</source>
         <translation type="unfinished">Шрифт %1 містить помилку (відсутній тип) і буде видалено</translation>
     </message>
@@ -21042,7 +22042,7 @@ scribus.UNIT_* констант.</translation>
         <translation type="obsolete">Шрифт %1 містить помилку і буде видалено</translation>
     </message>
     <message>
-        <location filename="../fonts/scface_ps.h" line="236"/>
+        <location filename="../fonts/scface_ps.h" line="216"/>
         <source>Font %1 cannot be read, no embedding</source>
         <translation>Шрифт %1 неможливо зчитати - вставка недоступна</translation>
     </message>
@@ -21112,7 +22112,7 @@ scribus.UNIT_* констант.</translation>
         <translation>зміщення memcpy: %1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="570"/>
+        <location filename="../scribus.cpp" line="575"/>
         <source>Scribus Development Version</source>
         <translation>Версія Scribus в стадії розробки</translation>
     </message>
@@ -21192,7 +22192,7 @@ scribus.UNIT_* констант.</translation>
         <translation>Сентиметри (см)</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="453"/>
+        <location filename="../util.cpp" line="378"/>
         <source>File exists</source>
         <translation>Файл вже існує</translation>
     </message>
@@ -21202,12 +22202,12 @@ scribus.UNIT_* констант.</translation>
         <translation type="obsolete">&amp;Заміна</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="2146"/>
+        <location filename="../pslib.cpp" line="2085"/>
         <source>All</source>
         <translation>Всі</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="116"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="117"/>
         <source>Document Template: </source>
         <translation>Шаблон документа: </translation>
     </message>
@@ -21218,7 +22218,7 @@ scribus.UNIT_* констант.</translation>
         <translation>Неможливо відчинити документ.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmddoc.cpp" line="180"/>
+        <location filename="../plugins/scriptplugin/cmddoc.cpp" line="181"/>
         <source>Failed to save document.</source>
         <comment>python error</comment>
         <translation>Неможливо записати документ.</translation>
@@ -21319,31 +22319,31 @@ scribus.UNIT_* констант.</translation>
         <translation>Неможливо установити стиль в нетекстовій рамці.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="57"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="58"/>
         <source>Failed to save EPS.</source>
         <comment>python error</comment>
         <translation>Неможливо записати EPS.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="144"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="149"/>
         <source>Page number out of range.</source>
         <comment>python error</comment>
         <translation>Число сторінок виходить за допустимий діапазон.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="287"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="292"/>
         <source>argument is not list: must be list of float values.</source>
         <comment>python error</comment>
         <translation>аргумент не являється списком - повинен бути списком чисел з плаваючою комою.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="247"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="252"/>
         <source>argument contains non-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>аргумент містить нечислові значення - повинен бути списком чисел з плаваючою комою.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="298"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="303"/>
         <source>argument contains no-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>аргумент не містить числових значень - повинен бути списком чисел з плаваючою комою.</translation>
@@ -21373,18 +22373,18 @@ scribus.UNIT_* констант.</translation>
         <translation>стиль лінії не знайдено.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="818"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="819"/>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
         <translation>Лише текстові рамки можуть бути перевірені на переповнення</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="547"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="551"/>
         <source>&amp;Script</source>
         <translation>С&amp;ценарій</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="748"/>
+        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="756"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -21457,19 +22457,19 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
         <translation>Сісеро (с)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="205"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="212"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>Неможливо згрупувати менш ніж два об&apos;єкти</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="230"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="237"/>
         <source>Can&apos;t group less than two items</source>
         <comment>python error</comment>
         <translation>Неможливо згрупувати менш ніж два об&apos;єкти</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="238"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="245"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>Потрібний список аргументів чи об&apos;єктів для згрупування</translation>
@@ -21481,43 +22481,43 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
         <translation>Ім&apos;я файла не повинне бути пустою строковою величиною.</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="2594"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="2614"/>
         <source>Copy #%1 of </source>
         <translation>Копія №%1 з</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1860"/>
+        <location filename="../pslib.cpp" line="1871"/>
         <source>Black</source>
         <translation>Чорний</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1862"/>
+        <location filename="../pslib.cpp" line="1873"/>
         <source>Cyan</source>
         <translation>Салатовий</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1864"/>
+        <location filename="../pslib.cpp" line="1875"/>
         <source>Magenta</source>
         <translation>Малиновий</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1866"/>
+        <location filename="../pslib.cpp" line="1877"/>
         <source>Yellow</source>
         <translation>Жовтий</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="617"/>
+        <location filename="../util.cpp" line="541"/>
         <source>page</source>
         <comment>page export</comment>
         <translation>сторінка</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheel.cpp" line="55"/>
+        <location filename="../plugins/colorwheel/colorwheel.cpp" line="56"/>
         <source>Color Wheel</source>
         <translation>Колесо кольорів</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="57"/>
+        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="58"/>
         <source>Font Preview</source>
         <translation>Попередній перегляд шрифтів</translation>
     </message>
@@ -21527,7 +22527,7 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
         <translation>Мій модуль</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="70"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="71"/>
         <source>New From Template</source>
         <translation>Новий з шаблона</translation>
     </message>
@@ -21542,7 +22542,7 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
         <translation type="obsolete">ЕPS/PS імпортер</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="65"/>
+        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="66"/>
         <source>Save As Template</source>
         <translation>Записати як шаблон</translation>
     </message>
@@ -21552,27 +22552,27 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
         <translation>Сценарист</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="83"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="84"/>
         <source>Short Words</source>
         <translation>Короткі слова</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="94"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="95"/>
         <source>SVG Export</source>
         <translation>Експорт SVG</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="96"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="97"/>
         <source>SVG Import</source>
         <translation>Імпорт SVG</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="102"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="103"/>
         <source>OpenOffice.org Draw Importer</source>
         <translation>Імпортер OpenOffice.org Draw</translation>
     </message>
     <message>
-        <location filename="../main_win32.cpp" line="228"/>
+        <location filename="../main_win32.cpp" line="236"/>
         <source>Scribus crashes due to the following exception : %1</source>
         <translation>Scribus буде зачинено із-за помилки: %1</translation>
     </message>
@@ -21614,12 +22614,12 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
 чи може відміните її і запишете цей файл під іншим іменем?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4027"/>
+        <location filename="../scribus.cpp" line="4251"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Зміни внесені в документ не були записані і Ви бажаєте їх відмінити. Ви хочете продовжити виконання цієї операції?</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="454"/>
+        <location filename="../util.cpp" line="379"/>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation>Файл з назвою &apos;%1&apos; вже існує.&lt;br/&gt;Ви бажаєте замінити його файлом, який Ви записуєте?</translation>
     </message>
@@ -21640,42 +22640,42 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
         <translation>Німецька (Традиц.)</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1684"/>
+        <location filename="../pslib.cpp" line="1687"/>
         <source>Exporting PostScript File</source>
         <translation>Експортування постскрипт файла</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1686"/>
+        <location filename="../pslib.cpp" line="1689"/>
         <source>Printing File</source>
         <translation>Друк файла</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3423"/>
+        <location filename="../scribus.cpp" line="3646"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Ви намагаєтеся імпортувати більше число сторінок ніж є доступним в активному документі рахуючи з активної сторінки.&lt;/p&gt;Виберіть варіант дії:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Створити&lt;/b&gt; недостаючі сторінки&lt;/li&gt;&lt;li&gt;&lt;b&gt;Імпортувати&lt;/b&gt; сторінки до останньої існуючої сторінки&lt;/li&gt;&lt;li&gt;&lt;b&gt;Вихід&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3424"/>
+        <location filename="../scribus.cpp" line="3647"/>
         <source>C&amp;reate</source>
         <translation>С&amp;творити</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3425"/>
+        <location filename="../scribus.cpp" line="3648"/>
         <source>&amp;Import</source>
         <translation>І&amp;мпортувати</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="111"/>
+        <location filename="../langmgr.cpp" line="110"/>
         <source>Thai</source>
         <translation>Таіландська</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcode.cpp" line="29"/>
+        <location filename="../plugins/barcodegenerator/barcode.cpp" line="32"/>
         <source>Barcode Generator</source>
         <translation>Генератор штрих-коду</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="170"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="171"/>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
         <translation>OpenOffice.org Draw (*.sxd *.odg);;Всі файли (*)</translation>
     </message>
@@ -21730,7 +22730,7 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="134"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="139"/>
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -21951,7 +22951,7 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
         <translation type="unfinished">E</translation>
     </message>
     <message>
-        <location filename="../scimgdataloader_tiff.cpp" line="868"/>
+        <location filename="../scimgdataloader_tiff.cpp" line="924"/>
         <source>%1 may be corrupted : missing resolution tags</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21989,13 +22989,13 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="97"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="98"/>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="571"/>
+        <location filename="../scribus.cpp" line="576"/>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22020,7 +23020,7 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scimgdataloader_jpeg.cpp" line="310"/>
+        <location filename="../scimgdataloader_jpeg.cpp" line="312"/>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22048,7 +23048,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished">Іврит</translation>
     </message>
     <message>
-        <location filename="../fonts/scface_ps.h" line="76"/>
+        <location filename="../fonts/scface_ps.cpp" line="98"/>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22063,74 +23063,39 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../serializer.cpp" line="347"/>
+        <location filename="../serializer.cpp" line="349"/>
         <source>Copy of %1 (%2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="72"/>
         <source>Image</source>
-        <translation type="unfinished">Зображення</translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="78"/>
-        <source>PDF Push Button</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="81"/>
-        <source>PDF Text Field</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="84"/>
-        <source>PDF Check Box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="87"/>
-        <source>PDF Combo Box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="90"/>
-        <source>PDF List Box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="93"/>
-        <source>PDF Text Annotation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="96"/>
-        <source>PDF Link Annotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Зображення</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="99"/>
         <source>Text</source>
-        <translation type="unfinished">Текст</translation>
+        <translation type="obsolete">Текст</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="104"/>
         <source>Line</source>
-        <translation type="unfinished">Лінія</translation>
+        <translation type="obsolete">Лінія</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="107"/>
         <source>Polygon</source>
-        <translation type="unfinished">Полігон</translation>
+        <translation type="obsolete">Полігон</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="110"/>
         <source>Polyline</source>
-        <translation type="unfinished">Багатосегментна лінія</translation>
+        <translation type="obsolete">Багатосегментна лінія</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="113"/>
         <source>PathText</source>
-        <translation type="unfinished">Текст на шляху</translation>
+        <translation type="obsolete">Текст на шляху</translation>
     </message>
     <message>
         <location filename="../units.cpp" line="163"/>
@@ -22148,7 +23113,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="115"/>
+        <location filename="../langmgr.cpp" line="114"/>
         <source>Vietnamese</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22163,13 +23128,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="161"/>
-        <source>&#xb0;</source>
-        <comment>degrees, unicode 0xB0</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="90"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="89"/>
         <source>WMF Import</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22178,18 +23137,13 @@ Therefore the image may be not correct</source>
         <source>New Layer</source>
         <translation type="unfinished">Новий план</translation>
     </message>
-    <message encoding="UTF-8">
-        <location filename="../langmgr.cpp" line="91"/>
-        <source>Norwegian (Bokm�l)</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="71"/>
         <source>Adobe Illustrator Importer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionplugin.cpp" line="58"/>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="61"/>
         <source>Imposition</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22199,79 +23153,198 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="122"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="123"/>
         <source>%1;;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="141"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="142"/>
         <source>Do you really want to overwrite the file:
 %1 ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="33"/>
+        <location filename="../util_formats.cpp" line="34"/>
         <source>Encapsulated PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="34"/>
+        <location filename="../util_formats.cpp" line="35"/>
         <source>GIF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="35"/>
+        <location filename="../util_formats.cpp" line="36"/>
         <source>JPEG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="36"/>
+        <location filename="../util_formats.cpp" line="37"/>
         <source>Pattern Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="37"/>
+        <location filename="../util_formats.cpp" line="38"/>
         <source>PDF Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="38"/>
+        <location filename="../util_formats.cpp" line="39"/>
         <source>PNG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="39"/>
+        <location filename="../util_formats.cpp" line="40"/>
         <source>PostScript</source>
         <translation type="unfinished">Постскрипт</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="40"/>
+        <location filename="../util_formats.cpp" line="41"/>
         <source>Adobe Photoshop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="41"/>
+        <location filename="../util_formats.cpp" line="42"/>
         <source>TIFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="42"/>
+        <location filename="../util_formats.cpp" line="43"/>
         <source>XPM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="43"/>
+        <location filename="../util_formats.cpp" line="44"/>
         <source>Windows Meta File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="44"/>
+        <location filename="../util_formats.cpp" line="45"/>
         <source>Scalable Vector Graphics</source>
         <translation type="unfinished">Масштабована векторна графіка</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="45"/>
+        <location filename="../util_formats.cpp" line="46"/>
         <source>Adobe Illustrator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fonts/scface_ps.cpp" line="104"/>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fonts/scface_ps.cpp" line="111"/>
+        <source>No metrics found for font %1, ignoring font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="../langmgr.cpp" line="91"/>
+        <source>Norwegian (Bokm�l)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexhelpers.cpp" line="433"/>
+        <source>Error</source>
+        <translation type="unfinished">Помилка</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="224"/>
+        <source>Configfile %1 not found or the file is not readable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexhelpers.cpp" line="435"/>
+        <source>Parsing the configfile %1 failed! Depending on the type of the error latexframes might not work correctly!
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="384"/>
+        <source>second argument is not tuple: must be tuple of int values.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="396"/>
+        <source>second argument contains non-numeric values: must be list of int values.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.cpp" line="49"/>
+        <source>Cannot have an empty paragraph style name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.cpp" line="69"/>
+        <source>hasdropcap has to be 0 or 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.cpp" line="121"/>
+        <source>Cannot have an empty char style name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="868"/>
+        <source>Can only hyphenate text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="891"/>
+        <source>Can only dehyphenate text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="78"/>
+        <source>Lens Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="91"/>
+        <source>PathCutter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="92"/>
+        <source>PathFinder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="85"/>
+        <source>PathStroker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="55"/>
+        <source>Spell check (aspell)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="79"/>
+        <source>Subdivide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="71"/>
+        <source>Xfig Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../units.cpp" line="161"/>
+        <source>~</source>
+        <comment>degrees, unicode 0xB0</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="47"/>
+        <source>Xfig File</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22422,7 +23495,7 @@ Therefore the image may be not correct</source>
 <context>
     <name>ReformDoc</name>
     <message>
-        <location filename="../reformdoc.cpp" line="62"/>
+        <location filename="../reformdoc.cpp" line="63"/>
         <source>Document Setup</source>
         <translation>Установка опцій документа</translation>
     </message>
@@ -22512,17 +23585,17 @@ Therefore the image may be not correct</source>
         <translation type="obsolete">&amp;Інтервал:</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="65"/>
+        <location filename="../reformdoc.cpp" line="66"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="68"/>
+        <location filename="../reformdoc.cpp" line="69"/>
         <source>Document Information</source>
         <translation>Інформація про документ</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="71"/>
+        <location filename="../reformdoc.cpp" line="72"/>
         <source>Guides</source>
         <translation>Розмітка</translation>
     </message>
@@ -22567,47 +23640,47 @@ Therefore the image may be not correct</source>
         <translation type="obsolete">Показати рамки</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="75"/>
+        <location filename="../reformdoc.cpp" line="76"/>
         <source>Display</source>
         <translation>Відображення</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="78"/>
+        <location filename="../reformdoc.cpp" line="79"/>
         <source>Typography</source>
         <translation>Типографія</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="81"/>
+        <location filename="../reformdoc.cpp" line="82"/>
         <source>Tools</source>
         <translation>Інструменти</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="84"/>
+        <location filename="../reformdoc.cpp" line="85"/>
         <source>Hyphenator</source>
         <translation>Переносник</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="87"/>
+        <location filename="../reformdoc.cpp" line="88"/>
         <source>Fonts</source>
         <translation>Шрифти</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="95"/>
+        <location filename="../reformdoc.cpp" line="96"/>
         <source>PDF Export</source>
         <translation>Експорт PDF</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="100"/>
+        <location filename="../reformdoc.cpp" line="101"/>
         <source>Document Item Attributes</source>
         <translation>Атрибути об&apos;єкта документа</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="105"/>
+        <location filename="../reformdoc.cpp" line="106"/>
         <source>Table of Contents and Indexes</source>
         <translation>Зміст та індекси</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="115"/>
+        <location filename="../reformdoc.cpp" line="116"/>
         <source>Color Management</source>
         <translation>Керування кольорами</translation>
     </message>
@@ -22657,7 +23730,7 @@ Therefore the image may be not correct</source>
         <translation type="obsolete">Вертикальна:</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="90"/>
+        <location filename="../reformdoc.cpp" line="91"/>
         <source>Preflight Verifier</source>
         <translation>Передекспортна перевірка</translation>
     </message>
@@ -22672,7 +23745,7 @@ Therefore the image may be not correct</source>
         <translation type="obsolete">Ввімкнути або вимкнути показ поєднаних текстових рамок.</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="471"/>
+        <location filename="../reformdoc.cpp" line="444"/>
         <source>Adjusting Colors</source>
         <translation>Налаштування кольорів</translation>
     </message>
@@ -22682,7 +23755,7 @@ Therefore the image may be not correct</source>
         <translation type="obsolete">Застосувати установки розміру до всіх сторінок</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="109"/>
+        <location filename="../reformdoc.cpp" line="110"/>
         <source>Sections</source>
         <translation>Розділи</translation>
     </message>
@@ -22839,67 +23912,64 @@ Therefore the image may be not correct</source>
     </message>
 </context>
 <context>
-    <name>SMCStylePage</name>
-</context>
-<context>
     <name>SMCStyleWidget</name>
     <message>
-        <location filename="../smcstylewidget.cpp" line="67"/>
+        <location filename="../smcstylewidget.cpp" line="80"/>
         <source>Parent style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="68"/>
+        <location filename="../smcstylewidget.cpp" line="81"/>
         <source>Font face</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="69"/>
+        <location filename="../smcstylewidget.cpp" line="82"/>
         <source>Font size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="70"/>
+        <location filename="../smcstylewidget.cpp" line="83"/>
         <source>Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="71"/>
+        <location filename="../smcstylewidget.cpp" line="84"/>
         <source>Baseline offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="72"/>
+        <location filename="../smcstylewidget.cpp" line="85"/>
         <source>Horizontal scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="73"/>
+        <location filename="../smcstylewidget.cpp" line="86"/>
         <source>Vertical scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="74"/>
+        <location filename="../smcstylewidget.cpp" line="87"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="75"/>
+        <location filename="../smcstylewidget.cpp" line="88"/>
         <source>Fill color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="76"/>
+        <location filename="../smcstylewidget.cpp" line="89"/>
         <source>Fill shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="77"/>
+        <location filename="../smcstylewidget.cpp" line="90"/>
         <source>Stroke color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="78"/>
+        <location filename="../smcstylewidget.cpp" line="91"/>
         <source>Stroke shade</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22914,7 +23984,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="426"/>
+        <location filename="../smcstylewidget.cpp" line="439"/>
         <source>Shade</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22947,32 +24017,32 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <location filename="../smtextstyles.cpp" line="1494"/>
+        <location filename="../smtextstyles.cpp" line="1495"/>
         <source>Properties</source>
         <translation type="unfinished">Властивості</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1195"/>
+        <location filename="../smtextstyles.cpp" line="1196"/>
         <source>Character Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1200"/>
+        <location filename="../smtextstyles.cpp" line="1201"/>
         <source>Character Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1323"/>
+        <location filename="../smtextstyles.cpp" line="1324"/>
         <source>New Style</source>
         <translation type="unfinished">Новий стиль</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1336"/>
+        <location filename="../smtextstyles.cpp" line="1337"/>
         <source>Clone of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1362"/>
+        <location filename="../smtextstyles.cpp" line="1363"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation type="unfinished"></translation>
@@ -22997,7 +24067,7 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMLineStyle</name>
     <message>
-        <location filename="../smlinestyle.cpp" line="30"/>
+        <location filename="../smlinestyle.cpp" line="33"/>
         <source>Properties</source>
         <translation>Властивості</translation>
     </message>
@@ -23007,63 +24077,63 @@ Therefore the image may be not correct</source>
         <translation type="obsolete">Лінії</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="39"/>
+        <location filename="../smlinestyle.cpp" line="42"/>
         <source>Line Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="44"/>
+        <location filename="../smlinestyle.cpp" line="47"/>
         <source>Line Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="187"/>
+        <location filename="../smlinestyle.cpp" line="190"/>
         <source>New Style</source>
         <translation type="unfinished">Новий стиль</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="197"/>
+        <location filename="../smlinestyle.cpp" line="200"/>
         <source>Clone of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="213"/>
+        <location filename="../smlinestyle.cpp" line="216"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="581"/>
+        <location filename="../smlinestyle.cpp" line="572"/>
         <source> pt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="676"/>
+        <location filename="../smlinestyle.cpp" line="652"/>
         <source>Solid Line</source>
         <translation type="unfinished">Суцільна лінія</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="664"/>
+        <location filename="../smlinestyle.cpp" line="655"/>
         <source>Dashed Line</source>
         <translation type="unfinished">Переривчаста лінія</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="667"/>
+        <location filename="../smlinestyle.cpp" line="658"/>
         <source>Dotted Line</source>
         <translation type="unfinished">Лінія з точок</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="670"/>
+        <location filename="../smlinestyle.cpp" line="661"/>
         <source>Dash Dot Line</source>
         <translation type="unfinished">Переривчасто точкова лінія</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="673"/>
+        <location filename="../smlinestyle.cpp" line="664"/>
         <source>Dash Dot Dot Line</source>
         <translation type="unfinished">Риска-точка-точка лінія</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="657"/>
+        <location filename="../smlinestyle.cpp" line="648"/>
         <source> pt </source>
         <translation type="unfinished"> тчк </translation>
     </message>
@@ -23071,77 +24141,77 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMLineStyleWidget</name>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="34"/>
+        <location filename="../smlinestylewidget.cpp" line="36"/>
         <source>Flat Cap</source>
         <translation type="unfinished">Пласка верхівка</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="35"/>
+        <location filename="../smlinestylewidget.cpp" line="37"/>
         <source>Square Cap</source>
         <translation type="unfinished">Квадратна верхівка</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="36"/>
+        <location filename="../smlinestylewidget.cpp" line="38"/>
         <source>Round Cap</source>
         <translation type="unfinished">Заокруглена верхівка</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="38"/>
+        <location filename="../smlinestylewidget.cpp" line="40"/>
         <source>Miter Join</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="39"/>
+        <location filename="../smlinestylewidget.cpp" line="41"/>
         <source>Bevel Join</source>
         <translation type="unfinished">Фасочне з&apos;єднання</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="40"/>
+        <location filename="../smlinestylewidget.cpp" line="42"/>
         <source>Round Join</source>
         <translation type="unfinished">Заокруглене з&apos;єднання</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="52"/>
+        <location filename="../smlinestylewidget.cpp" line="62"/>
         <source>Add a new line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="53"/>
+        <location filename="../smlinestylewidget.cpp" line="63"/>
         <source>Remove a line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="54"/>
+        <location filename="../smlinestylewidget.cpp" line="64"/>
         <source>Line style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="55"/>
+        <location filename="../smlinestylewidget.cpp" line="65"/>
         <source>Line width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="56"/>
+        <location filename="../smlinestylewidget.cpp" line="66"/>
         <source>End style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="57"/>
+        <location filename="../smlinestylewidget.cpp" line="67"/>
         <source>Join style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="58"/>
+        <location filename="../smlinestylewidget.cpp" line="68"/>
         <source>Line color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="59"/>
+        <location filename="../smlinestylewidget.cpp" line="69"/>
         <source>Line shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="162"/>
+        <location filename="../smlinestylewidget.cpp" line="151"/>
         <source> pt</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23159,17 +24229,17 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMPStyleWidget</name>
     <message>
-        <location filename="../smpstylewidget.cpp" line="238"/>
+        <location filename="../smpstylewidget.cpp" line="250"/>
         <source>Fixed Linespacing</source>
         <translation type="unfinished">Фіксований міжрядковий проміжок</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="239"/>
+        <location filename="../smpstylewidget.cpp" line="251"/>
         <source>Automatic Linespacing</source>
         <translation type="unfinished">Автоматичний міжрядковий проміжок</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="240"/>
+        <location filename="../smpstylewidget.cpp" line="252"/>
         <source>Align to Baseline Grid</source>
         <translation type="unfinished">Вирівняти по базовій сітці</translation>
     </message>
@@ -23194,7 +24264,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished">Властивості</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="87"/>
+        <location filename="../smpstylewidget.cpp" line="99"/>
         <source>Character Style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23209,57 +24279,57 @@ Therefore the image may be not correct</source>
         <translation type="unfinished">Відстань від тексту:</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="64"/>
+        <location filename="../smpstylewidget.cpp" line="76"/>
         <source>Alignment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="55"/>
+        <location filename="../smpstylewidget.cpp" line="67"/>
         <source>Parent Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="56"/>
+        <location filename="../smpstylewidget.cpp" line="68"/>
         <source>Line Spacing Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="57"/>
+        <location filename="../smpstylewidget.cpp" line="69"/>
         <source>Line Spacing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="58"/>
+        <location filename="../smpstylewidget.cpp" line="70"/>
         <source>Space Above</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="59"/>
+        <location filename="../smpstylewidget.cpp" line="71"/>
         <source>Space Below</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="62"/>
+        <location filename="../smpstylewidget.cpp" line="74"/>
         <source>Drop Cap Lines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="63"/>
+        <location filename="../smpstylewidget.cpp" line="75"/>
         <source>Drop Cap Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="65"/>
+        <location filename="../smpstylewidget.cpp" line="77"/>
         <source>First Line Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="66"/>
+        <location filename="../smpstylewidget.cpp" line="78"/>
         <source>Left Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="67"/>
+        <location filename="../smpstylewidget.cpp" line="79"/>
         <source>Right Indent</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23287,27 +24357,27 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMParagraphStyle</name>
     <message>
-        <location filename="../smtextstyles.cpp" line="53"/>
+        <location filename="../smtextstyles.cpp" line="56"/>
         <source>Paragraph Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="58"/>
+        <location filename="../smtextstyles.cpp" line="61"/>
         <source>Paragraph Style</source>
         <translation type="unfinished">Стиль абзацу</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="206"/>
+        <location filename="../smtextstyles.cpp" line="209"/>
         <source>New Style</source>
         <translation type="unfinished">Новий стиль</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="219"/>
+        <location filename="../smtextstyles.cpp" line="222"/>
         <source>Clone of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="246"/>
+        <location filename="../smtextstyles.cpp" line="249"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation type="unfinished"></translation>
@@ -23451,12 +24521,12 @@ Therefore the image may be not correct</source>
 <context>
     <name>SToolBAlign</name>
     <message>
-        <location filename="../story.cpp" line="1147"/>
+        <location filename="../story.cpp" line="1258"/>
         <source>Style of current paragraph</source>
         <translation>Стиль активного абзацу</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1130"/>
+        <location filename="../story.cpp" line="1231"/>
         <source>Style Settings</source>
         <translation>Установки стилю</translation>
     </message>
@@ -23464,17 +24534,17 @@ Therefore the image may be not correct</source>
 <context>
     <name>SToolBColorF</name>
     <message>
-        <location filename="../story.cpp" line="914"/>
+        <location filename="../story.cpp" line="995"/>
         <source>Color of text fill</source>
         <translation>Колір заповнення тексту</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="915"/>
+        <location filename="../story.cpp" line="996"/>
         <source>Saturation of color of text fill</source>
         <translation>Насиченість кольору заповнення тексту</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="888"/>
+        <location filename="../story.cpp" line="958"/>
         <source>Fill Color Settings</source>
         <translation>Установки кольору заповнення</translation>
     </message>
@@ -23482,17 +24552,17 @@ Therefore the image may be not correct</source>
 <context>
     <name>SToolBColorS</name>
     <message>
-        <location filename="../story.cpp" line="977"/>
+        <location filename="../story.cpp" line="1068"/>
         <source>Color of text stroke</source>
         <translation>Колір силуетів тексту</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="978"/>
+        <location filename="../story.cpp" line="1069"/>
         <source>Saturation of color of text stroke</source>
         <translation>Насиченість кольору силуетів тексту</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="952"/>
+        <location filename="../story.cpp" line="1033"/>
         <source>Stroke Color Settings</source>
         <translation>Установки кольору контурів</translation>
     </message>
@@ -23500,37 +24570,37 @@ Therefore the image may be not correct</source>
 <context>
     <name>SToolBFont</name>
     <message>
-        <location filename="../story.cpp" line="1176"/>
+        <location filename="../story.cpp" line="1287"/>
         <source> pt</source>
         <translation>тчк</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1195"/>
+        <location filename="../story.cpp" line="1306"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1211"/>
+        <location filename="../story.cpp" line="1332"/>
         <source>Font of selected text</source>
         <translation>Шрифт вибраного тексту</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1212"/>
+        <location filename="../story.cpp" line="1333"/>
         <source>Font Size</source>
         <translation>Розмір шрифта</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1213"/>
+        <location filename="../story.cpp" line="1334"/>
         <source>Scaling width of characters</source>
         <translation>Масштабування ширини знаків</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1167"/>
+        <location filename="../story.cpp" line="1278"/>
         <source>Font Settings</source>
         <translation>Установки шрифтів</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1214"/>
+        <location filename="../story.cpp" line="1335"/>
         <source>Scaling height of characters</source>
         <translation>Масштабування висоти знаків</translation>
     </message>
@@ -23538,17 +24608,17 @@ Therefore the image may be not correct</source>
 <context>
     <name>SToolBStyle</name>
     <message>
-        <location filename="../story.cpp" line="1010"/>
+        <location filename="../story.cpp" line="1101"/>
         <source>Character Settings</source>
         <translation>Установки текстових символів</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1042"/>
+        <location filename="../story.cpp" line="1143"/>
         <source>Manual Tracking</source>
         <translation>Слідкування вручну</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1022"/>
+        <location filename="../story.cpp" line="1113"/>
         <source> %</source>
         <translation> %</translation>
     </message>
@@ -23561,12 +24631,12 @@ Therefore the image may be not correct</source>
         <translation type="obsolete">Записати сторінку, як SVG з&amp;ображення...</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="101"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="102"/>
         <source>Exports SVG Files</source>
         <translation>Експорт SVG файлів</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="102"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="103"/>
         <source>Exports the current page into an SVG file.</source>
         <translation>Експортувати активну сторінку в SVG файл.</translation>
     </message>
@@ -23579,17 +24649,17 @@ Therefore the image may be not correct</source>
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="88"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="89"/>
         <source>Import &amp;SVG...</source>
         <translation>Імпортувати  SVG зображ&amp;ення...</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="103"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="104"/>
         <source>Imports SVG Files</source>
         <translation>Імпорт SVG файлів</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="104"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="105"/>
         <source>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Імпортує більшість SVG файлів в активний документ,
@@ -23601,12 +24671,12 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Масштабована векторна графіка</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="181"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="188"/>
         <source>SVG file contains some unsupported features</source>
         <translation>SVG файл містить деякі несумісні дані</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="179"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="186"/>
         <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23614,7 +24684,7 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="902"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="921"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23709,7 +24779,7 @@ converting their vector data into Scribus objects.</source>
 замість системної конфігурації</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="121"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="122"/>
         <source>Short Words</source>
         <translation>Короткі слова</translation>
     </message>
@@ -23719,22 +24789,22 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Конфігурація користувача вже існує. Ви справді бажаєте її перезаписати?</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="122"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="123"/>
         <source>Cannot write file %1.</source>
         <translation>Неможливо записати файл %1.</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="129"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="130"/>
         <source>User settings saved</source>
         <translation>Установки користувача записано</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="140"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="141"/>
         <source>System wide configuration reloaded</source>
         <translation>Системна конфігурація перезавантажена</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="154"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="155"/>
         <source>Cannot open file %1</source>
         <translation>Неможливо відчинити файл %1</translation>
     </message>
@@ -23752,12 +24822,12 @@ converting their vector data into Scribus objects.</source>
         <translation>Записати як ша&amp;блон...</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="73"/>
+        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="74"/>
         <source>Save a document as a template</source>
         <translation>Записати документ як шаблон</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="75"/>
+        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="76"/>
         <source>Save a document as a template. Good way to ease the initial work for documents with a constant look</source>
         <translation>Записати документ, як шаблон. Гарний метод для полегшення роботи по наданню документам однакового вигляду</translation>
     </message>
@@ -23783,22 +24853,22 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>ScInputDialog</name>
     <message>
-        <location filename="../scinputdialog.cpp" line="67"/>
+        <location filename="../scinputdialog.cpp" line="80"/>
         <source>Input Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scinputdialog.cpp" line="68"/>
+        <location filename="../scinputdialog.cpp" line="81"/>
         <source>InputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scinputdialog.cpp" line="69"/>
+        <location filename="../scinputdialog.cpp" line="82"/>
         <source>&amp;OK</source>
         <translation type="unfinished">&amp;Гаразд</translation>
     </message>
     <message>
-        <location filename="../scinputdialog.cpp" line="71"/>
+        <location filename="../scinputdialog.cpp" line="84"/>
         <source>&amp;Cancel</source>
         <translation type="unfinished">В&amp;ихід</translation>
     </message>
@@ -23806,26 +24876,34 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>ScPlugin</name>
     <message>
-        <location filename="../scplugin.cpp" line="51"/>
+        <location filename="../scplugin.cpp" line="47"/>
         <source>Persistent</source>
         <comment>plugin manager plugin type</comment>
         <translation>Постійний</translation>
     </message>
     <message>
-        <location filename="../scplugin.cpp" line="53"/>
+        <location filename="../scplugin.cpp" line="49"/>
         <source>Action</source>
         <comment>plugin manager plugin type</comment>
         <translation>Дія</translation>
     </message>
     <message>
-        <location filename="../scplugin.cpp" line="49"/>
+        <location filename="../scplugin.cpp" line="45"/>
         <source>Load/Save/Import/Export</source>
         <translation>Завантажити/Записати/Імпортувати/Експортувати</translation>
     </message>
     <message>
-        <location filename="../scplugin.cpp" line="57"/>
+        <location filename="../scplugin.cpp" line="53"/>
         <source>Unknown</source>
         <translation>Невідомий</translation>
+    </message>
+</context>
+<context>
+    <name>ScPrintEngine_GDI</name>
+    <message>
+        <location filename="../scprintengine_gdi.cpp" line="336"/>
+        <source>Printing...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23835,9 +24913,6 @@ converting their vector data into Scribus objects.</source>
         <source>%1 of %2</source>
         <translation type="unfinished">%1 з %2</translation>
     </message>
-</context>
-<context>
-    <name>ScTextBrowser</name>
 </context>
 <context>
     <name>ScToolBar</name>
@@ -23877,7 +24952,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../scwinprint.cpp" line="323"/>
         <source>Printing...</source>
-        <translation>Друкування...</translation>
+        <translation type="obsolete">Друкування...</translation>
     </message>
 </context>
 <context>
@@ -23919,7 +24994,7 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="3326"/>
+        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="3352"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished"></translation>
     </message>
@@ -23927,7 +25002,7 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>Scribus13Format</name>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="3039"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="3059"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished"></translation>
     </message>
@@ -23948,17 +25023,17 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>ScribusCore</name>
     <message>
-        <location filename="../scribuscore.cpp" line="167"/>
+        <location filename="../scribuscore.cpp" line="170"/>
         <source>Initializing Plugins</source>
         <translation type="unfinished">Ініціалізація модулів</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="179"/>
+        <location filename="../scribuscore.cpp" line="182"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation type="unfinished">Ініціалізація гарячих клавіш</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="181"/>
+        <location filename="../scribuscore.cpp" line="184"/>
         <source>Reading Preferences</source>
         <translation type="unfinished">Зчитування установок</translation>
     </message>
@@ -23968,32 +25043,32 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Зчитування ICC профілів</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="326"/>
+        <location filename="../scribuscore.cpp" line="331"/>
         <source>Searching for Fonts</source>
         <translation type="unfinished">Пошук шрифтів</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="331"/>
+        <location filename="../scribuscore.cpp" line="336"/>
         <source>There are no fonts found on your system.</source>
         <translation type="unfinished">На вашій системі не знайдено жодного шрифта.</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="332"/>
+        <location filename="../scribuscore.cpp" line="337"/>
         <source>Exiting now.</source>
         <translation type="unfinished">Терміновий вихід.</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="333"/>
+        <location filename="../scribuscore.cpp" line="338"/>
         <source>Fatal Error</source>
         <translation type="unfinished">Фатальна помилка</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="336"/>
+        <location filename="../scribuscore.cpp" line="341"/>
         <source>Font System Initialized</source>
         <translation type="unfinished">Шрифтова система ініціалізована</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="191"/>
+        <location filename="../scribuscore.cpp" line="196"/>
         <source>Reading Color Profiles</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24001,12 +25076,12 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>ScribusDoc</name>
     <message>
-        <location filename="../scribusdoc.cpp" line="217"/>
+        <location filename="../scribusdoc.cpp" line="223"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="452"/>
+        <location filename="../scribusdoc.cpp" line="463"/>
         <source>Background</source>
         <translation>Фон</translation>
     </message>
@@ -24021,37 +25096,37 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Звичайний</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6836"/>
+        <location filename="../scribusdoc.cpp" line="6992"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ви справді бажаєте очистити весь Ваш текст?</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6879"/>
+        <location filename="../scribusdoc.cpp" line="7035"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Неможливо видалити об&apos;єкт під час його використання</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6879"/>
+        <location filename="../scribusdoc.cpp" line="7035"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операція видалення буде відмінена</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7354"/>
+        <location filename="../scribusdoc.cpp" line="7545"/>
         <source>Some objects are locked.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7350"/>
+        <location filename="../scribusdoc.cpp" line="7541"/>
         <source>&amp;Unlock All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7351"/>
+        <location filename="../scribusdoc.cpp" line="7542"/>
         <source>&amp;Skip locked objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="704"/>
+        <location filename="../scribusdoc.cpp" line="715"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24065,39 +25140,39 @@ Vertical shift: %3</source>
 Вертикальний зсув: %3</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="8467"/>
+        <location filename="../scribusdoc.cpp" line="8675"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="836"/>
+        <location filename="../scribusdoc.cpp" line="847"/>
         <source>Adjusting Colors</source>
         <translation type="unfinished">Налаштування кольорів</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="404"/>
+        <location filename="../scribusdoc.cpp" line="415"/>
         <source>Default Paragraph Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="419"/>
+        <location filename="../scribusdoc.cpp" line="430"/>
         <source>Default Character Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5671"/>
+        <location filename="../scribusdoc.cpp" line="5796"/>
         <source>remove direct paragraph formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5906"/>
+        <location filename="../scribusdoc.cpp" line="6048"/>
         <source>remove direct char formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="8439"/>
+        <location filename="../scribusdoc.cpp" line="8649"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -24105,8 +25180,13 @@ Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="9465"/>
+        <location filename="../scribusdoc.cpp" line="9694"/>
         <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribusdoc.cpp" line="2592"/>
+        <source>Copy_of_</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24128,7 +25208,7 @@ Rotation: %4</source>
         <translation type="obsolete">Зчитування установок</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="321"/>
+        <location filename="../scribus.cpp" line="333"/>
         <source>Initializing Story Editor</source>
         <translation>Ініціалізація текстового редактора</translation>
     </message>
@@ -24138,29 +25218,29 @@ Rotation: %4</source>
         <translation type="obsolete">Зчитування ICC профілів</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="328"/>
+        <location filename="../scribus.cpp" line="339"/>
         <source>Initializing Hyphenator</source>
         <translation>Ініціалізація системи переносів</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="334"/>
+        <location filename="../scribus.cpp" line="345"/>
         <source>Reading Scrapbook</source>
         <translation>Зчитування чорновика</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="306"/>
         <source>Setting up Shortcuts</source>
-        <translation>Установка гарячих клавіш</translation>
+        <translation type="obsolete">Установка гарячих клавіш</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="373"/>
         <source>File</source>
-        <translation>Файл</translation>
+        <translation type="obsolete">Файл</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="386"/>
         <source>Edit</source>
-        <translation>Редагувати</translation>
+        <translation type="obsolete">Редагувати</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -24178,7 +25258,7 @@ Rotation: %4</source>
         <translation type="obsolete">Терміновий вихід.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3580"/>
+        <location filename="../scribus.cpp" line="3804"/>
         <source>Fatal Error</source>
         <translation>Фатальна помилка</translation>
     </message>
@@ -24188,182 +25268,182 @@ Rotation: %4</source>
         <translation type="obsolete">Шрифтова система ініціалізована</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8974"/>
+        <location filename="../scribus.cpp" line="9297"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8975"/>
+        <location filename="../scribus.cpp" line="9298"/>
         <source>Open &amp;Recent</source>
         <translation>Відчинити &amp;недавно редагований документ</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8977"/>
+        <location filename="../scribus.cpp" line="9300"/>
         <source>&amp;Import</source>
         <translation>І&amp;мпортувати</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8978"/>
+        <location filename="../scribus.cpp" line="9301"/>
         <source>&amp;Export</source>
         <translation>&amp;Експортувати</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8979"/>
+        <location filename="../scribus.cpp" line="9302"/>
         <source>&amp;Edit</source>
         <translation>&amp;Редагувати</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8981"/>
+        <location filename="../scribus.cpp" line="9304"/>
         <source>St&amp;yle</source>
         <translation>&amp;Стиль</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8982"/>
+        <location filename="../scribus.cpp" line="9305"/>
         <source>&amp;Color</source>
         <translation>&amp;Колір</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8983"/>
+        <location filename="../scribus.cpp" line="9306"/>
         <source>&amp;Size</source>
         <translation>&amp;Розмір</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8984"/>
+        <location filename="../scribus.cpp" line="9307"/>
         <source>&amp;Shade</source>
         <translation>&amp;Тінь</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8985"/>
+        <location filename="../scribus.cpp" line="9308"/>
         <source>&amp;Font</source>
         <translation>&amp;Шрифт</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8986"/>
+        <location filename="../scribus.cpp" line="9309"/>
         <source>&amp;Effects</source>
         <translation>&amp;Ефекти</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8987"/>
+        <location filename="../scribus.cpp" line="9310"/>
         <source>&amp;Item</source>
         <translation>&amp;Об&apos;єкт</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="710"/>
+        <location filename="../scribus.cpp" line="715"/>
         <source>Preview Settings</source>
         <translation>Установки попереднього перегляду перед друком</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="695"/>
+        <location filename="../scribus.cpp" line="700"/>
         <source>Level</source>
         <translation>План</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="701"/>
+        <location filename="../scribus.cpp" line="706"/>
         <source>Send to La&amp;yer</source>
         <translation>Перемістити на &amp;план</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8991"/>
+        <location filename="../scribus.cpp" line="9314"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;Установки PDF</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="8992"/>
         <source>&amp;Shape</source>
-        <translation>Геометрична &amp;Фігура</translation>
+        <translation type="obsolete">Геометрична &amp;Фігура</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8993"/>
+        <location filename="../scribus.cpp" line="9316"/>
         <source>C&amp;onvert To</source>
         <translation>К&amp;онвертувати в</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8994"/>
+        <location filename="../scribus.cpp" line="9318"/>
         <source>I&amp;nsert</source>
         <translation>&amp;Вставити</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8995"/>
+        <location filename="../scribus.cpp" line="9319"/>
         <source>Character</source>
         <translation>Символ</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8996"/>
+        <location filename="../scribus.cpp" line="9320"/>
         <source>Quote</source>
         <translation>Цитата</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8997"/>
+        <location filename="../scribus.cpp" line="9321"/>
         <source>Space</source>
         <translation>Проміжок</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8999"/>
+        <location filename="../scribus.cpp" line="9323"/>
         <source>&amp;Page</source>
         <translation>С&amp;торінка</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9000"/>
+        <location filename="../scribus.cpp" line="9324"/>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9002"/>
+        <location filename="../scribus.cpp" line="9326"/>
         <source>E&amp;xtras</source>
         <translation>&amp;Додатки</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9003"/>
+        <location filename="../scribus.cpp" line="9327"/>
         <source>&amp;Windows</source>
         <translation>Ві&amp;кна</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9004"/>
+        <location filename="../scribus.cpp" line="9328"/>
         <source>&amp;Help</source>
         <translation>До&amp;помога</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9005"/>
+        <location filename="../scribus.cpp" line="9329"/>
         <source>&amp;Alignment</source>
         <translation>Ви&amp;рівнювання</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9017"/>
+        <location filename="../scribus.cpp" line="9341"/>
         <source>Ready</source>
         <translation>Готовий</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3930"/>
+        <location filename="../scribus.cpp" line="4154"/>
         <source>Open</source>
         <translation>Відчинити</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3390"/>
+        <location filename="../scribus.cpp" line="3613"/>
         <source>Importing Pages...</source>
         <translation>Імпортування Сторінок...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3419"/>
+        <location filename="../scribus.cpp" line="3642"/>
         <source>Import Page(s)</source>
         <translation>Імпортувати сторінку(и)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3461"/>
+        <location filename="../scribus.cpp" line="3684"/>
         <source>Import done</source>
         <translation>Імпортування закінчено</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3465"/>
+        <location filename="../scribus.cpp" line="3688"/>
         <source>Found nothing to import</source>
         <translation>Не знаходжу, що імпортувати</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3580"/>
+        <location filename="../scribus.cpp" line="3804"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Файл %1 - в форматі, що не підтримується</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3601"/>
+        <location filename="../scribus.cpp" line="3825"/>
         <source>Loading...</source>
         <translation>Завантаження...</translation>
     </message>
@@ -24378,12 +25458,12 @@ Rotation: %4</source>
         <translation type="obsolete">Деякі кольорові профілі, використані в цьому документі, не інстальовано:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3748"/>
+        <location filename="../scribus.cpp" line="3972"/>
         <source> was replaced by: </source>
         <translation>був замінений на:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3780"/>
+        <location filename="../scribus.cpp" line="4004"/>
         <source>(converted)</source>
         <translation>(конвертовано)</translation>
     </message>
@@ -24398,7 +25478,7 @@ Rotation: %4</source>
         <translation type="obsolete">Всі файли (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7722"/>
+        <location filename="../scribus.cpp" line="8018"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Неможливо записати файл: 
@@ -24415,17 +25495,17 @@ Rotation: %4</source>
         <translation type="obsolete">Документи (*.sla *.scd);;Всі файли (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4102"/>
+        <location filename="../scribus.cpp" line="4329"/>
         <source>Save As</source>
         <translation>Записати як</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4128"/>
+        <location filename="../scribus.cpp" line="4358"/>
         <source>Saving...</source>
         <translation>Запис...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7442"/>
+        <location filename="../scribus.cpp" line="7716"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus знайшов помилки. Спробуйте використати передекспортну перевірку для їх виправлення</translation>
     </message>
@@ -24440,47 +25520,47 @@ Rotation: %4</source>
         <translation type="obsolete">&amp;Аварійний вихід</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4387"/>
+        <location filename="../scribus.cpp" line="4618"/>
         <source>Printing...</source>
         <translation>Друк...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7553"/>
+        <location filename="../scribus.cpp" line="7832"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4446"/>
+        <location filename="../scribus.cpp" line="4659"/>
         <source>Printing failed!</source>
         <translation>Друк не вдався!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4575"/>
+        <location filename="../scribus.cpp" line="4749"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Неможливо вирізати об&apos;єкт під час його використання</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4575"/>
+        <location filename="../scribus.cpp" line="4749"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операція вирізання буде відмінена</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5215"/>
+        <location filename="../scribus.cpp" line="5402"/>
         <source>About Qt</source>
         <translation>Про Qt</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5220"/>
+        <location filename="../scribus.cpp" line="5414"/>
         <source>Scribus Manual</source>
         <translation>Довідка Scribus</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7576"/>
+        <location filename="../scribus.cpp" line="7855"/>
         <source>Save as</source>
         <translation>Записати як</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5245"/>
+        <location filename="../scribus.cpp" line="5439"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Текстові файли (*.txt);;Всі файли(*)</translation>
     </message>
@@ -24500,47 +25580,47 @@ Rotation: %4</source>
         <translation type="obsolete">Конвертувати сторінку в майстер сторінку</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6646"/>
+        <location filename="../scribus.cpp" line="6900"/>
         <source>&amp;Size:</source>
         <translation>&amp;Розмір:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6646"/>
+        <location filename="../scribus.cpp" line="6900"/>
         <source>Size</source>
         <translation>Розмір</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6676"/>
+        <location filename="../scribus.cpp" line="6930"/>
         <source>&amp;Shade:</source>
         <translation>&amp;Тінь:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6676"/>
+        <location filename="../scribus.cpp" line="6930"/>
         <source>Shade</source>
         <translation>Тінь</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6778"/>
+        <location filename="../scribus.cpp" line="7032"/>
         <source>No Style</source>
         <translation>Стиль відсутній</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7340"/>
+        <location filename="../scribus.cpp" line="7613"/>
         <source>The following programs are missing:</source>
         <translation>Відсутні такі програми:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7342"/>
+        <location filename="../scribus.cpp" line="7615"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
         <translation>Ghostscript : Ви не можете використовувати EPS зображення або попередній перегляд перед друком</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7478"/>
+        <location filename="../scribus.cpp" line="7752"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7522"/>
+        <location filename="../scribus.cpp" line="7801"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus знайшов деякі помилки. Спробуйте використати
@@ -24552,99 +25632,99 @@ Consider using the Preflight Verifier  to correct them.</source>
         <translation type="obsolete">Файли EPS (*.eps);;Всі файли (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7607"/>
+        <location filename="../scribus.cpp" line="7898"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Знайдено деякі помилки. Спробуйте використати
 передекспортну перевірку для їх виправлення</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7699"/>
+        <location filename="../scribus.cpp" line="7992"/>
         <source>-Page%1</source>
         <translation>-Сторінка%1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8064"/>
+        <location filename="../scribus.cpp" line="8363"/>
         <source>Some objects are locked.</source>
         <translation>Деякі об&apos;єкти замкнені.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8060"/>
+        <location filename="../scribus.cpp" line="8359"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Замкнути все</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8061"/>
+        <location filename="../scribus.cpp" line="8360"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Розімкнути все</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8747"/>
+        <location filename="../scribus.cpp" line="9068"/>
         <source>Information</source>
         <translation>Інформація</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8747"/>
+        <location filename="../scribus.cpp" line="9068"/>
         <source>The program %1 is already running!</source>
         <translation>Програма %1 вже запущена!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8785"/>
+        <location filename="../scribus.cpp" line="9107"/>
         <source>The program %1 is missing!</source>
         <translation>Програма %1 відсутня!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8899"/>
+        <location filename="../scribus.cpp" line="9221"/>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
         <translation>Вибраний колір відсутній в наборі кольорів документу. Будь ласка введіть назву цього нового кольору.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8902"/>
+        <location filename="../scribus.cpp" line="9224"/>
         <source>Color Not Found</source>
         <translation>Колір не знайдено</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8906"/>
+        <location filename="../scribus.cpp" line="9228"/>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
         <translation>Вибране ім&apos;я вже існує. Будь-ласка введіть інше ім&apos;я для цього нового кольору.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8988"/>
+        <location filename="../scribus.cpp" line="9311"/>
         <source>&amp;Level</source>
         <translation>&amp;План</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8989"/>
+        <location filename="../scribus.cpp" line="9312"/>
         <source>Send to Layer</source>
         <translation>Перемістити на план</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8990"/>
+        <location filename="../scribus.cpp" line="9313"/>
         <source>Previe&amp;w Settings</source>
         <translation>Установки попереднього перегляду перед д&amp;руком</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9001"/>
+        <location filename="../scribus.cpp" line="9325"/>
         <source>&amp;Tools</source>
         <translation>&amp;Інструменти</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9013"/>
+        <location filename="../scribus.cpp" line="9337"/>
         <source>X-Pos:</source>
         <translation>Поз. Х:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9014"/>
+        <location filename="../scribus.cpp" line="9338"/>
         <source>Y-Pos:</source>
         <translation>Поз. У:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7344"/>
+        <location filename="../scribus.cpp" line="7617"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
         <translation>Ghostscript : Ви не можете використовувати EPS зображення або попередній перегляд постскрипту перед друком</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7389"/>
+        <location filename="../scribus.cpp" line="7663"/>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
         <translation>Ghostscript  відсутній: попередній перегляд постскрипту перед друком недоступний</translation>
     </message>
@@ -24673,210 +25753,226 @@ Vertical shift: %3</source>
 Вертикальний зсув: %3</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9138"/>
+        <location filename="../scribus.cpp" line="9491"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Ви справді бажаєте замінити існуюче зображення?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8980"/>
+        <location filename="../scribus.cpp" line="9303"/>
         <source>Contents</source>
         <translation>Зміст</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="772"/>
+        <location filename="../scribus.cpp" line="778"/>
         <source>&amp;Character</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="789"/>
+        <location filename="../scribus.cpp" line="795"/>
         <source>&amp;Quote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="814"/>
+        <location filename="../scribus.cpp" line="820"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8998"/>
+        <location filename="../scribus.cpp" line="9322"/>
         <source>Liga&amp;ture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8976"/>
+        <location filename="../scribus.cpp" line="9299"/>
         <source>Paste Recent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="2405"/>
-        <source>Updating Pictures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scribus.cpp" line="4099"/>
+        <location filename="../scribus.cpp" line="4326"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3960"/>
+        <location filename="../scribus.cpp" line="4184"/>
         <source>Do you really want to clear all your text?</source>
         <translation type="unfinished">Ви справді бажаєте очистити весь Ваш текст?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="270"/>
+        <location filename="../scribus.cpp" line="278"/>
         <source>Scribus </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9006"/>
+        <location filename="../scribus.cpp" line="9330"/>
         <source>Online &amp;Tutorials</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3745"/>
+        <location filename="../scribus.cpp" line="3969"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7576"/>
+        <location filename="../scribus.cpp" line="7855"/>
         <source>%1;;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="317"/>
+        <source>Applying User Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="2489"/>
+        <source>Updating Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="4342"/>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="4714"/>
+        <source>Print engine initialization failed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ScribusQApp</name>
     <message>
-        <location filename="../scribusapp.cpp" line="200"/>
+        <location filename="../scribusapp.cpp" line="199"/>
         <source>Invalid argument: </source>
         <translation>Невірний аргумент:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="220"/>
+        <location filename="../scribusapp.cpp" line="219"/>
         <source>File %1 does not exist, aborting.</source>
         <translation>Файл %1 не існує, аварійний вихід.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="401"/>
+        <location filename="../scribusapp.cpp" line="405"/>
         <source>Usage: scribus [option ... ] [file]</source>
         <translation>Використання: scribus [ключ ... ] [файл]</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="402"/>
+        <location filename="../scribusapp.cpp" line="406"/>
         <source>Options:</source>
         <translation>Установки:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="404"/>
+        <location filename="../scribusapp.cpp" line="408"/>
         <source>Print help (this message) and exit</source>
         <translation>Надрукувати підказку (це повідомлення) та вийти</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="405"/>
+        <location filename="../scribusapp.cpp" line="409"/>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
         <translation>Використовує хх, як кодову назву мови, наприклад &apos;en&apos; або &apos;de&apos;</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="406"/>
+        <location filename="../scribusapp.cpp" line="410"/>
         <source>List the currently installed interface languages</source>
         <translation>Показати список доступних мов інтерфейса</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="403"/>
+        <location filename="../scribusapp.cpp" line="407"/>
         <source>Show information on the console when fonts are being loaded</source>
         <translation>Показати в терміналі інформацію про завантаження шрифтів</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="407"/>
+        <location filename="../scribusapp.cpp" line="411"/>
         <source>Do not show the splashscreen on startup</source>
         <translation>Не показувати стартову заставку під час запуску програми</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="413"/>
+        <location filename="../scribusapp.cpp" line="417"/>
         <source>Output version information and exit</source>
         <translation>Показати інформацію про версію та вийти</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="411"/>
+        <location filename="../scribusapp.cpp" line="415"/>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
         <translation>Використовувати порядок кнопок в діалогових вікнах справа наліво (наприклад Вихід/Ні/Так замість Так/Ні/Вихід</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="409"/>
+        <location filename="../scribusapp.cpp" line="413"/>
         <source>filename</source>
         <translation>назва файла</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="409"/>
+        <location filename="../scribusapp.cpp" line="413"/>
         <source>Use filename as path for user given preferences</source>
         <translation>Використовувати назву файла, як шлях для установок користувача</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="432"/>
+        <location filename="../scribusapp.cpp" line="436"/>
         <source>Installed interface languages for Scribus are as follows:</source>
         <translation>Інстальовані мови інтерфейсу Scribus включають:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="440"/>
+        <location filename="../scribusapp.cpp" line="444"/>
         <source>To override the default language choice:</source>
         <translation>Вибрати нестандартну мову:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="441"/>
+        <location filename="../scribusapp.cpp" line="445"/>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
         <translation>scribus -l xx або scribus --lang xx, де xx - це код вибраної мови.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="446"/>
+        <location filename="../scribusapp.cpp" line="450"/>
         <source>Scribus Version</source>
         <translation>Версія Scribus</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="455"/>
+        <location filename="../scribusapp.cpp" line="459"/>
         <source>Scribus, Open Source Desktop Publishing</source>
         <translation>Scribus, поліграфічне програмне забезпечення з відкритим кодом</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="463"/>
+        <location filename="../scribusapp.cpp" line="467"/>
         <source>Homepage</source>
         <translation>Домашня сторінка</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="464"/>
+        <location filename="../scribusapp.cpp" line="468"/>
         <source>Documentation</source>
         <translation>Документація</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="465"/>
+        <location filename="../scribusapp.cpp" line="469"/>
         <source>Wiki</source>
         <translation>Вікі</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="466"/>
+        <location filename="../scribusapp.cpp" line="470"/>
         <source>Issues</source>
         <translation>Проблеми</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="408"/>
+        <location filename="../scribusapp.cpp" line="412"/>
         <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="412"/>
+        <location filename="../scribusapp.cpp" line="416"/>
         <source>Download a file from the Scribus website and show the latest available version.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="417"/>
+        <location filename="../scribusapp.cpp" line="421"/>
         <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="410"/>
+        <location filename="../scribusapp.cpp" line="414"/>
         <source>Show location ICC profile information on console while starting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="218"/>
+        <location filename="../scribusapp.cpp" line="217"/>
         <source>Invalid argument: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24884,7 +25980,7 @@ Vertical shift: %3</source>
 <context>
     <name>ScribusView</name>
     <message>
-        <location filename="../scribusview.cpp" line="201"/>
+        <location filename="../scribusview.cpp" line="205"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -24894,22 +25990,22 @@ Vertical shift: %3</source>
         <translation type="obsolete">План</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="949"/>
+        <location filename="../scribusview.cpp" line="1023"/>
         <source>Copy Here</source>
         <translation>Копіювати сюди</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="950"/>
+        <location filename="../scribusview.cpp" line="1024"/>
         <source>Move Here</source>
         <translation>Перемістити сюди</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="951"/>
+        <location filename="../scribusview.cpp" line="1025"/>
         <source>Cancel</source>
         <translation>Вихід</translation>
     </message>
     <message>
-        <location filename="../canvasmode_nodeedit.cpp" line="498"/>
+        <location filename="../contextmenu.cpp" line="365"/>
         <source>&amp;Paste</source>
         <translation>&amp;Вклеїти</translation>
     </message>
@@ -24919,17 +26015,17 @@ Vertical shift: %3</source>
         <translation type="obsolete">Зображення</translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="257"/>
+        <location filename="../pageitem_imageframe.cpp" line="406"/>
         <source>File: </source>
         <translation>Файл: </translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="262"/>
+        <location filename="../pageitem_imageframe.cpp" line="407"/>
         <source>Original PPI: </source>
         <translation>Початкові ТНД: </translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="267"/>
+        <location filename="../pageitem_imageframe.cpp" line="408"/>
         <source>Actual PPI: </source>
         <translation>Фактичні ТНД: </translation>
     </message>
@@ -24964,22 +26060,22 @@ Vertical shift: %3</source>
         <translation type="obsolete">Символи: </translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4368"/>
+        <location filename="../pageitem.cpp" line="4663"/>
         <source>Print: </source>
         <translation>Друкувати: </translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4371"/>
+        <location filename="../pageitem.cpp" line="4665"/>
         <source>Enabled</source>
         <translation>Ввімкнено</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4373"/>
+        <location filename="../pageitem.cpp" line="4667"/>
         <source>Disabled</source>
         <translation>Вимкнено</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4383"/>
+        <location filename="../contextmenu.cpp" line="135"/>
         <source>In&amp;fo</source>
         <translation>&amp;Інформація</translation>
     </message>
@@ -24989,32 +26085,32 @@ Vertical shift: %3</source>
         <translation type="obsolete">Установки попереднього перегляду перед друком</translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3384"/>
+        <location filename="../pageitem_textframe.cpp" line="3392"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;Установки PDF</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4420"/>
+        <location filename="../contextmenu.cpp" line="254"/>
         <source>Send to La&amp;yer</source>
         <translation>Перемістити на &amp;план</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4449"/>
+        <location filename="../contextmenu.cpp" line="288"/>
         <source>Le&amp;vel</source>
         <translation>Пла&amp;н</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4469"/>
+        <location filename="../contextmenu.cpp" line="313"/>
         <source>Conve&amp;rt to</source>
         <translation>&amp;Конвертувати в</translation>
     </message>
     <message>
         <location filename="../canvasmode_legacy.cpp" line="4480"/>
         <source>&amp;Delete</source>
-        <translation>&amp;Видалити</translation>
+        <translation type="obsolete">&amp;Видалити</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1687"/>
+        <location filename="../canvasmode_legacy.cpp" line="2001"/>
         <source>Linking Text Frames</source>
         <translation>Установка зв&apos;язку між текстовими рамками</translation>
     </message>
@@ -25024,27 +26120,27 @@ Vertical shift: %3</source>
         <translation type="obsolete">Ви намагаєтеся установити зв&apos;язок до заповненої рамки або до цієї ж рамки.</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3116"/>
+        <location filename="../scribusview.cpp" line="2333"/>
         <source>Page %1 to %2</source>
         <translation>Від сторінки %1 до %2</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="4560"/>
+        <location filename="../scribusview.cpp" line="3825"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Неможливо конвертувати об&apos;єкт під час його використання</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="4560"/>
+        <location filename="../scribusview.cpp" line="3825"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операція конвертування в контурні лінії буде пропущена</translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="272"/>
+        <location filename="../pageitem_imageframe.cpp" line="409"/>
         <source>Colorspace: </source>
         <translation>Кольоровий простір: </translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="277"/>
+        <location filename="../pageitem_imageframe.cpp" line="413"/>
         <source>Unknown</source>
         <translation>Невідомий</translation>
     </message>
@@ -25064,27 +26160,27 @@ Vertical shift: %3</source>
         <translation type="obsolete">Відтінки сірого</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4485"/>
+        <location filename="../contextmenu.cpp" line="345"/>
         <source>Contents</source>
         <translation>Зміст</translation>
     </message>
     <message>
-        <location filename="../canvasmode_nodeedit.cpp" line="515"/>
+        <location filename="../contextmenu.cpp" line="371"/>
         <source>Paste Recent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="4260"/>
+        <location filename="../scribusview.cpp" line="3500"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="326"/>
+        <location filename="../scribusview.cpp" line="348"/>
         <source>Enables the Preview Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="327"/>
+        <location filename="../scribusview.cpp" line="349"/>
         <source>Here you can select the visual appearance of the display
 You can choose between normal and several color blindness forms</source>
         <translation type="unfinished"></translation>
@@ -25115,37 +26211,37 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Повний дальтонізм</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="325"/>
+        <location filename="../scribusview.cpp" line="347"/>
         <source>Switches Color Management on or off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="365"/>
+        <location filename="../scribusview.cpp" line="389"/>
         <source>Preview Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="366"/>
+        <location filename="../scribusview.cpp" line="390"/>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="2326"/>
+        <location filename="../canvasmode_legacy.cpp" line="2854"/>
         <source>Enter Object Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="283"/>
+        <location filename="../pageitem_imageframe.cpp" line="420"/>
         <source>No Image Loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1681"/>
+        <location filename="../canvasmode_legacy.cpp" line="1995"/>
         <source>You are trying to link a frame to itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1688"/>
+        <location filename="../canvasmode_legacy.cpp" line="2002"/>
         <source>You are trying to link a frame which is already linked.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25153,12 +26249,12 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>ScribusWin</name>
     <message>
-        <location filename="../scribuswin.cpp" line="107"/>
+        <location filename="../scribuswin.cpp" line="109"/>
         <source>Document:</source>
         <translation>Документ:</translation>
     </message>
     <message>
-        <location filename="../scribuswin.cpp" line="109"/>
+        <location filename="../scribuswin.cpp" line="111"/>
         <source>has been changed since the last save.</source>
         <translation>був змінений з часу останнього запису.</translation>
     </message>
@@ -25184,33 +26280,33 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>ScripterCore</name>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="570"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="574"/>
         <source>Script error</source>
         <translation>Помилка сценарія</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="351"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="353"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation>Якщо ви використовуєте офіційний сценарій то, будь-ласка, повідомляйте про помилки на &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="353"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="355"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>Це повідомлення також розміщене в блоці копіювання. Використайте 
 Ctrl-V для вставки його в систему обробітку програмних помилок.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="493"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="497"/>
         <source>Examine Script</source>
         <translation>Розглянути сценарій</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="420"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="424"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>Під час виконання введеної Вами команди була знайдена внутрішня помилка. Деталі будуть надруковані в стандартний вивід помилок. </translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="572"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="576"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Активація модуля пітона не вдалася. Деталі помилки будуть надруковані в стандартний вивід помилок. </translation>
     </message>
@@ -25220,22 +26316,22 @@ Ctrl-V для вставки його в систему обробітку пр�
         <translation type="obsolete">Сценарії на Пітоні (*.py);; Всі файли (*)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="506"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="510"/>
         <source>Documentation for:</source>
         <translation>Документація для:</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="515"/>
         <source>Script</source>
         <translation>Сценарій</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="515"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation> не містить ніякого опису!</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="493"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="497"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25368,7 +26464,7 @@ Ctrl-V для вставки його в систему обробітку пр�
 <context>
     <name>SeList</name>
     <message>
-        <location filename="../pagepalette.cpp" line="55"/>
+        <location filename="../pagepalette.cpp" line="57"/>
         <source>Show Page Previews</source>
         <translation>Попередній перегляд сторінок</translation>
     </message>
@@ -25376,7 +26472,7 @@ Ctrl-V для вставки його в систему обробітку пр�
 <context>
     <name>SearchReplace</name>
     <message>
-        <location filename="../search.cpp" line="638"/>
+        <location filename="../search.cpp" line="600"/>
         <source>Search/Replace</source>
         <translation>Пошук/Заміна</translation>
     </message>
@@ -25506,7 +26602,7 @@ Ctrl-V для вставки його в систему обробітку пр�
         <translation>О&amp;чистити</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="639"/>
+        <location filename="../search.cpp" line="601"/>
         <source>Search finished, found %1 matches</source>
         <translation>Пошук завершено, знайдено %1 співпадіння</translation>
     </message>
@@ -25560,17 +26656,17 @@ Ctrl-V для вставки його в систему обробітку пр�
 <context>
     <name>ShadowValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="123"/>
+        <location filename="../styleselect.cpp" line="125"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="122"/>
+        <location filename="../styleselect.cpp" line="124"/>
         <source>X-Offset</source>
         <translation>Зміщення по осі Х</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="124"/>
+        <location filename="../styleselect.cpp" line="126"/>
         <source>Y-Offset</source>
         <translation>Зміщення по осі У</translation>
     </message>
@@ -25584,12 +26680,12 @@ Ctrl-V для вставки його в систему обробітку пр�
         <translation>Короткі &amp;Слова...</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="156"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="159"/>
         <source>Short Words</source>
         <translation>Короткі слова</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="98"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="99"/>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -25617,57 +26713,57 @@ Ctrl-V для вставки його в систему обробітку пр�
         <translation type="unfinished">&amp;Установити ключ</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="104"/>
+        <location filename="../shortcutwidget.cpp" line="116"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="104"/>
+        <location filename="../shortcutwidget.cpp" line="116"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="104"/>
+        <location filename="../shortcutwidget.cpp" line="116"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="104"/>
+        <location filename="../shortcutwidget.cpp" line="116"/>
         <source>Meta</source>
         <translation type="unfinished">Мета</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="65"/>
+        <location filename="../shortcutwidget.cpp" line="77"/>
         <source>Meta+</source>
         <translation type="unfinished">Мета+</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="69"/>
+        <location filename="../shortcutwidget.cpp" line="81"/>
         <source>Shift+</source>
         <translation type="unfinished">Shift+</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="73"/>
+        <location filename="../shortcutwidget.cpp" line="85"/>
         <source>Alt+</source>
         <translation type="unfinished">Alt+</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="77"/>
+        <location filename="../shortcutwidget.cpp" line="89"/>
         <source>Ctrl+</source>
         <translation type="unfinished">Ctrl+</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="33"/>
+        <location filename="../shortcutwidget.cpp" line="45"/>
         <source>No shortcut for the style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="34"/>
+        <location filename="../shortcutwidget.cpp" line="46"/>
         <source>Style has user defined shortcut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="35"/>
+        <location filename="../shortcutwidget.cpp" line="47"/>
         <source>Assign a shortcut for the style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25675,14 +26771,14 @@ Ctrl-V для вставки його в систему обробітку пр�
 <context>
     <name>SideBar</name>
     <message>
-        <location filename="../story.cpp" line="160"/>
+        <location filename="../story.cpp" line="187"/>
         <source>No Style</source>
-        <translation type="obsolete">Стиль відсутній</translation>
+        <translation type="unfinished">Стиль відсутній</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="123"/>
+        <location filename="../story.cpp" line="138"/>
         <source>Edit Styles...</source>
-        <translation type="obsolete">Редагувати стилі...</translation>
+        <translation type="unfinished">Редагувати стилі...</translation>
     </message>
 </context>
 <context>
@@ -25754,57 +26850,57 @@ Ctrl-V для вставки його в систему обробітку пр�
 <context>
     <name>StoryEditor</name>
     <message>
-        <location filename="../story.cpp" line="1813"/>
+        <location filename="../story.cpp" line="1951"/>
         <source>Story Editor</source>
         <translation>Редактор тексту</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1730"/>
+        <location filename="../story.cpp" line="1863"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1732"/>
+        <location filename="../story.cpp" line="1865"/>
         <source>Current Paragraph:</source>
         <translation>Активний абзац:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1737"/>
+        <location filename="../story.cpp" line="1870"/>
         <source>Words: </source>
         <translation>Слова:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1738"/>
+        <location filename="../story.cpp" line="1871"/>
         <source>Chars: </source>
         <translation>Символи:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1735"/>
+        <location filename="../story.cpp" line="1868"/>
         <source>Totals:</source>
         <translation>Сумми:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1736"/>
+        <location filename="../story.cpp" line="1869"/>
         <source>Paragraphs: </source>
         <translation>Абзаци:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2927"/>
+        <location filename="../story.cpp" line="3061"/>
         <source>Open</source>
         <translation>Відчинити</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2962"/>
+        <location filename="../story.cpp" line="3096"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Текстові файли (*.txt);;Всі файли(*)</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2962"/>
+        <location filename="../story.cpp" line="3096"/>
         <source>Save as</source>
         <translation>Записати як</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1853"/>
+        <location filename="../story.cpp" line="1991"/>
         <source>Do you want to save your changes?</source>
         <translation>Записати зміни?</translation>
     </message>
@@ -25814,162 +26910,162 @@ Ctrl-V для вставки його в систему обробітку пр�
         <translation type="obsolete">&amp;Новий</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1696"/>
+        <location filename="../story.cpp" line="1829"/>
         <source>&amp;Reload Text from Frame</source>
         <translation>&amp;Поновити текст з рамки</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1697"/>
+        <location filename="../story.cpp" line="1830"/>
         <source>&amp;Save to File...</source>
         <translation>За&amp;писати в файл...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1698"/>
+        <location filename="../story.cpp" line="1831"/>
         <source>&amp;Load from File...</source>
         <translation>&amp;Завантажити з файла...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1699"/>
+        <location filename="../story.cpp" line="1832"/>
         <source>Save &amp;Document</source>
         <translation>Записати &amp;документ</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1700"/>
+        <location filename="../story.cpp" line="1833"/>
         <source>&amp;Update Text Frame and Exit</source>
         <translation>Поно&amp;вити текстову рамку та вийти</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1701"/>
+        <location filename="../story.cpp" line="1834"/>
         <source>&amp;Exit Without Updating Text Frame</source>
         <translation>Вийти &amp;без поновлення текстової рамки</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1705"/>
+        <location filename="../story.cpp" line="1838"/>
         <source>Cu&amp;t</source>
         <translation>Ви&amp;різати</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1706"/>
+        <location filename="../story.cpp" line="1839"/>
         <source>&amp;Copy</source>
         <translation>&amp;Скопіювати</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1707"/>
+        <location filename="../story.cpp" line="1840"/>
         <source>&amp;Paste</source>
         <translation>&amp;Вклеїти</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1708"/>
+        <location filename="../story.cpp" line="1841"/>
         <source>C&amp;lear</source>
         <translation>О&amp;чистити</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1712"/>
+        <location filename="../story.cpp" line="1845"/>
         <source>&amp;Update Text Frame</source>
         <translation>&amp;Поновити вміст текстової рамки</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1694"/>
+        <location filename="../story.cpp" line="1827"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1703"/>
+        <location filename="../story.cpp" line="1836"/>
         <source>&amp;Edit</source>
         <translation>&amp;Редагувати</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1704"/>
+        <location filename="../story.cpp" line="1837"/>
         <source>Select &amp;All</source>
         <translation>Виді&amp;лити все</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1710"/>
+        <location filename="../story.cpp" line="1843"/>
         <source>&amp;Edit Styles...</source>
         <translation>&amp;Редагувати стилі...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1709"/>
+        <location filename="../story.cpp" line="1842"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Пошук/Заміна...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1711"/>
+        <location filename="../story.cpp" line="1844"/>
         <source>&amp;Fonts Preview...</source>
         <translation>&amp;Попередній перегляд шрифтів...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1723"/>
+        <location filename="../story.cpp" line="1856"/>
         <source>&amp;Background...</source>
         <translation>&amp;Фон...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1724"/>
+        <location filename="../story.cpp" line="1857"/>
         <source>&amp;Display Font...</source>
         <translation>&amp;Екранний шрифт...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1722"/>
+        <location filename="../story.cpp" line="1855"/>
         <source>&amp;Settings</source>
         <translation>&amp;Установки</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1725"/>
+        <location filename="../story.cpp" line="1858"/>
         <source>&amp;Smart text selection</source>
         <translation>&amp;Розумне виділення тексту</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1719"/>
+        <location filename="../story.cpp" line="1852"/>
         <source>&amp;Insert Glyph...</source>
         <translation>Вставити &amp;Символ...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1695"/>
+        <location filename="../story.cpp" line="1828"/>
         <source>Clear All Text</source>
         <translation>Очистити весь текст</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1797"/>
+        <location filename="../story.cpp" line="1932"/>
         <source>Story Editor - %1</source>
         <translation>Редактор тексту - %1</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2437"/>
+        <location filename="../story.cpp" line="2573"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>Ви справді бажаєте відмінити всі Ваші зміни?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2466"/>
+        <location filename="../story.cpp" line="2602"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ви справді бажаєте очистити весь Ваш текст?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1715"/>
+        <location filename="../story.cpp" line="1848"/>
         <source>&amp;Insert</source>
         <translation>&amp;Вставити</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1716"/>
+        <location filename="../story.cpp" line="1849"/>
         <source>Character</source>
         <translation>Символ</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1717"/>
+        <location filename="../story.cpp" line="1850"/>
         <source>Quote</source>
         <translation>Цитата</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1516"/>
+        <location filename="../story.cpp" line="1637"/>
         <source>Spaces &amp;&amp; Breaks</source>
         <translation>Проміжки та переноси</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1528"/>
+        <location filename="../story.cpp" line="1649"/>
         <source>Ligature</source>
         <translation>Лігатура</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1718"/>
+        <location filename="../story.cpp" line="1851"/>
         <source>Space</source>
         <translation>Проміжок</translation>
     </message>
@@ -25977,22 +27073,22 @@ Ctrl-V для вставки його в систему обробітку пр�
 <context>
     <name>StrikeValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="29"/>
+        <location filename="../styleselect.cpp" line="31"/>
         <source>Auto</source>
         <translation>Автоматична</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="40"/>
+        <location filename="../styleselect.cpp" line="42"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="39"/>
+        <location filename="../styleselect.cpp" line="41"/>
         <source>Displacement</source>
         <translation>Зміщення</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="41"/>
+        <location filename="../styleselect.cpp" line="43"/>
         <source>Linewidth</source>
         <translation>Товщина лінії</translation>
     </message>
@@ -26005,204 +27101,209 @@ Ctrl-V для вставки його в систему обробітку пр�
         <translation type="obsolete">Вибрано більш ніж один об&apos;єкт</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="340"/>
+        <location filename="../stylemanager.ui" line="351"/>
         <source>Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="489"/>
+        <location filename="../stylemanager.ui" line="500"/>
         <source>&amp;Reset</source>
         <translation type="unfinished">&amp;Перезавантажити</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="467"/>
+        <location filename="../stylemanager.ui" line="478"/>
         <source>&amp;Apply</source>
         <translation type="unfinished">&amp;Застосувати</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="158"/>
+        <location filename="../stylemanager.ui" line="169"/>
         <source>&amp;New</source>
         <translation type="unfinished">&amp;Новий</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="224"/>
+        <location filename="../stylemanager.ui" line="235"/>
         <source>&amp;Import</source>
         <translation type="unfinished">І&amp;мпортувати</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="189"/>
+        <location filename="../stylemanager.ui" line="200"/>
         <source>&amp;Clone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="240"/>
+        <location filename="../stylemanager.ui" line="251"/>
         <source>&amp;Delete</source>
         <translation type="unfinished">&amp;Видалити</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="94"/>
+        <location filename="../stylemanager.cpp" line="106"/>
         <source>Reset all changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="95"/>
+        <location filename="../stylemanager.cpp" line="107"/>
         <source>Apply all changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="89"/>
+        <location filename="../stylemanager.cpp" line="101"/>
         <source>Apply all changes and exit edit mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="96"/>
+        <location filename="../stylemanager.cpp" line="108"/>
         <source>Create a new style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="97"/>
+        <location filename="../stylemanager.cpp" line="109"/>
         <source>Import styles from another document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="98"/>
+        <location filename="../stylemanager.cpp" line="110"/>
         <source>Clone selected style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="99"/>
+        <location filename="../stylemanager.cpp" line="111"/>
         <source>Delete selected styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="601"/>
+        <location filename="../stylemanager.cpp" line="618"/>
         <source>New</source>
         <translation type="unfinished">Новий</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="145"/>
+        <location filename="../stylemanager.cpp" line="157"/>
         <source>Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="148"/>
+        <location filename="../stylemanager.cpp" line="160"/>
         <source>Clone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="149"/>
+        <location filename="../stylemanager.cpp" line="161"/>
         <source>Send to Scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="151"/>
+        <location filename="../stylemanager.cpp" line="163"/>
         <source>Delete</source>
         <translation type="unfinished">Видалити</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="689"/>
+        <location filename="../stylemanager.cpp" line="708"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="108"/>
+        <location filename="../stylemanager.cpp" line="120"/>
         <source>&amp;Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="67"/>
+        <location filename="../stylemanager.ui" line="78"/>
         <source>Shortcut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="62"/>
+        <location filename="../stylemanager.ui" line="73"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="91"/>
+        <location filename="../stylemanager.cpp" line="103"/>
         <source>Edit styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="93"/>
+        <location filename="../stylemanager.cpp" line="105"/>
         <source>Name of the selected style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="147"/>
+        <location filename="../stylemanager.cpp" line="159"/>
         <source>Edit</source>
         <translation type="unfinished">Редагувати</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="588"/>
+        <location filename="../stylemanager.cpp" line="605"/>
         <source>New %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="978"/>
+        <location filename="../stylemanager.cpp" line="997"/>
         <source>This key sequence is already in use</source>
         <translation type="unfinished">Ця ключова послідовність вже використовується</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1066"/>
+        <location filename="../stylemanager.cpp" line="1085"/>
         <source>More than one style selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="283"/>
+        <location filename="../stylemanager.cpp" line="295"/>
         <source>Open</source>
         <translation type="unfinished">Відчинити</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="283"/>
+        <location filename="../stylemanager.cpp" line="295"/>
         <source>documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="161"/>
+        <location filename="../stylemanager.ui" line="172"/>
         <source>Alt+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="186"/>
+        <location filename="../stylemanager.ui" line="197"/>
         <source>Clone copies the style to make similar styles easily.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="192"/>
+        <location filename="../stylemanager.ui" line="203"/>
         <source>Alt+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="227"/>
+        <location filename="../stylemanager.ui" line="238"/>
         <source>Alt+I</source>
         <translation type="unfinished">Alt+I</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="448"/>
+        <location filename="../stylemanager.ui" line="459"/>
         <source>Alt+D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="371"/>
+        <location filename="../stylemanager.ui" line="382"/>
         <source>Please select a unique name for the style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="445"/>
+        <location filename="../stylemanager.ui" line="456"/>
         <source>&lt;&lt; &amp;Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="470"/>
+        <location filename="../stylemanager.ui" line="481"/>
         <source>Alt+A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="492"/>
+        <location filename="../stylemanager.ui" line="503"/>
         <source>Alt+R</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="22"/>
+        <source>Style Manager</source>
+        <translation type="unfinished">Менеджер стилів</translation>
     </message>
 </context>
 <context>
@@ -26213,17 +27314,17 @@ Ctrl-V для вставки його в систему обробітку пр�
         <translation type="obsolete">Підкреслення</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="257"/>
+        <location filename="../styleselect.cpp" line="272"/>
         <source>Small Caps</source>
         <translation>Капітель</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="258"/>
+        <location filename="../styleselect.cpp" line="273"/>
         <source>Subscript</source>
         <translation>Нижній індекс</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="259"/>
+        <location filename="../styleselect.cpp" line="274"/>
         <source>Superscript</source>
         <translation>Верхній індекс</translation>
     </message>
@@ -26238,7 +27339,7 @@ Ctrl-V для вставки його в систему обробітку пр�
         <translation type="obsolete">Підкреслити лише слова</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="256"/>
+        <location filename="../styleselect.cpp" line="271"/>
         <source>All Caps</source>
         <translation>Всі великі літери</translation>
     </message>
@@ -26254,29 +27355,52 @@ Ctrl-V для вставки його в систему обробітку пр�
         <translation type="obsolete">Схема</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="254"/>
+        <location filename="../styleselect.cpp" line="269"/>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="255"/>
+        <location filename="../styleselect.cpp" line="270"/>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="260"/>
+        <location filename="../styleselect.cpp" line="275"/>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="261"/>
+        <location filename="../styleselect.cpp" line="276"/>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="262"/>
+        <location filename="../styleselect.cpp" line="277"/>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SubdividePlugin</name>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="66"/>
+        <source>Subdivide Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="70"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="87"/>
+        <source>Subdivide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="88"/>
+        <source>Subdivide selected Path</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26346,22 +27470,22 @@ Scribus.</translation>
 <context>
     <name>TOCIndexPrefs</name>
     <message>
-        <location filename="../tocindexprefs.cpp" line="105"/>
+        <location filename="../tocindexprefs.cpp" line="114"/>
         <source>None</source>
         <translation>Ніякого</translation>
     </message>
     <message>
         <location filename="../tocindexprefs.cpp" line="107"/>
         <source>At the beginning</source>
-        <translation>На початку</translation>
+        <translation type="obsolete">На початку</translation>
     </message>
     <message>
         <location filename="../tocindexprefs.cpp" line="109"/>
         <source>At the end</source>
-        <translation>В кінці</translation>
+        <translation type="obsolete">В кінці</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="111"/>
+        <location filename="../tocindexprefs.cpp" line="120"/>
         <source>Not Shown</source>
         <translation>Не показано</translation>
     </message>
@@ -26371,77 +27495,77 @@ Scribus.</translation>
         <translation>Зміст та індекси</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="26"/>
+        <location filename="../tocindexprefs.ui" line="35"/>
         <source>Table Of Contents</source>
         <translation>Зміст</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="60"/>
+        <location filename="../tocindexprefs.ui" line="96"/>
         <source>&amp;Add</source>
         <translation>&amp;Додати</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="63"/>
+        <location filename="../tocindexprefs.ui" line="99"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="70"/>
+        <location filename="../tocindexprefs.ui" line="106"/>
         <source>&amp;Delete</source>
         <translation>&amp;Видалити</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="73"/>
+        <location filename="../tocindexprefs.ui" line="109"/>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="100"/>
+        <location filename="../tocindexprefs.ui" line="157"/>
         <source>The frame the table of contents will be placed into</source>
         <translation>Рамка в якій буде розміщено зміст</translation>
     </message>
     <message>
         <location filename="../tocindexprefs.ui" line="107"/>
         <source>Page Numbers Placed:</source>
-        <translation>Розміщені номери сторінок:</translation>
+        <translation type="obsolete">Розміщені номери сторінок:</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="117"/>
+        <location filename="../tocindexprefs.ui" line="174"/>
         <source>Item Attribute Name:</source>
         <translation>Назва атрибута об&apos;єкта:</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="127"/>
+        <location filename="../tocindexprefs.ui" line="184"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
         <translation>Атрибут об&apos;єкта, який буде встановлено для рамок, які будуть використані для створення нових пунктів</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="134"/>
+        <location filename="../tocindexprefs.ui" line="191"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
         <translation>Розмістити номери сторінок пунктів на початку або в кінці рядка, або ніде</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="144"/>
+        <location filename="../tocindexprefs.ui" line="201"/>
         <source>List Non-Printing Entries</source>
         <translation>Представити список недрукуємих пунктів</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="141"/>
+        <location filename="../tocindexprefs.ui" line="198"/>
         <source>Include frames that are set to not print as well</source>
         <translation>Також включити рамки, які не будуть надруковані</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="151"/>
+        <location filename="../tocindexprefs.ui" line="208"/>
         <source>The paragraph style used for the entry lines</source>
         <translation>Стиль абзацу використовуваний для рядків</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="158"/>
+        <location filename="../tocindexprefs.ui" line="215"/>
         <source>Paragraph Style:</source>
         <translation>Стиль абзацу:</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="168"/>
+        <location filename="../tocindexprefs.ui" line="225"/>
         <source>Destination Frame:</source>
         <translation>Цільова рамка:</translation>
     </message>
@@ -26451,8 +27575,23 @@ Scribus.</translation>
         <translation type="obsolete">Інде&amp;кс</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="247"/>
+        <location filename="../tocindexprefs.cpp" line="256"/>
         <source>Table of Contents %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tocindexprefs.ui" line="164"/>
+        <source>Page Number Placement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tocindexprefs.cpp" line="116"/>
+        <source>Beginning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tocindexprefs.cpp" line="118"/>
+        <source>End</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26677,7 +27816,7 @@ Scribus.</translation>
     <message>
         <location filename="../tabdisplay.cpp" line="36"/>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished">Переключає показ зображень</translation>
+        <translation type="obsolete">Переключає показ зображень</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="37"/>
@@ -26715,178 +27854,188 @@ Scribus.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="31"/>
+        <location filename="../tabdisplay.ui" line="43"/>
         <source>General</source>
         <translation type="unfinished">Загальні</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="43"/>
+        <location filename="../tabdisplay.ui" line="295"/>
         <source>Adjust Display Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="79"/>
+        <location filename="../tabdisplay.ui" line="362"/>
         <source>Scale%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="110"/>
+        <location filename="../tabdisplay.ui" line="319"/>
         <source>To adjust the display drag the ruler below with the slider.</source>
         <translation type="unfinished">Для зміни видимого перетягніть лінійку внизу повзунком.</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="123"/>
+        <location filename="../tabdisplay.ui" line="242"/>
         <source>Gaps Between Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="138"/>
+        <location filename="../tabdisplay.ui" line="269"/>
         <source>Vertical:</source>
         <translation type="unfinished">Вертикальна:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="151"/>
+        <location filename="../tabdisplay.ui" line="282"/>
         <source>Horizontal:</source>
         <translation type="unfinished">Горизонтальна:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="164"/>
+        <location filename="../tabdisplay.ui" line="144"/>
         <source>Scratch Space</source>
         <translation type="unfinished">Чорновик</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="179"/>
+        <location filename="../tabdisplay.ui" line="171"/>
         <source>&amp;Bottom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="195"/>
+        <location filename="../tabdisplay.ui" line="187"/>
         <source>&amp;Top:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="211"/>
+        <location filename="../tabdisplay.ui" line="203"/>
         <source>&amp;Right:</source>
         <translation type="unfinished">&amp;Правий край:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="234"/>
+        <location filename="../tabdisplay.ui" line="226"/>
         <source>&amp;Left:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="250"/>
+        <location filename="../tabdisplay.ui" line="49"/>
         <source>Page Display</source>
         <translation type="unfinished">Показ сторінки</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="262"/>
+        <location filename="../tabdisplay.ui" line="73"/>
         <source>Show Bleed Area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="269"/>
+        <location filename="../tabdisplay.ui" line="80"/>
         <source>Display &amp;Unprintable Area in Margin Color</source>
         <translation type="unfinished">Виділити &amp;недрукуєму область кольором поля</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="272"/>
+        <location filename="../tabdisplay.ui" line="83"/>
         <source>Alt+U</source>
         <translation type="unfinished">Alt+U</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="279"/>
+        <location filename="../tabdisplay.ui" line="90"/>
         <source>Show Layer Indicators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="289"/>
+        <location filename="../tabdisplay.ui" line="100"/>
         <source>Show Frames</source>
         <translation type="unfinished">Показати рамки</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="299"/>
+        <location filename="../tabdisplay.ui" line="110"/>
         <source>Show Text Chains</source>
         <translation type="unfinished">Показати текстові ланцюги</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="309"/>
+        <location filename="../tabdisplay.ui" line="120"/>
         <source>Rulers Relative to Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="316"/>
+        <location filename="../tabdisplay.ui" line="127"/>
         <source>Show Text Control Characters</source>
         <translation type="unfinished">Показати контрольні знаки тексту</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="323"/>
         <source>Show Pictures</source>
-        <translation type="unfinished">Показати зображення</translation>
+        <translation type="obsolete">Показати зображення</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="350"/>
+        <location filename="../tabdisplay.ui" line="416"/>
         <source>Colors</source>
         <translation type="unfinished">Кольори</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="378"/>
+        <location filename="../tabdisplay.ui" line="456"/>
         <source>Pages:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="398"/>
+        <location filename="../tabdisplay.ui" line="497"/>
         <source>Selected Page Border:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="453"/>
+        <location filename="../tabdisplay.ui" line="561"/>
         <source>Fill Color:</source>
         <translation type="unfinished">Колір заповнення:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="487"/>
+        <location filename="../tabdisplay.ui" line="595"/>
         <source>Frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="507"/>
+        <location filename="../tabdisplay.ui" line="639"/>
         <source>Grouped:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="536"/>
+        <location filename="../tabdisplay.ui" line="668"/>
         <source>Annotation:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="629"/>
+        <location filename="../tabdisplay.ui" line="773"/>
         <source>Selected:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="639"/>
+        <location filename="../tabdisplay.ui" line="783"/>
         <source>Linked:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="675"/>
+        <location filename="../tabdisplay.ui" line="831"/>
         <source>Locked:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="723"/>
+        <location filename="../tabdisplay.ui" line="879"/>
         <source>Normal:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="738"/>
+        <location filename="../tabdisplay.ui" line="894"/>
         <source>Text:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="785"/>
+        <location filename="../tabdisplay.ui" line="953"/>
         <source>Control Characters:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabdisplay.cpp" line="36"/>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabdisplay.ui" line="134"/>
+        <source>Show Images</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -27119,17 +28268,17 @@ Scribus.</translation>
 <context>
     <name>TabExternalToolsWidget</name>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="125"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="114"/>
         <source>Locate Ghostscript</source>
         <translation type="unfinished">Знайти Ghostscript </translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="133"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="122"/>
         <source>Locate your image editor</source>
         <translation type="unfinished">Знайти редактор зображень</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="141"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="130"/>
         <source>Locate your web browser</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27139,42 +28288,42 @@ Scribus.</translation>
         <translation type="unfinished">Зовнішні інструменти</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="255"/>
+        <location filename="../tabexternaltoolswidget.ui" line="237"/>
         <source>Web Browser to launch with links from the Help system</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="258"/>
+        <location filename="../tabexternaltoolswidget.ui" line="240"/>
         <source>Web Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="498"/>
+        <location filename="../tabexternaltoolswidget.ui" line="367"/>
         <source>&amp;Change...</source>
         <translation type="unfinished">&amp;Замінити...</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="501"/>
+        <location filename="../tabexternaltoolswidget.ui" line="370"/>
         <source>Alt+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="292"/>
+        <location filename="../tabexternaltoolswidget.ui" line="274"/>
         <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="299"/>
+        <location filename="../tabexternaltoolswidget.ui" line="281"/>
         <source>Name of &amp;Executable:</source>
         <translation type="unfinished">Назва файла про&amp;грами:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="198"/>
+        <location filename="../tabexternaltoolswidget.ui" line="180"/>
         <source>Image Processing Tool</source>
         <translation type="unfinished">Інструмент для обробки зображень</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="232"/>
+        <location filename="../tabexternaltoolswidget.ui" line="214"/>
         <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27184,134 +28333,149 @@ Scribus.</translation>
         <translation type="unfinished">Інтерпретатор постскрипт</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="60"/>
+        <location filename="../tabexternaltoolswidget.ui" line="91"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation type="unfinished">Антиаліасинг тексту для рендерингу EPS та PDF на екрані</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="63"/>
+        <location filename="../tabexternaltoolswidget.ui" line="94"/>
         <source>Antialias &amp;Text</source>
         <translation type="unfinished">Антиаліасинг &amp;тексту</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="66"/>
+        <location filename="../tabexternaltoolswidget.ui" line="97"/>
         <source>Alt+T</source>
         <translation type="unfinished">Alt+T</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="89"/>
+        <location filename="../tabexternaltoolswidget.ui" line="120"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
         <translation type="unfinished">Антиаліасинг графіки для рендерингу EPS та PDF на екрані</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="92"/>
+        <location filename="../tabexternaltoolswidget.ui" line="123"/>
         <source>Antialias &amp;Graphics</source>
         <translation type="unfinished">Антиаліасинг &amp;графіки</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="95"/>
+        <location filename="../tabexternaltoolswidget.ui" line="126"/>
         <source>Alt+G</source>
         <translation type="unfinished">Alt+G</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="433"/>
+        <location filename="../tabexternaltoolswidget.ui" line="441"/>
         <source>Resolution:</source>
         <translation type="unfinished">Розрішення:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="446"/>
+        <location filename="../tabexternaltoolswidget.ui" line="454"/>
         <source> dpi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="338"/>
+        <location filename="../tabexternaltoolswidget.ui" line="42"/>
         <source>&amp;Name of Executable:</source>
         <translation type="unfinished">Назва файла про&amp;грами:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="176"/>
+        <location filename="../tabexternaltoolswidget.ui" line="55"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="617"/>
+        <location filename="../tabexternaltoolswidget.ui" line="521"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="620"/>
+        <location filename="../tabexternaltoolswidget.ui" line="524"/>
         <source>&amp;Rescan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="623"/>
+        <location filename="../tabexternaltoolswidget.ui" line="527"/>
         <source>Alt+R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="149"/>
-        <source>Locate your LaTeX executable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="157"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="138"/>
         <source>Locate your LaTeX editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="315"/>
+        <location filename="../tabexternaltoolswidget.ui" line="297"/>
         <source>LaTeX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="351"/>
-        <source>&lt;qt&gt;Path to LaTeX executable. Must be a program that produces one of the formats supported by image frames!&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabexternaltoolswidget.ui" line="387"/>
-        <source>Output file extension:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabexternaltoolswidget.ui" line="416"/>
+        <location filename="../tabexternaltoolswidget.ui" line="381"/>
         <source>Start with empty frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="423"/>
+        <location filename="../tabexternaltoolswidget.ui" line="418"/>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="426"/>
+        <location filename="../tabexternaltoolswidget.ui" line="421"/>
         <source>Force DPI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="478"/>
-        <source>Latex Editor:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabexternaltoolswidget.ui" line="491"/>
+        <location filename="../tabexternaltoolswidget.ui" line="360"/>
         <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="511"/>
+        <location filename="../tabexternaltoolswidget.ui" line="407"/>
         <source>Use Embedded Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabexternaltoolswidget.ui" line="527"/>
-        <source>Preamble:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="548"/>
         <source>End:</source>
-        <translation type="unfinished">Кінець:</translation>
+        <translation type="obsolete">Кінець:</translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.cpp" line="160"/>
+        <source>Locate a Configuration file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.cpp" line="162"/>
+        <source>Configuration files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="303"/>
+        <source>Configurations:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="312"/>
+        <source>Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="319"/>
+        <source>Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="326"/>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="333"/>
+        <source>Delete</source>
+        <translation type="unfinished">Видалити</translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="347"/>
+        <source>External Latex Editor:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27385,60 +28549,60 @@ Scribus.</translation>
 <context>
     <name>TabGeneral</name>
     <message>
-        <location filename="../tabgeneral.cpp" line="66"/>
+        <location filename="../tabgeneral.cpp" line="65"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
         <translation type="unfinished">Виберіть основну мову для використання в Scribus. Залиште пустим для використання перемінних робочого середовища. Ви зможете змінити цю установку за допомогою використання перемикачів командної строки при запуску Scribus</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="67"/>
+        <location filename="../tabgeneral.cpp" line="66"/>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation type="unfinished">Скільки недавно редагованих документів показувати в меню Файл</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="68"/>
+        <location filename="../tabgeneral.cpp" line="67"/>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
         <translation type="unfinished">Число рядків для прокручування на кожний рух колеса мишки</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="69"/>
+        <location filename="../tabgeneral.cpp" line="68"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
         <translation type="unfinished">Виберіть стандартні декорацію вікон та вигляд програми. Scribus має доступ до всіх наявних тем KDE та Qt, якщо Qt
 сконфігурований для пошуку KDE модулів.</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="70"/>
+        <location filename="../tabgeneral.cpp" line="69"/>
         <source>Default font size for the menus and windows</source>
         <translation type="unfinished">Стандартний розмір шрифта для меню та вікон</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="71"/>
+        <location filename="../tabgeneral.cpp" line="70"/>
         <source>Default font size for the tool windows</source>
         <translation type="unfinished">Стандартний розмір шрифта для вікон інструментарію</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="72"/>
+        <location filename="../tabgeneral.cpp" line="71"/>
         <source>Default documents directory</source>
         <translation type="unfinished">Стандартна директорія для документів</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="74"/>
+        <location filename="../tabgeneral.cpp" line="73"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
         <translation type="unfinished">Стандартна директорія для кольорових профілів. Ця установка не може бути змінена при відчиненому документі. По умовчанню
 Scribus виконає пошук в системних директоріях під системами MacOSX та Windows. Під Linux та Unix Scribus шукатиме в
 директоріях $home/.color/icc,/usr/share/color/icc та /usr/local/share/color/icc(sp)</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="75"/>
+        <location filename="../tabgeneral.cpp" line="74"/>
         <source>Default Scripter scripts directory</source>
         <translation type="unfinished">Стандартна директорія для сценаріїв Сценариста</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="76"/>
+        <location filename="../tabgeneral.cpp" line="75"/>
         <source>Additional directory for document templates</source>
         <translation type="unfinished">Додаткова директорія для шаблонів</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="132"/>
+        <location filename="../tabgeneral.cpp" line="131"/>
         <source>Choose a Directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27573,7 +28737,7 @@ Scribus виконає пошук в системних директоріях �
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="73"/>
+        <location filename="../tabgeneral.cpp" line="72"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27854,50 +29018,50 @@ Scribus виконає пошук в системних директоріях �
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation type="unfinished">Файли ключового набору XML (*.ksxml)</translation>
+        <translation type="obsolete">Файли ключового набору XML (*.ksxml)</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="551"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="551"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="551"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="551"/>
         <source>Meta</source>
         <translation type="unfinished">Мета</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="478"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="501"/>
         <source>Meta+</source>
         <translation type="unfinished">Мета+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="482"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="505"/>
         <source>Shift+</source>
         <translation type="unfinished">Shift+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="486"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="509"/>
         <source>Alt+</source>
         <translation type="unfinished">Alt+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="490"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="513"/>
         <source>Ctrl+</source>
         <translation type="unfinished">Ctrl+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="500"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="523"/>
         <source>This key sequence is already in use</source>
         <translation type="unfinished">Ця ключова послідовність вже використовується</translation>
     </message>
@@ -28032,23 +29196,28 @@ Scribus виконає пошук в системних директоріях �
         <translation type="unfinished">Набори гарячих клавіш доступні для завантаження</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="131"/>
-        <source>Choose a file to read</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
-        <source>Choose a file to save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="233"/>
         <source>Export Keyboard Shortcuts to File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="233"/>
         <source>Enter the name of the shortcut set:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="154"/>
+        <source>Select a Key set file to read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="162"/>
+        <source>Key Set XML Files (*.xml)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="162"/>
+        <source>Select a Key set file to save to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28387,7 +29556,7 @@ Scribus виконає пошук в системних директоріях �
         <translation>Ввімкнути презентаційні &amp;ефекти</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1759"/>
+        <location filename="../tabpdfoptions.cpp" line="1758"/>
         <source>Page</source>
         <translation>Сторінка</translation>
     </message>
@@ -28519,7 +29688,7 @@ Scribus виконає пошук в системних директоріях �
     <message>
         <location filename="../tabpdfoptions.cpp" line="532"/>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>Застосувати ефект на в&amp;сіх сторінках</translation>
+        <translation type="obsolete">Застосувати ефект на в&amp;сіх сторінках</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="535"/>
@@ -28727,138 +29896,138 @@ Scribus виконає пошук в системних директоріях �
         <translation type="obsolete">PDF/X-&amp;3</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="899"/>
+        <location filename="../tabpdfoptions.cpp" line="898"/>
         <source>Show page previews of each page listed above.</source>
         <translation>Показувати попередній перегляд кожної сторінки вказаної вверху.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="902"/>
+        <location filename="../tabpdfoptions.cpp" line="901"/>
         <source>Type of the display effect.</source>
         <translation>Тип ефекту.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="903"/>
+        <location filename="../tabpdfoptions.cpp" line="902"/>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
         <translation>Напрямок руху ліній для ефектів &quot;розділений&quot; і &quot;венеціанська штора&quot;.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="904"/>
+        <location filename="../tabpdfoptions.cpp" line="903"/>
         <source>Starting position for the box and split effects.</source>
         <translation>Початкова позиція для ефектів &quot;коробка&quot; і &quot;розділений&quot;.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="905"/>
+        <location filename="../tabpdfoptions.cpp" line="904"/>
         <source>Direction of the glitter or wipe effects.</source>
         <translation>Напрямок руху ефектів &quot;блиск&quot; і &quot;витирання&quot;.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="906"/>
+        <location filename="../tabpdfoptions.cpp" line="905"/>
         <source>Apply the selected effect to all pages.</source>
         <translation>Застосувати вибраний ефект на всіх сторінках.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="939"/>
+        <location filename="../tabpdfoptions.cpp" line="938"/>
         <source>Export all pages to PDF</source>
         <translation>Експортувати всі сторінки в PDF</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="940"/>
+        <location filename="../tabpdfoptions.cpp" line="939"/>
         <source>Export a range of pages to PDF</source>
         <translation>Експортувати діапазон сторінок в PDF</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="948"/>
+        <location filename="../tabpdfoptions.cpp" line="947"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
         <translation>Генерувати PDF Статті. Вони корисні для навігації ссилок на статті в PDF.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="956"/>
+        <location filename="../tabpdfoptions.cpp" line="955"/>
         <source>DPI (Dots Per Inch) for image export.</source>
         <translation>DPI (Точок на квадратний дюйм) для експорту зображень.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="959"/>
+        <location filename="../tabpdfoptions.cpp" line="958"/>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation>Виберіть пароль для захисту PDF документа від перегляду.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="960"/>
+        <location filename="../tabpdfoptions.cpp" line="959"/>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
         <translation>Дозволити друк PDF. Якщо не вибрати цей параметр, то друк буде заборонено.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="961"/>
+        <location filename="../tabpdfoptions.cpp" line="960"/>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
         <translation>Дозволити редагування PDF. Якщо цей параметр не вибрати, то редагування PDF буде заборонено.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="966"/>
+        <location filename="../tabpdfoptions.cpp" line="965"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Вбудувати кольоровий профіль для однотонних кольорів</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="967"/>
+        <location filename="../tabpdfoptions.cpp" line="966"/>
         <source>Color profile for solid colors</source>
         <translation>Кольоровий профіль для однотонних кольорів</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="968"/>
+        <location filename="../tabpdfoptions.cpp" line="967"/>
         <source>Rendering intent for solid colors</source>
         <translation>Схема перерахунку кольорів для однотонних кольорів</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="969"/>
+        <location filename="../tabpdfoptions.cpp" line="968"/>
         <source>Embed a color profile for images</source>
         <translation>Вбудований кольоровий профіль для зображень</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="970"/>
+        <location filename="../tabpdfoptions.cpp" line="969"/>
         <source>Do not use color profiles that are embedded in source images</source>
         <translation>Не використовувати кольорові профілі вбудовані в оригінальні зображення</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="971"/>
+        <location filename="../tabpdfoptions.cpp" line="970"/>
         <source>Color profile for images</source>
         <translation>Кольоровий профіль для зображень</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="972"/>
+        <location filename="../tabpdfoptions.cpp" line="971"/>
         <source>Rendering intent for images</source>
         <translation>Схема перерахунку кольорів для зображень</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="990"/>
+        <location filename="../tabpdfoptions.cpp" line="989"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
         <translation>Профіль для друку. При можливості скористайтеся порадами 
 технолога типографії для правильного вибору цього профіля.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="985"/>
+        <location filename="../tabpdfoptions.cpp" line="984"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Розмір поля для перекриття з верхньої сторони фізичної сторінки</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="986"/>
+        <location filename="../tabpdfoptions.cpp" line="985"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation>Розмір поля для перекриття з нижньої сторони фізичної сторінки</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="987"/>
+        <location filename="../tabpdfoptions.cpp" line="986"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation>Розмір поля для перекриття з лівої сторони фізичної сторінки</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="988"/>
+        <location filename="../tabpdfoptions.cpp" line="987"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Розмір поля для перекриття з правої сторони фізичної сторінки</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="973"/>
+        <location filename="../tabpdfoptions.cpp" line="972"/>
         <source>Mirror Page(s) horizontally</source>
         <translation>Віддзеркалити сторінку(и) горизонтально</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="974"/>
+        <location filename="../tabpdfoptions.cpp" line="973"/>
         <source>Mirror Page(s) vertically</source>
         <translation>Віддзеркалити сторінку(и) вертикально</translation>
     </message>
@@ -28878,17 +30047,17 @@ Scribus виконає пошук в системних директоріях �
         <translation type="obsolete">Рівні якості стиснення для методів, які допускають втрату якості: Мінімальна (25%), Низька (50%), Середня (75%), Висока (85%), Максимальна (95%). Майте на увазі, що рівень якості прямо не визначає розмір кінцевого зображення - і розмір і втрата якості будуть різними для різних зображень на любому рівні якості.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="962"/>
+        <location filename="../tabpdfoptions.cpp" line="961"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
         <translation>Дозволити копіювання тексту чи графіки з PDF. Якщо не вибрано, текст та графіка не можуть бути скопійовані.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="963"/>
+        <location filename="../tabpdfoptions.cpp" line="962"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
         <translation>Дозволити додавання аннотацій та полів до PDF. Якщо не вибрано, редагування аннотацій та полів не дозволяється.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="976"/>
+        <location filename="../tabpdfoptions.cpp" line="975"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Дозволяє конвертування реєстрових кольорів в композитні. Якщо Ви не збираєтеся друкувати Ваш документ в
 комерційній друкарні реєстровими кольорами то краще залиште цю установку ввімкненою.</translation>
@@ -28909,64 +30078,64 @@ Scribus виконає пошук в системних директоріях �
         <translation type="obsolete">Пере&amp;рахувати зображення до:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="897"/>
+        <location filename="../tabpdfoptions.cpp" line="896"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
         <translation>Вбудувати шрифти в PDF. Вбудовування шрифтів забезпечить точне збереження формату та вигляду документа.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="901"/>
+        <location filename="../tabpdfoptions.cpp" line="900"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation>Час дії ефекту. Коротший час пришвидшить ефект, а довший час його сповільнить.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="943"/>
+        <location filename="../tabpdfoptions.cpp" line="942"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
         <translation>Вмістити список елементів, розділений комами де елемент
 може бути * для всіх сторінок, 1-5 для діапазона сторінок, або
 номер окремої сторінки.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="946"/>
+        <location filename="../tabpdfoptions.cpp" line="945"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation>Визначає переплітання сторінок в PDF. Якщо Ви не впевнені в необхідності зміни цієї установки то краще залиште стандартний метод - Ліве.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="947"/>
+        <location filename="../tabpdfoptions.cpp" line="946"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
         <translation>Створює зменшені зображення кожної сторінки в PDF.  Деякі програми для перегляду PDF можуть використовувати ці зменшені зображення для навігації.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="950"/>
+        <location filename="../tabpdfoptions.cpp" line="949"/>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
         <translation>Вбудувати закладки в документ. Вони можуть бути корисними для навігації в довгих PDF документах.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="951"/>
+        <location filename="../tabpdfoptions.cpp" line="950"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
         <translation>Розрішення експортування тексту та векторної графіки. Не має ніякого впливу на розрішення експортування растрових зображень, таких як фотографії.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="952"/>
+        <location filename="../tabpdfoptions.cpp" line="951"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
         <translation>Ввімкнути стиснення тексту та графіки без втрат якості. Залиште ввімкненим, якщо Ви не впевнені в необхідності зміни цієї установки. Приводить до зменшення розміру PDF файла.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="957"/>
+        <location filename="../tabpdfoptions.cpp" line="956"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Ввімкнути систему захисту в експортованому PDF. Якщо вибрано PDF 1.3, файл буде захищено 40-бітним шифруванням. PDF 1.4 дозволяє 128-бітне шифрування. Попередження: шифрування PDF не є таким надійним, як GPG чи PGP шифрування і має певні додаткові обмеження.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="958"/>
+        <location filename="../tabpdfoptions.cpp" line="957"/>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
         <translation>Виберіть головний пароль, який керує всіма засобами захисту в експортованому PDF</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="965"/>
+        <location filename="../tabpdfoptions.cpp" line="964"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Це продвинута установка не ввімкнена по умовчанню. Її варто вмикати лише по проханню друкаря, використовуючи надані ним параметри. В іншому випадку Ви ризикуєте тим, що експортований PDF не буде правильно друкуватися і не буде еквівалентно показаним на різних системах.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="991"/>
+        <location filename="../tabpdfoptions.cpp" line="990"/>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation>Обов&apos;язкова установка для PDF/X-3. В іншому випадку PDF не відповідатиме вимогам PDF/X-3. Ми рекомендуємо використання заголовку документа.</translation>
     </message>
@@ -29051,7 +30220,7 @@ Scribus виконає пошук в системних директоріях �
         <translation>Особливі дії</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1169"/>
+        <location filename="../tabpdfoptions.cpp" line="1168"/>
         <source>No Script</source>
         <translation>Ніякого сценарію</translation>
     </message>
@@ -29088,7 +30257,7 @@ when PDF document is opened:</source>
 при відчиненні PDF документа:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="898"/>
+        <location filename="../tabpdfoptions.cpp" line="897"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Дозволяє використання презентаційних ефектів при застосуванні Adobe&amp;#174; Reader&amp;#174; та інших програм для перегляду PDF, які дозволяють це в повноекранному режимі.</translation>
     </message>
@@ -29098,7 +30267,7 @@ when PDF document is opened:</source>
         <translation type="obsolete">Визначає рівень сумісності PDF. По умовчанню використовується PDF 1.3, який має найбільшу сумісність. Виберіть PDF 1.4, якщо Ваш файл використовує такі можливості, як прозорість або Ви потребуєте використання 128-бітного шифрування. Використовуйте PDF 1.5, якщо Ви бажаєте зберегти об&apos;єкти на різних планах всередині PDF документа. PDF/X-3 використовується для експортування PDF при застосуванні керування RGB кольорами для комерційного друку і може бути вибраний лише при ввімкненому керуванні кольорами. Використовуйте лише з поради Вашого друкаря або, в деяких випадках, при друці на 4-х колірному лазерному принтері.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="949"/>
+        <location filename="../tabpdfoptions.cpp" line="948"/>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
         <translation>Плани у Вашому документі будуть експортовані в PDF лише при виборі PDF 1.5.</translation>
     </message>
@@ -29113,17 +30282,17 @@ when PDF document is opened:</source>
         <translation type="obsolete">Перерахувати растрові зображення до вибраних DPI. Вимкнення цієї установки приведе до того, що зображення будуть залишені з початковим розрішенням. Ввімкнення привете до підвищеного використання пам&apos;яті та сповільнення експортування.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="964"/>
+        <location filename="../tabpdfoptions.cpp" line="963"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation>Кольорова модель PDF експорту. Виберіть Екран/Веб для PDF документів призначених для показу на екрані комп&apos;ютера чи для друку на типових струменевих принтерах. Виберіть Принтер для друку на справжньому 4-х колірному СМЖЧ принтері. Виберіть Відтінки сірого для експорту PDF у відтінках сірого кольору.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="977"/>
+        <location filename="../tabpdfoptions.cpp" line="976"/>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>Не показувати об&apos;єкти за полями в експортованому файлі</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="900"/>
+        <location filename="../tabpdfoptions.cpp" line="899"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Скільки часу буде показана сторінка до початку презентації. Вибір 0 приведе до вимкнення автоматичної зміни сторінок.</translation>
     </message>
@@ -29133,12 +30302,12 @@ when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="975"/>
+        <location filename="../tabpdfoptions.cpp" line="974"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="945"/>
+        <location filename="../tabpdfoptions.cpp" line="944"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29228,27 +30397,27 @@ when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="907"/>
+        <location filename="../tabpdfoptions.cpp" line="906"/>
         <source>Convert all glyphs in the document to outlines.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="953"/>
+        <location filename="../tabpdfoptions.cpp" line="952"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="954"/>
+        <location filename="../tabpdfoptions.cpp" line="953"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1344"/>
+        <location filename="../tabpdfoptions.cpp" line="1343"/>
         <source>Inside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1345"/>
+        <location filename="../tabpdfoptions.cpp" line="1344"/>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29263,102 +30432,102 @@ when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="909"/>
+        <location filename="../tabpdfoptions.cpp" line="908"/>
         <source>Show the document in single page mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="910"/>
+        <location filename="../tabpdfoptions.cpp" line="909"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="911"/>
+        <location filename="../tabpdfoptions.cpp" line="910"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="912"/>
+        <location filename="../tabpdfoptions.cpp" line="911"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="913"/>
+        <location filename="../tabpdfoptions.cpp" line="912"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="914"/>
+        <location filename="../tabpdfoptions.cpp" line="913"/>
         <source>Enables viewing the document in full screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="915"/>
+        <location filename="../tabpdfoptions.cpp" line="914"/>
         <source>Display the bookmarks upon opening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="916"/>
+        <location filename="../tabpdfoptions.cpp" line="915"/>
         <source>Display the page thumbnails upon opening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="917"/>
+        <location filename="../tabpdfoptions.cpp" line="916"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="918"/>
+        <location filename="../tabpdfoptions.cpp" line="917"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="919"/>
+        <location filename="../tabpdfoptions.cpp" line="918"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="920"/>
+        <location filename="../tabpdfoptions.cpp" line="919"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="955"/>
+        <location filename="../tabpdfoptions.cpp" line="954"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="979"/>
+        <location filename="../tabpdfoptions.cpp" line="978"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="980"/>
+        <location filename="../tabpdfoptions.cpp" line="979"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="981"/>
+        <location filename="../tabpdfoptions.cpp" line="980"/>
         <source>Add registration marks to each separation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="982"/>
+        <location filename="../tabpdfoptions.cpp" line="981"/>
         <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="983"/>
+        <location filename="../tabpdfoptions.cpp" line="982"/>
         <source>Add document information which includes the document title and page numbers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="984"/>
+        <location filename="../tabpdfoptions.cpp" line="983"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="989"/>
+        <location filename="../tabpdfoptions.cpp" line="988"/>
         <source>Use the existing bleed settings from the document preferences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29370,6 +30539,11 @@ when PDF document is opened:</source>
     <message>
         <location filename="../tabpdfoptions.cpp" line="755"/>
         <source>Do not use embedded color profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabpdfoptions.cpp" line="532"/>
+        <source>&amp;Apply Effect to all Pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -29458,203 +30632,203 @@ when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="45"/>
+        <location filename="../tabprinter.ui" line="57"/>
         <source>Options</source>
         <translation type="unfinished">Установки</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="57"/>
+        <location filename="../tabprinter.ui" line="81"/>
         <source>Page</source>
         <translation type="unfinished">Сторінка</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="69"/>
+        <location filename="../tabprinter.ui" line="105"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation type="unfinished">Віддзеркалити сторінку(и) горизонтально</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="76"/>
+        <location filename="../tabprinter.ui" line="112"/>
         <source>Mirror Page(s) Vertical</source>
         <translation type="unfinished">Віддзеркалити сторінку(и) вертикально</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="83"/>
+        <location filename="../tabprinter.ui" line="119"/>
         <source>Set Media Size</source>
         <translation type="unfinished">Установити розмір паперу</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="90"/>
+        <location filename="../tabprinter.ui" line="126"/>
         <source>Clip to Page Margins</source>
         <translation type="unfinished">Обрізати по полях сторінки</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="100"/>
-        <source>Postscript Options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabprinter.ui" line="112"/>
+        <location filename="../tabprinter.ui" line="160"/>
         <source>Print in Grayscale</source>
         <translation type="unfinished">Друкувати у відтінках сірого кольору</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="119"/>
+        <location filename="../tabprinter.ui" line="167"/>
         <source>Print in Color if Available</source>
         <translation type="unfinished">Друкувати в кольорі, якщо можливо</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="130"/>
+        <location filename="../tabprinter.ui" line="178"/>
         <source>Level 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="135"/>
+        <location filename="../tabprinter.ui" line="183"/>
         <source>Level 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="140"/>
+        <location filename="../tabprinter.ui" line="188"/>
         <source>Level 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="151"/>
+        <location filename="../tabprinter.ui" line="199"/>
         <source>General</source>
         <translation type="unfinished">Загальні</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="163"/>
+        <location filename="../tabprinter.ui" line="223"/>
         <source>Print Separations</source>
         <translation type="unfinished">Друкувати окремі кольори</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="170"/>
+        <location filename="../tabprinter.ui" line="230"/>
         <source>Print Normal</source>
         <translation type="unfinished">Звичайний друк</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="183"/>
+        <location filename="../tabprinter.ui" line="243"/>
         <source>Color</source>
         <translation type="unfinished">Колір</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="195"/>
+        <location filename="../tabprinter.ui" line="267"/>
         <source>Apply Under Color Removal</source>
         <translation type="unfinished">Виконати видалення кольорів</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="202"/>
+        <location filename="../tabprinter.ui" line="274"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation type="unfinished">Конвертувати точкові кольори в процесні кольори</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="209"/>
+        <location filename="../tabprinter.ui" line="281"/>
         <source>Force Overprint Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="216"/>
+        <location filename="../tabprinter.ui" line="288"/>
         <source>Apply ICC Profiles</source>
         <translation type="unfinished">Застосувати ICC профілі</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="227"/>
+        <location filename="../tabprinter.ui" line="299"/>
         <source>Marks &amp;&amp; Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="239"/>
+        <location filename="../tabprinter.ui" line="323"/>
         <source>Bleed Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="254"/>
+        <location filename="../tabprinter.ui" line="350"/>
         <source>Top:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="264"/>
+        <location filename="../tabprinter.ui" line="360"/>
         <source>Bottom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="277"/>
+        <location filename="../tabprinter.ui" line="373"/>
         <source>Left:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="290"/>
+        <location filename="../tabprinter.ui" line="386"/>
         <source>Right:</source>
         <translation type="unfinished">Праве:</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="306"/>
+        <location filename="../tabprinter.ui" line="402"/>
         <source>Printer Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="318"/>
+        <location filename="../tabprinter.ui" line="426"/>
         <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="321"/>
+        <location filename="../tabprinter.ui" line="429"/>
         <source>Color Bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="331"/>
+        <location filename="../tabprinter.ui" line="439"/>
         <source>Offset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="341"/>
+        <location filename="../tabprinter.ui" line="449"/>
         <source>Add registration marks which are added to each separation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="344"/>
+        <location filename="../tabprinter.ui" line="452"/>
         <source>Registration Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="351"/>
+        <location filename="../tabprinter.ui" line="459"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="354"/>
+        <location filename="../tabprinter.ui" line="462"/>
         <source>Bleed Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="361"/>
+        <location filename="../tabprinter.ui" line="469"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="364"/>
+        <location filename="../tabprinter.ui" line="472"/>
         <source>Crop Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="378"/>
+        <location filename="../tabprinter.ui" line="486"/>
         <source>Print Destination</source>
         <translation type="unfinished">Призначення для друку</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="390"/>
+        <location filename="../tabprinter.ui" line="510"/>
         <source>Alternative Printer Command</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="408"/>
+        <location filename="../tabprinter.ui" line="537"/>
         <source>Command:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="38"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabprinter.ui" line="136"/>
+        <source>PostScript Options</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -29832,7 +31006,7 @@ when PDF document is opened:</source>
         <translation>&amp;Проміжок:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="962"/>
+        <location filename="../tabtools.cpp" line="920"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Реве та стогне Дніпр широкий, сердитий вітер завива</translation>
     </message>
@@ -29909,7 +31083,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../tabtools.cpp" line="374"/>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>Установити масштаб зображення по розміру &amp;рамки</translation>
+        <translation type="obsolete">Установити масштаб зображення по розміру &amp;рамки</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="380"/>
@@ -29969,7 +31143,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../tabtools.cpp" line="524"/>
         <source>Picture Frame Properties</source>
-        <translation>Властивості рамки для зображень</translation>
+        <translation type="obsolete">Властивості рамки для зображень</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="525"/>
@@ -30024,7 +31198,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../tabtools.cpp" line="536"/>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Рамки для зображень дозволяють масштабування зображень до любого розміру</translation>
+        <translation type="obsolete">Рамки для зображень дозволяють масштабування зображень до любого розміру</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="537"/>
@@ -30044,17 +31218,17 @@ when PDF document is opened:</source>
     <message>
         <location filename="../tabtools.cpp" line="540"/>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Зображення у рамках для зображень масштабовані до розміру рамки</translation>
+        <translation type="obsolete">Зображення у рамках для зображень масштабовані до розміру рамки</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="541"/>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Автоматично масштабовані зображення зберігають відношення сторін</translation>
+        <translation type="obsolete">Автоматично масштабовані зображення зберігають відношення сторін</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="542"/>
         <source>Fill color of picture frames</source>
-        <translation>Колір заповнення рамок зображень</translation>
+        <translation type="obsolete">Колір заповнення рамок зображень</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="547"/>
@@ -30262,6 +31436,36 @@ when PDF document is opened:</source>
         <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../tabtools.cpp" line="374"/>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="524"/>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="536"/>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="540"/>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="541"/>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="542"/>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -30406,7 +31610,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../tabruler.cpp" line="490"/>
         <source>Full Stop</source>
-        <translation>Повна зупинка</translation>
+        <translation type="obsolete">Повна зупинка</translation>
     </message>
     <message>
         <location filename="../tabruler.cpp" line="491"/>
@@ -30509,63 +31713,68 @@ when PDF document is opened:</source>
         <source>Position of Tab</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../tabruler.cpp" line="490"/>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Tree</name>
     <message>
         <location filename="../outlinepalette.cpp" line="1156"/>
         <source>Outline</source>
-        <translation>Об&apos;єкт</translation>
+        <translation type="obsolete">Об&apos;єкт</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="1157"/>
         <source>Element</source>
-        <translation>Елемент</translation>
+        <translation type="obsolete">Елемент</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="1134"/>
         <source>Group </source>
-        <translation>Група</translation>
+        <translation type="obsolete">Група</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="1097"/>
         <source>Free Objects</source>
-        <translation>Вільні об&quot;єкти</translation>
+        <translation type="obsolete">Вільні об&quot;єкти</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="1042"/>
         <source>Page </source>
-        <translation>Сторінка </translation>
+        <translation type="obsolete">Сторінка </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="319"/>
         <source>Picture</source>
-        <translation type="unfinished">Зображення</translation>
+        <translation type="obsolete">Зображення</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="294"/>
         <source>File: </source>
-        <translation type="unfinished">Файл: </translation>
+        <translation type="obsolete">Файл: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="298"/>
         <source>Original PPI: </source>
-        <translation type="unfinished">Початкові ТНД: </translation>
+        <translation type="obsolete">Початкові ТНД: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="302"/>
         <source>Actual PPI: </source>
-        <translation type="unfinished">Фактичні ТНД: </translation>
+        <translation type="obsolete">Фактичні ТНД: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="306"/>
         <source>Colorspace: </source>
-        <translation type="unfinished">Кольоровий простір: </translation>
+        <translation type="obsolete">Кольоровий простір: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="311"/>
         <source>Unknown</source>
-        <translation type="unfinished">Невідомий</translation>
+        <translation type="obsolete">Невідомий</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="321"/>
@@ -30578,44 +31787,19 @@ when PDF document is opened:</source>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="../outlinepalette.cpp" line="321"/>
-        <source>No Image Loaded</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../outlinepalette.cpp" line="345"/>
         <source>Linked Text</source>
-        <translation type="unfinished">Зв&apos;язаний текст</translation>
+        <translation type="obsolete">Зв&apos;язаний текст</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="347"/>
         <source>Text Frame</source>
-        <translation type="unfinished">Текстова рамка</translation>
+        <translation type="obsolete">Текстова рамка</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="350"/>
         <source>Text on a Path</source>
-        <translation type="unfinished">Текст на шляху</translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="353"/>
-        <source>Paragraphs: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="360"/>
-        <source>Lines: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="364"/>
-        <source>Words: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="371"/>
-        <source>Chars: </source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Текст на шляху</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="377"/>
@@ -30625,83 +31809,78 @@ when PDF document is opened:</source>
     <message>
         <location filename="../outlinepalette.cpp" line="383"/>
         <source>Enabled</source>
-        <translation type="unfinished">Ввімкнено</translation>
+        <translation type="obsolete">Ввімкнено</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="385"/>
         <source>Disabled</source>
-        <translation type="unfinished">Вимкнено</translation>
+        <translation type="obsolete">Вимкнено</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="393"/>
         <source>In&amp;fo</source>
-        <translation type="unfinished">&amp;Інформація</translation>
+        <translation type="obsolete">&amp;Інформація</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="420"/>
         <source>Preview Settings</source>
-        <translation type="unfinished">Установки попереднього перегляду перед друком</translation>
+        <translation type="obsolete">Установки попереднього перегляду перед друком</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="461"/>
         <source>&amp;PDF Options</source>
-        <translation type="unfinished">&amp;Установки PDF</translation>
+        <translation type="obsolete">&amp;Установки PDF</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="485"/>
         <source>Send to La&amp;yer</source>
-        <translation type="unfinished">Перемістити на &amp;план</translation>
+        <translation type="obsolete">Перемістити на &amp;план</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="494"/>
         <source>Le&amp;vel</source>
-        <translation type="unfinished">Пла&amp;н</translation>
+        <translation type="obsolete">Пла&amp;н</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="545"/>
         <source>Conve&amp;rt to</source>
-        <translation type="unfinished">&amp;Конвертувати в</translation>
+        <translation type="obsolete">&amp;Конвертувати в</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="548"/>
         <source>Rename</source>
-        <translation type="unfinished">Перейменувати</translation>
+        <translation type="obsolete">Перейменувати</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="556"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation type="obsolete">&amp;Видалити</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="578"/>
         <source>Contents</source>
-        <translation type="unfinished">Зміст</translation>
-    </message>
-    <message>
-        <location filename="../outlinepalette.cpp" line="380"/>
-        <source>Export: </source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Зміст</translation>
     </message>
 </context>
 <context>
     <name>UnderlineValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="62"/>
+        <location filename="../styleselect.cpp" line="64"/>
         <source>Auto</source>
         <translation>Автоматично</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="73"/>
+        <location filename="../styleselect.cpp" line="75"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="72"/>
+        <location filename="../styleselect.cpp" line="74"/>
         <source>Displacement</source>
         <translation>Зміщення</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="74"/>
+        <location filename="../styleselect.cpp" line="76"/>
         <source>Linewidth</source>
         <translation>Товщина лінії</translation>
     </message>
@@ -30709,719 +31888,729 @@ when PDF document is opened:</source>
 <context>
     <name>UndoManager</name>
     <message>
-        <location filename="../undomanager.cpp" line="680"/>
+        <location filename="../undomanager.cpp" line="780"/>
         <source>Add vertical guide</source>
         <translation>Додати вертикальну направляючу</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="681"/>
+        <location filename="../undomanager.cpp" line="781"/>
         <source>Add horizontal guide</source>
         <translation>Додати горизонтальну направляючу</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="682"/>
+        <location filename="../undomanager.cpp" line="782"/>
         <source>Remove vertical guide</source>
         <translation>Видалити вертикальну направляючу</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="683"/>
+        <location filename="../undomanager.cpp" line="783"/>
         <source>Remove horizontal guide</source>
         <translation>Видалити горизонтальну направляючу</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="686"/>
+        <location filename="../undomanager.cpp" line="786"/>
         <source>Move vertical guide</source>
         <translation>Перемістити вертикальну направляючу</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="687"/>
+        <location filename="../undomanager.cpp" line="787"/>
         <source>Move horizontal guide</source>
         <translation>Перемістити горизонтальну направляючу</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="688"/>
+        <location filename="../undomanager.cpp" line="788"/>
         <source>Lock guides</source>
         <translation>Замкнути направляючі</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="689"/>
+        <location filename="../undomanager.cpp" line="789"/>
         <source>Unlock guides</source>
         <translation>Розімкнути направляючі</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="690"/>
+        <location filename="../undomanager.cpp" line="790"/>
         <source>Move</source>
         <translation>Перемістити</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="691"/>
+        <location filename="../undomanager.cpp" line="791"/>
         <source>Resize</source>
         <translation>Змінити розмір</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="692"/>
+        <location filename="../undomanager.cpp" line="792"/>
         <source>Rotate</source>
         <translation>Повернути</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="693"/>
+        <location filename="../undomanager.cpp" line="793"/>
         <source>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</source>
         <translation>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="694"/>
+        <location filename="../undomanager.cpp" line="794"/>
         <source>W1: %1, H1: %2
 W2: %3, H2: %4</source>
         <translation>W1: %1, H1: %2
 W2: %3, H2: %4</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="699"/>
+        <location filename="../undomanager.cpp" line="799"/>
         <source>Selection</source>
         <translation>Вибірка</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="700"/>
+        <location filename="../undomanager.cpp" line="800"/>
         <source>Group</source>
         <translation>Згрупувати</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="701"/>
+        <location filename="../undomanager.cpp" line="801"/>
         <source>Selection/Group</source>
         <translation>Вибірка/Група</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="702"/>
+        <location filename="../undomanager.cpp" line="802"/>
         <source>Create</source>
         <translation>Створити</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="703"/>
+        <location filename="../undomanager.cpp" line="803"/>
         <source>X: %1, Y: %2
 W: %3, H: %4</source>
         <translation>X: %1, Y: %2
 W: %3, H: %4</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="704"/>
+        <location filename="../undomanager.cpp" line="804"/>
         <source>Align/Distribute</source>
         <translation>Розташувати/Вирівняти</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="705"/>
+        <location filename="../undomanager.cpp" line="805"/>
         <source>Items involved</source>
         <translation>Затронуті об&apos;єкти</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="706"/>
+        <location filename="../undomanager.cpp" line="806"/>
         <source>Cancel</source>
         <translation>Вихід</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="707"/>
+        <location filename="../undomanager.cpp" line="807"/>
         <source>Set fill color</source>
         <translation>Установити колір заповнення</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="708"/>
+        <location filename="../undomanager.cpp" line="808"/>
         <source>Color1: %1, Color2: %2</source>
         <translation>Колір1: %1, Колір2: %2</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="709"/>
+        <location filename="../undomanager.cpp" line="809"/>
         <source>Set fill color shade</source>
         <translation>Установити колір заповнення тіні</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="710"/>
+        <location filename="../undomanager.cpp" line="810"/>
         <source>Set line color</source>
         <translation>Установити колір лінії</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="711"/>
+        <location filename="../undomanager.cpp" line="811"/>
         <source>Set line color shade</source>
         <translation>Установити колір тіні лінії</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="712"/>
+        <location filename="../undomanager.cpp" line="812"/>
         <source>Flip horizontally</source>
         <translation>Перевернути по горизонталі</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="713"/>
+        <location filename="../undomanager.cpp" line="813"/>
         <source>Flip vertically</source>
         <translation>Перевернути по вертикалі</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="714"/>
+        <location filename="../undomanager.cpp" line="814"/>
         <source>Lock</source>
         <translation>Замкнути</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="715"/>
+        <location filename="../undomanager.cpp" line="815"/>
         <source>Unlock</source>
         <translation>Розімкнути</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="716"/>
+        <location filename="../undomanager.cpp" line="816"/>
         <source>Lock size</source>
         <translation>Замкнути розмір</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="717"/>
+        <location filename="../undomanager.cpp" line="817"/>
         <source>Unlock size</source>
         <translation>Розімкнути розмір</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="720"/>
+        <location filename="../undomanager.cpp" line="820"/>
         <source>Ungroup</source>
         <translation>Розгрупувати</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="721"/>
+        <location filename="../undomanager.cpp" line="821"/>
         <source>Delete</source>
         <translation>Видалити</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="722"/>
+        <location filename="../undomanager.cpp" line="822"/>
         <source>Rename</source>
         <translation>Перейменувати</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="723"/>
+        <location filename="../undomanager.cpp" line="823"/>
         <source>From %1
 to %2</source>
         <translation>Від %1
 до %2</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="724"/>
+        <location filename="../undomanager.cpp" line="824"/>
         <source>Apply Master Page</source>
         <translation>Застосувати головну сторінку</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="725"/>
+        <location filename="../undomanager.cpp" line="825"/>
         <source>Paste</source>
         <translation>Вклеїти</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="726"/>
+        <location filename="../undomanager.cpp" line="826"/>
         <source>Cut</source>
         <translation>Вирізати</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="727"/>
+        <location filename="../undomanager.cpp" line="827"/>
         <source>Set fill color transparency</source>
         <translation>Установити прозорість кольору заповнення</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="728"/>
+        <location filename="../undomanager.cpp" line="828"/>
         <source>Set line color transparency</source>
         <translation>Установити прозорість кольору лінії</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="729"/>
+        <location filename="../undomanager.cpp" line="829"/>
         <source>Set line style</source>
         <translation>Установити стиль лінії</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="730"/>
+        <location filename="../undomanager.cpp" line="830"/>
         <source>Set the style of line end</source>
         <translation>Установити стиль кінця лінії</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="731"/>
+        <location filename="../undomanager.cpp" line="831"/>
         <source>Set the style of line join</source>
         <translation>Установити стиль з&apos;єднання лінії</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="732"/>
+        <location filename="../undomanager.cpp" line="832"/>
         <source>Set line width</source>
         <translation>Установити товщину лінії</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="733"/>
+        <location filename="../undomanager.cpp" line="833"/>
         <source>No style</source>
         <translation>Стиль не встановлено</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="734"/>
+        <location filename="../undomanager.cpp" line="834"/>
         <source>Set custom line style</source>
         <translation>Установити нестандартний стиль лінії</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="735"/>
+        <location filename="../undomanager.cpp" line="835"/>
         <source>Do not use custom line style</source>
         <translation>Не використовувати нестандартний стиль лінії</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="736"/>
+        <location filename="../undomanager.cpp" line="836"/>
         <source>Set start arrow</source>
         <translation>Установити початкову стрілку</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="737"/>
+        <location filename="../undomanager.cpp" line="837"/>
         <source>Set end arrow</source>
         <translation>Установити кінцеву стрілку</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="739"/>
+        <location filename="../undomanager.cpp" line="839"/>
         <source>Create table</source>
         <translation>Створити таблицю</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="740"/>
+        <location filename="../undomanager.cpp" line="840"/>
         <source>Rows: %1, Cols: %2</source>
         <translation>Рядків: %1, Стовпців: %2</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="741"/>
+        <location filename="../undomanager.cpp" line="841"/>
         <source>Set font</source>
         <translation>Установити шрифт</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="742"/>
+        <location filename="../undomanager.cpp" line="842"/>
         <source>Set font size</source>
         <translation>Установити розмір шрифта</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="743"/>
+        <location filename="../undomanager.cpp" line="843"/>
         <source>Set font width</source>
         <translation>Установити ширину шрифта</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="744"/>
+        <location filename="../undomanager.cpp" line="844"/>
         <source>Set font height</source>
         <translation>Установити висоту шрифта</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="745"/>
+        <location filename="../undomanager.cpp" line="845"/>
         <source>Set font fill color</source>
         <translation>Установити колір заповнення шрифта</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="746"/>
+        <location filename="../undomanager.cpp" line="846"/>
         <source>Set font stroke color</source>
         <translation>Колір силуетів шрифта</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="747"/>
+        <location filename="../undomanager.cpp" line="847"/>
         <source>Set font fill color shade</source>
         <translation>Установити колір заповнення тіні шрифта</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="748"/>
+        <location filename="../undomanager.cpp" line="848"/>
         <source>Set font stroke color shade</source>
         <translation>Колір тіні силуетів шрифта</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="749"/>
+        <location filename="../undomanager.cpp" line="849"/>
         <source>Set kerning</source>
         <translation>Установити кернінг</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="750"/>
+        <location filename="../undomanager.cpp" line="850"/>
         <source>Set line spacing</source>
         <translation>Установити міжрядковий інтервал</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="751"/>
+        <location filename="../undomanager.cpp" line="851"/>
         <source>Set paragraph style</source>
         <translation>Установити стиль абзацу</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="752"/>
+        <location filename="../undomanager.cpp" line="852"/>
         <source>Set language</source>
         <translation>Установити мову</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="753"/>
+        <location filename="../undomanager.cpp" line="853"/>
         <source>Align text</source>
         <translation>Вирівняти текст</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="754"/>
+        <location filename="../undomanager.cpp" line="854"/>
         <source>Set font effect</source>
         <translation>Установити ефект шрифта</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="755"/>
+        <location filename="../undomanager.cpp" line="855"/>
         <source>Image frame</source>
         <translation>Рамка для зображень</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="756"/>
+        <location filename="../undomanager.cpp" line="856"/>
         <source>Text frame</source>
         <translation>Текстова рамка</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="758"/>
+        <location filename="../undomanager.cpp" line="858"/>
         <source>Polygon</source>
         <translation>Полігон</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="759"/>
+        <location filename="../undomanager.cpp" line="859"/>
         <source>Bezier curve</source>
         <translation>Крива Безьє</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="760"/>
+        <location filename="../undomanager.cpp" line="860"/>
         <source>Polyline</source>
         <translation>Багатосегментна лінія</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="762"/>
+        <location filename="../undomanager.cpp" line="862"/>
         <source>Convert to</source>
         <translation>Конвертувати в</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="763"/>
+        <location filename="../undomanager.cpp" line="863"/>
         <source>Import SVG image</source>
         <translation>Імпорт SVG зображення</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="764"/>
+        <location filename="../undomanager.cpp" line="864"/>
         <source>Import EPS image</source>
         <translation>Імпорт ЕPS зображення</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="765"/>
+        <location filename="../undomanager.cpp" line="865"/>
         <source>Import OpenOffice.org Draw image</source>
         <translation>Імпортувати зображення OpenOffice.org Draw</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="766"/>
+        <location filename="../undomanager.cpp" line="868"/>
         <source>Scratch space</source>
         <translation>Чорновик</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="768"/>
+        <location filename="../undomanager.cpp" line="870"/>
         <source>Text flows around the frame</source>
         <translation>Текст огинає рамку</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="769"/>
+        <location filename="../undomanager.cpp" line="871"/>
         <source>Text flows around bounding box</source>
         <translation>Текст огинає обмежуючу рамку</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="770"/>
+        <location filename="../undomanager.cpp" line="872"/>
         <source>Text flows around contour line</source>
         <translation>Текст огинає контурну лінію</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="772"/>
+        <location filename="../undomanager.cpp" line="874"/>
         <source>No text flow</source>
         <translation>Відміна огинання тексту</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="774"/>
+        <location filename="../undomanager.cpp" line="876"/>
         <source>No bounding box</source>
         <translation>Не використовувати обмежуючу рамку</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="775"/>
+        <location filename="../undomanager.cpp" line="877"/>
         <source>No contour line</source>
         <translation>Не використовувати контурну лінію</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="776"/>
+        <location filename="../undomanager.cpp" line="878"/>
         <source>Page %1</source>
         <translation>Сторінка %1</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="777"/>
+        <location filename="../undomanager.cpp" line="879"/>
         <source>Set image scaling</source>
         <translation>Установити масштабування зображення</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="778"/>
+        <location filename="../undomanager.cpp" line="880"/>
         <source>Frame size</source>
         <translation>Розмір рамки</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="779"/>
+        <location filename="../undomanager.cpp" line="881"/>
         <source>Free scaling</source>
         <translation>Вільне масштабування</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="780"/>
+        <location filename="../undomanager.cpp" line="882"/>
         <source>Keep aspect ratio</source>
         <translation>Зберігати співвідношення сторін</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="781"/>
+        <location filename="../undomanager.cpp" line="883"/>
         <source>Break aspect ratio</source>
         <translation>Не зберігати співвідношення сторін</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="806"/>
+        <location filename="../undomanager.cpp" line="908"/>
         <source>Edit contour line</source>
         <translation>Редагувати контурну лінію</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="783"/>
+        <location filename="../undomanager.cpp" line="885"/>
         <source>Edit shape</source>
         <translation>Редагувати геометричну форму</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="784"/>
+        <location filename="../undomanager.cpp" line="886"/>
         <source>Reset contour line</source>
         <translation>Повернути контурну лінію в початковий стан</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="785"/>
+        <location filename="../undomanager.cpp" line="887"/>
         <source>Add page</source>
         <translation>Додати сторінку</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="786"/>
+        <location filename="../undomanager.cpp" line="888"/>
         <source>Add pages</source>
         <translation>Додати сторінки</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="787"/>
+        <location filename="../undomanager.cpp" line="889"/>
         <source>Delete page</source>
         <translation>Видалити сторінку</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="788"/>
+        <location filename="../undomanager.cpp" line="890"/>
         <source>Delete pages</source>
         <translation>Видалити сторінки</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="789"/>
+        <location filename="../undomanager.cpp" line="891"/>
         <source>Add layer</source>
         <translation>Додати план</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="790"/>
+        <location filename="../undomanager.cpp" line="892"/>
         <source>Delete layer</source>
         <translation>Видалити план</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="791"/>
+        <location filename="../undomanager.cpp" line="893"/>
         <source>Rename layer</source>
         <translation>Перейменувати план</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="792"/>
+        <location filename="../undomanager.cpp" line="894"/>
         <source>Raise layer</source>
         <translation>Підняти план на вищий рівень</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="793"/>
+        <location filename="../undomanager.cpp" line="895"/>
         <source>Lower layer</source>
         <translation>Опустити план на нижчий рівень</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="794"/>
+        <location filename="../undomanager.cpp" line="896"/>
         <source>Send to layer</source>
         <translation>Перемістити на план</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="795"/>
+        <location filename="../undomanager.cpp" line="897"/>
         <source>Enable printing of layer</source>
         <translation>Ввімкнути друк плану</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="796"/>
+        <location filename="../undomanager.cpp" line="898"/>
         <source>Disable printing of layer</source>
         <translation>Вимкнути друк плану</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="797"/>
+        <location filename="../undomanager.cpp" line="899"/>
         <source>Change name of the layer</source>
         <translation>Перейменувати план</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="798"/>
+        <location filename="../undomanager.cpp" line="900"/>
         <source>Get image</source>
         <translation>Вставити зображення</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="761"/>
+        <location filename="../undomanager.cpp" line="861"/>
         <source>Text on a Path</source>
         <translation>Текст на шляху</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="718"/>
+        <location filename="../undomanager.cpp" line="818"/>
         <source>Enable Item Printing</source>
         <translation>Ввімкнути друк об&apos;єкта</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="719"/>
+        <location filename="../undomanager.cpp" line="819"/>
         <source>Disable Item Printing</source>
         <translation>Вимкнути друк об&apos;єкта</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="800"/>
+        <location filename="../undomanager.cpp" line="902"/>
         <source>Multiple duplicate</source>
         <translation>Множинне дублювання</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="695"/>
+        <location filename="../undomanager.cpp" line="795"/>
         <source>Change Image Offset</source>
         <translation>Змінити зміщення зображення</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="696"/>
+        <location filename="../undomanager.cpp" line="796"/>
         <source>Change Image Scale</source>
         <translation>Змінити масштабування зображення</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="697"/>
+        <location filename="../undomanager.cpp" line="797"/>
         <source>X1: %1, Y1: %2
 X2: %4, Y2: %5</source>
         <translation>X1: %1, Y1: %2
 X2: %4, Y2: %5</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="698"/>
+        <location filename="../undomanager.cpp" line="798"/>
         <source>X: %1, Y: %2
 X: %4, Y: %5</source>
         <translation>X: %1, Y: %2
 X: %4, Y: %5</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="801"/>
+        <location filename="../undomanager.cpp" line="903"/>
         <source>Apply text style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="802"/>
+        <location filename="../undomanager.cpp" line="904"/>
         <source>&amp;Undo: %1</source>
         <comment>f.e. Undo: Move</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="803"/>
+        <location filename="../undomanager.cpp" line="905"/>
         <source>&amp;Undo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="804"/>
+        <location filename="../undomanager.cpp" line="906"/>
         <source>&amp;Redo: %1</source>
         <comment>f.e. Redo: Move</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="805"/>
+        <location filename="../undomanager.cpp" line="907"/>
         <source>&amp;Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="773"/>
+        <location filename="../undomanager.cpp" line="875"/>
         <source>No object frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="807"/>
+        <location filename="../undomanager.cpp" line="909"/>
         <source>Reset control point</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="808"/>
+        <location filename="../undomanager.cpp" line="910"/>
         <source>Reset control points</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="809"/>
+        <location filename="../undomanager.cpp" line="911"/>
         <source>Apply image effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="810"/>
+        <location filename="../undomanager.cpp" line="912"/>
         <source>Insert frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="811"/>
+        <location filename="../undomanager.cpp" line="913"/>
         <source>Adjust frame to the image size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="738"/>
+        <location filename="../undomanager.cpp" line="838"/>
         <source>Set start and end arrows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="684"/>
+        <location filename="../undomanager.cpp" line="784"/>
         <source>Remove vertical auto guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="685"/>
+        <location filename="../undomanager.cpp" line="785"/>
         <source>Remove horizontal auto guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="771"/>
+        <location filename="../undomanager.cpp" line="873"/>
         <source>Text flows around image clipping path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="812"/>
+        <location filename="../undomanager.cpp" line="914"/>
         <source>Remove all guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="813"/>
+        <location filename="../undomanager.cpp" line="915"/>
         <source>Remove page guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="814"/>
+        <location filename="../undomanager.cpp" line="916"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="815"/>
+        <location filename="../undomanager.cpp" line="917"/>
         <source>Copy page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="816"/>
+        <location filename="../undomanager.cpp" line="918"/>
         <source>Convert to outlines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="757"/>
+        <location filename="../undomanager.cpp" line="857"/>
         <source>Latex frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="799"/>
+        <location filename="../undomanager.cpp" line="901"/>
         <source>Change formula</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../undomanager.cpp" line="866"/>
+        <source>Import AI drawing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../undomanager.cpp" line="867"/>
+        <source>Import XFig drawing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UndoPalette</name>
     <message>
-        <location filename="../undogui.cpp" line="279"/>
+        <location filename="../undogui.cpp" line="281"/>
         <source>Initial State</source>
         <translation>Початковий стан</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="296"/>
+        <location filename="../undogui.cpp" line="308"/>
         <source>Action History</source>
         <translation>Історія подій</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="297"/>
+        <location filename="../undogui.cpp" line="309"/>
         <source>Show selected object only</source>
         <translation>Показувати лише вибраний об&apos;єкт</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="298"/>
+        <location filename="../undogui.cpp" line="310"/>
         <source>&amp;Undo</source>
         <translation>&amp;Відмінити</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="299"/>
+        <location filename="../undogui.cpp" line="311"/>
         <source>&amp;Redo</source>
         <translation>&amp;Повторити</translation>
     </message>
@@ -31429,7 +32618,7 @@ X: %4, Y: %5</translation>
 <context>
     <name>UndoWidget</name>
     <message>
-        <location filename="../undogui.cpp" line="146"/>
+        <location filename="../undogui.cpp" line="147"/>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
@@ -31440,7 +32629,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../unicodesearch.cpp" line="47"/>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Пошук</translation>
+        <translation type="obsolete">&amp;Пошук</translation>
     </message>
 </context>
 <context>
@@ -31459,59 +32648,69 @@ X: %4, Y: %5</translation>
 <context>
     <name>UpgradeChecker</name>
     <message>
-        <location filename="../upgradechecker.cpp" line="85"/>
+        <location filename="../upgradechecker.cpp" line="86"/>
         <source>Attempting to get the Scribus version update file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="86"/>
+        <location filename="../upgradechecker.cpp" line="87"/>
         <source>(No data on your computer will be sent to an external location)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="106"/>
+        <location filename="../upgradechecker.cpp" line="108"/>
         <source>Timed out when attempting to get update file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="111"/>
-        <source>Error when attempting to get update file: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../upgradechecker.cpp" line="141"/>
+        <location filename="../upgradechecker.cpp" line="137"/>
         <source>File not found on server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="143"/>
+        <location filename="../upgradechecker.cpp" line="139"/>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="218"/>
+        <location filename="../upgradechecker.cpp" line="220"/>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="222"/>
+        <location filename="../upgradechecker.cpp" line="224"/>
         <source>No updates are available for your version of Scribus %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="225"/>
+        <location filename="../upgradechecker.cpp" line="227"/>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="229"/>
+        <location filename="../upgradechecker.cpp" line="231"/>
         <source>Please visit www.scribus.net for details.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="226"/>
-        <source>This list may contain development versions.</source>
+        <location filename="../upgradechecker.cpp" line="120"/>
+        <source>Finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../upgradechecker.cpp" line="215"/>
+        <source>Operation canceled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../upgradechecker.cpp" line="228"/>
+        <source>This list may contain development/unstable versions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../upgradechecker.cpp" line="311"/>
+        <source>Error: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -31686,7 +32885,7 @@ Would you like to start the system&apos;s default browser instead?</source>
 <context>
     <name>WMFImport</name>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimport.cpp" line="515"/>
+        <location filename="../plugins/wmfimplugin/wmfimport.cpp" line="663"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31694,28 +32893,28 @@ Would you like to start the system&apos;s default browser instead?</source>
 <context>
     <name>WMFImportPlugin</name>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="82"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="81"/>
         <source>Import &amp;WMF...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="96"/>
         <source>Imports WMF Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="98"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
         <source>Imports most WMF files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="173"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="172"/>
         <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="175"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="174"/>
         <source>WMF file contains some unsupported features</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31784,6 +32983,29 @@ converting their vector data into Scribus objects.</source>
         <location filename="" line="136960432"/>
         <source>Insert PDF Annotations</source>
         <translation type="obsolete">Вставити PDF аннотації</translation>
+    </message>
+</context>
+<context>
+    <name>XfigPlug</name>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="142"/>
+        <source>Importing: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="145"/>
+        <source>Analyzing File:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="298"/>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="1589"/>
+        <source>Generating Items</source>
+        <translation type="unfinished">Генерація об&apos;єктів</translation>
     </message>
 </context>
 <context>
@@ -31951,127 +33173,127 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Новий з шаблона</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="57"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="59"/>
         <source>All</source>
         <translation>Всі</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="128"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="146"/>
         <source>Name</source>
         <translation>Ім&apos;я</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="130"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="148"/>
         <source>Page Size</source>
         <translation>Розмір сторінки</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="132"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="150"/>
         <source>Colors</source>
         <translation>Кольори</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="134"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="152"/>
         <source>Description</source>
         <translation>Опис</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="136"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="154"/>
         <source>Usage</source>
         <translation>Використання</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="142"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="160"/>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="138"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="156"/>
         <source>Created with</source>
         <translation>Створено</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="31"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="32"/>
         <source>&amp;Remove</source>
         <translation>Ви&amp;далити</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="32"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="33"/>
         <source>&amp;Open</source>
         <translation>&amp;Відчинити</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="163"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="181"/>
         <source>Downloading Templates</source>
         <translation>Зкачати шаблони</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="169"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="187"/>
         <source>Installing Templates</source>
         <translation>Установка шаблонів</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="175"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="193"/>
         <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
         <translation>Розпакуйте архів у директорію для шаблонів користувача (~/.scribus/templates) або в PREFIX/share/scribus/templates для доступу всіх користувачів системи.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="178"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="196"/>
         <source>Preparing a template</source>
         <translation>Приготування шаблона</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="183"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="201"/>
         <source>Removing a template</source>
         <translation>Видалення шаблона</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="188"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="206"/>
         <source>Translating template.xml</source>
         <translation>Переклад template.xml</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="166"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="184"/>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
         <translation>Шаблони документів можна знайти на  http://www.scribus.net/ у розділі матеріалів для зкачування.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="180"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="198"/>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
         <translation>Впевніться, що зображення та шрифти, використані в шаблоні, дозволяється розповсюджувати. Якщо існують обмеження на їх розповсюдження, то не використовуйте їх &quot;збірку&quot; в документ при запису шаблона.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="181"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="199"/>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
         <translation>Автор шаблона повинен впевнитися, що користувач зможе звантажити пакет з його шаблоном і інсталювати його, розпакувавши шаблон у відповідну директорію.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="185"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="203"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
         <translation>Видалення шаблона з діалога &quot;Новий документ з шаблона&quot; лише видалить відповідний пункт з template.xml. Файли не буде видалено.  Діалог видалення активується лише при наявності прав редагування файла template.xml.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="190"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="208"/>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Скопіюйте існуючий файл template.xml у файл template.lang_COUNTRY.xml, де COUNTRY - це код країни який відповідає коду використаному в .qm файлі для Вашої мови. Наприклад &quot;fi&quot; для фінської мови. Ця копія має бути розташована у тій же директорії, що й template.xml для того, щоб Scribus міг її завантажити.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="140"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="158"/>
         <source>Date</source>
         <translation>Дата</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="62"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="74"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Про</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="86"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="110"/>
         <source>&amp;Image</source>
         <translation type="unfinished">&amp;Зображення</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="114"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="150"/>
         <source>&amp;Help</source>
         <translation type="unfinished">До&amp;помога</translation>
     </message>

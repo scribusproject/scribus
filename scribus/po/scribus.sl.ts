@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="sl_SI">
-<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -345,6 +344,53 @@ x in y določata koordinato levega zgornjega kota slike SVG, postavljene na stra
 
 Če je nalaganje uspelo, izbor vsebuje uvoženo sliko SVG
 </translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.h" line="43"/>
+        <source>createParagraphStyle(...)
+
+Creates a paragraph style. This function takes the following keyword parameters:
+
+&quot;name&quot; [required] -&gt; specifies the name of the paragraphstyle to create
+
+linespacingmode [optional] -&gt; specifies the linespacing mode; possible modes are:
+
+fixed linespacing:          0
+
+automatic linespacing:      1
+
+baseline grid linespacing:  2
+
+linespacing [optional] -&gt; specifies the linespacing if using fixed linespacing
+
+alignment [optional] -&gt; specifies the alignment of the paragraph
+
+-&gt; left:     0
+
+-&gt; center:   1
+
+-&gt; right:    2
+
+-&gt; justify:  3
+
+-&gt; extend:   4
+
+leftmargin [optional], rightmargin [optional] -&gt; specify the margin
+
+gapbefore [optional], gapafter [optional] -&gt; specify the gaps to the heading and following paragraphs
+
+firstindent [optional] -&gt; the indent of the first line
+
+hasdropcap [optional] -&gt; specifies if there are caps (1 = yes, 0 = no)
+
+dropcaplines [optional] -&gt; height (in lines) of the caps if used
+
+dropcapoffset [optional] -&gt; offset of the caps if used
+
+&quot;charstyle&quot; [optional] -&gt; char style to use
+
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1864,7 +1910,7 @@ May raise WrongFrameTypeError if the target frame is not an text frame
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.h" line="354"/>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="382"/>
         <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
 
 Returns true if the text frame &quot;name&quot; is a PDF bookmark.
@@ -2404,7 +2450,7 @@ May throw IndexError for an insertion out of bounds.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.h" line="342"/>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="370"/>
         <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
 
 Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
@@ -2465,26 +2511,146 @@ x in y določata koordinate vrhnjega levega kota na stran postavljenega ODG
 Če je bilo nalaganje uspešno, izbor vsebuje uvoženi ODG
 </translation>
     </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdmisc.h" line="329"/>
+        <source>moveSelectionToFront()
+
+Moves current selection to front.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdmisc.h" line="338"/>
+        <source>moveSelectionToFront()
+
+Moves current selection to back.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdpage.h" line="198"/>
+        <source>importPage(&quot;fromDoc&quot;, (pageList), [create, imortwhere, importwherePage])
+
+Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This functions maps the &quot;Page-&gt;Import&quot; dropdown menu function.
+fromDoc: string; the filename of the document to import pages from
+pageList: tuple with page numbers of pages to import
+create: number; 0 to replace existing pages, 1 (default) to insert new pages
+importWhere: number; the page number (of the current document) at which import the pages
+importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.h" line="80"/>
+        <source>createCharStyle(...)
+
+Creates a character style. This function takes the following keyword parameters:
+
+&quot;name&quot; [required] -&gt; name of the char style to create
+
+&quot;font&quot; [optional] -&gt; name of the font to use
+
+fontsize [optional] -&gt; font size to set (double)
+
+&quot;features&quot; [optional] -&gt; nearer typographic details can be defined by a string that might contain the following phrases comma-seperated (without spaces!):
+
+-&gt; inherit
+
+-&gt; bold
+
+-&gt; italic
+
+-&gt; underline
+
+-&gt; underlinewords
+
+-&gt; strike
+
+-&gt; superscript
+
+-&gt; subscript
+
+-&gt; outline
+
+-&gt; shadowed
+
+-&gt; allcaps
+
+-&gt; smallcaps
+
+&quot;fillcolor&quot; [optional], &quot;fillshade&quot; [optional] -&gt; specify fill options
+
+&quot;strokecolor&quot; [optional], &quot;strokeshade&quot; [optional] -&gt; specify stroke options
+
+baselineoffset [optional] -&gt; offset of the baseline
+
+shadowxoffset [optional], shadowyoffset [optional] -&gt; offset of the shadow if used
+
+outlinewidth [optional] -&gt; width of the outline if used
+
+underlineoffset [optional], underlinewidth [optional] -&gt; underline options if used
+
+strikethruoffset [optional], strikethruwidth [optional] -&gt; strikethru options if used
+
+scaleh [optional], scalev [optional] -&gt; scale of the chars
+
+tracking [optional] -&gt; tracking of the text
+
+&quot;language&quot; [optional] -&gt; language code
+
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="341"/>
+        <source>hyphenateText([&quot;name&quot;]) -&gt; bool
+
+Does hyphenation on text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="355"/>
+        <source>dehyphenateText([&quot;name&quot;]) -&gt; bool
+
+Does dehyphenation on text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/guiapp.h" line="106"/>
+        <source>scrollDocument(x,y)
+
+Scroll the document in main GUI window by x and y.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AIPlug</name>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="116"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="120"/>
         <source>Importing: %1</source>
         <translation>Uvažanje: %1</translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="119"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="123"/>
         <source>Analyzing File:</source>
         <translation>Analiziranje datoteke:</translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="273"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="278"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="2190"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="2210"/>
         <source>Generating Items</source>
         <translation>Tvorba predmetov</translation>
     </message>
@@ -2534,7 +2700,7 @@ x in y določata koordinate vrhnjega levega kota na stran postavljenega ODG
         <translation type="obsolete">Valižanščina:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="154"/>
+        <location filename="../about.cpp" line="159"/>
         <source>Contributions from:</source>
         <translation>Avtorji prispevkov:</translation>
     </message>
@@ -2635,42 +2801,42 @@ C-C-T pomeni podporo za: C=CUPS C=littlecms T=TIFF.\n
 Manjkajoča knjižnica je označena z zvezdico ( * )</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="136"/>
+        <location filename="../about.cpp" line="139"/>
         <source>&amp;About</source>
         <translation>&amp;O programu</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="207"/>
+        <location filename="../about.cpp" line="213"/>
         <source>A&amp;uthors</source>
         <translation>A&amp;vtorji</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="383"/>
+        <location filename="../about.cpp" line="394"/>
         <source>&amp;Translations</source>
         <translation>&amp;Prevajalci</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="404"/>
+        <location filename="../about.cpp" line="415"/>
         <source>&amp;Online</source>
         <translation>&amp;Na spletu</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="423"/>
+        <location filename="../about.cpp" line="434"/>
         <source>&amp;Close</source>
         <translation>&amp;Zapri</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="142"/>
+        <location filename="../about.cpp" line="145"/>
         <source>Development Team:</source>
         <translation>Razvijalci:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="185"/>
+        <location filename="../about.cpp" line="191"/>
         <source>Official Documentation:</source>
         <translation>Uradna dokumentacija:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="193"/>
+        <location filename="../about.cpp" line="199"/>
         <source>Other Documentation:</source>
         <translation>Druga dokumentacija:</translation>
     </message>
@@ -2685,27 +2851,27 @@ Manjkajoča knjižnica je označena z zvezdico ( * )</translation>
         <translation type="obsolete">Švedščina:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="389"/>
+        <location filename="../about.cpp" line="400"/>
         <source>Homepage</source>
         <translation>Domača stran</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="391"/>
+        <location filename="../about.cpp" line="402"/>
         <source>Online Reference</source>
         <translation>Spletna pomoč</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="395"/>
+        <location filename="../about.cpp" line="406"/>
         <source>Bugs and Feature Requests</source>
         <translation>Poročila o napakah in predlogi</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="397"/>
+        <location filename="../about.cpp" line="408"/>
         <source>Mailing List</source>
         <translation>Dopisni seznam</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="215"/>
+        <location filename="../about.cpp" line="221"/>
         <source>Official Translations and Translators:</source>
         <translation>Uradni prevodi in prevajalci:</translation>
     </message>
@@ -2730,7 +2896,7 @@ Manjkajoča knjižnica je označena z zvezdico ( * )</translation>
         <translation type="obsolete">Španščina:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="342"/>
+        <location filename="../about.cpp" line="353"/>
         <source>Previous Translation Contributors:</source>
         <translation>Nekdanji prevajalci:</translation>
     </message>
@@ -2740,7 +2906,7 @@ Manjkajoča knjižnica je označena z zvezdico ( * )</translation>
         <translation type="obsolete">Katalonščina:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="46"/>
+        <location filename="../about.cpp" line="49"/>
         <source>About Scribus %1</source>
         <translation>O Scribusu %1</translation>
     </message>
@@ -2803,7 +2969,7 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Okenska različica:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="393"/>
+        <location filename="../about.cpp" line="404"/>
         <source>Wiki</source>
         <translation>Wiki</translation>
     </message>
@@ -2813,22 +2979,22 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Tu vidite natančno različico Scribusa, datum izgradnje in podporo knjižnic. C-C-T-F pomeni C=littlecms, C=CUPS, T=TIFF, F=Fontconfig. Zadnja črka označuje upodobljevalnik C=Cairo ali A=libart. Manjkajoče knjižnice so predstavljene z *. Vidite lahko tudi zaznano različico Ghostscripta.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="73"/>
+        <location filename="../about.cpp" line="76"/>
         <source>%1 %2 %3</source>
         <translation>%1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="81"/>
+        <location filename="../about.cpp" line="84"/>
         <source>%3-%2-%1 %4 %5</source>
         <translation>%3-%2-%1 %4 %5</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="131"/>
+        <location filename="../about.cpp" line="134"/>
         <source>Using Ghostscript version %1</source>
         <translation>Uporabljena različica Ghostscript-a %1</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="133"/>
+        <location filename="../about.cpp" line="136"/>
         <source>No Ghostscript version available</source>
         <translation>Na voljo ni nobene različice Ghostscript-a</translation>
     </message>
@@ -2838,7 +3004,7 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&lt;b&gt;Scribus različice %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="134"/>
+        <location filename="../about.cpp" line="137"/>
         <source>Build ID:</source>
         <translation>ID gradnje:</translation>
     </message>
@@ -2848,12 +3014,12 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Tu vidite natančno različico Scribusa, datum izgradnje in podporo knjižnicam. C-C-T-F pomeni C=littlecms, C=CUPS, T=TIFF, F=Fontconfig. Zadnja črka označuje upodobljevalnik C=Cairo ali A=libart. Manjkajoče knjižnice so predstavljene z *. Vidite lahko tudi zaznano različico Ghostscripta.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="173"/>
+        <location filename="../about.cpp" line="179"/>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation>Različica Mac OS&amp;#174; X Aqua:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="181"/>
+        <location filename="../about.cpp" line="187"/>
         <source>Windows&amp;#174; Port:</source>
         <translation>Različica Windows&amp;#174; :</translation>
     </message>
@@ -2868,64 +3034,74 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Maj</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="201"/>
+        <location filename="../about.cpp" line="207"/>
         <source>Tango Project Icons:</source>
         <translation>Ikone projekta Tango:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="177"/>
+        <location filename="../about.cpp" line="183"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation>Različica OS/2&amp;#174;/eComStation&amp;#8482;:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="134"/>
+        <location filename="../about.cpp" line="137"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</source>
         <translation>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="134"/>
+        <location filename="../about.cpp" line="137"/>
         <source>Scribus Version</source>
         <translation>Scribus različice</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="198"/>
+        <location filename="../about.cpp" line="204"/>
         <source>Splash Screen:</source>
         <translation>Zagonski zaslon:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="407"/>
+        <location filename="../about.cpp" line="418"/>
         <source>&amp;Updates</source>
         <translation>&amp;Posodobitve</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="411"/>
         <source>Check for &amp;Updates</source>
-        <translation>Preveri stanje &amp;posodobitev</translation>
+        <translation type="obsolete">Preveri stanje &amp;posodobitev</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="432"/>
+        <location filename="../about.cpp" line="443"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus.</source>
         <translation>Tukaj je izpisana različica, datum izgradnje in s Scribusom prevedena podpora knjižnicam.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="433"/>
+        <location filename="../about.cpp" line="444"/>
         <source>The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.Last Letter is the renderer C=cairo or Q=Qt</source>
         <translation>C-C-T-F pomeni: C=littlecms, C=CUPS, T=TIFF-podpora, F=Fontconfig-podpora. Zadnja črka je upodobljevalnik C=cairo ali Q=Qt</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="434"/>
+        <location filename="../about.cpp" line="445"/>
         <source>Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation>Manjkajočo podporo knjižnic nakazuje *. Ta nakazuje tudi različico Ghostscripta, ki jo je zaznal Scribus.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="435"/>
+        <location filename="../about.cpp" line="446"/>
         <source>The Windows version does not use fontconfig or CUPS libraries.</source>
         <translation>Ta različica za okolje Windows ne uporablja fontconfig ali knjižnic CUPS.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="436"/>
+        <location filename="../about.cpp" line="447"/>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation>Preveri stanje posodobitev Scribusa. O vašem računalniku ne bodo poslani nikakršni podatki.</translation>
+    </message>
+    <message>
+        <location filename="../about.cpp" line="478"/>
+        <source>Check for Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../about.cpp" line="476"/>
+        <source>Abort Update Check</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3047,57 +3223,57 @@ Manjkajoče knjižnice so prikazane s *</translation>
 <context>
     <name>ActionManager</name>
     <message>
-        <location filename="../actionmanager.cpp" line="1206"/>
+        <location filename="../actionmanager.cpp" line="1245"/>
         <source>&amp;New</source>
         <translation>&amp;Nova</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1207"/>
+        <location filename="../actionmanager.cpp" line="1246"/>
         <source>&amp;Open...</source>
         <translation>&amp;Odpri ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1208"/>
+        <location filename="../actionmanager.cpp" line="1247"/>
         <source>&amp;Close</source>
         <translation>&amp;Zapri</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1209"/>
+        <location filename="../actionmanager.cpp" line="1248"/>
         <source>&amp;Save</source>
         <translation>&amp;Shrani</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1210"/>
+        <location filename="../actionmanager.cpp" line="1249"/>
         <source>Save &amp;As...</source>
         <translation>Shrani &amp;kot ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1211"/>
+        <location filename="../actionmanager.cpp" line="1250"/>
         <source>Re&amp;vert to Saved</source>
         <translation>&amp;Povrni na shranjeno</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1212"/>
+        <location filename="../actionmanager.cpp" line="1251"/>
         <source>Collect for O&amp;utput...</source>
         <translation>Zberi za &amp;izvoz ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1213"/>
+        <location filename="../actionmanager.cpp" line="1252"/>
         <source>Get Text...</source>
         <translation>Pridobi besedilo ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1214"/>
+        <location filename="../actionmanager.cpp" line="1253"/>
         <source>Append &amp;Text...</source>
         <translation>Dodaj &amp;besedilo ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1215"/>
+        <location filename="../actionmanager.cpp" line="1254"/>
         <source>Get Image...</source>
         <translation>Pridobi sliko ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1216"/>
+        <location filename="../actionmanager.cpp" line="1255"/>
         <source>Save &amp;Text...</source>
         <translation>Shrani &amp;besedilo ...</translation>
     </message>
@@ -3107,52 +3283,52 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Shrani stran kot &amp;EPS ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1218"/>
+        <location filename="../actionmanager.cpp" line="1257"/>
         <source>Save as P&amp;DF...</source>
         <translation>Shrani kot &amp;PDF ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1219"/>
+        <location filename="../actionmanager.cpp" line="1258"/>
         <source>Document &amp;Setup...</source>
         <translation>&amp;Nastavitve dokumenta ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1221"/>
+        <location filename="../actionmanager.cpp" line="1260"/>
         <source>&amp;Print...</source>
         <translation>Na&amp;tisni ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1223"/>
+        <location filename="../actionmanager.cpp" line="1262"/>
         <source>&amp;Quit</source>
         <translation>&amp;Končaj</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1225"/>
+        <location filename="../actionmanager.cpp" line="1264"/>
         <source>&amp;Undo</source>
         <translation>&amp;Razveljavi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1226"/>
+        <location filename="../actionmanager.cpp" line="1265"/>
         <source>&amp;Redo</source>
         <translation>&amp;Ponovi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1227"/>
+        <location filename="../actionmanager.cpp" line="1266"/>
         <source>&amp;Item Action Mode</source>
         <translation>Način obdelave &amp;predmetov</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1228"/>
+        <location filename="../actionmanager.cpp" line="1267"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Izreži</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1231"/>
+        <location filename="../actionmanager.cpp" line="1270"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopiraj</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1232"/>
+        <location filename="../actionmanager.cpp" line="1271"/>
         <source>&amp;Paste</source>
         <translation>&amp;Prilepi</translation>
     </message>
@@ -3162,27 +3338,27 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;Počisti vsebino</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1235"/>
+        <location filename="../actionmanager.cpp" line="1274"/>
         <source>Select &amp;All</source>
         <translation>Izberi &amp;vse</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1236"/>
+        <location filename="../actionmanager.cpp" line="1275"/>
         <source>&amp;Deselect All</source>
         <translation>&amp;Izprazni izbiro</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1237"/>
+        <location filename="../actionmanager.cpp" line="1276"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Najdi in zamenjaj ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1238"/>
+        <location filename="../actionmanager.cpp" line="1277"/>
         <source>Edit Image...</source>
         <translation>Uredi sliko ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1240"/>
+        <location filename="../actionmanager.cpp" line="1279"/>
         <source>C&amp;olors...</source>
         <translation>&amp;Barve ...</translation>
     </message>
@@ -3197,7 +3373,7 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Slogi &amp;črt ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1243"/>
+        <location filename="../actionmanager.cpp" line="1282"/>
         <source>&amp;Master Pages...</source>
         <translation>&amp;Glavne strani ...</translation>
     </message>
@@ -3207,87 +3383,87 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;Java skripti...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1220"/>
+        <location filename="../actionmanager.cpp" line="1259"/>
         <source>P&amp;references...</source>
         <translation>&amp;Nastavitve ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1251"/>
+        <location filename="../actionmanager.cpp" line="1290"/>
         <source>%1 pt</source>
         <translation>%1 točk</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1266"/>
+        <location filename="../actionmanager.cpp" line="1305"/>
         <source>&amp;Other...</source>
         <translation>&amp;Drugo ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1254"/>
+        <location filename="../actionmanager.cpp" line="1293"/>
         <source>&amp;Left</source>
         <translation>&amp;Levo</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1255"/>
+        <location filename="../actionmanager.cpp" line="1294"/>
         <source>&amp;Center</source>
         <translation>&amp;Sredinsko</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1256"/>
+        <location filename="../actionmanager.cpp" line="1295"/>
         <source>&amp;Right</source>
         <translation>&amp;Desno</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1257"/>
+        <location filename="../actionmanager.cpp" line="1296"/>
         <source>&amp;Block</source>
         <translation>&amp;Blok</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1258"/>
+        <location filename="../actionmanager.cpp" line="1297"/>
         <source>&amp;Forced</source>
         <translation>&amp;Vsiljeno</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1263"/>
+        <location filename="../actionmanager.cpp" line="1302"/>
         <source>&amp;%1 %</source>
         <translation>&amp;%1 %</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1267"/>
+        <location filename="../actionmanager.cpp" line="1306"/>
         <source>&amp;Normal</source>
         <translation>&amp;Običajno</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1268"/>
+        <location filename="../actionmanager.cpp" line="1307"/>
         <source>&amp;Underline</source>
         <translation>&amp;Podčrtano</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1269"/>
+        <location filename="../actionmanager.cpp" line="1308"/>
         <source>Underline &amp;Words</source>
         <translation>Podčrtaj &amp;besede</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1270"/>
+        <location filename="../actionmanager.cpp" line="1309"/>
         <source>&amp;Strike Through</source>
         <translation>&amp;Prečrtano</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1271"/>
+        <location filename="../actionmanager.cpp" line="1310"/>
         <source>&amp;All Caps</source>
         <translation>&amp;Velike črke</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1272"/>
+        <location filename="../actionmanager.cpp" line="1311"/>
         <source>Small &amp;Caps</source>
         <translation>Pomanjšane &amp;velike črke</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1273"/>
+        <location filename="../actionmanager.cpp" line="1312"/>
         <source>Su&amp;perscript</source>
         <translation>&amp;Nadpisano</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1274"/>
+        <location filename="../actionmanager.cpp" line="1313"/>
         <source>Su&amp;bscript</source>
         <translation>Po&amp;dpisano</translation>
     </message>
@@ -3297,172 +3473,172 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;Obroba</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1276"/>
+        <location filename="../actionmanager.cpp" line="1315"/>
         <source>S&amp;hadow</source>
         <translation>&amp;Senca</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1278"/>
+        <location filename="../actionmanager.cpp" line="1317"/>
         <source>&amp;Image Effects</source>
         <translation>Slikovni učink&amp;i</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1279"/>
+        <location filename="../actionmanager.cpp" line="1318"/>
         <source>&amp;Tabulators...</source>
         <translation>&amp;Tabulatorji ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1282"/>
+        <location filename="../actionmanager.cpp" line="1321"/>
         <source>D&amp;uplicate</source>
         <translation>Po&amp;dvoji</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1283"/>
+        <location filename="../actionmanager.cpp" line="1322"/>
         <source>&amp;Multiple Duplicate</source>
         <translation>&amp;Večkratno podvoji</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1284"/>
+        <location filename="../actionmanager.cpp" line="1323"/>
         <source>&amp;Delete</source>
         <translation>I&amp;zbriši</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1285"/>
+        <location filename="../actionmanager.cpp" line="1324"/>
         <source>&amp;Group</source>
         <translation>&amp;Združi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1286"/>
+        <location filename="../actionmanager.cpp" line="1325"/>
         <source>&amp;Ungroup</source>
         <translation>&amp;Razdruži</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1287"/>
+        <location filename="../actionmanager.cpp" line="1326"/>
         <source>Is &amp;Locked</source>
         <translation>Je &amp;zaklenjeno</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1288"/>
+        <location filename="../actionmanager.cpp" line="1327"/>
         <source>Si&amp;ze is Locked</source>
         <translation>Velikost je &amp;zaklenjena</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1292"/>
+        <location filename="../actionmanager.cpp" line="1331"/>
         <source>Lower to &amp;Bottom</source>
         <translation>Spusti na &amp;dno</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1293"/>
+        <location filename="../actionmanager.cpp" line="1332"/>
         <source>Raise to &amp;Top</source>
         <translation>Dvigni na &amp;vrh</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1294"/>
+        <location filename="../actionmanager.cpp" line="1333"/>
         <source>&amp;Lower</source>
         <translation>&amp;Spusti</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1295"/>
+        <location filename="../actionmanager.cpp" line="1334"/>
         <source>&amp;Raise</source>
         <translation>&amp;Dvigni</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1296"/>
+        <location filename="../actionmanager.cpp" line="1335"/>
         <source>Send to S&amp;crapbook</source>
         <translation>Pošlji v &amp;skicirko</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1298"/>
+        <location filename="../actionmanager.cpp" line="1337"/>
         <source>&amp;Attributes...</source>
         <translation>L&amp;astnosti ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1300"/>
+        <location filename="../actionmanager.cpp" line="1339"/>
         <source>I&amp;mage Visible</source>
         <translation>&amp;Slika je vidna</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1301"/>
+        <location filename="../actionmanager.cpp" line="1340"/>
         <source>&amp;Update Image</source>
         <translation>&amp;Posodobi sliko</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1302"/>
+        <location filename="../actionmanager.cpp" line="1341"/>
         <source>Adjust Frame to Image</source>
         <translation>Okvir prilagodi sliki</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1303"/>
+        <location filename="../actionmanager.cpp" line="1342"/>
         <source>Extended Image Properties</source>
         <translation>Razširjene lastnosti slike</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1304"/>
+        <location filename="../actionmanager.cpp" line="1343"/>
         <source>&amp;Low Resolution</source>
         <translation>&amp;Nizka ločljivost</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1305"/>
+        <location filename="../actionmanager.cpp" line="1344"/>
         <source>&amp;Normal Resolution</source>
         <translation>&amp;Običajna ločljivost</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1306"/>
+        <location filename="../actionmanager.cpp" line="1345"/>
         <source>&amp;Full Resolution</source>
         <translation>&amp;Polna ločljivost</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1307"/>
+        <location filename="../actionmanager.cpp" line="1346"/>
         <source>Is PDF &amp;Bookmark</source>
         <translation>Je &amp;zaznamek PDF</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1308"/>
+        <location filename="../actionmanager.cpp" line="1347"/>
         <source>Is PDF A&amp;nnotation</source>
         <translation>je &amp;opomba PDF</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1309"/>
+        <location filename="../actionmanager.cpp" line="1348"/>
         <source>Annotation P&amp;roperties</source>
         <translation>&amp;Lastnosti opombe</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1310"/>
+        <location filename="../actionmanager.cpp" line="1349"/>
         <source>Field P&amp;roperties</source>
         <translation>Lastnosti &amp;polja</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1311"/>
+        <location filename="../actionmanager.cpp" line="1350"/>
         <source>&amp;Edit Shape...</source>
         <translation>&amp;Uredi obliko ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1312"/>
+        <location filename="../actionmanager.cpp" line="1351"/>
         <source>&amp;Attach Text to Path</source>
         <translation>Besedilo &amp;pripni na pot</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1313"/>
+        <location filename="../actionmanager.cpp" line="1352"/>
         <source>&amp;Detach Text from Path</source>
         <translation>Besedilo &amp;snemi s poti</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1314"/>
+        <location filename="../actionmanager.cpp" line="1353"/>
         <source>&amp;Combine Polygons</source>
         <translation>&amp;Sestavi poligone</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1315"/>
+        <location filename="../actionmanager.cpp" line="1354"/>
         <source>Split &amp;Polygons</source>
         <translation>Razdeli &amp;poligone</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1316"/>
+        <location filename="../actionmanager.cpp" line="1355"/>
         <source>&amp;Bezier Curve</source>
         <translation>Krivulja &amp;Bezier</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1317"/>
+        <location filename="../actionmanager.cpp" line="1356"/>
         <source>&amp;Image Frame</source>
         <translation>Okv&amp;ir slike</translation>
     </message>
@@ -3472,62 +3648,62 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;Obrobe</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1319"/>
+        <location filename="../actionmanager.cpp" line="1358"/>
         <source>&amp;Polygon</source>
         <translation>&amp;Mnogokotnk</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1320"/>
+        <location filename="../actionmanager.cpp" line="1359"/>
         <source>&amp;Text Frame</source>
         <translation>&amp;Okvir besedila</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1324"/>
+        <location filename="../actionmanager.cpp" line="1363"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Znak ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1325"/>
+        <location filename="../actionmanager.cpp" line="1364"/>
         <source>Sample Text</source>
         <translation>Vzorčno besedilo</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1329"/>
+        <location filename="../actionmanager.cpp" line="1368"/>
         <source>&amp;Insert...</source>
         <translation>&amp;Vstavi ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1330"/>
+        <location filename="../actionmanager.cpp" line="1369"/>
         <source>Im&amp;port...</source>
         <translation>&amp;Uvozi ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1331"/>
+        <location filename="../actionmanager.cpp" line="1370"/>
         <source>&amp;Delete...</source>
         <translation>I&amp;zbriši ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1332"/>
+        <location filename="../actionmanager.cpp" line="1371"/>
         <source>&amp;Copy...</source>
         <translation>&amp;Kopiraj ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1333"/>
+        <location filename="../actionmanager.cpp" line="1372"/>
         <source>&amp;Move...</source>
         <translation>&amp;Premakni ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1334"/>
+        <location filename="../actionmanager.cpp" line="1373"/>
         <source>&amp;Apply Master Page...</source>
         <translation>&amp;Uporabi glavno stran ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1336"/>
+        <location filename="../actionmanager.cpp" line="1375"/>
         <source>Manage &amp;Guides...</source>
         <translation>Upravljaj z &amp;vodili ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1337"/>
+        <location filename="../actionmanager.cpp" line="1376"/>
         <source>Manage Page Properties...</source>
         <translation>Upravljaj z lastnostmi strani ...</translation>
     </message>
@@ -3537,22 +3713,22 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Prilagodi &amp;oknu</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1342"/>
+        <location filename="../actionmanager.cpp" line="1381"/>
         <source>&amp;50%</source>
         <translation>&amp;50%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1343"/>
+        <location filename="../actionmanager.cpp" line="1382"/>
         <source>&amp;75%</source>
         <translation>&amp;75%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1344"/>
+        <location filename="../actionmanager.cpp" line="1383"/>
         <source>&amp;100%</source>
         <translation>&amp;100%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1345"/>
+        <location filename="../actionmanager.cpp" line="1384"/>
         <source>&amp;200%</source>
         <translation>&amp;200%</translation>
     </message>
@@ -3562,117 +3738,117 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;Sličice predogleda</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1348"/>
+        <location filename="../actionmanager.cpp" line="1387"/>
         <source>Show &amp;Margins</source>
         <translation>Pokaži &amp;robove</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1350"/>
+        <location filename="../actionmanager.cpp" line="1389"/>
         <source>Show &amp;Frames</source>
         <translation>Pokaži &amp;okvire</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1352"/>
+        <location filename="../actionmanager.cpp" line="1391"/>
         <source>Show &amp;Images</source>
         <translation>Pokaži &amp;slike</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1353"/>
+        <location filename="../actionmanager.cpp" line="1392"/>
         <source>Show &amp;Grid</source>
         <translation>Pokaži &amp;mrežo</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1354"/>
+        <location filename="../actionmanager.cpp" line="1393"/>
         <source>Show G&amp;uides</source>
         <translation>Pokaži &amp;vodila</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1356"/>
+        <location filename="../actionmanager.cpp" line="1395"/>
         <source>Show &amp;Baseline Grid</source>
         <translation>Pokaži &amp;osnovno mrežo</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1357"/>
+        <location filename="../actionmanager.cpp" line="1396"/>
         <source>Show &amp;Text Chain</source>
         <translation>Pokaži &amp;verige besedil</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1358"/>
+        <location filename="../actionmanager.cpp" line="1397"/>
         <source>Show Control Characters</source>
         <translation>Pokaži ukazne znake</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1360"/>
+        <location filename="../actionmanager.cpp" line="1399"/>
         <source>Rulers relative to Page</source>
         <translation>Vodila glede na stran</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1361"/>
+        <location filename="../actionmanager.cpp" line="1400"/>
         <source>Sn&amp;ap to Grid</source>
         <translation>&amp;Pripni na mrežo</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1362"/>
+        <location filename="../actionmanager.cpp" line="1401"/>
         <source>Sna&amp;p to Guides</source>
         <translation>&amp;Pripni na vodila</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1366"/>
+        <location filename="../actionmanager.cpp" line="1406"/>
         <source>&amp;Properties</source>
         <translation>&amp;Lastnosti</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1368"/>
+        <location filename="../actionmanager.cpp" line="1408"/>
         <source>&amp;Scrapbook</source>
         <translation>&amp;Skicirka</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1369"/>
+        <location filename="../actionmanager.cpp" line="1409"/>
         <source>&amp;Layers</source>
         <translation>&amp;Plasti</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1370"/>
+        <location filename="../actionmanager.cpp" line="1410"/>
         <source>&amp;Arrange Pages</source>
         <translation>&amp;Uredi strani</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1371"/>
+        <location filename="../actionmanager.cpp" line="1411"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Zaznamki</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1372"/>
+        <location filename="../actionmanager.cpp" line="1412"/>
         <source>&amp;Measurements</source>
         <translation>&amp;Meritve</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1373"/>
+        <location filename="../actionmanager.cpp" line="1413"/>
         <source>Action &amp;History</source>
         <translation>&amp;Zgodovina dejanj</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1374"/>
+        <location filename="../actionmanager.cpp" line="1414"/>
         <source>Preflight &amp;Verifier</source>
         <translation>Končno pre&amp;verjanje</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1375"/>
+        <location filename="../actionmanager.cpp" line="1415"/>
         <source>&amp;Align and Distribute</source>
         <translation>R&amp;azporedi in poravnaj</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1376"/>
+        <location filename="../actionmanager.cpp" line="1416"/>
         <source>&amp;Tools</source>
         <translation>&amp;Orodja</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1377"/>
+        <location filename="../actionmanager.cpp" line="1417"/>
         <source>P&amp;DF Tools</source>
         <translation>Orodja &amp;PDF</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1380"/>
+        <location filename="../actionmanager.cpp" line="1420"/>
         <source>Select Item</source>
         <translation>Izberi predmet</translation>
     </message>
@@ -3697,52 +3873,52 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">&amp;Prostoročna črta</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1381"/>
+        <location filename="../actionmanager.cpp" line="1421"/>
         <source>Rotate Item</source>
         <translation>Zasukaj predmet</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1382"/>
+        <location filename="../actionmanager.cpp" line="1422"/>
         <source>Zoom in or out</source>
         <translation>Povečaj ali pomanjšaj</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1383"/>
+        <location filename="../actionmanager.cpp" line="1423"/>
         <source>Zoom in</source>
         <translation>Povečaj</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1384"/>
+        <location filename="../actionmanager.cpp" line="1424"/>
         <source>Zoom out</source>
         <translation>Pomanjšaj</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1385"/>
+        <location filename="../actionmanager.cpp" line="1425"/>
         <source>Edit Contents of Frame</source>
         <translation>Uredi vsebino okvira</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1386"/>
+        <location filename="../actionmanager.cpp" line="1426"/>
         <source>Edit Text...</source>
         <translation>Uredi besedilo ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1387"/>
+        <location filename="../actionmanager.cpp" line="1427"/>
         <source>Link Text Frames</source>
         <translation>Poveži besedilne okvire</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1388"/>
+        <location filename="../actionmanager.cpp" line="1428"/>
         <source>Unlink Text Frames</source>
         <translation>Razveži besedilne okvire</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1389"/>
+        <location filename="../actionmanager.cpp" line="1429"/>
         <source>&amp;Eye Dropper</source>
         <translation>&amp;Izbira barve</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1390"/>
+        <location filename="../actionmanager.cpp" line="1430"/>
         <source>Copy Item Properties</source>
         <translation>Kopiraj lastnosti predmeta</translation>
     </message>
@@ -3794,116 +3970,116 @@ Manjkajoče knjižnice so prikazane s *</translation>
     <message>
         <location filename="../actionmanager.cpp" line="1412"/>
         <source>&amp;Manage Pictures</source>
-        <translation>&amp;Upravljaj s slikami</translation>
+        <translation type="obsolete">&amp;Upravljaj s slikami</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1413"/>
+        <location filename="../actionmanager.cpp" line="1453"/>
         <source>&amp;Hyphenate Text</source>
         <translation>
 &amp;Deli besede</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1414"/>
+        <location filename="../actionmanager.cpp" line="1454"/>
         <source>Dehyphenate Text</source>
         <translation>Odstrani deljenje besed</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1415"/>
+        <location filename="../actionmanager.cpp" line="1455"/>
         <source>&amp;Generate Table Of Contents</source>
         <translation>&amp;Ustvari kazalo vsebine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1422"/>
+        <location filename="../actionmanager.cpp" line="1462"/>
         <source>&amp;About Scribus</source>
         <translation>&amp;O Scribusu</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1424"/>
+        <location filename="../actionmanager.cpp" line="1464"/>
         <source>About &amp;Qt</source>
         <translation>O &amp;QT-ju</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1425"/>
+        <location filename="../actionmanager.cpp" line="1465"/>
         <source>Toolti&amp;ps</source>
         <translation>&amp;Namigi orodja</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1426"/>
+        <location filename="../actionmanager.cpp" line="1466"/>
         <source>Scribus &amp;Manual...</source>
         <translation>Pr&amp;iročnik za Scribus ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1443"/>
+        <location filename="../actionmanager.cpp" line="1484"/>
         <source>Smart &amp;Hyphen</source>
         <translation>Pametno &amp;deljenje</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1444"/>
+        <location filename="../actionmanager.cpp" line="1485"/>
         <source>Non Breaking Dash</source>
         <translation>Neprelomen pomišljaj</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1445"/>
+        <location filename="../actionmanager.cpp" line="1486"/>
         <source>Non Breaking &amp;Space</source>
         <translation>Neprelomen pre&amp;sledek</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1446"/>
+        <location filename="../actionmanager.cpp" line="1487"/>
         <source>Page &amp;Number</source>
         <translation>&amp;Številka strani</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1447"/>
+        <location filename="../actionmanager.cpp" line="1488"/>
         <source>New Line</source>
         <translation>Nova vrstica</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1448"/>
+        <location filename="../actionmanager.cpp" line="1489"/>
         <source>Frame Break</source>
         <translation>Prelom okvira</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1449"/>
+        <location filename="../actionmanager.cpp" line="1490"/>
         <source>Column Break</source>
         <translation>Prelom stolpca</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1452"/>
+        <location filename="../actionmanager.cpp" line="1493"/>
         <source>Copyright</source>
         <translation>Copyright</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1453"/>
+        <location filename="../actionmanager.cpp" line="1494"/>
         <source>Registered Trademark</source>
         <translation>Zaščitena blagovna znamka</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1454"/>
+        <location filename="../actionmanager.cpp" line="1495"/>
         <source>Trademark</source>
         <translation>Blagovna znamka</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1456"/>
+        <location filename="../actionmanager.cpp" line="1497"/>
         <source>Bullet</source>
         <translation>Oznaka</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1458"/>
+        <location filename="../actionmanager.cpp" line="1499"/>
         <source>Em Dash</source>
         <translation>Pomišljaj M</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1459"/>
+        <location filename="../actionmanager.cpp" line="1500"/>
         <source>En Dash</source>
         <translation>Pomišljaj N</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1460"/>
+        <location filename="../actionmanager.cpp" line="1501"/>
         <source>Figure Dash</source>
         <translation>Vezaj števil</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1461"/>
+        <location filename="../actionmanager.cpp" line="1502"/>
         <source>Quotation Dash</source>
         <translation>Narekovalni pomišljaj</translation>
     </message>
@@ -4003,113 +4179,113 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Dvojni desni CJK</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1433"/>
+        <location filename="../actionmanager.cpp" line="1474"/>
         <source>Toggle Palettes</source>
         <translation>Preklopi palete</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1434"/>
+        <location filename="../actionmanager.cpp" line="1475"/>
         <source>Toggle Guides</source>
         <translation>Preklopi vodila</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1222"/>
+        <location filename="../actionmanager.cpp" line="1261"/>
         <source>Print Previe&amp;w</source>
         <translation>Pred&amp;ogled tiskanja</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1244"/>
+        <location filename="../actionmanager.cpp" line="1283"/>
         <source>&amp;JavaScripts...</source>
         <translation>&amp;JavaSkripti ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1335"/>
+        <location filename="../actionmanager.cpp" line="1374"/>
         <source>Convert to Master Page...</source>
         <translation>Pretvori v glavno stran ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1418"/>
+        <location filename="../actionmanager.cpp" line="1458"/>
         <source>&amp;Cascade</source>
         <translation>&amp;Kaskadno</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1419"/>
+        <location filename="../actionmanager.cpp" line="1459"/>
         <source>&amp;Tile</source>
         <translation>&amp;Tlakovano</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1423"/>
         <source>&amp;About Plug-ins</source>
-        <translation>&amp;O vtičnikih</translation>
+        <translation type="obsolete">&amp;O vtičnikih</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1299"/>
+        <location filename="../actionmanager.cpp" line="1338"/>
         <source>More Info...</source>
         <translation>Več informacij ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1289"/>
+        <location filename="../actionmanager.cpp" line="1328"/>
         <source>&amp;Printing Enabled</source>
         <translation>&amp;Tiskanje omogočeno</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1290"/>
+        <location filename="../actionmanager.cpp" line="1329"/>
         <source>&amp;Flip Horizontally</source>
         <translation>&amp;Prezrcali vodoravno</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1291"/>
+        <location filename="../actionmanager.cpp" line="1330"/>
         <source>&amp;Flip Vertically</source>
         <translation>&amp;Prezrcali navpično</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1359"/>
+        <location filename="../actionmanager.cpp" line="1398"/>
         <source>Show Rulers</source>
         <translation>Pokaži ravnila</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1367"/>
+        <location filename="../actionmanager.cpp" line="1407"/>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
         <translation>&amp;Oris</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1455"/>
+        <location filename="../actionmanager.cpp" line="1496"/>
         <source>Solidus</source>
         <translation>Poševnica</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1457"/>
+        <location filename="../actionmanager.cpp" line="1498"/>
         <source>Middle Dot</source>
         <translation>Vmesna pika</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1482"/>
+        <location filename="../actionmanager.cpp" line="1523"/>
         <source>En Space</source>
         <translation>Presledek N</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1483"/>
+        <location filename="../actionmanager.cpp" line="1524"/>
         <source>Em Space</source>
         <translation>Presledek M</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1484"/>
+        <location filename="../actionmanager.cpp" line="1525"/>
         <source>Thin Space</source>
         <translation>Ozek presledek</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1485"/>
+        <location filename="../actionmanager.cpp" line="1526"/>
         <source>Thick Space</source>
         <translation>Širok presledek</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1486"/>
+        <location filename="../actionmanager.cpp" line="1527"/>
         <source>Mid Space</source>
         <translation>Vmesni presledek</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1487"/>
+        <location filename="../actionmanager.cpp" line="1528"/>
         <source>Hair Space</source>
         <translation>Las tanek presledek</translation>
     </message>
@@ -4134,349 +4310,374 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <translation type="obsolete">Vstavi številko strani</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1499"/>
+        <location filename="../actionmanager.cpp" line="1540"/>
         <source>ff</source>
         <translation>ff</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1500"/>
+        <location filename="../actionmanager.cpp" line="1541"/>
         <source>fi</source>
         <translation>fi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1501"/>
+        <location filename="../actionmanager.cpp" line="1542"/>
         <source>fl</source>
         <translation>fl</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1502"/>
+        <location filename="../actionmanager.cpp" line="1543"/>
         <source>ffi</source>
         <translation>ffi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1503"/>
+        <location filename="../actionmanager.cpp" line="1544"/>
         <source>ffl</source>
         <translation>ffl</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1504"/>
+        <location filename="../actionmanager.cpp" line="1545"/>
         <source>ft</source>
         <translation>ft</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1505"/>
+        <location filename="../actionmanager.cpp" line="1546"/>
         <source>st</source>
         <translation>st</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1242"/>
+        <location filename="../actionmanager.cpp" line="1281"/>
         <source>S&amp;tyles...</source>
         <translation>&amp;Slogi ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1275"/>
+        <location filename="../actionmanager.cpp" line="1314"/>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
         <translation>&amp;Oris</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1318"/>
+        <location filename="../actionmanager.cpp" line="1357"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>&amp;Orisi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1233"/>
+        <location filename="../actionmanager.cpp" line="1272"/>
         <source>Paste (&amp;Absolute)</source>
         <translation>Prilepi (&amp;absolutno)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1234"/>
+        <location filename="../actionmanager.cpp" line="1273"/>
         <source>C&amp;lear</source>
         <translation>&amp;Počisti</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1355"/>
+        <location filename="../actionmanager.cpp" line="1394"/>
         <source>Show Text Frame Columns</source>
         <translation>Pokaži stolpce okvira z besedilom</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1217"/>
+        <location filename="../actionmanager.cpp" line="1256"/>
         <source>Save as &amp;EPS...</source>
         <translation>Shrani kot &amp;EPS ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1239"/>
+        <location filename="../actionmanager.cpp" line="1278"/>
         <source>Edit Latex Source...</source>
         <translation>Uredi kodo Latex ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1241"/>
+        <location filename="../actionmanager.cpp" line="1280"/>
         <source>Patterns...</source>
         <translation>Vzorci ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1297"/>
+        <location filename="../actionmanager.cpp" line="1336"/>
         <source>Send to Patterns</source>
         <translation>Pošlji med vzorce</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1323"/>
+        <location filename="../actionmanager.cpp" line="1362"/>
         <source>&amp;Frame...</source>
         <translation>&amp;Okvir ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1326"/>
+        <location filename="../actionmanager.cpp" line="1365"/>
         <source>Sticky Tools</source>
         <translation>Orodja lepljivosti</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1340"/>
+        <location filename="../actionmanager.cpp" line="1379"/>
         <source>&amp;Fit to Height</source>
         <translation>&amp;Umeri na višino</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1341"/>
+        <location filename="../actionmanager.cpp" line="1380"/>
         <source>Fit to Width</source>
         <translation>Umeri na širino</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1346"/>
+        <location filename="../actionmanager.cpp" line="1385"/>
         <source>&amp;400%</source>
         <translation>&amp;400%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1347"/>
+        <location filename="../actionmanager.cpp" line="1386"/>
         <source>Preview Mode</source>
         <translation>Predogledni način</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1349"/>
+        <location filename="../actionmanager.cpp" line="1388"/>
         <source>Show Bleeds</source>
         <translation>Pokaži dodatek za porezavo</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1351"/>
+        <location filename="../actionmanager.cpp" line="1390"/>
         <source>Show Layer Indicators</source>
         <translation>Pokaži indikatorje plasti</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1392"/>
+        <location filename="../actionmanager.cpp" line="1432"/>
         <source>Insert &amp;Text Frame</source>
         <translation>Vstavi &amp;besedilni okvir</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1393"/>
+        <location filename="../actionmanager.cpp" line="1433"/>
         <source>Insert &amp;Image Frame</source>
         <translation>Vstavi &amp;slikovni okvir</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1394"/>
+        <location filename="../actionmanager.cpp" line="1434"/>
         <source>Insert &amp;Latex Frame</source>
         <translation>Vstavi okvir Late&amp;x</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1395"/>
+        <location filename="../actionmanager.cpp" line="1435"/>
         <source>Insert T&amp;able</source>
         <translation>Vstavi &amp;tabelo</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1396"/>
+        <location filename="../actionmanager.cpp" line="1436"/>
         <source>Insert &amp;Shape</source>
         <translation>Vstavi &amp;lik</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1397"/>
+        <location filename="../actionmanager.cpp" line="1437"/>
         <source>Insert &amp;Polygon</source>
         <translation>Vstavi &amp;mnogokotnik</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1398"/>
+        <location filename="../actionmanager.cpp" line="1438"/>
         <source>Insert &amp;Line</source>
         <translation>Vstavi &amp;črto</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1399"/>
+        <location filename="../actionmanager.cpp" line="1439"/>
         <source>Insert &amp;Bezier Curve</source>
         <translation>Vstavi krivuljo &amp;Bezier</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1400"/>
+        <location filename="../actionmanager.cpp" line="1440"/>
         <source>Insert &amp;Freehand Line</source>
         <translation>Vstavi prostoročno &amp;črto</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1402"/>
+        <location filename="../actionmanager.cpp" line="1442"/>
         <source>Insert PDF Push Button</source>
         <translation>Vstavi gumb PDF</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1403"/>
+        <location filename="../actionmanager.cpp" line="1443"/>
         <source>Insert PDF Text Field</source>
         <translation>Vstavi besedilno polje PDF</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1404"/>
+        <location filename="../actionmanager.cpp" line="1444"/>
         <source>Insert PDF Check Box</source>
         <translation>Vstavi potrditveno polje PDF</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1405"/>
+        <location filename="../actionmanager.cpp" line="1445"/>
         <source>Insert PDF Combo Box</source>
         <translation>Vstavi kombinirano polje PDF</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1406"/>
+        <location filename="../actionmanager.cpp" line="1446"/>
         <source>Insert PDF List Box</source>
         <translation>Vstavi seznamsko polje PDF</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1407"/>
+        <location filename="../actionmanager.cpp" line="1447"/>
         <source>Insert Text Annotation</source>
         <translation>Vstavi besedilo opombe</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1408"/>
+        <location filename="../actionmanager.cpp" line="1448"/>
         <source>Insert Link Annotation</source>
         <translation>Vstavi povezavo opombe</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1427"/>
+        <location filename="../actionmanager.cpp" line="1467"/>
         <source>Scribus Homepage</source>
         <translation>Domača stran Scribusa</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1428"/>
+        <location filename="../actionmanager.cpp" line="1468"/>
         <source>Scribus Online Documentation</source>
         <translation>Scribusova spletna dokumentacija</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1429"/>
+        <location filename="../actionmanager.cpp" line="1469"/>
         <source>Scribus Wiki</source>
         <translation>Wiki Scribusa</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1430"/>
+        <location filename="../actionmanager.cpp" line="1470"/>
         <source>Getting Started with Scribus</source>
         <translation>Prvi koraki s Scribusom</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1450"/>
+        <location filename="../actionmanager.cpp" line="1491"/>
         <source>&amp;Zero Width Space</source>
         <translation>Presledek ničelne &amp;širine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1451"/>
+        <location filename="../actionmanager.cpp" line="1492"/>
         <source>Zero Width NB Space</source>
         <translation>Nedeljiv presledek ničelne širine</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1463"/>
+        <location filename="../actionmanager.cpp" line="1504"/>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
         <translation>Opuščaj</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1464"/>
+        <location filename="../actionmanager.cpp" line="1505"/>
         <source>Straight Double</source>
         <comment>Unicode 0x0022</comment>
         <translation>Ravni dvojni</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1465"/>
+        <location filename="../actionmanager.cpp" line="1506"/>
         <source>Single Left</source>
         <comment>Unicode 0x2018</comment>
         <translation>Levi enojni</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1466"/>
+        <location filename="../actionmanager.cpp" line="1507"/>
         <source>Single Right</source>
         <comment>Unicode 0x2019</comment>
         <translation>Desni enojni</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1467"/>
+        <location filename="../actionmanager.cpp" line="1508"/>
         <source>Double Left</source>
         <comment>Unicode 0x201C</comment>
         <translation>Dvojni levi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1468"/>
+        <location filename="../actionmanager.cpp" line="1509"/>
         <source>Double Right</source>
         <comment>Unicode 0x201D</comment>
         <translation>Dvojni desni</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1469"/>
+        <location filename="../actionmanager.cpp" line="1510"/>
         <source>Single Reversed</source>
         <comment>Unicode 0x201B</comment>
         <translation>Obratni enojni</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1470"/>
+        <location filename="../actionmanager.cpp" line="1511"/>
         <source>Double Reversed</source>
         <comment>Unicode 0x201F</comment>
         <translation>Obratni dvojni</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1471"/>
+        <location filename="../actionmanager.cpp" line="1512"/>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
         <translation>Enojen levi guillemet </translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1472"/>
+        <location filename="../actionmanager.cpp" line="1513"/>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
         <translation>Enojen desni guillemet </translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1473"/>
+        <location filename="../actionmanager.cpp" line="1514"/>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
         <translation>Dvojni levi guillemet</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1474"/>
+        <location filename="../actionmanager.cpp" line="1515"/>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
         <translation>Dvojni desni guillemet</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1475"/>
+        <location filename="../actionmanager.cpp" line="1516"/>
         <source>Low Single Comma</source>
         <comment>Unicode 0x201A</comment>
         <translation>Nizka enojna vejica</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1476"/>
+        <location filename="../actionmanager.cpp" line="1517"/>
         <source>Low Double Comma</source>
         <comment>Unicode 0x201E</comment>
         <translation>Nizka dvojna vejica</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1477"/>
+        <location filename="../actionmanager.cpp" line="1518"/>
         <source>CJK Single Left</source>
         <comment>Unicode 0x300C</comment>
         <translation>Levi enojni CJK</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1478"/>
+        <location filename="../actionmanager.cpp" line="1519"/>
         <source>CJK Single Right</source>
         <comment>Unicode 0x300D</comment>
         <translation>Desni enojni CJK</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1479"/>
+        <location filename="../actionmanager.cpp" line="1520"/>
         <source>CJK Double Left</source>
         <comment>Unicode 0x300E</comment>
         <translation>Dvojni levi CJK</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1480"/>
+        <location filename="../actionmanager.cpp" line="1521"/>
         <source>CJK Double Right</source>
         <comment>Unicode 0x300F</comment>
         <translation>Dvojni desni CJK</translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1402"/>
+        <source>Show Context Menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1452"/>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1463"/>
+        <source>&amp;About Plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1471"/>
+        <source>Check updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1476"/>
+        <source>Insert Unicode Character Begin Sequence</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4735,47 +4936,47 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
 <context>
     <name>AlignDistributePalette</name>
     <message>
-        <location filename="../aligndistribute.cpp" line="79"/>
+        <location filename="../aligndistribute.cpp" line="90"/>
         <source>Align and Distribute</source>
         <translation>Razporejanje in poravnava</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="80"/>
+        <location filename="../aligndistribute.cpp" line="91"/>
         <source>Align</source>
         <translation>Poravnaj</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="82"/>
+        <location filename="../aligndistribute.cpp" line="93"/>
         <source>&amp;Relative to:</source>
         <translation>&amp;Relativno na:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="85"/>
+        <location filename="../aligndistribute.cpp" line="96"/>
         <source>First Selected</source>
         <translation>Prvo izbiro</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="86"/>
+        <location filename="../aligndistribute.cpp" line="97"/>
         <source>Last Selected</source>
         <translation>Zadnjo izbiro</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="87"/>
+        <location filename="../aligndistribute.cpp" line="98"/>
         <source>Page</source>
         <translation>Stran</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="88"/>
+        <location filename="../aligndistribute.cpp" line="99"/>
         <source>Margins</source>
         <translation>Meje</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="89"/>
+        <location filename="../aligndistribute.cpp" line="100"/>
         <source>Guide</source>
         <translation>Vodila</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="90"/>
+        <location filename="../aligndistribute.cpp" line="101"/>
         <source>Selection</source>
         <translation>Izbira</translation>
     </message>
@@ -4790,12 +4991,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Levo strani predmetov poravnaj na desno stran vodila</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="98"/>
+        <location filename="../aligndistribute.cpp" line="109"/>
         <source>Align bottoms</source>
         <translation>Poravnaj spodnje strani</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="100"/>
+        <location filename="../aligndistribute.cpp" line="111"/>
         <source>Align right sides</source>
         <translation>Poravnaj desne strani</translation>
     </message>
@@ -4805,17 +5006,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Poravnaj vrhnje strani predmetov na dno sidra</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="104"/>
+        <location filename="../aligndistribute.cpp" line="115"/>
         <source>Center on vertical axis</source>
         <translation>Sredinsko po navpični osi</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="106"/>
+        <location filename="../aligndistribute.cpp" line="117"/>
         <source>Align left sides</source>
         <translation>Poravnaj leve strani</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="108"/>
+        <location filename="../aligndistribute.cpp" line="119"/>
         <source>Center on horizontal axis</source>
         <translation>Sredinsko po vodoravni osi</translation>
     </message>
@@ -4825,17 +5026,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Poravnaj spodnje strani predmetov na vrh sidra</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="112"/>
+        <location filename="../aligndistribute.cpp" line="123"/>
         <source>Align tops</source>
         <translation>Poravnaj vrhnje strani</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="114"/>
+        <location filename="../aligndistribute.cpp" line="125"/>
         <source>&amp;Selected Guide:</source>
         <translation>&amp;Izbrano vodilo:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="81"/>
+        <location filename="../aligndistribute.cpp" line="92"/>
         <source>Distribute</source>
         <translation>Razporedi</translation>
     </message>
@@ -4850,17 +5051,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Vodoravni razmiki med predmeti naj bodo enaki navedeni vrednosti</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="122"/>
+        <location filename="../aligndistribute.cpp" line="133"/>
         <source>Distribute right sides equidistantly</source>
         <translation>Enakomerno razporedi desne strani</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="124"/>
+        <location filename="../aligndistribute.cpp" line="135"/>
         <source>Distribute bottoms equidistantly</source>
         <translation>Enakomerno razporedi spodnje strani</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="126"/>
+        <location filename="../aligndistribute.cpp" line="137"/>
         <source>Distribute centers equidistantly horizontally</source>
         <translation>Enakomerno vodoravno razporedi središča</translation>
     </message>
@@ -4875,32 +5076,32 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Navpični razmiki med predmeti naj bodo enaki navedeni vrednosti</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="132"/>
+        <location filename="../aligndistribute.cpp" line="143"/>
         <source>Distribute left sides equidistantly</source>
         <translation>Enakomerno razporedi leve strani</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="134"/>
+        <location filename="../aligndistribute.cpp" line="145"/>
         <source>Distribute centers equidistantly vertically</source>
         <translation>Enakomerno navpično razporedi središča</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="136"/>
+        <location filename="../aligndistribute.cpp" line="147"/>
         <source>Distribute tops equidistantly</source>
         <translation>Enakomerno razporedi vrhnje strani</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="146"/>
+        <location filename="../aligndistribute.cpp" line="157"/>
         <source>&amp;Distance:</source>
         <translation>&amp;Razdalja:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="147"/>
+        <location filename="../aligndistribute.cpp" line="158"/>
         <source>Distribute the items with the distance specified</source>
         <translation>Predmete razporedi z dano razdaljo</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="149"/>
+        <location filename="../aligndistribute.cpp" line="160"/>
         <source>None Selected</source>
         <translation>Ni izbrano</translation>
     </message>
@@ -4920,72 +5121,72 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">&amp;Odkleni vse</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="429"/>
+        <location filename="../aligndistribute.cpp" line="440"/>
         <source>Y: %1%2</source>
         <translation>Y: %1%2</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="437"/>
+        <location filename="../aligndistribute.cpp" line="448"/>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="94"/>
+        <location filename="../aligndistribute.cpp" line="105"/>
         <source>Align right sides of items to left side of anchor</source>
         <translation>Desne strani predmetov poravnaj na levo stran sidra</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="96"/>
+        <location filename="../aligndistribute.cpp" line="107"/>
         <source>Align left sides of items to right side of anchor</source>
         <translation>Leve strani predmetov poravnaj na desno stran sidra</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="102"/>
+        <location filename="../aligndistribute.cpp" line="113"/>
         <source>Align tops of items to bottom of anchor</source>
         <translation>Vrh predmetov poravnaj na dno sidra</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="110"/>
+        <location filename="../aligndistribute.cpp" line="121"/>
         <source>Align bottoms of items to top of anchor</source>
         <translation>Dno predmetov poravnaj na vrh sidra</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="117"/>
+        <location filename="../aligndistribute.cpp" line="128"/>
         <source>Make horizontal gaps between items equal</source>
         <translation>Vodoravni razmik med elementi naj bo enako širok</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="119"/>
+        <location filename="../aligndistribute.cpp" line="130"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
         <translation>Vodoravni razmik med elementi naj bo enak navedeni vrednosti</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="128"/>
+        <location filename="../aligndistribute.cpp" line="139"/>
         <source>Make vertical gaps between items equal</source>
         <translation>Navpični razmik med elementi naj bo enako širok</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="130"/>
+        <location filename="../aligndistribute.cpp" line="141"/>
         <source>Make vertical gaps between items equal to the value specified</source>
         <translation>Navpični razmik med elementi naj bo enak navedeni vrednosti</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="138"/>
+        <location filename="../aligndistribute.cpp" line="149"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
         <translation>Vodoravni razmik med elementi in konci strani naj bo enak</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="140"/>
+        <location filename="../aligndistribute.cpp" line="151"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation>Navpični razmik med elementi, vrhom in dnom strani naj bo enak</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="142"/>
+        <location filename="../aligndistribute.cpp" line="153"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
         <translation>Vodoravni razmik med elementi in robovi strani naj bo enak</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="144"/>
+        <location filename="../aligndistribute.cpp" line="155"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
         <translation>Navpični razmik med elementi in robovi strani naj bo enak</translation>
     </message>
@@ -4993,27 +5194,27 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
 <context>
     <name>AlignSelect</name>
     <message>
-        <location filename="../alignselect.cpp" line="100"/>
+        <location filename="../alignselect.cpp" line="110"/>
         <source>Align Text Left</source>
         <translation>Poravnaj besedilo na levo</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="104"/>
+        <location filename="../alignselect.cpp" line="114"/>
         <source>Align Text Forced Justified</source>
         <translation>Poravnaj besedilo obojestransko na silo</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="102"/>
+        <location filename="../alignselect.cpp" line="112"/>
         <source>Align Text Center</source>
         <translation>Poravnaj besedilo sredinsko</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="103"/>
+        <location filename="../alignselect.cpp" line="113"/>
         <source>Align Text Justified</source>
         <translation>Poravnaj besedilo obojestransko</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="101"/>
+        <location filename="../alignselect.cpp" line="111"/>
         <source>Align Text Right</source>
         <translation>Poravnaj besedilo na desno</translation>
     </message>
@@ -5824,67 +6025,67 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Običajno</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="260"/>
+        <location filename="../applytemplatedialog.cpp" line="267"/>
         <source>Apply Master Page</source>
         <translation>Uporabi glavno stran</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="261"/>
+        <location filename="../applytemplatedialog.cpp" line="268"/>
         <source>&amp;Master Page:</source>
         <translation>&amp;Glavna stran:</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="262"/>
+        <location filename="../applytemplatedialog.cpp" line="269"/>
         <source>Apply To</source>
         <translation>Uporabi na</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="263"/>
+        <location filename="../applytemplatedialog.cpp" line="270"/>
         <source>Current &amp;page</source>
         <translation>&amp;trenutni strani</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="264"/>
+        <location filename="../applytemplatedialog.cpp" line="271"/>
         <source>Alt+P</source>
         <translation>Alt+P</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="265"/>
+        <location filename="../applytemplatedialog.cpp" line="272"/>
         <source>&amp;Even pages</source>
         <translation>&amp;lihih straneh</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="266"/>
+        <location filename="../applytemplatedialog.cpp" line="273"/>
         <source>Alt+E</source>
         <translation>Alt+E</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="267"/>
+        <location filename="../applytemplatedialog.cpp" line="274"/>
         <source>O&amp;dd pages</source>
         <translation>so&amp;dih straneh</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="268"/>
+        <location filename="../applytemplatedialog.cpp" line="275"/>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="269"/>
+        <location filename="../applytemplatedialog.cpp" line="276"/>
         <source>&amp;All pages</source>
         <translation>vseh str&amp;aneh</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="270"/>
+        <location filename="../applytemplatedialog.cpp" line="277"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="271"/>
+        <location filename="../applytemplatedialog.cpp" line="278"/>
         <source>&amp;Within range</source>
         <translation>&amp;v obsegu</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="272"/>
+        <location filename="../applytemplatedialog.cpp" line="279"/>
         <source>Alt+W</source>
         <translation>Alt+W</translation>
     </message>
@@ -5894,27 +6095,27 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">&lt;qt&gt;Uveljavi izbrano predlogo na lihih, sodih ali vseh straneh v danem območju&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="274"/>
+        <location filename="../applytemplatedialog.cpp" line="281"/>
         <source>to</source>
         <translation>v</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="276"/>
+        <location filename="../applytemplatedialog.cpp" line="283"/>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="278"/>
+        <location filename="../applytemplatedialog.cpp" line="285"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="273"/>
+        <location filename="../applytemplatedialog.cpp" line="280"/>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
         <translation>Uporabi izbrane glavne strani na lihih, sodih ali vseh straneh v naslednjem obsegu</translation>
     </message>
     <message>
-        <location filename="../applytemplatedialog.cpp" line="51"/>
+        <location filename="../applytemplatedialog.cpp" line="52"/>
         <source>Possible Hyphenation</source>
         <translation>Možno deljenje</translation>
     </message>
@@ -5981,22 +6182,190 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
 </context>
 <context>
+    <name>AspellPlugin</name>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="31"/>
+        <source>Spell-Checker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="63"/>
+        <source>Spell-checking support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="68"/>
+        <source>Adds support for spell-checking via aspell. Languages can be chosen from among the installed aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="69"/>
+        <source>0.1</source>
+        <translation type="unfinished">0.1</translation>
+    </message>
+</context>
+<context>
+    <name>AspellPluginBase</name>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="13"/>
+        <source>Spell Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="49"/>
+        <source>Mis-spelling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="99"/>
+        <source>Replacement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="140"/>
+        <source>Active dictionary: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="183"/>
+        <source>Personal
+Dictionary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="212"/>
+        <source>&amp;Add Word</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="241"/>
+        <source>&amp;Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="266"/>
+        <source>C&amp;hange All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="291"/>
+        <source>&amp;Skip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="310"/>
+        <source>S&amp;kip All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="351"/>
+        <source>&amp;Exit</source>
+        <translation type="unfinished">I&amp;zhod</translation>
+    </message>
+</context>
+<context>
+    <name>AspellPluginImpl</name>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
+        <source>Loaded </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
+        <source>default </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
+        <source> aspell dictionary.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="57"/>
+        <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in aspell speller configuration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="64"/>
+        <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating aspell speller.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="211"/>
+        <source>Spell-Checker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="211"/>
+        <source>Spell-checking completed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="222"/>
+        <source>Spell-checking done.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="329"/>
+        <source>AspellPluginImpl::on_fskipAllBtn_clicked(): Unable to skip all instances of &quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="330"/>
+        <source> by adding it to the session list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="352"/>
+        <source>AspellPluginImpl::on_faddWordBtn_clicked(): Unable to add word to personal list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AutoformButtonGroup</name>
+    <message>
+        <location filename="../autoformbuttongroup.cpp" line="1212"/>
+        <source>Arrows</source>
+        <translation type="unfinished">Puščice</translation>
+    </message>
+    <message>
+        <location filename="../autoformbuttongroup.cpp" line="1213"/>
+        <source>Flow Chart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../autoformbuttongroup.cpp" line="1214"/>
+        <source>Jigsaw</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../autoformbuttongroup.cpp" line="1215"/>
+        <source>Specials</source>
+        <translation type="unfinished">Posebno</translation>
+    </message>
+</context>
+<context>
     <name>Barcode</name>
     <message>
         <location filename="../plugins/barcodegenerator/barcode.cpp" line="22"/>
         <source>&amp;Barcode Generator...</source>
-        <translation>Generator &amp;črtne kode ...</translation>
+        <translation type="obsolete">Generator &amp;črtne kode ...</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcode.cpp" line="37"/>
+        <location filename="../plugins/barcodegenerator/barcode.cpp" line="40"/>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
         <translation>Uporabniški vmesnik Scribus za pisanje črtne kode (Pure Postscript Barcode Writer)</translation>
+    </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcode.cpp" line="23"/>
+        <source>&amp;Barcode...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>BarcodeGenerator</name>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="286"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="296"/>
         <source>Error opening file: %1</source>
         <translation>Napaka pri odpiranju datoteke: %1</translation>
     </message>
@@ -6071,7 +6440,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Spreminjajoče število šestnajstiških znakov</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="317"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="330"/>
         <source>Barcode incomplete</source>
         <translation>Črtna koda nepopolna</translation>
     </message>
@@ -6080,174 +6449,194 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
         <translation>12 ali 13 številk z vezaji. Zastarela oblika ISBN-10 sprejema 9 ali 10 številk z vezaji, vendar ni več v javni uporabi po 1. januarju 2007. (Opomba: Za pretvorbo stare številke ISBN-10 v novo ISBN-13, na začetek dodajte predpono 978- prvim 9 številkam, npr. 1-56592-479-7 -&gt; 978-1-56592-479. Zadnja preskusna številka bo izračunana samodejno.)</translation>
     </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="104"/>
+        <source>Select Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="144"/>
+        <source>Select Barcode Type</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BarcodeGeneratorBase</name>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="15"/>
         <source>Barcode Creator</source>
-        <translation>Generator črtne kode</translation>
+        <translation type="obsolete">Generator črtne kode</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="193"/>
         <source>Barcode</source>
-        <translation>Črtna koda</translation>
+        <translation type="obsolete">Črtna koda</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="311"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="152"/>
         <source>&amp;Type:</source>
         <translation>&amp;Vrsta:</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="304"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="145"/>
         <source>Select one of the available barcode type here</source>
         <translation>Izberite eno od razpoložljivih vrst črtne kode</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="284"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="125"/>
         <source>The numeric representation of the code itself. See the help message below</source>
         <translation>Številčni prikaz same kode. Glejte sporočilo pomoči spodaj</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="274"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="115"/>
         <source>Reset the barcode samples</source>
         <translation>Ponastavi vzorce črtne kode</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="247"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="90"/>
         <source>&amp;Include text in barcode</source>
         <translation>&amp;Vključi besedilo v črtno kodo</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="250"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="93"/>
         <source>Alt+I</source>
         <translation>Alt +I</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="244"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="87"/>
         <source>If checked, there will be numbers in the barcode too</source>
         <translation>Če je izbrano, vključi številke v črtni kodi</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="234"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="77"/>
         <source>&amp;Guard whitespace</source>
         <translation>&amp;Straži prazen prostor</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="237"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="80"/>
         <source>Alt+G</source>
         <translation>Alt+G</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="231"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="74"/>
         <source>Draw arrows to be sure of space next the code</source>
         <translation>Riši puščice, da je prostor poleg kode zagotovljen</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="30"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="168"/>
         <source>Colors</source>
         <translation>Barve</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="58"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="208"/>
         <source>&amp;Background</source>
         <translation>&amp;Ozadje</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="61"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="211"/>
         <source>Alt+B</source>
         <translation>Alt+B</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="55"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="205"/>
         <source>Background color - under the code lines</source>
         <translation>Barva ozadja - pod črtami kode</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="90"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="240"/>
         <source>&amp;Lines</source>
         <translation>&amp;Črte</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="93"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="243"/>
         <source>Alt+L</source>
         <translation>Alt+L</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="87"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="237"/>
         <source>Color of the lines in barcode</source>
         <translation>Barva črt črtne kode</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="122"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="272"/>
         <source>&amp;Text</source>
         <translation>&amp;Besedilo</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="125"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="275"/>
         <source>Alt+T</source>
         <translation>Alt+T</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="119"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="269"/>
         <source>Color of the text and numbers</source>
         <translation>Barva besedila in številk</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="154"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="304"/>
         <source>Hints and help is shown here</source>
         <translation>Tu so prikazani nasveti in pomoč</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="164"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="314"/>
         <source>Preview of the result. 72dpi sample.</source>
         <translation>Predogled rezultata. 72dpi vzorec.</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="291"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="132"/>
         <source>Co&amp;de:</source>
         <translation>Ko&amp;da:</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="221"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="64"/>
         <source>I&amp;nclude checksum</source>
         <translation>V&amp;ključi kontrolno vsoto</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="224"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="67"/>
         <source>Alt+N</source>
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="218"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="61"/>
         <source>Generate and include a checksum in barcode</source>
         <translation>Ustvari in vključi kontrolno vsoto v črtno kodo</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="208"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="51"/>
         <source>Incl&amp;ude checksum digit</source>
         <translation>&amp;Vključi številko kotnrolne vsote</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="211"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="54"/>
         <source>Alt+U</source>
         <translation>Alt+U</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="205"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="48"/>
         <source>Include the checksum digit in the barcode text</source>
         <translation>Vključi številko kontrolne vsote v besedilo črtne kode</translation>
+    </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="15"/>
+        <source>Insert Barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="24"/>
+        <source>Format</source>
+        <translation type="unfinished">Oblika</translation>
     </message>
 </context>
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="798"/>
+        <location filename="../scrapbookpalette.cpp" line="839"/>
         <source>Delete</source>
         <translation>Izbriši</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1214"/>
+        <location filename="../scrapbookpalette.cpp" line="1344"/>
         <source>Object</source>
         <translation>Predmet</translation>
     </message>
@@ -6257,17 +6646,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Odložišča (*.scs);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1311"/>
+        <location filename="../scrapbookpalette.cpp" line="1444"/>
         <source>Scrapbook</source>
         <translation>Skicirka</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1123"/>
+        <location filename="../scrapbookpalette.cpp" line="1257"/>
         <source>New Entry</source>
         <translation>Nov vnos</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="796"/>
+        <location filename="../scrapbookpalette.cpp" line="837"/>
         <source>Rename</source>
         <translation>Preimenuj</translation>
     </message>
@@ -6339,24 +6728,24 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">&amp;Predogled</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1123"/>
+        <location filename="../scrapbookpalette.cpp" line="1257"/>
         <source>&amp;Name:</source>
         <translation>&amp;Ime:</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1017"/>
+        <location filename="../scrapbookpalette.cpp" line="1120"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
         <translation>Ime &quot;%1&quot; ni edinstveno.
 Prosim, izberite drugo.</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="684"/>
+        <location filename="../scrapbookpalette.cpp" line="698"/>
         <source>Choose a Scrapbook Directory</source>
         <translation>Izberite mapo za skicirko</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="740"/>
+        <location filename="../scrapbookpalette.cpp" line="759"/>
         <source>Choose a Directory</source>
         <translation>Izberite mapo</translation>
     </message>
@@ -6366,7 +6755,7 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Skicirka (*.scs)</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="720"/>
+        <location filename="../scrapbookpalette.cpp" line="737"/>
         <source>Choose a scrapbook file to import</source>
         <translation>Izberite datoteko skicirke za uvoz</translation>
     </message>
@@ -6376,59 +6765,84 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">&amp;Uvozi datoteko skicirke ...</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="552"/>
+        <location filename="../scrapbookpalette.cpp" line="560"/>
         <source>Main</source>
         <translation>Glavno</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="554"/>
+        <location filename="../scrapbookpalette.cpp" line="562"/>
         <source>Copied Items</source>
         <translation>Kopirani elementi</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="719"/>
+        <location filename="../scrapbookpalette.cpp" line="739"/>
         <source>Scrapbook (*.scs *.SCS)</source>
         <translation>Skicirka (*.scs *.SCS)</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="803"/>
+        <location filename="../scrapbookpalette.cpp" line="844"/>
         <source>Copy To:</source>
         <translation>Skopiraj v:</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="804"/>
+        <location filename="../scrapbookpalette.cpp" line="845"/>
         <source>Move To:</source>
         <translation>Premakni v:</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1010"/>
+        <location filename="../scrapbookpalette.cpp" line="1113"/>
         <source>New Name</source>
         <translation>Novo ime</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1312"/>
+        <location filename="../scrapbookpalette.cpp" line="1445"/>
         <source>Create a new scrapbook page</source>
         <translation>Ustvari novo stran v skicirki</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1313"/>
+        <location filename="../scrapbookpalette.cpp" line="1446"/>
         <source>Load an existing scrapbook</source>
         <translation>Naloži obstoječo skicirko</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1314"/>
+        <location filename="../scrapbookpalette.cpp" line="1447"/>
         <source>Save the selected scrapbook</source>
         <translation>Shrani izbrano skicirko</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1315"/>
+        <location filename="../scrapbookpalette.cpp" line="1448"/>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
         <translation>Uvozi datoteko skicirke iz Scribusa &lt;=1.3.2</translation>
     </message>
     <message>
-        <location filename="../scrapbookpalette.cpp" line="1316"/>
+        <location filename="../scrapbookpalette.cpp" line="1449"/>
         <source>Close the selected scrapbook</source>
         <translation>Zapri izbrano skicirko</translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="833"/>
+        <source>Paste to Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="889"/>
+        <source>Save as...</source>
+        <translation type="unfinished">Shrani kot...</translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="892"/>
+        <source>Close</source>
+        <translation type="unfinished">Zapri</translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="895"/>
+        <source>Delete Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scrapbookpalette.cpp" line="1068"/>
+        <source>Do you really want to delete all entries?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6457,7 +6871,7 @@ Prosim, izberite drugo.</translation>
 <context>
     <name>BookPalette</name>
     <message>
-        <location filename="../bookmarkpalette.cpp" line="39"/>
+        <location filename="../bookmarkpalette.cpp" line="51"/>
         <source>Bookmarks</source>
         <translation>Zaznamki</translation>
     </message>
@@ -6729,12 +7143,12 @@ To zahteva zelo natančno izbiro vseh profilov.</translation>
     <message>
         <location filename="../cmsprefs.cpp" line="43"/>
         <source>&amp;RGB Pictures:</source>
-        <translation>Slike &amp;RGB:</translation>
+        <translation type="obsolete">Slike &amp;RGB:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="51"/>
         <source>&amp;CMYK Pictures:</source>
-        <translation>Slike &amp;CMYK:</translation>
+        <translation type="obsolete">Slike &amp;CMYK:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="139"/>
@@ -6759,7 +7173,7 @@ To zahteva zelo natančno izbiro vseh profilov.</translation>
     <message>
         <location filename="../cmsprefs.cpp" line="98"/>
         <source>Pictures:</source>
-        <translation>Slike:</translation>
+        <translation type="obsolete">Slike:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="106"/>
@@ -6802,26 +7216,41 @@ all colors, rgb or cmyk, are converted to printer color space.</source>
         <translation>Simuliraj upravljano barvno okolje z vsemi barvami :
 vse barve, rgb ali cmyk, bodo pretvorjene v barvni prostor tiskalnika.</translation>
     </message>
+    <message>
+        <location filename="../cmsprefs.cpp" line="43"/>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cmsprefs.cpp" line="51"/>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../cmsprefs.cpp" line="98"/>
+        <source>Images:</source>
+        <translation type="unfinished">Slike:</translation>
+    </message>
 </context>
 <context>
     <name>CMYKChoose</name>
     <message>
-        <location filename="../cmykfw.cpp" line="810"/>
+        <location filename="../cmykfw.cpp" line="785"/>
         <source> %</source>
         <translation>V redu</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="857"/>
+        <location filename="../cmykfw.cpp" line="832"/>
         <source>B:</source>
         <translation>B:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="811"/>
+        <location filename="../cmykfw.cpp" line="786"/>
         <source>C:</source>
         <translation>C:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="856"/>
+        <location filename="../cmykfw.cpp" line="831"/>
         <source>G:</source>
         <translation>G:</translation>
     </message>
@@ -6831,7 +7260,7 @@ vse barve, rgb ali cmyk, bodo pretvorjene v barvni prostor tiskalnika.</translat
         <translation>K:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="812"/>
+        <location filename="../cmykfw.cpp" line="787"/>
         <source>M:</source>
         <translation>M:</translation>
     </message>
@@ -6841,12 +7270,12 @@ vse barve, rgb ali cmyk, bodo pretvorjene v barvni prostor tiskalnika.</translat
         <translation type="obsolete">V redu</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="855"/>
+        <location filename="../cmykfw.cpp" line="830"/>
         <source>R:</source>
         <translation>R:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="813"/>
+        <location filename="../cmykfw.cpp" line="788"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
@@ -6861,12 +7290,12 @@ vse barve, rgb ali cmyk, bodo pretvorjene v barvni prostor tiskalnika.</translat
         <translation>Staro</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1003"/>
+        <location filename="../cmykfw.cpp" line="992"/>
         <source>RGB</source>
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1001"/>
+        <location filename="../cmykfw.cpp" line="987"/>
         <source>CMYK</source>
         <translation>CMYK</translation>
     </message>
@@ -6876,7 +7305,7 @@ vse barve, rgb ali cmyk, bodo pretvorjene v barvni prostor tiskalnika.</translat
         <translation type="obsolete">Ime barve ni edinstveno</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="870"/>
+        <location filename="../cmykfw.cpp" line="845"/>
         <source>Web Safe RGB</source>
         <translation>Spletno varne RGB</translation>
     </message>
@@ -6886,7 +7315,7 @@ vse barve, rgb ali cmyk, bodo pretvorjene v barvni prostor tiskalnika.</translat
         <translation>Uredi barvo</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="433"/>
+        <location filename="../cmykfw.cpp" line="438"/>
         <source>Static Color Bars</source>
         <translation>Nespremenljivi izbirniki barv</translation>
     </message>
@@ -6896,7 +7325,7 @@ vse barve, rgb ali cmyk, bodo pretvorjene v barvni prostor tiskalnika.</translat
         <translation type="obsolete">Prekliči</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="430"/>
+        <location filename="../cmykfw.cpp" line="440"/>
         <source>Dynamic Color Bars</source>
         <translation>Spremenljivi izbirniki barv</translation>
     </message>
@@ -6945,10 +7374,10 @@ ker je to ime rezervirano za prosojno barvo</translation>
     <message>
         <location filename="../cmykfw.cpp" line="128"/>
         <source>Is Registration Color</source>
-        <translation>je registracijska barva</translation>
+        <translation type="obsolete">je registracijska barva</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1073"/>
+        <location filename="../cmykfw.cpp" line="1065"/>
         <source>You cannot create a color named &quot;%1&quot;.
 It is a reserved name for transparent color</source>
         <translation>Ne morete ustvariti barve z imenom &quot;%1&quot;,
@@ -6962,7 +7391,7 @@ ker je to ime rezervirano za prosojno barvo</translation>
     <message>
         <location filename="../cmykfw.cpp" line="385"/>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation>S to izbiro boste omogočili tiskanje na vseh ploščah. Registracijske barve se uporabljajo za tiskarske oznake, kot so oznake za obrezovanje, registrske oznake in podobno. Te niso pogosto uporabljene v sami postavitvi.</translation>
+        <translation type="obsolete">S to izbiro boste omogočili tiskanje na vseh ploščah. Registracijske barve se uporabljajo za tiskarske oznake, kot so oznake za obrezovanje, registrske oznake in podobno. Te niso pogosto uporabljene v sami postavitvi.</translation>
     </message>
     <message>
         <location filename="../cmykfw.cpp" line="386"/>
@@ -6970,52 +7399,58 @@ ker je to ime rezervirano za prosojno barvo</translation>
         <translation>S to izbiro boste to barvo naredili za točkovno barvo, s čimer boste ustvarili novo točko pri izdelavi plošč ali separacij. To je najpogosteje uporabljeno, ko logotip ali druga barva potrebuje natanko predstavitev ali pa je ni mogoče potanko prikazati s črnili CMYK. Metalna in fluoroscentna črnila so dober primer, ki ga ni mogoče enostavno prikazati s črnili CMYK.</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="891"/>
+        <location filename="../cmykfw.cpp" line="866"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation>Če je vključeno upravljanje barv, opozorilni trikotnik opozarja, da je barva morda zunaj barvnega obsega profila trenutno izbranega tiskalnika. To pomeni, da se barva morda ne bo natisnila natanko tako, kot je prikazana na zaslonu. Več namigov o opozorilih gamuta najdete v spletni pomoči pod Upravljanje barv.</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1082"/>
+        <location filename="../cmykfw.cpp" line="1074"/>
         <source>The name of the color already exists,
 please choose another one.</source>
         <translation>Ime barve že obstaja,
 prosim, izberite drugo.</translation>
     </message>
+    <message>
+        <location filename="../cmykfw.cpp" line="1058"/>
+        <source>You cannot create a color without a name
+Please give it a name</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CWDialog</name>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="320"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="319"/>
         <source>Merging colors</source>
         <translation>Spajanje barv</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="325"/>
         <source>Error: </source>
         <translation>Napaka:</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="325"/>
         <source>Color %1 exists already!</source>
         <translation>Barva %1 že obstaja!</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="331"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="330"/>
         <source>Color %1 appended.</source>
         <translation>Barva %1 je dodana.</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="335"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="334"/>
         <source>Now opening the color manager.</source>
         <translation>Odpiranje upravljalnika barv.</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="338"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="337"/>
         <source>Color Merging</source>
         <translation>Spajanje barv</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="489"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="488"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation>Zahtevane barve ni mogoče najti. Najbrž ste izbrali črno, sivo ali belo. Teh barv ni mogoče pripraviti.</translation>
     </message>
@@ -7244,22 +7679,22 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
         <translation type="obsolete">Izberi znak:</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="128"/>
+        <location filename="../charselect.ui" line="112"/>
         <source>Font:</source>
         <translation>Pisava:</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="151"/>
+        <location filename="../charselect.ui" line="135"/>
         <source>Character Class:</source>
         <translation>Razred znaka:</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="227"/>
+        <location filename="../charselect.ui" line="214"/>
         <source>&amp;Insert</source>
         <translation>&amp;Vstavi</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="237"/>
+        <location filename="../charselect.ui" line="224"/>
         <source>C&amp;lear</source>
         <translation>&amp;Počisti</translation>
     </message>
@@ -7269,12 +7704,12 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
         <translation type="obsolete">&amp;Zapri</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="224"/>
+        <location filename="../charselect.ui" line="211"/>
         <source>Insert the characters at the cursor in the text</source>
         <translation>Vstavi črke v besedilo pod kazalko</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="234"/>
+        <location filename="../charselect.ui" line="221"/>
         <source>Delete the current selection(s).</source>
         <translation>Izbriši trenutno izbiro.</translation>
     </message>
@@ -7284,142 +7719,142 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
         <translation type="obsolete">Zapri to pogovorno okno in se vrni k urejanju besedila.</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="245"/>
+        <location filename="../charselect.cpp" line="250"/>
         <source>Full Character Set</source>
         <translation>Celoten nabor znakov</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="250"/>
+        <location filename="../charselect.cpp" line="255"/>
         <source>Basic Latin</source>
         <translation>Osnovni latin</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="256"/>
+        <location filename="../charselect.cpp" line="261"/>
         <source>Latin-1 Supplement</source>
         <translation>Latin-1 dodatek</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="262"/>
+        <location filename="../charselect.cpp" line="267"/>
         <source>Latin Extended-A</source>
         <translation>Latin razširjeni A</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="268"/>
+        <location filename="../charselect.cpp" line="273"/>
         <source>Latin Extended-B</source>
         <translation>Latin razširjeni B</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="274"/>
+        <location filename="../charselect.cpp" line="279"/>
         <source>General Punctuation</source>
         <translation>Splošno naglaševanje</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="280"/>
+        <location filename="../charselect.cpp" line="285"/>
         <source>Super- and Subscripts</source>
         <translation>Nad- in podpisano</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="286"/>
+        <location filename="../charselect.cpp" line="291"/>
         <source>Currency Symbols</source>
         <translation>Valutni simboli</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="292"/>
+        <location filename="../charselect.cpp" line="297"/>
         <source>Letterlike Symbols</source>
         <translation>Črkam podobni znaki</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="298"/>
+        <location filename="../charselect.cpp" line="303"/>
         <source>Number Forms</source>
         <translation>Oblike števil</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="304"/>
+        <location filename="../charselect.cpp" line="309"/>
         <source>Arrows</source>
         <translation>Puščice</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="310"/>
+        <location filename="../charselect.cpp" line="315"/>
         <source>Mathematical Operators</source>
         <translation>Matematični znaki</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="316"/>
+        <location filename="../charselect.cpp" line="321"/>
         <source>Box Drawing</source>
         <translation>Risanje s kvadratki</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="322"/>
+        <location filename="../charselect.cpp" line="327"/>
         <source>Block Elements</source>
         <translation>Blokovski elementi</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="328"/>
+        <location filename="../charselect.cpp" line="333"/>
         <source>Geometric Shapes</source>
         <translation>Geometrijski liki</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="334"/>
+        <location filename="../charselect.cpp" line="339"/>
         <source>Miscellaneous Symbols</source>
         <translation>Razni simboli</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="340"/>
+        <location filename="../charselect.cpp" line="345"/>
         <source>Dingbats</source>
         <translation>Viseče oznake</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="346"/>
+        <location filename="../charselect.cpp" line="351"/>
         <source>Small Form Variants</source>
         <translation>Različice male oblike</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="352"/>
+        <location filename="../charselect.cpp" line="357"/>
         <source>Ligatures</source>
         <translation>Ligature</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="358"/>
+        <location filename="../charselect.cpp" line="363"/>
         <source>Specials</source>
         <translation>Posebno</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="364"/>
+        <location filename="../charselect.cpp" line="369"/>
         <source>Greek</source>
         <translation>Grška pisava</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="370"/>
+        <location filename="../charselect.cpp" line="375"/>
         <source>Greek Extended</source>
         <translation>Razširjena grška pisava</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="376"/>
+        <location filename="../charselect.cpp" line="381"/>
         <source>Cyrillic</source>
         <translation>Cirilica</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="382"/>
+        <location filename="../charselect.cpp" line="387"/>
         <source>Cyrillic Supplement</source>
         <translation>Cirilica - dodatek</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="388"/>
+        <location filename="../charselect.cpp" line="393"/>
         <source>Arabic</source>
         <translation>Arabska pisava</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="394"/>
+        <location filename="../charselect.cpp" line="399"/>
         <source>Arabic Extended A</source>
         <translation>Razširjena arabska A</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="400"/>
+        <location filename="../charselect.cpp" line="405"/>
         <source>Arabic Extended B</source>
         <translation>Razširjena arabska B</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="406"/>
+        <location filename="../charselect.cpp" line="411"/>
         <source>Hebrew</source>
         <translation>Hebrejska pisava</translation>
     </message>
@@ -7439,44 +7874,44 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
         <translation type="obsolete">Vpišite štiriznakovno vrednost unicode sem</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="36"/>
+        <location filename="../charselect.cpp" line="38"/>
         <source>Scribus Char Palette (*.ucp);;All Files (*)</source>
         <translation>Paleta znakov Scribus (*.ucp);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="565"/>
+        <location filename="../charselect.cpp" line="584"/>
         <source>Choose a filename to open</source>
         <translation>Izberite ime datoteke za odpiranje</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="625"/>
+        <location filename="../charselect.cpp" line="644"/>
         <source>Error</source>
         <translation>Napaka</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="592"/>
+        <location filename="../charselect.cpp" line="611"/>
         <source>Error reading file %1 - file is corrupted propably.</source>
         <translation>Napaka pri branju datoteke %1 - datoteka je najverjetneje poškodovana.</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="606"/>
+        <location filename="../charselect.cpp" line="625"/>
         <source>Choose a filename to save under</source>
         <translation>Izberite ime datoteke za shranjevanje</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="626"/>
+        <location filename="../charselect.cpp" line="645"/>
         <source>Cannot write file %1</source>
         <translation>Datoteke %1 ni mogoče zapisati</translation>
     </message>
     <message>
         <location filename="../charselect.cpp" line="634"/>
         <source>Clean the Palette?</source>
-        <translation>Želite počistiti paleto?</translation>
+        <translation type="obsolete">Želite počistiti paleto?</translation>
     </message>
     <message>
         <location filename="../charselect.cpp" line="635"/>
         <source>You will clean all characters from this palette. Are you sure?</source>
-        <translation>Počistili boste vse znake s palete. Ste prepričani?</translation>
+        <translation type="obsolete">Počistili boste vse znake s palete. Ste prepričani?</translation>
     </message>
     <message>
         <location filename="../charselect.ui" line="13"/>
@@ -7484,29 +7919,44 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
         <translation>Paleta znakov</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="25"/>
+        <location filename="../charselect.ui" line="19"/>
         <source>Quick Palette</source>
         <translation>Hitra paleta</translation>
     </message>
     <message>
         <location filename="../charselect.ui" line="49"/>
         <source>Hide Enhanced</source>
-        <translation>Skrij napredno</translation>
+        <translation type="obsolete">Skrij napredno</translation>
     </message>
     <message>
         <location filename="../charselect.ui" line="56"/>
         <source>&amp;Search</source>
-        <translation>&amp;Najdi</translation>
+        <translation type="obsolete">&amp;Najdi</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="104"/>
+        <location filename="../charselect.ui" line="88"/>
         <source>Enhanced Palette</source>
         <translation>Napredna paleta</translation>
     </message>
     <message>
-        <location filename="../charselect.ui" line="180"/>
+        <location filename="../charselect.ui" line="164"/>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
         <translation>Če pritisnete in držite pritisnjen desni miškin gumb, lahko vidite pomanjšano sličico. Tipka Vstavi doda znak v spodnjo izbiro, tipka Izbriši pa odstrani zadnjega</translation>
+    </message>
+    <message>
+        <location filename="../charselect.cpp" line="653"/>
+        <source>Empty the Palette?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charselect.cpp" line="654"/>
+        <source>You will remove all characters from this palette. Are you sure?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charselect.ui" line="30"/>
+        <source>Hide/Show Enhanced Palette</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7520,7 +7970,7 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
 <context>
     <name>CharTableView</name>
     <message>
-        <location filename="../chartableview.cpp" line="23"/>
+        <location filename="../chartableview.cpp" line="22"/>
         <source>Delete</source>
         <translation>Izbriši</translation>
     </message>
@@ -7528,37 +7978,37 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
 <context>
     <name>CheckDocument</name>
     <message>
-        <location filename="../checkDocument.cpp" line="822"/>
+        <location filename="../checkDocument.cpp" line="830"/>
         <source>Current Profile:</source>
         <translation>Trenutni profil:</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="818"/>
+        <location filename="../checkDocument.cpp" line="826"/>
         <source>Items</source>
         <translation>Predmeti</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="819"/>
+        <location filename="../checkDocument.cpp" line="827"/>
         <source>Problems</source>
         <translation>Težave</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="826"/>
+        <location filename="../checkDocument.cpp" line="834"/>
         <source>Glyphs missing</source>
         <translation>Manjkajoči znaki</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="827"/>
+        <location filename="../checkDocument.cpp" line="835"/>
         <source>Text overflow</source>
         <translation>Prelivanje besedila</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="828"/>
+        <location filename="../checkDocument.cpp" line="836"/>
         <source>Object is not on a Page</source>
         <translation>Predmet ni na strani</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="829"/>
+        <location filename="../checkDocument.cpp" line="837"/>
         <source>Missing Image</source>
         <translation>Manjka slika</translation>
     </message>
@@ -7568,7 +8018,7 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
         <translation type="obsolete">Slika ima ločljivost manjšo od %1 DPI</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="832"/>
+        <location filename="../checkDocument.cpp" line="840"/>
         <source>Object has transparency</source>
         <translation>Predmet je prosojen</translation>
     </message>
@@ -7578,92 +8028,92 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
         <translation type="obsolete">Predmet je PDF opomba ali polje</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="834"/>
+        <location filename="../checkDocument.cpp" line="842"/>
         <source>Object is a placed PDF</source>
         <translation>Predmet je postavljeni PDF</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="248"/>
+        <location filename="../checkDocument.cpp" line="250"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="252"/>
+        <location filename="../checkDocument.cpp" line="254"/>
         <source>No Problems found</source>
         <translation>Ni najdenih težav</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="628"/>
+        <location filename="../checkDocument.cpp" line="630"/>
         <source>Page </source>
         <translation>Stran </translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="796"/>
+        <location filename="../checkDocument.cpp" line="798"/>
         <source>Free Objects</source>
         <translation>Prosti predmeti</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="802"/>
+        <location filename="../checkDocument.cpp" line="804"/>
         <source>Problems found</source>
         <translation>Najdene težave</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="816"/>
+        <location filename="../checkDocument.cpp" line="824"/>
         <source>Preflight Verifier</source>
         <translation>Preveri pred letom</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="833"/>
+        <location filename="../checkDocument.cpp" line="841"/>
         <source>Object is a PDF Annotation or Field</source>
         <translation>Predmet je opomba ali polje PDF</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="823"/>
+        <location filename="../checkDocument.cpp" line="831"/>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Prezri napake</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="253"/>
+        <location filename="../checkDocument.cpp" line="255"/>
         <source>OK</source>
         <translation>V redu</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="274"/>
+        <location filename="../checkDocument.cpp" line="276"/>
         <source>Transparency used</source>
         <translation>Uporabljena prosojnost</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="277"/>
+        <location filename="../checkDocument.cpp" line="279"/>
         <source>Blendmode used</source>
         <translation>Uporabljen način spajanja</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="284"/>
+        <location filename="../checkDocument.cpp" line="286"/>
         <source>Layer &quot;%1&quot;</source>
         <translation>Plast &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="824"/>
+        <location filename="../checkDocument.cpp" line="832"/>
         <source>Check again</source>
         <translation>Preveri znova</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="830"/>
+        <location filename="../checkDocument.cpp" line="838"/>
         <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
         <translation>Ločljivost slike je pod %1 DPI, trenutno je %2 x %3 DPI</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="831"/>
+        <location filename="../checkDocument.cpp" line="839"/>
         <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
         <translation>Ločljivost slike presega %1 DPI, trenutno je %2 x %3 DPI</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="835"/>
+        <location filename="../checkDocument.cpp" line="843"/>
         <source>Image is GIF</source>
         <translation>Slika je vrste GIF</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="836"/>
+        <location filename="../checkDocument.cpp" line="844"/>
         <source>Annotation uses a non TrueType font</source>
         <translation>Opomba uporablja pisavo, ki ni vrste TrueType</translation>
     </message>
@@ -7707,12 +8157,12 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
 <context>
     <name>CollectForOutput</name>
     <message>
-        <location filename="../collect4output.cpp" line="52"/>
+        <location filename="../collect4output.cpp" line="53"/>
         <source>Choose a Directory</source>
         <translation>Izberite mapo</translation>
     </message>
     <message>
-        <location filename="../collect4output.cpp" line="68"/>
+        <location filename="../collect4output.cpp" line="69"/>
         <source>Collecting...</source>
         <translation>Zbiranje ...</translation>
     </message>
@@ -7722,14 +8172,14 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
         <translation type="obsolete">Opozorilo</translation>
     </message>
     <message>
-        <location filename="../collect4output.cpp" line="73"/>
+        <location filename="../collect4output.cpp" line="74"/>
         <source>Cannot collect all files for output for file:
 %1</source>
         <translation>Neuspešno zbiranje datotek za izhod datoteke:
 %1</translation>
     </message>
     <message>
-        <location filename="../collect4output.cpp" line="87"/>
+        <location filename="../collect4output.cpp" line="88"/>
         <source>Cannot collect the file: 
 %1</source>
         <translation>Neuspešeno zbiranje datoteke:
@@ -7739,107 +8189,107 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
 <context>
     <name>ColorManager</name>
     <message>
-        <location filename="../colorm.cpp" line="54"/>
+        <location filename="../colorm.cpp" line="53"/>
         <source>Colors</source>
         <translation>Barve</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="80"/>
+        <location filename="../colorm.cpp" line="79"/>
         <source>&amp;Import</source>
         <translation>&amp;Uvozi</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="82"/>
+        <location filename="../colorm.cpp" line="81"/>
         <source>&amp;New</source>
         <translation>&amp;Nova</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="84"/>
+        <location filename="../colorm.cpp" line="83"/>
         <source>&amp;Edit</source>
         <translation>Ur&amp;edi</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="88"/>
+        <location filename="../colorm.cpp" line="87"/>
         <source>D&amp;uplicate</source>
         <translation>Po&amp;dvoji</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="91"/>
+        <location filename="../colorm.cpp" line="90"/>
         <source>&amp;Delete</source>
         <translation>I&amp;zbriši</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="96"/>
+        <location filename="../colorm.cpp" line="95"/>
         <source>&amp;Remove Unused</source>
         <translation>&amp;Odstrani neuporabljene</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="103"/>
+        <location filename="../colorm.cpp" line="102"/>
         <source>Color Sets</source>
         <translation>Nabori barv</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="109"/>
+        <location filename="../colorm.cpp" line="108"/>
         <source>Current Color Set:</source>
         <translation>Trenuten nabor barv:</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="152"/>
+        <location filename="../colorm.cpp" line="139"/>
         <source>&amp;Save Color Set</source>
         <translation>&amp;Shrani nabor barv</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="171"/>
+        <location filename="../colorm.cpp" line="158"/>
         <source>Choose a color set to load</source>
         <translation>Izberite nabor barv za nalaganje</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="172"/>
+        <location filename="../colorm.cpp" line="159"/>
         <source>Save the current color set</source>
         <translation>Shrani trenuten nabor barve</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="177"/>
+        <location filename="../colorm.cpp" line="164"/>
         <source>Remove unused colors from current document&apos;s color set</source>
         <translation>Odstrani neuporabljene barve iz nabora barv trenutnega dokumenta</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="179"/>
+        <location filename="../colorm.cpp" line="166"/>
         <source>Import colors to the current set from an existing document</source>
         <translation>V trenutni nabor uvozi barve iz drugega dokumenta</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="180"/>
+        <location filename="../colorm.cpp" line="167"/>
         <source>Create a new color within the current set</source>
         <translation>Ustvari novo barvo znotraj trenutnega nabora</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="181"/>
+        <location filename="../colorm.cpp" line="168"/>
         <source>Edit the currently selected color</source>
         <translation>Uredi izbrano barvo</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="182"/>
+        <location filename="../colorm.cpp" line="169"/>
         <source>Make a copy of the currently selected color</source>
         <translation>Naredi kopijo trenutno izbrane barve</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="183"/>
+        <location filename="../colorm.cpp" line="170"/>
         <source>Delete the currently selected color</source>
         <translation>Izbriši izbrano barvo</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="184"/>
+        <location filename="../colorm.cpp" line="171"/>
         <source>Make the current colorset the default color set</source>
         <translation>Izberi trenuten nabor barv kot privzetega</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="202"/>
+        <location filename="../colorm.cpp" line="189"/>
         <source>&amp;Name:</source>
         <translation>&amp;Ime:</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="202"/>
+        <location filename="../colorm.cpp" line="189"/>
         <source>Choose a Name</source>
         <translation>Izberite ime</translation>
     </message>
@@ -7859,12 +8309,12 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
         <translation type="obsolete">Dokumenti (*.sla *.scd);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="568"/>
+        <location filename="../colorm.cpp" line="584"/>
         <source>Copy of %1</source>
         <translation>Kopija %1</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="579"/>
+        <location filename="../colorm.cpp" line="595"/>
         <source>New Color</source>
         <translation>Nova barva</translation>
     </message>
@@ -7874,7 +8324,7 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
         <translation type="obsolete">Če je upravljanje barv omogočeno, potem opozorilni trikotnik predstavlja opozorilo, da je barva morda zunaj barvnega gamuta profila trenutno izbranega tiskalnika. To pomeni, da barve morda ne bo mogoče natisniti natanko tako, kot je videti na zaslonu. Spot barve nakazuje rdeči krožec. Registracijske barve imajo poleg barve registracijsko oznako. Več namigov o opozorilih gamuta najdete v sprotni pomoči pod Upravljanje barv.</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="185"/>
+        <location filename="../colorm.cpp" line="172"/>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation>Če je upravljanje barv omogočeno, potem opozorilni trikotnik predstavlja opozorilo, da je barva morda zunaj barvnega gamuta profila trenutno izbranega tiskalnika. To pomeni, da barve morda ne bo mogoče natisniti natanko tako, kot je videti na zaslonu. Spot barve nakazuje rdeči krožec. Registracijske barve imajo poleg barve registracijsko oznako. Več namigov o opozorilih gamuta najdete v sprotni pomoči pod naslovom Upravljanje barv.</translation>
     </message>
@@ -8266,12 +8716,12 @@ Za več podrobnosti si oglejte razdelek Urejanje barv v dokumentaciji.</translat
         <translation>Barvni &amp;krog ...</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheel.cpp" line="63"/>
+        <location filename="../plugins/colorwheel/colorwheel.cpp" line="64"/>
         <source>Color setting helper</source>
         <translation>Pomočnik pri nastavljanju barv</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheel.cpp" line="64"/>
+        <location filename="../plugins/colorwheel/colorwheel.cpp" line="65"/>
         <source>Color selector with color theory included.</source>
         <translation>Izbirnik barv, ki upošteva teorijo barv.</translation>
     </message>
@@ -8279,64 +8729,64 @@ Za več podrobnosti si oglejte razdelek Urejanje barv v dokumentaciji.</translat
 <context>
     <name>CommonStrings</name>
     <message>
-        <location filename="../commonstrings.cpp" line="186"/>
+        <location filename="../commonstrings.cpp" line="222"/>
         <source>&amp;Apply</source>
         <translation>&amp;Uveljavi</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="189"/>
+        <location filename="../commonstrings.cpp" line="225"/>
         <source>&amp;Cancel</source>
         <translation>Prekli&amp;či</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="192"/>
+        <location filename="../commonstrings.cpp" line="228"/>
         <source>None</source>
         <translation>Brez</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="196"/>
+        <location filename="../commonstrings.cpp" line="232"/>
         <source>&amp;OK</source>
         <translation>&amp;V redu</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="199"/>
+        <location filename="../commonstrings.cpp" line="235"/>
         <source>&amp;Save</source>
         <translation>&amp;Shrani</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="202"/>
+        <location filename="../commonstrings.cpp" line="238"/>
         <source>Warning</source>
         <translation>Opozorilo</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="193"/>
+        <location filename="../commonstrings.cpp" line="229"/>
         <source>None</source>
         <comment>color name</comment>
         <translation>Brez</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="210"/>
+        <location filename="../commonstrings.cpp" line="263"/>
         <source>Custom</source>
         <comment>CommonStrings, custom page size</comment>
         <translation>Po meri</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="216"/>
+        <location filename="../commonstrings.cpp" line="269"/>
         <source>Single Page</source>
         <translation>Posamična stran</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="217"/>
+        <location filename="../commonstrings.cpp" line="270"/>
         <source>Double Sided</source>
         <translation>Dvostransko</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="218"/>
+        <location filename="../commonstrings.cpp" line="271"/>
         <source>3-Fold</source>
         <translation>Trojno zloženo</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="219"/>
+        <location filename="../commonstrings.cpp" line="272"/>
         <source>4-Fold</source>
         <translation>Četvorno zloženo</translation>
     </message>
@@ -8386,325 +8836,434 @@ Za več podrobnosti si oglejte razdelek Urejanje barv v dokumentaciji.</translat
         <translation type="obsolete">Navadno desno</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="247"/>
+        <location filename="../commonstrings.cpp" line="300"/>
         <source>Monday</source>
         <translation>Ponedeljek</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="248"/>
+        <location filename="../commonstrings.cpp" line="301"/>
         <source>Tuesday</source>
         <translation>Torek</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="249"/>
+        <location filename="../commonstrings.cpp" line="302"/>
         <source>Wednesday</source>
         <translation>Sreda</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="250"/>
+        <location filename="../commonstrings.cpp" line="303"/>
         <source>Thursday</source>
         <translation>Četrtek</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="251"/>
+        <location filename="../commonstrings.cpp" line="304"/>
         <source>Friday</source>
         <translation>Petek</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="252"/>
+        <location filename="../commonstrings.cpp" line="305"/>
         <source>Saturday</source>
         <translation>Sobota</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="253"/>
+        <location filename="../commonstrings.cpp" line="306"/>
         <source>Sunday</source>
         <translation>Nedelja</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="254"/>
+        <location filename="../commonstrings.cpp" line="307"/>
         <source>January</source>
         <translation>Januar</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="255"/>
+        <location filename="../commonstrings.cpp" line="308"/>
         <source>February</source>
         <translation>Februar</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="256"/>
+        <location filename="../commonstrings.cpp" line="309"/>
         <source>March</source>
         <translation>Marec</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="257"/>
+        <location filename="../commonstrings.cpp" line="310"/>
         <source>April</source>
         <translation>April</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="258"/>
+        <location filename="../commonstrings.cpp" line="311"/>
         <source>May</source>
         <translation>Maj</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="259"/>
+        <location filename="../commonstrings.cpp" line="312"/>
         <source>June</source>
         <translation>Junij</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="260"/>
+        <location filename="../commonstrings.cpp" line="313"/>
         <source>July</source>
         <translation>Julij</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="261"/>
+        <location filename="../commonstrings.cpp" line="314"/>
         <source>August</source>
         <translation>Avgust</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="262"/>
+        <location filename="../commonstrings.cpp" line="315"/>
         <source>September</source>
         <translation>September</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="263"/>
+        <location filename="../commonstrings.cpp" line="316"/>
         <source>October</source>
         <translation>Oktober</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="264"/>
+        <location filename="../commonstrings.cpp" line="317"/>
         <source>November</source>
         <translation>November</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="265"/>
+        <location filename="../commonstrings.cpp" line="318"/>
         <source>December</source>
         <translation>December</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="204"/>
+        <location filename="../commonstrings.cpp" line="240"/>
         <source>Yes</source>
         <translation>Da</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="205"/>
+        <location filename="../commonstrings.cpp" line="241"/>
         <source>No</source>
         <translation>Ne</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="206"/>
+        <location filename="../commonstrings.cpp" line="242"/>
         <source>&amp;Yes</source>
         <translation>&amp;Da</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="207"/>
+        <location filename="../commonstrings.cpp" line="243"/>
         <source>&amp;No</source>
         <translation>&amp;Ne</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="226"/>
+        <location filename="../commonstrings.cpp" line="279"/>
         <source>Left Page</source>
         <comment>Left page location</comment>
         <translation>Leva stran</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="227"/>
+        <location filename="../commonstrings.cpp" line="280"/>
         <source>Middle</source>
         <comment>Middle page location</comment>
         <translation>Sredinsko</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="228"/>
+        <location filename="../commonstrings.cpp" line="281"/>
         <source>Middle Left</source>
         <comment>Middle Left page location</comment>
         <translation>Sredinsko levo</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="229"/>
+        <location filename="../commonstrings.cpp" line="282"/>
         <source>Middle Right</source>
         <comment>Middle Right page location</comment>
         <translation>Sredinsko desno</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="230"/>
+        <location filename="../commonstrings.cpp" line="283"/>
         <source>Right Page</source>
         <comment>Right page location</comment>
         <translation>Desna stran</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="233"/>
+        <location filename="../commonstrings.cpp" line="286"/>
         <source>Normal</source>
         <comment>Default single master page</comment>
         <translation>Navadno</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="235"/>
+        <location filename="../commonstrings.cpp" line="288"/>
         <source>Normal Left</source>
         <comment>Default left master page</comment>
         <translation>Navadno levo</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="237"/>
+        <location filename="../commonstrings.cpp" line="290"/>
         <source>Normal Middle</source>
         <comment>Default middle master page</comment>
         <translation>Navadno sredinsko</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="239"/>
+        <location filename="../commonstrings.cpp" line="292"/>
         <source>Normal Right</source>
         <comment>Default right master page</comment>
         <translation>Navadno desno</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="241"/>
+        <location filename="../commonstrings.cpp" line="294"/>
         <source>Solid Line</source>
         <translation>Polna črta</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="242"/>
+        <location filename="../commonstrings.cpp" line="295"/>
         <source>Dashed Line</source>
         <translation>Črtkana črta</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="243"/>
+        <location filename="../commonstrings.cpp" line="296"/>
         <source>Dotted Line</source>
         <translation>Pikčasta črta</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="244"/>
+        <location filename="../commonstrings.cpp" line="297"/>
         <source>Dash Dot Line</source>
         <translation>Črta pika črta</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="245"/>
+        <location filename="../commonstrings.cpp" line="298"/>
         <source>Dash Dot Dot Line</source>
         <translation>Črta pika pika črta</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="267"/>
+        <location filename="../commonstrings.cpp" line="320"/>
         <source>RGB</source>
         <comment>Colorspace</comment>
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="268"/>
+        <location filename="../commonstrings.cpp" line="321"/>
         <source>CMYK</source>
         <comment>Colorspace</comment>
         <translation>CMYK</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="269"/>
+        <location filename="../commonstrings.cpp" line="322"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
         <translation>Sivinsko</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="270"/>
+        <location filename="../commonstrings.cpp" line="323"/>
         <source>Duotone</source>
         <comment>Colorspace</comment>
         <translation>Dvobarvno</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="271"/>
+        <location filename="../commonstrings.cpp" line="324"/>
         <source>Unknown</source>
         <comment>Colorspace (Unknown)</comment>
         <translation>Neznano</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="273"/>
+        <location filename="../commonstrings.cpp" line="326"/>
         <source>Normal Vision</source>
         <comment>Color Blindness - Normal Vision</comment>
         <translation>Običajen pogled</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="274"/>
+        <location filename="../commonstrings.cpp" line="327"/>
         <source>Protanopia (Red)</source>
         <comment>Color Blindness - Red Color Blind</comment>
         <translation>Protanopija (rdeča)</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="275"/>
+        <location filename="../commonstrings.cpp" line="328"/>
         <source>Deuteranopia (Green)</source>
         <comment>Color Blindness - Greed Color Blind</comment>
         <translation>Devteranopija (zelena)</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="276"/>
+        <location filename="../commonstrings.cpp" line="329"/>
         <source>Tritanopia (Blue)</source>
         <comment>Color Blindness - Blue Color Blind</comment>
         <translation>Tritanopija (modra)</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="277"/>
+        <location filename="../commonstrings.cpp" line="330"/>
         <source>Full Color Blindness</source>
         <comment>Color Blindness - Full Color Blindness</comment>
         <translation>Polna barvna slepota</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="279"/>
+        <location filename="../commonstrings.cpp" line="332"/>
         <source>Custom: </source>
         <comment>Custom Tab Fill Option</comment>
         <translation>Po meri: </translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="281"/>
+        <location filename="../commonstrings.cpp" line="334"/>
         <source>None</source>
         <comment>Optical Margin Setting</comment>
         <translation>Brez</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="282"/>
+        <location filename="../commonstrings.cpp" line="335"/>
         <source>Left Protruding</source>
         <comment>Optical Margin Setting</comment>
         <translation>Levo štrleče</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="283"/>
+        <location filename="../commonstrings.cpp" line="336"/>
         <source>Right Protruding</source>
         <comment>Optical Margin Setting</comment>
         <translation>Desno štrleče</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="284"/>
+        <location filename="../commonstrings.cpp" line="337"/>
         <source>Left Hanging Punctuation</source>
         <comment>Optical Margin Setting</comment>
         <translation>Levo viseče ločilo</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="285"/>
+        <location filename="../commonstrings.cpp" line="338"/>
         <source>Right Hanging Punctuation</source>
         <comment>Optical Margin Setting</comment>
         <translation>Desno viseče ločilo</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="286"/>
+        <location filename="../commonstrings.cpp" line="339"/>
         <source>Default</source>
         <comment>Optical Margin Setting</comment>
         <translation>Privzeto</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="289"/>
+        <location filename="../commonstrings.cpp" line="342"/>
         <source>Min. Word Tracking</source>
         <translation>Najm. sledenje besed</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="290"/>
+        <location filename="../commonstrings.cpp" line="343"/>
         <source>Max. Word Tracking</source>
         <translation>Najv. sledenje besed</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="293"/>
+        <location filename="../commonstrings.cpp" line="346"/>
         <source>Min. Glyph Extension</source>
         <translation>Najm. razširitev črke</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="294"/>
+        <location filename="../commonstrings.cpp" line="347"/>
         <source>Max. Glyph Extension</source>
         <translation>Najv. razširitev črke</translation>
     </message>
     <message>
-        <location filename="../commonstrings.cpp" line="297"/>
+        <location filename="../commonstrings.cpp" line="350"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="245"/>
+        <source>Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="246"/>
+        <source>Image Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="247"/>
+        <source>Line</source>
+        <translation type="unfinished">Črta</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="248"/>
+        <source>Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="249"/>
+        <source>Polyline</source>
+        <translation type="unfinished">Lomljena črta</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="250"/>
+        <source>Text on a Path</source>
+        <translation type="unfinished">Besedilo po poti</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="251"/>
+        <source>LaTeX Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="252"/>
+        <source>Multiple</source>
+        <comment>Multiple frame types</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="253"/>
+        <source>PDF Push Button</source>
+        <translation type="unfinished">Gumb PDF</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="254"/>
+        <source>PDF Text Field</source>
+        <translation type="unfinished">Besedilno polje PDF</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="255"/>
+        <source>PDF Check Box</source>
+        <translation type="unfinished">Potrditveno polje PDF</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="256"/>
+        <source>PDF Combo Box</source>
+        <translation type="unfinished">Kombinirano polje PDF</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="257"/>
+        <source>PDF List Box</source>
+        <translation type="unfinished">Seznamsko polje PDF</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="258"/>
+        <source>PDF Text Annotation</source>
+        <translation type="unfinished">Besedilo opombe PDF</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="259"/>
+        <source>PDF Link Annotation</source>
+        <translation type="unfinished">Povezava opombe PDF</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="357"/>
+        <source>PostScript Level 1</source>
+        <translation type="unfinished">PostScript ravni 1</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="359"/>
+        <source>PostScript Level 2</source>
+        <translation type="unfinished">PostScript ravni 2</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="361"/>
+        <source>PostScript Level 3</source>
+        <translation type="unfinished">PostScript ravni 3</translation>
+    </message>
+    <message>
+        <location filename="../commonstrings.cpp" line="363"/>
+        <source>Windows GDI</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ContextMenu</name>
+    <message>
+        <location filename="../contextmenu.cpp" line="191"/>
+        <source>Preview Settings</source>
+        <translation type="unfinished">Nastavitve predogleda</translation>
+    </message>
+    <message>
+        <location filename="../contextmenu.cpp" line="379"/>
+        <source>Paste File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8736,7 +9295,7 @@ Za več podrobnosti si oglejte razdelek Urejanje barv v dokumentaciji.</translat
 <context>
     <name>Cpalette</name>
     <message>
-        <location filename="../cpalette.cpp" line="818"/>
+        <location filename="../cpalette.cpp" line="904"/>
         <source> %</source>
         <translation> %</translation>
     </message>
@@ -8746,32 +9305,32 @@ Za več podrobnosti si oglejte razdelek Urejanje barv v dokumentaciji.</translat
         <translation type="obsolete">Brez</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="849"/>
+        <location filename="../cpalette.cpp" line="935"/>
         <source>Radial Gradient</source>
         <translation>Krožen preliv</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="877"/>
+        <location filename="../cpalette.cpp" line="964"/>
         <source>Normal or gradient fill method</source>
         <translation>Metoda navadnega ali prelivnega polnila</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="834"/>
+        <location filename="../cpalette.cpp" line="920"/>
         <source>Shade:</source>
         <translation>Senca:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="835"/>
+        <location filename="../cpalette.cpp" line="921"/>
         <source>Opacity:</source>
         <translation>Prekrivnost:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="846"/>
+        <location filename="../cpalette.cpp" line="932"/>
         <source>Vertical Gradient</source>
         <translation>Navpičen preliv</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="878"/>
+        <location filename="../cpalette.cpp" line="965"/>
         <source>Set the transparency for the color selected</source>
         <translation>Nastavi prosojnost izbrane barve</translation>
     </message>
@@ -8781,72 +9340,72 @@ Za več podrobnosti si oglejte razdelek Urejanje barv v dokumentaciji.</translat
         <translation type="obsolete">Barva izbranega predmeta</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="848"/>
+        <location filename="../cpalette.cpp" line="934"/>
         <source>Cross Diagonal Gradient</source>
         <translation>Križno diagonalni preliv</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="875"/>
+        <location filename="../cpalette.cpp" line="962"/>
         <source>Edit Fill Color Properties</source>
         <translation>Uredi lastnosti barve polnila</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="876"/>
+        <location filename="../cpalette.cpp" line="963"/>
         <source>Saturation of color</source>
         <translation>Nasičenost barve</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="847"/>
+        <location filename="../cpalette.cpp" line="933"/>
         <source>Diagonal Gradient</source>
         <translation>Diagonalni preliv</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="874"/>
+        <location filename="../cpalette.cpp" line="961"/>
         <source>Edit Line Color Properties</source>
         <translation>Uredi lastnosti barve črte</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="857"/>
+        <location filename="../cpalette.cpp" line="943"/>
         <source>Normal</source>
         <translation>Navadno</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="845"/>
+        <location filename="../cpalette.cpp" line="931"/>
         <source>Horizontal Gradient</source>
         <translation>Vodoraven preliv</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="850"/>
+        <location filename="../cpalette.cpp" line="936"/>
         <source>Free linear Gradient</source>
         <translation>Prost enosmeren preliv</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="851"/>
+        <location filename="../cpalette.cpp" line="937"/>
         <source>Free radial Gradient</source>
         <translation>Prost krožen preliv</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="836"/>
+        <location filename="../cpalette.cpp" line="922"/>
         <source>X1:</source>
         <translation>X1:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="837"/>
+        <location filename="../cpalette.cpp" line="923"/>
         <source>Y1:</source>
         <translation>Y1:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="813"/>
+        <location filename="../cpalette.cpp" line="899"/>
         <source> pt</source>
         <translation>točk</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="838"/>
+        <location filename="../cpalette.cpp" line="924"/>
         <source>X2:</source>
         <translation>X2:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="839"/>
+        <location filename="../cpalette.cpp" line="925"/>
         <source>Y2:</source>
         <translation>Y2:</translation>
     </message>
@@ -8866,7 +9425,7 @@ Za več podrobnosti si oglejte razdelek Urejanje barv v dokumentaciji.</translat
         <translation type="obsolete">pik</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="840"/>
+        <location filename="../cpalette.cpp" line="926"/>
         <source>Move Vector</source>
         <translation>Premakni vektor</translation>
     </message>
@@ -8878,139 +9437,144 @@ nove the end of the Gradient Vector with the right Mouse Button pressed</source>
 z desnim pa konec vektorja preliva</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="879"/>
+        <location filename="../cpalette.cpp" line="966"/>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
         <translation>Začetek vektorja preliva premikate s pritisnjenim levim miškinim gumbom, konec pa z desnim</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="821"/>
+        <location filename="../cpalette.cpp" line="907"/>
         <source>Offsets</source>
         <translation>Zamiki</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="822"/>
+        <location filename="../cpalette.cpp" line="908"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="824"/>
+        <location filename="../cpalette.cpp" line="910"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="826"/>
+        <location filename="../cpalette.cpp" line="912"/>
         <source>Scaling</source>
         <translation>Sprememba merila</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="827"/>
+        <location filename="../cpalette.cpp" line="913"/>
         <source>X-Scale:</source>
         <translation>Sprememba merila X:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="829"/>
+        <location filename="../cpalette.cpp" line="915"/>
         <source>Y-Scale:</source>
         <translation>Sprememba merila Y:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="831"/>
+        <location filename="../cpalette.cpp" line="917"/>
         <source>Rotation</source>
         <translation>Sukanje</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="832"/>
+        <location filename="../cpalette.cpp" line="918"/>
         <source>Angle</source>
         <translation>Kot</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="852"/>
+        <location filename="../cpalette.cpp" line="938"/>
         <source>Pattern</source>
         <translation>Vzorec</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="854"/>
+        <location filename="../cpalette.cpp" line="940"/>
         <source>Transparency Settings</source>
         <translation>Nastavitve prosojnosti</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="855"/>
+        <location filename="../cpalette.cpp" line="941"/>
         <source>Blend Mode:</source>
         <translation>Način spajanja:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="858"/>
+        <location filename="../cpalette.cpp" line="944"/>
         <source>Darken</source>
         <translation>Potemni</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="859"/>
+        <location filename="../cpalette.cpp" line="945"/>
         <source>Lighten</source>
         <translation>Posvetli</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="860"/>
+        <location filename="../cpalette.cpp" line="946"/>
         <source>Multiply</source>
         <translation>Pomnoži</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="861"/>
+        <location filename="../cpalette.cpp" line="947"/>
         <source>Screen</source>
         <translation>Zaslon</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="862"/>
+        <location filename="../cpalette.cpp" line="948"/>
         <source>Overlay</source>
         <translation>Prekrij</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="863"/>
+        <location filename="../cpalette.cpp" line="949"/>
         <source>Hard Light</source>
         <translation>Ostra luč</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="864"/>
+        <location filename="../cpalette.cpp" line="950"/>
         <source>Soft Light</source>
         <translation>Mehka luč</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="865"/>
+        <location filename="../cpalette.cpp" line="951"/>
         <source>Difference</source>
         <translation>Razlika</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="866"/>
+        <location filename="../cpalette.cpp" line="952"/>
         <source>Exclusion</source>
         <translation>Izključitev</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="867"/>
+        <location filename="../cpalette.cpp" line="953"/>
         <source>Color Dodge</source>
         <translation>Barvno posvetli</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="868"/>
+        <location filename="../cpalette.cpp" line="954"/>
         <source>Color Burn</source>
         <translation>Barvno potemni</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="869"/>
+        <location filename="../cpalette.cpp" line="955"/>
         <source>Hue</source>
         <translation>Obarvanost</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="870"/>
+        <location filename="../cpalette.cpp" line="956"/>
         <source>Saturation</source>
         <translation>Nasičenost</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="871"/>
+        <location filename="../cpalette.cpp" line="957"/>
         <source>Color</source>
         <translation>Barva</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="872"/>
+        <location filename="../cpalette.cpp" line="958"/>
         <source>Luminosity</source>
         <translation>Svetilnost</translation>
+    </message>
+    <message>
+        <location filename="../cpalette.cpp" line="959"/>
+        <source>Display only used Colors</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9319,49 +9883,49 @@ Manjkajoča knjižnica je označena z zvezdico ( * )</translation>
 <context>
     <name>CurveWidget</name>
     <message>
-        <location filename="../curvewidget.cpp" line="411"/>
+        <location filename="../curvewidget.cpp" line="414"/>
         <source>Open</source>
         <translation>Odpri</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="446"/>
+        <location filename="../curvewidget.cpp" line="449"/>
         <source>Curve Files (*.scu);;All Files (*)</source>
         <translation>Datoteke krivulj (*.scu);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="446"/>
+        <location filename="../curvewidget.cpp" line="449"/>
         <source>Save as</source>
         <translation>Shrani kot</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="480"/>
+        <location filename="../curvewidget.cpp" line="483"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>V datoteko ni mogoče pisati: 
 %1</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="500"/>
+        <location filename="../curvewidget.cpp" line="509"/>
         <source>Inverts the curve</source>
         <translation>Preobrne krivuljo</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="501"/>
+        <location filename="../curvewidget.cpp" line="510"/>
         <source>Resets the curve</source>
         <translation>Ponastavi krivuljo</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="502"/>
+        <location filename="../curvewidget.cpp" line="511"/>
         <source>Switches between linear and cubic interpolation of the curve</source>
         <translation>Preklopi med linearno in kubično interpolacijo krivulje</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="503"/>
+        <location filename="../curvewidget.cpp" line="512"/>
         <source>Loads a curve</source>
         <translation>Naloži krivuljo</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="504"/>
+        <location filename="../curvewidget.cpp" line="513"/>
         <source>Saves this curve</source>
         <translation>Shrani to krivuljo</translation>
     </message>
@@ -9487,6 +10051,19 @@ To lahko nastavite v Nastavitvah.</translation>
         <location filename="" line="7471221"/>
         <source>Set &amp;HSV</source>
         <translation type="obsolete">Določi &amp;HSV</translation>
+    </message>
+</context>
+<context>
+    <name>DashEditor</name>
+    <message>
+        <location filename="../dasheditor.cpp" line="363"/>
+        <source>Value:</source>
+        <translation type="unfinished">Vrednost:</translation>
+    </message>
+    <message>
+        <location filename="../dasheditor.cpp" line="364"/>
+        <source>Offset:</source>
+        <translation type="unfinished">Zamik:</translation>
     </message>
 </context>
 <context>
@@ -9883,52 +10460,52 @@ patenti, blagovne znamke</translation>
 <context>
     <name>DocSections</name>
     <message>
-        <location filename="../docsections.cpp" line="61"/>
+        <location filename="../docsections.cpp" line="72"/>
         <source>Add a page numbering section to the document. The new section will be added after the currently selected section.</source>
         <translation>Dokumentu dodaj odsek s številkami strani. Nov odsek bo dodan za trenutno izbranim.</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="62"/>
+        <location filename="../docsections.cpp" line="73"/>
         <source>Delete the currently selected section.</source>
         <translation>Izbriši trenutno izbran odsek.</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>1, 2, 3, ...</source>
         <translation>1, 2, 3, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>i, ii, iii, ...</source>
         <translation>i, ii, iii, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>I, II, III, ...</source>
         <translation>I, II, III, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>a, b, c, ...</source>
         <translation>a, b, c, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="76"/>
+        <location filename="../docsections.cpp" line="87"/>
         <source>A, B, C, ...</source>
         <translation>A, B, C, ...</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="68"/>
+        <location filename="../docsections.cpp" line="79"/>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
         <translation>&lt;b&gt;Ime:&lt;/b&gt; Izbirno ime za odsek, npr. Kazalo&lt;br/&gt;&lt;b&gt;Prikaži:&lt;/b&gt; Izberi za prikaz številčenja strani v tem odstavku, če je en ali več besedilnih okvirjev nastavljen, da to stori.&lt;br/&gt;&lt;b&gt;Od:&lt;/b&gt; Začetna številka, pri kateri naj se odstavek začne.&lt;br/&gt;&lt;b&gt;Do:&lt;/b&gt; Končna številka, pri kateri naj se odstavek konča.&lt;br/&gt;&lt;b&gt;Slog:&lt;/b&gt; Izberite slog številčenja strani, ki bo uporabljen.&lt;br/&gt;&lt;b&gt;Začetek:&lt;/b&gt; Številka, pri kateri naj se slog začne. Primer: Če je Začetek=2 in Slog=a,b,c, ..., potem se bo številčenje začelo pri b. Za prvi odstavek dokumenta bo to zamenjalo staro prvo številko strani, izbrano v oknu novega dokumenta.</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="190"/>
+        <location filename="../docsections.cpp" line="201"/>
         <source>Page Number Out Of Bounds</source>
         <translation>Številke strani so izven meja</translation>
     </message>
     <message>
-        <location filename="../docsections.cpp" line="190"/>
+        <location filename="../docsections.cpp" line="201"/>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
         <translation>Vrednost, ki ste jo vpisali, je zunaj dosega številčenja strani v trenutnem dokumentu (%1-%2).</translation>
     </message>
@@ -10094,7 +10671,7 @@ patenti, blagovne znamke</translation>
         <translation>Niz znakov</translation>
     </message>
     <message>
-        <location filename="../docitemattrprefs.ui" line="19"/>
+        <location filename="../docitemattrprefs.ui" line="13"/>
         <source>Document Item Attributes</source>
         <translation>Atributi predmeta dokumenta</translation>
     </message>
@@ -10283,7 +10860,7 @@ patenti, blagovne znamke</translation>
 <context>
     <name>EPSPlug</name>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="502"/>
+        <location filename="../plugins/psimport/importps.cpp" line="506"/>
         <source>Importing File:
 %1
 failed!</source>
@@ -10292,12 +10869,12 @@ failed!</source>
 ni uspel!</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="503"/>
+        <location filename="../plugins/psimport/importps.cpp" line="507"/>
         <source>Fatal Error</source>
         <translation>Usodna napaka</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="858"/>
+        <location filename="../plugins/psimport/importps.cpp" line="862"/>
         <source>Error</source>
         <translation>Napaka</translation>
     </message>
@@ -10307,27 +10884,27 @@ ni uspel!</translation>
         <translation type="obsolete">Uvažanje PostScripta</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="74"/>
+        <location filename="../plugins/psimport/importps.cpp" line="77"/>
         <source>Analyzing PostScript:</source>
         <translation>Preučevanje PostScripta:</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="508"/>
+        <location filename="../plugins/psimport/importps.cpp" line="512"/>
         <source>Generating Items</source>
         <translation>Tvorba predmetov</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="857"/>
+        <location filename="../plugins/psimport/importps.cpp" line="861"/>
         <source>Converting of %1 images failed!</source>
         <translation>Pretvorba %1 slik ni uspela!</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="71"/>
+        <location filename="../plugins/psimport/importps.cpp" line="74"/>
         <source>Importing: %1</source>
         <translation>Uvažanje: %1</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="728"/>
+        <location filename="../plugins/psimport/importps.cpp" line="732"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
@@ -10645,6 +11222,14 @@ for blue quartz</source>
     </message>
 </context>
 <context>
+    <name>EditToolBar</name>
+    <message>
+        <location filename="../ui/edittoolbar.cpp" line="29"/>
+        <source>Edit</source>
+        <translation type="unfinished">Uredi</translation>
+    </message>
+</context>
+<context>
     <name>Editor</name>
     <message>
         <location filename="../editor.cpp" line="30"/>
@@ -10918,14 +11503,29 @@ for blue quartz</source>
 <context>
     <name>ExportBitmap</name>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="183"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="189"/>
         <source>File exists. Overwrite?</source>
         <translation>Datoteka že obstaja. Jo želite prepisati?</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="184"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="190"/>
         <source>exists already. Overwrite?</source>
         <translation>že obstaja. Jo želite prepisati?</translation>
+    </message>
+    <message>
+        <location filename="../plugins/pixmapexport/export.cpp" line="203"/>
+        <source>Save as Image</source>
+        <translation type="unfinished">Shrani kot sliko</translation>
+    </message>
+    <message>
+        <location filename="../plugins/pixmapexport/export.cpp" line="177"/>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/pixmapexport/export.cpp" line="204"/>
+        <source>Error writing the output file(s).</source>
+        <translation type="unfinished">Napaka pri zapisovanju izhodnih datotek.</translation>
     </message>
 </context>
 <context>
@@ -11451,27 +12051,127 @@ uporabite ločljivost 72 dpi</translation>
 <context>
     <name>FileLoader</name>
     <message>
-        <location filename="../fileloader.cpp" line="597"/>
+        <location filename="../fileloader.cpp" line="590"/>
         <source>Some fonts used by this document have been substituted:</source>
         <translation>Nekatere pisave, uporabljene v tem dokumentu, so bile nadomeščene:</translation>
     </message>
     <message>
-        <location filename="../fileloader.cpp" line="601"/>
+        <location filename="../fileloader.cpp" line="594"/>
         <source> was replaced by: </source>
         <translation>je bila zamenjana z:</translation>
     </message>
 </context>
 <context>
+    <name>FileToolBar</name>
+    <message>
+        <location filename="../ui/filetoolbar.cpp" line="31"/>
+        <source>File</source>
+        <translation type="unfinished">Datoteka</translation>
+    </message>
+</context>
+<context>
     <name>FontComboH</name>
     <message>
-        <location filename="../fontcombo.cpp" line="137"/>
+        <location filename="../fontcombo.cpp" line="148"/>
         <source>Face:</source>
         <translation>Pisava:</translation>
     </message>
     <message>
-        <location filename="../fontcombo.cpp" line="138"/>
+        <location filename="../fontcombo.cpp" line="149"/>
         <source>Style:</source>
         <translation>Slog:</translation>
+    </message>
+</context>
+<context>
+    <name>FontListModel</name>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="63"/>
+        <source>Font Name</source>
+        <translation type="unfinished">Ime pisave</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="65"/>
+        <source>Use Font</source>
+        <translation type="unfinished">Uporabi pisavo</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="67"/>
+        <source>Family</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="69"/>
+        <source>Style</source>
+        <translation type="unfinished">Slog</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="71"/>
+        <source>Variant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="73"/>
+        <source>Type</source>
+        <translation type="unfinished">Vrsta</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="75"/>
+        <source>Format</source>
+        <translation type="unfinished">Oblika</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="77"/>
+        <source>Embed in PostScript</source>
+        <translation type="unfinished">Vdelaj v PostScript</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="79"/>
+        <source>Subset</source>
+        <translation type="unfinished">Podnabor</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="81"/>
+        <source>Access</source>
+        <translation type="unfinished">Dostop</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="83"/>
+        <source>Used in Doc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="85"/>
+        <source>Path to Font File</source>
+        <translation type="unfinished">Pot do datoteke s pisavo</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="144"/>
+        <source>Unknown</source>
+        <comment>font type</comment>
+        <translation type="unfinished">Neznano</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="157"/>
+        <source>Unknown</source>
+        <comment>font format</comment>
+        <translation type="unfinished">Neznano</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="164"/>
+        <source>User</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Uporabnik</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="165"/>
+        <source>System</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Sistem</translation>
+    </message>
+    <message>
+        <location filename="../fontlistmodel.cpp" line="190"/>
+        <source>Click to change the value</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11487,27 +12187,27 @@ uporabite ločljivost 72 dpi</translation>
         <translation type="obsolete">Vrsta</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="87"/>
+        <location filename="../fontprefs.cpp" line="66"/>
         <source>Font Name</source>
         <translation>Ime pisave</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="46"/>
+        <location filename="../fontprefs.cpp" line="48"/>
         <source>Font Substitutions</source>
         <translation>Nadomestne pisave</translation>
     </message>
     <message>
         <location filename="../fontprefs.cpp" line="59"/>
         <source>Subset</source>
-        <translation>Podnabor</translation>
+        <translation type="obsolete">Podnabor</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="88"/>
+        <location filename="../fontprefs.cpp" line="67"/>
         <source>Replacement</source>
         <translation>Zamenjava</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="156"/>
+        <location filename="../fontprefs.cpp" line="135"/>
         <source>Additional &amp;Paths</source>
         <translation>Dodatne &amp;poti</translation>
     </message>
@@ -11519,10 +12219,10 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../fontprefs.cpp" line="57"/>
         <source>Use Font</source>
-        <translation>Uporabi pisavo</translation>
+        <translation type="obsolete">Uporabi pisavo</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="299"/>
+        <location filename="../fontprefs.cpp" line="247"/>
         <source>Choose a Directory</source>
         <translation>Izberite mapo</translation>
     </message>
@@ -11532,7 +12232,7 @@ uporabite ločljivost 72 dpi</translation>
         <translation type="obsolete">Postscript</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="109"/>
+        <location filename="../fontprefs.cpp" line="88"/>
         <source>Font &amp;Substitutions</source>
         <translation>Nadome&amp;stne pisave</translation>
     </message>
@@ -11544,40 +12244,40 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../fontprefs.cpp" line="60"/>
         <source>Path to Font File</source>
-        <translation>Pot do datoteke s pisavo</translation>
+        <translation type="obsolete">Pot do datoteke s pisavo</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="46"/>
+        <location filename="../fontprefs.cpp" line="48"/>
         <source>Additional Paths</source>
         <translation>Dodatne poti</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="79"/>
+        <location filename="../fontprefs.cpp" line="58"/>
         <source>&amp;Available Fonts</source>
         <translation>Pis&amp;ave na voljo</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="46"/>
+        <location filename="../fontprefs.cpp" line="48"/>
         <source>Available Fonts</source>
         <translation>Pisave na voljo</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="103"/>
+        <location filename="../fontprefs.cpp" line="82"/>
         <source>&amp;Delete</source>
         <translation>I&amp;zbriši</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="128"/>
+        <location filename="../fontprefs.cpp" line="107"/>
         <source>C&amp;hange...</source>
         <translation>&amp;Spremeni ...</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="130"/>
+        <location filename="../fontprefs.cpp" line="109"/>
         <source>A&amp;dd...</source>
         <translation>&amp;Dodaj ...</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="132"/>
+        <location filename="../fontprefs.cpp" line="111"/>
         <source>&amp;Remove</source>
         <translation>&amp;Odstrani</translation>
     </message>
@@ -11644,10 +12344,10 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../fontprefs.cpp" line="58"/>
         <source>Embed in PostScript</source>
-        <translation>Vdelaj v PostScript</translation>
+        <translation type="obsolete">Vdelaj v PostScript</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="151"/>
+        <location filename="../fontprefs.cpp" line="130"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
         <translation>Poti za iskanje pisav lahko nastavite samo v Datoteka &gt; Nastavitve, če ni trenutno odprt noben dokument. Zaprite vse odprte dokumente, nato izberite Datoteka &gt; Nastavitve &gt; Pisave, da spremenite pot iskanja pisav.</translation>
     </message>
@@ -11670,7 +12370,7 @@ uporabite ločljivost 72 dpi</translation>
         <translation type="obsolete">Prekli&amp;či</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="212"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="242"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
@@ -11728,13 +12428,13 @@ uporabite ločljivost 72 dpi</translation>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="97"/>
         <source>User</source>
         <comment>font preview</comment>
-        <translation>Uporabnik</translation>
+        <translation type="obsolete">Uporabnik</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="98"/>
         <source>System</source>
         <comment>font preview</comment>
-        <translation>Sistem</translation>
+        <translation type="obsolete">Sistem</translation>
     </message>
     <message>
         <location filename="" line="7471221"/>
@@ -11773,13 +12473,13 @@ uporabite ločljivost 72 dpi</translation>
         <translation type="obsolete">Dodaj izbrano pisavo v slog, meni Pisava</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="164"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="104"/>
         <source>Leave preview</source>
         <comment>font preview</comment>
         <translation>Zapusti predogled</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="111"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
         <translation>V kožuščku hudobnega fanta stopiclja mizar</translation>
@@ -11795,7 +12495,7 @@ uporabite ločljivost 72 dpi</translation>
         <translation type="obsolete">Hitro iskanje:</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="57"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="69"/>
         <source>&amp;Search</source>
         <translation>&amp;Išči</translation>
     </message>
@@ -11811,12 +12511,12 @@ uporabite ločljivost 72 dpi</translation>
         <translation type="obsolete">To polje omogoča hitro iskanje po imenih pisav. Na primer: &apos;bold&apos; pokaže vse pisave, ki imajo v imenu besedo bold. Iskanje ni občutljivo za velike/male črke.</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="166"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="106"/>
         <source>Start searching</source>
         <translation>Začni z iskanjem</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="167"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="107"/>
         <source>Size of the selected font</source>
         <translation>Velikost izbrane pisave</translation>
     </message>
@@ -11833,77 +12533,82 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="165"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation>To vnosno polje omogoča hitro iskanje po imenih pisav. Iskanje ni občutljivo za velike/male črke. Lahko uporabite standardne označbe (*,?, [...]) v vaši frazi. Primer: t* prikaže vse pisave, ki se začnejo s t ali T. *bold* pokaže vse pisave, ki imajo v imenu besedo bold, bolder itd.</translation>
+        <translation type="obsolete">To vnosno polje omogoča hitro iskanje po imenih pisav. Iskanje ni občutljivo za velike/male črke. Lahko uporabite standardne označbe (*,?, [...]) v vaši frazi. Primer: t* prikaže vse pisave, ki se začnejo s t ali T. *bold* pokaže vse pisave, ki imajo v imenu besedo bold, bolder itd.</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="42"/>
         <source>Font Name</source>
-        <translation>Ime pisave</translation>
+        <translation type="obsolete">Ime pisave</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="43"/>
         <source>Doc</source>
-        <translation>Doc</translation>
+        <translation type="obsolete">Doc</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="44"/>
         <source>Type</source>
-        <translation>Vrsta</translation>
+        <translation type="obsolete">Vrsta</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="45"/>
         <source>Subset</source>
-        <translation>Podnabor</translation>
+        <translation type="obsolete">Podnabor</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
         <source>Access</source>
-        <translation>Dostop</translation>
+        <translation type="obsolete">Dostop</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="41"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="53"/>
         <source>&amp;Quick Search:</source>
         <translation>&amp;Hitro iskanje:</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="60"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="72"/>
         <source>Alt+S</source>
         <translation>Alt+S</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="125"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="146"/>
         <source>&amp;Font Size:</source>
         <translation>&amp;Velikost pisave:</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="148"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="169"/>
         <source>Text</source>
         <translation>Besedilo</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="158"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="179"/>
         <source>Sample text to display</source>
         <translation>Vzorčno besedilo za predogled</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="165"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="186"/>
         <source>Se&amp;t</source>
         <translation>&amp;Nastavi</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="168"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="189"/>
         <source>Alt+T</source>
         <translation>Alt+T</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="175"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="196"/>
         <source>Reset the text</source>
         <translation>Ponastavi besedilo</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="209"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="239"/>
         <source>&amp;Close</source>
         <translation>&amp;Zapri</translation>
+    </message>
+    <message>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="105"/>
+        <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. The given text is taken as substring.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12012,12 +12717,12 @@ uporabite ločljivost 72 dpi</translation>
         <translation>Predogled &amp;pisav ...</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="65"/>
+        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="66"/>
         <source>Font Preview dialog</source>
         <translation>Pogovorno okno za predogled pisav</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="66"/>
+        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="67"/>
         <source>Sorting, searching and browsing available fonts.</source>
         <translation>Urejanje, iskanje, pregledovanje pisav, ki so na voljo.</translation>
     </message>
@@ -12080,12 +12785,12 @@ Izberite primerne nadomestke zanje.</translation>
 <context>
     <name>GradientEditor</name>
     <message>
-        <location filename="../gradienteditor.cpp" line="311"/>
+        <location filename="../gradienteditor.cpp" line="324"/>
         <source>Position:</source>
         <translation>Položaj:</translation>
     </message>
     <message>
-        <location filename="../gradienteditor.cpp" line="312"/>
+        <location filename="../gradienteditor.cpp" line="325"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -12095,7 +12800,7 @@ Izberite primerne nadomestke zanje.</translation>
         <translation type="obsolete">Tu lahko dodajate, spreminjate ali odstranite barvne postanke.</translation>
     </message>
     <message>
-        <location filename="../gradienteditor.cpp" line="320"/>
+        <location filename="../gradienteditor.cpp" line="333"/>
         <source>Add, change or remove color stops here</source>
         <translation>Dodajte, spremenite ali odstranite barvne postanke</translation>
     </message>
@@ -12143,12 +12848,12 @@ Izberite primerne nadomestke zanje.</translation>
         <translation type="obsolete">&amp;Y:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="61"/>
+        <location filename="../guidemanager.ui" line="64"/>
         <source>&amp;Add</source>
         <translation>&amp;Dodaj</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="71"/>
+        <location filename="../guidemanager.ui" line="74"/>
         <source>D&amp;elete</source>
         <translation>&amp;Izbriši</translation>
     </message>
@@ -12158,17 +12863,17 @@ Izberite primerne nadomestke zanje.</translation>
         <translation type="obsolete">&amp;X:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="97"/>
+        <location filename="../guidemanager.ui" line="100"/>
         <source>A&amp;dd</source>
         <translation>&amp;Dodaj</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="107"/>
+        <location filename="../guidemanager.ui" line="110"/>
         <source>De&amp;lete</source>
         <translation>&amp;Izbriši</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="122"/>
+        <location filename="../guidemanager.ui" line="125"/>
         <source>&amp;Lock Guides</source>
         <translation>&amp;Zakleni vodila</translation>
     </message>
@@ -12213,7 +12918,7 @@ Izberite primerne nadomestke zanje.</translation>
         <translation type="obsolete">Nanašajoč se na:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="284"/>
+        <location filename="../guidemanager.ui" line="287"/>
         <source>&amp;Page</source>
         <translation>&amp;Stran</translation>
     </message>
@@ -12269,129 +12974,134 @@ Izberite primerne nadomestke zanje.</translation>
         <translation type="obsolete">Prazno vodilo (0,0) že obstaja</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="40"/>
+        <location filename="../guidemanager.ui" line="43"/>
         <source>&amp;Single</source>
         <translation>&amp;Posamično</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="149"/>
+        <location filename="../guidemanager.ui" line="152"/>
         <source>Horizontals</source>
         <translation>Vodoravnice</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="359"/>
+        <location filename="../guidemanager.ui" line="362"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="310"/>
+        <location filename="../guidemanager.ui" line="313"/>
         <source>Alt+E</source>
         <translation>Alt+E</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="236"/>
+        <location filename="../guidemanager.ui" line="239"/>
         <source>Verticals</source>
         <translation>Navpičnice</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="100"/>
+        <location filename="../guidemanager.ui" line="103"/>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="125"/>
+        <location filename="../guidemanager.ui" line="128"/>
         <source>Alt+L</source>
         <translation>Alt+L</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="323"/>
+        <location filename="../guidemanager.ui" line="326"/>
         <source>Appl&amp;y to All Pages</source>
         <translation>&amp;Uporabi na vseh straneh</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="326"/>
+        <location filename="../guidemanager.ui" line="329"/>
         <source>Alt+Y</source>
         <translation>Alt+Y</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="143"/>
+        <location filename="../guidemanager.ui" line="146"/>
         <source>&amp;Column/Row</source>
         <translation>&amp;Stolpec/vrstica</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="155"/>
+        <location filename="../guidemanager.ui" line="158"/>
         <source>&amp;Number:</source>
         <translation>&amp;Število:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="178"/>
+        <location filename="../guidemanager.ui" line="181"/>
         <source>U&amp;se Gap:</source>
         <translation>U&amp;porabi razmik:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="181"/>
+        <location filename="../guidemanager.ui" line="184"/>
         <source>Alt+S</source>
         <translation>Alt+S</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="278"/>
+        <location filename="../guidemanager.ui" line="281"/>
         <source>Refer To</source>
         <translation>Nanašajoč se na</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="346"/>
+        <location filename="../guidemanager.ui" line="349"/>
         <source>Alt+P</source>
         <translation>Alt+P</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="297"/>
+        <location filename="../guidemanager.ui" line="300"/>
         <source>M&amp;argins</source>
         <translation>&amp;Robovi</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="307"/>
+        <location filename="../guidemanager.ui" line="310"/>
         <source>S&amp;election</source>
         <translation>&amp;Izbor</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="242"/>
+        <location filename="../guidemanager.ui" line="245"/>
         <source>Nu&amp;mber:</source>
         <translation>Števi&amp;lo:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="265"/>
+        <location filename="../guidemanager.ui" line="268"/>
         <source>Use &amp;Gap:</source>
         <translation>Uporabi &amp;razmik:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="268"/>
+        <location filename="../guidemanager.ui" line="271"/>
         <source>Alt+G</source>
         <translation>Alt+G</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="334"/>
+        <location filename="../guidemanager.ui" line="337"/>
         <source>&amp;Misc</source>
         <translation>&amp;Razno</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="340"/>
+        <location filename="../guidemanager.ui" line="343"/>
         <source>Delete all guides from the current page</source>
         <translation>Izbriši vsa vodila s trenutne strani</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="343"/>
+        <location filename="../guidemanager.ui" line="346"/>
         <source>Delete Guides from Current &amp;Page</source>
         <translation>Izbriši vodila s &amp;trenutne strani</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="353"/>
+        <location filename="../guidemanager.ui" line="356"/>
         <source>Delete all guides from the current document</source>
         <translation>Izbriši vsa vodila iz trenutnega dokumenta</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="356"/>
+        <location filename="../guidemanager.ui" line="359"/>
         <source>Delete Guides from &amp;All Pages</source>
         <translation>Izbriši vodila iz &amp;vseh strani</translation>
+    </message>
+    <message>
+        <location filename="../guidemanager.ui" line="15"/>
+        <source>Guide Manager</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12414,7 +13124,7 @@ najnovejše datototeke za prenos pa na www.scribus.net.</translation>
         <translation type="obsolete">Povezava</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="273"/>
+        <location filename="../helpbrowser.cpp" line="287"/>
         <source>Scribus Online Help</source>
         <translation>Scribusova spletna pomoč</translation>
     </message>
@@ -12474,27 +13184,27 @@ najnovejše datototeke za prenos pa na www.scribus.net.</translation>
         <translation type="obsolete">Neznano</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="364"/>
+        <location filename="../helpbrowser.cpp" line="377"/>
         <source>Find</source>
         <translation>Najdi</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="364"/>
+        <location filename="../helpbrowser.cpp" line="377"/>
         <source>Search Term:</source>
         <translation>Iskalni izraz:</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="396"/>
+        <location filename="../helpbrowser.cpp" line="409"/>
         <source>New Bookmark</source>
         <translation>Nov zaznamek</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="396"/>
+        <location filename="../helpbrowser.cpp" line="409"/>
         <source>New Bookmark&apos;s Title:</source>
         <translation>Naslov novega zaznamka:</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="275"/>
+        <location filename="../helpbrowser.cpp" line="289"/>
         <source>&amp;File</source>
         <translation>&amp;Datoteka</translation>
     </message>
@@ -12504,22 +13214,22 @@ najnovejše datototeke za prenos pa na www.scribus.net.</translation>
         <translation>&amp;Najdi ...</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="282"/>
+        <location filename="../helpbrowser.cpp" line="296"/>
         <source>Find &amp;Next</source>
         <translation>Najdi &amp;naslednjega</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="283"/>
+        <location filename="../helpbrowser.cpp" line="297"/>
         <source>Find &amp;Previous</source>
         <translation>Najdi &amp;prejšnjega</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="276"/>
+        <location filename="../helpbrowser.cpp" line="290"/>
         <source>&amp;Edit</source>
         <translation>Ur&amp;edi</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="284"/>
+        <location filename="../helpbrowser.cpp" line="298"/>
         <source>&amp;Add Bookmark</source>
         <translation>Dod&amp;aj zaznamek</translation>
     </message>
@@ -12529,7 +13239,7 @@ najnovejše datototeke za prenos pa na www.scribus.net.</translation>
         <translation>Izbriš&amp;i vse</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="277"/>
+        <location filename="../helpbrowser.cpp" line="291"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Zaznamki</translation>
     </message>
@@ -12539,12 +13249,12 @@ najnovejše datototeke za prenos pa na www.scribus.net.</translation>
         <translation type="obsolete">Pomembnost</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="280"/>
+        <location filename="../helpbrowser.cpp" line="294"/>
         <source>&amp;Quit</source>
         <translation>&amp;Končaj</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="702"/>
+        <location filename="../helpbrowser.cpp" line="715"/>
         <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
         <translation>&lt;h2&gt;&lt;p&gt;Žal priročnik ni nameščen!&lt;/p&gt;&lt;p&gt;Oglejte si:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net za posodobljeno dokumentacijo&lt;/li&gt;&lt;li&gt;http://www.scribus.net za prenose&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
@@ -12590,37 +13300,32 @@ najnovejše datototeke za prenos pa na www.scribus.net.</translation>
     <message>
         <location filename="../ui/hb2.ui" line="13"/>
         <source>Dialog</source>
-        <translation>Pogovorno okno</translation>
+        <translation type="obsolete">Pogovorno okno</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="30"/>
         <source>&amp;Contents</source>
-        <translation>&amp;Vsebina</translation>
-    </message>
-    <message>
-        <location filename="../ui/hb2.ui" line="84"/>
-        <source>1</source>
-        <translation></translation>
+        <translation type="obsolete">&amp;Vsebina</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="49"/>
         <source>Se&amp;arch</source>
-        <translation>Poi&amp;šči</translation>
+        <translation type="obsolete">Poi&amp;šči</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="57"/>
         <source>Searching is case insensitive</source>
-        <translation>Iskanje ne razlikuje malih in velikih črk</translation>
+        <translation type="obsolete">Iskanje ne razlikuje malih in velikih črk</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="64"/>
         <source>&amp;Search</source>
-        <translation>&amp;Najdi</translation>
+        <translation type="obsolete">&amp;Najdi</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="77"/>
         <source>Book&amp;marks</source>
-        <translation>&amp;Zaznamki</translation>
+        <translation type="obsolete">&amp;Zaznamki</translation>
     </message>
 </context>
 <context>
@@ -12925,6 +13630,30 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     </message>
 </context>
 <context>
+    <name>ImportXfigPlugin</name>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="58"/>
+        <source>Import Xfig...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="79"/>
+        <source>Imports Xfig Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="80"/>
+        <source>Imports most Xfig files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="128"/>
+        <source>All Supported Formats</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Imposition</name>
     <message>
         <location filename="../plugins/imposition/imposition.cpp" line="72"/>
@@ -13099,12 +13828,12 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Impozicija ...</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionplugin.cpp" line="66"/>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="69"/>
         <source>Imposition dialog</source>
         <translation>Pogovorno okno impozicije - priprave za tisk</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionplugin.cpp" line="67"/>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="70"/>
         <source>Imposition on grids, booklets and folds</source>
         <translation>Impozicija na mreže, knjižice in zgibanke</translation>
     </message>
@@ -13699,25 +14428,25 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../latexeditor.ui" line="13"/>
         <source>Dialog</source>
-        <translation>Pogovorno okno</translation>
+        <translation type="obsolete">Pogovorno okno</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="30"/>
+        <location filename="../latexeditor.ui" line="32"/>
         <source>Enter Code:</source>
         <translation>Vnesite kodo:</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="42"/>
+        <location filename="../latexeditor.ui" line="44"/>
         <source>Update</source>
         <translation>Posodobi</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="49"/>
+        <location filename="../latexeditor.ui" line="51"/>
         <source>Revert</source>
         <translation>Povrni</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="62"/>
+        <location filename="../latexeditor.ui" line="122"/>
         <source>Program Messages:</source>
         <translation>Programska sporočila:</translation>
     </message>
@@ -13727,76 +14456,111 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+        <translation type="obsolete">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="93"/>
+        <location filename="../latexeditor.ui" line="162"/>
         <source>Status: Unknown</source>
         <translation>Stanje: neznano</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="103"/>
+        <location filename="../latexeditor.ui" line="148"/>
         <source>Kill Program</source>
         <translation>Ubij program</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="118"/>
+        <location filename="../latexeditor.ui" line="65"/>
         <source>Options</source>
         <translation>Možnosti</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="126"/>
+        <location filename="../latexeditor.ui" line="73"/>
         <source>Resolution:</source>
         <translation>Ločljivost:</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="133"/>
+        <location filename="../latexeditor.ui" line="80"/>
         <source>Automatic</source>
         <translation>Samodejna</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="136"/>
+        <location filename="../latexeditor.ui" line="83"/>
         <source> DPI</source>
         <translation>DPI</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="153"/>
+        <location filename="../latexeditor.ui" line="96"/>
         <source>Program:</source>
         <translation>Program:</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="161"/>
         <source>LaTeX</source>
-        <translation>LaTeX</translation>
+        <translation type="obsolete">LaTeX</translation>
     </message>
     <message>
-        <location filename="../latexeditor.ui" line="171"/>
+        <location filename="../latexeditor.ui" line="108"/>
         <source>Use Preamble</source>
         <translation>Uporabi uvodni del</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="178"/>
         <source>Update Application Settings</source>
-        <translation>Posodobi nastavitve aplikacije</translation>
+        <translation type="obsolete">Posodobi nastavitve aplikacije</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="199"/>
         <source>Fonts and Colors</source>
-        <translation>Pisave in barve</translation>
+        <translation type="obsolete">Pisave in barve</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="211"/>
         <source>Will be filled later</source>
-        <translation>Bo zapolnjeno kasneje</translation>
+        <translation type="obsolete">Bo zapolnjeno kasneje</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="180"/>
+        <source>Status: </source>
+        <translation type="unfinished">Stanje: </translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="183"/>
+        <source>Error</source>
+        <translation type="unfinished">Napaka</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="185"/>
+        <source>Finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="188"/>
+        <source>Running</source>
+        <translation type="unfinished">Poteka</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="368"/>
+        <source>No item selected!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="370"/>
+        <source>Insert symbol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="13"/>
+        <source>Editor</source>
+        <translation type="unfinished">Urejevalnik</translation>
     </message>
 </context>
 <context>
     <name>LayerPalette</name>
     <message>
-        <location filename="../layers.cpp" line="274"/>
+        <location filename="../layers.cpp" line="280"/>
         <source>Delete Layer</source>
         <translation>Izbriši plast</translation>
     </message>
@@ -13806,7 +14570,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Spusti plast</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="484"/>
+        <location filename="../layers.cpp" line="511"/>
         <source>Layers</source>
         <translation>Plasti</translation>
     </message>
@@ -13831,222 +14595,268 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Dodaj sloj</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="505"/>
+        <location filename="../layers.cpp" line="532"/>
         <source>Name</source>
         <translation>Ime</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="275"/>
+        <location filename="../layers.cpp" line="281"/>
         <source>Do you want to delete all objects on this layer too?</source>
         <translation>Želite izbrisati tudi vse predmete na tej plasti?</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="511"/>
+        <location filename="../layers.cpp" line="538"/>
         <source>Add a new layer</source>
         <translation>Dodaj novo plast</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="513"/>
+        <location filename="../layers.cpp" line="540"/>
         <source>Delete layer</source>
         <translation>Izbriši plast</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="514"/>
+        <location filename="../layers.cpp" line="541"/>
         <source>Raise layer</source>
         <translation>Dvigni plast</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="515"/>
+        <location filename="../layers.cpp" line="542"/>
         <source>Lower layer</source>
         <translation>Spusti plast</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="503"/>
+        <location filename="../layers.cpp" line="530"/>
         <source>Opacity:</source>
         <translation>Prekrivnost:</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="504"/>
+        <location filename="../layers.cpp" line="531"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="485"/>
+        <location filename="../layers.cpp" line="512"/>
         <source>Blend Mode:</source>
         <translation>Način spajanja:</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="487"/>
+        <location filename="../layers.cpp" line="514"/>
         <source>Normal</source>
         <translation>Navaden</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="488"/>
+        <location filename="../layers.cpp" line="515"/>
         <source>Darken</source>
         <translation>Potemni</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="489"/>
+        <location filename="../layers.cpp" line="516"/>
         <source>Lighten</source>
         <translation>Posvetli</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="490"/>
+        <location filename="../layers.cpp" line="517"/>
         <source>Multiply</source>
         <translation>Pomnoži</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="491"/>
+        <location filename="../layers.cpp" line="518"/>
         <source>Screen</source>
         <translation>Zaslon</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="492"/>
+        <location filename="../layers.cpp" line="519"/>
         <source>Overlay</source>
         <translation>Prekrij</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="493"/>
+        <location filename="../layers.cpp" line="520"/>
         <source>Hard Light</source>
         <translation>Ostra luč</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="494"/>
+        <location filename="../layers.cpp" line="521"/>
         <source>Soft Light</source>
         <translation>Mehka luč</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="495"/>
+        <location filename="../layers.cpp" line="522"/>
         <source>Difference</source>
         <translation>Razlika</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="496"/>
+        <location filename="../layers.cpp" line="523"/>
         <source>Exclusion</source>
         <translation>Izključitev</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="497"/>
+        <location filename="../layers.cpp" line="524"/>
         <source>Color Dodge</source>
         <translation>Barvno posvetli</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="498"/>
+        <location filename="../layers.cpp" line="525"/>
         <source>Color Burn</source>
         <translation>Barvno potemni</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="499"/>
+        <location filename="../layers.cpp" line="526"/>
         <source>Hue</source>
         <translation>Obarvanost</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="500"/>
+        <location filename="../layers.cpp" line="527"/>
         <source>Saturation</source>
         <translation>Nasičenost</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="501"/>
+        <location filename="../layers.cpp" line="528"/>
         <source>Color</source>
         <translation>Barva</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="502"/>
+        <location filename="../layers.cpp" line="529"/>
         <source>Luminosity</source>
         <translation>Svetilnost</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="512"/>
+        <location filename="../layers.cpp" line="539"/>
         <source>Duplicates the current layer</source>
         <translation>Podvoji trenutno plast</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="516"/>
+        <location filename="../layers.cpp" line="543"/>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
         <translation>Barva indikatorja plasti - Vsaka plast ima dodeljeno barvo za prikaz na platnu, če so vključeni indikatorji plasti. Dvokliknite za urejanje barve. </translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="517"/>
+        <location filename="../layers.cpp" line="544"/>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
         <translation>Naredi plast vidno - Izključite, če želite skriti plast iz prikaza </translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="518"/>
+        <location filename="../layers.cpp" line="545"/>
         <source>Print Layer - Uncheck to disable printing. </source>
         <translation>Natisni plast - Izključite, če želite onemogočiti tiskanje. </translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="519"/>
+        <location filename="../layers.cpp" line="546"/>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
         <translation>Zakleni ali Odkleni plast - Neizbrano je odklenjeno </translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="520"/>
+        <location filename="../layers.cpp" line="547"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
         <translation>Besedilo poteka okoli predmetov na spodnjih plasteh - Z vključitvijo te nastavitve vsilite besedilnim okvirom, da potekajo okoli drugih predmetov, celo na plasteh pod njimi</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="521"/>
+        <location filename="../layers.cpp" line="548"/>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
         <translation>Orisni način - Vključi ali izključi žični prikaz predmetov, da pohitri prikaz zelo zapletenih predmetov.</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="522"/>
+        <location filename="../layers.cpp" line="549"/>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
         <translation>Ime plasti - Z dvoklikom na ime plasti omogoča urejanje</translation>
     </message>
 </context>
 <context>
+    <name>LegacyMode</name>
+    <message>
+        <location filename="../canvasmode_legacy.cpp" line="4973"/>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Vse datoteke (*)</translation>
+    </message>
+    <message>
+        <location filename="../canvasmode_legacy.cpp" line="4976"/>
+        <source>Open</source>
+        <translation type="unfinished">Odpri</translation>
+    </message>
+</context>
+<context>
     <name>LensDialogBase</name>
     <message>
-        <location filename="../lensdialogbase.ui" line="13"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="13"/>
         <source>Optical Lens</source>
         <translation>Objektivi</translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="64"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="64"/>
         <source>Add Lens</source>
         <translation>Dodaj objektiv</translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="71"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="71"/>
         <source>Remove Lens</source>
         <translation>Odstrani objektiv</translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="98"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="98"/>
         <source>+</source>
         <translation>+</translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="105"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="105"/>
         <source>-</source>
         <translation>-</translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="123"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="123"/>
         <source>Lens Parameters</source>
         <translation>Parametri objektiva</translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="147"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="147"/>
         <source>X Pos:</source>
         <translation>Položaj X:</translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="164"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="164"/>
         <source>Y Pos:</source>
         <translation>Položaj Y:</translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="181"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="198"/>
         <source>Radius:</source>
         <translation>Polmer:</translation>
     </message>
     <message>
-        <location filename="../lensdialogbase.ui" line="198"/>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="215"/>
         <source>Strength:</source>
         <translation>Moč:</translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="181"/>
+        <source>Magnification Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="191"/>
+        <source>Fish Eye Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LensEffectsPlugin</name>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="66"/>
+        <source>Lens Effects...</source>
+        <translation type="unfinished">Učinki leč ...</translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="70"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="86"/>
+        <source>Lens Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="87"/>
+        <source>Apply fancy lens effects</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14249,47 +15059,47 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LoremManager</name>
     <message>
-        <location filename="../loremipsum.cpp" line="123"/>
+        <location filename="../loremipsum.cpp" line="131"/>
         <source>Select Lorem Ipsum</source>
         <translation>Izberi vzorčno besedilo</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="188"/>
+        <location filename="../loremipsum.cpp" line="196"/>
         <source>Author:</source>
         <translation>Avtor:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="190"/>
+        <location filename="../loremipsum.cpp" line="198"/>
         <source>Get More:</source>
         <translation>Več:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="192"/>
+        <location filename="../loremipsum.cpp" line="200"/>
         <source>XML File:</source>
         <translation>Datoteka XML:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="211"/>
+        <location filename="../loremipsum.cpp" line="229"/>
         <source>Lorem Ipsum</source>
         <translation>Vzorčno besedilo</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="212"/>
+        <location filename="../loremipsum.cpp" line="230"/>
         <source>Paragraphs:</source>
         <translation>Odstavki: </translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="214"/>
+        <location filename="../loremipsum.cpp" line="232"/>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="216"/>
+        <location filename="../loremipsum.cpp" line="234"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="217"/>
+        <location filename="../loremipsum.cpp" line="235"/>
         <source>Standard Lorem Ipsum</source>
         <translation>Običajno vzorčno besedilo</translation>
     </message>
@@ -14446,32 +15256,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MarginWidget</name>
     <message>
-        <location filename="../marginWidget.cpp" line="49"/>
+        <location filename="../marginwidget.cpp" line="49"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Dno:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="51"/>
+        <location filename="../marginwidget.cpp" line="51"/>
         <source>&amp;Top:</source>
         <translation>&amp;Vrh:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="208"/>
+        <location filename="../marginwidget.cpp" line="208"/>
         <source>&amp;Right:</source>
         <translation>&amp;Desno:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="207"/>
+        <location filename="../marginwidget.cpp" line="207"/>
         <source>&amp;Left:</source>
         <translation>&amp;Levo:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="153"/>
+        <location filename="../marginwidget.cpp" line="153"/>
         <source>Distance between the top margin guide and the edge of the page</source>
         <translation>Razdalja med gornjim robom strani in zgornjim mejnim vodilom</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="154"/>
+        <location filename="../marginwidget.cpp" line="154"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
         <translation>Razdalja med spodnjim robom strani in spodnjim mejnim vodilom</translation>
     </message>
@@ -14490,17 +15300,17 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 Če ste izbrali nasproti postavljene strani, bo ta prostor uporabljen za pravilno zlaganje</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="207"/>
+        <location filename="../marginwidget.cpp" line="207"/>
         <source>&amp;Inside:</source>
         <translation>&amp;Znotraj:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="208"/>
+        <location filename="../marginwidget.cpp" line="208"/>
         <source>O&amp;utside:</source>
         <translation>Z&amp;unaj:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="36"/>
+        <location filename="../marginwidget.cpp" line="36"/>
         <source>Preset Layouts:</source>
         <translation>Prednastavljene postavitve:</translation>
     </message>
@@ -14510,7 +15320,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Uporabi nastavitve robov na vseh straneh</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="88"/>
+        <location filename="../marginwidget.cpp" line="88"/>
         <source>Apply the margin changes to all existing pages in the document</source>
         <translation>Uporabi spremembe robov na vseh obstoječih straneh dokumenta</translation>
     </message>
@@ -14525,102 +15335,102 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Razdalja med desnim robom strani in desnim mejnim vodilom. Če ste izbrali nasproti postavljene strani, bo ta prostor uporabljen za pravilno zlaganje</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="100"/>
+        <location filename="../marginwidget.cpp" line="100"/>
         <source>Printer Margins...</source>
         <translation>Robovi tiskanja ...</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="102"/>
+        <location filename="../marginwidget.cpp" line="102"/>
         <source>Import the margins for the selected page size from the available printers.</source>
         <translation>Uvozi robove za posamezne velikosti strani iz rapoložljivih tiskalnikov.</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="77"/>
+        <location filename="../marginwidget.cpp" line="77"/>
         <source>Apply settings to:</source>
         <translation>Uporabi nastavitve na:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="80"/>
+        <location filename="../marginwidget.cpp" line="80"/>
         <source>All Document Pages</source>
         <translation>vseh straneh dokumenta</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="84"/>
+        <location filename="../marginwidget.cpp" line="84"/>
         <source>All Master Pages</source>
         <translation>vseh glavnih straneh</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="89"/>
+        <location filename="../marginwidget.cpp" line="89"/>
         <source>Apply the margin changes to all existing master pages in the document</source>
         <translation>Uveljavi spremembo robov na vseh obstoječih glavnih straneh dokumenta</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="106"/>
+        <location filename="../marginwidget.cpp" line="106"/>
         <source>Margin Guides</source>
         <translation>Vodila robov</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="124"/>
+        <location filename="../marginwidget.cpp" line="124"/>
         <source>Top:</source>
         <translation>Vrh:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="129"/>
+        <location filename="../marginwidget.cpp" line="129"/>
         <source>Bottom:</source>
         <translation>Dno:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="140"/>
+        <location filename="../marginwidget.cpp" line="140"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Oddaljenost dodatka za porezavo od fizičnega vrha strani</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="141"/>
+        <location filename="../marginwidget.cpp" line="141"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation>Oddaljenost dodatka za porezavo od fizičnega dna strani</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="142"/>
+        <location filename="../marginwidget.cpp" line="142"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation>Oddaljenost dodatka za porezavo od fizičnega levega roba strani</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="143"/>
+        <location filename="../marginwidget.cpp" line="143"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Oddaljenost dodatka za porezavo od fizičnega desnega roba strani</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="149"/>
+        <location filename="../marginwidget.cpp" line="149"/>
         <source>Bleeds</source>
         <translation>Dodatki za porezavo</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="155"/>
+        <location filename="../marginwidget.cpp" line="155"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation>Razdalja med levim robom vodila in robom stran. Če ste izbrali nasproti postavljene strani, 3 ali 4-kratno zgibanko, bo ta prostor uporabljen za pravilne mere za zlaganje oz. vezavo</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="156"/>
+        <location filename="../marginwidget.cpp" line="156"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation>Razdalja med desnim robom vodila in robom stran. Če ste izbrali nasproti postavljene strani, 3 ali 4-kratno zgibanko, bo ta prostor uporabljen za pravilne mere za zlaganje oz. vezavo</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="213"/>
+        <location filename="../marginwidget.cpp" line="213"/>
         <source>Inside:</source>
         <translation>Navznoter:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="214"/>
+        <location filename="../marginwidget.cpp" line="214"/>
         <source>Outside:</source>
         <translation>Navzven:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="218"/>
+        <location filename="../marginwidget.cpp" line="218"/>
         <source>Left:</source>
         <translation>Levo:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="219"/>
+        <location filename="../marginwidget.cpp" line="219"/>
         <source>Right:</source>
         <translation>Desno:</translation>
     </message>
@@ -14628,7 +15438,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>MasterPagesPalette</name>
     <message>
-        <location filename="../masterpagepalette.cpp" line="38"/>
+        <location filename="../masterpagepalette.cpp" line="39"/>
         <source>Edit Master Pages</source>
         <translation>Uredi glavne strani</translation>
     </message>
@@ -14658,7 +15468,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Opozorilo</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="109"/>
+        <location filename="../masterpagepalette.cpp" line="110"/>
         <source>Do you really want to delete this master page?</source>
         <translation>Resnično želite izbrisati to glavno stran?</translation>
     </message>
@@ -14673,12 +15483,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">&amp;Da</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="134"/>
+        <location filename="../masterpagepalette.cpp" line="137"/>
         <source>&amp;Name:</source>
         <translation>&amp;Ime:</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="134"/>
+        <location filename="../masterpagepalette.cpp" line="137"/>
         <source>New Master Page</source>
         <translation>Nova glavna stran</translation>
     </message>
@@ -14688,17 +15498,17 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Kopija %1</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="236"/>
         <source>Name:</source>
         <translation>Ime:</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="236"/>
         <source>New MasterPage</source>
         <translation>Nova glavna stran</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="280"/>
+        <location filename="../masterpagepalette.cpp" line="289"/>
         <source>Copy #%1 of </source>
         <translation>Kopija #%1 od </translation>
     </message>
@@ -14708,52 +15518,52 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Navadno</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="78"/>
+        <location filename="../masterpagepalette.cpp" line="79"/>
         <source>Duplicate the selected master page</source>
         <translation>Podvoji izbrano glavno stran</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="79"/>
+        <location filename="../masterpagepalette.cpp" line="80"/>
         <source>Delete the selected master page</source>
         <translation>Izbriši izbrano glavno stran</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="80"/>
+        <location filename="../masterpagepalette.cpp" line="81"/>
         <source>Add a new master page</source>
         <translation>Dodaj novo glavno stran</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="81"/>
+        <location filename="../masterpagepalette.cpp" line="82"/>
         <source>Import master pages from another document</source>
         <translation>Uvozi glavne strani iz drugega dokumenta</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="236"/>
         <source>New Master Page %1</source>
         <translation>Nova glavna stran %1</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="366"/>
+        <location filename="../masterpagepalette.cpp" line="379"/>
         <source>Unable to Rename Master Page</source>
         <translation>Glavne strani ni mogoče preimenovati</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="366"/>
+        <location filename="../masterpagepalette.cpp" line="379"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation>Navadne strani ni mogoče preimenovati.</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="370"/>
+        <location filename="../masterpagepalette.cpp" line="383"/>
         <source>Rename Master Page</source>
         <translation>Preimenuj glavno stran</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="370"/>
+        <location filename="../masterpagepalette.cpp" line="383"/>
         <source>New Name:</source>
         <translation>Novo ime:</translation>
     </message>
     <message>
-        <location filename="../masterpagepalette.cpp" line="132"/>
+        <location filename="../masterpagepalette.cpp" line="135"/>
         <source>Copy #%1 of %2</source>
         <translation>Kopija št. %1/%2</translation>
     </message>
@@ -14814,47 +15624,47 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>Measurements</name>
     <message>
-        <location filename="../measurements.cpp" line="115"/>
+        <location filename="../measurements.cpp" line="127"/>
         <source>Distances</source>
         <translation>Razdalje</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="117"/>
+        <location filename="../measurements.cpp" line="129"/>
         <source>X1:</source>
         <translation>X1:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="118"/>
+        <location filename="../measurements.cpp" line="130"/>
         <source>Y1:</source>
         <translation>Y1:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="119"/>
+        <location filename="../measurements.cpp" line="131"/>
         <source>X2:</source>
         <translation>X2:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="120"/>
+        <location filename="../measurements.cpp" line="132"/>
         <source>Y2:</source>
         <translation>Y2:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="121"/>
+        <location filename="../measurements.cpp" line="133"/>
         <source>DX:</source>
         <translation>DX:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="122"/>
+        <location filename="../measurements.cpp" line="134"/>
         <source>DY:</source>
         <translation>DY:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="123"/>
+        <location filename="../measurements.cpp" line="135"/>
         <source>Angle:</source>
         <translation>Kot:</translation>
     </message>
     <message>
-        <location filename="../measurements.cpp" line="124"/>
+        <location filename="../measurements.cpp" line="136"/>
         <source>Length:</source>
         <translation>Dolžina:</translation>
     </message>
@@ -14884,7 +15694,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">točk</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="../measurements.cpp" line="109"/>
+        <location filename="../measurements.cpp" line="111"/>
         <source> °</source>
         <translation> °</translation>
     </message>
@@ -15109,12 +15919,12 @@ več strani ali samo številka ene strani.</translation>
 <context>
     <name>ModeToolBar</name>
     <message>
-        <location filename="../modetoolbar.cpp" line="38"/>
+        <location filename="../ui/modetoolbar.cpp" line="39"/>
         <source>Tools</source>
         <translation>Orodja</translation>
     </message>
     <message>
-        <location filename="../modetoolbar.cpp" line="110"/>
+        <location filename="../ui/modetoolbar.cpp" line="120"/>
         <source>Properties...</source>
         <translation>Lastnosti ...</translation>
     </message>
@@ -16023,12 +16833,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Nova &amp;iz predloge ...</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="78"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="79"/>
         <source>Load documents with predefined layout</source>
         <translation>Naloži dokument z vnaprej nastavljeno postavitvijo</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="80"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="81"/>
         <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
         <translation>Začni nov dokument iz predloge, ki jo je ustvaril drug uporabnik ali pa sam (npr. dokument, ki uporablja stalne sloge).</translation>
     </message>
@@ -16059,7 +16869,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="839"/>
+        <location filename="../nodeeditpalette.cpp" line="878"/>
         <source>Nodes</source>
         <translation>Vozlišča</translation>
     </message>
@@ -16071,117 +16881,117 @@ otherwise Coordinates are relative to the Object.</source>
 sicer glede na predmet.</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="859"/>
+        <location filename="../nodeeditpalette.cpp" line="897"/>
         <source>Reset this Control Point</source>
         <translation>Ponastavi to nadzorno točko</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="855"/>
+        <location filename="../nodeeditpalette.cpp" line="893"/>
         <source>Delete Nodes</source>
         <translation>Izbriši vozlišča</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="854"/>
+        <location filename="../nodeeditpalette.cpp" line="892"/>
         <source>Add Nodes</source>
         <translation>Dodaj vozlišča</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="852"/>
+        <location filename="../nodeeditpalette.cpp" line="890"/>
         <source>Move Nodes</source>
         <translation>Premakni vozlišča</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="853"/>
+        <location filename="../nodeeditpalette.cpp" line="891"/>
         <source>Move Control Points</source>
         <translation>Premakni nadzorne točke</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="858"/>
+        <location filename="../nodeeditpalette.cpp" line="896"/>
         <source>Reset Control Points</source>
         <translation>Ponastavi nadzorne točke</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="842"/>
+        <location filename="../nodeeditpalette.cpp" line="881"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>&amp;Absolutne koordinate</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="843"/>
+        <location filename="../nodeeditpalette.cpp" line="884"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X:</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="844"/>
+        <location filename="../nodeeditpalette.cpp" line="885"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y:</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="845"/>
+        <location filename="../nodeeditpalette.cpp" line="886"/>
         <source>Edit &amp;Contour Line</source>
         <translation>&amp;Uredi obrobo</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="846"/>
+        <location filename="../nodeeditpalette.cpp" line="887"/>
         <source>&amp;Reset Contour Line</source>
         <translation>&amp;Ponastavi obrobo</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="851"/>
+        <location filename="../nodeeditpalette.cpp" line="889"/>
         <source>&amp;End Editing</source>
         <translation>&amp;Končaj urejanje</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="856"/>
+        <location filename="../nodeeditpalette.cpp" line="894"/>
         <source>Move Control Points Independently</source>
         <translation>Nadzorne točke premikaj neodvisno</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="857"/>
+        <location filename="../nodeeditpalette.cpp" line="895"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Nadzorne točke premikaj simetrično</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="860"/>
+        <location filename="../nodeeditpalette.cpp" line="898"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Odpri mnogokotnik ali odreži krivuljo bezier</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="861"/>
+        <location filename="../nodeeditpalette.cpp" line="899"/>
         <source>Close this Bezier Curve</source>
         <translation>Zapri to krivuljo bezier</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="862"/>
+        <location filename="../nodeeditpalette.cpp" line="900"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Vodoravno prezrcali pot</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="863"/>
+        <location filename="../nodeeditpalette.cpp" line="901"/>
         <source>Mirror the Path Vertically</source>
         <translation>Navpično prezrcali pot</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="865"/>
+        <location filename="../nodeeditpalette.cpp" line="903"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Pot razreži vodoravno proti levi</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="866"/>
+        <location filename="../nodeeditpalette.cpp" line="904"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Pot razreži navpično navzgor</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="867"/>
+        <location filename="../nodeeditpalette.cpp" line="905"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Pot razreži navpično navzdol</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="868"/>
+        <location filename="../nodeeditpalette.cpp" line="906"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Pot zasukaj v nasprotni smeri urinih kazalcev</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="869"/>
+        <location filename="../nodeeditpalette.cpp" line="907"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Pot zasukaj v smeri urinih kazalcev</translation>
     </message>
@@ -16191,12 +17001,12 @@ sicer glede na predmet.</translation>
         <translation type="obsolete">Zmanjšaj velikost poti za prikazanih %</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="871"/>
+        <location filename="../nodeeditpalette.cpp" line="909"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Povečaj velikost poti za prikazanih %</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="874"/>
+        <location filename="../nodeeditpalette.cpp" line="912"/>
         <source>Angle of Rotation</source>
         <translation>Kot sukanja</translation>
     </message>
@@ -16206,85 +17016,95 @@ sicer glede na predmet.</translation>
         <translation type="obsolete">Povečaj ali zmanjšaj za %</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="877"/>
+        <location filename="../nodeeditpalette.cpp" line="915"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Vključi način za urejanje obrob</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="878"/>
+        <location filename="../nodeeditpalette.cpp" line="916"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Ponastavi obrobo na osnovno obliko okvira</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="864"/>
+        <location filename="../nodeeditpalette.cpp" line="902"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Pot razreži vodoravno proti desni</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="840"/>
+        <location filename="../nodeeditpalette.cpp" line="879"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="880"/>
+        <location filename="../nodeeditpalette.cpp" line="918"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation>Če je vključeno, so koordinate relativne glede na stran, sicer glede na predmet.</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="870"/>
+        <location filename="../nodeeditpalette.cpp" line="908"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation>Zmanjšaj velikost poti za prikazanih %</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="872"/>
+        <location filename="../nodeeditpalette.cpp" line="910"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation>Zmanjšaj velikost poti za prikazano vrednost</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="873"/>
+        <location filename="../nodeeditpalette.cpp" line="911"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation>Povečaj velikost poti za prikazano vrednost</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="875"/>
+        <location filename="../nodeeditpalette.cpp" line="913"/>
         <source>% to Enlarge or Shrink By</source>
         <translation>Odstotek povečave ali pomanjšave</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="876"/>
+        <location filename="../nodeeditpalette.cpp" line="914"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Vrednost, za katero naj se poveča ali pomanjša</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="847"/>
+        <location filename="../nodeeditpalette.cpp" line="888"/>
         <source>Set Contour to Image Clip</source>
         <translation>Nastavi obrobo na porezavo slike</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="849"/>
         <source>Lens Effects...</source>
-        <translation>Učinki leč ...</translation>
+        <translation type="obsolete">Učinki leč ...</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="850"/>
         <source>Apply fancy Lens Effects</source>
-        <translation>Uporabi posebne učinke leč</translation>
+        <translation type="obsolete">Uporabi posebne učinke leč</translation>
     </message>
     <message>
-        <location filename="../nodeeditpalette.cpp" line="879"/>
+        <location filename="../nodeeditpalette.cpp" line="917"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation>Ponastavi obrobo na pot porezave slike</translation>
+    </message>
+    <message>
+        <location filename="../nodeeditpalette.cpp" line="882"/>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../nodeeditpalette.cpp" line="883"/>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="294"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="301"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Ta dokument ni videti kot datoteka OpenOffice Draw.</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="666"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="674"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
@@ -16292,7 +17112,7 @@ sicer glede na predmet.</translation>
 <context>
     <name>OODrawImportPlugin</name>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="94"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="95"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation>Uvozi iz &amp;OpenOffice Draw ...</translation>
     </message>
@@ -16307,34 +17127,34 @@ sicer glede na predmet.</translation>
         <translation type="obsolete">Uvozi OpenOffice Draw datoteko v trenuten dokument in spremeni vektorske podatke v Scribusove predmete.</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="109"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="110"/>
         <source>Imports OpenOffice.org Draw Files</source>
         <translation>Uvozi datoteke OpenOffice.org Draw</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="110"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="111"/>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Uvozi večino datotek OpenOffice.org Draw v trenutni dokument, njihovi vektorski podatki se pretvorijo v predmete Scribusa.</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="124"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="125"/>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenDocument 1.0 Draw</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="136"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="137"/>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenDocument 1.x Draw</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="200"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="207"/>
         <source>This file contains some unsupported features</source>
         <translation>Ta datoteka vsebuje nekatere nepodprte značilnosti</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="198"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="205"/>
         <source>The file could not be imported</source>
         <translation>Datoteke ni mogoče uvoziti</translation>
     </message>
@@ -16449,14 +17269,47 @@ sicer glede na predmet.</translation>
     </message>
 </context>
 <context>
+    <name>OutlinePalette</name>
+    <message>
+        <location filename="../outlinepalette.cpp" line="858"/>
+        <source>Element</source>
+        <translation type="unfinished">Element</translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="270"/>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="826"/>
+        <source>Group </source>
+        <translation type="unfinished">Združi</translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="731"/>
+        <source>Page </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="786"/>
+        <source>Free Objects</source>
+        <translation type="unfinished">Prosti predmeti</translation>
+    </message>
+    <message>
+        <location filename="../outlinepalette.cpp" line="857"/>
+        <source>Outline</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OutlineValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="95"/>
+        <location filename="../styleselect.cpp" line="97"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="96"/>
+        <location filename="../styleselect.cpp" line="98"/>
         <source>Linewidth</source>
         <translation>Širina črte</translation>
     </message>
@@ -16472,7 +17325,7 @@ sicer glede na predmet.</translation>
 <context>
     <name>PDFExportDialog</name>
     <message>
-        <location filename="../pdfopts.cpp" line="152"/>
+        <location filename="../pdfopts.cpp" line="151"/>
         <source>Save as PDF</source>
         <translation>Shrani kot PDF</translation>
     </message>
@@ -16502,12 +17355,12 @@ sicer glede na predmet.</translation>
         <translation type="obsolete">S tem vključite shranjevanje ločenih PDF datotek za vsako stran dokumenta. Številke strani se samodejno dodajo. To je koristno za pripravo na tisk.</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="211"/>
+        <location filename="../pdfopts.cpp" line="210"/>
         <source>Save as</source>
         <translation>Shrani kot</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="211"/>
+        <location filename="../pdfopts.cpp" line="210"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Datoteke PDF (*.pdf);;Vse datoteke (*)</translation>
     </message>
@@ -16522,12 +17375,12 @@ sicer glede na predmet.</translation>
         <translation>Gumb Shrani bo onemogočen, če poskušate izvoziti kot PDF/X-3 in manjkajo podatki v poljih zavihka PDF/X-3.</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="153"/>
+        <location filename="../pdfopts.cpp" line="152"/>
         <source>%1 does not exists and will be created, continue?</source>
         <translation>%1 ne obstaja in bo ustvarjena, želite nadaljevati?</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="176"/>
+        <location filename="../pdfopts.cpp" line="175"/>
         <source>Cannot create directory: 
 %1</source>
         <translation>Mape ni mogoče ustvariti: 
@@ -16537,40 +17390,60 @@ sicer glede na predmet.</translation>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../pdflib_core.cpp" line="127"/>
+        <location filename="../pdflib_core.cpp" line="130"/>
         <source>Saving PDF</source>
         <translation>Shranjevanje PDF</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="131"/>
+        <location filename="../pdflib_core.cpp" line="134"/>
         <source>Exporting Master Page:</source>
         <translation>Izvažanje glavne strani:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="131"/>
+        <location filename="../pdflib_core.cpp" line="134"/>
         <source>Exporting Page:</source>
         <translation>Izvažanje strani:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="131"/>
+        <location filename="../pdflib_core.cpp" line="134"/>
         <source>Exporting Items on Current Page:</source>
         <translation>Izvažanje predmetov na trenutni strani:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2315"/>
+        <location filename="../pdflib_core.cpp" line="2435"/>
         <source>Page:</source>
         <translation>Stran:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2328"/>
+        <location filename="../pdflib_core.cpp" line="2448"/>
         <source>Date:</source>
         <translation>Datum:</translation>
+    </message>
+    <message>
+        <location filename="../pdflib_core.cpp" line="6955"/>
+        <source>Failed to load an image : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pdflib_core.cpp" line="6960"/>
+        <source>Failed to write an image : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pdflib_core.cpp" line="6965"/>
+        <source>Failed to load an image mask : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pdflib_core.cpp" line="6970"/>
+        <source>Insufficient memory for processing an image</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PDFToolBar</name>
     <message>
-        <location filename="../modetoolbar.cpp" line="115"/>
+        <location filename="../ui/pdftoolbar.cpp" line="29"/>
         <source>PDF Tools</source>
         <translation>Orodja za PDF</translation>
     </message>
@@ -17498,32 +18371,32 @@ sistemih.</translation>
 <context>
     <name>PPreview</name>
     <message>
-        <location filename="../preview.cpp" line="613"/>
+        <location filename="../preview.cpp" line="627"/>
         <source>All</source>
         <translation>Vse</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="80"/>
+        <location filename="../preview.cpp" line="81"/>
         <source>Print Preview</source>
         <translation>Predogled tiskanja</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="348"/>
+        <location filename="../preview.cpp" line="353"/>
         <source>Enable/disable the M (Magenta) ink plate</source>
         <translation>Vključi/izključi barvno ploščo M (magentna)</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="350"/>
+        <location filename="../preview.cpp" line="355"/>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Vključi/izključi barvno ploščo K (črna)</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="347"/>
+        <location filename="../preview.cpp" line="352"/>
         <source>Enable/disable the C (Cyan) ink plate</source>
         <translation>Vključi/izključi barvno ploščo C (cijanska)</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="321"/>
+        <location filename="../preview.cpp" line="326"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Prikaže prosojnost in prosojne predmete v dokumentu. To zahteva vsaj Ghostscript 7.07 ali novejšega</translation>
     </message>
@@ -17535,12 +18408,12 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 na račun malce počasnejšega izrisovanja.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="322"/>
+        <location filename="../preview.cpp" line="327"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>Prikaže predogled tiskanja s simulacijo splošnih barvil CMYK namesto barv RGB</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="349"/>
+        <location filename="../preview.cpp" line="354"/>
         <source>Enable/disable the Y (Yellow) ink plate</source>
         <translation>Vključi/izključi barvno ploščo Y (rumena)</translation>
     </message>
@@ -17562,37 +18435,37 @@ izrisovanja. Vpliva samo na pisave vrste Type 1</translation>
         <translation type="obsolete">Mehčaj &amp;slike</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="133"/>
+        <location filename="../preview.cpp" line="134"/>
         <source>Display Trans&amp;parency</source>
         <translation>Prikaži &amp;prosojnost</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="138"/>
+        <location filename="../preview.cpp" line="139"/>
         <source>&amp;Display CMYK</source>
         <translation>&amp;Prikaži CMYK</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="145"/>
+        <location filename="../preview.cpp" line="207"/>
         <source>&amp;C</source>
         <translation>&amp;C</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="150"/>
+        <location filename="../preview.cpp" line="212"/>
         <source>&amp;M</source>
         <translation>&amp;M</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="155"/>
+        <location filename="../preview.cpp" line="217"/>
         <source>&amp;Y</source>
         <translation>&amp;Y (R)</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="160"/>
+        <location filename="../preview.cpp" line="222"/>
         <source>&amp;K</source>
         <translation>&amp;K</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="247"/>
+        <location filename="../preview.cpp" line="249"/>
         <source>&amp;Under Color Removal</source>
         <translation>&amp;Odstranjevanje barve pod</translation>
     </message>
@@ -17656,37 +18529,37 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation type="obsolete">Zanemari</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="173"/>
+        <location filename="../preview.cpp" line="151"/>
         <source>Separation Name</source>
         <translation>Ime separacije</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="185"/>
+        <location filename="../preview.cpp" line="163"/>
         <source>Cyan</source>
         <translation>Cijanska</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="192"/>
+        <location filename="../preview.cpp" line="170"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="199"/>
+        <location filename="../preview.cpp" line="177"/>
         <source>Yellow</source>
         <translation>Rumena</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="206"/>
+        <location filename="../preview.cpp" line="184"/>
         <source>Black</source>
         <translation>Črna</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="271"/>
+        <location filename="../preview.cpp" line="273"/>
         <source>Scaling:</source>
         <translation>Sprememba merila:</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="295"/>
+        <location filename="../preview.cpp" line="297"/>
         <source>Print...</source>
         <translation>Natisni ...</translation>
     </message>
@@ -17701,27 +18574,27 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation type="obsolete">Vključi lepši izgled TruType pisav, OpenType pisav, EPS, PDF in vektorskih grafik, na račun malce počasnejšega izrisovanja</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="323"/>
+        <location filename="../preview.cpp" line="328"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Metoda nadomeščanja odtenkov sivine, ki nastanejo kot mešanica cijanske, magente in rumene, s črno. To najbolj vpliva na nevtralne dele slike, ki so blizu sivi. S tem se lahko izboljša rezultat tiskanja, priporočamo pa preverjanje vsakega primera posebej. To tudi zmanjpa možnost prevelike nasičenosti črnil CMY.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="324"/>
+        <location filename="../preview.cpp" line="329"/>
         <source>Resize the scale of the page.</source>
         <translation>Spremeni merilo strani.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="292"/>
+        <location filename="../preview.cpp" line="294"/>
         <source>Close</source>
         <translation>Zapri</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="1100"/>
+        <location filename="../preview.cpp" line="1115"/>
         <source>File</source>
         <translation>Datoteka</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="128"/>
+        <location filename="../preview.cpp" line="129"/>
         <source>Enable &amp;Antialiasing</source>
         <translation>Omogoči &amp;glajenje robov</translation>
     </message>
@@ -17731,82 +18604,82 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation type="obsolete">Ponuja prijaznejši ogled pisav Type 1, TrueType, OpenType, dokumentov EPS, PDF ter vektorske grafike v predogledu, pri čemer je predogled malce počasnejši</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="122"/>
+        <location filename="../preview.cpp" line="123"/>
         <source>Display Settings</source>
         <translation>Nastavitve prikazovanja</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="229"/>
+        <location filename="../preview.cpp" line="231"/>
         <source>Print Settings</source>
         <translation>Nastavitve tiskanja</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="235"/>
+        <location filename="../preview.cpp" line="237"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation>Vodoravno prezrcali stran(i)</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="238"/>
+        <location filename="../preview.cpp" line="240"/>
         <source>Mirror Page(s) Vertical</source>
         <translation>Navpično prezrcali stran(i)</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="241"/>
+        <location filename="../preview.cpp" line="243"/>
         <source>Clip to Page Margins</source>
         <translation>Poreži do robov strani</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="244"/>
+        <location filename="../preview.cpp" line="246"/>
         <source>Print in Grayscale</source>
         <translation>Natisni sivinsko</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="250"/>
+        <location filename="../preview.cpp" line="252"/>
         <source>Force Overprint Mode</source>
         <translation>Vsili pretisk</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="253"/>
+        <location filename="../preview.cpp" line="255"/>
         <source>Convert Spot Colors</source>
         <translation>Pretvori čiste barve</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="256"/>
+        <location filename="../preview.cpp" line="258"/>
         <source>Apply Color Profiles</source>
         <translation>Uporabi barvne profile</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="279"/>
+        <location filename="../preview.cpp" line="281"/>
         <source>Fit to Width</source>
         <translation>Umeri na širino</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="280"/>
+        <location filename="../preview.cpp" line="282"/>
         <source>Fit to Height</source>
         <translation>Umeri na višino</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="281"/>
+        <location filename="../preview.cpp" line="283"/>
         <source>Fit to Page</source>
         <translation>Umeri na stran</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="320"/>
+        <location filename="../preview.cpp" line="325"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation>Ponuja prijaznejši ogled pisav Type 1, TrueType, OpenType, dokumentov EPS, PDF ter vektorske grafike v predogledu, pri čemer je predogled malce počasnejši</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="325"/>
+        <location filename="../preview.cpp" line="330"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Omogoči, da se čiste barve pretvorijo v kompozitne. Če ne nameravate tiskati čistih barv v tiskarni, potem je verjetno najbolje, da to nastavitev pustite vključeno.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="326"/>
+        <location filename="../preview.cpp" line="331"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation>Omogoči splošni način pretiska za ta dokument in preglasi nastavitve predmeta</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="327"/>
+        <location filename="../preview.cpp" line="332"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation>Omogoča vključevanje barvnih profilov v tok tiskanja, če je upravljalnik barv vključen</translation>
     </message>
@@ -17824,14 +18697,34 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation type="obsolete">Izvažanje strani:</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1694"/>
+        <location filename="../pslib.cpp" line="1697"/>
         <source>Processing Master Page:</source>
         <translation>Obdelovanje glavne strani:</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1694"/>
+        <location filename="../pslib.cpp" line="1697"/>
         <source>Exporting Page:</source>
         <translation>Izvažanje strani:</translation>
+    </message>
+    <message>
+        <location filename="../pslib.cpp" line="1628"/>
+        <source>Failed to write data for an image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pslib.cpp" line="1633"/>
+        <source>Failed to load an image : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pslib.cpp" line="1638"/>
+        <source>Failed to load an image mask : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pslib.cpp" line="1643"/>
+        <source>Insufficient memory for processing an image</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18200,37 +19093,37 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../pageitem.cpp" line="369"/>
+        <location filename="../pageitem.cpp" line="370"/>
         <source>Line</source>
         <translation>Črta</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="365"/>
+        <location filename="../pageitem.cpp" line="366"/>
         <source>Text</source>
         <translation>Besedilo</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="361"/>
+        <location filename="../pageitem.cpp" line="362"/>
         <source>Image</source>
         <translation>Slika</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="377"/>
+        <location filename="../pageitem.cpp" line="378"/>
         <source>Polyline</source>
         <translation>Lomljena črta</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="373"/>
+        <location filename="../pageitem.cpp" line="374"/>
         <source>Polygon</source>
         <translation>Mnogokotnik</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="381"/>
+        <location filename="../pageitem.cpp" line="382"/>
         <source>PathText</source>
         <translation>Besedilo po poti</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="3377"/>
+        <location filename="../pageitem.cpp" line="3460"/>
         <source>Copy of</source>
         <translation>Kopija</translation>
     </message>
@@ -18260,7 +19153,7 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <message>
         <location filename="../pageitemattributes.ui" line="13"/>
         <source>Page Item Attributes</source>
-        <translation>Lastnosti predmeta strani</translation>
+        <translation type="obsolete">Lastnosti predmeta strani</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="23"/>
@@ -18347,6 +19240,11 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <source>None</source>
         <comment>relationship</comment>
         <translation>Brez</translation>
+    </message>
+    <message>
+        <location filename="../pageitemattributes.ui" line="13"/>
+        <source>Attributes</source>
+        <translation type="unfinished">Lastnosti</translation>
     </message>
 </context>
 <context>
@@ -18442,18 +19340,23 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <message>
         <location filename="../pageitem_imageframe.cpp" line="244"/>
         <source>Picture</source>
-        <translation>Slika</translation>
+        <translation type="obsolete">Slika</translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="332"/>
+        <location filename="../pageitem_imageframe.cpp" line="333"/>
         <source>Preview Settings</source>
         <translation>Nastavitve predogleda</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_imageframe.cpp" line="401"/>
+        <source>Image</source>
+        <translation type="unfinished">Slika</translation>
     </message>
 </context>
 <context>
     <name>PageItem_LatexFrame</name>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="47"/>
+        <location filename="../pageitem_latexframe.cpp" line="669"/>
         <source>Latex</source>
         <translation>Latex</translation>
     </message>
@@ -18468,7 +19371,7 @@ And replace this text with your own. Here is an example:
 becomes
 \[J = \int r^2 \mathrm{d}m\]
 </source>
-        <translation>\section*{Priročnik}
+        <translation type="obsolete">\section*{Priročnik}
 Če lahko preberete to besedilo, vaša nastavitev \LaTeX-frames deluje!\\
 Vstavljanje formul je zelo preprosto:\\
 Desno kliknite $\Rightarrow$ Uredi izvorno kodo Latex\\
@@ -18479,94 +19382,124 @@ se spremeni v
 </translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="539"/>
+        <location filename="../pageitem_latexframe.cpp" line="676"/>
         <source>Error</source>
         <translation>Napaka</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="219"/>
+        <location filename="../pageitem_latexframe.cpp" line="193"/>
         <source>Running the external application failed!</source>
         <translation>Poganjanje zunanje aplikacije ni uspelo!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="285"/>
+        <location filename="../pageitem_latexframe.cpp" line="259"/>
         <source>Could not create a temporary file to run the application!</source>
         <translation>Začasne datoteke za zagon aplikacije ni mogoče ustvariti!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="362"/>
+        <location filename="../pageitem_latexframe.cpp" line="335"/>
         <source>Information</source>
         <translation>Podatki</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="308"/>
+        <location filename="../pageitem_latexframe.cpp" line="279"/>
         <source>Please specify a latex executable in the preferences!</source>
         <translation>Prosim, da v nastavitvah navedete program latex!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="356"/>
+        <location filename="../pageitem_latexframe.cpp" line="329"/>
         <source>An editor for this frame is already running!</source>
         <translation>Urejevalnik za ta okvir že teče!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="364"/>
+        <location filename="../pageitem_latexframe.cpp" line="337"/>
         <source>Please specify an editor in the preferences!</source>
         <translation>Prosim, da v nastavitvah navedete urejevalnik!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="451"/>
+        <location filename="../pageitem_latexframe.cpp" line="429"/>
         <source>Could not create a temporary file to run the external editor!</source>
         <translation>Začasne datoteke za zagon zunanjega urejevalnika ni mogoče ustvariti!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="515"/>
+        <location filename="../pageitem_latexframe.cpp" line="492"/>
         <source>Running the editor failed with exitcode %d!</source>
         <translation>Poganjanje urejevalnika se je nepričakovano prekinilo z izhodno kodo %d!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="531"/>
+        <location filename="../pageitem_latexframe.cpp" line="508"/>
         <source>Running the editor &quot;%1&quot; failed!</source>
         <translation>Poganjanje urejevalnika &quot;%1&quot; ni uspelo!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="547"/>
+        <location filename="../pageitem_latexframe.cpp" line="536"/>
         <source>Running the application &quot;%1&quot; failed!</source>
         <translation>Poganjanje aplikacije &quot;%1&quot; ni uspelo!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="631"/>
         <source>Latex-Frame</source>
-        <translation>Latexov okvir</translation>
+        <translation type="obsolete">Latexov okvir</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="634"/>
         <source>Command: </source>
-        <translation>Ukaz: </translation>
+        <translation type="obsolete">Ukaz: </translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="639"/>
         <source>DPI: </source>
-        <translation>DPI: </translation>
+        <translation type="obsolete">DPI: </translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="644"/>
         <source>Status: </source>
-        <translation>Stanje: </translation>
+        <translation type="obsolete">Stanje: </translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="647"/>
         <source>OK</source>
-        <translation>V redu</translation>
+        <translation type="obsolete">V redu</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="649"/>
+        <location filename="../pageitem_latexframe.cpp" line="681"/>
         <source>Running</source>
         <translation>Poteka</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="651"/>
         <source>Errorcode </source>
-        <translation>Koda napake </translation>
+        <translation type="obsolete">Koda napake </translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="526"/>
+        <source>The application &quot;%1&quot; failed to start!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="530"/>
+        <source>The application &quot;%1&quot; crashed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="670"/>
+        <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="671"/>
+        <source>DPI</source>
+        <translation type="unfinished">DPI</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="673"/>
+        <source>State</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="678"/>
+        <source>Finished</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18595,32 +19528,32 @@ se spremeni v
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3313"/>
+        <location filename="../pageitem_textframe.cpp" line="3321"/>
         <source>Linked Text</source>
         <translation>Povezano besedilo</translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3315"/>
+        <location filename="../pageitem_textframe.cpp" line="3323"/>
         <source>Text Frame</source>
         <translation>Besedilni okvir</translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3319"/>
+        <location filename="../pageitem_textframe.cpp" line="3327"/>
         <source>Paragraphs: </source>
         <translation>Odstavki: </translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3327"/>
+        <location filename="../pageitem_textframe.cpp" line="3335"/>
         <source>Lines: </source>
         <translation>Vrstice: </translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3333"/>
+        <location filename="../pageitem_textframe.cpp" line="3341"/>
         <source>Words: </source>
         <translation>Besede: </translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3341"/>
+        <location filename="../pageitem_textframe.cpp" line="3349"/>
         <source>Chars: </source>
         <translation>Znaki: </translation>
     </message>
@@ -18656,12 +19589,12 @@ se spremeni v
         <translation type="obsolete">Srednja desna</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="557"/>
+        <location filename="../pagepalette.cpp" line="573"/>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
         <translation>Za brisanje povlecite strani ali glavne strani v koš</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="558"/>
+        <location filename="../pagepalette.cpp" line="574"/>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
         <translation>Tu so vse vaše glavne strani. Za pripravo nove strani povlecite glavno stran v spodnji pogled</translation>
     </message>
@@ -18671,17 +19604,17 @@ se spremeni v
         <translation type="obsolete">Navadno</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="853"/>
+        <location filename="../pagepalette.cpp" line="881"/>
         <source>Arrange Pages</source>
         <translation>Razporedi strani</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="854"/>
+        <location filename="../pagepalette.cpp" line="882"/>
         <source>Available Master Pages:</source>
         <translation>Glavne strani na voljo:</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="855"/>
+        <location filename="../pagepalette.cpp" line="883"/>
         <source>Document Pages:</source>
         <translation>Strani dokumenta:</translation>
     </message>
@@ -18699,7 +19632,7 @@ se spremeni v
         <translation type="obsolete"> od %1</translation>
     </message>
     <message>
-        <location filename="../pageselector.cpp" line="247"/>
+        <location filename="../pageselector.cpp" line="258"/>
         <source>%1 of %2</source>
         <translation>%1 od %2</translation>
     </message>
@@ -18831,24 +19764,190 @@ se spremeni v
     </message>
 </context>
 <context>
+    <name>PathCutPlugin</name>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="70"/>
+        <source>Cut Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="76"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="100"/>
+        <source>Cuts a Polygon by a Polyline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="119"/>
+        <source>Qt Version too old</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="119"/>
+        <source>This plugin requires at least version 4.3.3 of the Qt library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="150"/>
+        <source>Error</source>
+        <translation type="unfinished">Napaka</translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="150"/>
+        <source>The cutting line must cross the polygon and
+both end points must lie outside of the polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathFinderBase</name>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="13"/>
+        <source>Boolean Path Operations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="149"/>
+        <source>Keep a copy of the original Item after applying the operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="152"/>
+        <source>keep</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="94"/>
+        <source>+</source>
+        <translation type="unfinished">+</translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="186"/>
+        <source>=</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="265"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="341"/>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="362"/>
+        <source>Swap Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="386"/>
+        <source>Options</source>
+        <translation type="unfinished">Možnosti</translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="407"/>
+        <source>Result gets Color of:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="417"/>
+        <source>first Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="427"/>
+        <source>second Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathFinderDialog</name>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderdialog.cpp" line="91"/>
+        <source>Result gets Color of:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinderdialog.cpp" line="115"/>
+        <source>Intersection gets Color of:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathFinderPlugin</name>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="71"/>
+        <source>Path Operations...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="75"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="100"/>
+        <source>Path Operations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="101"/>
+        <source>Apply fancy boolean operations to paths.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="120"/>
+        <source>Qt Version too old</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="120"/>
+        <source>This plugin requires at least version 4.3.3 of the Qt library</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathStrokerPlugin</name>
+    <message>
+        <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="93"/>
+        <source>Create Path from Stroke</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="72"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="94"/>
+        <source>Converts the stroke of a Path to a filled Path.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PatternDialog</name>
     <message>
-        <location filename="../patterndialog.cpp" line="96"/>
+        <location filename="../patterndialog.cpp" line="99"/>
         <source>Choose a Directory</source>
         <translation>Izberite mapo</translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="124"/>
+        <location filename="../patterndialog.cpp" line="127"/>
         <source>Loading Patterns</source>
         <translation>Nalaganje vzorcev</translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="199"/>
+        <location filename="../patterndialog.cpp" line="224"/>
         <source>All Files (*)</source>
         <translation>Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="202"/>
+        <location filename="../patterndialog.cpp" line="235"/>
         <source>Open</source>
         <translation>Odpri</translation>
     </message>
@@ -18964,12 +20063,12 @@ se spremeni v
 <context>
     <name>PicSearchOptions</name>
     <message>
-        <location filename="../picsearchoptions.cpp" line="49"/>
+        <location filename="../picsearchoptions.cpp" line="47"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
         <translation>Če vključite to nastavitev, sledi iskanje imen datotek po datotečnem sistemu brez razločevanja malih in velikih črk. Upoštevajte, da je to privzet način iskanja le v okolju MS Windows</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="56"/>
+        <location filename="../picsearchoptions.cpp" line="54"/>
         <source>Cancel Search</source>
         <translation>Prekliči iskanje</translation>
     </message>
@@ -18979,17 +20078,17 @@ se spremeni v
         <translation>Začni z iskanjem</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="83"/>
+        <location filename="../picsearchoptions.cpp" line="79"/>
         <source>Select a base directory for search</source>
         <translation>Izberite osnovno mapo za iskanje</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="138"/>
+        <location filename="../picsearchoptions.cpp" line="126"/>
         <source>Scribus - Image Search</source>
         <translation>Scribus - Iskanje slik</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="138"/>
+        <location filename="../picsearchoptions.cpp" line="126"/>
         <source>The search failed: %1</source>
         <translation>Iskanje ni obrodilo sadov: %1</translation>
     </message>
@@ -19027,6 +20126,12 @@ se spremeni v
         <location filename="../picsearchoptions.ui" line="142"/>
         <source>Search recursively</source>
         <translation>Išči rekurzivno</translation>
+    </message>
+    <message>
+        <location filename="../picsearchoptions.cpp" line="90"/>
+        <source>Base directory for search does not exist.
+Please choose another one.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19099,10 +20204,10 @@ se spremeni v
     <message>
         <location filename="../picstatus.ui" line="16"/>
         <source>Manage Pictures</source>
-        <translation>Upravljaj s slikami</translation>
+        <translation type="obsolete">Upravljaj s slikami</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="291"/>
+        <location filename="../picstatus.cpp" line="399"/>
         <source>Scribus - Image Search</source>
         <translation>Scribus - Iskanje slik</translation>
     </message>
@@ -19112,7 +20217,7 @@ se spremeni v
         <translation type="obsolete">Neuspešno iskanje: %1</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="291"/>
+        <location filename="../picstatus.cpp" line="399"/>
         <source>No images named &quot;%1&quot; were found.</source>
         <translation>Ni slike z imenom &quot;%1&quot;.</translation>
     </message>
@@ -19122,52 +20227,52 @@ se spremeni v
         <translation type="obsolete">Izberi osnovno mapo za iskanje</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="142"/>
+        <location filename="../picstatus.cpp" line="243"/>
         <source>Not on a Page</source>
         <translation>Ni na strani</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="157"/>
+        <location filename="../picstatus.cpp" line="258"/>
         <source>JPG</source>
         <translation>JPG</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="160"/>
+        <location filename="../picstatus.cpp" line="261"/>
         <source>TIFF</source>
         <translation>TIFF</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="163"/>
+        <location filename="../picstatus.cpp" line="264"/>
         <source>PSD</source>
         <translation>PSD</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="166"/>
+        <location filename="../picstatus.cpp" line="267"/>
         <source>EPS/PS</source>
         <translation>EPS/PS</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="169"/>
+        <location filename="../picstatus.cpp" line="270"/>
         <source>PDF</source>
         <translation>PDF</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="172"/>
+        <location filename="../picstatus.cpp" line="273"/>
         <source>JPG2000</source>
         <translation>JPG2000</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="178"/>
+        <location filename="../picstatus.cpp" line="279"/>
         <source>emb. PSD</source>
         <translation>vdel. PSD</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="184"/>
+        <location filename="../picstatus.cpp" line="285"/>
         <source>Unknown</source>
         <translation>Neznano</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="201"/>
+        <location filename="../picstatus.cpp" line="303"/>
         <source>n/a</source>
         <translation>ni na voljo</translation>
     </message>
@@ -19291,6 +20396,21 @@ se spremeni v
         <source>Close</source>
         <translation>Zapri</translation>
     </message>
+    <message>
+        <location filename="../picstatus.cpp" line="218"/>
+        <source>Sort by Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../picstatus.cpp" line="220"/>
+        <source>Sort by Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../picstatus.ui" line="16"/>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PixmapExportPlugin</name>
@@ -19300,27 +20420,27 @@ se spremeni v
         <translation>Shrani kot &amp;sliko ...</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="78"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="79"/>
         <source>Export As Image</source>
         <translation>Izvozi kot sliko</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="79"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="80"/>
         <source>Exports selected pages as bitmap images.</source>
         <translation>Izbrane strani izvozi kot rastrske slike.</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="129"/>
         <source>Save as Image</source>
-        <translation>Shrani kot sliko</translation>
+        <translation type="obsolete">Shrani kot sliko</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="130"/>
         <source>Error writing the output file(s).</source>
-        <translation>Napaka pri zapisovanju izhodnih datotek.</translation>
+        <translation type="obsolete">Napaka pri zapisovanju izhodnih datotek.</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/export.cpp" line="133"/>
+        <location filename="../plugins/pixmapexport/export.cpp" line="130"/>
         <source>Export successful</source>
         <translation>Izvoz je bil uspešen</translation>
     </message>
@@ -19328,19 +20448,19 @@ se spremeni v
 <context>
     <name>PluginManager</name>
     <message>
-        <location filename="../pluginmanager.cpp" line="69"/>
+        <location filename="../pluginmanager.cpp" line="71"/>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
         <translation>Vtičnika ni mogoče najti</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="58"/>
+        <location filename="../pluginmanager.cpp" line="60"/>
         <source>unknown error</source>
         <comment>plugin manager</comment>
         <translation>Neznana napaka</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="94"/>
+        <location filename="../pluginmanager.cpp" line="96"/>
         <source>Cannot find symbol (%1)</source>
         <comment>plugin manager</comment>
         <translation>Simbola ni mogoče najti (%1)</translation>
@@ -19358,31 +20478,31 @@ se spremeni v
         <translation type="obsolete">Neznano</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="154"/>
+        <location filename="../pluginmanager.cpp" line="156"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
         <translation>Vtičnik: nalaganje %1</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="258"/>
+        <location filename="../pluginmanager.cpp" line="260"/>
         <source>init failed</source>
         <comment>plugin load error</comment>
         <translation>zaganjanje neuspešno</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="264"/>
+        <location filename="../pluginmanager.cpp" line="266"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
         <translation>neznana vrsta vtičnika</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="268"/>
+        <location filename="../pluginmanager.cpp" line="270"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
         <translation>Vtičnik: %1 naložen</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="272"/>
+        <location filename="../pluginmanager.cpp" line="274"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation>Vtičnik: %1 ni naložen: %2</translation>
@@ -19408,18 +20528,18 @@ se spremeni v
         <translation type="obsolete">OpenOffice.org Draw (*.sxd);;</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="225"/>
+        <location filename="../pluginmanager.cpp" line="227"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation>Pri nalaganju %1 od %2-ih vtičnikov je prišlo do težav. %3 Najverjetneje je vzrok v odvisnosti ali v starih vtičnikih v vaši namestitveni mapi. Če počistite namestitveno mapo in ponovno namestite program, ta težava pa se pojavi znova, prosim, sporočite napako na bugs.scribus.net.</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="312"/>
+        <location filename="../pluginmanager.cpp" line="340"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
         <translation>Vtičnik: %1 je uspešno inicializiran </translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="315"/>
+        <location filename="../pluginmanager.cpp" line="342"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
         <translation>Vtičnik: %1 po inicializaciji ne more nadaljevati z delom</translation>
@@ -19696,7 +20816,7 @@ pozitivna pa izbočenost</translation>
         <translation type="obsolete">Majhen</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="86"/>
+        <location filename="../prefs.cpp" line="87"/>
         <source>Tools</source>
         <translation>Orodja</translation>
     </message>
@@ -19753,7 +20873,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Razdalja med glavnimi črtami mreže</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="140"/>
+        <location filename="../prefs.cpp" line="141"/>
         <source>External Tools</source>
         <translation>Zunanja orodja</translation>
     </message>
@@ -19848,7 +20968,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Naj bosta vodoraven in navpičen razteg ista</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="80"/>
+        <location filename="../prefs.cpp" line="81"/>
         <source>Guides</source>
         <translation>Vodila</translation>
     </message>
@@ -19892,12 +21012,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 Če ste izbrali nasproti postavljene strani, bo ta prostor uporabljen za pravilno zlaganje</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="77"/>
+        <location filename="../prefs.cpp" line="78"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="83"/>
+        <location filename="../prefs.cpp" line="84"/>
         <source>Typography</source>
         <translation>Tipografija</translation>
     </message>
@@ -20022,7 +21142,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Navpičen razteg slik</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="134"/>
+        <location filename="../prefs.cpp" line="135"/>
         <source>Scrapbook</source>
         <translation>Skicirka</translation>
     </message>
@@ -20142,7 +21262,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Pike (pt)</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="137"/>
+        <location filename="../prefs.cpp" line="138"/>
         <source>Display</source>
         <translation>Prikaz</translation>
     </message>
@@ -20202,7 +21322,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Samodejno shranjevanje</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="71"/>
+        <location filename="../prefs.cpp" line="72"/>
         <source>Preferences</source>
         <translation>Nastavitve</translation>
     </message>
@@ -20239,7 +21359,7 @@ Scribus inherits any available KDE or Qt themes</source>
         <translation type="obsolete">Označi področje zunaj robov z barvo robu</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="74"/>
+        <location filename="../prefs.cpp" line="75"/>
         <source>General</source>
         <translation>Splošno</translation>
     </message>
@@ -20821,12 +21941,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Obseg zgodovine dejanj</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="89"/>
+        <location filename="../prefs.cpp" line="90"/>
         <source>Hyphenator</source>
         <translation>Deljenje</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="92"/>
+        <location filename="../prefs.cpp" line="93"/>
         <source>Fonts</source>
         <translation>Pisave</translation>
     </message>
@@ -20836,17 +21956,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Pregled dokumenta</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="103"/>
+        <location filename="../prefs.cpp" line="104"/>
         <source>Color Management</source>
         <translation>Upravljanje barv</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="118"/>
+        <location filename="../prefs.cpp" line="119"/>
         <source>PDF Export</source>
         <translation>Izvoz PDF</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="131"/>
+        <location filename="../prefs.cpp" line="132"/>
         <source>Keyboard Shortcuts</source>
         <translation>Tipke za bližnjice</translation>
     </message>
@@ -20911,7 +22031,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">&amp;Posodobi</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="147"/>
+        <location filename="../prefs.cpp" line="148"/>
         <source>Plugins</source>
         <translation>Vtičniki</translation>
     </message>
@@ -20952,17 +22072,17 @@ If set to 0 infinite amount of actions will be stored.</source>
         <translation type="obsolete">Pr&amp;edloge dokumeta:</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="98"/>
+        <location filename="../prefs.cpp" line="99"/>
         <source>Preflight Verifier</source>
         <translation>Končno preverjanje</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="123"/>
+        <location filename="../prefs.cpp" line="124"/>
         <source>Document Item Attributes</source>
         <translation>Lastnosti predmeta dokumenta</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="128"/>
+        <location filename="../prefs.cpp" line="129"/>
         <source>Table of Contents and Indexes</source>
         <translation>Kazalo vsebine in seznami</translation>
     </message>
@@ -21037,7 +22157,7 @@ If set to 0 infinite amount of actions will be stored.</source>
         <translation type="obsolete">Števec odstavkov:</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="143"/>
+        <location filename="../prefs.cpp" line="144"/>
         <source>Miscellaneous</source>
         <translation>Razno</translation>
     </message>
@@ -21191,7 +22311,7 @@ instance of gimp.</source>
         <translation type="obsolete">Dodajte pot za prevajalnik Ghostscript. V okolju Windows potrebujete povezavo do programa z imenom gswin32c.exe - IN NE gswin32.exe. Sicer se bo ob zagonu Scribusa slednji morda obesil.</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="95"/>
+        <location filename="../prefs.cpp" line="96"/>
         <source>Printer</source>
         <translation>Tiskalnik</translation>
     </message>
@@ -21209,7 +22329,7 @@ instance of gimp.</source>
         <translation type="obsolete">Prekli&amp;či</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="184"/>
+        <location filename="../prefsdialogbase.cpp" line="192"/>
         <source>&amp;Defaults</source>
         <translation>&amp;Privzeto</translation>
     </message>
@@ -21219,32 +22339,32 @@ instance of gimp.</source>
         <translation type="obsolete">Shrani ...</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="193"/>
+        <location filename="../prefsdialogbase.cpp" line="201"/>
         <source>Save Preferences</source>
         <translation>Shrani nastavitve</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="183"/>
+        <location filename="../prefsdialogbase.cpp" line="191"/>
         <source>Export...</source>
         <translation>Izvozi ...</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="185"/>
+        <location filename="../prefsdialogbase.cpp" line="193"/>
         <source>&amp;Apply</source>
         <translation>&amp;Uveljavi</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="186"/>
+        <location filename="../prefsdialogbase.cpp" line="194"/>
         <source>All preferences can be reset here</source>
         <translation>Tukaj lahko ponastavite vse nastavitve</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="187"/>
+        <location filename="../prefsdialogbase.cpp" line="195"/>
         <source>Apply all changes without closing the dialog</source>
         <translation>Uveljavi vse spremembe brez zapiranja pogovornega okna</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="188"/>
+        <location filename="../prefsdialogbase.cpp" line="196"/>
         <source>Export current preferences into file</source>
         <translation>Izvozi trenutne nastavitve v datoteko</translation>
     </message>
@@ -21297,44 +22417,44 @@ instance of gimp.</source>
         <translation type="obsolete">Srednja desna</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1899"/>
+        <location filename="../prefsmanager.cpp" line="2014"/>
         <source>Postscript</source>
         <translation>Postscript</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="676"/>
+        <location filename="../prefsmanager.cpp" line="787"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Želite prenesti stare nastavitve Scribusa?</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="678"/>
+        <location filename="../prefsmanager.cpp" line="789"/>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation>Scribus je zaznal datoteke nastavitev različice 1.2.
 Ali jih želite uporabiti z novo različico?</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1899"/>
+        <location filename="../prefsmanager.cpp" line="2014"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1540"/>
+        <location filename="../prefsmanager.cpp" line="1648"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>Datoteke z nastavitvami &quot;%1&quot; ni mogoče odpreti za pisanje: %2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1552"/>
+        <location filename="../prefsmanager.cpp" line="1660"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Neuspešno pisanje v datoteko nastavitev &quot;%1&quot;: QIODevice koda stanja %2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1566"/>
+        <location filename="../prefsmanager.cpp" line="1674"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Neuspešno odpiranje datoteke nastavitev &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1576"/>
+        <location filename="../prefsmanager.cpp" line="1684"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>Neuspešno branje nastavitev XML iz &quot;%1&quot;: %2 v vrstici %3, znak %4</translation>
     </message>
@@ -21354,23 +22474,23 @@ Ali jih želite uporabiti z novo različico?</translation>
         <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2221"/>
+        <location filename="../prefsmanager.cpp" line="2346"/>
         <source>Error Writing Preferences</source>
         <translation>Napaka pri zapisovanju nastavitev</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2227"/>
+        <location filename="../prefsmanager.cpp" line="2352"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus ni uspel shraniti svojih nastavitev: &lt;br&gt;%1&lt;br&gt;Preverite dovoljenja datoteke in mape ter razpoložljiv prostor na disku.</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2240"/>
+        <location filename="../prefsmanager.cpp" line="2365"/>
         <source>Error Loading Preferences</source>
         <translation>Napaka pri nalaganju nastavitev</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2245"/>
+        <location filename="../prefsmanager.cpp" line="2370"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus ni uspel naložiti svojih nastavitev: &lt;br&gt;%1&lt;br&gt;Naložene bodo privzete vrednosti.</translation>
     </message>
@@ -21388,7 +22508,7 @@ Ali jih želite uporabiti z novo različico?</translation>
         <translation type="obsolete">Knjiga</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="484"/>
+        <location filename="../marginwidget.cpp" line="484"/>
         <source>Magazine</source>
         <translation>Revija</translation>
     </message>
@@ -21398,22 +22518,22 @@ Ali jih želite uporabiti z novo različico?</translation>
         <translation type="obsolete">Tu lahko izberete preddoločeno postavitev strani. &apos;Brez&apos; pusti robove pri miru, &apos;Knjiga&apos; jih določi klasično (Gutenberg). &apos;Knjiga&apos; je predlog za dvostranske dokumente. &apos;Revija&apos; določi vse robove na isto vrednost, prednost ima leva ali notranja vrednost.</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="485"/>
+        <location filename="../marginwidget.cpp" line="485"/>
         <source>Fibonacci</source>
         <translation>Fibonacci</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="486"/>
+        <location filename="../marginwidget.cpp" line="486"/>
         <source>Golden Mean</source>
         <translation>Zlato razmerje</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="487"/>
+        <location filename="../marginwidget.cpp" line="487"/>
         <source>Nine Parts</source>
         <translation>Devet delov</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="483"/>
+        <location filename="../marginwidget.cpp" line="483"/>
         <source>Gutenberg</source>
         <translation>Gutenberg</translation>
     </message>
@@ -21423,13 +22543,13 @@ Ali jih želite uporabiti z novo različico?</translation>
         <translation type="obsolete">Tu lahko izberete vnaprej določeno postavitev strani. &apos;Brez&apos; pusti robove pri miru, Gutenberg jih določi klasično. &apos;Revija&apos; določi vse robove na isto vrednost, prednost ima leva ali notranja vrednost.</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="482"/>
+        <location filename="../marginwidget.cpp" line="482"/>
         <source>None</source>
         <comment>layout type</comment>
         <translation>Brez</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="490"/>
+        <location filename="../marginwidget.cpp" line="490"/>
         <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation>Tu lahko izberete vnaprej določeno postavitev strani. &apos;Brez&apos; pusti robove pri miru, Gutenberg jih določi klasično. &apos;Revija&apos; določi vse robove na isto vrednost, prednost ima leva ali notranja vrednost.</translation>
     </message>
@@ -21437,22 +22557,22 @@ Ali jih želite uporabiti z novo različico?</translation>
 <context>
     <name>PrintDialog</name>
     <message>
-        <location filename="../printdialog.cpp" line="822"/>
+        <location filename="../printdialog.cpp" line="796"/>
         <source>All</source>
         <translation>Vse</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="821"/>
+        <location filename="../printdialog.cpp" line="795"/>
         <source>Cyan</source>
         <translation>Cijanska</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="797"/>
+        <location filename="../printdialog.cpp" line="560"/>
         <source>File</source>
         <translation>Datoteka</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="820"/>
+        <location filename="../printdialog.cpp" line="794"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
@@ -21462,17 +22582,17 @@ Ali jih želite uporabiti z novo različico?</translation>
         <translation type="obsolete">Postscript datoteke (*.ps);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="819"/>
+        <location filename="../printdialog.cpp" line="793"/>
         <source>Yellow</source>
         <translation>Rumena</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="226"/>
+        <location filename="../printdialog.cpp" line="190"/>
         <source>Options</source>
         <translation>Možnosti</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="620"/>
+        <location filename="../printdialog.cpp" line="629"/>
         <source>Save as</source>
         <translation>Shrani kot</translation>
     </message>
@@ -21482,12 +22602,12 @@ Ali jih želite uporabiti z novo različico?</translation>
         <translation>Nastavi tiskalnik</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="818"/>
+        <location filename="../printdialog.cpp" line="792"/>
         <source>Black</source>
         <translation>Črna</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="380"/>
+        <location filename="../printdialog.cpp" line="378"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -21501,52 +22621,52 @@ več strani ali samo številka ene strani.</translation>
         <translation>Cilj tiskanja</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="115"/>
+        <location filename="../printdialog.cpp" line="89"/>
         <source>&amp;Options...</source>
         <translation>&amp;Možnosti ...</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="127"/>
+        <location filename="../printdialog.cpp" line="100"/>
         <source>&amp;File:</source>
         <translation>&amp;Datoteka:</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="133"/>
+        <location filename="../printdialog.cpp" line="106"/>
         <source>C&amp;hange...</source>
         <translation>&amp;Spremeni ...</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="140"/>
+        <location filename="../printdialog.cpp" line="113"/>
         <source>A&amp;lternative Printer Command</source>
         <translation>&amp;Nadomesten ukaz za tiskanje</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="149"/>
+        <location filename="../printdialog.cpp" line="122"/>
         <source>Co&amp;mmand:</source>
         <translation>&amp;Ukaz:</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="157"/>
+        <location filename="../printdialog.cpp" line="130"/>
         <source>Range</source>
         <translation>Obseg</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="162"/>
+        <location filename="../printdialog.cpp" line="135"/>
         <source>Print &amp;All</source>
         <translation>Natisni &amp;vse</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="634"/>
+        <location filename="../printdialog.cpp" line="643"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Natisni &amp;trenutno stran</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="166"/>
+        <location filename="../printdialog.cpp" line="139"/>
         <source>Print &amp;Range</source>
         <translation>Natisni &amp;obseg</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="186"/>
+        <location filename="../printdialog.cpp" line="159"/>
         <source>N&amp;umber of Copies:</source>
         <translation>&amp;Število kopij:</translation>
     </message>
@@ -21576,7 +22696,7 @@ več strani ali samo številka ene strani.</translation>
         <translation type="obsolete">&amp;Napredne možnosti...</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="353"/>
+        <location filename="../printdialog.cpp" line="308"/>
         <source>&amp;Print</source>
         <translation>&amp;Natisni</translation>
     </message>
@@ -21593,72 +22713,72 @@ to utilize additional printing options</source>
 gtklp, za dodatne možnosti tiskanja</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="582"/>
+        <location filename="../printdialog.cpp" line="594"/>
         <source>Print Normal</source>
         <translation>Tiskaj navadno</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="199"/>
+        <location filename="../printdialog.cpp" line="172"/>
         <source>Print Separations</source>
         <translation>Tiskaj ločeno (separacije)</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="203"/>
+        <location filename="../printdialog.cpp" line="176"/>
         <source>Print in Color if Available</source>
         <translation>Če je mogoče, natisni v barvah</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="204"/>
+        <location filename="../printdialog.cpp" line="177"/>
         <source>Print in Grayscale</source>
         <translation>Natisni sivinsko</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="221"/>
         <source>PostScript Level 1</source>
-        <translation>PostScript ravni 1</translation>
+        <translation type="obsolete">PostScript ravni 1</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="222"/>
         <source>PostScript Level 2</source>
-        <translation>PostScript ravni 2</translation>
+        <translation type="obsolete">PostScript ravni 2</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="223"/>
         <source>PostScript Level 3</source>
-        <translation>PostScript ravni 3</translation>
+        <translation type="obsolete">PostScript ravni 3</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="232"/>
+        <location filename="../printdialog.cpp" line="196"/>
         <source>Page</source>
         <translation>Stran</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="238"/>
+        <location filename="../printdialog.cpp" line="202"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation>Vodoravno prezrcali stran(i)</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="241"/>
+        <location filename="../printdialog.cpp" line="205"/>
         <source>Mirror Page(s) Vertical</source>
         <translation>Navpično prezrcali stran(i)</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="244"/>
+        <location filename="../printdialog.cpp" line="208"/>
         <source>Set Media Size</source>
         <translation>Nastavi velikost papirja</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="250"/>
+        <location filename="../printdialog.cpp" line="214"/>
         <source>Color</source>
         <translation>Barva</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="256"/>
+        <location filename="../printdialog.cpp" line="220"/>
         <source>Apply Under Color Removal</source>
         <translation>Uveljavi odstranjevanje pod barvo</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="259"/>
+        <location filename="../printdialog.cpp" line="223"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Pretvori čiste barve v procesne barve</translation>
     </message>
@@ -21668,17 +22788,17 @@ gtklp, za dodatne možnosti tiskanja</translation>
         <translation type="obsolete">Uporabi profile ICC</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="271"/>
+        <location filename="../printdialog.cpp" line="232"/>
         <source>Advanced Options</source>
         <translation>Napredne možnosti</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="348"/>
+        <location filename="../printdialog.cpp" line="303"/>
         <source>Preview...</source>
         <translation>Predogled ...</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="382"/>
+        <location filename="../printdialog.cpp" line="380"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
         <translation>Nastavi raven PostScripta.
@@ -21700,22 +22820,22 @@ narediti nekaj preiskusov.
 POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="620"/>
+        <location filename="../printdialog.cpp" line="629"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>Datoteke PostScript (*.ps);; Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="381"/>
+        <location filename="../printdialog.cpp" line="379"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
         <translation>Za dodatne možnosti tiskanja uporabite drug upravljalnik tiskanja, na primer kprinter ali gtklp</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="383"/>
+        <location filename="../printdialog.cpp" line="381"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>To je način za zamenjavo sivin sestavljenih iz cijanske, rumene in magentne barve s črnino. POD se najbolj izrazi na nevtralnih ali temnih delih slik, blizu sivi. Tako lahko izboljšate kakovost tiska nekaterih slik, vendar se splača prej narediti nekaj poskusov. POD tudi zmanjša možnost prekomerne nasičenosti črnil CMY.</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="384"/>
+        <location filename="../printdialog.cpp" line="382"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Vključi čiste barve, da se pretvorijo v kompozitne. Če ne nameravate tiskati čistih barv v tiskarni, potem je verjetno najbolje, da to pustite vključeno.</translation>
     </message>
@@ -21725,12 +22845,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Omogoča vključevanje profilov ICC v pogovorno okno tiskanja, če je upravljalnik barv vključen</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="388"/>
+        <location filename="../printdialog.cpp" line="385"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation>To omogoča natančno določitev velikosti datoteke PostScript. Ni priporočeno, razen če to zahteva vaš tiskalnik.</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="246"/>
+        <location filename="../printdialog.cpp" line="210"/>
         <source>Clip to Page Margins</source>
         <translation>Poreži do robov strani</translation>
     </message>
@@ -21745,157 +22865,157 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation>Nastavitev tiskalnika ni mogoče pridobiti</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="377"/>
+        <location filename="../printdialog.cpp" line="375"/>
         <source>Do not show objects outside the margins on the printed page</source>
         <translation>Ne pokaži predmetov, ki so zunaj robov tiskanja strani</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="262"/>
+        <location filename="../printdialog.cpp" line="226"/>
         <source>Force Overprint Mode</source>
         <translation>Vsili pretisk</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="267"/>
+        <location filename="../printdialog.cpp" line="229"/>
         <source>Apply Color Profiles</source>
         <translation>Uporabi barvne profile</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="278"/>
+        <location filename="../printdialog.cpp" line="239"/>
         <source>Printer Marks</source>
         <translation>Oznake tiskalnika</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="283"/>
+        <location filename="../printdialog.cpp" line="244"/>
         <source>Crop Marks</source>
         <translation>Oznake za porezavo</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="285"/>
+        <location filename="../printdialog.cpp" line="246"/>
         <source>Bleed Marks</source>
         <translation>Oznake dodatka za porezavo</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="287"/>
+        <location filename="../printdialog.cpp" line="248"/>
         <source>Registration Marks</source>
         <translation>Registrske oznake</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="289"/>
+        <location filename="../printdialog.cpp" line="250"/>
         <source>Color Bars</source>
         <translation>Barvni stolpci</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="292"/>
+        <location filename="../printdialog.cpp" line="253"/>
         <source>Offset:</source>
         <translation>Zamik:</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="297"/>
+        <location filename="../printdialog.cpp" line="258"/>
         <source>Marks</source>
         <translation>Oznake</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="304"/>
+        <location filename="../printdialog.cpp" line="265"/>
         <source>Bleed Settings</source>
         <translation>Nastavitve dodatka za porezavo</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="310"/>
+        <location filename="../printdialog.cpp" line="271"/>
         <source>Top:</source>
         <translation>Vrh:</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="315"/>
+        <location filename="../printdialog.cpp" line="276"/>
         <source>Bottom:</source>
         <translation>Dno:</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="320"/>
+        <location filename="../printdialog.cpp" line="281"/>
         <source>Left:</source>
         <translation>Levo:</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="325"/>
+        <location filename="../printdialog.cpp" line="286"/>
         <source>Right:</source>
         <translation>Desno:</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="329"/>
+        <location filename="../printdialog.cpp" line="290"/>
         <source>Use Document Bleeds</source>
         <translation>Uporabi dodatek za porezavo dokumenta</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="333"/>
+        <location filename="../printdialog.cpp" line="294"/>
         <source>Bleeds</source>
         <translation>Dodatki za porezavo</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="336"/>
+        <location filename="../printdialog.cpp" line="355"/>
         <source>Inside:</source>
         <translation>Navznoter:</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="337"/>
+        <location filename="../printdialog.cpp" line="356"/>
         <source>Outside:</source>
         <translation>Navzven:</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="394"/>
+        <location filename="../printdialog.cpp" line="391"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Oddaljenost dodatka za porezavo od fizičnega vrha strani</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="395"/>
+        <location filename="../printdialog.cpp" line="392"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation>Oddaljenost dodatka za porezavo od fizičnega dna strani</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="396"/>
+        <location filename="../printdialog.cpp" line="393"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation>Oddaljenost dodatka za porezavo od fizičnega levega roba strani</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="397"/>
+        <location filename="../printdialog.cpp" line="394"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Oddaljenost dodatka za porezavo od fizičnega desnega roba strani</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="385"/>
+        <location filename="../printdialog.cpp" line="383"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation>Omogoči splošni način pretiska za ta dokument in preglasi nastavitve predmeta</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="387"/>
+        <location filename="../printdialog.cpp" line="384"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation>Omogoča vključevanje barvnih profilov v tok tiskanja, če je upravljalnik barv vključen</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="389"/>
+        <location filename="../printdialog.cpp" line="386"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation>To ustvari oznake za porezavo v dokumentu PDF, te pa nakazujejo, kje naj bo po zaključenem tiskanju odrezan ali prerezan papir</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="390"/>
+        <location filename="../printdialog.cpp" line="387"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation>S tem ustvarite dodatek za porezavo, ki ga nakazujejo  _ . _ in prikazujejo mejo dodatka</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="391"/>
+        <location filename="../printdialog.cpp" line="388"/>
         <source>Add registration marks which are added to each separation</source>
         <translation>Dodaj registrske oznake, ki so dodane vsaki separaciji</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="392"/>
+        <location filename="../printdialog.cpp" line="389"/>
         <source>Add color calibration bars</source>
         <translation>Dodaj barvne stolpce za kalibracijo</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="393"/>
+        <location filename="../printdialog.cpp" line="390"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation>Nakaži razdaljo odmika za registrske oznake</translation>
     </message>
     <message>
-        <location filename="../printdialog.cpp" line="398"/>
+        <location filename="../printdialog.cpp" line="395"/>
         <source>Use the existing bleed settings from the document preferences</source>
         <translation>Uporabi nastavitve dodatka za porezavo iz nastavitev dokumenta</translation>
     </message>
@@ -21903,7 +23023,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
 <context>
     <name>PropertiesPalette</name>
     <message>
-        <location filename="../propertiespalette.cpp" line="4488"/>
+        <location filename="../propertiespalette.cpp" line="4641"/>
         <source> %</source>
         <translation> %</translation>
     </message>
@@ -21928,12 +23048,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4500"/>
+        <location filename="../propertiespalette.cpp" line="4655"/>
         <source> pt</source>
         <translation> točk</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4329"/>
+        <location filename="../propertiespalette.cpp" line="4475"/>
         <source>Name</source>
         <translation>Ime</translation>
     </message>
@@ -21943,162 +23063,162 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Brez</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4640"/>
+        <location filename="../propertiespalette.cpp" line="4795"/>
         <source>Move to back</source>
         <translation>Premakni v ozadje</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4337"/>
+        <location filename="../propertiespalette.cpp" line="4483"/>
         <source>Level</source>
         <translation>Raven</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4624"/>
+        <location filename="../propertiespalette.cpp" line="4779"/>
         <source>Width</source>
         <translation>Širina</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4706"/>
+        <location filename="../propertiespalette.cpp" line="4861"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>Obdrži razmerje spremembe merila X in Y enako</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4630"/>
+        <location filename="../propertiespalette.cpp" line="4785"/>
         <source>Select bottom left for basepoint</source>
         <translation>Izberi spodnji levi kot za izhodišče</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4375"/>
+        <location filename="../propertiespalette.cpp" line="4523"/>
         <source>Path Text Properties</source>
         <translation>Lastnosti besedila po poti</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4682"/>
+        <location filename="../propertiespalette.cpp" line="4837"/>
         <source>Change settings for left or end points</source>
         <translation>Spremeni nastavitve levih ali končnih točk</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4635"/>
+        <location filename="../propertiespalette.cpp" line="4790"/>
         <source>Flip Horizontal</source>
         <translation>Prezrcali vodoravno </translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4441"/>
+        <location filename="../propertiespalette.cpp" line="4589"/>
         <source>Absolute Colorimetric</source>
         <translation>Absolutne barvne vrednosti</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4526"/>
+        <location filename="../propertiespalette.cpp" line="4681"/>
         <source>No Style</source>
         <translation>Brez sloga</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4636"/>
+        <location filename="../propertiespalette.cpp" line="4791"/>
         <source>Flip Vertical</source>
         <translation>Prezrcali navpično</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4629"/>
+        <location filename="../propertiespalette.cpp" line="4784"/>
         <source>Select top right for basepoint</source>
         <translation>Izberi zgornji desni kot za izhodišče</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4711"/>
+        <location filename="../propertiespalette.cpp" line="4866"/>
         <source>Rendering intent for the image</source>
         <translation>Namen upodobitve slike</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4696"/>
+        <location filename="../propertiespalette.cpp" line="4851"/>
         <source>Distance of text from bottom of frame</source>
         <translation>Razdalja med besedilom in dnom okvira</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4472"/>
+        <location filename="../propertiespalette.cpp" line="4625"/>
         <source>Flat Cap</source>
         <translation>Raven konec</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4699"/>
+        <location filename="../propertiespalette.cpp" line="4854"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Uredi nastavitve tabulatorja v besedilnem okviru ...</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4384"/>
+        <location filename="../propertiespalette.cpp" line="4532"/>
         <source>Distance from Curve:</source>
         <translation>Razdalja do krivulje:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4627"/>
+        <location filename="../propertiespalette.cpp" line="4782"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>Točka, od katere se merijo razdalje ali koti sukanja</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4703"/>
+        <location filename="../propertiespalette.cpp" line="4858"/>
         <source>Vertical offset of image within frame</source>
         <translation>Navpični zamik slike znotraj okvira</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4694"/>
+        <location filename="../propertiespalette.cpp" line="4849"/>
         <source>Distance between columns</source>
         <translation>Razdalja med stolpci</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4710"/>
+        <location filename="../propertiespalette.cpp" line="4865"/>
         <source>Source profile of the image</source>
         <translation>Izvorni profil slike</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4705"/>
+        <location filename="../propertiespalette.cpp" line="4860"/>
         <source>Resize the image vertically</source>
         <translation>Spremeni velikost slike navpično</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4467"/>
+        <location filename="../propertiespalette.cpp" line="4620"/>
         <source>Round Join</source>
         <translation>Zaobljen spoj</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4431"/>
+        <location filename="../propertiespalette.cpp" line="4579"/>
         <source>Rendering Intent:</source>
         <translation>Namen upodobitve:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4482"/>
+        <location filename="../propertiespalette.cpp" line="4635"/>
         <source>Line at Bottom</source>
         <translation>Črta na dnu</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="3021"/>
+        <location filename="../propertiespalette.cpp" line="3101"/>
         <source>Column width</source>
         <translation>Širina stolpcev</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4625"/>
+        <location filename="../propertiespalette.cpp" line="4780"/>
         <source>Height</source>
         <translation>Višina</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4621"/>
+        <location filename="../propertiespalette.cpp" line="4776"/>
         <source>Name of selected object</source>
         <translation>Ime izbranega predmeta</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4639"/>
+        <location filename="../propertiespalette.cpp" line="4794"/>
         <source>Move to front</source>
         <translation>Premakni v ospredje</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4664"/>
+        <location filename="../propertiespalette.cpp" line="4819"/>
         <source>Saturation of color of text stroke</source>
         <translation>Nasičenost barve črte besedila</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4658"/>
+        <location filename="../propertiespalette.cpp" line="4813"/>
         <source>Font Size</source>
         <translation>Velikost pisave</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4446"/>
+        <location filename="../propertiespalette.cpp" line="4599"/>
         <source>End Points</source>
         <translation>Končne točke</translation>
     </message>
@@ -22108,12 +23228,12 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
         <translation type="obsolete">Senca:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4340"/>
+        <location filename="../propertiespalette.cpp" line="4489"/>
         <source>Shape:</source>
         <translation>Oblika:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4623"/>
+        <location filename="../propertiespalette.cpp" line="4778"/>
         <source>Vertical position of current basepoint</source>
         <translation>Navpični položaj trenutnega izhodišča</translation>
     </message>
@@ -22125,32 +23245,32 @@ Please choose another.</source>
 Prosim, izberite drugo.</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4657"/>
+        <location filename="../propertiespalette.cpp" line="4812"/>
         <source>Font of selected text or object</source>
         <translation>Pisava za izbrano besedilo ali predmet</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4704"/>
+        <location filename="../propertiespalette.cpp" line="4859"/>
         <source>Resize the image horizontally</source>
         <translation>Spremeni velikost slike vodoravno</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4665"/>
+        <location filename="../propertiespalette.cpp" line="4820"/>
         <source>Saturation of color of text fill</source>
         <translation>Nasičenost barve polnila besedila</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4445"/>
+        <location filename="../propertiespalette.cpp" line="4598"/>
         <source>Left Point</source>
         <translation>Leva točka</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4702"/>
+        <location filename="../propertiespalette.cpp" line="4857"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Vodoravni zamik slike znotraj okvira</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4695"/>
+        <location filename="../propertiespalette.cpp" line="4850"/>
         <source>Distance of text from top of frame</source>
         <translation>Razdalja med besedilom in vrhom okvirja</translation>
     </message>
@@ -22160,27 +23280,27 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Posebna razdalja</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4319"/>
+        <location filename="../propertiespalette.cpp" line="4465"/>
         <source>Properties</source>
         <translation>Lastnosti</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4479"/>
+        <location filename="../propertiespalette.cpp" line="4632"/>
         <source>Line at Top</source>
         <translation>Črta na vrhu</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4685"/>
+        <location filename="../propertiespalette.cpp" line="4840"/>
         <source>Type of line joins</source>
         <translation>Vrste spojev črt</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4684"/>
+        <location filename="../propertiespalette.cpp" line="4839"/>
         <source>Thickness of line</source>
         <translation>Debelina črte</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4660"/>
+        <location filename="../propertiespalette.cpp" line="4815"/>
         <source>Scaling width of characters</source>
         <translation>Širina spremembe merila znakov</translation>
     </message>
@@ -22190,37 +23310,37 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Slog trenutnega odstavka</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4631"/>
+        <location filename="../propertiespalette.cpp" line="4786"/>
         <source>Select bottom right for basepoint</source>
         <translation>Izberi spodnji desni kot za izhodišče</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4473"/>
+        <location filename="../propertiespalette.cpp" line="4626"/>
         <source>Square Cap</source>
         <translation>Kvadraten konec</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4626"/>
+        <location filename="../propertiespalette.cpp" line="4781"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Sukanje predmeta okrog trenutnega izhodišča</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4481"/>
+        <location filename="../propertiespalette.cpp" line="4634"/>
         <source>Line at the Right </source>
         <translation>Črta na desni</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4480"/>
+        <location filename="../propertiespalette.cpp" line="4633"/>
         <source>Line at the Left</source>
         <translation>Črta na levi</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4686"/>
+        <location filename="../propertiespalette.cpp" line="4841"/>
         <source>Type of line end</source>
         <translation>Vrste zaključkov črt</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4381"/>
+        <location filename="../propertiespalette.cpp" line="4529"/>
         <source>Show Curve</source>
         <translation>Pokaži krivuljo</translation>
     </message>
@@ -22230,17 +23350,17 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Ročno zgoščevanje</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4642"/>
+        <location filename="../propertiespalette.cpp" line="4797"/>
         <source>Lock or unlock the object</source>
         <translation>Zakleni ali odkleni predmet </translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4438"/>
+        <location filename="../propertiespalette.cpp" line="4586"/>
         <source>Perceptual</source>
         <translation>Zaznavno</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4693"/>
+        <location filename="../propertiespalette.cpp" line="4848"/>
         <source>Switches between Gap or Column width</source>
         <translation>Preklopi med presledkom in širino stolpca</translation>
     </message>
@@ -22250,22 +23370,22 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Barva črte besedila</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4439"/>
+        <location filename="../propertiespalette.cpp" line="4587"/>
         <source>Relative Colorimetric</source>
         <translation>Relativne barvne vrednosti</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4641"/>
+        <location filename="../propertiespalette.cpp" line="4796"/>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Nakaže raven, na kateri je predmet, 0 pomeni, da je predmet na dnu</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4708"/>
+        <location filename="../propertiespalette.cpp" line="4863"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>Naj slika ustreza velikosti okvira</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4643"/>
+        <location filename="../propertiespalette.cpp" line="4798"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Zakleni ali odkleni velikost predmeta</translation>
     </message>
@@ -22275,62 +23395,62 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Naj besedilo iz nižjih okvirjev obliva obliko predmeta</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4628"/>
+        <location filename="../propertiespalette.cpp" line="4783"/>
         <source>Select top left for basepoint</source>
         <translation>Izberi zgornji levi kot za izhodišče</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4709"/>
+        <location filename="../propertiespalette.cpp" line="4864"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>Uporabi raje razmerje stranic slike in ne okvira</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4637"/>
+        <location filename="../propertiespalette.cpp" line="4792"/>
         <source>Move one level up</source>
         <translation>Premakni eno raven navzgor </translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4466"/>
+        <location filename="../propertiespalette.cpp" line="4619"/>
         <source>Bevel Join</source>
         <translation>Nagnjen spoj</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4687"/>
+        <location filename="../propertiespalette.cpp" line="4842"/>
         <source>Line style of current object</source>
         <translation>Slog črte trenutnega predmeta</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4638"/>
+        <location filename="../propertiespalette.cpp" line="4793"/>
         <source>Move one level down</source>
         <translation>Premakni eno raven navzdol </translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4465"/>
+        <location filename="../propertiespalette.cpp" line="4618"/>
         <source>Miter Join</source>
         <translation>Spoj pod kotom</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4474"/>
+        <location filename="../propertiespalette.cpp" line="4627"/>
         <source>Round Cap</source>
         <translation>Zaobljen konec</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4330"/>
+        <location filename="../propertiespalette.cpp" line="4476"/>
         <source>Geometry</source>
         <translation>Geometrija</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4697"/>
+        <location filename="../propertiespalette.cpp" line="4852"/>
         <source>Distance of text from left of frame</source>
         <translation>Razdalja med besedilom in levim robom okvira</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4336"/>
+        <location filename="../propertiespalette.cpp" line="4482"/>
         <source>Basepoint:</source>
         <translation>Izhodišče:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4440"/>
+        <location filename="../propertiespalette.cpp" line="4588"/>
         <source>Saturation</source>
         <translation>Nasičenost</translation>
     </message>
@@ -22345,12 +23465,12 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Barva polnila besedila</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4690"/>
+        <location filename="../propertiespalette.cpp" line="4845"/>
         <source>Edit shape of the frame...</source>
         <translation>Uredi obliko okvira ...</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4707"/>
+        <location filename="../propertiespalette.cpp" line="4862"/>
         <source>Keep the aspect ratio</source>
         <translation>Ohrani razmerja</translation>
     </message>
@@ -22360,139 +23480,139 @@ Prosim, izberite drugo.</translation>
         <translation type="obsolete">Opozorilo</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4698"/>
+        <location filename="../propertiespalette.cpp" line="4853"/>
         <source>Distance of text from right of frame</source>
         <translation>Razdalja med besedilom in desnim robom okvira</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4430"/>
+        <location filename="../propertiespalette.cpp" line="4578"/>
         <source>Input Profile:</source>
         <translation>Vhodni profil:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4683"/>
+        <location filename="../propertiespalette.cpp" line="4838"/>
         <source>Pattern of line</source>
         <translation>Vzorec črte</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4632"/>
+        <location filename="../propertiespalette.cpp" line="4787"/>
         <source>Select center for basepoint</source>
         <translation>Izberi središče za izhodišče</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4478"/>
+        <location filename="../propertiespalette.cpp" line="4631"/>
         <source>Cell Lines</source>
         <translation>Črte celic</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4622"/>
+        <location filename="../propertiespalette.cpp" line="4777"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Vodoravni položaj trenutnega izhodišča</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4701"/>
+        <location filename="../propertiespalette.cpp" line="4856"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>Dovoli, da je slika lahko druge velikosti kot okvir</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4691"/>
+        <location filename="../propertiespalette.cpp" line="4846"/>
         <source>Set radius of corner rounding</source>
         <translation>Nastavi radij zaobljenosti roba</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4689"/>
+        <location filename="../propertiespalette.cpp" line="4844"/>
         <source>Choose the shape of frame...</source>
         <translation>Izberi obliko okvira ...</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4362"/>
+        <location filename="../propertiespalette.cpp" line="4510"/>
         <source>Distance of Text</source>
         <translation>Razdalja besedila</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4692"/>
+        <location filename="../propertiespalette.cpp" line="4847"/>
         <source>Number of columns in text frame</source>
         <translation>Število stolpcev v okviru besedila</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4668"/>
+        <location filename="../propertiespalette.cpp" line="4823"/>
         <source>Line Spacing</source>
         <translation>Razmik vrstic</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4383"/>
+        <location filename="../propertiespalette.cpp" line="4531"/>
         <source>Start Offset:</source>
         <translation>Začetni zamik:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4321"/>
+        <location filename="../propertiespalette.cpp" line="4467"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4324"/>
+        <location filename="../propertiespalette.cpp" line="4470"/>
         <source>&amp;Shape</source>
         <translation>&amp;Oblika</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4322"/>
+        <location filename="../propertiespalette.cpp" line="4468"/>
         <source>&amp;Text</source>
         <translation>&amp;Besedilo</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4323"/>
+        <location filename="../propertiespalette.cpp" line="4469"/>
         <source>&amp;Image</source>
         <translation>&amp;Slika</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4325"/>
+        <location filename="../propertiespalette.cpp" line="4471"/>
         <source>&amp;Line</source>
         <translation>&amp;Črta</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4326"/>
+        <location filename="../propertiespalette.cpp" line="4472"/>
         <source>&amp;Colors</source>
         <translation>&amp;Barve</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4422"/>
+        <location filename="../propertiespalette.cpp" line="4570"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4423"/>
+        <location filename="../propertiespalette.cpp" line="4571"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4333"/>
+        <location filename="../propertiespalette.cpp" line="4479"/>
         <source>&amp;Width:</source>
         <translation>&amp;Širina:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4334"/>
+        <location filename="../propertiespalette.cpp" line="4480"/>
         <source>&amp;Height:</source>
         <translation>&amp;Višina:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4335"/>
+        <location filename="../propertiespalette.cpp" line="4481"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Sukanje:</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4341"/>
         <source>&amp;Edit Shape...</source>
-        <translation>&amp;Uredi obliko ...</translation>
+        <translation type="obsolete">&amp;Uredi obliko ...</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4361"/>
+        <location filename="../propertiespalette.cpp" line="4509"/>
         <source>R&amp;ound
 Corners:</source>
         <translation>&amp;Zaobljeni
 robovi:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4363"/>
+        <location filename="../propertiespalette.cpp" line="4511"/>
         <source>Colu&amp;mns:</source>
         <translation>&amp;Stolpci:</translation>
     </message>
@@ -22502,27 +23622,27 @@ robovi:</translation>
         <translation type="obsolete">&amp;Razdalja:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4370"/>
+        <location filename="../propertiespalette.cpp" line="4518"/>
         <source>To&amp;p:</source>
         <translation>&amp;Vrh:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4371"/>
+        <location filename="../propertiespalette.cpp" line="4519"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Dno:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4372"/>
+        <location filename="../propertiespalette.cpp" line="4520"/>
         <source>&amp;Left:</source>
         <translation>&amp;Levo:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4373"/>
+        <location filename="../propertiespalette.cpp" line="4521"/>
         <source>&amp;Right:</source>
         <translation>&amp;Desno:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4374"/>
+        <location filename="../propertiespalette.cpp" line="4522"/>
         <source>T&amp;abulators...</source>
         <translation>&amp;Tabulatorji ...</translation>
     </message>
@@ -22532,12 +23652,12 @@ robovi:</translation>
         <translation type="obsolete">Besedilo &amp;poteka okrog okvira</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4397"/>
+        <location filename="../propertiespalette.cpp" line="4545"/>
         <source>Use &amp;Bounding Box</source>
         <translation>Uporabi &amp;okvir</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4398"/>
+        <location filename="../propertiespalette.cpp" line="4546"/>
         <source>&amp;Use Contour Line</source>
         <translation>&amp;Uporabi obrobno črto</translation>
     </message>
@@ -22567,72 +23687,72 @@ robovi:</translation>
         <translation type="obsolete">&amp;Jezik:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4419"/>
+        <location filename="../propertiespalette.cpp" line="4567"/>
         <source>&amp;Free Scaling</source>
         <translation>&amp;Prosto spreminjanje merila</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4424"/>
+        <location filename="../propertiespalette.cpp" line="4572"/>
         <source>X-Sc&amp;ale:</source>
         <translation>&amp;Sprememba merila X:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4425"/>
+        <location filename="../propertiespalette.cpp" line="4573"/>
         <source>Y-Scal&amp;e:</source>
         <translation>Sprememba &amp;merila Y:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4426"/>
+        <location filename="../propertiespalette.cpp" line="4574"/>
         <source>Scale &amp;To Frame Size</source>
         <translation>Raztegni na &amp;velikost okvira</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4427"/>
+        <location filename="../propertiespalette.cpp" line="4575"/>
         <source>P&amp;roportional</source>
         <translation>&amp;Sorazmerno</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4448"/>
+        <location filename="../propertiespalette.cpp" line="4601"/>
         <source>&amp;Basepoint:</source>
         <translation>&amp;Izhodišče:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4449"/>
+        <location filename="../propertiespalette.cpp" line="4602"/>
         <source>T&amp;ype of Line:</source>
         <translation>&amp;Vrsta črte:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4461"/>
+        <location filename="../propertiespalette.cpp" line="4614"/>
         <source>Line &amp;Width:</source>
         <translation>&amp;Širina črte:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4462"/>
+        <location filename="../propertiespalette.cpp" line="4615"/>
         <source>Ed&amp;ges:</source>
         <translation>&amp;Robovi:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4476"/>
+        <location filename="../propertiespalette.cpp" line="4629"/>
         <source>&amp;Endings:</source>
         <translation>&amp;Konci:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="3228"/>
+        <location filename="../propertiespalette.cpp" line="3350"/>
         <source>&amp;X1:</source>
         <translation>&amp;X1:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="3229"/>
+        <location filename="../propertiespalette.cpp" line="3351"/>
         <source>X&amp;2:</source>
         <translation>&amp;X2:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="3230"/>
+        <location filename="../propertiespalette.cpp" line="3352"/>
         <source>Y&amp;1:</source>
         <translation>&amp;Y1:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="3231"/>
+        <location filename="../propertiespalette.cpp" line="3353"/>
         <source>&amp;Y2:</source>
         <translation>&amp;Y2:</translation>
     </message>
@@ -22652,62 +23772,62 @@ robovi:</translation>
         <translation type="obsolete">Jezik za deljenje besed v tem okviru</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4666"/>
+        <location filename="../propertiespalette.cpp" line="4821"/>
         <source>Right to Left Writing</source>
         <translation>Pisava z leve na desno</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4450"/>
+        <location filename="../propertiespalette.cpp" line="4603"/>
         <source>Start Arrow:</source>
         <translation>Začetna puščica:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4451"/>
+        <location filename="../propertiespalette.cpp" line="4604"/>
         <source>End Arrow:</source>
         <translation>Končna puščica:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4433"/>
+        <location filename="../propertiespalette.cpp" line="4581"/>
         <source>Fixed Linespacing</source>
         <translation>Nespremenljiv razmik vrstic</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4434"/>
+        <location filename="../propertiespalette.cpp" line="4582"/>
         <source>Automatic Linespacing</source>
         <translation>Samodejno razmikanje vrstic</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4435"/>
+        <location filename="../propertiespalette.cpp" line="4583"/>
         <source>Align to Baseline Grid</source>
         <translation>Poravnaj na mrežo osnovnice </translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4420"/>
+        <location filename="../propertiespalette.cpp" line="4568"/>
         <source>Actual X-DPI:</source>
         <translation>Dejanska X-DPI:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4421"/>
+        <location filename="../propertiespalette.cpp" line="4569"/>
         <source>Actual Y-DPI:</source>
         <translation>Dejanska Y-DPI:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4659"/>
+        <location filename="../propertiespalette.cpp" line="4814"/>
         <source>Offset to baseline of characters</source>
         <translation>Zamik na osnovnico znakov</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4661"/>
+        <location filename="../propertiespalette.cpp" line="4816"/>
         <source>Scaling height of characters</source>
         <translation>Višina spremembe merila znakov</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4667"/>
+        <location filename="../propertiespalette.cpp" line="4822"/>
         <source>Manual Tracking</source>
         <translation>Ročno sledenje</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4204"/>
+        <location filename="../propertiespalette.cpp" line="4341"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Ime &quot;%1&quot; ni edinstveno.&lt;br/&gt;Prosim, izberite drugo.</translation>
     </message>
@@ -22722,17 +23842,17 @@ robovi:</translation>
         <translation type="obsolete">Barva polnila besedila. Na voljo le z nastavitvijo pisave na &quot;obrobo&quot;.</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4385"/>
+        <location filename="../propertiespalette.cpp" line="4533"/>
         <source>Fill Rule</source>
         <translation>Pravilo polnjenja</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4386"/>
+        <location filename="../propertiespalette.cpp" line="4534"/>
         <source>Even-Odd</source>
         <translation>Liho-sodo</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4387"/>
+        <location filename="../propertiespalette.cpp" line="4535"/>
         <source>Non Zero</source>
         <translation>Neničelno</translation>
     </message>
@@ -22742,12 +23862,12 @@ robovi:</translation>
         <translation type="obsolete">Klikni za izbiro kako so vrstice razmaknjene</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4662"/>
+        <location filename="../propertiespalette.cpp" line="4817"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
         <translation>Barva poteze črke in/ali sence, odvisno od izbire. Če sta izbrani obe, si delita isto barvo.</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4663"/>
+        <location filename="../propertiespalette.cpp" line="4818"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation>Barva izbranega besedila. Če je izbran učinek pisave Orisano, bo to tudi barva polnila. Če je izbrano senčenje besedila, bo to najbolj vrhnja barva.</translation>
     </message>
@@ -22757,7 +23877,7 @@ robovi:</translation>
         <translation type="obsolete">Besedilo v spodnjih okvirih naj obliva predmet. Možnosti spodaj določajo podrobnosti.</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4653"/>
+        <location filename="../propertiespalette.cpp" line="4808"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation>Uporabite okvirno škatlo, ki je vedno pravokotna, namesto oblike okvira za potek besedila ali okvire besedila pod predmetom. </translation>
     </message>
@@ -22767,304 +23887,314 @@ robovi:</translation>
         <translation type="obsolete">Uporabite drugo vrstico, izvorno temelječo na obliki okvira, za potek besedila ali okvire besedila pod predmetom. </translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="2415"/>
+        <location filename="../propertiespalette.cpp" line="2483"/>
         <source>Auto</source>
         <translation>Samodejno</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4669"/>
+        <location filename="../propertiespalette.cpp" line="4824"/>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Klinite in držite pritisnjeno za izbor načina razmikanja črt.</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4342"/>
+        <location filename="../propertiespalette.cpp" line="4490"/>
         <source>Transparency Settings</source>
         <translation>Nastavitve prosojnosti</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4327"/>
+        <location filename="../propertiespalette.cpp" line="4473"/>
         <source>&amp;Group</source>
         <translation>&amp;Združi</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4343"/>
+        <location filename="../propertiespalette.cpp" line="4491"/>
         <source>Opacity:</source>
         <translation>Prekrivnost:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4344"/>
+        <location filename="../propertiespalette.cpp" line="4492"/>
         <source>Blend Mode:</source>
         <translation>Način spajanja:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4346"/>
+        <location filename="../propertiespalette.cpp" line="4494"/>
         <source>Normal</source>
         <translation>Navadno</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4347"/>
+        <location filename="../propertiespalette.cpp" line="4495"/>
         <source>Darken</source>
         <translation>Potemni</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4348"/>
+        <location filename="../propertiespalette.cpp" line="4496"/>
         <source>Lighten</source>
         <translation>Posvetli</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4349"/>
+        <location filename="../propertiespalette.cpp" line="4497"/>
         <source>Multiply</source>
         <translation>Pomnoži</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4350"/>
+        <location filename="../propertiespalette.cpp" line="4498"/>
         <source>Screen</source>
         <translation>Zaslon</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4351"/>
+        <location filename="../propertiespalette.cpp" line="4499"/>
         <source>Overlay</source>
         <translation>Prekrij</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4352"/>
+        <location filename="../propertiespalette.cpp" line="4500"/>
         <source>Hard Light</source>
         <translation>Ostra luč</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4353"/>
+        <location filename="../propertiespalette.cpp" line="4501"/>
         <source>Soft Light</source>
         <translation>Mehka luč</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4354"/>
+        <location filename="../propertiespalette.cpp" line="4502"/>
         <source>Difference</source>
         <translation>Razlika</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4355"/>
+        <location filename="../propertiespalette.cpp" line="4503"/>
         <source>Exclusion</source>
         <translation>Izključitev</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4356"/>
+        <location filename="../propertiespalette.cpp" line="4504"/>
         <source>Color Dodge</source>
         <translation>Barvno posvetli</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4357"/>
+        <location filename="../propertiespalette.cpp" line="4505"/>
         <source>Color Burn</source>
         <translation>Barvno potemni</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4358"/>
+        <location filename="../propertiespalette.cpp" line="4506"/>
         <source>Hue</source>
         <translation>Obarvanost</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4360"/>
+        <location filename="../propertiespalette.cpp" line="4508"/>
         <source>Color</source>
         <translation>Barva</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4366"/>
+        <location filename="../propertiespalette.cpp" line="4514"/>
         <source>Gap:</source>
         <translation>Razmik:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4367"/>
+        <location filename="../propertiespalette.cpp" line="4515"/>
         <source>Width:</source>
         <translation>Širina:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4377"/>
+        <location filename="../propertiespalette.cpp" line="4525"/>
         <source>Default</source>
         <translation>Privzeto</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4378"/>
+        <location filename="../propertiespalette.cpp" line="4526"/>
         <source>Stair Step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4379"/>
+        <location filename="../propertiespalette.cpp" line="4527"/>
         <source>Skew</source>
         <translation>Nagib</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4380"/>
+        <location filename="../propertiespalette.cpp" line="4528"/>
         <source>Flip Text</source>
         <translation>Prezrcali besedilo</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4382"/>
+        <location filename="../propertiespalette.cpp" line="4530"/>
         <source>Type:</source>
         <translation>Vrsta:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4394"/>
+        <location filename="../propertiespalette.cpp" line="4542"/>
         <source>Text &amp;Flow Around Frame</source>
         <translation>Besedilo &amp;poteka okrog okvira</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4395"/>
+        <location filename="../propertiespalette.cpp" line="4543"/>
         <source>Disabled</source>
         <translation>Izključeno</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4396"/>
+        <location filename="../propertiespalette.cpp" line="4544"/>
         <source>Use Frame &amp;Shape</source>
         <translation>Uporabi &amp;obliko okvira</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4399"/>
+        <location filename="../propertiespalette.cpp" line="4547"/>
         <source>Use Image Clip Path</source>
         <translation>Uporabi pot obrezovanja slike</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4400"/>
+        <location filename="../propertiespalette.cpp" line="4548"/>
         <source>Paragraph St&amp;yle:</source>
         <translation>Slog &amp;odstavka:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4401"/>
+        <location filename="../propertiespalette.cpp" line="4549"/>
         <source>Character St&amp;yle:</source>
         <translation>Slog &amp;znaka:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4402"/>
+        <location filename="../propertiespalette.cpp" line="4550"/>
         <source>Optical Margins:</source>
         <translation>Optične meje:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4413"/>
+        <location filename="../propertiespalette.cpp" line="4561"/>
         <source>Word Tracking</source>
         <translation>Sledenje besed</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4417"/>
+        <location filename="../propertiespalette.cpp" line="4565"/>
         <source>Min:</source>
         <translation>Najm:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4415"/>
+        <location filename="../propertiespalette.cpp" line="4563"/>
         <source>Norm:</source>
         <translation>Navad:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4416"/>
+        <location filename="../propertiespalette.cpp" line="4564"/>
         <source>Glyph Extension</source>
         <translation>Končnica znaka</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4418"/>
+        <location filename="../propertiespalette.cpp" line="4566"/>
         <source>Max:</source>
         <translation>Najv:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4428"/>
+        <location filename="../propertiespalette.cpp" line="4576"/>
         <source>Image Effects</source>
         <translation>Slikovni učinki</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4429"/>
+        <location filename="../propertiespalette.cpp" line="4577"/>
         <source>Extended Image Properties</source>
         <translation>Razširjene lastnosti slike</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4484"/>
+        <location filename="../propertiespalette.cpp" line="4637"/>
         <source>Overprinting</source>
         <translation>Pretiskanje</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4485"/>
+        <location filename="../propertiespalette.cpp" line="4638"/>
         <source>Knockout</source>
         <translation>Izpodrivanje</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4486"/>
+        <location filename="../propertiespalette.cpp" line="4639"/>
         <source>Overprint</source>
         <translation>Pretiskaj</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4633"/>
+        <location filename="../propertiespalette.cpp" line="4788"/>
         <source>Group the selected objects</source>
         <translation>Združi izbrane predmete</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4634"/>
+        <location filename="../propertiespalette.cpp" line="4789"/>
         <source>Destroys the selected group</source>
         <translation>Uniči izbrano skupino</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4644"/>
+        <location filename="../propertiespalette.cpp" line="4799"/>
         <source>Enable or disable exporting of the object</source>
         <translation>Omogoči ali onemogoči izvoz predmeta</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4651"/>
+        <location filename="../propertiespalette.cpp" line="4806"/>
         <source>Disable text flow from lower frames around object</source>
         <translation>Onemogoči potek besedila iz nižjih okvirov okoli predmeta</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4652"/>
+        <location filename="../propertiespalette.cpp" line="4807"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation>Uporabi obliko okvira za potek besedila besedilnega okvira pod predmetom.</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4654"/>
+        <location filename="../propertiespalette.cpp" line="4809"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
         <translation>Če je izbrano, lahko contour line urejate z orodjem Uredi lik na paleti zgoraj. Če urejate prek palete likov, to postane druga ločilna črta, ki izvorno temelji na obliki okvira za potek besedila ali besedilnih okvirov pod predmetom. č</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4655"/>
+        <location filename="../propertiespalette.cpp" line="4810"/>
         <source>Use the clipping path of the image</source>
         <translation>Uporabi pot obrezovanja slike</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4670"/>
+        <location filename="../propertiespalette.cpp" line="4825"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation>Slog odstavka trenutno izbranega besedila ali odstavka</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4671"/>
+        <location filename="../propertiespalette.cpp" line="4826"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation>Slog znakov trenutno izbranega besedila ali odstavka</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4672"/>
+        <location filename="../propertiespalette.cpp" line="4827"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation>Odstrani neposredno oblikovanje odstavka</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4673"/>
+        <location filename="../propertiespalette.cpp" line="4828"/>
         <source>Remove Direct Character Formatting</source>
         <translation>Odstrani neposredno oblikovanje znaka</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4676"/>
+        <location filename="../propertiespalette.cpp" line="4831"/>
         <source>Minimal width of spaces between words</source>
         <translation>Najmanjša širina presledka med besedami</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4677"/>
+        <location filename="../propertiespalette.cpp" line="4832"/>
         <source>Normal width of spaces between words</source>
         <translation>Navadna širina presledka med besedami</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4678"/>
+        <location filename="../propertiespalette.cpp" line="4833"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation>Najmanjša mera stisnjenosti črk za poravnavo</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4679"/>
+        <location filename="../propertiespalette.cpp" line="4834"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation>Največja razširitev znakov za poravnavo</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4680"/>
+        <location filename="../propertiespalette.cpp" line="4835"/>
         <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
         <translation>Uporablja viseče spodsekavanje ločil in robov, da doseže lepši videz stolpcev</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4594"/>
+        <source>Custom</source>
+        <translation type="unfinished">Po meri</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4488"/>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23746,7 +24876,7 @@ Preverite ime in pot do nje.</translation>
         <translation type="obsolete">Da</translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="147"/>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="128"/>
         <source>Open</source>
         <translation>Odpri</translation>
     </message>
@@ -23756,7 +24886,7 @@ Preverite ime in pot do nje.</translation>
         <translation type="obsolete">Predogled tiskanja</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="1078"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="1093"/>
         <source>Background</source>
         <translation>Ozadje</translation>
     </message>
@@ -23803,7 +24933,7 @@ Preverite ime in pot do nje.</translation>
 %1 ?</translation>
     </message>
     <message>
-        <location filename="../scwinprint.cpp" line="118"/>
+        <location filename="../scprintengine_gdi.cpp" line="126"/>
         <source>Save as</source>
         <translation>Shrani kot</translation>
     </message>
@@ -23823,7 +24953,7 @@ Preverite ime in pot do nje.</translation>
         <translation type="obsolete">Slike SVG (*.svg);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="235"/>
+        <location filename="../scribuscore.cpp" line="240"/>
         <source>Initializing...</source>
         <translation>Priprave v teku ...</translation>
     </message>
@@ -23983,7 +25113,7 @@ Preverite ime in pot do nje.</translation>
         <translation>Zgibanke</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="260"/>
+        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="261"/>
         <source>Own Templates</source>
         <translation>Lastne predloge</translation>
     </message>
@@ -24008,7 +25138,7 @@ Preverite ime in pot do nje.</translation>
         <translation type="obsolete">Vse podprte oblike (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="239"/>
+        <location filename="../util_formats.cpp" line="242"/>
         <source>All Files (*)</source>
         <translation>Vse datoteke (*)</translation>
     </message>
@@ -24023,22 +25153,22 @@ Preverite ime in pot do nje.</translation>
         <translation type="obsolete">Priročnik za s&amp;kripte...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="548"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="552"/>
         <source>&amp;Scribus Scripts</source>
         <translation>&amp;Skribusove skripte</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="543"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="547"/>
         <source>&amp;Execute Script...</source>
         <translation>&amp;Poženi skripto ...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="553"/>
         <source>&amp;Recent Scripts</source>
         <translation>&amp;Nedavne skripte</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="544"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="548"/>
         <source>Show &amp;Console</source>
         <translation>Pokaži &amp;konzolo</translation>
     </message>
@@ -24078,7 +25208,7 @@ Preverite ime in pot do nje.</translation>
         <translation>Uvažanje besedila</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="192"/>
+        <location filename="../util_formats.cpp" line="195"/>
         <source>All Supported Formats</source>
         <translation>Vse podprte vrste</translation>
     </message>
@@ -24093,7 +25223,7 @@ Preverite ime in pot do nje.</translation>
         <translation>html</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/txtim/txtim.cpp" line="20"/>
+        <location filename="../plugins/gettext/txtim/txtim.cpp" line="21"/>
         <source>Text Files</source>
         <translation>Datoteke z besedilom</translation>
     </message>
@@ -24192,7 +25322,7 @@ Zunanje povezave
         <translation>nizozemski</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="195"/>
+        <location filename="../langmgr.cpp" line="196"/>
         <source>English</source>
         <translation>angleški</translation>
     </message>
@@ -24282,32 +25412,32 @@ Zunanje povezave
         <translation>ruski</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="109"/>
+        <location filename="../langmgr.cpp" line="108"/>
         <source>Swedish</source>
         <translation>švedski</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="104"/>
+        <location filename="../langmgr.cpp" line="103"/>
         <source>Spanish</source>
         <translation>španski</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="105"/>
+        <location filename="../langmgr.cpp" line="104"/>
         <source>Spanish (Latin)</source>
         <translation>španski (latinski)</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="106"/>
+        <location filename="../langmgr.cpp" line="105"/>
         <source>Slovak</source>
         <translation>slovaški</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="107"/>
+        <location filename="../langmgr.cpp" line="106"/>
         <source>Slovenian</source>
         <translation>slovenski</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="108"/>
+        <location filename="../langmgr.cpp" line="107"/>
         <source>Serbian</source>
         <translation>srbski</translation>
     </message>
@@ -24317,12 +25447,12 @@ Zunanje povezave
         <translation type="obsolete">Poskus da bi bil napredek večji kot največji</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="545"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
         <source>&amp;About Script...</source>
         <translation>&amp;O skriptah ...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="516"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="520"/>
         <source>About Script</source>
         <translation>O skriptah</translation>
     </message>
@@ -24367,13 +25497,13 @@ Zunanje povezave
         <translation>Barve s praznim imenom ni mogoče zamenjati.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmddoc.cpp" line="217"/>
+        <location filename="../plugins/scriptplugin/cmddoc.cpp" line="219"/>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
         <translation>Enota je izven veljavnega obsega. Uporabite eno od Scribusovih konstant UNIT_*.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="26"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="27"/>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
         <translation>Cilj ni slikovni okvir.</translation>
@@ -24385,67 +25515,67 @@ Zunanje povezave
         <translation>Kotni polmer mora biti pozitivno število.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="27"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="28"/>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
         <translation>Velikosti pisave nebesedilnega okvirja ni mogoče pridobiti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="53"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="54"/>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
         <translation>Pisave nebesedilnega okvirja ni mogoče pridobiti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="79"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="80"/>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
         <translation>Velikosti besedila nebesedilnega okvirja ni mogoče pridobiti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="115"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="116"/>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
         <translation>Stolpcev nebesedilnega okvirja ni mogoče prešteti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="133"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="134"/>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
         <translation>Razmika vrstic nebesedilnega okvirja ni mogoče pridobiti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="151"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="152"/>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
         <translation>Razmika stolpcev nebesedilnega okvirja ni mogoče pridobiti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="201"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="202"/>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
         <translation>Besedila nebesedilnega okvirja ni mogoče pridobiti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="234"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="235"/>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
         <translation>Besedila nebesedilnega okvirja ni mogoče nastaviti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="266"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="267"/>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
         <translation>Besedila nebesedilnega okvirja ni mogoče vstaviti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="302"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="303"/>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
         <translation>Poravnava je izven dovoljenega obsega. Uporabite eno od Scribusovih konstant ALIGN_*.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="501"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="502"/>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>Števnik izbire je izven meja</translation>
@@ -24490,13 +25620,13 @@ Zunanje povezave
         <translation type="obsolete">Kratke &amp;besede...</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="121"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="124"/>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
         <translation>Obdelovanje kratkih besed. Prosim, počakajte ...</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="140"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="143"/>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
         <translation>Obdelava kratkih besed. Opravljeno.</translation>
@@ -24507,17 +25637,17 @@ Zunanje povezave
         <translation>afrikaanski</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="113"/>
+        <location filename="../langmgr.cpp" line="112"/>
         <source>Turkish</source>
         <translation>turški</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="114"/>
+        <location filename="../langmgr.cpp" line="113"/>
         <source>Ukranian</source>
         <translation>ukrajinski</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="116"/>
+        <location filename="../langmgr.cpp" line="115"/>
         <source>Welsh</source>
         <translation>valižanski</translation>
     </message>
@@ -24546,25 +25676,25 @@ Zunanje povezave
         <translation>Atribut &apos;allTypes&apos; je samo za branje</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/objimageexport.cpp" line="187"/>
+        <location filename="../plugins/scriptplugin/objimageexport.cpp" line="188"/>
         <source>Failed to export image</source>
         <comment>python error</comment>
         <translation>Neuspešen izvoz slike</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="272"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="279"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
         <translation>Sliki ni mogoče spremeniti merilo za 0%.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="384"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="393"/>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
         <translation>Izbrani predmet ni slikovni okvir.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="390"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="391"/>
         <source>Font not found.</source>
         <comment>python error</comment>
         <translation>Pisave ni mogoče najti.</translation>
@@ -24576,127 +25706,127 @@ Zunanje povezave
         <translation>Praznega vzorca ni mogoče upodobiti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="689"/>
+        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="690"/>
         <source>Cannot have an empty layer name.</source>
         <comment>python error</comment>
         <translation>Plast ne more imeti praznega imena.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="728"/>
+        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="729"/>
         <source>Layer not found.</source>
         <comment>python error</comment>
         <translation>Plasti ni mogoče najti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="694"/>
+        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="695"/>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
         <translation>Zadnje plasti ni mogoče najti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="745"/>
+        <location filename="../plugins/scriptplugin/cmdmisc.cpp" line="746"/>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
         <translation>Plasti brez imena ni mogoče ustvariti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="273"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="274"/>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
         <translation>Števec izbire je izven meja.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="310"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="311"/>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti poravnave besedila.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="336"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="337"/>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
         <translation>Velikost pisave je izven meja - mora biti &lt;= velikost &lt;= 512.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="345"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="346"/>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti velikosti pisave .</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="374"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="375"/>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče določiti pisave.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="408"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="409"/>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
         <translation>Razmik med vrsticami je izven dosega, mora biti &gt;= 0.1.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="416"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="417"/>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti razmika vrstic.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="435"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="436"/>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
         <translation>Razmik med stolpci je izven meja, mora biti pozitiven.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="443"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="444"/>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti razmika med stolpci.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="462"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="463"/>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
         <translation>Število stolpcev je izven meja, mora biti &gt;1.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="470"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="471"/>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti števila stolpcev.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="506"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="507"/>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče izbrati besedila</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="543"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="544"/>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okvirju ni mogoče izbrisati besedila.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="575"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="576"/>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti polnila besedila.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="611"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="612"/>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti poteze besedila.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="653"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="654"/>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti senčenja besedila.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="693"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="694"/>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
         <translation>Le besedilne okvire je mogoče povezovati.</translation>
@@ -24708,31 +25838,31 @@ Zunanje povezave
         <translation type="obsolete">Ciljni okvir mora biti prazen.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="703"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="704"/>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
         <translation>Ciljni okvir je že povezan z drugim okvirom.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="708"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="709"/>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
         <translation>Ciljni okvir je že povezan z drugim okvirom.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="713"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="714"/>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
         <translation>Izvor in cilj sta en in isti predmet.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="738"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="739"/>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnega okvira ni mogoče razvezati.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="793"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="794"/>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
         <translation>Nebesedilnega okvira ni mogoče pretvoriti v krivulje.</translation>
@@ -24743,7 +25873,7 @@ Zunanje povezave
         <translation type="obsolete">Brazilska portugalščina</translation>
     </message>
     <message>
-        <location filename="../page.cpp" line="81"/>
+        <location filename="../page.cpp" line="80"/>
         <source>Page</source>
         <translation>Stran</translation>
     </message>
@@ -24768,7 +25898,7 @@ Zunanje povezave
         <translation type="obsolete">Pisava %1 (ki jo je našel fontconfig) je pokvarjena, zato jo zanemarjam</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="570"/>
+        <location filename="../scribus.cpp" line="575"/>
         <source>Scribus Development Version</source>
         <translation>Razvojna različica Scribusa</translation>
     </message>
@@ -24843,7 +25973,7 @@ Zunanje povezave
         <translation>pic (p)</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="453"/>
+        <location filename="../util.cpp" line="378"/>
         <source>File exists</source>
         <translation>Datoteka obstaja</translation>
     </message>
@@ -24860,7 +25990,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation type="obsolete">&amp;Zamenjaj</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="2146"/>
+        <location filename="../pslib.cpp" line="2085"/>
         <source>All</source>
         <translation>Vse</translation>
     </message>
@@ -24889,7 +26019,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>Dokumenta ni mogoče odpreti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmddoc.cpp" line="180"/>
+        <location filename="../plugins/scriptplugin/cmddoc.cpp" line="181"/>
         <source>Failed to save document.</source>
         <comment>python error</comment>
         <translation>Dokumenta ni mogoče shraniti.</translation>
@@ -24990,31 +26120,31 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>Sloga nebesedilnemu okviru ni mogoče nastaviti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="57"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="58"/>
         <source>Failed to save EPS.</source>
         <comment>python error</comment>
         <translation>Neuspešno shranjevanje EPS.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="144"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="149"/>
         <source>Page number out of range.</source>
         <comment>python error</comment>
         <translation>Številka strani je izven obsega.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="287"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="292"/>
         <source>argument is not list: must be list of float values.</source>
         <comment>python error</comment>
         <translation>argument ni seznam: mora biti seznam decimalnih (float) vrednosti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="247"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="252"/>
         <source>argument contains non-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>argument vsebuje ne-številčne vrednosti: mora biti spisek decimalnih (float) vrednosti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="298"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="303"/>
         <source>argument contains no-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>argument ne vsebuje številčnih vrednosti: mora biti spisek decimalnih (float) vrednosti.</translation>
@@ -25044,7 +26174,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>Sloga črte ni mogoče najti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="744"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="745"/>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
         <translation>Predmet ni povezan besedilni okvir, ni mogoče razvezati.</translation>
@@ -25056,13 +26186,13 @@ Ali jo želite zamenjati z novo?</translation>
         <translation type="obsolete">Predmet je zadnji okvir v nizu, ni ga mogoče razvezati. Razvežite prejšnji okvir.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="818"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="819"/>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
         <translation>Samo v besedilnih okvirih lahko preverite prelivanje besedila</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="547"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="551"/>
         <source>&amp;Script</source>
         <translation>&amp;Skript</translation>
     </message>
@@ -25082,7 +26212,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>portugalski (BR)</translation>
     </message>
     <message>
-        <location filename="../main_win32.cpp" line="251"/>
+        <location filename="../main_win32.cpp" line="259"/>
         <source>Scribus Crash</source>
         <translation>Scribus se je sesul</translation>
     </message>
@@ -25092,12 +26222,12 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>Scribus se je sesul zaradi napake #%1</translation>
     </message>
     <message>
-        <location filename="../main_win32.cpp" line="253"/>
+        <location filename="../main_win32.cpp" line="261"/>
         <source>&amp;OK</source>
         <translation>&amp;V redu</translation>
     </message>
     <message>
-        <location filename="../page.cpp" line="90"/>
+        <location filename="../page.cpp" line="89"/>
         <source>Master Page </source>
         <translation>Glavna stran</translation>
     </message>
@@ -25226,7 +26356,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation type="obsolete">Pisava %1 je okvarjena (FreeType2), zato bo izpuščena</translation>
     </message>
     <message>
-        <location filename="../fonts/scface_ps.h" line="49"/>
+        <location filename="../fonts/scface_ps.h" line="53"/>
         <source>Font %1 is broken (no Face), discarding it</source>
         <translation>Pisava %1 je okvarjena (brez vrste), zato bo izpuščena</translation>
     </message>
@@ -25241,7 +26371,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation type="obsolete">Pisava %1 je okvarjena in bo izpuščena</translation>
     </message>
     <message>
-        <location filename="../fonts/scface_ps.h" line="236"/>
+        <location filename="../fonts/scface_ps.h" line="216"/>
         <source>Font %1 cannot be read, no embedding</source>
         <translation>Pisava %1 ni berljiva, zato ne bo vdelana</translation>
     </message>
@@ -25446,7 +26576,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>Cicero (c)</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="617"/>
+        <location filename="../util.cpp" line="541"/>
         <source>page</source>
         <comment>page export</comment>
         <translation>stran</translation>
@@ -25457,7 +26587,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation type="obsolete">Predogled &amp;pisav...</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="116"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="117"/>
         <source>Document Template: </source>
         <translation>Predloga dokumenta: </translation>
     </message>
@@ -25480,31 +26610,31 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>Barve med privzetimi barvami ni mogoče najti.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="205"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="212"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>Manj kot dveh predmetov ni mogoče združiti</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="230"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="237"/>
         <source>Can&apos;t group less than two items</source>
         <comment>python error</comment>
         <translation>Manj kot dveh predmetov ni mogoče združiti</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="238"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="245"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>Za združevanje je potrebna izbira ali seznam predmetov </translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="861"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="911"/>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti zaznamka</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="895"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="945"/>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
         <translation>Podatkov iz nebesedilnega okvirja ni mogoče pridobiti</translation>
@@ -25516,7 +26646,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>Ime datoteke ne sme biti prazno.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="748"/>
+        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="756"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -25588,37 +26718,37 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>Dokumenti z besedilom OpenDocument</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="2594"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="2614"/>
         <source>Copy #%1 of </source>
         <translation>Kopija #%1 od </translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1860"/>
+        <location filename="../pslib.cpp" line="1871"/>
         <source>Black</source>
         <translation>Črna</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1862"/>
+        <location filename="../pslib.cpp" line="1873"/>
         <source>Cyan</source>
         <translation>Cijanska</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1864"/>
+        <location filename="../pslib.cpp" line="1875"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1866"/>
+        <location filename="../pslib.cpp" line="1877"/>
         <source>Yellow</source>
         <translation>Rumena</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheel.cpp" line="55"/>
+        <location filename="../plugins/colorwheel/colorwheel.cpp" line="56"/>
         <source>Color Wheel</source>
         <translation>Barvni krog</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="57"/>
+        <location filename="../plugins/fontpreview/fontpreviewplugin.cpp" line="58"/>
         <source>Font Preview</source>
         <translation>Predogled pisav</translation>
     </message>
@@ -25628,7 +26758,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>Moj vtičnik</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="70"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="71"/>
         <source>New From Template</source>
         <translation>Nova iz predloge</translation>
     </message>
@@ -25643,7 +26773,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation type="obsolete">Uvoznik PS/EPS </translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="65"/>
+        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="66"/>
         <source>Save As Template</source>
         <translation>Shrani kot predlogo</translation>
     </message>
@@ -25653,27 +26783,27 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>Skripterka</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="83"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="84"/>
         <source>Short Words</source>
         <translation>Kratke besede</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="94"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="95"/>
         <source>SVG Export</source>
         <translation>Izvoz SVG</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="96"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="97"/>
         <source>SVG Import</source>
         <translation>Uvoz SVG</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="102"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="103"/>
         <source>OpenOffice.org Draw Importer</source>
         <translation>Uvoznik OpenOffice.org Draw </translation>
     </message>
     <message>
-        <location filename="../main_win32.cpp" line="228"/>
+        <location filename="../main_win32.cpp" line="236"/>
         <source>Scribus crashes due to the following exception : %1</source>
         <translation>Scribus se je sesul zaradi naslednje napake: %1</translation>
     </message>
@@ -25713,12 +26843,12 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation type="obsolete">Uporabljate razvojno različico Scribus 1.3.x. Trenutni dokument je bil izvorno pripravljen s Scribusom 1.2.2 ali starejšim. Če ga sedaj shranite, ga s Scribusom 1.2.2 ne boste več mogli odpreti, razen če izberete Datoteka-&gt;Shrani kot. Ste prepričani, da želite nadaljevati s to operacijo?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4027"/>
+        <location filename="../scribus.cpp" line="4251"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Spremembe v vašem dokumentu niso bile shranjene, zahtevali pa ste, da se jih povrne v staro stanje. Želite nadaljevati?</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="454"/>
+        <location filename="../util.cpp" line="379"/>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation>Datoteka z imenom &apos;%1&apos; že obstaja. &lt;br/&gt;Jo želite prepisati z datoteko, ki jo shranjujete?</translation>
     </message>
@@ -25739,42 +26869,42 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>nemški (trad.)</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1684"/>
+        <location filename="../pslib.cpp" line="1687"/>
         <source>Exporting PostScript File</source>
         <translation>Izvažanje datoteke PostScript</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1686"/>
+        <location filename="../pslib.cpp" line="1689"/>
         <source>Printing File</source>
         <translation>Tiskanje datoteke</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3423"/>
+        <location filename="../scribus.cpp" line="3646"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Ali poskušati uvoziti več strani, kot jih je trenutno na voljo v dokumentu, šteto od aktivne strani.&lt;/p&gt;Izberite eno od naslednjih možnosti:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Ustvari&lt;/b&gt; manjkajoče strani&lt;/li&gt;&lt;li&gt;&lt;b&gt;Uvozi&lt;/b&gt; strani do zadnje strani&lt;/li&gt;&lt;li&gt;&lt;b&gt;Prekliči&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3424"/>
+        <location filename="../scribus.cpp" line="3647"/>
         <source>C&amp;reate</source>
         <translation>&amp;Ustvari</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3425"/>
+        <location filename="../scribus.cpp" line="3648"/>
         <source>&amp;Import</source>
         <translation>Uvo&amp;zi</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="111"/>
+        <location filename="../langmgr.cpp" line="110"/>
         <source>Thai</source>
         <translation>tajski</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcode.cpp" line="29"/>
+        <location filename="../plugins/barcodegenerator/barcode.cpp" line="32"/>
         <source>Barcode Generator</source>
         <translation>Generator črtne kode</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="170"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="171"/>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
         <translation>OpenOffice.org Draw (*.sxd *.odg);;Vse datoteke (*)</translation>
     </message>
@@ -25834,7 +26964,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>estonski</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="134"/>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="139"/>
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
         <translation>Podano ime glavne strani se ne ujema z nobenim obstoječim.</translation>
@@ -25845,7 +26975,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>islandski</translation>
     </message>
     <message>
-        <location filename="../scimgdataloader_tiff.cpp" line="868"/>
+        <location filename="../scimgdataloader_tiff.cpp" line="924"/>
         <source>%1 may be corrupted : missing resolution tags</source>
         <translation>%1 je morda okvarjena : manjkajo oznake ločljivosti</translation>
     </message>
@@ -25871,7 +27001,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>angleški (Avstralija)</translation>
     </message>
     <message>
-        <location filename="../scimgdataloader_jpeg.cpp" line="310"/>
+        <location filename="../scimgdataloader_jpeg.cpp" line="312"/>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation>%1 je morda okvarjena : manjkajoče ali napačne oznake ločljivosti</translation>
     </message>
@@ -25891,7 +27021,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>Pisava %1 ima pokvarjen znak %2</translation>
     </message>
     <message>
-        <location filename="../fonts/scface_ps.h" line="76"/>
+        <location filename="../fonts/scface_ps.cpp" line="98"/>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
         <translation>Pisava %1 ima okvarjeno metriko v datoteki %2, zato bo metrika prezrta</translation>
     </message>
@@ -25928,7 +27058,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
     <message encoding="UTF-8">
         <location filename="../langmgr.cpp" line="91"/>
         <source>Norwegian (Bokm�l)</source>
-        <translation>norveški (Bokm�l)</translation>
+        <translation type="obsolete">norveški (Bokm�l)</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="100"/>
@@ -25936,7 +27066,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>romunski</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="115"/>
+        <location filename="../langmgr.cpp" line="114"/>
         <source>Vietnamese</source>
         <translation>vietnamski</translation>
     </message>
@@ -26071,7 +27201,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>Podpora za Scribus 1.3.0-&gt;1.3.3.x</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionplugin.cpp" line="58"/>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="61"/>
         <source>Imposition</source>
         <translation>Impozicija</translation>
     </message>
@@ -26093,25 +27223,25 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>Način spajanja je zunaj meja, biti mora: 0 &lt;= način spajanja &lt;= 15.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="97"/>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="98"/>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti števila vrstic.</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="122"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="123"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="141"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="142"/>
         <source>Do you really want to overwrite the file:
 %1 ?</source>
         <translation>Ste prepričani, da želite prepisati datoteko:
 %1 ?</translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="90"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="89"/>
         <source>WMF Import</source>
         <translation>Uvoz WMF</translation>
     </message>
@@ -26142,12 +27272,12 @@ Zato videz slike najverjetneje ne bo pravilen</translation>
         <translation>Nova plast</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="571"/>
+        <location filename="../scribus.cpp" line="576"/>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation>Uporabljate razvojno različico Scribusa 1.3.x. Dokument, s katerim delate, je bil ustvarjen z različico Scribusa 1.2.x.  Če trenutno datoteko shranite z 1.3.x, je v različicah Scribusa 1.2.x ne boste mogli urejati. Da bi ohranili možnost urejanja z različicami 1.2.x, to datoteko shranite pod drugim imenom in še naprej urejajte novoimenovano datoteko, da bo ostal izvirnik nedotaknjen. Ste prepričani, da želite nadaljevati s to operacijo?</translation>
     </message>
     <message>
-        <location filename="../serializer.cpp" line="347"/>
+        <location filename="../serializer.cpp" line="349"/>
         <source>Copy of %1 (%2)</source>
         <translation>Kopija %1 (%2)</translation>
     </message>
@@ -26239,73 +27369,73 @@ Zato videz slike najverjetneje ne bo pravilen</translation>
     <message>
         <location filename="../outlinepalette.cpp" line="72"/>
         <source>Image</source>
-        <translation>Slika</translation>
+        <translation type="obsolete">Slika</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="78"/>
         <source>PDF Push Button</source>
-        <translation>Gumb PDF</translation>
+        <translation type="obsolete">Gumb PDF</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="81"/>
         <source>PDF Text Field</source>
-        <translation>Besedilno polje PDF</translation>
+        <translation type="obsolete">Besedilno polje PDF</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="84"/>
         <source>PDF Check Box</source>
-        <translation>Potrditveno polje PDF</translation>
+        <translation type="obsolete">Potrditveno polje PDF</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="87"/>
         <source>PDF Combo Box</source>
-        <translation>Kombinirano polje PDF</translation>
+        <translation type="obsolete">Kombinirano polje PDF</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="90"/>
         <source>PDF List Box</source>
-        <translation>Seznamsko polje PDF</translation>
+        <translation type="obsolete">Seznamsko polje PDF</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="93"/>
         <source>PDF Text Annotation</source>
-        <translation>Besedilo opombe PDF</translation>
+        <translation type="obsolete">Besedilo opombe PDF</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="96"/>
         <source>PDF Link Annotation</source>
-        <translation>Povezava opombe PDF</translation>
+        <translation type="obsolete">Povezava opombe PDF</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="99"/>
         <source>Text</source>
-        <translation>Besedilo</translation>
+        <translation type="obsolete">Besedilo</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="104"/>
         <source>Line</source>
-        <translation>Črta</translation>
+        <translation type="obsolete">Črta</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="107"/>
         <source>Polygon</source>
-        <translation>Mnogokotnik</translation>
+        <translation type="obsolete">Mnogokotnik</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="110"/>
         <source>Polyline</source>
-        <translation>Lomljena črta</translation>
+        <translation type="obsolete">Lomljena črta</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="113"/>
         <source>PathText</source>
-        <translation>Besedilo po poti</translation>
+        <translation type="obsolete">Besedilo po poti</translation>
     </message>
     <message>
         <location filename="../units.cpp" line="161"/>
         <source>&#xb0;</source>
         <comment>degrees, unicode 0xB0</comment>
-        <translation>°</translation>
+        <translation type="obsolete">°</translation>
     </message>
     <message>
         <location filename="../units.cpp" line="163"/>
@@ -26313,69 +27443,188 @@ Zato videz slike najverjetneje ne bo pravilen</translation>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="33"/>
+        <location filename="../util_formats.cpp" line="34"/>
         <source>Encapsulated PostScript</source>
         <translation>Vkapsulirani PostScript</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="34"/>
+        <location filename="../util_formats.cpp" line="35"/>
         <source>GIF</source>
         <translation>GIF</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="35"/>
+        <location filename="../util_formats.cpp" line="36"/>
         <source>JPEG</source>
         <translation>JPEG</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="36"/>
+        <location filename="../util_formats.cpp" line="37"/>
         <source>Pattern Files</source>
         <translation>Datoteke vzorcev</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="37"/>
+        <location filename="../util_formats.cpp" line="38"/>
         <source>PDF Document</source>
         <translation>Dokument PDF</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="38"/>
+        <location filename="../util_formats.cpp" line="39"/>
         <source>PNG</source>
         <translation>PNG</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="39"/>
+        <location filename="../util_formats.cpp" line="40"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="40"/>
+        <location filename="../util_formats.cpp" line="41"/>
         <source>Adobe Photoshop</source>
         <translation>Adobe Photoshop</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="41"/>
+        <location filename="../util_formats.cpp" line="42"/>
         <source>TIFF</source>
         <translation>TIFF</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="42"/>
+        <location filename="../util_formats.cpp" line="43"/>
         <source>XPM</source>
         <translation>XPM</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="43"/>
+        <location filename="../util_formats.cpp" line="44"/>
         <source>Windows Meta File</source>
         <translation>Metadatoteka Windows (WMF)</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="44"/>
+        <location filename="../util_formats.cpp" line="45"/>
         <source>Scalable Vector Graphics</source>
         <translation>SVG (Scalable Vector Graphics)</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="45"/>
+        <location filename="../util_formats.cpp" line="46"/>
         <source>Adobe Illustrator</source>
         <translation>Adobe Illustrator</translation>
+    </message>
+    <message>
+        <location filename="../fonts/scface_ps.cpp" line="104"/>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../fonts/scface_ps.cpp" line="111"/>
+        <source>No metrics found for font %1, ignoring font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="../langmgr.cpp" line="91"/>
+        <source>Norwegian (Bokm�l)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexhelpers.cpp" line="433"/>
+        <source>Error</source>
+        <translation type="unfinished">Napaka</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.cpp" line="224"/>
+        <source>Configfile %1 not found or the file is not readable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexhelpers.cpp" line="435"/>
+        <source>Parsing the configfile %1 failed! Depending on the type of the error latexframes might not work correctly!
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="384"/>
+        <source>second argument is not tuple: must be tuple of int values.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdpage.cpp" line="396"/>
+        <source>second argument contains non-numeric values: must be list of int values.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.cpp" line="49"/>
+        <source>Cannot have an empty paragraph style name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.cpp" line="69"/>
+        <source>hasdropcap has to be 0 or 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdstyle.cpp" line="121"/>
+        <source>Cannot have an empty char style name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="868"/>
+        <source>Can only hyphenate text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.cpp" line="891"/>
+        <source>Can only dehyphenate text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="78"/>
+        <source>Lens Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathcut/pathcut.cpp" line="91"/>
+        <source>PathCutter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="92"/>
+        <source>PathFinder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="85"/>
+        <source>PathStroker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="55"/>
+        <source>Spell check (aspell)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="79"/>
+        <source>Subdivide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="71"/>
+        <source>Xfig Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../units.cpp" line="161"/>
+        <source>~</source>
+        <comment>degrees, unicode 0xB0</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="47"/>
+        <source>Xfig File</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -26570,7 +27819,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Razdalja med spodnjim robom strani in spodnjim mejnim vodilom</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="62"/>
+        <location filename="../reformdoc.cpp" line="63"/>
         <source>Document Setup</source>
         <translation>Nastavitev dokumenta</translation>
     </message>
@@ -26757,12 +28006,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">&amp;Interval:</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="65"/>
+        <location filename="../reformdoc.cpp" line="66"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="71"/>
+        <location filename="../reformdoc.cpp" line="72"/>
         <source>Guides</source>
         <translation>Vodila</translation>
     </message>
@@ -26807,27 +28056,27 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Prazen prostor</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="75"/>
+        <location filename="../reformdoc.cpp" line="76"/>
         <source>Display</source>
         <translation>Prikaz</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="78"/>
+        <location filename="../reformdoc.cpp" line="79"/>
         <source>Typography</source>
         <translation>Tipografija</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="81"/>
+        <location filename="../reformdoc.cpp" line="82"/>
         <source>Tools</source>
         <translation>Orodja</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="84"/>
+        <location filename="../reformdoc.cpp" line="85"/>
         <source>Hyphenator</source>
         <translation>Deljenje</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="87"/>
+        <location filename="../reformdoc.cpp" line="88"/>
         <source>Fonts</source>
         <translation>Pisave</translation>
     </message>
@@ -26837,12 +28086,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Pregled dokumenta</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="95"/>
+        <location filename="../reformdoc.cpp" line="96"/>
         <source>PDF Export</source>
         <translation>Izvoz PDF</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="115"/>
+        <location filename="../reformdoc.cpp" line="116"/>
         <source>Color Management</source>
         <translation>Upravljanje barv</translation>
     </message>
@@ -26887,7 +28136,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Uveljavi nastavitev robov na vseh straneh</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="68"/>
+        <location filename="../reformdoc.cpp" line="69"/>
         <source>Document Information</source>
         <translation>Podatki o dokumentu</translation>
     </message>
@@ -26922,17 +28171,17 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Navpično:</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="90"/>
+        <location filename="../reformdoc.cpp" line="91"/>
         <source>Preflight Verifier</source>
         <translation>Končno preverjanje</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="100"/>
+        <location filename="../reformdoc.cpp" line="101"/>
         <source>Document Item Attributes</source>
         <translation>Lastnosti predmeta dokumenta</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="105"/>
+        <location filename="../reformdoc.cpp" line="106"/>
         <source>Table of Contents and Indexes</source>
         <translation>Kazalo vsebine in seznami</translation>
     </message>
@@ -26947,7 +28196,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Brez</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="471"/>
+        <location filename="../reformdoc.cpp" line="444"/>
         <source>Adjusting Colors</source>
         <translation>Prilagajanje barv</translation>
     </message>
@@ -26962,7 +28211,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Uveljavi nastavitev velikosti na vseh straneh</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="109"/>
+        <location filename="../reformdoc.cpp" line="110"/>
         <source>Sections</source>
         <translation>Odseki</translation>
     </message>
@@ -27096,62 +28345,62 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SMCStyleWidget</name>
     <message>
-        <location filename="../smcstylewidget.cpp" line="67"/>
+        <location filename="../smcstylewidget.cpp" line="80"/>
         <source>Parent style</source>
         <translation>Slog starša</translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="68"/>
+        <location filename="../smcstylewidget.cpp" line="81"/>
         <source>Font face</source>
         <translation>Vrsta pisave</translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="69"/>
+        <location filename="../smcstylewidget.cpp" line="82"/>
         <source>Font size</source>
         <translation>Velikost pisave</translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="70"/>
+        <location filename="../smcstylewidget.cpp" line="83"/>
         <source>Tracking</source>
         <translation>Sledenje</translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="71"/>
+        <location filename="../smcstylewidget.cpp" line="84"/>
         <source>Baseline offset</source>
         <translation>Zamik osnovnice</translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="72"/>
+        <location filename="../smcstylewidget.cpp" line="85"/>
         <source>Horizontal scaling</source>
         <translation>Vodoravno spr. merila</translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="73"/>
+        <location filename="../smcstylewidget.cpp" line="86"/>
         <source>Vertical scaling</source>
         <translation>Navpično spr. merila</translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="74"/>
+        <location filename="../smcstylewidget.cpp" line="87"/>
         <source>Language</source>
         <translation>Jezik</translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="75"/>
+        <location filename="../smcstylewidget.cpp" line="88"/>
         <source>Fill color</source>
         <translation>Barva polnila</translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="76"/>
+        <location filename="../smcstylewidget.cpp" line="89"/>
         <source>Fill shade</source>
         <translation>Senca polnila</translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="77"/>
+        <location filename="../smcstylewidget.cpp" line="90"/>
         <source>Stroke color</source>
         <translation>Barva poteze</translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="78"/>
+        <location filename="../smcstylewidget.cpp" line="91"/>
         <source>Stroke shade</source>
         <translation>Senca poteze</translation>
     </message>
@@ -27166,7 +28415,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Jezik:</translation>
     </message>
     <message>
-        <location filename="../smcstylewidget.cpp" line="426"/>
+        <location filename="../smcstylewidget.cpp" line="439"/>
         <source>Shade</source>
         <translation>Senči</translation>
     </message>
@@ -27199,32 +28448,32 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <location filename="../smtextstyles.cpp" line="1494"/>
+        <location filename="../smtextstyles.cpp" line="1495"/>
         <source>Properties</source>
         <translation>Lastnosti</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1195"/>
+        <location filename="../smtextstyles.cpp" line="1196"/>
         <source>Character Styles</source>
         <translation>Slogi znakov</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1200"/>
+        <location filename="../smtextstyles.cpp" line="1201"/>
         <source>Character Style</source>
         <translation>Slog znakov</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1323"/>
+        <location filename="../smtextstyles.cpp" line="1324"/>
         <source>New Style</source>
         <translation>Nov slog</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1336"/>
+        <location filename="../smtextstyles.cpp" line="1337"/>
         <source>Clone of %1</source>
         <translation>Klon %1</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1362"/>
+        <location filename="../smtextstyles.cpp" line="1363"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation>%1 (%2)</translation>
@@ -27249,7 +28498,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SMLineStyle</name>
     <message>
-        <location filename="../smlinestyle.cpp" line="30"/>
+        <location filename="../smlinestyle.cpp" line="33"/>
         <source>Properties</source>
         <translation>Lastnosti</translation>
     </message>
@@ -27259,63 +28508,63 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Črte</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="39"/>
+        <location filename="../smlinestyle.cpp" line="42"/>
         <source>Line Styles</source>
         <translation>Slogi črt</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="44"/>
+        <location filename="../smlinestyle.cpp" line="47"/>
         <source>Line Style</source>
         <translation>Slog črte</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="187"/>
+        <location filename="../smlinestyle.cpp" line="190"/>
         <source>New Style</source>
         <translation>Nov slog</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="197"/>
+        <location filename="../smlinestyle.cpp" line="200"/>
         <source>Clone of %1</source>
         <translation>Klon %1</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="213"/>
+        <location filename="../smlinestyle.cpp" line="216"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="581"/>
+        <location filename="../smlinestyle.cpp" line="572"/>
         <source> pt</source>
         <translation> točk</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="676"/>
+        <location filename="../smlinestyle.cpp" line="652"/>
         <source>Solid Line</source>
         <translation>Polna črta</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="664"/>
+        <location filename="../smlinestyle.cpp" line="655"/>
         <source>Dashed Line</source>
         <translation>Črtkana črta</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="667"/>
+        <location filename="../smlinestyle.cpp" line="658"/>
         <source>Dotted Line</source>
         <translation>Pikčasta črta</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="670"/>
+        <location filename="../smlinestyle.cpp" line="661"/>
         <source>Dash Dot Line</source>
         <translation>Črta pika črta</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="673"/>
+        <location filename="../smlinestyle.cpp" line="664"/>
         <source>Dash Dot Dot Line</source>
         <translation>Črta pika pika črta</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="657"/>
+        <location filename="../smlinestyle.cpp" line="648"/>
         <source> pt </source>
         <translation>točk</translation>
     </message>
@@ -27323,77 +28572,77 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SMLineStyleWidget</name>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="34"/>
+        <location filename="../smlinestylewidget.cpp" line="36"/>
         <source>Flat Cap</source>
         <translation>Raven konec</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="35"/>
+        <location filename="../smlinestylewidget.cpp" line="37"/>
         <source>Square Cap</source>
         <translation>Pravokoten konec</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="36"/>
+        <location filename="../smlinestylewidget.cpp" line="38"/>
         <source>Round Cap</source>
         <translation>Zaobljen konec</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="38"/>
+        <location filename="../smlinestylewidget.cpp" line="40"/>
         <source>Miter Join</source>
         <translation>Spoj pod kotom</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="39"/>
+        <location filename="../smlinestylewidget.cpp" line="41"/>
         <source>Bevel Join</source>
         <translation>Nagnjen spoj</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="40"/>
+        <location filename="../smlinestylewidget.cpp" line="42"/>
         <source>Round Join</source>
         <translation>Zaobljen spoj</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="52"/>
+        <location filename="../smlinestylewidget.cpp" line="62"/>
         <source>Add a new line</source>
         <translation>Dodaj novo črto</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="53"/>
+        <location filename="../smlinestylewidget.cpp" line="63"/>
         <source>Remove a line</source>
         <translation>Odstrani črto</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="54"/>
+        <location filename="../smlinestylewidget.cpp" line="64"/>
         <source>Line style</source>
         <translation>Slog črte</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="55"/>
+        <location filename="../smlinestylewidget.cpp" line="65"/>
         <source>Line width</source>
         <translation>Širina črte</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="56"/>
+        <location filename="../smlinestylewidget.cpp" line="66"/>
         <source>End style</source>
         <translation>Slog konca</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="57"/>
+        <location filename="../smlinestylewidget.cpp" line="67"/>
         <source>Join style</source>
         <translation>Vrsta spoja</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="58"/>
+        <location filename="../smlinestylewidget.cpp" line="68"/>
         <source>Line color</source>
         <translation>Barva črte</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="59"/>
+        <location filename="../smlinestylewidget.cpp" line="69"/>
         <source>Line shade</source>
         <translation>Senca črte</translation>
     </message>
     <message>
-        <location filename="../smlinestylewidget.cpp" line="162"/>
+        <location filename="../smlinestylewidget.cpp" line="151"/>
         <source> pt</source>
         <translation> točk</translation>
     </message>
@@ -27411,72 +28660,72 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SMPStyleWidget</name>
     <message>
-        <location filename="../smpstylewidget.cpp" line="238"/>
+        <location filename="../smpstylewidget.cpp" line="250"/>
         <source>Fixed Linespacing</source>
         <translation>Nespremenljiv razmik vrstic</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="239"/>
+        <location filename="../smpstylewidget.cpp" line="251"/>
         <source>Automatic Linespacing</source>
         <translation>Samodejen razmik vrstic</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="240"/>
+        <location filename="../smpstylewidget.cpp" line="252"/>
         <source>Align to Baseline Grid</source>
         <translation>Poravnaj na mrežo osnovnice </translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="55"/>
+        <location filename="../smpstylewidget.cpp" line="67"/>
         <source>Parent Style</source>
         <translation>Slog starša</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="56"/>
+        <location filename="../smpstylewidget.cpp" line="68"/>
         <source>Line Spacing Mode</source>
         <translation>Način razmikanja vrstic</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="57"/>
+        <location filename="../smpstylewidget.cpp" line="69"/>
         <source>Line Spacing</source>
         <translation>Razmik vrstic</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="58"/>
+        <location filename="../smpstylewidget.cpp" line="70"/>
         <source>Space Above</source>
         <translation>Prostor zgoraj</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="59"/>
+        <location filename="../smpstylewidget.cpp" line="71"/>
         <source>Space Below</source>
         <translation>Prostor spodaj</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="62"/>
+        <location filename="../smpstylewidget.cpp" line="74"/>
         <source>Drop Cap Lines</source>
         <translation>Vrstice ozaljšane začetnice</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="63"/>
+        <location filename="../smpstylewidget.cpp" line="75"/>
         <source>Drop Cap Offset</source>
         <translation>Odmik ozaljšane začetnice</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="64"/>
+        <location filename="../smpstylewidget.cpp" line="76"/>
         <source>Alignment</source>
         <translation>Poravnava</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="65"/>
+        <location filename="../smpstylewidget.cpp" line="77"/>
         <source>First Line Indent</source>
         <translation>Zamik prve vrstice</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="66"/>
+        <location filename="../smpstylewidget.cpp" line="78"/>
         <source>Left Indent</source>
         <translation>Levi zamik</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="67"/>
+        <location filename="../smpstylewidget.cpp" line="79"/>
         <source>Right Indent</source>
         <translation>Desni zamik</translation>
     </message>
@@ -27506,7 +28755,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Lastnosti</translation>
     </message>
     <message>
-        <location filename="../smpstylewidget.cpp" line="87"/>
+        <location filename="../smpstylewidget.cpp" line="99"/>
         <source>Character Style</source>
         <translation>Slog znakov</translation>
     </message>
@@ -27539,27 +28788,27 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SMParagraphStyle</name>
     <message>
-        <location filename="../smtextstyles.cpp" line="53"/>
+        <location filename="../smtextstyles.cpp" line="56"/>
         <source>Paragraph Styles</source>
         <translation>Slogi odstavka</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="58"/>
+        <location filename="../smtextstyles.cpp" line="61"/>
         <source>Paragraph Style</source>
         <translation>Slog odstavka</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="206"/>
+        <location filename="../smtextstyles.cpp" line="209"/>
         <source>New Style</source>
         <translation>Nov slog</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="219"/>
+        <location filename="../smtextstyles.cpp" line="222"/>
         <source>Clone of %1</source>
         <translation>Klon %1</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="246"/>
+        <location filename="../smtextstyles.cpp" line="249"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation>%1 (%2)</translation>
@@ -27690,12 +28939,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SToolBAlign</name>
     <message>
-        <location filename="../story.cpp" line="1147"/>
+        <location filename="../story.cpp" line="1258"/>
         <source>Style of current paragraph</source>
         <translation>Slog trenutnega odstavka</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1130"/>
+        <location filename="../story.cpp" line="1231"/>
         <source>Style Settings</source>
         <translation>Nastavitve sloga</translation>
     </message>
@@ -27708,17 +28957,17 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Brez</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="914"/>
+        <location filename="../story.cpp" line="995"/>
         <source>Color of text fill</source>
         <translation>Barva polnila besedila</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="915"/>
+        <location filename="../story.cpp" line="996"/>
         <source>Saturation of color of text fill</source>
         <translation>Nasičenost barve polnila besedila</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="888"/>
+        <location filename="../story.cpp" line="958"/>
         <source>Fill Color Settings</source>
         <translation>Nastavitve barve polnila</translation>
     </message>
@@ -27731,17 +28980,17 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Brez</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="977"/>
+        <location filename="../story.cpp" line="1068"/>
         <source>Color of text stroke</source>
         <translation>Barva poteze besedila</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="978"/>
+        <location filename="../story.cpp" line="1069"/>
         <source>Saturation of color of text stroke</source>
         <translation>Nasičenost barve poteze besedila</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="952"/>
+        <location filename="../story.cpp" line="1033"/>
         <source>Stroke Color Settings</source>
         <translation>Nastavitve barve poteze</translation>
     </message>
@@ -27749,37 +28998,37 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SToolBFont</name>
     <message>
-        <location filename="../story.cpp" line="1176"/>
+        <location filename="../story.cpp" line="1287"/>
         <source> pt</source>
         <translation>točk</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1195"/>
+        <location filename="../story.cpp" line="1306"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1211"/>
+        <location filename="../story.cpp" line="1332"/>
         <source>Font of selected text</source>
         <translation>Pisava izbranega besedila</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1212"/>
+        <location filename="../story.cpp" line="1333"/>
         <source>Font Size</source>
         <translation>Velikost pisave</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1213"/>
+        <location filename="../story.cpp" line="1334"/>
         <source>Scaling width of characters</source>
         <translation>Sprememba merila širine črk</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1167"/>
+        <location filename="../story.cpp" line="1278"/>
         <source>Font Settings</source>
         <translation>Nastavitve pisave</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1214"/>
+        <location filename="../story.cpp" line="1335"/>
         <source>Scaling height of characters</source>
         <translation>Sprememba merila višine črk</translation>
     </message>
@@ -27802,17 +29051,17 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Ročno spodsekavanje</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1010"/>
+        <location filename="../story.cpp" line="1101"/>
         <source>Character Settings</source>
         <translation>Nastavitve znakov</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1022"/>
+        <location filename="../story.cpp" line="1113"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1042"/>
+        <location filename="../story.cpp" line="1143"/>
         <source>Manual Tracking</source>
         <translation>Ročno sledenje</translation>
     </message>
@@ -27825,12 +29074,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Shrani stran kot &amp;SVG ...</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="101"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="102"/>
         <source>Exports SVG Files</source>
         <translation>Uzvozi datoteke SVG</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="102"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="103"/>
         <source>Exports the current page into an SVG file.</source>
         <translation>Izvozi trenutno stran v datoteko SVG.</translation>
     </message>
@@ -27843,17 +29092,17 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="88"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="89"/>
         <source>Import &amp;SVG...</source>
         <translation>Uvozi &amp;SVG ...</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="103"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="104"/>
         <source>Imports SVG Files</source>
         <translation>Uzvozi datoteke SVG</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="104"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="105"/>
         <source>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Uvozi večino datotek SVG v trenutni dokument in
@@ -27865,12 +29114,12 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
         <translation type="obsolete">SVG (Scalable Vector Graphics)</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="181"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="188"/>
         <source>SVG file contains some unsupported features</source>
         <translation>Datoteka SVG vsebuje nepodprte možnosti</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="179"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="186"/>
         <source>The file could not be imported</source>
         <translation>Datoteke ni mogoče uvoziti</translation>
     </message>
@@ -27878,7 +29127,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="902"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="921"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
@@ -27972,7 +29221,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
         <translation>Spremeni nastavitve po meri. Če jih shranite, bodo prepisane čez sistemske nastavitve</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="121"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="122"/>
         <source>Short Words</source>
         <translation>Kratke besede</translation>
     </message>
@@ -27982,22 +29231,22 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
         <translation type="obsolete">Uporabniške nastavitve že obstajajo. Jih resnično želite prepisati?</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="122"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="123"/>
         <source>Cannot write file %1.</source>
         <translation>Datoteke %1 ni mogoče zapisati.</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="129"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="130"/>
         <source>User settings saved</source>
         <translation>Uporabniške nastavitve shranjene</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="140"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="141"/>
         <source>System wide configuration reloaded</source>
         <translation>Sistemske nastavitve ponovno naložene</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="154"/>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="155"/>
         <source>Cannot open file %1</source>
         <translation>Datoteke %1 ni mogoče odpreti</translation>
     </message>
@@ -28015,12 +29264,12 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
         <translation>Shrani kot &amp;predlogo ...</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="73"/>
+        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="74"/>
         <source>Save a document as a template</source>
         <translation>Shrani dokument kot predlogo</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="75"/>
+        <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="76"/>
         <source>Save a document as a template. Good way to ease the initial work for documents with a constant look</source>
         <translation>Shrani dokument kot predlogo. Dober način za poenostavitev začetka dela z dokumenti, ki imajo stalno enak videz</translation>
     </message>
@@ -28061,22 +29310,22 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
 <context>
     <name>ScInputDialog</name>
     <message>
-        <location filename="../scinputdialog.cpp" line="67"/>
+        <location filename="../scinputdialog.cpp" line="80"/>
         <source>Input Dialog</source>
         <translation>Vnosno pogovorno okno</translation>
     </message>
     <message>
-        <location filename="../scinputdialog.cpp" line="68"/>
+        <location filename="../scinputdialog.cpp" line="81"/>
         <source>InputDialog</source>
         <translation>Vnosno pogovorno okno</translation>
     </message>
     <message>
-        <location filename="../scinputdialog.cpp" line="69"/>
+        <location filename="../scinputdialog.cpp" line="82"/>
         <source>&amp;OK</source>
         <translation>&amp;V redu</translation>
     </message>
     <message>
-        <location filename="../scinputdialog.cpp" line="71"/>
+        <location filename="../scinputdialog.cpp" line="84"/>
         <source>&amp;Cancel</source>
         <translation>Prekli&amp;či</translation>
     </message>
@@ -28084,7 +29333,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
 <context>
     <name>ScPlugin</name>
     <message>
-        <location filename="../scplugin.cpp" line="51"/>
+        <location filename="../scplugin.cpp" line="47"/>
         <source>Persistent</source>
         <comment>plugin manager plugin type</comment>
         <translation>Stalen</translation>
@@ -28102,20 +29351,28 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
         <translation type="obsolete">Izvozni</translation>
     </message>
     <message>
-        <location filename="../scplugin.cpp" line="53"/>
+        <location filename="../scplugin.cpp" line="49"/>
         <source>Action</source>
         <comment>plugin manager plugin type</comment>
         <translation>Dejanje</translation>
     </message>
     <message>
-        <location filename="../scplugin.cpp" line="49"/>
+        <location filename="../scplugin.cpp" line="45"/>
         <source>Load/Save/Import/Export</source>
         <translation>Odpri/Shrani/Uvozi/Izvozi</translation>
     </message>
     <message>
-        <location filename="../scplugin.cpp" line="57"/>
+        <location filename="../scplugin.cpp" line="53"/>
         <source>Unknown</source>
         <translation>Neznano</translation>
+    </message>
+</context>
+<context>
+    <name>ScPrintEngine_GDI</name>
+    <message>
+        <location filename="../scprintengine_gdi.cpp" line="336"/>
+        <source>Printing...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28174,7 +29431,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../scwinprint.cpp" line="323"/>
         <source>Printing...</source>
-        <translation>Tiskanje ...</translation>
+        <translation type="obsolete">Tiskanje ...</translation>
     </message>
 </context>
 <context>
@@ -28216,7 +29473,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
         <translation>Dokument Scribusa 1.3.4</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="3326"/>
+        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="3352"/>
         <source>Copy #%1 of </source>
         <translation>Kopija št. %1 </translation>
     </message>
@@ -28229,7 +29486,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
         <translation>Dokument Scribusa 1.3.0-&gt;1.3.3.7</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="3039"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="3059"/>
         <source>Copy #%1 of </source>
         <translation>Kopija št. %1 </translation>
     </message>
@@ -30289,47 +31546,47 @@ Uporabite Končno preverjanje da jih odpravite</translation>
 <context>
     <name>ScribusCore</name>
     <message>
-        <location filename="../scribuscore.cpp" line="167"/>
+        <location filename="../scribuscore.cpp" line="170"/>
         <source>Initializing Plugins</source>
         <translation>Inicializacija vtičnikov</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="179"/>
+        <location filename="../scribuscore.cpp" line="182"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation>Inicializacija tipk za bližnjice</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="181"/>
+        <location filename="../scribuscore.cpp" line="184"/>
         <source>Reading Preferences</source>
         <translation>Branje nastavitev</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="191"/>
+        <location filename="../scribuscore.cpp" line="196"/>
         <source>Reading Color Profiles</source>
         <translation>Branje barvnih profilov</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="326"/>
+        <location filename="../scribuscore.cpp" line="331"/>
         <source>Searching for Fonts</source>
         <translation>Iskanje pisav</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="331"/>
+        <location filename="../scribuscore.cpp" line="336"/>
         <source>There are no fonts found on your system.</source>
         <translation>V sistemu ni mogoče najti pisav.</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="332"/>
+        <location filename="../scribuscore.cpp" line="337"/>
         <source>Exiting now.</source>
         <translation>Sledi izhod.</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="333"/>
+        <location filename="../scribuscore.cpp" line="338"/>
         <source>Fatal Error</source>
         <translation>Usodna napaka</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="336"/>
+        <location filename="../scribuscore.cpp" line="341"/>
         <source>Font System Initialized</source>
         <translation>Sistem pisav je vključen</translation>
     </message>
@@ -30347,27 +31604,27 @@ Uporabite Končno preverjanje da jih odpravite</translation>
         <translation type="obsolete">Običajen</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="217"/>
+        <location filename="../scribusdoc.cpp" line="223"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="452"/>
+        <location filename="../scribusdoc.cpp" line="463"/>
         <source>Background</source>
         <translation>Ozadje</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6836"/>
+        <location filename="../scribusdoc.cpp" line="6992"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Resnično želite izbrisati vse besedilo?</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6879"/>
+        <location filename="../scribusdoc.cpp" line="7035"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Ne morete izbrisati predmetov v uporabi</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6879"/>
+        <location filename="../scribusdoc.cpp" line="7035"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Predmet %1 uporablja urejevalnik zgodbe. Izrezovanje je bilo preklicano</translation>
     </message>
@@ -30377,52 +31634,52 @@ Uporabite Končno preverjanje da jih odpravite</translation>
         <translation type="obsolete">Pri odpiranju profilov icc je prišlo do napake, zato upravljanje barv ni omogočeno.</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="704"/>
+        <location filename="../scribusdoc.cpp" line="715"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation>Pri odpiranju profilov ICC je prišlo do napake, zato upravljanje barv ni omogočeno.</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="404"/>
+        <location filename="../scribusdoc.cpp" line="415"/>
         <source>Default Paragraph Style</source>
         <translation>Privzeti slog odstavka</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="419"/>
+        <location filename="../scribusdoc.cpp" line="430"/>
         <source>Default Character Style</source>
         <translation>Privzeti slog znakov</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="836"/>
+        <location filename="../scribusdoc.cpp" line="847"/>
         <source>Adjusting Colors</source>
         <translation>Prilagajanje barv</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5671"/>
+        <location filename="../scribusdoc.cpp" line="5796"/>
         <source>remove direct paragraph formatting</source>
         <translation>Odstrani neposredno oblikovanje odstavka</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5906"/>
+        <location filename="../scribusdoc.cpp" line="6048"/>
         <source>remove direct char formatting</source>
         <translation>Odstrani neposredno oblikovanje znaka</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7350"/>
+        <location filename="../scribusdoc.cpp" line="7541"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Odkleni vse</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7351"/>
+        <location filename="../scribusdoc.cpp" line="7542"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Preskoči zaklenjene predmete</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7354"/>
+        <location filename="../scribusdoc.cpp" line="7545"/>
         <source>Some objects are locked.</source>
         <translation>Nekateri predmeti so zaklenjeni.</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="8439"/>
+        <location filename="../scribusdoc.cpp" line="8649"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -30433,7 +31690,7 @@ Navpični zamik: %3
 Sukanje: %4</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="8467"/>
+        <location filename="../scribusdoc.cpp" line="8675"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
@@ -30442,9 +31699,14 @@ Vodoravni razmik: %2
 Navpični razmik: %3</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="9465"/>
+        <location filename="../scribusdoc.cpp" line="9694"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
+    </message>
+    <message>
+        <location filename="../scribusdoc.cpp" line="2592"/>
+        <source>Copy_of_</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30470,7 +31732,7 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Branje nastavitev</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="321"/>
+        <location filename="../scribus.cpp" line="333"/>
         <source>Initializing Story Editor</source>
         <translation>Inicializacija urejevalnika zgodb</translation>
     </message>
@@ -30480,29 +31742,29 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Branje profilov ICC</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="328"/>
+        <location filename="../scribus.cpp" line="339"/>
         <source>Initializing Hyphenator</source>
         <translation>Inicializacija deljenja besed</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="334"/>
+        <location filename="../scribus.cpp" line="345"/>
         <source>Reading Scrapbook</source>
         <translation>Branje skicirke</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="306"/>
         <source>Setting up Shortcuts</source>
-        <translation>Nastavljanje bližnjic</translation>
+        <translation type="obsolete">Nastavljanje bližnjic</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="373"/>
         <source>File</source>
-        <translation>Datoteka</translation>
+        <translation type="obsolete">Datoteka</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="386"/>
         <source>Edit</source>
-        <translation>Uredi</translation>
+        <translation type="obsolete">Uredi</translation>
     </message>
     <message>
         <location filename="" line="7471221"/>
@@ -30520,7 +31782,7 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Sledi izhod.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3580"/>
+        <location filename="../scribus.cpp" line="3804"/>
         <source>Fatal Error</source>
         <translation>Usodna napaka</translation>
     </message>
@@ -30530,182 +31792,182 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Vključen je sistem pisav</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8974"/>
+        <location filename="../scribus.cpp" line="9297"/>
         <source>&amp;File</source>
         <translation>&amp;Datoteka</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8975"/>
+        <location filename="../scribus.cpp" line="9298"/>
         <source>Open &amp;Recent</source>
         <translation>Odpri &amp;nedavne</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8977"/>
+        <location filename="../scribus.cpp" line="9300"/>
         <source>&amp;Import</source>
         <translation>&amp;Uvozi</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8978"/>
+        <location filename="../scribus.cpp" line="9301"/>
         <source>&amp;Export</source>
         <translation>&amp;Izvozi</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8979"/>
+        <location filename="../scribus.cpp" line="9302"/>
         <source>&amp;Edit</source>
         <translation>Ur&amp;edi</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8981"/>
+        <location filename="../scribus.cpp" line="9304"/>
         <source>St&amp;yle</source>
         <translation>S&amp;log</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8982"/>
+        <location filename="../scribus.cpp" line="9305"/>
         <source>&amp;Color</source>
         <translation>&amp;Barva</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8983"/>
+        <location filename="../scribus.cpp" line="9306"/>
         <source>&amp;Size</source>
         <translation>&amp;Velikost</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8984"/>
+        <location filename="../scribus.cpp" line="9307"/>
         <source>&amp;Shade</source>
         <translation>&amp;Senca</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8985"/>
+        <location filename="../scribus.cpp" line="9308"/>
         <source>&amp;Font</source>
         <translation>&amp;Pisava</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8986"/>
+        <location filename="../scribus.cpp" line="9309"/>
         <source>&amp;Effects</source>
         <translation>&amp;Učinki</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8987"/>
+        <location filename="../scribus.cpp" line="9310"/>
         <source>&amp;Item</source>
         <translation>&amp;Predmet</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="710"/>
+        <location filename="../scribus.cpp" line="715"/>
         <source>Preview Settings</source>
         <translation>Nastavitve predogleda</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="695"/>
+        <location filename="../scribus.cpp" line="700"/>
         <source>Level</source>
         <translation>Raven</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="701"/>
+        <location filename="../scribus.cpp" line="706"/>
         <source>Send to La&amp;yer</source>
         <translation>Pošlji na p&amp;last</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8991"/>
+        <location filename="../scribus.cpp" line="9314"/>
         <source>&amp;PDF Options</source>
         <translation>Možnosti &amp;PDF</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="8992"/>
         <source>&amp;Shape</source>
-        <translation>&amp;Oblika</translation>
+        <translation type="obsolete">&amp;Oblika</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8993"/>
+        <location filename="../scribus.cpp" line="9316"/>
         <source>C&amp;onvert To</source>
         <translation>&amp;Pretvori v</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8994"/>
+        <location filename="../scribus.cpp" line="9318"/>
         <source>I&amp;nsert</source>
         <translation>&amp;Vstavi</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8995"/>
+        <location filename="../scribus.cpp" line="9319"/>
         <source>Character</source>
         <translation>Znak</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8996"/>
+        <location filename="../scribus.cpp" line="9320"/>
         <source>Quote</source>
         <translation>Narekovaj</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8997"/>
+        <location filename="../scribus.cpp" line="9321"/>
         <source>Space</source>
         <translation>Presledek</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8999"/>
+        <location filename="../scribus.cpp" line="9323"/>
         <source>&amp;Page</source>
         <translation>&amp;Stran</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9000"/>
+        <location filename="../scribus.cpp" line="9324"/>
         <source>&amp;View</source>
         <translation>&amp;Pogled</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9002"/>
+        <location filename="../scribus.cpp" line="9326"/>
         <source>E&amp;xtras</source>
         <translation>D&amp;odatki</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9003"/>
+        <location filename="../scribus.cpp" line="9327"/>
         <source>&amp;Windows</source>
         <translation>&amp;Okna</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9004"/>
+        <location filename="../scribus.cpp" line="9328"/>
         <source>&amp;Help</source>
         <translation>&amp;Pomoč</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9005"/>
+        <location filename="../scribus.cpp" line="9329"/>
         <source>&amp;Alignment</source>
         <translation>P&amp;oravnava</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9017"/>
+        <location filename="../scribus.cpp" line="9341"/>
         <source>Ready</source>
         <translation>Pripravljen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3930"/>
+        <location filename="../scribus.cpp" line="4154"/>
         <source>Open</source>
         <translation>Odpri</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3390"/>
+        <location filename="../scribus.cpp" line="3613"/>
         <source>Importing Pages...</source>
         <translation>Uvažanje strani ...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3419"/>
+        <location filename="../scribus.cpp" line="3642"/>
         <source>Import Page(s)</source>
         <translation>Uvozi stran(i)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3461"/>
+        <location filename="../scribus.cpp" line="3684"/>
         <source>Import done</source>
         <translation>Uvoz končan</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3465"/>
+        <location filename="../scribus.cpp" line="3688"/>
         <source>Found nothing to import</source>
         <translation>Nič ni bilo mogoče uvoziti</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3580"/>
+        <location filename="../scribus.cpp" line="3804"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Datoteka %1 ni v sprejemljivi obliki</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3601"/>
+        <location filename="../scribus.cpp" line="3825"/>
         <source>Loading...</source>
         <translation>Nalaganje ...</translation>
     </message>
@@ -30720,12 +31982,12 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Nekateri profili ICC, uporabljeni v dokumentu, niso nameščeni:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3748"/>
+        <location filename="../scribus.cpp" line="3972"/>
         <source> was replaced by: </source>
         <translation>je bila zamenjana z:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3780"/>
+        <location filename="../scribus.cpp" line="4004"/>
         <source>(converted)</source>
         <translation>(pretvorjen)</translation>
     </message>
@@ -30740,7 +32002,7 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7722"/>
+        <location filename="../scribus.cpp" line="8018"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>V datoteko ni mogoče pisati:
@@ -30757,17 +32019,17 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Dokumenti (*.sla *.scd);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4102"/>
+        <location filename="../scribus.cpp" line="4329"/>
         <source>Save As</source>
         <translation>Shrani kot</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4128"/>
+        <location filename="../scribus.cpp" line="4358"/>
         <source>Saving...</source>
         <translation>Shranjevanje poteka ...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7442"/>
+        <location filename="../scribus.cpp" line="7716"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus je našel napake. Uporabite Končno preverjanje, da jih odpravite</translation>
     </message>
@@ -30782,47 +32044,47 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">&amp;Ustavi</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4387"/>
+        <location filename="../scribus.cpp" line="4618"/>
         <source>Printing...</source>
         <translation>Tiskanje v teku ...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7553"/>
+        <location filename="../scribus.cpp" line="7832"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4446"/>
+        <location filename="../scribus.cpp" line="4659"/>
         <source>Printing failed!</source>
         <translation>Tiskanje ni uspelo!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4575"/>
+        <location filename="../scribus.cpp" line="4749"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Ne morete izrezati predmetov v uporabi</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4575"/>
+        <location filename="../scribus.cpp" line="4749"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Predmet %1 uporablja urejevalnik zgodb. Izrezovanje je bilo preklicano</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5215"/>
+        <location filename="../scribus.cpp" line="5402"/>
         <source>About Qt</source>
         <translation>O QT-ju</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5220"/>
+        <location filename="../scribus.cpp" line="5414"/>
         <source>Scribus Manual</source>
         <translation>Priročnik za Scribus</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7576"/>
+        <location filename="../scribus.cpp" line="7855"/>
         <source>Save as</source>
         <translation>Shrani kot</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5245"/>
+        <location filename="../scribus.cpp" line="5439"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Besedilne datoteke (*.txt);;Vse datoteke(*)</translation>
     </message>
@@ -30847,47 +32109,47 @@ Navpični razmik: %3</translation>
         <translation type="obsolete">Nova glavna stran</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6646"/>
+        <location filename="../scribus.cpp" line="6900"/>
         <source>&amp;Size:</source>
         <translation>&amp;Velikost:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6646"/>
+        <location filename="../scribus.cpp" line="6900"/>
         <source>Size</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6676"/>
+        <location filename="../scribus.cpp" line="6930"/>
         <source>&amp;Shade:</source>
         <translation>&amp;Senca:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6676"/>
+        <location filename="../scribus.cpp" line="6930"/>
         <source>Shade</source>
         <translation>Senči</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6778"/>
+        <location filename="../scribus.cpp" line="7032"/>
         <source>No Style</source>
         <translation>Brez sloga</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7340"/>
+        <location filename="../scribus.cpp" line="7613"/>
         <source>The following programs are missing:</source>
         <translation>Manjkajo naslednji programi:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7342"/>
+        <location filename="../scribus.cpp" line="7615"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
         <translation>Ghostscript: slik EPS ne morete uporabiti v predogledu tiskanja</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7478"/>
+        <location filename="../scribus.cpp" line="7752"/>
         <source>All</source>
         <translation>Vse</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7522"/>
+        <location filename="../scribus.cpp" line="7801"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus je našel napake.
@@ -30899,89 +32161,89 @@ Uporabite Končno preverjanje, da jih odpravite.</translation>
         <translation type="obsolete">Datoteke EPS (*.eps);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7607"/>
+        <location filename="../scribus.cpp" line="7898"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus je našel napake.
 Uporabite Končno preverjanje, da jih odpravite</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7699"/>
+        <location filename="../scribus.cpp" line="7992"/>
         <source>-Page%1</source>
         <translation>-Stran%1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8064"/>
+        <location filename="../scribus.cpp" line="8363"/>
         <source>Some objects are locked.</source>
         <translation>Nekateri predmeti so zaklenjeni.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8060"/>
+        <location filename="../scribus.cpp" line="8359"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Zakleni vse</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8061"/>
+        <location filename="../scribus.cpp" line="8360"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Odkleni vse</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8747"/>
+        <location filename="../scribus.cpp" line="9068"/>
         <source>Information</source>
         <translation>Podatki</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8747"/>
+        <location filename="../scribus.cpp" line="9068"/>
         <source>The program %1 is already running!</source>
         <translation>Program %1 že teče!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8785"/>
+        <location filename="../scribus.cpp" line="9107"/>
         <source>The program %1 is missing!</source>
         <translation>Program %1 manjka!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8899"/>
+        <location filename="../scribus.cpp" line="9221"/>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
         <translation>Izbrana barva ni uvrščena v nabor barv dokumenta. Izberite ji ime.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8902"/>
+        <location filename="../scribus.cpp" line="9224"/>
         <source>Color Not Found</source>
         <translation>Barve ni mogoče najti</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8906"/>
+        <location filename="../scribus.cpp" line="9228"/>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
         <translation>Izbrano ime že obstaja. Izberite drugo ime za to barvo.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8988"/>
+        <location filename="../scribus.cpp" line="9311"/>
         <source>&amp;Level</source>
         <translation>&amp;Raven</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8989"/>
+        <location filename="../scribus.cpp" line="9312"/>
         <source>Send to Layer</source>
         <translation>Pošlji na plast</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8990"/>
+        <location filename="../scribus.cpp" line="9313"/>
         <source>Previe&amp;w Settings</source>
         <translation>Nastavit&amp;ve predogleda</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9001"/>
+        <location filename="../scribus.cpp" line="9325"/>
         <source>&amp;Tools</source>
         <translation>&amp;Orodja</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9013"/>
+        <location filename="../scribus.cpp" line="9337"/>
         <source>X-Pos:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9014"/>
+        <location filename="../scribus.cpp" line="9338"/>
         <source>Y-Pos:</source>
         <translation>Y:</translation>
     </message>
@@ -31010,220 +32272,241 @@ Vodoravni zamik: %2
 Navpični zamik: %3</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7344"/>
+        <location filename="../scribus.cpp" line="7617"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
         <translation>Ghostscript: Slik EPS ali predogleda tiskanja Postscript ne morete uporabljati</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7389"/>
+        <location filename="../scribus.cpp" line="7663"/>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
         <translation>Ghostscript manjka: Predogled tiskanja Postscript ni na voljo</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9138"/>
+        <location filename="../scribus.cpp" line="9491"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Resnično želite zamenjati obstoječo sliko?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8980"/>
+        <location filename="../scribus.cpp" line="9303"/>
         <source>Contents</source>
         <translation>Vsebina</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8998"/>
+        <location filename="../scribus.cpp" line="9322"/>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;tura</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="270"/>
+        <location filename="../scribus.cpp" line="278"/>
         <source>Scribus </source>
         <translation>Scribus </translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8976"/>
+        <location filename="../scribus.cpp" line="9299"/>
         <source>Paste Recent</source>
         <translation>Prilepi nedavne</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="772"/>
+        <location filename="../scribus.cpp" line="778"/>
         <source>&amp;Character</source>
         <translation>&amp;Znak</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="789"/>
+        <location filename="../scribus.cpp" line="795"/>
         <source>&amp;Quote</source>
         <translation>&amp;Narekovaj</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="814"/>
+        <location filename="../scribus.cpp" line="820"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation>Pres&amp;ledki in prelomi</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9006"/>
+        <location filename="../scribus.cpp" line="9330"/>
         <source>Online &amp;Tutorials</source>
         <translation>Spletni &amp;vodniki</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="2405"/>
         <source>Updating Pictures</source>
-        <translation>Posodabljanje slik</translation>
+        <translation type="obsolete">Posodabljanje slik</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3745"/>
+        <location filename="../scribus.cpp" line="3969"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Nekateri barvni profili, ki jih uporablja ta dokument, niso nameščeni:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3960"/>
+        <location filename="../scribus.cpp" line="4184"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Resnično želite izbrisati vse besedilo?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4099"/>
+        <location filename="../scribus.cpp" line="4326"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Dokumenti (*.sla *.sla.gz);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7576"/>
+        <location filename="../scribus.cpp" line="7855"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Vse datoteke (*)</translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="317"/>
+        <source>Applying User Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="2489"/>
+        <source>Updating Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="4342"/>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="4714"/>
+        <source>Print engine initialization failed</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ScribusQApp</name>
     <message>
-        <location filename="../scribusapp.cpp" line="200"/>
+        <location filename="../scribusapp.cpp" line="199"/>
         <source>Invalid argument: </source>
         <translation>Neveljaven argument:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="220"/>
+        <location filename="../scribusapp.cpp" line="219"/>
         <source>File %1 does not exist, aborting.</source>
         <translation>Datoteka %1 ne obstaja. Sledi izhod.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="401"/>
+        <location filename="../scribusapp.cpp" line="405"/>
         <source>Usage: scribus [option ... ] [file]</source>
         <translation>Uporaba: scribus [možnosti ... ] [datoteka]</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="402"/>
+        <location filename="../scribusapp.cpp" line="406"/>
         <source>Options:</source>
         <translation>Možnosti:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="404"/>
+        <location filename="../scribusapp.cpp" line="408"/>
         <source>Print help (this message) and exit</source>
         <translation>Izpiše pomoč (to sporočilo) in konča</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="405"/>
+        <location filename="../scribusapp.cpp" line="409"/>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
         <translation>Uporabi xx kot bližnjico za jezik, npr. &apos;en&apos; ali &apos;de&apos;</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="406"/>
+        <location filename="../scribusapp.cpp" line="410"/>
         <source>List the currently installed interface languages</source>
         <translation>Izpiše seznam trenutno nameščenih jezikov vmesnika</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="403"/>
+        <location filename="../scribusapp.cpp" line="407"/>
         <source>Show information on the console when fonts are being loaded</source>
         <translation>Pokaži informacije v konzoli med nalaganjem pisav</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="407"/>
+        <location filename="../scribusapp.cpp" line="411"/>
         <source>Do not show the splashscreen on startup</source>
         <translation>Ne pokaži pozdravnega okna med nalaganjem</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="413"/>
+        <location filename="../scribusapp.cpp" line="417"/>
         <source>Output version information and exit</source>
         <translation>Izpiše različico in konča</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="411"/>
+        <location filename="../scribusapp.cpp" line="415"/>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
         <translation>Uporabi vrstni red gumbov z leve proti desni (npr. Prekliči/Ne/Da namesto Da/Ne/Prekliči)</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="409"/>
+        <location filename="../scribusapp.cpp" line="413"/>
         <source>filename</source>
         <translation>imedatoteke</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="409"/>
+        <location filename="../scribusapp.cpp" line="413"/>
         <source>Use filename as path for user given preferences</source>
         <translation>Uporabi ime datoteke kot pot do nastavitev uporabnika</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="432"/>
+        <location filename="../scribusapp.cpp" line="436"/>
         <source>Installed interface languages for Scribus are as follows:</source>
         <translation>Nameščeni so naslednji jeziki Scribusovega vmesnika:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="440"/>
+        <location filename="../scribusapp.cpp" line="444"/>
         <source>To override the default language choice:</source>
         <translation>Za izbiro drugega jezika od privzetega:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="441"/>
+        <location filename="../scribusapp.cpp" line="445"/>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
         <translation>scribus -l xx ali scribus --lang xx, kjer xx nadomestite s kodo jezika.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="446"/>
+        <location filename="../scribusapp.cpp" line="450"/>
         <source>Scribus Version</source>
         <translation>Scribus različice</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="455"/>
+        <location filename="../scribusapp.cpp" line="459"/>
         <source>Scribus, Open Source Desktop Publishing</source>
         <translation>Scribus, prostokodno namizno založništvo</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="463"/>
+        <location filename="../scribusapp.cpp" line="467"/>
         <source>Homepage</source>
         <translation>Domača stran</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="464"/>
+        <location filename="../scribusapp.cpp" line="468"/>
         <source>Documentation</source>
         <translation>Dokumentacija</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="465"/>
+        <location filename="../scribusapp.cpp" line="469"/>
         <source>Wiki</source>
         <translation>Wiki</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="466"/>
+        <location filename="../scribusapp.cpp" line="470"/>
         <source>Issues</source>
         <translation>Napake</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="417"/>
+        <location filename="../scribusapp.cpp" line="421"/>
         <source>Display a console window</source>
         <translation>Pokaži okno konzole</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="218"/>
+        <location filename="../scribusapp.cpp" line="217"/>
         <source>Invalid argument: %1</source>
         <translation>Neveljaven argument: %1</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="408"/>
+        <location filename="../scribusapp.cpp" line="412"/>
         <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
         <translation>Onemogoči prikazovanje zagonskega zaslona. Zapiše prazno datoteko .neversplash v mapo ~/.scribus.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="410"/>
+        <location filename="../scribusapp.cpp" line="414"/>
         <source>Show location ICC profile information on console while starting</source>
         <translation>Pokaži mesto podatkov o profilu ICC v konzoli ob zagonu</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="412"/>
+        <location filename="../scribusapp.cpp" line="416"/>
         <source>Download a file from the Scribus website and show the latest available version.</source>
         <translation>Prenesi datoteko s spletne strani Scribusa in pokaži najnovejšo različico, ki je na voljo.</translation>
     </message>
@@ -31236,7 +32519,7 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">pik</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="201"/>
+        <location filename="../scribusview.cpp" line="205"/>
         <source> %</source>
         <translation> %</translation>
     </message>
@@ -31266,22 +32549,22 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Plast</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="949"/>
+        <location filename="../scribusview.cpp" line="1023"/>
         <source>Copy Here</source>
         <translation>Kopiraj sem</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="950"/>
+        <location filename="../scribusview.cpp" line="1024"/>
         <source>Move Here</source>
         <translation>Premakni sem</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="951"/>
+        <location filename="../scribusview.cpp" line="1025"/>
         <source>Cancel</source>
         <translation>Prekliči</translation>
     </message>
     <message>
-        <location filename="../canvasmode_nodeedit.cpp" line="498"/>
+        <location filename="../contextmenu.cpp" line="365"/>
         <source>&amp;Paste</source>
         <translation>&amp;Prilepi</translation>
     </message>
@@ -31291,17 +32574,17 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Slika</translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="257"/>
+        <location filename="../pageitem_imageframe.cpp" line="406"/>
         <source>File: </source>
         <translation>Datoteka: </translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="262"/>
+        <location filename="../pageitem_imageframe.cpp" line="407"/>
         <source>Original PPI: </source>
         <translation>Izvorna PPI:</translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="267"/>
+        <location filename="../pageitem_imageframe.cpp" line="408"/>
         <source>Actual PPI: </source>
         <translation>Dejanska PPI:</translation>
     </message>
@@ -31336,22 +32619,22 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Znaki: </translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4368"/>
+        <location filename="../pageitem.cpp" line="4663"/>
         <source>Print: </source>
         <translation>Natisni: </translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4371"/>
+        <location filename="../pageitem.cpp" line="4665"/>
         <source>Enabled</source>
         <translation>Vključeno</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4373"/>
+        <location filename="../pageitem.cpp" line="4667"/>
         <source>Disabled</source>
         <translation>Izključeno</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4383"/>
+        <location filename="../contextmenu.cpp" line="135"/>
         <source>In&amp;fo</source>
         <translation>&amp;Podatki</translation>
     </message>
@@ -31401,7 +32684,7 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Lastnosti &amp;polja</translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3384"/>
+        <location filename="../pageitem_textframe.cpp" line="3392"/>
         <source>&amp;PDF Options</source>
         <translation>Možnosti &amp;PDF</translation>
     </message>
@@ -31436,7 +32719,7 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Pošlji na &amp;odložišče</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4420"/>
+        <location filename="../contextmenu.cpp" line="254"/>
         <source>Send to La&amp;yer</source>
         <translation>Pošlji na p&amp;last</translation>
     </message>
@@ -31456,7 +32739,7 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">&amp;Razdruži</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4449"/>
+        <location filename="../contextmenu.cpp" line="288"/>
         <source>Le&amp;vel</source>
         <translation>&amp;Raven</translation>
     </message>
@@ -31506,14 +32789,14 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">&amp;Bezier krivulja</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4469"/>
+        <location filename="../contextmenu.cpp" line="313"/>
         <source>Conve&amp;rt to</source>
         <translation>&amp;Pretvori v</translation>
     </message>
     <message>
         <location filename="../canvasmode_legacy.cpp" line="4480"/>
         <source>&amp;Delete</source>
-        <translation>I&amp;zbriši</translation>
+        <translation type="obsolete">I&amp;zbriši</translation>
     </message>
     <message>
         <location filename="" line="7471221"/>
@@ -31546,7 +32829,7 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Nastavitve predogleda</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1687"/>
+        <location filename="../canvasmode_legacy.cpp" line="2001"/>
         <source>Linking Text Frames</source>
         <translation>Povezovanje besedilnih okvirov</translation>
     </message>
@@ -31571,27 +32854,27 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Ali zares želite izbirasti vse besedilo?</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="4560"/>
+        <location filename="../scribusview.cpp" line="3825"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Ne morete pretvoriti predmetov v uporabi</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="4560"/>
+        <location filename="../scribusview.cpp" line="3825"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Predmet %1 uporablja urejevalnik zgodb. Pretvarjanje v črte je bilo preklicano</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3116"/>
+        <location filename="../scribusview.cpp" line="2333"/>
         <source>Page %1 to %2</source>
         <translation>Strani %1 do %2</translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="272"/>
+        <location filename="../pageitem_imageframe.cpp" line="409"/>
         <source>Colorspace: </source>
         <translation>Barvni prostor:</translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="277"/>
+        <location filename="../pageitem_imageframe.cpp" line="413"/>
         <source>Unknown</source>
         <translation>Neznano</translation>
     </message>
@@ -31611,64 +32894,64 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Sivinsko</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4485"/>
+        <location filename="../contextmenu.cpp" line="345"/>
         <source>Contents</source>
         <translation>Vsebina</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1681"/>
+        <location filename="../canvasmode_legacy.cpp" line="1995"/>
         <source>You are trying to link a frame to itself.</source>
         <translation>Poskušate povezati z okvirom, ki je že povezan sam s seboj.</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1688"/>
+        <location filename="../canvasmode_legacy.cpp" line="2002"/>
         <source>You are trying to link a frame which is already linked.</source>
         <translation>Poskušate povezati z okvirom, ki je že povezan.</translation>
     </message>
     <message>
-        <location filename="../canvasmode_nodeedit.cpp" line="515"/>
+        <location filename="../contextmenu.cpp" line="371"/>
         <source>Paste Recent</source>
         <translation>Prilepi nedavne</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="2326"/>
+        <location filename="../canvasmode_legacy.cpp" line="2854"/>
         <source>Enter Object Size</source>
         <translation>Vnesite velikost predmeta</translation>
     </message>
     <message>
-        <location filename="../pageitem_imageframe.cpp" line="283"/>
+        <location filename="../pageitem_imageframe.cpp" line="420"/>
         <source>No Image Loaded</source>
         <translation>Naložena ni nobena slika</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="325"/>
+        <location filename="../scribusview.cpp" line="347"/>
         <source>Switches Color Management on or off</source>
         <translation>Vključi ali izključi upravljanje z barvami</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="326"/>
+        <location filename="../scribusview.cpp" line="348"/>
         <source>Enables the Preview Mode</source>
         <translation>Omogoči predogledni način</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="327"/>
+        <location filename="../scribusview.cpp" line="349"/>
         <source>Here you can select the visual appearance of the display
 You can choose between normal and several color blindness forms</source>
         <translation>Tukaj lahko izberete videz prikazanega
 Izberete lahko med navadno in več oblikami barvne slepote</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="365"/>
+        <location filename="../scribusview.cpp" line="389"/>
         <source>Preview Mode</source>
         <translation>Predogledni način</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="366"/>
+        <location filename="../scribusview.cpp" line="390"/>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
         <translation>CMS je aktiven. Zato se prikaz barv morda ne bo ujemal z zaznavo vidno omejenih</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="4260"/>
+        <location filename="../scribusview.cpp" line="3500"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
@@ -31676,12 +32959,12 @@ Izberete lahko med navadno in več oblikami barvne slepote</translation>
 <context>
     <name>ScribusWin</name>
     <message>
-        <location filename="../scribuswin.cpp" line="109"/>
+        <location filename="../scribuswin.cpp" line="111"/>
         <source>has been changed since the last save.</source>
         <translation>je bil od zadnjega shranjevanja še spremenjen.</translation>
     </message>
     <message>
-        <location filename="../scribuswin.cpp" line="107"/>
+        <location filename="../scribuswin.cpp" line="109"/>
         <source>Document:</source>
         <translation>Dokument:</translation>
     </message>
@@ -31767,17 +33050,17 @@ Izberete lahko med navadno in več oblikami barvne slepote</translation>
         <translation type="obsolete">Python Skripte (*.py);; Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="570"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="574"/>
         <source>Script error</source>
         <translation>Napaka skripte</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="351"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="353"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation>Če ste pognali uradno skipto, prosim, sporočite napako na &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="353"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="355"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>Tudi to sporočilo je v odložišču. Uporabite Ctrl+V, da ga prilepite v slednika hroščev.</translation>
     </message>
@@ -31792,12 +33075,12 @@ Izberete lahko med navadno in več oblikami barvne slepote</translation>
         <translation type="obsolete">O skriptah</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="420"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="424"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>Pripetila se je notranja napaka pri preverjanju vnesenega ukaza. Podrobnosti so izpisane na izhod standardne napake (stderr).</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="493"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="497"/>
         <source>Examine Script</source>
         <translation>Preuči skripto</translation>
     </message>
@@ -31807,7 +33090,7 @@ Izberete lahko med navadno in več oblikami barvne slepote</translation>
         <translation type="obsolete">Python skripte (*.py)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="572"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="576"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Neuspešno nastavljanje vtičnika Python. Podrobnosti so izpisane na izhod standardne napake (stderr).</translation>
     </message>
@@ -31817,22 +33100,22 @@ Izberete lahko med navadno in več oblikami barvne slepote</translation>
         <translation type="obsolete">Skripte Python (*.py);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="506"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="510"/>
         <source>Documentation for:</source>
         <translation>Dokumentacija za:</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="515"/>
         <source>Script</source>
         <translation>Skripta</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="515"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation>ne vključuje nobenih docstring!</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="493"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="497"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation>Skripte Python (*.py *.PY);; Vse datoteke (*)</translation>
     </message>
@@ -31998,7 +33281,7 @@ Izberete lahko med navadno in več oblikami barvne slepote</translation>
 <context>
     <name>SeList</name>
     <message>
-        <location filename="../pagepalette.cpp" line="55"/>
+        <location filename="../pagepalette.cpp" line="57"/>
         <source>Show Page Previews</source>
         <translation>Pokaži predoglede strani</translation>
     </message>
@@ -32074,7 +33357,7 @@ Izberete lahko med navadno in več oblikami barvne slepote</translation>
         <translation>Senca poteze</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="638"/>
+        <location filename="../search.cpp" line="600"/>
         <source>Search/Replace</source>
         <translation>Poišči in zamenjaj</translation>
     </message>
@@ -32159,7 +33442,7 @@ Izberete lahko med navadno in več oblikami barvne slepote</translation>
         <translation>&amp;Počisti</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="639"/>
+        <location filename="../search.cpp" line="601"/>
         <source>Search finished, found %1 matches</source>
         <translation>Iskanje končano, najdenih %1 zadetkov</translation>
     </message>
@@ -32298,17 +33581,17 @@ povlecite predlogo na delovno področje spodaj.</translation>
 <context>
     <name>ShadowValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="123"/>
+        <location filename="../styleselect.cpp" line="125"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="122"/>
+        <location filename="../styleselect.cpp" line="124"/>
         <source>X-Offset</source>
         <translation>X-odmik</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="124"/>
+        <location filename="../styleselect.cpp" line="126"/>
         <source>Y-Offset</source>
         <translation>Y-odmik</translation>
     </message>
@@ -32322,7 +33605,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation>Kratke &amp;besede ...</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="156"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="159"/>
         <source>Short Words</source>
         <translation>Kratke besede</translation>
     </message>
@@ -32332,7 +33615,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Poseben dodatek za dodajanje nedeljivih presledkov pred ali za t.i. kratkimi besedami.</translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/shortwords.cpp" line="98"/>
+        <location filename="../plugins/short-words/shortwords.cpp" line="99"/>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
         <translation>Poseben dodatek za dodajanje nedeljivih presledkov pred ali za t.i. kratke besede. Na voljo je za naslednje jezike: </translation>
     </message>
@@ -32340,57 +33623,57 @@ povlecite predlogo na delovno področje spodaj.</translation>
 <context>
     <name>ShortcutWidget</name>
     <message>
-        <location filename="../shortcutwidget.cpp" line="33"/>
+        <location filename="../shortcutwidget.cpp" line="45"/>
         <source>No shortcut for the style</source>
         <translation>Slog nima določenih tipk za bližnjico</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="34"/>
+        <location filename="../shortcutwidget.cpp" line="46"/>
         <source>Style has user defined shortcut</source>
         <translation>Slog ima uporabniško določeno tipko za bližnjico</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="35"/>
+        <location filename="../shortcutwidget.cpp" line="47"/>
         <source>Assign a shortcut for the style</source>
         <translation>Dodelite tipke za bližnjico slogu</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="104"/>
+        <location filename="../shortcutwidget.cpp" line="116"/>
         <source>Alt</source>
         <translation>Alt</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="104"/>
+        <location filename="../shortcutwidget.cpp" line="116"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="104"/>
+        <location filename="../shortcutwidget.cpp" line="116"/>
         <source>Shift</source>
         <translation>Shift</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="104"/>
+        <location filename="../shortcutwidget.cpp" line="116"/>
         <source>Meta</source>
         <translation>Meta</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="65"/>
+        <location filename="../shortcutwidget.cpp" line="77"/>
         <source>Meta+</source>
         <translation>Meta+</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="69"/>
+        <location filename="../shortcutwidget.cpp" line="81"/>
         <source>Shift+</source>
         <translation>Shift+</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="73"/>
+        <location filename="../shortcutwidget.cpp" line="85"/>
         <source>Alt+</source>
         <translation>Alt+</translation>
     </message>
     <message>
-        <location filename="../shortcutwidget.cpp" line="77"/>
+        <location filename="../shortcutwidget.cpp" line="89"/>
         <source>Ctrl+</source>
         <translation>Ctrl+</translation>
     </message>
@@ -32413,14 +33696,14 @@ povlecite predlogo na delovno področje spodaj.</translation>
 <context>
     <name>SideBar</name>
     <message>
-        <location filename="" line="7471221"/>
+        <location filename="../story.cpp" line="187"/>
         <source>No Style</source>
-        <translation type="obsolete">Brez sloga</translation>
+        <translation type="unfinished">Brez sloga</translation>
     </message>
     <message>
-        <location filename="" line="7471221"/>
+        <location filename="../story.cpp" line="138"/>
         <source>Edit Styles...</source>
-        <translation type="obsolete">Uredi sloge ...</translation>
+        <translation type="unfinished">Uredi sloge ...</translation>
     </message>
 </context>
 <context>
@@ -32537,12 +33820,12 @@ povlecite predlogo na delovno področje spodaj.</translation>
 <context>
     <name>StoryEditor</name>
     <message>
-        <location filename="../story.cpp" line="1730"/>
+        <location filename="../story.cpp" line="1863"/>
         <source>File</source>
         <translation>Datoteka</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2927"/>
+        <location filename="../story.cpp" line="3061"/>
         <source>Open</source>
         <translation>Odpri</translation>
     </message>
@@ -32552,7 +33835,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Ali zares želite izgubiti vse spremembe?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1813"/>
+        <location filename="../story.cpp" line="1951"/>
         <source>Story Editor</source>
         <translation>Urejevalnik zgodb</translation>
     </message>
@@ -32562,32 +33845,32 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Ali zares želite počistiti vso besedilo?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1732"/>
+        <location filename="../story.cpp" line="1865"/>
         <source>Current Paragraph:</source>
         <translation>Trenuten odstavek:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1853"/>
+        <location filename="../story.cpp" line="1991"/>
         <source>Do you want to save your changes?</source>
         <translation>Želite shraniti spremembe?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2962"/>
+        <location filename="../story.cpp" line="3096"/>
         <source>Save as</source>
         <translation>Shrani kot</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1738"/>
+        <location filename="../story.cpp" line="1871"/>
         <source>Chars: </source>
         <translation>Znaki: </translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2962"/>
+        <location filename="../story.cpp" line="3096"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Besedilne datoteke (*.txt);;Vse datoteke(*)</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1735"/>
+        <location filename="../story.cpp" line="1868"/>
         <source>Totals:</source>
         <translation>Skupaj:</translation>
     </message>
@@ -32597,12 +33880,12 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Opozorilo</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1736"/>
+        <location filename="../story.cpp" line="1869"/>
         <source>Paragraphs: </source>
         <translation>Odstavkov: </translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1737"/>
+        <location filename="../story.cpp" line="1870"/>
         <source>Words: </source>
         <translation>Besed: </translation>
     </message>
@@ -32632,52 +33915,52 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">&amp;Nova</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1696"/>
+        <location filename="../story.cpp" line="1829"/>
         <source>&amp;Reload Text from Frame</source>
         <translation>&amp;Osveži besedilo iz okvira</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1697"/>
+        <location filename="../story.cpp" line="1830"/>
         <source>&amp;Save to File...</source>
         <translation>&amp;Shrani v datoteko ...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1698"/>
+        <location filename="../story.cpp" line="1831"/>
         <source>&amp;Load from File...</source>
         <translation>&amp;Naloži iz datoteke ...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1699"/>
+        <location filename="../story.cpp" line="1832"/>
         <source>Save &amp;Document</source>
         <translation>Shrani &amp;dokument</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1700"/>
+        <location filename="../story.cpp" line="1833"/>
         <source>&amp;Update Text Frame and Exit</source>
         <translation>&amp;Posodobi okvir z besedilom in končaj</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1701"/>
+        <location filename="../story.cpp" line="1834"/>
         <source>&amp;Exit Without Updating Text Frame</source>
         <translation>&amp;Končaj brez posodabljanja besedila</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1705"/>
+        <location filename="../story.cpp" line="1838"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Izreži</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1706"/>
+        <location filename="../story.cpp" line="1839"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopiraj</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1707"/>
+        <location filename="../story.cpp" line="1840"/>
         <source>&amp;Paste</source>
         <translation>&amp;Prilepi</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1708"/>
+        <location filename="../story.cpp" line="1841"/>
         <source>C&amp;lear</source>
         <translation>Po&amp;čisti</translation>
     </message>
@@ -32687,27 +33970,27 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">&amp;Vstavi posebej...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1712"/>
+        <location filename="../story.cpp" line="1845"/>
         <source>&amp;Update Text Frame</source>
         <translation>&amp;Posodobi okvir z besedilom</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1694"/>
+        <location filename="../story.cpp" line="1827"/>
         <source>&amp;File</source>
         <translation>&amp;Datoteka</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1703"/>
+        <location filename="../story.cpp" line="1836"/>
         <source>&amp;Edit</source>
         <translation>Ur&amp;edi</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1704"/>
+        <location filename="../story.cpp" line="1837"/>
         <source>Select &amp;All</source>
         <translation>Izberi &amp;vse</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1710"/>
+        <location filename="../story.cpp" line="1843"/>
         <source>&amp;Edit Styles...</source>
         <translation>&amp;Uredi sloge ...</translation>
     </message>
@@ -32727,27 +34010,27 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Osveži besedilo iz okvirja</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1709"/>
+        <location filename="../story.cpp" line="1842"/>
         <source>&amp;Search/Replace...</source>
         <translation>Najd&amp;i in zamenjaj ...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1711"/>
+        <location filename="../story.cpp" line="1844"/>
         <source>&amp;Fonts Preview...</source>
         <translation>Predogled &amp;pisav ...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1723"/>
+        <location filename="../story.cpp" line="1856"/>
         <source>&amp;Background...</source>
         <translation>&amp;Ozadje ...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1724"/>
+        <location filename="../story.cpp" line="1857"/>
         <source>&amp;Display Font...</source>
         <translation>Pisava za &amp;prikaz ...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1722"/>
+        <location filename="../story.cpp" line="1855"/>
         <source>&amp;Settings</source>
         <translation>Na&amp;stavitve</translation>
     </message>
@@ -32767,62 +34050,62 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Počisti vse besedilo</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1725"/>
+        <location filename="../story.cpp" line="1858"/>
         <source>&amp;Smart text selection</source>
         <translation>&amp;Pametno izbiranje besedila</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1719"/>
+        <location filename="../story.cpp" line="1852"/>
         <source>&amp;Insert Glyph...</source>
         <translation>&amp;Vstavi znak ...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1695"/>
+        <location filename="../story.cpp" line="1828"/>
         <source>Clear All Text</source>
         <translation>Počisti vse besedilo</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1797"/>
+        <location filename="../story.cpp" line="1932"/>
         <source>Story Editor - %1</source>
         <translation>Urejevalnik zgodb - %1</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2437"/>
+        <location filename="../story.cpp" line="2573"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>Ali zares želite izgubiti vse spremembe?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2466"/>
+        <location filename="../story.cpp" line="2602"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ali zares želite izbrisati vse besedilo?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1715"/>
+        <location filename="../story.cpp" line="1848"/>
         <source>&amp;Insert</source>
         <translation>&amp;Vstavi</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1716"/>
+        <location filename="../story.cpp" line="1849"/>
         <source>Character</source>
         <translation>Znak</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1717"/>
+        <location filename="../story.cpp" line="1850"/>
         <source>Quote</source>
         <translation>Narekovaj</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1516"/>
+        <location filename="../story.cpp" line="1637"/>
         <source>Spaces &amp;&amp; Breaks</source>
         <translation>Presledki in prelomi</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1528"/>
+        <location filename="../story.cpp" line="1649"/>
         <source>Ligature</source>
         <translation>Ligatura</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1718"/>
+        <location filename="../story.cpp" line="1851"/>
         <source>Space</source>
         <translation>Presledek</translation>
     </message>
@@ -32830,22 +34113,22 @@ povlecite predlogo na delovno področje spodaj.</translation>
 <context>
     <name>StrikeValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="29"/>
+        <location filename="../styleselect.cpp" line="31"/>
         <source>Auto</source>
         <translation>Samodejno</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="40"/>
+        <location filename="../styleselect.cpp" line="42"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="39"/>
+        <location filename="../styleselect.cpp" line="41"/>
         <source>Displacement</source>
         <translation>Razpostavitev</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="41"/>
+        <location filename="../styleselect.cpp" line="43"/>
         <source>Linewidth</source>
         <translation>Širina črte</translation>
     </message>
@@ -32858,204 +34141,209 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Izbran več kot en predmet</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="89"/>
+        <location filename="../stylemanager.cpp" line="101"/>
         <source>Apply all changes and exit edit mode</source>
         <translation>Uveljavi vse spremembe in zapusti urejevalni način</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="91"/>
+        <location filename="../stylemanager.cpp" line="103"/>
         <source>Edit styles</source>
         <translation>Uredi sloge</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="93"/>
+        <location filename="../stylemanager.cpp" line="105"/>
         <source>Name of the selected style</source>
         <translation>Ime izbranega sloga</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="94"/>
+        <location filename="../stylemanager.cpp" line="106"/>
         <source>Reset all changes</source>
         <translation>Ponastavi vse spremembe</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="95"/>
+        <location filename="../stylemanager.cpp" line="107"/>
         <source>Apply all changes</source>
         <translation>Uporabi vse spremembe</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="96"/>
+        <location filename="../stylemanager.cpp" line="108"/>
         <source>Create a new style</source>
         <translation>Ustvari nov slog</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="97"/>
+        <location filename="../stylemanager.cpp" line="109"/>
         <source>Import styles from another document</source>
         <translation>Uvozi sloge iz drugega dokumenta</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="98"/>
+        <location filename="../stylemanager.cpp" line="110"/>
         <source>Clone selected style</source>
         <translation>Kloniraj izbrani slog</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="99"/>
+        <location filename="../stylemanager.cpp" line="111"/>
         <source>Delete selected styles</source>
         <translation>Izbriši izbrane sloge</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="340"/>
+        <location filename="../stylemanager.ui" line="351"/>
         <source>Name:</source>
         <translation>Ime:</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="489"/>
+        <location filename="../stylemanager.ui" line="500"/>
         <source>&amp;Reset</source>
         <translation>&amp;Ponastavi</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="467"/>
+        <location filename="../stylemanager.ui" line="478"/>
         <source>&amp;Apply</source>
         <translation>&amp;Uporabi</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="108"/>
+        <location filename="../stylemanager.cpp" line="120"/>
         <source>&amp;Done</source>
         <translation>&amp;Opravljeno</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="689"/>
+        <location filename="../stylemanager.cpp" line="708"/>
         <source>&amp;Edit</source>
         <translation>&amp;Uredi</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="158"/>
+        <location filename="../stylemanager.ui" line="169"/>
         <source>&amp;New</source>
         <translation>&amp;Nov</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="224"/>
+        <location filename="../stylemanager.ui" line="235"/>
         <source>&amp;Import</source>
         <translation>&amp;Uvozi</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="189"/>
+        <location filename="../stylemanager.ui" line="200"/>
         <source>&amp;Clone</source>
         <translation>&amp;Kloniraj</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="240"/>
+        <location filename="../stylemanager.ui" line="251"/>
         <source>&amp;Delete</source>
         <translation>I&amp;zbriši</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="601"/>
+        <location filename="../stylemanager.cpp" line="618"/>
         <source>New</source>
         <translation>Nov</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="145"/>
+        <location filename="../stylemanager.cpp" line="157"/>
         <source>Import</source>
         <translation>Uvozi</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="147"/>
+        <location filename="../stylemanager.cpp" line="159"/>
         <source>Edit</source>
         <translation>Uredi</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="148"/>
+        <location filename="../stylemanager.cpp" line="160"/>
         <source>Clone</source>
         <translation>Kloniraj</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="149"/>
+        <location filename="../stylemanager.cpp" line="161"/>
         <source>Send to Scrapbook</source>
         <translation>Pošlji v skicirko</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="151"/>
+        <location filename="../stylemanager.cpp" line="163"/>
         <source>Delete</source>
         <translation>Izbriši</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="283"/>
+        <location filename="../stylemanager.cpp" line="295"/>
         <source>Open</source>
         <translation>Odpri</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="283"/>
+        <location filename="../stylemanager.cpp" line="295"/>
         <source>documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation>Dokumenti (*.sla *.sla.gz *.scd *.scd.gz);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="588"/>
+        <location filename="../stylemanager.cpp" line="605"/>
         <source>New %1</source>
         <translation>Nov -  %1</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="67"/>
+        <location filename="../stylemanager.ui" line="78"/>
         <source>Shortcut</source>
         <translation>Tipke za bližnjico</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="978"/>
+        <location filename="../stylemanager.cpp" line="997"/>
         <source>This key sequence is already in use</source>
         <translation>To zaporedje tipk je že v uporabi</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1066"/>
+        <location filename="../stylemanager.cpp" line="1085"/>
         <source>More than one style selected</source>
         <translation>Izbran je več kot en slog</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="62"/>
+        <location filename="../stylemanager.ui" line="73"/>
         <source>Name</source>
         <translation>Ime</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="161"/>
+        <location filename="../stylemanager.ui" line="172"/>
         <source>Alt+N</source>
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="186"/>
+        <location filename="../stylemanager.ui" line="197"/>
         <source>Clone copies the style to make similar styles easily.</source>
         <translation>Kloniraj kopira slog, kar poenostavlja poenotenje slogov.</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="192"/>
+        <location filename="../stylemanager.ui" line="203"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="227"/>
+        <location filename="../stylemanager.ui" line="238"/>
         <source>Alt+I</source>
         <translation>Alt +I</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="448"/>
+        <location filename="../stylemanager.ui" line="459"/>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="371"/>
+        <location filename="../stylemanager.ui" line="382"/>
         <source>Please select a unique name for the style</source>
         <translation>Prosim, izberite enkratno ime za slog</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="445"/>
+        <location filename="../stylemanager.ui" line="456"/>
         <source>&lt;&lt; &amp;Done</source>
         <translation>&lt;&lt; &amp;Opravljeno</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="470"/>
+        <location filename="../stylemanager.ui" line="481"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="492"/>
+        <location filename="../stylemanager.ui" line="503"/>
         <source>Alt+R</source>
         <translation>Alt+R</translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="22"/>
+        <source>Style Manager</source>
+        <translation type="unfinished">Upravitelj slogov</translation>
     </message>
 </context>
 <context>
@@ -33066,17 +34354,17 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Besedilo orisa</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="257"/>
+        <location filename="../styleselect.cpp" line="272"/>
         <source>Small Caps</source>
         <translation>Pomanjšane velike črke</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="258"/>
+        <location filename="../styleselect.cpp" line="273"/>
         <source>Subscript</source>
         <translation>Podpisano</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="259"/>
+        <location filename="../styleselect.cpp" line="274"/>
         <source>Superscript</source>
         <translation>Nadpisano</translation>
     </message>
@@ -33101,7 +34389,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Samo podčrtaj besede</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="256"/>
+        <location filename="../styleselect.cpp" line="271"/>
         <source>All Caps</source>
         <translation>Velike črke</translation>
     </message>
@@ -33117,17 +34405,17 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Obroba</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="254"/>
+        <location filename="../styleselect.cpp" line="269"/>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
         <translation>Podčrtano besedilo. Za kratek čas pritisnite tipko, da nastavite širino črte in možnosti razmika.</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="255"/>
+        <location filename="../styleselect.cpp" line="270"/>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
         <translation>Podrčta samo besede. Za kratek čas pritisnite tipko, da nastavite širino črte in možnosti odstopanja.</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="260"/>
+        <location filename="../styleselect.cpp" line="275"/>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
         <translation>Prečrta besedilo. Za kratek čas pritisnite gumb, da nastavite širino črte in možnosti odmika.</translation>
     </message>
@@ -33137,15 +34425,38 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="obsolete">Orisano. Za kratek čas pritisnite gumb, da spremenite širino poteze orisa.</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="262"/>
+        <location filename="../styleselect.cpp" line="277"/>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
         <translation>Osenčeno besedilo. Za kratek čas pritisnite gumb, da vključite razmik odmika.</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="261"/>
+        <location filename="../styleselect.cpp" line="276"/>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
         <translation>Orisano. Za kratek čas pritisnite gumb, da spremenite širino poteze orisa.</translation>
+    </message>
+</context>
+<context>
+    <name>SubdividePlugin</name>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="66"/>
+        <source>Subdivide Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="70"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="87"/>
+        <source>Subdivide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/tools/subdivide/subdivide.cpp" line="88"/>
+        <source>Subdivide selected Path</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -33267,22 +34578,22 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
 <context>
     <name>TOCIndexPrefs</name>
     <message>
-        <location filename="../tocindexprefs.cpp" line="105"/>
+        <location filename="../tocindexprefs.cpp" line="114"/>
         <source>None</source>
         <translation>Brez</translation>
     </message>
     <message>
         <location filename="../tocindexprefs.cpp" line="107"/>
         <source>At the beginning</source>
-        <translation>Na začetek</translation>
+        <translation type="obsolete">Na začetek</translation>
     </message>
     <message>
         <location filename="../tocindexprefs.cpp" line="109"/>
         <source>At the end</source>
-        <translation>Na konec</translation>
+        <translation type="obsolete">Na konec</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="111"/>
+        <location filename="../tocindexprefs.cpp" line="120"/>
         <source>Not Shown</source>
         <translation>Ni prikazano</translation>
     </message>
@@ -33292,77 +34603,77 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
         <translation>Kazalo vsebine in seznami</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="26"/>
+        <location filename="../tocindexprefs.ui" line="35"/>
         <source>Table Of Contents</source>
         <translation>Kazalo vsebine</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="60"/>
+        <location filename="../tocindexprefs.ui" line="96"/>
         <source>&amp;Add</source>
         <translation>&amp;Dodaj</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="63"/>
+        <location filename="../tocindexprefs.ui" line="99"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="70"/>
+        <location filename="../tocindexprefs.ui" line="106"/>
         <source>&amp;Delete</source>
         <translation>I&amp;zbriši</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="73"/>
+        <location filename="../tocindexprefs.ui" line="109"/>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="100"/>
+        <location filename="../tocindexprefs.ui" line="157"/>
         <source>The frame the table of contents will be placed into</source>
         <translation>Okvir, v katerega bo vključeno kazalo vsebine</translation>
     </message>
     <message>
         <location filename="../tocindexprefs.ui" line="107"/>
         <source>Page Numbers Placed:</source>
-        <translation>Postavitev številk strani:</translation>
+        <translation type="obsolete">Postavitev številk strani:</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="117"/>
+        <location filename="../tocindexprefs.ui" line="174"/>
         <source>Item Attribute Name:</source>
         <translation>Ime lastnosti predmeta:</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="127"/>
+        <location filename="../tocindexprefs.ui" line="184"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
         <translation>Lastnost predmeta, ki bo nastavljena na okvirih kot osnova za ustvarjanje vnosov</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="134"/>
+        <location filename="../tocindexprefs.ui" line="191"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
         <translation>Postavi številke strani vnosov na začetek ali konec vrstice ali pa nikamor</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="144"/>
+        <location filename="../tocindexprefs.ui" line="201"/>
         <source>List Non-Printing Entries</source>
         <translation>Pokaži nenatisljive vnose</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="141"/>
+        <location filename="../tocindexprefs.ui" line="198"/>
         <source>Include frames that are set to not print as well</source>
         <translation>Vključi tudi okvire, ki niso vključeni v tiskanje</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="151"/>
+        <location filename="../tocindexprefs.ui" line="208"/>
         <source>The paragraph style used for the entry lines</source>
         <translation>Slog odstavka za vnose</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="158"/>
+        <location filename="../tocindexprefs.ui" line="215"/>
         <source>Paragraph Style:</source>
         <translation>Slog odstavka:</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.ui" line="168"/>
+        <location filename="../tocindexprefs.ui" line="225"/>
         <source>Destination Frame:</source>
         <translation>Ciljni okvir:</translation>
     </message>
@@ -33372,9 +34683,24 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
         <translation type="obsolete">Ka&amp;zalo</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="247"/>
+        <location filename="../tocindexprefs.cpp" line="256"/>
         <source>Table of Contents %1</source>
         <translation>Kazalo vsebine %1</translation>
+    </message>
+    <message>
+        <location filename="../tocindexprefs.ui" line="164"/>
+        <source>Page Number Placement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tocindexprefs.cpp" line="116"/>
+        <source>Beginning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tocindexprefs.cpp" line="118"/>
+        <source>End</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -33603,7 +34929,7 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabdisplay.cpp" line="36"/>
         <source>Turns the display of pictures on or off</source>
-        <translation>Vključi ali izključi prikazovanje slik</translation>
+        <translation type="obsolete">Vključi ali izključi prikazovanje slik</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="37"/>
@@ -33641,179 +34967,189 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="31"/>
+        <location filename="../tabdisplay.ui" line="43"/>
         <source>General</source>
         <translation>Splošno</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="43"/>
+        <location filename="../tabdisplay.ui" line="295"/>
         <source>Adjust Display Size</source>
         <translation>Prilagodi velikost prikaza</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="79"/>
+        <location filename="../tabdisplay.ui" line="362"/>
         <source>Scale%</source>
         <translation>Merilo%</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="110"/>
+        <location filename="../tabdisplay.ui" line="319"/>
         <source>To adjust the display drag the ruler below with the slider.</source>
         <translation>Za prilagoditev pogleda povlecite spodnje ravnilo z drsnikom.</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="123"/>
+        <location filename="../tabdisplay.ui" line="242"/>
         <source>Gaps Between Pages</source>
         <translation>Presledki med stranmi</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="138"/>
+        <location filename="../tabdisplay.ui" line="269"/>
         <source>Vertical:</source>
         <translation>Navpično:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="151"/>
+        <location filename="../tabdisplay.ui" line="282"/>
         <source>Horizontal:</source>
         <translation>Vodoravno:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="164"/>
+        <location filename="../tabdisplay.ui" line="144"/>
         <source>Scratch Space</source>
         <translation>Prazen prostor</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="179"/>
+        <location filename="../tabdisplay.ui" line="171"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Dno:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="195"/>
+        <location filename="../tabdisplay.ui" line="187"/>
         <source>&amp;Top:</source>
         <translation>&amp;Vrh:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="211"/>
+        <location filename="../tabdisplay.ui" line="203"/>
         <source>&amp;Right:</source>
         <translation>&amp;Desno:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="234"/>
+        <location filename="../tabdisplay.ui" line="226"/>
         <source>&amp;Left:</source>
         <translation>&amp;Levo:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="250"/>
+        <location filename="../tabdisplay.ui" line="49"/>
         <source>Page Display</source>
         <translation>Prikaz strani</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="262"/>
+        <location filename="../tabdisplay.ui" line="73"/>
         <source>Show Bleed Area</source>
         <translation>Pokaži dodatek za porezavo</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="269"/>
+        <location filename="../tabdisplay.ui" line="80"/>
         <source>Display &amp;Unprintable Area in Margin Color</source>
         <translation>Prikaži &amp;nenatisljivo območje v barvi robov</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="272"/>
+        <location filename="../tabdisplay.ui" line="83"/>
         <source>Alt+U</source>
         <translation>Alt+U</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="279"/>
+        <location filename="../tabdisplay.ui" line="90"/>
         <source>Show Layer Indicators</source>
         <translation>Pokaži indikatorje plasti</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="289"/>
+        <location filename="../tabdisplay.ui" line="100"/>
         <source>Show Frames</source>
         <translation>Pokaži okvire</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="299"/>
+        <location filename="../tabdisplay.ui" line="110"/>
         <source>Show Text Chains</source>
         <translation>Pokaži verige besedil</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="309"/>
+        <location filename="../tabdisplay.ui" line="120"/>
         <source>Rulers Relative to Page</source>
         <translation>Vodila glede na stran</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="316"/>
+        <location filename="../tabdisplay.ui" line="127"/>
         <source>Show Text Control Characters</source>
         <translation>Pokaži ukazne znake v besedilu</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="323"/>
         <source>Show Pictures</source>
-        <translation>Pokaži slike</translation>
+        <translation type="obsolete">Pokaži slike</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="350"/>
+        <location filename="../tabdisplay.ui" line="416"/>
         <source>Colors</source>
         <translation>Barve</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="378"/>
+        <location filename="../tabdisplay.ui" line="456"/>
         <source>Pages:</source>
         <translation>Strani:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="398"/>
+        <location filename="../tabdisplay.ui" line="497"/>
         <source>Selected Page Border:</source>
         <translation>Izbrani rob strani:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="453"/>
+        <location filename="../tabdisplay.ui" line="561"/>
         <source>Fill Color:</source>
         <translation>Barva polnila:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="487"/>
+        <location filename="../tabdisplay.ui" line="595"/>
         <source>Frames</source>
         <translation>Okviri</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="507"/>
+        <location filename="../tabdisplay.ui" line="639"/>
         <source>Grouped:</source>
         <translation>Združeno:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="536"/>
+        <location filename="../tabdisplay.ui" line="668"/>
         <source>Annotation:</source>
         <translation>Opomba:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="629"/>
+        <location filename="../tabdisplay.ui" line="773"/>
         <source>Selected:</source>
         <translation>Izbrano:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="639"/>
+        <location filename="../tabdisplay.ui" line="783"/>
         <source>Linked:</source>
         <translation>Povezano:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="675"/>
+        <location filename="../tabdisplay.ui" line="831"/>
         <source>Locked:</source>
         <translation>Zaklenjeno:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="723"/>
+        <location filename="../tabdisplay.ui" line="879"/>
         <source>Normal:</source>
         <translation>Navadno:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="738"/>
+        <location filename="../tabdisplay.ui" line="894"/>
         <source>Text:</source>
         <translation>Besedilo:</translation>
     </message>
     <message>
-        <location filename="../tabdisplay.ui" line="785"/>
+        <location filename="../tabdisplay.ui" line="953"/>
         <source>Control Characters:</source>
         <translation>Ukazni znaki:</translation>
+    </message>
+    <message>
+        <location filename="../tabdisplay.cpp" line="36"/>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabdisplay.ui" line="134"/>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -33957,27 +35293,27 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
 <context>
     <name>TabExternalToolsWidget</name>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="125"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="114"/>
         <source>Locate Ghostscript</source>
         <translation>Določite Ghostscript</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="133"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="122"/>
         <source>Locate your image editor</source>
         <translation>Določite urejevalnik slik</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="141"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="130"/>
         <source>Locate your web browser</source>
         <translation>Določite spletni brskalnik</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.cpp" line="149"/>
         <source>Locate your LaTeX executable</source>
-        <translation>Določite program LaTeX</translation>
+        <translation type="obsolete">Določite program LaTeX</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="157"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="138"/>
         <source>Locate your LaTeX editor</source>
         <translation>Določite urejevalnik LaTeX</translation>
     </message>
@@ -33992,225 +35328,265 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
         <translation>Tolmač PostScripta</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="60"/>
+        <location filename="../tabexternaltoolswidget.ui" line="91"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Uporabi glajenje pisav pri zaslonski upodobitvi EPS in PDF</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="63"/>
+        <location filename="../tabexternaltoolswidget.ui" line="94"/>
         <source>Antialias &amp;Text</source>
         <translation>Gladi robove &amp;besedila</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="66"/>
+        <location filename="../tabexternaltoolswidget.ui" line="97"/>
         <source>Alt+T</source>
         <translation>Alt+T</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="89"/>
+        <location filename="../tabexternaltoolswidget.ui" line="120"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
         <translation>Uporabi glajenje robov slik pri zaslonskem upodabljanju EPS in PDF</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="92"/>
+        <location filename="../tabexternaltoolswidget.ui" line="123"/>
         <source>Antialias &amp;Graphics</source>
         <translation>Gladi robove &amp;slik</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="95"/>
+        <location filename="../tabexternaltoolswidget.ui" line="126"/>
         <source>Alt+G</source>
         <translation>Alt+G</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="433"/>
+        <location filename="../tabexternaltoolswidget.ui" line="441"/>
         <source>Resolution:</source>
         <translation>Ločljivost:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="446"/>
+        <location filename="../tabexternaltoolswidget.ui" line="454"/>
         <source> dpi</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="338"/>
+        <location filename="../tabexternaltoolswidget.ui" line="42"/>
         <source>&amp;Name of Executable:</source>
         <translation>&amp;Ime izvajalne datoteke:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="176"/>
+        <location filename="../tabexternaltoolswidget.ui" line="55"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Dodajte pot za prevajalnik Ghostscript. V okolju Windows potrebujete povezavo do programa z imenom gswin32c.exe - IN NE gswin32.exe. Sicer se bo ob zagonu Scribusa slednji morda obesil.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="498"/>
+        <location filename="../tabexternaltoolswidget.ui" line="367"/>
         <source>&amp;Change...</source>
         <translation>&amp;Spremeni ...</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="501"/>
+        <location filename="../tabexternaltoolswidget.ui" line="370"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="198"/>
+        <location filename="../tabexternaltoolswidget.ui" line="180"/>
         <source>Image Processing Tool</source>
         <translation>Orodje za obdelavo slik</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="232"/>
+        <location filename="../tabexternaltoolswidget.ui" line="214"/>
         <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Pot do mape, kjer hranite svoj urejevalnik slik. Če uporabljate gimp in ga vaša distribucija vključuje, predlagamo, da nastavite &apos;gimp-remote&apos;, s tem lahko urejate slike v gimpu, ki je že zagnan.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="299"/>
+        <location filename="../tabexternaltoolswidget.ui" line="281"/>
         <source>Name of &amp;Executable:</source>
         <translation>Ime i&amp;zvajalne datoteke:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="255"/>
+        <location filename="../tabexternaltoolswidget.ui" line="237"/>
         <source>Web Browser to launch with links from the Help system</source>
         <translation>Spletni brskalnik za ogledovanje povezav sistema pomoči</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="258"/>
+        <location filename="../tabexternaltoolswidget.ui" line="240"/>
         <source>Web Browser</source>
         <translation>Spletni brskalnik</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="292"/>
+        <location filename="../tabexternaltoolswidget.ui" line="274"/>
         <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Mesto v datotečnem sistemu, kjer se nahaja vaš spletni brskalnik. Uporabljen bo za zunanje povezave iz sistema pomoči.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="315"/>
+        <location filename="../tabexternaltoolswidget.ui" line="297"/>
         <source>LaTeX</source>
         <translation>LaTeX</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="351"/>
         <source>&lt;qt&gt;Path to LaTeX executable. Must be a program that produces one of the formats supported by image frames!&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Pot do zagonske datoteke LaTeX. Mora biti program, ki izdeluje vsaj eno od vrst datotek, ki jih podpirajo slikovni okviri!&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Pot do zagonske datoteke LaTeX. Mora biti program, ki izdeluje vsaj eno od vrst datotek, ki jih podpirajo slikovni okviri!&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="387"/>
         <source>Output file extension:</source>
-        <translation>Končnica izhodne datoteke:</translation>
+        <translation type="obsolete">Končnica izhodne datoteke:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="416"/>
+        <location filename="../tabexternaltoolswidget.ui" line="381"/>
         <source>Start with empty frame</source>
         <translation>Odpri s praznim okvirom</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="423"/>
+        <location filename="../tabexternaltoolswidget.ui" line="418"/>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</source>
         <translation>Vedno uporabi nastavljeno vrednost DPI za izračun velikosti, čeprav datoteka slike nakazuje drugačno vrednost.</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="426"/>
+        <location filename="../tabexternaltoolswidget.ui" line="421"/>
         <source>Force DPI</source>
         <translation>Vsili DPI</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="478"/>
         <source>Latex Editor:</source>
-        <translation>Urejevalnik Latex:</translation>
+        <translation type="obsolete">Urejevalnik Latex:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="491"/>
+        <location filename="../tabexternaltoolswidget.ui" line="360"/>
         <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Pot do zagonske datoteke urejevalnika.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="511"/>
+        <location filename="../tabexternaltoolswidget.ui" line="407"/>
         <source>Use Embedded Editor</source>
         <translation>Uporabi vdelani urejevalnik</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="527"/>
         <source>Preamble:</source>
-        <translation>Uvodni del:</translation>
+        <translation type="obsolete">Uvodni del:</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="548"/>
         <source>End:</source>
-        <translation>Konec:</translation>
+        <translation type="obsolete">Konec:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="617"/>
+        <location filename="../tabexternaltoolswidget.ui" line="521"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
         <translation>Ponovno iskanje zunanjih orodij, če ne obstajajo na že določenem mestu</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="620"/>
+        <location filename="../tabexternaltoolswidget.ui" line="524"/>
         <source>&amp;Rescan</source>
         <translation>&amp;Ponovno preišči</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="623"/>
+        <location filename="../tabexternaltoolswidget.ui" line="527"/>
         <source>Alt+R</source>
         <translation>Alt+R</translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.cpp" line="160"/>
+        <source>Locate a Configuration file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.cpp" line="162"/>
+        <source>Configuration files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="303"/>
+        <source>Configurations:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="312"/>
+        <source>Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="319"/>
+        <source>Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="326"/>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="333"/>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="347"/>
+        <source>External Latex Editor:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>TabGeneral</name>
     <message>
-        <location filename="../tabgeneral.cpp" line="66"/>
+        <location filename="../tabgeneral.cpp" line="65"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
         <translation>Izberite privzeti jezik, v katerem naj deluje Scribus. Če pustite polje prazno, bo jezik zaznan iz sistemskega okolja. To lahko vedno nadomestite z zastavico v ukazni vrstici</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="67"/>
+        <location filename="../tabgeneral.cpp" line="66"/>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation>Število nedavno uporabljenih dokumentov, ki naj bodo prikazani v meniju Datoteka</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="68"/>
+        <location filename="../tabgeneral.cpp" line="67"/>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
         <translation>Število vrstic, ki jih Scribus preskoči ob premiku kolešča na miški</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="69"/>
+        <location filename="../tabgeneral.cpp" line="68"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
         <translation>Izberite privzeti videz okna. Scribus podeduje vse razpoložljive teme KDE ali Qt, če je Qt nastavljen, da išče po vtičnikih KDE.</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="70"/>
+        <location filename="../tabgeneral.cpp" line="69"/>
         <source>Default font size for the menus and windows</source>
         <translation>Privzeta velikost pisave menijev in oken</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="71"/>
+        <location filename="../tabgeneral.cpp" line="70"/>
         <source>Default font size for the tool windows</source>
         <translation>Priveta velikost pisave za orodna okna</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="72"/>
+        <location filename="../tabgeneral.cpp" line="71"/>
         <source>Default documents directory</source>
         <translation>Privzeta mapa z dokumenti</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="73"/>
+        <location filename="../tabgeneral.cpp" line="72"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
         <translation>Okna palet bodo uporabljala manjše (manj potratne) gradnike. Zahteva ponoven zagon aplikacije</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="74"/>
+        <location filename="../tabgeneral.cpp" line="73"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
         <translation>Privzeta mapa s profili ICC. Te ni mogoče spremeniti ob odprtem dokumentu. Privzeta nastavitev je, da Scribus preišče sistemske mape v sistemih Mac OSX in Windows. V okoljih Linux ali Unix Scribus preišče mapi $home/.color/icc,/usr/share/color/icc in /usr/local/share/color/icc </translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="75"/>
+        <location filename="../tabgeneral.cpp" line="74"/>
         <source>Default Scripter scripts directory</source>
         <translation>Privzeta mapa s skriptami Skripterke</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="76"/>
+        <location filename="../tabgeneral.cpp" line="75"/>
         <source>Additional directory for document templates</source>
         <translation>Dodatna mapa s predlogami dokumentov</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="132"/>
+        <location filename="../tabgeneral.cpp" line="131"/>
         <source>Choose a Directory</source>
         <translation>Izberite mapo</translation>
     </message>
@@ -34578,70 +35954,70 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="131"/>
         <source>Choose a file to read</source>
-        <translation>Izberite datoteko za branje</translation>
+        <translation type="obsolete">Izberite datoteko za branje</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation>Datoteke XML tipk za bližnjice (*.ksxml)</translation>
+        <translation type="obsolete">Datoteke XML tipk za bližnjice (*.ksxml)</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
         <source>Choose a file to save</source>
-        <translation>Izberite datoteko za shranjevanje</translation>
+        <translation type="obsolete">Izberite datoteko za shranjevanje</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="233"/>
         <source>Export Keyboard Shortcuts to File</source>
         <translation>Izvozi tipke za bližnjice v datoteko</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="233"/>
         <source>Enter the name of the shortcut set:</source>
         <translation>Vnesite ime za nabor tipk za bližnjice:</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="551"/>
         <source>Alt</source>
         <translation>Alt</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="551"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="551"/>
         <source>Shift</source>
         <translation>Shift</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="551"/>
         <source>Meta</source>
         <translation>Meta</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="478"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="501"/>
         <source>Meta+</source>
         <translation>Meta+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="482"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="505"/>
         <source>Shift+</source>
         <translation>Shift+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="486"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="509"/>
         <source>Alt+</source>
         <translation>Alt+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="490"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="513"/>
         <source>Ctrl+</source>
         <translation>Ctrl+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="500"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="523"/>
         <source>This key sequence is already in use</source>
         <translation>To zaporedje tipk je že v uporabi</translation>
     </message>
@@ -34774,6 +36150,21 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
         <location filename="../tabkeyboardshortcutswidget.ui" line="248"/>
         <source>Keyboard shortcut sets available to load</source>
         <translation>Nabori tipk za bližnjice, ki so na voljo</translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="154"/>
+        <source>Select a Key set file to read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="162"/>
+        <source>Key Set XML Files (*.xml)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="162"/>
+        <source>Select a Key set file to save to</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -35020,7 +36411,7 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
         <translation>Omogoči &amp;predstavitvene učinke</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1759"/>
+        <location filename="../tabpdfoptions.cpp" line="1758"/>
         <source>Page</source>
         <translation>Stran</translation>
     </message>
@@ -35152,7 +36543,7 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabpdfoptions.cpp" line="532"/>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>&amp;Dodaj učinek na vse strani</translation>
+        <translation type="obsolete">&amp;Dodaj učinek na vse strani</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="535"/>
@@ -35372,7 +36763,7 @@ prenosu izgled in postavitev dokumenta ne spremenita.</translation>
         <translation type="obsolete">Omogoči učinke za predstavitve, kadar uporabljate Acrobat Reader v celozaslonskem načinu.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="899"/>
+        <location filename="../tabpdfoptions.cpp" line="898"/>
         <source>Show page previews of each page listed above.</source>
         <translation>Pokaži predoglede strani vsake zgoraj navedene strani.</translation>
     </message>
@@ -35388,37 +36779,37 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
         <translation type="obsolete">Dolžina učinka. Krajši čas učinek pospeši, daljši upočasni.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="902"/>
+        <location filename="../tabpdfoptions.cpp" line="901"/>
         <source>Type of the display effect.</source>
         <translation>Vrsta učinka ob prikazu.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="903"/>
+        <location filename="../tabpdfoptions.cpp" line="902"/>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
         <translation>Smer učinka gibajočih črt pri učinkih razcepa in zavese.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="904"/>
+        <location filename="../tabpdfoptions.cpp" line="903"/>
         <source>Starting position for the box and split effects.</source>
         <translation>Začetni položaj učinkov škatle in razcepa.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="905"/>
+        <location filename="../tabpdfoptions.cpp" line="904"/>
         <source>Direction of the glitter or wipe effects.</source>
         <translation>Smer učinkov bleščice in pomika.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="906"/>
+        <location filename="../tabpdfoptions.cpp" line="905"/>
         <source>Apply the selected effect to all pages.</source>
         <translation>Dodaj učinek vsem stranem.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="939"/>
+        <location filename="../tabpdfoptions.cpp" line="938"/>
         <source>Export all pages to PDF</source>
         <translation>Izvozi vse strani v PDF</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="940"/>
+        <location filename="../tabpdfoptions.cpp" line="939"/>
         <source>Export a range of pages to PDF</source>
         <translation>Izvozi obseg strani v PDF</translation>
     </message>
@@ -35457,7 +36848,7 @@ Some viewers can use the thumbnails for navigation.</source>
 Nekateri pregledovalniki jih lahko uporabijo za pregledovanje.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="948"/>
+        <location filename="../tabpdfoptions.cpp" line="947"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
         <translation>Ustvari članke PDF, kar je koristno pri pregledovanju povezanih člankov v PDF-ju.</translation>
     </message>
@@ -35508,7 +36899,7 @@ Leaving this unchecked will render them at their native resolution.</source>
 Če tega ne izberete, bodo slike risane pri izvirni resoluciji.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="956"/>
+        <location filename="../tabpdfoptions.cpp" line="955"/>
         <source>DPI (Dots Per Inch) for image export.</source>
         <translation>DPI (pik na palec - Dots Per Inch) pri izvozu slik.</translation>
     </message>
@@ -35530,17 +36921,17 @@ security features in your exported PDF</source>
         <translation type="obsolete">Izberite glavno geslo, ki bo o(ne)mogočilo vse varnostne možnosti v izvoženem PDFju</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="959"/>
+        <location filename="../tabpdfoptions.cpp" line="958"/>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation>Izberite geslo, s katerim bodo uporabniki lahko brali vaš PDF.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="960"/>
+        <location filename="../tabpdfoptions.cpp" line="959"/>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
         <translation>Dovoli tiskanje PDF-ja. Če ne izberete, bo tiskanje onemogočeno. </translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="961"/>
+        <location filename="../tabpdfoptions.cpp" line="960"/>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
         <translation>Dovoli spreminjanje PDF-ja. Če ne izberete, bo spreminjanje onemogočeno.</translation>
     </message>
@@ -35577,42 +36968,42 @@ navodil iz tiskarne. Sicer se vaš PDF morda ne bo pravilno natisnil in ne prav 
 sistemih.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="966"/>
+        <location filename="../tabpdfoptions.cpp" line="965"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Vdelaj barvni profil za polne barve</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="967"/>
+        <location filename="../tabpdfoptions.cpp" line="966"/>
         <source>Color profile for solid colors</source>
         <translation>Polno barvanje</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="968"/>
+        <location filename="../tabpdfoptions.cpp" line="967"/>
         <source>Rendering intent for solid colors</source>
         <translation>Namen upodobitve polnih barv</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="969"/>
+        <location filename="../tabpdfoptions.cpp" line="968"/>
         <source>Embed a color profile for images</source>
         <translation>Vdelaj barvni profil za slike</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="970"/>
+        <location filename="../tabpdfoptions.cpp" line="969"/>
         <source>Do not use color profiles that are embedded in source images</source>
         <translation>Ne uporabi barvnih profilov iz izvirnih slik</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="971"/>
+        <location filename="../tabpdfoptions.cpp" line="970"/>
         <source>Color profile for images</source>
         <translation>Barvni profil za slike</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="972"/>
+        <location filename="../tabpdfoptions.cpp" line="971"/>
         <source>Rendering intent for images</source>
         <translation>Namen upodobitve slik</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="990"/>
+        <location filename="../tabpdfoptions.cpp" line="989"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
         <translation>Izvozni profil za tiskanje. Če je mogoče, izberite profil v povezavi z vašim tiskalnikom.</translation>
     </message>
@@ -35624,32 +37015,32 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
 Predlagamo, da uporabite naslov dokumenta.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="985"/>
+        <location filename="../tabpdfoptions.cpp" line="984"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Odmik od fizičnega vrha strani</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="986"/>
+        <location filename="../tabpdfoptions.cpp" line="985"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation>Odmik od fizičnega dna strani</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="987"/>
+        <location filename="../tabpdfoptions.cpp" line="986"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation>Odmik od fizičnega levega robu strani</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="988"/>
+        <location filename="../tabpdfoptions.cpp" line="987"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Odmik od fizičnega desnega robu strani</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="973"/>
+        <location filename="../tabpdfoptions.cpp" line="972"/>
         <source>Mirror Page(s) horizontally</source>
         <translation>Vodoravno prezrcali stran(i)</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="974"/>
+        <location filename="../tabpdfoptions.cpp" line="973"/>
         <source>Mirror Page(s) vertically</source>
         <translation>Navpično prezrcali stran(i)</translation>
     </message>
@@ -35741,17 +37132,17 @@ Opozorilo: PDF enkripcija ni tako zanesljiva kot GPG ali PGP enkripcija in vsebu
         <translation type="obsolete">Ravni kvaliteta stiskanja: najmanj (25%), malo (50%), srednje (75%), močno (85%), najmočneje (95%). Upoštevajte, da raven kvalitete ne pomeni nujno velikosti končne slike - tako velikost kakor izguba kvaliteta je različna pri vsaki sliki glede na raven stiskanja.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="962"/>
+        <location filename="../tabpdfoptions.cpp" line="961"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
         <translation>Dovoli kopiranje besedila in slik iz PDF-ja. Če ne izberete, besedila in slik ne bo mogoče kopirati.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="963"/>
+        <location filename="../tabpdfoptions.cpp" line="962"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
         <translation>Dovolite dodajanje opomb in drugih polj v PDF. Če ne izberete, bo dodajanje polj onemogočeno.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="976"/>
+        <location filename="../tabpdfoptions.cpp" line="975"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Vključi čiste barve, da se pretvorijo v kompozitne. Če ne nameravate tiskati čistih barv pri tiskarni potem je verjetno najbolje, da to pustite vključeno.</translation>
     </message>
@@ -35771,62 +37162,62 @@ Opozorilo: PDF enkripcija ni tako zanesljiva kot GPG ali PGP enkripcija in vsebu
         <translation type="obsolete">&amp;Prevzorči slike na:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="897"/>
+        <location filename="../tabpdfoptions.cpp" line="896"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
         <translation>Vdelaj pisave v PDF. To bo omogočilo, da se pri prenosu izgled in postavitev dokumenta ne spremenita.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="901"/>
+        <location filename="../tabpdfoptions.cpp" line="900"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation>Dolžina trajanja učinka. Krajši čas učinek pospeši, daljši upočasni.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="943"/>
+        <location filename="../tabpdfoptions.cpp" line="942"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
         <translation>Vnesite z vejicami ločen seznam območij. Območje je lahko * za vse strani, 1-5 za več strani ali samo številka posamične strani.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="946"/>
+        <location filename="../tabpdfoptions.cpp" line="945"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation>Določi vezavo strani PDF. Če niste prepričani, pustite na privzeti vrednosti - levo.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="947"/>
+        <location filename="../tabpdfoptions.cpp" line="946"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
         <translation>Pripravi pomanjšane sličice vsake strani v PDF-ju. Nekateri pregledovalniki jih lahko uporabijo za pregledovanje.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="950"/>
+        <location filename="../tabpdfoptions.cpp" line="949"/>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
         <translation>Vdela povezave iz dokumenta. To je uporabno za pregledovanje dolgih PDF-jev.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="951"/>
+        <location filename="../tabpdfoptions.cpp" line="950"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
         <translation>Ločljivost izvoza za besedilo in vektorsko grafiko. To ne vpliva na ločljivost slik.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="952"/>
+        <location filename="../tabpdfoptions.cpp" line="951"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
         <translation>Vključi stiskanje besedila in slik brez izgub. Če nimate dobrega razloga, pustite to možnost vključeno. S tem zmanjšate velikost datoteke PDF.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="957"/>
+        <location filename="../tabpdfoptions.cpp" line="956"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Omogočite varnostne zmožnosti izvoženega PDF-ja. Če izberete PDF 1.3, bo zaščiten s 40-bitnim šifriranjem. Če izberete PDF 1.4, bo zaščiten s 128-bitnim šifriranjem. Opozorilo: Šifriranje PDF ni tako zanesljivo kot šifriranje GPG ali PGP ter vsebuje nekatere omejitve.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="958"/>
+        <location filename="../tabpdfoptions.cpp" line="957"/>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
         <translation>Izberite glavno geslo, ki bo o(ne)mogočilo vse varnostne možnosti v izvoženem PDF-ju</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="965"/>
+        <location filename="../tabpdfoptions.cpp" line="964"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>To je napredna nastavitev, ki ni privzeta. Vključite jo le, če jo potrebujete zaradi tiskalnika ali navodil iz tiskarne. Sicer se vaš PDF morda ne bo pravilno natisnil in ne pravilno prikazan na drugih sistemih.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="991"/>
+        <location filename="../tabpdfoptions.cpp" line="990"/>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation>Obvezen niz za PDF/X-3, sicer izvoz ne bo v skladu s standardom PDF/X-3. Predlagamo, da uporabite naslov dokumenta.</translation>
     </message>
@@ -35911,7 +37302,7 @@ Opozorilo: PDF enkripcija ni tako zanesljiva kot GPG ali PGP enkripcija in vsebu
         <translation>Posebna dejanja</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1169"/>
+        <location filename="../tabpdfoptions.cpp" line="1168"/>
         <source>No Script</source>
         <translation>Brez skript</translation>
     </message>
@@ -35949,7 +37340,7 @@ ko se odpre dokument PDF:
 </translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="898"/>
+        <location filename="../tabpdfoptions.cpp" line="897"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Omogoči predstavitvene učinke ob uporabi bralnika Adobe&amp;#174; Reader&amp;#174; in ostalih prikazovalnikov PDF, ki to podpirajo v celozaslonskem načinu.</translation>
     </message>
@@ -35960,7 +37351,7 @@ ko se odpre dokument PDF:
 Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če vaš dokument uporablja prosojnosti ali potrebuje 128-bitno šifriranje. PDF/X-3 je namenjen izvozu, kjer potrebujete dokument z upravljanjem barv za komercialni tisk in ga lahko izberete le, če imate vključeno upravljanje barv. Uporabite ga le, če vam tako naroči tiskarna ali v nekaterih primerih tiskanja s štiribarvnimi digitalnimi barvnimi laserskimi tiskalniki.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="949"/>
+        <location filename="../tabpdfoptions.cpp" line="948"/>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
         <translation>Plasti dokumenta se izvozijo v PDF. Možno le ob izbiri PDF 1.5.</translation>
     </message>
@@ -35975,22 +37366,22 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
         <translation type="obsolete">Ponovno vzorčenje rastrskih slik na izbrano ločljivost. Če pustite neizbrano, se bodo slike upodobile pri njihovih izvornih ločljivostih. To lahko poveča porabo pomnilnika in upočasni izvoz.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="964"/>
+        <location filename="../tabpdfoptions.cpp" line="963"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation>Barvni model za izvoz vašega PDF-ja. Izberite Zaslon/splet za PDF-je, ki bodo izpisani na ekranu ali tiskani na običajnih tiskalnikih. Izberite Tiskalnik za tiskanje s tiskalniki CMYK.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="977"/>
+        <location filename="../tabpdfoptions.cpp" line="976"/>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>Ne pokaži predmetov, ki so zunaj obsega robov tiskanja strani</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="900"/>
+        <location filename="../tabpdfoptions.cpp" line="899"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Čas kazanja strani, preden se predstavitev prične na izbrani strani. Nastavitev 0 bo izključila samodejno prehajanje med stranmi.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="953"/>
+        <location filename="../tabpdfoptions.cpp" line="952"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
         <translation>Uporabljena metoda stiskanja za slike. Samodejno omogoča Scribusu, da izbere najboljšo metodo. ZIP je stiskanje brez izgub in primerno za slike z nespremenljivimi barvami. JPEG je primernejše za manjše datoteke PDF, ki imajo veliko slik (z možno manjšo izgubo kakovosti slik). Pustite na Samodejno, v kolikor nimate posebnih želja za stiskanje.</translation>
     </message>
@@ -36130,134 +37521,139 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
         <translation>Pred tiskanjem</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="907"/>
+        <location filename="../tabpdfoptions.cpp" line="906"/>
         <source>Convert all glyphs in the document to outlines.</source>
         <translation>Pretvori vse črke v dokumentu v orise.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="909"/>
+        <location filename="../tabpdfoptions.cpp" line="908"/>
         <source>Show the document in single page mode</source>
         <translation>Pokaži dokument v enostranskem načinu</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="910"/>
+        <location filename="../tabpdfoptions.cpp" line="909"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
         <translation>Pokaži dokument v enostranskem načinu s stranmi, neprekinjeno prikazanimi od konca do konca (kot na zvitku)</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="911"/>
+        <location filename="../tabpdfoptions.cpp" line="910"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
         <translation>Pokaži dokument z nasprotima stranema, prva stran naj bo prikazana na začetku na levi strani</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="912"/>
+        <location filename="../tabpdfoptions.cpp" line="911"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
         <translation>Pokaži dokument z nasprotima stranema, prva stran naj bo prikazana na začetku na desni strani</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="913"/>
+        <location filename="../tabpdfoptions.cpp" line="912"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
         <translation>Uporabi privzete nastavitve ogledovalnika ali uporabnikove nastavitve, če so drugačne od nastavitev ogledovalnika</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="914"/>
+        <location filename="../tabpdfoptions.cpp" line="913"/>
         <source>Enables viewing the document in full screen</source>
         <translation>Omogoči celozaslonski ogled dokumenta</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="915"/>
+        <location filename="../tabpdfoptions.cpp" line="914"/>
         <source>Display the bookmarks upon opening</source>
         <translation>Ob odprtju pokaži zaznamke</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="916"/>
+        <location filename="../tabpdfoptions.cpp" line="915"/>
         <source>Display the page thumbnails upon opening</source>
         <translation>Ob odprtju prikaži sličice strani za predogled</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="917"/>
+        <location filename="../tabpdfoptions.cpp" line="916"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
         <translation>Vsili prikaz plasti. Uporabno le za PDF 1.5+.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="918"/>
+        <location filename="../tabpdfoptions.cpp" line="917"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
         <translation>Skrije orodno vrstico, ki vsebuje Izbor in druge urejevalne funkcije</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="919"/>
+        <location filename="../tabpdfoptions.cpp" line="918"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
         <translation>Skrije menijsko vrstico ogledovalnika, PDF bo prikazan v enostavnem oknu. </translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="920"/>
+        <location filename="../tabpdfoptions.cpp" line="919"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
         <translation>Umeri stran ali strani dokumenta na prostor v oknu ogledovalnika.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="945"/>
+        <location filename="../tabpdfoptions.cpp" line="944"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Določi združljivost PDF.&lt;br/&gt;Privzeta je &lt;b&gt;PDF 1.3&lt;/b&gt;, ki ponuja najširšo združljivost.&lt;br/&gt;Izberite &lt;b&gt;PDF 1.4&lt;/b&gt;, če vaš dokument uporablja prosojnosti ali potrebuje 128-bitno šifriranje.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; je obvezen, če želite ohraniti predmete  v ločenih plasteh znotraj dokumenta PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; je namenjen izvozu, kjer potrebujete dokument z upravljanjem barv za komercialni tisk in ga lahko izberete le, če imate vključeno upravljanje barv. Uporabite ga le, če vam tako naroči tiskarna ali v nekaterih primerih tiskanja s štiribarvnimi digitalnimi barvnimi laserskimi tiskalniki.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="954"/>
+        <location filename="../tabpdfoptions.cpp" line="953"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation>Ravni kakovosti stiskanja za metode stiskanja z izgubami: najmanjše (25%), nizko (50%), srednje (75%), visoko (85%), največje (95%). Upoštevajte, da raven kakovosti ne določa neposredno velikost izhodne slike - tako velikost kot izguba kakovosti sta različna od slike do slike pri vsaki dani ravni kakovosti. Celo pri najmanjši izgubi - največje - pride pri jpeg vedno do določene izgube kakovosti.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="955"/>
+        <location filename="../tabpdfoptions.cpp" line="954"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation>Omeji ločljivost bitnih slik na izbrani DPI. Slike z manjšo ločljivostjo ostanejo nespremenjene. Če ne potrdite izbire, bodo upodobljene v svoji naravni ločljivosti. Če izbiro potrdite, boste povečali uporbo pomnilnika in upočasnili izvoz.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="975"/>
+        <location filename="../tabpdfoptions.cpp" line="974"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation>Omogoči splošni način pretiska za ta dokument in preglasi nastavitve predmeta</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="979"/>
+        <location filename="../tabpdfoptions.cpp" line="978"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation>Ustvari oznake za obrezavo v PDF, ki nakazujejo, kje naj bo papir odrezan ali ostrižen po zaključenem tiskanju</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="980"/>
+        <location filename="../tabpdfoptions.cpp" line="979"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation>S tem ustvarite dodatek za porezavo, ki ga nakazujejo  _ . _ in prikazujejo mejo dodatka</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="981"/>
+        <location filename="../tabpdfoptions.cpp" line="980"/>
         <source>Add registration marks to each separation</source>
         <translation>Vsaki separaciji dodaj registrske oznake</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="982"/>
+        <location filename="../tabpdfoptions.cpp" line="981"/>
         <source>Add color calibration bars</source>
         <translation>Dodaj barvne stolpce za kalibracijo</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="983"/>
+        <location filename="../tabpdfoptions.cpp" line="982"/>
         <source>Add document information which includes the document title and page numbers</source>
         <translation>Dodaj podatke o dokumentu, ki vključujejo naslov dokumenta in številke stran</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="984"/>
+        <location filename="../tabpdfoptions.cpp" line="983"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation>Nakaži odmik razdalje za registrske oznake</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="989"/>
+        <location filename="../tabpdfoptions.cpp" line="988"/>
         <source>Use the existing bleed settings from the document preferences</source>
         <translation>Uporabi nastavitve dodatka za porezavo iz nastavitev dokumenta</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1344"/>
+        <location filename="../tabpdfoptions.cpp" line="1343"/>
         <source>Inside:</source>
         <translation>Navznoter:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1345"/>
+        <location filename="../tabpdfoptions.cpp" line="1344"/>
         <source>Outside:</source>
         <translation>Navzven:</translation>
+    </message>
+    <message>
+        <location filename="../tabpdfoptions.cpp" line="532"/>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -36340,199 +37736,204 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="45"/>
+        <location filename="../tabprinter.ui" line="57"/>
         <source>Options</source>
         <translation>Možnosti</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="57"/>
+        <location filename="../tabprinter.ui" line="81"/>
         <source>Page</source>
         <translation>Stran</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="69"/>
+        <location filename="../tabprinter.ui" line="105"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation>Stran(i) prezrcali vodoravno</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="76"/>
+        <location filename="../tabprinter.ui" line="112"/>
         <source>Mirror Page(s) Vertical</source>
         <translation>Stran(i) prezrcali navpično</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="83"/>
+        <location filename="../tabprinter.ui" line="119"/>
         <source>Set Media Size</source>
         <translation>Nastavi velikost medija</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="90"/>
+        <location filename="../tabprinter.ui" line="126"/>
         <source>Clip to Page Margins</source>
         <translation>Poreži do robov strani</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="100"/>
         <source>Postscript Options</source>
-        <translation>Možnosti za PostScript</translation>
+        <translation type="obsolete">Možnosti za PostScript</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="112"/>
+        <location filename="../tabprinter.ui" line="160"/>
         <source>Print in Grayscale</source>
         <translation>Natisni sivinsko</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="119"/>
+        <location filename="../tabprinter.ui" line="167"/>
         <source>Print in Color if Available</source>
         <translation>Če je mogoče, natisni v barvah</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="130"/>
+        <location filename="../tabprinter.ui" line="178"/>
         <source>Level 1</source>
         <translation>Raven 1</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="135"/>
+        <location filename="../tabprinter.ui" line="183"/>
         <source>Level 2</source>
         <translation>Raven 2</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="140"/>
+        <location filename="../tabprinter.ui" line="188"/>
         <source>Level 3</source>
         <translation>Raven 3</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="151"/>
+        <location filename="../tabprinter.ui" line="199"/>
         <source>General</source>
         <translation>Splošno</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="163"/>
+        <location filename="../tabprinter.ui" line="223"/>
         <source>Print Separations</source>
         <translation>Tiskaj ločeno (separacije)</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="170"/>
+        <location filename="../tabprinter.ui" line="230"/>
         <source>Print Normal</source>
         <translation>Tiskaj navadno</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="183"/>
+        <location filename="../tabprinter.ui" line="243"/>
         <source>Color</source>
         <translation>Barva</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="195"/>
+        <location filename="../tabprinter.ui" line="267"/>
         <source>Apply Under Color Removal</source>
         <translation>Uveljavi odstranjevanje pod barvo</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="202"/>
+        <location filename="../tabprinter.ui" line="274"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Pretvori čiste barve v procesne barve</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="209"/>
+        <location filename="../tabprinter.ui" line="281"/>
         <source>Force Overprint Mode</source>
         <translation>Vsili pretisk</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="216"/>
+        <location filename="../tabprinter.ui" line="288"/>
         <source>Apply ICC Profiles</source>
         <translation>Uporabi profile ICC</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="227"/>
+        <location filename="../tabprinter.ui" line="299"/>
         <source>Marks &amp;&amp; Bleeds</source>
         <translation type="unfinished">Oznake in dodatek za porezavo</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="239"/>
+        <location filename="../tabprinter.ui" line="323"/>
         <source>Bleed Settings</source>
         <translation>Nastavitve dodatka za porezavo</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="254"/>
+        <location filename="../tabprinter.ui" line="350"/>
         <source>Top:</source>
         <translation>Vrh:</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="264"/>
+        <location filename="../tabprinter.ui" line="360"/>
         <source>Bottom:</source>
         <translation>Dno:</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="277"/>
+        <location filename="../tabprinter.ui" line="373"/>
         <source>Left:</source>
         <translation>Levo:</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="290"/>
+        <location filename="../tabprinter.ui" line="386"/>
         <source>Right:</source>
         <translation>Desno:</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="306"/>
+        <location filename="../tabprinter.ui" line="402"/>
         <source>Printer Marks</source>
         <translation>Oznake tiskalnika</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="318"/>
+        <location filename="../tabprinter.ui" line="426"/>
         <source>Add color calibration bars</source>
         <translation>Dodaj barvne stolpce za kalibracijo</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="321"/>
+        <location filename="../tabprinter.ui" line="429"/>
         <source>Color Bars</source>
         <translation>Barvni stolpci</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="331"/>
+        <location filename="../tabprinter.ui" line="439"/>
         <source>Offset:</source>
         <translation>Zamik:</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="341"/>
+        <location filename="../tabprinter.ui" line="449"/>
         <source>Add registration marks which are added to each separation</source>
         <translation>Dodaj registrske oznake, ki so dodane vsaki separaciji posebej</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="344"/>
+        <location filename="../tabprinter.ui" line="452"/>
         <source>Registration Marks</source>
         <translation>Registrske oznake</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="351"/>
+        <location filename="../tabprinter.ui" line="459"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation>S tem ustvarite dodatek za porezavo, ki ga nakazujejo  _ . _ in prikazujejo mejo dodatka</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="354"/>
+        <location filename="../tabprinter.ui" line="462"/>
         <source>Bleed Marks</source>
         <translation>Oznake dodatka za porezavo</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="361"/>
+        <location filename="../tabprinter.ui" line="469"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation>To ustvari oznake za porezavo v dokumentu PDF, te pa nakazujejo, kje naj bo po zaključenem tiskanju odrezan ali prerezan papir</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="364"/>
+        <location filename="../tabprinter.ui" line="472"/>
         <source>Crop Marks</source>
         <translation>Oznake za porezavo</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="378"/>
+        <location filename="../tabprinter.ui" line="486"/>
         <source>Print Destination</source>
         <translation>Cilj tiskanja</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="390"/>
+        <location filename="../tabprinter.ui" line="510"/>
         <source>Alternative Printer Command</source>
         <translation>Nadomesten ukaz za tiskanje</translation>
     </message>
     <message>
-        <location filename="../tabprinter.ui" line="408"/>
+        <location filename="../tabprinter.ui" line="537"/>
         <source>Command:</source>
         <translation>Ukaz:</translation>
+    </message>
+    <message>
+        <location filename="../tabprinter.ui" line="136"/>
+        <source>PostScript Options</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -36611,7 +38012,7 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
         <translation>&amp;Oddaljenost:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="962"/>
+        <location filename="../tabtools.cpp" line="920"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>V kožuščku hudobnega fanta stopiclja mizar</translation>
     </message>
@@ -36688,7 +38089,7 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabtools.cpp" line="374"/>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>&amp;Spremeni merilo slike na velikost okvira</translation>
+        <translation type="obsolete">&amp;Spremeni merilo slike na velikost okvira</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="380"/>
@@ -36723,7 +38124,7 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabtools.cpp" line="524"/>
         <source>Picture Frame Properties</source>
-        <translation>Lastnosti slikovnega okvira</translation>
+        <translation type="obsolete">Lastnosti slikovnega okvira</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="525"/>
@@ -36778,7 +38179,7 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabtools.cpp" line="536"/>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Slikovni okviri omogočajo poljubno spremembo merila slik</translation>
+        <translation type="obsolete">Slikovni okviri omogočajo poljubno spremembo merila slik</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="537"/>
@@ -36798,17 +38199,17 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabtools.cpp" line="540"/>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Slike v slikovnih okvirih naj imajo spremenjeno merilo do velikosti okvira</translation>
+        <translation type="obsolete">Slike v slikovnih okvirih naj imajo spremenjeno merilo do velikosti okvira</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="541"/>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Slike s samodejno spremembo merila ohranijo svoja razmerja</translation>
+        <translation type="obsolete">Slike s samodejno spremembo merila ohranijo svoja razmerja</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="542"/>
         <source>Fill color of picture frames</source>
-        <translation>Barva polnila slikovnih okvirov</translation>
+        <translation type="obsolete">Barva polnila slikovnih okvirov</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="547"/>
@@ -37051,6 +38452,36 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
         <comment>tab fill</comment>
         <translation>Brez</translation>
     </message>
+    <message>
+        <location filename="../tabtools.cpp" line="374"/>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="524"/>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="536"/>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="540"/>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="541"/>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabtools.cpp" line="542"/>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -37220,7 +38651,7 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabruler.cpp" line="490"/>
         <source>Full Stop</source>
-        <translation>Pika</translation>
+        <translation type="obsolete">Pika</translation>
     </message>
     <message>
         <location filename="../tabruler.cpp" line="492"/>
@@ -37333,6 +38764,11 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
         <source>Indentation from the right for the whole paragraph</source>
         <translation>Zamik celotnega odstavka od desnega robu</translation>
     </message>
+    <message>
+        <location filename="../tabruler.cpp" line="490"/>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Tree</name>
@@ -37396,7 +38832,7 @@ Prosim, izberite drugo.</translation>
     <message>
         <location filename="../outlinepalette.cpp" line="1156"/>
         <source>Outline</source>
-        <translation>Oris</translation>
+        <translation type="obsolete">Oris</translation>
     </message>
     <message>
         <location filename="" line="7471221"/>
@@ -37416,7 +38852,7 @@ Prosim, izberite drugo.</translation>
     <message>
         <location filename="../outlinepalette.cpp" line="1157"/>
         <source>Element</source>
-        <translation>Element</translation>
+        <translation type="obsolete">Element</translation>
     </message>
     <message>
         <location filename="" line="7471221"/>
@@ -37426,168 +38862,168 @@ Prosim, izberite drugo.</translation>
     <message>
         <location filename="../outlinepalette.cpp" line="1134"/>
         <source>Group </source>
-        <translation>Združi</translation>
+        <translation type="obsolete">Združi</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="1097"/>
         <source>Free Objects</source>
-        <translation>Prosti predmeti</translation>
+        <translation type="obsolete">Prosti predmeti</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="1042"/>
         <source>Page </source>
-        <translation>Stran</translation>
+        <translation type="obsolete">Stran</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="319"/>
         <source>Picture</source>
-        <translation>Slika</translation>
+        <translation type="obsolete">Slika</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="294"/>
         <source>File: </source>
-        <translation>Datoteka: </translation>
+        <translation type="obsolete">Datoteka: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="298"/>
         <source>Original PPI: </source>
-        <translation>Izvorna PPI:</translation>
+        <translation type="obsolete">Izvorna PPI:</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="302"/>
         <source>Actual PPI: </source>
-        <translation>Dejanska PPI:</translation>
+        <translation type="obsolete">Dejanska PPI:</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="306"/>
         <source>Colorspace: </source>
-        <translation>Barvni prostor:</translation>
+        <translation type="obsolete">Barvni prostor:</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="311"/>
         <source>Unknown</source>
-        <translation>Neznano</translation>
+        <translation type="obsolete">Neznano</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="321"/>
         <source>No Image Loaded</source>
-        <translation>Naložena ni nobena slika</translation>
+        <translation type="obsolete">Naložena ni nobena slika</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="345"/>
         <source>Linked Text</source>
-        <translation>Povezano besedilo</translation>
+        <translation type="obsolete">Povezano besedilo</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="347"/>
         <source>Text Frame</source>
-        <translation>Besedilni okvir</translation>
+        <translation type="obsolete">Besedilni okvir</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="350"/>
         <source>Text on a Path</source>
-        <translation>Besedilo po poti</translation>
+        <translation type="obsolete">Besedilo po poti</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="353"/>
         <source>Paragraphs: </source>
-        <translation>Odstavki: </translation>
+        <translation type="obsolete">Odstavki: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="360"/>
         <source>Lines: </source>
-        <translation>Vrstice: </translation>
+        <translation type="obsolete">Vrstice: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="364"/>
         <source>Words: </source>
-        <translation>Besede: </translation>
+        <translation type="obsolete">Besede: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="371"/>
         <source>Chars: </source>
-        <translation>Znaki: </translation>
+        <translation type="obsolete">Znaki: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="380"/>
         <source>Export: </source>
-        <translation>Izvoz: </translation>
+        <translation type="obsolete">Izvoz: </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="383"/>
         <source>Enabled</source>
-        <translation>Vključeno</translation>
+        <translation type="obsolete">Vključeno</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="385"/>
         <source>Disabled</source>
-        <translation>Izključeno</translation>
+        <translation type="obsolete">Izključeno</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="393"/>
         <source>In&amp;fo</source>
-        <translation>&amp;Podatki</translation>
+        <translation type="obsolete">&amp;Podatki</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="420"/>
         <source>Preview Settings</source>
-        <translation>Nastavitve predogleda</translation>
+        <translation type="obsolete">Nastavitve predogleda</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="461"/>
         <source>&amp;PDF Options</source>
-        <translation>Možnosti &amp;PDF</translation>
+        <translation type="obsolete">Možnosti &amp;PDF</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="485"/>
         <source>Send to La&amp;yer</source>
-        <translation>Pošlji na p&amp;last</translation>
+        <translation type="obsolete">Pošlji na p&amp;last</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="494"/>
         <source>Le&amp;vel</source>
-        <translation>&amp;Raven</translation>
+        <translation type="obsolete">&amp;Raven</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="545"/>
         <source>Conve&amp;rt to</source>
-        <translation>&amp;Pretvori v</translation>
+        <translation type="obsolete">&amp;Pretvori v</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="548"/>
         <source>Rename</source>
-        <translation>Preimenuj</translation>
+        <translation type="obsolete">Preimenuj</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="556"/>
         <source>&amp;Delete</source>
-        <translation>I&amp;zbriši</translation>
+        <translation type="obsolete">I&amp;zbriši</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="578"/>
         <source>Contents</source>
-        <translation>Vsebina</translation>
+        <translation type="obsolete">Vsebina</translation>
     </message>
 </context>
 <context>
     <name>UnderlineValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="62"/>
+        <location filename="../styleselect.cpp" line="64"/>
         <source>Auto</source>
         <translation>Samodejno</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="73"/>
+        <location filename="../styleselect.cpp" line="75"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="72"/>
+        <location filename="../styleselect.cpp" line="74"/>
         <source>Displacement</source>
         <translation>Razpostavitev</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="74"/>
+        <location filename="../styleselect.cpp" line="76"/>
         <source>Linewidth</source>
         <translation>Širina črte</translation>
     </message>
@@ -37595,188 +39031,188 @@ Prosim, izberite drugo.</translation>
 <context>
     <name>UndoManager</name>
     <message>
-        <location filename="../undomanager.cpp" line="680"/>
+        <location filename="../undomanager.cpp" line="780"/>
         <source>Add vertical guide</source>
         <translation>Dodaj navpično vodilo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="681"/>
+        <location filename="../undomanager.cpp" line="781"/>
         <source>Add horizontal guide</source>
         <translation>Dodaj vodoravno vodilo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="682"/>
+        <location filename="../undomanager.cpp" line="782"/>
         <source>Remove vertical guide</source>
         <translation>Odstrani navpično vodilo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="683"/>
+        <location filename="../undomanager.cpp" line="783"/>
         <source>Remove horizontal guide</source>
         <translation>Odstrani vodoravno vodilo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="686"/>
+        <location filename="../undomanager.cpp" line="786"/>
         <source>Move vertical guide</source>
         <translation>Premakni navpično vodilo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="687"/>
+        <location filename="../undomanager.cpp" line="787"/>
         <source>Move horizontal guide</source>
         <translation>Premakni vodoravno vodilo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="688"/>
+        <location filename="../undomanager.cpp" line="788"/>
         <source>Lock guides</source>
         <translation>Zakleni vodila</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="689"/>
+        <location filename="../undomanager.cpp" line="789"/>
         <source>Unlock guides</source>
         <translation>Odkleni vodila</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="690"/>
+        <location filename="../undomanager.cpp" line="790"/>
         <source>Move</source>
         <translation>Premakni</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="691"/>
+        <location filename="../undomanager.cpp" line="791"/>
         <source>Resize</source>
         <translation>Spremeni velikost</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="692"/>
+        <location filename="../undomanager.cpp" line="792"/>
         <source>Rotate</source>
         <translation>Zasukaj</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="693"/>
+        <location filename="../undomanager.cpp" line="793"/>
         <source>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</source>
         <translation>X1: %1, Y1: %2, %3(new line)
 X2: %4, Y2: %5, %6</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="694"/>
+        <location filename="../undomanager.cpp" line="794"/>
         <source>W1: %1, H1: %2
 W2: %3, H2: %4</source>
         <translation>W1: %1, H1: %2(new line)
 W2: %3, H2: %4</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="699"/>
+        <location filename="../undomanager.cpp" line="799"/>
         <source>Selection</source>
         <translation>Izbira</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="700"/>
+        <location filename="../undomanager.cpp" line="800"/>
         <source>Group</source>
         <translation>Združi</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="701"/>
+        <location filename="../undomanager.cpp" line="801"/>
         <source>Selection/Group</source>
         <translation>Izbira/Združi</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="702"/>
+        <location filename="../undomanager.cpp" line="802"/>
         <source>Create</source>
         <translation>Ustvari</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="703"/>
+        <location filename="../undomanager.cpp" line="803"/>
         <source>X: %1, Y: %2
 W: %3, H: %4</source>
         <translation>X: %1, Y: %2(new line)
 W: %3, H: %4</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="704"/>
+        <location filename="../undomanager.cpp" line="804"/>
         <source>Align/Distribute</source>
         <translation>Poravnaj/razporedi</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="705"/>
+        <location filename="../undomanager.cpp" line="805"/>
         <source>Items involved</source>
         <translation>Uporabljeni predmeti</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="706"/>
+        <location filename="../undomanager.cpp" line="806"/>
         <source>Cancel</source>
         <translation>Prekliči</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="707"/>
+        <location filename="../undomanager.cpp" line="807"/>
         <source>Set fill color</source>
         <translation>Nastavi barvo polnila</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="708"/>
+        <location filename="../undomanager.cpp" line="808"/>
         <source>Color1: %1, Color2: %2</source>
         <translation>Barva1: %1, Barva2: %2</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="709"/>
+        <location filename="../undomanager.cpp" line="809"/>
         <source>Set fill color shade</source>
         <translation>Nastavi senco barve polnila</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="710"/>
+        <location filename="../undomanager.cpp" line="810"/>
         <source>Set line color</source>
         <translation>Nastavi barvo črte</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="711"/>
+        <location filename="../undomanager.cpp" line="811"/>
         <source>Set line color shade</source>
         <translation>Nastavi senco barve črte</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="712"/>
+        <location filename="../undomanager.cpp" line="812"/>
         <source>Flip horizontally</source>
         <translation>Prezrcali vodoravno </translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="713"/>
+        <location filename="../undomanager.cpp" line="813"/>
         <source>Flip vertically</source>
         <translation>Prezrcali navpično</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="714"/>
+        <location filename="../undomanager.cpp" line="814"/>
         <source>Lock</source>
         <translation>Zakleni</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="715"/>
+        <location filename="../undomanager.cpp" line="815"/>
         <source>Unlock</source>
         <translation>Odkleni</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="716"/>
+        <location filename="../undomanager.cpp" line="816"/>
         <source>Lock size</source>
         <translation>Zakleni velikost</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="717"/>
+        <location filename="../undomanager.cpp" line="817"/>
         <source>Unlock size</source>
         <translation>Odkleni velikost</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="720"/>
+        <location filename="../undomanager.cpp" line="820"/>
         <source>Ungroup</source>
         <translation>Razdruži</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="721"/>
+        <location filename="../undomanager.cpp" line="821"/>
         <source>Delete</source>
         <translation>Izbriši</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="722"/>
+        <location filename="../undomanager.cpp" line="822"/>
         <source>Rename</source>
         <translation>Preimenuj</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="723"/>
+        <location filename="../undomanager.cpp" line="823"/>
         <source>From %1
 to %2</source>
         <translation>Iz %1
@@ -37788,182 +39224,182 @@ v %2</translation>
         <translation type="obsolete">Uveljavi predlogo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="725"/>
+        <location filename="../undomanager.cpp" line="825"/>
         <source>Paste</source>
         <translation>Prilepi</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="726"/>
+        <location filename="../undomanager.cpp" line="826"/>
         <source>Cut</source>
         <translation>Izreži</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="727"/>
+        <location filename="../undomanager.cpp" line="827"/>
         <source>Set fill color transparency</source>
         <translation>Nastavi prosojnost barve polnila</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="728"/>
+        <location filename="../undomanager.cpp" line="828"/>
         <source>Set line color transparency</source>
         <translation>Nastavi prosojnost barve črte</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="729"/>
+        <location filename="../undomanager.cpp" line="829"/>
         <source>Set line style</source>
         <translation>Nastavi slog črte</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="730"/>
+        <location filename="../undomanager.cpp" line="830"/>
         <source>Set the style of line end</source>
         <translation>Nastavi slog konca črte</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="731"/>
+        <location filename="../undomanager.cpp" line="831"/>
         <source>Set the style of line join</source>
         <translation>Nastavi slog zgloba črte</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="732"/>
+        <location filename="../undomanager.cpp" line="832"/>
         <source>Set line width</source>
         <translation>Nastavi širino črte</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="733"/>
+        <location filename="../undomanager.cpp" line="833"/>
         <source>No style</source>
         <translation>Brez sloga</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="734"/>
+        <location filename="../undomanager.cpp" line="834"/>
         <source>Set custom line style</source>
         <translation>Nastavi slog črte po meri</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="735"/>
+        <location filename="../undomanager.cpp" line="835"/>
         <source>Do not use custom line style</source>
         <translation>Ne uporabi sloga črte po meri</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="736"/>
+        <location filename="../undomanager.cpp" line="836"/>
         <source>Set start arrow</source>
         <translation>Nastavi začetno puščico</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="737"/>
+        <location filename="../undomanager.cpp" line="837"/>
         <source>Set end arrow</source>
         <translation>Nastavi končno puščico</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="739"/>
+        <location filename="../undomanager.cpp" line="839"/>
         <source>Create table</source>
         <translation>Ustvari tabelo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="740"/>
+        <location filename="../undomanager.cpp" line="840"/>
         <source>Rows: %1, Cols: %2</source>
         <translation>Vrstic: %1, stolpcev: %2</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="741"/>
+        <location filename="../undomanager.cpp" line="841"/>
         <source>Set font</source>
         <translation>Nastavi pisavo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="742"/>
+        <location filename="../undomanager.cpp" line="842"/>
         <source>Set font size</source>
         <translation>Nastavi velikost pisave</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="743"/>
+        <location filename="../undomanager.cpp" line="843"/>
         <source>Set font width</source>
         <translation>Nastavi širino pisave</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="745"/>
+        <location filename="../undomanager.cpp" line="845"/>
         <source>Set font fill color</source>
         <translation>Nastavi barvo polnila pisave</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="746"/>
+        <location filename="../undomanager.cpp" line="846"/>
         <source>Set font stroke color</source>
         <translation>Nastavi barvo črte pisave</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="747"/>
+        <location filename="../undomanager.cpp" line="847"/>
         <source>Set font fill color shade</source>
         <translation>Nastavi senco polnila pisave</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="748"/>
+        <location filename="../undomanager.cpp" line="848"/>
         <source>Set font stroke color shade</source>
         <translation>Nastavi senco črte pisave</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="749"/>
+        <location filename="../undomanager.cpp" line="849"/>
         <source>Set kerning</source>
         <translation>Nastavi spodsekavanje</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="750"/>
+        <location filename="../undomanager.cpp" line="850"/>
         <source>Set line spacing</source>
         <translation>Nastavi razmik vrstic</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="751"/>
+        <location filename="../undomanager.cpp" line="851"/>
         <source>Set paragraph style</source>
         <translation>Nastavi slog odstavka</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="752"/>
+        <location filename="../undomanager.cpp" line="852"/>
         <source>Set language</source>
         <translation>Nastavi jezik</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="753"/>
+        <location filename="../undomanager.cpp" line="853"/>
         <source>Align text</source>
         <translation>Poravnaj besedilo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="754"/>
+        <location filename="../undomanager.cpp" line="854"/>
         <source>Set font effect</source>
         <translation>Nastavi učinek besedila</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="755"/>
+        <location filename="../undomanager.cpp" line="855"/>
         <source>Image frame</source>
         <translation>Slikovni okvir</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="756"/>
+        <location filename="../undomanager.cpp" line="856"/>
         <source>Text frame</source>
         <translation>Besedilni okvir</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="758"/>
+        <location filename="../undomanager.cpp" line="858"/>
         <source>Polygon</source>
         <translation>Mnogokotnk</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="759"/>
+        <location filename="../undomanager.cpp" line="859"/>
         <source>Bezier curve</source>
         <translation>Krivulja bezier</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="760"/>
+        <location filename="../undomanager.cpp" line="860"/>
         <source>Polyline</source>
         <translation>Lomljena črta</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="762"/>
+        <location filename="../undomanager.cpp" line="862"/>
         <source>Convert to</source>
         <translation>Pretvori v</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="763"/>
+        <location filename="../undomanager.cpp" line="863"/>
         <source>Import SVG image</source>
         <translation>Uvozi sliko SVG</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="764"/>
+        <location filename="../undomanager.cpp" line="864"/>
         <source>Import EPS image</source>
         <translation>Uvozi sliko EPS</translation>
     </message>
@@ -37973,221 +39409,221 @@ v %2</translation>
         <translation type="obsolete">Uvozi OpenOffice draw sliko</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="766"/>
+        <location filename="../undomanager.cpp" line="868"/>
         <source>Scratch space</source>
         <translation>Prazen prostor</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="768"/>
+        <location filename="../undomanager.cpp" line="870"/>
         <source>Text flows around the frame</source>
         <translation>Besedilo poteka okrog okvira</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="769"/>
+        <location filename="../undomanager.cpp" line="871"/>
         <source>Text flows around bounding box</source>
         <translation>Besedilo poteka okrog obrobnega okvira</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="770"/>
+        <location filename="../undomanager.cpp" line="872"/>
         <source>Text flows around contour line</source>
         <translation>Besedilo poteka okrog obrobe</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="772"/>
+        <location filename="../undomanager.cpp" line="874"/>
         <source>No text flow</source>
         <translation>Brez tekočega besedila</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="774"/>
+        <location filename="../undomanager.cpp" line="876"/>
         <source>No bounding box</source>
         <translation>Brez obrobnega okvira</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="775"/>
+        <location filename="../undomanager.cpp" line="877"/>
         <source>No contour line</source>
         <translation>Brez obrobe</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="776"/>
+        <location filename="../undomanager.cpp" line="878"/>
         <source>Page %1</source>
         <translation>Stran %1</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="777"/>
+        <location filename="../undomanager.cpp" line="879"/>
         <source>Set image scaling</source>
         <translation>Nastavi spremembo merila slike</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="778"/>
+        <location filename="../undomanager.cpp" line="880"/>
         <source>Frame size</source>
         <translation>Velikost okvira</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="779"/>
+        <location filename="../undomanager.cpp" line="881"/>
         <source>Free scaling</source>
         <translation>Prosto spreminjanje merila</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="780"/>
+        <location filename="../undomanager.cpp" line="882"/>
         <source>Keep aspect ratio</source>
         <translation>Obdrži razmerja</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="781"/>
+        <location filename="../undomanager.cpp" line="883"/>
         <source>Break aspect ratio</source>
         <translation>Prelomi razmerja</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="806"/>
+        <location filename="../undomanager.cpp" line="908"/>
         <source>Edit contour line</source>
         <translation>Uredi obrobo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="783"/>
+        <location filename="../undomanager.cpp" line="885"/>
         <source>Edit shape</source>
         <translation>Uredi obliko</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="784"/>
+        <location filename="../undomanager.cpp" line="886"/>
         <source>Reset contour line</source>
         <translation>Ponastavi obrobo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="724"/>
+        <location filename="../undomanager.cpp" line="824"/>
         <source>Apply Master Page</source>
         <translation>Uporabi glavno stran</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="744"/>
+        <location filename="../undomanager.cpp" line="844"/>
         <source>Set font height</source>
         <translation>Nastavi širino pisave</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="765"/>
+        <location filename="../undomanager.cpp" line="865"/>
         <source>Import OpenOffice.org Draw image</source>
         <translation>Uvozi sliko OpenOffice.org Draw</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="785"/>
+        <location filename="../undomanager.cpp" line="887"/>
         <source>Add page</source>
         <translation>Dodaj stran</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="786"/>
+        <location filename="../undomanager.cpp" line="888"/>
         <source>Add pages</source>
         <translation>Dodaj strani</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="787"/>
+        <location filename="../undomanager.cpp" line="889"/>
         <source>Delete page</source>
         <translation>Izbriši stran</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="788"/>
+        <location filename="../undomanager.cpp" line="890"/>
         <source>Delete pages</source>
         <translation>Izbriši strani</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="789"/>
+        <location filename="../undomanager.cpp" line="891"/>
         <source>Add layer</source>
         <translation>Dodaj plast</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="790"/>
+        <location filename="../undomanager.cpp" line="892"/>
         <source>Delete layer</source>
         <translation>Izbriši plast</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="791"/>
+        <location filename="../undomanager.cpp" line="893"/>
         <source>Rename layer</source>
         <translation>Preimenuj plast</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="792"/>
+        <location filename="../undomanager.cpp" line="894"/>
         <source>Raise layer</source>
         <translation>Dvigni plast</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="793"/>
+        <location filename="../undomanager.cpp" line="895"/>
         <source>Lower layer</source>
         <translation>Spusti plast</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="794"/>
+        <location filename="../undomanager.cpp" line="896"/>
         <source>Send to layer</source>
         <translation>Pošlji na plast</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="795"/>
+        <location filename="../undomanager.cpp" line="897"/>
         <source>Enable printing of layer</source>
         <translation>Omogoči tiskanje plasti</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="796"/>
+        <location filename="../undomanager.cpp" line="898"/>
         <source>Disable printing of layer</source>
         <translation>Onemogoči tiskanje plasti</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="797"/>
+        <location filename="../undomanager.cpp" line="899"/>
         <source>Change name of the layer</source>
         <translation>Preimenuj plast</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="798"/>
+        <location filename="../undomanager.cpp" line="900"/>
         <source>Get image</source>
         <translation>Dobi sliko</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="761"/>
+        <location filename="../undomanager.cpp" line="861"/>
         <source>Text on a Path</source>
         <translation>Besedilo po poti</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="718"/>
+        <location filename="../undomanager.cpp" line="818"/>
         <source>Enable Item Printing</source>
         <translation>Omogoči tiskanje predmeta</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="719"/>
+        <location filename="../undomanager.cpp" line="819"/>
         <source>Disable Item Printing</source>
         <translation>Onemogoči tiskanje predmeta</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="800"/>
+        <location filename="../undomanager.cpp" line="902"/>
         <source>Multiple duplicate</source>
         <translation>Večkratno podvojevanje</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="695"/>
+        <location filename="../undomanager.cpp" line="795"/>
         <source>Change Image Offset</source>
         <translation>Spremeni zamik slike</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="696"/>
+        <location filename="../undomanager.cpp" line="796"/>
         <source>Change Image Scale</source>
         <translation>Spremeni merilo slike</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="697"/>
+        <location filename="../undomanager.cpp" line="797"/>
         <source>X1: %1, Y1: %2
 X2: %4, Y2: %5</source>
         <translation>X1: %1, Y1: %2
 X2: %4, Y2: %5</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="698"/>
+        <location filename="../undomanager.cpp" line="798"/>
         <source>X: %1, Y: %2
 X: %4, Y: %5</source>
         <translation>X: %1, Y: %2
 X: %4, Y: %5</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="807"/>
+        <location filename="../undomanager.cpp" line="909"/>
         <source>Reset control point</source>
         <translation>Ponastavi nadzorno točko</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="808"/>
+        <location filename="../undomanager.cpp" line="910"/>
         <source>Reset control points</source>
         <translation>Ponastavi nadzorne točke</translation>
     </message>
@@ -38197,132 +39633,142 @@ X: %4, Y: %5</translation>
         <translation type="obsolete">Spremeni slikovne učinke</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="684"/>
+        <location filename="../undomanager.cpp" line="784"/>
         <source>Remove vertical auto guide</source>
         <translation>Odstrani samodejno navpično vodilo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="685"/>
+        <location filename="../undomanager.cpp" line="785"/>
         <source>Remove horizontal auto guide</source>
         <translation>Odstrani samodejno vodoravno vodilo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="738"/>
+        <location filename="../undomanager.cpp" line="838"/>
         <source>Set start and end arrows</source>
         <translation>Nastavi začetno in končno puščico</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="757"/>
+        <location filename="../undomanager.cpp" line="857"/>
         <source>Latex frame</source>
         <translation>Latexov okvir</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="771"/>
+        <location filename="../undomanager.cpp" line="873"/>
         <source>Text flows around image clipping path</source>
         <translation>Besedilo poteka okrog poti obrezovanja</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="773"/>
+        <location filename="../undomanager.cpp" line="875"/>
         <source>No object frame</source>
         <translation>Ni okvira predmeta</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="799"/>
+        <location filename="../undomanager.cpp" line="901"/>
         <source>Change formula</source>
         <translation>Spremeni formulo</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="801"/>
+        <location filename="../undomanager.cpp" line="903"/>
         <source>Apply text style</source>
         <translation>Uporabi besedilni slog</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="802"/>
+        <location filename="../undomanager.cpp" line="904"/>
         <source>&amp;Undo: %1</source>
         <comment>f.e. Undo: Move</comment>
         <translation>&amp;Razveljavi: %1</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="803"/>
+        <location filename="../undomanager.cpp" line="905"/>
         <source>&amp;Undo</source>
         <translation>&amp;Razveljavi</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="804"/>
+        <location filename="../undomanager.cpp" line="906"/>
         <source>&amp;Redo: %1</source>
         <comment>f.e. Redo: Move</comment>
         <translation>&amp;Ponovi: %1</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="805"/>
+        <location filename="../undomanager.cpp" line="907"/>
         <source>&amp;Redo</source>
         <translation>&amp;Ponovi</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="809"/>
+        <location filename="../undomanager.cpp" line="911"/>
         <source>Apply image effects</source>
         <translation>Uporabi slikovne učinke</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="810"/>
+        <location filename="../undomanager.cpp" line="912"/>
         <source>Insert frame</source>
         <translation>Vstavi okvir</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="811"/>
+        <location filename="../undomanager.cpp" line="913"/>
         <source>Adjust frame to the image size</source>
         <translation>Okvir prilagodi velikosti slike</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="812"/>
+        <location filename="../undomanager.cpp" line="914"/>
         <source>Remove all guides</source>
         <translation>Odstrani vsa vodila</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="813"/>
+        <location filename="../undomanager.cpp" line="915"/>
         <source>Remove page guides</source>
         <translation>Odstrani vodila strani</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="814"/>
+        <location filename="../undomanager.cpp" line="916"/>
         <source>Copy</source>
         <translation>Kopiraj</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="815"/>
+        <location filename="../undomanager.cpp" line="917"/>
         <source>Copy page</source>
         <translation>Kopiraj stran</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="816"/>
+        <location filename="../undomanager.cpp" line="918"/>
         <source>Convert to outlines</source>
         <translation>Pretvori v oris</translation>
+    </message>
+    <message>
+        <location filename="../undomanager.cpp" line="866"/>
+        <source>Import AI drawing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../undomanager.cpp" line="867"/>
+        <source>Import XFig drawing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UndoPalette</name>
     <message>
-        <location filename="../undogui.cpp" line="296"/>
+        <location filename="../undogui.cpp" line="308"/>
         <source>Action History</source>
         <translation>Zgodovina dejanj</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="297"/>
+        <location filename="../undogui.cpp" line="309"/>
         <source>Show selected object only</source>
         <translation>Pokaži samo izbran predmet</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="298"/>
+        <location filename="../undogui.cpp" line="310"/>
         <source>&amp;Undo</source>
         <translation>&amp;Razveljavi</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="299"/>
+        <location filename="../undogui.cpp" line="311"/>
         <source>&amp;Redo</source>
         <translation>P&amp;onovi</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="279"/>
+        <location filename="../undogui.cpp" line="281"/>
         <source>Initial State</source>
         <translation>Začetno stanje</translation>
     </message>
@@ -38330,7 +39776,7 @@ X: %4, Y: %5</translation>
 <context>
     <name>UndoWidget</name>
     <message>
-        <location filename="../undogui.cpp" line="146"/>
+        <location filename="../undogui.cpp" line="147"/>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
@@ -38341,7 +39787,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../unicodesearch.cpp" line="47"/>
         <source>&amp;Search</source>
-        <translation>&amp;Najdi</translation>
+        <translation type="obsolete">&amp;Najdi</translation>
     </message>
 </context>
 <context>
@@ -38360,61 +39806,81 @@ X: %4, Y: %5</translation>
 <context>
     <name>UpgradeChecker</name>
     <message>
-        <location filename="../upgradechecker.cpp" line="85"/>
+        <location filename="../upgradechecker.cpp" line="86"/>
         <source>Attempting to get the Scribus version update file</source>
         <translation>Poizkus pridobivanja posodobitvene datoteke za Scribus</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="86"/>
+        <location filename="../upgradechecker.cpp" line="87"/>
         <source>(No data on your computer will be sent to an external location)</source>
         <translation>(Navzven ne bodo poslani nikakršni podatki z vašega računalnika)</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="106"/>
+        <location filename="../upgradechecker.cpp" line="108"/>
         <source>Timed out when attempting to get update file.</source>
         <translation>Pri pridobivanju posodobitvene datoteke je čas potekel.</translation>
     </message>
     <message>
         <location filename="../upgradechecker.cpp" line="111"/>
         <source>Error when attempting to get update file: %1</source>
-        <translation>Napaka pri pridobivanju datoteke posodobitve: %1</translation>
+        <translation type="obsolete">Napaka pri pridobivanju datoteke posodobitve: %1</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="141"/>
+        <location filename="../upgradechecker.cpp" line="137"/>
         <source>File not found on server</source>
         <translation>Datoteke na strežniku ni mogoče najti</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="143"/>
+        <location filename="../upgradechecker.cpp" line="139"/>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
         <translation>Datoteko različice ni mogoče odpreti: %1
 Napaka: %2 v vrstici: %3, stolpcu: %4</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="218"/>
+        <location filename="../upgradechecker.cpp" line="220"/>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
         <translation>Pri iskanju posodobitev za Scribus je prišlo do napake, prosim, preverite svojo spletno povezavo.</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="222"/>
+        <location filename="../upgradechecker.cpp" line="224"/>
         <source>No updates are available for your version of Scribus %1</source>
         <translation>Za vašo različico Scribusa %1 posodobitve niso na voljo</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="225"/>
+        <location filename="../upgradechecker.cpp" line="227"/>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
         <translation>Na voljo je ena ali več posodobitev za vašo različico Scribusa (%1):</translation>
     </message>
     <message>
         <location filename="../upgradechecker.cpp" line="226"/>
         <source>This list may contain development versions.</source>
-        <translation>Ta seznam lahko vsebuje tudi razvojne različice.</translation>
+        <translation type="obsolete">Ta seznam lahko vsebuje tudi razvojne različice.</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="229"/>
+        <location filename="../upgradechecker.cpp" line="231"/>
         <source>Please visit www.scribus.net for details.</source>
         <translation>Za več podrobnosti obiščite naslov www.scribus.net.</translation>
+    </message>
+    <message>
+        <location filename="../upgradechecker.cpp" line="120"/>
+        <source>Finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../upgradechecker.cpp" line="215"/>
+        <source>Operation canceled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../upgradechecker.cpp" line="228"/>
+        <source>This list may contain development/unstable versions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../upgradechecker.cpp" line="311"/>
+        <source>Error: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -38764,7 +40230,7 @@ svojimi, če ga obkljukate.</translation>
 <context>
     <name>WMFImport</name>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimport.cpp" line="515"/>
+        <location filename="../plugins/wmfimplugin/wmfimport.cpp" line="663"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
@@ -38772,29 +40238,29 @@ svojimi, če ga obkljukate.</translation>
 <context>
     <name>WMFImportPlugin</name>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="82"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="81"/>
         <source>Import &amp;WMF...</source>
         <translation>Uvozi &amp;WMF ...</translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="96"/>
         <source>Imports WMF Files</source>
         <translation>Uvozi datoteke WMF</translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="98"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
         <source>Imports most WMF files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Uvozi večino datotek WMF v trenutni dokument in
 pretvori vektorske podatke v Scribusove predmete.</translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="173"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="172"/>
         <source>The file could not be imported</source>
         <translation>Datoteke ni mogoče uvoziti</translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="175"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="174"/>
         <source>WMF file contains some unsupported features</source>
         <translation>Datoteka WMF vsebuje nepodprte možnosti</translation>
     </message>
@@ -38943,6 +40409,29 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
         <location filename="" line="7471221"/>
         <source>Insert PDF Annotations</source>
         <translation type="obsolete">Vstavi opombe PDF</translation>
+    </message>
+</context>
+<context>
+    <name>XfigPlug</name>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="142"/>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Uvažanje: %1</translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="145"/>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analiziranje datoteke:</translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="298"/>
+        <source>Group%1</source>
+        <translation type="unfinished">Skupina%1</translation>
+    </message>
+    <message>
+        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="1589"/>
+        <source>Generating Items</source>
+        <translation type="unfinished">Tvorba predmetov</translation>
     </message>
 </context>
 <context>
@@ -39165,52 +40654,52 @@ Vrednost 0 pomeni neomejeno deljenje besed.</translation>
         <translation>Nova iz predloge</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="57"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="59"/>
         <source>All</source>
         <translation>Vse</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="128"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="146"/>
         <source>Name</source>
         <translation>Ime</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="130"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="148"/>
         <source>Page Size</source>
         <translation>Velikost strani</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="132"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="150"/>
         <source>Colors</source>
         <translation>Barve</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="134"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="152"/>
         <source>Description</source>
         <translation>Opis</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="136"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="154"/>
         <source>Usage</source>
         <translation>Uporaba</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="138"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="156"/>
         <source>Created with</source>
         <translation>Ustvarjeno z</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="142"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="160"/>
         <source>Author</source>
         <translation>Avtor</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="31"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="32"/>
         <source>&amp;Remove</source>
         <translation>&amp;Odstrani</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="32"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="33"/>
         <source>&amp;Open</source>
         <translation>&amp;Odpri</translation>
     </message>
@@ -39225,78 +40714,78 @@ Vrednost 0 pomeni neomejeno deljenje besed.</translation>
         <translation type="obsolete">Prekli&amp;či</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="163"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="181"/>
         <source>Downloading Templates</source>
         <translation>Prenašanje predlog</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="169"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="187"/>
         <source>Installing Templates</source>
         <translation>Nameščanje predlog</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="175"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="193"/>
         <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
         <translation>Izvleci paket v mapo s predlogami: za trenutnega uporabnika ~/.scribus/templates, za vse uporabnike sistema pa 
 PREDPONA/share/scribus/templates.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="178"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="196"/>
         <source>Preparing a template</source>
         <translation>Pripravljanje predloge</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="183"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="201"/>
         <source>Removing a template</source>
         <translation>Odstranjevanje predloge</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="188"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="206"/>
         <source>Translating template.xml</source>
         <translation>Prevajanje template.xml</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="166"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="184"/>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
         <translation>Predloge dokumentov lahko najdete na http://www.scribus.net/, v rubriki &quot;Downloads&quot;.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="180"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="198"/>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
         <translation>Prepričajte se, da uporabljate prosto dostopne slike in pisave. Če pisave niso za prosto uporabo, jih ne shranjujte v predlogo.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="181"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="199"/>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
         <translation>Kdor ustvarja predlogo, mora poskrbeti, da se gornji razdelek &quot;Nameščanje predlog&quot; nanaša tudi na njegove predloge. Tako bodo uporabniki lahko uporabili paket s predlogo v svojih mapah za predloge.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="185"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="203"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
         <translation>Odstranjevanje predloge preko pogovornega okna &quot;Nova iz predloge&quot; odstrani le vnos v datoteki template.xml, ne pa tudi dejanske datoteke. Meni za brisanje se prikaže le, le imate pravico pisanja v datoteko template.xml.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="190"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="208"/>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Skopiraj obstoječo datoteko template.xml v datoteko z imenom template.jezik_DRŽAVA.xml (uporabite isto jezikovno oznako kot za .qm datoteko vašega jezika), na primer template.sl_SI.xml za slovensko datoteko s predlogami. Kopija mora biti v isti mapi kot izvirna datoteka template.xml.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="140"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="158"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="62"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="74"/>
         <source>&amp;About</source>
         <translation>&amp;O programu</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="86"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="110"/>
         <source>&amp;Image</source>
         <translation>&amp;Slika</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="114"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="150"/>
         <source>&amp;Help</source>
         <translation>&amp;Pomoč</translation>
     </message>

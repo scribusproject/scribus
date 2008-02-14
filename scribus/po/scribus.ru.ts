@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="ru_RU">
-<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -10701,12 +10700,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LegacyMode</name>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4673"/>
+        <location filename="../canvasmode_legacy.cpp" line="4973"/>
         <source>All Files (*)</source>
         <translation>Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4676"/>
+        <location filename="../canvasmode_legacy.cpp" line="4976"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
@@ -12505,37 +12504,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../pageitem.cpp" line="361"/>
+        <location filename="../pageitem.cpp" line="362"/>
         <source>Image</source>
         <translation>Изображение</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="365"/>
+        <location filename="../pageitem.cpp" line="366"/>
         <source>Text</source>
         <translation>Текст</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="369"/>
+        <location filename="../pageitem.cpp" line="370"/>
         <source>Line</source>
         <translation>Линия</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="373"/>
+        <location filename="../pageitem.cpp" line="374"/>
         <source>Polygon</source>
         <translation>Многоугольник</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="377"/>
+        <location filename="../pageitem.cpp" line="378"/>
         <source>Polyline</source>
         <translation>Ломаная линия</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="381"/>
+        <location filename="../pageitem.cpp" line="382"/>
         <source>PathText</source>
         <translation>Контурный текст</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="3458"/>
+        <location filename="../pageitem.cpp" line="3460"/>
         <source>Copy of</source>
         <translation>Копия</translation>
     </message>
@@ -12842,17 +12841,17 @@ p, li { white-space: pre-wrap; }
         <translation>Здесь ваши мастер-страницы. Для создания новой страницы перетащите мастер-страницу вниз на список страниц</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="879"/>
+        <location filename="../pagepalette.cpp" line="881"/>
         <source>Arrange Pages</source>
         <translation>Палитра страниц</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="880"/>
+        <location filename="../pagepalette.cpp" line="882"/>
         <source>Available Master Pages:</source>
         <translation>Доступные мастер-страницы:</translation>
     </message>
     <message>
-        <location filename="../pagepalette.cpp" line="881"/>
+        <location filename="../pagepalette.cpp" line="883"/>
         <source>Document Pages:</source>
         <translation>Страницы документа:</translation>
     </message>
@@ -14268,1019 +14267,1019 @@ a range of pages or a single page number.</source>
 <context>
     <name>PropertiesPalette</name>
     <message>
-        <location filename="../propertiespalette.cpp" line="4486"/>
+        <location filename="../propertiespalette.cpp" line="4490"/>
         <source>Transparency Settings</source>
         <translation>Параметры прозрачности</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4577"/>
+        <location filename="../propertiespalette.cpp" line="4581"/>
         <source>Fixed Linespacing</source>
         <translation>Фиксированный интерлиньяж</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4578"/>
+        <location filename="../propertiespalette.cpp" line="4582"/>
         <source>Automatic Linespacing</source>
         <translation>Автоматический интерлиньяж</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4579"/>
+        <location filename="../propertiespalette.cpp" line="4583"/>
         <source>Align to Baseline Grid</source>
         <translation>Выровнять по базовой линии</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="3346"/>
+        <location filename="../propertiespalette.cpp" line="3350"/>
         <source>&amp;X1:</source>
         <translation>&amp;X1:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="3347"/>
+        <location filename="../propertiespalette.cpp" line="3351"/>
         <source>X&amp;2:</source>
         <translation>X&amp;2:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="3348"/>
+        <location filename="../propertiespalette.cpp" line="3352"/>
         <source>Y&amp;1:</source>
         <translation>Y&amp;1:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="3349"/>
+        <location filename="../propertiespalette.cpp" line="3353"/>
         <source>&amp;Y2:</source>
         <translation>&amp;Y2:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4566"/>
+        <location filename="../propertiespalette.cpp" line="4570"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-Поз:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4475"/>
+        <location filename="../propertiespalette.cpp" line="4479"/>
         <source>&amp;Width:</source>
         <translation>&amp;Ширина:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4567"/>
+        <location filename="../propertiespalette.cpp" line="4571"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Поз:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4476"/>
+        <location filename="../propertiespalette.cpp" line="4480"/>
         <source>&amp;Height:</source>
         <translation>&amp;Высота:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="2479"/>
+        <location filename="../propertiespalette.cpp" line="2483"/>
         <source>Auto</source>
         <translation>Авто</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4845"/>
+        <location filename="../propertiespalette.cpp" line="4849"/>
         <source>Distance between columns</source>
         <translation>Расстояние между столбцами</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="3097"/>
+        <location filename="../propertiespalette.cpp" line="3101"/>
         <source>Column width</source>
         <translation>Ширина столбцов</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4677"/>
+        <location filename="../propertiespalette.cpp" line="4681"/>
         <source>No Style</source>
         <translation>Без стиля</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4337"/>
+        <location filename="../propertiespalette.cpp" line="4341"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Имя &quot;%1&quot; уже использовано.&lt;br/&gt;Выберите другое.</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4461"/>
+        <location filename="../propertiespalette.cpp" line="4465"/>
         <source>Properties</source>
         <translation>Свойства</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4463"/>
+        <location filename="../propertiespalette.cpp" line="4467"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4464"/>
+        <location filename="../propertiespalette.cpp" line="4468"/>
         <source>&amp;Text</source>
         <translation>&amp;Текст</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4465"/>
+        <location filename="../propertiespalette.cpp" line="4469"/>
         <source>&amp;Image</source>
         <translation>&amp;Изображение</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4466"/>
+        <location filename="../propertiespalette.cpp" line="4470"/>
         <source>&amp;Shape</source>
         <translation>&amp;Фигура</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4467"/>
+        <location filename="../propertiespalette.cpp" line="4471"/>
         <source>&amp;Line</source>
         <translation>&amp;Линия</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4468"/>
+        <location filename="../propertiespalette.cpp" line="4472"/>
         <source>&amp;Colors</source>
         <translation>&amp;Цвета</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4469"/>
+        <location filename="../propertiespalette.cpp" line="4473"/>
         <source>&amp;Group</source>
         <translation>&amp;Группа объектов</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4471"/>
+        <location filename="../propertiespalette.cpp" line="4475"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4472"/>
+        <location filename="../propertiespalette.cpp" line="4476"/>
         <source>Geometry</source>
         <translation>Геометрия</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4477"/>
+        <location filename="../propertiespalette.cpp" line="4481"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Поворот:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4478"/>
+        <location filename="../propertiespalette.cpp" line="4482"/>
         <source>Basepoint:</source>
         <translation>Опорная точка:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4479"/>
+        <location filename="../propertiespalette.cpp" line="4483"/>
         <source>Level</source>
         <translation>Уровень</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4485"/>
+        <location filename="../propertiespalette.cpp" line="4489"/>
         <source>Shape:</source>
         <translation>Фигура:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4487"/>
+        <location filename="../propertiespalette.cpp" line="4491"/>
         <source>Opacity:</source>
         <translation>Непрозр.:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4488"/>
+        <location filename="../propertiespalette.cpp" line="4492"/>
         <source>Blend Mode:</source>
         <translation>Режим:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4490"/>
+        <location filename="../propertiespalette.cpp" line="4494"/>
         <source>Normal</source>
         <translation>Обычный</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4491"/>
+        <location filename="../propertiespalette.cpp" line="4495"/>
         <source>Darken</source>
         <translation>Затемнение</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4492"/>
+        <location filename="../propertiespalette.cpp" line="4496"/>
         <source>Lighten</source>
         <translation>Осветление</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4493"/>
+        <location filename="../propertiespalette.cpp" line="4497"/>
         <source>Multiply</source>
         <translation>Умножение</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4494"/>
+        <location filename="../propertiespalette.cpp" line="4498"/>
         <source>Screen</source>
         <translation>Экран</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4495"/>
+        <location filename="../propertiespalette.cpp" line="4499"/>
         <source>Overlay</source>
         <translation>Перекрытие</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4496"/>
+        <location filename="../propertiespalette.cpp" line="4500"/>
         <source>Hard Light</source>
         <translation>Направленный свет</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4497"/>
+        <location filename="../propertiespalette.cpp" line="4501"/>
         <source>Soft Light</source>
         <translation>Рассеянный свет</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4498"/>
+        <location filename="../propertiespalette.cpp" line="4502"/>
         <source>Difference</source>
         <translation>Разница</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4499"/>
+        <location filename="../propertiespalette.cpp" line="4503"/>
         <source>Exclusion</source>
         <translation>Вычитание</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4500"/>
+        <location filename="../propertiespalette.cpp" line="4504"/>
         <source>Color Dodge</source>
         <translation>Затемнение штрихов</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4501"/>
+        <location filename="../propertiespalette.cpp" line="4505"/>
         <source>Color Burn</source>
         <translation>Осветление штрихов</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4502"/>
+        <location filename="../propertiespalette.cpp" line="4506"/>
         <source>Hue</source>
         <translation>Тон</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4584"/>
+        <location filename="../propertiespalette.cpp" line="4588"/>
         <source>Saturation</source>
         <translation>Насыщенность</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4504"/>
+        <location filename="../propertiespalette.cpp" line="4508"/>
         <source>Color</source>
         <translation>Цвет</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4505"/>
+        <location filename="../propertiespalette.cpp" line="4509"/>
         <source>R&amp;ound
 Corners:</source>
         <translation>За&amp;круглённые
 углы:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4506"/>
+        <location filename="../propertiespalette.cpp" line="4510"/>
         <source>Distance of Text</source>
         <translation>Расстояние до текста</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4507"/>
+        <location filename="../propertiespalette.cpp" line="4511"/>
         <source>Colu&amp;mns:</source>
         <translation>С&amp;толбцов:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4510"/>
+        <location filename="../propertiespalette.cpp" line="4514"/>
         <source>Gap:</source>
         <translation>Интервал:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4511"/>
+        <location filename="../propertiespalette.cpp" line="4515"/>
         <source>Width:</source>
         <translation>Ширина:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4514"/>
+        <location filename="../propertiespalette.cpp" line="4518"/>
         <source>To&amp;p:</source>
         <translation>С&amp;верху:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4515"/>
+        <location filename="../propertiespalette.cpp" line="4519"/>
         <source>&amp;Bottom:</source>
         <translation>Сн&amp;изу:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4516"/>
+        <location filename="../propertiespalette.cpp" line="4520"/>
         <source>&amp;Left:</source>
         <translation>С&amp;лева:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4517"/>
+        <location filename="../propertiespalette.cpp" line="4521"/>
         <source>&amp;Right:</source>
         <translation>С&amp;права:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4518"/>
+        <location filename="../propertiespalette.cpp" line="4522"/>
         <source>T&amp;abulators...</source>
         <translation>Т&amp;абуляторы...</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4519"/>
+        <location filename="../propertiespalette.cpp" line="4523"/>
         <source>Path Text Properties</source>
         <translation>Свойства текста на контуре</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4521"/>
+        <location filename="../propertiespalette.cpp" line="4525"/>
         <source>Default</source>
         <translation>По умолчанию</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4522"/>
+        <location filename="../propertiespalette.cpp" line="4526"/>
         <source>Stair Step</source>
         <translation>Лесенка</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4523"/>
+        <location filename="../propertiespalette.cpp" line="4527"/>
         <source>Skew</source>
         <translation>Скос</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4524"/>
+        <location filename="../propertiespalette.cpp" line="4528"/>
         <source>Flip Text</source>
         <translation>Перевернуть текст</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4525"/>
+        <location filename="../propertiespalette.cpp" line="4529"/>
         <source>Show Curve</source>
         <translation>Показать кривую</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4526"/>
+        <location filename="../propertiespalette.cpp" line="4530"/>
         <source>Type:</source>
         <translation>Тип:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4527"/>
+        <location filename="../propertiespalette.cpp" line="4531"/>
         <source>Start Offset:</source>
         <translation>Смещение от начала кривой:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4528"/>
+        <location filename="../propertiespalette.cpp" line="4532"/>
         <source>Distance from Curve:</source>
         <translation>Расстояние от кривой:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4529"/>
+        <location filename="../propertiespalette.cpp" line="4533"/>
         <source>Fill Rule</source>
         <translation>Правило заполнения</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4530"/>
+        <location filename="../propertiespalette.cpp" line="4534"/>
         <source>Even-Odd</source>
         <translation>Чёт-нечет</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4531"/>
+        <location filename="../propertiespalette.cpp" line="4535"/>
         <source>Non Zero</source>
         <translation>Не ноль</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4538"/>
+        <location filename="../propertiespalette.cpp" line="4542"/>
         <source>Text &amp;Flow Around Frame</source>
         <translation>Обтекание &amp;текстом вокруг блока</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4539"/>
+        <location filename="../propertiespalette.cpp" line="4543"/>
         <source>Disabled</source>
         <translation>Выключено</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4540"/>
+        <location filename="../propertiespalette.cpp" line="4544"/>
         <source>Use Frame &amp;Shape</source>
         <translation>По о&amp;чертаниям блока</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4541"/>
+        <location filename="../propertiespalette.cpp" line="4545"/>
         <source>Use &amp;Bounding Box</source>
         <translation>По &amp;площадке (BB)</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4542"/>
+        <location filename="../propertiespalette.cpp" line="4546"/>
         <source>&amp;Use Contour Line</source>
         <translation>По &amp;контурной линии</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4543"/>
+        <location filename="../propertiespalette.cpp" line="4547"/>
         <source>Use Image Clip Path</source>
         <translation>По обтравочному контуру</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4544"/>
+        <location filename="../propertiespalette.cpp" line="4548"/>
         <source>Paragraph St&amp;yle:</source>
         <translation>&amp;Абзацный стиль:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4545"/>
+        <location filename="../propertiespalette.cpp" line="4549"/>
         <source>Character St&amp;yle:</source>
         <translation>Си&amp;мвольный стиль:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4546"/>
+        <location filename="../propertiespalette.cpp" line="4550"/>
         <source>Optical Margins:</source>
         <translation>Оптические поля:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4557"/>
+        <location filename="../propertiespalette.cpp" line="4561"/>
         <source>Word Tracking</source>
         <translation>Трекинг</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4561"/>
+        <location filename="../propertiespalette.cpp" line="4565"/>
         <source>Min:</source>
         <translation>Мин.:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4559"/>
+        <location filename="../propertiespalette.cpp" line="4563"/>
         <source>Norm:</source>
         <translation>Обычн.:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4560"/>
+        <location filename="../propertiespalette.cpp" line="4564"/>
         <source>Glyph Extension</source>
         <translation>Расширение знаков</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4562"/>
+        <location filename="../propertiespalette.cpp" line="4566"/>
         <source>Max:</source>
         <translation>Макс.:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4563"/>
+        <location filename="../propertiespalette.cpp" line="4567"/>
         <source>&amp;Free Scaling</source>
         <translation>&amp;Свободное масштабирование</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4564"/>
+        <location filename="../propertiespalette.cpp" line="4568"/>
         <source>Actual X-DPI:</source>
         <translation>Текущий X-DPI: </translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4565"/>
+        <location filename="../propertiespalette.cpp" line="4569"/>
         <source>Actual Y-DPI:</source>
         <translation>Текущий Y-DPI: </translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4568"/>
+        <location filename="../propertiespalette.cpp" line="4572"/>
         <source>X-Sc&amp;ale:</source>
         <translation>X-М&amp;асшт.:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4569"/>
+        <location filename="../propertiespalette.cpp" line="4573"/>
         <source>Y-Scal&amp;e:</source>
         <translation>Y-Мас&amp;шт.:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4570"/>
+        <location filename="../propertiespalette.cpp" line="4574"/>
         <source>Scale &amp;To Frame Size</source>
         <translation>&amp;Масштабировать до размера блока</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4571"/>
+        <location filename="../propertiespalette.cpp" line="4575"/>
         <source>P&amp;roportional</source>
         <translation>Пропорц&amp;ионально</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4572"/>
+        <location filename="../propertiespalette.cpp" line="4576"/>
         <source>Image Effects</source>
         <translation>Эффекты изображения</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4573"/>
+        <location filename="../propertiespalette.cpp" line="4577"/>
         <source>Extended Image Properties</source>
         <translation>Расширенные свойства изображения</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4574"/>
+        <location filename="../propertiespalette.cpp" line="4578"/>
         <source>Input Profile:</source>
         <translation>Входной профиль:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4575"/>
+        <location filename="../propertiespalette.cpp" line="4579"/>
         <source>Rendering Intent:</source>
         <translation>Тип цветопередачи:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4582"/>
+        <location filename="../propertiespalette.cpp" line="4586"/>
         <source>Perceptual</source>
         <translation>Воспринимаемая</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4583"/>
+        <location filename="../propertiespalette.cpp" line="4587"/>
         <source>Relative Colorimetric</source>
         <translation>Относительная колориметрическая</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4585"/>
+        <location filename="../propertiespalette.cpp" line="4589"/>
         <source>Absolute Colorimetric</source>
         <translation>Абсолютная колориметрическая</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4594"/>
+        <location filename="../propertiespalette.cpp" line="4598"/>
         <source>Left Point</source>
         <translation>Левая точка</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4595"/>
+        <location filename="../propertiespalette.cpp" line="4599"/>
         <source>End Points</source>
         <translation>Конечные точки</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4597"/>
+        <location filename="../propertiespalette.cpp" line="4601"/>
         <source>&amp;Basepoint:</source>
         <translation>&amp;Базовая точка:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4598"/>
+        <location filename="../propertiespalette.cpp" line="4602"/>
         <source>T&amp;ype of Line:</source>
         <translation>&amp;Тип линии:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4599"/>
+        <location filename="../propertiespalette.cpp" line="4603"/>
         <source>Start Arrow:</source>
         <translation>Начальная стрелка:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4600"/>
+        <location filename="../propertiespalette.cpp" line="4604"/>
         <source>End Arrow:</source>
         <translation>Конечная стрелка:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4610"/>
+        <location filename="../propertiespalette.cpp" line="4614"/>
         <source>Line &amp;Width:</source>
         <translation>То&amp;лщина линии:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4611"/>
+        <location filename="../propertiespalette.cpp" line="4615"/>
         <source>Ed&amp;ges:</source>
         <translation>&amp;Края:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4614"/>
+        <location filename="../propertiespalette.cpp" line="4618"/>
         <source>Miter Join</source>
         <translation>Фацетное соединение</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4615"/>
+        <location filename="../propertiespalette.cpp" line="4619"/>
         <source>Bevel Join</source>
         <translation>Фасочное соединение</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4616"/>
+        <location filename="../propertiespalette.cpp" line="4620"/>
         <source>Round Join</source>
         <translation>Скруглённое соединение</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4621"/>
+        <location filename="../propertiespalette.cpp" line="4625"/>
         <source>Flat Cap</source>
         <translation>Плоская шляпка</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4622"/>
+        <location filename="../propertiespalette.cpp" line="4626"/>
         <source>Square Cap</source>
         <translation>Квадратная шляпка</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4623"/>
+        <location filename="../propertiespalette.cpp" line="4627"/>
         <source>Round Cap</source>
         <translation>Округлая шляпка</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4625"/>
+        <location filename="../propertiespalette.cpp" line="4629"/>
         <source>&amp;Endings:</source>
         <translation>&amp;Окончания:</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4627"/>
+        <location filename="../propertiespalette.cpp" line="4631"/>
         <source>Cell Lines</source>
         <translation>Линии ячейки</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4628"/>
+        <location filename="../propertiespalette.cpp" line="4632"/>
         <source>Line at Top</source>
         <translation>Линия вверху</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4629"/>
+        <location filename="../propertiespalette.cpp" line="4633"/>
         <source>Line at the Left</source>
         <translation>Линия слева</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4630"/>
+        <location filename="../propertiespalette.cpp" line="4634"/>
         <source>Line at the Right </source>
         <translation>Линия справа</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4631"/>
+        <location filename="../propertiespalette.cpp" line="4635"/>
         <source>Line at Bottom</source>
         <translation>Линия внизу</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4633"/>
+        <location filename="../propertiespalette.cpp" line="4637"/>
         <source>Overprinting</source>
         <translation>Надпечатка</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4634"/>
+        <location filename="../propertiespalette.cpp" line="4638"/>
         <source>Knockout</source>
         <translation>Выворотка</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4635"/>
+        <location filename="../propertiespalette.cpp" line="4639"/>
         <source>Overprint</source>
         <translation>Надпечатка</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4637"/>
+        <location filename="../propertiespalette.cpp" line="4641"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4651"/>
+        <location filename="../propertiespalette.cpp" line="4655"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4772"/>
+        <location filename="../propertiespalette.cpp" line="4776"/>
         <source>Name of selected object</source>
         <translation>Имя выбранного объекта</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4773"/>
+        <location filename="../propertiespalette.cpp" line="4777"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Горизонтальное положение опорной точки</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4774"/>
+        <location filename="../propertiespalette.cpp" line="4778"/>
         <source>Vertical position of current basepoint</source>
         <translation>Вертикальное положение опорной точки</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4775"/>
+        <location filename="../propertiespalette.cpp" line="4779"/>
         <source>Width</source>
         <translation>Ширина</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4776"/>
+        <location filename="../propertiespalette.cpp" line="4780"/>
         <source>Height</source>
         <translation>Высота</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4777"/>
+        <location filename="../propertiespalette.cpp" line="4781"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Вращение объекта относительно опорной точки</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4778"/>
+        <location filename="../propertiespalette.cpp" line="4782"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>Точка, относительно которой вычисляются углы поворота</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4779"/>
+        <location filename="../propertiespalette.cpp" line="4783"/>
         <source>Select top left for basepoint</source>
         <translation>Выберите верхний левый угол в качестве опорной точки</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4780"/>
+        <location filename="../propertiespalette.cpp" line="4784"/>
         <source>Select top right for basepoint</source>
         <translation>Выберите верхний правый угол в качестве опорной точки</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4781"/>
+        <location filename="../propertiespalette.cpp" line="4785"/>
         <source>Select bottom left for basepoint</source>
         <translation>Выберите нижний левый угол в качестве опорной точки</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4782"/>
+        <location filename="../propertiespalette.cpp" line="4786"/>
         <source>Select bottom right for basepoint</source>
         <translation>Выберите нижний правый угол в качестве опорной точки</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4783"/>
+        <location filename="../propertiespalette.cpp" line="4787"/>
         <source>Select center for basepoint</source>
         <translation>Выберите центр в качестве опорной точки</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4784"/>
+        <location filename="../propertiespalette.cpp" line="4788"/>
         <source>Group the selected objects</source>
         <translation>Сгруппировать выделенные объекты</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4785"/>
+        <location filename="../propertiespalette.cpp" line="4789"/>
         <source>Destroys the selected group</source>
         <translation>Разбивает выделенную группу</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4786"/>
+        <location filename="../propertiespalette.cpp" line="4790"/>
         <source>Flip Horizontal</source>
         <translation>Перевернуть по горизонтали</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4787"/>
+        <location filename="../propertiespalette.cpp" line="4791"/>
         <source>Flip Vertical</source>
         <translation>Перевернуть по вертикали</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4788"/>
+        <location filename="../propertiespalette.cpp" line="4792"/>
         <source>Move one level up</source>
         <translation>На уровень выше</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4789"/>
+        <location filename="../propertiespalette.cpp" line="4793"/>
         <source>Move one level down</source>
         <translation>На уровень ниже</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4790"/>
+        <location filename="../propertiespalette.cpp" line="4794"/>
         <source>Move to front</source>
         <translation>На самый высокий уровень</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4791"/>
+        <location filename="../propertiespalette.cpp" line="4795"/>
         <source>Move to back</source>
         <translation>На самый низкий уровень</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4792"/>
+        <location filename="../propertiespalette.cpp" line="4796"/>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Уровень объекта  относительно других. Ноль означает, что объект находится в самом низу</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4793"/>
+        <location filename="../propertiespalette.cpp" line="4797"/>
         <source>Lock or unlock the object</source>
         <translation>Заблокировать или разблокировать объект</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4794"/>
+        <location filename="../propertiespalette.cpp" line="4798"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Заблокировать или разблокировать размер объекта</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4795"/>
+        <location filename="../propertiespalette.cpp" line="4799"/>
         <source>Enable or disable exporting of the object</source>
         <translation>Разрешить или запретить экспорт объекта</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4802"/>
+        <location filename="../propertiespalette.cpp" line="4806"/>
         <source>Disable text flow from lower frames around object</source>
         <translation>Отключить обтекание текстом объектов уровнем выше</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4803"/>
+        <location filename="../propertiespalette.cpp" line="4807"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation>Использовать очертания объекта для обтекания текстом под объектом.</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4804"/>
+        <location filename="../propertiespalette.cpp" line="4808"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation>Использовать площадку, которая всегда прямоугольна. </translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4805"/>
+        <location filename="../propertiespalette.cpp" line="4809"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4806"/>
+        <location filename="../propertiespalette.cpp" line="4810"/>
         <source>Use the clipping path of the image</source>
         <translation>Использовать встроенный в изображение обтравочный контур</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4808"/>
+        <location filename="../propertiespalette.cpp" line="4812"/>
         <source>Font of selected text or object</source>
         <translation>Шрифт выделенного текста или объекта</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4809"/>
+        <location filename="../propertiespalette.cpp" line="4813"/>
         <source>Font Size</source>
         <translation>Кегль шрифта</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4810"/>
+        <location filename="../propertiespalette.cpp" line="4814"/>
         <source>Offset to baseline of characters</source>
         <translation>Смещение символов с базовой линии</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4811"/>
+        <location filename="../propertiespalette.cpp" line="4815"/>
         <source>Scaling width of characters</source>
         <translation>Изменяемая ширина символов</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4812"/>
+        <location filename="../propertiespalette.cpp" line="4816"/>
         <source>Scaling height of characters</source>
         <translation>Изменяемая высота символов</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4813"/>
+        <location filename="../propertiespalette.cpp" line="4817"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
         <translation>Цвет обводки текста и/или отбрасываемой тени, смотря что выбрано. Если выбраны оба, то их цвет будет одинаковым.</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4814"/>
+        <location filename="../propertiespalette.cpp" line="4818"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation>Цвет текста. Если включённ эффект «Контур», то это будет цвет заливки. Если включён эффект отбрасываемой тени, то это будет цвет текста.</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4815"/>
+        <location filename="../propertiespalette.cpp" line="4819"/>
         <source>Saturation of color of text stroke</source>
         <translation>Насыщенность цвета обводки текста</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4816"/>
+        <location filename="../propertiespalette.cpp" line="4820"/>
         <source>Saturation of color of text fill</source>
         <translation>Насыщенность цвета заливки текста</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4817"/>
+        <location filename="../propertiespalette.cpp" line="4821"/>
         <source>Right to Left Writing</source>
         <translation>Написание справа налево</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4818"/>
+        <location filename="../propertiespalette.cpp" line="4822"/>
         <source>Manual Tracking</source>
         <translation>Ручной трекинг</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4819"/>
+        <location filename="../propertiespalette.cpp" line="4823"/>
         <source>Line Spacing</source>
         <translation>Интерлиньяж</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4820"/>
+        <location filename="../propertiespalette.cpp" line="4824"/>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Щёлкните и держите нажатой для выбора межстрочного режима.</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4821"/>
+        <location filename="../propertiespalette.cpp" line="4825"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation>Стиль выделенного абзаца или текстового блока</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4822"/>
+        <location filename="../propertiespalette.cpp" line="4826"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation>Символьный стиль выбранного текста или текстового блока</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4823"/>
+        <location filename="../propertiespalette.cpp" line="4827"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation>Удалить прямое абзацное форматирование</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4824"/>
+        <location filename="../propertiespalette.cpp" line="4828"/>
         <source>Remove Direct Character Formatting</source>
         <translation>Удалить прямое символьное форматирование</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4827"/>
+        <location filename="../propertiespalette.cpp" line="4831"/>
         <source>Minimal width of spaces between words</source>
         <translation>Минимальный пробел между словами</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4828"/>
+        <location filename="../propertiespalette.cpp" line="4832"/>
         <source>Normal width of spaces between words</source>
         <translation>Обычный пробел между словами</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4829"/>
+        <location filename="../propertiespalette.cpp" line="4833"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation>Минимальное сжатие знаков для выключки</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4830"/>
+        <location filename="../propertiespalette.cpp" line="4834"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation>Максимальное сжатие знаков для выключки</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4831"/>
+        <location filename="../propertiespalette.cpp" line="4835"/>
         <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
         <translation>Использование висячей пунктуации и кернинга полей для получения более ровных столбцов</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4833"/>
+        <location filename="../propertiespalette.cpp" line="4837"/>
         <source>Change settings for left or end points</source>
         <translation>Изменить параметры левой или конечной точек</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4834"/>
+        <location filename="../propertiespalette.cpp" line="4838"/>
         <source>Pattern of line</source>
         <translation>Шаблон линии</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4835"/>
+        <location filename="../propertiespalette.cpp" line="4839"/>
         <source>Thickness of line</source>
         <translation>Толщина линии</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4836"/>
+        <location filename="../propertiespalette.cpp" line="4840"/>
         <source>Type of line joins</source>
         <translation>Тип соединения линий</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4837"/>
+        <location filename="../propertiespalette.cpp" line="4841"/>
         <source>Type of line end</source>
         <translation>Тип окончания линий</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4838"/>
+        <location filename="../propertiespalette.cpp" line="4842"/>
         <source>Line style of current object</source>
         <translation>Стиль линии текущего объекта</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4840"/>
+        <location filename="../propertiespalette.cpp" line="4844"/>
         <source>Choose the shape of frame...</source>
         <translation>Выбрать очертание блока...</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4841"/>
+        <location filename="../propertiespalette.cpp" line="4845"/>
         <source>Edit shape of the frame...</source>
         <translation>Изменить очертание блока...</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4842"/>
+        <location filename="../propertiespalette.cpp" line="4846"/>
         <source>Set radius of corner rounding</source>
         <translation>Указать радиус скругления углов</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4843"/>
+        <location filename="../propertiespalette.cpp" line="4847"/>
         <source>Number of columns in text frame</source>
         <translation>Количество столбцов в текстовом блоке</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4844"/>
+        <location filename="../propertiespalette.cpp" line="4848"/>
         <source>Switches between Gap or Column width</source>
         <translation>Переключиться между интервалом и шириной столбцов</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4846"/>
+        <location filename="../propertiespalette.cpp" line="4850"/>
         <source>Distance of text from top of frame</source>
         <translation>Расстояние между текстом и верхом блока</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4847"/>
+        <location filename="../propertiespalette.cpp" line="4851"/>
         <source>Distance of text from bottom of frame</source>
         <translation>Расстояние между текстом и низом блока</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4848"/>
+        <location filename="../propertiespalette.cpp" line="4852"/>
         <source>Distance of text from left of frame</source>
         <translation>Расстояние между текстом и левой стороной блока</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4849"/>
+        <location filename="../propertiespalette.cpp" line="4853"/>
         <source>Distance of text from right of frame</source>
         <translation>Расстояние между текстом и правой стороной блока</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4850"/>
+        <location filename="../propertiespalette.cpp" line="4854"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Изменить табуляторы текстового блока...</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4852"/>
+        <location filename="../propertiespalette.cpp" line="4856"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>Разрешить изображению иметь отличный от блока размер</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4853"/>
+        <location filename="../propertiespalette.cpp" line="4857"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Горизонтальное смещение изображения относительно блока</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4854"/>
+        <location filename="../propertiespalette.cpp" line="4858"/>
         <source>Vertical offset of image within frame</source>
         <translation>Вертикальное смещение изображения относительно блока</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4855"/>
+        <location filename="../propertiespalette.cpp" line="4859"/>
         <source>Resize the image horizontally</source>
         <translation>Изменить размер изображения по горизонтали</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4856"/>
+        <location filename="../propertiespalette.cpp" line="4860"/>
         <source>Resize the image vertically</source>
         <translation>Изменить размер изображения по вертикали</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4857"/>
+        <location filename="../propertiespalette.cpp" line="4861"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>Сохранить пропорции при масштабировании</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4858"/>
+        <location filename="../propertiespalette.cpp" line="4862"/>
         <source>Keep the aspect ratio</source>
         <translation>Сохранять соотношение сторон</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4859"/>
+        <location filename="../propertiespalette.cpp" line="4863"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>Уместить изображение в блоке</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4860"/>
+        <location filename="../propertiespalette.cpp" line="4864"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>Использовать пропорции изображения вместо пропорций блока</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4861"/>
+        <location filename="../propertiespalette.cpp" line="4865"/>
         <source>Source profile of the image</source>
         <translation>Исходный профиль для изображения</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4862"/>
+        <location filename="../propertiespalette.cpp" line="4866"/>
         <source>Rendering intent for the image</source>
         <translation>Тип цветопередачи изображения</translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4590"/>
+        <location filename="../propertiespalette.cpp" line="4594"/>
         <source>Custom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../propertiespalette.cpp" line="4484"/>
+        <location filename="../propertiespalette.cpp" line="4488"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Изменить...</translation>
     </message>
@@ -16053,22 +16052,22 @@ Check path and filename.</source>
         <translation>Свои шаблоны</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="548"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="552"/>
         <source>&amp;Scribus Scripts</source>
         <translation>&amp;Сценарии Scribus</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="543"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="547"/>
         <source>&amp;Execute Script...</source>
         <translation>&amp;Выполнить сценарий...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="553"/>
         <source>&amp;Recent Scripts</source>
         <translation>&amp;Недавние сценарии</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="544"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="548"/>
         <source>Show &amp;Console</source>
         <translation>Показать &amp;консоль</translation>
     </message>
@@ -16292,12 +16291,12 @@ External Links
         <translation>Сербский</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="545"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
         <source>&amp;About Script...</source>
         <translation>О сц&amp;енарии...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="516"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="520"/>
         <source>About Script</source>
         <translation>О сценарии</translation>
     </message>
@@ -16899,7 +16898,7 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="547"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="551"/>
         <source>&amp;Script</source>
         <translation>С&amp;ценарии</translation>
     </message>
@@ -17597,7 +17596,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../pagesize.cpp" line="202"/>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Среднее</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="202"/>
@@ -17817,7 +17816,7 @@ Therefore the image may be not correct</source>
         <location filename="../units.cpp" line="161"/>
         <source>&#xb0;</source>
         <comment>degrees, unicode 0xB0</comment>
-        <translation>°</translation>
+        <translation type="obsolete">°</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="82"/>
@@ -18055,7 +18054,13 @@ Therefore the image may be not correct</source>
     </message>
     <message encoding="UTF-8">
         <location filename="../langmgr.cpp" line="91"/>
-        <source>Norwegian (Bokm�l)</source>
+        <source>Norwegian (Bokm�l)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../units.cpp" line="161"/>
+        <source>~</source>
+        <comment>degrees, unicode 0xB0</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20164,17 +20169,17 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Текущий PPI: </translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="4661"/>
+        <location filename="../pageitem.cpp" line="4663"/>
         <source>Print: </source>
         <translation>Печать: </translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="4663"/>
+        <location filename="../pageitem.cpp" line="4665"/>
         <source>Enabled</source>
         <translation>Включено</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="4665"/>
+        <location filename="../pageitem.cpp" line="4667"/>
         <source>Disabled</source>
         <translation>Выключено</translation>
     </message>
@@ -20204,7 +20209,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>&amp;Преобразовать в</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1999"/>
+        <location filename="../canvasmode_legacy.cpp" line="2001"/>
         <source>Linking Text Frames</source>
         <translation>Связанные текстовые блоки</translation>
     </message>
@@ -20276,17 +20281,17 @@ You can choose between normal and several color blindness forms</source>
         <translation>Изображение не загружено</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="2548"/>
+        <location filename="../canvasmode_legacy.cpp" line="2854"/>
         <source>Enter Object Size</source>
         <translation>Введите размер объекта</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1993"/>
+        <location filename="../canvasmode_legacy.cpp" line="1995"/>
         <source>You are trying to link a frame to itself.</source>
         <translation>Вы пытаетесь связать блок с ним же.</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="2000"/>
+        <location filename="../canvasmode_legacy.cpp" line="2002"/>
         <source>You are trying to link a frame which is already linked.</source>
         <translation>Вы пытаетесь связать блок с блоком, который уже связан с другим.</translation>
     </message>
@@ -20325,54 +20330,54 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>ScripterCore</name>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="570"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="574"/>
         <source>Script error</source>
         <translation>Ошибка сценария</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="351"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="353"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation>Если вы пытались выполнить сценарий из стандартной поставки Scribus, 
 сообщите об ошибке на &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;, пожалуйста.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="353"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="355"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>Это сообщение скопировано в буфер обмена.
 Нажмите Ctrl+V, чтобы вставить его в жалобную книгу.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="493"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="497"/>
         <source>Examine Script</source>
         <translation>Исследовать сценарий</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="420"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="424"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>Произошла внутренняя ошибка при выполнении заданной команды. Подробности переданы на stderr. </translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="572"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="576"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Установка модуля Python провалилась. Подробности об ошибке переданы на stderr. </translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="506"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="510"/>
         <source>Documentation for:</source>
         <translation>Документация для:</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="515"/>
         <source>Script</source>
         <translation>Сценарий</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="515"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation> не содержит ни единой строчки документации!</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="493"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="497"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation>Сценарии на Python (*.py *.PY);;Все файлы (*)</translation>
     </message>
@@ -20466,7 +20471,7 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>SearchReplace</name>
     <message>
-        <location filename="../search.cpp" line="638"/>
+        <location filename="../search.cpp" line="600"/>
         <source>Search/Replace</source>
         <translation>Поиск и замена</translation>
     </message>
@@ -20591,7 +20596,7 @@ You can choose between normal and several color blindness forms</source>
         <translation>О&amp;чистить</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="639"/>
+        <location filename="../search.cpp" line="601"/>
         <source>Search finished, found %1 matches</source>
         <translation>Поиск завершён, найденных совпадений: %1</translation>
     </message>
@@ -25843,7 +25848,7 @@ converting their vector data into Scribus objects.</source>
         <translation>Группа%1</translation>
     </message>
     <message>
-        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="1328"/>
+        <location filename="../plugins/xfigimplugin/importxfig.cpp" line="1589"/>
         <source>Generating Items</source>
         <translation>Создание объектов</translation>
     </message>
