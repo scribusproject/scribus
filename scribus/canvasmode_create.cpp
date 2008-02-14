@@ -28,7 +28,6 @@
 #include <QRect>
 #include <QWidgetAction>
 
-
 #include "canvas.h"
 #include "canvasgesture_resize.h"
 #include "canvasgesture_linemove.h"
@@ -141,10 +140,10 @@ void CreateMode::activate(bool fromGesture)
 				ySize = sizes->getDouble("defAngle", 0.0);
 				originPoint = sizes->getInt("OriginL", 0);
 			}
-//			if (m->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier))
-//				doCreate = true;
-//			else
-//			{
+			if (QApplication::keyboardModifiers() & Qt::ControlModifier)
+				doCreate = true;
+			else
+			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				OneClick *dia = new OneClick(m_view, ScribusView::tr("Enter Object Size"), m_doc->unitIndex(), xSize, ySize, doRemember, originPoint, lmode);
 				if (dia->exec())
@@ -183,7 +182,7 @@ void CreateMode::activate(bool fromGesture)
 					m_doc->Items->removeAt(currItem->ItemNr);
 				}
 				delete dia;
-//			}
+			}
 			if (doCreate)
 			{
 				bool oldSnap = m_doc->SnapGuides;
@@ -723,14 +722,15 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	
+
 	PageItem *currItem;
 	m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
 	m_view->stopDragTimer();
 	m_view->redrawMarker->hide();
-
+	
+/* This code seems to be called never, commented it out therefore
 	if (GetItem(&currItem))
 	{
 		if ((m_doc->appMode == modeDrawRegularPolygon) && (inItemCreation))
@@ -797,7 +797,6 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 						m_doc->SizeItem(currItem->width() - tp2.x(), currItem->height() - tp2.y(), currItem->ItemNr, false, false, false);
 					FPoint tp(getMaxClipF(&currItem->PoLine));
 					m_doc->SizeItem(tp.x(), tp.y(), currItem->ItemNr, false, false, false);
-					//						currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 					m_doc->AdjustItemSize(currItem);
 					currItem->ContourLine = currItem->PoLine.copy();
 					switch (originPoint)
@@ -826,9 +825,9 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 					currItem->update();
 				}
 			}
-			else // not OneClick
+			else
 			{
-				FPoint np1(mousePointDoc); //m_view->translateToDoc(m->x(), m->y()));
+				FPoint np1(mousePointDoc);
 				np1 = m_doc->ApplyGridF(np1);
 				double w = np1.x() - currItem->xPos();
 				double h = np1.y()- currItem->yPos();
@@ -860,20 +859,19 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 				}
 				FPoint tp(getMaxClipF(&currItem->PoLine));
 				m_doc->SizeItem(tp.x(), tp.y(), currItem->ItemNr, false, false, false);
-				//			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 				m_doc->AdjustItemSize(currItem);
 				currItem->ContourLine = currItem->PoLine.copy();
 				m_doc->setRedrawBounding(currItem);
 				currItem->OwnPage = m_doc->OnPage(currItem);
 				currItem->OldB2 = currItem->width();
 				currItem->OldH2 = currItem->height();
-				//FIXME			m_canvas->m_viewMode.operItemResizing = false;
 				m_canvas->setRenderModeUseBuffer(false);
 				m_view->updateCanvas();
 			}
-		} // if (modeDrawRegPoly)
-	} // ! GetItem()
-	else
+		}
+	}
+	else */
+	if (!GetItem(&currItem))
 	{
 		if (m_doc->appMode == modeDrawTable)
 		{
@@ -1003,7 +1001,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 	}
 	else
 	{
-				m_view->updateCanvas();
+		m_view->updateCanvas();
 		int appMode = m_doc->appMode;
 		m_view->requestMode(appMode);
 	}
