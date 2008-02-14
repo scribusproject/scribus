@@ -513,119 +513,81 @@ void SearchReplace::slotDoSearch()
 	{
 		if (Doc->scMW()->CurrStED != NULL)
 		{
-		//	int p, i;
-		//	Doc->scMW()->CurrStED->Editor->getCursorPosition(&p, &i);
-/* Related to the FIXME below
-			uint inde = 0;
-			int as = i;
-			uint fpa = p;
-			int fch = i;*/
 			found = false;
-			if (Doc->scMW()->CurrStED->Editor->StyledText.length() != 0)
+			SEditor* storyTextEdit = Doc->scMW()->CurrStED->Editor;
+			if (storyTextEdit->StyledText.length() != 0)
 			{
-#if 0
-				// FIXME
-				for (uint pa = p; pa < Doc->scMW()->CurrStED->Editor->StyledText.nrOfParagraphs(); ++pa)
+				if (SText->isChecked())
 				{
-					SEditor::ChList *chars;
-					chars = Doc->scMW()->CurrStED->Editor->StyledText.at(pa);
-					if (SText->isChecked())
+					QTextDocument::FindFlags flags;
+					if (!CaseIgnore->isChecked())
+						flags |= QTextDocument::FindCaseSensitively;
+					if (Word->isChecked())
+						flags |= QTextDocument::FindWholeWords;
+					do
 					{
-						if (Word->isChecked())
+						found = storyTextEdit->find(sText, flags);
+						if (!found) break;
+						QTextCursor cursor = storyTextEdit->textCursor();
+						int selStart = cursor.selectionStart();
+						for (int ap = 0; ap < sText.length(); ++ap)
 						{
-							QRegExp rx( "(\\b"+sText+"\\b)" );
-							if (CaseIgnore->isChecked())
-								as = rx.search( Doc->scMW()->CurrStED->Editor->text(pa).toLower(), i );
-							else
-								as = rx.search( Doc->scMW()->CurrStED->Editor->text(pa), i );
-						}
-						else
-						{
-							if (CaseIgnore->isChecked())
-								as = Doc->scMW()->CurrStED->Editor->text(pa).toLower().find(sText, i);
-							else
-								as = Doc->scMW()->CurrStED->Editor->text(pa).find(sText, i);
-						}
-						if (as != -1)
-						{
-							fch = as;
-							fpa = pa;
-							found = true;
-							inde = 0;
-							for (uint ap = 0; ap < sText.length(); ++ap)
-							{
-								struct PtiSmall *hg;
-								hg = chars->at(as+ap);
-								if ((SSize->isChecked()) && (hg->charStyle.fontSize() != sSize))
-									found = false;
-								if ((SFont->isChecked()) && (hg->charStyle.font().scName() != sFont))
-									found = false;
-//								if ((SStyle->isChecked()) && (hg->cab != sStyle))
-//									found = false;
-								if ((SStroke->isChecked()) && (hg->charStyle.strokeColor() != sCol))
-									found = false;
-								if ((SStrokeS->isChecked()) && (hg->charStyle.strokeShade() != sStrokeSh))
-									found = false;
-								if ((SFillS->isChecked()) && (hg->charStyle.fillShade() != sFillSh))
-									found = false;
-								if ((SEffect->isChecked()) && ((hg->charStyle.effects() & 1919) != sEff))
-									found = false;
-								if ((SFill->isChecked()) && (hg->charStyle.fillColor() != fCol))
-									found = false;
-								inde++;
-							}
-							i = as + inde;
-							if (found)
-								break;
-						}
-						else
-						{
-							i = 0;
-							inde = 0;
-						}
-					}
-					else
-					{
-						for (uint e = i; e < chars->count(); ++e)
-						{
-							found = true;
-							inde = 1;
-							struct PtiSmall *hg;
-							hg = chars->at(e);
-							if ((SSize->isChecked()) && (hg->charStyle.fontSize() != sSize))
+							const CharStyle& charStyle = storyTextEdit->StyledText.charStyle(selStart + ap);
+							if (SSize->isChecked() && (charStyle.fontSize() != sSize))
 								found = false;
-							if ((SFont->isChecked()) && (hg->charStyle.font().scName() != sFont))
+							if (SFont->isChecked() && (charStyle.font().scName() != sFont))
 								found = false;
-//							if ((SStyle->isChecked()) && (hg->cab != sStyle))
+//							if (SStyle->isChecked() && (hg->cab != sStyle))
 //								found = false;
-							if ((SStroke->isChecked()) && (hg->charStyle.strokeColor() != sCol))
+							if (SFill->isChecked() && (charStyle.fillColor() != fCol))
 								found = false;
-							if ((SStrokeS->isChecked()) && (hg->charStyle.strokeShade() != sStrokeSh))
+							if (SStroke->isChecked() && (charStyle.strokeColor() != sCol))
 								found = false;
-							if ((SFillS->isChecked()) && (hg->charStyle.fillShade() != sFillSh))
+							if (SStrokeS->isChecked() && (charStyle.strokeShade() != sStrokeSh))
 								found = false;
-							if ((SEffect->isChecked()) && ((hg->charStyle.effects() & 1919) != sEff))
+							if (SFillS->isChecked() && (charStyle.fillShade() != sFillSh))
 								found = false;
-							if ((SFill->isChecked()) && (hg->charStyle.fillColor() != fCol))
+							if (SEffect->isChecked() && ((charStyle.effects() & 1919) != sEff))
 								found = false;
-							if (found)
-							{
-								fch = e;
-								fpa = pa;
-								break;
-							}
 						}
+					} while(!found);
+				}
+				else
+				{
+					QTextCursor cursor = storyTextEdit->textCursor();
+					int position = cursor.position();
+					StoryText& styledText = storyTextEdit->StyledText;
+					for (int i = position; i < styledText.length(); ++i)
+					{
+						found = true;
+						const CharStyle& charStyle = styledText.charStyle(i);
+						if (SSize->isChecked() && (charStyle.fontSize() != sSize))
+							found = false;
+						if (SFont->isChecked() && (charStyle.font().scName() != sFont))
+							found = false;
+//						if (SStyle->isChecked() && (hg->cab != sStyle))
+//							found = false;
+						if (SFill->isChecked() && (charStyle.fillColor() != fCol))
+							found = false;
+						if (SFillS->isChecked() && (charStyle.fillShade() != sFillSh))
+							found = false;
+						if (SStroke->isChecked() && (charStyle.strokeColor() != sCol))
+							found = false;
+						if (SStrokeS->isChecked() && (charStyle.strokeShade() != sStrokeSh))
+							found = false;
+						if (SEffect->isChecked() && ((charStyle.effects() & 1919) != sEff))
+							found = false;
 						if (found)
+						{
+							cursor.setPosition(i + 1, QTextCursor::KeepAnchor);
+							storyTextEdit->setTextCursor(cursor);
 							break;
-						else
-							i = 0;
+						}
 					}
 				}
 				if (found)
 				{
-					Doc->scMW()->CurrStED->Editor->setSelection(fpa, fch, fpa, fch+inde);
-					Doc->scMW()->CurrStED->updateProps(fpa, fch);
-					Doc->scMW()->CurrStED->Editor->setCursorPosition(fpa, fch+inde);
+					// Doc->scMW()->CurrStED->updateProps(); FIXME
 					if (rep)
 					{
 						DoReplace->setEnabled(true);
@@ -640,10 +602,11 @@ void SearchReplace::slotDoSearch()
 							CommonStrings::tr_OK);
 					matchesFound = 0;
 					NotFound = false;
-					Doc->scMW()->CurrStED->Editor->removeSelection();
-					Doc->scMW()->CurrStED->Editor->setCursorPosition(0, 0);
+					QTextCursor cursor = storyTextEdit->textCursor();
+					cursor.clearSelection();
+					cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor);
+					storyTextEdit->setTextCursor(cursor);
 				}
-#endif
 			}
 		}
 	}
@@ -684,57 +647,7 @@ void SearchReplace::slotDoReplace()
 					for (cs = 0; cs < sear.length(); ++cs)
 						Item->itemText.replaceChar(ReplStart+cs, repl[cs]);
 					for (cx = cs; cx < repl.length(); ++cx)
-					{
-#if 0
-						hg = new ScText;
-						hg->ch = repl[cx];
-						if (RSize->isChecked())
-							hg->setFontSize(qRound(RSizeVal->value() * 10.0));
-						else
-							hg->setFontSize(Doc->currentStyle.charStyle().fontSize());
-						if (RFill->isChecked())
-							hg->setFillColor(RFillVal->currentText());
-						else
-							hg->setFillColor(Doc->currentStyle.charStyle().fillColor());
-						hg->setFillShade(Doc->currentStyle.charStyle().fillShade());
-						if (RStroke->isChecked())
-							hg->setStrokeColor(RStrokeVal->currentText());
-						else
-							hg->setStrokeColor(Doc->currentStyle.charStyle().strokeColor());
-						hg->setStrokeShade(Doc->currentStyle.charStyle().strokeShade());
-						hg->setScaleH(Doc->currentStyle.charStyle().scaleH());
-						hg->setScaleV(Doc->currentStyle.charStyle().scaleV());
-						hg->setBaselineOffset(Doc->currentStyle.charStyle().baselineOffset());
-						hg->setShadowXOffset(Doc->currentStyle.charStyle().shadowXOffset());
-						hg->setShadowYOffset(Doc->currentStyle.charStyle().shadowYOffset());
-						hg->setOutlineWidth(Doc->currentStyle.charStyle().outlineWidth());
-						hg->setUnderlineOffset(Doc->currentStyle.charStyle().underlineOffset());
-						hg->setUnderlineWidth(Doc->currentStyle.charStyle().underlineWidth());
-						hg->setStrikethruOffset(Doc->currentStyle.charStyle().strikethruOffset());
-						hg->setStrikethruWidth(Doc->currentStyle.charStyle().strikethruWidth());
-						hg->setFeatures(Doc->currentStyle.charStyle().features());
-/* FIXME NLS
-							if (RStyle->isChecked())
-							hg->cab = RStyleVal->currentItem();
-						else
-							hg->cab = findParagraphStyle(Doc, Doc->currentStyle);
-						if (!Doc->docParagraphStyles[hg->cab].charStyle().font()->isNone())
-						{
-							hg->setFont((*Doc->AllFonts)[Doc->docParagraphStyles[hg->cab].charStyle().font()->scName()]);
-							hg->setFontSize(Doc->docParagraphStyles[hg->cab].charStyle().fontSize());
-							hg->setFeatures(Doc->docParagraphStyles[hg->cab].charStyle().features());
-						}
-*/
-						if (RFont->isChecked())
-							hg->setFont((*Doc->AllFonts)[RFontVal->currentText()]);
-						else
-							hg->setFont((*Doc->AllFonts)[Doc->currentStyle.charStyle().font()->scName()]);
-						hg->setTracking(0);
-						Item->itemText.insert(ReplStart+cx, hg);
-#else
 						Item->itemText.insertChars(ReplStart+cx, repl.mid(cx,1), true); 
-#endif
-					}
 					// FIXME:NLS also replace styles!!
 					Item->CPos = ReplStart+cx;
 				}
@@ -820,7 +733,7 @@ void SearchReplace::slotDoReplace()
 	}
 	DoReplace->setEnabled(false);
 	AllReplace->setEnabled(false);
-		slotDoSearch();
+	slotDoSearch();
 }
 
 void SearchReplace::slotReplaceAll()
