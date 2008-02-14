@@ -449,10 +449,10 @@ void SearchReplace::slotDoSearch()
 					found = false;
 			}
 			if (SEffect->isChecked())
-				{
+			{
 				if ((Item->itemText.at(a)->cstyle & 1919) != sEff)
 					found = false;
-				}
+			}
 			if (SFill->isChecked())
 			{
 				if (Item->itemText.at(a)->ccolor != fCol)
@@ -537,22 +537,19 @@ void SearchReplace::slotDoSearch()
 					chars = ScMW->CurrStED->Editor->StyledText.at(pa);
 					if (SText->isChecked())
 					{
+						QString para = ScMW->CurrStED->Editor->text(pa);
+						if (CaseIgnore->isChecked())
+							para = para.lower();
 						if (Word->isChecked())
 						{
 							QRegExp rx( "(\\b"+sText+"\\b)" );
-							if (CaseIgnore->isChecked())
-								as = rx.search( ScMW->CurrStED->Editor->text(pa).lower(), i );
-							else
-								as = rx.search( ScMW->CurrStED->Editor->text(pa), i );
+							as = rx.search( para, i );
 						}
 						else
-						{
-							if (CaseIgnore->isChecked())
-								as = ScMW->CurrStED->Editor->text(pa).lower().find(sText, i);
-							else
-								as = ScMW->CurrStED->Editor->text(pa).find(sText, i);
-						}
-						if (as != -1)
+							as = para.find(sText, i);
+						// #6688 : it's necessary to control chars->count() as QTextExit::text(int)
+						// may return paragraph text with an appended space
+						if (as != -1 && (as < (int) chars->count()))
 						{
 							fch = as;
 							fpa = pa;
@@ -767,21 +764,21 @@ void SearchReplace::slotDoReplace()
 		if (RSize->isChecked())
 			Doc->chFSize(qRound(RSizeVal->value() * 10.0));
 		if (REffect->isChecked())
-			{
+		{
 			int s = REffVal->getStyle();
 			Doc->CurrentStyle = s;
 			if (Item->itemText.count() != 0)
-				{
+			{
 				for (uint a = 0; a < Item->itemText.count(); ++a)
-					{
+				{
 					if (Item->itemText.at(a)->cselect)
-						{
+					{
 						Item->itemText.at(a)->cstyle &= ~1919;
 						Item->itemText.at(a)->cstyle |= s;
-						}
 					}
 				}
 			}
+		}
 		for (uint a = 0; a < Item->itemText.count(); ++a)
 			Item->itemText.at(a)->cselect = false;
 	}
@@ -809,12 +806,16 @@ void SearchReplace::slotDoReplace()
 			{
 				disconnect(ScMW->CurrStED->Editor, SIGNAL(cursorPositionChanged(int, int)), ScMW->CurrStED, SLOT(updateProps(int, int)));
 				int PStart, PEnd, SelStart, SelEnd;
+				// #6688 : QTextExit::getSelection() may return sometime a truly empty selection,
+				// so check that PStart != PEnd || SelStart != SelEnd
 				ScMW->CurrStED->Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-				ScMW->CurrStED->Editor->insChars(RTextVal->text());
-				ScMW->CurrStED->Editor->setSelection(PStart, SelStart, PEnd, SelEnd);
-				ScMW->CurrStED->Editor->removeSelectedText();
-				ScMW->CurrStED->Editor->setStyle(ScMW->CurrStED->Editor->CurrentStyle);
-				ScMW->CurrStED->Editor->insert(RTextVal->text());
+				if ((PStart != PEnd) || (SelStart != SelEnd))
+				{
+					ScMW->CurrStED->Editor->removeSelectedText();
+					ScMW->CurrStED->Editor->setStyle(ScMW->CurrStED->Editor->CurrentStyle);
+					ScMW->CurrStED->Editor->insChars(RTextVal->text(), PStart, SelStart, true); 
+					ScMW->CurrStED->Editor->insert(RTextVal->text(), PStart, SelStart, false);
+				}
 				connect(ScMW->CurrStED->Editor, SIGNAL(cursorPositionChanged(int, int)), ScMW->CurrStED, SLOT(updateProps(int, int)));
 				ScMW->CurrStED->newAlign(ScMW->CurrStED->Editor->currentParaStyle);
 			}
@@ -822,7 +823,7 @@ void SearchReplace::slotDoReplace()
 	}
 	DoReplace->setEnabled(false);
 	AllReplace->setEnabled(false);
-		slotDoSearch();
+	slotDoSearch();
 }
 
 void SearchReplace::slotReplaceAll()
