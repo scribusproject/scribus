@@ -2541,7 +2541,6 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		currItem = m_doc->m_Selection->itemAt(0);
 		m_doc->nodeEdit.finishTransaction(currItem);
 	}
-}
 
 #if 0
 // 	const double mouseX = m->globalX();
@@ -4231,8 +4230,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		//delete oldClip;
 		//oldClip = 0;
 	}
-}
 #endif
+}
 
 
 void LegacyMode::selectPage(QMouseEvent *m)
