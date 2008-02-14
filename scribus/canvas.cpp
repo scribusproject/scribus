@@ -60,6 +60,7 @@ void CanvasViewMode::init()
 Canvas::Canvas(ScribusDoc* doc, ScribusView* parent) : QWidget(parent), m_doc(doc), m_view(parent)
 {
 	setAutoFillBackground(true);
+	setAttribute(Qt::WA_OpaquePaintEvent, true);
 	m_buffer = QPixmap();
 	m_bufferRect = QRect();
 	m_viewMode.init();
