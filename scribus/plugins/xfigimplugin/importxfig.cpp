@@ -1083,7 +1083,12 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
 		if ((ite->itemType() == PageItem::PolyLine) && ((forward_arrow == 1) || (backward_arrow == 1)))
-			processArrows(forward_arrow, fArrowData, backward_arrow, bArrowData, depth, ite);
+		{
+			if (direction == 1)
+				processArrows(forward_arrow, fArrowData, backward_arrow, bArrowData, depth, ite);
+			else
+				processArrows(backward_arrow, bArrowData, forward_arrow, fArrowData, depth, ite);
+		}
 	}
 }
 
@@ -1138,6 +1143,10 @@ void XfigPlug::processEllipse(QString data)
 		if (line_style > 0)
 			ite->setDashes(getDashValues(LineW, line_style));
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
+		int rot = m_Doc->RotMode;
+		m_Doc->RotMode = 2;
+		m_Doc->RotateItem(-angle * 180.0 / M_PI, ite);
+		m_Doc->RotMode = rot;
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
 	}
@@ -1223,139 +1232,241 @@ void XfigPlug::processText(QString data)
 	FPointArray textPath;
 	QPainterPath painterPath;
 	QString TFont = m_Doc->toolSettings.defFont;
-	switch (font)
+	QFont::Weight weight = QFont::Normal;
+	bool isItalic = false;
+	if (font_flags & 4)
 	{
-		case 0:
-			TFont = "Times Roman";
-			break;
-		case 1:
-			TFont = "Times Italic";
-			break;
-		case 2:
-			TFont = "Times Bold";
-			break;
-		case 3:
-			TFont = "Times Bold Italic";
-			break;
-		case 4:
-			TFont = "AvantGarde Book";
-			break;
-		case 5:
-			TFont = "AvantGarde Book Oblique";
-			break;
-		case 6:
-			TFont = "AvantGarde Demi";
-			break;
-		case 7:
-			TFont = "AvantGarde Demi Oblique";
-			break;
-		case 8:
-			TFont = "Bookman Light";
-			break;
-		case 9:
-			TFont = "Bookman Light Italic";
-			break;
-		case 10:
-			TFont = "Bookman Demi";
-			break;
-		case 11:
-			TFont = "Bookman Demi Italic";
-			break;
-		case 12:
-			TFont = "Courier";
-			break;
-		case 13:
-			TFont = "Courier Oblique";
-			break;
-		case 14:
-			TFont = "Courier Bold";
-			break;
-		case 15:
-			TFont = "Courier Bold Oblique";
-			break;
-		case 16:
-			TFont = "Helvetica";
-			break;
-		case 17:
-			TFont = "Helvetica Oblique";
-			break;
-		case 18:
-			TFont = "Helvetica Bold";
-			break;
-		case 19:
-			TFont = "Helvetica Bold Oblique";
-			break;
-		case 20:
-			TFont = "Helvetica Narrow";
-			break;
-		case 21:
-			TFont = "Helvetica Narrow Oblique";
-			break;
-		case 22:
-			TFont = "Helvetica Narrow Bold";
-			break;
-		case 23:
-			TFont = "Helvetica Narrow Bold Oblique";
-			break;
-		case 24:
-			TFont = "New Century Schoolbook Roman";
-			break;
-		case 25:
-			TFont = "New Century Schoolbook Italic";
-			break;
-		case 26:
-			TFont = "New Century Schoolbook Bold";
-			break;
-		case 27:
-			TFont = "New Century Schoolbook Bold Italic";
-			break;
-		case 28:
-			TFont = "Palatino Roman";
-			break;
-		case 29:
-			TFont = "Palatino Italic";
-			break;
-		case 30:
-			TFont = "Palatino Bold";
-			break;
-		case 31:
-			TFont = "Palatino Bold Italic";
-			break;
-		case 32:
-			TFont = "Symbol";
-			break;
-		case 33:
-			TFont = "Zapf Chancery Medium Italic";
-			break;
-		case 34:
-			TFont = "Zapf Dingbats";
-			break;
-		default:
-			TFont = m_Doc->toolSettings.defFont;
-			break;
+		switch (font)
+		{
+			case 0:
+				TFont = "Times Roman";
+				weight = QFont::Normal;
+				break;
+			case 1:
+				TFont = "Times Italic";
+				weight = QFont::Normal;
+				isItalic = true;
+				break;
+			case 2:
+				TFont = "Times Bold";
+				weight = QFont::Bold;
+				break;
+			case 3:
+				TFont = "Times Bold Italic";
+				weight = QFont::Bold;
+				isItalic = true;
+				break;
+			case 4:
+				TFont = "AvantGarde Book";
+				weight = QFont::Normal;
+				break;
+			case 5:
+				TFont = "AvantGarde Book Oblique";
+				weight = QFont::Normal;
+				break;
+			case 6:
+				TFont = "AvantGarde Demi";
+				weight = QFont::DemiBold;
+				break;
+			case 7:
+				TFont = "AvantGarde Demi Oblique";
+				weight = QFont::DemiBold;
+				break;
+			case 8:
+				TFont = "Bookman Light";
+				weight = QFont::Light;
+				break;
+			case 9:
+				TFont = "Bookman Light Italic";
+				weight = QFont::Light;
+				isItalic = true;
+				break;
+			case 10:
+				TFont = "Bookman Demi";
+				weight = QFont::DemiBold;
+				break;
+			case 11:
+				TFont = "Bookman Demi Italic";
+				weight = QFont::DemiBold;
+				isItalic = true;
+				break;
+			case 12:
+				TFont = "Courier";
+				weight = QFont::Normal;
+				break;
+			case 13:
+				TFont = "Courier Oblique";
+				weight = QFont::Normal;
+				break;
+			case 14:
+				TFont = "Courier Bold";
+				weight = QFont::Bold;
+				break;
+			case 15:
+				TFont = "Courier Bold Oblique";
+				weight = QFont::Bold;
+				break;
+			case 16:
+				TFont = "Helvetica";
+				weight = QFont::Normal;
+				break;
+			case 17:
+				TFont = "Helvetica Oblique";
+				weight = QFont::Normal;
+				break;
+			case 18:
+				TFont = "Helvetica Bold";
+				weight = QFont::Bold;
+				break;
+			case 19:
+				TFont = "Helvetica Bold Oblique";
+				weight = QFont::Bold;
+				break;
+			case 20:
+				TFont = "Helvetica Narrow";
+				weight = QFont::Normal;
+				break;
+			case 21:
+				TFont = "Helvetica Narrow Oblique";
+				weight = QFont::Normal;
+				break;
+			case 22:
+				TFont = "Helvetica Narrow Bold";
+				weight = QFont::Bold;
+				break;
+			case 23:
+				TFont = "Helvetica Narrow Bold Oblique";
+				weight = QFont::Bold;
+				break;
+			case 24:
+				TFont = "New Century Schoolbook Roman";
+				weight = QFont::Normal;
+				break;
+			case 25:
+				TFont = "New Century Schoolbook Italic";
+				weight = QFont::Normal;
+				isItalic = true;
+				break;
+			case 26:
+				TFont = "New Century Schoolbook Bold";
+				weight = QFont::Bold;
+				break;
+			case 27:
+				TFont = "New Century Schoolbook Bold Italic";
+				weight = QFont::Bold;
+				isItalic = true;
+				break;
+			case 28:
+				TFont = "Palatino Roman";
+				weight = QFont::Normal;
+				break;
+			case 29:
+				TFont = "Palatino Italic";
+				weight = QFont::Normal;
+				isItalic = true;
+				break;
+			case 30:
+				TFont = "Palatino Bold";
+				weight = QFont::Bold;
+				break;
+			case 31:
+				TFont = "Palatino Bold Italic";
+				weight = QFont::Bold;
+				isItalic = true;
+				break;
+			case 32:
+				TFont = "Symbol";
+				weight = QFont::Normal;
+				break;
+			case 33:
+				TFont = "Zapf Chancery Medium Italic";
+				weight = QFont::Normal;
+				isItalic = true;
+				break;
+			case 34:
+				TFont = "Zapf Dingbats";
+				weight = QFont::Normal;
+				break;
+			default:
+				TFont = m_Doc->toolSettings.defFont;
+				weight = QFont::Normal;
+				break;
+		}
 	}
+	else
+	{
+		switch (font)
+		{
+    		case 1: // Roman
+				TFont = "Times";
+				weight = QFont::Normal;
+				break;
+			case 2: // Bold
+				TFont = "Times";
+				weight = QFont::Bold;
+				break;
+			case 3: // Italic
+				TFont = "Times";
+				weight = QFont::Normal;
+				isItalic = true;
+				break;
+			case 4: // Sans Serif
+				TFont = "Helvetica";
+				weight = QFont::Normal;
+				break;
+			case 5: // Typewriter
+				TFont = "Courier";
+				weight = QFont::Normal;
+				break;
+			default:
+				TFont = m_Doc->toolSettings.defFont;
+				weight = QFont::Normal;
+				break;
+		}
+	}
+	QMatrix ma;
 	w = fig2Pts(length);
 	h = fig2Pts(height);
 	x = fig2Pts(xT);
 	if (subtype == 1)
+	{
+		ma.translate(w / 2.0, h);
+		ma.rotate(angle * 180.0 / M_PI);
+		ma.translate(-w / 2.0, -h);
 		x -= w / 2.0;
+	}
 	else if (subtype == 2)
+	{
+		ma.translate(w, h);
+		ma.rotate(angle * 180.0 / M_PI);
+		ma.translate(-w, -h);
 		x -= w;
+	}
+	else
+	{
+		ma.translate(0, h);
+		ma.rotate(angle * 180.0 / M_PI);
+		ma.translate(0, -h);
+	}
 	y = fig2Pts(yT);
 	x -= docX;
 	x += m_Doc->currentPage()->xOffset();
 	y -= docY;
 	y += m_Doc->currentPage()->yOffset();
-	QFont tf = QFont(TFont);
+	QPointF n = QPointF(0.0, 0.0);
+	n = ma.map(n);
+	x += n.x();
+	y += n.y();
+	QFont tf = QFont(TFont, 10, weight, isItalic);
 	tf.setPointSizeF(font_size / 80.0 * 72.0);
 	painterPath.addText( 0, 0, tf, text );
 	QRectF br = painterPath.boundingRect();
 	QMatrix m;
+	m.translate(0, -h);
 	m.scale(w / br.width(), h / br.height());
 	painterPath = m.map(painterPath);
 	textPath.fromQPainterPath(painterPath);
 	useColor(color, 0, false);
-//	useColor(color, 0, true);
 	int z = -1;
 	PageItem *ite;
 	z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX + x, baseY + y, w, h, 0, CurrColorStroke, CommonStrings::None, true);
