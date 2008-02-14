@@ -2627,6 +2627,54 @@ creates a Duplicate of the selected Object (or Selection Group).
 creates a Duplicate of the selected Object (or Selection Group).
 </translation>
     </message>
+    <message>
+      <source>getFillTransparency([&quot;name&quot;]) -> float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+      <translation>getFillTransparency([&quot;name&quot;]) -> float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</translation>
+    </message>
+    <message>
+      <source>getLineTransparency([&quot;name&quot;]) -> float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+      <translation>getLineTransparency([&quot;name&quot;]) -> float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</translation>
+    </message>
+    <message>
+      <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+      <translation>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</translation>
+    </message>
+    <message>
+      <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+      <translation>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</translation>
+    </message>
   </context>
   <context>
     <name>About</name>
@@ -3328,10 +3376,6 @@ creates a Duplicate of the selected Object (or Selection Group).
       <translation>Insert Freehand Line</translation>
     </message>
     <message>
-      <source>&amp;Manage Pictures</source>
-      <translation>&amp;Manage Pictures</translation>
-    </message>
-    <message>
       <source>&amp;Hyphenate Text</source>
       <translation>&amp;Hyphenate Text</translation>
     </message>
@@ -3709,6 +3753,10 @@ creates a Duplicate of the selected Object (or Selection Group).
     <message>
       <source>&amp;400%</source>
       <translation>&amp;400%</translation>
+    </message>
+    <message>
+      <source>&amp;Manage Images</source>
+      <translation>&amp;Manage Images</translation>
     </message>
   </context>
   <context>
@@ -5083,20 +5131,20 @@ This requires very accurate profiles and serves only as a warning.</translation>
       <translation>Use &amp;Blackpoint Compensation</translation>
     </message>
     <message>
-      <source>&amp;RGB Pictures:</source>
-      <translation>&amp;RGB Pictures:</translation>
-    </message>
-    <message>
-      <source>&amp;CMYK Pictures:</source>
-      <translation>&amp;CMYK Pictures:</translation>
-    </message>
-    <message>
       <source>Default color profile for imported CMYK images</source>
       <translation>Default colour profile for imported CMYK images</translation>
     </message>
     <message>
       <source>Default color profile for imported RGB images</source>
       <translation>Default colour profile for imported RGB images</translation>
+    </message>
+    <message>
+      <source>&amp;RGB Images:</source>
+      <translation>&amp;RGB Images:</translation>
+    </message>
+    <message>
+      <source>&amp;CMYK Images:</source>
+      <translation>&amp;CMYK Images:</translation>
     </message>
   </context>
   <context>
@@ -5202,6 +5250,12 @@ It is a reserved name for transparent colour</translation>
     <message>
       <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
       <translation>Choosing this will make this colour a spot colour, thus creating another spot when creating plates or separations. This is used most often when a logo or other colour needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</translation>
+    </message>
+    <message>
+      <source>You cannot create a color without a name
+Please give it a name</source>
+      <translation>You cannot create a colour without a name
+Please give it a name</translation>
     </message>
   </context>
   <context>
@@ -10700,10 +10754,6 @@ Corners:</translation>
       <translation>Cancel Search</translation>
     </message>
     <message>
-      <source>Manage Pictures</source>
-      <translation>Manage Pictures</translation>
-    </message>
-    <message>
       <source>Scribus - Image Search</source>
       <translation>Scribus - Image Search</translation>
     </message>
@@ -10718,6 +10768,10 @@ Corners:</translation>
     <message>
       <source>Select a base directory for search</source>
       <translation>Select a base directory for search</translation>
+    </message>
+    <message>
+      <source>Manage Images</source>
+      <translation>Manage Images</translation>
     </message>
   </context>
   <context>
@@ -11178,10 +11232,6 @@ Corners:</translation>
       <translation>Alt+U</translation>
     </message>
     <message>
-      <source>Show Pictures</source>
-      <translation>Show Pictures</translation>
-    </message>
-    <message>
       <source>Show Text Chains</source>
       <translation>Show Text Chains</translation>
     </message>
@@ -11204,10 +11254,6 @@ Corners:</translation>
     <message>
       <source>Turns the display of frames on or off</source>
       <translation>Turns the display of frames on or off</translation>
-    </message>
-    <message>
-      <source>Turns the display of pictures on or off</source>
-      <translation>Turns the display of pictures on or off</translation>
     </message>
     <message>
       <source>Additional directory for document templates</source>
@@ -11352,6 +11398,14 @@ Corners:</translation>
     <message>
       <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
       <translation>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</translation>
+    </message>
+    <message>
+      <source>Show Images</source>
+      <translation>Show Images</translation>
+    </message>
+    <message>
+      <source>Turns the display of images on or off</source>
+      <translation>Turns the display of images on or off</translation>
     </message>
   </context>
   <context>
@@ -13457,6 +13511,16 @@ is not exhaustive due to exceptions from called functions.
       <source>Insufficient memory for this image size.</source>
       <translation>Insufficient memory for this image size.</translation>
     </message>
+    <message>
+      <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+      <comment>python error</comment>
+      <translation>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</translation>
+    </message>
+    <message>
+      <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+      <comment>python error</comment>
+      <translation>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</translation>
+    </message>
   </context>
   <context>
     <name>QTextEdit</name>
@@ -13674,10 +13738,6 @@ is not exhaustive due to exceptions from called functions.
       <translation>Alt+U</translation>
     </message>
     <message>
-      <source>Show Pictures</source>
-      <translation>Show Pictures</translation>
-    </message>
-    <message>
       <source>Show Text Chains</source>
       <translation>Show Text Chains</translation>
     </message>
@@ -13724,10 +13784,6 @@ is not exhaustive due to exceptions from called functions.
     <message>
       <source>Turns the display of frames on or off</source>
       <translation>Turns the display of frames on or off</translation>
-    </message>
-    <message>
-      <source>Turns the display of pictures on or off</source>
-      <translation>Turns the display of pictures on or off</translation>
     </message>
     <message>
       <source>Color for paper</source>
@@ -13792,6 +13848,14 @@ is not exhaustive due to exceptions from called functions.
     <message>
       <source>Apply the page size changes to all existing pages in the document</source>
       <translation>Apply the page size changes to all existing pages in the document</translation>
+    </message>
+    <message>
+      <source>Show Images</source>
+      <translation>Show Images</translation>
+    </message>
+    <message>
+      <source>Turns the display of images on or off</source>
+      <translation>Turns the display of images on or off</translation>
     </message>
   </context>
   <context>
@@ -14829,10 +14893,6 @@ Vertical shift: %3</translation>
       <translation>&amp;Paste</translation>
     </message>
     <message>
-      <source>Picture</source>
-      <translation>Picture</translation>
-    </message>
-    <message>
       <source>File: </source>
       <translation>File </translation>
     </message>
@@ -14951,6 +15011,10 @@ Vertical shift: %3</translation>
     <message>
       <source>Export: </source>
       <translation>Export: </translation>
+    </message>
+    <message>
+      <source>Image</source>
+      <translation>Image</translation>
     </message>
   </context>
   <context>
@@ -16229,10 +16293,6 @@ Vertical shift: %3</translation>
       <translation>Top-left to Bottom-Right</translation>
     </message>
     <message>
-      <source>&amp;Apply Effect on all Pages</source>
-      <translation>&amp;Apply Effect on all Pages</translation>
-    </message>
-    <message>
       <source>E&amp;xtras</source>
       <translation>E&amp;xtras</translation>
     </message>
@@ -16730,6 +16790,10 @@ when PDF document is opened:</translation>
       <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
       <translation>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</translation>
     </message>
+    <message>
+      <source>&amp;Apply Effect to all Pages</source>
+      <translation>&amp;Apply Effect to all Pages</translation>
+    </message>
   </context>
   <context>
     <name>TabTools</name>
@@ -16826,10 +16890,6 @@ when PDF document is opened:</translation>
       <translation>&amp;Vertical Scaling:</translation>
     </message>
     <message>
-      <source>&amp;Scale Picture to Frame Size</source>
-      <translation>&amp;Scale Picture to Frame Size</translation>
-    </message>
-    <message>
       <source>Keep Aspect &amp;Ratio</source>
       <translation>Keep Aspect &amp;Ratio</translation>
     </message>
@@ -16874,10 +16934,6 @@ when PDF document is opened:</translation>
       <translation>Text Frame Properties</translation>
     </message>
     <message>
-      <source>Picture Frame Properties</source>
-      <translation>Picture Frame Properties</translation>
-    </message>
-    <message>
       <source>Shape Drawing Properties</source>
       <translation>Shape Drawing Properties</translation>
     </message>
@@ -16918,10 +16974,6 @@ when PDF document is opened:</translation>
       <translation>Sample of your font</translation>
     </message>
     <message>
-      <source>Picture frames allow pictures to scale to any size</source>
-      <translation>Picture frames allow pictures to scale to any size</translation>
-    </message>
-    <message>
       <source>Horizontal scaling of images</source>
       <translation>Horizontal scaling of images</translation>
     </message>
@@ -16932,18 +16984,6 @@ when PDF document is opened:</translation>
     <message>
       <source>Keep horizontal and vertical scaling the same</source>
       <translation>Keep horizontal and vertical scaling the same</translation>
-    </message>
-    <message>
-      <source>Pictures in picture frames are scaled to the size of the frame</source>
-      <translation>Pictures in picture frames are scaled to the size of the frame</translation>
-    </message>
-    <message>
-      <source>Automatically scaled pictures keep their original proportions</source>
-      <translation>Automatically scaled pictures keep their original proportions</translation>
-    </message>
-    <message>
-      <source>Fill color of picture frames</source>
-      <translation>Fill colour of picture frames</translation>
     </message>
     <message>
       <source>Saturation of color of fill</source>
@@ -17045,6 +17085,30 @@ when PDF document is opened:</translation>
       <source>None</source>
       <comment>tab fill</comment>
       <translation>None</translation>
+    </message>
+    <message>
+      <source>&amp;Scale Image to Frame Size</source>
+      <translation>&amp;Scale Image to Frame Size</translation>
+    </message>
+    <message>
+      <source>Image Frame Properties</source>
+      <translation>Image Frame Properties</translation>
+    </message>
+    <message>
+      <source>Image frames allow images to scale to any size</source>
+      <translation>Image frames allow images to scale to any size</translation>
+    </message>
+    <message>
+      <source>Images in image frames are scaled to the size of the frame</source>
+      <translation>Images in image frames are scaled to the size of the frame</translation>
+    </message>
+    <message>
+      <source>Automatically scaled images keep their original proportions</source>
+      <translation>Automatically scaled images keep their original proportions</translation>
+    </message>
+    <message>
+      <source>Fill color of image frames</source>
+      <translation>Fill color of image frames</translation>
     </message>
   </context>
   <context>

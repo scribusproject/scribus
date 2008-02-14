@@ -1631,6 +1631,38 @@ creates a Duplicate of the selected Object (or Selection Group).
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2480,7 +2512,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>Piltide &amp;haldamine</translation>
+        <translation type="obsolete">Piltide &amp;haldamine</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -2749,6 +2781,10 @@ creates a Duplicate of the selected Object (or Selection Group).
     <message>
         <source>&amp;400%</source>
         <translation type="unfinished">&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4050,11 +4086,11 @@ Palun vali mõni muu nimi.</translation>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>&amp;RGB pildid:</translation>
+        <translation type="obsolete">&amp;RGB pildid:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>&amp;CMYK pildid:</translation>
+        <translation type="obsolete">&amp;CMYK pildid:</translation>
     </message>
     <message>
         <source>&amp;RGB Solid Colors:</source>
@@ -4206,6 +4242,14 @@ Relative Colorimetric or Perceptual should be chosen.</source>
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CMYKChoose</name>
@@ -4309,6 +4353,11 @@ See nimi on reserveeritud läbipaistvale värvile.</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10108,7 +10157,7 @@ n&amp;urgad:</translation>
     <name>PicStatus</name>
     <message>
         <source>Manage Pictures</source>
-        <translation>Piltide haldamine</translation>
+        <translation type="obsolete">Piltide haldamine</translation>
     </message>
     <message>
         <source>Name</source>
@@ -10169,6 +10218,10 @@ n&amp;urgad:</translation>
     <message>
         <source>No images named &quot;%1&quot; were found.</source>
         <translation>Pilti nimega &quot;%1&quot; ei leitud.</translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10540,7 +10593,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Piltide näitamine</translation>
+        <translation type="obsolete">Piltide näitamine</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -10652,7 +10705,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Piltide näitamise lubamine või keelamine</translation>
+        <translation type="obsolete">Piltide näitamise lubamine või keelamine</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
@@ -10817,6 +10870,14 @@ n&amp;urgad:</translation>
     <message>
         <source>Locate your image editor</source>
         <translation type="unfinished">Pildiredaktori asukoht</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12978,6 +13039,16 @@ Välised lingid
         <source>Insufficient memory for this image size.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13188,7 +13259,7 @@ Välised lingid
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Piltide näitamine</translation>
+        <translation type="obsolete">Piltide näitamine</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -13296,7 +13367,7 @@ Välised lingid
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Piltide näitamise lubamine või keelamine</translation>
+        <translation type="obsolete">Piltide näitamise lubamine või keelamine</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -13313,6 +13384,14 @@ Välised lingid
     <message>
         <source>Adjusting Colors</source>
         <translation>Värvide kohandamine</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14460,7 +14539,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Pilt</translation>
+        <translation type="obsolete">Pilt</translation>
     </message>
     <message>
         <source>File: </source>
@@ -14585,6 +14664,10 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     <message>
         <source>Export: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Pilt</translation>
     </message>
 </context>
 <context>
@@ -16201,7 +16284,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>Efekti r&amp;akendamine kõigil lehekülgedel</translation>
+        <translation type="obsolete">Efekti r&amp;akendamine kõigil lehekülgedel</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -16693,6 +16776,10 @@ käivitatav JavaScript:</translation>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -16831,7 +16918,7 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>Pildi &amp;skaleerimine vastavalt kasti suurusele</translation>
+        <translation type="obsolete">Pildi &amp;skaleerimine vastavalt kasti suurusele</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -16879,7 +16966,7 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Pildikasti omadused</translation>
+        <translation type="obsolete">Pildikasti omadused</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -16923,7 +17010,7 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Pildikastid võimaldavad piltide skaleerimist iga väärtuse järgi</translation>
+        <translation type="obsolete">Pildikastid võimaldavad piltide skaleerimist iga väärtuse järgi</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -16939,15 +17026,15 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Pildikasti pildid skaleeritakse kasti suuruse järgi</translation>
+        <translation type="obsolete">Pildikasti pildid skaleeritakse kasti suuruse järgi</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Automaatselt skaleeritud pildid säilitavad algsed proportsioonid</translation>
+        <translation type="obsolete">Automaatselt skaleeritud pildid säilitavad algsed proportsioonid</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Pildikastide täidise värv</translation>
+        <translation type="obsolete">Pildikastide täidise värv</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -17008,6 +17095,30 @@ käivitatav JavaScript:</translation>
     <message>
         <source>Custom: </source>
         <translation>Kohandatud: </translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

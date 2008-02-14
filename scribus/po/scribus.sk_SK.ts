@@ -1631,6 +1631,38 @@ creates a Duplicate of the selected Object (or Selection Group).
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2480,7 +2512,7 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>&amp;Správa obrázkov</translation>
+        <translation type="obsolete">&amp;Správa obrázkov</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -2800,6 +2832,10 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     <message>
         <source>&amp;400%</source>
         <translation type="unfinished">&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4117,11 +4153,11 @@ Vyberte si prosím iný.</translation>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>&amp;RGB Obrázky:</translation>
+        <translation type="obsolete">&amp;RGB Obrázky:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>&amp;CMYK Obrázky:</translation>
+        <translation type="obsolete">&amp;CMYK Obrázky:</translation>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
@@ -4228,6 +4264,14 @@ Toto vyžaduje veľmi presné profily a slúži iba ako varovanie.</translation>
 It is recommended that you enable this if you have photos in your document.</source>
         <translation>Kompenzácia čierneho bodu je metóda zlepšovania kontrastu fotiek.
 Odporúča sa, aby ste povolili túto možnosť, pokiaľ váš dokument obsahuje fotografie.</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4350,6 +4394,11 @@ Je to rezervované označenie pre priesvitnú farbu</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10477,7 +10526,7 @@ v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže z
     <name>PicStatus</name>
     <message>
         <source>Manage Pictures</source>
-        <translation>Správa obrázkov</translation>
+        <translation type="obsolete">Správa obrázkov</translation>
     </message>
     <message>
         <source>Name</source>
@@ -10537,6 +10586,10 @@ v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže z
     </message>
     <message>
         <source>Select a base directory for search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10945,7 +10998,7 @@ a kladná na konvexný</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Zobraziť obrázky</translation>
+        <translation type="obsolete">Zobraziť obrázky</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -11101,7 +11154,7 @@ a kladná na konvexný</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Zapnutie alebo vypnutie zobrazenia obrázkov</translation>
+        <translation type="obsolete">Zapnutie alebo vypnutie zobrazenia obrázkov</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
@@ -11311,6 +11364,14 @@ v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže z
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13562,6 +13623,16 @@ Externé odkazy
         <source>Insufficient memory for this image size.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13784,7 +13855,7 @@ Externé odkazy
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Zobraziť obrázky</translation>
+        <translation type="obsolete">Zobraziť obrázky</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -13888,7 +13959,7 @@ Externé odkazy
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Zapnutie alebo vypnutie zobrazenia obrázkov</translation>
+        <translation type="obsolete">Zapnutie alebo vypnutie zobrazenia obrázkov</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -13913,6 +13984,14 @@ Externé odkazy
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Použiť zmeny veľkosti strany na všetky existujúce strany dokumente</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15554,7 +15633,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Obrázok</translation>
+        <translation type="obsolete">Obrázok</translation>
     </message>
     <message>
         <source>File: </source>
@@ -15695,6 +15774,10 @@ Vertical shift: %3</source>
     <message>
         <source>Export: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Obrázok</translation>
     </message>
 </context>
 <context>
@@ -17177,7 +17260,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>Použiť efekt n&amp;a všetky strany</translation>
+        <translation type="obsolete">Použiť efekt n&amp;a všetky strany</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -17824,6 +17907,10 @@ when PDF document is opened:</source>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -17957,7 +18044,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>Z&amp;meniť veľkosť obrázka na rozmer rámca</translation>
+        <translation type="obsolete">Z&amp;meniť veľkosť obrázka na rozmer rámca</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -18005,7 +18092,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Vlastnosti rámca obrázka</translation>
+        <translation type="obsolete">Vlastnosti rámca obrázka</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -18049,7 +18136,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Rámce obrázkov umožňujú zmenu na ľubovoľnú veľkosť</translation>
+        <translation type="obsolete">Rámce obrázkov umožňujú zmenu na ľubovoľnú veľkosť</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -18065,15 +18152,15 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Obrázky v obrázkových rámcoch budú menené podľa rozmerov rámu</translation>
+        <translation type="obsolete">Obrázky v obrázkových rámcoch budú menené podľa rozmerov rámu</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Automaticky nastavovaná veľkosť obrázkov dodržuje originálne proporcie</translation>
+        <translation type="obsolete">Automaticky nastavovaná veľkosť obrázkov dodržuje originálne proporcie</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Farba výplne obrázkových rámcov</translation>
+        <translation type="obsolete">Farba výplne obrázkových rámcov</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -18138,6 +18225,30 @@ when PDF document is opened:</source>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

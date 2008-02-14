@@ -3080,6 +3080,38 @@ creates a Duplicate of the selected Object (or Selection Group).
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -4075,7 +4107,7 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>Gestiona I&amp;matges</translation>
+        <translation type="obsolete">Gestiona I&amp;matges</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -4415,6 +4447,10 @@ Les llibreries que manquen es mostren amb un *</translation>
     <message>
         <source>&amp;400%</source>
         <translation type="unfinished">&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6095,11 +6131,11 @@ Es recomana activar-lo si tens colors en el teu document.</translation>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>Imatges &amp;RGB:</translation>
+        <translation type="obsolete">Imatges &amp;RGB:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>Imatges &amp;CMYK:</translation>
+        <translation type="obsolete">Imatges &amp;CMYK:</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
@@ -6108,6 +6144,14 @@ Es recomana activar-lo si tens colors en el teu document.</translation>
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>Perfil de color per defecte per imatges RGB</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6242,6 +6286,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14831,7 +14880,7 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Gestiona Imatges</translation>
+        <translation type="obsolete">Gestiona Imatges</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -14848,6 +14897,10 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
     <message>
         <source>Select a base directory for search</source>
         <translation>Tria un directori base per la recerca</translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16103,7 +16156,7 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Mostra imatges</translation>
+        <translation type="obsolete">Mostra imatges</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -16207,7 +16260,7 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Activa i desactiva la visualització d&apos;imatges</translation>
+        <translation type="obsolete">Activa i desactiva la visualització d&apos;imatges</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot
@@ -16317,6 +16370,14 @@ s&apos;estigui executant.</translation>
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19057,6 +19118,16 @@ detallades exhaustivament per les funcions cridades.</translation>
         <source>Insufficient memory for this image size.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -19390,7 +19461,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Mostra imatges</translation>
+        <translation type="obsolete">Mostra imatges</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -19474,7 +19545,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Activa i desactiva la visualització d&apos;imatges</translation>
+        <translation type="obsolete">Activa i desactiva la visualització d&apos;imatges</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -19507,6 +19578,14 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Aplica els canvis de mida de pàgina a totes les pàgines del document</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -22052,7 +22131,7 @@ Desplaçament vertical: %3</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Imatge</translation>
+        <translation type="obsolete">Imatge</translation>
     </message>
     <message>
         <source>File: </source>
@@ -22197,6 +22276,10 @@ Desplaçament vertical: %3</translation>
     <message>
         <source>Export: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Imatge</translation>
     </message>
 </context>
 <context>
@@ -24054,7 +24137,7 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>&amp;Efectes a totes les Pàgines</translation>
+        <translation type="obsolete">&amp;Efectes a totes les Pàgines</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -24715,6 +24798,10 @@ quan el PDF s&apos;obri:</translation>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -24820,7 +24907,7 @@ quan el PDF s&apos;obri:</translation>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>E&amp;scala Imatge a Mida de Marc</translation>
+        <translation type="obsolete">E&amp;scala Imatge a Mida de Marc</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -24868,7 +24955,7 @@ quan el PDF s&apos;obri:</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Propietats de Marc d&apos;Imatge</translation>
+        <translation type="obsolete">Propietats de Marc d&apos;Imatge</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -24912,7 +24999,7 @@ quan el PDF s&apos;obri:</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Els Marcs d&apos;Imatges es poden escalar a qualsevol mida</translation>
+        <translation type="obsolete">Els Marcs d&apos;Imatges es poden escalar a qualsevol mida</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -24928,15 +25015,15 @@ quan el PDF s&apos;obri:</translation>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Imatges en marcs d&apos;imatges són escalades a la mida del marc</translation>
+        <translation type="obsolete">Imatges en marcs d&apos;imatges són escalades a la mida del marc</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Les imatges escalades automàticament mantenen les proporcions</translation>
+        <translation type="obsolete">Les imatges escalades automàticament mantenen les proporcions</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Color d&apos;omplir Marcs d&apos;Imatges</translation>
+        <translation type="obsolete">Color d&apos;omplir Marcs d&apos;Imatges</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -25030,6 +25117,30 @@ quan el PDF s&apos;obri:</translation>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Cap</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

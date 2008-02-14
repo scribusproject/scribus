@@ -2610,6 +2610,38 @@ creates a Duplicate of the selected Object (or Selection Group).
 Laver en dublet af det valgte objekt (eller valgte gruppe).
 </translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -3360,7 +3392,7 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>Håndtér &amp;billeder</translation>
+        <translation type="obsolete">Håndtér &amp;billeder</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -3692,6 +3724,10 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     <message>
         <source>&amp;400%</source>
         <translation>&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5075,11 +5111,11 @@ Dette kræver meget nøjagtige profiler og er kun ment som en advarsel.</transla
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>&amp;RGB billeder:</translation>
+        <translation type="obsolete">&amp;RGB billeder:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>&amp;CMYK billeder:</translation>
+        <translation type="obsolete">&amp;CMYK billeder:</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
@@ -5088,6 +5124,14 @@ Dette kræver meget nøjagtige profiler og er kun ment som en advarsel.</transla
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>Standard Farveprofil for importerede RGB billeder</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5197,6 +5241,11 @@ Navnet er reserveret for gennemsigtig farve</translation>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation>Ved at vælge dette vil gøre denne farve til en spot-farve, og således lave endnu en spot, når der laves plader eller separationer. Det er ofte brugt, når et logo eller anden farve behøver at være helt præcis eller ikke kan laves med CMYK trykfarver. Metalliske og fluorescerende farver er gode eksempler på farver, som ikke særlig let kan laves med CMYK trykfarver.</translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10740,7 +10789,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Håndtér billeder</translation>
+        <translation type="obsolete">Håndtér billeder</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -10761,6 +10810,10 @@ hjørner:</translation>
     <message>
         <source></source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11226,7 +11279,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Vis billeder</translation>
+        <translation type="obsolete">Vis billeder</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -11274,7 +11327,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Slår visning af billeder til eller fra</translation>
+        <translation type="obsolete">Slår visning af billeder til eller fra</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
@@ -11400,6 +11453,14 @@ denne, da det tillader dig at redigere billedet i en allerede kørende gimp.</tr
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation>Tilføj stien til Ghostscript fortolkeren. Vær venligst opmærksom på, at du på Windows skal bruge navnet gswin32c.exe - IKKE gswin32.exe. Ellers kan det måske forårsage at Windows hænger, når Scribus startes.</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13516,6 +13577,16 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <source>Insufficient memory for this image size.</source>
         <translation>Utilstrækkelig hukommelse for denne billed-størrelse.</translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13738,7 +13809,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Vis billeder</translation>
+        <translation type="obsolete">Vis billeder</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -13798,7 +13869,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Slår visning af billeder til eller fra</translation>
+        <translation type="obsolete">Slår visning af billeder til eller fra</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -13851,6 +13922,14 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Anvend side-størrelse ændringerne på alle eksisterende sider i dokumentet</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14900,7 +14979,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Billede</translation>
+        <translation type="obsolete">Billede</translation>
     </message>
     <message>
         <source>File: </source>
@@ -15025,6 +15104,10 @@ Vertikal forskydning: %3</translation>
     <message>
         <source>Export: </source>
         <translation>Eksport: </translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Billede</translation>
     </message>
 </context>
 <context>
@@ -16304,7 +16387,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>Anvend effekt p&amp;å alle sider</translation>
+        <translation type="obsolete">Anvend effekt p&amp;å alle sider</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -16805,6 +16888,10 @@ når PDF dokument åbnes:</translation>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation>Subset alle fonte i PDF-filen. Subsetting af fonte er, når kun glyffer brugt i PDF-filen er indlejret, ikke hele fonten. Nogle fonte, som Open Type, kan kun subsettes, da de ikke er i stand til at blive indlejret i PDF versioner før PDF 1.6.</translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -16910,7 +16997,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>&amp;Skalér billede til rammestørrelse</translation>
+        <translation type="obsolete">&amp;Skalér billede til rammestørrelse</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -16958,7 +17045,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Billedramme - egenskaber</translation>
+        <translation type="obsolete">Billedramme - egenskaber</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -17002,7 +17089,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Billedramme tillader billeder at blive skaleret til en hvilken som helst størrelse</translation>
+        <translation type="obsolete">Billedramme tillader billeder at blive skaleret til en hvilken som helst størrelse</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -17018,15 +17105,15 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Billeder i billedrammer er skaleret til rammens størrelse</translation>
+        <translation type="obsolete">Billeder i billedrammer er skaleret til rammens størrelse</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Automatisk skalerede billeder beholder deres originale proportioner</translation>
+        <translation type="obsolete">Automatisk skalerede billeder beholder deres originale proportioner</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Billedrammers fyldfarve</translation>
+        <translation type="obsolete">Billedrammers fyldfarve</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -17120,6 +17207,30 @@ når PDF dokument åbnes:</translation>
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Ingen</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

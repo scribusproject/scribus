@@ -2837,6 +2837,38 @@ creates a Duplicate of the selected Object (or Selection Group).
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -3605,7 +3637,7 @@ Ghostscript-en bertsioa ere adierazten du.
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>&amp;Kudeatu irudiak</translation>
+        <translation type="obsolete">&amp;Kudeatu irudiak</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -3929,6 +3961,10 @@ Ghostscript-en bertsioa ere adierazten du.
     <message>
         <source>&amp;400%</source>
         <translation type="unfinished">%&amp;400</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5314,11 +5350,11 @@ argazkirik egonez gero.</translation>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>&amp;GBU irudiak:</translation>
+        <translation type="obsolete">&amp;GBU irudiak:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>&amp;CMHB irudiak:</translation>
+        <translation type="obsolete">&amp;CMHB irudiak:</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
@@ -5327,6 +5363,14 @@ argazkirik egonez gero.</translation>
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>Kolore-profil lehenetsia GBU irudiak inportatzeko</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5431,6 +5475,11 @@ Izena kolore gardenarentzat gordeta dago</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11076,7 +11125,7 @@ UCRek gainsaturazioaren posibilitatea gutxitzen du CMH tintekin.</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Kudeatu irudiak</translation>
+        <translation type="obsolete">Kudeatu irudiak</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -11093,6 +11142,10 @@ UCRek gainsaturazioaren posibilitatea gutxitzen du CMH tintekin.</translation>
     <message>
         <source>Select a base directory for search</source>
         <translation>Hautatu oinarri-direktorioa bilaketarako</translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11542,7 +11595,7 @@ orrialdeen tamaina pertsonalizatua aukeratuz gero</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Erakutsi irudiak</translation>
+        <translation type="obsolete">Erakutsi irudiak</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -11566,7 +11619,7 @@ orrialdeen tamaina pertsonalizatua aukeratuz gero</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Irudiak bistaratzea aktibatu edo desaktibatu</translation>
+        <translation type="obsolete">Irudiak bistaratzea aktibatu edo desaktibatu</translation>
     </message>
     <message>
         <source>Document T&amp;emplates:</source>
@@ -11757,6 +11810,14 @@ daiteke.</translation>
 sisteman &apos;gswin32c.exe&apos; izeneko programa erabili behar duzu, eta 
 INOLA ERE EZ &apos;gswin32.exe&apos;. Bestela Scribus abiatzean ordenagailua 
 blokea baitaiteke.</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13905,6 +13966,16 @@ motakoa dela, eskertuko genizuke arazo honen berri emango bazenu.</translation>
         <source>Insufficient memory for this image size.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14123,7 +14194,7 @@ motakoa dela, eskertuko genizuke arazo honen berri emango bazenu.</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Erakutsi irudiak</translation>
+        <translation type="obsolete">Erakutsi irudiak</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -14167,7 +14238,7 @@ motakoa dela, eskertuko genizuke arazo honen berri emango bazenu.</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Irudiak bistaratzea aktibatu edo desaktibatu</translation>
+        <translation type="obsolete">Irudiak bistaratzea aktibatu edo desaktibatu</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -14241,6 +14312,14 @@ motakoa dela, eskertuko genizuke arazo honen berri emango bazenu.</translation>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Aplikatu orrialdearen tamainaren aldaketak dokumentuko orrialde guztiei</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15288,7 +15367,7 @@ Despl-bertikala: %3</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Irudia</translation>
+        <translation type="obsolete">Irudia</translation>
     </message>
     <message>
         <source>File: </source>
@@ -15414,6 +15493,10 @@ eragiketa saltatu egingo da</translation>
     <message>
         <source>Export: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Irudia</translation>
     </message>
 </context>
 <context>
@@ -16716,7 +16799,7 @@ bertsioko dokumentua inportatzean.</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>&amp;Aplikatu efektuak orrialde guztietan</translation>
+        <translation type="obsolete">&amp;Aplikatu efektuak orrialde guztietan</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -17253,6 +17336,10 @@ gero, jatorrizko bereizmenarekin errendatuko dira. Hau gaitzen bada, memoriaren 
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -17350,7 +17437,7 @@ gero, jatorrizko bereizmenarekin errendatuko dira. Hau gaitzen bada, memoriaren 
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>&amp;Eskalatu irudia markoaren tamainara</translation>
+        <translation type="obsolete">&amp;Eskalatu irudia markoaren tamainara</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -17378,7 +17465,7 @@ gero, jatorrizko bereizmenarekin errendatuko dira. Hau gaitzen bada, memoriaren 
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Irudi-markoen propietateak</translation>
+        <translation type="obsolete">Irudi-markoen propietateak</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -17422,7 +17509,7 @@ gero, jatorrizko bereizmenarekin errendatuko dira. Hau gaitzen bada, memoriaren 
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Irudi-markoak baimentzen du irudiak edozein tamainara eskalatzea</translation>
+        <translation type="obsolete">Irudi-markoak baimentzen du irudiak edozein tamainara eskalatzea</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -17438,15 +17525,15 @@ gero, jatorrizko bereizmenarekin errendatuko dira. Hau gaitzen bada, memoriaren 
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Irudi-markoetako irudiak markoaren tamainara eskalatuko dira</translation>
+        <translation type="obsolete">Irudi-markoetako irudiak markoaren tamainara eskalatuko dira</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Automatikoki eskalatutako irudiek jatorrizko proportzioak mantentzen dute</translation>
+        <translation type="obsolete">Automatikoki eskalatutako irudiek jatorrizko proportzioak mantentzen dute</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Irudi-markoen kolorea</translation>
+        <translation type="obsolete">Irudi-markoen kolorea</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -17568,6 +17655,30 @@ gero, jatorrizko bereizmenarekin errendatuko dira. Hau gaitzen bada, memoriaren 
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Bat ere ez</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

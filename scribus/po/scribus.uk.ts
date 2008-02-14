@@ -2731,6 +2731,38 @@ creates a Duplicate of the selected Object (or Selection Group).
 Створює дублікат вибраного об&quot;єкта або вибірки об&quot;єктів.
 </translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -3483,7 +3515,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>Керування &amp;зображеннями</translation>
+        <translation type="obsolete">Керування &amp;зображеннями</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -3819,6 +3851,10 @@ creates a Duplicate of the selected Object (or Selection Group).
     <message>
         <source>&amp;400%</source>
         <translation type="unfinished">&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5200,11 +5236,11 @@ It is recommended that you enable this if you have photos in your document.</sou
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>&amp;RGB зображення:</translation>
+        <translation type="obsolete">&amp;RGB зображення:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>&amp;CMYK зображення:</translation>
+        <translation type="obsolete">&amp;CMYK зображення:</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
@@ -5213,6 +5249,14 @@ It is recommended that you enable this if you have photos in your document.</sou
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>Стандартний кольоровий профіль для імпортованих RGB зображень</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5318,6 +5362,11 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation>Вибір цієї установки призведе до визначення цього кольору, як точкового, результатом чого буде додаткова точка при створенні пластин для сепарації. Використовується в основному тоді, коли необхідно щоб логотип чи інший колір був точно переданим або не може бути переданим CMYK чорнилами. Металічні та флюоресцентні чорниля являються гарним прикладом кольорів, які не можуть бути передані CMYK чорнилами.</translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10921,7 +10970,7 @@ UCR найбільше впливає на ті частини зображен�
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Керувати зображеннями</translation>
+        <translation type="obsolete">Керувати зображеннями</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -10938,6 +10987,10 @@ UCR найбільше впливає на ті частини зображен�
     <message>
         <source>Select a base directory for search</source>
         <translation>Вибрати базову директорію для пошуку</translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11399,7 +11452,7 @@ UCR найбільше впливає на ті частини зображен�
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Показати зображення</translation>
+        <translation type="obsolete">Показати зображення</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -11439,7 +11492,7 @@ UCR найбільше впливає на ті частини зображен�
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Переключає показ зображень</translation>
+        <translation type="obsolete">Переключає показ зображень</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
@@ -11580,6 +11633,14 @@ Scribus виконає пошук в системних директоріях �
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation>Додати шлях до інтерпретатора Ghostscript. У Віндоуз Вам потрібно використовувати програму gswin32c.exe а НЕ gswin32.exe. В протилежному випадку Скрибус може зависнути під час запуску.</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13708,6 +13769,16 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
         <source>Insufficient memory for this image size.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13930,7 +14001,7 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Показати зображення</translation>
+        <translation type="obsolete">Показати зображення</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -13986,7 +14057,7 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Переключає показ зображень</translation>
+        <translation type="obsolete">Переключає показ зображень</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -14043,6 +14114,14 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Застосувати зміни розмірів сторінки до всіх існуючих сторінок документа</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15085,7 +15164,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Зображення</translation>
+        <translation type="obsolete">Зображення</translation>
     </message>
     <message>
         <source>File: </source>
@@ -15210,6 +15289,10 @@ Vertical shift: %3</source>
     <message>
         <source>Export: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Зображення</translation>
     </message>
 </context>
 <context>
@@ -16536,7 +16619,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>Застосувати ефект на в&amp;сіх сторінках</translation>
+        <translation type="obsolete">Застосувати ефект на в&amp;сіх сторінках</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -17056,6 +17139,10 @@ when PDF document is opened:</source>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation>Зробити вибірку шрифтів в PDF. Вибірка шрифтів означає, що в PDF будуть вставлені лише ті глифи, які використовуються в документі, а не весь шрифт. Деякі шрифти, такі як Open Type лише дозволяють вибірку, бо їх неможливо вставити у версії PDF до 1.6.</translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -17161,7 +17248,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>Установити масштаб зображення по розміру &amp;рамки</translation>
+        <translation type="obsolete">Установити масштаб зображення по розміру &amp;рамки</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -17209,7 +17296,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Властивості рамки для зображень</translation>
+        <translation type="obsolete">Властивості рамки для зображень</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -17253,7 +17340,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Рамки для зображень дозволяють масштабування зображень до любого розміру</translation>
+        <translation type="obsolete">Рамки для зображень дозволяють масштабування зображень до любого розміру</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -17269,15 +17356,15 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Зображення у рамках для зображень масштабовані до розміру рамки</translation>
+        <translation type="obsolete">Зображення у рамках для зображень масштабовані до розміру рамки</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Автоматично масштабовані зображення зберігають відношення сторін</translation>
+        <translation type="obsolete">Автоматично масштабовані зображення зберігають відношення сторін</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Колір заповнення рамок зображень</translation>
+        <translation type="obsolete">Колір заповнення рамок зображень</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -17370,6 +17457,30 @@ when PDF document is opened:</source>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

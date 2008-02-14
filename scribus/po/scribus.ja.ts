@@ -1631,6 +1631,38 @@ is not passed, text flow is toggled.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2409,7 +2441,7 @@ is not passed, text flow is toggled.
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>画像を管理(&amp;M)</translation>
+        <translation type="obsolete">画像を管理(&amp;M)</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -2777,6 +2809,10 @@ is not passed, text flow is toggled.
     <message>
         <source>&amp;400%</source>
         <translation type="unfinished">&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4156,11 +4192,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>RGB画像(&amp;R):</translation>
+        <translation type="obsolete">RGB画像(&amp;R):</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>CMYK画像(&amp;C):</translation>
+        <translation type="obsolete">CMYK画像(&amp;C):</translation>
     </message>
     <message>
         <source>&amp;Monitor:</source>
@@ -4301,6 +4337,14 @@ Relative Colorimetric or Perceptual should be chosen.</source>
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CMYKChoose</name>
@@ -4404,6 +4448,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Name of the color is not unique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10795,7 +10844,7 @@ Corners:</source>
     <name>PicStatus</name>
     <message>
         <source>Manage Pictures</source>
-        <translation>画像を管理</translation>
+        <translation type="obsolete">画像を管理</translation>
     </message>
     <message>
         <source>Name</source>
@@ -10864,6 +10913,10 @@ Corners:</source>
     <message>
         <source>Close</source>
         <translation type="obsolete">閉じる</translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11242,7 +11295,7 @@ Corners:</source>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="unfinished">画像を表示</translation>
+        <translation type="obsolete">画像を表示</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -11370,7 +11423,7 @@ Corners:</source>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished">画像の表示をON/OFFする</translation>
+        <translation type="obsolete">画像の表示をON/OFFする</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
@@ -11503,6 +11556,14 @@ Corners:</source>
     <message>
         <source>Locate your image editor</source>
         <translation type="unfinished">画像エディタの位置</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13712,6 +13773,16 @@ External Links
         <source>Insufficient memory for this image size.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13970,7 +14041,7 @@ External Links
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="unfinished">画像を表示</translation>
+        <translation type="obsolete">画像を表示</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -14034,7 +14105,7 @@ External Links
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished">画像の表示をON/OFFする</translation>
+        <translation type="obsolete">画像の表示をON/OFFする</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -14047,6 +14118,14 @@ External Links
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation type="unfinished">ドキュメント中の全てのページにページサイズの変更を適用する</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15397,7 +15476,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Picture</source>
-        <translation>画像</translation>
+        <translation type="obsolete">画像</translation>
     </message>
     <message>
         <source>File: </source>
@@ -15522,6 +15601,10 @@ Vertical shift: %3</source>
     <message>
         <source>Export: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">画像</translation>
     </message>
 </context>
 <context>
@@ -17613,7 +17696,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>全てのページにエフェクトを適用(&amp;A)</translation>
+        <translation type="obsolete">全てのページにエフェクトを適用(&amp;A)</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -18119,6 +18202,10 @@ when PDF document is opened:</source>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabScrapbookBase</name>
@@ -18267,7 +18354,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>フレームサイズに合わせて画像を拡大縮小(&amp;S)</translation>
+        <translation type="obsolete">フレームサイズに合わせて画像を拡大縮小(&amp;S)</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -18315,7 +18402,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>画像フレームのプロパティ</translation>
+        <translation type="obsolete">画像フレームのプロパティ</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -18359,7 +18446,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>画像フレームは画像を任意のサイズに拡大縮小できます</translation>
+        <translation type="obsolete">画像フレームは画像を任意のサイズに拡大縮小できます</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -18375,15 +18462,15 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>画像フレームの画像はフレームのサイズに拡大縮小されます</translation>
+        <translation type="obsolete">画像フレームの画像はフレームのサイズに拡大縮小されます</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>自動的に拡大縮小された画像をオリジナルの比率に保ちます</translation>
+        <translation type="obsolete">自動的に拡大縮小された画像をオリジナルの比率に保ちます</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>画像フレームの塗りつぶし色</translation>
+        <translation type="obsolete">画像フレームの塗りつぶし色</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -18473,6 +18560,30 @@ when PDF document is opened:</source>
     <message>
         <source>Zoom</source>
         <translation type="obsolete">ズーム</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

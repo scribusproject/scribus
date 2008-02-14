@@ -1631,6 +1631,38 @@ creates a Duplicate of the selected Object (or Selection Group).
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2389,7 +2421,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>Afbeeldingen &amp;beheren</translation>
+        <translation type="obsolete">Afbeeldingen &amp;beheren</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -2713,6 +2745,10 @@ creates a Duplicate of the selected Object (or Selection Group).
     <message>
         <source>&amp;400%</source>
         <translation type="unfinished">&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4092,11 +4128,11 @@ Als uw document foto&apos;s bevat wordt deze instelling aangeraden.</translation
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>&amp;RGB-afbeeldingen:</translation>
+        <translation type="obsolete">&amp;RGB-afbeeldingen:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>&amp;CMYK-afbeeldingen:</translation>
+        <translation type="obsolete">&amp;CMYK-afbeeldingen:</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
@@ -4105,6 +4141,14 @@ Als uw document foto&apos;s bevat wordt deze instelling aangeraden.</translation
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>Standaard-kleurprofiel voor geïmporteerde RGB-afbeeldingen</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4210,6 +4254,11 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation>Hiermee wordt van deze kleur een steunkleur gemaakt. Voor elke steunkleur wordt een separatie gemaakt bij het maken van platen of films. Steunkleuren worden meestal gebruikt als een kleur exact moet worden weergegeven en niet kan worden samengesteld met cmyk kleuren. Metallic en fluoriserende inkten zijn specifieke voorbeelden welke niet met cmyk inkten kunnen worden aangemaakt.</translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9728,7 +9777,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Afbeelingen beheren</translation>
+        <translation type="obsolete">Afbeelingen beheren</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -9745,6 +9794,10 @@ hoeken:</translation>
     <message>
         <source>Select a base directory for search</source>
         <translation>Selecteer een te doorzoeken map</translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10194,7 +10247,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Toon plaatjes</translation>
+        <translation type="obsolete">Toon plaatjes</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -10218,7 +10271,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Zet weergave van afbeeldingen aan of uit</translation>
+        <translation type="obsolete">Zet weergave van afbeeldingen aan of uit</translation>
     </message>
     <message>
         <source>Document T&amp;emplates:</source>
@@ -10379,6 +10432,14 @@ hoeken:</translation>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation>Voeg pad toe naar Ghostscript interpreter. Bij Windows is het belangrijk op te letten dat gswin32c.exe en NIET gswin32.exe wordt ingesteld, Scribus kan dan mogeljk niet starten.</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12494,6 +12555,16 @@ aangeroepen functies.
         <source>Insufficient memory for this image size.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12712,7 +12783,7 @@ aangeroepen functies.
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Toon plaatjes</translation>
+        <translation type="obsolete">Toon plaatjes</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -12756,7 +12827,7 @@ aangeroepen functies.
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Zet weergave van afbeeldingen aan of uit</translation>
+        <translation type="obsolete">Zet weergave van afbeeldingen aan of uit</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -12829,6 +12900,14 @@ aangeroepen functies.
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Pas de pagina-formaat-instellingen toe op alle bestaande pagina&apos;s in het document</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13871,7 +13950,7 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Afbeelding</translation>
+        <translation type="obsolete">Afbeelding</translation>
     </message>
     <message>
         <source>File: </source>
@@ -13996,6 +14075,10 @@ Verticaal shift: %3</translation>
     <message>
         <source>Export: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Afbeelding</translation>
     </message>
 </context>
 <context>
@@ -15272,7 +15355,7 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>Effect op &amp;alle pagina&apos;s toepassen</translation>
+        <translation type="obsolete">Effect op &amp;alle pagina&apos;s toepassen</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -15776,6 +15859,10 @@ als PDF document wordt geopend:</translation>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation>Kwaliteitsniveaus voor lossy compressie methoden. Minimum (25%). Laag (50%), Medium (75%), Hoog (85%), Maximum (95%). Het kwaliteitsniveau bepaalt niet direct de grootte van de resulterende afbeelding. Grootte en verlies van kwaliteit variëren bij elk afzonderlijk kwaliteitsniveau. Zelfs bij keuze voor het Maximum niveau is er altijd een kwaliteitsverlies bij jpeg.</translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -15873,7 +15960,7 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>Afbeelding &amp;schalen naar framegrootte</translation>
+        <translation type="obsolete">Afbeelding &amp;schalen naar framegrootte</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -15901,7 +15988,7 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Eigenschappen voor afbeeldingsframe</translation>
+        <translation type="obsolete">Eigenschappen voor afbeeldingsframe</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -15945,7 +16032,7 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Afbeeldingsframes kunnen afbeeldingen meeschalen naar elke grootte</translation>
+        <translation type="obsolete">Afbeeldingsframes kunnen afbeeldingen meeschalen naar elke grootte</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -15961,15 +16048,15 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Afbeeldingen in afbeeldingsframes worden altijd naar de grootte van het frame geschaald</translation>
+        <translation type="obsolete">Afbeeldingen in afbeeldingsframes worden altijd naar de grootte van het frame geschaald</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Automatisch geschaalde afbeeldingen houden hun oorspronkelijke beeldverhouding</translation>
+        <translation type="obsolete">Automatisch geschaalde afbeeldingen houden hun oorspronkelijke beeldverhouding</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Vulkleur voor afbeeldingsframes</translation>
+        <translation type="obsolete">Vulkleur voor afbeeldingsframes</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -16091,6 +16178,30 @@ als PDF document wordt geopend:</translation>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Geen</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

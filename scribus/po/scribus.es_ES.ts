@@ -2778,6 +2778,38 @@ creates a Duplicate of the selected Object (or Selection Group).
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -3697,7 +3729,7 @@ Las bibliotecas que falten se indican con un *
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation type="unfinished">Ad&amp;ministrar imágenes</translation>
+        <translation type="obsolete">Ad&amp;ministrar imágenes</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -4021,6 +4053,10 @@ Las bibliotecas que falten se indican con un *
     <message>
         <source>&amp;400%</source>
         <translation type="unfinished">&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5705,19 +5741,19 @@ Relative Colorimetric or Perceptual should be chosen.</source>
 porqué cambiarlo, deberías elegir Colormetraje Relativo o Perceptivo.</translation>
     </message>
     <message>
-        <source>&amp;RGB Pictures:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;CMYK Pictures:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Default color profile for imported CMYK images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Default color profile for imported RGB images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5852,6 +5888,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14274,7 +14315,7 @@ UCR reduce la posibilidad de sobresaturación con tintas CMY (cian, magenta, ama
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation type="unfinished">Administrar imágenes</translation>
+        <translation type="obsolete">Administrar imágenes</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -14290,6 +14331,10 @@ UCR reduce la posibilidad de sobresaturación con tintas CMY (cian, magenta, ama
     </message>
     <message>
         <source>Select a base directory for search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15539,10 +15584,6 @@ ejecutando.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Show Text Chains</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15643,10 +15684,6 @@ ejecutando.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Additional directory for document templates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15724,6 +15761,14 @@ ejecutando.</translation>
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18068,6 +18113,16 @@ is not exhaustive due to exceptions from called functions.
         <source>Insufficient memory for this image size.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -18394,10 +18449,6 @@ para lograr los márgenes correctos para la encuadernación.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Show Text Chains</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18478,10 +18529,6 @@ para lograr los márgenes correctos para la encuadernación.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Color for paper</source>
         <translation type="unfinished">Color del papel</translation>
     </message>
@@ -18511,6 +18558,14 @@ para lograr los márgenes correctos para la encuadernación.</translation>
     </message>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20849,7 +20904,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Picture</source>
-        <translation type="unfinished">Imagen</translation>
+        <translation type="obsolete">Imagen</translation>
     </message>
     <message>
         <source>File: </source>
@@ -20982,6 +21037,10 @@ Vertical shift: %3</source>
     <message>
         <source>Export: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Imagen</translation>
     </message>
 </context>
 <context>
@@ -22711,7 +22770,7 @@ arrastra una plantilla en la vista de páginas de abajo.</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation type="unfinished">Apl&amp;icar efectos en todas las páginas</translation>
+        <translation type="obsolete">Apl&amp;icar efectos en todas las páginas</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -23296,6 +23355,10 @@ when PDF document is opened:</source>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -23401,7 +23464,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="unfinished">&amp;Escalar Imagen al Tamaño del Marco</translation>
+        <translation type="obsolete">&amp;Escalar Imagen al Tamaño del Marco</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -23449,7 +23512,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation type="unfinished">Propiedades de Marco de Imagen</translation>
+        <translation type="obsolete">Propiedades de Marco de Imagen</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -23493,7 +23556,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="unfinished">Los marcos de imagen permiten el escalado de la imagen a cualquier tamaño</translation>
+        <translation type="obsolete">Los marcos de imagen permiten el escalado de la imagen a cualquier tamaño</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -23509,15 +23572,15 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="unfinished">Las imágenes se escalan al tamaño del marco</translation>
+        <translation type="obsolete">Las imágenes se escalan al tamaño del marco</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation type="unfinished">Mantener las proporciones originales de las imágenes escaladas automáticamente</translation>
+        <translation type="obsolete">Mantener las proporciones originales de las imágenes escaladas automáticamente</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation type="unfinished">Color de relleno de los marcos de imagen</translation>
+        <translation type="obsolete">Color de relleno de los marcos de imagen</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -23611,6 +23674,30 @@ when PDF document is opened:</source>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Ninguno</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

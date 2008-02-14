@@ -1847,6 +1847,38 @@ creates a Duplicate of the selected Object (or Selection Group).
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2747,7 +2779,7 @@ Avsaknad av stöd är markerat med *</translation>
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>Bild&amp;hantering</translation>
+        <translation type="obsolete">Bild&amp;hantering</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -3103,6 +3135,10 @@ Avsaknad av stöd är markerat med *</translation>
     <message>
         <source>&amp;400%</source>
         <translation type="unfinished">&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4800,11 +4836,11 @@ Du rekommenderas att använda detta om ditt dokument innehåller foton.</transla
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>&amp;RGB-bilder:</translation>
+        <translation type="obsolete">&amp;RGB-bilder:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>&amp;CMYK-bilder:</translation>
+        <translation type="obsolete">&amp;CMYK-bilder:</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
@@ -4859,6 +4895,14 @@ Relativ colormetri eller perceptuell bör användas.</translation>
 all colors, rgb or cmyk, are converted to printer color space.</source>
         <translation type="obsolete">Simulerar full färghanteringsmiljö:
 Alla färger, rgb eller cmyk, konverteras till skrivarens färgrymd.</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4993,6 +5037,11 @@ Det är ett reserverat namn för genomskinlig färg</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13299,7 +13348,7 @@ vektorgrafik vid förhandsvisning på bekostnad av långsammare visning</transla
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Bildhantering</translation>
+        <translation type="obsolete">Bildhantering</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -13316,6 +13365,10 @@ vektorgrafik vid förhandsvisning på bekostnad av långsammare visning</transla
     <message>
         <source>Select a base directory for search</source>
         <translation>Välj ett basbibliotek att starta sökning från</translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14549,7 +14602,7 @@ UCR förhindrar risken för övermättnad med CMG färger.</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Visa bilder</translation>
+        <translation type="obsolete">Visa bilder</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -14573,7 +14626,7 @@ UCR förhindrar risken för övermättnad med CMG färger.</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Slår av eller på visning av bilder</translation>
+        <translation type="obsolete">Slår av eller på visning av bilder</translation>
     </message>
     <message>
         <source>Document T&amp;emplates:</source>
@@ -14754,6 +14807,14 @@ UCR förhindrar risken för övermättnad med CMG färger.</translation>
     <message>
         <source>Locate your image editor</source>
         <translation type="unfinished">Hitta din bildredigerare</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17084,6 +17145,16 @@ is not exhaustive due to exceptions from called functions.
         <source>Insufficient memory for this image size.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -17413,7 +17484,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Visa bilder</translation>
+        <translation type="obsolete">Visa bilder</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -17457,7 +17528,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Slår av eller på visning av bilder</translation>
+        <translation type="obsolete">Slår av eller på visning av bilder</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -17538,6 +17609,14 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Använd förändring av sidstorlek på alla sidor i dokumentet</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20010,7 +20089,7 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Bild</translation>
+        <translation type="obsolete">Bild</translation>
     </message>
     <message>
         <source>File: </source>
@@ -20255,6 +20334,10 @@ Vertikal förskjutning: %3</translation>
     <message>
         <source>Export: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Bild</translation>
     </message>
 </context>
 <context>
@@ -22156,7 +22239,7 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>&amp;Applicera effekten på alla sidor</translation>
+        <translation type="obsolete">&amp;Applicera effekten på alla sidor</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -22809,6 +22892,10 @@ when PDF document is opened:</source>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -22906,7 +22993,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>&amp;Storleksförändra bilden till ramstorlek</translation>
+        <translation type="obsolete">&amp;Storleksförändra bilden till ramstorlek</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -22934,7 +23021,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Egenskaper för bildram</translation>
+        <translation type="obsolete">Egenskaper för bildram</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -22978,7 +23065,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Bildramar tillåter bilder att storleksförändras till vilken storlek som helst</translation>
+        <translation type="obsolete">Bildramar tillåter bilder att storleksförändras till vilken storlek som helst</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -22994,15 +23081,15 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Bilder i bildram storleksförändras till ramens storlek</translation>
+        <translation type="obsolete">Bilder i bildram storleksförändras till ramens storlek</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Automatiskt storleksförändrade bilder bibehåller ursprungliga proportioner</translation>
+        <translation type="obsolete">Automatiskt storleksförändrade bilder bibehåller ursprungliga proportioner</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Bildramens fyllnadsfärg</translation>
+        <translation type="obsolete">Bildramens fyllnadsfärg</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -23124,6 +23211,30 @@ when PDF document is opened:</source>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Inget</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

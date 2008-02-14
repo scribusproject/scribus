@@ -1633,6 +1633,38 @@ creates a Duplicate of the selected Object (or Selection Group).
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2442,7 +2474,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>&amp;Gestion des images</translation>
+        <translation type="obsolete">&amp;Gestion des images</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -2715,6 +2747,10 @@ creates a Duplicate of the selected Object (or Selection Group).
     <message>
         <source>&amp;400%</source>
         <translation>&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3996,11 +4032,11 @@ Choisissez-en un autre.</translation>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>Images &amp;RVB :</translation>
+        <translation type="obsolete">Images &amp;RVB :</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>Images &amp;CMJN :</translation>
+        <translation type="obsolete">Images &amp;CMJN :</translation>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
@@ -4107,6 +4143,14 @@ It is recommended that you enable this if you have photos in your document.</sou
         <translation>Sert à améliorer le contraste des photos. Il est recommandé de l&apos;utiliser si
 vous avez des photos dans votre composition.</translation>
     </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CMYKChoose</name>
@@ -4211,6 +4255,11 @@ Ce nom est réservé aux couleurs transparentes</translation>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation>Cette option permet de créer des couleurs d&apos;accompagnement. Ceci a pour effet de créer une plaque additionnelle lors de la séparation des couleurs. Les couleurs d&apos;accompagnement sont utilisées lorsque la reproduction fidèle d&apos;une couleur est exigée, que ce soit pour un logo d&apos;entreprise ou pour l&apos;impression d&apos;une couleur qui ne peut être reproduite avec fidélité en quadrichromie. Les couleurs métallisées et fluorescentes sont de bons exemples de couleur très difficiles voire impossibles à reproduire avec le procédé quadrichromique (CMJN).</translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9705,7 +9754,7 @@ arr&amp;ondis :</translation>
     <name>PicStatus</name>
     <message>
         <source>Manage Pictures</source>
-        <translation>Gestion des images</translation>
+        <translation type="obsolete">Gestion des images</translation>
     </message>
     <message>
         <source>Name</source>
@@ -9766,6 +9815,10 @@ arr&amp;ondis :</translation>
     <message>
         <source>No images named &quot;%1&quot; were found.</source>
         <translation>Impossible de trouver des images nommées &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10123,7 +10176,7 @@ arr&amp;ondis :</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Afficher les images</translation>
+        <translation type="obsolete">Afficher les images</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -10267,7 +10320,7 @@ arr&amp;ondis :</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>(Dés)activer l&apos;affichage des images</translation>
+        <translation type="obsolete">(Dés)activer l&apos;affichage des images</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
@@ -10400,6 +10453,14 @@ arr&amp;ondis :</translation>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation>Indiquer le chemin de l&apos;exécutable de l&apos;interpréteur GhostScript. Sous Windows, il est impératif d&apos;utiliser le programme nommé gswin32c.exe et non pas gswin32.exe, sinon cela risque de provoquer un blocage lors du démarrage de Scribus</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12517,6 +12578,16 @@ Liens externes
         <source>Insufficient memory for this image size.</source>
         <translation>Mémoire insuffisante pour cette taille d&apos;image.</translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12727,7 +12798,7 @@ Liens externes
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Afficher les images</translation>
+        <translation type="obsolete">Afficher les images</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -12835,7 +12906,7 @@ Liens externes
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>(Dés)activer l&apos;affichage des images</translation>
+        <translation type="obsolete">(Dés)activer l&apos;affichage des images</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -12852,6 +12923,14 @@ Liens externes
     <message>
         <source>Adjusting Colors</source>
         <translation>Ajustement des couleurs</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13894,7 +13973,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Image</translation>
+        <translation type="obsolete">Image</translation>
     </message>
     <message>
         <source>File: </source>
@@ -14019,6 +14098,10 @@ Utilisez le vérificateur afin de les corriger</translation>
     <message>
         <source>Export: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Image</translation>
     </message>
 </context>
 <context>
@@ -15342,7 +15425,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>Appli&amp;quer le(s) effet(s) à toutes les pages</translation>
+        <translation type="obsolete">Appli&amp;quer le(s) effet(s) à toutes les pages</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -15826,6 +15909,10 @@ when PDF document is opened:</source>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation>Encapsule toutes les polices en jeux partiels. L&apos;encapsulation en jeux partiels permet de n&apos;incorporer dans le fichier que les glyphes utilisés. Certaines polices notamment OpenType peuvent uniquement être incorporées en jeux partiels, les formats PDF antérieurs au PDF 1.6 ne permettant pas l&apos;encapsulation de ce type de polices.</translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -15962,7 +16049,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>Mettre l&apos;image aux &amp;dimensions du cadre</translation>
+        <translation type="obsolete">Mettre l&apos;image aux &amp;dimensions du cadre</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -16010,7 +16097,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Propriétés des cadres d&apos;image</translation>
+        <translation type="obsolete">Propriétés des cadres d&apos;image</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -16054,7 +16141,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Les cadres d&apos;image permettent une mise à l&apos;échelle libre des images</translation>
+        <translation type="obsolete">Les cadres d&apos;image permettent une mise à l&apos;échelle libre des images</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -16070,15 +16157,15 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Les images sont mises aux dimensions du cadre</translation>
+        <translation type="obsolete">Les images sont mises aux dimensions du cadre</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Les images redimensionnées automatiquement conservent leurs proportions</translation>
+        <translation type="obsolete">Les images redimensionnées automatiquement conservent leurs proportions</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Couleur de fond des cadres d&apos;image</translation>
+        <translation type="obsolete">Couleur de fond des cadres d&apos;image</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -16144,6 +16231,30 @@ when PDF document is opened:</source>
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Aucune</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

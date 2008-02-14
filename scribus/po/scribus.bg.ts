@@ -1631,6 +1631,38 @@ creates a Duplicate of the selected Object (or Selection Group).
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2404,10 +2436,6 @@ creates a Duplicate of the selected Object (or Selection Group).
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Manage Pictures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Hyphenate Text</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2728,6 +2756,10 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;400%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4161,19 +4193,19 @@ It is recommended that you enable this if you have photos in your document.</sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;RGB Pictures:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;CMYK Pictures:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Default color profile for imported CMYK images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Default color profile for imported RGB images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4290,6 +4322,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10135,7 +10172,7 @@ Corners:</source>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation type="unfinished">Управление на илюстрации</translation>
+        <translation type="obsolete">Управление на илюстрации</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -10151,6 +10188,10 @@ Corners:</source>
     </message>
     <message>
         <source>Select a base directory for search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10644,10 +10685,6 @@ Corners:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Show Text Chains</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10665,10 +10702,6 @@ Corners:</source>
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of pictures on or off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10841,6 +10874,14 @@ Corners:</source>
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12925,6 +12966,16 @@ is not exhaustive due to exceptions from called functions.
         <source>Insufficient memory for this image size.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13154,10 +13205,6 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Show Text Chains</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13195,10 +13242,6 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of pictures on or off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -13275,6 +13318,14 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14641,10 +14692,6 @@ Vertical shift: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Picture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>File: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -14771,6 +14818,10 @@ Vertical shift: %3</source>
     <message>
         <source>Export: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Илюстрация</translation>
     </message>
 </context>
 <context>
@@ -16101,10 +16152,6 @@ Vertical shift: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Apply Effect on all Pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>E&amp;xtras</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16605,6 +16652,10 @@ when PDF document is opened:</source>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -16701,10 +16752,6 @@ when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Keep Aspect &amp;Ratio</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16726,10 +16773,6 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Picture Frame Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16773,10 +16816,6 @@ when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Horizontal scaling of images</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16786,18 +16825,6 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Keep horizontal and vertical scaling the same</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Automatically scaled pictures keep their original proportions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fill color of picture frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16920,6 +16947,30 @@ when PDF document is opened:</source>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">None</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

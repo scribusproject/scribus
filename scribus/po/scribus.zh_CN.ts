@@ -2538,6 +2538,38 @@ creates a Duplicate of the selected Object (or Selection Group).
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -3292,7 +3324,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>&amp;M 管理图片</translation>
+        <translation type="obsolete">&amp;M 管理图片</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -3671,6 +3703,10 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;400%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5079,11 +5115,11 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>&amp;RGB 图像：</translation>
+        <translation type="obsolete">&amp;RGB 图像：</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>&amp;CMYK 图像：</translation>
+        <translation type="obsolete">&amp;CMYK 图像：</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
@@ -5092,6 +5128,14 @@ This requires very accurate profiles and serves only as a warning.</source>
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>导入的RGB图像的默认颜色配置文件</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5200,6 +5244,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10894,7 +10943,7 @@ Corners:</source>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation type="unfinished">管理图片</translation>
+        <translation type="obsolete">管理图片</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -10911,6 +10960,10 @@ Corners:</source>
     <message>
         <source>Select a base directory for search</source>
         <translation type="unfinished">选择查找的一个基础目录</translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11424,7 +11477,7 @@ Corners:</source>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="unfinished">显示图像</translation>
+        <translation type="obsolete">显示图像</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -11452,7 +11505,7 @@ Corners:</source>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished">开闭图片显示</translation>
+        <translation type="obsolete">开闭图片显示</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
@@ -11604,6 +11657,14 @@ Corners:</source>
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13779,6 +13840,16 @@ is not exhaustive due to exceptions from called functions.
         <source>Insufficient memory for this image size.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13997,7 +14068,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="unfinished">显示图片</translation>
+        <translation type="obsolete">显示图片</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -14049,7 +14120,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished">开闭图片显示</translation>
+        <translation type="obsolete">开闭图片显示</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -14114,6 +14185,14 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation type="unfinished">应用页面尺寸改变到文档中现有全部页面</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15168,7 +15247,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Picture</source>
-        <translation>图片</translation>
+        <translation type="obsolete">图片</translation>
     </message>
     <message>
         <source>File: </source>
@@ -15305,6 +15384,10 @@ Vertical shift: %3</source>
     <message>
         <source>Export: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">图像</translation>
     </message>
 </context>
 <context>
@@ -16668,7 +16751,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation type="unfinished">&amp;A 应用特效到所有页</translation>
+        <translation type="obsolete">&amp;A 应用特效到所有页</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -17208,6 +17291,10 @@ when PDF document is opened:</source>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -17305,7 +17392,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>&amp;S 按框体大小缩放图像</translation>
+        <translation type="obsolete">&amp;S 按框体大小缩放图像</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -17353,7 +17440,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>图像框属性</translation>
+        <translation type="obsolete">图像框属性</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -17397,7 +17484,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>图像框允许图像伸缩到任意尺寸</translation>
+        <translation type="obsolete">图像框允许图像伸缩到任意尺寸</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -17413,15 +17500,15 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>图像框中的图像被伸缩到图像框的尺寸</translation>
+        <translation type="obsolete">图像框中的图像被伸缩到图像框的尺寸</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>自动伸缩图像到原始的比例</translation>
+        <translation type="obsolete">自动伸缩图像到原始的比例</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>给图像框填充颜色</translation>
+        <translation type="obsolete">给图像框填充颜色</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -17522,6 +17609,30 @@ when PDF document is opened:</source>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

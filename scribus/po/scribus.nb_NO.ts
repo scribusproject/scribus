@@ -2015,6 +2015,38 @@ strings.
 
 Angir informasjon om dokumentet: «forfatter», «informasjon» og «beskrivelse» er strenger.</translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2765,7 +2797,7 @@ Angir informasjon om dokumentet: «forfatter», «informasjon» og «beskrivelse
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>&amp;Bildeoppsett</translation>
+        <translation type="obsolete">&amp;Bildeoppsett</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -3115,6 +3147,10 @@ Document Outline Palette</comment>
     <message>
         <source>&amp;400%</source>
         <translation type="unfinished">&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4492,11 +4528,11 @@ Hvis du har fotografier i ditt dokumentet er det lurt å bruke dette.</translati
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>&amp;RGB-bilder:</translation>
+        <translation type="obsolete">&amp;RGB-bilder:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>&amp;CMYK-bilder:</translation>
+        <translation type="obsolete">&amp;CMYK-bilder:</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
@@ -4505,6 +4541,14 @@ Hvis du har fotografier i ditt dokumentet er det lurt å bruke dette.</translati
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>Standard fargeprofil for importerte RGB-bilder</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4609,6 +4653,11 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation>Ved at velge dette vil gjøre om denne fargen til en spotfarge, og dermed lage enda et punkt når det blir laget plater eller separasjoner. Det er ofte brukt, når en logo eller anden farve skal være helt nøyaktig eller ikke kan lages ved hjelp av trykkfargene i CMYK. Metalliske og fluorescerende farver er gode eksempler på farger, som det ikke er særlig let å lage med trykkfarger i CMYK.</translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10127,7 +10176,7 @@ Corners:</source>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Håndter bilder</translation>
+        <translation type="obsolete">Håndter bilder</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -10144,6 +10193,10 @@ Corners:</source>
     <message>
         <source>Select a base directory for search</source>
         <translation>Velg hvilken mappe du vil søke fra</translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10609,7 +10662,7 @@ Corners:</source>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Vis bildene</translation>
+        <translation type="obsolete">Vis bildene</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -10681,7 +10734,7 @@ Corners:</source>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Velg om bildene skal vises</translation>
+        <translation type="obsolete">Velg om bildene skal vises</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
@@ -10781,6 +10834,14 @@ bruke som lagringsplass. Disse elementene kan du dra inn på og ut fra sidene so
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation>Legg inn stien til Ghostcript-programmet. På Windows er det viktig at du installerer programmet «gswin32c.exe» og IKKE «gswin32.exe», ellers kan det føre til at programmet henger når du starter Scribus.</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12960,6 +13021,16 @@ PDB Importer</comment>
         <source>Insufficient memory for this image size.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13182,7 +13253,7 @@ PDB Importer</comment>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Vis bilder</translation>
+        <translation type="obsolete">Vis bilder</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -13246,7 +13317,7 @@ PDB Importer</comment>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Velg om du vil vise bildene</translation>
+        <translation type="obsolete">Velg om du vil vise bildene</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -13295,6 +13366,14 @@ PDB Importer</comment>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Bruk den endrede sidestørrelsen på alle sidene i dokumentet</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14335,7 +14414,7 @@ Loddrett forskyvning: %3</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Bilde</translation>
+        <translation type="obsolete">Bilde</translation>
     </message>
     <message>
         <source>File: </source>
@@ -14460,6 +14539,10 @@ Loddrett forskyvning: %3</translation>
     <message>
         <source>Export: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Bilde</translation>
     </message>
 </context>
 <context>
@@ -15740,7 +15823,7 @@ Loddrett forskyvning: %3</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>&amp;Bruk effekten på alle sidene</translation>
+        <translation type="obsolete">&amp;Bruk effekten på alle sidene</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -16242,6 +16325,10 @@ når pdf-dokument åpnes:</translation>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation>Kvalitetsnivå for komprimeringsmetoder med kvalitetstap: Laveste (25%), Lav (50%), Medium (75%), Høy (85%), Høyeste (95%). Kvalitetsnivået kan ikke direkte sammenlignes med bildestørrelsen &amp;ndash; både størrelsen og kvalitetstapet vil variere fra bilde til bilde på ulike kvalitetsnivåer. Selv på høyeste nivå vil jpg gi kvalitetsttap.</translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -16347,7 +16434,7 @@ når pdf-dokument åpnes:</translation>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>&amp;Skaler bildet til rammestørrelsen</translation>
+        <translation type="obsolete">&amp;Skaler bildet til rammestørrelsen</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -16395,7 +16482,7 @@ når pdf-dokument åpnes:</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Egenskaper for bilderammer</translation>
+        <translation type="obsolete">Egenskaper for bilderammer</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -16439,7 +16526,7 @@ når pdf-dokument åpnes:</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>I en bilderammene kan bildene skaleres til enhver størrelse</translation>
+        <translation type="obsolete">I en bilderammene kan bildene skaleres til enhver størrelse</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -16455,15 +16542,15 @@ når pdf-dokument åpnes:</translation>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Bilder i bilderammer skaleres opp til samme størrelse som ramma</translation>
+        <translation type="obsolete">Bilder i bilderammer skaleres opp til samme størrelse som ramma</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Automatisk skalerte bilder beholder samme størrelsesforhold</translation>
+        <translation type="obsolete">Automatisk skalerte bilder beholder samme størrelsesforhold</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Fyllfarge på bilderammer</translation>
+        <translation type="obsolete">Fyllfarge på bilderammer</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -16557,6 +16644,30 @@ når pdf-dokument åpnes:</translation>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

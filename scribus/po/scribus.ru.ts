@@ -1885,6 +1885,38 @@ strings.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2631,7 +2663,7 @@ strings.
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>Управление &amp;изображениями</translation>
+        <translation type="obsolete">Управление &amp;изображениями</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -2967,6 +2999,10 @@ strings.
     <message>
         <source>&amp;400%</source>
         <translation>&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4357,11 +4393,11 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>&amp;RGB-изображения:</translation>
+        <translation type="obsolete">&amp;RGB-изображения:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>&amp;CMYK-изображения:</translation>
+        <translation type="obsolete">&amp;CMYK-изображения:</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
@@ -4370,6 +4406,14 @@ This requires very accurate profiles and serves only as a warning.</source>
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>Используемый по умолчанию профиль для RGB-изображений</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4475,6 +4519,11 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation>Если выбрать, цвет станет плашечным, то есть для него будет выводиться отдельная пленка. Обычно используется при печати отдельной, спецально намешанной краской для точного воспроизведения цвета (например на логотипах), либо когда невозможно использовать четырехкрасочную печать (в случае с металликами, флюоресцентами и т.п.).</translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10029,7 +10078,7 @@ Corners:</source>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Управление изображениями</translation>
+        <translation type="obsolete">Управление изображениями</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -10046,6 +10095,10 @@ Corners:</source>
     <message>
         <source>Select a base directory for search</source>
         <translation>Выберите базовый каталог для поиска</translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10498,7 +10551,7 @@ Corners:</source>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Показывать изображения</translation>
+        <translation type="obsolete">Показывать изображения</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -10522,7 +10575,7 @@ Corners:</source>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Включить или отключить показ изображений</translation>
+        <translation type="obsolete">Включить или отключить показ изображений</translation>
     </message>
     <message>
         <source>Document T&amp;emplates:</source>
@@ -10683,6 +10736,14 @@ Corners:</source>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation>Добавьте путь к интерпретатору GhostScript в системе. Пользователям версии для Windows стоит помнить, что использоваться должен файл gswin32c.exe,а никак не gswin32.exe. В противном случае Scribus «повиснет» при запуске.</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12772,6 +12833,16 @@ is not exhaustive due to exceptions from called functions.
         <source>Insufficient memory for this image size.</source>
         <translation>Недостаточно памяти для изображения такого размера.</translation>
     </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12990,7 +13061,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Показывать изображения</translation>
+        <translation type="obsolete">Показывать изображения</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -13034,7 +13105,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Включить или отключить показ изображений</translation>
+        <translation type="obsolete">Включить или отключить показ изображений</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -13107,6 +13178,14 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Использовать новые параметры для всех страницах текущего документа</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14149,7 +14228,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Изображение</translation>
+        <translation type="obsolete">Изображение</translation>
     </message>
     <message>
         <source>File: </source>
@@ -14274,6 +14353,10 @@ Vertical shift: %3</source>
     <message>
         <source>Export: </source>
         <translation>Экспорт: </translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Изображение</translation>
     </message>
 </context>
 <context>
@@ -15565,7 +15648,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>&amp;Применить эффект ко всем страницам</translation>
+        <translation type="obsolete">&amp;Применить эффект ко всем страницам</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -16089,6 +16172,10 @@ when PDF document is opened:</source>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation>Встроить в PDF все гарнитуры с вычитанием. Это означает, что будут встроены только те глифы, которые используются в документе, а не весь комплект знаков. Некоторые шрифты, такие как OpenType, могут быть вставлены лишь с вычитанием глифов, поскольку их встраивание предусмотрено только в PDF 1.6.</translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -16188,7 +16275,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>Масштабировать &amp;изображение до блока</translation>
+        <translation type="obsolete">Масштабировать &amp;изображение до блока</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -16216,7 +16303,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Свойства блока изображения</translation>
+        <translation type="obsolete">Свойства блока изображения</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -16260,7 +16347,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Блоки позволяют произвольно масштабировать изображения</translation>
+        <translation type="obsolete">Блоки позволяют произвольно масштабировать изображения</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -16276,16 +16363,16 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Изображения в блоке масштабируются под его размер</translation>
+        <translation type="obsolete">Изображения в блоке масштабируются под его размер</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Автоматически масштабируемые изображения 
+        <translation type="obsolete">Автоматически масштабируемые изображения 
 сохраняют исходное соотношение сторон</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Цвет заливки рамок изображений</translation>
+        <translation type="obsolete">Цвет заливки рамок изображений</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -16407,6 +16494,30 @@ when PDF document is opened:</source>
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Нет</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

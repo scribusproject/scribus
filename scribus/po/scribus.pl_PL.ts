@@ -2306,6 +2306,38 @@ strings.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -3130,7 +3162,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>&amp;Zarządzanie obrazkami</translation>
+        <translation type="obsolete">&amp;Zarządzanie obrazkami</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -3530,6 +3562,10 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     <message>
         <source>&amp;400%</source>
         <translation>&amp;400%</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5207,11 +5243,11 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>Obrazki R&amp;GB:</translation>
+        <translation type="obsolete">Obrazki R&amp;GB:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>Obrazki &amp;CMYK:</translation>
+        <translation type="obsolete">Obrazki &amp;CMYK:</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
@@ -5220,6 +5256,14 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>Domyślny profil kolorów dla importowanych obrazków RGB</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Images:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5351,6 +5395,11 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation>Wybranie tej opcji spowoduje zamianę tego koloru na kolor dodatkowy, tym samym tworząc nowy kolor dodatkowy w trakcie tworzenia płyt lub rozbarwień. Używane najczęściej w przypadku, kiedy kolor logo lub inny kolor wymaga dokładnej reprezentacji, której nie można utworzyć w przestrzeni barw CMYK. Farby metaliczne lub fluoryzujące są typowymi przykładami kolorów, których nie da się odtworzyć za pomocą farb CMYK. </translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name
+Please give it a name</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8465,7 +8514,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Podgląd fontów</translation>
+        <translation type="obsolete">Podgląd fontów</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -8538,6 +8587,10 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">Podgląd fontów</translation>
     </message>
 </context>
 <context>
@@ -11237,6 +11290,14 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>Value to Enlarge or Shrink By</source>
         <translation>Wartość, do której należy powiększyć lub pomniejszyć</translation>
     </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OODPlug</name>
@@ -12093,7 +12154,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Zarządzanie obrazkami</translation>
+        <translation type="obsolete">Zarządzanie obrazkami</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -12110,6 +12171,10 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <source>Select a base directory for search</source>
         <translation>Wybierz wyjściowy katalog do przeszukania</translation>
+    </message>
+    <message>
+        <source>Manage Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12779,7 +12844,7 @@ konieczności startowania programu za każdym razem od nowa.</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Wyświetlaj obrazki</translation>
+        <translation type="obsolete">Wyświetlaj obrazki</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -12851,7 +12916,7 @@ konieczności startowania programu za każdym razem od nowa.</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Włącza lub wyłącza wyświetlanie obrazków</translation>
+        <translation type="obsolete">Włącza lub wyłącza wyświetlanie obrazków</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot
@@ -13027,6 +13092,14 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation>Dodaj ścieżkę do interpretera Ghostscriptu. W systemie Windows zwróć uwagę,  aby użyć programu gswin32c.exe, a NIE gswin32.exe. W innym przypadku może to spowodować zawieszenie się Scribusa przy starcie.</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15346,6 +15419,24 @@ is not exhaustive due to exceptions from called functions.
         <source>Insufficient memory for this image size.</source>
         <translation>Pojemność pamięci roboczej jest niewystarczająca dla obrazka tej wielkości.</translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -15627,7 +15718,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Wyświetlaj obrazki</translation>
+        <translation type="obsolete">Wyświetlaj obrazki</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -15691,7 +15782,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Włącza lub wyłącza wyświetlanie obrazków</translation>
+        <translation type="obsolete">Włącza lub wyłącza wyświetlanie obrazków</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -15772,6 +15863,14 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Stosuje zmiany rozmiaru strony do wszystkich stron dokumentu</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of images on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17421,7 +17520,12 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Scribus </source>
-        <translation>Scribus </translation>
+        <translation type="obsolete">Scribus </translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17551,7 +17655,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Obrazek</translation>
+        <translation type="obsolete">Obrazek</translation>
     </message>
     <message>
         <source>File: </source>
@@ -17728,6 +17832,10 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Export: </source>
         <translation>Eksport: </translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Obrazek</translation>
     </message>
 </context>
 <context>
@@ -19282,7 +19390,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>Zastos&amp;uj efekt do wszystkich stron</translation>
+        <translation type="obsolete">Zastos&amp;uj efekt do wszystkich stron</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -19959,6 +20067,10 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation>Zamień wszystkie fonty na krzywe. Zamiana na krzywe spowoduje umieszczenie w pliku PDF tylko użytych glifów jako krzywych wektorowych, a nie całego fontu. Niektóre fonty jak na przykład fonty Open Type mogą być tylko zamienione na krzywe, ponieważ nie można ich zagnieździć w wersjach PDF wcześniejszych niż 1.6.</translation>
     </message>
+    <message>
+        <source>&amp;Apply Effect to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -20056,7 +20168,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>Dopas&amp;uj obrazek do rozmiaru ramki</translation>
+        <translation type="obsolete">Dopas&amp;uj obrazek do rozmiaru ramki</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -20104,7 +20216,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Właściwości ramki graficznej</translation>
+        <translation type="obsolete">Właściwości ramki graficznej</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -20148,7 +20260,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Ramka graficzna pozwala na skalowanie obrazków do dowolnego rozmiaru</translation>
+        <translation type="obsolete">Ramka graficzna pozwala na skalowanie obrazków do dowolnego rozmiaru</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -20164,15 +20276,15 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Obrazki w ramkach graficznych są skalowane to rozmiaru ramki</translation>
+        <translation type="obsolete">Obrazki w ramkach graficznych są skalowane to rozmiaru ramki</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Automatyczne skalowanie obrazków, zachowaj oryginalne proporcje</translation>
+        <translation type="obsolete">Automatyczne skalowanie obrazków, zachowaj oryginalne proporcje</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Kolor wypełnienia ramek graficznych</translation>
+        <translation type="obsolete">Kolor wypełnienia ramek graficznych</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -20274,6 +20386,30 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Brak</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Image to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frames allow images to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images in image frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled images keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of image frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20391,7 +20527,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Kropka</translation>
+        <translation type="obsolete">Kropka</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -20465,6 +20601,10 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
