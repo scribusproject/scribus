@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include <QStack>
 #include <QTextStream>
+#include <QDebug>
 
 #include <cmath>
 #include <cstdlib>
@@ -1155,7 +1156,8 @@ void AIPlug::processData(QString data)
 					}
 					ite->setLineEnd(CapStyle);
 					ite->setLineJoin(JoinStyle);
-					ite->setLocked(itemLocked);
+					if (importerFlags & LoadSavePlugin::lfCreateDoc)
+						ite->setLocked(itemLocked);
 					if (!WasU)
 					{
 						FPoint wh = getMaxClipF(&ite->PoLine);
@@ -1222,6 +1224,9 @@ void AIPlug::processData(QString data)
 						clipCoords.translate(m_Doc->currentPage()->xOffset()-ite->xPos(), m_Doc->currentPage()->yOffset()-ite->yPos());
 						ite->PoLine = clipCoords.copy();
 					}
+				if (patternMode)
+					PatternElements.append(ite);
+				else
 					Elements.append(ite);
 				}
 				if (groupStack.count() != 0)
@@ -1673,8 +1678,12 @@ void AIPlug::processData(QString data)
 			ite->setLineTransparency(1.0 - Opacity);
 			ite->setLineEnd(CapStyle);
 			ite->setLineJoin(JoinStyle);
-			ite->setLocked(itemLocked);
-			Elements.append(ite);
+			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+				ite->setLocked(itemLocked);
+			if (patternMode)
+				PatternElements.append(ite);
+			else
+				Elements.append(ite);
 			if (groupStack.count() != 0)
 				groupStack.top().append(ite);
 		}
@@ -1692,15 +1701,18 @@ void AIPlug::processData(QString data)
 		}
 		else if (command == "[")
 		{
-			patternMode = true;
 			int an = Cdata.indexOf("(");
 			int en = Cdata.lastIndexOf(")");
-			currentPatternDefName = Cdata.mid(an+1, en-an-1);
-			currentPatternDefName.remove("\\");
-			currentPatternDefName = currentPatternDefName.trimmed().simplified().replace(" ", "_");
-			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
-			QTextStream gVals(&tmpS, QIODevice::ReadOnly);
-			gVals >> patternX1 >> patternY1 >> patternX2 >> patternY2;
+			if ((an != -1) && (en != -1))
+			{
+				patternMode = true;
+				currentPatternDefName = Cdata.mid(an+1, en-an-1);
+				currentPatternDefName.remove("\\");
+				currentPatternDefName = currentPatternDefName.trimmed().simplified().replace(" ", "_");
+				QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
+				QTextStream gVals(&tmpS, QIODevice::ReadOnly);
+				gVals >> patternX1 >> patternY1 >> patternX2 >> patternY2;
+			}
 		}
 /* End special Commands */
 /* Skip everything else */
@@ -2019,10 +2031,17 @@ void AIPlug::processRaster(QDataStream &ts)
 	m_Doc->LoadPict(imgName, z);
 	if (ite->PicAvail)
 		ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
-	ite->setLocked(itemLocked);
+	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+		ite->setLocked(itemLocked);
+					if (patternMode)
+						PatternElements.append(ite);
+					else
 	Elements.append(ite);
-	if (groupStack.count() != 0)
-		groupStack.top().append(ite);
+//	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+//	{
+		if (groupStack.count() != 0)
+			groupStack.top().append(ite);
+//	}
 	imgNum++;
 }
 
