@@ -10441,7 +10441,7 @@ void ScribusDoc::itemSelection_SetColorProfile(const QString & profileName, Sele
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
-		if (currItem)
+		if (currItem && currItem->itemType() == PageItem::ImageFrame)
 		{
 			currItem->IProfile = profileName;
 			currItem->UseEmbedded = profileName.startsWith("Embedded");
@@ -10465,7 +10465,7 @@ void ScribusDoc::itemSelection_SetRenderIntent(int intentIndex, Selection * cust
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
-		if (currItem)
+		if (currItem && currItem->itemType() == PageItem::ImageFrame)
 		{
 			currItem->IRender = intentIndex;
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
