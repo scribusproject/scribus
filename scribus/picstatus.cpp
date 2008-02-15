@@ -390,19 +390,23 @@ void PicStatus::SearchPic()
 	// no action where is no item selected. It should never happen.
 	if (currItem == NULL)
 		return;
+	static QString lastSearchPath;
 
-	PicSearchOptions *dia = new PicSearchOptions(this, displayName->text(), displayPath->text());
+	if (lastSearchPath.isEmpty())
+		lastSearchPath = displayPath->text();
+	PicSearchOptions *dia = new PicSearchOptions(this, displayName->text(), lastSearchPath);
 	if (dia->exec())
 	{
-		if (dia->m_matches.count() == 0)
+		lastSearchPath = dia->getLastDirSearched();
+		if (dia->getMatches().count() == 0)
 		{
-			QMessageBox::information(this, tr("Scribus - Image Search"), tr("No images named \"%1\" were found.").arg(dia->m_fileName),
+			QMessageBox::information(this, tr("Scribus - Image Search"), tr("No images named \"%1\" were found.").arg(dia->getFileName()),
 					QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
 					QMessageBox::NoButton);
 		}
 		else
 		{
-			PicSearch *dia2 = new PicSearch(this, dia->m_fileName, dia->m_matches);
+			PicSearch *dia2 = new PicSearch(this, dia->getFileName(), dia->getMatches());
 			if (dia2->exec())
 			{
 				Q_ASSERT(!dia2->currentImage.isEmpty());
