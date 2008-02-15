@@ -820,6 +820,8 @@ public:
 	void itemSelection_SetStrikethru(int pos, int wid, Selection* customSelection=0);
 	void itemSelection_SetEffects(int s, Selection* customSelection=0);
 	void itemSelection_SetOpticalMargins(int i, Selection* customSelection=0);
+	void itemSelection_SetColorProfile(const QString& profileName, Selection* customSelection=0);
+	void itemSelection_SetRenderIntent(int intentIndex, Selection* customSelection=0);
 	
 //	void chAbStyle(PageItem *currItem, int s);
 

@@ -4063,15 +4063,17 @@ void PropertiesPalette::ChProf(const QString& prn)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	/* PFJ - 29.02.04 - Moved bool into if scope */
 	if ((HaveDoc) && (HaveItem))
 	{
+		doc->itemSelection_SetColorProfile(InputP->currentText());
+		/*
 		CurItem->IProfile = InputP->currentText();
-		/* PFJ - 29.02.04 - re-arranged the initialisation of EmbedP */
+		// PFJ - 29.02.04 - re-arranged the initialisation of EmbedP
 		bool EmbedP = prn.startsWith("Embedded") ? true : false;
 		CurItem->UseEmbedded = EmbedP;
 		doc->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
 		CurItem->update();
+		*/
 	}
 }
 
@@ -4081,9 +4083,12 @@ void PropertiesPalette::ChIntent()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
+		doc->itemSelection_SetRenderIntent(MonitorI->currentIndex());
+		/*
 		CurItem->IRender = MonitorI->currentIndex();
 		doc->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
 		CurItem->update();
+		*/
 	}
 }
 

@@ -10428,3 +10428,50 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	oldClip = 0;
 	
 }
+
+void ScribusDoc::itemSelection_SetColorProfile(const QString & profileName, Selection * customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	//TODO Add Undo
+	m_updateManager.setUpdatesDisabled();
+	for (uint i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem *currItem = itemSelection->itemAt(i);
+		if (currItem)
+		{
+			currItem->IProfile = profileName;
+			currItem->UseEmbedded = profileName.startsWith("Embedded");
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->update();
+		}
+	}
+	m_updateManager.setUpdatesEnabled();
+	changed();
+}
+
+void ScribusDoc::itemSelection_SetRenderIntent(int intentIndex, Selection * customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	//TODO Add Undo
+	m_updateManager.setUpdatesDisabled();
+	for (uint i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem *currItem = itemSelection->itemAt(i);
+		if (currItem)
+		{
+			currItem->IRender = intentIndex;
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->update();
+		}
+	}
+	m_updateManager.setUpdatesEnabled();
+	changed();
+}
