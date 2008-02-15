@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="sl_SI">
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -3096,12 +3097,12 @@ Manjkajoče knjižnice so prikazane s *</translation>
     <message>
         <location filename="../about.cpp" line="478"/>
         <source>Check for Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Preveri stanje posodobitev</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="476"/>
         <source>Abort Update Check</source>
-        <translation type="unfinished"></translation>
+        <translation>O preverjanju stanja posodobitev</translation>
     </message>
 </context>
 <context>
@@ -4657,27 +4658,27 @@ Manjkajoče knjižnice so prikazane s *</translation>
     <message>
         <location filename="../actionmanager.cpp" line="1402"/>
         <source>Show Context Menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži kontekstni meni</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1452"/>
         <source>&amp;Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Upravljaj s slikami</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1463"/>
         <source>&amp;About Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;O vtičnikih</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1471"/>
         <source>Check updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Preverji stanje posodobitev</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1476"/>
         <source>Insert Unicode Character Begin Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi začetno zaporedje znaka Unicode</translation>
     </message>
 </context>
 <context>
@@ -6186,22 +6187,22 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="31"/>
         <source>Spell-Checker</source>
-        <translation type="unfinished"></translation>
+        <translation>Preverjanje črkovanja</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="63"/>
         <source>Spell-checking support</source>
-        <translation type="unfinished"></translation>
+        <translation>Podpora preverjanja črkovanja</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="68"/>
         <source>Adds support for spell-checking via aspell. Languages can be chosen from among the installed aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Doda podporo za preverjanje črkovanja s programom aspell. Jezik lahko izberete med nameščenimi jezikovnimi slovarji aspell, preverjanje črkovanja pa je mogoče tudi med vnašanjem ali na izbranem besedilu.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="69"/>
         <source>0.1</source>
-        <translation type="unfinished">0.1</translation>
+        <translation>0.1</translation>
     </message>
 </context>
 <context>
@@ -6209,58 +6210,59 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="13"/>
         <source>Spell Check</source>
-        <translation type="unfinished"></translation>
+        <translation>Preverjanje črkovanja</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="49"/>
         <source>Mis-spelling:</source>
-        <translation type="unfinished"></translation>
+        <translation>Napačno:</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="99"/>
         <source>Replacement:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamenjaj z:</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="140"/>
         <source>Active dictionary: </source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivni slovar: </translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="183"/>
         <source>Personal
 Dictionary</source>
-        <translation type="unfinished"></translation>
+        <translation>Osebni
+slovar</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="212"/>
         <source>&amp;Add Word</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dodaj besedo</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="241"/>
         <source>&amp;Change</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Spremeni</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="266"/>
         <source>C&amp;hange All</source>
-        <translation type="unfinished"></translation>
+        <translation>Spremeni &amp;vse</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="291"/>
         <source>&amp;Skip</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Preskoči</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="310"/>
         <source>S&amp;kip All</source>
-        <translation type="unfinished"></translation>
+        <translation>Pres&amp;koči vse</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="351"/>
         <source>&amp;Exit</source>
-        <translation type="unfinished">I&amp;zhod</translation>
+        <translation>I&amp;zhod</translation>
     </message>
 </context>
 <context>
@@ -6268,57 +6270,57 @@ Dictionary</source>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
         <source>Loaded </source>
-        <translation type="unfinished"></translation>
+        <translation>Naložen </translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
         <source>default </source>
-        <translation type="unfinished"></translation>
+        <translation>privzeti </translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
         <source> aspell dictionary.</source>
-        <translation type="unfinished"></translation>
+        <translation> slovar aspell.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="57"/>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in aspell speller configuration.</source>
-        <translation type="unfinished"></translation>
+        <translation>vtičnikaspell (AspellPluginImpl::AspellPluginImpl): Napaka v konfiguraciji črkovalnika aspell.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="64"/>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating aspell speller.</source>
-        <translation type="unfinished"></translation>
+        <translation>vtičnikaspell (AspellPluginImpl::AspellPluginImpl): Napaka pri ustvarjanju črkovalnika aspell.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="211"/>
         <source>Spell-Checker</source>
-        <translation type="unfinished"></translation>
+        <translation>Preverjanje črkovanja</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="211"/>
         <source>Spell-checking completed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Preverjanje črkovanja dokončano.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="222"/>
         <source>Spell-checking done.</source>
-        <translation type="unfinished"></translation>
+        <translation>Preverjanje črkovanja opravljeno.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="329"/>
         <source>AspellPluginImpl::on_fskipAllBtn_clicked(): Unable to skip all instances of &quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>AspellPluginImpl::on_fskipAllBtn_clicked(): Vseh pojavitev &quot;</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="330"/>
         <source> by adding it to the session list.</source>
-        <translation type="unfinished"></translation>
+        <translation> ni mogoče preskočiti z dodajanjem na seznam seje.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="352"/>
         <source>AspellPluginImpl::on_faddWordBtn_clicked(): Unable to add word to personal list.</source>
-        <translation type="unfinished"></translation>
+        <translation>AspellPluginImpl::on_faddWordBtn_clicked(): Besede ni mogoče dodati na osebni seznam.</translation>
     </message>
 </context>
 <context>
@@ -6326,22 +6328,22 @@ Dictionary</source>
     <message>
         <location filename="../autoformbuttongroup.cpp" line="1212"/>
         <source>Arrows</source>
-        <translation type="unfinished">Puščice</translation>
+        <translation>Puščice</translation>
     </message>
     <message>
         <location filename="../autoformbuttongroup.cpp" line="1213"/>
         <source>Flow Chart</source>
-        <translation type="unfinished"></translation>
+        <translation>Diagram poteka</translation>
     </message>
     <message>
         <location filename="../autoformbuttongroup.cpp" line="1214"/>
         <source>Jigsaw</source>
-        <translation type="unfinished"></translation>
+        <translation>Sestavljanka</translation>
     </message>
     <message>
         <location filename="../autoformbuttongroup.cpp" line="1215"/>
         <source>Specials</source>
-        <translation type="unfinished">Posebno</translation>
+        <translation>Posebno</translation>
     </message>
 </context>
 <context>
@@ -6359,7 +6361,7 @@ Dictionary</source>
     <message>
         <location filename="../plugins/barcodegenerator/barcode.cpp" line="23"/>
         <source>&amp;Barcode...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Črtna koda ...</translation>
     </message>
 </context>
 <context>
@@ -6452,12 +6454,12 @@ Dictionary</source>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="104"/>
         <source>Select Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberite vrsto</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="144"/>
         <source>Select Barcode Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberite vrsto črtne kode</translation>
     </message>
 </context>
 <context>
@@ -6620,12 +6622,12 @@ Dictionary</source>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="15"/>
         <source>Insert Barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi črtno kodo</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="24"/>
         <source>Format</source>
-        <translation type="unfinished">Oblika</translation>
+        <translation>Oblika</translation>
     </message>
 </context>
 <context>
@@ -6822,27 +6824,27 @@ Prosim, izberite drugo.</translation>
     <message>
         <location filename="../scrapbookpalette.cpp" line="833"/>
         <source>Paste to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Prilepi na stran</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="889"/>
         <source>Save as...</source>
-        <translation type="unfinished">Shrani kot...</translation>
+        <translation>Shrani kot ...</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="892"/>
         <source>Close</source>
-        <translation type="unfinished">Zapri</translation>
+        <translation>Zapri</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="895"/>
         <source>Delete Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbriši vsebino</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="1068"/>
         <source>Do you really want to delete all entries?</source>
-        <translation type="unfinished"></translation>
+        <translation>Resnično želite izbrisati vse vnose?</translation>
     </message>
 </context>
 <context>
@@ -7219,17 +7221,17 @@ vse barve, rgb ali cmyk, bodo pretvorjene v barvni prostor tiskalnika.</translat
     <message>
         <location filename="../cmsprefs.cpp" line="43"/>
         <source>&amp;RGB Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>Slike &amp;RGB:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="51"/>
         <source>&amp;CMYK Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>Slike &amp;CMYK:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="98"/>
         <source>Images:</source>
-        <translation type="unfinished">Slike:</translation>
+        <translation>Slike:</translation>
     </message>
 </context>
 <context>
@@ -7414,7 +7416,8 @@ prosim, izberite drugo.</translation>
         <location filename="../cmykfw.cpp" line="1058"/>
         <source>You cannot create a color without a name
 Please give it a name</source>
-        <translation type="unfinished"></translation>
+        <translation>Barve brez imena ne morete ustvariti
+Prosimo, da jo poimenujete</translation>
     </message>
 </context>
 <context>
@@ -7946,17 +7949,17 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
     <message>
         <location filename="../charselect.cpp" line="653"/>
         <source>Empty the Palette?</source>
-        <translation type="unfinished"></translation>
+        <translation>Želite izprazniti paleto?</translation>
     </message>
     <message>
         <location filename="../charselect.cpp" line="654"/>
         <source>You will remove all characters from this palette. Are you sure?</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstranili boste vse znake s palete. Ste prepričani?</translation>
     </message>
     <message>
         <location filename="../charselect.ui" line="30"/>
         <source>Hide/Show Enhanced Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži/skrij napredno paleto</translation>
     </message>
 </context>
 <context>
@@ -9159,98 +9162,98 @@ Za več podrobnosti si oglejte razdelek Urejanje barv v dokumentaciji.</translat
     <message>
         <location filename="../commonstrings.cpp" line="245"/>
         <source>Text Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Besedilni okvir</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="246"/>
         <source>Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Slikovni okvir</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="247"/>
         <source>Line</source>
-        <translation type="unfinished">Črta</translation>
+        <translation>Črta</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="248"/>
         <source>Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnogokotnik</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="249"/>
         <source>Polyline</source>
-        <translation type="unfinished">Lomljena črta</translation>
+        <translation>Lomljena črta</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="250"/>
         <source>Text on a Path</source>
-        <translation type="unfinished">Besedilo po poti</translation>
+        <translation>Besedilo po poti</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="251"/>
         <source>LaTeX Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Okvir LaTeX</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="252"/>
         <source>Multiple</source>
         <comment>Multiple frame types</comment>
-        <translation type="unfinished"></translation>
+        <translation>Večkratni</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="253"/>
         <source>PDF Push Button</source>
-        <translation type="unfinished">Gumb PDF</translation>
+        <translation>Gumb PDF</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="254"/>
         <source>PDF Text Field</source>
-        <translation type="unfinished">Besedilno polje PDF</translation>
+        <translation>Besedilno polje PDF</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="255"/>
         <source>PDF Check Box</source>
-        <translation type="unfinished">Potrditveno polje PDF</translation>
+        <translation>Potrditveno polje PDF</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="256"/>
         <source>PDF Combo Box</source>
-        <translation type="unfinished">Kombinirano polje PDF</translation>
+        <translation>Kombinirano polje PDF</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="257"/>
         <source>PDF List Box</source>
-        <translation type="unfinished">Seznamsko polje PDF</translation>
+        <translation>Seznamsko polje PDF</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="258"/>
         <source>PDF Text Annotation</source>
-        <translation type="unfinished">Besedilo opombe PDF</translation>
+        <translation>Besedilo opombe PDF</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="259"/>
         <source>PDF Link Annotation</source>
-        <translation type="unfinished">Povezava opombe PDF</translation>
+        <translation>Povezava opombe PDF</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="357"/>
         <source>PostScript Level 1</source>
-        <translation type="unfinished">PostScript ravni 1</translation>
+        <translation>PostScript ravni 1</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="359"/>
         <source>PostScript Level 2</source>
-        <translation type="unfinished">PostScript ravni 2</translation>
+        <translation>PostScript ravni 2</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="361"/>
         <source>PostScript Level 3</source>
-        <translation type="unfinished">PostScript ravni 3</translation>
+        <translation>PostScript ravni 3</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="363"/>
         <source>Windows GDI</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows GDI</translation>
     </message>
 </context>
 <context>
@@ -9258,12 +9261,12 @@ Za več podrobnosti si oglejte razdelek Urejanje barv v dokumentaciji.</translat
     <message>
         <location filename="../contextmenu.cpp" line="191"/>
         <source>Preview Settings</source>
-        <translation type="unfinished">Nastavitve predogleda</translation>
+        <translation>Nastavitve predogleda</translation>
     </message>
     <message>
         <location filename="../contextmenu.cpp" line="379"/>
         <source>Paste File...</source>
-        <translation type="unfinished"></translation>
+        <translation>Prilepi datoteko ...</translation>
     </message>
 </context>
 <context>
@@ -9574,7 +9577,7 @@ z desnim pa konec vektorja preliva</translation>
     <message>
         <location filename="../cpalette.cpp" line="959"/>
         <source>Display only used Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Prikaži le uporabljene barve</translation>
     </message>
 </context>
 <context>
@@ -10058,12 +10061,12 @@ To lahko nastavite v Nastavitvah.</translation>
     <message>
         <location filename="../dasheditor.cpp" line="363"/>
         <source>Value:</source>
-        <translation type="unfinished">Vrednost:</translation>
+        <translation>Vrednost:</translation>
     </message>
     <message>
         <location filename="../dasheditor.cpp" line="364"/>
         <source>Offset:</source>
-        <translation type="unfinished">Zamik:</translation>
+        <translation>Zamik:</translation>
     </message>
 </context>
 <context>
@@ -11226,7 +11229,7 @@ for blue quartz</source>
     <message>
         <location filename="../ui/edittoolbar.cpp" line="29"/>
         <source>Edit</source>
-        <translation type="unfinished">Uredi</translation>
+        <translation>Uredi</translation>
     </message>
 </context>
 <context>
@@ -11515,17 +11518,17 @@ for blue quartz</source>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="203"/>
         <source>Save as Image</source>
-        <translation type="unfinished">Shrani kot sliko</translation>
+        <translation>Shrani kot sliko</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="177"/>
         <source>Insufficient memory for this image size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Za takšno velikost slike primanjkuje pomnilnika.</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="204"/>
         <source>Error writing the output file(s).</source>
-        <translation type="unfinished">Napaka pri zapisovanju izhodnih datotek.</translation>
+        <translation>Napaka pri zapisovanju izhodnih datotek.</translation>
     </message>
 </context>
 <context>
@@ -12066,7 +12069,7 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../ui/filetoolbar.cpp" line="31"/>
         <source>File</source>
-        <translation type="unfinished">Datoteka</translation>
+        <translation>Datoteka</translation>
     </message>
 </context>
 <context>
@@ -12087,91 +12090,91 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../fontlistmodel.cpp" line="63"/>
         <source>Font Name</source>
-        <translation type="unfinished">Ime pisave</translation>
+        <translation>Ime pisave</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="65"/>
         <source>Use Font</source>
-        <translation type="unfinished">Uporabi pisavo</translation>
+        <translation>Uporabi pisavo</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="67"/>
         <source>Family</source>
-        <translation type="unfinished"></translation>
+        <translation>Družina</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="69"/>
         <source>Style</source>
-        <translation type="unfinished">Slog</translation>
+        <translation>Slog</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="71"/>
         <source>Variant</source>
-        <translation type="unfinished"></translation>
+        <translation>Različica</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="73"/>
         <source>Type</source>
-        <translation type="unfinished">Vrsta</translation>
+        <translation>Vrsta</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="75"/>
         <source>Format</source>
-        <translation type="unfinished">Oblika</translation>
+        <translation>Oblika</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="77"/>
         <source>Embed in PostScript</source>
-        <translation type="unfinished">Vdelaj v PostScript</translation>
+        <translation>Vdelaj v PostScript</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="79"/>
         <source>Subset</source>
-        <translation type="unfinished">Podnabor</translation>
+        <translation>Podnabor</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="81"/>
         <source>Access</source>
-        <translation type="unfinished">Dostop</translation>
+        <translation>Dostop</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="83"/>
         <source>Used in Doc</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabljeno v dokumentu</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="85"/>
         <source>Path to Font File</source>
-        <translation type="unfinished">Pot do datoteke s pisavo</translation>
+        <translation>Pot do datoteke s pisavo</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="144"/>
         <source>Unknown</source>
         <comment>font type</comment>
-        <translation type="unfinished">Neznano</translation>
+        <translation>Neznano</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="157"/>
         <source>Unknown</source>
         <comment>font format</comment>
-        <translation type="unfinished">Neznano</translation>
+        <translation>Neznano</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="164"/>
         <source>User</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Uporabnik</translation>
+        <translation>Uporabnik</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="165"/>
         <source>System</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Sistem</translation>
+        <translation>Sistem</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="190"/>
         <source>Click to change the value</source>
-        <translation type="unfinished"></translation>
+        <translation>Če želite spremeniti vrednost, kliknite</translation>
     </message>
 </context>
 <context>
@@ -12608,7 +12611,7 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="105"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. The given text is taken as substring.</source>
-        <translation type="unfinished"></translation>
+        <translation>Z vnosom besedila lahko hitreje preiščete imena pisav. Iskanje ne ločuje med velikimi in malimi črkami. Podano besedilo je obravnavano kot podniz.</translation>
     </message>
 </context>
 <context>
@@ -13101,7 +13104,7 @@ Izberite primerne nadomestke zanje.</translation>
     <message>
         <location filename="../guidemanager.ui" line="15"/>
         <source>Guide Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravitelj vodil</translation>
     </message>
 </context>
 <context>
@@ -13634,23 +13637,24 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="58"/>
         <source>Import Xfig...</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi Xfig ...</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="79"/>
         <source>Imports Xfig Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi datoteke Xfig</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="80"/>
         <source>Imports most Xfig files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi večino datotek Xfig v trenutni dokument in
+pretvori vektorske podatke v Scribusove predmete.</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="128"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished"></translation>
+        <translation>Vse podprte vrste</translation>
     </message>
 </context>
 <context>
@@ -14524,37 +14528,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../latexeditor.cpp" line="180"/>
         <source>Status: </source>
-        <translation type="unfinished">Stanje: </translation>
+        <translation>Stanje: </translation>
     </message>
     <message>
         <location filename="../latexeditor.cpp" line="183"/>
         <source>Error</source>
-        <translation type="unfinished">Napaka</translation>
+        <translation>Napaka</translation>
     </message>
     <message>
         <location filename="../latexeditor.cpp" line="185"/>
         <source>Finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokončano</translation>
     </message>
     <message>
         <location filename="../latexeditor.cpp" line="188"/>
         <source>Running</source>
-        <translation type="unfinished">Poteka</translation>
+        <translation>Poteka</translation>
     </message>
     <message>
         <location filename="../latexeditor.cpp" line="368"/>
         <source>No item selected!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nič ni izbrano!</translation>
     </message>
     <message>
         <location filename="../latexeditor.cpp" line="370"/>
         <source>Insert symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi simbol</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="13"/>
         <source>Editor</source>
-        <translation type="unfinished">Urejevalnik</translation>
+        <translation>Urejevalnik</translation>
     </message>
 </context>
 <context>
@@ -14765,12 +14769,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../canvasmode_legacy.cpp" line="4973"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Vse datoteke (*)</translation>
+        <translation>Vse datoteke (*)</translation>
     </message>
     <message>
         <location filename="../canvasmode_legacy.cpp" line="4976"/>
         <source>Open</source>
-        <translation type="unfinished">Odpri</translation>
+        <translation>Odpri</translation>
     </message>
 </context>
 <context>
@@ -14828,12 +14832,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="181"/>
         <source>Magnification Lens</source>
-        <translation type="unfinished"></translation>
+        <translation>Povečevalno steklo</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="191"/>
         <source>Fish Eye Lens</source>
-        <translation type="unfinished"></translation>
+        <translation>Ribje oko</translation>
     </message>
 </context>
 <context>
@@ -14841,22 +14845,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="66"/>
         <source>Lens Effects...</source>
-        <translation type="unfinished">Učinki leč ...</translation>
+        <translation>Učinki leč ...</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="70"/>
         <source>Path Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Orodja poti</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="86"/>
         <source>Lens Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Učinki leč</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="87"/>
         <source>Apply fancy lens effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi posebne učinke leč</translation>
     </message>
 </context>
 <context>
@@ -17088,12 +17092,12 @@ sicer glede na predmet.</translation>
     <message>
         <location filename="../nodeeditpalette.cpp" line="882"/>
         <source>to Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>na platno</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="883"/>
         <source>to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>na stran</translation>
     </message>
 </context>
 <context>
@@ -17273,32 +17277,32 @@ sicer glede na predmet.</translation>
     <message>
         <location filename="../outlinepalette.cpp" line="858"/>
         <source>Element</source>
-        <translation type="unfinished">Element</translation>
+        <translation>Element</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="270"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ime Ime &quot;%1&quot; ni edinstveno. Prosim, izberite drugo.</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="826"/>
         <source>Group </source>
-        <translation type="unfinished">Združi</translation>
+        <translation>Združi</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="731"/>
         <source>Page </source>
-        <translation type="unfinished"></translation>
+        <translation>Stran </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="786"/>
         <source>Free Objects</source>
-        <translation type="unfinished">Prosti predmeti</translation>
+        <translation>Prosti predmeti</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="857"/>
         <source>Outline</source>
-        <translation type="unfinished"></translation>
+        <translation>Oris</translation>
     </message>
 </context>
 <context>
@@ -17422,22 +17426,22 @@ sicer glede na predmet.</translation>
     <message>
         <location filename="../pdflib_core.cpp" line="6955"/>
         <source>Failed to load an image : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Slike ni mogoče naložiti: %1</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="6960"/>
         <source>Failed to write an image : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Slike ni mogoče zapisati: %1</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="6965"/>
         <source>Failed to load an image mask : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Maske slike ni mogoče naložiti: %1</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="6970"/>
         <source>Insufficient memory for processing an image</source>
-        <translation type="unfinished"></translation>
+        <translation>Za obdelavo slike primanjkuje pomnilnika</translation>
     </message>
 </context>
 <context>
@@ -18709,22 +18713,22 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <message>
         <location filename="../pslib.cpp" line="1628"/>
         <source>Failed to write data for an image</source>
-        <translation type="unfinished"></translation>
+        <translation>Pisanje podatkov slike ni uspelo</translation>
     </message>
     <message>
         <location filename="../pslib.cpp" line="1633"/>
         <source>Failed to load an image : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Slike ni mogoče naložiti: %1</translation>
     </message>
     <message>
         <location filename="../pslib.cpp" line="1638"/>
         <source>Failed to load an image mask : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Maske slike ni mogoče naložiti: %1</translation>
     </message>
     <message>
         <location filename="../pslib.cpp" line="1643"/>
         <source>Insufficient memory for processing an image</source>
-        <translation type="unfinished"></translation>
+        <translation>Za obdelavo slike primanjkuje pomnilnika</translation>
     </message>
 </context>
 <context>
@@ -19244,7 +19248,7 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <message>
         <location filename="../pageitemattributes.ui" line="13"/>
         <source>Attributes</source>
-        <translation type="unfinished">Lastnosti</translation>
+        <translation>Lastnosti</translation>
     </message>
 </context>
 <context>
@@ -19350,7 +19354,7 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <message>
         <location filename="../pageitem_imageframe.cpp" line="401"/>
         <source>Image</source>
-        <translation type="unfinished">Slika</translation>
+        <translation>Slika</translation>
     </message>
 </context>
 <context>
@@ -19474,32 +19478,32 @@ se spremeni v
     <message>
         <location filename="../pageitem_latexframe.cpp" line="526"/>
         <source>The application &quot;%1&quot; failed to start!</source>
-        <translation type="unfinished"></translation>
+        <translation>Program &quot;%1&quot; se ni zagnal!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="530"/>
         <source>The application &quot;%1&quot; crashed!</source>
-        <translation type="unfinished"></translation>
+        <translation>Program &quot;%1&quot; se je sesul!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="670"/>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Program</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="671"/>
         <source>DPI</source>
-        <translation type="unfinished">DPI</translation>
+        <translation>DPI</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="673"/>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Stanje</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="678"/>
         <source>Finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokončano</translation>
     </message>
 </context>
 <context>
@@ -19768,38 +19772,39 @@ se spremeni v
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="70"/>
         <source>Cut Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation>Prereži mnogokotnik</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="76"/>
         <source>Path Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Orodja poti</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="100"/>
         <source>Cuts a Polygon by a Polyline</source>
-        <translation type="unfinished"></translation>
+        <translation>Prereže mnogokotnik z mnogokotnikom</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="119"/>
         <source>Qt Version too old</source>
-        <translation type="unfinished"></translation>
+        <translation>Različica Qt je prestara</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="119"/>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta vtičnik zahteva knjižnico Qt različice 4.3.3 ali novejšo</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="150"/>
         <source>Error</source>
-        <translation type="unfinished">Napaka</translation>
+        <translation>Napaka</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="150"/>
         <source>The cutting line must cross the polygon and
 both end points must lie outside of the polygon</source>
-        <translation type="unfinished"></translation>
+        <translation>Črta prereza mora presekati mnogokotnik in
+obe končni točki morata ležati zunaj mnogokotnika</translation>
     </message>
 </context>
 <context>
@@ -19807,62 +19812,62 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="13"/>
         <source>Boolean Path Operations</source>
-        <translation type="unfinished"></translation>
+        <translation>Logične operacije nad potmi</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="149"/>
         <source>Keep a copy of the original Item after applying the operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Ohrani kopijo izvirnega elementa po izvedbi operacije</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="152"/>
         <source>keep</source>
-        <translation type="unfinished"></translation>
+        <translation>Ohrani</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="94"/>
         <source>+</source>
-        <translation type="unfinished">+</translation>
+        <translation>+</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="186"/>
         <source>=</source>
-        <translation type="unfinished"></translation>
+        <translation>=</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="265"/>
         <source>Operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Operacija</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="341"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="362"/>
         <source>Swap Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamenjaj lika</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="386"/>
         <source>Options</source>
-        <translation type="unfinished">Možnosti</translation>
+        <translation>Možnosti</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="407"/>
         <source>Result gets Color of:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rezultat dobi barvo:</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="417"/>
         <source>first Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>prvega lika</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="427"/>
         <source>second Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>drugega lika</translation>
     </message>
 </context>
 <context>
@@ -19870,12 +19875,12 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderdialog.cpp" line="91"/>
         <source>Result gets Color of:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rezultat dobi barvo:</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderdialog.cpp" line="115"/>
         <source>Intersection gets Color of:</source>
-        <translation type="unfinished"></translation>
+        <translation>Presek dobi barvo:</translation>
     </message>
 </context>
 <context>
@@ -19883,32 +19888,32 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="71"/>
         <source>Path Operations...</source>
-        <translation type="unfinished"></translation>
+        <translation>Operacije nad potmi ...</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="75"/>
         <source>Path Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Orodja poti</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="100"/>
         <source>Path Operations</source>
-        <translation type="unfinished"></translation>
+        <translation>Operacije nad potmi</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="101"/>
         <source>Apply fancy boolean operations to paths.</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvedi zanimive logične operacije na poteh.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="120"/>
         <source>Qt Version too old</source>
-        <translation type="unfinished"></translation>
+        <translation>Različica Qt je prestara</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="120"/>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta vtičnik zahteva knjižnico Qt različice 4.3.3 ali novejšo</translation>
     </message>
 </context>
 <context>
@@ -19916,17 +19921,17 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="93"/>
         <source>Create Path from Stroke</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustvari pot iz poteze</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="72"/>
         <source>Path Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Orodja poti</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="94"/>
         <source>Converts the stroke of a Path to a filled Path.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pretvori potezo poti v zapolnjeno pot.</translation>
     </message>
 </context>
 <context>
@@ -20131,7 +20136,8 @@ both end points must lie outside of the polygon</source>
         <location filename="../picsearchoptions.cpp" line="90"/>
         <source>Base directory for search does not exist.
 Please choose another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Osnovna mapa za iskanje ne obstaja.
+Izberite drugo.</translation>
     </message>
 </context>
 <context>
@@ -20399,17 +20405,17 @@ Please choose another one.</source>
     <message>
         <location filename="../picstatus.cpp" line="218"/>
         <source>Sort by Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Razvrsti po imenu</translation>
     </message>
     <message>
         <location filename="../picstatus.cpp" line="220"/>
         <source>Sort by Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Razvrsti po straneh</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="16"/>
         <source>Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravljaj s slikami</translation>
     </message>
 </context>
 <context>
@@ -24004,7 +24010,7 @@ robovi:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4526"/>
         <source>Stair Step</source>
-        <translation type="unfinished"></translation>
+        <translation>Stopnica koraka</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4527"/>
@@ -24189,12 +24195,12 @@ robovi:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4594"/>
         <source>Custom</source>
-        <translation type="unfinished">Po meri</translation>
+        <translation>Po meri</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4488"/>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Uredi ...</translation>
     </message>
 </context>
 <context>
@@ -27058,7 +27064,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
     <message encoding="UTF-8">
         <location filename="../langmgr.cpp" line="91"/>
         <source>Norwegian (Bokm�l)</source>
-        <translation type="obsolete">norveški (Bokm�l)</translation>
+        <translation>norveški (Bokm�l)</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="100"/>
@@ -27510,121 +27516,117 @@ Zato videz slike najverjetneje ne bo pravilen</translation>
     <message>
         <location filename="../fonts/scface_ps.cpp" line="104"/>
         <source>Valid metrics were found for font %1, using metrics in file %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Najdena veljavna metrika za pisavo %1, uporaba metrike za datoteko %2</translation>
     </message>
     <message>
         <location filename="../fonts/scface_ps.cpp" line="111"/>
         <source>No metrics found for font %1, ignoring font</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="../langmgr.cpp" line="91"/>
-        <source>Norwegian (Bokm�l)</source>
-        <translation type="unfinished"></translation>
+        <translation>Metrike za pisavo %1 ni mogoče najti, pisava bo prezrta</translation>
     </message>
     <message>
         <location filename="../latexhelpers.cpp" line="433"/>
         <source>Error</source>
-        <translation type="unfinished">Napaka</translation>
+        <translation>Napaka</translation>
     </message>
     <message>
         <location filename="../latexeditor.cpp" line="224"/>
         <source>Configfile %1 not found or the file is not readable</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguracijske datoteke %1 ni mogoče najti ali pa datoteka ni berljiva</translation>
     </message>
     <message>
         <location filename="../latexhelpers.cpp" line="435"/>
         <source>Parsing the configfile %1 failed! Depending on the type of the error latexframes might not work correctly!
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Razčlenjevanje konfiguracijske datoteke %1 ni uspelo! Glede na vrsto napake morda okviri LaTeX ne bodo delovali pravilno!
+%2</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.cpp" line="384"/>
         <source>second argument is not tuple: must be tuple of int values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>drugi argument ni dvojice: mora biti par celoštevilskih vrednosti (int).</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.cpp" line="396"/>
         <source>second argument contains non-numeric values: must be list of int values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>drugi parameter vsebuje ne številske vrednosti: mora biti seznam celoštevilskih vrednosti (int).</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdstyle.cpp" line="49"/>
         <source>Cannot have an empty paragraph style name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ime sloga odstavka ne more biti prazno.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdstyle.cpp" line="69"/>
         <source>hasdropcap has to be 0 or 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>hasdropcap je lahko le 0 ali 1.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdstyle.cpp" line="121"/>
         <source>Cannot have an empty char style name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ime sloga črk ne more biti prazno.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="868"/>
         <source>Can only hyphenate text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Deljenje besed je podprto le v besedilnem okviru</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="891"/>
         <source>Can only dehyphenate text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Preklic deljenja besed je podprt le v besedilnem okviru</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="78"/>
         <source>Lens Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Učinki leč</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="91"/>
         <source>PathCutter</source>
-        <translation type="unfinished"></translation>
+        <translation>Rezalnik poti</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="92"/>
         <source>PathFinder</source>
-        <translation type="unfinished"></translation>
+        <translation>Iskalnik poti</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="85"/>
         <source>PathStroker</source>
-        <translation type="unfinished"></translation>
+        <translation>Poteznik poti</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="55"/>
         <source>Spell check (aspell)</source>
-        <translation type="unfinished"></translation>
+        <translation>Preverjanje črkovanja (aspell)</translation>
     </message>
     <message>
         <location filename="../plugins/tools/subdivide/subdivide.cpp" line="79"/>
         <source>Subdivide</source>
-        <translation type="unfinished"></translation>
+        <translation>Porazdeli</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="71"/>
         <source>Xfig Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvoznik Xfig</translation>
     </message>
     <message>
         <location filename="../units.cpp" line="161"/>
         <source>~</source>
         <comment>degrees, unicode 0xB0</comment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="47"/>
         <source>Xfig File</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteka Xfig</translation>
     </message>
 </context>
 <context>
@@ -29372,7 +29374,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../scprintengine_gdi.cpp" line="336"/>
         <source>Printing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiskanje ...</translation>
     </message>
 </context>
 <context>
@@ -31706,7 +31708,7 @@ Navpični razmik: %3</translation>
     <message>
         <location filename="../scribusdoc.cpp" line="2592"/>
         <source>Copy_of_</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopija_</translation>
     </message>
 </context>
 <context>
@@ -32354,23 +32356,24 @@ Navpični zamik: %3</translation>
     <message>
         <location filename="../scribus.cpp" line="317"/>
         <source>Applying User Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Uveljavljanje tipk za bližnjice</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="2489"/>
         <source>Updating Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Posodabljanje slik</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="4342"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaš dokument je bil shranjen v začasno datoteko in ga ni mogoče premakniti: 
+%1</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="4714"/>
         <source>Print engine initialization failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicializacija tiskalniškega pogona ni uspela</translation>
     </message>
 </context>
 <context>
@@ -33698,12 +33701,12 @@ povlecite predlogo na delovno področje spodaj.</translation>
     <message>
         <location filename="../story.cpp" line="187"/>
         <source>No Style</source>
-        <translation type="unfinished">Brez sloga</translation>
+        <translation>Brez sloga</translation>
     </message>
     <message>
         <location filename="../story.cpp" line="138"/>
         <source>Edit Styles...</source>
-        <translation type="unfinished">Uredi sloge ...</translation>
+        <translation>Uredi sloge ...</translation>
     </message>
 </context>
 <context>
@@ -34343,7 +34346,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
     <message>
         <location filename="../stylemanager.ui" line="22"/>
         <source>Style Manager</source>
-        <translation type="unfinished">Upravitelj slogov</translation>
+        <translation>Upravitelj slogov</translation>
     </message>
 </context>
 <context>
@@ -34441,22 +34444,22 @@ povlecite predlogo na delovno področje spodaj.</translation>
     <message>
         <location filename="../plugins/tools/subdivide/subdivide.cpp" line="66"/>
         <source>Subdivide Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Porazdeli pot</translation>
     </message>
     <message>
         <location filename="../plugins/tools/subdivide/subdivide.cpp" line="70"/>
         <source>Path Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Orodja poti</translation>
     </message>
     <message>
         <location filename="../plugins/tools/subdivide/subdivide.cpp" line="87"/>
         <source>Subdivide</source>
-        <translation type="unfinished"></translation>
+        <translation>Porazdeli</translation>
     </message>
     <message>
         <location filename="../plugins/tools/subdivide/subdivide.cpp" line="88"/>
         <source>Subdivide selected Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Porazdeli izbrano pot</translation>
     </message>
 </context>
 <context>
@@ -34690,17 +34693,17 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tocindexprefs.ui" line="164"/>
         <source>Page Number Placement:</source>
-        <translation type="unfinished"></translation>
+        <translation>Postavitev številk strani:</translation>
     </message>
     <message>
         <location filename="../tocindexprefs.cpp" line="116"/>
         <source>Beginning</source>
-        <translation type="unfinished"></translation>
+        <translation>Začetek</translation>
     </message>
     <message>
         <location filename="../tocindexprefs.cpp" line="118"/>
         <source>End</source>
-        <translation type="unfinished"></translation>
+        <translation>Konec</translation>
     </message>
 </context>
 <context>
@@ -35144,12 +35147,12 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabdisplay.cpp" line="36"/>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Vključi ali izključi prikaz slik</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="134"/>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži slike</translation>
     </message>
 </context>
 <context>
@@ -35490,42 +35493,42 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabexternaltoolswidget.cpp" line="160"/>
         <source>Locate a Configuration file</source>
-        <translation type="unfinished"></translation>
+        <translation>Poiščite konfiguracijsko datoteko</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.cpp" line="162"/>
         <source>Configuration files</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguracijske datoteke</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="303"/>
         <source>Configurations:</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguracije:</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="312"/>
         <source>Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Navzgor</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="319"/>
         <source>Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Navzdol</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="326"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="333"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbriši</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="347"/>
         <source>External Latex Editor:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zunanji urejevalnik Latex:</translation>
     </message>
 </context>
 <context>
@@ -36154,17 +36157,17 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="154"/>
         <source>Select a Key set file to read</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberite nabor tipk za branje</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="162"/>
         <source>Key Set XML Files (*.xml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteke nabora tipk XML (*.xml)</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="162"/>
         <source>Select a Key set file to save to</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberite datoteko nabora tipk za shranjevanje</translation>
     </message>
 </context>
 <context>
@@ -37653,7 +37656,7 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabpdfoptions.cpp" line="532"/>
         <source>&amp;Apply Effect to all Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Uporabi učinek na vseh straneh</translation>
     </message>
 </context>
 <context>
@@ -37933,7 +37936,7 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabprinter.ui" line="136"/>
         <source>PostScript Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Možnosti PostScript</translation>
     </message>
 </context>
 <context>
@@ -38455,32 +38458,32 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabtools.cpp" line="374"/>
         <source>&amp;Scale Image to Frame Size</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Umeri sliko na okvir</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="524"/>
         <source>Image Frame Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Lastnosti okvira slike</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="536"/>
         <source>Image frames allow images to scale to any size</source>
-        <translation type="unfinished"></translation>
+        <translation>Okviri slik omogočajo slikam spremembo velikost na poljubno vrednost</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="540"/>
         <source>Images in image frames are scaled to the size of the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Slike v okvirih so umerjene na velikost okvira</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="541"/>
         <source>Automatically scaled images keep their original proportions</source>
-        <translation type="unfinished"></translation>
+        <translation>Slike s samodejno prilagojeno velikostjo ohranijo svoja izvorna razmerja</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="542"/>
         <source>Fill color of image frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva polnila okvirov slik</translation>
     </message>
 </context>
 <context>
@@ -39737,12 +39740,12 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../undomanager.cpp" line="866"/>
         <source>Import AI drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi risbo AI</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="867"/>
         <source>Import XFig drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi risbo XFig</translation>
     </message>
 </context>
 <context>
@@ -39865,22 +39868,22 @@ Napaka: %2 v vrstici: %3, stolpcu: %4</translation>
     <message>
         <location filename="../upgradechecker.cpp" line="120"/>
         <source>Finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokončano</translation>
     </message>
     <message>
         <location filename="../upgradechecker.cpp" line="215"/>
         <source>Operation canceled</source>
-        <translation type="unfinished"></translation>
+        <translation>Operacija preklicana</translation>
     </message>
     <message>
         <location filename="../upgradechecker.cpp" line="228"/>
         <source>This list may contain development/unstable versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta seznam lahko vsebuje razvojne/nestabilne različice.</translation>
     </message>
     <message>
         <location filename="../upgradechecker.cpp" line="311"/>
         <source>Error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Napaka: %1</translation>
     </message>
 </context>
 <context>
@@ -40416,22 +40419,22 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../plugins/xfigimplugin/importxfig.cpp" line="142"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Uvažanje: %1</translation>
+        <translation>Uvažanje: %1</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfig.cpp" line="145"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analiziranje datoteke:</translation>
+        <translation>Analiziranje datoteke:</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfig.cpp" line="298"/>
         <source>Group%1</source>
-        <translation type="unfinished">Skupina%1</translation>
+        <translation>Skupina%1</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfig.cpp" line="1589"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Tvorba predmetov</translation>
+        <translation>Tvorba predmetov</translation>
     </message>
 </context>
 <context>
