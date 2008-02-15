@@ -48,7 +48,6 @@ GenericName[xh]=Upapasho lwe Desktop
 GenericName[zh_CN]=桌面出版
 GenericName[zh_TW]=桌面出版
 GenericName[zu]=Ukushicilelwa kwe-Desktop
-FilePattern=scribus
 TryExec=scribus
 Exec=scribus %f
 MimeType=application/x-scribus
