@@ -1298,7 +1298,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					view->requestMode(modeNormal);
 					break;
 				case modeDrawBezierLine:
-					currItem->PoLine.resize(currItem->PoLine.size()-2);
+					currItem->PoLine.resize(qMax(0, static_cast<int>(currItem->PoLine.size())-2));
 					if (currItem->PoLine.size() < 4)
 					{
 						view->Deselect(false);
