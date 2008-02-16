@@ -2615,22 +2615,16 @@ void PropertiesPalette::setTScaleV(double e)
 
 void PropertiesPalette::NewTScaleV()
 {
-	if ((HaveDoc) && (HaveItem))
-	{
-		doc->itemSelection_SetScaleV(qRound(ChScaleV->value() * 10));
-//		doc->currentStyle.charStyle().setScaleV(qRound(ChScaleV->value() * 10));
-// 		emit DocChanged();
-	}
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	doc->itemSelection_SetScaleV(qRound(ChScaleV->value() * 10));
 }
 
 void PropertiesPalette::NewTBase()
 {
-	if ((HaveDoc) && (HaveItem))
-	{
-		doc->itemSelection_SetBaselineOffset(qRound(ChBase->value() * 10));
-//		doc->currentStyle.charStyle().setBaselineOffset(qRound(ChBase->value() * 10));
-// 		emit DocChanged();
-	}
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	doc->itemSelection_SetBaselineOffset(qRound(ChBase->value() * 10));
 }
 
 void PropertiesPalette::setTScale(double e)
@@ -2655,12 +2649,9 @@ void PropertiesPalette::setTBase(double e)
 
 void PropertiesPalette::NewTScale()
 {
-	if ((HaveDoc) && (HaveItem))
-	{
-		doc->itemSelection_SetScaleH(qRound(ChScale->value() * 10));
-//		doc->currentStyle.charStyle().setScaleH(qRound(ChScale->value() * 10));
-// 		emit DocChanged();
-	}
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	doc->itemSelection_SetScaleH(qRound(ChScale->value() * 10));
 }
 
 void PropertiesPalette::NewX()
@@ -2743,157 +2734,145 @@ void PropertiesPalette::NewX()
 
 void PropertiesPalette::NewY()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
+
+	double x,y,w,h, gx, gy, gh, gw, base;
+	QMatrix ma;
+	x = Xpos->value() / m_unitRatio;
+	y = Ypos->value() / m_unitRatio;
+	w = Width->value() / m_unitRatio;
+	h = Height->value() / m_unitRatio;
+	base = 0;
+	x += doc->rulerXoffset;
+	y += doc->rulerYoffset;
+	if (doc->guidesSettings.rulerMode)
 	{
-		double x,y,w,h, gx, gy, gh, gw, base;
-		QMatrix ma;
-		x = Xpos->value() / m_unitRatio;
-		y = Ypos->value() / m_unitRatio;
-		w = Width->value() / m_unitRatio;
-		h = Height->value() / m_unitRatio;
-		base = 0;
-		x += doc->rulerXoffset;
-		y += doc->rulerYoffset;
-		if (doc->guidesSettings.rulerMode)
+		x += doc->currentPage()->xOffset();
+		y += doc->currentPage()->yOffset();
+	}
+	if (doc->m_Selection->isMultipleSelection())
+	{
+		doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		if ((TopLeft->isChecked()) || (TopRight->isChecked()))
+			base = gy;
+		if (Center->isChecked())
+			base = gy + gh / 2.0;
+		if ((BottomLeft->isChecked()) || (BottomRight->isChecked()))
+			base = gy + gh;
+		if (!_userActionOn)
+			m_ScMW->view->startGroupTransaction();
+		doc->moveGroup(0, y - base, true);
+		if (!_userActionOn)
 		{
-			x += doc->currentPage()->xOffset();
-			y += doc->currentPage()->yOffset();
+			m_ScMW->view->endGroupTransaction();
 		}
-		if (doc->m_Selection->isMultipleSelection())
+	}
+	else
+	{
+		if ((CurItem->asLine()) && (LMode))
 		{
-			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			if ((TopLeft->isChecked()) || (TopRight->isChecked()))
-				base = gy;
-			if (Center->isChecked())
-				base = gy + gh / 2.0;
-			if ((BottomLeft->isChecked()) || (BottomRight->isChecked()))
-				base = gy + gh;
-			if (!_userActionOn)
-				m_ScMW->view->startGroupTransaction();
-			doc->moveGroup(0, y - base, true);
-			if (!_userActionOn)
+			w += doc->rulerXoffset;
+			h += doc->rulerYoffset;
+			if (doc->guidesSettings.rulerMode)
 			{
-				m_ScMW->view->endGroupTransaction();
+				w += doc->currentPage()->xOffset();
+				h += doc->currentPage()->yOffset();
 			}
+			double r = atan2(h-y,w-x)*(180.0/M_PI);
+			w = sqrt(pow(w-x,2)+pow(h-y,2));
+			doc->MoveItem(0, y - CurItem->yPos(), CurItem, true);
+			CurItem->setXYPos(CurItem->xPos(), y, true);
+			CurItem->setRotation(r, true);
+			doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+			doc->RotateItem(r, CurItem->ItemNr);
 		}
 		else
 		{
-			if ((CurItem->asLine()) && (LMode))
-			{
-				w += doc->rulerXoffset;
-				h += doc->rulerYoffset;
-				if (doc->guidesSettings.rulerMode)
-				{
-					w += doc->currentPage()->xOffset();
-					h += doc->currentPage()->yOffset();
-				}
-				double r = atan2(h-y,w-x)*(180.0/M_PI);
-				w = sqrt(pow(w-x,2)+pow(h-y,2));
-//				doc->MoveItem(0, y - CurItem->yPos(), CurItem, true);
-				CurItem->setXYPos(CurItem->xPos(), y, true);
-				CurItem->setRotation(r, true);
-				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
-//				doc->RotateItem(r, CurItem->ItemNr);
-			}
-			else
-			{
-				ma.translate(CurItem->xPos(), CurItem->yPos());
-				ma.rotate(CurItem->rotation());
-				if (TopLeft->isChecked())
-					base = CurItem->yPos();
-				if (Center->isChecked())
-					base = ma.m22() * (CurItem->height() / 2.0) + ma.m12() * (CurItem->width() / 2.0) + ma.dy();
-				if (TopRight->isChecked())
-					base = ma.m22() * 0.0 + ma.m12() * CurItem->width() + ma.dy();
-				if (BottomRight->isChecked())
-					base = ma.m22() * CurItem->height() + ma.m12() * CurItem->width() + ma.dy();
-				if (BottomLeft->isChecked())
-					base = ma.m22() * CurItem->height() + ma.m12() * 0.0 + ma.dy();
-				doc->MoveItem(0, y - base, CurItem, true);
-			}
+			ma.translate(CurItem->xPos(), CurItem->yPos());
+			ma.rotate(CurItem->rotation());
+			if (TopLeft->isChecked())
+				base = CurItem->yPos();
+			if (Center->isChecked())
+				base = ma.m22() * (CurItem->height() / 2.0) + ma.m12() * (CurItem->width() / 2.0) + ma.dy();
+			if (TopRight->isChecked())
+				base = ma.m22() * 0.0 + ma.m12() * CurItem->width() + ma.dy();
+			if (BottomRight->isChecked())
+				base = ma.m22() * CurItem->height() + ma.m12() * CurItem->width() + ma.dy();
+			if (BottomLeft->isChecked())
+				base = ma.m22() * CurItem->height() + ma.m12() * 0.0 + ma.dy();
+			doc->MoveItem(0, y - base, CurItem, true);
 		}
-		doc->regionsChanged()->update(QRect());
-		emit DocChanged();
 	}
+	doc->regionsChanged()->update(QRect());
+	emit DocChanged();
 }
 
 void PropertiesPalette::NewW()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
+	
+	double x,y,w,h, gx, gy, gh, gw;
+	x = Xpos->value() / m_unitRatio;
+	y = Ypos->value() / m_unitRatio;
+	w = Width->value() / m_unitRatio;
+	h = Height->value() / m_unitRatio;
+	if (doc->m_Selection->isMultipleSelection())
 	{
-		double x,y,w,h, gx, gy, gh, gw;
-		x = Xpos->value() / m_unitRatio;
-		y = Ypos->value() / m_unitRatio;
-		w = Width->value() / m_unitRatio;
-		h = Height->value() / m_unitRatio;
-		if (doc->m_Selection->isMultipleSelection())
+		if (!_userActionOn)
+			m_ScMW->view->startGroupTransaction();
+		doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		if (keepFrameWHRatioButton->isChecked())
 		{
-			if (!_userActionOn)
-				m_ScMW->view->startGroupTransaction();
-			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			if (keepFrameWHRatioButton->isChecked())
-			{
-//				m_ScMW->view->frameResizeHandle = 1;
-				doc->scaleGroup(w / gw, w / gw);
-				setBH(w, (w / gw) * gh);
-			}
-			else
-			{
-//				m_ScMW->view->frameResizeHandle = 6;
-				doc->scaleGroup(w / gw, 1.0);
-				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-				setBH(gw, gh);
-			}
-			if (!_userActionOn)
-			{
-				m_ScMW->view->endGroupTransaction();
-			}
+//			m_ScMW->view->frameResizeHandle = 1;
+			doc->scaleGroup(w / gw, w / gw);
+			setBH(w, (w / gw) * gh);
 		}
 		else
 		{
-			bool oldS = CurItem->Sizing;
-			CurItem->Sizing = false;
-			CurItem->OldB2 = CurItem->width();
-			CurItem->OldH2 = CurItem->height();
-			if (CurItem->asLine())
+//			m_ScMW->view->frameResizeHandle = 6;
+			doc->scaleGroup(w / gw, 1.0);
+			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+			setBH(gw, gh);
+		}
+		if (!_userActionOn)
+		{
+			m_ScMW->view->endGroupTransaction();
+		}
+	}
+	else
+	{
+		bool oldS = CurItem->Sizing;
+		CurItem->Sizing = false;
+		CurItem->OldB2 = CurItem->width();
+		CurItem->OldH2 = CurItem->height();
+		if (CurItem->asLine())
+		{
+			if (LMode)
 			{
-				if (LMode)
-				{
-					double r = atan2(h-y,w-x)*(180.0/M_PI);
-					CurItem->setRotation(r, true);
-					w = sqrt(pow(w-x,2)+pow(h-y,2));
-				}
-				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true, true, false);
+				double r = atan2(h-y,w-x)*(180.0/M_PI);
+				CurItem->setRotation(r, true);
+				w = sqrt(pow(w-x,2)+pow(h-y,2));
 			}
-			else
+			doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true, true, false);
+		}
+		else
+		{
+			double oldW = (CurItem->width() != 0.0) ? CurItem->width() : 1.0;
+			if (CurItem->isTableItem)
 			{
-				double oldW = (CurItem->width() != 0.0) ? CurItem->width() : 1.0;
-				if (CurItem->isTableItem)
+				int rmo = doc->RotMode;
+				doc->RotMode = 0;
+				double dist = w - CurItem->width();
+				PageItem* bb2;
+				PageItem* bb = CurItem;
+				while (bb->TopLink != 0)
 				{
-					int rmo = doc->RotMode;
-					doc->RotMode = 0;
-					double dist = w - CurItem->width();
-					PageItem* bb2;
-					PageItem* bb = CurItem;
-					while (bb->TopLink != 0)
-					{
-						bb = bb->TopLink;
-					}
-					while (bb->BottomLink != 0)
-					{
-						bb2 = bb;
-						while (bb2->RightLink != 0)
-						{
-							doc->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
-							bb2 = bb2->RightLink;
-						}
-						doc->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
-						bb = bb->BottomLink;
-					}
+					bb = bb->TopLink;
+				}
+				while (bb->BottomLink != 0)
+				{
 					bb2 = bb;
 					while (bb2->RightLink != 0)
 					{
@@ -2901,31 +2880,39 @@ void PropertiesPalette::NewW()
 						bb2 = bb2->RightLink;
 					}
 					doc->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
-					doc->RotMode = rmo;
-					if (keepFrameWHRatioButton->isChecked())
-					{
-						keepFrameWHRatioButton->setChecked(false);
-						setBH(w, (w / oldW) * CurItem->height());
-						NewH();
-						keepFrameWHRatioButton->setChecked(true);
-					}
+					bb = bb->BottomLink;
 				}
-				else
+				bb2 = bb;
+				while (bb2->RightLink != 0)
 				{
-					if (keepFrameWHRatioButton->isChecked())
-					{
-						setBH(w, (w / oldW) * CurItem->height());
-						doc->SizeItem(w, (w / oldW) * CurItem->height(), CurItem->ItemNr, true, true, false);
-					}
-					else
-						doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true, true, false);
+					doc->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
+					bb2 = bb2->RightLink;
+				}
+				doc->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
+				doc->RotMode = rmo;
+				if (keepFrameWHRatioButton->isChecked())
+				{
+					keepFrameWHRatioButton->setChecked(false);
+					setBH(w, (w / oldW) * CurItem->height());
+					NewH();
+					keepFrameWHRatioButton->setChecked(true);
 				}
 			}
-			CurItem->Sizing = oldS;
+			else
+			{
+				if (keepFrameWHRatioButton->isChecked())
+				{
+					setBH(w, (w / oldW) * CurItem->height());
+					doc->SizeItem(w, (w / oldW) * CurItem->height(), CurItem->ItemNr, true, true, false);
+				}
+				else
+					doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true, true, false);
+			}
 		}
-		emit DocChanged();
-		doc->regionsChanged()->update(QRect());
+		CurItem->Sizing = oldS;
 	}
+	emit DocChanged();
+	doc->regionsChanged()->update(QRect());
 }
 
 void PropertiesPalette::NewH()
@@ -3066,110 +3053,85 @@ void PropertiesPalette::NewR()
 
 void PropertiesPalette::NewRR()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		CurItem->setCornerRadius(RoundRect->value() / m_unitRatio);
-		m_ScMW->view->SetFrameRounded();
-		emit DocChanged();
-		doc->regionsChanged()->update(QRect());
-	}
+	CurItem->setCornerRadius(RoundRect->value() / m_unitRatio);
+	m_ScMW->view->SetFrameRounded();
+	emit DocChanged();
+	doc->regionsChanged()->update(QRect());
 }
 
 void PropertiesPalette::NewLsp()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		doc->itemSelection_SetLineSpacing(LineSp->value());
-// 		emit DocChanged();
-	}
+	doc->itemSelection_SetLineSpacing(LineSp->value());
 }
 
 void PropertiesPalette::HandleGapSwitch()
 {
-	if ((HaveDoc) && (HaveItem))
-	{
-		setCols(CurItem->Cols, CurItem->ColGap);
-		dGap->setToolTip("");
-//		if (colgapLabel->getState())
-		if (colgapLabel->currentIndex() == 0)
-			dGap->setToolTip( tr( "Distance between columns" ) );
-		else
-			dGap->setToolTip( tr( "Column width" ) );
-	}
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	setCols(CurItem->Cols, CurItem->ColGap);
+	dGap->setToolTip("");
+//	if (colgapLabel->getState())
+	if (colgapLabel->currentIndex() == 0)
+		dGap->setToolTip( tr( "Distance between columns" ) );
+	else
+		dGap->setToolTip( tr( "Column width" ) );
 }
 
 void PropertiesPalette::NewCols()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		CurItem->Cols = DCol->value();
-		setCols(CurItem->Cols, CurItem->ColGap);
-		CurItem->update();
-		emit DocChanged();
-	}
+	CurItem->Cols = DCol->value();
+	setCols(CurItem->Cols, CurItem->ColGap);
+	CurItem->update();
+	emit DocChanged();
 }
 
 void PropertiesPalette::NewGap()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
+//	if (colgapLabel->getState())
+	if (colgapLabel->currentIndex() == 0)
+		CurItem->ColGap = dGap->value() / m_unitRatio;
+	else
 	{
-//		if (colgapLabel->getState())
-		if (colgapLabel->currentIndex() == 0)
-			CurItem->ColGap = dGap->value() / m_unitRatio;
+		double lineCorr;
+		if (CurItem->lineColor() != CommonStrings::None)
+			lineCorr = CurItem->lineWidth();
 		else
-		{
-			double lineCorr;
-			if (CurItem->lineColor() != CommonStrings::None)
-				lineCorr = CurItem->lineWidth();
-			else
-				lineCorr = 0;
-			double newWidth = dGap->value() / m_unitRatio;
-			double newGap = qMax(((CurItem->width() - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight() - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0.0);
-			CurItem->ColGap = newGap;
-		}
-		CurItem->update();
-		emit DocChanged();
+			lineCorr = 0;
+		double newWidth = dGap->value() / m_unitRatio;
+		double newGap = qMax(((CurItem->width() - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight() - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0.0);
+		CurItem->ColGap = newGap;
 	}
+	CurItem->update();
+	emit DocChanged();
 }
 
 void PropertiesPalette::NewSize()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		doc->itemSelection_SetFontSize(qRound(Size->value()*10.0));
-// 		emit DocChanged();
-	}
+	doc->itemSelection_SetFontSize(qRound(Size->value()*10.0));
 }
 
 void PropertiesPalette::NewExtra()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		doc->itemSelection_SetTracking(qRound(Extra->value() * 10.0));
-// 		emit DocChanged();
-	}
+	doc->itemSelection_SetTracking(qRound(Extra->value() * 10.0));
 }
 
 void PropertiesPalette::NewLocalXY()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		doc->itemSelection_SetImageOffset(imageXOffsetSpinBox->value() / m_unitRatio / CurItem->imageXScale(), imageYOffsetSpinBox->value() / m_unitRatio / CurItem->imageYScale());
-	}
+	doc->itemSelection_SetImageOffset(imageXOffsetSpinBox->value() / m_unitRatio / CurItem->imageXScale(), imageYOffsetSpinBox->value() / m_unitRatio / CurItem->imageYScale());
 }
 
 void PropertiesPalette::NewLocalSC()
@@ -3215,21 +3177,17 @@ void PropertiesPalette::NewLocalDpi()
 
 void PropertiesPalette::EditEff()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-		m_ScMW->ImageEffects();
+	m_ScMW->ImageEffects();
 }
 
 void PropertiesPalette::EditPSD()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		m_ScMW->view->editExtendedImageProperties();
-		emit DocChanged();
-	}
+	m_ScMW->view->editExtendedImageProperties();
+	emit DocChanged();
 }
 
 void PropertiesPalette::NewLS()
@@ -3264,10 +3222,9 @@ void PropertiesPalette::NewLS()
 
 void PropertiesPalette::setStartArrow(int id)
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-		doc->itemSelection_ApplyArrowHead(id,-1);
+	doc->itemSelection_ApplyArrowHead(id,-1);
 }
 
 void PropertiesPalette::setEndArrow(int id)
@@ -3379,10 +3336,7 @@ void PropertiesPalette::NewLJoin()
 		break;
 	}
 	if ((HaveDoc) && (HaveItem))
-	{
 		doc->ChLineJoin(c);
-// 		emit DocChanged();
-	}
 }
 
 void PropertiesPalette::NewLEnd()
@@ -3403,10 +3357,7 @@ void PropertiesPalette::NewLEnd()
 		break;
 	}
 	if ((HaveDoc) && (HaveItem))
-	{
 		doc->ChLineEnd(c);
-// 		emit DocChanged();
-	}
 }
 
 void PropertiesPalette::ToggleKette()
@@ -3491,16 +3442,9 @@ void PropertiesPalette::VChangeD()
 
 void PropertiesPalette::NewAli(int a)
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		doc->itemSelection_SetAlignment(a);
-// 		emit DocChanged();
-
-//old:		if (findParagraphStyle(doc, doc->currentStyle) < 5)
-//			emit NewAlignment(a);
-	}
+	doc->itemSelection_SetAlignment(a);
 }
 
 void PropertiesPalette::setTypeStyle(int s)
@@ -3512,14 +3456,11 @@ void PropertiesPalette::setTypeStyle(int s)
 
 void PropertiesPalette::newShadowOffs()
 {
-	int x = qRound(SeStyle->ShadowVal->Xoffset->value() * 10.0);
-	int y = qRound(SeStyle->ShadowVal->Yoffset->value() * 10.0);
 	if ((HaveDoc) && (HaveItem))
 	{
+		int x = qRound(SeStyle->ShadowVal->Xoffset->value() * 10.0);
+		int y = qRound(SeStyle->ShadowVal->Yoffset->value() * 10.0);
 		doc->itemSelection_SetShadowOffsets(x, y);
-//		doc->currentStyle.charStyle().setShadowXOffset(x);
-//		doc->currentStyle.charStyle().setShadowYOffset(y);
-// 		emit DocChanged();
 	}
 }
 
@@ -3537,14 +3478,11 @@ void PropertiesPalette::setShadowOffs(double x, double y)
 
 void PropertiesPalette::newUnderline()
 {
-	int x = qRound(SeStyle->UnderlineVal->LPos->value() * 10.0);
-	int y = qRound(SeStyle->UnderlineVal->LWidth->value() * 10.0);
 	if ((HaveDoc) && (HaveItem))
 	{
+		int x = qRound(SeStyle->UnderlineVal->LPos->value() * 10.0);
+		int y = qRound(SeStyle->UnderlineVal->LWidth->value() * 10.0);
 		doc->itemSelection_SetUnderline(x, y);
-//		doc->currentStyle.charStyle().setUnderlineOffset(x);
-//		doc->currentStyle.charStyle().setUnderlineWidth(y);
-// 		emit DocChanged();
 	}
 }
 
@@ -3562,14 +3500,11 @@ void PropertiesPalette::setUnderline(double p, double w)
 
 void PropertiesPalette::newStrike()
 {
-	int x = qRound(SeStyle->StrikeVal->LPos->value() * 10.0);
-	int y = qRound(SeStyle->StrikeVal->LWidth->value() * 10.0);
 	if ((HaveDoc) && (HaveItem))
 	{
+		int x = qRound(SeStyle->StrikeVal->LPos->value() * 10.0);
+		int y = qRound(SeStyle->StrikeVal->LWidth->value() * 10.0);
 		doc->itemSelection_SetStrikethru(x, y);
-//		doc->currentStyle.charStyle().setStrikethruOffset(x);
-//		doc->currentStyle.charStyle().setStrikethruWidth(y);
-// 		emit DocChanged();
 	}
 }
 
@@ -3598,51 +3533,35 @@ void PropertiesPalette::newOutlineW()
 {
 	int x = qRound(SeStyle->OutlineVal->LWidth->value() * 10.0);
 	if ((HaveDoc) && (HaveItem))
-	{
 		doc->itemSelection_SetOutlineWidth(x);
-//		doc->currentStyle.charStyle().setOutlineWidth(x);
-// 		emit DocChanged();
-	}
 }
 
 void PropertiesPalette::DoLower()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		m_ScMW->view->LowerItem();
-	}
+	m_ScMW->view->LowerItem();
 }
 
 void PropertiesPalette::DoRaise()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		m_ScMW->view->RaiseItem();
-	}
+	m_ScMW->view->RaiseItem();
 }
 
 void PropertiesPalette::DoFront()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		m_ScMW->view->ToFront();
-	}
+	m_ScMW->view->ToFront();
 }
 
 void PropertiesPalette::DoBack()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		m_ScMW->view->ToBack();
-	}
+	m_ScMW->view->ToBack();
 }
 
 void PropertiesPalette::NewRotMode(int m)
@@ -3901,24 +3820,20 @@ void PropertiesPalette::toggleGradientEdit()
 
 void PropertiesPalette::NewTFont(QString c)
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-		emit NewFont(c);
+	emit NewFont(c);
 }
 
 void PropertiesPalette::DoRevert()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		bool setter=Revert->isChecked();
-		CurItem->setImageFlippedH(setter);
-		CurItem->setReversed(setter);
-		CurItem->update();
-		emit DocChanged();
-	}
+	bool setter=Revert->isChecked();
+	CurItem->setImageFlippedH(setter);
+	CurItem->setReversed(setter);
+	CurItem->update();
+	emit DocChanged();
 }
 
 
@@ -4061,35 +3976,16 @@ void PropertiesPalette::updateCmsList()
 
 void PropertiesPalette::ChProf(const QString& prn)
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		doc->itemSelection_SetColorProfile(InputP->currentText());
-		/*
-		CurItem->IProfile = InputP->currentText();
-		// PFJ - 29.02.04 - re-arranged the initialisation of EmbedP
-		bool EmbedP = prn.startsWith("Embedded") ? true : false;
-		CurItem->UseEmbedded = EmbedP;
-		doc->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
-		CurItem->update();
-		*/
-	}
+	doc->itemSelection_SetColorProfile(InputP->currentText());
 }
 
 void PropertiesPalette::ChIntent()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		doc->itemSelection_SetRenderIntent(MonitorI->currentIndex());
-		/*
-		CurItem->IRender = MonitorI->currentIndex();
-		doc->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
-		CurItem->update();
-		*/
-	}
+	doc->itemSelection_SetRenderIntent(MonitorI->currentIndex());
 }
 
 void PropertiesPalette::ShowCMS()
@@ -4099,57 +3995,43 @@ void PropertiesPalette::ShowCMS()
 	if (HaveItem)
 		updateCmsList();
 	else
-	{
-		if (ScCore->haveCMS() && doc->CMSSettings.CMSinUse)
-			GroupBoxCM->show();
-		else
-			GroupBoxCM->hide();
-	}
+		GroupBoxCM->setVisible(ScCore->haveCMS() && doc->CMSSettings.CMSinUse);
 }
 
 void PropertiesPalette::newTxtFill()
 {
-	if ((HaveDoc) && (HaveItem))
-	{
-		doc->itemSelection_SetFillColor(TxFill->currentColor());
-//		doc->currentStyle.charStyle().setFillColor(TxFill->currentText());
-// 		emit DocChanged();
-	}
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	doc->itemSelection_SetFillColor(TxFill->currentColor());
 }
 
 void PropertiesPalette::newTxtStroke()
 {
-	if ((HaveDoc) && (HaveItem))
-	{
-		doc->itemSelection_SetStrokeColor(TxStroke->currentColor());
-//		doc->currentStyle.charStyle().setStrokeColor(TxStroke->currentText());
-// 		emit DocChanged();
-	}
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	doc->itemSelection_SetStrokeColor(TxStroke->currentColor());
 }
 
 void PropertiesPalette::setActShade()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	int b;
 	if (PM1 == sender())
 	{
 		b = PM1->getValue();
 		doc->itemSelection_SetStrokeShade(b);
-//		doc->currentStyle.charStyle().setStrokeShade(b);
 	}
 	else
 	{
 		b = PM2->getValue();
 		doc->itemSelection_SetFillShade(b);
-//		doc->currentStyle.charStyle().setFillShade(b);
 	}
-// 	emit DocChanged();
 }
 
 void PropertiesPalette::setActFarben(QString p, QString b, double shp, double shb)
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	ColorList::Iterator it;
 	int c = 0;
@@ -4182,28 +4064,28 @@ void PropertiesPalette::setActFarben(QString p, QString b, double shp, double sh
 
 void PropertiesPalette::handleLock()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	m_ScMW->scrActions["itemLock"]->toggle();
 }
 
 void PropertiesPalette::handleLockSize()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	m_ScMW->scrActions["itemLockSize"]->toggle();
 }
 
 void PropertiesPalette::handlePrint()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	m_ScMW->scrActions["itemPrintingEnabled"]->toggle();
 }
 
 void PropertiesPalette::handleFlipH()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	m_ScMW->scrActions["itemFlipH"]->toggle();
 	/*
@@ -4238,87 +4120,68 @@ void PropertiesPalette::handleFlipV()
 
 void PropertiesPalette::handlePathType()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		CurItem->textPathType = pathTextType->currentIndex();
-		CurItem->update();
-		emit DocChanged();
-	}
+	CurItem->textPathType = pathTextType->currentIndex();
+	CurItem->update();
+	emit DocChanged();
 }
 
 void PropertiesPalette::handlePathFlip()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		CurItem->textPathFlipped = flippedPathText->isChecked();
-		CurItem->updatePolyClip();
-		CurItem->update();
-		emit DocChanged();
-	}
+	CurItem->textPathFlipped = flippedPathText->isChecked();
+	CurItem->updatePolyClip();
+	CurItem->update();
+	emit DocChanged();
 }
 
 void PropertiesPalette::handlePathLine()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		CurItem->PoShow = showcurveCheckBox->isChecked();
-		CurItem->update();
-		emit DocChanged();
-	}
+	CurItem->PoShow = showcurveCheckBox->isChecked();
+	CurItem->update();
+	emit DocChanged();
 }
 
 void PropertiesPalette::handlePathDist()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		CurItem->setTextToFrameDistLeft(Dist->value());
-		doc->AdjustItemSize(CurItem);
-		CurItem->updatePolyClip();
-		CurItem->update();
-		emit DocChanged();
-	}
+	CurItem->setTextToFrameDistLeft(Dist->value());
+	doc->AdjustItemSize(CurItem);
+	CurItem->updatePolyClip();
+	CurItem->update();
+	emit DocChanged();
 }
 
 void PropertiesPalette::handlePathOffs()
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		CurItem->BaseOffs = -LineW->value();
-		doc->AdjustItemSize(CurItem);
-		CurItem->updatePolyClip();
-		CurItem->update();
-		emit DocChanged();
-	}
+	CurItem->BaseOffs = -LineW->value();
+	doc->AdjustItemSize(CurItem);
+	CurItem->updatePolyClip();
+	CurItem->update();
+	emit DocChanged();
 }
 
 void PropertiesPalette::handleFillRule()
 {
-	if ((HaveDoc) && (HaveItem))
-	{
-		CurItem->fillRule = EvenOdd->isChecked();
-		CurItem->update();
-		emit DocChanged();
-	}
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	CurItem->fillRule = EvenOdd->isChecked();
+	CurItem->update();
+	emit DocChanged();
 }
 
 void PropertiesPalette::handleOverprint()
 {
-	if ((HaveDoc) && (HaveItem))
-	{
-		doc->itemSelection_SetOverprint(Overprint->isChecked());
-		CurItem->update();
-		emit DocChanged();
-	}
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	doc->itemSelection_SetOverprint(Overprint->isChecked());
 }
 
 void PropertiesPalette::NewName()
