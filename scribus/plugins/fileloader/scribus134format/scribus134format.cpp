@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scgzfile.h"
 #include "scpattern.h"
 #include <QCursor>
+// #include <QDebug>
 #include <QFileInfo>
 #include <QList>
 #include <QByteArray>
@@ -2519,7 +2520,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 
 bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName)
 {
-//	qDebug(QString("loading page %2 from file '%1' from 1.3.x plugin").arg(fileName).arg(pageNumber));
+// 	qDebug() << QString("loading page %2 from file '%1' from 1.3.x plugin").arg(fileName).arg(pageNumber);
 	if (m_Doc==0 || m_AvailableFonts==0)
 	{
 		Q_ASSERT(m_Doc==0 || m_AvailableFonts==0);
@@ -2629,6 +2630,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				const ScLayer* la2 = m_Doc->Layers.layerByName(la.Name);
 				if (la2)
 					layerTrans.insert(la.LNr, la2->LNr);
+				else
 				{
 					maxLayer++;
 					maxLevel++;

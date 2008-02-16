@@ -5,7 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scribus13format.h"
-//#include "scribus13format.moc"
 #include "scribus13formatimpl.h"
 
 #include "../../formatidlist.h"
@@ -23,8 +22,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "scgzfile.h"
 #include <QCursor>
+// #include <QDebug>
 #include <QFileInfo>
-//Added by qt3to4:
 #include <QByteArray>
 #include <QDataStream>
 #include <QTextStream>
@@ -2472,7 +2471,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 
 bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName)
 {
-	qDebug(QString("loading page %2 from file '%1' from 1.3.3.x plugin").arg(fileName).arg(pageNumber).toAscii().constData());
+// 	qDebug(QString("loading page %2 from file '%1' from 1.3.3.x plugin").arg(fileName).arg(pageNumber).toAscii().constData());
 	if (m_Doc==0 || m_AvailableFonts==0)
 	{
 		Q_ASSERT(m_Doc==0 || m_AvailableFonts==0);
