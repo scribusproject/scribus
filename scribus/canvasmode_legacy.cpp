@@ -4408,8 +4408,13 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 		{
 			m_doc->m_Selection->removeItem(currItem);
 		}
-		else			{
+		else
 		{
+			//CB: If we have a selection but the user clicks with control on another item that is not below the current
+			//then clear and select the new item
+			if ((m->modifiers() == SELECT_BENEATH) && m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) >= 0)
+				m_doc->m_Selection->clear();
+			
 			m_doc->m_Selection->prependItem(currItem);
 			if ( (m->modifiers() & SELECT_IN_GROUP) )
 			{
@@ -4436,7 +4441,6 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 					}
 				}
 			}
-		}
 		}
 		
 		currItem->update();
@@ -4471,7 +4475,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 			m_canvas->m_viewMode.operItemResizing = false;
 		}
 		return true;
-		}		
+	}
 	
 /*	
 	if ((m->modifiers() == SELECT_SHIFTALT) && (!m_doc->masterPageMode()) && (m_doc->currentPage()->FromMaster.count() != 0))
