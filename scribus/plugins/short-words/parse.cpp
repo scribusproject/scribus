@@ -67,7 +67,7 @@ void SWParse::parseItem(PageItem *aFrame)
 		return; // no changes
 
 	// get text from frame
-	for (uint i=0; i<aFrame->MaxChars; ++i)
+	for (int i=0; i < aFrame->itemText.length(); ++i)
 		content += aFrame->itemText.at(i)->ch;
 	changes = content.contains(UNBREAKABLE_SPACE);
 
@@ -106,7 +106,7 @@ void SWParse::parseItem(PageItem *aFrame)
 		content.replace(rx, "\\1" + unbreak + "\\2");
 	}
 	// retrun text into frame
-	for (uint i=0; i<aFrame->MaxChars; ++i)
+	for (int i=0; i < aFrame->itemText.length(); ++i)
 		aFrame->itemText.at(i)->ch = content.at(i);
 	if (content.contains(UNBREAKABLE_SPACE) > changes)
 		++modify;
