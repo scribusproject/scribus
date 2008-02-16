@@ -1462,7 +1462,8 @@ void XfigPlug::processText(QString data)
 	painterPath.addText( 0, 0, tf, text );
 	QRectF br = painterPath.boundingRect();
 	QMatrix m;
-	m.translate(0, -h);
+	if (angle != 0)
+		m.translate(0, -h);
 	m.scale(w / br.width(), h / br.height());
 	painterPath = m.map(painterPath);
 	textPath.fromQPainterPath(painterPath);
