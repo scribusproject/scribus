@@ -763,7 +763,7 @@
 	<tab type="items">
 		<title><i18n>
 			<en>Math accents</en>
-			<de>Mathe Akzente</de>
+			<de>Mathe-Akzente</de>
 			<fr>Accents Math</fr>
 		</i18n></title>
 		<item value="\bar{a}"  image="bara.png" />
