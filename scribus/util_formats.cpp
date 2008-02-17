@@ -16,7 +16,7 @@ FormatsManager* FormatsManager::_instance = 0;
 
 FormatsManager::FormatsManager()
 {
-	m_fmts.insert(FormatsManager::EPS,  QStringList() << "eps" << "epsf" << "epsi");
+	m_fmts.insert(FormatsManager::EPS,  QStringList() << "eps" << "epsf" << "epsi" << "eps2" << "eps3" << "epi" << "ept");
 	m_fmts.insert(FormatsManager::GIF,  QStringList() << "gif");
 	m_fmts.insert(FormatsManager::JPEG, QStringList() << "jpg" << "jpeg");
 	m_fmts.insert(FormatsManager::PAT,  QStringList() << "pat");
@@ -253,14 +253,14 @@ bool extensionIndicatesPDF(const QString &ext)
 bool extensionIndicatesEPS(const QString &ext)
 {
 	QStringList strl;
-	strl << "eps" << "epsf" << "epsi";
+	strl << "eps" << "epsf" << "epsi" << "eps2" << "eps3" << "epi" << "ept";
 	return strl.contains(ext, Qt::CaseInsensitive);
 }
 
 bool extensionIndicatesEPSorPS(const QString &ext)
 {
 	QStringList strl;
-	strl << "eps" << "epsf" << "epsi" << "ps";
+	strl << "eps" << "epsf" << "epsi" << "ps" << "eps2" << "eps3" << "epi" << "ept";
 	return strl.contains(ext, Qt::CaseInsensitive);
 }
 
