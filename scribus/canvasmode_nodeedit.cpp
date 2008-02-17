@@ -1240,7 +1240,6 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 				return true;
 			}
 		}
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if ((m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT) || 
 		(m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT) || 
@@ -1268,10 +1267,12 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 					{
 						if (m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
 							qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
-						if (m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT)
+						else if (m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT)
 							qApp->changeOverrideCursor(QCursor(loadIcon("AddPoint.png"), 1, 1));
-						if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
+						else if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
 							qApp->changeOverrideCursor(QCursor(loadIcon("Split.png"), 1, 1));
+						else
+							qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 						m_doc->nodeEdit.ClRe2 = poi;
 						return true;
 					}
@@ -1296,9 +1297,9 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 //					return true;
 //				}
 //			}
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		}
 	}
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	return false;
 }
 
