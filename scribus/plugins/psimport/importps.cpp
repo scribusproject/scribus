@@ -415,6 +415,8 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 
 EPSPlug::~EPSPlug()
 {
+	if (progressDialog)
+		delete progressDialog;
 	delete tmpSel;
 }
 	

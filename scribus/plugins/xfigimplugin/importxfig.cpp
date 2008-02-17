@@ -393,6 +393,8 @@ bool XfigPlug::import(QString fNameIn, int flags, bool showProgress)
 
 XfigPlug::~XfigPlug()
 {
+	if (progressDialog)
+		delete progressDialog;
 	delete tmpSel;
 }
 

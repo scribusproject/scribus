@@ -376,6 +376,8 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 
 AIPlug::~AIPlug()
 {
+	if (progressDialog)
+		delete progressDialog;
 	delete tmpSel;
 }
 
