@@ -64,7 +64,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SText->setText( tr( "Text" ) );
 	SearchLayout->addWidget( SText, 0, 0 );
 	SStyle = new QCheckBox( Search );
-	SStyle->setText( tr( "Paragraph Style" ) );
+	SStyle->setText( tr( "Alignment" ) );
 	SearchLayout->addWidget( SStyle, 1, 0 );
 	SFont = new QCheckBox( Search );
 	SFont->setText( tr( "Font" ) );
@@ -153,7 +153,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RText->setText( tr( "Text" ) );
 	ReplaceLayout->addWidget( RText, 0, 0 );
 	RStyle = new QCheckBox( Replace );
-	RStyle->setText( tr( "Paragraph Style" ) );
+	RStyle->setText( tr( "Alignment" ) );
 	ReplaceLayout->addWidget( RStyle, 1, 0 );
 	RFont = new QCheckBox( Replace );
 	RFont->setText( tr( "Font" ) );
