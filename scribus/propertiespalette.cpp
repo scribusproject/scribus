@@ -3901,8 +3901,8 @@ void PropertiesPalette::updateColorList()
 	Cpal->SetColors(doc->PageColors);
 	Cpal->SetPatterns(&doc->docPatterns);
 	assert (doc->PageColors.document());
-	TxFill->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
-	TxStroke->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
+	TxFill->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, false);
+	TxStroke->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, false);
 	TxFill->view()->setMinimumWidth(TxFill->view()->maximumViewportSize().width() + 24);
 	TxStroke->view()->setMinimumWidth(TxStroke->view()->maximumViewportSize().width() + 24);
 }
@@ -4039,7 +4039,7 @@ void PropertiesPalette::setActFarben(QString p, QString b, double shp, double sh
 	PM1->setValue(qRound(shp));
 	if ((b != CommonStrings::None) && (!b.isEmpty()))
 	{
-		c++;
+//		c++;
 		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		{
 			if (it.key() == b)
@@ -4051,7 +4051,7 @@ void PropertiesPalette::setActFarben(QString p, QString b, double shp, double sh
 	c = 0;
 	if ((p != CommonStrings::None) && (!p.isEmpty()))
 	{
-		c++;
+//		c++;
 		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		{
 			if (it.key() == p)
