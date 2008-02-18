@@ -5284,16 +5284,14 @@ void ScribusDoc::ItemPen(QString farbe)
 	changed();
 }
 
-
-
 void ScribusDoc::itemSelection_SetFillColor(QString farbe, Selection* customSelection)
 {
+	if (farbe == CommonStrings::tr_NoneColor)
+		farbe = CommonStrings::None;
 	CharStyle newStyle;
 	newStyle.setFillColor(farbe);
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
-
-
 
 void ScribusDoc::itemSelection_SetFillShade(int sha, Selection* customSelection)
 {
@@ -5302,19 +5300,14 @@ void ScribusDoc::itemSelection_SetFillShade(int sha, Selection* customSelection)
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
 
-
-
 void ScribusDoc::itemSelection_SetStrokeColor(QString farbe, Selection* customSelection)
 {
 	if (farbe == CommonStrings::tr_NoneColor)
 		farbe = CommonStrings::None;
-	
 	CharStyle newStyle;
 	newStyle.setStrokeColor(farbe);
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
-
-
 
 void ScribusDoc::itemSelection_SetStrokeShade(int sha, Selection* customSelection)
 {
@@ -5323,8 +5316,6 @@ void ScribusDoc::itemSelection_SetStrokeShade(int sha, Selection* customSelectio
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
 
-
-
 void ScribusDoc::itemSelection_SetScaleV(int scale, Selection* customSelection)
 {
 	CharStyle newStyle;
@@ -5332,16 +5323,12 @@ void ScribusDoc::itemSelection_SetScaleV(int scale, Selection* customSelection)
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
 
-
-
 void ScribusDoc::itemSelection_SetScaleH(int scale, Selection* customSelection)
 {
 	CharStyle newStyle;
 	newStyle.setScaleH(scale);
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
-
-
 
 void ScribusDoc::itemSelection_SetShadowOffsets(int shx, int shy, Selection* customSelection)
 {
@@ -5351,8 +5338,6 @@ void ScribusDoc::itemSelection_SetShadowOffsets(int shx, int shy, Selection* cus
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
 
-
-
 void ScribusDoc::itemSelection_SetUnderline(int pos, int wid, Selection* customSelection)
 {
 	CharStyle newStyle;
@@ -5360,8 +5345,6 @@ void ScribusDoc::itemSelection_SetUnderline(int pos, int wid, Selection* customS
 	newStyle.setUnderlineWidth(wid);
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
-
-
 
 void ScribusDoc::itemSelection_SetStrikethru(int pos, int wid, Selection* customSelection)
 {
@@ -5371,8 +5354,6 @@ void ScribusDoc::itemSelection_SetStrikethru(int pos, int wid, Selection* custom
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
 
-
-
 void ScribusDoc::itemSelection_SetBaselineOffset(int sha, Selection* customSelection)
 {
 	CharStyle newStyle;
@@ -5380,16 +5361,12 @@ void ScribusDoc::itemSelection_SetBaselineOffset(int sha, Selection* customSelec
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
 
-
-
 void ScribusDoc::itemSelection_SetOutlineWidth(int wid, Selection* customSelection)
 {
 	CharStyle newStyle;
 	newStyle.setOutlineWidth(wid);
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
-
-
 
 void ScribusDoc::ItemBrush(QString farbe)
 {
@@ -5420,8 +5397,6 @@ void ScribusDoc::ItemBrush(QString farbe)
 		changed();
 	}
 }
-
-
 
 void ScribusDoc::ItemBrushShade(int sha)
 {
@@ -5479,8 +5454,6 @@ void ScribusDoc::ItemPenShade(int sha)
 		changed();
 	}
 }
-
-
 
 void ScribusDoc::ItemGradFill(int typ)
 {
@@ -5569,8 +5542,6 @@ void ScribusDoc::ItemGradFill(int typ)
 	}
 }
 
-
-
 void ScribusDoc::ItemPatternFill(QString pattern)
 {
 	uint selectedItemCount=m_Selection->count();
@@ -5589,8 +5560,6 @@ void ScribusDoc::ItemPatternFill(QString pattern)
 	}
 }
 
-
-
 void ScribusDoc::ItemPatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
 {
 	uint selectedItemCount=m_Selection->count();
@@ -5608,8 +5577,6 @@ void ScribusDoc::ItemPatternProps(double scaleX, double scaleY, double offsetX, 
 		changed();
 	}
 }
-
-
 
 void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 {
@@ -5671,8 +5638,6 @@ void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 	}
 }
 
-
-
 void ScribusDoc::itemSelection_SetOpticalMargins(int i, Selection* customSelection)
 {
 	ParagraphStyle newStyle;
@@ -5687,16 +5652,12 @@ void ScribusDoc::itemSelection_SetTracking(int kern, Selection* customSelection)
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
 
-
-
 void ScribusDoc::itemSelection_SetLineSpacingMode(int m, Selection* customSelection)
 {
 	ParagraphStyle newStyle;
 	newStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(m));
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
-
-
 
 void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 {
@@ -5725,8 +5686,6 @@ void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 		itemSelection_ApplyParagraphStyle(storyStyle, customSelection);
 	}
 }
-
-
 
 void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle, Selection* customSelection)
 {
@@ -5781,8 +5740,6 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 	changed();
 	regionsChanged()->update(QRectF());
 }
-
-
 
 void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 {
@@ -5843,8 +5800,6 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 	changed();
 	regionsChanged()->update(QRectF());
 }
-
-
 
 void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newStyle, Selection* customSelection)
 {
@@ -5914,8 +5869,6 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	regionsChanged()->update(QRectF());
 }
 
-
-
 void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
@@ -5974,8 +5927,6 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 	regionsChanged()->update(QRectF());
 }
 
-
-
 void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
@@ -6033,8 +5984,6 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 	changed();
 	regionsChanged()->update(QRectF());
 }
-
-
 
 void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 {

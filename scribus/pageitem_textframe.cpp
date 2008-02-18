@@ -2323,6 +2323,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 				actFillShade = charStyle.fillShade();
 				if (actFill != CommonStrings::None)
 				{
+					p->setFillMode(ScPainter::Solid);
 					if ((cachedFillShade != actFillShade) || (cachedFill != actFill))
 					{
 						SetQColor(&tmp, actFill, actFillShade);
@@ -2334,6 +2335,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 					else
 						p->setBrush(cachedFillQ);
 				}
+				else
+					p->setFillMode(ScPainter::None);
 				if (charStyle.effects() & ScStyle_DropCap)
 				{
 					const ParagraphStyle& style(itemText.paragraphStyle(a));

@@ -1796,7 +1796,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		FPointArray gly = style.font().glyphOutline(glyph);
 		// Do underlining first so you can get typographically correct
 		// underlines when drawing a white outline
-		if ((style.effects() & ScStyle_Underline) || ((style.effects() & ScStyle_UnderlineWords) && glyph != style.font().char2CMap(QChar(' '))))
+		if ((style.effects() & ScStyle_Underline) || ((style.effects() & ScStyle_UnderlineWords) && glyph != style.font().char2CMap(QChar(' ')))  && (style.strokeColor() != CommonStrings::None))
 		{
 			double st, lw;
 			if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
@@ -1844,7 +1844,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			double glxSc = glyphs.scaleH * style.fontSize() / 100.00;
 			double glySc = glyphs.scaleV * style.fontSize() / 100.0;
 			p->scale(glxSc, glySc);
-			p->setFillMode(1);
+//			p->setFillMode(1);
 			bool fr = p->fillRule();
 			p->setFillRule(false);
 //			double	a = gly.point(0).x();
@@ -1879,7 +1879,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				p->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() * 2 / 10000.0);
 				p->strokePath();
 			}
-			else if ((style.font().isStroked()) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
+			else if ((style.font().isStroked()) && (style.strokeColor() != CommonStrings::None) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
 			{
 				QColor tmp = p->brush();
 				p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -1914,7 +1914,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		else {
 //			qDebug(QString("drawGlyphs: empty glyph %1").arg(glyph));
 		}
-		if (style.effects() & ScStyle_Strikethrough)
+		if ((style.effects() & ScStyle_Strikethrough) && (style.strokeColor() != CommonStrings::None))
 		{
 			double st, lw;
 			if ((style.strikethruOffset() != -1) || (style.strikethruWidth() != -1))
