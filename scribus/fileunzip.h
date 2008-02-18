@@ -29,8 +29,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 #include "scribusapi.h"
-
-#include <zlib.h>
 #include <QString>
 
 /**

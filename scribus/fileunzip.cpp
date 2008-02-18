@@ -53,8 +53,9 @@ for which a new license (GPL+exception) is in place.
 
 #include <iostream>
 #include "unzip.h"
+#include <zlib.h>
+
 #include <QDir>
-//Added by qt3to4:
 #include <QByteArray>
 
 #include "scpaths.h"
