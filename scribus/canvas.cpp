@@ -455,12 +455,12 @@ void Canvas::adjustBuffer()
 		if (m_bufferRect.bottom() < viewport.bottom())
 			newRect.setBottom(qMax(newRect.bottom() + viewport.height()/2, viewport.bottom()));
 		// if too large, try something smaller:
-		if (newRect.width() > 3*viewport.width())
+		if (newRect.width() > 2*viewport.width())
 		{
 			newRect.setLeft(qMax(viewport.left() - viewport.width()/2, newRect.left()));
 			newRect.setRight(qMin(viewport.right() + viewport.width()/2, newRect.right()));
 		}
-		if (newRect.height() > 3*viewport.height())
+		if (newRect.height() > 2*viewport.height())
 		{
 			newRect.setTop(qMax(viewport.top() - viewport.height()/2, newRect.top()));
 			newRect.setBottom(qMin(viewport.bottom() + viewport.height()/2, newRect.bottom()));
@@ -1069,7 +1069,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 					pr = false;
 				if ((ll.isViewable) && (pr))
 				{
-					if ((layerCount > 1) || (ll.transparency != 1.0))
+					if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)))
 						painter->beginLayer(ll.transparency, ll.blendMode);
 					uint pageFromMasterCount=page->FromMaster.count();
 					for (uint a = 0; a < pageFromMasterCount; ++a)
@@ -1234,7 +1234,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->BoundingY = OldBY;
 						}
 					}
-					if ((layerCount > 1) || (ll.transparency != 1.0))
+					if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)))
 						painter->endLayer();
 				}
 				Lnr++;
@@ -1274,12 +1274,8 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 				pr = false;
 			if ((ll.isViewable) && (pr))
 			{
-				if ((layerCount > 1) || (ll.transparency != 1.0))
+				if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)))
 					painter->beginLayer(ll.transparency, ll.blendMode);
-//				QListIterator<PageItem*> docItem(*m_doc->Items);
-//				while ( (currItem = docItem.current()) != 0)
-//				{
-//					++docItem;
 				for (int it = 0; it < m_doc->Items->count(); ++it)
 				{
 					currItem = m_doc->Items->at(it);
@@ -1385,10 +1381,6 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						}
 					}
 				}
-//				QListIterator<PageItem*> docItem2(*m_doc->Items);
-//				while ( (currItem = docItem2.current()) != 0 )
-//				{
-//					++docItem2;
 				for (int it = 0; it < m_doc->Items->count(); ++it)
 				{
 					currItem = m_doc->Items->at(it);
@@ -1425,7 +1417,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						painter->restore();
 					}
 				}
-				if ((layerCount > 1) || (ll.transparency != 1.0))
+				if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)))
 					painter->endLayer();
 			}
 			Lnr++;
@@ -1454,7 +1446,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 		double bleedBottom = 0.0;
 		double bleedTop = 0.0;
 		m_doc->getBleeds(m_doc->currentPage(), &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
-		painter->beginLayer(1.0, 0);
+//		painter->beginLayer(1.0, 0);
 		painter->setAntialiasing(false);
 		painter->setPen(Qt::black, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		if (((m_doc->bleeds.Bottom != 0.0) || (m_doc->bleeds.Top != 0.0) || (m_doc->bleeds.Left != 0.0) || (m_doc->bleeds.Right != 0.0)) && (m_doc->guidesSettings.showBleed))
@@ -1472,7 +1464,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 		painter->setAntialiasing(true);
 		if (m_doc->guidesSettings.before)
 			DrawPageMarks(painter, m_doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
-		painter->endLayer();
+//		painter->endLayer();
 	}
 }
 
@@ -1488,7 +1480,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 	{
 		painter->setBrush(QColor(128,128,128));
 		painter->setAntialiasing(false);
-		painter->beginLayer(1.0, 0);
+//		painter->beginLayer(1.0, 0);
 		painter->setPen(Qt::black, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		Page *actPg;
 		for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
@@ -1529,7 +1521,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 				}
 			}
 		}
-		painter->endLayer();
+//		painter->endLayer();
 		painter->setAntialiasing(true);
 	}
 	painter->setFillMode(ScPainter::Solid);
@@ -1563,7 +1555,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 			painter->setFillMode(ScPainter::Solid);
 			painter->setPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			painter->setAntialiasing(false);
-			painter->beginLayer(1.0, 0);
+//			painter->beginLayer(1.0, 0);
 			painter->setLineWidth(0.0);
 			painter->setBrush(m_doc->papColor);
 			if (!m_viewMode.viewAsPreview)
@@ -1578,7 +1570,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 			}
 			else
 				painter->drawRect(x, y, w, h);
-			painter->endLayer();
+//			painter->endLayer();
 			painter->setAntialiasing(true);
 		}
 	}

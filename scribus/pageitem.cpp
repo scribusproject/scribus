@@ -1095,7 +1095,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					p->setLineWidth(0);
 				if (!isTableItem)
 				{
-					p->setupPolygon(&PoLine);
+					if (itemType() == ImageFrame)
+						p->setupPolygon(&PoLine);
 					if (NamedLStyle.isEmpty())
 						p->strokePath();
 					else
@@ -1154,7 +1155,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 						p->setupPolygon(&tclip);
 					}
 				}
-				else
+				else if (itemType() == ImageFrame)
 					p->setupPolygon(&PoLine);
 				p->strokePath();
 			}
