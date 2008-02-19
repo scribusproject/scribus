@@ -56,6 +56,7 @@ public slots:
 	void lockLayer();
 	void flowToggleLayer();
 	void outlineToggleLayer();
+	void toggleAllfromHeader(int index);
 	void markLayer();
 	void changeOpacity();
 	void changeBlendMode(int blend);

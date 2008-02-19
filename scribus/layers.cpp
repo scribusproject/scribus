@@ -72,7 +72,7 @@ LayerPalette::LayerPalette(QWidget* parent) : ScrPaletteBase( parent, "Layers", 
 	QHeaderView *header = Table->horizontalHeader();
 	header->setStretchLastSection(true);
 	header->setMovable(false);
-	header->setClickable(false);
+	header->setClickable(true);
 	header->setResizeMode(QHeaderView::Fixed);
 
 	Table->setColumnWidth(0, 24);
@@ -142,6 +142,7 @@ LayerPalette::LayerPalette(QWidget* parent) : ScrPaletteBase( parent, "Layers", 
 	connect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
+	connect(header, SIGNAL(sectionClicked(int)), this, SLOT(toggleAllfromHeader(int)));
 }
 
 void LayerPalette::ClearInhalt()
@@ -152,6 +153,7 @@ void LayerPalette::ClearInhalt()
 	disconnect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
 	Table->clearContents();
 	Table->setRowCount(0);
+	m_Doc = NULL;
 	newLayerButton->setEnabled(false);
 	deleteLayerButton->setEnabled(false);
 	raiseLayerButton->setEnabled(false);
@@ -403,6 +405,45 @@ void LayerPalette::outlineToggleLayer()
 		m_Doc->setLayerOutline(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 		emit LayerChanged();
 		setActiveLayer(Table->currentRow());
+	}
+}
+
+void LayerPalette::toggleAllfromHeader(int index)
+{
+	if (m_Doc)
+	{
+		ScLayers::iterator it;
+		int layerCount = m_Doc->layerCount();
+		for (it = layers->begin(); it != layers->end(); ++it)
+		{
+			int row = layerCount - m_Doc->layerLevelFromNumber((*it).LNr) - 1;
+			if (index == 1)
+			{
+				((QCheckBox*)(Table->cellWidget(row, 1)))->toggle();
+				(*it).isViewable = ((QCheckBox*)(Table->cellWidget(row, 1)))->isChecked();
+			}
+			if (index == 2)
+			{
+				((QCheckBox*)(Table->cellWidget(row, 2)))->toggle();
+				(*it).isPrintable = ((QCheckBox*)(Table->cellWidget(row, 2)))->isChecked();
+			}
+			if (index == 3)
+			{
+				((QCheckBox*)(Table->cellWidget(row, 3)))->toggle();
+				(*it).isEditable = ((QCheckBox*)(Table->cellWidget(row, 3)))->isChecked();
+			}
+			if (index == 4)
+			{
+				((QCheckBox*)(Table->cellWidget(row, 4)))->toggle();
+				(*it).flowControl = ((QCheckBox*)(Table->cellWidget(row, 4)))->isChecked();
+			}
+			else if (index == 5)
+			{
+				((QCheckBox*)(Table->cellWidget(row, 5)))->toggle();
+				(*it).outlineMode = ((QCheckBox*)(Table->cellWidget(row, 5)))->isChecked();
+			}
+		}
+		emit LayerChanged();
 	}
 }
 
