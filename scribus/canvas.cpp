@@ -1069,7 +1069,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 					pr = false;
 				if ((ll.isViewable) && (pr))
 				{
-					if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)))
+					if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)) && (!ll.outlineMode))
 						painter->beginLayer(ll.transparency, ll.blendMode);
 					uint pageFromMasterCount=page->FromMaster.count();
 					for (uint a = 0; a < pageFromMasterCount; ++a)
@@ -1234,7 +1234,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->BoundingY = OldBY;
 						}
 					}
-					if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)))
+					if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)) && (!ll.outlineMode))
 						painter->endLayer();
 				}
 				Lnr++;
@@ -1274,7 +1274,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 				pr = false;
 			if ((ll.isViewable) && (pr))
 			{
-				if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)))
+				if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)) && (!ll.outlineMode))
 					painter->beginLayer(ll.transparency, ll.blendMode);
 				for (int it = 0; it < m_doc->Items->count(); ++it)
 				{
@@ -1417,7 +1417,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						painter->restore();
 					}
 				}
-				if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)))
+				if ((layerCount > 1) && ((ll.blendMode != 0) || (ll.transparency != 1.0)) && (!ll.outlineMode))
 					painter->endLayer();
 			}
 			Lnr++;
