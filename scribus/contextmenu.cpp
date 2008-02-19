@@ -13,7 +13,7 @@
 *                                                                         *
 ***************************************************************************/
 
-//#include <QDebug>
+// #include <QDebug>
 #include <QFrame>
 #include <QGridLayout>
 #include <QLabel>
@@ -164,6 +164,12 @@ void ContextMenu::createMenuItems_Selection()
 			addAction(m_AP->scrActions["toolsEditWithStoryEditor"]);
 			addAction(m_AP->scrActions["insertSampleText"]);
 		}
+		else //enable this for, eg, text on a path
+			if (m_actionList.contains("toolsEditWithStoryEditor"))
+			{
+				addSeparator();
+				addAction(m_AP->scrActions["toolsEditWithStoryEditor"]);
+			}
 		addSeparator();
 		if (m_actionList.contains("fileImportImage"))
 			addAction(m_AP->scrActions["fileImportImage"]);
