@@ -21,11 +21,18 @@ This class is separated from gtdialogs.h file due the huge
 class SCRIBUS_API gtFileDialog : public QDialog, public Ui::gtFileDialog
 {
 	Q_OBJECT
-	public:
-		gtFileDialog(const QString& filters, const QStringList& importers, const QString& wdir);
-		~gtFileDialog();
+public:
+	gtFileDialog(const QString& filters, const QStringList& importers, const QString& wdir);
+	~gtFileDialog();
 
-		QString selectedFile();
+	QString selectedFile();
+
+public slots:
+	virtual void accept();
+
+protected:
+	void loadSettings(void);
+	void saveSettings(void);
 };
 
 #endif

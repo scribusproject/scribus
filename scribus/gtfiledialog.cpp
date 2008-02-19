@@ -8,6 +8,9 @@ for which a new license (GPL+exception) is in place.
 #include <QTextCodec>
 #include "gtfiledialog.h"
 
+#include "prefsmanager.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
 
 gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers, const QString& wdir)
 	: QDialog()
@@ -50,6 +53,8 @@ gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers,
 		encodingCombo->setCurrentIndex(encodingCombo->count()-1);
 	}
 
+	loadSettings();
+
 	connect(fileWidget, SIGNAL(accepted()), this, SLOT(accept()));
 	connect(fileWidget, SIGNAL(rejected()), this, SLOT(reject()));
 }
@@ -57,6 +62,52 @@ gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers,
 QString gtFileDialog::selectedFile()
 {
 	return fileWidget->selectedFile();
+}
+
+void gtFileDialog::accept()
+{
+	saveSettings();
+	QDialog::accept();
+}
+
+void gtFileDialog::loadSettings(void)
+{
+	PrefsContext* context = PrefsManager::instance()->prefsFile->getContext("textimport_dialog");
+	if (context->contains("filter"))
+	{
+		QString filter = context->get("filter");
+		QStringList filters = fileWidget->filters();
+		if (!filter.isEmpty() && filters.contains(filter))
+			fileWidget->setFilter(filter);
+	}
+	if (context->contains("importer"))
+	{
+		QString importer = context->get("importer");
+		int index = importerCombo->findText(importer);
+		if (index >= 0)
+			importerCombo->setCurrentIndex(index);
+	}
+	if (context->contains("encoding"))
+	{
+		QString encoding = context->get("encoding");
+		int index = encodingCombo->findText(encoding);
+		if (index >= 0)
+			encodingCombo->setCurrentIndex(index);
+	}
+	if (context->contains("textonly"))
+	{
+		bool textOnly = context->getBool("textonly");
+		textOnlyCheckBox->setChecked(textOnly);
+	}
+}
+
+void gtFileDialog::saveSettings(void)
+{
+	PrefsContext* context = PrefsManager::instance()->prefsFile->getContext("textimport_dialog");
+	context->set("filter"  , fileWidget->selectedFilter());
+	context->set("importer", importerCombo->currentText());
+	context->set("encoding", encodingCombo->currentText());
+	context->set("textonly", textOnlyCheckBox->isChecked());
 }
 
 gtFileDialog::~gtFileDialog()
