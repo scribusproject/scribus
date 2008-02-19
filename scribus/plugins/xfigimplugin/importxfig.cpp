@@ -1619,6 +1619,8 @@ bool XfigPlug::convert(QString fn)
 			if (tmp.startsWith("#"))
 				continue;
 			processData(ts, tmp);
+			progressDialog->setProgress("GI", ts.device()->pos());
+			qApp->processEvents();
 		}
 		resortItems();
 	}

@@ -2070,6 +2070,8 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 				processPattern(ts);
 			if (tmp.startsWith("End_NonPrinting"))
 				break;
+			progressDialog->setProgress("GI", ts.device()->pos());
+			qApp->processEvents();
 		}
 	}
 	else if (tmp.startsWith("BeginPattern:"))
@@ -2083,6 +2085,8 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 				break;
 			else
 				processGradientData(tmp);
+			progressDialog->setProgress("GI", ts.device()->pos());
+			qApp->processEvents();
 		}
 	}
 	else if (tmp.startsWith("BeginPalette"))
@@ -2092,6 +2096,8 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("EndPalette"))
 				break;
+			progressDialog->setProgress("GI", ts.device()->pos());
+			qApp->processEvents();
 		}
 	}
 	else if (tmp.startsWith("BeginSymbol"))
@@ -2101,6 +2107,8 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("EndSymbol"))
 				break;
+			progressDialog->setProgress("GI", ts.device()->pos());
+			qApp->processEvents();
 		}
 	}
 	else if (tmp.startsWith("BeginDocumentData"))
@@ -2110,6 +2118,8 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("EndDocumentData"))
 				break;
+			progressDialog->setProgress("GI", ts.device()->pos());
+			qApp->processEvents();
 		}
 	}
 	else if (tmp.startsWith("%%BeginProlog"))
@@ -2119,6 +2129,8 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("%%EndProlog"))
 				break;
+			progressDialog->setProgress("GI", ts.device()->pos());
+			qApp->processEvents();
 		}
 	}
 	else if (tmp.startsWith("%%BeginData"))
@@ -2128,6 +2140,8 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("%%EndData"))
 				break;
+			progressDialog->setProgress("GI", ts.device()->pos());
+			qApp->processEvents();
 		}
 	}
 	else if (tmp.startsWith("%%BeginCrops"))
@@ -2137,11 +2151,15 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("%%EndCrops"))
 				break;
+			progressDialog->setProgress("GI", ts.device()->pos());
+			qApp->processEvents();
 		}
 	}
 	else if (tmp.startsWith("BeginRaster"))
 	{
 		processRaster(ts);
+		progressDialog->setProgress("GI", ts.device()->pos());
+		qApp->processEvents();
 	}
 	else if (tmp.startsWith("BeginLayer"))
 	{
@@ -2157,6 +2175,8 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 				break;
 			else
 				processData(tmp);
+			progressDialog->setProgress("GI", ts.device()->pos());
+			qApp->processEvents();
 		}
 	}
 }
@@ -2248,6 +2268,8 @@ bool AIPlug::convert(QString fn)
 				processComment(ts, tmp);
 			else
 				processData(tmp);
+			progressDialog->setProgress("GI", ts.device()->pos());
+			qApp->processEvents();
 		}
 	}
 	if (progressDialog)
