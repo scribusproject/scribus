@@ -720,7 +720,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 		}
 		// draw pixmap
 		p.resetMatrix();
-		p.translate(-currView->widget()->x(), 0);
+		p.translate(-currView->contentsX(), 0);
 		p.scale(1.0/SCALE, 1.0/(SCALE+1));
 		p.drawPixmap((where-2)*SCALE, 1, pix);
 		p.end();
@@ -740,7 +740,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 #else
 		// draw slim marker
 		p.resetMatrix();
-		p.translate(-currView->widget()->x(), 0);
+		p.translate(-currView->contentsX(), 0);
 		p.setPen(Qt::red);
 		p.setBrush(Qt::red);
 		cr.setPoints(5,  whereToDraw, 5, whereToDraw, 16, whereToDraw, 5, whereToDraw+2, 0, whereToDraw-2, 0);
@@ -785,7 +785,7 @@ void Hruler::drawNumber(QString txt, int x, int y0, QPainter & p)
 void Hruler::Draw(int where)
 {
 	// erase old marker
-	int currentCoor = where - currView->widget()->x();
+	int currentCoor = where - currView->contentsX();
 	whereToDraw = where;
 	drawMark = true;
 	repaint(oldMark-3, 0, 7, 17);

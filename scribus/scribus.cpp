@@ -4082,7 +4082,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			Apply_MasterPage(doc->DocPages.at(p)->MPageNam, p, false);
 		}
 		doc->setLoading(false);
-		doc->reformPages();
+		view->reformPages(false);
 /*		if (fileLoader->FileType > FORMATID_NATIVEIMPORTEND)
 		{
 			doc->hasName = false;
