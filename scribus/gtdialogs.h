@@ -65,6 +65,11 @@ public:
 	QCheckBox* textOnlyCheckBox;
 	QComboBox* importerCombo;
 	QComboBox* encodingCombo;
+protected:
+	void loadSettings(void);
+	void saveSettings(void);
+public slots:
+	virtual void accept(void);
 private slots:
 	void slotHome();
 };

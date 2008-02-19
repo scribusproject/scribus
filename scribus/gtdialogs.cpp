@@ -110,12 +110,49 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 	encodingLayout->addItem( spacer2 );
 	addWidgets(new QLabel( tr("Encoding:"), this), encodingFrame, 0);
 
+	loadSettings();
+
 	HomeB = new QToolButton(this);
 	HomeB->setIconSet(loadIcon("gohome.png"));
 	HomeB->setAutoRaise(true);
 // 	HomeB->setTextLabel( tr("Moves to your Document Directory.\nThis can be set in the Preferences."));
 	connect(HomeB, SIGNAL(clicked()), this, SLOT(slotHome()));
 	addToolButton(HomeB);
+}
+
+void gtFileDialog::loadSettings(void)
+{
+	PrefsContext* context = PrefsManager::instance()->prefsFile->getContext("textimport_dialog");
+	if (context->contains("encoding"))
+	{
+		QString encoding = context->get("encoding");
+		for (int index = 0; index < encodingCombo->count(); ++index)
+		{
+			if (encodingCombo->text(index) == encoding)
+			{
+				encodingCombo->setCurrentItem(index);
+				break;
+			}
+		}
+	}
+	if (context->contains("textonly"))
+	{
+		bool textOnly = context->getBool("textonly");
+		textOnlyCheckBox->setChecked(textOnly);
+	}
+}
+
+void gtFileDialog::saveSettings(void)
+{
+	PrefsContext* context = PrefsManager::instance()->prefsFile->getContext("textimport_dialog");
+	context->set("encoding", encodingCombo->currentText());
+	context->set("textonly", textOnlyCheckBox->isChecked());
+}
+
+void gtFileDialog::accept(void)
+{
+	saveSettings();
+	QDialog::accept();
 }
 
 void gtFileDialog::slotHome()
