@@ -392,6 +392,7 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 	addAction(m_AP->scrActions["viewShowColumnBorders"]);
 	addAction(m_AP->scrActions["viewShowBaseline"]);
 	addAction(m_AP->scrActions["viewShowTextChain"]);
+	addAction(m_AP->scrActions["viewShowRulers"]);
 	addAction(m_AP->scrActions["viewRulerMode"]);
 	addSeparator();
 	addAction(m_AP->scrActions["viewSnapToGrid"]);
