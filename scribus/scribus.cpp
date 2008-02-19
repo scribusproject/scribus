@@ -2797,7 +2797,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	{
 		currItem = doc->m_Selection->itemAt(0);
 	}
-
 	assert (docSelectionCount == 0 || currItem != NULL); // help coverity analysis
 
 	actionManager->disconnectNewSelectionActions();
@@ -3134,7 +3133,11 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemCombinePolygons"]->setEnabled(hPoly);
 		if (docSelectionCount == 2)
 		{
+			//CB swap bx around if currItem is not at 0 index from the lastItem loop at start of havenewsel
 			PageItem* bx=doc->m_Selection->itemAt(1);
+			if (currItem==bx)
+				bx=doc->m_Selection->itemAt(0);
+		
 			if ((currItem->asTextFrame() && (bx->asPolygon() || bx->asPolyLine())) || (bx->asTextFrame() && (currItem->asPolygon() || currItem->asPolyLine())))
 			{
 				if ((currItem->nextInChain() == 0) && (currItem->prevInChain() == 0) && (bx->nextInChain() == 0) && (bx->prevInChain() == 0) && (currItem->Groups.count() == 0) && (bx->Groups.count() == 0))
