@@ -960,7 +960,7 @@ void ScPainter::drawVPath( int mode )
 			cairo_pattern_set_filter(m_pat, CAIRO_FILTER_BEST);
 			cairo_matrix_t matrix;
 			QMatrix qmatrix;
-			qmatrix.scale(m_zoomFactor, m_zoomFactor);
+//			qmatrix.scale(m_zoomFactor, m_zoomFactor);
 			qmatrix.translate(patternOffsetX, patternOffsetY);
 			qmatrix.rotate(patternRotation);
 			qmatrix.scale(patternScaleX, patternScaleY);
