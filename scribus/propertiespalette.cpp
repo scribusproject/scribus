@@ -1644,7 +1644,13 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		EvenOdd->setChecked(CurItem->fillRule);
 	}
 	else
+	{
 		TabStack2->setCurrentIndex(2);
+		if (i->itemType() == PageItem::ImageFrame)
+			Distance3->hide();
+		else
+			Distance3->show();
+	}
 	// Frame type 3 is obsolete: CR 2005-02-06
 	//if (((i->itemType() == PageItem::TextFrame) || (i->itemType() == PageItem::ImageFrame) || (i->itemType() == 3)) &&  (!i->ClipEdited))
 	if (((CurItem->asTextFrame()) || (CurItem->asImageFrame())) &&  (!CurItem->ClipEdited) && ((CurItem->FrameType == 0) || (CurItem->FrameType == 2)))

@@ -59,6 +59,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/, double sc)
 	{
 		if (!m_Doc->layerOutline(LayerNr))
 		{
+			p->setFillRule(true);
 			if ((fillColor() != CommonStrings::None) || (GrType != 0))
 			{
 				p->setupPolygon(&PoLine);
