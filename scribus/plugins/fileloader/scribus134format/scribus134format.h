@@ -71,6 +71,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void writePStyles(QDomDocument & docu);
 		void writeCStyles(QDomDocument & docu);
 		void putPStyle(QDomDocument & docu, QDomElement & fo, const ParagraphStyle & style);
+		void putCStylePT(QDomDocument & docu, QDomElement & fo, const CharStyle & style);
 		void putCStyle(QDomDocument & docu, QDomElement & fo, const CharStyle & style);
 		void writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElement ob, PageItem* item);
 		void writeLayers(QDomDocument & docu);

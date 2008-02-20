@@ -5854,6 +5854,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 				}
 				currItem->itemText.applyStyle(currItem->itemText.length(), newStyle);
 			}
+			currItem->invalid = true;
 		}
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
@@ -5912,6 +5913,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 			currItem->itemText.setDefaultStyle(dstyle);
 //			if (currItem->asPathText())
 			currItem->itemText.applyCharStyle(0, currItem->itemText.length(), newStyle);
+			currItem->invalid = true;
 		}
 		if (currItem->asPathText())
 			currItem->updatePolyClip();

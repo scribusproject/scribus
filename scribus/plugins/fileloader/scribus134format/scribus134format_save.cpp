@@ -515,6 +515,32 @@ void Scribus134Format::writeCStyles(QDomDocument & docu)
 	}
 }
 
+void Scribus134Format::putCStylePT(QDomDocument & docu, QDomElement & fo, const CharStyle & style)
+{
+	fo.setAttribute("CNAME", style.name());
+	fo.setAttribute("CPARENT", style.parent());
+	fo.setAttribute("FONT", style.font().scName());
+	fo.setAttribute("FONTSIZE", style.fontSize() / 10.0);
+	fo.setAttribute("FEATURES", style.features().join(" "));
+	fo.setAttribute("FCOLOR", style.fillColor());
+	fo.setAttribute("FSHADE", style.fillShade());
+	fo.setAttribute("SCOLOR", style.strokeColor());
+	fo.setAttribute("SSHADE", style.strokeShade());
+	fo.setAttribute("TXTSHX", style.shadowXOffset() / 10.0);
+	fo.setAttribute("TXTSHY", style.shadowYOffset() / 10.0);
+	fo.setAttribute("TXTOUT", style.outlineWidth() / 10.0);
+	fo.setAttribute("TXTULP", style.underlineOffset() / 10.0);
+	fo.setAttribute("TXTULW", style.underlineWidth() / 10.0);
+	fo.setAttribute("TXTSTP", style.strikethruOffset() / 10.0);
+	fo.setAttribute("TXTSTW", style.strikethruWidth() / 10.0);
+	fo.setAttribute("SCALEH", style.scaleH() / 10.0);
+	fo.setAttribute("SCALEV", style.scaleV() / 10.0);
+	fo.setAttribute("BASEO", style.baselineOffset() / 10.0);
+	fo.setAttribute("KERN", style.tracking() / 10.0);
+	fo.setAttribute("wordTrack", style.wordTracking());
+	fo.setAttribute("SHORTCUT", style.shortcut()); // shortcuts won't be inherited
+}
+
 void Scribus134Format::putCStyle(QDomDocument & docu, QDomElement & fo, const CharStyle & style)
 {
 	if ( ! style.name().isEmpty() )
@@ -989,7 +1015,10 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 			if  (k - lastPos > 0)
 			{
 				QDomElement it=docu->createElement("ITEXT");
-				putCStyle(*docu, it, lastStyle);
+				if (item->asPathText())
+					putCStylePT(*docu, it, lastStyle);
+				else
+					putCStyle(*docu, it, lastStyle);
 				it.setAttribute("CH", textWithSmartHyphens(item->itemText, lastPos, k));
 				ob.appendChild(it);
 			}
@@ -1001,7 +1030,10 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 		{
 			// each obj in its own ITEXT for now
 			QDomElement emb = docu->createElement("ITEXT");
-			putCStyle(*docu, emb, lastStyle);
+			if (item->asPathText())
+				putCStylePT(*docu, emb, lastStyle);
+			else
+				putCStyle(*docu, emb, lastStyle);
 			emb.setAttribute("CH", QString(ch));
 			emb.setAttribute("COBJ", item->itemText.object(k)->ItemNr);
 			ob.appendChild(emb);			
@@ -1057,7 +1089,10 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 	if ( item->itemText.length() - lastPos > 0)
 	{
 		QDomElement it=docu->createElement("ITEXT");
-		putCStyle(*docu, it, lastStyle);
+		if (item->asPathText())
+			putCStylePT(*docu, it, lastStyle);
+		else
+			putCStyle(*docu, it, lastStyle);
 		it.setAttribute("CH", textWithSmartHyphens(item->itemText, lastPos, item->itemText.length()));
 		ob.appendChild(it);
 	}

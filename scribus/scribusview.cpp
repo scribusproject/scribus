@@ -3756,10 +3756,14 @@ void ScribusView::ToPathText()
 			polyLineItem=Doc->m_Selection->itemAt(0);
 			currItem=Doc->m_Selection->itemAt(1);
 		}
+		ParagraphStyle dstyle(currItem->itemText.defaultStyle());
 		if (polyLineItem->asPolyLine() || polyLineItem->asPolygon())
 		{
 			Deselect(true);
 			PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PathText, polyLineItem);
+			newItem->itemText.setDefaultStyle(dstyle);
+			newItem->itemText.applyCharStyle(0, newItem->itemText.length(), dstyle.charStyle());
+			newItem->invalid = true;
 			newItem->update();
 			SelectItem(newItem);
 			emit DocChanged();

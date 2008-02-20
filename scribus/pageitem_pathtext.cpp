@@ -308,6 +308,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 			actFillShade = itemText.charStyle(a).fillShade();
 			if (actFill != CommonStrings::None)
 			{
+				p->setFillMode(ScPainter::Solid);
 				if ((cachedFillShade != actFillShade) || (cachedFill != actFill))
 				{
 					SetQColor(&tmp, actFill, actFillShade);
@@ -319,6 +320,8 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 				else
 					p->setBrush(cachedFillQ);
 			}
+			else
+				p->setFillMode(ScPainter::None);
 			actStroke = itemText.charStyle(a).strokeColor();
 			actStrokeShade = itemText.charStyle(a).strokeShade();
 			if (actStroke != CommonStrings::None)
