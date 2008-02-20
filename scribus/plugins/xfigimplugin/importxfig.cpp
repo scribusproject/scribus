@@ -1426,46 +1426,24 @@ void XfigPlug::processText(QString data)
 				break;
 		}
 	}
-	QMatrix ma;
 	w = fig2Pts(length);
 	h = fig2Pts(height);
 	x = fig2Pts(xT);
-	if (subtype == 1)
-	{
-		ma.translate(w / 2.0, h);
-		ma.rotate(angle * 180.0 / M_PI);
-		ma.translate(-w / 2.0, -h);
-		x -= w / 2.0;
-	}
-	else if (subtype == 2)
-	{
-		ma.translate(w, h);
-		ma.rotate(angle * 180.0 / M_PI);
-		ma.translate(-w, -h);
-		x -= w;
-	}
-	else
-	{
-		ma.translate(0, h);
-		ma.rotate(angle * 180.0 / M_PI);
-		ma.translate(0, -h);
-	}
 	y = fig2Pts(yT);
 	x -= docX;
 	x += m_Doc->currentPage()->xOffset();
 	y -= docY;
 	y += m_Doc->currentPage()->yOffset();
-	QPointF n = QPointF(0.0, 0.0);
-	n = ma.map(n);
-	x += n.x();
-	y += n.y();
 	QFont tf = QFont(TFont, 10, weight, isItalic);
 	tf.setPointSizeF(font_size / 80.0 * 72.0);
 	painterPath.addText( 0, 0, tf, text );
 	QRectF br = painterPath.boundingRect();
-	QMatrix m;
-	m.scale(w / br.width(), h / br.height());
-	painterPath = m.map(painterPath);
+	if ((angle == 0) && (br.width() > w))
+	{
+		QMatrix m;
+		m.scale(w / br.width(), w / br.width());
+		painterPath = m.map(painterPath);
+	}
 	textPath.fromQPainterPath(painterPath);
 	useColor(color, 0, false);
 	int z = -1;
@@ -1483,6 +1461,10 @@ void XfigPlug::processText(QString data)
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->AdjustItemSize(ite);
 		ite->setWidthHeight(qMax(ite->width(), 1.0), qMax(ite->height(), 1.0));
+		if (subtype == 1)
+			m_Doc->MoveRotated(ite, FPoint(-br.width() / 2.0, 0.0));
+		else if (subtype == 2)
+			m_Doc->MoveRotated(ite, FPoint(-br.width(), 0.0));
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
 	}
