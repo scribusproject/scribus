@@ -1065,6 +1065,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 		{
 			QDomElement it = docu->createElement("var");
 			it.setAttribute("name", "pgno");
+			putCStyle(*docu, it, lastStyle);
 			ob.appendChild(it);
 		}
 		else if (ch.unicode() < 32 || 

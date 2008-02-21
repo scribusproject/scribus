@@ -1003,6 +1003,9 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						else if (it.tagName()=="var" && it.attribute("name")=="pgno") 
 						{
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PAGENUMBER);
+							CharStyle newStyle;
+							GetCStyle(&it, m_Doc, newStyle);
+							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, newStyle);
 						}
 
 						//CB PageItemAttributes
@@ -1217,6 +1220,9 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						else if (it.tagName()=="var" && it.attribute("name")=="pgno") 
 						{
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PAGENUMBER);
+							CharStyle newStyle;
+							GetCStyle(&it, m_Doc, newStyle);
+							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, newStyle);
 						}
 						
 						if(it.tagName()=="PageItemAttributes")
@@ -2845,6 +2851,9 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						else if (it.tagName()=="var" && it.attribute("name")=="pgno") 
 						{
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PAGENUMBER);
+							CharStyle newStyle;
+							GetCStyle(&it, m_Doc, newStyle);
+							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, newStyle);
 						}
 						
 						if(it.tagName()=="PageItemAttributes")
