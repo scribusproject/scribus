@@ -488,7 +488,7 @@ bool OODPlug::convert(int flags)
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
 			neu->isGroupControl = true;
 			neu->groupsLastItem = high;
-			neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+			neu->setTextFlowMode(PageItem::TextFlowDisabled);
 			for (int a = 0; a < m_Doc->Items->count(); ++a)
 			{
 				m_Doc->Items->at(a)->ItemNr = a;
@@ -678,7 +678,7 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 			cElements.at(gr)->Groups.push(m_Doc->GroupCounter);
 			elements.append(cElements.at(gr));
 		}
-		neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+		neu->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->GroupCounter++;
 	}
 	return elements;
@@ -946,7 +946,7 @@ QList<PageItem*> OODPlug::parseFrame(const QDomElement &e)
 		ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 		ite->setFillTransparency(oostyle.fillTrans);
 		ite->setLineTransparency(oostyle.strokeTrans);
-		ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		if (!drawID.isEmpty())
 			ite->setItemName(drawID);
 		ite = parseTextP(n.toElement(), ite);

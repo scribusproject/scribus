@@ -279,7 +279,7 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
 				neu->isGroupControl = true;
 				neu->groupsLastItem = high;
-				neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+				neu->setTextFlowMode(PageItem::TextFlowDisabled);
 				for (int a = 0; a < m_Doc->Items->count(); ++a)
 				{
 					m_Doc->Items->at(a)->ItemNr = a;
@@ -1164,7 +1164,7 @@ void AIPlug::processData(QString data)
 					{
 						FPoint wh = getMaxClipF(&ite->PoLine);
 						ite->setWidthHeight(wh.x(),wh.y());
-						ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						m_Doc->AdjustItemSize(ite);
 					}
 					if (patternMode)

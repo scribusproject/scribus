@@ -413,7 +413,7 @@ void SVGPlug::convert(int flags)
 				m_Doc->Items->at(a)->ItemNr = a;
 			}
 			neu->setRedrawBounding();
-			neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+			neu->setTextFlowMode(PageItem::TextFlowDisabled);
 			Elements.prepend(neu);
 			m_Doc->GroupCounter++;
 		}
@@ -926,7 +926,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			GElements.append(gElements.at(gr));
 		}
 		neu->setRedrawBounding();
-		neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+		neu->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->GroupCounter++;
 	}
 	delete( m_gc.pop() );

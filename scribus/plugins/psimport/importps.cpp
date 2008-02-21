@@ -299,7 +299,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
 				neu->isGroupControl = true;
 				neu->groupsLastItem = high;
-				neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+				neu->setTextFlowMode(PageItem::TextFlowDisabled);
 				for (int a = 0; a < m_Doc->Items->count(); ++a)
 				{
 					m_Doc->Items->at(a)->ItemNr = a;
@@ -633,7 +633,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setFillTransparency(1.0 - Opacity);
-						ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						m_Doc->AdjustItemSize(ite);
 						if (groupStack.count() != 0)
 						{
@@ -685,7 +685,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setLineTransparency(1.0 - Opacity);
 						m_Doc->AdjustItemSize(ite);
-						ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						if (groupStack.count() != 0)
 						{
 							QStack<int> groupOld = groupStack.top()->Groups;
@@ -733,7 +733,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					ite->isGroupControl = true;
 					ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 					ite->AutoName = false;
-					ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+					ite->setTextFlowMode(PageItem::TextFlowDisabled);
 					Elements.append(ite);
 					groupStack.push(ite);
 					elemCount.push(Elements.count());

@@ -668,7 +668,7 @@ bool WMFImport::importWMF(int flags)
 				m_Doc->Items->at(a)->ItemNr = a;
 			}
 			neu->setRedrawBounding();
-			neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+			neu->setTextFlowMode(PageItem::TextFlowDisabled);
 			Elements.prepend(neu);
 			m_Doc->GroupCounter++;
 		}
