@@ -3489,7 +3489,8 @@ QString PageItem::generateUniqueCopyName(const QString originalName) const
 		}
 		while (m_Doc->itemNameExists(newname));
 	}
-	assert(!m_Doc->itemNameExists(newname));
+	// Unnecessary assert, previous code ensure condition is always true - JG
+	// assert(!m_Doc->itemNameExists(newname));
 	return newname;
 }
 
