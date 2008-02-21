@@ -1317,8 +1317,11 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					view->FirstPoly = true;
 					break;
 				default:
-					view->Deselect(false);
-					doc->Items->removeAt(currItem->ItemNr);
+					if (currItem->Sizing)
+					{
+						view->Deselect(false);
+						doc->Items->removeAt(currItem->ItemNr);
+					}
 					break;
 			}
 		}
@@ -1328,7 +1331,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		doc->SubMode = -1;
 		doc->ElemToLink = NULL;
 		slotSelect();
-		HaveNewSel(-1);
+		if (doc->m_Selection->count() == 0)
+			HaveNewSel(-1);
 		prefsManager->appPrefs.stickyTools = false;
 		scrActions["stickyTools"]->setChecked(prefsManager->appPrefs.stickyTools);
 		return;
@@ -6366,7 +6370,7 @@ void ScribusMainWindow::setAppMode(int mode)
 		int docSelectionCount=doc->m_Selection->count();
 		if (mode == modeDrawBezierLine)
 		{
-			if (docSelectionCount != 0)
+			if ((docSelectionCount != 0) && (!prefsManager->appPrefs.stickyTools))
 				view->Deselect(true);
 			view->FirstPoly = true;
 		}

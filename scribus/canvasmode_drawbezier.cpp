@@ -174,7 +174,8 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 	}
 
 	
-	
+	if (inItemCreation)
+	{
 	if ((GetItem(&currItem)) && (!shiftSelItems))
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
@@ -219,6 +220,7 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 			return;
 		}
 	}
+	}
 }
 
 void BezierMode::mousePressEvent(QMouseEvent *m)
@@ -241,7 +243,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	MoveGX = MoveGY = false;
-	inItemCreation = false;
+//	inItemCreation = false;
 //	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
@@ -278,6 +280,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 		m_doc->m_Selection->addItem(currItem);
 		qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 		m_canvas->setRenderModeFillBuffer();
+		inItemCreation = true;
 	}
 	currItem = m_doc->m_Selection->itemAt(0);
 	//			pm.translate(-m_doc->minCanvasCoordinate.x()*m_canvas->scale(), -m_doc->minCanvasCoordinate.y()*m_canvas->scale());
@@ -415,6 +418,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 		m_doc->changed();
 //		emit DocChanged();
 		FirstPoly = true;
+		inItemCreation = false;
 		m_canvas->setRenderModeUseBuffer(false);
 //		m_view->updateContents();
 	}
@@ -423,7 +427,6 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 //	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
 	shiftSelItems = false;
-	inItemCreation = false;
 //	m_doc->SubMode = -1;
 	if (m_view->groupTransactionStarted())
 	{

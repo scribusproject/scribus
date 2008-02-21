@@ -449,8 +449,8 @@ void ScribusView::stopGesture()
 		if (PrefsManager::instance()->appPrefs.stickyTools)
 		{
 			m_canvas->m_viewMode.forceRedraw = true;
-			Doc->m_Selection->clear();
-			emit HaveSel(-1);
+//			Doc->m_Selection->clear();
+//			emit HaveSel(-1);
 			m_canvas->resetRenderMode();
 			updateContents();
 		}
