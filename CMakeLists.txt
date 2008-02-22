@@ -257,6 +257,7 @@ ENDIF (WANT_NORPATH OR WANT_DISTROBUILD)
 
 # Set the XDG mime stuff
 SET(MIMEDIR "share/mime/packages/")
+SET(MIMELNKDIR "share/mimelnk/application/")
 
 ##############################################################################################################
 ########## Build Setup                                                                              ##########
@@ -605,6 +606,12 @@ INSTALL(FILES
   scribus.xml
   DESTINATION ${MIMEDIR}
 )
+#KDE workaround until it starts supporting freedesktop spec
+INSTALL(FILES
+  vnd.scribus.desktop
+  DESTINATION ${MIMELNKDIR }
+)
+
 
 #Install the desktop file
 INSTALL(FILES
