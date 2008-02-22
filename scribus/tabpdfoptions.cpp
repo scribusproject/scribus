@@ -908,10 +908,10 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	LPIgroupLayout->addWidget( textLPI3, 2, 1 );
 	LPIfunc = new QComboBox( true, LPIgroup, "LPIfunc" );
 	LPIfunc->setEditable(false);
+	LPIfunc->insertItem( tr( "Ellipse" ) );
 	LPIfunc->insertItem( tr( "Simple Dot" ) );
 	LPIfunc->insertItem( tr( "Line" ) );
 	LPIfunc->insertItem( tr( "Round" ) );
-	LPIfunc->insertItem( tr( "Ellipse" ) );
 	LPIfunc->setCurrentItem(Opts.LPISettings[LPIcolor->currentText()].SpotFunc);
 	textLPI3->setBuddy(LPIfunc);
 	LPIgroupLayout->addWidget( LPIfunc, 2, 2 );
