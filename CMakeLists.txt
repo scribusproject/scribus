@@ -609,7 +609,7 @@ INSTALL(FILES
 #KDE workaround until it starts supporting freedesktop spec
 INSTALL(FILES
   vnd.scribus.desktop
-  DESTINATION ${MIMELNKDIR }
+  DESTINATION ${MIMELNKDIR}
 )
 
 
