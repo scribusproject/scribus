@@ -864,6 +864,8 @@ void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *acti
 	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defKeys[name], actionParent, SpecialChars::NBSPACE.unicode(), 0.0, name));
 	name="unicodePageNumber";
 	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defKeys[name], actionParent, SpecialChars::PAGENUMBER.unicode(), 0.0, name));
+	name="unicodePageCount";
+	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defKeys[name], actionParent, SpecialChars::PAGECOUNT.unicode(), 0.0, name));
 	//Spaces
 	name="unicodeSpaceEN";
 	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defKeys[name], actionParent, 0x2002, 0.0, name));
@@ -965,7 +967,7 @@ void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *acti
 
 	//Spaces and special characters
 
-	*actionNamesList << "unicodeSmartHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber";
+	*actionNamesList << "unicodeSmartHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber" << "unicodePageCount";
 	*actionNamesList << "unicodeSpaceEN" << "unicodeSpaceEM" << "unicodeSpaceThin" << "unicodeSpaceThick" << "unicodeSpaceMid" << "unicodeSpaceHair";
 	//Breaks
 	*actionNamesList << "unicodeNewLine" << "unicodeFrameBreak" << "unicodeColumnBreak" << "unicodeZerowidthSpace";
@@ -1167,6 +1169,7 @@ void ActionManager::enableActionStringList(QMap<QString, QPointer<ScrAction> > *
 			{
 				int charCode=(*actionMap)[*it]->actionInt();
 				if(charCode==-1 ||
+					charCode==23 ||
 					charCode==24 ||
 					charCode==26 ||
 					charCode==27 ||
@@ -1485,6 +1488,7 @@ void ActionManager::languageChangeUnicodeActions(QMap<QString, QPointer<ScrActio
 	(*actionMap)["unicodeNonBreakingHyphen"]->setText( tr("Non Breaking Dash"));
 	(*actionMap)["unicodeNonBreakingSpace"]->setText( tr("Non Breaking &Space"));
 	(*actionMap)["unicodePageNumber"]->setText( tr("Page &Number"));
+	(*actionMap)["unicodePageCount"]->setText( tr("Number of Pages"));
 	(*actionMap)["unicodeNewLine"]->setText( tr("New Line"));
 	(*actionMap)["unicodeFrameBreak"]->setText( tr("Frame Break"));
 	(*actionMap)["unicodeColumnBreak"]->setText( tr("Column Break"));
@@ -1787,6 +1791,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("unicodeNonBreakingHyphen", QKeySequence());
 	defKeys.insert("unicodeNonBreakingSpace", QKeySequence());
 	defKeys.insert("unicodePageNumber", QKeySequence());
+	defKeys.insert("unicodePageCount", QKeySequence());
 	defKeys.insert("unicodeNewLine", QKeySequence());
 	defKeys.insert("unicodeFrameBreak", Qt::CTRL+Qt::Key_Return);
 	defKeys.insert("unicodeColumnBreak", Qt::CTRL+Qt::SHIFT+Qt::Key_Return);
@@ -1909,6 +1914,7 @@ void ActionManager::createDefaultMenus()
 		<< "unicodeNonBreakingHyphen"
 		<< "unicodeNonBreakingSpace"
 		<< "unicodePageNumber"
+		<< "unicodePageCount"
 		<< "unicodeNewLine"
 		<< "unicodeFrameBreak"
 		<< "unicodeColumnBreak"
@@ -1957,6 +1963,7 @@ void ActionManager::createDefaultMenus()
 		 << "unicodeNonBreakingHyphen"
 		 << "unicodeNonBreakingSpace"
 		 << "unicodePageNumber"
+		 << "unicodePageCount"
 		 << "unicodeNewLine"
 		 << "unicodeFrameBreak"
 		 << "unicodeColumnBreak";
@@ -2034,6 +2041,7 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "unicodeNonBreakingHyphen";
 	itnmenua->second << "unicodeNonBreakingSpace";
 	itnmenua->second << "unicodePageNumber";
+	itnmenua->second << "unicodePageCount";
 	itnmenua->second << "unicodeNewLine";
 	itnmenua->second << "unicodeFrameBreak";
 	itnmenua->second << "unicodeColumnBreak";
@@ -2079,6 +2087,7 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "unicodeNonBreakingHyphen";
 	itnmenua->second << "unicodeNonBreakingSpace";
 	itnmenua->second << "unicodePageNumber";
+	itnmenua->second << "unicodePageCount";
 	itnmenua->second << "unicodeNewLine";
 
 	itnmenua->second << "unicodeLigature_ff";

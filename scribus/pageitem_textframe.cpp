@@ -505,7 +505,7 @@ struct LineControl {
 		for (int zc = 0; zc < itemsInLine; ++zc)
 		{
 			QChar ch = itemText.text(line.firstItem + zc);
-			if (ch == SpecialChars::PAGENUMBER)
+			if ((ch == SpecialChars::PAGENUMBER) || (ch == SpecialChars::PAGECOUNT))
 				ch = '8'; // should have highest ascender even in oldstyle
 			const CharStyle& cStyle(itemText.charStyle(line.firstItem + zc));
 			if ((ch == SpecialChars::TAB) || (ch == QChar(10))

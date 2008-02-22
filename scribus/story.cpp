@@ -633,6 +633,7 @@ void SEditor::updateAll()
 			if (Csty != cstyle.effects() ||
 				ch == SpecialChars::OBJECT ||
 				ch == SpecialChars::PAGENUMBER ||
+				ch == SpecialChars::PAGECOUNT ||
 				ch == SpecialChars::NBSPACE ||
 				ch == SpecialChars::FRAMEBREAK ||
 				ch == SpecialChars::COLBREAK ||
@@ -656,6 +657,12 @@ void SEditor::updateAll()
 			{
 				setColor(true);
 				insertPlainText("#");
+				setColor(false);
+			}
+			else if (ch == SpecialChars::PAGECOUNT)
+			{
+				setColor(true);
+				insertPlainText("%");
 				setColor(false);
 			}
 			else if (ch == SpecialChars::NBSPACE)
@@ -1596,6 +1603,7 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItem(seActions["insertGlyph"], "Insert");
 	seMenuMgr->createMenu("InsertChar", tr("Character"), "Insert");
 	seMenuMgr->addMenuItem(seActions["unicodePageNumber"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodePageCount"], "InsertChar");
 	//seMenuMgr->addMenuItem(seActions["unicodeSmartHyphen"], "InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeNonBreakingHyphen"], "InsertChar");
 	seMenuMgr->addMenuSeparator("InsertChar");

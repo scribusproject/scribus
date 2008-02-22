@@ -23,21 +23,22 @@ pageitem.cpp  -  description
 
 #include "specialchars.h"
 
-QChar SpecialChars::OBJECT     = QChar(25);
-QChar SpecialChars::TAB        = QChar(9);
-QChar SpecialChars::PARSEP     = QChar(13);
-QChar SpecialChars::LINEBREAK  = QChar(28);
-QChar SpecialChars::COLBREAK   = QChar(26);
-QChar SpecialChars::FRAMEBREAK = QChar(27);
-QChar SpecialChars::SHYPHEN    = QChar(0xAD);
-QChar SpecialChars::NBHYPHEN   = QChar(0x2011);
-QChar SpecialChars::NBSPACE    = QChar(0xA0);
-QChar SpecialChars::OLD_NBHYPHEN   = QChar(24);
-QChar SpecialChars::OLD_NBSPACE    = QChar(29);
-QChar SpecialChars::ZWNBSPACE  = QChar(0x2060);
-QChar SpecialChars::ZWSPACE    = QChar(0x200B);
-QChar SpecialChars::PAGENUMBER      = QChar(30);
-QChar SpecialChars::BLANK      = QChar(32);      // SPACE is some macro on my machine - av
+QChar SpecialChars::OBJECT       = QChar(25);
+QChar SpecialChars::TAB          = QChar(9);
+QChar SpecialChars::PARSEP       = QChar(13);
+QChar SpecialChars::LINEBREAK    = QChar(28);
+QChar SpecialChars::COLBREAK     = QChar(26);
+QChar SpecialChars::FRAMEBREAK   = QChar(27);
+QChar SpecialChars::SHYPHEN      = QChar(0xAD);
+QChar SpecialChars::NBHYPHEN     = QChar(0x2011);
+QChar SpecialChars::NBSPACE      = QChar(0xA0);
+QChar SpecialChars::OLD_NBHYPHEN = QChar(24);
+QChar SpecialChars::OLD_NBSPACE  = QChar(29);
+QChar SpecialChars::ZWNBSPACE    = QChar(0x2060);
+QChar SpecialChars::ZWSPACE      = QChar(0x200B);
+QChar SpecialChars::PAGENUMBER   = QChar(30);
+QChar SpecialChars::PAGECOUNT    = QChar(23);
+QChar SpecialChars::BLANK        = QChar(32);      // SPACE is some macro on my machine - av
 
 
 bool SpecialChars::isBreakingSpace(QChar c)

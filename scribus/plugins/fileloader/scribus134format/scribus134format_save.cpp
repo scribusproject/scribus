@@ -1006,6 +1006,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 			ch == SpecialChars::COLBREAK ||
 			ch == SpecialChars::FRAMEBREAK ||
 			ch == SpecialChars::PAGENUMBER ||
+			ch == SpecialChars::PAGECOUNT ||
 			ch.unicode() < 32 || 
 			(0xd800 <= ch.unicode() && ch.unicode() < 0xe000) ||
 			ch.unicode() == 0xfffe || ch.unicode() == 0xffff ||
@@ -1065,6 +1066,13 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 		{
 			QDomElement it = docu->createElement("var");
 			it.setAttribute("name", "pgno");
+			putCStyle(*docu, it, lastStyle);
+			ob.appendChild(it);
+		}
+		else if (ch == SpecialChars::PAGECOUNT) 
+		{
+			QDomElement it = docu->createElement("var");
+			it.setAttribute("name", "pgco");
 			putCStyle(*docu, it, lastStyle);
 			ob.appendChild(it);
 		}

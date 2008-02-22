@@ -2814,7 +2814,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 				}
 				continue;
 			}
-			if (chr == 30)
+			if ((chr == 30) || (chr == 23))
 			{
 				/* CB Removed forced loading of 0-9 for section based numbering
 				for (uint numco = 0x30; numco < 0x3A; ++numco)
@@ -2827,25 +2827,60 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 				}*/
 				//Our page number collection string
 				QString pageNumberText(QString::null);
-				//If not on a master page just get the page number for the page and the text
-				if (lc!=0)
-					pageNumberText=getSectionPageNumberForPageIndex(it->OwnPage);
+				if (chr == 30)
+				{
+					//If not on a master page just get the page number for the page and the text
+					if (lc!=0)
+						pageNumberText=getSectionPageNumberForPageIndex(it->OwnPage);
+					else
+					{
+						//Else, for a page number in a text frame on a master page we must scan
+						//all pages to see which ones use this page and get their page numbers.
+						//We only add each character of the pages' page number text if its nothing
+						//already in the pageNumberText variable. No need to add glyphs twice.
+						QString newText;
+						uint docPageCount=DocPages.count();
+						for (uint a = 0; a < docPageCount; ++a)
+						{
+							if (DocPages.at(a)->MPageNam == it->OnMasterPage)
+							{
+								newText=getSectionPageNumberForPageIndex(a);
+								for (int nti=0;nti<newText.length();++nti)
+									if (pageNumberText.indexOf(newText[nti])==-1)
+										pageNumberText+=newText[nti];
+							}
+						}
+					}
+				}
 				else
 				{
-					//Else, for a page number in a text frame on a master page we must scan
-					//all pages to see which ones use this page and get their page numbers.
-					//We only add each character of the pages' page number text if its nothing
-					//already in the pageNumberText variable. No need to add glyphs twice.
-					QString newText;
-					uint docPageCount=DocPages.count();
-					for (uint a = 0; a < docPageCount; ++a)
+					if (lc!=0)
 					{
-						if (DocPages.at(a)->MPageNam == it->OnMasterPage)
+						QString out("%1");
+						int key = getSectionKeyForPageIndex(it->OwnPage);
+						if (key == -1)
+							pageNumberText = "";
+						else
+							pageNumberText = out.arg(getStringFromSequence(sections[key].type, sections[key].toindex - sections[key].fromindex + 1));
+					}
+					else
+					{
+						QString newText;
+						uint docPageCount=DocPages.count();
+						for (uint a = 0; a < docPageCount; ++a)
 						{
-							newText=getSectionPageNumberForPageIndex(a);
-							for (int nti=0;nti<newText.length();++nti)
-								if (pageNumberText.indexOf(newText[nti])==-1)
-									pageNumberText+=newText[nti];
+							if (DocPages.at(a)->MPageNam == it->OnMasterPage)
+							{
+								QString out("%1");
+								int key = getSectionKeyForPageIndex(a);
+								if (key == -1)
+									newText = "";
+								else
+									newText = out.arg(getStringFromSequence(sections[key].type, sections[key].toindex - sections[key].fromindex + 1));
+								for (int nti=0;nti<newText.length();++nti)
+									if (pageNumberText.indexOf(newText[nti])==-1)
+										pageNumberText+=newText[nti];
+							}
 						}
 					}
 				}

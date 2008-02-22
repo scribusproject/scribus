@@ -45,6 +45,7 @@ public:
 	static QChar ZWNBSPACE;
 	static QChar ZWSPACE;
 	static QChar PAGENUMBER;
+	static QChar PAGECOUNT;
 	static QChar BLANK;
 	
 	static bool isBreak(QChar c, bool includeColBreak = true);

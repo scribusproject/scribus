@@ -1542,19 +1542,32 @@ QString PageItem::ExpandToken(uint base)
 	uint zae = 0;
 	QChar ch = itemText.text(base);
 	QString chstr = ch;
-	if (ch == SpecialChars::PAGENUMBER) {
+	if (ch == SpecialChars::PAGENUMBER)
+	{
 		// compatibility mode: ignore subsequent pagenumber chars
-		if (base > 0 && itemText.text(base-1) == SpecialChars::PAGENUMBER) {
+		if (base > 0 && itemText.text(base-1) == SpecialChars::PAGENUMBER)
 			return "";
-		}
 		if ((!m_Doc->masterPageMode()) && (OwnPage != -1))
 		{
 			QString out("%1");
 			//CB Section numbering
 			chstr = out.arg(m_Doc->getSectionPageNumberForPageIndex(OwnPage), -(int)zae);
 		}
-		else 
+		else
 			return "#";
+	}
+	else if (ch == SpecialChars::PAGECOUNT)
+	{
+		if (!m_Doc->masterPageMode())
+		{
+			QString out("%1");
+			int key = m_Doc->getSectionKeyForPageIndex(OwnPage);
+			if (key == -1)
+				return "%";
+			chstr = out.arg(getStringFromSequence(m_Doc->sections[key].type, m_Doc->sections[key].toindex - m_Doc->sections[key].fromindex + 1));
+		}
+		else
+			return "%";
 	}
 	return chstr;
 }

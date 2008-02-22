@@ -149,7 +149,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 	{
 		hl = itemText.item(a);
 		chstr = hl->ch;
-		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP
+		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
 			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
 			continue;
 		if (a < itemText.length()-1)
@@ -188,7 +188,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 		CurY = 0;
 		hl = itemText.item(a);
 		chstr = hl->ch;
-		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP
+		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
 			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
 			continue;
 		chs = hl->fontSize();

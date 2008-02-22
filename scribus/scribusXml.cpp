@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QXmlSimpleReader>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QDebug>
 
 #include <cstdlib>
 #include <cmath>
@@ -1320,7 +1321,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		sReader.readNext();
 		QString tagName = sReader.name().toString();
 		QXmlStreamAttributes attrs = sReader.attributes();
-		
+
 		if (sReader.isStartElement() && tagName == "ITEM")
 		{
 			inItem = true;
@@ -1373,7 +1374,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		if (inItem && sReader.isStartElement() && tagName == "ITEXT")
 		{
 			iTextElems.append(sReader.attributes());
-			continue;
+//			continue;
 		}
 		if (inItem && sReader.isStartElement() && tagName == "LATEX-SOURCE")
 		{

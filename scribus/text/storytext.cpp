@@ -1240,6 +1240,8 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	Xml_attr empty;
 	Xml_attr pageno;
 	pageno.insert("name", "pgno");
+	Xml_attr pageco;
+	pageco.insert("name", "pgco");
 
 	handler.begin(elemtag, empty);
 	defaultStyle().saxx(handler, "defaultstyle");
@@ -1263,6 +1265,7 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			curr == SpecialChars::COLBREAK ||
 			curr == SpecialChars::FRAMEBREAK ||
 			curr == SpecialChars::PAGENUMBER ||
+			curr == SpecialChars::PAGECOUNT ||
 			curr.unicode() < 32 || 
 			(0xd800 <= curr.unicode() && curr.unicode() < 0xe000) ||
 			curr.unicode() == 0xfffe || curr.unicode() == 0xffff ||
@@ -1308,6 +1311,10 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 		else if (curr == SpecialChars::PAGENUMBER)
 		{
 			handler.beginEnd("var", pageno);
+		}
+		else if (curr == SpecialChars::PAGECOUNT)
+		{
+			handler.beginEnd("var", pageco);
 		}
 		else if (curr.unicode() < 32 || 
 				 (0xd800 <= curr.unicode() && curr.unicode() < 0xe000) ||
@@ -1366,8 +1373,16 @@ public:
 	{
 		StoryText* obj = this->dig->top<StoryText>();
 		Xml_attr::iterator code = attr.find("code");
+		Xml_attr::iterator name = attr.find("name");
 		if (tag == "unicode" && code != attr.end())
 			obj->insertChars(-1, QChar(parseUInt(Xml_data(code))));
+		else if (tag == "var" && name != attr.end())
+		{
+			if (Xml_data(name) == "pgno")
+				obj->insertChars(-1, SpecialChars::PAGENUMBER);
+			else
+				obj->insertChars(-1, SpecialChars::PAGECOUNT);
+		}
 		else
 			obj->insertChars(-1, chr);
 	}
@@ -1587,9 +1602,9 @@ void StoryText::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, 
 	
 	Paragraph paraAction;
 	Xml_string paraPrefix(Digester::concat(storyPrefix, "p"));
-	ruleset.addRule(paraPrefix, paraAction ); 
+	ruleset.addRule(paraPrefix, paraAction );
 	ParagraphStyle::desaxeRules(paraPrefix, ruleset, ParagraphStyle::saxxDefaultElem);
-	ruleset.addRule(Digester::concat(paraPrefix, ParagraphStyle::saxxDefaultElem), paraAction ); 
+	ruleset.addRule(Digester::concat(paraPrefix, ParagraphStyle::saxxDefaultElem), paraAction );
 	
 	SpanAction spanAction;
 	Xml_string spanPrefix(Digester::concat(paraPrefix, "span"));
@@ -1602,11 +1617,11 @@ void StoryText::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, 
 	ruleset.addRule(Digester::concat(spanPrefix, "breakline"), AppendSpecial(SpecialChars::LINEBREAK) );
 	ruleset.addRule(Digester::concat(spanPrefix, "breakcol"), AppendSpecial(SpecialChars::COLBREAK) );
 	ruleset.addRule(Digester::concat(spanPrefix, "breakframe"), AppendSpecial(SpecialChars::FRAMEBREAK) );
-	ruleset.addRule(Digester::concat(spanPrefix, "tab"), AppendSpecial(SpecialChars::TAB) ); 
-	ruleset.addRule(Digester::concat(spanPrefix, "unicode"), AppendSpecial() ); 
-	ruleset.addRule(Digester::concat(spanPrefix, "var"), AppendSpecial(SpecialChars::PAGENUMBER) ); 
+	ruleset.addRule(Digester::concat(spanPrefix, "tab"), AppendSpecial(SpecialChars::TAB) );
+	ruleset.addRule(Digester::concat(spanPrefix, "unicode"), AppendSpecial() );
+	ruleset.addRule(Digester::concat(spanPrefix, "var"), AppendSpecial());
 	
 	//PageItem::desaxeRules(storyPrefix, ruleset); argh, that would be recursive!
-	ruleset.addRule(Digester::concat(spanPrefix, "item"), AppendInlineFrame() ); 
+	ruleset.addRule(Digester::concat(spanPrefix, "item"), AppendInlineFrame() );
 	
 }

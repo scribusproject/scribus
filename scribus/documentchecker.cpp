@@ -177,7 +177,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					}
 					continue;
 				}
-				if (chr == 30)
+				if ((chr == 30) || (chr == 23))
 				{
 					for (int numco = 0x30; numco < 0x3A; ++numco)
 					{
@@ -295,7 +295,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					}
 					continue;
 				}
-				if (chr == 30)
+				if ((chr == 30) || (chr == 23))
 				{
 					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{

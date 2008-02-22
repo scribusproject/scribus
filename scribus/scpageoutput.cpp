@@ -1034,7 +1034,7 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 	{
 		hl = itemText.item(a);
 		chstr = hl->ch;
-		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP
+		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
 			|| chstr[0] == SpecialChars::TAB || chstr == SpecialChars::LINEBREAK)
 			continue;
 		if (a < itemText.length()-1)

@@ -777,6 +777,7 @@ void ScribusMainWindow::initMenuBar()
 
 	scrMenuMgr->createMenu("InsertChar", tr("&Character"), "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodePageNumber"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodePageCount"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeSmartHyphen"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeNonBreakingHyphen"], "InsertChar");
 	scrMenuMgr->addMenuSeparator("InsertChar");
