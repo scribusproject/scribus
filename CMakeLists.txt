@@ -166,7 +166,7 @@ ADD_DEFINITIONS("-DPLUGINDIR=\\\"${CMAKE_INSTALL_PREFIX}/${PLUGINDIR}\\\"")
 
 # Set the XDG mime stuff
 SET(MIMEDIR "share/mime/packages/")
-
+SET(MIMELNKDIR "share/mimelnk/application/")
 
 #BUILD SETUP
 #None, Debug, Release, .. or custom ones
@@ -457,6 +457,11 @@ TODO
 INSTALL(FILES
 scribus.xml
 DESTINATION ${MIMEDIR}
+)
+#KDE workaround until it starts supporting freedesktop spec
+INSTALL(FILES
+  vnd.scribus.desktop
+  DESTINATION ${MIMELNKDIR}
 )
 #Install the desktop file
 INSTALL(FILES
