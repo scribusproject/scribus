@@ -45,7 +45,7 @@ public:
 	                const QMap<QString,int> & DocFonts,
 	                const QValueList<PDFPresentationData> & Eff,
 	                int unitIndex, double PageH, double PageB,
-	                ScribusView *vie = 0 );
+	                ScribusView *vie = 0, bool prefsMode=false );
 	~TabPDFOptions() {};
 	void restoreDefaults();
 
@@ -296,6 +296,7 @@ private:
 	double pageH;
 	double pageB;
 	bool cms;
+	bool m_prefsMode;
 	QMap<QString, QString> AnnotationFonts;
 
 };

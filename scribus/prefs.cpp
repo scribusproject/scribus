@@ -367,7 +367,8 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 								docUnitIndex,
 								prefsData->PageHeight,
 								prefsData->PageWidth,
-								0 );
+								0,
+								true );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 
 	tabDefaultItemAttributes = new DocumentItemAttributes( prefsWidgets);

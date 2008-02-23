@@ -37,7 +37,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
                                 const QMap<QString,int> & DocFonts,
                                 const QValueList<PDFPresentationData> & Eff,
                                 int unitIndex, double PageH, double PageB,
-                                ScribusView * vie )
+                                ScribusView * vie, bool prefsMode )
 	: QTabWidget( parent, "pdf" ),
 	// Initialize all those darn pointer members so we catch unitialized
 	// accesses. I (CR) use the following command to generate these based on
@@ -230,7 +230,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	Opts(Optionen),
 	pageH(PageH),
 	pageB(PageB),
-	cms(false)
+	cms(false),
+	m_prefsMode(prefsMode)
 {
 
 	tabGeneral = new QWidget( this, "tabGeneral" );
@@ -918,6 +919,12 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	tabColorLayout->addWidget( LPIgroup );
 	SelLPIcolor = LPIcolor->currentText();
 
+	if (m_prefsMode)
+	{
+		UseLPI->hide();
+		LPIgroup->hide();
+	}
+
 	GroupBox9 = new QGroupBox( tr( "Solid Colors:" ), tabColor, "GroupBox9" );
 	GroupBox9->setColumnLayout(0, Qt::Vertical );
 	GroupBox9->layout()->setSpacing( 5 );
@@ -1463,11 +1470,14 @@ void TabPDFOptions::EnableLPI(int a)
 			GroupBox9->hide();
 			ProfsGroup->hide();
 			useSpot->show();
-			UseLPI->show();
-			if (UseLPI->isChecked())
-				LPIgroup->show();
-			else
-				LPIgroup->hide();
+			if (!m_prefsMode)
+			{
+				UseLPI->show();
+				if (UseLPI->isChecked())
+					LPIgroup->show();
+				else
+					LPIgroup->hide();
+			}
 		}
 	}
 	else
@@ -1480,10 +1490,13 @@ void TabPDFOptions::EnableLPI(int a)
 
 void TabPDFOptions::EnableLPI2()
 {
-	if (UseLPI->isChecked())
-		LPIgroup->show();
-	else
-		LPIgroup->hide();
+	if (!m_prefsMode)
+	{
+		if (UseLPI->isChecked())
+			LPIgroup->show();
+		else
+			LPIgroup->hide();
+	}
 }
 
 void TabPDFOptions::SelLPIcol(int c)
