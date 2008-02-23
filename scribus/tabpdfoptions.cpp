@@ -718,7 +718,13 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	LPIgroupLayout->addWidget( LPIfunc, 2, 2 );
 	tabColorLayout->addWidget( LPIgroup );
 	SelLPIcolor = LPIcolor->currentText();
-
+	
+	if (doc==0)
+	{
+		UseLPI->hide();
+		LPIgroup->hide();
+	}
+	
 	GroupBox9 = new QGroupBox( tr( "Solid Colors:" ), tabColor);
 	GroupBox9Layout = new QGridLayout( GroupBox9 );
 	GroupBox9Layout->setSpacing( 5 );
@@ -1565,11 +1571,14 @@ void TabPDFOptions::EnableLPI(int a)
 		}
 		useSpot->show();
 		overprintMode->show();
-		UseLPI->show();
-		if (UseLPI->isChecked())
-			LPIgroup->show();
-		else
-			LPIgroup->hide();
+		if (doc!=0)
+		{
+			UseLPI->show();
+			if (UseLPI->isChecked())
+				LPIgroup->show();
+			else
+				LPIgroup->hide();
+		}	
 	}
 	else
 	{
@@ -1582,10 +1591,13 @@ void TabPDFOptions::EnableLPI(int a)
 
 void TabPDFOptions::EnableLPI2()
 {
-	if (UseLPI->isChecked())
-		LPIgroup->show();
-	else
-		LPIgroup->hide();
+	if (doc!=0)
+	{
+		if (UseLPI->isChecked())
+			LPIgroup->show();
+		else
+			LPIgroup->hide();
+	}
 }
 
 void TabPDFOptions::SelLPIcol(int c)

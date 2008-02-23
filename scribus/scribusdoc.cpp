@@ -533,7 +533,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 		PDF_Options.LPISettings.clear();
 		struct LPIData lpo;
 		lpo.Frequency = 75;
-		lpo.SpotFunc = 2;
+		lpo.SpotFunc = 3;
 		lpo.Angle = 105;
 		PDF_Options.LPISettings.insert("Cyan", lpo);
 		lpo.Angle = 75;

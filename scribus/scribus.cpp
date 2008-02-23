@@ -3890,7 +3890,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		{
 			struct LPIData lpo;
 			lpo.Frequency = 75;
-			lpo.SpotFunc = 2;
+			lpo.SpotFunc = 3;
 			lpo.Angle = 105;
 			doc->PDF_Options.LPISettings.insert("Cyan", lpo);
 			lpo.Angle = 75;
@@ -3900,6 +3900,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			lpo.Angle = 45;
 			doc->PDF_Options.LPISettings.insert("Black", lpo);
 		}
+		
 		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 		if (!doc->CMSSettings.CMSinUse)
 			doc->HasCMS = false;
