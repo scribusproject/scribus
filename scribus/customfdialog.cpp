@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDir>
-#include <QDomDocument>
 #include <QFileInfo>
 #include <QFrame>
 #include <QFrame>
@@ -47,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "scimage.h"
 #include "scribusstructs.h"
+#include "scslainforeader.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
@@ -208,31 +208,29 @@ void FDialogPreview::GenPreview(QString name)
 	}
 	else
 	{
-		if (loadText(name, &Buffer))
+		ScSlaInfoReader slaInfos;
+		if (slaInfos.readInfos(name))
 		{
-			if (Buffer.left(512).contains("<SCRIBUS"))
-			{
-				QDomDocument docu("scridoc");
-				if (!docu.setContent(Buffer))
-					return;
-				QDomElement elem=docu.documentElement();
-				if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8") && (elem.tagName() != "SCRIBUSUTF8NEW"))
-					return;
-				QDomNode DOC=elem.firstChild();
-				QDomElement dc=DOC.toElement();
-				QString Tit = tr("Title:")+" ";
-				QString ti2 = dc.attribute("TITLE");
-				if (ti2.isEmpty())
-					ti2= tr("No Title");
-				Tit += ti2+"\n";
-				QString Aut = tr("Author:")+" ";
-				QString au2 = dc.attribute("AUTHOR");
-				if (au2.isEmpty())
-					au2 = tr("Unknown");
-				Aut += au2;
-				setText( tr("Scribus Document")+"\n\n"+Tit+Aut);
-			}
-			else  if ((ext == "txt") || (ext == "html") || (ext == "xml"))
+			QString Title = tr("Title:")+" ";
+			QString ti2 = slaInfos.title();
+			if (ti2.isEmpty())
+				ti2= tr("No Title");
+			Title += ti2+"\n";
+			QString Author = tr("Author:")+" ";
+			QString au2 = slaInfos.author();
+			if (au2.isEmpty())
+				au2 = tr("Unknown");
+			Author += au2+"\n";
+			QString Format =  tr("File Format:")+" ";
+			QString fm2 = slaInfos.format();
+			if (fm2.isEmpty())
+				fm2 = tr("Unknown");
+			Format += fm2;
+			setText( tr("Scribus Document")+"\n\n"+Title+Author+Format);
+		}
+		else  if ((ext == "txt") || (ext == "html") || (ext == "xml"))
+		{
+			if (loadText(name, &Buffer))
 				setText(Buffer.left(200));
 		}
 	}
