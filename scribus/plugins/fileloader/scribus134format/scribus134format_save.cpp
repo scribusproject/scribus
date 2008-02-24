@@ -481,6 +481,11 @@ void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const Pa
 	if ( ! style.isInhMaxGlyphExtension())
 		fo.setAttribute("MaxGlyphExtend", style.maxGlyphExtension());
 
+	if ( ! style.shortcut().isEmpty() )
+		fo.setAttribute("PSHORTCUT", style.shortcut()); // shortcuts won't be inherited
+	
+	putCStyle(docu, fo, style.charStyle());
+
 	if ( ! style.isInhTabValues())
 	{
 		for (int a = 0; a < style.tabValues().count(); ++a)
@@ -495,11 +500,6 @@ void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const Pa
 			fo.appendChild(tabs);
 		}
 	}
-	if ( ! style.shortcut().isEmpty() )
-		fo.setAttribute("PSHORTCUT", style.shortcut()); // shortcuts won't be inherited
-	
-	putCStyle(docu, fo, style.charStyle());
-
 }
 
 
@@ -1251,18 +1251,19 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 		
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 
-		if (item->prevInChain() != 0 && items->contains(item->prevInChain()))
-			ob.setAttribute("BACKITEM", item->prevInChain()->ItemNr);
-		else
-		{
-			writeITEXTs(doc, docu, ob, item); 
-			ob.setAttribute("BACKITEM", -1);
-		}
 		if (item->nextInChain() != 0)
 			ob.setAttribute("NEXTITEM", item->nextInChain()->ItemNr);
 		else
 			ob.setAttribute("NEXTITEM", -1);
 		ob.setAttribute("LAYER", item->LayerNr);
+
+		if (item->prevInChain() != 0 && items->contains(item->prevInChain()))
+			ob.setAttribute("BACKITEM", item->prevInChain()->ItemNr);
+		else
+		{
+			ob.setAttribute("BACKITEM", -1);
+			writeITEXTs(doc, docu, ob, item); 
+		}
 		
 		if (item->asLatexFrame()) {
 			QDomElement latexinfo = docu->createElement("LATEX");
