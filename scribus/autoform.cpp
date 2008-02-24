@@ -24,6 +24,7 @@ Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent )
 void Autoforms::selForm(int a)
 {
 //	Men->activateItemAt(0);
+	Men->hide();
 	setIcon(QIcon(buttonGroup1->getIconPixmap(a)));
 	int n;
 	double *AutoShapes = buttonGroup1->getShapeData(a, &n);
