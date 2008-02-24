@@ -3889,7 +3889,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		if (doc->PDF_Options.LPISettings.count() == 0)
 		{
 			struct LPIData lpo;
-			lpo.Frequency = 75;
+			lpo.Frequency = 133;
 			lpo.SpotFunc = 3;
 			lpo.Angle = 105;
 			doc->PDF_Options.LPISettings.insert("Cyan", lpo);
