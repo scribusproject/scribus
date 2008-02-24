@@ -210,10 +210,10 @@ void FDialogPreview::GenPreview(QString name)
 	{
 		if (loadText(name, &Buffer))
 		{
-			if (Buffer.startsWith("<SCRIBUS"))
+			if (Buffer.left(512).contains("<SCRIBUS"))
 			{
 				QDomDocument docu("scridoc");
-				if(!docu.setContent(Buffer))
+				if (!docu.setContent(Buffer))
 					return;
 				QDomElement elem=docu.documentElement();
 				if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8") && (elem.tagName() != "SCRIBUSUTF8NEW"))
