@@ -63,7 +63,7 @@ bool ScriXmlDoc::attrAsBool(const QXmlStreamAttributes& attrs, const char* attNa
 	bool value = defVal;
 	QStringRef att = attrs.value(attString);
 	if (!att.isEmpty())
-		value = static_cast<bool>(att.toString().toInt());
+		value = static_cast<bool>(QString::fromRawData(att.constData(), att.length()).toInt());
 	return value;
 }
 
@@ -73,7 +73,7 @@ int ScriXmlDoc::attrAsInt(const QXmlStreamAttributes& attrs, const char* attName
 	int value = defVal;
 	QStringRef att = attrs.value(attString);
 	if (!att.isEmpty())
-		value = att.toString().toInt();
+		value = QString::fromRawData(att.constData(), att.length()).toInt();
 	return value;
 }
 
@@ -83,7 +83,7 @@ double ScriXmlDoc::attrAsDbl(const QXmlStreamAttributes& attrs, const char* attN
 	double value = defVal;
 	QStringRef att = attrs.value(attString);
 	if (!att.isEmpty())
-		value = att.toString().toDouble();
+		value = QString::fromRawData(att.constData(), att.length()).toDouble();
 	return value;
 }
 
