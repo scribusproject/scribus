@@ -1067,10 +1067,10 @@ void CreateMode::SetupDraw(int nr)
 //FIXME	m_canvas->m_viewMode.operItemResizing = true;
 	frameResizeHandle = 1;
 	qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
-	m_doc->m_Selection->setIsGUISelection(true);
+	m_doc->m_Selection->delaySignalsOn();
 	m_doc->m_Selection->clear();
 	m_doc->m_Selection->addItem(currItem);
-	m_doc->m_Selection->connectItemToGUI();
+	m_doc->m_Selection->delaySignalsOff();
 	currItem->update();
 	if (currItem->asLine())
 	{
@@ -1098,10 +1098,10 @@ void CreateMode::SetupDrawNoResize(int nr)
 	PageItem* currItem = m_doc->Items->at(nr);
 	//	currItem->setFont(Doc->toolSettings.defFont);
 	//	currItem->setFontSize(Doc->toolSettings.defSize);
-	m_doc->m_Selection->setIsGUISelection(true);
+	m_doc->m_Selection->delaySignalsOn();
 	m_doc->m_Selection->clear();
 	m_doc->m_Selection->addItem(currItem);
-	m_doc->m_Selection->connectItemToGUI();
+	m_doc->m_Selection->delaySignalsOff();
 //	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
 	//#6456 m_view->resetMoveTimer();

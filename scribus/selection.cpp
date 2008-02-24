@@ -54,6 +54,12 @@ Selection& Selection::operator=( const Selection &other )
 {
 	if (&other==this)
 		return *this;
+	if (m_isGUISelection)
+	{
+		SelectionList::Iterator itend = m_SelList.end();
+		for (SelectionList::Iterator it = m_SelList.begin(); it != itend; ++it)
+			(*it)->setSelected(false);
+	}
 	m_SelList=other.m_SelList;
 	m_hasGroupSelection=other.m_hasGroupSelection;
 	m_isGUISelection=other.m_isGUISelection;
@@ -67,23 +73,23 @@ Selection& Selection::operator=( const Selection &other )
 	return *this;
 }
 
-void Selection::copy(Selection& other, bool copyGUISelection, bool emptyOther)
+void Selection::copy(Selection& other, bool emptyOther)
 {
 	if (&other==this)
 		return;
+	if (m_isGUISelection)
+	{
+		SelectionList::Iterator itend = m_SelList.end();
+		for (SelectionList::Iterator it = m_SelList.begin(); it != itend; ++it)
+			(*it)->setSelected(false);
+	}
 	m_SelList=other.m_SelList;
 	m_hasGroupSelection=other.m_hasGroupSelection;
-	if (copyGUISelection)
-		m_isGUISelection=other.m_isGUISelection;
 	if (m_isGUISelection && !m_SelList.isEmpty())
-	{
-		m_SelList[0]->connectToGUI();
-		m_SelList[0]->emitAllToGUI();
-		m_SelList[0]->setSelected(true);
-		emit selectionIsMultiple(m_hasGroupSelection);
-	}
+		m_sigSelectionIsMultiple = true;
 	if (emptyOther)
 		other.clear();
+	sendSignals();
 }
 
 Selection::~Selection()
@@ -98,19 +104,19 @@ bool Selection::clear()
 		SelectionList::Iterator it=m_SelList.begin();
 		while (it!=itend)
 		{
-			(*it)->setSelected(false);
 			(*it)->isSingleSel=false;
 			if (m_isGUISelection)
+			{
+				(*it)->setSelected(false);
 				(*it)->disconnectFromGUI();
+			}
 			++it;
 		}
 	}
 	m_SelList.clear();
-	m_hasGroupSelection=false;
-// 	if (m_isGUISelection)
-// 		emit empty();
-	if (m_isGUISelection)
-		emit selectionChanged();
+	m_hasGroupSelection   = false;
+	m_sigSelectionChanged = true;
+	sendSignals();
 	return true;
 }
 
@@ -164,22 +170,14 @@ bool Selection::addItem(PageItem *item, bool ignoreGUI)
 	if (listWasEmpty || !m_SelList.contains(item))
 	{
 		m_SelList.append(item);
-		item->setSelected(true);
-		if (m_isGUISelection && !ignoreGUI)
+		if (m_isGUISelection)
 		{
-			emit selectionChanged();
+			item->setSelected(true);
+			m_sigSelectionChanged = true;
+			m_sigSelectionIsMultiple = true;
 		}
-
-		m_hasGroupSelection=(m_SelList.count()>1);
-		if (m_isGUISelection && !ignoreGUI)
-		{
-			if (listWasEmpty)
-			{
-				item->connectToGUI();
-				item->emitAllToGUI();
-			}
-			emit selectionIsMultiple(m_hasGroupSelection);
-		}
+		m_hasGroupSelection = (m_SelList.count()>1);	
+		sendSignals();
 		return true;
 	}
 	return false;
@@ -194,20 +192,14 @@ bool Selection::prependItem(PageItem *item, bool doEmit)
 		if (m_isGUISelection && !m_SelList.isEmpty())
 			m_SelList[0]->disconnectFromGUI();
 		m_SelList.prepend(item);
-		item->setSelected(true);
-		if (m_isGUISelection)
+		if (m_isGUISelection /*&& doEmit*/)
 		{
-			emit selectionChanged();
+			item->setSelected(true);
+			m_sigSelectionChanged = true;
+			m_sigSelectionIsMultiple = true;
 		}
-
-		m_hasGroupSelection=(m_SelList.count()>1);
-		if (m_isGUISelection)
-		{
-			item->connectToGUI();
-			if (doEmit)
-				item->emitAllToGUI();
-			emit selectionIsMultiple(m_hasGroupSelection);
-		}
+		m_hasGroupSelection = (m_SelList.count()>1);	
+		sendSignals();
 		return true;
 	}
 	return false;
@@ -231,14 +223,14 @@ bool Selection::removeFirst()
 {
 	if (!m_SelList.isEmpty())
 	{
+		if (m_isGUISelection && m_SelList.first())
+			m_SelList.first()->setSelected(false);
 		removeItem(m_SelList.first());
 		if (m_SelList.isEmpty())
 			return true;
 		if (m_isGUISelection)
-		{
-			m_SelList.first()->connectToGUI();
-			emit selectionChanged();
-		}
+			m_sigSelectionChanged = true;
+		sendSignals();
 	}
 	return false;
 }
@@ -250,19 +242,16 @@ bool Selection::removeItem(PageItem *item)
 		bool removeOk=(m_SelList.removeAll(item)==1);
 		if (removeOk)
 		{
-			item->setSelected(false);
+			if (m_isGUISelection)
+				item->setSelected(false);
 			item->isSingleSel = false;
 		}
 		if (m_SelList.isEmpty())
-		{
 			m_hasGroupSelection=false;
-// 			if (m_isGUISelection)
-// 				emit empty();
-		}
 		else if (m_isGUISelection)
 		{
-			m_SelList.first()->connectToGUI();
-			emit selectionChanged();
+			m_sigSelectionChanged = true;
+			sendSignals();
 		}
 		return removeOk;
 	}
@@ -273,35 +262,24 @@ PageItem* Selection::takeItem(int itemIndex)
 {
 	if (!m_SelList.isEmpty() && itemIndex<m_SelList.count())
 	{
-		PageItem *item=m_SelList[itemIndex];
-		bool removeOk=(m_SelList.removeAll(item)==1);
+		PageItem *item =  m_SelList[itemIndex];
+		bool removeOk  = (m_SelList.removeAll(item) == 1);
 		if (removeOk)
 		{
-			item->setSelected(false);
 			item->isSingleSel = false;
-			if (itemIndex==0)
+			if (m_isGUISelection)
 			{
-				if (m_isGUISelection)
-				{
+				item->setSelected(false);
+				m_sigSelectionChanged = true;
+				if (itemIndex == 0)
 					item->disconnectFromGUI();
-					if (m_SelList.count()>0)
-						m_SelList[0]->connectToGUI();
-				}
 			}
 			if (m_SelList.isEmpty())
-			{
 				m_hasGroupSelection=false;
-// 				if (m_isGUISelection)
-// 					emit empty();
-			}
-			if (m_isGUISelection)
-				emit selectionChanged();
+			sendSignals();
 			return item;
 		}
 	}
-	// JG Should not be needed here
-	/*if (m_isGUISelection)
-		emit selectionChanged();*/
 	return NULL;
 }
 
@@ -421,4 +399,35 @@ bool Selection::itemsAreSameType() const
 			return false;
 	}
 	return true;
+}
+
+bool Selection::signalsDelayed(void)
+{
+	return (m_isGUISelection && (m_delaySignals > 0));
+}
+
+void Selection::delaySignalsOn(void)
+{
+	++m_delaySignals;
+}
+
+void Selection::delaySignalsOff(void)
+{
+	--m_delaySignals;
+	if (m_delaySignals <= 0)
+		sendSignals();
+}
+
+void Selection::sendSignals(void)
+{
+	if (m_isGUISelection && (m_delaySignals <= 0))
+	{
+		connectItemToGUI();
+		if (m_sigSelectionChanged)
+			emit selectionChanged();
+		if (m_sigSelectionIsMultiple)
+			emit selectionIsMultiple(m_hasGroupSelection);
+		m_sigSelectionChanged = false;
+		m_sigSelectionIsMultiple = false;
+	}
 }

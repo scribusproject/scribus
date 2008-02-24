@@ -512,6 +512,7 @@ void OutlinePalette::slotMultiSelect()
 	{
 		if (currDoc->appMode == modeEditClip)
 			currDoc->view()->requestMode(submodeEndNodeEdit);
+		currDoc->m_Selection->delaySignalsOn();
 		currDoc->view()->Deselect(true);
 		for (int a = 0; a < items.count(); a++)
 		{
@@ -531,17 +532,18 @@ void OutlinePalette::slotMultiSelect()
 					if (!pgItem->isSelected())
 					{
 						m_MainWindow->closeActiveWindowMasterPageEditor();
-						currDoc->m_Selection->setIsGUISelection(false);
+						//currDoc->m_Selection->setIsGUISelection(false);
 						currDoc->view()->SelectItemNr(pgItem->ItemNr, false, false);
 					}
 					break;
 			}
 		}
-		if (currDoc->m_Selection->count() > 0)
+		/*if (currDoc->m_Selection->count() > 0)
 		{
 			currDoc->m_Selection->setIsGUISelection(true);
 			currDoc->m_Selection->connectItemToGUI();
-		}
+		}*/
+		currDoc->m_Selection->delaySignalsOff();
 		currDoc->view()->DrawNew();
 	}
 	else

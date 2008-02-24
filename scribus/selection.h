@@ -59,7 +59,7 @@ class SCRIBUS_API Selection : public QObject
 		/**
 		 * \brief Copy the selection of items from one selection to another
 		 */
-		void copy(Selection& other, bool copyGUISelectionn, bool emptyOther);
+		void copy(Selection& other, bool emptyOther);
 		
 		bool connectItemToGUI();
 		/**
@@ -139,7 +139,6 @@ class SCRIBUS_API Selection : public QObject
 		QStringList getSelectedItemsByName() const;
 		bool isMultipleSelection() const { return m_hasGroupSelection; }
 		bool isGUISelection() const { return m_isGUISelection; }
-		void setIsGUISelection(bool guiSelection) { m_isGUISelection=guiSelection; }
 		double width() const;
 		double height() const;
 		//set the group rectangle properties
@@ -147,6 +146,10 @@ class SCRIBUS_API Selection : public QObject
 		void getGroupRect(double *x, double *y, double *w, double *h);
 		//!\brief Test to see if all items in the selection are the same typedef
 		bool itemsAreSameType() const;
+
+		bool signalsDelayed(void);
+		void delaySignalsOn(void);
+		void delaySignalsOff(void);
 		
 	protected:
 		PageItem *itemAt_(int index=0);
@@ -158,6 +161,11 @@ class SCRIBUS_API Selection : public QObject
 		double groupW;
 		double groupH;
 
+		int  m_delaySignals;
+		bool m_sigSelectionChanged;
+		bool m_sigSelectionIsMultiple;
+
+		void sendSignals(void);
 		
 	signals:
 		void selectionIsMultiple(bool);

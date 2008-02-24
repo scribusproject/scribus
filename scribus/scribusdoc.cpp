@@ -9854,7 +9854,7 @@ void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, 
 	//convertItemTo does this
 	Selection tmpSel(*itemSelection);
 	tmpSel.disconnectAllItemsFromGUI();
-	tmpSel.setIsGUISelection(false);
+	tmpSel.delaySignalsOn();
 	m_updateManager.setUpdatesDisabled();
 	//FIXME: Add undo, just need the parameters to be correct
 /*	if (selectedItemCount > 1)
@@ -9871,6 +9871,7 @@ void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, 
 	}
 /*	if (selectedItemCount > 1)
 		undoManager->commit();*/
+	tmpSel.delaySignalsOff();
 	m_updateManager.setUpdatesEnabled();
 	changed();
 }

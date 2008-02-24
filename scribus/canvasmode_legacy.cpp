@@ -1877,8 +1877,10 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			z = m_doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, Rypd, m_doc->toolSettings.dWidthLine, CommonStrings::None, m_doc->toolSettings.dPenLine, !m_canvas->m_viewMode.m_MouseButtonPressed);
 			currItem = m_doc->Items->at(z);
 			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+			m_doc->m_Selection->delaySignalsOn();
 			m_doc->m_Selection->clear();
 			m_doc->m_Selection->addItem(currItem);
+			m_doc->m_Selection->delaySignalsOff();
 			m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
 			m_canvas->m_viewMode.operItemMoving = true;
 			inItemCreation = true;
@@ -2046,8 +2048,10 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				currItem->PoLine.putPoints(currItem->PoLine.size(), 2, np.x(), np.y(), np.x(), np.y());
 				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 				qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+				m_doc->m_Selection->delaySignalsOn();
 				m_doc->m_Selection->clear();
 				m_doc->m_Selection->addItem(currItem);
+				m_doc->m_Selection->delaySignalsOff();
 				m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
 				inItemCreation = true;
 				m_canvas->m_viewMode.operItemResizing = true;
@@ -2405,7 +2409,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			int docItemCount=m_doc->Items->count();
 			if (docItemCount != 0)
 			{
-				m_doc->m_Selection->setIsGUISelection(false);
+				m_doc->m_Selection->delaySignalsOn();
 				for (int a = 0; a < docItemCount; ++a)
 				{
 					PageItem* docItem = m_doc->Items->at(a);
@@ -2421,8 +2425,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 						m_view->SelectItemNr(a, redrawSelection);
 					}
 				}
-				m_doc->m_Selection->setIsGUISelection(true);
-				m_doc->m_Selection->connectItemToGUI();
+				m_doc->m_Selection->delaySignalsOff();
 				if (m_doc->m_Selection->count() > 1)
 				{
 					m_doc->m_Selection->setGroupRect();
@@ -4403,7 +4406,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 //	qDebug() << "item under cursor: " << currItem;
 	if (currItem)
 	{
-		m_doc->m_Selection->setIsGUISelection(false);
+		m_doc->m_Selection->delaySignalsOn();
 		if (m_doc->m_Selection->containsItem(currItem))
 		{
 			m_doc->m_Selection->removeItem(currItem);
@@ -4442,11 +4445,9 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 				}
 			}
 		}
-		
+
 		currItem->update();
-		
-		m_doc->m_Selection->setIsGUISelection(true);
-		m_doc->m_Selection->connectItemToGUI();
+		m_doc->m_Selection->delaySignalsOff();
 		if (m_doc->m_Selection->count() > 1)
 		{
 			for (int aa = 0; aa < m_doc->m_Selection->count(); ++aa)
@@ -4757,7 +4758,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 		{
 			m_view->startGesture(guideMoveGesture);
 			guideMoveGesture->mouseMoveEvent(m);
-			m_doc->m_Selection->setIsGUISelection(true);
+			//m_doc->m_Selection->setIsGUISelection(true);
 			m_doc->m_Selection->connectItemToGUI();
 			return true;
 		}
@@ -4813,7 +4814,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 		}
 		*/
 	}
-	m_doc->m_Selection->setIsGUISelection(true);
+	//m_doc->m_Selection->setIsGUISelection(true);
 	m_doc->m_Selection->connectItemToGUI();
 	if ( !(m->modifiers() & SELECT_MULTIPLE) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 		m_view->Deselect(true);
@@ -4828,10 +4829,10 @@ void LegacyMode::SetupDraw(int nr)
 	m_canvas->m_viewMode.operItemResizing = true;
 	frameResizeHandle = 1;
 	qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
-	m_doc->m_Selection->setIsGUISelection(true);
+	m_doc->m_Selection->delaySignalsOn();;
 	m_doc->m_Selection->clear();
 	m_doc->m_Selection->addItem(currItem);
-	m_doc->m_Selection->connectItemToGUI();
+	m_doc->m_Selection->delaySignalsOff();
 //	m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
 	m_canvas->m_viewMode.operItemMoving = true;
 	m_doc->appMode = modeNormal; // ???
@@ -4847,10 +4848,10 @@ void LegacyMode::SetupDrawNoResize(int nr)
 	PageItem* currItem = m_doc->Items->at(nr);
 	//	currItem->setFont(Doc->toolSettings.defFont);
 	//	currItem->setFontSize(Doc->toolSettings.defSize);
-	m_doc->m_Selection->setIsGUISelection(true);
+	m_doc->m_Selection->delaySignalsOn();
 	m_doc->m_Selection->clear();
 	m_doc->m_Selection->addItem(currItem);
-	m_doc->m_Selection->connectItemToGUI();
+	m_doc->m_Selection->delaySignalsOff();
 //	m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
 	if (!PrefsManager::instance()->appPrefs.stickyTools)
 		m_view->requestMode(modeNormal);

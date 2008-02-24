@@ -3519,7 +3519,7 @@ void ScribusMainWindow::doPasteRecent(QString data)
 		doc->useRaster = savedAlignGrid;
 		doc->SnapGuides = savedAlignGuides;
 		Selection tmpSelection(this, false);
-		tmpSelection.copy(*doc->m_Selection, false, true);
+		tmpSelection.copy(*doc->m_Selection, true);
 		for (int as = ac; as < doc->Items->count(); ++as)
 		{
 			PageItem* currItem = doc->Items->at(as);
@@ -3528,7 +3528,7 @@ void ScribusMainWindow::doPasteRecent(QString data)
 			if (currItem->isBookmark)
 				AddBookMark(currItem);
 		}
-		doc->m_Selection->copy(tmpSelection, false, false);
+		doc->m_Selection->copy(tmpSelection, false);
 		pasteAction.commit();
 		slotDocCh(false);
 		doc->regionsChanged()->update(QRectF());
@@ -5174,12 +5174,14 @@ void ScribusMainWindow::slotEditPaste()
 				doc->m_Selection->clear();
 				if (doc->Items->count() - ac > 1)
 					isGroup = true;
+				doc->m_Selection->delaySignalsOn();
 				for (int as = ac; as < doc->Items->count(); ++as)
 				{
 					doc->m_Selection->addItem(doc->Items->at(as));
 					if (isGroup)
 						doc->Items->at(as)->Groups.push(doc->GroupCounter);
 				}
+				doc->m_Selection->delaySignalsOff();
 				if (isGroup)
 					doc->GroupCounter++;
 				doc->m_Selection->setGroupRect();
@@ -5265,6 +5267,7 @@ void ScribusMainWindow::slotEditPaste()
 
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
+				doc->m_Selection->delaySignalsOn();
 				for (int as = ac; as < doc->Items->count(); ++as)
 				{
 					PageItem* currItem = doc->Items->at(as);
@@ -5272,6 +5275,7 @@ void ScribusMainWindow::slotEditPaste()
 						AddBookMark(currItem);
 					doc->m_Selection->addItem(currItem);
 				}
+				doc->m_Selection->delaySignalsOff();
 				int docSelectionCount=doc->m_Selection->count();
 				if (docSelectionCount > 1)
 				{
@@ -7502,9 +7506,9 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 	view->Deselect(true);
 	if ((Page != -1) && (Page != static_cast<int>(doc->currentPage()->pageNr())))
 		view->GotoPage(Page);
-	doc->m_Selection->setIsGUISelection(false);
+	doc->m_Selection->delaySignalsOn();
 	view->SelectItemNr(Item, true, single);
-	doc->m_Selection->setIsGUISelection(true);
+	doc->m_Selection->delaySignalsOff();
 	doc->m_Selection->connectItemToGUI();
 	if (doc->m_Selection->count() != 0)
 	{
@@ -9560,7 +9564,7 @@ void ScribusMainWindow::PutToPatterns()
 	doc->useRaster = false;
 	doc->SnapGuides = false;
 	Selection itemSelection(this, false);
-	itemSelection.copy(*doc->m_Selection, false, false);
+	itemSelection.copy(*doc->m_Selection, false);
 	slotEditCopy();
 	view->Deselect(true);
 	slotEditPaste();
@@ -9584,9 +9588,9 @@ void ScribusMainWindow::PutToPatterns()
 		outlinePalette->BuildTree();
 	doc->TotalItems = oldNum;
 	view->Deselect(true);
-	doc->m_Selection->copy(itemSelection, false, false);
-	doc->m_Selection->setIsGUISelection(true);
-	doc->m_Selection->connectItemToGUI();
+	doc->m_Selection->delaySignalsOn();
+	doc->m_Selection->copy(itemSelection, false);
+	doc->m_Selection->delaySignalsOff();
 	view->DrawNew();
 	undoManager->setUndoEnabled(true);
 }

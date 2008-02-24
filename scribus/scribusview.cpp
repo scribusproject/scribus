@@ -998,7 +998,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
 				}
 				Selection tmpSelection(this, false);
-				tmpSelection.copy(*Doc->m_Selection, false, true);
+				tmpSelection.copy(*Doc->m_Selection, true);
 				for (int as = oldDocItemCount; as < Doc->Items->count(); ++as)
 				{
 					currItem = Doc->Items->at(as);
@@ -1007,7 +1007,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					if (currItem->isBookmark)
 						emit AddBM(currItem);
 				}
-				Doc->m_Selection->copy(tmpSelection, false, false);
+				Doc->m_Selection->copy(tmpSelection, false);
 				activeTransaction->commit();
 				delete activeTransaction;
 				activeTransaction = NULL;
@@ -1051,12 +1051,12 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 							pasted.append(Doc->Items->at(as));
 						}
 						Selection tmpSelection(this, false);
-						tmpSelection.copy(*Doc->m_Selection, false, true);
+						tmpSelection.copy(*Doc->m_Selection, true);
 						for (int dre=0; dre<Doc->DragElements.count(); ++dre)
 						{
 							tmpSelection.addItem(Doc->Items->at(Doc->DragElements[dre]), true);
 						}
-						Doc->m_Selection->copy(tmpSelection, false, false);
+						Doc->m_Selection->copy(tmpSelection, false);
 						PageItem* bb;
 						int fin;
 						for (int dre=0; dre<Doc->DragElements.count(); ++dre)
@@ -1101,7 +1101,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				Doc->DraggedElem = 0;
 				Doc->DragElements.clear();
 				Selection tmpSelection(this, false);
-				tmpSelection.copy(*Doc->m_Selection, false, true);
+				tmpSelection.copy(*Doc->m_Selection, true);
 				for (int as = oldDocItemCount; as < Doc->Items->count(); ++as)
 				{
 					currItem = Doc->Items->at(as);
@@ -1110,7 +1110,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					if (currItem->isBookmark)
 						emit AddBM(currItem);
 				}
-				Doc->m_Selection->copy(tmpSelection, false, false);
+				Doc->m_Selection->copy(tmpSelection, false);
 			}
 			if (Doc->m_Selection->count() > 1)
 			{
@@ -1992,12 +1992,16 @@ void ScribusView::LowerItem()
 		}
 		if (low == 0)
 			return;
-		bool wasGUISelection=Doc->m_Selection->isGUISelection();
+		/*bool wasGUISelection=Doc->m_Selection->isGUISelection();
 		if (wasGUISelection)
 		{
 			Doc->m_Selection->setIsGUISelection(false);
 			Doc->m_Selection->disconnectAllItemsFromGUI();
-		}
+		}*/
+		bool wasSignalDelayed = !Doc->m_Selection->signalsDelayed();
+		Doc->m_Selection->delaySignalsOn();
+		if (!wasSignalDelayed)
+			Doc->m_Selection->disconnectAllItemsFromGUI();
 		Selection tempSelection(*Doc->m_Selection);
 		b2 = Doc->Items->at(high);
 		Doc->m_Selection->clear();
@@ -2018,9 +2022,10 @@ void ScribusView::LowerItem()
 		Doc->m_Selection->clear();
 		Doc->renumberItemsInListOrder();
 //		m_ScMW->outlinePalette->BuildTree();
-		if (wasGUISelection)
-			tempSelection.setIsGUISelection(true);
+		/*if (wasGUISelection)
+			tempSelection.setIsGUISelection(true);*/
 		*Doc->m_Selection=tempSelection;
+		Doc->m_Selection->delaySignalsOff();
 		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
 		m_canvas->m_viewMode.forceRedraw = true;
@@ -2050,12 +2055,16 @@ void ScribusView::RaiseItem()
 		}
 		if (high == static_cast<uint>(Doc->Items->count()-1))
 			return;
-		bool wasGUISelection=Doc->m_Selection->isGUISelection();
+		/*bool wasGUISelection=Doc->m_Selection->isGUISelection();
 		if (wasGUISelection)
 		{
 			Doc->m_Selection->setIsGUISelection(false);
 			Doc->m_Selection->disconnectAllItemsFromGUI();
-		}
+		}*/
+		bool wasSignalDelayed = !Doc->m_Selection->signalsDelayed();
+		Doc->m_Selection->delaySignalsOn();
+		if (!wasSignalDelayed)
+			Doc->m_Selection->disconnectAllItemsFromGUI();
 		Selection tempSelection(*Doc->m_Selection);
 		b2 = Doc->Items->at(low);
 		Doc->m_Selection->clear();
@@ -2078,9 +2087,10 @@ void ScribusView::RaiseItem()
 		Doc->m_Selection->clear();
 		Doc->renumberItemsInListOrder();
 //		m_ScMW->outlinePalette->BuildTree();
-		if (wasGUISelection)
-			tempSelection.setIsGUISelection(true);
+		/*if (wasGUISelection)
+			tempSelection.setIsGUISelection(true);*/
 		*Doc->m_Selection=tempSelection;
+		Doc->m_Selection->delaySignalsOff();
 		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
 		m_canvas->m_viewMode.forceRedraw = true;
@@ -3790,7 +3800,7 @@ void ScribusView::TextToPath()
 	if (Doc->appMode == modeEditClip)
 		requestMode(submodeEndNodeEdit);
 	Selection tmpSelection(this, false);
-	tmpSelection.copy(*Doc->m_Selection, false, false);
+	tmpSelection.copy(*Doc->m_Selection, false);
 	PageItem *currItem = tmpSelection.itemAt(0);
 	if ((currItem->prevInChain() != 0) || (currItem->nextInChain() != 0))
 	{
@@ -4221,7 +4231,7 @@ void ScribusView::TextToPath()
 				tmpSelection.addItem(delItems.takeAt(0)); //yes, 0, remove the first
 			Doc->itemSelection_DeleteItem(&tmpSelection);
 		}
-		Doc->m_Selection->copy(tmpSelection, false, true);
+		Doc->m_Selection->copy(tmpSelection, true);
 		trans.commit();
 	}
 #endif
