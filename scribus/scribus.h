@@ -428,7 +428,6 @@ public slots:
 	/** \brief Neues Dokument erzeugt */
 	void HaveNewDoc();
 	void HaveNewSel(int Nr);
-	void rebuildStyleMenu(int itemType);
 	/** Dokument ist geaendert worden */
 	void slotDocCh(bool reb = true);
 	/** Setzt die Abstufung */
@@ -508,7 +507,6 @@ public slots:
 	void ToggleGuides();
 	void ToggleBase();
 	void ToggleUGuides();
-	void HaveRaster(bool art);
 	void EditTabs();
 	void SearchText();
 	void imageEditorExited(int, QProcess::ExitStatus);

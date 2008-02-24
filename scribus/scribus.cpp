@@ -949,8 +949,6 @@ void ScribusMainWindow::initMenuBar()
 
 	scrMenuMgr->addMenuToMenuBar("File");
 	scrMenuMgr->addMenuToMenuBar("Edit");
-	scrMenuMgr->addMenuToMenuBar("Style");
-	scrMenuMgr->setMenuEnabled("Style", false);
 	scrMenuMgr->addMenuToMenuBar("Item");
 	scrMenuMgr->setMenuEnabled("Item", false);
 	scrMenuMgr->addMenuToMenuBar("Insert");
@@ -2762,7 +2760,6 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(LoadElem(QString, double ,double, bool, bool, ScribusDoc *, ScribusView*)), this, SLOT(slotElemRead(QString, double, double, bool, bool, ScribusDoc *, ScribusView*)));
 	connect(view, SIGNAL(AddBM(PageItem *)), this, SLOT(AddBookMark(PageItem *)));
 	connect(view, SIGNAL(DelBM(PageItem *)), this, SLOT(DelBookMark(PageItem *)));
-	connect(view, SIGNAL(RasterPic(bool)), this, SLOT(HaveRaster(bool)));
 	connect(view, SIGNAL(DoGroup()), this, SLOT(GroupObj()));
 //	connect(view, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()));
 	connect(view, SIGNAL(LevelChanged(uint )), propertiesPalette, SLOT(setLevel(uint)));
@@ -3102,7 +3099,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		break;
 	}
 	doc->CurrentSel = SelectedType;
-	rebuildStyleMenu(SelectedType);
 	propertiesPalette->RotationGroup->button(doc->RotMode)->setChecked(true);
 	if (docSelectionCount > 1)
 	{
@@ -3331,39 +3327,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			}
 		}
 	}
-}
-
-void ScribusMainWindow::rebuildStyleMenu(int itemType)
-{
-	scrMenuMgr->clearMenu("Style");
-	int iT=itemType;
-	if (!HaveDoc)
-		iT=-1;
-	if (iT != -1)
-	{
-		if (doc->m_Selection->count() == 0)
-			iT = -1;
-		else
-		{
-			PageItem *currItem = doc->m_Selection->itemAt(0);
-			if (!currItem)
-				iT=-1;
-		}
-	}
-	if (iT==PageItem::TextFrame || iT==PageItem::PathText)
-	{
-		scrMenuMgr->addMenuToMenu("Font","Style");
-		scrMenuMgr->addMenuToMenu("FontSize","Style");
-		scrMenuMgr->addMenuToMenu("TypeEffects","Style");
-		scrMenuMgr->addMenuToMenu("Alignment","Style");
-		scrMenuMgr->addMenuToMenu("Color","Style");
-		scrMenuMgr->addMenuToMenu("Shade","Style");
-		if (itemType==PageItem::TextFrame)
-			scrMenuMgr->addMenuItem(scrActions["styleTabulators"], "Style");
-		scrMenuMgr->setMenuEnabled("Style", true);
-	}
-	else
-		scrMenuMgr->setMenuEnabled("Style", false);
 }
 
 void ScribusMainWindow::slotDocCh(bool /*reb*/)
@@ -4521,7 +4484,6 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["insertFrame"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("Page", false);
 		scrMenuMgr->setMenuEnabled("Extras", false);
-		scrMenuMgr->setMenuEnabled("Style", false);
 		scrMenuMgr->setMenuEnabled("Item", false);
 
 		scrActions["toolsSelect"]->setEnabled(false);
@@ -6321,7 +6283,6 @@ void ScribusMainWindow::setAppMode(int mode)
 			if (currItem != 0)
 			{
 				currItem->update();
-				scrMenuMgr->setMenuEnabled("Style", true);
 				scrMenuMgr->setMenuEnabled("Item", true);
 			}
 			view->horizRuler->ItemPosValid = false;
@@ -6356,7 +6317,6 @@ void ScribusMainWindow::setAppMode(int mode)
 			}
 //			view->slotDoCurs(true);
 			scrMenuMgr->setMenuEnabled("Item", false);
-			scrMenuMgr->setMenuEnabled("Style", false);
 /*			doc->CurTimer = new QTimer(view);
 			if (doc->CurTimer!=NULL)
 			{
@@ -8942,20 +8902,6 @@ bool ScribusMainWindow::scanDocument()
 	return DocumentChecker().checkDocument(doc);
 }
 
-void ScribusMainWindow::HaveRaster(bool art)
-{
-	if (art && doc->m_Selection->count() != 0)
-	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		if (currItem->asImageFrame())
-		{
-			scrMenuMgr->clearMenu("Style");
-			scrMenuMgr->addMenuToMenu("Color","Style");
-			scrMenuMgr->addMenuItem(scrActions["styleImageEffects"], "Style");
-		}
-	}
-}
-
 void ScribusMainWindow::slotStoryEditor()
 {
 	if (doc->m_Selection->count() != 0)
@@ -9315,12 +9261,6 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->setText("FileExport", tr("&Export"));
 			scrMenuMgr->setText("Edit", tr("&Edit"));
 			scrMenuMgr->setText("EditContents", tr("Contents"));
-			scrMenuMgr->setText("Style", tr("St&yle"));
-			scrMenuMgr->setText("Color", tr("&Color"));
-			scrMenuMgr->setText("FontSize", tr("&Size"));
-			scrMenuMgr->setText("Shade", tr("&Shade"));
-			scrMenuMgr->setText("Font", tr("&Font"));
-			scrMenuMgr->setText("TypeEffects", tr("&Effects"));
 			scrMenuMgr->setText("Item", tr("&Item"));
 			scrMenuMgr->setText("ItemLevel", tr("&Level"));
 			scrMenuMgr->setText("ItemLayer", tr("Send to Layer"));
@@ -9342,8 +9282,6 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->setText("Help", tr("&Help"));
 			scrMenuMgr->setText("Alignment", tr("&Alignment"));
 			scrMenuMgr->setText("HelpOnlineTutorials", tr("Online &Tutorials"));
-
-			rebuildStyleMenu(HaveDoc ? doc->CurrentSel : -1);
 		}
 		if (undoManager!=NULL)
 			undoManager->languageChange();

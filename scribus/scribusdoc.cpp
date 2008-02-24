@@ -3843,9 +3843,6 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool show
 		ScCore->fileWatcher->addFile(pageItem->Pfile);
 	if (!isLoading())
 	{
-		//TODO: Make this a signal again one day
-		//emit RasterPic(pageItem->isRaster);
-		m_ScMW->HaveRaster(pageItem->isRaster);
 		//TODO: Previously commented out.. unsure why, remove later
 		//emit UpdtObj(PageNr, ItNr);
 		//CB: probably because we are therefore not always refreshing the view when an image changes...

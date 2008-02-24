@@ -426,7 +426,6 @@ signals:
 	void ToScrap(QString);
 	void LoadElem(QString, double, double, bool, bool, ScribusDoc *, ScribusView *);
 	void LevelChanged(uint);
-	void RasterPic(bool);
 	void HavePoint(bool, bool);
 	void ClipPo(double, double);
 	void AnnotProps();
