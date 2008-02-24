@@ -1309,8 +1309,8 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	m_unitIndex=doc->unitIndex();
 	int precision = unitGetPrecisionFromIndex(m_unitIndex);
 //qt4 FIXME here
-	double maxXYWHVal= 30000 * m_unitRatio;
-	double minXYVal= -30000 * m_unitRatio;
+	double maxXYWHVal= 16777215 * m_unitRatio;
+	double minXYVal= -16777215 * m_unitRatio;
 	HaveDoc = true;
 	HaveItem = false;
 
@@ -1323,8 +1323,8 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	Width->setConstants(docConstants);
 	Height->setValues( m_unitRatio, maxXYWHVal, precision, m_unitRatio);
 	Height->setConstants(docConstants);
-	imageXOffsetSpinBox->setValues( -30000, maxXYWHVal, precision, 0);
-	imageYOffsetSpinBox->setValues( -30000, maxXYWHVal, precision, 0);
+	imageXOffsetSpinBox->setValues( -16777215, maxXYWHVal, precision, 0);
+	imageYOffsetSpinBox->setValues( -16777215, maxXYWHVal, precision, 0);
 
 	Rot->setValues( 0, 359.99, 1, 0);
 	RoundRect->setValues( -300, 300, 2, 0);

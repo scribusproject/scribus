@@ -235,13 +235,13 @@ void NewDoc::createNewDocPage()
 
 	TextLabel1_2 = new QLabel( tr( "&Width:" ), pageSizeGroupBox );
 	pageSizeGroupBoxLayout->addWidget(TextLabel1_2, 2, 1 );
-	widthSpinBox = new ScrSpinBox( 1, 10000, pageSizeGroupBox, unitIndex );
+	widthSpinBox = new ScrSpinBox( 1, 16777215, pageSizeGroupBox, unitIndex );
 	widthSpinBox->setSuffix(unitSuffix);
 	TextLabel1_2->setBuddy(widthSpinBox);
 	pageSizeGroupBoxLayout->addWidget(widthSpinBox, 2, 2 );
 	TextLabel2_2 = new QLabel( tr( "&Height:" ), pageSizeGroupBox );
 	pageSizeGroupBoxLayout->addWidget(TextLabel2_2, 3, 1 );
-	heightSpinBox = new ScrSpinBox( 1, 10000, pageSizeGroupBox, unitIndex );
+	heightSpinBox = new ScrSpinBox( 1, 16777215, pageSizeGroupBox, unitIndex );
 	heightSpinBox->setSuffix(unitSuffix);
 	TextLabel2_2->setBuddy(heightSpinBox);
 	pageSizeGroupBoxLayout->addWidget(heightSpinBox, 3, 2 );

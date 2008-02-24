@@ -102,14 +102,14 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	Layout5_2->setSpacing( 5 );
 	Layout5_2->setMargin( 0 );
 
-	pageWidth = new ScrSpinBox( 1, 100000, GroupSize, prefsData->docUnitIndex );
+	pageWidth = new ScrSpinBox( 1, 16777215, GroupSize, prefsData->docUnitIndex );
 	pageWidth->setMinimumSize( QSize( 90, 20 ) );
 	GZText3 = new QLabel( tr( "&Width:" ), GroupSize );
 	GZText3->setBuddy(pageWidth);
 	Layout5_2->addWidget( GZText3 );
 	Layout5_2->addWidget( pageWidth );
 
-	pageHeight = new ScrSpinBox( 1, 100000, GroupSize, prefsData->docUnitIndex );
+	pageHeight = new ScrSpinBox( 1, 16777215, GroupSize, prefsData->docUnitIndex );
 	pageHeight->setMinimumSize( QSize( 90, 20 ) );
 	GZText4 = new QLabel( tr( "&Height:" ), GroupSize );
 	GZText4->setBuddy(pageHeight);

@@ -221,7 +221,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	Reduce->setAutoRepeat(true);
 	gridLayout1->addWidget(Reduce, 2, 1, 1, 1);
 
-	scaleDistance = new ScrSpinBox( 1, 30000, this, 2);
+	scaleDistance = new ScrSpinBox( 1, 16777215, this, 2);
 	scaleDistance->setValue(10);
 	scaleDistance->setSuffix("");
 	gridLayout1->addWidget(scaleDistance, 2, 2, 1, 1);
@@ -249,14 +249,14 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	TextLabel1 = new QLabel(this);
 	gridLayout2->addWidget(TextLabel1, 2, 0, 1, 1);
 
-	XSpin = new ScrSpinBox( 0, 30000, this, 2 );
+	XSpin = new ScrSpinBox( 0, 16777215, this, 2 );
 	XSpin->setEnabled(false);
 	gridLayout2->addWidget(XSpin, 2, 1, 1, 1);
 
 	TextLabel2 = new QLabel(this);
 	gridLayout2->addWidget(TextLabel2, 3, 0, 1, 1);
 
-	YSpin = new ScrSpinBox( 0, 30000, this, 2 );
+	YSpin = new ScrSpinBox( 0, 16777215, this, 2 );
 	YSpin->setEnabled(false);
 	gridLayout2->addWidget(YSpin, 3, 1, 1, 1);
 	TextLabel1->setBuddy(XSpin);
@@ -634,8 +634,8 @@ void NodePalette::ToggleAbsMode()
 		np = Clip.point(doc->nodeEdit.SelNode.at(0));
 	if (AbsMode->isChecked())
 	{
-		XSpin->setMinimum(-3000);
-		YSpin->setMinimum(-3000);
+		XSpin->setMinimum(-16777215);
+		YSpin->setMinimum(-16777215);
 		if (absToCanvas->isChecked())
 			zp = FPoint(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
 		else
@@ -666,8 +666,8 @@ void NodePalette::ToggleConMode()
 			PolySplit->setEnabled(false);
 			ResetCont->setEnabled(true);
 			ResetContClip->setEnabled(true);
-			XSpin->setMinimum(-3000);
-			YSpin->setMinimum(-3000);
+			XSpin->setMinimum(-16777215);
+			YSpin->setMinimum(-16777215);
 		}
 		else
 		{
@@ -677,8 +677,8 @@ void NodePalette::ToggleConMode()
 			ResetContClip->setEnabled(false);
 			if (AbsMode->isChecked())
 			{
-				XSpin->setMinimum(-3000);
-				YSpin->setMinimum(-3000);
+				XSpin->setMinimum(-16777215);
+				YSpin->setMinimum(-16777215);
 			}
 			else
 			{
@@ -924,8 +924,8 @@ void NodePalette::unitChange()
 		return;
 	double oldRatio = unitRatio;
 	unitRatio = doc->unitRatio();
-	double maxVal=30000 * unitRatio;
-	double minVal=-30000 * unitRatio;
+	double maxVal=16777215 * unitRatio;
+	double minVal=-16777215 * unitRatio;
 	double newScaleDistance = scaleDistance->value() * unitRatio / oldRatio;
 	scaleDistance->setSuffix( unitGetSuffixFromIndex(doc->unitIndex()) );
 	int decimals = unitGetPrecisionFromIndex(doc->unitIndex());

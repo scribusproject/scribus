@@ -67,13 +67,13 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	oldOri = doc->currentPage()->PageOri;
 	TextLabel2->setBuddy(orientationQComboBox);
 	dsGroupBox7Layout->addWidget( orientationQComboBox, 1, 2, 1, 2 );
-	widthSpinBox = new ScrSpinBox( 1, 100000, dsGroupBox7, doc->unitIndex() );
+	widthSpinBox = new ScrSpinBox( 1, 16777215, dsGroupBox7, doc->unitIndex() );
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7 );
 	widthSpinBox->setValue(doc->currentPage()->width() * doc->unitRatio());
 	widthQLabel->setBuddy(widthSpinBox);
 	dsGroupBox7Layout->addWidget( widthQLabel, 2, 0 );
 	dsGroupBox7Layout->addWidget( widthSpinBox, 2, 1 );
-	heightSpinBox = new ScrSpinBox( 1, 100000, dsGroupBox7, doc->unitIndex() );
+	heightSpinBox = new ScrSpinBox( 1, 16777215, dsGroupBox7, doc->unitIndex() );
 	heightSpinBox->setValue(doc->currentPage()->height() * doc->unitRatio());
 	heightQLabel = new QLabel( tr( "&Height:" ), dsGroupBox7 );
 	heightQLabel->setBuddy(heightSpinBox);
