@@ -1526,7 +1526,8 @@ May raise ValueError if the line width is out of bounds.
 Sætter linie-bredden på objektet &quot;navn&quot; til &quot;bredde&quot;. &quot;bredde&quot; skal være i 
 området fra 0.0 til 12.0 inklusivt, og er angivet i punkter. Hvis &quot;navn&quot; ikke 
 angives, så bruges det markerede element.
-</translation>
+
+Kan rejse ValueError hvis linie-bredden er uden for tilladte område.</translation>
     </message>
     <message>
         <source>setLineShade(shade, [&quot;name&quot;])
@@ -2616,7 +2617,10 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
 Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillTransparency([&quot;navn&quot;]) -&gt; komma-tal
+
+Returnerer fyld gennemsigtigheden for objektet &quot;navn&quot;.  Hvis &quot;navn&quot; 
+ikke angives, så bruges det markerede element.</translation>
     </message>
     <message>
         <source>getLineTransparency([&quot;name&quot;]) -&gt; float
@@ -2624,7 +2628,10 @@ is not given the currently selected Item is used.
 Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineTransparency([&quot;navn&quot;]) -&gt; komma-tal
+
+Returnerer linie gennemsigtigheden for objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+ikke angives, så bruges det markerede element.</translation>
     </message>
     <message>
         <source>setFillTransparency(transparency, [&quot;name&quot;])
@@ -2632,7 +2639,10 @@ is not given the currently selected Item is used.
 Sets the fill transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFillTransparency(gennemsigtighed, [&quot;navn&quot;])
+
+Sætter fyld-gennemsigtigheden for objektet &quot;navn&quot; til gennemsigtighed
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.</translation>
     </message>
     <message>
         <source>setLineTransparency(transparency, [&quot;name&quot;])
@@ -2640,7 +2650,10 @@ If &quot;name&quot; is not given the currently selected item is used.
 Sets the line transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineTransparency(gennemsigtighed, [&quot;navn&quot;])
+
+Sætter linie-gennemsigtigheden for objektet &quot;navn&quot; til gennemsigtighed
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.</translation>
     </message>
 </context>
 <context>
@@ -3391,10 +3404,6 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation>Indsæt frihånds-linie</translation>
     </message>
     <message>
-        <source>&amp;Manage Pictures</source>
-        <translation type="obsolete">Håndtér &amp;billeder</translation>
-    </message>
-    <message>
         <source>&amp;Hyphenate Text</source>
         <translation>&amp;Orddel tekst</translation>
     </message>
@@ -3727,7 +3736,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>&amp;Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Håndtér &amp;billeder</translation>
     </message>
 </context>
 <context>
@@ -5110,14 +5119,6 @@ Dette kræver meget nøjagtige profiler og er kun ment som en advarsel.</transla
         <translation>Bru&amp;g sortpunkt kompensation</translation>
     </message>
     <message>
-        <source>&amp;RGB Pictures:</source>
-        <translation type="obsolete">&amp;RGB billeder:</translation>
-    </message>
-    <message>
-        <source>&amp;CMYK Pictures:</source>
-        <translation type="obsolete">&amp;CMYK billeder:</translation>
-    </message>
-    <message>
         <source>Default color profile for imported CMYK images</source>
         <translation>Standard Farveprofil for importerede CMYK billeder</translation>
     </message>
@@ -5127,11 +5128,11 @@ Dette kræver meget nøjagtige profiler og er kun ment som en advarsel.</transla
     </message>
     <message>
         <source>&amp;RGB Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;RGB billeder:</translation>
     </message>
     <message>
         <source>&amp;CMYK Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;CMYK billeder:</translation>
     </message>
 </context>
 <context>
@@ -5245,7 +5246,8 @@ Navnet er reserveret for gennemsigtig farve</translation>
     <message>
         <source>You cannot create a color without a name
 Please give it a name</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kan ikke lave en farve uden et navn
+Giv den venligst et navn</translation>
     </message>
 </context>
 <context>
@@ -6081,7 +6083,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation>Ugennemsigtighed:</translation>
+        <translation>Uigennemsigtighed:</translation>
     </message>
     <message>
         <source>Vertical Gradient</source>
@@ -7518,7 +7520,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation>Ugennemsigtighed:</translation>
+        <translation>Uigennemsigtighed:</translation>
     </message>
     <message>
         <source> %</source>
@@ -7687,10 +7689,6 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
         <translation>Sti til fontfil</translation>
     </message>
     <message>
-        <source>PostScript</source>
-        <translation type="obsolete">PostScript</translation>
-    </message>
-    <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
         <translation>Font søgestier kan kun sættes, når der ikke er åbnet nogen dokumenter. Luk alle dokumenter, og brug så Fil -&gt;Præferencer &gt; fonte for at ændre font søgestien.</translation>
     </message>
@@ -7741,10 +7739,6 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
 </context>
 <context>
     <name>FontPreviewBase</name>
-    <message>
-        <source>Fonts Preview</source>
-        <translation type="obsolete">Font visning</translation>
-    </message>
     <message>
         <source>&amp;Quick Search:</source>
         <translation>&amp;Hurtig søgning:</translation>
@@ -8270,10 +8264,6 @@ Værdien 0 betyder ubegrænset antal.</translation>
 converting their vector data into Scribus objects.</source>
         <translation>Importerer de fleste EPS filer ind i det aktive dokument,
 og konverterer deres vektordata til Scribus objekter.</translation>
-    </message>
-    <message>
-        <source>PostScript</source>
-        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -9323,10 +9313,6 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <source>Lock or unlock the size of the object</source>
         <translation>Lås eller frigør objektets størrelse</translation>
-    </message>
-    <message>
-        <source>Enable or disable printing of the object</source>
-        <translation type="obsolete">Muliggør eller forhindre udskrivning af objektet</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -10788,10 +10774,6 @@ hjørner:</translation>
         <translation>Annullér søgning</translation>
     </message>
     <message>
-        <source>Manage Pictures</source>
-        <translation type="obsolete">Håndtér billeder</translation>
-    </message>
-    <message>
         <source>Scribus - Image Search</source>
         <translation>Scribus - Billed-søgning</translation>
     </message>
@@ -10813,7 +10795,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Håndtér billeder</translation>
     </message>
 </context>
 <context>
@@ -11278,10 +11260,6 @@ hjørner:</translation>
         <translation>Alt+U</translation>
     </message>
     <message>
-        <source>Show Pictures</source>
-        <translation type="obsolete">Vis billeder</translation>
-    </message>
-    <message>
         <source>Show Text Chains</source>
         <translation>Vis tekstkæder</translation>
     </message>
@@ -11324,10 +11302,6 @@ hjørner:</translation>
     <message>
         <source>Turns the display of frames on or off</source>
         <translation>Slår visning af rammer til eller fra</translation>
-    </message>
-    <message>
-        <source>Turns the display of pictures on or off</source>
-        <translation type="obsolete">Slår visning af billeder til eller fra</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
@@ -11456,11 +11430,11 @@ denne, da det tillader dig at redigere billedet i en allerede kørende gimp.</tr
     </message>
     <message>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis billeder</translation>
     </message>
     <message>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Slår visning af billeder til eller fra</translation>
     </message>
 </context>
 <context>
@@ -11483,18 +11457,6 @@ denne, da det tillader dig at redigere billedet i en allerede kørende gimp.</tr
     <message>
         <source>Postscript</source>
         <translation>Postscript</translation>
-    </message>
-    <message>
-        <source>PDF 1.3</source>
-        <translation type="obsolete">PDF 1.3</translation>
-    </message>
-    <message>
-        <source>PDF 1.4</source>
-        <translation type="obsolete">PDF 1.4</translation>
-    </message>
-    <message>
-        <source>PDF/X-3</source>
-        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
@@ -13580,12 +13542,12 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     <message>
         <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Fyld uigennemsigtighed er uden for tilladte område, skal være  0.0 &lt;= uigennemsigtighed &lt;= 1.0</translation>
     </message>
     <message>
         <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Gennemsigtighed er uden for tilladte område, skal være  0 &lt;= gennemsigtighed &lt;= 1.</translation>
     </message>
 </context>
 <context>
@@ -13808,10 +13770,6 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <translation>Alt+I</translation>
     </message>
     <message>
-        <source>Show Pictures</source>
-        <translation type="obsolete">Vis billeder</translation>
-    </message>
-    <message>
         <source>Show Text Chains</source>
         <translation>Vis tekstkæder</translation>
     </message>
@@ -13868,10 +13826,6 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <translation>Slår visning af rammer til eller fra</translation>
     </message>
     <message>
-        <source>Turns the display of pictures on or off</source>
-        <translation type="obsolete">Slår visning af billeder til eller fra</translation>
-    </message>
-    <message>
         <source>Color for paper</source>
         <translation>Farve på papir</translation>
     </message>
@@ -13925,11 +13879,11 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis billeder</translation>
     </message>
     <message>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Slår visning af billeder til eller fra</translation>
     </message>
 </context>
 <context>
@@ -14588,10 +14542,6 @@ og konverterer deres vektordata til Scribus objekter.</translation>
         <translation>Indlæser...</translation>
     </message>
     <message>
-        <source>PostScript</source>
-        <translation type="obsolete">PostScript</translation>
-    </message>
-    <message>
         <source>Some ICC profiles used by this document are not installed:</source>
         <translation>Nogle ICC profiler brugt i dette dokument er ikke installeret:</translation>
     </message>
@@ -14978,10 +14928,6 @@ Vertikal forskydning: %3</translation>
         <translation>&amp;Indsæt</translation>
     </message>
     <message>
-        <source>Picture</source>
-        <translation type="obsolete">Billede</translation>
-    </message>
-    <message>
         <source>File: </source>
         <translation>Fil: </translation>
     </message>
@@ -15016,10 +14962,6 @@ Vertikal forskydning: %3</translation>
     <message>
         <source>Chars: </source>
         <translation>Tegn: </translation>
-    </message>
-    <message>
-        <source>Print: </source>
-        <translation type="obsolete">Udskriv: </translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -15107,7 +15049,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation type="unfinished">Billede</translation>
+        <translation>Billede</translation>
     </message>
 </context>
 <context>
@@ -16386,10 +16328,6 @@ Vertikal forskydning: %3</translation>
         <translation>top-venstre til bund-højre</translation>
     </message>
     <message>
-        <source>&amp;Apply Effect on all Pages</source>
-        <translation type="obsolete">Anvend effekt p&amp;å alle sider</translation>
-    </message>
-    <message>
         <source>E&amp;xtras</source>
         <translation>E&amp;kstra</translation>
     </message>
@@ -16890,7 +16828,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>&amp;Apply Effect to all Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Anvend effekt på alle sider</translation>
     </message>
 </context>
 <context>
@@ -16996,10 +16934,6 @@ når PDF dokument åbnes:</translation>
         <translation>&amp;Vertikal skalering:</translation>
     </message>
     <message>
-        <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="obsolete">&amp;Skalér billede til rammestørrelse</translation>
-    </message>
-    <message>
         <source>Keep Aspect &amp;Ratio</source>
         <translation>&amp;Behold bredde/højde forhold</translation>
     </message>
@@ -17044,10 +16978,6 @@ når PDF dokument åbnes:</translation>
         <translation>Tekstramme - egenskaber</translation>
     </message>
     <message>
-        <source>Picture Frame Properties</source>
-        <translation type="obsolete">Billedramme - egenskaber</translation>
-    </message>
-    <message>
         <source>Shape Drawing Properties</source>
         <translation>Tegn forskellige figurer - egenskaber</translation>
     </message>
@@ -17088,10 +17018,6 @@ når PDF dokument åbnes:</translation>
         <translation>Font-prøve</translation>
     </message>
     <message>
-        <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="obsolete">Billedramme tillader billeder at blive skaleret til en hvilken som helst størrelse</translation>
-    </message>
-    <message>
         <source>Horizontal scaling of images</source>
         <translation>Horisontal skalering af billeder</translation>
     </message>
@@ -17102,18 +17028,6 @@ når PDF dokument åbnes:</translation>
     <message>
         <source>Keep horizontal and vertical scaling the same</source>
         <translation>Behold den samme skalering både horisontalt og vertikalt</translation>
-    </message>
-    <message>
-        <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="obsolete">Billeder i billedrammer er skaleret til rammens størrelse</translation>
-    </message>
-    <message>
-        <source>Automatically scaled pictures keep their original proportions</source>
-        <translation type="obsolete">Automatisk skalerede billeder beholder deres originale proportioner</translation>
-    </message>
-    <message>
-        <source>Fill color of picture frames</source>
-        <translation type="obsolete">Billedrammers fyldfarve</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -17210,27 +17124,27 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>&amp;Scale Image to Frame Size</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skalér billede til rammestørrelse</translation>
     </message>
     <message>
         <source>Image Frame Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Billedramme - egenskaber</translation>
     </message>
     <message>
         <source>Image frames allow images to scale to any size</source>
-        <translation type="unfinished"></translation>
+        <translation>Billedrammer tillader billeder at skalere til en hvilken som helst størrelse</translation>
     </message>
     <message>
         <source>Images in image frames are scaled to the size of the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Billeder i billedrammer er skaleret til rammens størrelse</translation>
     </message>
     <message>
         <source>Automatically scaled images keep their original proportions</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisk skalerede billeder beholder deres originale proportioner</translation>
     </message>
     <message>
         <source>Fill color of image frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Billedrammers fyldfarve</translation>
     </message>
 </context>
 <context>
@@ -17347,10 +17261,6 @@ når PDF dokument åbnes:</translation>
         <translation>Højre</translation>
     </message>
     <message>
-        <source>Full Stop</source>
-        <translation type="obsolete">Punktum</translation>
-    </message>
-    <message>
         <source>Comma</source>
         <translation>Komma</translation>
     </message>
@@ -17377,10 +17287,6 @@ når PDF dokument åbnes:</translation>
     <message>
         <source>&amp;Position:</source>
         <translation>&amp;Position:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Ingen</translation>
     </message>
     <message>
         <source>Fill Char:</source>
