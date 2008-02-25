@@ -24,14 +24,20 @@ for which a new license (GPL+exception) is in place.
 Selection::Selection(QObject* parent)
 	: QObject(parent),
 	m_hasGroupSelection(false),
-	m_isGUISelection(false)
+	m_isGUISelection(false),
+	m_delaySignals(0),
+	m_sigSelectionChanged(false),
+	m_sigSelectionIsMultiple(false)
 {
 }
 
 Selection::Selection(QObject* parent, bool guiSelection) 
 	: QObject(parent),
 	m_hasGroupSelection(false),
-	m_isGUISelection(guiSelection)
+	m_isGUISelection(guiSelection),
+	m_delaySignals(0),
+	m_sigSelectionChanged(false),
+	m_sigSelectionIsMultiple(false)
 {
 }
 
@@ -39,7 +45,12 @@ Selection::Selection(const Selection& other) :
 	QObject(other.parent()),
 	m_SelList(other.m_SelList),
 	m_hasGroupSelection(other.m_hasGroupSelection),
-	m_isGUISelection(other.m_isGUISelection)
+	m_isGUISelection(other.m_isGUISelection),
+	// We do not copy m_delaySignals as that can potentially
+	// cause much trouble balancing delaySignalOff/On right
+	m_delaySignals(0), 
+	m_sigSelectionChanged(other.m_sigSelectionChanged),
+	m_sigSelectionIsMultiple(other.m_sigSelectionIsMultiple)
 {
 	if (m_isGUISelection && !m_SelList.isEmpty())
 	{
@@ -62,7 +73,11 @@ Selection& Selection::operator=( const Selection &other )
 	}
 	m_SelList=other.m_SelList;
 	m_hasGroupSelection=other.m_hasGroupSelection;
-	m_isGUISelection=other.m_isGUISelection;
+	m_isGUISelection = other.m_isGUISelection;
+	// We do not copy m_delaySignals as that can potentially
+	// cause much trouble balancing delaySignalOff/On right
+	m_sigSelectionChanged = other.m_sigSelectionChanged;
+	m_sigSelectionIsMultiple = other.m_sigSelectionIsMultiple;
 	if (m_isGUISelection && !m_SelList.isEmpty())
 	{
 		m_SelList[0]->connectToGUI();
