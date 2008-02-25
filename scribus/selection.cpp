@@ -45,7 +45,10 @@ Selection::Selection(const Selection& other) :
 	QObject(other.parent()),
 	m_SelList(other.m_SelList),
 	m_hasGroupSelection(other.m_hasGroupSelection),
-	m_isGUISelection(other.m_isGUISelection),
+	// We do not copy m_isGUISelection as :
+	// 1) copy ctor is used for temporary selections
+	// 2) having two GUI selections for same doc should really be avoided
+	m_isGUISelection(false),
 	// We do not copy m_delaySignals as that can potentially
 	// cause much trouble balancing delaySignalOff/On right
 	m_delaySignals(0), 
@@ -73,7 +76,8 @@ Selection& Selection::operator=( const Selection &other )
 	}
 	m_SelList=other.m_SelList;
 	m_hasGroupSelection=other.m_hasGroupSelection;
-	m_isGUISelection = other.m_isGUISelection;
+	// Do not copy m_isGUISelection for consistency with cpy ctor
+	/* m_isGUISelection = other.m_isGUISelection; */
 	// We do not copy m_delaySignals as that can potentially
 	// cause much trouble balancing delaySignalOff/On right
 	m_sigSelectionChanged = other.m_sigSelectionChanged;
