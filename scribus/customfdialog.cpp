@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtextcodec.h>
 #include "sccombobox.h"
 #include "scribusstructs.h"
+#include "scslainforeader.h"
 #include "scimage.h"
 #include "util.h"
 
@@ -190,31 +191,29 @@ void FDialogPreview::GenPreview(QString name)
 	}
 	else
 	{
-		if (loadText(name, &Buffer))
+		ScSlaInfoReader infoReader;
+		if (infoReader.readInfos(name))
 		{
-			if (Buffer.startsWith("<SCRIBUS"))
-			{
-				QDomDocument docu("scridoc");
-				if(!docu.setContent(Buffer))
-					return;
-				QDomElement elem=docu.documentElement();
-				if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8") && (elem.tagName() != "SCRIBUSUTF8NEW"))
-					return;
-				QDomNode DOC=elem.firstChild();
-				QDomElement dc=DOC.toElement();
-				QString Tit = tr("Title:")+" ";
-				QString ti2 = dc.attribute("TITLE");
-				if (ti2.isEmpty())
-					ti2= tr("No Title");
-				Tit += ti2+"\n";
-				QString Aut = tr("Author:")+" ";
-				QString au2 = dc.attribute("AUTHOR");
-				if (au2.isEmpty())
-					au2 = tr("Unknown");
-				Aut += au2;
-				setText( tr("Scribus Document")+"\n\n"+Tit+Aut);
-			}
-			else  if ((ext == "txt") || (ext == "html") || (ext == "xml"))
+			QString Tit = tr("Title:")+" ";
+			QString ti2 = infoReader.title();
+			if (ti2.isEmpty())
+				ti2= tr("No Title");
+			Tit += ti2+"\n";
+			QString Aut = tr("Author:")+" ";
+			QString au2 = infoReader.author();
+			if (au2.isEmpty())
+				au2 = tr("Unknown");
+			Aut += au2+"\n";
+			QString Fmt = tr("Version:")+" ";
+			QString fm2 = infoReader.format();
+			if (fm2.isEmpty())
+				fm2 = tr("Unknown");
+			Fmt += fm2;
+			setText( tr("Scribus Document")+"\n\n"+Tit+Aut+Fmt);
+		}
+		else  if ((ext == "txt") || (ext == "html") || (ext == "xml"))
+		{
+			if (loadText(name, &Buffer))
 				setText(Buffer.left(200));
 		}
 	}

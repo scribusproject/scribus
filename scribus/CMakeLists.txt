@@ -337,6 +337,8 @@ scfonts.cpp
 scfonts_ttf.cpp
 scfontmetrics.cpp
 scimage.cpp
+scmenu.cpp
+scmessagebox.cpp
 scpainter.cpp
 scpaths.cpp
 scplugin.cpp
@@ -350,8 +352,7 @@ scribusview.cpp
 scribusXml.cpp
 scribuswin.cpp
 scrpalettebase.cpp
-scmenu.cpp
-scmessagebox.cpp
+scslainforeader.cpp
 sctoolbar.cpp
 search.cpp
 seiten.cpp

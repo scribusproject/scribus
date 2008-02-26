@@ -191,6 +191,7 @@ scribus_SOURCES = \
 	scribuswin.cpp	\
 	scribusXml.cpp	\
 	scrpalettebase.cpp	\
+	scslainforeader.cpp	\
 	sctoolbar.cpp \
 	search.cpp	\
 	seiten.cpp	\
@@ -391,6 +392,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scmessagebox.h                $(prefix)/include/scribus/scmessagebox.h
 	$(INSTALL_DATA) $(srcdir)/scpainter.h                   $(prefix)/include/scribus/scpainter.h
 	$(INSTALL_DATA) $(srcdir)/scpaths.h                     $(prefix)/include/scribus/scpaths.h
+	$(INSTALL_DATA) $(srcdir)/scpixmapcache.h               $(prefix)/include/scribus/scpixmapcache.h
 	$(INSTALL_DATA) $(srcdir)/scplugin.h                    $(prefix)/include/scribus/scplugin.h
 	$(INSTALL_DATA) $(srcdir)/scpreview.h                   $(prefix)/include/scribus/scpreview.h
 	$(INSTALL_DATA) $(srcdir)/scraction.h                   $(prefix)/include/scribus/scraction.h
@@ -403,7 +405,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scribuswin.h                  $(prefix)/include/scribus/scribuswin.h
 	$(INSTALL_DATA) $(srcdir)/scribusXml.h                  $(prefix)/include/scribus/scribusXml.h
 	$(INSTALL_DATA) $(srcdir)/scrpalettebase.h              $(prefix)/include/scribus/scrpalettebase.h
-	$(INSTALL_DATA) $(srcdir)/scpixmapcache.h              $(prefix)/include/scribus/scpixmapcache.h
+	$(INSTALL_DATA) $(srcdir)/scslainforeader.h             $(prefix)/include/scribus/scslainforeader.h
 	$(INSTALL_DATA) $(srcdir)/search.h                      $(prefix)/include/scribus/search.h
 	$(INSTALL_DATA) $(srcdir)/seiten.h                      $(prefix)/include/scribus/seiten.h
 	$(INSTALL_DATA) $(srcdir)/selection.h                   $(prefix)/include/scribus/selection.h
@@ -581,6 +583,8 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/scmessagebox.h
 	-rm -f $(prefix)/include/scribus/scpainter.h
 	-rm -f $(prefix)/include/scribus/scpaths.h
+	-rm -f $(prefix)/include/scribus/scpixmapcache.h
+	-rm -f $(prefix)/include/scribus/scplugin.h
 	-rm -f $(prefix)/include/scribus/scpreview.h
 	-rm -f $(prefix)/include/scribus/scraction.h
 	-rm -f $(prefix)/include/scribus/scrap.h
@@ -592,8 +596,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/scribuswin.h
 	-rm -f $(prefix)/include/scribus/scribusXml.h
 	-rm -f $(prefix)/include/scribus/scrpalettebase.h
-	-rm -f $(prefix)/include/scribus/scpixmapcache.h
-	-rm -f $(prefix)/include/scribus/scplugin.h
+	-rm -f $(prefix)/include/scribus/scslainforeader.h
 	-rm -f $(prefix)/include/scribus/search.h
 	-rm -f $(prefix)/include/scribus/seiten.h
 	-rm -f $(prefix)/include/scribus/selection.h
