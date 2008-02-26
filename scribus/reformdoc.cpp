@@ -265,6 +265,25 @@ void ReformDoc::updateDocumentSettings()
 			pp->initialMargins.Top = tpr2;
 			pp->initialMargins.Bottom = br2;
 		}
+		else
+		if (tabPage->marginGroup->getMarginsForAllMasterPages())
+		{
+			//CB #6796: find the master page (*mp) for the current page (*pp)
+			//check if *pp's margins are the same as the *mp's current margins
+			//apply new margins if same
+			const int masterPageNumber = currDoc->MasterNames[pp->MPageNam];
+			const Page* mp = currDoc->MasterPages.at(masterPageNumber);
+			if (pp->initialMargins.Left == mp->initialMargins.Left &&
+				pp->initialMargins.Right == mp->initialMargins.Right &&
+				pp->initialMargins.Top == mp->initialMargins.Top &&
+				pp->initialMargins.Bottom == mp->initialMargins.Bottom)
+			{
+				pp->initialMargins.Left = lr2;
+				pp->initialMargins.Right = rr2;
+				pp->initialMargins.Top = tpr2;
+				pp->initialMargins.Bottom = br2;
+			}
+		}
 	}
 	for (int p = 0; p < currDoc->MasterPages.count(); ++p)
 	{
