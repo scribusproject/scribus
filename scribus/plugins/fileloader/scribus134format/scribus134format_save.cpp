@@ -238,8 +238,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	QByteArray cs = docu.toByteArray(); // UTF-8 QCString
 	if(fileName.right(2) == "gz")
 	{
-		ScGzFile gzf(tmpFileName, cs);
-		writeSucceed = gzf.write(xmlpi);
+		writeSucceed = ScGzFile::writeToFile(tmpFileName, cs, xmlpi);
 	}
 	else
 	{
