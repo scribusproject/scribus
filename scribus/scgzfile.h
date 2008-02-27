@@ -13,24 +13,34 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
-class SCRIBUS_API ScGzFile 
+struct ScGzFileWriteDataPrivate;
+
+class SCRIBUS_API ScGzFile : public QFile
 {
 protected:
-	QString fname;
-	QByteArray barray;
+
+	ScGzFileWriteDataPrivate* m_writeData;
+	ScGzFileWriteDataPrivate* newWriteData(void);
+	bool initWriteData(void);
+	void freeWriteData(void);
+
+	void    putLong(unsigned long l);
+	
+	virtual qint64 writeData (const char * data, qint64 maxSize);
+	virtual bool   writeDeflate(bool flush);
+
 public:
 	ScGzFile(const QString& filename);
-	ScGzFile(const QString& filename, const QByteArray& array);
+	~ScGzFile(void);
 
 	static const int gzipExpansionFactor;
+	
+	virtual bool open(QIODevice::OpenMode mode);
+	virtual void close();
 
-	const QString& fileName() { return fname; }
-	const QByteArray& data() { return barray; }
-	void  setData(const QByteArray& array) { barray = array; }
-
-	bool read(uint maxBytes = 0);
-	bool write(void);
-	bool write(const char* header);
+	static bool readFromFile(const QString& filename, QByteArray& bArray, uint maxBytes = 0);
+	static bool writeToFile (const QString& filename, QByteArray& bArray);
+	static bool writeToFile (const QString& filename, QByteArray& bArray, const char* header);
 };
 
 #endif

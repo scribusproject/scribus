@@ -93,13 +93,11 @@ bool Scribus13Format::fileSupported(QIODevice* /* file */, const QString & fileN
 	QByteArray docBytes("");
 	if(fileName.right(2) == "gz")
 	{
-		ScGzFile gzf(fileName);
-		if (!gzf.read(4096))
+		if (!ScGzFile::readFromFile(fileName, docBytes, 4096))
 		{
 			// FIXME: Needs better error return
 			return false;
 		}
-		docBytes = gzf.data();
 	}
 	else
 	{
@@ -116,13 +114,11 @@ QString Scribus13Format::readSLA(const QString & fileName)
 	QByteArray docBytes("");
 	if(fileName.right(2) == "gz")
 	{
-		ScGzFile gzf(fileName);
-		if (!gzf.read())
+		if (!ScGzFile::readFromFile(fileName, docBytes))
 		{
 			// FIXME: Needs better error return
 			return false;
 		}
-		docBytes = gzf.data();
 	}
 	else
 	{
@@ -1651,8 +1647,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	{
 		// zipped saving
 		// XXX: latin1() should probably be local8Bit()
-		ScGzFile gzf(fileName, cs);
-		if (!gzf.write())
+		if (!ScGzFile::writeToFile(fileName, cs))
 			return false;
 	}
 	else

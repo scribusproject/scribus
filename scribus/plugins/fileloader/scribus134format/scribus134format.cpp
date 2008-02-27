@@ -97,13 +97,11 @@ bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & file
 	QByteArray docBytes("");
 	if(fileName.right(2) == "gz")
 	{
-		ScGzFile gzf(fileName);
-		if (!gzf.read(4096))
+		if (!ScGzFile::readFromFile(fileName, docBytes, 4096))
 		{
 			// FIXME: Needs better error return
 			return false;
 		}
-		docBytes = gzf.data();
 	}
 	else
 	{
@@ -121,13 +119,11 @@ QString Scribus134Format::readSLA(const QString & fileName)
 	QByteArray docBytes("");
 	if(fileName.right(2) == "gz")
 	{
-		ScGzFile gzf(fileName);
-		if (!gzf.read())
+		if (!ScGzFile::readFromFile(fileName, docBytes))
 		{
 			// FIXME: Needs better error return
 			return false;
 		}
-		docBytes = gzf.data();
 	}
 	else
 	{
@@ -3471,5 +3467,6 @@ bool Scribus134Format::readPageCount(const QString& fileName, int *num1, int *nu
 	*num2 = counter2;
 	return true;
 }
+
 
 
