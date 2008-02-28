@@ -314,7 +314,7 @@ public:
 	/// returns the style at the current charpos
 	const CharStyle& currentCharStyle() const;
 	// deprecated:
-	double layoutGlyphs(const CharStyle& style, const QString chars, GlyphLayout& layout);
+	double layoutGlyphs(const CharStyle& style, const QString& chars, GlyphLayout& layout);
 	void SetQColor(QColor *tmp, QString farbe, double shad);
 	void drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& glyphs );
 	void DrawPolyL(QPainter *p, QPolygon pts);

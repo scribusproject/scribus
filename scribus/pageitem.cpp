@@ -1595,7 +1595,7 @@ void PageItem::SetQColor(QColor *tmp, QString farbe, double shad)
     sets xadvance to the advance width without kerning. If more than one glyph
     is generated, kerning is included in all but the last xadvance.
 */
-double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, GlyphLayout& layout)
+double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, GlyphLayout& layout)
 {
 	double retval = 0.0;
 	double asce = style.font().ascent(style.fontSize() / 10.0);
