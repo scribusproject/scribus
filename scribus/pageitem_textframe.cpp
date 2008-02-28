@@ -2129,9 +2129,14 @@ void PageItem_TextFrame::layout()
 	MaxChars = itemText.length();
 	invalid = false;
 //	pf2.end();
-	if (NextBox != NULL) {
-		NextBox->invalid = true;
-		dynamic_cast<PageItem_TextFrame*>(NextBox)->firstChar = MaxChars;
+	if (NextBox != NULL) 
+	{
+		PageItem_TextFrame* nextFrame = dynamic_cast<PageItem_TextFrame*>(NextBox);
+		if (nextFrame != NULL)
+		{
+			nextFrame->invalid = true;
+			nextFrame->firstChar = MaxChars;
+		}
 	}
 //	qDebug("textframe: len=%d, done relayout", itemText.length());
 	return;
@@ -2140,7 +2145,7 @@ NoRoom:
 //	pf2.end();
 	invalid = false;
 	PageItem_TextFrame * next = dynamic_cast<PageItem_TextFrame*>(NextBox);
-	if (next != 0)
+	if (next != NULL)
 	{
 		next->invalid = true;
 		next->firstChar = MaxChars;
