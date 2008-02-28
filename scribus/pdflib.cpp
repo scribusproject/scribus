@@ -4577,11 +4577,14 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	double y = ActPageP->height() - (ite->yPos()  - ActPageP->yOffset());
 	double x2 = x+ite->width();
 	double y2 = y-ite->height();
-	QString bm("");
+	QString bm(""), bmUtf16("");
 	QString cc;
+	// #6823 EncStringUTF16() perform the string encoding by its own
+	// via EncodeUTF16() so bmUtf16 must not encoded before
 	for (uint d = 0; d < ite->itemText.count(); ++d)
 	{
 		cc = ite->itemText.at(d)->ch;
+		bmUtf16 += cc;
 		if ((cc == "(") || (cc == ")") || (cc == "\\"))
 			bm += "\\";
 		if (cc == QChar(13))
@@ -4601,7 +4604,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		case 0:
 		case 10:
 			PutDoc("/Subtype /Text\n");
-			PutDoc("/Contents "+EncStringUTF16("("+bm+")",ObjCounter-1)+"\n");
+			PutDoc("/Contents "+EncStringUTF16("("+bmUtf16+")",ObjCounter-1)+"\n");
 			break;
 		case 1:
 		case 11:
@@ -4677,8 +4680,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					break;
 				case 3:
 					PutDoc("/FT /Tx\n");
-					PutDoc("/V "+EncStringUTF16("("+bm+")",ObjCounter-1)+"\n");
-					PutDoc("/DV "+EncStringUTF16("("+bm+")",ObjCounter-1)+"\n");
+					PutDoc("/V "+EncStringUTF16("("+bmUtf16+")",ObjCounter-1)+"\n");
+					PutDoc("/DV "+EncStringUTF16("("+bmUtf16+")",ObjCounter-1)+"\n");
 					PutDoc("/Q "+QString::number(QMIN(ite->textAlignment,2))+"\n");
 					PutDoc("/AP << /N "+QString::number(ObjCounter)+" 0 R >>\n");
 					if (ite->annotation().MaxChar() != -1)
@@ -4940,7 +4943,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			cc += "ET\nEMC";
 		}
 		else
-			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncStringUTF16("("+bm+")",ObjCounter-1)+" Tj\nET\nEMC";
+			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncStringUTF16("("+bmUtf16+")",ObjCounter-1)+" Tj\nET\nEMC";
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
 	if (ite->annotation().Type() == 4)
