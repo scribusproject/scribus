@@ -4474,8 +4474,11 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			}
 		}
 	}
-	//If converting text to path, delete the bezier
-	if (newType==PageItem::PathText)
+	// If converting a text frame to another object, drop links
+	if (oldItem->asTextFrame() && (newType != PageItem::TextFrame))
+		oldItem->dropLinks();
+	// If converting text to path, delete the bezier
+	if (newType == PageItem::PathText)
 	{
 		//FIXME: Stop using the view here
 		m_View->SelectItem(secondaryItem);
@@ -8582,6 +8585,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	SnapGuides = false;
 	DoDrawing = false;
 	view()->updatesOn(false);
+	m_Selection->delaySignalsOn();
 	m_ScMW->ScriptRunning = true;
 	if (mdData.type==0) // Copy and offset or set a gap
 	{
@@ -8667,6 +8671,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	useRaster = savedAlignGrid;
 	SnapGuides = savedAlignGuides;
 	DoDrawing = true;
+	m_Selection->delaySignalsOff();
 	view()->updatesOn(true);
 	m_ScMW->ScriptRunning = false;
 	//FIXME: stop using m_View

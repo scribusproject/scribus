@@ -755,6 +755,7 @@ void PageItem::unlink()
 			NextBox = NextBox->NextBox;
 		}
 		// NextBox == NULL now
+		NextBox = NULL;
 	}
 }
 
@@ -791,6 +792,7 @@ void PageItem::dropLinks()
 			}
 		}
 		// JG we should set BackBox and NextBox to NULL at a point
+		BackBox = NextBox = NULL;
 	}
 }
 
