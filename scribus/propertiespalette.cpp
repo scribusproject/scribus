@@ -1110,28 +1110,28 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(Ypos, SIGNAL(valueChanged(double)), this, SLOT(NewY()));
 	connect(Width, SIGNAL(valueChanged(double)), this, SLOT(NewW()));
 	connect(Height, SIGNAL(valueChanged(double)), this, SLOT(NewH()));
-	connect(Rot, SIGNAL(valueChanged(double)), this, SLOT(NewR()));
-	connect(RoundRect, SIGNAL(valueChanged(double)), this, SLOT(NewRR()));
-	connect(LineSp, SIGNAL(valueChanged(double)), this, SLOT(NewLsp()));
+	connect(Rot, SIGNAL(valueChanged(double)), this, SLOT(NewRotation()));
+	connect(RoundRect, SIGNAL(valueChanged(double)), this, SLOT(NewCornerRadius()));
+	connect(LineSp, SIGNAL(valueChanged(double)), this, SLOT(NewLineSpacing()));
 	connect(Size, SIGNAL(valueChanged(double)), this, SLOT(NewSize()));
-	connect(Extra, SIGNAL(valueChanged(double)), this, SLOT(NewExtra()));
+	connect(Extra, SIGNAL(valueChanged(double)), this, SLOT(NewTracking()));
 	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	connect(imageXOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
 	connect(imageYOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
 	connect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
 	connect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
-	connect(LSize, SIGNAL(valueChanged(double)), this, SLOT(NewLS()));
-	connect(LStyle, SIGNAL(activated(int)), this, SLOT(NewLSty()));
-	connect(LJoinStyle, SIGNAL(activated(int)), this, SLOT(NewLJoin()));
-	connect(LEndStyle, SIGNAL(activated(int)), this, SLOT(NewLEnd()));
-	connect(LineMode, SIGNAL(activated(int)), this, SLOT(NewLMode()));
+	connect(LSize, SIGNAL(valueChanged(double)), this, SLOT(NewLineWidth()));
+	connect(LStyle, SIGNAL(activated(int)), this, SLOT(NewLineStyle()));
+	connect(LJoinStyle, SIGNAL(activated(int)), this, SLOT(NewLineJoin()));
+	connect(LEndStyle, SIGNAL(activated(int)), this, SLOT(NewLineEnd()));
+	connect(LineMode, SIGNAL(activated(int)), this, SLOT(NewLineMode()));
 	connect(dashEditor, SIGNAL(dashChanged()), this, SLOT(dashChange()));
 	connect(keepImageWHRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKette()));
 	connect(keepImageDPIRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKetteD()));
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
-	connect(GroupAlign, SIGNAL(State(int)), this, SLOT(NewAli(int)));
+	connect(GroupAlign, SIGNAL(State(int)), this, SLOT(NewAlignement(int)));
 	connect(Revert, SIGNAL(clicked()), this, SLOT(DoRevert()));
 	connect(charStyleClear, SIGNAL(clicked()), this, SLOT(doClearCStyle()));
 	connect(paraStyleClear, SIGNAL(clicked()), this, SLOT(doClearPStyle()));
@@ -1146,8 +1146,8 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(FreeScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(FrameScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(Aspect, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
-	connect(EditEffects, SIGNAL(clicked()), this, SLOT(EditEff()));
-	connect(EditPSDProps, SIGNAL(clicked()), this, SLOT(EditPSD()));
+	connect(EditEffects, SIGNAL(clicked()), this, SLOT(handleImageEffects()));
+	connect(EditPSDProps, SIGNAL(clicked()), this, SLOT(handleExtImgProperties()));
 	connect(Zup, SIGNAL(clicked()), this, SLOT(DoRaise()));
 	connect(ZDown, SIGNAL(clicked()), this, SLOT(DoLower()));
 	connect(ZTop, SIGNAL(clicked()), this, SLOT(DoFront()));
@@ -1157,9 +1157,9 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(textFlowOptionsB2, SIGNAL(buttonClicked(int)), this, SLOT(DoFlow()));
 
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
-	connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
+	connect(EditShape, SIGNAL(clicked()), this, SLOT(handleShapeEdit()));
 	connect(SCustom2, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
-	connect(EditShape2, SIGNAL(clicked()), this, SLOT(EditSh2()));
+	connect(EditShape2, SIGNAL(clicked()), this, SLOT(handleShapeEdit2()));
 	connect(dGap, SIGNAL(valueChanged(double)), this, SLOT(NewGap()));
 	connect(DCol, SIGNAL(valueChanged(int)), this, SLOT(NewCols()));
 	connect(DTop, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
@@ -1184,8 +1184,8 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(flippedPathText, SIGNAL(clicked()), this, SLOT(handlePathFlip()));
 	connect(Dist, SIGNAL(valueChanged(double)), this, SLOT(handlePathDist()));
 	connect(LineW, SIGNAL(valueChanged(double)), this, SLOT(handlePathOffs()));
-	connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
-	connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
+	connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChangeProfile(const QString&)));
+	connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChangeIntent()));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 //	connect(langCombo, SIGNAL(activated(int)), this, SLOT(NewLanguage()));
 	connect( TabsButton, SIGNAL( clicked() ), this, SLOT( ManageTabs() ) );
@@ -1475,6 +1475,10 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	//FIXME: This wont work until when a canvas deselect happens, CurItem must be NULL.
 	//if (CurItem == i)
 	//	return;
+
+	if (!doc)
+		setDoc(i->doc());
+
 	disconnect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	disconnect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
@@ -3030,7 +3034,7 @@ void PropertiesPalette::NewH()
 	}
 }
 
-void PropertiesPalette::NewR()
+void PropertiesPalette::NewRotation()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3057,7 +3061,7 @@ void PropertiesPalette::NewR()
 	}
 }
 
-void PropertiesPalette::NewRR()
+void PropertiesPalette::NewCornerRadius()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3067,7 +3071,7 @@ void PropertiesPalette::NewRR()
 	doc->regionsChanged()->update(QRect());
 }
 
-void PropertiesPalette::NewLsp()
+void PropertiesPalette::NewLineSpacing()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3126,7 +3130,7 @@ void PropertiesPalette::NewSize()
 	doc->itemSelection_SetFontSize(qRound(Size->value()*10.0));
 }
 
-void PropertiesPalette::NewExtra()
+void PropertiesPalette::NewTracking()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3181,14 +3185,14 @@ void PropertiesPalette::NewLocalDpi()
 	}
 }
 
-void PropertiesPalette::EditEff()
+void PropertiesPalette::handleImageEffects()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	m_ScMW->ImageEffects();
 }
 
-void PropertiesPalette::EditPSD()
+void PropertiesPalette::handleExtImgProperties()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3196,7 +3200,7 @@ void PropertiesPalette::EditPSD()
 	emit DocChanged();
 }
 
-void PropertiesPalette::NewLS()
+void PropertiesPalette::NewLineWidth()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3241,7 +3245,7 @@ void PropertiesPalette::setEndArrow(int id)
 		doc->itemSelection_ApplyArrowHead(-1, id);
 }
 
-void PropertiesPalette::NewLSty()
+void PropertiesPalette::NewLineStyle()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3294,7 +3298,7 @@ void PropertiesPalette::dashChange()
 	}
 }
 
-void PropertiesPalette::NewLMode()
+void PropertiesPalette::NewLineMode()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3324,7 +3328,7 @@ void PropertiesPalette::NewLMode()
 	repaint();
 }
 
-void PropertiesPalette::NewLJoin()
+void PropertiesPalette::NewLineJoin()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3345,7 +3349,7 @@ void PropertiesPalette::NewLJoin()
 		doc->ChLineJoin(c);
 }
 
-void PropertiesPalette::NewLEnd()
+void PropertiesPalette::NewLineEnd()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3446,7 +3450,7 @@ void PropertiesPalette::VChangeD()
 	connect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 }
 
-void PropertiesPalette::NewAli(int a)
+void PropertiesPalette::NewAlignement(int a)
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3761,7 +3765,7 @@ void PropertiesPalette::MakeIrre(int f, int c, double *vals)
 	}
 }
 
-void PropertiesPalette::EditSh()
+void PropertiesPalette::handleShapeEdit()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3926,8 +3930,8 @@ void PropertiesPalette::updateCmsList()
 			GroupBoxCM->hide();
 			return;
 		}
-		disconnect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
-		disconnect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
+		disconnect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChangeProfile(const QString&)));
+		disconnect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChangeIntent()));
 		InputP->clear();
 		if (HaveItem)
 		{
@@ -3975,19 +3979,19 @@ void PropertiesPalette::updateCmsList()
 			}
 			MonitorI->setCurrentIndex(CurItem->IRender);
 		}
-		connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
-		connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
+		connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChangeIntent()));
+		connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChangeProfile(const QString&)));
 	}
 }
 
-void PropertiesPalette::ChProf(const QString& prn)
+void PropertiesPalette::ChangeProfile(const QString& prn)
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	doc->itemSelection_SetColorProfile(InputP->currentText());
 }
 
-void PropertiesPalette::ChIntent()
+void PropertiesPalette::ChangeIntent()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4917,7 +4921,7 @@ void PropertiesPalette::doGrouping()
 	TabStack->setItemEnabled(idShapeItem, false);
 }
 
-void PropertiesPalette::EditSh2()
+void PropertiesPalette::handleShapeEdit2()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
