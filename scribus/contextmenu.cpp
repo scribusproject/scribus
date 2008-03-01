@@ -33,7 +33,8 @@ ContextMenu::ContextMenu(Selection & sel, ScribusMainWindow *actionsParent, Scri
 	QMenu(parent),
 	m_Sel(sel),
 	m_AP(actionsParent),
-	m_doc(doc)
+	m_doc(doc),
+	onAPage(false)
 {
 	if (m_Sel.count()>0)
 	{
@@ -404,13 +405,25 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 	addAction(m_AP->scrActions["viewSnapToGrid"]);
 	addAction(m_AP->scrActions["viewSnapToGuides"]);
 	
-	if (m_doc->OnPage(mx, my) != -1)
+	onAPage = (m_doc->OnPage(mx, my) != -1);
+	if (onAPage)
 	{
 		addSeparator();
 		addAction(m_AP->scrActions["pageApplyMasterPage"]);
 		addAction(m_AP->scrActions["pageManageGuides"]);
 		addAction(m_AP->scrActions["pageManageMargins"]);
-		addSeparator();
-		addAction(m_AP->scrActions["pageDelete"]);
+		if (m_AP->scrActions["pageDelete"]->isEnabled())
+		{
+			addSeparator();
+			pageDeletePrimaryString=m_AP->scrActions["pageDelete"]->text();
+			m_AP->scrActions["pageDelete"]->setText(tr("Delete Page"));
+			addAction(m_AP->scrActions["pageDelete"]);
+		}
 	}
+}
+
+ContextMenu::~ContextMenu()
+{
+	if (onAPage && m_AP->scrActions["pageDelete"]->isEnabled())
+		m_AP->scrActions["pageDelete"]->setText(pageDeletePrimaryString);
 }

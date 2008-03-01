@@ -32,6 +32,7 @@ class ContextMenu : public QMenu
 public:
 	ContextMenu(Selection &sel, ScribusMainWindow *actionsParent, ScribusDoc* doc, QWidget* parent=0);
 	ContextMenu(ScribusMainWindow *actionsParent, ScribusDoc* doc, double mx, double my, QWidget* parent=0);
+	~ContextMenu();
 	
 protected:
 	void processSelection();
@@ -42,4 +43,7 @@ protected:
 	QStringList m_actionList;
 	ScribusMainWindow *m_AP;
 	ScribusDoc *m_doc;
+	
+	QString pageDeletePrimaryString;
+	bool onAPage;
 };
