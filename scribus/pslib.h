@@ -152,6 +152,7 @@ class SCRIBUS_API PSLib : public QObject
 
 		QString ToStr(double c);
 		QString IToStr(int c);
+		QString MatrixToStr(double m11, double m12, double m21, double m22, double x, double y);
 		QString PSEncode(QString in);
 		QString ErrorMessage;
 		QString Prolog;

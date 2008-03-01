@@ -119,16 +119,17 @@ public:
 	float PtransX;
 	float PtransY;
 	float PRot;
+	float PDx;
 	InlineFrame embedded;
 	QChar ch;
 	ScText() : 
 		CharStyle(),
 		parstyle(NULL), glyph(), 
-		PtransX(0.0f), PtransY(0.0f), PRot(0.0f), embedded(NULL), ch() {}
+		PtransX(0.0f), PtransY(0.0f), PRot(0.0f), PDx(0.0f), embedded(NULL), ch() {}
 	ScText(const ScText& other) : 
 		CharStyle(other),
 		parstyle(NULL), glyph(other.glyph), 
-		PtransX(other.PtransX), PtransY(other.PtransY), PRot(other.PRot), 
+		PtransX(other.PtransX), PtransY(other.PtransY), PRot(other.PRot), PDx(other.PDx), 
 		embedded(other.embedded), ch(other.ch)
 	{
 		if (other.parstyle)

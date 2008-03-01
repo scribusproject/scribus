@@ -1073,7 +1073,7 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		CurY = 0;
 		hl = itemText.item(a);
 		chstr = hl->ch;
-		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP
+		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
 			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
 			continue;
 		chs = hl->fontSize();
@@ -1105,10 +1105,10 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		point = FPoint(currPoint.x(), currPoint.y());
 
 		hl->glyph.xoffset = 0;
-		hl->glyph.yoffset = item->pathTextBaseOffset();
-		hl->PtransX = tangent.x();
-		hl->PtransY = tangent.y();
-		hl->PRot = dx;
+		hl->PtransX = point.x();
+		hl->PtransY = point.y();
+		hl->PRot    = currAngle * M_PI / 180.0;
+		hl->PDx     = dx;
 		QMatrix trafo = QMatrix( 1, 0, 0, -1, -dx, 0 );
 		if (item->textPathFlipped)
 			trafo *= QMatrix(1, 0, 0, -1, 0, 0);
@@ -1154,8 +1154,6 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		else
 			DrawGlyphs(item, painter, itemText.charStyle(a), hl->glyph, clip);
 
-		hl->glyph.xoffset = point.x();
-		hl->glyph.yoffset = point.y();
 		painter->setWorldMatrix(savWM);
 		painter->restore();
 		CurX -= dx;

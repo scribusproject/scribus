@@ -375,6 +375,12 @@ QString PSLib::IToStr(int c)
 	return cc.setNum(c);
 }
 
+QString PSLib::MatrixToStr(double m11, double m12, double m21, double m22, double x, double y)
+{
+	QString cc("[%1 %2 %3 %4 %5 %6]");
+	return  cc.arg(m11).arg(m12).arg(m21).arg(m22).arg(x).arg(y);
+}
+
 void PSLib::PS_set_Info(QString art, QString was)
 {
 	if (art == "Author")
@@ -2534,6 +2540,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				const CharStyle & style(c->itemText.charStyle(d));
 				if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(32)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 					continue;
+				QPointF tangt = QPointF( cos(hl->PRot), sin(hl->PRot) );
 				tsz = style.fontSize();
 				chstr = hl->ch;
 				if (hl->ch == QChar(29))
@@ -2565,31 +2572,31 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 				{
 					PS_save();
-					PutStream("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(-hl->PRot) + " " + ToStr(0) + "]\n");
+					PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, -hl->PDx, 0.0) + "\n");
 					if (c->textPathFlipped)
 					{
-						PutStream("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(0) + " " + ToStr(0) + "]\n");
-						PutStream("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\n");
+						PutStream("[1 0 0 -1 0 0]\n");
+						PutStream("[0 0 0  0 0 0] concatmatrix\n"); //???????
 					}
 					if (c->textPathType == 0)
-						PutStream("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+						PutStream( MatrixToStr(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), hl->PtransX, -hl->PtransY) + "\n");
 					else if (c->textPathType == 1)
-						PutStream("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+						PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, hl->PtransX, -hl->PtransY) + "\n");
 					else if (c->textPathType == 2)
 					{
 						double a = 1;
 						double b = -1;
-						if (hl->PtransX < 0)
+						if (tangt.x()< 0)
 						{
 							a = -1;
 							b = 1;
 						}
-						if (fabs(hl->PtransX) > 0.1)
-							PutStream("["+ToStr(a) + " " + ToStr((hl->PtransY / hl->PtransX) * b) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+						if (fabs(tangt.x()) > 0.1)
+							PutStream( MatrixToStr(a, (tangt.y() / tangt.x()) * b, 0.0, -1.0, hl->PtransX, -hl->PtransY) + "\n");
 						else
-							PutStream("["+ToStr(a) + " " + ToStr(4) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+							PutStream( MatrixToStr(a, 4.0, 0.0, -1.0, hl->PtransX, -hl->PtransY) + "\n");
 					}
-					PutStream("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
+					PutStream("[0.0 0.0 0.0 0.0 0.0 0.0] concatmatrix\nconcat\n");
 //					PS_translate(0, (tsz / 10.0));
 					if (c->BaseOffs != 0)
 						PS_translate(0, -c->BaseOffs);
@@ -2657,34 +2664,36 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						{
 							SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
 							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							PutStream("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(-hl->PRot) + " " + ToStr(0) + "]\n");
+							PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, -hl->PDx, 0.0) + "\n");
 							if (c->textPathFlipped)
 							{
-								PutStream("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(0) + " " + ToStr(0) + "]\n");
-								PutStream("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\n");
+								PutStream("[1.0 0.0 0.0 -1.0 0.0 0.0]\n");
+								PutStream("[0.0 0.0 0.0  0.0 0.0 0.0] concatmatrix\n");
 							}
 							if (c->textPathType == 0)
-								PutStream("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+								PutStream( MatrixToStr(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), hl->PtransX, -hl->PtransY) + "\n");
 							else if (c->textPathType == 1)
-								PutStream("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+								PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, hl->PtransX, -hl->PtransY) + "\n");
 							else if (c->textPathType == 2)
 							{
 								double a = 1;
 								double b = -1;
-								if (hl->PtransX < 0)
+								if (tangt.x() < 0)
 								{
 									a = -1;
 									b = 1;
 								}
-								if (fabs(hl->PtransX) > 0.1)
-									PutStream("["+ToStr(a) + " " + ToStr((hl->PtransY / hl->PtransX) * b) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+								if (fabs(tangt.x()) > 0.1)
+									PutStream( MatrixToStr(a, (tangt.y() / tangt.x()) * b, 0.0, -1.0, hl->PtransX, -hl->PtransY) + "\n");
 								else
-									PutStream("["+ToStr(a) + " " + ToStr(4) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+									PutStream( MatrixToStr(a, 4.0, 0.0, -1.0, hl->PtransX, -hl->PtransY) + "\n");
 							}
-							PutStream("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
+							PutStream("[0.0 0.0 0.0 0.0 0.0 0.0] concatmatrix\nconcat\n");
 							PS_translate(0, (tsz / 10.0));
 							if (c->BaseOffs != 0)
 								PS_translate(0, -c->BaseOffs);
+							if (hl->glyph.xoffset !=0 || hl->glyph.yoffset != 0)
+								PS_translate(hl->glyph.xoffset, -hl->glyph.yoffset);
 							if (style.scaleH() != 1000)
 								PS_scale(style.scaleH() / 1000.0, 1);
 							if ((colorsToUse[style.fillColor()].isSpotColor()) && (!DoSep))
@@ -2717,33 +2726,35 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					uint glyph = hl->glyph.glyph;
 					PS_selectfont(style.font().replacementName(), tsz / 10.0);
 					PS_save();
-					PutStream("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(-hl->PRot) + " " + ToStr(0) + "]\n");
+					PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, -hl->PDx, 0.0) + "\n");
 					if (c->textPathFlipped)
 					{
-						PutStream("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(0) + " " + ToStr(0) + "]\n");
-						PutStream("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\n");
+						PutStream("[1.0 0.0 0.0 -1.0 0.0 0.0]\n");
+						PutStream("[0.0 0.0 0.0  0.0 0.0 0.0] concatmatrix\n");
 					}
 					if (c->textPathType == 0)
-						PutStream("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+						PutStream( MatrixToStr(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), hl->PtransX, -hl->PtransY) + "\n");
 					else if (c->textPathType == 1)
-						PutStream("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+						PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, hl->PtransX, -hl->PtransY) + "\n");
 					else if (c->textPathType == 2)
 					{
 						double a = 1;
 						double b = -1;
-						if (hl->PtransX < 0)
+						if (tangt.x() < 0)
 						{
 							a = -1;
 							b = 1;
 						}
-						if (fabs(hl->PtransX) > 0.1)
-							PutStream("["+ToStr(a) + " " + ToStr((hl->PtransY / hl->PtransX) * b) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+						if (fabs(tangt.x()) > 0.1)
+							PutStream( MatrixToStr(a, (tangt.y() / tangt.x()) * b, 0.0, -1.0, hl->PtransX, -hl->PtransY) + "\n");
 						else
-							PutStream("["+ToStr(a) + " " + ToStr(4) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+							PutStream( MatrixToStr(a, 4.0, 0.0, -1.0, hl->PtransX, -hl->PtransY) + "\n");
 					}
-					PutStream("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
+					PutStream("[0.0 0.0 0.0 0.0 0.0 0.0] concatmatrix\nconcat\n");
 					if (c->BaseOffs != 0)
 						PS_translate(0, -c->BaseOffs);
+					if (hl->glyph.xoffset !=0 || hl->glyph.yoffset != 0)
+						PS_translate(hl->glyph.xoffset, -hl->glyph.yoffset);
 					if ((colorsToUse[style.fillColor()].isSpotColor()) && (!DoSep))
 					{
 						PutStream(ToStr(style.fillShade() / 100.0)+" "+spotMap[style.fillColor()]);

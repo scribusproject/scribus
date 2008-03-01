@@ -276,10 +276,10 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 		}
 */
 		hl->glyph.xoffset = 0;
-		hl->glyph.yoffset = BaseOffs;
-		hl->PtransX = tangent.x();
-		hl->PtransY = tangent.y();
-		hl->PRot = dx;
+		hl->PtransX = point.x();
+		hl->PtransY = point.y();
+		hl->PRot    = currAngle * M_PI / 180.0;
+		hl->PDx     = dx;
 		QMatrix trafo = QMatrix( 1, 0, 0, -1, -dx, 0 );
 		if (textPathFlipped)
 			trafo *= QMatrix(1, 0, 0, -1, 0, 0);
@@ -337,16 +337,12 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 				else
 					p->setPen(cachedStrokeQ, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			}
+			p->translate(0.0, BaseOffs);
 			if (hl->ch == SpecialChars::OBJECT)
-			{
-				p->translate(0.0, BaseOffs);
 				DrawObj_Embedded(p, cullingArea, itemText.charStyle(a), hl->embedded.getItem());
-			}
 			else
 				drawGlyphs(p, itemText.charStyle(a), hl->glyph);
 		}
-		hl->glyph.xoffset = point.x();
-		hl->glyph.yoffset = point.y();
 		p->setWorldMatrix(savWM);
 		p->restore();
 		MaxChars = a+1;
