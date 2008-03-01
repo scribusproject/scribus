@@ -81,7 +81,7 @@ PageLayouts::PageLayouts( QWidget* parent, QList<PageSet> pSets, bool mode )  : 
 	firstPage = new ScComboBox( this );
 	layoutGroupLayout->addWidget( firstPage );
 	languageChange();
-	setMaximumWidth(minimumSizeHint().width());
+// 	We need change combos width setMaximumWidth(minimumSizeHint().width());
 
 	if (modus)
 		connect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
@@ -251,7 +251,7 @@ void PageLayouts::languageChange()
 		}
 		layoutsCombo->setCurrentIndex(currIndex);
 		connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
-		
+
 		disconnect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
 		int currFirstPageIndex=firstPage->currentIndex();
 		firstPage->clear();
@@ -264,6 +264,6 @@ void PageLayouts::languageChange()
 		connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
 	}
 	layoutLabel1->setText( tr( "First Page is:" ) );
-	
+
 
 }

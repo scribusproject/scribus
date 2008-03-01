@@ -546,11 +546,12 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	pageLayout = new PageLayouts(this, dummy, false);
 	Layout1->addWidget( pageLayout );
 
-	QSpacerItem* spacer = new QSpacerItem( 15, 15, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacer );
+// 	QSpacerItem* spacer = new QSpacerItem( 15, 15, QSizePolicy::Expanding, QSizePolicy::Minimum );
+// 	Layout1->addItem( spacer );
 
 	Trash = new TrashBin( this );
-	Trash->setMinimumSize(QSize(22,22));
+	Trash->setMinimumSize(QSize(32,32));
+	Trash->setMaximumSize(QSize(32,32));
 	Layout1->addWidget( Trash );
 	PagePaletteLayout->addLayout( Layout1 );
 	pix = loadIcon("32/page-simple.png");
@@ -569,7 +570,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	connect(pageView, SIGNAL(NewPage(int, QString)), m_scMW, SLOT(slotNewPageP(int, QString)));
 	connect(Trash, SIGNAL(DelPage(int)), m_scMW, SLOT(DeletePage2(int)));
 	connect(this, SIGNAL(gotoPage(int)), m_scMW, SLOT(selectPagesFromOutlines(int)));
-	
+
 	Trash->setToolTip( "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
 	masterPageList->setToolTip( "<qt>" + tr("Here are all your master pages. To create a new page, drag a master page to the page view below") + "</qt>");
 }
@@ -582,7 +583,7 @@ void PagePalette::deleteMasterPage(QString tmp)
 	Page* Seite = currView->Doc->MasterPages.takeAt(Nr);
 	delete Seite;
 	currView->Doc->MasterNames.clear();
-	
+
 	for (int aa=0; aa < currView->Doc->MasterPages.count(); ++aa)
 	{
 		Seite = currView->Doc->MasterPages.at(aa);
@@ -883,14 +884,14 @@ void PagePalette::languageChange()
 	TextLabel2->setText( tr( "Document Pages:" ) );
 }
 
-//CB Whats this variable returned for.. its always true... ? 
+//CB Whats this variable returned for.. its always true... ?
 //CB Clean up the interface and stick it behind this member for now
 const bool PagePalette::getNamen()
 {
 	return pageView->Namen;
 }
 
-//CB Whats this variable returned for.. its always true... ? 
+//CB Whats this variable returned for.. its always true... ?
 //CB Clean up the interface and stick it behind this member for now
 const bool PagePalette::getThumb()
 {

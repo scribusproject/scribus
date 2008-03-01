@@ -18,6 +18,8 @@ class QLabel;
 #include "scribusstructs.h"
 class ScComboBox;
 
+
+/*! \brief A widget containing pages layout schema */
 class SCRIBUS_API PageListWidget : public QListWidget
 {
 	Q_OBJECT
@@ -28,6 +30,10 @@ public:
 	void arrangeIcons();
 };
 
+
+/*! \brief A widget for changing pages layout.
+User can change layouts on-the-fly changing widget's
+comboboxes. */
 class SCRIBUS_API PageLayouts : public QGroupBox
 {
 	Q_OBJECT
