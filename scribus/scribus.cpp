@@ -4816,8 +4816,8 @@ void ScribusMainWindow::slotEditCut()
 				return;
 
 			// old version:
-			ScriXmlDoc *ss = new ScriXmlDoc();
-			Buffer2 = ss->WriteElem(doc, view, doc->m_Selection);
+			/*ScriXmlDoc ss;
+			Buffer2 = ss.WriteElem(doc, view, doc->m_Selection);*/
 
 			// new version:
 			std::ostringstream xmlString;
@@ -4829,6 +4829,8 @@ void ScribusMainWindow::slotEditCut()
 
 			if (prefsManager->appPrefs.doCopyToScrapbook)
 			{
+				ScriXmlDoc ss;
+				Buffer2 = ss.WriteElem(doc, view, doc->m_Selection);
 				scrapbookPalette->ObjFromCopyAction(Buffer2, currItem->itemName());
 				rebuildRecentPasteMenu();
 			}
@@ -4840,7 +4842,6 @@ void ScribusMainWindow::slotEditCut()
 					frame->clearContents();
 			}
 			doc->itemSelection_DeleteItem();
-			delete ss;
 		}
 		slotDocCh();
 		BuFromApp = true;
@@ -4943,10 +4944,6 @@ void ScribusMainWindow::slotEditCopy()
 			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
 
-			// old version:
-			ScriXmlDoc *ss = new ScriXmlDoc();
-			Buffer2 = ss->WriteElem(doc, view, doc->m_Selection);
-
 			// new version:
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
@@ -4968,11 +4965,12 @@ void ScribusMainWindow::slotEditCopy()
 
 			if ((prefsManager->appPrefs.doCopyToScrapbook) && (!internalCopy))
 			{
+				ScriXmlDoc ss;
+				Buffer2 = ss.WriteElem(doc, view, doc->m_Selection);
 				scrapbookPalette->ObjFromCopyAction(Buffer2, currItem->itemName());
 				rebuildRecentPasteMenu();
 			}
 			Buffer2 = BufferI;
-			delete ss;
 		}
 		BuFromApp = true;
 		ClipB->setText(BufferI);
@@ -8117,8 +8115,8 @@ void ScribusMainWindow::slotElemRead(QString xml, double x, double y, bool art, 
 	if (doc == docc && docc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 
-	ScriXmlDoc *ss = new ScriXmlDoc();
-	if(ss->ReadElem(xml, prefsManager->appPrefs.AvailFonts, docc, x, y, art, loca, prefsManager->appPrefs.GFontSub, vie))
+	ScriXmlDoc ss;
+	if(ss.ReadElem(xml, prefsManager->appPrefs.AvailFonts, docc, x, y, art, loca, prefsManager->appPrefs.GFontSub, vie))
 	{
 		vie->DrawNew();
 		if (doc == docc)
@@ -8130,7 +8128,6 @@ void ScribusMainWindow::slotElemRead(QString xml, double x, double y, bool art, 
 			slotDocCh();
 		}
 	}
-	// delete ss;
 }
 
 void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
@@ -8685,8 +8682,8 @@ void ScribusMainWindow::SetShortCut()
 
 void ScribusMainWindow::PutScrap()
 {
-	ScriXmlDoc *ss = new ScriXmlDoc();
-	QString objectString = ss->WriteElem(doc, view, doc->m_Selection);
+	ScriXmlDoc ss;
+	QString objectString = ss.WriteElem(doc, view, doc->m_Selection);
 	QDomDocument docu("scridoc");
 	docu.setContent(objectString);
 	QDomElement elem = docu.documentElement();
@@ -8706,7 +8703,6 @@ void ScribusMainWindow::PutScrap()
 	}
 	objectString = docu.toString();
 	scrapbookPalette->ObjFromMenu(objectString);
-	delete ss;
 }
 
 void ScribusMainWindow::changeLayer(int )
