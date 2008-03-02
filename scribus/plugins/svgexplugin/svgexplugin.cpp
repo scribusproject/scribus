@@ -215,7 +215,8 @@ bool SVGExPlug::doExport( QString fName )
 	if(fName.right(2) == "gz")
 	{
 		// zipped saving
-		if (!ScGzFile::writeToFile(fName, docu.toString().toUtf8(), vo.toUtf8().data()))
+		QByteArray array(docu.toString().toUtf8());
+		if (!ScGzFile::writeToFile(fName, array, vo.toUtf8().data()))
 			return false;
 	}
 	else
