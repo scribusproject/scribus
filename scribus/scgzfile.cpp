@@ -229,7 +229,7 @@ bool ScGzFile::readFromFile(const QString& filename, QByteArray& bArray, uint ma
 	return (bArray.size() > 0);
 }
 
-bool ScGzFile::writeToFile(const QString& filename, QByteArray& bArray)
+bool ScGzFile::writeToFile(const QString& filename, const QByteArray& bArray)
 {
 	gzFile gzDoc = NULL;
 	QString localPath = QDir::toNativeSeparators(filename);
@@ -244,7 +244,7 @@ bool ScGzFile::writeToFile(const QString& filename, QByteArray& bArray)
 	return false;
 }
 
-bool ScGzFile::writeToFile(const QString& filename, QByteArray& bArray, const char* header)
+bool ScGzFile::writeToFile(const QString& filename, const QByteArray& bArray, const char* header)
 {
 	gzFile gzDoc = NULL;
 	QString localPath = QDir::toNativeSeparators(filename);

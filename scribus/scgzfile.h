@@ -39,8 +39,8 @@ public:
 	virtual void close();
 
 	static bool readFromFile(const QString& filename, QByteArray& bArray, uint maxBytes = 0);
-	static bool writeToFile (const QString& filename, QByteArray& bArray);
-	static bool writeToFile (const QString& filename, QByteArray& bArray, const char* header);
+	static bool writeToFile (const QString& filename, const QByteArray& bArray);
+	static bool writeToFile (const QString& filename, const QByteArray& bArray, const char* header);
 };
 
 #endif
