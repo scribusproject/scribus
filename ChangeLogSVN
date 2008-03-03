@@ -1,0 +1,33 @@
+Scribus - 1.3.3.12svn
+=====================
+- 0005286: [Usability] Measurement window labels may have insufficient size depending on units (jghali) - resolved.
+- 0006734: [Printing] Incorrect ps export of images placed in master pages (jghali) - resolved.
+- 0006692: [General] Editor mess-up when text is replaced (jghali) - resolved.
+- 0006715: [Graphics / Image Frames] Incorrect handling of alpha channel with TIF files (jghali) - closed.
+- 0006823: [PDF] Newline issue in PDF fields (jghali) - closed.
+- 0006813: [General] Access to sla document infos from file dialog is slow and memory hungry (jghali) - closed.
+- 0006800: [Win32] installation failed (jghali) - closed.
+- 0006788: [Win32] Crash past 'New Document' window on Vista (jghali) - closed.
+- 0006793: [Translation] French translation update (plinnell) - closed.
+- 0006791: [Translation] Danish Translation (plinnell) - closed.
+- 0006775: [Import / Export] Make text import dialog remember its settings (jghali) - closed.
+- 0006780: [User Interface] Sample Text list has all full name of languages except French > Fr (jghali) - closed.
+- 0006688: [Story Editor / Text Frames] Impossibles to replace spaces (jghali) - closed.
+- 0004169: [Usability] Master Page Copy and Paste problems (jghali) - closed.
+- 0006756: [Translation] Hungarian translation update (plinnell) - closed.
+- 0006750: [Translation] Galician translation update (plinnell) - closed.
+- 0006736: [Graphics / Image Frames] Image effects can still be applied to PDFs in image frames (jghali) - closed.
+- 0006732: [User Interface] Display size ruler (fschmid) - closed.
+- 0006592: [Graphics / Image Frames] "Adjust Frame To Image" is not relative to Basepoint (fschmid) - closed.
+- 0006709: [User Interface] Palettes may go off screen depending of taskbar position (jghali) - closed.
+- 0005083: [Scripter] API functions for Opacity (jghali) - closed.
+- 0006705: [-] Crash when deleting characters in auto hyphenated long words in textframe (jghali) - closed.
+- 0006673: [General] French sample text (plinnell) - closed.
+- 0005401: [Story Editor / Text Frames] Selecting text in story editor copies it to the buffer (like CTRL+C) (jghali) - closed.
+- 0005962: [PPCOSX / Macintosh] Endian Issue with PDF Export (avox) - closed.
+- 0006610: [Graphics / Image Frames] use of the term "Picture Frame" should be abandoned (cbradney) - closed.
+- 0006665: [Win32] Silent installation and removal (jghali) - closed.
+- 0006656: [General] issue switching back and forth from english to another language (jghali) - closed.
+- 0005890: [Import / Export] Abort export/printing completely when exporting multiple files (jghali) - closed.
+- 0006617: [Translation] Change text string in PDF export dialog (cbradney) - closed.
+
