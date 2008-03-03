@@ -50,7 +50,7 @@ EXTRA_DIST = AUTHORS \
 			 README.OS2 \
 			 TODO \
 			 scribus.xml \
-			 scribus.lsm scribus.desktop Scribus.pot \
+			 scribus.lsm vnd.scribus.desktop Scribus.pot \
 			 configure config.h.in configure.in \
 			 configure.in.in configure.in.bot Makefile.svn \
 			 stamp-h1 subdirs configure.files \
@@ -79,6 +79,7 @@ AM_CPPFLAGS = \
 #
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share
+	$(mkinstalldirs) $(prefix)/share/applications
 	$(mkinstalldirs) $(prefix)/share/mime
 	$(mkinstalldirs) $(prefix)/share/mime/packages
 	$(mkinstalldirs) $(prefix)/share/scribus
@@ -95,3 +96,5 @@ install-data-local:
 	$(INSTALL_DATA) $(top_srcdir)/README $(prefix)/share/doc/scribus-$(VERSION)/README
 	$(INSTALL_DATA) $(top_srcdir)/TODO $(prefix)/share/doc/scribus-$(VERSION)/TODO
 	$(INSTALL_DATA) $(top_srcdir)/scribus.xml $(prefix)/share/mime/packages/scribus.xml
+	$(INSTALL_DATA) $(top_srcdir)/vnd.scribus.desktop $(prefix)/share/applications/vnd.scribus.desktop
+
