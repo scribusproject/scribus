@@ -1,5 +1,108 @@
 
 Scribus - 1.3.5svn
+- 0006245: [General] Margin guides values (jghali) - resolved.
+- 0003439: [Plug-ins] font preview: selecting the first two fonts makes the font size and sample fields move left (subik) - resolved.
+- 0006162: [Graphics / Image Frames] Grouped objects doesn't overhang onto the bleed (fschmid) - resolved.
+- 0006226: [PDF] Always clip the pdf outputs to page margins when master pages used (fschmid) - resolved.
+- 0006818: [Story Editor / Text Frames] Superscript/subscript formatting doesn't work correctly for text on path (jghali) - closed.
+- 0006827: [User Interface] String change in context menu for pages (cbradney) - closed.
+- 0004815: [User Interface] in path edit mode the cursor changes quickly and constantly between cross and arrow. (avox) - closed.
+- 0002180: [Story Editor / Text Frames] Left pane and right pane of SE do not always line up (fschmid) - closed.
+- 0006819: [General] Signal 0000011 crash caused by a text frame incorrectly linked to a non-text frame (jghali) - closed.
+- 0006817: [PDF] PDF field with number format becomes unresponsive when PDF is generated from a loaded document (fschmid) - closed.
+- 0004195: [Import / Export] SVG import is broken - example image available. (jghali) - closed.
+- 0006722: [Graphics / Image Frames] Something weird with transparency in one sla (fschmid) - closed.
+- 0006108: [Import / Export] Problem importing particular Adobe Illustrator SVG (jghali) - closed.
+- 0002941: [PPCOSX / Macintosh] Images fail to print (jghali) - closed.
+- 0005782: [General] Failure to print image formats with alpha channel support to PostScript printer (jghali) - closed.
+- 0000599: [Plug-ins] Plug-in to make and insert formulas (Herm) - closed.
+- 0006796: [General] Changing the margin settings in the Doc Prefs isn't applied immediately (cbradney) - closed.
+- 0005900: [Usability] Reasonable default values for Scribus (plinnell) - closed.
+- 0005843: [General] Color value is not saved, or is not loaded properly (fschmid) - closed.
+- 0006783: [Canvas] sticky tools: select last created items (fschmid) - closed.
+- 0006347: [Import / Export] Imported SVG behaves wrong when on the top layer (fschmid) - closed.
+- 0001044: [General] Add a markup field to make it possible to create a text frame showing the total number of pages in the document. (fschmid) - closed.
+- 0006174: [Graphics / Image Frames] Duplicated Image, Path incorrect (subik) - closed.
+- 0005980: [Styles] Text on Path looses its formatting when the document is loaded again. (avox) - closed.
+- 0006712: [User Interface] print preview (like when using ctrl+alt+P) doesn't show all pages (avox) - closed.
+- 0006317: [Import / Export] Scribus created SVG blocks the GUI (avox) - closed.
+- 0005848: [Story Editor / Text Frames] Page numbering is inserted but the style applied means the overflow indicator is shown (avox) - closed.
+- 0004646: [General] SVG as first item in the stacking order makes all other items invisible (avox) - closed.
+- 0005998: [User Interface] Style manager can't be resized (cbradney) - closed.
+- 0006777: [User Interface] Show Text Frame Columns not accessible from right-click when on a page (cbradney) - closed.
+- 0003428: [Undo/Redo] refresh issue when undoing a text frame creation (avox) - closed.
+- 0006211: [Graphics / Image Frames] Setting Input Profile for multiple Image Frames at once only effective on last selected item (cbradney) - closed.
+- 0006770: [Shape Drawing] Crash when cancelling bezier item creation before 2nd click (cbradney) - closed.
+- 0006773: [User Interface] Missing EPS file extensions in the file dialogs (cbradney) - closed.
+- 0006337: [General] Importing a page creates a new layer (cbradney) - closed.
+- 0006132: [Styles] Duplicating text box, duplicated style (avox) - closed.
+- 0006048: [General] Creating and deleting master pages from existing pages doesn't work correctly (jghali) - closed.
+- 0003647: [Usability] can't select multiple objects behind another (avox) - closed.
+- 0006754: [Import / Export] AI import crashes Scribus (fschmid) - closed.
+- 0006764: [Usability] Enhancements to Extras > Manage Images (fschmid) - closed.
+- 0006765: [Translation] Updated Slovenian ts translation (cbradney) - closed.
+- 0006693: [Translation] Update ts files for translators! (cbradney) - closed.
+- 0001861: [Story Editor / Text Frames] Apply ISO 14755 Control-Shift for insertion of Unicode character combinations (cbradney) - closed.
+- 0003319: [User Interface] Mouse pointer improvements (cbradney) - closed.
+- 0006759: [Scripter] scripter getText() returns strings 1 byte too short. (jghali) - closed.
+- 0006761: [Translation] updated Russian translation for 1.3.5 (plinnell) - closed.
+- 0006682: [Build System] Wrong detection of 32/64 bit and configure errors when using ccache and cmake (cbradney) - closed.
+- 0006259: [User Interface] Severe issues with the preferences (subik) - closed.
+- 0006757: [Scripter] CalendarWizard crashes Scribus (jghali) - closed.
+- 0006753: [Import / Export] UI freeze during Xfig import (fschmid) - closed.
+- 0006752: [Import / Export] Crash during Xfig import (fschmid) - closed.
+- 0006595: [Undo/Redo] Undo/Redo doesn't work at all (avox) - closed.
+- 0006743: [General] Resizing grouped lines triggers crash (fschmid) - closed.
+- 0006749: [Import / Export] Crash on .ai import (fschmid) - closed.
+- 0001739: [Shape Drawing] More options to Combine Polygons (fschmid) - closed.
+- 0006737: [Canvas] sticky tools: right click should activate the select tool (fschmid) - closed.
+- 0006738: [User Interface] display adjustment slider : improve (fschmid) - closed.
+- 0006741: [General] Selecting an item on another layer triggers crash (fschmid) - closed.
+- 0005793: [User Interface] The list of objects in "Paste Recent" uses an alphabetical order, not the order of copying actions. (fschmid) - closed.
+- 0005827: [Story Editor / Text Frames] text frame doesn't refresh properly (avox) - closed.
+- 0003638: [User Interface] selection menus and tooltips appear behind windows (cbradney) - closed.
+- 0000128: [General] TeX rendering engine library (Herm) - closed.
+- 0000418: [Story Editor / Text Frames] justification with user-defined inter-letter and word spacing in percentage (avox) - closed.
+- 0003283: [Usability] Difficulty resizing objects (avox) - closed.
+- 0006383: [Usability] Feature request: enhance the scrapbook (fschmid) - closed.
+- 0003625: [General] The longer Scribus is running in the background, the longer it takes to reappear (cbradney) - closed.
+- 0003742: [User Interface] Spin boxes in the properties palette count wrong (cbradney) - closed.
+- 0004624: [General] Adopt LyX math control pane once LaTeX support is implemented (Herm) - closed.
+- 0006716: [Translation] French translation for files in editorconfig (Herm) - closed.
+- 0005792: [User Interface] "Paste Recent" lists wrong object names (fschmid) - closed.
+- 0006725: [Canvas] Text cursor is too fat at higher zoom levels (fschmid) - closed.
+- 0003118: [PPCOSX / Macintosh] Aqua interface does not accept or respond to keyboard input (avox) - closed.
+- 0006718: [General] Horizontal scroll vertical-scrolls (jghali) - closed.
+- 0001030: [General] [RFE] Add support for Math (Herm) - closed.
+- 0006714: [Canvas] sticky tools: new frames are invisible until clicking "select item" (fschmid) - closed.
+- 0006703: [Story Editor / Text Frames] Same as bug 6692 on 1.3.5 : editor mess up when cut and paste (jghali) - closed.
+- 0006707: [Story Editor / Text Frames] Crash with Alignment Button in Text editor (jghali) - closed.
+- 0006684: [User Interface] Microscopic labels in Properties > Colours drop-down list of gradients impossible to read (jghali) - closed.
+- 0006669: [PDF] PDF Export produces unreadable files, when a Spotcolor with an empty name exists. (fschmid) - closed.
+- 0006492: [PDF] "Clip to Page Margins" leaves bleed area empty (fschmid) - closed.
+- 0006559: [User Interface] multiple Object selection (avox) - closed.
+- 0006701: [General] Crash for text or image frame (jghali) - closed.
+- 0006704: [General] Calling krita instead of gimp within Scribus always starts it twice (fschmid) - closed.
+- 0005447: [General] imported graphic behaves strange (avox) - closed.
+- 0006408: [General] Copying or moving items with the right mouse button shows unexpected results (avox) - closed.
+- 0005012: [User Interface] Grey out "Edit > Contents" if no item is selected (cbradney) - closed.
+- 0003330: [User Interface] When changing ruler relative setting, update GUI from selection (avox) - closed.
+- 0003262: [User Interface] Use Tango Icons for the Interface (cbradney) - closed.
+- 0006664: [Plug-ins] Default resolution for LaTeX frames should be "Normal" (fschmid) - closed.
+- 0006619: [General] Resizing doesn't work if frames are in editing mode (avox) - closed.
+- 0006676: [User Interface] Translation error in properties window (jghali) - closed.
+- 0006543: [Fonts] trouble in extra/font preview (subik) - closed.
+- 0006671: [User Interface] Enhancement: Option for Baseline Grid units in points (fschmid) - closed.
+- 0004571: [Fonts] More font infos in the font preview (subik) - closed.
+- 0006662: [Plug-ins] Annoying "User configuration exists already" in short words plugin when closing prefs. (subik) - closed.
+- 0006668: [User Interface] layer Indication in layer drop down menu (fschmid) - closed.
+- 0005673: [General] Text on path issue (fschmid) - closed.
+- 0006000: [Internal] Add CPU detection in CMake for 64 bit builds etc (cbradney) - closed.
+- 0006647: [Printing] Crop marks on printout and PDF output incorrect (jghali) - closed.
+- 0006227: [PDF] Pre-press PDF/X-3 export fails to embed/outline page info print mark font (fschmid) - closed.
+- 0006649: [Graphics / Image Frames] Allow scaling of image in ImageFrame in canvasgesture (jghali) - closed.
+- 0006456: [Canvas] Drawing a frame opens the frame size dialog (avox) - closed.
+- 0006399: [General] Blend modes result in artefacts in grouped items (fschmid) - closed.
 - 0006625: [Scripter] createCharStyle, createParagraphStyle, sendSelectionToBack, bringSelectionToFront, zoomDocument-doc (subik) - resolved.
 - 0006647: [Printing] Crop marks on printout and PDF output incorrect (jghali) - resolved.
 - 0006492: [PDF] "Clip to Page Margins" leaves bleed area empty (fschmid) - resolved.
