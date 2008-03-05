@@ -41,6 +41,7 @@ private:
 	QString prefsFilePath;
 	ContextMap contexts;
 	ContextMap pluginContexts;
+	ContextMap userprefsContexts;
 	bool ioEnabled;
 	void load();
 	QString replaceIllegalChars(const QString& text);
@@ -53,6 +54,7 @@ public:
 	bool contextExists();
 	PrefsContext* getContext(const QString& contextName, bool persistent = true);
 	PrefsContext* getPluginContext(const QString& contextName, bool persistent = true);
+	PrefsContext* getUserPrefsContext(const QString& contextName, bool persistent = true);
 	void write();
 };
 

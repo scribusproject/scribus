@@ -61,6 +61,13 @@ PrefsContext* PrefsFile::getPluginContext(const QString& contextName, bool persi
 	return pluginContexts[contextName];
 }
 
+PrefsContext* PrefsFile::getUserPrefsContext(const QString& contextName, bool persistent)
+{
+	if (!userprefsContexts.contains(contextName))
+		userprefsContexts[contextName] = new PrefsContext(contextName, persistent);
+	return userprefsContexts[contextName];
+}
+
 void PrefsFile::load()
 {
 	PrefsReader* handler = new PrefsReader(&contexts, &pluginContexts);
@@ -90,6 +97,12 @@ void PrefsFile::write()
 		{
 			stream << "\t<level name=\"application\">\n";
 			writeContexts(&contexts, stream);
+			stream << "\t</level>\n";
+		}
+		if (userprefsContexts.size() > 0)
+		{
+			stream << "\t<level name=\"plugin\">\n";
+			writeContexts(&userprefsContexts, stream);
 			stream << "\t</level>\n";
 		}
 		if (pluginContexts.size() > 0)
