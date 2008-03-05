@@ -612,12 +612,12 @@ INSTALL(FILES
   DESTINATION ${MIMELNKDIR}
 )
 
-
+## PL We may not need this anymore
 #Install the desktop file
-INSTALL(FILES
-  scribus.desktop
-  DESTINATION ${DESKTOPDIR}
-)
+## INSTALL(FILES
+ # scribus.desktop
+ # #DESTINATION ${DESKTOPDIR}
+#)
 
 #If building an Apple bundle, install these specific files
 IF(APPLEBUNDLE)
@@ -646,17 +646,20 @@ IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
   SET(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
   SET(CPACK_PACKAGE_INSTALL_DIRECTORY "Scribus ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
   SET(CPACK_PACKAGE_EXECUTABLES "scribus${TAG_VERSION}")
-  SET(CPACK_SOURCE_PACKAGE_FILE_NAME "scribus-${VERSION}")
+  SET(CPACK_SOURCE_PACKAGE_FILE_NAME "scribus-${VERSION}${VERSION_SUFFIX}")
   SET(CPACK_SOURCE_GENERATOR TBZ2)
-
+  SET(CPACK_SYSTEM_NAME "")
+  SET(CPACK_TOPLEVEL_TAG "")
   SET(CPACK_SOURCE_IGNORE_FILES
     CMakeCache.txt
-    scribus-1.3.5cvs.tar.bz2
-    scribus-1.3.5cvs.tar.Z
-    scribus-1.3.5cvs.tar.gz
+    scribus-1.3.5svn.tar.bz2
+    scribus-1.3.5svn.tar.Z
+    scribus-1.3.5svn.tar.gz
     "~$"
     "\\\\.cvsignore$"
     "\\\\.o$"
+    "\\\\.svn-base$"
+    "\\\\.svn$"
     "^${PROJECT_SOURCE_DIR}.*/CVS/"
     "^${PROJECT_SOURCE_DIR}/debian/"
     "^${PROJECT_SOURCE_DIR}/old/"
