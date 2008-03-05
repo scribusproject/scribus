@@ -964,14 +964,6 @@ void ScribusMainWindow::initMenuBar()
 	//scrMenuMgr->setMenuEnabled("Windows", false);
 	menuBar()->addSeparator();
 	scrMenuMgr->addMenuToMenuBar("Help");
-
-	//Alignment menu
-	scrMenuMgr->createMenu("Alignment", tr("&Alignment"));
-	scrMenuMgr->addMenuItem(scrActions["alignLeft"], "Alignment");
-	scrMenuMgr->addMenuItem(scrActions["alignCenter"], "Alignment");
-	scrMenuMgr->addMenuItem(scrActions["alignRight"], "Alignment");
-	scrMenuMgr->addMenuItem(scrActions["alignBlock"], "Alignment");
-	scrMenuMgr->addMenuItem(scrActions["alignForced"], "Alignment");
 }
 
 
