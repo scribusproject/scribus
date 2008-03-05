@@ -100,6 +100,7 @@ class SCRIBUS_API ActionManager : public QObject
 		void initSpecialActions();
 		static void languageChangeUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap);
 		void languageChangeActions();
+		static QKeySequence defaultKey(const QString &actionName);
 	
 		QPixmap noIcon;
 		ScribusMainWindow *mainWindow;
