@@ -750,7 +750,9 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "gr")
 			{
-				gsStack.pop();
+				// #6834 : self defense against incorrectly balanced save/restore
+				if (gsStack.count() > 0)
+					gsStack.pop();
 				if (groupStack.count() != 0)
 				{
 					if (gsStack.count() < static_cast<int>(gsStackMarks.top()))
