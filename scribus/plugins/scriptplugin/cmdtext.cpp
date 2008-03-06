@@ -268,6 +268,8 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	QString Daten = QString::fromUtf8(Text);
+	Daten.replace("\r\n", SpecialChars::PARSEP);
+	Daten.replace(QChar('\n') , SpecialChars::PARSEP);
 	PyMem_Free(Text);
 	if ((pos < -1) || (pos > static_cast<int>(it->itemText.length())))
 	{
