@@ -1003,23 +1003,29 @@ void PageItem_TextFrame::layout()
 						DropCapDrop = charStyle.font().height(style.charStyle().fontSize() / 10.0) * (DropLines-1);
 				}
 
+				// FIXME : we should ensure that fonts are loaded before calls to layout()
+				// ScFace::realCharHeight()/Ascent() ensure font is loaded thanks to an indirect call to char2CMap()
+				// ScFace::ascent() can be called safely afterwards
+				double realCharHeight = charStyle.font().realCharHeight(chstr[0], 1);
+				double realCharAscent = charStyle.font().realCharAscent(chstr[0], 1);
+				double fontAscent     = charStyle.font().ascent(style.charStyle().fontSize() / 10.0);
 				if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 				{
-					chsd = (10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / (charStyle.font().realCharHeight(chstr[0], 1))));
-					chs = (10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharAscent(chstr[0], 1)));
+					chsd = (10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1) + fontAscent) / realCharHeight));
+					chs  = (10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1) + fontAscent) / realCharAscent));
 				}
 				else
 				{
 					if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 					{
-						chsd = (10 * ((style.lineSpacing() * (DropLines-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / (charStyle.font().realCharHeight(chstr[0], 1))));
-						chs = (10 * ((style.lineSpacing() * (DropLines-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharAscent(chstr[0], 1)));
+						chsd = (10 * ((style.lineSpacing() * (DropLines-1) + fontAscent) / realCharHeight));
+						chs  = (10 * ((style.lineSpacing() * (DropLines-1) + fontAscent) / realCharAscent));
 					}
 					else
 					{
 						double currasce = charStyle.font().height(style.charStyle().fontSize() / 10.0);
-						chsd = (10 * ((currasce * (DropLines-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / (charStyle.font().realCharHeight(chstr[0], 1))));
-						chs = (10 * ((currasce * (DropLines-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharAscent(chstr[0], 1)));
+						chsd = (10 * ((currasce * (DropLines-1) + fontAscent) / realCharHeight));
+						chs  = (10 * ((currasce * (DropLines-1) + fontAscent) / realCharAscent));
 					}
 				}
 				hl->setEffects(hl->effects() | ScStyle_DropCap);
