@@ -853,6 +853,8 @@ void PageItem_TextFrame::layout()
 				style.setLineSpacing(style.charStyle().font().height(style.charStyle().fontSize() / 10.0));
 //				qDebug(QString("auto linespacing: %1").arg(style.lineSpacing()));
 			}
+			else if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+				style.setLineSpacing(m_Doc->typographicSettings.valueBaseGrid);
 
 //			qDebug(QString("style @0: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //				   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():""));
@@ -907,6 +909,8 @@ void PageItem_TextFrame::layout()
 			{
 				style.setLineSpacing(style.charStyle().font().height(style.charStyle().fontSize() / 10.0));
 			}
+			else if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+				style.setLineSpacing(m_Doc->typographicSettings.valueBaseGrid);
 			// find out about par gap and dropcap
 			if (a == firstInFrame())
 			{
@@ -1618,6 +1622,8 @@ void PageItem_TextFrame::layout()
 							style.setLineSpacing(style.charStyle().font().height(style.charStyle().fontSize() / 10.0));
 //							qDebug(QString("auto linespacing: %1").arg(style.lineSpacing()));
 						}
+						else if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+							style.setLineSpacing(m_Doc->typographicSettings.valueBaseGrid);
 						current.itemsInLine = a - current.line.firstItem + 1;
 //						qDebug(QString("style outs pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent()));
 //						qDebug(QString("style <@%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
@@ -1696,6 +1702,8 @@ void PageItem_TextFrame::layout()
 								style.setLineSpacing(style.charStyle().font().height(style.charStyle().fontSize() / 10.0));
 //								qDebug(QString("auto linespacing: %1").arg(style.lineSpacing()));
 							}
+							else if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+								style.setLineSpacing(m_Doc->typographicSettings.valueBaseGrid);
 						}
 						current.breakLine(itemText, a);
 //						qDebug(QString("style no break pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent()));
