@@ -763,7 +763,7 @@ void PageItem_TextFrame::layout()
 //	ScribusView* view = m_Doc->view();
 	QMatrix pf2;
 	QPoint pt1, pt2;
-	QRegion cm;
+	/*QRegion cm;*/
 	double chs, chsd = 0;
 	double oldCurY, EndX, OFs, wide, kernVal;
 	QString chstr;
@@ -788,8 +788,10 @@ void PageItem_TextFrame::layout()
 	bool DropCmode = false;
 	bool AbsHasDrop = false;
 	double desc=0, asce=0, maxDY=0, desc2=0, maxDX=0;
-	int DropLines = 0;
 	double DropCapDrop = 0;
+	int    DropLines = 0;
+	int    DropLinesCount = 0;
+	
 	
 	itemText.clearLines();
 
@@ -1514,6 +1516,7 @@ void PageItem_TextFrame::layout()
 			{
 				DropCmode = false;
 				AbsHasDrop = true;
+				DropLinesCount = 0;
 				maxDY = current.yPos;
 				current.xPos += style.dropCapOffset();
 				hl->glyph.xadvance += style.dropCapOffset();
@@ -1555,8 +1558,10 @@ void PageItem_TextFrame::layout()
 				}
 				tcli.setPoint(2, QPoint(qRound(maxDX), qRound(maxDY)));
 				tcli.setPoint(3, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY)));
-				cm = QRegion(pf2.map(tcli));
-				cl = cl.subtract(cm);
+				// #6821 : the following two lines are causing bad text flow around drop caps 
+				// in some case, discarding them put more emphasis on user control of line spacing
+				/*cm = QRegion(pf2.map(tcli));
+				cl = cl.subtract(cm);*/
 //				current.yPos = maxDY;
 			}
 			// end of line
@@ -1756,7 +1761,8 @@ void PageItem_TextFrame::layout()
 								}
 								if (AbsHasDrop)
 								{
-									if ((current.yPos > maxDY) && (current.yPos - asce > maxDY))
+									++DropLinesCount;
+									if (DropLinesCount >= DropLines)
 									{
 										AbsHasDrop = false;
 										current.xPos = current.colLeft;
@@ -1828,7 +1834,8 @@ void PageItem_TextFrame::layout()
 						}
 						if (AbsHasDrop)
 						{
-							if ((current.yPos > maxDY) && (current.yPos - asce > maxDY))
+							++DropLinesCount;
+							if (DropLinesCount >= DropLines)
 							{
 								AbsHasDrop = false;
 								current.xPos = current.colLeft;
@@ -2212,7 +2219,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 		return;
 	QMatrix pf2;
 	QPoint pt1, pt2;
-	QRegion cm;
 	double wide, lineCorr;
 	QChar chstr0;
 	ScText *hl;
