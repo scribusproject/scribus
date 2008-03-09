@@ -487,8 +487,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( "closefile" );
 	args.append( "quit" );
 	QByteArray finalCmd = args.join(" ").toLocal8Bit();
-	int ret = System(getShortPathName(PrefsManager::instance()->ghostscriptExecutable()), args, errFile, errFile);
-	if (ret != 0)
+	int ret = System(getShortPathName(PrefsManager::instance()->ghostscriptExecutable()), args, errFile, errFile, &cancel);
+	if (ret != 0 && !cancel)
 	{
 		qDebug("PostScript import failed when calling gs as: \n%s\n", finalCmd.data());
 		qDebug("Ghostscript diagnostics:\n");
@@ -509,7 +509,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		QMessageBox::critical(0, tr("Fatal Error"), mess, 1, 0, 0);
 		return false;
 	}
-	if(progressDialog) {
+	if(progressDialog && !cancel) {
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
 		qApp->processEvents();

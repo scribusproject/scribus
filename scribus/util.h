@@ -91,7 +91,7 @@ QString SCRIBUS_API GetAttr(QDomElement *el, QString at, QString def="0");
    * @return Program exit code, or 1 on failure.
    *
 */
-int SCRIBUS_API System(const QString exename, const QStringList & args, const QString fileStdErr = "", const QString fileStdOut = "");
+int SCRIBUS_API System(const QString exename, const QStringList & args, const QString fileStdErr = "", const QString fileStdOut = "", bool* cancel = NULL);
 
 /*!
  \fn QString checkFileExtension(const QString &currName, const QString &extension)

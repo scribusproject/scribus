@@ -91,7 +91,7 @@ void sDebug(QString message)
 	qDebug("%s", message.toAscii().constData());
 }
 
-int System(const QString exename, const QStringList & args, const QString fileStdErr, const QString fileStdOut)
+int System(const QString exename, const QStringList & args, const QString fileStdErr, const QString fileStdOut, bool* cancel)
 {
 	QProcess proc;
 	if (!fileStdOut.isEmpty())
@@ -104,8 +104,15 @@ int System(const QString exename, const QStringList & args, const QString fileSt
 		while (!proc.waitForFinished(5000))
 		{
 			qApp->processEvents();
+			if (cancel && (*cancel == true))
+			{
+				proc.kill();
+				break;
+			}
 		}
 	}
+	if (cancel && (*cancel == true))
+		return -1;
 	int ex = proc.exitCode();
 	return ex;
 }
