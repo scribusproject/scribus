@@ -143,11 +143,12 @@ QImage ProofImage(QImage *Image)
 #endif
 }
 
-int System(const QStringList & args, const QString fileStdErr, const QString fileStdOut)
+int System(const QStringList & args, const QString fileStdErr, const QString fileStdOut, bool* cancel)
 {
 	QStringList stdErrData;
 	QStringList stdOutData;
 	QProcess proc(args);
+	int ellapsedTime = 0;
 	if ( !proc.start() )
 		return 1;
 	/* start was OK */
@@ -157,10 +158,11 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 		// Otherwise Scribus will sleep a *lot* when proc has huge std output
 		if ( !proc.canReadLineStdout() && !proc.canReadLineStderr()) {
 #ifndef _WIN32
-		usleep(5000);
+			usleep(5000);
 #else
-		Sleep(5);
+			Sleep(5);
 #endif
+			ellapsedTime += 5;
 		}
 		// Some configurations needs stdout and stderr to be read
 		// if needed before the created process can exit
@@ -168,9 +170,20 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 			stdOutData.append( proc.readLineStdout() );
 		if ( proc.canReadLineStderr() )
 			stdErrData.append( proc.readLineStderr() );
+		if ( ellapsedTime > 2000 )
+		{
+			qApp->processEvents();
+			ellapsedTime = 0;
+		}
+		if ( cancel && (*cancel == true) )
+		{
+			proc.kill();
+			break;
+		}
 	}
 	// TODO: What about proc.normalExit() ?
-	int ex = proc.exitStatus();
+	bool cancelled = (cancel && (*cancel == true));
+	int ex = cancelled ? -1 : proc.exitStatus();
 	QStringList::iterator pIterator;
 	QStringList::iterator pEnd;
 	if ( !fileStdErr.isEmpty() )

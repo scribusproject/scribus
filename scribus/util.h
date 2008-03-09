@@ -119,7 +119,7 @@ QImage SCRIBUS_API ProofImage(QImage *Im);
    * @return Program exit code, or 1 on failure.
    *
 */
-int SCRIBUS_API System(const QStringList & args, const QString fileStdErr = "", const QString fileStdOut = "");
+int SCRIBUS_API System(const QStringList & args, const QString fileStdErr = "", const QString fileStdOut = "", bool* cancel = NULL);
 int SCRIBUS_API copyFile(QString source, QString target);
 int SCRIBUS_API moveFile(QString source, QString target);
 /*!
