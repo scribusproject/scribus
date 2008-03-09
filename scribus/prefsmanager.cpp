@@ -1933,6 +1933,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		cp->insert( CommonStrings::PDF_1_3   , checkerSettings);
 		checkerSettings.checkTransparency = false;
 		cp->insert( CommonStrings::PDF_1_4   , checkerSettings);
+		cp->insert( CommonStrings::PDF_1_5   , checkerSettings);
 		checkerSettings.checkTransparency = true;
 		checkerSettings.checkAnnotations = true;
 		checkerSettings.minResolution = 144.0;
