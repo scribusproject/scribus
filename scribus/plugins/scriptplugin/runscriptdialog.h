@@ -32,6 +32,11 @@ class RunScriptDialog : public QDialog, public Ui::RunScriptDialog
 	protected:
 		// true id there is "scripter extensions" feature enabled
 		bool m_extEnable;
+
+		static QString m_lastScriptDir;
+
+	protected slots:
+		virtual void accept();
 };
 
 #endif
