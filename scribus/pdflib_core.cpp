@@ -6426,7 +6426,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		}
 		enum PDFOptions::PDFCompression cm = Options.CompressMethod;
 		bool exportToCMYK = false, exportToGrayscale = false, jpegUseOriginal = false;
-		if (!Options.UseRGB)
+		if (!Options.UseRGB && !(doc.HasCMS && Options.UseProfiles2 && !realCMYK))
 		{
 			exportToGrayscale = Options.isGrayscale;
 			exportToCMYK      = !Options.isGrayscale;
