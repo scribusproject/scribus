@@ -29,6 +29,11 @@ class RunScriptDialog : public QFileDialog
 	protected:
 		QCheckBox *extChk;
 		bool extEnable;
+
+		static QString m_lastScriptDir;
+
+	protected slots:
+		virtual void accept();
 };
 
 #endif

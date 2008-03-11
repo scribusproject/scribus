@@ -9,12 +9,20 @@ for which a new license (GPL+exception) is in place.
 #include "qdir.h"
 #include "prefsmanager.h"
 
+QString RunScriptDialog::m_lastScriptDir;
+
 RunScriptDialog::RunScriptDialog(QWidget* parent = 0, bool extEnable = false) :
 	QFileDialog(parent, "runScriptDialog", true)
 {
 	this->extEnable = extEnable;
-	PrefsManager *prefsManager=PrefsManager::instance();
-	setDir(!prefsManager->appPrefs.ScriptDir.isEmpty() ? prefsManager->appPrefs.ScriptDir : QDir::currentDirPath());
+	PrefsManager *prefsManager = PrefsManager::instance();
+	QString prefScriptDir = prefsManager->appPrefs.ScriptDir;
+	if (!m_lastScriptDir.isEmpty() && QDir(m_lastScriptDir).exists())
+		setDir(m_lastScriptDir);
+	else if (!prefScriptDir.isEmpty() && QDir(prefScriptDir).exists())
+		setDir(prefsManager->appPrefs.ScriptDir);
+	else
+		setDir(QDir::currentDirPath());
 	setFilters( tr("Python Scripts (*.py);; All Files (*)"));
 
 	if (extEnable)
@@ -35,4 +43,10 @@ bool RunScriptDialog::extensionRequested()
 		return extChk->isChecked();
 	else
 		return false;
+}
+
+void RunScriptDialog:: accept()
+{
+	m_lastScriptDir = dirPath();
+	QFileDialog::accept();
 }
