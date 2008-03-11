@@ -259,5 +259,5 @@ QString CollectForOutput::collectFile(QString oldFile, QString newFile)
 	if (copy)
 		copyFile(oldFile, outputDirectory + newFile);
 	collectedFiles[newFile] = oldFile;
-	return newFile;
+	return outputDirectory + newFile;
 }
