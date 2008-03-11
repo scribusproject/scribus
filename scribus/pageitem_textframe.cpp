@@ -176,7 +176,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 						currentGroup = docItem->Groups.top();
 				}
 			} // for all docItems
-			} // if(OnMasterPage.isEmpty()		
+		} // if(OnMasterPage.isEmpty()		
 	} // if(!Embedded)
 	return result;
 }
