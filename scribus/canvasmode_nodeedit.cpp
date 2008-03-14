@@ -1344,26 +1344,30 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 		if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 		{
 			int storedClRe = m_doc->nodeEdit.ClRe;
-			for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
+			if (m_doc->nodeEdit.SelNode.count() == 1)
 			{
-				m_doc->nodeEdit.ClRe = m_doc->nodeEdit.SelNode.at(itm);
-				if (m_doc->nodeEdit.isContourLine)
-					npf = currItem->ContourLine.point(m_doc->nodeEdit.ClRe) + np;
+				npf = m_canvas->globalToCanvas(m->globalPos());
+				double nx = npf.x();
+				double ny = npf.y();
+				if (!m_doc->ApplyGuides(&nx, &ny))
+					npf = m_doc->ApplyGridF(FPoint(nx, ny));
 				else
-					npf = currItem->PoLine.point(m_doc->nodeEdit.ClRe) + np;
-				if (m_doc->nodeEdit.SelNode.count() == 1)
-				{
-					double nx = npf.x();
-					double ny = npf.y();
-					nx += currItem->xPos();
-					ny += currItem->yPos();
-					if (!m_doc->ApplyGuides(&nx, &ny))
-						npf = m_doc->ApplyGridF(FPoint(nx, ny));
-					else
-						npf = FPoint(nx, ny);
-					npf = FPoint(npf.x() - currItem->xPos(), npf.y() - currItem->yPos());
-				}
+					npf = FPoint(nx, ny);
+				npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
 				m_doc->nodeEdit.moveClipPoint(currItem, npf);
+			}
+			else
+			{
+				for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
+				{
+					m_doc->nodeEdit.ClRe = m_doc->nodeEdit.SelNode.at(itm);
+					if (m_doc->nodeEdit.isContourLine)
+						npf = currItem->ContourLine.point(m_doc->nodeEdit.ClRe) + np;
+					else
+						npf = currItem->PoLine.point(m_doc->nodeEdit.ClRe) + np;
+					npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
+					m_doc->nodeEdit.moveClipPoint(currItem, npf);
+				}
 			}
 			m_doc->nodeEdit.ClRe = storedClRe;
 		}
@@ -1381,7 +1385,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 				npf = m_doc->ApplyGridF(FPoint(nx, ny));
 			else
 				npf = FPoint(nx, ny);
-			npf = FPoint(npf.x() - currItem->xPos(), npf.y() - currItem->yPos());
+			npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
 			m_doc->nodeEdit.moveClipPoint(currItem, npf);
 		}
 		Mxp = newX;
