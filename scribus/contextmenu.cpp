@@ -203,6 +203,24 @@ void ContextMenu::createMenuItems_Selection()
 			addAction(m_AP->scrActions["styleImageEffects"]);
 		if (m_actionList.contains("editEditWithImageEditor"))
 			addAction(m_AP->scrActions["editEditWithImageEditor"]);
+		if (selectedItemCount==1 && currItem->asImageFrame())
+		{
+			if (currItem->PicAvail)
+			{
+				if (!currItem->isTableItem)
+					m_AP->scrActions["itemAdjustFrameToImage"]->setEnabled(true);
+				if (currItem->pixm.imgInfo.valid)
+					m_AP->scrActions["itemExtendedImageProperties"]->setEnabled(true);
+				if (currItem->pixm.imgInfo.exifDataValid)
+					m_AP->scrActions["itemImageInfo"]->setEnabled(true);
+				m_AP->scrActions["itemUpdateImage"]->setEnabled(true);
+				if (currItem->isRaster)
+				{
+					m_AP->scrActions["styleImageEffects"]->setEnabled(true);
+					m_AP->scrActions["editEditWithImageEditor"]->setEnabled(true);
+				}
+			}
+		}
 		
 	}
 	//-->
