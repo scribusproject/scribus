@@ -205,7 +205,7 @@ void PicStatus::languageChange()
 	PicStatus::trMissing = tr("Missing");
 	PicStatus::trSearch = tr("Search");
 	PicStatus::trCancelSearch = tr("Cancel Search");
-	PicStatus::trGoto = tr("Goto");
+	PicStatus::trGoto = tr("Go to");
 }
 
 void PicStatus::GotoPic()
