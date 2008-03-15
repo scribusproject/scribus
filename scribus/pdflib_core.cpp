@@ -500,7 +500,6 @@ int PDFLibCore::WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, b
 		}
 	}
 	return (succeed ? bytesWritten : 0);
-//	return succeed;
 }
 
 QString PDFLibCore::FitKey(const QString & pass)
