@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define _RUNSCRIPTDIALOG_H
 
 // Pulls in Python.h
-#include "cmdvar.h"
+// #include "cmdvar.h"
 #include "ui_runscriptdialog.h"
 
 
