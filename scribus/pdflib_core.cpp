@@ -386,7 +386,6 @@ int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool g
 {
 	bool succeed = false;
 	int  bytesWritten = 0;
-	ScStreamFilter* filter = NULL;
 	if (Options.Encrypt)
 	{
 		QByteArray step1 = ComputeRC4Key(ObjNum);
@@ -440,7 +439,7 @@ int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int Ob
 			jpgFileName = tmpFile;
 	}
 	if (jpgFileName.isEmpty())
-		return false;
+		return 0;
 	if (Options.Encrypt)
 	{
 		succeed = false;
@@ -468,7 +467,6 @@ int PDFLibCore::WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, b
 {
 	bool succeed = false;
 	int  bytesWritten = 0;
-	ScStreamFilter* filter = NULL;
 	if (Options.Encrypt)
 	{
 		QByteArray step1 = ComputeRC4Key(ObjNum);
@@ -501,7 +499,8 @@ int PDFLibCore::WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, b
 			bytesWritten = flateEncode.writtenToStream();
 		}
 	}
-	return succeed;
+	return (succeed ? bytesWritten : 0);
+//	return succeed;
 }
 
 QString PDFLibCore::FitKey(const QString & pass)
@@ -6078,7 +6077,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	bool   alphaM = false;
 	bool   realCMYK = false;
 	int    afl = Options.Resolution;
-	double x2 = 0, ax, ay, a2, a1;
+	double ax, ay, a2, a1;
 	double sxn = 0;
 	double syn = 0;
 	double aufl = Options.Resolution / 72.0;
@@ -6429,7 +6428,10 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		if (!Options.UseRGB && !(doc.HasCMS && Options.UseProfiles2 && !realCMYK))
 		{
 			exportToGrayscale = Options.isGrayscale;
-			exportToCMYK      = !Options.isGrayscale;
+			if (exportToGrayscale)
+				exportToCMYK      = !Options.isGrayscale;
+			else
+				exportToCMYK      = !Options.UseRGB;
 		}
 		if (extensionIndicatesJPEG(ext) && (cm != PDFOptions::Compression_None))
 		{
@@ -6450,7 +6452,10 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
 					{
 						exportToGrayscale = Options.isGrayscale;
-						exportToCMYK      = !Options.isGrayscale;
+						if (exportToGrayscale)
+							exportToCMYK      = !Options.isGrayscale;
+						else
+							exportToCMYK      = !Options.UseRGB;
 					}
 					cm = PDFOptions::Compression_JPEG;
 				}
@@ -6465,7 +6470,10 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
 				{
 					exportToGrayscale = Options.isGrayscale;
-					exportToCMYK      = !Options.isGrayscale;
+					if (exportToGrayscale)
+						exportToCMYK      = !Options.isGrayscale;
+					else
+						exportToCMYK      = !Options.UseRGB;
 				}
 				cm = PDFOptions::Compression_JPEG;
 				/*if (Options.CompressMethod == PDFOptions::Compression_Auto)
