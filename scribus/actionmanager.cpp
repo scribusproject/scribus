@@ -734,33 +734,6 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsToolbarTools"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarPDF"]->setToggleAction(true);
 
-	(*scrActions)["toolsSelect"]->setToggleAction(true);
-	(*scrActions)["toolsInsertTextFrame"]->setToggleAction(true);
-	(*scrActions)["toolsInsertImageFrame"]->setToggleAction(true);
-	(*scrActions)["toolsInsertLatexFrame"]->setToggleAction(true);
-	(*scrActions)["toolsInsertTableFrame"]->setToggleAction(true);
-	(*scrActions)["toolsInsertShape"]->setToggleAction(true);
-	(*scrActions)["toolsInsertPolygon"]->setToggleAction(true);
-	(*scrActions)["toolsInsertLine"]->setToggleAction(true);
-	(*scrActions)["toolsInsertBezier"]->setToggleAction(true);
-	(*scrActions)["toolsInsertFreehandLine"]->setToggleAction(true);
-	(*scrActions)["toolsRotate"]->setToggleAction(true);
-	(*scrActions)["toolsZoom"]->setToggleAction(true);
-	(*scrActions)["toolsEditContents"]->setToggleAction(true);
-	(*scrActions)["toolsEditWithStoryEditor"]->setToggleAction(true);
-	(*scrActions)["toolsLinkTextFrame"]->setToggleAction(true);
-	(*scrActions)["toolsUnlinkTextFrame"]->setToggleAction(true);
-	(*scrActions)["toolsEyeDropper"]->setToggleAction(true);
-	(*scrActions)["toolsCopyProperties"]->setToggleAction(true);
-
-	(*scrActions)["toolsPDFPushButton"]->setToggleAction(true);
-	(*scrActions)["toolsPDFTextField"]->setToggleAction(true);
-	(*scrActions)["toolsPDFCheckBox"]->setToggleAction(true);
-	(*scrActions)["toolsPDFComboBox"]->setToggleAction(true);
-	(*scrActions)["toolsPDFListBox"]->setToggleAction(true);
-	(*scrActions)["toolsPDFAnnotText"]->setToggleAction(true);
-	(*scrActions)["toolsPDFAnnotLink"]->setToggleAction(true);
-
 	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame";
 	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier";
 	*modeActionNames << "toolsInsertFreehandLine" << "toolsInsertLatexFrame" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
@@ -769,7 +742,10 @@ void ActionManager::initToolsMenuActions()
 	*modeActionNames << "toolsPDFPushButton" << "toolsPDFTextField" << "toolsPDFCheckBox" << "toolsPDFComboBox" << "toolsPDFListBox" << "toolsPDFAnnotText" << "toolsPDFAnnotLink";
 
  	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
+	{
  		(*scrActions)[*it]->setEnabled(false);
+		(*scrActions)[*it]->setToggleAction(true);
+	}
 
 
 	*nonEditActionNames << "itemLowerToBottom" << "itemRaiseToTop" << "itemRaise" << "itemLower";
@@ -857,113 +833,113 @@ void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *acti
 	QString name;
 	//typography
 	name="unicodeSmartHyphen";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, SpecialChars::SHYPHEN.unicode(), 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::SHYPHEN.unicode(), name));
 	name="unicodeNonBreakingHyphen";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, SpecialChars::NBHYPHEN.unicode(), 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::NBHYPHEN.unicode(), name));
 	name="unicodeNonBreakingSpace";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, SpecialChars::NBSPACE.unicode(), 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::NBSPACE.unicode(), name));
 	name="unicodePageNumber";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, SpecialChars::PAGENUMBER.unicode(), 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::PAGENUMBER.unicode(), name));
 	name="unicodePageCount";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, SpecialChars::PAGECOUNT.unicode(), 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::PAGECOUNT.unicode(), name));
 	//Spaces
 	name="unicodeSpaceEN";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2002, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2002, name));
 	name="unicodeSpaceEM";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2003, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2003, name));
 	name="unicodeSpaceThin";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2009, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2009, name));
 	name="unicodeSpaceThick";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2004, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2004, name));
 	name="unicodeSpaceMid";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2005, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2005, name));
 	name="unicodeSpaceHair";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x200A, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x200A, name));
 	//Breaks
 	name="unicodeNewLine";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, SpecialChars::LINEBREAK.unicode(), 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::LINEBREAK.unicode(), name));
 	name="unicodeFrameBreak";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, SpecialChars::FRAMEBREAK.unicode(), 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::FRAMEBREAK.unicode(), name));
 	name="unicodeColumnBreak";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, SpecialChars::COLBREAK.unicode(), 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::COLBREAK.unicode(), name));
 	name="unicodeZerowidthSpace";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, SpecialChars::ZWSPACE.unicode(), 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::ZWSPACE.unicode(), name));
 	name="unicodeZerowidthNonBreakingSpace";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, SpecialChars::ZWNBSPACE.unicode(), 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::ZWNBSPACE.unicode(), name));
 	//Special
 	name="unicodeCopyRight";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x0A9, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x0A9, name));
 	name="unicodeRegdTM";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x00AE, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x00AE, name));
 	name="unicodeTM";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2122, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2122, name));
 	name="unicodeBullet";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2022, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2022, name));
 	name="unicodeMidpoint";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x00B7, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x00B7, name));
 	name="unicodeSolidus";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2044, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2044, name));
 	//Dashes
 	name="unicodeDashEm";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2014, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2014, name));
 	name="unicodeDashEn";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2013, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2013, name));
 	name="unicodeDashFigure";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2012, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2012, name));
 	name="unicodeDashQuotation";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2015, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2015, name));
 	//Quotes
 	name="unicodeQuoteApostrophe";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x0027, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x0027, name));
 	name="unicodeQuoteStraight";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x0022, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x0022, name));
 	name="unicodeQuoteSingleLeft";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2018, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2018, name));
 	name="unicodeQuoteSingleRight";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2019, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2019, name));
 	name="unicodeQuoteDoubleLeft";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x201C, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x201C, name));
 	name="unicodeQuoteDoubleRight";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x201D, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x201D, name));
 	name="unicodeQuoteSingleReversed";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x201B, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x201B, name));
 	name="unicodeQuoteDoubleReversed";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x201F, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x201F, name));
 	name="unicodeQuoteSingleLeftGuillemet";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x2039, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x2039, name));
 	name="unicodeQuoteSingleRightGuillemet";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x203A, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x203A, name));
 	name="unicodeQuoteDoubleLeftGuillemet";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x00AB, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x00AB, name));
 	name="unicodeQuoteDoubleRightGuillemet";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x00BB, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x00BB, name));
 	name="unicodeQuoteLowSingleComma";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x201A, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x201A, name));
 	name="unicodeQuoteLowDoubleComma";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x201E, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x201E, name));
 	name="unicodeQuoteCJKSingleLeft";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x300C, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x300C, name));
 	name="unicodeQuoteCJKSingleRight";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x300D, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x300D, name));
 	name="unicodeQuoteCJKDoubleLeft";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x300E, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x300E, name));
 	name="unicodeQuoteCJKDoubleRight";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0x300F, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x300F, name));
 	//Ligatures
 	name="unicodeLigature_ff";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0xFB00, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0xFB00, name));
 	name="unicodeLigature_fi";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0xFB01, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0xFB01, name));
 	name="unicodeLigature_fl";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0xFB02, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0xFB02, name));
 	name="unicodeLigature_ffi";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0xFB03, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0xFB03, name));
 	name="unicodeLigature_ffl";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0xFB04, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0xFB04, name));
 	name="unicodeLigature_ft";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0xFB05, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0xFB05, name));
 	name="unicodeLigature_st";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QPixmap(), QPixmap(), "", defaultKey(name), actionParent, 0xFB06, 0.0, name));
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0xFB06, name));
 
 	//Spaces and special characters
 

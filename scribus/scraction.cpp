@@ -90,6 +90,20 @@ ScrAction::ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QStr
 	icon().addPixmap(icon22, QIcon::Normal, QIcon::On);
 }
 
+
+ScrAction::ScrAction(QKeySequence accel, QObject * parent, int extraInt, QString extraQString) 
+	: QAction( QIcon(QPixmap()), "", parent )
+{
+	setShortcut(accel);
+	initScrAction();
+	icon().addPixmap(QPixmap(), QIcon::Normal, QIcon::On);
+	_actionType=UnicodeChar;
+
+	connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
+	_dataInt=extraInt;
+	_dataQString=extraQString;
+}
+
 void ScrAction::initScrAction()
 {
 	_actionType=ScrAction::Normal;
@@ -122,7 +136,7 @@ void ScrAction::triggeredToTriggeredData()
 	if (_actionType==ScrAction::RecentScript)
 		emit triggeredData(text());
 	if (_actionType==ScrAction::UnicodeChar)
-		triggeredUnicodeShortcut(_dataQString, _dataInt);
+		emit triggeredUnicodeShortcut(_dataQString, _dataInt);
 	if (_actionType==ScrAction::Layer)
 		emit triggeredData(layerID);
 	if (_actionType==ScrAction::ActionDLL)
@@ -260,3 +274,4 @@ void ScrAction::setActionQString(const QString &s)
 {
 	_dataQString=s;
 }
+

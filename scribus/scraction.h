@@ -79,6 +79,16 @@ public:
 		\param parent Parent of this action
 	*/
 	ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject *parent );
+	/*!
+	\author Craig Bradney
+	\date Mar 2008
+	\brief Constructor for a Unicode action.
+	\param accel Accelerator QKeySequence
+	\param parent Parent of this action
+	\param extraInt extra int value
+	\param extraQString extra QString value
+	 */
+	ScrAction( QKeySequence accel, QObject *parent, int extraInt, QString extraQString);
 	~ScrAction();
 	
 	/*!
