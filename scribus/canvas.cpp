@@ -416,8 +416,9 @@ void Canvas::clearBuffers()
 }
 
 
-void Canvas::adjustBuffer()
+bool Canvas::adjustBuffer()
 {
+	bool ret = false;
 	QRect viewport(-x(), -y(), m_view->viewport()->width(), m_view->viewport()->height());
 	FPoint minCanvasCoordinate = m_doc->minCanvasCoordinate;
 	if (minCanvasCoordinate != m_oldMinCanvasCoordinate)
@@ -433,7 +434,8 @@ void Canvas::adjustBuffer()
 	{
 		m_bufferRect = viewport;
 		m_buffer = QPixmap(m_bufferRect.width(), m_bufferRect.height());
-		fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);		
+		fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);
+		ret = true;
 #if DRAW_DEBUG_LINES
 		QPainter p(&m_buffer);
 		p.setPen(Qt::blue);
@@ -470,7 +472,8 @@ void Canvas::adjustBuffer()
 //			qDebug() << "fresh buffer" << newRect << "was" << m_bufferRect;
 			m_bufferRect = newRect;
 			m_buffer = QPixmap(m_bufferRect.width(), m_bufferRect.height());
-			fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);		
+			fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);
+			ret = true;
 #if DRAW_DEBUG_LINES
 			QPainter p(&m_buffer);
 			p.setPen(Qt::blue);
@@ -522,35 +525,23 @@ void Canvas::adjustBuffer()
 			p.end();
 			if (newRect.top() < m_bufferRect.top())
 			{
-				fillBuffer(&newBuffer, newRect.topLeft(), 
-						   QRect(newRect.left(), 
-								 newRect.top(), 
-								 newRect.width(), 
-								 m_bufferRect.top() - newRect.top() + 1));
+				fillBuffer(&newBuffer, newRect.topLeft(), QRect(newRect.left(), newRect.top(), newRect.width(), m_bufferRect.top() - newRect.top() + 1));
+				ret = true;
 			}
 			if (newRect.bottom() > m_bufferRect.bottom())
 			{
-				fillBuffer(&newBuffer, newRect.topLeft(), 
-						   QRect(newRect.left(), 
-								 m_bufferRect.bottom() - 1,
-								 newRect.width(), 
-								 newRect.bottom() - m_bufferRect.bottom() + 1));
+				fillBuffer(&newBuffer, newRect.topLeft(), QRect(newRect.left(), m_bufferRect.bottom() - 1, newRect.width(), newRect.bottom() - m_bufferRect.bottom() + 1));
+				ret = true;
 			}
 			if (newRect.left() < m_bufferRect.left())
 			{
-				fillBuffer(&newBuffer, newRect.topLeft(), 
-						   QRect(newRect.left(), 
-								 m_bufferRect.top(), 
-								 m_bufferRect.left() - newRect.left() + 1, 
-								 m_bufferRect.height()));
+				fillBuffer(&newBuffer, newRect.topLeft(), QRect(newRect.left(), m_bufferRect.top(), m_bufferRect.left() - newRect.left() + 1, m_bufferRect.height()));
+				ret = true;
 			}
 			if (newRect.right() > m_bufferRect.right())
 			{
-				fillBuffer(&newBuffer, newRect.topLeft(), 
-						   QRect(m_bufferRect.right() - 1, 
-								 m_bufferRect.top(), 
-								 newRect.right() - m_bufferRect.right() + 1, 
-								 m_bufferRect.height()));
+				fillBuffer(&newBuffer, newRect.topLeft(), QRect(m_bufferRect.right() - 1, m_bufferRect.top(), newRect.right() - m_bufferRect.right() + 1, m_bufferRect.height()));
+				ret = true;
 			}
 			m_buffer = newBuffer;
 			m_bufferRect = newRect;
@@ -562,16 +553,14 @@ void Canvas::adjustBuffer()
 #endif
 		}
 	}
+	return ret;
 }
 
 void Canvas::fillBuffer(QPaintDevice* buffer, QPoint bufferOrigin, QRect clipRect)
 {
 	QPainter painter(buffer);
 	painter.translate(-bufferOrigin.x(), -bufferOrigin.y());
-	drawContents(&painter,
-				 clipRect.x(),
-				 clipRect.y(),
-				 clipRect.width(), clipRect.height());
+	drawContents(&painter, clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
 	painter.end();
 }
 
@@ -588,8 +577,8 @@ void Canvas::paintEvent ( QPaintEvent * p )
 		return;
 
 	// fill buffer if necessary
-	adjustBuffer();	
-				
+	bool bufferFilled = adjustBuffer();
+
 	QPainter qp(this);
 	
 	switch (m_renderMode)
@@ -599,10 +588,8 @@ void Canvas::paintEvent ( QPaintEvent * p )
 #if DRAW_DEBUG_LINES
 //			qDebug() << "update Buffer:" << m_bufferRect << p->rect() << m_viewMode.forceRedraw;
 #endif
-			if (m_viewMode.forceRedraw)
-			{
+			if ((m_viewMode.forceRedraw) && (!bufferFilled))
 				fillBuffer(&m_buffer, m_bufferRect.topLeft(), p->rect());
-			}
 			int xV = p->rect().x() - m_bufferRect.x();
 			int yV = p->rect().y() - m_bufferRect.y();
 			int wV = p->rect().width();

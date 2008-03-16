@@ -179,7 +179,7 @@ private:
 	/**
 		Enlarges the buffer such that it contains the viewport.
 	 */
-	void adjustBuffer();
+	bool adjustBuffer();
 	/**
 		Fills the given buffer with contents.
 	    bufferOrigin and clipRect are in local coordinates
