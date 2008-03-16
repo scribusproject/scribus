@@ -6,8 +6,11 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scslainforeader.h"
 
+#include <memory>
+
 #include <QFile>
 #include <QXmlStreamReader>
+#include <scgzfile.h>
 
 void ScSlaInfoReader::resetFileInfos(void)
 {
@@ -21,22 +24,27 @@ bool ScSlaInfoReader::readInfos(const QString& fileName)
 	bool isScribusDocument = false;
 	bool readInfoSuccess   = false;
 	bool firstStartElement = true;
+	std::auto_ptr<QIODevice> file;
 
 	resetFileInfos();
 
-	QFile file(fileName);
-	if (!file.open(QIODevice::ReadOnly))
+	if (fileName.right(2).toLower() == "gz")
+		file.reset( new ScGzFile(fileName) );
+	else
+		file.reset( new QFile(fileName) );
+
+	if (!file.get() || !file->open(QIODevice::ReadOnly))
 		return false;
 
-	QByteArray bytes = file.read(512);
+	QByteArray bytes = file->read(512);
 	if (!bytes.contains("SCRIBUS") && !bytes.contains("SCRIBUSUTF8") && !bytes.contains("SCRIBUSUTF8NEW"))
 	{
-		file.close();
+		file->close();
 		return false;
 	}
-	file.reset();
+	file->reset();
 
-	QXmlStreamReader reader(&file);
+	QXmlStreamReader reader(file.get());
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		QXmlStreamReader::TokenType ttype = reader.readNext();
@@ -71,7 +79,7 @@ bool ScSlaInfoReader::readInfos(const QString& fileName)
 		}
 	}
 	isScribusDocument &= !reader.hasError();
-	file.close();
+	file->close();
 
 	return (isScribusDocument && readInfoSuccess);
 }
