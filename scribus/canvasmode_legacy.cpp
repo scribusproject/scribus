@@ -5034,6 +5034,11 @@ void LegacyMode::importToPage()
 				m_ScMW->propertiesPalette->SetLineFormats(m_doc);
 			}
 		}
+		for (int a = 0; a < m_doc->m_Selection->count(); ++a)
+		{
+			PageItem *currItem = m_doc->m_Selection->itemAt(a);
+			currItem->LayerNr = m_doc->activeLayer();
+		}
 		m_doc->useRaster = savedAlignGrid;
 		m_doc->SnapGuides = savedAlignGuides;
 		m_doc->setLoading(false);

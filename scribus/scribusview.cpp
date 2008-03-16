@@ -851,6 +851,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		{
 			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 			PageItem *b = Doc->Items->at(z);
+			b->LayerNr = Doc->activeLayer();
 			Doc->LoadPict(url.path(), b->ItemNr);
 			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
 			b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
@@ -1140,6 +1141,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				for (int a = 0; a < Doc->m_Selection->count(); ++a)
 				{
 					PageItem *currItem = Doc->m_Selection->itemAt(a);
+					currItem->LayerNr = Doc->activeLayer();
 					currItem->gXpos = currItem->xPos() - gx;
 					currItem->gYpos = currItem->yPos() - gy;
 					currItem->gWidth = gw;
@@ -1155,6 +1157,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			{
 				Doc->m_Selection->connectItemToGUI();
 				currItem = Doc->m_Selection->itemAt(0);
+				currItem->LayerNr = Doc->activeLayer();
 				if (Doc->useRaster)
 				{
 					double nx = currItem->xPos();
@@ -2131,6 +2134,7 @@ void ScribusView::PasteToPage()
 		if (currItem->isBookmark)
 			emit AddBM(currItem);
 		newObjects.addItem(currItem);
+		currItem->LayerNr = Doc->activeLayer();
 	}
 	if (newObjects.count() > 1)
 	{
