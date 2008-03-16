@@ -97,10 +97,9 @@ PythonConsole::PythonConsole( QWidget* parent)
 	welcomeText += tr("Scribus Python Console");
 	welcomeText += "\n\n";
 	welcomeText += tr(
-			"This is derived from standard Python console "
-			"so it contains some limitations esp. in the "
-			"case of whitespaces. Please consult Scribus "
-			"manual for more informations.");
+			"This is a standard Python console with some \n"
+			"known limitations. Please consult the Scribus \n"
+			"Scripter documentation for futher information. ");
 	welcomeText += "\"\"\"\n";
 	commandEdit->setText(welcomeText);
 	commandEdit->selectAll(true);
