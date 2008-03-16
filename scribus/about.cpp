@@ -13,16 +13,19 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "about.h"
+#include <QFile>
 #include <QPixmap>
 #include <QToolTip>
 #include <QLabel>
 #include <QTabWidget>
+#include <QTextStream>
 #include <QWidget>
 #include <QPushButton>
 #include <QShowEvent>
 
 #include "commonstrings.h"
 #include "scconfig.h"
+#include "scpaths.h"
 #include "sctextbrowser.h"
 
 #ifdef HAVE_CAIRO
@@ -65,7 +68,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "14";
+	QString BUILD_DAY = "16";
 	QString BUILD_MONTH = CommonStrings::march;
 	QString BUILD_YEAR = "2008";
 	QString BUILD_TIME = "";
@@ -423,7 +426,27 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	textView5 = new ScTextBrowser( tab_5);
 	updateLayout->addWidget( checkForUpdateButton );
 	updateLayout->addWidget( textView5 );
-
+	
+	// Licence tab
+	tab_Licence = new QWidget( tabWidget2 );
+	tabWidget2->addTab( tab_Licence, tr( "&Licence" ) );
+	licenceLayout = new QVBoxLayout( tab_Licence );
+	licenceLayout->setSpacing( 6 );
+	licenceLayout->setMargin( 10 );
+	textViewLicence = new ScTextBrowser( tab_Licence);
+	licenceLayout->addWidget( textViewLicence );
+	
+	QFile licenceFile(ScPaths::instance().docDir() + "/COPYING");
+	if (!licenceFile.open(QIODevice::ReadOnly | QIODevice::Text))
+		textViewLicence->setText( tr("Unable to open licence file. Please check your install directory or the Scribus website for licencing information.") );
+	else
+	{
+		QTextStream inTS(&licenceFile);
+		QString licenceText = inTS.readAll();
+		textViewLicence->setText(licenceText);
+	} 
+	
+	//Add tab widget to about window
 	aboutLayout->addWidget( tabWidget2 );
 
 	layout2 = new QHBoxLayout;

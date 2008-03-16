@@ -47,12 +47,15 @@ protected:
 	QWidget* tab_3;
 	QWidget* tab_4;
 	QWidget* tab_5;
+	QWidget* tab_Licence;
 	ScTextBrowser* textView1;
 	ScTextBrowser* textView2;
 	ScTextBrowser* textView4;
 	ScTextBrowser* textView5;
+	ScTextBrowser* textViewLicence;
 	QVBoxLayout* aboutLayout;
 	QVBoxLayout* updateLayout;
+	QVBoxLayout* licenceLayout;
 	QHBoxLayout* tabLayout;
 	QVBoxLayout* tabLayout1;
 	QHBoxLayout* tabLayout_2;
