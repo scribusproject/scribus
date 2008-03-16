@@ -8,26 +8,27 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCGZFILE_H
 #define SCGZFILE_H
 
-#include <QString>
 #include <QByteArray>
+#include <QIODevice>
+#include <QString>
 
 #include "scribusapi.h"
 
-struct ScGzFileWriteDataPrivate;
+struct ScGzFileDataPrivate;
 
-class SCRIBUS_API ScGzFile : public QFile
+class SCRIBUS_API ScGzFile : public QIODevice
 {
 protected:
+	QString              m_fileName;
+	ScGzFileDataPrivate* m_data;
+	ScGzFileDataPrivate* newPrivateData(void);
+	void freeData(void);
 
-	ScGzFileWriteDataPrivate* m_writeData;
-	ScGzFileWriteDataPrivate* newWriteData(void);
-	bool initWriteData(void);
-	void freeWriteData(void);
-
-	void    putLong(unsigned long l);
+	bool    gzFileOpen(QString fileName, ScGzFileDataPrivate* data, QIODevice::OpenMode mode);
 	
+	virtual bool   atEnd();
+	virtual qint64 readData  (char * data, qint64 maxSize);
 	virtual qint64 writeData (const char * data, qint64 maxSize);
-	virtual bool   writeDeflate(bool flush);
 
 public:
 	ScGzFile(const QString& filename);
@@ -37,6 +38,11 @@ public:
 	
 	virtual bool open(QIODevice::OpenMode mode);
 	virtual void close();
+
+	bool errorOccurred(void) const;
+	int  error(void) const;
+
+	bool reset(void);
 
 	static bool readFromFile(const QString& filename, QByteArray& bArray, uint maxBytes = 0);
 	static bool writeToFile (const QString& filename, const QByteArray& bArray);

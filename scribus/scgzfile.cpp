@@ -5,183 +5,186 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <cstdio>
 #include <cstdlib>
 #include <zlib.h>
-#include <QDataStream>
 #include <QDir>
 #include <QFileInfo>
 
 #include "scconfig.h"
 #include "scgzfile.h"
 
-/* Code inspired by zlib and adapted for Scribus by Jean Ghali */
-
 const  int ScGzFile::gzipExpansionFactor = 8;
-static int const gz_magic_header[2] = {0x1f, 0x8b}; /* gzip magic header */
 
-#define BUFFER_SIZE 16384
-struct  ScGzFileWriteDataPrivate
+struct  ScGzFileDataPrivate
 {
-    z_stream      zlib_stream;
-	z_off_t       bytesIn;
-    unsigned char input_buffer [BUFFER_SIZE];
-    unsigned char output_buffer[BUFFER_SIZE];
-	unsigned long crc;
+	FILE*  file;
+	gzFile gzfile;
 };
 
-ScGzFile::ScGzFile(const QString& fileName) : QFile(fileName)
+ScGzFile::ScGzFile(const QString& fileName) : QIODevice(), m_fileName(fileName)
 {
-	m_writeData = NULL;
+	m_fileName = fileName;
+	m_data     = NULL;
 }
 
 ScGzFile::~ScGzFile(void)
 {
-	freeWriteData();
+	freeData();
 }
 
-ScGzFileWriteDataPrivate* ScGzFile::newWriteData(void)
+int ScGzFile::error(void) const
 {
-	freeWriteData();
-	m_writeData = (ScGzFileWriteDataPrivate *) malloc(sizeof(ScGzFileWriteDataPrivate));
-	if (m_writeData)
-	{
-		bool initSuccess = initWriteData();
-		if (!initSuccess)
-			freeWriteData();
-	}
-	return m_writeData;
+	int errCode = 0;
+	if (m_data)
+		gzerror(m_data->gzfile, &errCode);
+	return errCode;
 }
 
-bool ScGzFile::initWriteData(void)
+bool ScGzFile::errorOccurred(void) const
+{
+	bool errorOccurred = false;
+	if (m_data)
+	{
+		int errCode = error();
+		errorOccurred = (errCode != Z_OK && errCode != Z_STREAM_END);
+	}
+	return errorOccurred;
+}
+
+ScGzFileDataPrivate* ScGzFile::newPrivateData(void)
+{
+	freeData();
+	m_data = (ScGzFileDataPrivate*) malloc(sizeof(ScGzFileDataPrivate));
+	if (m_data)
+	{
+		m_data->file   = NULL;
+		m_data->gzfile = NULL;
+	}
+	return m_data;
+}
+
+void ScGzFile::freeData(void)
+{
+	if (m_data)
+	{
+		free(m_data);
+		m_data = NULL;
+	}
+}
+
+bool ScGzFile::gzFileOpen(QString fileName, ScGzFileDataPrivate* data, QIODevice::OpenMode mode)
 {
 	bool success = false;
-	if (m_writeData)
+	FILE* file   = NULL;
+	gzFile gzf   = NULL;
+	QString localPath = QDir::toNativeSeparators(fileName);
+#if defined(_WIN32)
+	if (mode == QIODevice::ReadOnly)
+		file = _wfopen((const wchar_t*) localPath.utf16(), L"rb");
+	else if (mode == QIODevice::WriteOnly)
+		file = _wfopen((const wchar_t*) localPath.utf16(), L"wb");
+	if (file)
 	{
-		m_writeData->zlib_stream.zalloc = Z_NULL;
-		m_writeData->zlib_stream.zfree  = Z_NULL;
-		m_writeData->zlib_stream.opaque = Z_NULL;
-
-		int err = deflateInit2(&m_writeData->zlib_stream, Z_DEFAULT_COMPRESSION, Z_DEFLATED, -MAX_WBITS, 8, Z_DEFAULT_STRATEGY);
-		if (err != Z_OK) return false;
-
-		m_writeData->bytesIn = 0;
-		m_writeData->zlib_stream.next_in   = m_writeData->input_buffer;
-		m_writeData->zlib_stream.avail_in  = 0;
-		m_writeData->zlib_stream.next_out  = m_writeData->output_buffer;
-		m_writeData->zlib_stream.avail_out = BUFFER_SIZE;
-		m_writeData->crc = crc32(0L, Z_NULL, 0);
+		int fno = _fileno(file);
+		gzf = gzdopen(fno,(mode == QIODevice::ReadOnly) ? "rb" : "wb");
+		if (!gzf) fclose(file);
+	}
+#else
+	if (mode == QIODevice::ReadOnly)
+		file = fopen(localPath.toLocal8Bit().data(), "rb");
+	else if (mode == QIODevice::WriteOnly)
+		file = fopen(localPath.toLocal8Bit().data(), "wb");
+	if (file)
+	{
+		int fno = fileno(file);
+		gzf = gzdopen(fno,(mode == QIODevice::ReadOnly) ? "rb" : "wb");
+		if (!gzf) fclose(file);
+	}
+#endif
+	if (gzf)
+	{
+		data->file   = file;
+		data->gzfile = gzf;
 		success = true;
 	}
 	return success;
 }
 
-void ScGzFile::freeWriteData(void)
-{
-	if (m_writeData)
-	{
-		free(m_writeData);
-		m_writeData = NULL;
-	}
-}
-
 bool ScGzFile::open(QIODevice::OpenMode mode)
 {
-	if (mode != QIODevice::WriteOnly)
-		return false;
+	bool success = true;
+	if (isOpen()) return false;
 
-	m_writeData = newWriteData();
-	if (!m_writeData) 
-	{
-		return false;
-	}
+	freeData();
+	if (mode == QIODevice::ReadOnly || mode == QIODevice::WriteOnly)
+		m_data = newPrivateData();
+	if (!m_data) return false;
 
-	bool opened = QFile::open(mode);
+	bool opened = gzFileOpen(m_fileName, m_data, mode);
 	if (opened)
 	{
-		char buffer[16];
-		qsnprintf(buffer, 15, "%c%c%c%c%c%c%c%c%c%c", gz_magic_header[0], gz_magic_header[1],
-				  Z_DEFLATED, 0 /*flags*/, 0,0,0,0 /*time*/, 0 /*xflags*/, 0x03);
-		QFile::writeData(buffer, 10);
-		return true;
+		opened &= QIODevice::open(mode);
+		if (!opened)
+			this->close();
+		success = opened;
 	}
-	return false;
+	return success;
+}
+
+bool ScGzFile::reset(void)
+{
+	if (!m_data || (openMode() != QIODevice::ReadOnly))
+		return false;
+
+	int res = gzrewind(m_data->gzfile);
+	QIODevice::reset();
+	return (res == 0);
+}
+
+bool ScGzFile::atEnd()
+{
+	if (m_data)
+	{
+		if (openMode() == QIODevice::ReadOnly)
+		{
+			int result = gzeof(m_data->gzfile);
+			return result;
+		}
+		return QIODevice::atEnd();
+	}
+	return QIODevice::atEnd();
+}
+
+qint64 ScGzFile::readData (char * data, qint64 maxSize)
+{
+	if (!m_data || (openMode() != QIODevice::ReadOnly))
+		return 0;
+
+	int result = gzread(m_data->gzfile, data, maxSize);
+	return result;
 }
 
 qint64 ScGzFile::writeData (const char * data, qint64 dataLen)
 {
 	bool deflateSuccess = true;
-    qint64 count;
     const unsigned char *p = (const unsigned char *) data;
 
-	if (!m_writeData)
+	if (!m_data || (openMode() != QIODevice::WriteOnly))
 		return false;
 
-    while (dataLen) {
-        count = dataLen;
-        if (count > BUFFER_SIZE - m_writeData->zlib_stream.avail_in)
-            count = BUFFER_SIZE - m_writeData->zlib_stream.avail_in;
-        memcpy (m_writeData->input_buffer + m_writeData->zlib_stream.avail_in, p, count);
-		m_writeData->crc = crc32(m_writeData->crc, (const Bytef *) p, count);
-        p += count;
-        m_writeData->zlib_stream.avail_in += count;
-        dataLen -= count;
-
-        if (m_writeData->zlib_stream.avail_in == BUFFER_SIZE)
-            deflateSuccess &= writeDeflate(false);
-    }
-
-	return (deflateSuccess ? dataLen : 0);
-}
-
-bool ScGzFile::writeDeflate(bool flush)
-{
-	int  ret;
-	bool deflateSuccess = true;
-    bool finished;
-	
-	do {
-		m_writeData->bytesIn += m_writeData->zlib_stream.avail_in;
-		ret = deflate (&m_writeData->zlib_stream, flush ? Z_FINISH : Z_NO_FLUSH);
-		m_writeData->bytesIn -= m_writeData->zlib_stream.avail_in;
-        if (flush || m_writeData->zlib_stream.avail_out == 0)
-        {
-			qint64 written = QFile::writeData((const char*) m_writeData->output_buffer, BUFFER_SIZE - m_writeData->zlib_stream.avail_out);
-			deflateSuccess &= (written == (BUFFER_SIZE - m_writeData->zlib_stream.avail_out));
-            m_writeData->zlib_stream.next_out  = m_writeData->output_buffer;
-            m_writeData->zlib_stream.avail_out = BUFFER_SIZE;
-        }
-
-        finished = TRUE;
-        if (m_writeData->zlib_stream.avail_in != 0)
-            finished = FALSE;
-        if (flush && ret != Z_STREAM_END)
-            finished = FALSE;
-
-    } while (!finished);
-
-    m_writeData->zlib_stream.next_in = m_writeData->input_buffer;
-	return deflateSuccess;
+    int result = gzwrite(m_data->gzfile, data, dataLen);
+	return result;
 }
 
 void ScGzFile::close()
 {
-	if (!QFile::isOpen() || !m_writeData)
+	if (!isOpen() || !m_data)
 		return;
 
-	writeDeflate(true);
-	deflateEnd (&m_writeData->zlib_stream);
-	putLong (m_writeData->crc);
-	putLong ((unsigned long) (m_writeData->bytesIn & 0xffffffff));
-	QFile::close();
-}
-
-void ScGzFile::putLong(unsigned long l)
-{
-	for (int n = 0; n < 4; ++n)
-	{
-		QFile::putChar((char)(l & 0xff));
-		l >>= 8;
-	}
+	gzclose(m_data->gzfile);
+	QIODevice::close();
+	freeData();
 }
 
 bool ScGzFile::readFromFile(const QString& filename, QByteArray& bArray, uint maxBytes)
