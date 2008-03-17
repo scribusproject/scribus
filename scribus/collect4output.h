@@ -72,6 +72,8 @@ private:
 	/*! Collect used fonts if requested.
 	\retval true on success */
 	bool collectFonts();
+	/*! Helper function for collectFonts() */
+	QStringList findFontMetrics(const QString& baseDir, const QString& baseName) const;
 	/*! Collect used profiles if requested.
 	\retval true on success */
 	bool collectProfiles();
