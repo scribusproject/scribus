@@ -446,6 +446,17 @@ bool Canvas::adjustBuffer()
 	}
 	else if (!m_bufferRect.contains(viewport))
 	{
+		QRect newRect(m_bufferRect);
+		if (m_bufferRect.left() > viewport.left())
+			newRect.translate(viewport.left() - m_bufferRect.left(), 0);
+		if (m_bufferRect.right() < viewport.right())
+			newRect.translate(viewport.right() - m_bufferRect.right(), 0);
+		if (m_bufferRect.top() > viewport.top())
+			newRect.translate(0, viewport.top() - m_bufferRect.top());
+		if (m_bufferRect.bottom() < viewport.bottom())
+			newRect.translate(0, viewport.bottom() - m_bufferRect.bottom());
+
+/*
 		// enlarge buffer by half a screenwidth:
 		QRect newRect(m_bufferRect);
 		if (m_bufferRect.left() > viewport.left())
@@ -467,6 +478,7 @@ bool Canvas::adjustBuffer()
 			newRect.setTop(qMax(viewport.top() - viewport.height()/2, newRect.top()));
 			newRect.setBottom(qMin(viewport.bottom() + viewport.height()/2, newRect.bottom()));
 		}
+*/
 		if (!m_bufferRect.intersects(newRect))
 		{
 //			qDebug() << "fresh buffer" << newRect << "was" << m_bufferRect;
@@ -513,7 +525,7 @@ bool Canvas::adjustBuffer()
 			{
 				height = newRect.height() - ypos;
 			}
-			p.drawPixmap(xpos, ypos, m_buffer, x, y,  width, height);
+			p.drawPixmap(xpos, ypos, m_buffer, x, y,  width + 1, height + 1);
 #if DRAW_DEBUG_LINES
 			p.setPen(Qt::blue);
 			p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos);
@@ -525,22 +537,22 @@ bool Canvas::adjustBuffer()
 			p.end();
 			if (newRect.top() < m_bufferRect.top())
 			{
-				fillBuffer(&newBuffer, newRect.topLeft(), QRect(newRect.left(), newRect.top(), newRect.width(), m_bufferRect.top() - newRect.top() + 1));
+				fillBuffer(&newBuffer, newRect.topLeft(), QRect(newRect.left(), newRect.top(), newRect.width(), m_bufferRect.top() - newRect.top() + 2));
 				ret = true;
 			}
 			if (newRect.bottom() > m_bufferRect.bottom())
 			{
-				fillBuffer(&newBuffer, newRect.topLeft(), QRect(newRect.left(), m_bufferRect.bottom() - 1, newRect.width(), newRect.bottom() - m_bufferRect.bottom() + 1));
+				fillBuffer(&newBuffer, newRect.topLeft(), QRect(newRect.left(), m_bufferRect.bottom() - 1, newRect.width(), newRect.bottom() - m_bufferRect.bottom() + 2));
 				ret = true;
 			}
 			if (newRect.left() < m_bufferRect.left())
 			{
-				fillBuffer(&newBuffer, newRect.topLeft(), QRect(newRect.left(), m_bufferRect.top(), m_bufferRect.left() - newRect.left() + 1, m_bufferRect.height()));
+				fillBuffer(&newBuffer, newRect.topLeft(), QRect(newRect.left(), m_bufferRect.top(), m_bufferRect.left() - newRect.left() + 2, m_bufferRect.height()));
 				ret = true;
 			}
 			if (newRect.right() > m_bufferRect.right())
 			{
-				fillBuffer(&newBuffer, newRect.topLeft(), QRect(m_bufferRect.right() - 1, m_bufferRect.top(), newRect.right() - m_bufferRect.right() + 1, m_bufferRect.height()));
+				fillBuffer(&newBuffer, newRect.topLeft(), QRect(m_bufferRect.right() - 1, m_bufferRect.top(), newRect.right() - m_bufferRect.right() + 2, m_bufferRect.height()));
 				ret = true;
 			}
 			m_buffer = newBuffer;
@@ -609,8 +621,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 			{
 				qp.save();
 				qp.scale(m_viewMode.scale, m_viewMode.scale);
-				qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale,
-							 -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+				qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 				drawControls( &qp );
 				qp.restore();
 			}				
@@ -645,8 +656,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 				{
 					qp.save();
 					qp.scale(m_viewMode.scale, m_viewMode.scale);
-					qp.translate(-m_doc->minCanvasCoordinate.x(),
-								 -m_doc->minCanvasCoordinate.y());
+					qp.translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 					drawControls( &qp );
 					qp.restore();
 				}
