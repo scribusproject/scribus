@@ -19,6 +19,8 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QProgressBar>
 
+class ScXmlStreamWriter;
+
 class PLUGIN_API Scribus134Format : public LoadSavePlugin
 {
 	Q_OBJECT
@@ -62,30 +64,33 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir);
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *docParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
-		void writeCheckerProfiles(QDomDocument & docu);
-		void writeLinestyles(QDomDocument & docu);
-		void writeJavascripts(QDomDocument & docu);
-		void writeBookmarks(QDomDocument & docu);
-		void writeColors(QDomDocument & docu);
-		void writeHyphenatorLists(QDomDocument &docu);
-		void writePStyles(QDomDocument & docu);
-		void writeCStyles(QDomDocument & docu);
-		void putPStyle(QDomDocument & docu, QDomElement & fo, const ParagraphStyle & style);
-		void putCStylePT(QDomDocument & docu, QDomElement & fo, const CharStyle & style);
-		void putCStyle(QDomDocument & docu, QDomElement & fo, const CharStyle & style);
-		void writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElement ob, PageItem* item);
-		void writeLayers(QDomDocument & docu);
-		void writePrintOptions(QDomDocument & docu);
-		void writePdfOptions(QDomDocument & docu);
-		void writeDocItemAttributes(QDomDocument & docu);
-		void writeTOC(QDomDocument & docu);
-		void writePageSets(QDomDocument & docu);
-		void writeSections(QDomDocument & docu);
-		void writePatterns(QDomDocument & docu, const QString& baseDir);
-		void writeContent(QDomDocument & docu, const QString& baseDir);
-		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
-		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *items = 0);
-		void SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat);
+
+		void writeCheckerProfiles(ScXmlStreamWriter& docu);
+		void writeLinestyles(ScXmlStreamWriter& docu);
+		void writeJavascripts(ScXmlStreamWriter& docu);
+		void writeBookmarks(ScXmlStreamWriter& docu);
+		void writeColors(ScXmlStreamWriter& docu);
+		void writeHyphenatorLists(ScXmlStreamWriter& docu);
+		void writePStyles(ScXmlStreamWriter& docu);
+		void writeCStyles(ScXmlStreamWriter& docu);
+		void putPStyle(ScXmlStreamWriter& fo, const ParagraphStyle & style, const QString &nodeName);
+		void putCStylePT(ScXmlStreamWriter& fo, const CharStyle & style);
+		void putCStyle(ScXmlStreamWriter& fo, const CharStyle & style);
+		void writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter&, PageItem* item);
+		void writeLayers(ScXmlStreamWriter& docu);
+		void writePrintOptions(ScXmlStreamWriter& docu);
+		void writePdfOptions(ScXmlStreamWriter& docu);
+		void writeDocItemAttributes(ScXmlStreamWriter& docu);
+		void writeTOC(ScXmlStreamWriter& docu);
+		void writePageSets(ScXmlStreamWriter& docu);
+		void writeSections(ScXmlStreamWriter& docu);
+		void writePatterns(ScXmlStreamWriter& docu, const QString& baseDir);
+		void writeContent(ScXmlStreamWriter& docu, const QString& baseDir);
+
+		void WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QProgressBar *dia2, uint maxC, bool master);
+		void WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *items = 0);
+		void SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir, bool newFormat);
+
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
 		QMap<int, int> itemRemapF;
