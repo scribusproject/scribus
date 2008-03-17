@@ -167,9 +167,6 @@ qint64 ScGzFile::readData (char * data, qint64 maxSize)
 
 qint64 ScGzFile::writeData (const char * data, qint64 dataLen)
 {
-	bool deflateSuccess = true;
-    const unsigned char *p = (const unsigned char *) data;
-
 	if (!m_data || (openMode() != QIODevice::WriteOnly))
 		return false;
 
