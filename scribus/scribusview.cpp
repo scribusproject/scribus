@@ -863,81 +863,40 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			return;
 		}
 		//if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
-		if (Doc->m_Selection->count()>0 && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && (img))
+		if (Doc->m_Selection->count()>0 && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE)) // && (img))
 		{
 			PageItem *b = Doc->m_Selection->itemAt(0);
 			if (b->itemType() == PageItem::ImageFrame)
 			{
 				if ((fi.exists()) && (img))
-				{
 					Doc->LoadPict(url.path(), b->ItemNr);
-					updateContents();
+			}
+			else if (b->itemType() == PageItem::TextFrame)
+			{
+				if ((fi.exists()) && (!img))
+				{
+					QByteArray file;
+					QTextCodec *codec = QTextCodec::codecForLocale();
+					// TODO create a Dialog for selecting the codec
+					if (loadRawText(url.path(), file))
+					{
+						QString txt = codec->toUnicode( file.data() );
+						txt.replace(QRegExp("\r"), QChar(13));
+						txt.replace(QRegExp("\n"), QChar(13));
+						txt.replace(QRegExp("\t"), QChar(9));
+						b->itemText.insertChars(b->CPos, txt, true);
+						if (Doc->docHyphenator->AutoCheck)
+							Doc->docHyphenator->slotHyphenate(b);
+						b->invalidateLayout();
+						b->update();
+					}
 				}
 			}
-			/* CB leaving this out for now...
-			if (b->PType == 4)
-			{
-				if ((b->BackBox != 0) && (b->itemText.count() == 0))
-					return;
-				if ((fi.exists()) && (!img) && (fi.size() < 500000))
-				{
-					Serializer *ss = new Serializer(ur.path());
-					if (ss->Read())
-					{
-						int st = doku->currentParaStyle;
-						ss->GetText(b, st, doku->docParagraphStyles[st].Font, doku->docParagraphStyles[st].FontSize, true);
-						emit DocChanged();
-					}
-					delete ss;
-					ss=NULL;
-					update();
-				}
-				else
-				{
-					slotDoCurs(false);
-					slotSetCurs(e->pos().x(), e->pos().y());
-					if (text.startsWith("<SCRIBUSELEM"))
-						return;
-					for (a=0; a<text.length(); ++a)
-					{
-						hg = new ScText;
-						hg->ch = text.at(a);
-						if (hg->ch == QChar(10))
-							hg->ch = QChar(13);
-						if (hg->ch == QChar(4))
-							hg->ch = QChar(9);
-						if (hg->ch == QChar(5))
-							hg->ch = QChar(13);
-						hg->cfont = b->IFont;
-						hg->csize = b->ISize;
-						hg->ccolor = b->TxtFill;
-						hg->cshade = b->ShTxtFill;
-						hg->cstroke = b->TxtStroke;
-						hg->cshade2 = b->ShTxtStroke;
-						hg->cselect = false;
-						hg->cscale = b->TxtScale;
-						hg->cextra = 0;
-						hg->cstyle = 0;
-						hg->cab = 0;
-						hg->xp = 0;
-						hg->yp = 0;
-						hg->PRot = 0;
-						hg->PtransX = 0;
-						hg->PtransY = 0;
-						b->itemText.insert(b->CPos, hg);
-						b->CPos += 1;
-					}
-					emit DocChanged();
-					update();
-				}
-			}*/
+			emit DocChanged();
+			update();
 		}
 		else
 		{
-//			for (uint as = 0; as < Doc->Items->count(); ++as)
-//			{
-//				Doc->Items->at(as)->setSelected(false);
-//			}
 			Deselect(true);
 			uint oldDocItemCount = Doc->Items->count();
 			if ((!img) && (Doc->DraggedElem == 0))
@@ -995,7 +954,6 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				}
 				else 
 				{
-//					qDebug() << "drop - loading text:" << text;	
 					emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
 				}
 				Selection tmpSelection(this, false);
@@ -1086,13 +1044,6 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 								}
 							}
 						}
-/*						for (uint dre=0; dre<Doc->DragElements.count(); ++dre)
-						{
-							currItem = Doc->m_Selection->itemAt(dre);
-							currItem->NextBox = 0;
-							currItem->BackBox = 0;
-						}
-*/
 						pasted.clear();
 						Doc->itemSelection_DeleteItem();
 					}
@@ -1153,7 +1104,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				emit ItemPos(gx, gy);
 				emit ItemGeom(gw, gh);
 			}
-			else
+			else if (Doc->m_Selection->count() == 1)
 			{
 				Doc->m_Selection->connectItemToGUI();
 				currItem = Doc->m_Selection->itemAt(0);
