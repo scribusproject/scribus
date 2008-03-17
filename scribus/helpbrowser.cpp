@@ -495,7 +495,7 @@ void HelpBrowser::loadHelp(const QString& filename)
 		else
 		{
 			toLoad = QDir::convertSeparators(ScPaths::instance().docDir() + "en/index.html");
-			language="en";
+// 			language="en";
 			fi = QFileInfo(toLoad);
 			if (!fi.exists())
 			{
