@@ -1945,7 +1945,7 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 		delete activeTransaction;
 		activeTransaction = NULL;
 	}
-	setActiveLayer(layerNumberFromLevel(0));
+//	setActiveLayer(layerNumberFromLevel(0));
 	return true;
 }
 
@@ -6666,6 +6666,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 	m_ScMW->rebuildLayersList();
 	//FIXME: stop using m_View
 	m_View->updateLayerMenu();
+	setActiveLayer(newLayerNr);
 }
 
 
