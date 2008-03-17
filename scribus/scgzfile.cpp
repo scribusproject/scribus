@@ -194,10 +194,8 @@ bool ScGzFile::readFromFile(const QString& filename, QByteArray& bArray, uint ma
 	if (maxBytes != 0)
 		maxB = maxBytes;
 	bArray.resize(0);
-	gzFile gzDoc = NULL;
-	QByteArray fn(filename.toLocal8Bit());
-	gzDoc = gzopen(fn.data(),"rb");
-	if(gzDoc == NULL)
+	ScGzFile gzFile(filename);
+	if(!gzFile.open(QIODevice::ReadOnly))
 	{ 
 		return false; // FIXME: Needs better error return
 	}
@@ -210,7 +208,7 @@ bool ScGzFile::readFromFile(const QString& filename, QByteArray& bArray, uint ma
 	char* buf = bArray.data();
 	uint bytesRead = 0;
 	// While there's free space, read into the buffer....
-	while ((i = gzread(gzDoc,buf,bufSize-bytesRead-1)) > 0)
+	while ((i = gzFile.read(buf,bufSize-bytesRead-1)) > 0)
 	{
 		// Ensure the string is null-terminated and move the
 		// write pointer to the current position.
@@ -228,20 +226,17 @@ bool ScGzFile::readFromFile(const QString& filename, QByteArray& bArray, uint ma
 		if (maxB >= 0 && bytesRead >= maxB)
 			break;
 	}
-	gzclose(gzDoc);
+	gzFile.close();
 	return (bArray.size() > 0);
 }
 
 bool ScGzFile::writeToFile(const QString& filename, const QByteArray& bArray)
 {
-	gzFile gzDoc = NULL;
-	QString localPath = QDir::toNativeSeparators(filename);
-	QByteArray fn(localPath.toLocal8Bit());
-	gzDoc = gzopen(fn.data(),"wb");
-	if(gzDoc)
+	ScGzFile gzFile(filename);
+	if (gzFile.open(QIODevice::WriteOnly))
 	{
-		int res = gzputs(gzDoc, bArray.data());
-		gzclose(gzDoc);
+		int res = gzFile.write(bArray.data(), bArray.size());
+		gzFile.close();
 		return (res > 0 && (res == bArray.size()));
 	}
 	return false;
@@ -249,15 +244,12 @@ bool ScGzFile::writeToFile(const QString& filename, const QByteArray& bArray)
 
 bool ScGzFile::writeToFile(const QString& filename, const QByteArray& bArray, const char* header)
 {
-	gzFile gzDoc = NULL;
-	QString localPath = QDir::toNativeSeparators(filename);
-	QByteArray fn(localPath.toLocal8Bit());
-	gzDoc = gzopen(fn.data(),"wb");
-	if(gzDoc)
+	ScGzFile gzFile(filename);
+	if(gzFile.open(QIODevice::WriteOnly))
 	{
-		int res1 = gzputs(gzDoc, header);
-		int res2 = gzputs(gzDoc, bArray.data());
-		gzclose(gzDoc);
+		int res1 = gzFile.write(header, strlen(header));
+		int res2 = gzFile.write(bArray.data(), bArray.size());
+		gzFile.close();
 		bool done1 = (res1 > 0 && (res1 == static_cast<int>(strlen(header))));
 		bool done2 = (res2 > 0 && (res2 == bArray.size()));
 		return (done1 && done2);
