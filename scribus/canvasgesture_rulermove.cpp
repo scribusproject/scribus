@@ -23,7 +23,6 @@
 #include "guidemanagercore.h"
 #include "scribus.h"
 #include "scribusdoc.h"
-#include "scribusview.h"
 #include "util_icon.h"
 
 void RulerGesture::drawControls(QPainter* p)
@@ -33,7 +32,6 @@ void RulerGesture::drawControls(QPainter* p)
 	p->save();
 	QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(page->xOffset(), page->yOffset()));
 	QSize pageSize = (QSizeF(page->width(), page->height()) * m_canvas->scale()).toSize();
-//	qDebug() << "drawRulermoveControls" << m_xy << m_mode;
 	switch (m_mode)
 	{
 		case HORIZONTAL:
@@ -69,9 +67,6 @@ void RulerGesture::prepare(Mode mode)
 
 void RulerGesture::activate(bool fromGesture)
 {
-//	Code below is commented out because it causes a crash on X11 after the mouse release event
-//	if (!fromGesture)
-//		m_cursor = qApp->overrideCursor();
 	m_haveCursor = (qApp->overrideCursor() != NULL);
 	if ( (!fromGesture) && qApp->overrideCursor())
 	{
@@ -98,9 +93,6 @@ void RulerGesture::activate(bool fromGesture)
 
 void RulerGesture::deactivate(bool)
 {
-//	Code below is commented out because it causes a crash on X11 after the mouse release event
-//	if (m_cursor)
-//		qApp->changeOverrideCursor(*m_cursor);
 	if (m_haveCursor)
 		qApp->changeOverrideCursor(m_cursor);
 	m_haveGuide = false;
@@ -141,8 +133,7 @@ void RulerGesture::movePoint(QMouseEvent* m)
 {
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
-	QRect viewport(m_view->viewport()->mapToGlobal(QPoint(0,0)), 
-				   QSize(m_view->visibleWidth(), m_view->visibleHeight()));
+	QRect viewport(m_view->viewport()->mapToGlobal(QPoint(0,0)), QSize(m_view->visibleWidth(), m_view->visibleHeight()));
 	QPoint newMousePoint = m->globalPos() - m_canvas->mapToGlobal(QPoint(0,0));
 	switch (m_mode)
 	{
@@ -160,38 +151,29 @@ void RulerGesture::movePoint(QMouseEvent* m)
 					m_doc->Pages->at(page)->guides.addHorizontal(mousePointDoc.y() - m_doc->Pages->at(page)->yOffset(), GuideManagerCore::Standard);
 					m_page = page;
 					m_haveGuide = true;
-					//					emit signalGuideInformation(0, qRound((newY-m_doc->Pages->at(page)->yOffset()) * 10000.0) / 10000.0);
 				}
 				else
 				{
 					if (page == m_page)
-					{
 						m_doc->Pages->at(page)->guides.moveHorizontal( m_guide, mousePointDoc.y() - m_doc->Pages->at(page)->yOffset(), GuideManagerCore::Standard);
-						//						emit signalGuideInformation(0, qRound((newY-m_doc->Pages->at(page)->yOffset()) * 10000.0) / 10000.0);
-					}
 					else
 					{
 						m_doc->Pages->at(m_page)->guides.deleteHorizontal( m_guide, GuideManagerCore::Standard);
-						//						emit signalGuideInformation(-1, 0.0);
 						m_doc->Pages->at(page)->guides.addHorizontal(mousePointDoc.y() - m_doc->Pages->at(page)->yOffset(), GuideManagerCore::Standard);
 						m_page = page;
 					}
 				}
 				m_guide = mousePointDoc.y() - m_doc->Pages->at(page)->yOffset();
-				//				m_view->m_ScMW->guidePalette->clearRestoreVerticalList();
 			}
 			else
 			{ 
 				if (m_haveGuide)
 				{
 					qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png")));
-					m_doc->Pages->at(m_page)->guides.deleteVertical( m_guide, GuideManagerCore::Standard);
+					m_doc->Pages->at(m_page)->guides.deleteHorizontal( m_guide, GuideManagerCore::Standard);
 					m_haveGuide = false;
-					//					emit signalGuideInformation(-1, 0.0);
-					//					m_view->m_ScMW->guidePalette->clearRestoreVerticalList();
 				}
 			}
-			//			emit DocChanged();
 			break;
 		case VERTICAL:
 			m_canvas->update(m_xy.x()-2, 0, 4, m_canvas->height());
@@ -204,24 +186,18 @@ void RulerGesture::movePoint(QMouseEvent* m)
 					m_doc->Pages->at(page)->guides.addVertical(mousePointDoc.x() - m_doc->Pages->at(page)->xOffset(), GuideManagerCore::Standard);
 					m_page = page;
 					m_haveGuide = true;
-					//					emit signalGuideInformation(0, qRound((newX-m_doc->Pages->at(page)->xOffset()) * 10000.0) / 10000.0);
 				}
 				else
 				{
 					if (page == m_page)
-					{
 						m_doc->Pages->at(page)->guides.moveVertical( m_guide, mousePointDoc.x() - m_doc->Pages->at(page)->xOffset(), GuideManagerCore::Standard);
-//						emit signalGuideInformation(0, qRound((newX-m_doc->Pages->at(page)->xOffset()) * 10000.0) / 10000.0);
-					}
 					else
 					{
 						m_doc->Pages->at(m_page)->guides.deleteVertical( m_guide, GuideManagerCore::Standard);
-//						emit signalGuideInformation(-1, 0.0);
 						m_doc->Pages->at(page)->guides.addVertical(mousePointDoc.x() - m_doc->Pages->at(page)->xOffset(), GuideManagerCore::Standard);
 						m_page = page;
 					}
 				}
-//				m_view->m_ScMW->guidePalette->clearRestoreVerticalList();
 				m_guide = mousePointDoc.x() - m_doc->Pages->at(page)->xOffset();
 			}
 			else
@@ -231,11 +207,8 @@ void RulerGesture::movePoint(QMouseEvent* m)
 					qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png")));
 					m_doc->Pages->at(m_page)->guides.deleteVertical( m_guide, GuideManagerCore::Standard);
 					m_haveGuide = false;
-//					emit signalGuideInformation(-1, 0.0);
-//					m_view->m_ScMW->guidePalette->clearRestoreVerticalList();
 				}
 			}
-//			emit DocChanged();
 			break;
 	}
 	m_xy = newMousePoint;
@@ -254,6 +227,8 @@ void RulerGesture::mouseReleaseEvent(QMouseEvent* m)
 	movePoint(m);
 	if (m_mode == ORIGIN)
 		m_view->setNewRulerOrigin(m);
+	else
+		m_ScMW->guidePalette->setupPage();
 	m_haveGuide = false;
 	m->accept();
 	m_canvas->repaint();

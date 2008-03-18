@@ -134,6 +134,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_canvas(new Canvas(doc, this)),
 	Prefs(&(PrefsManager::instance()->appPrefs)),
 	undoManager(UndoManager::instance()),
+	m_ScMW(mw),
 	OldScale(0),
 	dragX(0), dragY(0), dragW(0), dragH(0),
 	oldW(-1), // oldCp(-1),
@@ -172,8 +173,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 //	forceRedraw(false),
 //	Scale(Prefs->DisScale),
 //	oldClip(0),
-	m_vhRulerHW(17),
-	m_ScMW(mw)
+	m_vhRulerHW(17)
 {
 	setObjectName("s");
 	setAttribute(Qt::WA_StaticContents);

@@ -128,6 +128,7 @@ public:
 	QMap<int,CanvasMode*> modeInstances;
 	ApplicationPrefs * const Prefs;
 	UndoManager * const undoManager;
+	ScribusMainWindow* m_ScMW;
 	double OldScale;
 	double dragX,dragY,dragW,dragH;
 	double oldW;
@@ -372,7 +373,6 @@ protected: // Protected methods
 	
 	//The width of vertical ruler/height of horizontal ruler, set to 17 in scribusview.cpp
 	int m_vhRulerHW;
-	ScribusMainWindow* m_ScMW;
 
 signals:
 	void changeUN(int);

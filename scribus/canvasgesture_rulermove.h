@@ -24,6 +24,7 @@
 #include "canvas.h"
 #include "canvasgesture.h"
 #include "canvasmode.h"
+#include "scribusview.h"
 
 class QCursor;
 class QDragEnterEvent;
@@ -35,6 +36,7 @@ class QInputMethodEvent;
 class QMouseEvent;
 class QKeyEvent;
 class QPainter;
+class ScribusMainWindow;
 
 /**
   This class realizes the moving of guides and the moving of the ruler origin
@@ -44,7 +46,7 @@ class SCRIBUS_API RulerGesture : public CanvasGesture
 public:
 	enum Mode { HORIZONTAL, VERTICAL, ORIGIN };
 	RulerGesture (ScribusView* view, Mode mode) : 
-		CanvasGesture(view), m_mode(mode), m_haveGuide(false), m_haveCursor(false), m_xy(0,0) {};
+		CanvasGesture(view), m_ScMW(m_view->m_ScMW), m_mode(mode), m_haveGuide(false), m_haveCursor(false), m_xy(0,0) {};
 
 	/**
 		Prepares the gesture for 'mode' without using an existing guide. If 'mode' is HORIZONTAL
@@ -71,6 +73,7 @@ public:
 	 */
 	bool mouseHitsGuide(FPoint mousePointDoc);
 private:
+	ScribusMainWindow* m_ScMW;
 	Mode m_mode;
 	bool m_haveGuide;
 	int m_page;
