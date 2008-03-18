@@ -4621,7 +4621,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			}
 			if (ite->annotation().ActionType() == 7)
 			{
-				PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+Path2Relative(ite->annotation().Extern())+")",ObjCounter-1)+"\n");
+				PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+ite->annotation().Extern()+")",ObjCounter-1)+"\n");
 				PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
 			}
 			if (ite->annotation().ActionType() == 8)
@@ -4802,7 +4802,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			{
 				if (ite->annotation().ActionType() == 7)
 				{
-					PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+Path2Relative(ite->annotation().Extern())+")",ObjCounter-1)+ "\n");
+					PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+ite->annotation().Extern()+")",ObjCounter-1)+ "\n");
 					PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
 				}
 				if (ite->annotation().ActionType() == 5)
