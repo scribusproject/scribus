@@ -1,10 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
-Type=MimeType
+Type=Application
+Name=Scribus
 MimeType=application/vnd.scribus
-Patterns=*.sla;*.sla.gz;*.scd;*.scd.gz;*.slaz
 Icon=scribusicon
-Comment=Page Layout and Publication (Stable)
+Exec=scribus %f
+Comment=Page Layout and Publication (Development)
 Comment[ar]=سكريبس
 Comment[fa]=اسکریباس
 Comment[lo]=ສະຄຣີບັດສ໌
@@ -49,6 +50,6 @@ Comment[xh]=Upapasho lwe Desktop
 Comment[zh_CN]=桌面出版
 Comment[zh_TW]=桌面出版
 Comment[zu]=Ukushicilelwa kwe-Desktop
-[Property::X-KDE-NativeExtension]
+[X-Property::X-KDE-NativeExtension]
 Type=QString
 Value=.sla
