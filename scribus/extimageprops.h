@@ -46,15 +46,24 @@ public:
 	QWidget* tab_2;
 	QListWidget* pathList;
 	QPushButton* resetPath;
+	QCheckBox* livePreview;
+	QPushButton* okButton;
+	QPushButton* cancelButton;
 	QList<QCheckBox*> FlagsSicht;
 	QList<QCheckBox*> FlagsMask;
 	ScribusView *viewWidget;
 	PageItem *currentItem;
 	int currentLayer;
+	bool doPreview;
+	ImageInfoRecord originalInfo;
+	FPointArray originalImageClip;
 	QMap<QString, QString> blendModes;
 	QMap<QString, QString> blendModesRev;
 
 public slots:
+	void leaveOK();
+	void leaveCancel();
+	void changePreview();
 	void changedLayer();
 	void selLayer(int layer);
 	void selPath(QListWidgetItem *c);
@@ -63,8 +72,9 @@ public slots:
 protected:
 	QVBoxLayout* ExtImagePropsLayout;
 	QVBoxLayout* tabLayout;
-	QHBoxLayout* layout1;
 	QVBoxLayout* tabLayout_2;
+	QHBoxLayout* layout1;
+	QHBoxLayout* layoutBottom;
 
 };
 

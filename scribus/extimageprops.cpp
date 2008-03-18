@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTableWidget>
 #include <QTableWidgetItem>
 
+#include "commonstrings.h"
 #include "pageitem.h"
 #include "sccombobox.h"
 #include "scpainter.h"
@@ -42,6 +43,8 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	viewWidget = view;
 	currentItem = item;
 	currentLayer = 0;
+	originalInfo = *info;
+	originalImageClip = item->imageClip.copy();
 	blendModes.clear();
 	blendModes.insert("norm", tr("Normal"));
 	blendModes.insert("dark", tr("Darken"));
@@ -264,15 +267,109 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	tabLayout_2->addWidget( resetPath );
 	propsTab->addTab( tab_2, tr( "Paths" ) );
 	ExtImagePropsLayout->addWidget( propsTab );
+
+	layoutBottom = new QHBoxLayout;
+	layoutBottom->setMargin(0);
+	layoutBottom->setSpacing(4);
+	livePreview = new QCheckBox( this );
+	livePreview->setText( tr( "Live Preview" ) );
+	livePreview->setChecked(true);
+	doPreview = true;
+	layoutBottom->addWidget( livePreview );
+	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layoutBottom->addItem( spacer );
+	okButton = new QPushButton( CommonStrings::tr_OK, this );
+	layoutBottom->addWidget( okButton );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
+	cancelButton->setDefault( true );
+	layoutBottom->addWidget( cancelButton );
+	ExtImagePropsLayout->addLayout( layoutBottom );
 	resize(330, 320);
 
 	connect(pathList, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selPath(QListWidgetItem*) ) );
 	connect(resetPath, SIGNAL(clicked()), this, SLOT(noPath()));
+	connect(livePreview, SIGNAL(clicked()), this, SLOT(changePreview()));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(leaveOK()));
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(leaveCancel()));
 	if (info->layerInfo.count() != 0)
 	{
 		connect(layerTable, SIGNAL(cellClicked(int, int)), this, SLOT(selLayer(int)));
 		connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
 		connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
+	}
+}
+
+void ExtImageProps::leaveOK()
+{
+	doPreview = false;
+	if (originalInfo.layerInfo.count() != 0)
+		changedLayer();
+	viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+	if (pathList->count() != 0)
+	{
+		QList<QListWidgetItem *>sel = pathList->selectedItems();
+		if (sel.count() != 0)
+		{
+			currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[sel[0]->text()].copy();
+			currentItem->pixm.imgInfo.usedPath = sel[0]->text();
+			QMatrix cl;
+			cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
+			cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
+			currentItem->imageClip.map(cl);
+		}
+		else
+		{
+			currentItem->imageClip.resize(0);
+			currentItem->pixm.imgInfo.usedPath = "";
+		}
+	}
+	currentItem->update();
+	accept();
+}
+
+void ExtImageProps::leaveCancel()
+{
+	currentItem->pixm.imgInfo = originalInfo;
+	viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+	currentItem->imageClip = originalImageClip.copy();
+	currentItem->update();
+	reject();
+}
+
+void ExtImageProps::changePreview()
+{
+	doPreview = livePreview->isChecked();
+	if (doPreview)
+	{
+		if (originalInfo.layerInfo.count() != 0)
+			changedLayer();
+		viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+		if (pathList->count() != 0)
+		{
+			QList<QListWidgetItem *>sel = pathList->selectedItems();
+			if (sel.count() != 0)
+			{
+				currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[sel[0]->text()].copy();
+				currentItem->pixm.imgInfo.usedPath = sel[0]->text();
+				QMatrix cl;
+				cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
+				cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
+				currentItem->imageClip.map(cl);
+			}
+			else
+			{
+				currentItem->imageClip.resize(0);
+				currentItem->pixm.imgInfo.usedPath = "";
+			}
+		}
+		currentItem->update();
+	}
+	else
+	{
+		currentItem->pixm.imgInfo = originalInfo;
+		viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+		currentItem->imageClip = originalImageClip.copy();
+		currentItem->update();
 	}
 }
 
@@ -299,8 +396,11 @@ void ExtImageProps::changedLayer()
 			loadingInfo.useMask = true;
 		currentItem->pixm.imgInfo.RequestProps.insert(layerTable->rowCount() - r - 1, loadingInfo);
 	}
-	viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
-	currentItem->update();
+	if (doPreview)
+	{
+		viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+		currentItem->update();
+	}
 }
 
 void ExtImageProps::selLayer(int layer)
@@ -327,16 +427,19 @@ void ExtImageProps::selLayer(int layer)
 void ExtImageProps::noPath()
 {
 	disconnect(pathList, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selPath(QListWidgetItem*) ) );
-	currentItem->imageClip.resize(0);
-	currentItem->pixm.imgInfo.usedPath = "";
 	pathList->clearSelection();
-	currentItem->update();
+	if (doPreview)
+	{
+		currentItem->imageClip.resize(0);
+		currentItem->pixm.imgInfo.usedPath = "";
+		currentItem->update();
+	}
 	connect(pathList, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selPath(QListWidgetItem*) ) );
 }
 
 void ExtImageProps::selPath(QListWidgetItem *c)
 {
-	if (c != NULL)
+	if ((c != NULL) && (doPreview))
 	{
 		currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[c->text()].copy();
 		currentItem->pixm.imgInfo.usedPath = c->text();
