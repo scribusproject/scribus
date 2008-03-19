@@ -503,10 +503,13 @@ Guides GuideManager::getAutoVerticals()
 		newPageWidth = newPageWidth - currentPage->Margins.Left - currentPage->Margins.Right;
 		offset = currentPage->Margins.Left;
 	}
-	else if (qRound(currentPage->guides.gx) != 0)
+	else if (verticalRefer() == 2)
 	{
-		offset = currentPage->guides.gx;
-		newPageWidth = currentPage->guides.gw;
+		if (qRound(currentPage->guides.gx) != 0)
+		{
+			offset = currentPage->guides.gx;
+			newPageWidth = currentPage->guides.gw;
+		}
 	}
 
 	if (verticalAutoGapSpin->value() > 0.0 && verticalAutoGapCheck->isChecked())
@@ -545,10 +548,13 @@ Guides GuideManager::getAutoHorizontals()
 		newPageHeight = newPageHeight - currentPage->Margins.Top - currentPage->Margins.Bottom;
 		offset = currentPage->Margins.Top;
 	}
-	else if (qRound(currentPage->guides.gy) != 0.0)
+	else if (horizontalRefer() == 2)
 	{
-		offset = currentPage->guides.gy;
-		newPageHeight = currentPage->guides.gh;
+		if (qRound(currentPage->guides.gy) != 0.0)
+		{
+			offset = currentPage->guides.gy;
+			newPageHeight = currentPage->guides.gh;
+		}
 	}
 
 	if (horizontalAutoGapSpin->value() > 0.0 && horizontalAutoGapCheck->isChecked())
