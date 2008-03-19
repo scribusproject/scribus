@@ -478,10 +478,8 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	DistanceLayout->addWidget( DCol, 0, 1 );
 
 	dGap = new ScrSpinBox( 0, 300, Distance, 0 );
-//	colgapLabel = new LabelButton( Distance, "&Gap:", "&Width:");
-//	colgapLabel->setBuddy(dGap);
 	colgapLabel = new ScComboBox( Distance );
-	DistanceLayout->addWidget( colgapLabel, 1, 0, Qt::AlignLeft );
+	DistanceLayout->addWidget( colgapLabel, 1, 0); //, Qt::AlignLeft );
 	DistanceLayout->addWidget( dGap, 1, 1 );
 
 	DTop = new ScrSpinBox( 0, 300, Distance, 0 );
@@ -1230,6 +1228,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	StrokeIcon->setEnabled(false);
 	TxStroke->setEnabled(false);
 	PM1->setEnabled(false);
+	colgapLabel->setCurrentIndex(0);
 }
 
 void PropertiesPalette::closeEvent(QCloseEvent *closeEvent)
@@ -1282,6 +1281,8 @@ void PropertiesPalette::SelTab(int t)
 		Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
 		Cpal->gradEdit->Preview->updateDisplay();
 	}
+	if ((HaveDoc) && (HaveItem) && (t == idShapeItem))
+		DCol->setMaximum(qMax(qRound(CurItem->width() / qMax(CurItem->ColGap, 10.0)), 1));
 }
 
 void PropertiesPalette::setDoc(ScribusDoc *d)
@@ -1524,7 +1525,6 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		DCol->setMinimum(1);
 		DCol->setValue(i2->Cols);
 		dGap->setMinimum(0);
-//		if (colgapLabel->getState())
 		if (colgapLabel->currentIndex() == 0)
 		{
 			dGap->setMaximum(qMax((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*m_unitRatio, 0.0));
@@ -2235,7 +2235,6 @@ void PropertiesPalette::setCols(int r, double g)
 		if (i2!=0)
 		{
 			DCol->setMaximum(qMax(qRound(i2->width() / qMax(i2->ColGap, 10.0)), 1));
-//			if (colgapLabel->getState())
 			if (colgapLabel->currentIndex() == 0)
 			{
 				dGap->setMaximum(qMax((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*m_unitRatio, 0.0));
@@ -3105,7 +3104,6 @@ void PropertiesPalette::NewGap()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-//	if (colgapLabel->getState())
 	if (colgapLabel->currentIndex() == 0)
 		CurItem->ColGap = dGap->value() / m_unitRatio;
 	else
