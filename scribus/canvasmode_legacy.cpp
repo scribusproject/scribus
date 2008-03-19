@@ -1795,7 +1795,11 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 							oldCp = oldP;
 						}
 						else //>>CB
+						{
 							oldCp = currItem->CPos;
+							currItem->itemText.deselectAll();
+							currItem->HasSel = false;
+						}
 						/*
 					if ((!inText) && ((currItem->asTextFrame()) || (currItem->asImageFrame())))
 					{
