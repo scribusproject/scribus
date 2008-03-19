@@ -194,7 +194,7 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesSettings.layerMarkersShown = false;
 	appPrefs.guidesSettings.gridShown = false;
 	appPrefs.guidesSettings.guidesShown = true;
-	appPrefs.guidesSettings.colBordersShown = false;
+	appPrefs.guidesSettings.colBordersShown = true;
 	appPrefs.guidesSettings.baseShown = false;
 	appPrefs.guidesSettings.showPic = true;
 	appPrefs.guidesSettings.showControls = false;
