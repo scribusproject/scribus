@@ -326,10 +326,15 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							object->setText(1, notOnPage);
 							break;
 						case MissingImage:
-							object->setText(1, missingImg);
-							hasGraveError = true;
-							pageGraveError = true;
-							itemError = true;
+							if (doc->MasterItems.at(it2.key())->externalFile().isEmpty())
+								object->setText(1, emptyImg);
+							else
+							{
+								object->setText(1, missingImg);
+								hasGraveError = true;
+								pageGraveError = true;
+								itemError = true;
+							}
 							break;
 						case ImageDPITooLow:
 							xres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageXScale());
@@ -390,11 +395,19 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								errorText->setIcon( 0, onlyWarning );
 								break;
 							case MissingImage:
-								errorText->setText(1, missingImg);
-								errorText->setIcon( 0, graveError );
-								hasGraveError = true;
-								pageGraveError = true;
-								itemError = true;
+								if (doc->MasterItems.at(it2.key())->externalFile().isEmpty())
+								{
+									errorText->setText(1, emptyImg);
+									errorText->setIcon( 0, onlyWarning );
+								}
+								else
+								{
+									errorText->setText(1, missingImg);
+									errorText->setIcon( 0, graveError );
+									hasGraveError = true;
+									pageGraveError = true;
+									itemError = true;
+								}
 								break;
 							case ImageDPITooLow:
 								xres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageXScale());
@@ -496,10 +509,15 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							object->setText(1, notOnPage);
 							break;
 						case MissingImage:
-							object->setText(1, missingImg);
-							hasGraveError = true;
-							pageGraveError = true;
-							itemError = true;
+							if (doc->DocItems.at(it2.key())->externalFile().isEmpty())
+								object->setText(1, emptyImg);
+							else
+							{
+								object->setText(1, missingImg);
+								hasGraveError = true;
+								pageGraveError = true;
+								itemError = true;
+							}
 							break;
 						case ImageDPITooLow:
 							xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
@@ -560,11 +578,19 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								errorText->setIcon( 0, onlyWarning );
 								break;
 							case MissingImage:
-								errorText->setText(1, missingImg);
-								errorText->setIcon( 0, graveError );
-								hasGraveError = true;
-								pageGraveError = true;
-								itemError = true;
+								if (doc->DocItems.at(it2.key())->externalFile().isEmpty())
+								{
+									errorText->setText(1, emptyImg);
+									errorText->setIcon( 0, onlyWarning );
+								}
+								else
+								{
+									errorText->setText(1, missingImg);
+									errorText->setIcon( 0, graveError );
+									hasGraveError = true;
+									pageGraveError = true;
+									itemError = true;
+								}
 								break;
 							case ImageDPITooLow:
 								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
@@ -671,9 +697,14 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 // 							object->setText(1, notOnPage);
 							break;
 						case MissingImage:
-							object->setText(1, missingImg);
-							hasGraveError = true;
-							pageGraveError = true;
+							if (doc->DocItems.at(it2.key())->externalFile().isEmpty())
+								object->setText(1, emptyImg);
+							else
+							{
+								object->setText(1, missingImg);
+								hasGraveError = true;
+								pageGraveError = true;
+							}
 							break;
 						case ImageDPITooLow:
 							xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
@@ -731,10 +762,18 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								errorText->setIcon( 0, onlyWarning );
 								break;
 							case MissingImage:
-								errorText->setText(1, missingImg);
-								errorText->setIcon( 0, graveError );
-								hasGraveError = true;
-								pageGraveError = true;
+								if (doc->DocItems.at(it2.key())->externalFile().isEmpty())
+								{
+									errorText->setText(1, emptyImg);
+									errorText->setIcon( 0, onlyWarning );
+								}
+								else
+								{
+									errorText->setText(1, missingImg);
+									errorText->setIcon( 0, graveError );
+									hasGraveError = true;
+									pageGraveError = true;
+								}
 								break;
 							case ImageDPITooLow:
 								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
@@ -835,6 +874,7 @@ void CheckDocument::languageChange()
 	textOverflow = tr("Text overflow");
 	notOnPage = tr("Object is not on a Page");
 	missingImg = tr("Missing Image");
+	emptyImg = tr("Empty Image Frame");
 	lowDPI = tr("Image resolution below %1 DPI, currently %2 x %3 DPI");
 	highDPI = tr("Image resolution above %1 DPI, currently %2 x %3 DPI");
 	transpar = tr("Object has transparency");

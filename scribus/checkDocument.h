@@ -112,6 +112,7 @@ private:
 	QString textOverflow;
 	QString notOnPage;
 	QString missingImg;
+	QString emptyImg;
 	QString lowDPI;
 	QString highDPI;
 	QString transpar;
