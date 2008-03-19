@@ -58,7 +58,8 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	result.insert("width", toXMLString(item->width()));
 	result.insert("height", toXMLString(item->height()));
 	result.insert("ownpage", toXMLString(item->OwnPage));
-	Page* page = (item->OwnPage >= 0) ? item->doc()->Pages->at(item->OwnPage) : NULL;
+	//Page* page = (item->OwnPage >= 0) ? item->doc()->Pages->at(item->OwnPage) : NULL;
+	Page* page = item->doc()->currentPage(); //#6175
 	if (page)
 	{
 		result.insert("xorigin", toXMLString(item->xPos() - page->xOffset()));
