@@ -1819,9 +1819,11 @@ void ScribusView::Deselect(bool prop)
 		}
 		else
 		{
-			currItem=Doc->m_Selection->itemAt(0);
+			currItem = Doc->m_Selection->itemAt(0);
+			currItem->itemText.deselectAll();
+			currItem->HasSel = false;
 			Doc->m_Selection->clear();
-			if (currItem!=NULL)
+			if (currItem != NULL)
 				updateContents(currItem->getRedrawBounding(scale));
 		}
 	}
