@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qobject.h>
 #include <qmap.h>
+#include <qstringlist.h>
 
 class QString;
 class ScribusMainWindow;
@@ -65,6 +66,8 @@ private:
 	/*! Collect used fonts if requested.
 	\retval true on success */
 	bool collectFonts();
+	/*! Helper function for collectFonts() */
+	QStringList findFontMetrics(const QString& baseDir, const QString& baseName) const;
 	/*! \brief Copy used file into new location with magic checks.
 	It looks into collectedFiles map. If there is newFile (key) already
 	found - it will construct new filename to prevent overwritting.

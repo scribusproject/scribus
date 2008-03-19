@@ -234,8 +234,73 @@ bool CollectForOutput::collectFonts()
 	{
 		QFileInfo itf = QFileInfo(prefsManager->appPrefs.AvailFonts[it3.key()]->fontFilePath());
 		copyFile(prefsManager->appPrefs.AvailFonts[it3.key()]->fontFilePath(), outputDirectory + itf.fileName());
+		if (prefsManager->appPrefs.AvailFonts[it3.key()]->typeCode == Foi::TYPE1)
+		{
+			QStringList metrics;
+			QString fontDir  = itf.absFilePath();
+			QString fontFile = itf.fileName();
+			metrics += findFontMetrics(fontDir, fontFile);
+			if ( metrics.size() <= 0 )
+			{
+				QDir dir;
+				if (dir.exists(fontDir + "/AFMs"))
+					metrics += findFontMetrics(fontDir + "/AFMs", fontFile);
+				if (dir.exists(fontDir + "/afm") && metrics.size() <= 0)
+					metrics += findFontMetrics(fontDir + "/afm", fontFile);
+				if (dir.exists(fontDir + "/Pfm") && metrics.size() <= 0)
+					metrics += findFontMetrics(fontDir + "/Pfm", fontFile);
+				if (dir.exists(fontDir + "/pfm") && metrics.size() <= 0)
+					metrics += findFontMetrics(fontDir + "/pfm", fontFile);
+			}
+			for (uint a = 0; a < metrics.size(); a++)
+			{
+				QString origAFM = metrics[a];
+				QFileInfo fi(origAFM);
+				copyFile(origAFM, outputDirectory + fi.fileName());
+			}
+		}
 	}
 	return true;
+}
+
+QStringList CollectForOutput::findFontMetrics(const QString& baseDir, const QString& baseName) const
+{
+	QStringList metricsFiles;
+	QString     basePath = baseDir + "/" + baseName;
+	QString     afnm = basePath.left(basePath.length()-3);
+	// Look for afm files
+	QString afmName(afnm+"afm");
+	if(QFile::exists(afmName))
+		metricsFiles.append(afmName);
+	else
+	{
+		afmName = afnm+"Afm";
+		if(QFile::exists(afmName))
+			metricsFiles.append(afmName);
+		else
+		{
+			afmName = afnm+"AFM";
+			if(QFile::exists(afmName))
+				metricsFiles.append(afmName);
+		}
+	}
+	// Look for pfm files
+	QString pfmName(afnm+"pfm");
+	if(QFile::exists(pfmName))
+		metricsFiles.append(pfmName);
+	else
+	{
+		pfmName = afnm+"Pfm";
+		if(QFile::exists(pfmName))
+			metricsFiles.append(pfmName);
+		else
+		{
+			afmName = afnm+"PFM";
+			if(QFile::exists(pfmName))
+				metricsFiles.append(pfmName);
+		}
+	}
+	return metricsFiles;
 }
 
 QString CollectForOutput::collectFile(QString oldFile, QString newFile)
