@@ -431,10 +431,12 @@ void SVGPlug::convert(int flags)
 			m_Doc->setLoading(false);
 			m_Doc->changed();
 			m_Doc->setLoading(loadF);
+			m_Doc->m_Selection->delaySignalsOn();
 			for (int dre=0; dre<Elements.count(); ++dre)
 			{
  				m_Doc->m_Selection->addItem(Elements.at(dre), true);
 			}
+			m_Doc->m_Selection->delaySignalsOff();
 	 		m_Doc->m_Selection->setGroupRect();
 			m_Doc->view()->updatesOn(true);
 			importCanceled = false;
@@ -444,6 +446,7 @@ void SVGPlug::convert(int flags)
 			m_Doc->DragP = true;
 			m_Doc->DraggedElem = 0;
 			m_Doc->DragElements.clear();
+			m_Doc->m_Selection->delaySignalsOn();
 			for (int dre=0; dre<Elements.count(); ++dre)
 			{
 				m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
@@ -466,7 +469,8 @@ void SVGPlug::convert(int flags)
 			m_Doc->view()->adjustCanvas(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()), 0, 0);
 			m_Doc->view()->setCanvasOrigin(cOrigin.x(), cOrigin.y());
 			m_Doc->view()->updatesOn(true);
-			m_Doc->view()->updateCanvas();
+//			m_Doc->view()->updateCanvas();
+			m_Doc->m_Selection->delaySignalsOff();
 			const QPixmap& dragCursor = loadIcon("DragPix.xpm");
 			dr->setDragCursor(dragCursor, Qt::CopyAction);
 			dr->setDragCursor(dragCursor, Qt::MoveAction);
