@@ -393,7 +393,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 		"<tr><td colspan=\"2\"><p><a href=\"http://wiki.scribus.net\">http://wiki.scribus.net</a></p></td></tr>" +
 		"<tr><td><b>" + tr("Bugs and Feature Requests").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://bugs.scribus.net\">http://bugs.scribus.net</a></p></td></tr>" +
-		"<tr><td><b>" + tr("Developer Blog").toUtf8() + "</b></td><td></td></tr>" +
+		"<tr><td><b>" + tr("Developer Blog").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://rants.scribus.net\">http://rants.scribus.net</a></p></td></tr>" +
 		"<tr><td><b>" + tr("Mailing List").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://nashi.altmuehlnet.de/mailman/listinfo/scribus\">http://nashi.altmuehlnet.de/mailman/listinfo/scribus</a></p></td></tr>" +
