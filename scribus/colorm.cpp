@@ -223,22 +223,6 @@ void ColorManager::saveDefaults()
 			QDataStream s(&fx);
 			s.writeRawData(xmlpi, strlen(xmlpi));
 			s.writeRawData(cs, cs.length());
-/*			CMYKColor cmyk;
-			QTextStream tsx(&fx);
-			QString tmp;
-			ColorList::Iterator itc;
-			tsx << "Color Set:"+dia->getEditText()+"\n";
-			int cp, mp, yp, kp;
-			for (itc = EditColors.begin(); itc != EditColors.end(); ++itc)
-			{
-				ScColorEngine::getCMYKValues(itc.data(), m_Doc, cmyk);
-				cmyk.getValues(cp, mp, yp, kp);
-				tsx << tmp.setNum(cp) << "\t" ;
-				tsx << tmp.setNum(mp) << "\t" ;
-				tsx << tmp.setNum(yp) << "\t" ;
-				tsx << tmp.setNum(kp) << "\t" ;
-				tsx << itc.key() << "\n" ;
-			} */
 			fx.close();
 			if (dia->getEditText() != Name)
 			{
@@ -257,16 +241,6 @@ void ColorManager::saveDefaults()
 void ColorManager::loadDefaults(const QString &txt)
 {
 	int c = LoadColSet->currentIndex();
-/*	QList<QAction*> cAct = LoadColSet->actions();
-	int a = 0;
-	for (a = 0; a < cAct.count(); a++)
-	{
-		if (txt == cAct.at(a)->text())
-		{
-			c = a;
-			break;
-		}
-	} */
 	bool cus = false;
 	setCurrentComboItem(LoadColSet, txt);
 	EditColors.clear();
@@ -308,117 +282,128 @@ void ColorManager::loadDefaults(const QString &txt)
 	}
 	if (txt != "Scribus Small")
 	{
-		QFile fiC(pfadC2);
-		if (fiC.open(QIODevice::ReadOnly))
+		QFileInfo fi = QFileInfo(pfadC2);
+		QString ext = fi.suffix().toLower();
+		if (extensionIndicatesEPSorPS(ext) || (ext == "ai"))
 		{
-			QString ColorEn, Cname;
-			int Rval, Gval, Bval, Kval;
-			QTextStream tsC(&fiC);
-			ColorEn = tsC.readLine();
-			if (ColorEn.startsWith("<?xml version="))
-			{
-				QByteArray docBytes("");
-				loadRawText(pfadC2, docBytes);
-				QString docText("");
-				docText = QString::fromUtf8(docBytes);
-				QDomDocument docu("scridoc");
-				docu.setContent(docText);
-				ScColor lf = ScColor();
-				QDomElement elem = docu.documentElement();
-				QDomNode PAGE = elem.firstChild();
-				while(!PAGE.isNull())
-				{
-					QDomElement pg = PAGE.toElement();
-					if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
-					{
-						if (pg.hasAttribute("CMYK"))
-							lf.setNamedColor(pg.attribute("CMYK"));
-						else
-							lf.fromQColor(QColor(pg.attribute("RGB")));
-						if (pg.hasAttribute("Spot"))
-							lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
-						else
-							lf.setSpotColor(false);
-						if (pg.hasAttribute("Register"))
-							lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
-						else
-							lf.setRegistrationColor(false);
-						EditColors.insert(pg.attribute("NAME"), lf);
-					}
-					PAGE=PAGE.nextSibling();
-				}
-			}
-			else
-			{
-				while (!tsC.atEnd())
-				{
-					ScColor tmp;
-					ColorEn = tsC.readLine().trimmed();
-					if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
-						continue;
-					
-					if (ColorEn[0].isNumber()) {
-						QTextStream CoE(&ColorEn, QIODevice::ReadOnly);
-						CoE >> Rval;
-						CoE >> Gval;
-						CoE >> Bval;
-						if (cus)
-						{
-							CoE >> Kval;
-							Cname = CoE.readAll().trimmed();
-							tmp.setColor(Rval, Gval, Bval, Kval);
-						}
-						else
-						{
-							Cname = CoE.readAll().trimmed();
-							tmp.setColorRGB(Rval, Gval, Bval);
-						}
-					}
-					else
-					{
-						QStringList fields = ColorEn.split(QChar(9), QString::SkipEmptyParts);
-						if (fields.count() != 5)
-							continue;
-						Cname = fields[0];
-						Rval = fields[1].toInt();
-						Gval = fields[2].toInt();
-						Bval = fields[3].toInt();
-						Kval = fields[4].toInt();
-						tmp.setColor(Rval, Gval, Bval, Kval);
-					}
-					if ((c<customSetStartIndex) && (Cname.length()==0))
-					{
-						if (!cus)
-							Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).toUpper();
-						else
-							Cname=QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).toUpper();
-						Cname.replace(" ","0");
-					}
-					if (EditColors.contains(Cname))
-					{
-						if (tmp==EditColors[Cname])
-							continue;
-						Cname=QString("%1%2").arg(Cname).arg(EditColors.count());
-					}
-					EditColors.insert(Cname, tmp);
-				}
-			}
-			fiC.close();
+			importColorsFromFile(pfadC2);
+			EditColors.insert("White", ScColor(0, 0, 0, 0));
+			EditColors.insert("Black", ScColor(0, 0, 0, 255));
 		}
 		else
 		{
-			setCurrentComboItem(LoadColSet, "Scribus Small");
-			EditColors.insert("White", ScColor(0, 0, 0, 0));
-			EditColors.insert("Black", ScColor(0, 0, 0, 255));
-			ScColor cc = ScColor(255, 255, 255, 255);
-			cc.setRegistrationColor(true);
-			EditColors.insert("Registration", cc);
-			EditColors.insert("Blue", ScColor(255, 255, 0, 0));
-			EditColors.insert("Cyan", ScColor(255, 0, 0, 0));
-			EditColors.insert("Green", ScColor(255, 0, 255, 0));
-			EditColors.insert("Red", ScColor(0, 255, 255, 0));
-			EditColors.insert("Yellow", ScColor(0, 0, 255, 0));
-			EditColors.insert("Magenta", ScColor(0, 255, 0, 0));
+			QFile fiC(pfadC2);
+			if (fiC.open(QIODevice::ReadOnly))
+			{
+				QString ColorEn, Cname;
+				int Rval, Gval, Bval, Kval;
+				QTextStream tsC(&fiC);
+				ColorEn = tsC.readLine();
+				if (ColorEn.startsWith("<?xml version="))
+				{
+					QByteArray docBytes("");
+					loadRawText(pfadC2, docBytes);
+					QString docText("");
+					docText = QString::fromUtf8(docBytes);
+					QDomDocument docu("scridoc");
+					docu.setContent(docText);
+					ScColor lf = ScColor();
+					QDomElement elem = docu.documentElement();
+					QDomNode PAGE = elem.firstChild();
+					while(!PAGE.isNull())
+					{
+						QDomElement pg = PAGE.toElement();
+						if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+						{
+							if (pg.hasAttribute("CMYK"))
+								lf.setNamedColor(pg.attribute("CMYK"));
+							else
+								lf.fromQColor(QColor(pg.attribute("RGB")));
+							if (pg.hasAttribute("Spot"))
+								lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
+							else
+								lf.setSpotColor(false);
+							if (pg.hasAttribute("Register"))
+								lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
+							else
+								lf.setRegistrationColor(false);
+							EditColors.insert(pg.attribute("NAME"), lf);
+						}
+						PAGE=PAGE.nextSibling();
+					}
+				}
+				else
+				{
+					while (!tsC.atEnd())
+					{
+						ScColor tmp;
+						ColorEn = tsC.readLine().trimmed();
+						if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
+							continue;
+						
+						if (ColorEn[0].isNumber()) {
+							QTextStream CoE(&ColorEn, QIODevice::ReadOnly);
+							CoE >> Rval;
+							CoE >> Gval;
+							CoE >> Bval;
+							if (cus)
+							{
+								CoE >> Kval;
+								Cname = CoE.readAll().trimmed();
+								tmp.setColor(Rval, Gval, Bval, Kval);
+							}
+							else
+							{
+								Cname = CoE.readAll().trimmed();
+								tmp.setColorRGB(Rval, Gval, Bval);
+							}
+						}
+						else
+						{
+							QStringList fields = ColorEn.split(QChar(9), QString::SkipEmptyParts);
+							if (fields.count() != 5)
+								continue;
+							Cname = fields[0];
+							Rval = fields[1].toInt();
+							Gval = fields[2].toInt();
+							Bval = fields[3].toInt();
+							Kval = fields[4].toInt();
+							tmp.setColor(Rval, Gval, Bval, Kval);
+						}
+						if ((c<customSetStartIndex) && (Cname.length()==0))
+						{
+							if (!cus)
+								Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).toUpper();
+							else
+								Cname=QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).toUpper();
+							Cname.replace(" ","0");
+						}
+						if (EditColors.contains(Cname))
+						{
+							if (tmp==EditColors[Cname])
+								continue;
+							Cname=QString("%1%2").arg(Cname).arg(EditColors.count());
+						}
+						EditColors.insert(Cname, tmp);
+					}
+				}
+				fiC.close();
+			}
+			else
+			{
+				setCurrentComboItem(LoadColSet, "Scribus Small");
+				EditColors.insert("White", ScColor(0, 0, 0, 0));
+				EditColors.insert("Black", ScColor(0, 0, 0, 255));
+				ScColor cc = ScColor(255, 255, 255, 255);
+				cc.setRegistrationColor(true);
+				EditColors.insert("Registration", cc);
+				EditColors.insert("Blue", ScColor(255, 255, 0, 0));
+				EditColors.insert("Cyan", ScColor(255, 0, 0, 0));
+				EditColors.insert("Green", ScColor(255, 0, 255, 0));
+				EditColors.insert("Red", ScColor(0, 255, 255, 0));
+				EditColors.insert("Yellow", ScColor(0, 0, 255, 0));
+				EditColors.insert("Magenta", ScColor(0, 255, 0, 0));
+			}
 		}
 	}
 	updateCList();
@@ -438,10 +423,19 @@ void ColorManager::importColors()
 		fileName = dia.selectedFile();
 	else
 		return;
+	int oldCount = EditColors.count();
+	if (!fileName.isEmpty())
+		dirs->set("colors", fileName.left(fileName.lastIndexOf("/")));
+	importColorsFromFile(fileName);
+	if (EditColors.count() == oldCount)
+		QMessageBox::information(this, tr("Information"), "<qt>" + tr("The file %1 does not contain colors which can be imported.\nIf the file was a PostScript-based, try to import it with File -&gt; Import. \nNot all files have DSC conformant comments where the color descriptions are located.\n This prevents importing colors from some files.\nSee the Edit Colors section of the documentation for more details.").arg(fileName) + "</qt>", 1, 0, 0);
+		
+}
+
+void ColorManager::importColorsFromFile(QString fileName)
+{
 	if (!fileName.isEmpty())
 	{
-		int oldCount = EditColors.count();
-		dirs->set("colors", fileName.left(fileName.lastIndexOf("/")));
 		QFileInfo fi = QFileInfo(fileName);
 		QString ext = fi.suffix().toLower();
 		if (extensionIndicatesEPSorPS(ext) || (ext == "ai"))
@@ -456,7 +450,7 @@ void ColorManager::importColors()
 				while (!ts.atEnd())
 				{
 					tmp = readLinefromDataStream(ts);
-					if ((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor")))
+					if (((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor"))) && extensionIndicatesEPSorPS(ext))
 					{
 						if (tmp.startsWith("%%CMYKCustomColor"))
 							tmp = tmp.remove(0,18);
@@ -502,19 +496,31 @@ void ColorManager::importColors()
 						{
 							while (!ts.atEnd())
 							{
+								bool isX = false;
 								tmp = readLinefromDataStream(ts);
-								if ((tmp.endsWith("Xa") || tmp.endsWith(" k")) && (tmp.length() > 4))
+								if ((tmp.endsWith("Xa") || tmp.endsWith(" k") || tmp.endsWith(" x")) && (tmp.length() > 4))
 								{
 									QTextStream ts2(&tmp, QIODevice::ReadOnly);
 									ts2 >> c >> m >> y >> k;
+									if (tmp.endsWith(" x"))
+									{
+										isX = true;
+										int an = tmp.indexOf("(");
+										int en = tmp.lastIndexOf(")");
+										FarNam = tmp.mid(an+1, en-an-1);
+										FarNam = FarNam.simplified();
+									}
 									tmp = readLinefromDataStream(ts);
 									if (tmp.endsWith("Pc"))
 									{
-										tmp = tmp.trimmed();
-										tmp = tmp.remove(0,1);
-										int en = tmp.indexOf(")");
-										FarNam = tmp.mid(0, en);
-										FarNam = FarNam.simplified();
+										if (!isX)
+										{
+											tmp = tmp.trimmed();
+											tmp = tmp.remove(0,1);
+											int en = tmp.indexOf(")");
+											FarNam = tmp.mid(0, en);
+											FarNam = FarNam.simplified();
+										}
 										cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 										cc.setSpotColor(true);
 										if (!EditColors.contains(FarNam))
@@ -548,9 +554,6 @@ void ColorManager::importColors()
 				updateCList();
 			}
 		}
-		if (EditColors.count() == oldCount)
-			QMessageBox::information(this, tr("Information"), "<qt>" + tr("The file %1 does not contain colors which can be imported.\nIf the file was a PostScript-based, try to import it with File -&gt; Import. \nNot all files have DSC conformant comments where the color descriptions are located.\n This prevents importing colors from some files.\nSee the Edit Colors section of the documentation for more details.").arg(fileName) + "</qt>", 1, 0, 0);
-		
 	}
 }
 

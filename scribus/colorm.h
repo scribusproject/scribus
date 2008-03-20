@@ -52,6 +52,7 @@ public:
 
 private:
 	void updateButtons();
+	void importColorsFromFile(QString fileName);
 	ColorListBox* colorListBox;
 	QGroupBox* ColorsGroup;
 	QGroupBox* ColsSetGroup;
