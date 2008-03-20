@@ -9,9 +9,11 @@ for which a new license (GPL+exception) is in place.
 
 #include <QItemDelegate>
 
+class ScribusDoc;
+
 
 /*! \brief A delegate/editor for guides model.
-It's based on the QDoubleSpinBox widget. User cannot enter
+It's based on the ScrSpinBox widget. User cannot enter
 any others (ugly and bad) values.
 \author Petr Vanek <petr@scribus.info>
 */
@@ -37,9 +39,10 @@ class GuidesDelegate : public QItemDelegate
 								const QModelIndex &index) const;
 
 		void unitChange(int docUnitDecimals);
+		void setDoc(ScribusDoc * doc);
 
 	private:
-		int m_docUnitDecimals;
+		ScribusDoc *m_doc;
 };
 
 #endif

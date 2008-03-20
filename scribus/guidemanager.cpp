@@ -104,6 +104,7 @@ GuideManager::GuideManager(QWidget* parent) :
 void GuideManager::setDoc(ScribusDoc* doc)
 {
 	m_Doc=doc;
+	qobject_cast<GuidesDelegate*>(horizontalView->itemDelegateForColumn(0))->setDoc(doc);
 	if (!m_Doc)
 		currentPage = 0;
 	tabWidget->setEnabled(doc ? true : false);
@@ -258,7 +259,7 @@ void GuideManager::unitChange()
 	// models display
 	horizontalModel->unitChange(docUnitIndex, docUnitDecimals);
 	verticalModel->unitChange(docUnitIndex, docUnitDecimals);
-	qobject_cast<GuidesDelegate*>(horizontalView->itemDelegateForColumn(0))->unitChange(docUnitDecimals);
+	qobject_cast<GuidesDelegate*>(horizontalView->itemDelegateForColumn(0))->setDoc(m_Doc);
 }
 
 void GuideManager::delHorButton_clicked()
