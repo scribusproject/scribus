@@ -140,27 +140,38 @@ def main():
 
     charsToChangeWin1333 = ["&#x1a;","&#x1b;","&#x1c;","&#x1d;","&#x1e;","&#x18;","&#x4;", "&#x5;"]
     charsToChangeLin1333 = ["\x1a","\x1b","\x1c","\x1d","\x1e","\x18","\x04", "\x05"]
-    #charsToChangeLin1333 = ["UnSinnx"]
-    if os.name == "posix":
-      defaultSystemVersion = "lin1333"
-    else:
-      defaultSystemVersion = "win1333"
+    # petr vanek - lin chars are now the same as win ones
+
+    ##charsToChangeLin1333 = ["UnSinnx"]
+    #if os.name == "posix":
+      #defaultSystemVersion = "lin1333"
+    #else:
+      #defaultSystemVersion = "win1333"
       
-    SystemVersion = valueDialog("Bleed and Marks - OS and Scribus Version - Betriebssystem und Scribus-Version:", "OS and Scribus Version: win1333 lin1333" ,defaultSystemVersion)
+    #SystemVersion = valueDialog("Bleed and Marks - OS and Scribus Version - Betriebssystem und Scribus-Version:", "OS and Scribus Version: win1333 lin1333" ,defaultSystemVersion)
    
-    if SystemVersion == "lin1333":
-      charsToChange = charsToChangeLin1333
-    else:
-      charsToChange = charsToChangeWin1333
-      SystemVersion = "win1333"
+    #if SystemVersion == "lin1333":
+      #charsToChange = charsToChangeLin1333
+    #else:
+      #charsToChange = charsToChangeWin1333
+      #SystemVersion = "win1333"
+
+    charsToChange = charsToChangeWin1333
 
     fgcol = valueDialog("Bleed and Marks", "Foreground color for marks (script stops if color doesn't exist)\nVordergrundfarbe für Marken (Skript bricht ab, wenn Farbe nicht vorhanden):" ,"regcol")
-    colval = getColor(fgcol)
+    if fgcol == '':
+        return
+    try:
+        colval = getColor(fgcol)
+    except NotFoundError:
+        defineColor(fgcol, 0, 0, 0, 255)
+        colval = getColor(fgcol)
+
     defineColor("bleed_export_white_323567654", 0, 0, 0, 0)
     bgcol = "bleed_export_white_323567654"
     #bgcol = valueDialog("Bleed and Marks", "Background color for marks (script stops if color doesn't exist)\nHintergrundfarbe für Marken (Skript bricht ab, wenn Farbe nicht vorhanden):" ,"White")
     #olval = getColor(bgcol)
-        
+
     userUnit = getUnit()
     setUnit(0)
 
@@ -173,14 +184,13 @@ def main():
     UnitFakt = 1
     bleedVal = 20
     UnitType = "pt"    
-    
-    
+
     UnitType = valueDialog("Bleed and Marks", "Unit for bleed - Maßeinheit für die Randgröße \nPunkt = pt, Millimeter = mm, Zentimeter = cm " ,"mm")
-    
+
     if UnitType == "mm":
         UnitFakt = 1/25.4*72
         bleedVal = int(20.0/72*2.54*10)
-    
+
     if UnitType == "cm":
         UnitFakt = 1/2.54*72
         bleedVal = 0.1*int(20.0/72*2.54*10)
