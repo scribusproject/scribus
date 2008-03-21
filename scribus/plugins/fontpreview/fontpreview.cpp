@@ -45,9 +45,12 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 	// scribus config
 	defaultStr = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("fontpreview");
+	uint srt = prefs->getUInt("sortColumn", 0);
+	Qt::SortOrder srtOrder = (Qt::SortOrder)prefs->getUInt("surtColumnOrder", 0);
 
-	proxyModel->sort(prefs->getUInt("sortColumn", 0));
-
+	proxyModel->sort(srt, srtOrder);
+	fontList->horizontalHeader()->setSortIndicatorShown(true);
+	fontList->horizontalHeader()->setSortIndicator(srt, srtOrder);
 	xsize = prefs->getUInt("xsize", 640);
 	ysize = prefs->getUInt("ysize", 480);
 	sizeSpin->setValue(prefs->getUInt("fontSize", 18));
@@ -92,6 +95,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 FontPreview::~FontPreview()
 {
 	prefs->set("sortColumn", fontList->horizontalHeader()->sortIndicatorSection());
+	prefs->set("surtColumnOrder", fontList->horizontalHeader()->sortIndicatorOrder());
 	prefs->set("xsize", width());
 	prefs->set("ysize", height());
 	prefs->set("fontSize", sizeSpin->value());
