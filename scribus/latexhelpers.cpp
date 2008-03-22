@@ -432,7 +432,7 @@ void LatexConfigCache::createParser(QString filename, bool warnOnError)
 	if (hasError) {
 		QMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
 				QObject::tr("Parsing the configfile %1 failed! Depending on the type of the error "
-						"latexframes might not work correctly!\n%2").arg(
+						"render frames might not work correctly!\n%2").arg(
 						filename, parser->error())
 						+ "</qt>", 1, 0, 0);
 	}

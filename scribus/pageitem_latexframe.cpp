@@ -46,7 +46,7 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 		: PageItem_ImageFrame(pa, x, y, w, h, w2, fill, outline)
 {
 	setUPixmap(Um::ILatexFrame);
-	AnName = tr("Latex") + QString::number(m_Doc->TotalItems);
+	AnName = tr("Render") + QString::number(m_Doc->TotalItems);
 	setUName(AnName);
 	
 	imgValid = false;
@@ -68,7 +68,7 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	
 	
 	
-	QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_latex_XXXXXX");
+	QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_render_XXXXXX");
 	tempfile->open();
 	tempFileBase = tempfile->fileName();
 	tempfile->close();
@@ -106,13 +106,12 @@ PageItem_LatexFrame::~PageItem_LatexFrame()
 	
 	QDir dir;
 	if (!editorFile.isEmpty() && !dir.remove(editorFile)) {
-		qDebug() << "LATEX: Failed to remove editorfile" << qPrintable(editorFile);
+		qDebug() << "RENDER FRAME: Failed to remove editorfile" << qPrintable(editorFile);
 	}
 	
 	
 	latex->disconnect();
 	if (latex->state() != QProcess::NotRunning) {
-		qDebug() << "LATEX: Destructor: Killing running process from latexFrame";
 		killed = true;
 		latex->terminate();
 		latex->waitForFinished(500);
@@ -148,7 +147,6 @@ void PageItem_LatexFrame::deleteImageFile()
 	files = dir.entryList(filter);
 	foreach (QString file, files) {
 		Q_ASSERT(file.startsWith("scribus_temp"));
-		//qDebug() << "LATEX: Deleting " << file;
 		dir.remove(file);
 	}
 	imgValid = false;
@@ -190,7 +188,7 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 				+ "</qt>", 1, 0, 0);
 			firstWarning = false;
 		}
-		qDebug() << "LATEX: updateImage():" << tr("Running the external application failed!");
+		qDebug() << "RENDER FRAME: updateImage():" << tr("Running the external application failed!");
 		killed = false;
 		update(); //Show error marker
 		return;
@@ -256,7 +254,7 @@ void PageItem_LatexFrame::runApplication()
 								  + "</qt>", 1, 0, 0);
 			firstWarningTmpfile = false;
 		}
-		qDebug() << "LATEX:" << tr("Could not create a temporary file to run the application!");
+		qDebug() << "RENDER FRAME:" << tr("Could not create a temporary file to run the application!");
 		//Don't know how to continue as it's impossible to create tempfile
 		return;
 	}
@@ -272,11 +270,11 @@ void PageItem_LatexFrame::runApplication()
 		if (firstWarningLatexMissing)
 		{
 			QMessageBox::information(0, tr("Information"),
-									 "<qt>" + tr("Please specify a latex executable in the preferences!") +
+									 "<qt>" + tr("The config file didn't specify a executable path!") +
 									 "</qt>",1, 0, 0);
 			firstWarningLatexMissing = false;
 		}
-		qDebug() << "LATEX:" << tr("Please specify a latex executable in the preferences!");
+        qDebug() << "RENDER FRAME:" << tr("The config file didn't specify a executable path!");
 		return;
 	}
 	else
@@ -297,13 +295,7 @@ void PageItem_LatexFrame::runApplication()
 #ifdef _WIN32
 	full_command.replace("\"", "\"\"\""); //Required by QT on windows
 #endif
-	qDebug() << "Full command" << full_command;
 	
-	/*QStringList args = full_command.split(' ', QString::SkipEmptyParts); //TODO: This does not handle quoted arguments with spaces! Perhaps use the other QProcess::start-function, but that has problems on windows.
-	QString command = args.at(0);
-	args.removeAt(0);*/
-	
-	//deleteImageFile();
 	imageFile = tempFileBase + config->imageExtension();
 
 	writeFileContents(&tempfile);
@@ -351,16 +343,13 @@ void PageItem_LatexFrame::runEditor()
 #ifdef _WIN32
 	full_command.replace("\"", "\"\"\""); //Required by QT on windows
 #endif
-	
-	qDebug() << "LATEX: Starting editor" << full_command;
 	editor->start(full_command);
 }
 
 void PageItem_LatexFrame::rerunApplication(bool updateDisplay)
 {
-	qDebug() << "LATEX: rerunApplication()";
 	if (latex->state() != QProcess::NotRunning) {
-		qDebug() << "LATEX: rerunApplication(): Killing running process from latexFrame";
+		qDebug() << "RENDER FRAME: rerunApplication(): Killing running process";
 		killed = true;
 		latex->terminate();
 		latex->waitForFinished(500);
@@ -459,7 +448,7 @@ bool PageItem_LatexFrame::setFormula(QString formula, bool undoable)
 		ss->set("OLD_FORMULA", formulaText);
 		ss->set("NEW_FORMULA", formula);
 		undoManager->action(this, ss);
-	} else {
+	} else if (!undoable) {
 		emit formulaAutoUpdate(formulaText, formula);
 	}
 	formulaText = formula;
@@ -486,7 +475,7 @@ void PageItem_LatexFrame::editorFinished(int exitCode, QProcess::ExitStatus exit
 	Q_ASSERT(editor);
 	
 	if (exitCode) {
-		qDebug() << "LATEX: Editor's output was: " << 
+		qDebug() << "RENDER FRAME: Editor's output was: " << 
 			qPrintable(QString(editor->readAllStandardOutput()));
 		QMessageBox::critical(0, tr("Error"), "<qt>" +
 			tr("Running the editor failed with exitcode %d!").arg(exitCode) +
@@ -532,7 +521,7 @@ void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 		}
 		firstWarning = false;
 	}
-	qDebug() << "LATEX: latexError():" << 
+	qDebug() << "RENDER FRAME: latexError():" << 
 			tr("Running the application \"%1\" failed!").arg(config->executable()) << latex->error();
 }
 
@@ -563,7 +552,6 @@ void PageItem_LatexFrame::setDpi(int newDpi)
 
 void PageItem_LatexFrame::setConfigFile(QString newConfig)
 {
-	qDebug() << "CHANGING CONFIG FILE: " << configFilename << newConfig;
 	if (configFilename == newConfig) return;
 	
 	bool unchanged = false;
@@ -666,7 +654,7 @@ void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 QString PageItem_LatexFrame::infoDescription()
 {
 	QString htmlText;
-	htmlText.append("<h2>"+tr("Latex") + "</h2><table>");
+	htmlText.append("<h2>"+tr("Render Frame") + "</h2><table>");
 	htmlText.append("<tr><th align=\"right\">" + tr("Application") + ": </th><td>" + application());
 	htmlText.append("</td></tr><tr><th align=\"right\">" + tr("DPI") + ": </th><td>" +
 			 QString::number(realDpi()));

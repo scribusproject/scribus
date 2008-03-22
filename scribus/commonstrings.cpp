@@ -248,7 +248,7 @@ void CommonStrings::languageChange()
 	CommonStrings::itemType_Polygon    = tr("Polygon");
 	CommonStrings::itemType_Polyline   = tr("Polyline");
 	CommonStrings::itemType_PathText   = tr("Text on a Path");
-	CommonStrings::itemType_LatexFrame = tr("LaTeX Frame");
+	CommonStrings::itemType_LatexFrame = tr("Render Frame");
 	CommonStrings::itemType_Multiple   = tr("Multiple", "Multiple frame types");
 	CommonStrings::itemSubType_PDF_PushButton     = tr("PDF Push Button");
 	CommonStrings::itemSubType_PDF_TextField      = tr("PDF Text Field");

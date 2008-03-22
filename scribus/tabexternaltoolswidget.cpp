@@ -135,7 +135,7 @@ void TabExternalToolsWidget::changeExtBrowserTool()
 void TabExternalToolsWidget::changeLatexEditor()
 {
 	QFileInfo fi(latexEditorLineEdit->text());
-	QString s = QFileDialog::getOpenFileName(this, tr("Locate your LaTeX editor"), fi.path());
+	QString s = QFileDialog::getOpenFileName(this, tr("Locate your editor"), fi.path());
 	if (!s.isEmpty())
 		latexEditorLineEdit->setText( QDir::convertSeparators(s) );
 }

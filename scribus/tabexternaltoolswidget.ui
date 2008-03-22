@@ -294,7 +294,7 @@
    <item>
     <widget class="QGroupBox" name="latexToolGroupBox" >
      <property name="title" >
-      <string>LaTeX</string>
+      <string>Render Frames</string>
      </property>
      <layout class="QVBoxLayout" >
       <item>
@@ -344,7 +344,7 @@
         <item>
          <widget class="QLabel" name="latexEditorLabel" >
           <property name="text" >
-           <string>External Latex Editor:</string>
+           <string>External Editor:</string>
           </property>
           <property name="wordWrap" >
            <bool>false</bool>

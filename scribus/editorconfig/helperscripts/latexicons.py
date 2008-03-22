@@ -1,7 +1,11 @@
 #!/usr/bin/env python
+"""Create icons from list of latex symbols."""
 import sys
 import string
 import subprocess
+
+retcode = None
+cmd_output = None
 
 def conv_filename(name):
 	"""Remove all bad characters and convert to all lowercase."""

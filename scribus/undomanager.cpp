@@ -854,7 +854,7 @@ void UndoManager::languageChange()
 	UndoManager::SetFontEffect      = tr("Set font effect");
 	UndoManager::ImageFrame         = tr("Image frame");
 	UndoManager::TextFrame          = tr("Text frame");
-	UndoManager::LatexFrame         = tr("Latex frame");
+	UndoManager::LatexFrame         = tr("Render frame");
 	UndoManager::Polygon            = tr("Polygon");
 	UndoManager::BezierCurve        = tr("Bezier curve");
 	UndoManager::Polyline           = tr("Polyline");

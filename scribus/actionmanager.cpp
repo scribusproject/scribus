@@ -1254,7 +1254,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editDeselectAll"]->setTexts( tr("&Deselect All"));
 	(*scrActions)["editSearchReplace"]->setTexts( tr("&Search/Replace..."));
 	(*scrActions)["editEditWithImageEditor"]->setTexts( tr("Edit Image..."));
-	(*scrActions)["editEditWithLatexEditor"]->setTexts( tr("Edit Latex Source..."));
+	(*scrActions)["editEditWithLatexEditor"]->setTexts( tr("Edit Source..."));
 	(*scrActions)["editColors"]->setTexts( tr("C&olors..."));
 	(*scrActions)["editPatterns"]->setTexts( tr("Patterns..."));
 	(*scrActions)["editStyles"]->setTexts( tr("S&tyles..."));
@@ -1410,7 +1410,7 @@ void ActionManager::languageChange()
 
 	(*scrActions)["toolsInsertTextFrame"]->setText( tr("Insert &Text Frame"));
 	(*scrActions)["toolsInsertImageFrame"]->setText( tr("Insert &Image Frame"));
-	(*scrActions)["toolsInsertLatexFrame"]->setText( tr("Insert &Latex Frame"));
+	(*scrActions)["toolsInsertLatexFrame"]->setText( tr("Insert &Render Frame"));
 	(*scrActions)["toolsInsertTableFrame"]->setText( tr("Insert T&able"));
 	(*scrActions)["toolsInsertShape"]->setText( tr("Insert &Shape"));
 	(*scrActions)["toolsInsertPolygon"]->setText( tr("Insert &Polygon"));
