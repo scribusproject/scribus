@@ -1358,7 +1358,7 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomNode& e, FPoint& currentPos)
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
-		double  lineWidth = 0.0;
+//		double  lineWidth = 0.0;
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, textFillColor, textStrokeColor, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		if( !nodeId.isEmpty() )
