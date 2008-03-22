@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef _DEFERREDTASK_H
 #define _DEFERREDTASK_H
 
-#include "qobject.h"
-#include "qstring.h"
+#include <QObject>
+#include <QString>
 #include "scribusapi.h"
 
 class QTimer;
