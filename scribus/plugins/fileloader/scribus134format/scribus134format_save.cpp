@@ -1149,15 +1149,6 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			}
 			else
 			{
-				QList<VColorStop*> cstops = item->fill_gradient.colorStops();
-				for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
-				{
-					docu.writeEmptyElement("CSTOP");
-					docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
-					docu.writeAttribute("NAME", cstops.at(cst)->name);
-					docu.writeAttribute("SHADE", cstops.at(cst)->shade);
-					docu.writeAttribute("TRANS", cstops.at(cst)->opacity);
-				}
 				docu.writeAttribute("GRSTARTX", item->GrStartX);
 				docu.writeAttribute("GRSTARTY", item->GrStartY);
 				docu.writeAttribute("GRENDX", item->GrEndX);
@@ -1169,14 +1160,14 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (! item->itemText.defaultStyle().isInhAlignment())
 			docu.writeAttribute("ALIGN", item->itemText.defaultStyle().alignment());
 		
+		docu.writeAttribute("LAYER", item->LayerNr);
 		docu.writeAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 
 		if (item->nextInChain() != 0)
 			docu.writeAttribute("NEXTITEM", item->nextInChain()->ItemNr);
 		else
 			docu.writeAttribute("NEXTITEM", -1);
-		docu.writeAttribute("LAYER", item->LayerNr);
-
+		
 		if (item->prevInChain() != 0 && items->contains(item->prevInChain()))
 			docu.writeAttribute("BACKITEM", item->prevInChain()->ItemNr);
 		else
@@ -1184,6 +1175,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("BACKITEM", -1);
 			writeITEXTs(doc, docu, item); 	
 		}
+
 		if (item->effectsInUse.count() != 0)
 		{
 			for (int a = 0; a < item->effectsInUse.count(); ++a)
