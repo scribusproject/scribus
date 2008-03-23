@@ -1,5 +1,12 @@
 Scribus - 1.3.3.12svn
 =====================
+- 0006807: [Translation] english in german windows (plinnell) - resolved.
+- 0006734: [Printing] Incorrect ps export of images placed in master pages (jghali) - resolved.
+- 0006692: [General] Editor mess-up when text is replaced (jghali) - resolved.
+- 0006869: [Scripter] new version of Infobox.py (cbradney) - closed.
+- 0006870: [Import / Export] Spot colours imported from EPS files are listed twice in the colour dialogs (fschmid) - closed.
+- 0006512: [General] Collect for output does not collect font metrics files for Type1 fonts (fschmid) - closed.
+- 0006837: [Import / Export] Cancelling ps/eps import while Ghostscript is running does not terminate gs properly (jghali) - closed.
 - 0005286: [Usability] Measurement window labels may have insufficient size depending on units (jghali) - resolved.
 - 0006734: [Printing] Incorrect ps export of images placed in master pages (jghali) - resolved.
 - 0006692: [General] Editor mess-up when text is replaced (jghali) - resolved.
