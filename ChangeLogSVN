@@ -1,6 +1,6 @@
 
 Scribus - 1.3.5svn
-
+- 0006878: [General] Corruption when saving document with objects using gradients (jghali) - resolved.
 - 0006245: [General] Margin guides values (jghali) - resolved.
 - 0003439: [Plug-ins] font preview: selecting the first two fonts makes the font size and sample fields move left (subik) - resolved.
 - 0006162: [Graphics / Image Frames] Grouped objects doesn't overhang onto the bleed (fschmid) - resolved.
