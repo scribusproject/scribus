@@ -57,6 +57,7 @@ class ScComboBox;
 class ScribusMainWindow;
 class UserActionSniffer;
 class DashEditor;
+class Selection;
 
 
 struct SCRIBUS_API LineFormatValue
@@ -236,6 +237,7 @@ public slots:
 	void setPrintingEnabled(bool);
 	void setFlippedH(bool);
 	void setFlippedV(bool);
+	void endEdit2();
 
 private slots:
 	void SelTab(int t);
@@ -600,6 +602,7 @@ protected:
 	int idLineItem;
 	int idColorsItem;
 	int idGroupItem;
+	Selection* tmpSelection;
 };
 
 class SCRIBUS_API UserActionSniffer : public QObject

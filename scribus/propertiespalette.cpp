@@ -147,6 +147,8 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	HaveItem = false;
 	RoVal = 0;
 	m_unitRatio = 1.0;
+	tmpSelection = new Selection(this, false);
+	tmpSelection->clear();
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 
 	_userActionOn = false;
@@ -3769,18 +3771,9 @@ void PropertiesPalette::handleShapeEdit()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		/* Frame types 1 and 3 are OBSOLETE: CR 2005-02-06
-		if ((CurItem->PType == 1) || (CurItem->PType == 3))
-		{
-			CurItem->PType = 6;
-			NewSel(6);
-			TabStack->raiseWidget(1);
-		}
-		*/
-//		emit ShapeEdit();
+		tmpSelection->clear();
 		m_ScMW->view->requestMode(modeEditClip);
 		RoundRect->setEnabled(false);
-//		emit DocChanged();
 	}
 }
 
@@ -4925,12 +4918,26 @@ void PropertiesPalette::handleShapeEdit2()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
+		tmpSelection->clear();
+		tmpSelection->copy(*doc->m_Selection, true);
 		doc->m_Selection->clear();
 		doc->m_Selection->addItem(CurItem);
 		CurItem->isSingleSel = true;
 		CurItem->update();
-//		emit ShapeEdit();
 		m_ScMW->view->requestMode(modeEditClip);
 		RoundRect->setEnabled(false);
+	}
+}
+
+void PropertiesPalette::endEdit2()
+{
+	if ((HaveDoc) && (HaveItem))
+	{
+		if (tmpSelection->count() > 0)
+		{
+			doc->m_Selection->copy(*tmpSelection, false);
+			doc->m_Selection->connectItemToGUI();
+		}
+		tmpSelection->clear();
 	}
 }

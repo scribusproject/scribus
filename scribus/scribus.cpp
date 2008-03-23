@@ -528,6 +528,7 @@ void ScribusMainWindow::initPalettes()
 	connect(propertiesPalette->paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setNewParStyle(const QString&)));
 	connect(propertiesPalette->charStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setNewCharStyle(const QString&)));
 //	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
+	connect(nodePalette, SIGNAL(Schliessen()), propertiesPalette, SLOT(endEdit2()));
 	connect(nodePalette, SIGNAL(Schliessen()), this, SLOT(slotSelect()));
 	connect(nodePalette, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 	connect(layerPalette, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
