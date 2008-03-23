@@ -2593,38 +2593,6 @@ creates a Duplicate of the selected Object (or Selection Group).
         <translation>duplicateObject([&quot;name&quot;]) -&gt; string
 Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
     </message>
-    <message>
-        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
-
-Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
-
-Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setFillTransparency(transparency, [&quot;name&quot;])
-
-Sets the fill transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLineTransparency(transparency, [&quot;name&quot;])
-
-Sets the line transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>About</name>
@@ -3482,7 +3450,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation type="obsolete">Bilder &amp;verwalten</translation>
+        <translation>Bilder &amp;verwalten</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -3834,10 +3802,6 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <source>&amp;400%</source>
         <translation>&amp;400%</translation>
-    </message>
-    <message>
-        <source>&amp;Manage Images</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5488,11 +5452,11 @@ daß dies sehr genaue Geräteprofile erfordert.</translation>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation type="obsolete">&amp;RGB-Bilder:</translation>
+        <translation>&amp;RGB-Bilder:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation type="obsolete">&amp;CMYK-Bilder:</translation>
+        <translation>&amp;CMYK-Bilder:</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
@@ -5501,14 +5465,6 @@ daß dies sehr genaue Geräteprofile erfordert.</translation>
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>Standard-Farbprofil für importierte RGB-Bilder</translation>
-    </message>
-    <message>
-        <source>&amp;RGB Images:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;CMYK Images:</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5640,11 +5596,6 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation>Legt diese Farbe als Schmuckfarbe fest, die mit einer gesonderten Platte gedruckt wird. Schmuckfarben werden meist verwendet, wenn ein Farbe sehr genau wiedergegeben muß oder nicht aus CMYK-Farben gemischt werden kann. Metallic- oder Leuchtfarben sind gute Beispiele für Farben, die mit CMYK-Tinten nicht hergestellt werden können.</translation>
-    </message>
-    <message>
-        <source>You cannot create a color without a name
-Please give it a name</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12313,7 +12264,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation type="obsolete">Bilder verwalten</translation>
+        <translation>Bilder verwalten</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -12330,10 +12281,6 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <source>Select a base directory for search</source>
         <translation>Startverzeichnis für Suche auswählen</translation>
-    </message>
-    <message>
-        <source>Manage Images</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12968,7 +12915,7 @@ weil Sie Bilder in bereits laufenden Instanzen von GIMP bearbeiten können.</tra
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="obsolete">Bilder anzeigen</translation>
+        <translation>Bilder anzeigen</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -13052,7 +12999,7 @@ weil Sie Bilder in bereits laufenden Instanzen von GIMP bearbeiten können.</tra
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="obsolete">Schaltet die Anzeige von Bildern an oder aus</translation>
+        <translation>Schaltet die Anzeige von Bildern an oder aus</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with.
@@ -13222,14 +13169,6 @@ If set to 0 infinite amount of actions will be stored.</source>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation>Fügen Sie hier den Pfad zu Ghostscript ein. Achten Sie unter Windows darauf, daß Sie das Programm gswin32c.exe benötigen, NICHT gswin32.exe. Ansonsten könnte es Probleme beim Programmstart geben.</translation>
-    </message>
-    <message>
-        <source>Show Images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15613,16 +15552,6 @@ is not exhaustive due to exceptions from called functions.
         <source>Insufficient memory for this image size.</source>
         <translation>Es ist nicht genügend Arbeitsspeicher für ein Bild dieser Größe vorhanden.</translation>
     </message>
-    <message>
-        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -15880,7 +15809,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="obsolete">Bilder anzeigen</translation>
+        <translation>Bilder anzeigen</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -15940,7 +15869,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="obsolete">Schaltet die Anzeige der Bilder an oder aus</translation>
+        <translation>Schaltet die Anzeige der Bilder an oder aus</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -16009,14 +15938,6 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Wendet die Größenänderung auf alle Seiten im Dokument an</translation>
-    </message>
-    <message>
-        <source>Show Images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17791,7 +17712,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation type="obsolete">Bild</translation>
+        <translation>Bild</translation>
     </message>
     <message>
         <source>File: </source>
@@ -17949,10 +17870,6 @@ umgewandelt werden</translation>
     <message>
         <source>Export: </source>
         <translation>Export:</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="unfinished">Bild</translation>
     </message>
 </context>
 <context>
@@ -19480,7 +19397,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation type="obsolete">Effekt auf alle Seiten an&amp;wenden</translation>
+        <translation>Effekt auf alle Seiten an&amp;wenden</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -20190,10 +20107,6 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
         <source>Document Layout</source>
         <translation>Dokumentlayout</translation>
     </message>
-    <message>
-        <source>&amp;Apply Effect to all Pages</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -20299,7 +20212,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="obsolete">Bild an &amp;Rahmen anpassen</translation>
+        <translation>Bild an &amp;Rahmen anpassen</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
@@ -20347,7 +20260,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation type="obsolete">Einstellungen für Bildrahmen</translation>
+        <translation>Einstellungen für Bildrahmen</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -20391,7 +20304,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="obsolete">Bildrahmen ermöglicht das Skalieren auf eine beliebige Größe</translation>
+        <translation>Bildrahmen ermöglicht das Skalieren auf eine beliebige Größe</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -20407,15 +20320,15 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="obsolete">Bilder werden auf die Größe des Rahmens skaliert</translation>
+        <translation>Bilder werden auf die Größe des Rahmens skaliert</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation type="obsolete">Bilder behalten ihre ursprünglichen Seitenverhältnisse</translation>
+        <translation>Bilder behalten ihre ursprünglichen Seitenverhältnisse</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation type="obsolete">Füllfarbe für Bildrahmen</translation>
+        <translation>Füllfarbe für Bildrahmen</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -20509,30 +20422,6 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Keine</translation>
-    </message>
-    <message>
-        <source>&amp;Scale Image to Frame Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Image Frame Properties</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Image frames allow images to scale to any size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Images in image frames are scaled to the size of the frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Automatically scaled images keep their original proportions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fill color of image frames</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
