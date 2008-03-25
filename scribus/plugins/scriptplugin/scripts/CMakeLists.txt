@@ -6,10 +6,8 @@ INSTALL(FILES
 BleedAndPrintMarks.py
 CalendarWizard.py
 DirectImageImport.py
-DrawGrid.py
 ExtractText.py
 FontSample.py
-ImageWizard.py
 InfoBox.py
 UnflipContent.py
 ChangeLog
