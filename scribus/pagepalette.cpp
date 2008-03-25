@@ -815,7 +815,7 @@ void PagePalette::markPage(uint nr)
 			{
 				pageView->clearSelection();
 				pageView->item(it->row(), it->column())->setSelected(true);
-	//			pageView->selectCells(it->row(), it->col(), it->row(), it->col());
+				pageView->scrollToItem(pageView->item(it->row(), it->column()), QAbstractItemView::EnsureVisible);
 				break;
 			}
 		}
