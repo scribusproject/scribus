@@ -974,6 +974,10 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 			ch == SpecialChars::FRAMEBREAK ||
 			ch == SpecialChars::PAGENUMBER ||
 			ch == SpecialChars::PAGECOUNT ||
+			ch == SpecialChars::NBHYPHEN ||
+			ch == SpecialChars::NBSPACE ||
+			ch == SpecialChars::ZWNBSPACE ||
+			ch == SpecialChars::ZWSPACE ||
 			ch.unicode() < 32 || 
 			(0xd800 <= ch.unicode() && ch.unicode() < 0xe000) ||
 			ch.unicode() == 0xfffe || ch.unicode() == 0xffff ||
@@ -1004,31 +1008,24 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 			docu.writeAttribute("CH", QString(ch));
 			docu.writeAttribute("COBJ", item->itemText.object(k)->ItemNr);		
 		}
-		else if (ch == SpecialChars::PARSEP)
-		{
-			// stores also the paragraphstyle for preceding chars
+		else if (ch == SpecialChars::PARSEP)	// stores also the paragraphstyle for preceding chars
 			putPStyle(docu, item->itemText.paragraphStyle(k), "para");
-		}
-		else if (ch == SpecialChars::TAB) 
-		{
-			//ob.appendChild(docu->createElement("tab"));
+		else if (ch == SpecialChars::TAB)
 			docu.writeEmptyElement("tab");
-		}
 		else if (ch == SpecialChars::LINEBREAK)
-		{
-			//ob.appendChild(docu->createElement("breakline"));
 			docu.writeEmptyElement("breakline");
-		}
 		else if (ch == SpecialChars::COLBREAK)
-		{
-			//ob.appendChild(docu->createElement("breakcol"));
 			docu.writeEmptyElement("breakcol");
-		}
 		else if (ch == SpecialChars::FRAMEBREAK)
-		{
-			//ob.appendChild(docu->createElement("breakframe"));
 			docu.writeEmptyElement("breakframe");
-		}
+		else if (ch == SpecialChars::NBHYPHEN)
+			docu.writeEmptyElement("nbhyphen");
+		else if (ch == SpecialChars::NBSPACE)
+			docu.writeEmptyElement("nbspace");
+		else if (ch == SpecialChars::ZWNBSPACE)
+			docu.writeEmptyElement("zwnbspace");
+		else if (ch == SpecialChars::ZWSPACE)
+			docu.writeEmptyElement("zwspace");
 		else if (ch == SpecialChars::PAGENUMBER) 
 		{
 			docu.writeEmptyElement("var");

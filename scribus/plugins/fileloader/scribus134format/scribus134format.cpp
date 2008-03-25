@@ -973,10 +973,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							double opa = it.attribute("TRANS", "1").toDouble();
 							Neu->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
-						if (it.tagName()=="ITEXT") {
+						if (it.tagName()=="ITEXT")
 							GetItemText(&it, m_Doc, Neu, last);
-						}
-						else if (it.tagName()=="para") {
+						else if (it.tagName()=="para")
+						{
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
 							ParagraphStyle newStyle;
 							PrefsManager* prefsManager=PrefsManager::instance();
@@ -984,18 +984,22 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
 						}
-						else if (it.tagName()=="tab") {
+						else if (it.tagName()=="tab")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);
-						}
-						else if (it.tagName()=="breakline") {
+						else if (it.tagName()=="breakline")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::LINEBREAK);
-						}
-						else if (it.tagName()=="breakcol") {
+						else if (it.tagName()=="breakcol")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::COLBREAK);
-						}
-						else if (it.tagName()=="breakframe") {
+						else if (it.tagName()=="breakframe")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::FRAMEBREAK);
-						}
+						else if (it.tagName()=="nbhyphen")
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::NBHYPHEN);
+						else if (it.tagName()=="nbspace")
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::NBSPACE);
+						else if (it.tagName()=="zwnbspace")
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::ZWNBSPACE);
+						else if (it.tagName()=="zwspace")
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::ZWSPACE);
 						else if (it.tagName()=="var")
 						{
 							if (it.attribute("name") == "pgno")
@@ -1198,7 +1202,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						}
 						if (it.tagName()=="ITEXT")
 							GetItemText(&it, m_Doc, Neu, last);
-						else if (it.tagName()=="para") {
+						else if (it.tagName()=="para")
+						{
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
 							ParagraphStyle newStyle;
 							PrefsManager* prefsManager=PrefsManager::instance();
@@ -1206,18 +1211,22 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
 						}
-						else if (it.tagName()=="tab") {
+						else if (it.tagName()=="tab")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);
-						}
-						else if (it.tagName()=="breakline") {
+						else if (it.tagName()=="breakline")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::LINEBREAK);
-						}
-						else if (it.tagName()=="breakcol") {
+						else if (it.tagName()=="breakcol")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::COLBREAK);
-						}
-						else if (it.tagName()=="breakframe") {
+						else if (it.tagName()=="breakframe")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::FRAMEBREAK);
-						}
+						else if (it.tagName()=="nbhyphen")
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::NBHYPHEN);
+						else if (it.tagName()=="nbspace")
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::NBSPACE);
+						else if (it.tagName()=="zwnbspace")
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::ZWNBSPACE);
+						else if (it.tagName()=="zwspace")
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::ZWSPACE);
 						else if (it.tagName()=="var")
 						{
 							if (it.attribute("name") == "pgno")
@@ -2834,7 +2843,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						}
 						if (it.tagName()=="ITEXT")
 							GetItemText(&it, m_Doc, Neu, last, true, VorLFound);
-						else if (it.tagName()=="para") {
+						else if (it.tagName()=="para")
+						{
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
 							ParagraphStyle newStyle;
 							PrefsManager* prefsManager=PrefsManager::instance();
@@ -2842,18 +2852,22 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
 							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
 						}
-						else if (it.tagName()=="tab") {
+						else if (it.tagName()=="tab")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);
-						}
-						else if (it.tagName()=="breakline") {
+						else if (it.tagName()=="breakline")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::LINEBREAK);
-						}
-						else if (it.tagName()=="breakcol") {
+						else if (it.tagName()=="breakcol")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::COLBREAK);
-						}
-						else if (it.tagName()=="breakframe") {
+						else if (it.tagName()=="breakframe")
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::FRAMEBREAK);
-						}
+						else if (it.tagName()=="nbhyphen")
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::NBHYPHEN);
+						else if (it.tagName()=="nbspace")
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::NBSPACE);
+						else if (it.tagName()=="zwnbspace")
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::ZWNBSPACE);
+						else if (it.tagName()=="zwspace")
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::ZWSPACE);
 						else if (it.tagName()=="var")
 						{
 							if (it.attribute("name") == "pgno")
