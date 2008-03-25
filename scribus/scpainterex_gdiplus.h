@@ -102,7 +102,6 @@ public:
 
 	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode );
 	virtual void setupPolygon(FPointArray *points, bool closed = true);
-	virtual void setupTextPolygon(FPointArray *points);
 	virtual void drawPolygon();
 	virtual void drawPolyLine();
 	virtual void drawLine(FPoint start, FPoint end);
@@ -137,13 +136,12 @@ private:
 	void getClipPathDimensions( QRect& r );
 	void transformPoint( const FPoint& in, FPoint& out );
 	void transformPoints( const FPoint* in, FPoint* out, uint length );
-	void loadMsImg32( void );
 
 	ScribusDoc* m_doc;
 
 	unsigned int m_width;
 	unsigned int m_height;
-	QMatrix m_matrix;
+	QMatrix  m_matrix;
 	QFont m_font;
 /* Filling */
 	ScColorShade m_fillColor;

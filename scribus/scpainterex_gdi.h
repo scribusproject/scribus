@@ -99,7 +99,6 @@ public:
 
 	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode );
 	virtual void setupPolygon(FPointArray *points, bool closed = true);
-	virtual void setupTextPolygon(FPointArray *points);
 	virtual void drawPolygon();
 	virtual void drawPolyLine();
 	virtual void drawLine(FPoint start, FPoint end);

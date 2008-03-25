@@ -602,40 +602,6 @@ void ScPainterEx_GDI::setupPolygon(FPointArray *points, bool closed)
 	}
 }
 
-void ScPainterEx_GDI::setupTextPolygon(FPointArray *points)
-{
-	bool nPath = true;
-	FPoint np, np1, np2, np3;
-	if (points->size() > 3)
-	{
-		newPath();
-		for (uint poi=0; poi<points->size()-3; poi += 4)
-		{
-			if (points->point(poi).x() > 900000)
-			{
-				nPath = true;
-				continue;
-			}
-			if (nPath)
-			{
-				np = points->point(poi);
-				moveTo( np.x(), np.y() );
-				nPath = false;
-			}
-			np.setXY( points->point(poi).x(), points->point(poi).y() );
-			np1.setXY( points->point(poi+1).x(), points->point(poi+1).y() );
-			np2.setXY( points->point(poi+3).x(), points->point(poi+3).y() );
-			np3.setXY( points->point(poi+2).x(), points->point(poi+2).y() );
-			if ((np == np1) && (np2 == np3))
-				lineTo( np3.x(), np3.y() );
-			else
-				curveTo( np1, np2, np3 );
-		}
-    	EndPath( m_dc );
-		m_pathIsClosed = true;
-	}
-}
-
 void ScPainterEx_GDI::drawPolygon()
 {
 	fillPath();

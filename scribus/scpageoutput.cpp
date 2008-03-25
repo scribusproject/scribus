@@ -583,7 +583,7 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 			painter->setFillMode(ScPainterExBase::Solid);
 			bool fr = painter->fillRule();
 			painter->setFillRule(false);
-			painter->setupTextPolygon(&gly);
+			painter->setupPolygon(&gly, true);
 			if (glyph == 0)
 			{
 				ScColorShade tmp(PrefsManager::instance()->appPrefs.DControlCharColor, 100);
@@ -606,11 +606,11 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 					painter->translate((style.fontSize() * glyphs.scaleH * style.shadowXOffset() / 10000.0) / glxSc, -(style.fontSize() * glyphs.scaleV * style.shadowYOffset() / 10000.0) / glySc);
 					ScColorShade tmp = painter->brush();
 					painter->setBrush(painter->pen());
-					painter->setupTextPolygon(&gly);
+					painter->setupPolygon(&gly, true);
 					FillPath(item, painter, clip);
 					painter->setBrush(tmp);
 					painter->restore();
-					painter->setupTextPolygon(&gly);
+					painter->setupPolygon(&gly, true);
 				}
 				if (style.fillColor() != CommonStrings::None)
 					FillPath(item, painter, clip);

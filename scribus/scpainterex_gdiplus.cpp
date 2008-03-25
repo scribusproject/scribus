@@ -54,23 +54,21 @@ using namespace std;
 
 ScPainterEx_GDIPlus::ScPainterEx_GDIPlus( HDC hDC, QRect& rect,  ScribusDoc* doc, bool gray ) : ScPainterExBase()
 {
-	m_doc = doc;
-	m_width = rect.width();
-	m_height= rect.height();
+	m_doc    = doc;
+	m_width  = rect.width();
+	m_height = rect.height();
 	m_strokeColor = ScColorShade( QColor(0,0,0), 100 );
 	m_fillColor = ScColorShade( QColor(0,0,0), 100 );
 	m_fillTrans = 1.0;
 	m_strokeTrans = 1.0;
-	m_fillRule = true;
-	m_fillMode = 1;
+	m_fillRule  = true;
+	m_fillMode  = 1;
 	m_lineWidth = 1.0;
-	m_offset = 0;
-	m_array.clear();
-	m_lineEnd = Qt::SquareCap;
-	m_lineJoin = Qt::RoundJoin;
-	m_fillGradient = VGradientEx(VGradientEx::linear);
+	m_offset    = 0;
+	m_lineEnd   = Qt::SquareCap;
+	m_lineJoin  = Qt::RoundJoin;
+	m_fillGradient   = VGradientEx(VGradientEx::linear);
 	m_strokeGradient = VGradientEx(VGradientEx::linear);
-	m_matrix = QMatrix();
 	// Grayscale conversion parameter
 	m_convertToGray = gray;
 	// Initialization of Windows GDI data
@@ -78,7 +76,7 @@ ScPainterEx_GDIPlus::ScPainterEx_GDIPlus( HDC hDC, QRect& rect,  ScribusDoc* doc
 	m_pathIsClosed = true;
 	m_drawingClosedPath = false;
 	m_positionX = m_positionY = 0;
-	m_graphics = new Gdiplus::Graphics( m_dc );
+	m_graphics  = new Gdiplus::Graphics( m_dc );
 	m_graphics->SetCompositingMode( CompositingModeSourceOver );
 	m_graphics->SetCompositingQuality( CompositingQualityHighQuality );
 	m_graphics->SetSmoothingMode( SmoothingModeHighQuality );
@@ -132,7 +130,6 @@ void ScPainterEx_GDIPlus::transformImage( QImage* image, uchar* data, int scan)
 		}
 		pscand += scan;
 	}
-
 }
 
 void ScPainterEx_GDIPlus::begin()
@@ -525,7 +522,7 @@ void ScPainterEx_GDIPlus::drawImage( ScImage *image, ScPainterExBase::ImageMode 
 
 void ScPainterEx_GDIPlus::setupPolygon(FPointArray *points, bool closed)
 {
-	bool nPath = true;
+	bool nPath = true, first = true;
 	FPoint np, np1, np2, np3;
 	if (points->size() > 3)
 	{
@@ -540,9 +537,11 @@ void ScPainterEx_GDIPlus::setupPolygon(FPointArray *points, bool closed)
 			if (nPath)
 			{
 				np = points->point(poi);
+				if (!first && closed)
+					m_graphicsPath->CloseFigure();
 				m_graphicsPath->StartFigure();
 				moveTo( np.x(), np.y() );
-				nPath = false;
+				nPath = first = false;
 			}
 			np = points->point(poi);
 			np1 = points->point(poi+1);
@@ -555,45 +554,10 @@ void ScPainterEx_GDIPlus::setupPolygon(FPointArray *points, bool closed)
 		}
 		if (closed)
 		{
+			m_graphicsPath->CloseFigure();
 			m_pathIsClosed = true;
 			m_drawingClosedPath = true;
 		}
-	}
-}
-
-void ScPainterEx_GDIPlus::setupTextPolygon(FPointArray *points)
-{
-	bool nPath = true;
-	FPoint np, np1, np2, np3;
-	if (points->size() > 3)
-	{
-		newPath();
-		for (uint poi=0; poi<points->size()-3; poi += 4)
-		{
-			if (points->point(poi).x() > 900000)
-			{
-				nPath = true;
-				continue;
-			}
-			if (nPath)
-			{
-				np = points->point(poi);
-				m_graphicsPath->CloseFigure();
-				m_graphicsPath->StartFigure();
-				moveTo( np.x(), np.y() );
-				nPath = false;
-			}
-			np.setXY( points->point(poi).x(), points->point(poi).y() );
-			np1.setXY( points->point(poi+1).x(), points->point(poi+1).y() );
-			np2.setXY( points->point(poi+3).x(), points->point(poi+3).y() );
-			np3.setXY( points->point(poi+2).x(), points->point(poi+2).y() );
-			if ((np == np1) && (np2 == np3))
-				lineTo( np3.x(), np3.y() );
-			else
-				curveTo( np1, np2, np3 );
-		}
-		m_graphicsPath->CloseFigure();
-		m_pathIsClosed = true;
 	}
 }
 
