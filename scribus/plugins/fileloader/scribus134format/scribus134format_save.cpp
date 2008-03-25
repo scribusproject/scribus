@@ -1180,10 +1180,9 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		{
 			for (int a = 0; a < item->effectsInUse.count(); ++a)
 			{
-				docu.writeStartElement("ImageEffect");
+				docu.writeEmptyElement("ImageEffect");
 				docu.writeAttribute("Code", item->effectsInUse.at(a).effectCode);
 				docu.writeAttribute("Param", item->effectsInUse.at(a).effectParameters);
-				docu.writeEndElement();
 			}
 		}
 		if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()) && (item->pixm.imgInfo.layerInfo.count() != 0) && (item->pixm.imgInfo.isRequest))
@@ -1191,27 +1190,25 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			QMap<int, ImageLoadRequest>::iterator it2;
 			for (it2 = item->pixm.imgInfo.RequestProps.begin(); it2 != item->pixm.imgInfo.RequestProps.end(); ++it2)
 			{
-				docu.writeStartElement("PSDLayer");
+				docu.writeEmptyElement("PSDLayer");
 				docu.writeAttribute("Layer",it2.key());
 				docu.writeAttribute("Visible", static_cast<int>(it2.value().visible));
 				docu.writeAttribute("useMask", static_cast<int>(it2.value().useMask));
 				docu.writeAttribute("Opacity", it2.value().opacity);
 				docu.writeAttribute("Blend", it2.value().blend);
-				docu.writeEndElement();
 			}
 		}
 		if (item->itemText.defaultStyle().tabValues().count() != 0)
 		{
 			for (int a = 0; a < item->itemText.defaultStyle().tabValues().count(); ++a)
 			{
-				docu.writeStartElement("Tabs");
+				docu.writeEmptyElement("Tabs");
 				docu.writeAttribute("Type", (item->itemText.defaultStyle().tabValues().at(a)).tabType);
 				docu.writeAttribute("Pos", (item->itemText.defaultStyle().tabValues().at(a)).tabPosition);
 				QString tabCh = "";
 				if (!(item->itemText.defaultStyle().tabValues().at(a)).tabFillChar.isNull())
 					tabCh = QString((item->itemText.defaultStyle().tabValues().at(a)).tabFillChar);
 				docu.writeAttribute("Fill", tabCh);
-				docu.writeEndElement();
 			}
 		}
 		if ((item->GrType > 0) && (item->GrType != 8))
@@ -1219,12 +1216,11 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			QList<VColorStop*> cstops = item->fill_gradient.colorStops();
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 			{
-				docu.writeStartElement("CSTOP");
+				docu.writeEmptyElement("CSTOP");
 				docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
 				docu.writeAttribute("NAME", cstops.at(cst)->name);
 				docu.writeAttribute("SHADE", cstops.at(cst)->shade);
 				docu.writeAttribute("TRANS", cstops.at(cst)->opacity);
-				docu.writeEndElement();
 			}
 		}
 		
