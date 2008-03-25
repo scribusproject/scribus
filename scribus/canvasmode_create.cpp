@@ -925,6 +925,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 																							  Um::ITable, Um::CreateTable,
 																							  QString(Um::RowsCols).arg(Rows).arg(Cols),
 																							  Um::ICreate));
+				m_doc->m_Selection->delaySignalsOn();
 				for (int rc = 0; rc < Rows; ++rc)
 				{
 					for (int cc = 0; cc < Cols; ++cc)
@@ -969,6 +970,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 					delete activeTransaction;
 					activeTransaction = NULL;
 				}
+				m_doc->m_Selection->delaySignalsOff();
 			}
 		} // if (modeDrawTable)
 	}
