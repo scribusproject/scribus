@@ -4423,7 +4423,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 				m_doc->m_Selection->clear();
 			
 			m_doc->m_Selection->prependItem(currItem);
-			if ( (m->modifiers() & SELECT_IN_GROUP) )
+			if ( (m->modifiers() & SELECT_IN_GROUP) && (!currItem->isGroupControl))
 			{
 				currItem->isSingleSel = true;
 			}

@@ -200,6 +200,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		currentDoc->m_Selection->clear();
 		if (oldItems>0)
 		{
+			currentDoc->m_Selection->delaySignalsOn();
 			for (uint ite = 0; ite < oldItems; ++ite)
 			{
 				PageItem *itemToCopy = currentDoc->Items->at(ite);
@@ -210,6 +211,7 @@ void MasterPagesPalette::duplicateMasterPage()
 			ss->ReadElem(ss->WriteElem(currentDoc, currentView, currentDoc->m_Selection), prefsManager->appPrefs.AvailFonts, currentDoc, destination->xOffset(), destination->yOffset(), false, true, prefsManager->appPrefs.GFontSub, currentView);
 			currentDoc->m_Selection->clear();
 			delete ss;
+			currentDoc->m_Selection->delaySignalsOff();
 		}
 		uint end3 = currentDoc->MasterItems.count();
 		for (uint a = end2; a < end3; ++a)

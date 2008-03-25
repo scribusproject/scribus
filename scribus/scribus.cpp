@@ -5280,6 +5280,7 @@ void ScribusMainWindow::SelectAll()
 	{
 		PageItem *currItem;
 		view->Deselect();
+		doc->m_Selection->delaySignalsOn();
 		uint docItemsCount=doc->Items->count();
 		for (uint a = 0; a < docItemsCount; ++a)
 		{
@@ -5289,6 +5290,7 @@ void ScribusMainWindow::SelectAll()
 				doc->m_Selection->addItem(currItem);
 			}
 		}
+		doc->m_Selection->delaySignalsOff();
 		int docSelectionCount=doc->m_Selection->count();
 		if (docSelectionCount > 1)
 		{

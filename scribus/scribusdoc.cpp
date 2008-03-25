@@ -4815,6 +4815,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		m_View->reformPages();
 		uint oldItems = Items->count();
 		m_Selection->clear();
+		m_Selection->delaySignalsOn();
 		if (oldItems>0)
 		{
 			ScLayers::iterator it;
@@ -4841,6 +4842,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				setActiveLayer(currActiveLayer);
 			}
 		}
+		m_Selection->delaySignalsOff();
 		from->guides.copy(&destination->guides);
 		GroupCounter = GrMax + 1;
 	}
@@ -7004,6 +7006,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	PageItem *currItem;
 	uint offs = 0;
 	QString tooltip = Um::ItemsInvolved + "\n";
+	itemSelection->delaySignalsOn();
 	for (uint de = 0; de < selectedItemCount; ++de)
 	{
 		currItem = itemSelection->itemAt(offs);
@@ -7020,6 +7023,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 			else
 			{
 				QMessageBox::critical(m_ScMW, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+				itemSelection->delaySignalsOff();
 				return;
 			}
 		}
@@ -7027,7 +7031,10 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		delItems.append(itemSelection->takeItem(offs));
 	}
 	if (delItems.count() == 0)
+	{
+		itemSelection->delaySignalsOff();
 		return;
+	}
 	selectedItemCount = delItems.count();
 
 	UndoTransaction* activeTransaction = NULL;
@@ -7078,6 +7085,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 			undoManager->action(target, is, currItem->getUPixmap());
 		}
 	}
+	itemSelection->delaySignalsOff();
 	updateFrameItems();
 	renumberItemsInListOrder();
 	if (activeTransaction)
