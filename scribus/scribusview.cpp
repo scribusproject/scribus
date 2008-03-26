@@ -2144,13 +2144,15 @@ void ScribusView::PasteToPage()
 	}
 }
 
-
 void ScribusView::resizeEvent ( QResizeEvent * event )
 {
 	QScrollArea::resizeEvent(event);
 	horizRuler->setGeometry(m_vhRulerHW, 1, width()-m_vhRulerHW-1, m_vhRulerHW);
 	vertRuler->setGeometry(1, m_vhRulerHW, m_vhRulerHW, height()-m_vhRulerHW-1);
-	rulerMover->setGeometry(1, 1, m_vhRulerHW, m_vhRulerHW);	
+	rulerMover->setGeometry(1, 1, m_vhRulerHW, m_vhRulerHW);
+	m_canvas->m_viewMode.forceRedraw = true;
+	m_canvas->resetRenderMode();
+	m_canvas->update();
 }
 
 
