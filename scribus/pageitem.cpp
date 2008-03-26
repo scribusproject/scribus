@@ -1412,6 +1412,13 @@ QImage PageItem::DrawObj_toImage()
 					{
 						emG.append(m_Doc->Items->at(ga));
 						PageItem *currItem = m_Doc->Items->at(ga);
+						double x1, x2, y1, y2;
+						currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+						minx = qMin(minx, x1);
+						miny = qMin(miny, y1);
+						maxx = qMax(maxx, x2);
+						maxy = qMax(maxy, y2);
+/*
 						double lw = 0.0;
 						if (lineColor() != CommonStrings::None)
 							lw = lineWidth() / 2.0;
@@ -1437,6 +1444,7 @@ QImage PageItem::DrawObj_toImage()
 							maxx = qMax(maxx, currItem->xPos()-lw + currItem->width());
 							maxy = qMax(maxy, currItem->yPos()-lw + currItem->height());
 						}
+*/
 					}
 				}
 			}
@@ -1452,6 +1460,13 @@ QImage PageItem::DrawObj_toImage()
 	}
 	else
 	{
+		double x1, x2, y1, y2;
+		getBoundingRect(&x1, &y1, &x2, &y2);
+		minx = qMin(minx, x1);
+		miny = qMin(miny, y1);
+		maxx = qMax(maxx, x2);
+		maxy = qMax(maxy, y2);
+/*
 		double lw = 0.0;
 		if (lineColor() != CommonStrings::None)
 			lw = lineWidth() / 2.0;
@@ -1477,6 +1492,7 @@ QImage PageItem::DrawObj_toImage()
 			maxx = qMax(maxx, xPos()-lw + width()+lw*2.0);
 			maxy = qMax(maxy, yPos()-lw + height()+lw*2.0);
 		}
+*/
 		gXpos = xPos() - minx;
 		gYpos = yPos() - miny;
 		gWidth = maxx - minx;
@@ -3857,6 +3873,73 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 		*x2 = Xpos + qMax(Width, m_lineWidth);
 		*y2 = Ypos + qMax(Height, m_lineWidth);
 	}
+	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
+	if (m_startArrowIndex != 0)
+	{
+		QMatrix arrowTrans;
+		FPointArray arrow = m_Doc->arrowStyles.at(m_startArrowIndex-1).points.copy();
+		arrowTrans.translate(Xpos, Ypos);
+		arrowTrans.rotate(Rot);
+		if (itemType() == Line)
+		{
+			arrowTrans.translate(0, 0);
+			arrowTrans.scale(m_lineWidth, m_lineWidth);
+			arrowTrans.scale(-1,1);
+			arrow.map(arrowTrans);
+		}
+		else
+		{
+			FPoint Start = PoLine.point(0);
+			for (uint xx = 1; xx < PoLine.size(); xx += 2)
+			{
+				FPoint Vector = PoLine.point(xx);
+				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+				{
+					arrowTrans.translate(Start.x(), Start.y());
+					arrowTrans.rotate(atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI));
+					arrowTrans.scale(m_lineWidth, m_lineWidth);
+					arrow.map(arrowTrans);
+					break;
+				}
+			}
+		}
+		FPoint minAr = getMinClipF(&arrow);
+		FPoint maxAr = getMaxClipF(&arrow);
+		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
+	}
+	if (m_endArrowIndex != 0)
+	{
+		QMatrix arrowTrans;
+		FPointArray arrow = m_Doc->arrowStyles.at(m_endArrowIndex-1).points.copy();
+		arrowTrans.translate(Xpos, Ypos);
+		arrowTrans.rotate(Rot);
+		if (itemType() == Line)
+		{
+			arrowTrans.translate(Width, 0);
+			arrowTrans.scale(m_lineWidth, m_lineWidth);
+			arrow.map(arrowTrans);
+		}
+		else
+		{
+			FPoint End = PoLine.point(PoLine.size()-2);
+			for (uint xx = PoLine.size()-1; xx > 0; xx -= 2)
+			{
+				FPoint Vector = PoLine.point(xx);
+				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+				{
+					arrowTrans.translate(End.x(), End.y());
+					arrowTrans.rotate(atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI));
+					arrowTrans.scale(m_lineWidth, m_lineWidth);
+					arrow.map(arrowTrans);
+					break;
+				}
+			}
+		}
+		FPoint minAr = getMinClipF(&arrow);
+		FPoint maxAr = getMaxClipF(&arrow);
+		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
+	}
+	totalRect.getCoords(x1, y1, x2, y2);
 }
 
 

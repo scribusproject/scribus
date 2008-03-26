@@ -9495,6 +9495,7 @@ void ScribusMainWindow::PutToPatterns()
 	Selection itemSelection(this, false);
 	itemSelection.copy(*doc->m_Selection, false);
 	slotEditCopy();
+	doc->m_Selection->delaySignalsOn();
 	view->Deselect(true);
 	slotEditPaste();
 	doc->useRaster = savedAlignGrid;
@@ -9517,7 +9518,7 @@ void ScribusMainWindow::PutToPatterns()
 		outlinePalette->BuildTree();
 	doc->TotalItems = oldNum;
 	view->Deselect(true);
-	doc->m_Selection->delaySignalsOn();
+//	doc->m_Selection->delaySignalsOn();
 	doc->m_Selection->copy(itemSelection, false);
 	doc->m_Selection->delaySignalsOff();
 	view->DrawNew();

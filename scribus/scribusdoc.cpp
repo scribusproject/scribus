@@ -9652,6 +9652,13 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 		for (uint ep = 0; ep < selectedItemCount; ++ep)
 		{
 			PageItem* currItem = itemSelection->itemAt(ep);
+			double x1, x2, y1, y2;
+			currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+			minx = qMin(minx, x1);
+			miny = qMin(miny, y1);
+			maxx = qMax(maxx, x2);
+			maxy = qMax(maxy, y2);
+/*
 			double lw = 0.0;
 			if (currItem->lineColor() != CommonStrings::None)
 				lw = currItem->lineWidth() / 2.0;
@@ -9678,6 +9685,7 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 				maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
 				maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
 			}
+*/
 		}
 		double gx = minx;
 		double gy = miny;
@@ -9722,7 +9730,7 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 			ss->set(QString("item%1").arg(a), currItem->uniqueNr);
 		}
 		GroupCounter++;
-		regionsChanged()->update(QRectF(x-5, y-5, w+10, h+10));
+		regionsChanged()->update(QRectF(gx-5, gy-5, gw+10, gh+10));
 		emit docChanged();
 		if (m_ScMW && ScCore->usingGUI())
 		{
