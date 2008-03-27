@@ -27,6 +27,7 @@ class QGroupBox;
 class QLineEdit;
 class QPushButton;
 class QSpinBox;
+class QCheckBox;
 
 #include "scribusapi.h"
 
@@ -50,6 +51,7 @@ public:
 	QLabel* TextLabel5;
 	QLineEdit* Destfile;
 	QPushButton* ChFile;
+	QCheckBox* useAbsolute;
 	Navigator* Pg;
 	QSpinBox* SpinBox1;
 	QSpinBox* SpinBox2;

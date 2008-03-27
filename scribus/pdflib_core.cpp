@@ -5481,6 +5481,8 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 	double y2 = y-ite->height();
 	QString bm(""), bmUtf16("");
 	QString cc;
+	QFileInfo fiBase(Spool.fileName());
+	QString baseDir = fiBase.absolutePath();
 	if (!((ite->itemText.length() == 1) && (ite->itemText.text(0, 1) == QChar(13))))
 	{
 		// #6823 EncStringUTF16() perform the string encoding by its own
@@ -5526,11 +5528,16 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 			}
 			if (ite->annotation().ActionType() == 7)
 			{
-				PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+ite->annotation().Extern()+")",ObjCounter-1)+"\n");
+				PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+Path2Relative(ite->annotation().Extern(), baseDir)+")",ObjCounter-1)+"\n");
 				PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
 			}
 			if (ite->annotation().ActionType() == 8)
 				PutDoc("/A << /Type /Action /S /URI\n/URI "+ EncString("("+ite->annotation().Extern()+")",ObjCounter-1)+"\n>>\n");
+			if (ite->annotation().ActionType() == 9)
+			{
+				PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+ite->annotation().Extern()+")",ObjCounter-1)+"\n");
+				PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
+			}
 			break;
 		case 2:
 		case 3:
@@ -5710,7 +5717,12 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 			{
 				if (ite->annotation().ActionType() == 7)
 				{
-					PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+ite->annotation().Extern()+")",ObjCounter-1)+ "\n");
+					PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+Path2Relative(ite->annotation().Extern(), baseDir)+")",ObjCounter-1)+ "\n");
+					PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
+				}
+				if (ite->annotation().ActionType() == 9)
+				{
+					PutDoc("/A << /Type /Action /S /GoToR\n/F "+ EncString("("+ite->annotation().Extern()+")",ObjCounter-1)+"\n");
 					PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
 				}
 				if (ite->annotation().ActionType() == 5)

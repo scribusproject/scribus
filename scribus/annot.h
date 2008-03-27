@@ -71,6 +71,7 @@ public:
 	QCheckBox* LExtern;
 	QLineEdit* Destfile;
 	QPushButton* ChFile;
+	QCheckBox* useAbsolute;
 	Navigator* Pg1;
 	QSpinBox* SpinBox11;
 	QSpinBox* SpinBox21;

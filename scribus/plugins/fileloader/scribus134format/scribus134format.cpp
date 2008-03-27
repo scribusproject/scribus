@@ -2282,10 +2282,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 	currItem->annotation().setActionType(obj->attribute("ANACTYP", "0").toInt());
 	currItem->annotation().setExtern(obj->attribute("ANEXTERN",""));
 	if ((!currItem->annotation().Extern().isEmpty()) && (currItem->annotation().ActionType() != 8))
-	{
-		QFileInfo efp(currItem->annotation().Extern());
-		currItem->annotation().setExtern(efp.absoluteFilePath());
-	}
+		currItem->annotation().setExtern(Relative2Path(obj->attribute("ANEXTERN","") , baseDir));
 	currItem->annotation().setZiel(obj->attribute("ANZIEL", "0").toInt());
 	currItem->annotation().setToolTip(obj->attribute("ANTOOLTIP",""));
 	currItem->annotation().setRollOver(obj->attribute("ANROLL",""));

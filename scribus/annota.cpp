@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSpinBox>
 #include <QPixmap>
 #include <QStringList>
+#include <QCheckBox>
 
 #include "scfonts.h"
 #include "annota.h"
@@ -52,7 +53,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	view = vie;
 	MaxSeite = Seite;
 	QStringList tl;
-	if ((item->annotation().ActionType() == 2) || (item->annotation().ActionType() == 7))
+	if ((item->annotation().ActionType() == 2) || (item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9))
 	{
 		QString tm = item->annotation().Action();
 		tl = tm.split(" ", QString::SkipEmptyParts);
@@ -88,6 +89,8 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	ComboBox1->setCurrentIndex(item->annotation().Type()-10);
 	if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 8))
 		ComboBox1->setCurrentIndex(item->annotation().ActionType() - 5);
+	if (item->annotation().ActionType() == 9)
+		ComboBox1->setCurrentIndex(2);
 	Fram = new QStackedWidget(this);
 	AnnotLayout->addWidget( Fram );
 
@@ -110,20 +113,27 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	ChFile = new QPushButton(GroupBox1);
 	ChFile->setText( tr("C&hange..."));
 	GroupBox1Layout->addWidget( ChFile, 0, 2 );
-	if ((item->annotation().ActionType() != 7) && (item->annotation().ActionType() != 8))
+	useAbsolute = new QCheckBox( tr("Export absolute Filename"), GroupBox1);
+	GroupBox1Layout->addWidget( useAbsolute, 1, 0, 1, 3 );
+	if (item->annotation().ActionType() == 7)
+		useAbsolute->setChecked(false);
+	else if (item->annotation().ActionType() == 9)
+		useAbsolute->setChecked(true);
+	if ((item->annotation().ActionType() != 7) && (item->annotation().ActionType() != 8) && (item->annotation().ActionType() != 9))
 	{
 		Destfile->hide();
 		ChFile->hide();
+		useAbsolute->hide();
 	}
 
 	SpinBox1 = new QSpinBox( GroupBox1);
 	SpinBox1->setMinimum(1);
-	SpinBox1->setMaximum(item->annotation().ActionType() == 7 ? 1000 : Seite);
+	SpinBox1->setMaximum(((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9)) ? 1000 : Seite);
 	TextLabel3 = new QLabel( tr("&Page:"), GroupBox1);
 	TextLabel3->setBuddy(SpinBox1);
-	GroupBox1Layout->addWidget( TextLabel3, 1, 0 );
-	GroupBox1Layout->addWidget( SpinBox1, 1, 1 );
-	if ((!Destfile->text().isEmpty()) && (item->annotation().ActionType() == 7))
+	GroupBox1Layout->addWidget( TextLabel3, 2, 0 );
+	GroupBox1Layout->addWidget( SpinBox1, 2, 1 );
+	if ((!Destfile->text().isEmpty()) && ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9)))
 		Pg = new Navigator( GroupBox1, 100, item->annotation().Ziel()+1, view, item->annotation().Extern());
 	else
 	{
@@ -137,7 +147,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	}
 	SpinBox1->setValue(item->annotation().Ziel()+1);
 	Pg->setMinimumSize(QSize(Pg->pmx.width(), Pg->pmx.height()));
-	GroupBox1Layout->addWidget(Pg, 1, 2, 3, 1);
+	GroupBox1Layout->addWidget(Pg, 2, 2, 3, 1);
 
 	SpinBox2 = new QSpinBox( GroupBox1);
 	SpinBox2->setSuffix( tr( " pt" ) );
@@ -145,16 +155,16 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	SpinBox2->setValue(tl[0].toInt());
 	TextLabel4 = new QLabel( tr("&X-Pos"), GroupBox1 );
 	TextLabel4->setBuddy(SpinBox2);
-	GroupBox1Layout->addWidget( TextLabel4, 2, 0 );
-	GroupBox1Layout->addWidget( SpinBox2, 2, 1 );
+	GroupBox1Layout->addWidget( TextLabel4, 3, 0 );
+	GroupBox1Layout->addWidget( SpinBox2, 3, 1 );
 	SpinBox3 = new QSpinBox( GroupBox1 );
 	SpinBox3->setMaximum(Hoehe);
 	SpinBox3->setSuffix( tr( " pt" ) );
 	SpinBox3->setValue(Hoehe-tl[1].toInt());
 	TextLabel5 = new QLabel( tr("&Y-Pos:"), GroupBox1 );
 	TextLabel5->setBuddy(SpinBox3);
-	GroupBox1Layout->addWidget( TextLabel5, 3, 0 );
-	GroupBox1Layout->addWidget( SpinBox3, 3, 1 );
+	GroupBox1Layout->addWidget( TextLabel5, 4, 0 );
+	GroupBox1Layout->addWidget( SpinBox3, 4, 1 );
 	Fram->addWidget(GroupBox1);
 
 	Layout1_2 = new QHBoxLayout;
@@ -243,7 +253,10 @@ void Annota::SetVals()
 		if (!Destfile->text().isEmpty())
 		{
 			item->annotation().setExtern(Destfile->text());
-			item->annotation().setActionType(7);
+			if (useAbsolute->isChecked())
+				item->annotation().setActionType(9);
+			else
+				item->annotation().setActionType(7);
 		}
 		item->annotation().setType(11);
 		break;
@@ -277,6 +290,7 @@ void Annota::SetZiel(int it)
 		Destfile->setText("");
 		Destfile->hide();
 		ChFile->hide();
+		useAbsolute->hide();
 		item->annotation().setActionType(2);
 		SetPg(qMin(SpinBox1->value(), MaxSeite));
 		break;
@@ -284,6 +298,7 @@ void Annota::SetZiel(int it)
 		Fram->setCurrentIndex(1);
 		Destfile->show();
 		ChFile->show();
+		useAbsolute->show();
 		Destfile->setReadOnly(true);
 		if ((Destfile->text().isEmpty())  || (item->annotation().ActionType() == 8))
 		{
@@ -296,10 +311,16 @@ void Annota::SetZiel(int it)
 			Destfile->setText("");
 			Destfile->hide();
 			ChFile->hide();
+			useAbsolute->hide();
 			ComboBox1->setCurrentIndex(1);
 		}
 		else
-			item->annotation().setActionType(7);
+		{
+			if (useAbsolute->isChecked())
+				item->annotation().setActionType(9);
+			else
+				item->annotation().setActionType(7);
+		}
 		SetPg(qMin(SpinBox1->value(), MaxSeite));
 		break;
 	case 3:
@@ -307,6 +328,7 @@ void Annota::SetZiel(int it)
 		Destfile->show();
 		Destfile->setReadOnly(false);
 		ChFile->hide();
+		useAbsolute->hide();
 		Pg->hide();
 		TextLabel3->hide();
 		TextLabel4->hide();
@@ -318,10 +340,11 @@ void Annota::SetZiel(int it)
 		break;
 	case 11:
 		Fram->setCurrentIndex(1);
-		if (item->annotation().ActionType() == 7)
+		if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9))
 		{
 			Destfile->show();
 			ChFile->show();
+			useAbsolute->show();
 			Destfile->setReadOnly(true);
 		}
 		if (item->annotation().ActionType() == 8)
@@ -329,6 +352,7 @@ void Annota::SetZiel(int it)
 			Destfile->show();
 			Destfile->setReadOnly(false);
 			ChFile->hide();
+			useAbsolute->hide();
 			Pg->hide();
 			TextLabel3->hide();
 			TextLabel4->hide();
@@ -341,7 +365,7 @@ void Annota::SetZiel(int it)
 			SetPg(qMin(SpinBox1->value(), MaxSeite));
 		break;
 	default:
-		Fram->setCurrentIndex(2);
+		Fram->setCurrentIndex(0);
 		break;
 	}
 	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));

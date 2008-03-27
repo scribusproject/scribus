@@ -69,7 +69,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	MaxSeite = Seite;
 	QStringList tl;
 	dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	if ((item->annotation().ActionType() == 2) || (item->annotation().ActionType() == 7))
+	if ((item->annotation().ActionType() == 2) || (item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9))
 	{
 		QString tm = item->annotation().Action();
 		tl = tm.split(" ", QString::SkipEmptyParts);
@@ -535,7 +535,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Layout20->addWidget( TextLabel70 );
 
 	ActionCombo = new QComboBox(tab_2);
-	QString tmp_actcom[] = {tr("None", "action"), tr("JavaScript"), tr("Go To"),
+	QString tmp_actcom[] = { tr("None", "action"), tr("JavaScript"), tr("Go To"),
 	                        tr("Submit Form"), tr("Reset Form"), tr("Import Data")};
 	size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
 	/* PFJ - 28/02/04 - Altered from uint to int and var name */
@@ -571,7 +571,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	AcText1->setText( tr( "Event:" ) );
 	Layout7->addWidget( AcText1 );
 	SelAction = new QComboBox(Frame3);
-	QString tmp_selact[]={tr("Mouse Up"), tr("Mouse Down"), tr("Mouse Enter"),
+	QString tmp_selact[]={ tr("Mouse Up"), tr("Mouse Down"), tr("Mouse Enter"),
 	                      tr("Mouse Exit"), tr("On Focus"), tr("On Blur")};
 	size_t array_sel = sizeof(tmp_selact) / sizeof(*tmp_selact);
 	/* PFJ - 28/02/04 - Altered from uint to int and var name */
@@ -623,36 +623,42 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	ChFile = new QPushButton(GroupBox11);
 	ChFile->setText( tr("Change..."));
 	GroupBox11Layout->addWidget( ChFile, 0, 2 );
+	useAbsolute = new QCheckBox( tr("Export absolute Filename"), GroupBox11);
+	GroupBox11Layout->addWidget( useAbsolute, 1, 0, 1, 3 );
+	if (item->annotation().ActionType() == 7)
+		useAbsolute->setChecked(false);
+	else if (item->annotation().ActionType() == 9)
+		useAbsolute->setChecked(true);
 	TextLabel31 = new QLabel( GroupBox11 );
 	TextLabel31->setText( tr( "Page:" ) );
-	GroupBox11Layout->addWidget( TextLabel31, 1, 0 );
+	GroupBox11Layout->addWidget( TextLabel31, 2, 0 );
 	SpinBox11 = new QSpinBox( GroupBox11 );
 	SpinBox11->setMinimum(1);
-	SpinBox11->setMaximum(item->annotation().ActionType() == 7 ? 1000 : Seite);
+	SpinBox11->setMaximum(((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9)) ? 1000 : Seite);
 	SpinBox11->setValue(qMin(item->annotation().Ziel()+1, Seite));
-	GroupBox11Layout->addWidget( SpinBox11, 1, 1 );
-	if (item->annotation().ActionType() == 7)
+	GroupBox11Layout->addWidget( SpinBox11, 2, 1 );
+	if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9))
 		Pg1 = new Navigator( GroupBox11, 100, item->annotation().Ziel()+1, view, item->annotation().Extern());
 	else
 		Pg1 = new Navigator( GroupBox11, 100, qMin(item->annotation().Ziel(), Seite-1), view);
 	Pg1->setMinimumSize(QSize(Pg1->pmx.width(), Pg1->pmx.height()));
-	GroupBox11Layout->addWidget(Pg1, 1, 2, 3, 1);
+	GroupBox11Layout->addWidget(Pg1, 2, 2, 3, 1);
 	TextLabel41 = new QLabel( GroupBox11 );
 	TextLabel41->setText( tr( "X-Pos:" ) );
-	GroupBox11Layout->addWidget( TextLabel41, 2, 0 );
+	GroupBox11Layout->addWidget( TextLabel41, 3, 0 );
 	SpinBox21 = new QSpinBox( GroupBox11 );
 	SpinBox21->setSuffix( tr( " pt" ) );
 	SpinBox21->setMaximum(Breite);
 	SpinBox21->setValue(tl[0].toInt());
-	GroupBox11Layout->addWidget( SpinBox21, 2, 1 );
+	GroupBox11Layout->addWidget( SpinBox21, 3, 1 );
 	TextLabel51 = new QLabel( GroupBox11 );
 	TextLabel51->setText( tr( "Y-Pos:" ) );
-	GroupBox11Layout->addWidget( TextLabel51, 3, 0 );
+	GroupBox11Layout->addWidget( TextLabel51, 4, 0 );
 	SpinBox31 = new QSpinBox( GroupBox11 );
 	SpinBox31->setMaximum(Hoehe);
 	SpinBox31->setSuffix( tr( " pt" ) );
 	SpinBox31->setValue(Hoehe-tl[1].toInt());
-	GroupBox11Layout->addWidget( SpinBox31, 3, 1 );
+	GroupBox11Layout->addWidget( SpinBox31, 4, 1 );
 	Fram2->addWidget(GroupBox11);
 
 	Frame3b = new QFrame( tab_2 );
@@ -693,13 +699,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame3cLayout->addItem( spacerSua);
 	Fram2->addWidget( Frame3c );
 	TabWidget2->addTab( tab_2, tr( "Action" ) );
-	if (item->annotation().ActionType() != 7)
-	{
-		Destfile->setEnabled(false);
-		ChFile->setEnabled(false);
-		LExtern->setChecked(false);
-	}
-	else
+	if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9))
 	{
 		LExtern->setChecked(true);
 		if (!Destfile->text().isEmpty())
@@ -713,6 +713,12 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 			ChFile->setEnabled(false);
 			LExtern->setChecked(false);
 		}
+	}
+	else
+	{
+		Destfile->setEnabled(false);
+		ChFile->setEnabled(false);
+		LExtern->setChecked(false);
 	}
 
 	tab4 = new QWidget( TabWidget2 );
@@ -1739,7 +1745,7 @@ void Annot::SetCo(double x, double y)
 void Annot::SetPg(int v)
 {
 	disconnect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
-	if (item->annotation().ActionType() == 7)
+	if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9))
 	{
 		if (!Pg1->SetSeite(v, 100, Destfile->text()))
 		{
@@ -1960,7 +1966,10 @@ void Annot::SetVals()
 			if ((LExtern->isChecked()) && (!Destfile->text().isEmpty()))
 			{
 				item->annotation().setExtern(Destfile->text());
-				item->annotation().setActionType(7);
+				if (useAbsolute->isChecked())
+					item->annotation().setActionType(9);
+				else
+					item->annotation().setActionType(7);
 			}
 			else
 			{
@@ -2010,7 +2019,7 @@ void Annot::SetZiel(int it)
 	disconnect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActTyp(int)));
 	disconnect(TxFormat, SIGNAL(activated(int)), this, SLOT(SetFoScript(int)));
 	int tmpac = item->annotation().ActionType();
-	if (tmpac == 7)
+	if ((tmpac == 7) || (tmpac == 9))
 		tmpac = 2;
 	int sela = it + 2;
 	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab4), false);
@@ -2046,7 +2055,7 @@ void Annot::SetZiel(int it)
 			for (uint prop = 0; prop < array_act; ++prop)
 				ActionCombo->addItem(tmp_actcom[prop]);
 			ActionCombo->setCurrentIndex(qMin(tmpac,5));
-			setter = item->annotation().ActionType() != 7 ? true : false;
+			setter = ((item->annotation().ActionType() != 7) && (item->annotation().ActionType() != 9)) ? true : false;
 			Destfile->setEnabled(setter);
 			ChFile->setEnabled(setter);
 			SetActTyp(tmpac);
@@ -2119,7 +2128,10 @@ void Annot::SetExternL()
 	}
 	else
 	{
-		item->annotation().setActionType(7);
+		if (useAbsolute->isChecked())
+			item->annotation().setActionType(9);
+		else
+			item->annotation().setActionType(7);
 		enable = true;
 		//		Destfile->setEnabled(true);
 		//		ChFile->setEnabled(true);
