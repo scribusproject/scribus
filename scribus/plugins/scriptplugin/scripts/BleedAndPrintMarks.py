@@ -10,41 +10,24 @@ Hierzu ist wie folgt vorzugehen:
    einen minimalen vertikalen Abstand zwischen den Seiten von 40 pt aufweisen 
    (siehe Datei->Dokument einrichten->Anzeige). Das Script ist nur für Dokumente getestet, 
    bei denen alle Seiten gleich groß sind!
-
-1) Erzeugen Sie eine neue Farbe names regcol mit voller Farbdeckung in allen CMYK-Kanälen und 
-   kennzeichnen Sie diese Farbe als Registrierungsfarbe. Dies ist wichtig, falls 
-   CMYK Separationen erzeugt werden, um die Marken auf allen Farbplatten 
-   erscheinen zu lassen. 
    
-2) Speichern Sie Ihr Dokument
+1) Speichern Sie Ihr Dokument.
 
-3) Starten Sie dieses Skript
+2) Starten Sie dieses Skript.
 
-4) Zuerst werden Sie um Ihr Betriebssystem und Scribus-Version, Einheit und Größe des Beschnittrandes
+3) Zuerst werden Sie nach Einheit und Größe des Beschnittrandes
    sowie die Farbnamen gefragt. Die Größe des Beschnittrandes wird automatisch verkleinert, wenn dieser 
-   größer als der halbe vert. Abstand zwischen den Seiten ist.
+   größer als der halbe vertikale Abstand zwischen den Seiten ist.
 
-5) Dann werden Sie um den Namen eines Verzeichnisses gefragt, in dem je ein Scribus-Dokument 
-   für linke und rechte Seiten abgelegt werden und die gedruckten Seiten abgelegt werden.
+4) Dann werden Sie nach dem Namen eines Verzeichnisses gefragt, in dem je ein Scribus-Dokument 
+   für linke und rechte Seiten abgelegt und die gedruckten Seiten abgelegt werden.
 
-6) Wählen Sie die Optioen für die Beschnittmarken und die Beschriftung aus.
-
-
-Sie erhalten nun für jede Seite ein PDF mit Beschnittrand und, falls gewählt, Schnittmarken, Passermarken und Hilfstext sowie einen Dateinamen aufgedruckt.
-
-ACHTUNG! der Parser zu Behandlung von XML in python (expat) interpretiert einige Zeichen als Fehler.
-Dies betrifft insbesondere fixe Umbrüche etc. Diese werden temporär getauscht. Sollen Sie Fehlermeldungen wie:
-ExpatError: reference to invalid charakter number: line ....
-erhalten, dann steckt noch ein derartige Zeichen in der Datei. Diese müßten in der Variable charsToChange 
-ergänzt werden, um sie zu verstecken.
-Um den Fehler einzgrenzen, können sie bei der Abfrage nach der Seitenart errfind eingeben und sich dann 
-die Datei in der Zeile mit der Fehlermeldung die verdächtigen Zeichen anzeigen zu lassen.
-   
-
-Sie erhalten nun für jede Seite ein PDF mit Beschnittrand und, falls gewählt, Schnittmarken, Passermarken und Hilfstext sowie einen Dateinamen aufgedruckt.
+5) Wählen Sie die Optioen für die Beschnittmarken und die Beschriftung aus.
 
 
-Author: Konrad Stania
+Sie erhalten nun für jede Seite eine PDF-Datei mit Beschnittrand und, falls gewählt, Schnittmarken, Passermarken und Hilfstext sowie einen Dateinamen aufgedruckt. Außerdem werden drei Scribus-Dateien angelegt.
+
+Autor: Konrad Stania mit Ergänzungen durch Gregory Pittman und Petr Vanek
 
 ##########################################
 
@@ -56,45 +39,20 @@ USAGE:
 0) Make a document with min. 20 pt scratch space above and on the right of the page and 40 pt vertical distance 
    between the pages. The script is tested only for documents in which every page the same size.
 
-1) Make a (black) registration color (C=100, M=100, Y=100, K=100) with the name "regcol". The script will ask for this color.
-   
-2) Save your document 
+1) Save your document 
 
-3) Start the script
+2) Start the script.
 
-4) Enter your OS-type and scribus Version, the unit and size of the bleed, the color-names for the marks and text. 
+3) Enter the unit and size of the bleed, the color names for the marks and text. 
   The bleed will be automatically reduced if it's larger then the half vertical distance between the pages.
- 
-5) Choose a directory where the tempory files and the output is stored.
 
-6) Choose whether you like to have marks and/or text.
+4) Choose a directory where the tempory files and the output is stored.
 
-The script will result in one pdf for each page and three scribus-files 
-(rightPage.sla right pages and leftPage.sla left pages).
+5) Choose whether you like to have marks and/or text.
 
-CAUTION! The expat parser does not like some Scribus elements to describe text (for example hard new lines). 
-This script hides this from expat by changing it. All the changed strings are in the 
-list charsToChange. 
+Execution of the script will result in one pdf for each page and three Scribus-files 
 
-Should an error just like 
-ExpatError: reference to invalid character number: line .... 
-occur, the reason could be, that your scribus-file has a non-xml valid character.
-
-"A parsed entity contains text, a sequence of characters, which may represent markup or character data. A character is an atomic unit of text as specified by ISO/IEC 10646 [ISO/IEC 10646]. Legal characters are tab, carriage return, line feed, and the legal graphic characters of Unicode and ISO/IEC 10646. The use of "compatibility characters", as defined in section 6.8 of [Unicode], is discouraged."
-"
-the permitted ones are:
-"Char    ::=    #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]   /*     any Unicode character, excluding the surrogate blocks, FFFE, and FFFF. */"
-
-(from w3c REC-xml-19980210)
-
-You have to find this and add it to the variable charsToChange. 
-For finding bad characters, this script prints out some suspicious ones if you choose errfind 
-when entering the type of page processed (works only with windows). You will be asked for 
-a line number (take that from the ExpatError). 
-Compare the result of the message displayed with the 
-content of charsTo-Change, append a new item, save the script and try anew.
-
-Author: Konrad Stania
+Author: Konrad Stania, with additions by Gregory Pittman and Petr Vanek
 
 #############################################
 
@@ -116,7 +74,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 """
 
 # Craig Bradney, Scribus Team
-# 10/3/08: Added to Scribus 1.3.3.12svn distribution "as was" from Scribus wiki for bug #6826, script is GPLd
+# 10/3/08: Added to Scribus 1.3.3.12svn distribution "as was" from Scribus wiki for bug #6826 and improved later on by Gregory Pittman and Petr Vanek.
+# script is GPLd
 
 import sys
 from xml.dom import minidom
@@ -158,7 +117,7 @@ def main():
 
     charsToChange = charsToChangeWin1333
 
-    fgcol = valueDialog("Bleed and Marks", "Foreground color for marks (script stops if color doesn't exist)\nVordergrundfarbe für Marken (Skript bricht ab, wenn Farbe nicht vorhanden):" ,"regcol")
+    fgcol = valueDialog("Bleed and Marks", "Foreground Color for Marks (The script will create the color if it doesn't exist)\nVordergrundfarbe für Marken (Das Skript erstellt die Farbe, wenn sie nicht vorhanden ist):" ,"regcol")
     if fgcol == '':
         return
     try:
@@ -177,7 +136,7 @@ def main():
 
     #deselectAll()
 
-    baseDirName = fileDialog("Bleed and Marks - Output directory - Wahl des Ausgabeverzeichnisses", "*","./" ,False, False, True)
+    baseDirName = fileDialog("Bleed and Marks - Output Directory - Ausgabeverzeichnis", "*","./" ,False, False, True)
 
     baseFileName = baseDirName + "scribus_print"
     exportType = "pdf"
@@ -185,7 +144,7 @@ def main():
     bleedVal = 20
     UnitType = "pt"    
 
-    UnitType = valueDialog("Bleed and Marks", "Unit for bleed - Maßeinheit für die Randgröße \nPunkt = pt, Millimeter = mm, Zentimeter = cm " ,"mm")
+    UnitType = valueDialog("Bleed and Marks", "Unit for Bleed - Maßeinheit für die Randgröße \npt, mm, cm , mm")
 
     if UnitType == "mm":
         UnitFakt = 1/25.4*72
@@ -200,20 +159,20 @@ def main():
         UnitFakt = 1
         bleedVal = 20
     
-    bleedVal = float(valueDialog("Bleed and Marks", "Size of bleed, automatically limited to half of vertical gap between pages\nGröße des Beschnittrandes, automatisch beschränkt auf halben vert. Abstand zwischen den Seiten ["+ UnitType +"]:" ,'%5.3f'% bleedVal))
+    bleedVal = float(valueDialog("Bleed and Marks", "Size of Bleed, automatically limited to half of vertical gap between pages["+ UnitType +"]\nGröße des Beschnittrandes, automatisch beschränkt auf den halben vertikalen Abstand zwischen den Seiten ["+ UnitType +"]:" ,'%5.3f'% bleedVal))
     
     
-    TypeOfPages = valueDialog("Bleed and Marks - Pagetype - Seitenart", "Double first right - Doppelseite erste rechts = dr,\nDouble first left - Doppelseite erste links = dl,\nSingle pages - einzelne Seiten = s" ,"dr")
+    TypeOfPages = valueDialog("Bleed and Marks - Pagetype - Seitenart", "Double first right - Doppelseite, erste rechts = dr,\nDouble first left - Doppelseite, erste links = dl,\nSingle pages - Einzelne Seiten = s" ,"dr")
     #which marks can be "l", "r", "b" and defines whether left, right or both marks are printed
     whichMarks = "b"
 
     if TypeOfPages <> "errfind":
     
         doCropMarks = int(valueDialog("Bleed and Marks", "Print Crop Marks - Drucke Schnittmarken 1=Yes-Ja, 0=No-Nein" ,"1"))
-        doRegMarks = int(valueDialog("bleed_and_export.py", "Print Registration Marks - Drucke Paßkreuze 1=Yes-Ja, 0=No-Nein" ,"1"))
+        doRegMarks = int(valueDialog("Bleed and Marks", "Print Registration Marks - Drucke Paßkreuze 1=Yes-Ja, 0=No-Nein" ,"1"))
         doColorSamples = int(valueDialog("Bleed and Marks", "Print color bar - Drucke Farbbalken 1=Yes-Ja, 0=No-Nein" ,"1"))
 
-        jobname = valueDialog("Bleed and Marks", "Help Text - Hilfstext" ,"Created by Scribus") 
+        jobname = valueDialog("Bleed and Marks", "Info Text - Infotext" ,"Created by Scribus") 
         if len(jobname) > 0:
           doJobText = int("1")
         else:
@@ -225,9 +184,9 @@ def main():
     rightPageName = baseDirName + "rightpage.sla"
     leftPageName = baseDirName + "leftpage.sla"
     saveDocAs(tmpFileName)
-    messagebarText("Processing the Document, please wait - Dokument in Bearbeitung, bitte warten") 
+    messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
     closeDoc()
-    messagebarText("Processing the Document, please wait - Dokument in Bearbeitung, bitte warten")
+    messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten")
 
     #Here we clean-up the xml documents from illegal characters
     #Here we replace \x1A \x1B \x1C etc. in the Document to prevent expat from crashing
@@ -372,7 +331,7 @@ def main():
    
       openDoc(rightPageName) 
 
-      messagebarText("Processing the Document, please wait - Dokument in Bearbeitung, bitte warten") 
+      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
       
       seitenanzahl = pageCount()
       for xcounter in range(seitenanzahl):
@@ -396,11 +355,11 @@ def main():
       saveDoc()
       closeDoc()
     
-      messagebarText("Processing the Document, please wait - Dokument in Bearbeitung, bitte warten") 
+      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
 
       openDoc(leftPageName)
 
-      messagebarText("Processing the Document, please wait - Dokument in Bearbeitung, bitte warten") 
+      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
       
       seitenanzahl = pageCount()
       for xcounter in range(seitenanzahl ):
@@ -432,7 +391,7 @@ def main():
       
       openDoc(leftPageName)
 
-      messagebarText("Processing the Document, please wait - Dokument in Bearbeitung, bitte warten") 
+      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
       
       seitenanzahl = pageCount()
       
@@ -467,7 +426,7 @@ def main():
       
       openDoc(rightPageName) 
 
-      messagebarText("Processing the Document, please wait - Dokument in Bearbeitung, bitte warten") 
+      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
 
       seitenanzahl = pageCount()
       for xcounter in range(seitenanzahl ):
@@ -490,9 +449,9 @@ def main():
 
       saveDoc()
       closeDoc()
-      messagebarText("Processing the Document, please wait - Dokument in Bearbeitung, bitte warten") 
+      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
       openDoc(leftPageName)
-      messagebarText("Processing the Document, please wait - Dokument in Bearbeitung, bitte warten") 
+      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
       
       seitenanzahl = pageCount()
       for xcounter in range(seitenanzahl ):
@@ -768,4 +727,4 @@ if __name__ == '__main__':
     if haveDoc():
         main()
     else:
-        messageBox("Bleed and Marks", "There must be an open document.", ICON_INFORMATION)
+        messageBox("Bleed and Marks", "There must be an open document." "Es muß ein Dokument geöffnet sein.", ICON_INFORMATION)
