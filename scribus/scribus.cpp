@@ -1222,6 +1222,11 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		else
 			retVal=false;
 	}
+	else if (e->type() == QEvent::KeyRelease)
+	{
+		scrActions["editSelectAll"]->setTexts( tr("Select &All"));
+		retVal=false;
+	}
 	else
 		retVal=false;
 	//Return false to pass event to object
@@ -1242,6 +1247,11 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		if ((doc->appMode == modeMagnifier) && (kk == Qt::Key_Shift))
 		{
 			qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
+			return;
+		}
+		if ((doc->appMode == modeNormal) && (doc->m_Selection->count() == 0) && (kk == Qt::Key_Shift))
+		{
+			scrActions["editSelectAll"]->setTexts( tr("Select All in Document"));
 			return;
 		}
 	}
@@ -1870,6 +1880,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 
 void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 {
+	scrActions["editSelectAll"]->setTexts( tr("Select &All"));
 	//Exit out of panning mode if Control is release while the right mouse button is pressed
 	if (HaveDoc)
 	{
@@ -5287,7 +5298,13 @@ void ScribusMainWindow::SelectAll()
 			currItem = doc->Items->at(a);
 			if ((currItem->LayerNr == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerNr)))
 			{
-				doc->m_Selection->addItem(currItem);
+				if (QApplication::keyboardModifiers() & Qt::ShiftModifier)
+					doc->m_Selection->addItem(currItem);
+				else
+				{
+					if (currItem->OwnPage == doc->currentPage()->pageNr())
+						doc->m_Selection->addItem(currItem);
+				}
 			}
 		}
 		doc->m_Selection->delaySignalsOff();
