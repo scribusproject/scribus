@@ -125,7 +125,7 @@ public:
 	VGradientEx m_fillGradient;
 	VGradientEx m_strokeGradient;
 	ScPattern*  m_pattern;
-	QMatrix    m_patternTransform;
+	QMatrix     m_patternTransform;
 };
 
 #endif

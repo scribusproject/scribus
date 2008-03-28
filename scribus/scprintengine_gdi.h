@@ -14,6 +14,8 @@ for which a new license (GPL+exception) is in place.
 #include "scprintengine.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
+
+#include <cairo.h>
 #include <windows.h>
 
 class SCRIBUS_API ScPrintEngine_GDI : public ScPrintEngine
@@ -24,7 +26,7 @@ protected:
 
 	void resetData(void);
 
-	typedef bool (ScPrintEngine_GDI::*PrintPageFunc) ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode );
+	typedef bool (ScPrintEngine_GDI::*PrintPageFunc) ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context );
 
 	/*! \brief Print selected pages to a printer or a file
 	\param doc the document whose pages are to be printer
@@ -43,24 +45,33 @@ protected:
 	\param page the page to print
 	\param options print options
 	\param printerDC an initialized printer device context
-	\param devMode the DEVMODE structure used for creating printerDC
-	\param devMode pointer to a DEVMODE structure
+	\param context cairo context (not used by this function)
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPage_GDI ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode );
+	bool printPage_GDI ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context );
 	/*! \brief Print a page to a PostScript printer using passthroughs
 	Print a page using PS drawing code and PS passthroughs ( works on PS printers only )
 	\param doc the document whose page is to be printer
 	\param page the page to print
 	\param options print options
 	\param printerDC an initialized printer device context
-	\param devMode the DEVMODE structure used for creating printerDC
-	\param devMode pointer to a DEVMODE structure
+	\param context cairo context (not used by this function)
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPage_PS  ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode );
+	bool printPage_PS  ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context );
+	/*! \brief Print a page to a gdi printer
+	Print a page using cairo-based drawing code ( works on all printers : PS, PCL, GDI... )
+	\param doc the document whose page is to be printer
+	\param page the page to print
+	\param options print options
+	\param printerDC an initialized printer device context
+	\param context cairo context
+	\retval bool true on success 
+	\author Jean Ghali
+	*/
+	bool printPage_Cairo ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context );
 	/*! \brief Send a file to printer using PostScript Passthrough
 	Send a postscript file to a printer using ps passthrough ( works on PS printers only )
 	\param filePath the Postscript file path

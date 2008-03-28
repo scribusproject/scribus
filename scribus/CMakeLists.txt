@@ -477,6 +477,7 @@ SET(SCRIBUS_SOURCES
   scpageoutput.cpp
   scpageoutput_ps2.cpp
   scpainter.cpp
+  scpainterex_cairo.cpp
   scpainterex_ps2.cpp
   scpainterexbase.cpp
   scpaths.cpp

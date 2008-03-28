@@ -34,6 +34,7 @@ using namespace Gdiplus;
 #include "util_ghostscript.h"
 #include "scprintengine_gdi.h"
 #include "scpainterex_gdi.h"
+#include "scpainterex_cairo.h"
 #ifdef SC_USE_GDIPLUS
 #include "scpainterex_gdiplus.h"
 #endif
@@ -59,6 +60,9 @@ GdiplusStartupInput gdiplusStartupInput;
 void gdiplusBegin(void) { GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL); }
 void gdiplusEnd(void) { GdiplusShutdown(gdiplusToken); }
 #endif
+
+#include <cairo.h>
+#include <cairo-win32.h>
 
 // Calculates fixed point from floating point.
 #define __FXPTMANTISSA(d, f)  ( (DWORD)d << f )
@@ -90,12 +94,6 @@ void ScPrintEngine_GDI::resetData(void)
 	m_abort = false;
 	//m_forceGDI = false;
 }
-
-/*void ScPrintEngine_GDI::cancelRequested()
-{
-	m_abort = true;
-	//m_forceGDI = false;
-}*/
 
 bool ScPrintEngine_GDI::print( ScribusDoc& doc, PrintOptions& options )
 {
@@ -299,20 +297,23 @@ bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* im
 
 bool ScPrintEngine_GDI::printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName )
 {
- int  jobId;
- bool psPrint;
- auto_ptr<MultiProgressDialog> progress;
- PrintPageFunc printPageFunc = NULL;
- bool  success = true;
- WCHAR docName[512];
- DOCINFOW docInfo;
- Page* docPage;
+	int  jobId;
+	auto_ptr<MultiProgressDialog> progress;
+	PrintPageFunc printPageFunc = NULL;
+	bool  success = true;
+	WCHAR docName[512];
+	DOCINFOW docInfo;
+	Page* docPage;
 
 	// Test printer for PostScript support and
 	// choose appropriate page printing function
-	psPrint       = isPostscriptPrinter( printerDC );
+	bool psPrint  = isPostscriptPrinter( printerDC );
 	bool useGDI   = (!psPrint || m_forceGDI || (options.prnEngine == WindowsGDI));
-	printPageFunc = (useGDI) ? &ScPrintEngine_GDI::printPage_GDI : &ScPrintEngine_GDI::printPage_PS; 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 14)
+	printPageFunc = (useGDI) ? &ScPrintEngine_GDI::printPage_Cairo : &ScPrintEngine_GDI::printPage_PS;
+#else
+	printPageFunc = (useGDI) ? &ScPrintEngine_GDI::printPage_GDI : &ScPrintEngine_GDI::printPage_PS;
+#endif
 
 	// Setup document infos structure
 	wcsncpy  (docName, (const WCHAR*) doc->DocName.utf16(), 511);
@@ -322,6 +323,23 @@ bool ScPrintEngine_GDI::printPages( ScribusDoc* doc, PrintOptions& options, HDC 
 	docInfo.lpszOutput  = (LPCWSTR) ( fileName.length() > 0 ? fileName.utf16() : NULL );
 	docInfo.lpszDatatype = NULL;
 	docInfo.fwType = 0;
+
+	cairo_t* context = NULL;
+	cairo_surface_t* prnSurface = NULL;
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 14)
+	if (printPageFunc == &ScPrintEngine_GDI::printPage_Cairo)
+	{
+		prnSurface = cairo_win32_printing_surface_create( printerDC );
+		if (!prnSurface)
+			return false;
+		context = cairo_create(prnSurface);
+		if (!context)
+		{
+			cairo_surface_destroy( prnSurface );
+			return false;
+		}
+	}
+#endif
 
 	jobId = StartDocW( printerDC, &docInfo );
 	if ( jobId <= 0 )
@@ -345,7 +363,7 @@ bool ScPrintEngine_GDI::printPages( ScribusDoc* doc, PrintOptions& options, HDC 
 		if( usingGui )
 			progress->setOverallProgress(index);
 		docPage = doc->Pages->at( options.pageNumbers[index] - 1 );
-		success = (this->*printPageFunc)( doc, docPage, options, printerDC, devMode );
+		success = (this->*printPageFunc)( doc, docPage, options, printerDC, context );
 		ScQApp->processEvents();
 		if (!success || m_abort )
 			break;
@@ -360,10 +378,15 @@ bool ScPrintEngine_GDI::printPages( ScribusDoc* doc, PrintOptions& options, HDC 
 		AbortDoc( printerDC ) ;
 	EndDoc( printerDC );
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 14)
+	cairo_destroy( context );
+	cairo_surface_destroy( prnSurface );
+#endif
+
 	return success;
 }
 
-bool ScPrintEngine_GDI::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode )
+bool ScPrintEngine_GDI::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* /*context*/ )
 {
 	int logPixelsX;
 	int logPixelsY;
@@ -519,7 +542,7 @@ bool ScPrintEngine_GDI::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions
 	return success;
 }
 
-bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode )
+bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* /*context*/ )
 {
 	bool succeed = false;
 	ColorList usedColors;
@@ -570,6 +593,143 @@ bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions
 	
 	QFile::remove( tempFilePath );
 	return succeed;
+}
+
+bool ScPrintEngine_GDI::printPage_Cairo ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context )
+{
+	int logPixelsX;
+	int logPixelsY;
+	int physicalWidth;
+	int physicalHeight;
+	int physicalWidthP;
+	int physicalHeightP;
+	int physicalOffsetX;
+	int physicalOffsetY;
+	bool success = true;
+	QString inputProfile;
+	QString printerProfile;
+	HCOLORSPACE hColorSpace = NULL;
+	double scalex = 1, scaley = 1;
+	bool rotate = false;
+
+	StartPage( printerDC );
+
+#ifdef HAVE_ICM
+	if ( options.useICC && isPostscriptPrinter(printerDC) )
+	{
+		success = false;
+		QString mProf = doc->CMSSettings.DefaultSolidColorRGBProfile;
+		QString pProf = doc->CMSSettings.DefaultPrinterProfile;
+		if ( ScCore->MonitorProfiles.contains(mProf) && ScCore->PrinterProfiles.contains(pProf) )
+		{
+			inputProfile  = QDir::convertSeparators(ScCore->InputProfiles[mProf]);
+			printerProfile = QDir::convertSeparators(ScCore->PrinterProfiles[pProf]);
+			// Avoid color transform if input and output profile are the same
+			if ( inputProfile != printerProfile )
+			{
+				// Setup input color space
+				LOGCOLORSPACEW logColorSpace;
+				logColorSpace.lcsSize = sizeof(logColorSpace);
+				logColorSpace.lcsVersion = 0x400;
+				logColorSpace.lcsSignature = LCS_SIGNATURE;
+				logColorSpace.lcsCSType = LCS_CALIBRATED_RGB;
+				logColorSpace.lcsIntent = LCS_GM_GRAPHICS;
+				wcsncpy(logColorSpace.lcsFilename, (const wchar_t*) inputProfile.utf16(), MAX_PATH);
+				// MSDN recommend to setup reasonable values even if profile is specified
+				// so let's use sRGB colorspace values
+				logColorSpace.lcsEndpoints.ciexyzRed.ciexyzX = __FXPT2DOT30(0.64);
+				logColorSpace.lcsEndpoints.ciexyzRed.ciexyzY = __FXPT2DOT30(0.33);
+				logColorSpace.lcsEndpoints.ciexyzRed.ciexyzZ = __FXPT2DOT30(0.03);
+				logColorSpace.lcsEndpoints.ciexyzGreen.ciexyzX = __FXPT2DOT30(0.3);
+				logColorSpace.lcsEndpoints.ciexyzGreen.ciexyzY = __FXPT2DOT30(0.6);
+				logColorSpace.lcsEndpoints.ciexyzGreen.ciexyzZ = __FXPT2DOT30(0.1);
+				logColorSpace.lcsEndpoints.ciexyzBlue.ciexyzX = __FXPT2DOT30(0.15);
+				logColorSpace.lcsEndpoints.ciexyzBlue.ciexyzY = __FXPT2DOT30(0.06);
+				logColorSpace.lcsEndpoints.ciexyzBlue.ciexyzZ = __FXPT2DOT30(0.79);
+				logColorSpace.lcsGammaRed = __FXPT16DOT16(0.45);
+				logColorSpace.lcsGammaGreen = __FXPT16DOT16(0.45);
+				logColorSpace.lcsGammaBlue = __FXPT16DOT16(0.45);
+				// Create the color space handle
+				hColorSpace = CreateColorSpaceW( &logColorSpace );
+				if ( hColorSpace )
+				{
+					// Setup the input and output profiles for the device context
+					if ( SetColorSpace(printerDC, hColorSpace) && SetICMProfileW(printerDC, (LPWSTR) printerProfile.utf16()) )
+					{
+						int result = SetICMMode( printerDC, ICM_ON );
+						success = ( result != 0 );
+					}
+				}
+			}
+			else
+				success = true;
+		}
+		// Return if color managament could not be setup
+		if ( !success )
+		{
+			EndPage( printerDC );
+			if ( hColorSpace )
+				DeleteColorSpace( hColorSpace );
+			return false;
+		}
+	}
+#endif
+
+	// Get page position
+	int clipx = static_cast<int>(page->xOffset());
+	int clipy = static_cast<int>(page->yOffset());
+	int clipw = qRound(page->width());
+	int cliph = qRound(page->height());
+
+	// Get horizontal and vertical resolution of printer
+	logPixelsX = GetDeviceCaps( printerDC, LOGPIXELSX );
+	logPixelsY = GetDeviceCaps( printerDC, LOGPIXELSY );
+
+	// Get paper dimensions ( in pixels and points)
+	physicalWidth = GetDeviceCaps( printerDC, PHYSICALWIDTH );
+	physicalHeight = GetDeviceCaps( printerDC, PHYSICALHEIGHT );
+	physicalWidthP = physicalWidth / (double) logPixelsX * 72.0;
+	physicalHeightP = physicalHeight / (double) logPixelsY * 72.0;
+
+	// Get margins dimensions
+	physicalOffsetX = GetDeviceCaps( printerDC, PHYSICALOFFSETX );
+	physicalOffsetY = GetDeviceCaps( printerDC, PHYSICALOFFSETY );
+
+	// Calculate scaling factors and offsets
+	scalex = options.mirrorH ? -1.0 : 1.0;
+	scaley = options.mirrorV ? -1.0 : 1.0; 
+	double dx = ( physicalWidthP - clipw ) / 2.0 - clipx * scalex;
+	double dy = ( physicalHeightP - cliph ) / 2.0 - clipy * scaley;
+	if ( options.mirrorH ) dx += clipw;
+	if ( options.mirrorV ) dy += cliph;
+	dx -= ( physicalOffsetX / (double) logPixelsX * 72.0 );
+	dy -= ( physicalOffsetY / (double) logPixelsY * 72.0 );
+	 
+	// Create the GDI painter
+	MarksOptions marksOptions(options);
+	ScPageOutput pageOutput(doc, true, 300, options.useICC);
+	pageOutput.setMarksOptions(marksOptions);
+	
+	QRect drawRect( 0, 0, physicalWidth, physicalHeight);
+	ScPainterEx_Cairo painter(context, drawRect, doc, !options.useColor );
+	painter.clear();
+	
+	scalex *= ( logPixelsX / 72.0 );
+	scaley *= ( logPixelsY / 72.0 );
+	dx     *= ( logPixelsX / 72.0 );
+	dy     *= ( logPixelsY / 72.0 );
+	QMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
+	painter.setWorldMatrix( matrix );
+
+	pageOutput.DrawPage(page, &painter);
+
+	cairo_show_page(context);
+	EndPage( printerDC );
+
+	if (hColorSpace)
+		DeleteColorSpace( hColorSpace );
+
+	return success;
 }
 
 bool ScPrintEngine_GDI::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int pageHeight  )
