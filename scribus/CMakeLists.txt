@@ -477,7 +477,6 @@ SET(SCRIBUS_SOURCES
   scpageoutput.cpp
   scpageoutput_ps2.cpp
   scpainter.cpp
-  scpainterex_cairo.cpp
   scpainterex_ps2.cpp
   scpainterexbase.cpp
   scpaths.cpp
@@ -590,6 +589,7 @@ SET(SCRIBUS_SOURCES
 IF(WIN32)
   SET(SCRIBUS_MOC_WIN32_ONLY_CLASSES scprintengine_gdi.h)
   SET(SCRIBUS_WIN32_ONLY_SOURCES
+      scpainterex_cairo.cpp
       scpainterex_gdi.cpp
       scpainterex_gdiplus.cpp
       scprintengine_gdi.cpp
