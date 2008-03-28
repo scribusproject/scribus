@@ -181,7 +181,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	TextLabel40a = new QLabel( GroupBox20 );
 	TextLabel40a->setText( tr( "Color:" ) );
 	GroupBox20Layout->addWidget( TextLabel40a, 0, 0 );
-	BorderC = new ColorCombo( true, GroupBox20);
+	BorderC = new ColorCombo( false, GroupBox20);
 	ColorList::Iterator cit;
 	BorderC->addItem(CommonStrings::tr_NoneColor);
 	if (item->annotation().borderColor() == CommonStrings::None)
@@ -192,7 +192,6 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 		if (cit.key() == item->annotation().borderColor())
 			BorderC->setCurrentIndex(BorderC->count()-1);
 	}
-	BorderC->setEditable(false);
 	GroupBox20Layout->addWidget( BorderC, 0, 1 );
 	TextLabel40 = new QLabel( GroupBox20 );
 	TextLabel40->setText( tr( "Width:" ) );
