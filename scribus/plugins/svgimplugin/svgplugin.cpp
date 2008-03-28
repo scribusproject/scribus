@@ -371,7 +371,13 @@ void SVGPlug::convert(int flags)
 				PageItem* currItem = Elements.at(a);
 				lowestItem = qMin(lowestItem, currItem->ItemNr);
 				highestItem = qMax(highestItem, currItem->ItemNr);
-				double lw = currItem->lineWidth() / 2.0;
+				double x1, x2, y1, y2;
+				currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+				minx = qMin(minx, x1);
+				miny = qMin(miny, y1);
+				maxx = qMax(maxx, x2);
+				maxy = qMax(maxy, y2);
+/*				double lw = currItem->lineWidth() / 2.0;
 				if (currItem->rotation() != 0)
 				{
 					FPointArray pb;
@@ -394,7 +400,7 @@ void SVGPlug::convert(int flags)
 					miny = qMin(miny, currItem->yPos()-lw);
 					maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
 					maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-				}
+				} */
 			}
 			double gx = minx;
 			double gy = miny;
@@ -406,6 +412,7 @@ void SVGPlug::convert(int flags)
 			m_Doc->Items->insert(lowestItem, neu);
 			neu->Groups.push(m_Doc->GroupCounter);
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+			neu->AutoName = false;
 			neu->isGroupControl = true;
 			neu->groupsLastItem = high;
 			for (int a = 0; a < m_Doc->Items->count(); ++a)
@@ -585,7 +592,10 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 	{
 		QString nodeId = e.toElement().attribute("id");
 		if( !nodeId.isEmpty() )
+		{
 			item->setItemName(" "+nodeId);
+			item->AutoName = false;
+		}
 	}
 	item->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity );
 	item->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity );
@@ -869,7 +879,13 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		for (int gr = 0; gr < gElements.count(); ++gr)
 		{
 			PageItem* currItem = gElements.at(gr);
-			double lw = currItem->lineWidth() / 2.0;
+			double x1, x2, y1, y2;
+			currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+			minx = qMin(minx, x1);
+			miny = qMin(miny, y1);
+			maxx = qMax(maxx, x2);
+			maxy = qMax(maxy, y2);
+/*			double lw = currItem->lineWidth() / 2.0;
 			if (currItem->rotation() != 0)
 			{
 				FPointArray pb;
@@ -892,7 +908,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 				miny = qMin(miny, currItem->yPos()-lw);
 				maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
 				maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-			}
+			} */
 		}
 		double gx = minx;
 		double gy = miny;
@@ -923,6 +939,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			neu->setItemName(e.attribute("id"));
 		else
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+		neu->AutoName = false;
 		neu->setFillTransparency(1 - gc->Opacity);
 		for (int gr = 0; gr < gElements.count(); ++gr)
 		{
@@ -1362,7 +1379,10 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomNode& e, FPoint& currentPos)
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, textFillColor, textStrokeColor, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		if( !nodeId.isEmpty() )
+		{
 			ite->setItemName(" "+nodeId);
+			ite->AutoName = false;
+		}
 		ite->PoLine = textPath;
 		finishNode(e, ite);
 		GElements.append(ite);

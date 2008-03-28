@@ -242,7 +242,13 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 					PageItem* currItem = Elements.at(a);
 					lowestItem = qMin(lowestItem, currItem->ItemNr);
 					highestItem = qMax(highestItem, currItem->ItemNr);
-					double lw = currItem->lineWidth() / 2.0;
+					double x1, x2, y1, y2;
+					currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+					minx = qMin(minx, x1);
+					miny = qMin(miny, y1);
+					maxx = qMax(maxx, x2);
+					maxy = qMax(maxy, y2);
+/*					double lw = currItem->lineWidth() / 2.0;
 					if (currItem->rotation() != 0)
 					{
 						FPointArray pb;
@@ -265,7 +271,7 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 						miny = qMin(miny, currItem->yPos()-lw);
 						maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
 						maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-					}
+					} */
 				}
 				double gx = minx;
 				double gy = miny;
@@ -1823,6 +1829,7 @@ void AIPlug::processPattern(QDataStream &ts)
 					pat.setDoc(m_Doc);
 					PageItem* currItem = tmpSel->itemAt(0);
 					currItem->setItemName(currentPatternDefName);
+					currItem->AutoName = false;
 					m_Doc->DoDrawing = true;
 					QImage tmpImg = currItem->DrawObj_toImage();
 					QImage retImg = QImage(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1), QImage::Format_ARGB32);

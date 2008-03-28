@@ -451,7 +451,13 @@ bool OODPlug::convert(int flags)
 				PageItem* currItem = Elements.at(a);
 				lowestItem = qMin(lowestItem, currItem->ItemNr);
 				highestItem = qMax(highestItem, currItem->ItemNr);
-				double lw = currItem->lineWidth() / 2.0;
+				double x1, x2, y1, y2;
+				currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+				minx = qMin(minx, x1);
+				miny = qMin(miny, y1);
+				maxx = qMax(maxx, x2);
+				maxy = qMax(maxy, y2);
+/*				double lw = currItem->lineWidth() / 2.0;
 				if (currItem->rotation() != 0)
 				{
 					FPointArray pb;
@@ -474,7 +480,7 @@ bool OODPlug::convert(int flags)
 					miny = qMin(miny, currItem->yPos()-lw);
 					maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
 					maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-				}
+				} */
 			}
 			double gx = minx;
 			double gy = miny;
@@ -486,6 +492,7 @@ bool OODPlug::convert(int flags)
 			m_Doc->Items->insert(lowestItem, neu);
 			neu->Groups.push(m_Doc->GroupCounter);
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+			neu->AutoName = false;
 			neu->isGroupControl = true;
 			neu->groupsLastItem = high;
 			neu->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -632,7 +639,13 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 		for (int gr = 0; gr < cElements.count(); ++gr)
 		{
 			PageItem* currItem = cElements.at(gr);
-			double lw = currItem->lineWidth() / 2.0;
+			double x1, x2, y1, y2;
+			currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+			minx = qMin(minx, x1);
+			miny = qMin(miny, y1);
+			maxx = qMax(maxx, x2);
+			maxy = qMax(maxy, y2);
+/*			double lw = currItem->lineWidth() / 2.0;
 			if (currItem->rotation() != 0)
 			{
 				FPointArray pb;
@@ -655,7 +668,7 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 				miny = qMin(miny, currItem->yPos()-lw);
 				maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
 				maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-			}
+			} */
 		}
 		double gx = minx;
 		double gy = miny;
@@ -676,6 +689,7 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 			neu->setItemName(e.attribute("id"));
 		else
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+		neu->AutoName = false;
 //		neu->setFillTransparency(1 - gc->Opacity);
 		for (int gr = 0; gr < cElements.count(); ++gr)
 		{
@@ -952,7 +966,10 @@ QList<PageItem*> OODPlug::parseFrame(const QDomElement &e)
 		ite->setLineTransparency(oostyle.strokeTrans);
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		if (!drawID.isEmpty())
+		{
 			ite->setItemName(drawID);
+			ite->AutoName = false;
+		}
 		ite = parseTextP(n.toElement(), ite);
 		elements.append(ite);
 	}
@@ -1192,7 +1209,10 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 	if (oostyle.dashes.count() != 0)
 		item->DashValues = oostyle.dashes;
 	if (!drawID.isEmpty())
+	{
 		item->setItemName(drawID);
+		item->AutoName = false;
+	}
 	if (elm.hasAttribute("draw:transform"))
 	{
 		parseTransform(&item->PoLine, elm.attribute("draw:transform"));

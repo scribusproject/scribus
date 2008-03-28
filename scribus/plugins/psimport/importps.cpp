@@ -262,7 +262,13 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 					PageItem* currItem = Elements.at(a);
 					lowestItem = qMin(lowestItem, currItem->ItemNr);
 					highestItem = qMax(highestItem, currItem->ItemNr);
-					double lw = currItem->lineWidth() / 2.0;
+					double x1, x2, y1, y2;
+					currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+					minx = qMin(minx, x1);
+					miny = qMin(miny, y1);
+					maxx = qMax(maxx, x2);
+					maxy = qMax(maxy, y2);
+/*					double lw = currItem->lineWidth() / 2.0;
 					if (currItem->rotation() != 0)
 					{
 						FPointArray pb;
@@ -285,7 +291,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 						miny = qMin(miny, currItem->yPos()-lw);
 						maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
 						maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-					}
+					} */
 				}
 				double gx = minx;
 				double gy = miny;
@@ -297,6 +303,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				m_Doc->Items->insert(lowestItem, neu);
 				neu->Groups.push(m_Doc->GroupCounter);
 				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+				neu->AutoName = false;
 				neu->isGroupControl = true;
 				neu->groupsLastItem = high;
 				neu->setTextFlowMode(PageItem::TextFlowDisabled);
