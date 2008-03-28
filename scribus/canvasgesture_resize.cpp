@@ -252,6 +252,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	{
 		FPoint snappedPoint = m_doc->ApplyGridF(docPoint);
 		double x = snappedPoint.x(), y = snappedPoint.y();
+		m_doc->ApplyGuides(&x, &y);
 //		if (m_doc->ApplyGuides(&x, &y))
 //			qDebug() << "guides applied:" << snappedPoint.x() << snappedPoint.y() << "to" << x << y;
 		if (m_handle == Canvas::NORTH || m_handle == Canvas::SOUTH) 
