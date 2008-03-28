@@ -112,7 +112,8 @@ void PythonConsole::documentChanged(bool state)
 
 void PythonConsole::languageChange()
 {
-	setWindowTitle( tr("Script Console"));
+	Ui::PythonConsole::retranslateUi(this);
+	//setWindowTitle( tr("Script Console"));
 	commandEdit->setToolTip( "<qt>" + tr("Write your commands here. A selection is processed as script") + "</qt>");
 	outputEdit->setToolTip( "<qt>" + tr("Output of your script") + "</qt>");
 }
