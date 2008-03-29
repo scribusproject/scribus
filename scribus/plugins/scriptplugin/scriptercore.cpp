@@ -385,16 +385,23 @@ void ScripterCore::slotRunScript(const QString Script)
 		Calling all code in one command:
 		ia = code.InteractiveInterpreter() ia.runsource(getval())
 		works fine in plain Python. Not here. WTF? */
-		cm += ("import cStringIO\n"
-				"scribus._bu = cStringIO.StringIO()\n"
-				"sys.stdout = scribus._bu\n"
-				"sys.stderr = scribus._bu\n"
-				"sys.argv = ['scribus', 'ext']\n" // this is the PySys_SetArgv replacement
-				"for i in scribus.getval().splitlines():\n"
-				"    scribus._ia.push(i)\n"
-				"scribus.retval(scribus._bu.getvalue())\n"
-				"sys.stdout = sys.__stdout__\n"
-				"sys.stderr = sys.__stderr__\n");
+		cm += (
+				"try:\n"
+				"    import cStringIO\n"
+				"    scribus._bu = cStringIO.StringIO()\n"
+				"    sys.stdout = scribus._bu\n"
+				"    sys.stderr = scribus._bu\n"
+				"    sys.argv = ['scribus', 'ext']\n" // this is the PySys_SetArgv replacement
+				"    for i in scribus.getval().splitlines():\n"
+				"        scribus._ia.push(i)\n"
+				"    scribus.retval(scribus._bu.getvalue())\n"
+				"    sys.stdout = sys.__stdout__\n"
+				"    sys.stderr = sys.__stderr__\n"
+				"except SystemExit:\n"
+				"    print 'Catched SystemExit - it is not good for Scribus'\n"
+				"except KeyboardInterrupt:\n"
+				"    print 'Catched KeyboardInterrupt - it is not good for Scribus'\n"
+			  );
 	}
 	// Set up sys.argv
 	/* PV - WARNING: THIS IS EVIL! This code summons a crash - see
@@ -424,6 +431,9 @@ void ScripterCore::slotRunScript(const QString Script)
 					   "command you entered. Details were printed to "
 					   "stderr. ") + "</qt>");
 		}
+		else
+		// Because 'result' may be NULL, not a PyObject*, we must call PyXDECREF not Py_DECREF
+			Py_XDECREF(result);
 	}
 	ScCore->primaryMainWindow()->ScriptRunning = false;
 }
