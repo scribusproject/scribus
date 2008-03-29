@@ -13,6 +13,7 @@ fr.xml
 german.xml
 greek.xml
 hebrew.xml
+hu.xml
 italian.xml
 loremipsum.xml
 russian.xml
