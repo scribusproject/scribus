@@ -45,6 +45,7 @@ ScripterCore::ScripterCore(QWidget* parent)
 	scrScripterActions.insert("scripterAboutScript", new ScrAction(QObject::tr("&About Script..."), QKeySequence(), this));
 
 	scrScripterActions["scripterShowConsole"]->setToggleAction(true);
+	scrScripterActions["scripterShowConsole"]->setChecked(false);
 
 	QObject::connect( scrScripterActions["scripterExecuteScript"], SIGNAL(triggered()) , this, SLOT(runScriptDialog()) );
 	QObject::connect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
