@@ -162,6 +162,7 @@ for which a new license (GPL+exception) is in place.
 #include "pslib.h"
 #include "query.h"
 #include "reformdoc.h"
+#include "replacecolors.h"
 #include "resourcecollection.h"
 #include "sccolorengine.h"
 #include "sccombobox.h"
@@ -661,6 +662,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editEditWithLatexEditor"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editReplaceColors"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPatterns"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit");
@@ -681,6 +683,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["editSelectAllOnLayer"]->setEnabled(false);
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editSearchReplace"]->setEnabled(false);
+	scrActions["editReplaceColors"]->setEnabled(false);
 	scrActions["editPatterns"]->setEnabled(false);
  	scrActions["editStyles"]->setEnabled(false);
 	scrActions["editMasterPages"]->setEnabled(false);
@@ -2641,6 +2644,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["editSelectAll"]->setEnabled(true);
 	scrActions["editSelectAllOnLayer"]->setEnabled(true);
 	scrActions["editDeselectAll"]->setEnabled(false);
+	scrActions["editReplaceColors"]->setEnabled(true);
 	scrActions["editPatterns"]->setEnabled(true);
  	scrActions["editStyles"]->setEnabled(true);
 	scrActions["editMasterPages"]->setEnabled(true);
@@ -4462,6 +4466,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["editSelectAll"]->setEnabled(false);
 		scrActions["editSelectAllOnLayer"]->setEnabled(false);
 		scrActions["editDeselectAll"]->setEnabled(false);
+		scrActions["editReplaceColors"]->setEnabled(false);
 		scrActions["editPatterns"]->setEnabled(false);
  		scrActions["editStyles"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
@@ -7318,6 +7323,33 @@ void ScribusMainWindow::setAbsValue(int a)
 		QString actionName="align"+alignment[b];
 		if (scrActions[actionName])
 			scrActions[actionName]->setChecked(a==b);
+	}
+}
+
+void ScribusMainWindow::slotReplaceColors()
+{
+	if (HaveDoc)
+	{
+		ColorList UsedC;
+		doc->getUsedColors(UsedC);
+		replaceColorsDialog *dia2 = new replaceColorsDialog(this, doc->PageColors, UsedC);
+		if (dia2->exec())
+		{
+			ResourceCollection colorrsc;
+			colorrsc.mapColors(dia2->replaceMap);
+			PrefsManager::replaceToolColors(doc->toolSettings, colorrsc.colors());
+			doc->replaceNamedResources(colorrsc);
+			doc->replaceLineStyleColors(dia2->replaceMap);
+			doc->recalculateColors();
+			doc->recalcPicturesRes();
+			propertiesPalette->updateColorList();
+			propertiesPalette->SetLineFormats(doc);
+			styleManager->updateColorList();
+			if (doc->m_Selection->count() != 0)
+				doc->m_Selection->itemAt(0)->emitAllToGUI();
+			view->DrawNew();
+		}
+		delete dia2;
 	}
 }
 

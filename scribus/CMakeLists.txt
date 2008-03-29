@@ -42,6 +42,8 @@ SET(SCRIBUS_UI_SRC
   picsearchoptions.ui
   picstatus.ui
   pluginmanagerprefsgui.ui
+  replacecolors.ui
+  replaceonecolor.ui
   shortcutwidget.ui
   smcstylewidget.ui
   smlinestylewidget.ui
@@ -190,6 +192,8 @@ SET(SCRIBUS_MOC_CLASSES
   pslib.h
   query.h
   reformdoc.h
+  replacecolors.h
+  replaceonecolor.h
   rulermover.h
   sampleitem.h
   scfilewidget.h
@@ -447,6 +451,8 @@ SET(SCRIBUS_SOURCES
   rawimage.cpp
   rc4.c
   reformdoc.cpp
+  replacecolors.cpp
+  replaceonecolor.cpp
   rulermover.cpp
   sampleitem.cpp
   sccolor.cpp

@@ -440,6 +440,8 @@ public slots:
 	void setItemFSize(int id);
 	/** Farbeditor */
 	void slotEditColors();
+	/** Color Replacement */
+	void slotReplaceColors();
 	/** Style Manager */
 	/*
 	// Setzt den Pen-Tonwert
