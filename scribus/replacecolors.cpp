@@ -93,6 +93,7 @@ void replaceColorsDialog::delReplacement()
 		replaceMap.remove(replacementTable->item(selectedRow, 0)->text());
 		replacementTable->removeRow(selectedRow);
 		selectedRow = -1;
+		removeButton->setEnabled(false);
 	}
 }
 
