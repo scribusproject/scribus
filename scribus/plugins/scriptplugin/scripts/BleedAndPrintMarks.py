@@ -185,7 +185,7 @@ def main():
     leftPageName = baseDirName + "leftpage.sla"
     saveDocAs(tmpFileName)
     messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
-    closeDoc()
+    #closeDoc()
     messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten")
 
     #Here we clean-up the xml documents from illegal characters
@@ -473,12 +473,25 @@ def main():
 
       saveDoc()
       closeDoc()
-      os.remove(tmpFileName)
+
+    # OK, it's ugly, but it ensures the tmp files deletion
+    try:
+        os.remove(tmpFileName)
+    except OSError:
+        pass
+    try:
+        os.remove(rightPageName)
+    except OSError:
+        pass
+    try:
+        os.remove(leftPageName)
+    except OSError:
+        pass
+
+    setUnit(userUnit)
+    setRedraw(True)
 
 
-    #setUnit(userUnit)
-    #setRedraw(True) 
-    
 def dotheExport(exportType,resultFileName,seitennummer,bleedVal,UnitFakt):
     # Die Dimension der Eingabewerte fuer bleedValue ist in der jeweiligen Einheit
     if exportType == "pdf":
