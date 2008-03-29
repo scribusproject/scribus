@@ -652,6 +652,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editClearContents"], "EditContents");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editSelectAll"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editSelectAllOnLayer"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editDeselectAll"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editSearchReplace"], "Edit");
@@ -677,6 +678,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["editPasteContentsAbs"]->setEnabled(false);
 	scrActions["editClearContents"]->setEnabled(false);
 	scrActions["editSelectAll"]->setEnabled(false);
+	scrActions["editSelectAllOnLayer"]->setEnabled(false);
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editSearchReplace"]->setEnabled(false);
 	scrActions["editPatterns"]->setEnabled(false);
@@ -1153,7 +1155,8 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		else
 			return true;
 	}
-	if ( e->type() == QEvent::KeyPress ) {
+	if ( e->type() == QEvent::KeyPress ) 
+	{
 		QKeyEvent *k = (QKeyEvent *)e;
 		int keyMod=0;
 		if (k->modifiers() & Qt::ShiftModifier)
@@ -1222,11 +1225,6 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		else
 			retVal=false;
 	}
-	else if (e->type() == QEvent::KeyRelease)
-	{
-		scrActions["editSelectAll"]->setTexts( tr("Select &All"));
-		retVal=false;
-	}
 	else
 		retVal=false;
 	//Return false to pass event to object
@@ -1247,11 +1245,6 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		if ((doc->appMode == modeMagnifier) && (kk == Qt::Key_Shift))
 		{
 			qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
-			return;
-		}
-		if ((doc->appMode == modeNormal) && (doc->m_Selection->count() == 0) && (kk == Qt::Key_Shift))
-		{
-			scrActions["editSelectAll"]->setTexts( tr("Select All in Document"));
 			return;
 		}
 	}
@@ -1880,7 +1873,6 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 
 void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 {
-	scrActions["editSelectAll"]->setTexts( tr("Select &All"));
 	//Exit out of panning mode if Control is release while the right mouse button is pressed
 	if (HaveDoc)
 	{
@@ -2647,6 +2639,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["editPasteContents"]->setEnabled(false);
 	scrActions["editPasteContentsAbs"]->setEnabled(false);
 	scrActions["editSelectAll"]->setEnabled(true);
+	scrActions["editSelectAllOnLayer"]->setEnabled(true);
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editPatterns"]->setEnabled(true);
  	scrActions["editStyles"]->setEnabled(true);
@@ -4467,6 +4460,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrMenuMgr->setMenuEnabled("EditPasteRecent", false);
 		scrActions["editClearContents"]->setEnabled(false);
 		scrActions["editSelectAll"]->setEnabled(false);
+		scrActions["editSelectAllOnLayer"]->setEnabled(false);
 		scrActions["editDeselectAll"]->setEnabled(false);
 		scrActions["editPatterns"]->setEnabled(false);
  		scrActions["editStyles"]->setEnabled(false);
@@ -5266,7 +5260,12 @@ void ScribusMainWindow::slotEditPaste()
 }
 
 //CB-->Doc ?????
-void ScribusMainWindow::SelectAll()
+void ScribusMainWindow::SelectAllOnLayer()
+{
+	SelectAll(true);
+}
+
+void ScribusMainWindow::SelectAll(bool docWideSelect)
 {
 	if (doc->appMode == modeEdit)
 	{
@@ -5293,16 +5292,17 @@ void ScribusMainWindow::SelectAll()
 		view->Deselect();
 		doc->m_Selection->delaySignalsOn();
 		uint docItemsCount=doc->Items->count();
+		int docCurrentPage=doc->currentPageNumber();
 		for (uint a = 0; a < docItemsCount; ++a)
 		{
 			currItem = doc->Items->at(a);
 			if ((currItem->LayerNr == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerNr)))
 			{
-				if (QApplication::keyboardModifiers() & Qt::ShiftModifier)
+				if (docWideSelect)
 					doc->m_Selection->addItem(currItem);
 				else
 				{
-					if (currItem->OwnPage == doc->currentPage()->pageNr())
+					if (currItem->OwnPage==docCurrentPage)
 						doc->m_Selection->addItem(currItem);
 				}
 			}

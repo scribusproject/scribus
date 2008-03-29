@@ -351,7 +351,8 @@ public slots:
 	void slotEditPasteContents(int absolute=0);
 	void EnableTxEdit();
 	void DisableTxEdit();
-	void SelectAll();
+	void SelectAll(bool docWideSelect=false);
+	void SelectAllOnLayer();
 	void deselectAll();
 	void ClipChange();
 	//void clearContents();
