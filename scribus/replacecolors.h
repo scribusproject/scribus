@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #define REPLACECOLORSDIALOG_H
 
 #include <QDialog>
+#include <QPixmap>
 #include "ui_replacecolors.h"
 #include "scribusapi.h"
 #include "sccolor.h"
@@ -50,7 +51,13 @@ private slots:
 
 private:
 	void updateReplacementTable();
+	QPixmap getColorIcon(QString color);
 	int selectedRow;
+	QPixmap alertIcon;
+	QPixmap cmykIcon;
+	QPixmap rgbIcon;
+	QPixmap spotIcon;
+	QPixmap regIcon;
 };
 
 #endif

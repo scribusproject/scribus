@@ -27,6 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include "replacecolors.h"
 #include "replaceonecolor.h"
 #include "commonstrings.h"
+#include "sccolorengine.h"
+#include "util_color.h"
 #include "util_icon.h"
 #include <QHeaderView>
 
@@ -39,6 +41,11 @@ replaceColorsDialog::replaceColorsDialog(QWidget* parent, ColorList &colorList, 
 	UsedColors = colorListUsed;
 	selectedRow = -1;
 	replaceMap.clear();
+	alertIcon = loadIcon("alert.png", true);
+	cmykIcon = loadIcon("cmyk.png", true);
+	rgbIcon = loadIcon("rgb.png", true);
+	spotIcon = loadIcon("spot.png", true);
+	regIcon = loadIcon("register.png", true);
 	replacementTable->horizontalHeader()->setMovable(false);
 	replacementTable->horizontalHeader()->setClickable(false);
 	replacementTable->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
@@ -47,6 +54,7 @@ replaceColorsDialog::replaceColorsDialog(QWidget* parent, ColorList &colorList, 
 	replacementTable->verticalHeader()->setMovable(false);
 	replacementTable->verticalHeader()->setResizeMode(QHeaderView::Fixed);
 	replacementTable->verticalHeader()->hide();
+	replacementTable->setIconSize(QSize(60, 15));
 	updateReplacementTable();
 	removeButton->setEnabled(false);
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addColor()));
@@ -65,15 +73,6 @@ void replaceColorsDialog::addColor()
 		QString repl = dia->getReplacementColor();
 		if (repl == CommonStrings::tr_NoneColor)
 			repl = CommonStrings::None;
-		if (replaceMap.values().contains(orig))
-		{
-			QMap<QString,QString>::Iterator it;
-			for (it = replaceMap.begin(); it != replaceMap.end(); ++it)
-			{
-				if (it.value() == orig)
-					it.value() = repl;
-			}
-		}
 		replaceMap.insert(orig, repl);
 		updateReplacementTable();
 	}
@@ -110,13 +109,50 @@ void replaceColorsDialog::updateReplacementTable()
 		QMap<QString,QString>::Iterator it;
 		for (it = replaceMap.begin(); it != replaceMap.end(); ++it)
 		{
-			QTableWidgetItem *tW = new QTableWidgetItem(it.key());
+			QTableWidgetItem *tW;
+			if (it.key() == CommonStrings::None)
+				tW = new QTableWidgetItem(it.key());
+			else
+				tW = new QTableWidgetItem(getColorIcon(it.key()), it.key());
 			tW->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 			replacementTable->setItem(row, 0, tW);
-			QTableWidgetItem *tW2 = new QTableWidgetItem(it.value());
+			QTableWidgetItem *tW2;
+			if (it.value() == CommonStrings::None)
+				tW2 = new QTableWidgetItem(it.value());
+			else
+				tW2 = new QTableWidgetItem(getColorIcon(it.value()), it.value());
 			tW->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 			replacementTable->setItem(row, 1, tW2);
 			row++;
 		}
 	}
+}
+
+QPixmap replaceColorsDialog::getColorIcon(QString color)
+{
+	QPixmap smallPix(15, 15);
+	QPixmap pPixmap(60,15);
+	pPixmap.fill(Qt::transparent);
+	ScColor m_color = EditColors[color];
+	QColor rgb = ScColorEngine::getDisplayColor(m_color, EditColors.document());
+	smallPix.fill(rgb);
+	QPainter painter(&smallPix);
+	painter.setBrush(Qt::NoBrush);
+	QPen b(Qt::black, 1);
+	painter.setPen(b);
+	painter.drawRect(0, 0, 15, 15);
+	painter.end();
+	paintAlert(smallPix, pPixmap, 0, 0);
+	bool isOutOfGamut = ScColorEngine::isOutOfGamut(m_color, EditColors.document());
+	if (isOutOfGamut)
+		paintAlert(alertIcon, pPixmap, 15, 0);
+	if (m_color.getColorModel() == colorModelCMYK)
+		paintAlert(cmykIcon, pPixmap, 30, 0);
+	else
+		paintAlert(rgbIcon, pPixmap, 30, 0);
+	if (m_color.isSpotColor())
+		paintAlert(spotIcon, pPixmap, 45, 0);
+	if (m_color.isRegistrationColor())
+		paintAlert(regIcon, pPixmap, 46, 0);
+	return pPixmap;
 }
