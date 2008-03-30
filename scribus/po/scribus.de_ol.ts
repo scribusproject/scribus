@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de_DE">
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -24,7 +25,7 @@ Returns true if a new document was created.
 </source>
         <translation>newDocDialog() -&gt; bool
 
-Zeigt den Dialog \&quot;Neues Dokument\&quot; an. Damit können Sie ein neues Dokument erstellen, wenn der Benutzer die standardmäßigen Einstellung aktzeptiert. Erzeugt kein neues Dokument, wenn der Benutzer auf \&quot;Abbrechen\&quot; klickt. 
+Zeigt den Dialog \&quot;Neues Dokument\&quot; an. Damit können Sie ein neues Dokument erstellen, wenn der Benutzer die standardmässigen Einstellung aktzeptiert. Erzeugt kein neues Dokument, wenn der Benutzer auf \&quot;Abbrechen\&quot; klickt. 
 Gibt den Wert \&quot;true\&quot; zurück, wenn ein neues Dokument erstellt wurde.</translation>
     </message>
     <message>
@@ -51,7 +52,7 @@ If the object &quot;name&quot; belongs to a group, the whole group is moved.
         <translation>moveObject(dx, dy [, &quot;name&quot;])
 
 Verschiebt das Objekt &quot;name&quot; um dx und dy relativ zur Position. Die 
-Entfernungsangaben werden in der Maßeinheit des Dokuments 
+Entfernungsangaben werden in der Masseinheit des Dokuments 
 angegeben (siehe Konstanten UNIT*). Wenn &quot;name&quot; nicht vorhanden ist, 
 wird das ausgewählte Objekt verschoben und wenn &quot;name&quot; zu einer Gruppe
 gehört, wird die gesamte Gruppe verschoben.</translation>
@@ -68,7 +69,7 @@ setRedraw(True) in a finally: clause at the top level of your script.
 
 Wenn bool=False, dann wird die Seite nicht neu neu aufgebaut (redraw ist deaktiviert).
 Standard ist bool=True. Diese Einstellung bleibt bestehen, auch wenn das Script beendet ist.
-Stellen Sie also sicher, daß setRedraw(True) aufgerufen wird, bevor das Script beendet wird.</translation>
+Stellen Sie also sicher, dass setRedraw(True) aufgerufen wird, bevor das Script beendet wird.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdobj.h" line="26"/>
@@ -85,7 +86,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
         <translation>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
 Erzeugt ein neues Rechteck auf der aktuellen Seite und gibt seinen Namen zurück. Die
-Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe UNIT-Konstanten).
+Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe UNIT-Konstanten).
 &quot;name&quot; sollte eine eindeutige Identifikation des Rechtecks ermöglichen, weil Sie den Objekt-
 namen immer wieder benötigen. Ist &quot;name&quot; nicht vorhanden, wählt Scribus einen Namen für Sie.
 
@@ -116,8 +117,8 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>getFontSize([&quot;name&quot;]) -&gt; float
 
-Gibt die Schriftgröße in Punkten für den Textrahmen &quot;name&quot; zurück. Wenn innerhalb
-des Rahmens Text markiert ist, wird die Schriftgröße des ersten Zeichens verwendet.
+Gibt die Schriftgrösse in Punkten für den Textrahmen &quot;name&quot; zurück. Wenn innerhalb
+des Rahmens Text markiert ist, wird die Schriftgrösse des ersten Zeichens verwendet.
 Wenn &quot;name&quot; nicht vergeben ist, wird der selektierte Textrahmen verwendet.</translation>
     </message>
     <message>
@@ -129,7 +130,7 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
         <translation>messagebarText(&quot;string&quot;)
 
-Schreibt &quot;string&quot; in die Statuszeile von Scribus. Der Text muß
+Schreibt &quot;string&quot; in die Statuszeile von Scribus. Der Text muss
 UTF8-kodiert oder ein &apos;unicode&apos;-String sein (empfohlen).</translation>
     </message>
     <message>
@@ -158,8 +159,8 @@ Parameter &quot;masterpage&quot; legt den Namen der Musterseite für die neue Se
 The &quot;string&quot; must be a valid filename for a SVG image. The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
-        <translation type="obsolete">&quot;string&quot; muß ein gültiger Dateiname einer SVG-Datei sein. Der Text
-muß UTF8-kodiert oder ein Unicode-String (empfohlen) sein.</translation>
+        <translation type="obsolete">&quot;string&quot; muss ein gültiger Dateiname einer SVG-Datei sein. Der Text
+muss UTF8-kodiert oder ein Unicode-String (empfohlen) sein.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmddoc.h" line="55"/>
@@ -269,7 +270,47 @@ dropcapoffset [optional] -&gt; offset of the caps if used
 &quot;charstyle&quot; [optional] -&gt; char style to use
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createParagraphStyle(...)￼
+
+Creates a paragraph style. This function takes the following keyword parameters:￼
+
+&quot;name&quot; [required] -&gt; specifies the name of the paragraphstyle to create￼
+
+linespacingmode [optional] -&gt; specifies the linespacing mode; possible modes are:￼
+
+fixed linespacing:          0￼
+
+automatic linespacing:      1￼
+
+baseline grid linespacing:  2￼
+
+linespacing [optional] -&gt; specifies the linespacing if using fixed linespacing￼
+
+alignment [optional] -&gt; specifies the alignment of the paragraph￼
+
+-&gt; left:     0￼
+
+-&gt; center:   1￼
+
+-&gt; right:    2￼
+
+-&gt; justify:  3￼
+
+-&gt; extend:   4￼
+
+leftmargin [optional], rightmargin [optional] -&gt; specify the margin￼
+
+gapbefore [optional], gapafter [optional] -&gt; specify the gaps to the heading and following paragraphs￼
+
+firstindent [optional] -&gt; the indent of the first line￼
+
+hasdropcap [optional] -&gt; specifies if there are caps (1 = yes, 0 = no)￼
+
+dropcaplines [optional] -&gt; height (in lines) of the caps if used￼
+
+dropcapoffset [optional] -&gt; offset of the caps if used￼
+
+&quot;charstyle&quot; [optional] -&gt; char style to use</translation>
     </message>
 </context>
 <context>
@@ -331,7 +372,7 @@ May raise ValueError if an invalid color name is specified.
         <translation>deleteColor(&quot;name&quot;, &quot;replace&quot;)
 
 Löscht die Farbe &quot;name&quot;. An allen Stellen, wo &quot;name&quot; im Dokument auftritt,
-wird sie durch &quot;replace&quot; ersetzt. Standardmäßig ist &quot;replace&quot; gar keine Farbe -
+wird sie durch &quot;replace&quot; ersetzt. Standardmässig ist &quot;replace&quot; gar keine Farbe -
 Transparenz.
 
 Sie können deleteColor auch verwenden, wenn kein Dokument geöffnet ist, dann
@@ -401,7 +442,7 @@ Der Text der Botschaft kann auch einfachen HTML-Code enthalten.
 Gibt die Nummer des Buttons wieder, der gedrückt wurde, beginnend mit 1.
 Für Buttons und Symbole gibt es vordefinierte Konstanten, die gleichen wie in
 der Qt-Dokumentation.
-Die sind im Modul definiert und heißen BUTTON_* und ICON_* . Es gibt auch zwei
+Die sind im Modul definiert und heissen BUTTON_* und ICON_* . Es gibt auch zwei
 spezielle Konstanten, die auch den Wert 0 annehmen können: BUTTONOPT_DEFAULT aktiviert den 
 jeweiligen Button per Druck auf Enter.
 BUTTONOPT_ESCAPE drückt die Escape-Taste falls dieser Button gedrückt wird.
@@ -441,7 +482,7 @@ May throw NoDocOpenError if there is no document to close
 </source>
         <translation>closeDoc()
 
-Schließt das aktuelle Dokument, ohne Änderungen zu sichern.
+Schliesst das aktuelle Dokument, ohne Änderungen zu sichern.
 
 Wenn kein Dokument offen ist, tritt der Fehler NoDocOpenError auf</translation>
     </message>
@@ -514,7 +555,7 @@ constants.
         <translation type="obsolete">setMargins(lr, rr, tr, br)
 
 Verändert die Ränder des Dokuments. Links=lr, Rechts=rr, Oben=tr, Unten=br.
-Die Einheit wird durch die Maßeinheit des Dokuments vorgegeben, siehe die
+Die Einheit wird durch die Masseinheit des Dokuments vorgegeben, siehe die
 Konstanten UNIT_&lt;type&gt;.</translation>
     </message>
     <message>
@@ -528,7 +569,7 @@ May raise ValueError if an invalid unit is passed.
 </source>
         <translation>setUnit(type)
 
-Ändert die Maßeinheit des Dokuments auf &quot;type&quot;. Mögliche Einheiten geben Sie durch die 
+Ändert die Masseinheit des Dokuments auf &quot;type&quot;. Mögliche Einheiten geben Sie durch die 
 Konstanten UNIT_&lt;type&gt; an.
 
 Ist die Einheit ungültig, tritt der Fehler ValueError auf.</translation>
@@ -543,7 +584,7 @@ UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 </source>
         <translation>getUnit() -&gt; integer (Scribus unit constant)
 
-Gibt die Maßeinheit des Dokuments zurück. Der Rückgabewert ist eine
+Gibt die Masseinheit des Dokuments zurück. Der Rückgabewert ist eine
 der möglichen UNIT_*-Konstanten:
 UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</translation>
     </message>
@@ -697,7 +738,7 @@ for reference.
         <translation>getSize([&quot;name&quot;]) -&gt; (Breite,Höhe)
 
 Gibt das Zahlenpaar (Breite,Höhe) des Objekts &quot;name&quot; zurück. Ist &quot;name&quot; nicht
-angegeben, wird das aktuelle Objekt verwendet. Die Größe wird in der Maßeinheit
+angegeben, wird das aktuelle Objekt verwendet. Die Grösse wird in der Masseinheit
 des Dokuments angegeben - siehe die UNIT_*-Konstanten.</translation>
     </message>
     <message>
@@ -734,7 +775,7 @@ belongs to a group, the whole group is moved.
 </source>
         <translation>moveObjectAbs(x, y [, &quot;name&quot;])
 
-Bewegt das Objekt &quot;name&quot; an die neue Stelle. Die Koordinaten werden in der Maßeinheit
+Bewegt das Objekt &quot;name&quot; an die neue Stelle. Die Koordinaten werden in der Masseinheit
 des Dokuments angegeben (siehe UNIT_*-Konstanten). Ist &quot;name&quot; nicht angegeben, wird das
 aktuelle Objekt benutzt. Gehört &quot;name&quot; zu einer Gruppe, wird die Gruppe verschoben.</translation>
     </message>
@@ -764,7 +805,7 @@ is not given the currently selected item is used.
 </source>
         <translation>sizeObject(width, height [, &quot;name&quot;])
 
-Ändert die Größe von &quot;name&quot; auf die Breite width und die Höhe height.
+Ändert die Grösse von &quot;name&quot; auf die Breite width und die Höhe height.
 ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt benutzt.</translation>
     </message>
     <message>
@@ -820,7 +861,7 @@ items are used.
 </source>
         <translation>groupObjects(list)
 
-Gruppiert die Elemente in &quot;list&quot;. &quot;list&quot; muß die Namen der zu gruppierenden 
+Gruppiert die Elemente in &quot;list&quot;. &quot;list&quot; muss die Namen der zu gruppierenden 
 Objekte enthalten. Ist &quot;list&quot; nicht angegeben, werden die aktuell gewählten 
 Objekte verwendet.</translation>
     </message>
@@ -847,9 +888,9 @@ May raise ValueError if an invalid scale factor is passed.
 </source>
         <translation>scaleGroup(factor [,&quot;name&quot;])
 
-Skaliert die Gruppe, zu dem das Objekt &quot;name&quot; gehört. Werte größer als 1 vergrößern das Objekt, 
+Skaliert die Gruppe, zu dem das Objekt &quot;name&quot; gehört. Werte grösser als 1 vergrössern das Objekt, 
 Werte kleiner als 1 verkleinert das Objekt. Zum Beispiel bedeutet 0.5 = 50 % oder 1.5=150% der 
-Originalgröße. &quot;factor&quot; muß größer als 0 sein. Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt
+Originalgrösse. &quot;factor&quot; muss grösser als 0 sein. Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt
 benutzt.</translation>
     </message>
     <message>
@@ -981,7 +1022,7 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
 
-Verschiebt das Objekt &quot;name&quot; auf die Ebene &quot;layer&quot;. Die Ebene muß
+Verschiebt das Objekt &quot;name&quot; auf die Ebene &quot;layer&quot;. Die Ebene muss
 vorhanden sein. Ist &quot;name&quot; nicht angegeben, wird das aktive Objekt benutzt.
 
 Ist die Ebene nicht vorhanden, tritt der Fehler NotFoundError auf.
@@ -1062,7 +1103,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
         <translation>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
 Erzeugt eine Ellipse auf der aktuellen Seite und gibt ihren Namen zurück. Die Koordinaten
-werden in der Maßeinheit des Dokuments angegeben (siehe UNIT-Konstanten). &quot;name&quot; sollte
+werden in der Masseinheit des Dokuments angegeben (siehe UNIT-Konstanten). &quot;name&quot; sollte
 das Objekt eindeutig identifizieren, weil Sie den Namen für spätere Zwecke brauchen. Ist &quot;name&quot;
 nicht angegeben, erzeugt Scribus einen Namen für das Objekt.
 
@@ -1083,7 +1124,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
         <translation>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
 Erzeugt einen Bildrahmen auf der aktuellen Seite und gibt seinen Namen zurück.
-Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
+Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1105,7 +1146,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
         <translation>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
 Erzeugt einen neuen Textrahmen auf der aktuellen Seite und gibt seinen Namen zurück.
-Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
+Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1127,7 +1168,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
         <translation>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
 
 Erzeugt eine Linie von P(x1,y1) zu P(x2,y2) und gibt ihren Namen zurück.
-Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
+Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1153,7 +1194,7 @@ the number of values passed don&apos;t group into points without leftovers.
 
 Erzeugt eine Mehrfachlinie und und gibt ihren Namen zurück. Die Punkte werden in
 der folgenden Reihenfolge gespeichert: [x1, y1, x2,...xn, yn].
-Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
+Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1183,8 +1224,8 @@ the number of values passed don&apos;t group into points without leftovers.
 Erzeugt ein Vieleck und gibt seinen Namen zurück. Die Punkte werden in
 der folgenden Reihenfolge gespeichert: [x1, y1, x2,...xn, yn]. Sie müssen
 mindestens 3 Punkte angeben, aber Sie müssen den ersten Punkt nicht zum
-Schließen des Polygons erneut angeben - das geschieht automatisch.
-Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
+Schliessen des Polygons erneut angeben - das geschieht automatisch.
+Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1217,7 +1258,7 @@ der folgenden Reihenfolge gespeichert:
 [x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]. 
 x und y steht dabei für die X- und Y-Koordinaten und kx und ky steht für den
 Kontrollpunkt der Kurve. 
-Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
+Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1242,7 +1283,7 @@ May raise NotFoundError if one or both of the named base object don&apos;t exist
 
 Erzeugt Text auf einem Pfad, indem die Objekte &quot;textbox&quot; und &quot;beziercurve&quot;
 zusammengefügt werden.
-Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
+Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1364,7 +1405,7 @@ May raise IndexError if the page number is out of range.
 </source>
         <translation type="obsolete">gotoPage(nr)
 
-Geht zur Seite &quot;nr&quot;, das heißt, die Seite &quot;nr&quot; wird zur aktuellen Seite. Zur Zeit ändert
+Geht zur Seite &quot;nr&quot;, das heisst, die Seite &quot;nr&quot; wird zur aktuellen Seite. Zur Zeit ändert
 sich allerdings nicht die Seite, die der User sieht, es wird nur intern die aktuelle
 Seite geändert.
 
@@ -1390,7 +1431,7 @@ document&apos;s current units - see UNIT_&lt;type&gt; constants.
         <translation>getHGuides() -&gt; list
 
 Gibt eine Liste zurück, die die Position der horizontalen Hilfslinien enthält. Die Werte
-werden in der Maßeinheit des Dokuments angegeben, siehe UNIT-Konstanten.</translation>
+werden in der Masseinheit des Dokuments angegeben, siehe UNIT-Konstanten.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.h" line="123"/>
@@ -1404,7 +1445,7 @@ Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any l
 </source>
         <translation>setHGuides(list)
 
-Legt horizontale Hilfslinien fest, list muß eine Liste der Linien sein, angegeben in der Maßeinheit
+Legt horizontale Hilfslinien fest, list muss eine Liste der Linien sein, angegeben in der Masseinheit
 des Dokuments, siehe UNIT-Konstanten.
 
 Beispiel:
@@ -1440,7 +1481,7 @@ See UNIT_&lt;type&gt; constants and getPageMargins()
 </source>
         <translation>getPageSize() -&gt; tuple
 
-Gibt eine Liste mit der Seitengröße in der aktuellen Maßeinheit zurück, siehe
+Gibt eine Liste mit der Seitengrösse in der aktuellen Masseinheit zurück, siehe
 UNIT-Konstanten und getPageMargins()</translation>
     </message>
     <message>
@@ -1457,7 +1498,7 @@ the page...
 Gibt eine Liste zurück mit den Objekten auf der aktuelle Seite. Die Reihenfolge
 der Werte ist: (Name, Typ des Objekts, Anordnung).
 
-Beispiel: [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)] bedeutet, dass das Objekt Text1 heißt, 
+Beispiel: [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)] bedeutet, dass das Objekt Text1 heisst, 
 ein Textrahmen ist  (type 4) und sich auf der ersten Seite befindet...</translation>
     </message>
     <message>
@@ -1498,8 +1539,8 @@ May raise ValueError if the line width is out of bounds.
 </source>
         <translation>setLineWidth(width, [&quot;name&quot;])
 
-Setzt die Linienbreite für das Objekt &quot;name&quot; auf &quot;width&quot;. &quot;width&quot; muß zwischen 
-0.0 und 12.0 groß sein und wird in Punkt angegeben. Ist &quot;name&quot; nicht angegeben,
+Setzt die Linienbreite für das Objekt &quot;name&quot; auf &quot;width&quot;. &quot;width&quot; muss zwischen 
+0.0 und 12.0 gross sein und wird in Punkt angegeben. Ist &quot;name&quot; nicht angegeben,
 wird das aktuelle Objekt verwendet.
 
 Ist die Linienbreite ungültig, tritt der Fehler ValueError auf.</translation>
@@ -1579,7 +1620,7 @@ May raise ValueError if the fill shade is out of bounds.
         <translation>setFillShade(shade, [&quot;name&quot;])
 
 Setzt den Tonwert der Füllfarbe für das Objekt &quot;name&quot; auf &quot;shade&quot;.
-&quot;shade&quot; muß eine ganze Zahl zwischen 0 und 100 sein. Ist &quot;name&quot;
+&quot;shade&quot; muss eine ganze Zahl zwischen 0 und 100 sein. Ist &quot;name&quot;
 nicht angegeben, wird das aktuelle Objekt benutzt.
 
 Ist der Tonwert ungültig, tritt der Fehler ValueError auf.</translation>
@@ -1725,7 +1766,7 @@ used.
         <translation>setText(&quot;text&quot;, [&quot;name&quot;])
 
 Ändert den Text im Rahmen &quot;name&quot; auf den String &quot;text&quot;.
-Der Text muß URF8-kodiert sein - verwenden Sie z.B. unicode(text, &apos;iso-8859-2&apos;).
+Der Text muss URF8-kodiert sein - verwenden Sie z.B. unicode(text, &apos;iso-8859-2&apos;).
 Lesen Sie in der FAQ nach für weitere Informationen. Ist &quot;name&quot; nicht angegeben, 
 wird der aktuelle Textrahmen verwendet.</translation>
     </message>
@@ -1760,12 +1801,12 @@ May throw ValueError for a font size that&apos;s out of bounds.
 </source>
         <translation>setFontSize(size, [&quot;name&quot;])
 
-Setzt die Schriftgröße im Textrahmen &quot;name&quot; auf den Wert &quot;size&quot;. &quot;size&quot; ist
+Setzt die Schriftgrösse im Textrahmen &quot;name&quot; auf den Wert &quot;size&quot;. &quot;size&quot; ist
 ein Wert in Punkten zwischen 1 und 512. Ist eine Markierung vorhanden, wird
 nur die die Markiertung verändert. Ist &quot;name&quot; nicht angegeben, wird der aktuelle
 Textrahmen verwendet.
 
-Ist die Schriftgröße ungültig, wird der Fehler ValueError ausgegeben.</translation>
+Ist die Schriftgrösse ungültig, wird der Fehler ValueError ausgegeben.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="175"/>
@@ -1908,7 +1949,7 @@ used.
 
 Setzt den Tonwert für den Textrahmen &quot;name&quot; auf &quot;shade&quot;.
 Ist Text in dem Rahmen ausgewählt, wird nur der ausgewählt Text
-verändert. &quot;shade&quot; muß eine ganze Zahl zwischen 0 und 100 sein.
+verändert. &quot;shade&quot; muss eine ganze Zahl zwischen 0 und 100 sein.
 Ist &quot;name&quot; nicht vorhanden oder angegeben, wird der aktuelle Rahmen verwendet.</translation>
     </message>
     <message>
@@ -1924,7 +1965,7 @@ May throw ScribusException if linking rules are violated.
         <translation>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
 
 Zwei Textrahmen verketten. &quot;Fromname&quot; wird mit &quot;Toname&quot; verkettet. Der Zielrahmen
-muß leer sein und darf nicht mit anderen Rahmen verkettet sein.
+muss leer sein und darf nicht mit anderen Rahmen verkettet sein.
 
 Werden die Regeln verletzt, erscheint der Fehler ScribusException.</translation>
     </message>
@@ -2041,7 +2082,7 @@ May raise WrongFrameTypeError.
 
 Setzt die Eigenschaft An Rahmen anpassen für den gewählten Bildrahmen oder angegebenen
 Bildrahmen.
-&apos;proportional&apos; verkleinert das Bild proportional zur ursprünglichen Größe.
+&apos;proportional&apos; verkleinert das Bild proportional zur ursprünglichen Grösse.
 Sowohl &apos;scaletoframe&apos; als auch &apos;proportional&apos; sind boolsche Werte.
 
 Kann den Fehler WrongFrameTypeError verursachen.</translation>
@@ -2060,7 +2101,7 @@ May raise ValueError if the layer name isn&apos;t acceptable.
         <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
 Gibt zurück, ob die Ebene gedruckt wird oder nicht. True bedeutet, dass die Ebene
-gedruckt wird, False bedeutet, daß das Drucken deaktiviert ist.
+gedruckt wird, False bedeutet, dass das Drucken deaktiviert ist.
 
 Der Fehler NotFoundError tritt auf, wenn die Ebene nicht existiert.
 Der Fehler ValueError tritt auf, wenn der Ebenenname ungültig ist.</translation>
@@ -2080,7 +2121,7 @@ May raise ValueError if an empty sample or filename is passed.
 </source>
         <translation>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
 
-Erzeugt ein Bild mit dem Text &quot;sample&quot; in der Schrift &quot;font&quot; und der Größe &quot;size&quot;.
+Erzeugt ein Bild mit dem Text &quot;sample&quot; in der Schrift &quot;font&quot; und der Grösse &quot;size&quot;.
 Ist &quot;filename&quot; angegeben, wird das Bild unter &quot;filename&quot; abgespeichert. Ansonsten
 werden die Bilddaten als String zurückgegeben. Das optionale Argument &quot;format&quot; gibt 
 an, welches Bildformat generiert werden soll. Unterstützt werden die Formate, die auch 
@@ -3070,7 +3111,11 @@ Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockT
 margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
 constants.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setMargins(lr, rr, tr, br)
+
+Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockTop(tr) and Qt::DockBottom(br)
+margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
+constants.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmddialog.h" line="46"/>
@@ -3093,7 +3138,25 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filename
+
+Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
+with the filter string &quot;filter&quot;. A default filename or file path can also
+supplied, leave this string empty when you don&apos;t want to use it.  A value of
+True for haspreview enables a small preview widget in the FileSelect box.  When
+the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
+otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
+the dialog shows and returns only directories. The default for all of the
+optional parameters is False.
+
+The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
+
+For example &apos;Images (*.png *.xpm *.jpg)&apos;.
+
+Refer to the Qt-Documentation for QFileDialog for details on filters.
+
+Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
+Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetprop.h" line="102"/>
@@ -3103,7 +3166,11 @@ Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; 
 the currently selected item is used.  The join types are:
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineJoin([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
+the currently selected item is used.  The join types are:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmani.h" line="48"/>
@@ -3115,7 +3182,13 @@ default, the top left vertex at zero rotation. Positive values mean counter
 clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>rotateObject(rot [, &quot;name&quot;])
+
+Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
+rotated by the vertex that is currently selected as the rotation point - by
+default, the top left vertex at zero rotation. Positive values mean counter
+clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
+given the currently selected item is used.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.h" line="91"/>
@@ -3127,7 +3200,13 @@ just sets the page that script commands will operates on.
 
 May raise IndexError if the page number is out of range.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>gotoPage(nr)
+
+Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
+gotoPage doesn&apos;t (currently) change the page the user&apos;s view is displaying, it
+just sets the page that script commands will operates on.
+
+May raise IndexError if the page number is out of range.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="370"/>
@@ -3138,7 +3217,12 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
+
+Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="329"/>
@@ -3146,7 +3230,9 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 
 Moves current selection to front.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveSelectionToFront()
+
+Moves current selection to front.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="338"/>
@@ -3154,7 +3240,9 @@ Moves current selection to front.
 
 Moves current selection to back.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveSelectionToFront()
+
+Moves current selection to back.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.h" line="198"/>
@@ -3167,7 +3255,15 @@ create: number; 0 to replace existing pages, 1 (default) to insert new pages
 importWhere: number; the page number (of the current document) at which import the pages
 importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document
 </source>
-        <translation type="unfinished"></translation>
+        <translation>importPage(&quot;fromDoc&quot;, (pageList), [create, imortwhere, importwherePage])
+
+Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This functions maps the &quot;Page-&gt;Import&quot; dropdown menu function.
+fromDoc: string; the filename of the document to import pages from
+pageList: tuple with page numbers of pages to import
+create: number; 0 to replace existing pages, 1 (default) to insert new pages
+importWhere: number; the page number (of the current document) at which import the pages
+importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdstyle.h" line="80"/>
@@ -3228,7 +3324,63 @@ tracking [optional] -&gt; tracking of the text
 &quot;language&quot; [optional] -&gt; language code
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createCharStyle(...)
+
+Creates a character style. This function takes the following keyword parameters:
+
+&quot;name&quot; [required] -&gt; name of the char style to create
+
+&quot;font&quot; [optional] -&gt; name of the font to use
+
+fontsize [optional] -&gt; font size to set (double)
+
+&quot;features&quot; [optional] -&gt; nearer typographic details can be defined by a string that might contain the following phrases comma-seperated (without spaces!):
+
+-&gt; inherit
+
+-&gt; bold
+
+-&gt; italic
+
+-&gt; underline
+
+-&gt; underlinewords
+
+-&gt; strike
+
+-&gt; superscript
+
+-&gt; subscript
+
+-&gt; outline
+
+-&gt; shadowed
+
+-&gt; allcaps
+
+-&gt; smallcaps
+
+&quot;fillcolor&quot; [optional], &quot;fillshade&quot; [optional] -&gt; specify fill options
+
+&quot;strokecolor&quot; [optional], &quot;strokeshade&quot; [optional] -&gt; specify stroke options
+
+baselineoffset [optional] -&gt; offset of the baseline
+
+shadowxoffset [optional], shadowyoffset [optional] -&gt; offset of the shadow if used
+
+outlinewidth [optional] -&gt; width of the outline if used
+
+underlineoffset [optional], underlinewidth [optional] -&gt; underline options if used
+
+strikethruoffset [optional], strikethruwidth [optional] -&gt; strikethru options if used
+
+scaleh [optional], scalev [optional] -&gt; scale of the chars
+
+tracking [optional] -&gt; tracking of the text
+
+&quot;language&quot; [optional] -&gt; language code
+
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="341"/>
@@ -3239,7 +3391,14 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>hyphenateText([&quot;name&quot;]) -&gt; bool
+
+Does hyphenation on text frame &quot;name&quot;.
+
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="355"/>
@@ -3250,7 +3409,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>dehyphenateText([&quot;name&quot;]) -&gt; bool
+
+Does dehyphenation on text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/guiapp.h" line="106"/>
@@ -3258,7 +3423,10 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 
 Scroll the document in main GUI window by x and y.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>scrollDocument(x,y)
+
+Scroll the document in main GUI window by x and y.
+</translation>
     </message>
 </context>
 <context>
@@ -3314,7 +3482,7 @@ Scroll the document in main GUI window by x and y.
     <message>
         <location filename="../about.cpp" line="461"/>
         <source>&amp;Close</source>
-        <translation>Sch&amp;ließen</translation>
+        <translation>Sch&amp;liessen</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="148"/>
@@ -3490,17 +3658,17 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../about.cpp" line="413"/>
         <source>Developer Blog</source>
-        <translation type="unfinished"></translation>
+        <translation>Entwickler-Blog</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="436"/>
         <source>&amp;Licence</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lizenz</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="445"/>
         <source>Unable to open licence file. Please check your install directory or the Scribus website for licencing information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Lizenzdatei konnte nicht geöffnet werden. Bitte suchen Sie im Scribus-Installationsverzeichnis oder auf der Scribus-Website nach den Lizenzinformationen.</translation>
     </message>
 </context>
 <context>
@@ -3561,7 +3729,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>&amp;Close</source>
-        <translation type="obsolete">Sch&amp;ließen</translation>
+        <translation type="obsolete">Sch&amp;liessen</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -3572,132 +3740,132 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
 <context>
     <name>ActionManager</name>
     <message>
-        <location filename="../actionmanager.cpp" line="1224"/>
+        <location filename="../actionmanager.cpp" line="1230"/>
         <source>&amp;New</source>
         <translation>&amp;Neu</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1225"/>
+        <location filename="../actionmanager.cpp" line="1231"/>
         <source>&amp;Open...</source>
         <translation>Ö&amp;ffnen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1226"/>
+        <location filename="../actionmanager.cpp" line="1232"/>
         <source>&amp;Close</source>
-        <translation>Sch&amp;ließen</translation>
+        <translation>Sch&amp;liessen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1227"/>
+        <location filename="../actionmanager.cpp" line="1233"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1228"/>
+        <location filename="../actionmanager.cpp" line="1234"/>
         <source>Save &amp;As...</source>
         <translation>Speichern &amp;unter...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1229"/>
+        <location filename="../actionmanager.cpp" line="1235"/>
         <source>Re&amp;vert to Saved</source>
         <translation>Neu la&amp;den</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1230"/>
+        <location filename="../actionmanager.cpp" line="1236"/>
         <source>Collect for O&amp;utput...</source>
         <translation>Für Aus&amp;gabe sammeln...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1231"/>
+        <location filename="../actionmanager.cpp" line="1237"/>
         <source>Get Text...</source>
         <translation>Text laden...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1232"/>
+        <location filename="../actionmanager.cpp" line="1238"/>
         <source>Append &amp;Text...</source>
         <translation>&amp;Text anfügen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1233"/>
+        <location filename="../actionmanager.cpp" line="1239"/>
         <source>Get Image...</source>
         <translation>Bild laden...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1234"/>
+        <location filename="../actionmanager.cpp" line="1240"/>
         <source>Save &amp;Text...</source>
         <translation>&amp;Text speichern...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1236"/>
+        <location filename="../actionmanager.cpp" line="1242"/>
         <source>Save as P&amp;DF...</source>
         <translation>Als &amp;PDF speichern...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1237"/>
+        <location filename="../actionmanager.cpp" line="1243"/>
         <source>Document &amp;Setup...</source>
         <translation>Dokument &amp;einrichten...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1239"/>
+        <location filename="../actionmanager.cpp" line="1245"/>
         <source>&amp;Print...</source>
         <translation>&amp;Drucken...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1241"/>
+        <location filename="../actionmanager.cpp" line="1247"/>
         <source>&amp;Quit</source>
         <translation>&amp;Beenden</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1243"/>
+        <location filename="../actionmanager.cpp" line="1249"/>
         <source>&amp;Undo</source>
         <translation>&amp;Rückgängig</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1244"/>
+        <location filename="../actionmanager.cpp" line="1250"/>
         <source>&amp;Redo</source>
         <translation>Wieder&amp;herstellen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1245"/>
+        <location filename="../actionmanager.cpp" line="1251"/>
         <source>&amp;Item Action Mode</source>
         <translation>&amp;Objektbezogener Modus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1246"/>
+        <location filename="../actionmanager.cpp" line="1252"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Ausschneiden</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1249"/>
+        <location filename="../actionmanager.cpp" line="1255"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopieren</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1250"/>
+        <location filename="../actionmanager.cpp" line="1256"/>
         <source>&amp;Paste</source>
         <translation>Einf&amp;ügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1253"/>
+        <location filename="../actionmanager.cpp" line="1259"/>
         <source>Select &amp;All</source>
         <translation>Alles aus&amp;wählen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1254"/>
+        <location filename="../actionmanager.cpp" line="1261"/>
         <source>&amp;Deselect All</source>
         <translation>Alles auswählen &amp;rückgängig machen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1255"/>
+        <location filename="../actionmanager.cpp" line="1262"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Suchen und Ersetzen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1256"/>
+        <location filename="../actionmanager.cpp" line="1263"/>
         <source>Edit Image...</source>
         <translation>Bild bearbeiten...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1258"/>
+        <location filename="../actionmanager.cpp" line="1265"/>
         <source>C&amp;olors...</source>
         <translation>&amp;Farben...</translation>
     </message>
@@ -3712,337 +3880,337 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation type="obsolete">&amp;Linienstile...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1261"/>
+        <location filename="../actionmanager.cpp" line="1269"/>
         <source>&amp;Master Pages...</source>
         <translation>&amp;Musterseiten...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1238"/>
+        <location filename="../actionmanager.cpp" line="1244"/>
         <source>P&amp;references...</source>
         <translation>Allgemeine &amp;Einstellungen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1269"/>
+        <location filename="../actionmanager.cpp" line="1277"/>
         <source>%1 pt</source>
         <translation>%1 pt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1284"/>
+        <location filename="../actionmanager.cpp" line="1292"/>
         <source>&amp;Other...</source>
         <translation>&amp;Andere...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1272"/>
+        <location filename="../actionmanager.cpp" line="1280"/>
         <source>&amp;Left</source>
         <translation>&amp;Links</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1273"/>
+        <location filename="../actionmanager.cpp" line="1281"/>
         <source>&amp;Center</source>
         <translation>&amp;Zentriert</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1274"/>
+        <location filename="../actionmanager.cpp" line="1282"/>
         <source>&amp;Right</source>
         <translation>&amp;Rechts</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1275"/>
+        <location filename="../actionmanager.cpp" line="1283"/>
         <source>&amp;Block</source>
         <translation>&amp;Blocksatz</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1276"/>
+        <location filename="../actionmanager.cpp" line="1284"/>
         <source>&amp;Forced</source>
         <translation>&amp;Erzwungener Blocksatz</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1281"/>
+        <location filename="../actionmanager.cpp" line="1289"/>
         <source>&amp;%1 %</source>
         <translation>&amp;%1 %</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1285"/>
+        <location filename="../actionmanager.cpp" line="1293"/>
         <source>&amp;Normal</source>
         <translation>&amp;Normal</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1286"/>
+        <location filename="../actionmanager.cpp" line="1294"/>
         <source>&amp;Underline</source>
         <translation>&amp;Unterstrichen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1287"/>
+        <location filename="../actionmanager.cpp" line="1295"/>
         <source>Underline &amp;Words</source>
         <translation>Wörter unterst&amp;richen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1288"/>
+        <location filename="../actionmanager.cpp" line="1296"/>
         <source>&amp;Strike Through</source>
         <translation>&amp;Durchgestrichen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1289"/>
+        <location filename="../actionmanager.cpp" line="1297"/>
         <source>&amp;All Caps</source>
-        <translation>&amp;Großbuchstaben</translation>
+        <translation>&amp;Grossbuchstaben</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1290"/>
+        <location filename="../actionmanager.cpp" line="1298"/>
         <source>Small &amp;Caps</source>
         <translation>&amp;Kapitälchen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1291"/>
+        <location filename="../actionmanager.cpp" line="1299"/>
         <source>Su&amp;perscript</source>
         <translation>&amp;Hochgestellt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1292"/>
+        <location filename="../actionmanager.cpp" line="1300"/>
         <source>Su&amp;bscript</source>
         <translation>&amp;Tiefgestellt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1294"/>
+        <location filename="../actionmanager.cpp" line="1302"/>
         <source>S&amp;hadow</source>
         <translation>&amp;Schatten</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1296"/>
+        <location filename="../actionmanager.cpp" line="1304"/>
         <source>&amp;Image Effects</source>
         <translation>&amp;Bildeffekte</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1297"/>
+        <location filename="../actionmanager.cpp" line="1305"/>
         <source>&amp;Tabulators...</source>
         <translation>&amp;Tabulatoren...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1300"/>
+        <location filename="../actionmanager.cpp" line="1308"/>
         <source>D&amp;uplicate</source>
         <translation>&amp;Duplizieren</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1301"/>
+        <location filename="../actionmanager.cpp" line="1309"/>
         <source>&amp;Multiple Duplicate</source>
         <translation>&amp;Mehrfach duplizieren</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1302"/>
+        <location filename="../actionmanager.cpp" line="1310"/>
         <source>&amp;Delete</source>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1303"/>
+        <location filename="../actionmanager.cpp" line="1311"/>
         <source>&amp;Group</source>
         <translation>&amp;Gruppieren</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1304"/>
+        <location filename="../actionmanager.cpp" line="1312"/>
         <source>&amp;Ungroup</source>
         <translation>Gruppe auf&amp;lösen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1305"/>
+        <location filename="../actionmanager.cpp" line="1313"/>
         <source>Is &amp;Locked</source>
         <translation>Ge&amp;sperrt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1306"/>
+        <location filename="../actionmanager.cpp" line="1314"/>
         <source>Si&amp;ze is Locked</source>
-        <translation>Größen&amp;änderung gesperrt</translation>
+        <translation>Grössen&amp;änderung gesperrt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1310"/>
+        <location filename="../actionmanager.cpp" line="1318"/>
         <source>Lower to &amp;Bottom</source>
         <translation>In den &amp;Hintergrund</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1311"/>
+        <location filename="../actionmanager.cpp" line="1319"/>
         <source>Raise to &amp;Top</source>
         <translation>In den &amp;Vordergrund</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1312"/>
+        <location filename="../actionmanager.cpp" line="1320"/>
         <source>&amp;Lower</source>
         <translation>Weiter nach hin&amp;ten</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1313"/>
+        <location filename="../actionmanager.cpp" line="1321"/>
         <source>&amp;Raise</source>
         <translation>Weiter nach vor&amp;n</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1314"/>
+        <location filename="../actionmanager.cpp" line="1322"/>
         <source>Send to S&amp;crapbook</source>
         <translation>In &amp;Bibliothek speichern</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1316"/>
+        <location filename="../actionmanager.cpp" line="1324"/>
         <source>&amp;Attributes...</source>
         <translation>&amp;Attribute...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1318"/>
+        <location filename="../actionmanager.cpp" line="1326"/>
         <source>I&amp;mage Visible</source>
         <translation>Bild an&amp;zeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1319"/>
+        <location filename="../actionmanager.cpp" line="1327"/>
         <source>&amp;Update Image</source>
         <translation>Bild &amp;aktualisieren</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1320"/>
+        <location filename="../actionmanager.cpp" line="1328"/>
         <source>Adjust Frame to Image</source>
         <translation>Rahmen an Bild anpassen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1321"/>
+        <location filename="../actionmanager.cpp" line="1329"/>
         <source>Extended Image Properties</source>
         <translation>Erweiterte Bildeigenschaften</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1322"/>
+        <location filename="../actionmanager.cpp" line="1330"/>
         <source>&amp;Low Resolution</source>
         <translation>&amp;Niedrige Auflösung</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1323"/>
+        <location filename="../actionmanager.cpp" line="1331"/>
         <source>&amp;Normal Resolution</source>
         <translation>Nor&amp;male Auflösung</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1324"/>
+        <location filename="../actionmanager.cpp" line="1332"/>
         <source>&amp;Full Resolution</source>
         <translation>&amp;Hohe Auflösung</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1325"/>
+        <location filename="../actionmanager.cpp" line="1333"/>
         <source>Is PDF &amp;Bookmark</source>
         <translation>Als PDF-&amp;Lesezeichen verwenden</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1326"/>
+        <location filename="../actionmanager.cpp" line="1334"/>
         <source>Is PDF A&amp;nnotation</source>
         <translation>Als PDF-&amp;Anmerkung verwenden</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1327"/>
+        <location filename="../actionmanager.cpp" line="1335"/>
         <source>Annotation P&amp;roperties</source>
         <translation>Eigenschaften der An&amp;merkung</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1328"/>
+        <location filename="../actionmanager.cpp" line="1336"/>
         <source>Field P&amp;roperties</source>
         <translation>&amp;Eigenschaften des Feldes</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1329"/>
+        <location filename="../actionmanager.cpp" line="1337"/>
         <source>&amp;Edit Shape...</source>
         <translation>&amp;Form bearbeiten...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1330"/>
+        <location filename="../actionmanager.cpp" line="1338"/>
         <source>&amp;Attach Text to Path</source>
         <translation>Text an Pfad aus&amp;richten</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1331"/>
+        <location filename="../actionmanager.cpp" line="1339"/>
         <source>&amp;Detach Text from Path</source>
         <translation>Text von Pfad l&amp;ösen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1332"/>
+        <location filename="../actionmanager.cpp" line="1340"/>
         <source>&amp;Combine Polygons</source>
         <translation>Polygone &amp;kombinieren</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1333"/>
+        <location filename="../actionmanager.cpp" line="1341"/>
         <source>Split &amp;Polygons</source>
         <translation>Polygone &amp;teilen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1334"/>
+        <location filename="../actionmanager.cpp" line="1342"/>
         <source>&amp;Bezier Curve</source>
         <translation>Bézier&amp;kurve</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1335"/>
+        <location filename="../actionmanager.cpp" line="1343"/>
         <source>&amp;Image Frame</source>
         <translation>&amp;Bildrahmen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1337"/>
+        <location filename="../actionmanager.cpp" line="1345"/>
         <source>&amp;Polygon</source>
         <translation>&amp;Polygon</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1338"/>
+        <location filename="../actionmanager.cpp" line="1346"/>
         <source>&amp;Text Frame</source>
         <translation>&amp;Textrahmen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1342"/>
+        <location filename="../actionmanager.cpp" line="1350"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Zeichen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1343"/>
+        <location filename="../actionmanager.cpp" line="1351"/>
         <source>Sample Text</source>
         <translation>Beispieltext</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1347"/>
+        <location filename="../actionmanager.cpp" line="1355"/>
         <source>&amp;Insert...</source>
         <translation>Ein&amp;fügen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1348"/>
+        <location filename="../actionmanager.cpp" line="1356"/>
         <source>Im&amp;port...</source>
         <translation>&amp;Importieren...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1349"/>
+        <location filename="../actionmanager.cpp" line="1357"/>
         <source>&amp;Delete...</source>
         <translation>&amp;Löschen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1350"/>
+        <location filename="../actionmanager.cpp" line="1358"/>
         <source>&amp;Copy...</source>
         <translation>&amp;Kopieren...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1351"/>
+        <location filename="../actionmanager.cpp" line="1359"/>
         <source>&amp;Move...</source>
         <translation>Ver&amp;schieben...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1352"/>
+        <location filename="../actionmanager.cpp" line="1360"/>
         <source>&amp;Apply Master Page...</source>
         <translation>Musterseite an&amp;wenden...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1354"/>
+        <location filename="../actionmanager.cpp" line="1362"/>
         <source>Manage &amp;Guides...</source>
         <translation>&amp;Hilfslinien bearbeiten...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1360"/>
+        <location filename="../actionmanager.cpp" line="1368"/>
         <source>&amp;50%</source>
         <translation>&amp;50%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1361"/>
+        <location filename="../actionmanager.cpp" line="1369"/>
         <source>&amp;75%</source>
         <translation>&amp;75%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1362"/>
+        <location filename="../actionmanager.cpp" line="1370"/>
         <source>&amp;100%</source>
         <translation>&amp;100%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1363"/>
+        <location filename="../actionmanager.cpp" line="1371"/>
         <source>&amp;200%</source>
         <translation>&amp;200%</translation>
     </message>
@@ -4052,107 +4220,107 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation type="obsolete">&amp;Vorschaubilder</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1366"/>
+        <location filename="../actionmanager.cpp" line="1374"/>
         <source>Show &amp;Margins</source>
         <translation>S&amp;atzspiegel anzeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1368"/>
+        <location filename="../actionmanager.cpp" line="1376"/>
         <source>Show &amp;Frames</source>
         <translation>Ra&amp;hmen anzeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1370"/>
+        <location filename="../actionmanager.cpp" line="1378"/>
         <source>Show &amp;Images</source>
         <translation>&amp;Bilder anzeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1371"/>
+        <location filename="../actionmanager.cpp" line="1379"/>
         <source>Show &amp;Grid</source>
         <translation>Ra&amp;ster anzeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1372"/>
+        <location filename="../actionmanager.cpp" line="1380"/>
         <source>Show G&amp;uides</source>
         <translation>&amp;Hilfslinien anzeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1374"/>
+        <location filename="../actionmanager.cpp" line="1382"/>
         <source>Show &amp;Baseline Grid</source>
         <translation>&amp;Grundlinienraster anzeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1375"/>
+        <location filename="../actionmanager.cpp" line="1383"/>
         <source>Show &amp;Text Chain</source>
         <translation>Ver&amp;kettete Textrahmen anzeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1376"/>
+        <location filename="../actionmanager.cpp" line="1384"/>
         <source>Show Control Characters</source>
         <translation>Kontrollzeichen anzeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1379"/>
+        <location filename="../actionmanager.cpp" line="1387"/>
         <source>Sn&amp;ap to Grid</source>
         <translation>Am &amp;Raster ausrichten</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1380"/>
+        <location filename="../actionmanager.cpp" line="1388"/>
         <source>Sna&amp;p to Guides</source>
         <translation>An &amp;Hilfslinien ausrichten</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1385"/>
+        <location filename="../actionmanager.cpp" line="1393"/>
         <source>&amp;Properties</source>
         <translation>&amp;Eigenschaften</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1387"/>
+        <location filename="../actionmanager.cpp" line="1395"/>
         <source>&amp;Scrapbook</source>
         <translation>Biblio&amp;thek</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1388"/>
+        <location filename="../actionmanager.cpp" line="1396"/>
         <source>&amp;Layers</source>
         <translation>E&amp;benen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1390"/>
+        <location filename="../actionmanager.cpp" line="1398"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1391"/>
+        <location filename="../actionmanager.cpp" line="1399"/>
         <source>&amp;Measurements</source>
         <translation>&amp;Abstandsmesser</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1392"/>
+        <location filename="../actionmanager.cpp" line="1400"/>
         <source>Action &amp;History</source>
         <translation>Aktions&amp;verlauf</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1393"/>
+        <location filename="../actionmanager.cpp" line="1401"/>
         <source>Preflight &amp;Verifier</source>
         <translation>&amp;Druckvorstufenüberprüfung</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1394"/>
+        <location filename="../actionmanager.cpp" line="1402"/>
         <source>&amp;Align and Distribute</source>
         <translation>&amp;Ausrichten und Verteilen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1395"/>
+        <location filename="../actionmanager.cpp" line="1403"/>
         <source>&amp;Tools</source>
         <translation>&amp;Werkzeuge</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1396"/>
+        <location filename="../actionmanager.cpp" line="1404"/>
         <source>P&amp;DF Tools</source>
         <translation>&amp;PDF-Werkzeuge</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1399"/>
+        <location filename="../actionmanager.cpp" line="1407"/>
         <source>Select Item</source>
         <translation>Eintrag auswählen</translation>
     </message>
@@ -4177,52 +4345,52 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation type="obsolete">Frei&amp;handlinie</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1400"/>
+        <location filename="../actionmanager.cpp" line="1408"/>
         <source>Rotate Item</source>
         <translation>Objekt drehen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1401"/>
+        <location filename="../actionmanager.cpp" line="1409"/>
         <source>Zoom in or out</source>
-        <translation>Vergrößern oder verkleinern</translation>
+        <translation>Vergrössern oder verkleinern</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1402"/>
+        <location filename="../actionmanager.cpp" line="1410"/>
         <source>Zoom in</source>
-        <translation>Vergrößern</translation>
+        <translation>Vergrössern</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1403"/>
+        <location filename="../actionmanager.cpp" line="1411"/>
         <source>Zoom out</source>
         <translation>Verkleinern</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1404"/>
+        <location filename="../actionmanager.cpp" line="1412"/>
         <source>Edit Contents of Frame</source>
         <translation>Rahmeninhalt bearbeiten</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1405"/>
+        <location filename="../actionmanager.cpp" line="1413"/>
         <source>Edit Text...</source>
         <translation>Text bearbeiten...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1406"/>
+        <location filename="../actionmanager.cpp" line="1414"/>
         <source>Link Text Frames</source>
         <translation>Textrahmen verketten</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1407"/>
+        <location filename="../actionmanager.cpp" line="1415"/>
         <source>Unlink Text Frames</source>
         <translation>Verkettete Textrahmen trennen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1408"/>
+        <location filename="../actionmanager.cpp" line="1416"/>
         <source>&amp;Eye Dropper</source>
         <translation>Farb&amp;wähler</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1409"/>
+        <location filename="../actionmanager.cpp" line="1417"/>
         <source>Copy Item Properties</source>
         <translation>Eigenschaften übertragen</translation>
     </message>
@@ -4277,107 +4445,107 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation type="obsolete">Bilder &amp;verwalten</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1432"/>
+        <location filename="../actionmanager.cpp" line="1440"/>
         <source>&amp;Hyphenate Text</source>
         <translation>Silben&amp;trennung anwenden</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1434"/>
+        <location filename="../actionmanager.cpp" line="1442"/>
         <source>&amp;Generate Table Of Contents</source>
         <translation>&amp;Inhaltsverzeichnis erstellen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1441"/>
+        <location filename="../actionmanager.cpp" line="1449"/>
         <source>&amp;About Scribus</source>
         <translation>&amp;Über Scribus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1443"/>
+        <location filename="../actionmanager.cpp" line="1451"/>
         <source>About &amp;Qt</source>
         <translation>Über &amp;Qt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1444"/>
+        <location filename="../actionmanager.cpp" line="1452"/>
         <source>Toolti&amp;ps</source>
         <translation>Tool&amp;tips</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1445"/>
+        <location filename="../actionmanager.cpp" line="1453"/>
         <source>Scribus &amp;Manual...</source>
         <translation>&amp;Handbuch für Scribus...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1463"/>
+        <location filename="../actionmanager.cpp" line="1471"/>
         <source>Smart &amp;Hyphen</source>
         <translation>Bedingtes &amp;Trennzeichen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1464"/>
+        <location filename="../actionmanager.cpp" line="1472"/>
         <source>Non Breaking Dash</source>
         <translation>Geschützter Bindestrich</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1465"/>
+        <location filename="../actionmanager.cpp" line="1473"/>
         <source>Non Breaking &amp;Space</source>
         <translation>Geschütztes &amp;Leerzeichen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1466"/>
+        <location filename="../actionmanager.cpp" line="1474"/>
         <source>Page &amp;Number</source>
         <translation>Seiten&amp;zahl</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1468"/>
+        <location filename="../actionmanager.cpp" line="1476"/>
         <source>New Line</source>
         <translation>Zeilenumbruch</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1469"/>
+        <location filename="../actionmanager.cpp" line="1477"/>
         <source>Frame Break</source>
         <translation>Rahmenumbruch</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1470"/>
+        <location filename="../actionmanager.cpp" line="1478"/>
         <source>Column Break</source>
         <translation>Spaltenumbruch</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1473"/>
+        <location filename="../actionmanager.cpp" line="1481"/>
         <source>Copyright</source>
         <translation>Copyright</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1474"/>
+        <location filename="../actionmanager.cpp" line="1482"/>
         <source>Registered Trademark</source>
         <translation>Registriertes Warenzeichen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1475"/>
+        <location filename="../actionmanager.cpp" line="1483"/>
         <source>Trademark</source>
         <translation>Warenzeichen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1477"/>
+        <location filename="../actionmanager.cpp" line="1485"/>
         <source>Bullet</source>
         <translation>Aufzählung</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1479"/>
+        <location filename="../actionmanager.cpp" line="1487"/>
         <source>Em Dash</source>
         <translation>Geviertstrich</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1480"/>
+        <location filename="../actionmanager.cpp" line="1488"/>
         <source>En Dash</source>
         <translation>Halbgeviertstrich</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1481"/>
+        <location filename="../actionmanager.cpp" line="1489"/>
         <source>Figure Dash</source>
         <translation>Zahlenstrich</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1482"/>
+        <location filename="../actionmanager.cpp" line="1490"/>
         <source>Quotation Dash</source>
         <translation>Zitatstrich</translation>
     </message>
@@ -4472,27 +4640,27 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation type="obsolete">Doppeltes Anführungszeichen rechts (CJK)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1453"/>
+        <location filename="../actionmanager.cpp" line="1461"/>
         <source>Toggle Palettes</source>
         <translation>Paletten ändern</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1454"/>
+        <location filename="../actionmanager.cpp" line="1462"/>
         <source>Toggle Guides</source>
         <translation>Hilfslinien ändern</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1389"/>
+        <location filename="../actionmanager.cpp" line="1397"/>
         <source>&amp;Arrange Pages</source>
         <translation>&amp;Seiten anordnen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1433"/>
+        <location filename="../actionmanager.cpp" line="1441"/>
         <source>Dehyphenate Text</source>
         <translation>Silbentrennung rückgängig machen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1355"/>
+        <location filename="../actionmanager.cpp" line="1363"/>
         <source>Manage Page Properties...</source>
         <translation>Eigenschaften der Seite bearbeiten...</translation>
     </message>
@@ -4502,27 +4670,27 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation type="obsolete">Lineal relativ zur Seite</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1240"/>
+        <location filename="../actionmanager.cpp" line="1246"/>
         <source>Print Previe&amp;w</source>
         <translation>D&amp;ruckvorschau</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1262"/>
+        <location filename="../actionmanager.cpp" line="1270"/>
         <source>&amp;JavaScripts...</source>
         <translation>&amp;JavaScripts...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1353"/>
+        <location filename="../actionmanager.cpp" line="1361"/>
         <source>Convert to Master Page...</source>
         <translation>In Musterseite umwandeln...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1437"/>
+        <location filename="../actionmanager.cpp" line="1445"/>
         <source>&amp;Cascade</source>
         <translation>&amp;Hintereinander</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1438"/>
+        <location filename="../actionmanager.cpp" line="1446"/>
         <source>&amp;Tile</source>
         <translation>&amp;Nebeneinander</translation>
     </message>
@@ -4532,73 +4700,73 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation type="obsolete">&amp;Über Plug-Ins</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1317"/>
+        <location filename="../actionmanager.cpp" line="1325"/>
         <source>More Info...</source>
         <translation>Erweitert...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1307"/>
+        <location filename="../actionmanager.cpp" line="1315"/>
         <source>&amp;Printing Enabled</source>
         <translation>&amp;Drucken aktiviert</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1308"/>
+        <location filename="../actionmanager.cpp" line="1316"/>
         <source>&amp;Flip Horizontally</source>
         <translation>Horizontal &amp;spiegeln</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1309"/>
+        <location filename="../actionmanager.cpp" line="1317"/>
         <source>&amp;Flip Vertically</source>
         <translation>Vertikal &amp;spiegeln</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1377"/>
+        <location filename="../actionmanager.cpp" line="1385"/>
         <source>Show Rulers</source>
         <translation>Lineale anzeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1386"/>
+        <location filename="../actionmanager.cpp" line="1394"/>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
         <translation>D&amp;okumentstruktur</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1476"/>
+        <location filename="../actionmanager.cpp" line="1484"/>
         <source>Solidus</source>
         <translation>Schrägstrich</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1478"/>
+        <location filename="../actionmanager.cpp" line="1486"/>
         <source>Middle Dot</source>
         <translation>Mittepunkt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1503"/>
+        <location filename="../actionmanager.cpp" line="1511"/>
         <source>En Space</source>
         <translation>En-Abstand</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1504"/>
+        <location filename="../actionmanager.cpp" line="1512"/>
         <source>Em Space</source>
         <translation>Em-Abstand</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1505"/>
+        <location filename="../actionmanager.cpp" line="1513"/>
         <source>Thin Space</source>
         <translation>Sehr enge Grundschriftweite</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1506"/>
+        <location filename="../actionmanager.cpp" line="1514"/>
         <source>Thick Space</source>
         <translation>Weite Grundschriftweite</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1507"/>
+        <location filename="../actionmanager.cpp" line="1515"/>
         <source>Mid Space</source>
         <translation>Weite Grundschriftweite</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1508"/>
+        <location filename="../actionmanager.cpp" line="1516"/>
         <source>Hair Space</source>
         <translation>Extrem enge Grundschriftweite</translation>
     </message>
@@ -4623,277 +4791,277 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation type="obsolete">Seitenzahl einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1520"/>
+        <location filename="../actionmanager.cpp" line="1528"/>
         <source>ff</source>
         <translation>ff</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1521"/>
+        <location filename="../actionmanager.cpp" line="1529"/>
         <source>fi</source>
         <translation>fi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1522"/>
+        <location filename="../actionmanager.cpp" line="1530"/>
         <source>fl</source>
         <translation>fl</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1523"/>
+        <location filename="../actionmanager.cpp" line="1531"/>
         <source>ffi</source>
         <translation>ffi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1524"/>
+        <location filename="../actionmanager.cpp" line="1532"/>
         <source>ffl</source>
         <translation>ffl</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1525"/>
+        <location filename="../actionmanager.cpp" line="1533"/>
         <source>ft</source>
         <translation>ft</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1526"/>
+        <location filename="../actionmanager.cpp" line="1534"/>
         <source>st</source>
         <translation>st</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1260"/>
+        <location filename="../actionmanager.cpp" line="1268"/>
         <source>S&amp;tyles...</source>
         <translation>&amp;Stile...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1251"/>
+        <location filename="../actionmanager.cpp" line="1257"/>
         <source>Paste (&amp;Absolute)</source>
         <translation>Einfügen (&amp;Absolut)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1252"/>
+        <location filename="../actionmanager.cpp" line="1258"/>
         <source>C&amp;lear</source>
         <translation>&amp;Entfernen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1293"/>
+        <location filename="../actionmanager.cpp" line="1301"/>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
         <translation>Um&amp;randung</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1336"/>
+        <location filename="../actionmanager.cpp" line="1344"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
-        <translation>&amp;Umriß</translation>
+        <translation>&amp;Umriss</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1421"/>
+        <location filename="../actionmanager.cpp" line="1429"/>
         <source>Insert PDF Push Button</source>
         <translation>PDF-Schaltfläche einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1422"/>
+        <location filename="../actionmanager.cpp" line="1430"/>
         <source>Insert PDF Text Field</source>
         <translation>PDF Textfeld einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1423"/>
+        <location filename="../actionmanager.cpp" line="1431"/>
         <source>Insert PDF Check Box</source>
         <translation>PDF Checkbox einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1424"/>
+        <location filename="../actionmanager.cpp" line="1432"/>
         <source>Insert PDF Combo Box</source>
         <translation>PDF Combobox einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1425"/>
+        <location filename="../actionmanager.cpp" line="1433"/>
         <source>Insert PDF List Box</source>
         <translation>PDF Listbox einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1426"/>
+        <location filename="../actionmanager.cpp" line="1434"/>
         <source>Insert Text Annotation</source>
         <translation>Anmerkung einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1427"/>
+        <location filename="../actionmanager.cpp" line="1435"/>
         <source>Insert Link Annotation</source>
         <translation>Link einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1235"/>
+        <location filename="../actionmanager.cpp" line="1241"/>
         <source>Save as &amp;EPS...</source>
         <translation>Als &amp;EPS speichern...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1373"/>
+        <location filename="../actionmanager.cpp" line="1381"/>
         <source>Show Text Frame Columns</source>
         <translation>Spaltenmarkierungen anzeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1341"/>
+        <location filename="../actionmanager.cpp" line="1349"/>
         <source>&amp;Frame...</source>
         <translation>&amp;Rahmen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1365"/>
+        <location filename="../actionmanager.cpp" line="1373"/>
         <source>Preview Mode</source>
         <translation>Vorschaumodus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1369"/>
+        <location filename="../actionmanager.cpp" line="1377"/>
         <source>Show Layer Indicators</source>
         <translation>Ebenenmarkierungen anzeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1259"/>
+        <location filename="../actionmanager.cpp" line="1267"/>
         <source>Patterns...</source>
         <translation>Füllmuster...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1315"/>
+        <location filename="../actionmanager.cpp" line="1323"/>
         <source>Send to Patterns</source>
         <translation>Zu Füllmustern hinzufügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1358"/>
+        <location filename="../actionmanager.cpp" line="1366"/>
         <source>&amp;Fit to Height</source>
         <translation>&amp;Seitenhöhe</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1359"/>
+        <location filename="../actionmanager.cpp" line="1367"/>
         <source>Fit to Width</source>
         <translation>Seitenbreite</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1367"/>
+        <location filename="../actionmanager.cpp" line="1375"/>
         <source>Show Bleeds</source>
         <translation>Anschnitt anzeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1471"/>
+        <location filename="../actionmanager.cpp" line="1479"/>
         <source>&amp;Zero Width Space</source>
         <translation>&amp;Null-Leerzeichen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1472"/>
+        <location filename="../actionmanager.cpp" line="1480"/>
         <source>Zero Width NB Space</source>
         <translation>Geschütztes Null-Leerzeichen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1344"/>
+        <location filename="../actionmanager.cpp" line="1352"/>
         <source>Sticky Tools</source>
         <translation>Werkzeugmodus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1484"/>
+        <location filename="../actionmanager.cpp" line="1492"/>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
         <translation>Apostroph</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1485"/>
+        <location filename="../actionmanager.cpp" line="1493"/>
         <source>Straight Double</source>
         <comment>Unicode 0x0022</comment>
         <translation>Zollzeichen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1486"/>
+        <location filename="../actionmanager.cpp" line="1494"/>
         <source>Single Left</source>
         <comment>Unicode 0x2018</comment>
         <translation>Einfaches Anführungszeichen rechts</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1487"/>
+        <location filename="../actionmanager.cpp" line="1495"/>
         <source>Single Right</source>
         <comment>Unicode 0x2019</comment>
         <translation>Einfaches Anführungszeichen rechts (Englisch)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1488"/>
+        <location filename="../actionmanager.cpp" line="1496"/>
         <source>Double Left</source>
         <comment>Unicode 0x201C</comment>
         <translation>Doppeltes Anführungszeichen rechts</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1489"/>
+        <location filename="../actionmanager.cpp" line="1497"/>
         <source>Double Right</source>
         <comment>Unicode 0x201D</comment>
         <translation>Doppeltes Anführungszeichen rechts (Englisch)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1490"/>
+        <location filename="../actionmanager.cpp" line="1498"/>
         <source>Single Reversed</source>
         <comment>Unicode 0x201B</comment>
         <translation>Anführungszeichen links (Englisch) gespiegelt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1491"/>
+        <location filename="../actionmanager.cpp" line="1499"/>
         <source>Double Reversed</source>
         <comment>Unicode 0x201F</comment>
         <translation>Doppeltes Anführungszeichen links (Englisch) gespiegelt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1492"/>
+        <location filename="../actionmanager.cpp" line="1500"/>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
         <translation>&lt;</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1493"/>
+        <location filename="../actionmanager.cpp" line="1501"/>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
         <translation>&gt;</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1494"/>
+        <location filename="../actionmanager.cpp" line="1502"/>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
         <translation>&lt;&lt;</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1495"/>
+        <location filename="../actionmanager.cpp" line="1503"/>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
         <translation>&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1496"/>
+        <location filename="../actionmanager.cpp" line="1504"/>
         <source>Low Single Comma</source>
         <comment>Unicode 0x201A</comment>
         <translation>Einfaches Anführungszeichen links</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1497"/>
+        <location filename="../actionmanager.cpp" line="1505"/>
         <source>Low Double Comma</source>
         <comment>Unicode 0x201E</comment>
         <translation>Doppeltes Anführungszeichen links</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1498"/>
+        <location filename="../actionmanager.cpp" line="1506"/>
         <source>CJK Single Left</source>
         <comment>Unicode 0x300C</comment>
         <translation>Einfaches Anführungszeichen links (CJK)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1499"/>
+        <location filename="../actionmanager.cpp" line="1507"/>
         <source>CJK Single Right</source>
         <comment>Unicode 0x300D</comment>
         <translation>Einfaches Anführungszeichen rechts (CJK)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1500"/>
+        <location filename="../actionmanager.cpp" line="1508"/>
         <source>CJK Double Left</source>
         <comment>Unicode 0x300E</comment>
         <translation>Doppeltes Anführungszeichen links (CJK)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1501"/>
+        <location filename="../actionmanager.cpp" line="1509"/>
         <source>CJK Double Right</source>
         <comment>Unicode 0x300F</comment>
         <translation>Doppeltes Anführungszeichen rechts (CJK)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1364"/>
+        <location filename="../actionmanager.cpp" line="1372"/>
         <source>&amp;400%</source>
         <translation>&amp;400%</translation>
     </message>
@@ -4903,12 +5071,12 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation type="obsolete">LaTeX-Quelltext bearbeiten...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1411"/>
+        <location filename="../actionmanager.cpp" line="1419"/>
         <source>Insert &amp;Text Frame</source>
         <translation>&amp;Textrahmen einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1412"/>
+        <location filename="../actionmanager.cpp" line="1420"/>
         <source>Insert &amp;Image Frame</source>
         <translation>&amp;Bildrahmen einfügen</translation>
     </message>
@@ -4918,62 +5086,62 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation type="obsolete">&amp;Latex-Rahmen einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1414"/>
+        <location filename="../actionmanager.cpp" line="1422"/>
         <source>Insert T&amp;able</source>
         <translation>T&amp;abelle einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1415"/>
+        <location filename="../actionmanager.cpp" line="1423"/>
         <source>Insert &amp;Shape</source>
         <translation>&amp;Form einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1416"/>
+        <location filename="../actionmanager.cpp" line="1424"/>
         <source>Insert &amp;Polygon</source>
         <translation>&amp;Polygon einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1417"/>
+        <location filename="../actionmanager.cpp" line="1425"/>
         <source>Insert &amp;Line</source>
         <translation>&amp;Linie einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1418"/>
+        <location filename="../actionmanager.cpp" line="1426"/>
         <source>Insert &amp;Bezier Curve</source>
         <translation>&amp;Bézierkurve einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1419"/>
+        <location filename="../actionmanager.cpp" line="1427"/>
         <source>Insert &amp;Freehand Line</source>
         <translation>F&amp;reihandlinie einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1446"/>
+        <location filename="../actionmanager.cpp" line="1454"/>
         <source>Scribus Homepage</source>
         <translation>Scribus-Homepage</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1447"/>
+        <location filename="../actionmanager.cpp" line="1455"/>
         <source>Scribus Online Documentation</source>
         <translation>Scribus-Online-Dokumentation</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1448"/>
+        <location filename="../actionmanager.cpp" line="1456"/>
         <source>Scribus Wiki</source>
         <translation>Scribus-Wiki</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1449"/>
+        <location filename="../actionmanager.cpp" line="1457"/>
         <source>Getting Started with Scribus</source>
         <translation>Einstieg in Scribus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1381"/>
+        <location filename="../actionmanager.cpp" line="1389"/>
         <source>Show Context Menu</source>
         <translation>Kontextmenü zeigen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1442"/>
+        <location filename="../actionmanager.cpp" line="1450"/>
         <source>&amp;About Plugins</source>
         <translation>&amp;Über Plug-ins</translation>
     </message>
@@ -4983,39 +5151,49 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation type="obsolete">Aktualisierungen überprüfen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1431"/>
+        <location filename="../actionmanager.cpp" line="1439"/>
         <source>&amp;Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bilder verwalten</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1455"/>
+        <location filename="../actionmanager.cpp" line="1463"/>
         <source>Insert Unicode Character Begin Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügen Sie den Anfang einer Unicode-Sequenz ein</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1257"/>
+        <location filename="../actionmanager.cpp" line="1264"/>
         <source>Edit Source...</source>
-        <translation type="unfinished"></translation>
+        <translation>Quelltext bearbeiten...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1378"/>
+        <location filename="../actionmanager.cpp" line="1386"/>
         <source>Rulers Relative to Page</source>
-        <translation type="unfinished">Lineale relativ zur Seite</translation>
+        <translation>Lineale relativ zur Seite</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1413"/>
+        <location filename="../actionmanager.cpp" line="1421"/>
         <source>Insert &amp;Render Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Renderrahmen einfügen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1450"/>
+        <location filename="../actionmanager.cpp" line="1458"/>
         <source>Check for Updates</source>
-        <translation type="unfinished">Suche nach Aktualisierungen</translation>
+        <translation>Suche nach Aktualisierungen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1467"/>
+        <location filename="../actionmanager.cpp" line="1475"/>
         <source>Number of Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl der Seiten</translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1260"/>
+        <source>Select All On Layer</source>
+        <translation>Alles auf der Ebene auswählen</translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1266"/>
+        <source>Replace Colors...</source>
+        <translation>Farben ersetzen...</translation>
     </message>
 </context>
 <context>
@@ -5179,32 +5357,32 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../aligndistribute.cpp" line="133"/>
         <source>Distribute right sides equidistantly</source>
-        <translation>Rechte Seiten gleichmäßig verteilen</translation>
+        <translation>Rechte Seiten gleichmässig verteilen</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="135"/>
         <source>Distribute bottoms equidistantly</source>
-        <translation>Unterseiten gleichmäßig verteilen</translation>
+        <translation>Unterseiten gleichmässig verteilen</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="137"/>
         <source>Distribute centers equidistantly horizontally</source>
-        <translation>Objektmitten gleichmäßig horizontal verteilen</translation>
+        <translation>Objektmitten gleichmässig horizontal verteilen</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="143"/>
         <source>Distribute left sides equidistantly</source>
-        <translation>Linke Seiten gleichmäßig verteilen</translation>
+        <translation>Linke Seiten gleichmässig verteilen</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="145"/>
         <source>Distribute centers equidistantly vertically</source>
-        <translation>Objektmitten gleichmäßig vertikal verteilen</translation>
+        <translation>Objektmitten gleichmässig vertikal verteilen</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="147"/>
         <source>Distribute tops equidistantly</source>
-        <translation>Oberseiten gleichmäßig verteilen</translation>
+        <translation>Oberseiten gleichmässig verteilen</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="157"/>
@@ -5525,7 +5703,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../annot.cpp" line="442"/>
         <source>Password</source>
-        <translation>Paßwort</translation>
+        <translation>Passwort</translation>
     </message>
     <message>
         <location filename="../annot.cpp" line="449"/>
@@ -5710,7 +5888,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../annot.cpp" line="989"/>
         <source>Value must be greater than or equal to:</source>
-        <translation>Wert muß größer oder gleich sein als:</translation>
+        <translation>Wert muss grösser oder gleich sein als:</translation>
     </message>
     <message>
         <location filename="../annot.cpp" line="993"/>
@@ -5910,7 +6088,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../annot.cpp" line="2031"/>
         <source>Mouse Exit</source>
-        <translation>Mauszeiger verläßt Feld</translation>
+        <translation>Mauszeiger verlässt Feld</translation>
     </message>
     <message>
         <location filename="../annot.cpp" line="2031"/>
@@ -6007,7 +6185,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../annot.cpp" line="625"/>
         <source>Export absolute Filename</source>
-        <translation type="unfinished"></translation>
+        <translation>Absoluten Dateinamen exportieren</translation>
     </message>
 </context>
 <context>
@@ -6090,7 +6268,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../annota.cpp" line="116"/>
         <source>Export absolute Filename</source>
-        <translation type="unfinished"></translation>
+        <translation>Absoluten Dateinamen exportieren</translation>
     </message>
 </context>
 <context>
@@ -6209,7 +6387,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="68"/>
         <source>Adds support for spell-checking via aspell. Languages can be chosen from among the installed aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
-        <translation>Fügt Unterstützung für die Rechtschreibprüfung mit aspell hinzu. Die Sprachen können aus den installierten aspell-Wörterbüchern ausgewählt werden, und die Überprüfung läßt sich während der Eingabe oder auf ausgewählten Text anwenden.</translation>
+        <translation>Fügt Unterstützung für die Rechtschreibprüfung mit aspell hinzu. Die Sprachen können aus den installierten aspell-Wörterbüchern ausgewählt werden, und die Überprüfung lässt sich während der Eingabe oder auf ausgewählten Text anwenden.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="69"/>
@@ -6345,7 +6523,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../autoformbuttongroup.cpp" line="1213"/>
         <source>Flow Chart</source>
-        <translation>Flußdiagramm</translation>
+        <translation>Flussdiagramm</translation>
     </message>
     <message>
         <location filename="../autoformbuttongroup.cpp" line="1214"/>
@@ -6426,7 +6604,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="88"/>
         <source>Variable number of digits and capital letters</source>
-        <translation>Kombinationen aus Ziffern und Großbuchstaben</translation>
+        <translation>Kombinationen aus Ziffern und Grossbuchstaben</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="97"/>
@@ -6441,7 +6619,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="66"/>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
-        <translation>Kombination aus ASCII-Zeichen und Sonderzeichen, beginnend mit dem passenden Startzeichen für den Zeichensatz. Bei USS/EAN-128 muß am Anfang ein FNC1-Symbol direkt nach dem Startzeichen stehen.</translation>
+        <translation>Kombination aus ASCII-Zeichen und Sonderzeichen, beginnend mit dem passenden Startzeichen für den Zeichensatz. Bei USS/EAN-128 muss am Anfang ein FNC1-Symbol direkt nach dem Startzeichen stehen.</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="69"/>
@@ -6720,7 +6898,7 @@ Bitte wählen Sie eine andere.</translation>
     <message>
         <location filename="../scrapbookpalette.cpp" line="1449"/>
         <source>Close the selected scrapbook</source>
-        <translation>Markierte Bibliothek schließen</translation>
+        <translation>Markierte Bibliothek schliessen</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="844"/>
@@ -6760,7 +6938,7 @@ Bitte wählen Sie eine andere.</translation>
     <message>
         <location filename="../scrapbookpalette.cpp" line="892"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Schliessen</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="895"/>
@@ -6775,7 +6953,7 @@ Bitte wählen Sie eine andere.</translation>
     <message>
         <location filename="../scrapbookpalette.cpp" line="833"/>
         <source>Paste to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf Seite einfügen</translation>
     </message>
 </context>
 <context>
@@ -6839,7 +7017,7 @@ Bitte wählen Sie eine andere.</translation>
     <message>
         <location filename="../buttonicon.cpp" line="56"/>
         <source>When Icon is too big</source>
-        <translation>bei zu großem Icon</translation>
+        <translation>bei zu grossem Icon</translation>
     </message>
     <message>
         <location filename="../buttonicon.cpp" line="56"/>
@@ -6986,7 +7164,7 @@ This requires very accurate profiles and serves only as a warning.</source>
         <translation>Aktiviert die Gamut-Warnung, d. h. die Anzeige von Farben, welche 
 auf Grund der Eigenschaften des gewählten Ausgabegerätes für den 
 Druck nicht korrekt wiedergegeben werden können. Bitte beachten Sie, 
-daß dies sehr genaue Geräteprofile erfordert.</translation>
+dass dies sehr genaue Geräteprofile erfordert.</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="31"/>
@@ -7011,7 +7189,7 @@ daß dies sehr genaue Geräteprofile erfordert.</translation>
     <message>
         <location filename="../cmsprefs.cpp" line="130"/>
         <source>Mark Colors out of &amp;Gamut</source>
-        <translation>Farben außerhalb des Farbbereichs &amp;markieren</translation>
+        <translation>Farben ausserhalb des Farbbereichs &amp;markieren</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="134"/>
@@ -7097,17 +7275,17 @@ alle Farben (egal ob RGB oder CMYK) werden in den Farbraum des Druckers konverti
     <message>
         <location filename="../cmsprefs.cpp" line="43"/>
         <source>&amp;RGB Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;RGB-Bilder:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="51"/>
         <source>&amp;CMYK Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;CMYK-Bilder:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="98"/>
         <source>Images:</source>
-        <translation type="unfinished">Bilder:</translation>
+        <translation>Bilder:</translation>
     </message>
 </context>
 <context>
@@ -7227,12 +7405,12 @@ Sie ist reserviert für Transparenz</translation>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/cmykfw.cpp" line="385"/>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation type="obsolete">Diese Option ermöglicht es, die Farbe auf allen Platten zu drucken. Registrierungsfarben werden für Druckermarken wie Schneidemarken oder Paßkreuze verwendet. Sie werden üblicherweise nicht im Layout selbst gebraucht.</translation>
+        <translation type="obsolete">Diese Option ermöglicht es, die Farbe auf allen Platten zu drucken. Registrierungsfarben werden für Druckermarken wie Schneidemarken oder Passkreuze verwendet. Sie werden üblicherweise nicht im Layout selbst gebraucht.</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="obsolete">Wenn das Farbmanagement aktiviert ist, zeigt das Warndreieck an, daß die Farbe außerhalb des Farbraums (Gamut) des gewählten Druckers ist. Das bedeutet, daß die Farbe nicht so wiedergegeben wird, wie am Monitor angezeigt. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe.</translation>
+        <translation type="obsolete">Wenn das Farbmanagement aktiviert ist, zeigt das Warndreieck an, dass die Farbe ausserhalb des Farbraums (Gamut) des gewählten Druckers ist. Das bedeutet, dass die Farbe nicht so wiedergegeben wird, wie am Monitor angezeigt. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe.</translation>
     </message>
     <message>
         <location filename="../cmykfw.cpp" line="1179"/>
@@ -7248,13 +7426,14 @@ please choose another one.</source>
     <message>
         <location filename="../cmykfw.cpp" line="971"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation>Wenn das Farbmanagement aktiviert ist, zeigt ein Warndreieck an, daß die Farbe sich außerhalb des Gamuts des ausgewählten Druckerprofils befindet. Dies bedeutet, daß die Farbe nicht so gedruckt werden kann, wie sie am Bildschirm angezeigt wird. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe unter &quot;Farbmanagement&quot;.</translation>
+        <translation>Wenn das Farbmanagement aktiviert ist, zeigt ein Warndreieck an, dass die Farbe sich ausserhalb des Gamuts des ausgewählten Druckerprofils befindet. Dies bedeutet, dass die Farbe nicht so gedruckt werden kann, wie sie am Bildschirm angezeigt wird. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe unter &quot;Farbmanagement&quot;.</translation>
     </message>
     <message>
         <location filename="../cmykfw.cpp" line="1163"/>
         <source>You cannot create a color without a name
 Please give it a name</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie können keine Farbe ohne Namen erzeugen
+Bitte vergeben Sie einen Namen</translation>
     </message>
 </context>
 <context>
@@ -7353,7 +7532,7 @@ Please give it a name</source>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.cpp" line="488"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation>Scribus konnte die gewünschte Farbe nicht finden. Sie haben wahrscheinlich Schwarz, Grau oder Weiß ausgewählt.
+        <translation>Scribus konnte die gewünschte Farbe nicht finden. Sie haben wahrscheinlich Schwarz, Grau oder Weiss ausgewählt.
 Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     </message>
     <message>
@@ -7982,7 +8161,7 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/charselect.cpp" line="635"/>
         <source>You will clean all characters from this palette. Are you sure?</source>
-        <translation type="obsolete">Sind Sie sicher, daß Sie alle Zeichen entfernen möchten?</translation>
+        <translation type="obsolete">Sind Sie sicher, dass Sie alle Zeichen entfernen möchten?</translation>
     </message>
     <message>
         <location filename="../charselect.ui" line="13"/>
@@ -8007,7 +8186,7 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
     <message>
         <location filename="../charselect.ui" line="30"/>
         <source>Hide/Show Enhanced Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Erweiterte Palette anzeigen/verbergen</translation>
     </message>
 </context>
 <context>
@@ -8044,12 +8223,12 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
     <message>
         <location filename="../checkDocument.cpp" line="874"/>
         <source>Text overflow</source>
-        <translation>Überfließender Text</translation>
+        <translation>Überfliessender Text</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="875"/>
         <source>Object is not on a Page</source>
-        <translation>Objekt außerhalb einer Seite</translation>
+        <translation>Objekt ausserhalb einer Seite</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="876"/>
@@ -8134,7 +8313,7 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
     <message>
         <location filename="../checkDocument.cpp" line="879"/>
         <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
-        <translation>Auflösung ist größer als %1 dpi, aktuell %2 x %3 dpi</translation>
+        <translation>Auflösung ist grösser als %1 dpi, aktuell %2 x %3 dpi</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="883"/>
@@ -8169,7 +8348,7 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
     <message>
         <location filename="../checkDocument.cpp" line="877"/>
         <source>Empty Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Leerer Bildrahmen</translation>
     </message>
 </context>
 <context>
@@ -8337,7 +8516,7 @@ zusammengestellt werden</translation>
     <message>
         <location filename="../colorm.cpp" line="172"/>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation>Wenn das Farbmanagement aktiviert ist, zeigt das Warndreieck an, daß die Farbe außerhalb des Farbraums (Gamut) des gewählten Druckers ist. Das bedeutet, daß die Farbe nicht so wiedergegeben wird, wie am Monitor angezeigt. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe.</translation>
+        <translation>Wenn das Farbmanagement aktiviert ist, zeigt das Warndreieck an, dass die Farbe ausserhalb des Farbraums (Gamut) des gewählten Druckers ist. Das bedeutet, dass die Farbe nicht so wiedergegeben wird, wie am Monitor angezeigt. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe.</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -8918,78 +9097,78 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../commonstrings.cpp" line="245"/>
         <source>Text Frame</source>
-        <translation type="unfinished">Textrahmen</translation>
+        <translation>Textrahmen</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="246"/>
         <source>Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildrahmen</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="247"/>
         <source>Line</source>
-        <translation type="unfinished">Linie</translation>
+        <translation>Linie</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="248"/>
         <source>Polygon</source>
-        <translation type="unfinished">Polygon</translation>
+        <translation>Polygon</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="249"/>
         <source>Polyline</source>
-        <translation type="unfinished"></translation>
+        <translation>Polylinie</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="250"/>
         <source>Text on a Path</source>
-        <translation type="unfinished">Text auf einem Pfad</translation>
+        <translation>Text auf einem Pfad</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="252"/>
         <source>Multiple</source>
         <comment>Multiple frame types</comment>
-        <translation type="unfinished"></translation>
+        <translation>Verschiedene</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="253"/>
         <source>PDF Push Button</source>
-        <translation type="unfinished">PDF-Schaltfläche</translation>
+        <translation>PDF-Schaltfläche</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="254"/>
         <source>PDF Text Field</source>
-        <translation type="unfinished">PDF-Textfeld</translation>
+        <translation>PDF-Textfeld</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="255"/>
         <source>PDF Check Box</source>
-        <translation type="unfinished">PDF-Checkbox</translation>
+        <translation>PDF-Checkbox</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="256"/>
         <source>PDF Combo Box</source>
-        <translation type="unfinished">PDF-Combobox</translation>
+        <translation>PDF-Combobox</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="257"/>
         <source>PDF List Box</source>
-        <translation type="unfinished">PDF-Listbox</translation>
+        <translation>PDF-Listbox</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="258"/>
         <source>PDF Text Annotation</source>
-        <translation type="unfinished">PDF-Anmerkung</translation>
+        <translation>PDF-Anmerkung</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="259"/>
         <source>PDF Link Annotation</source>
-        <translation type="unfinished">PDF-Link</translation>
+        <translation>PDF-Link</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="251"/>
         <source>Render Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderrahmen</translation>
     </message>
 </context>
 <context>
@@ -9002,12 +9181,12 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../contextmenu.cpp" line="404"/>
         <source>Paste File...</source>
-        <translation>Datein einfügen ...</translation>
+        <translation>Dateien einfügen ...</translation>
     </message>
     <message>
         <location filename="../contextmenu.cpp" line="437"/>
         <source>Delete Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Seite löschen</translation>
     </message>
 </context>
 <context>
@@ -9256,12 +9435,12 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../cpalette.cpp" line="913"/>
         <source>X-Scale:</source>
-        <translation>X-Größe:</translation>
+        <translation>X-Grösse:</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="915"/>
         <source>Y-Scale:</source>
-        <translation>Y-Größe:</translation>
+        <translation>Y-Grösse:</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="917"/>
@@ -9281,7 +9460,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../cpalette.cpp" line="952"/>
         <source>Exclusion</source>
-        <translation>Ausschluß</translation>
+        <translation>Ausschluss</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="959"/>
@@ -9409,7 +9588,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../ui/createrange.ui" line="478"/>
         <source>Page Group Size:</source>
-        <translation>Größe der Seitengruppe:</translation>
+        <translation>Grösse der Seitengruppe:</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="525"/>
@@ -9542,7 +9721,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Page Group Size:</source>
-        <translation type="obsolete">Größe der Seitengruppe:</translation>
+        <translation type="obsolete">Grösse der Seitengruppe:</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -10036,7 +10215,7 @@ in die Meta-Daten einer PDF-Datei eingebettet werden</translation>
     <message>
         <location filename="../docinfo.cpp" line="161"/>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Ein Abriß des Inhalts.
+        <translation>Ein Abriss des Inhalts.
 Hier kann eine kurze Beschreibung oder Zusammenfassung stehen. 
 Sie wird beim Export in die PDF-Datei eingebettet</translation>
     </message>
@@ -10107,12 +10286,12 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
     <message>
         <location filename="../docsections.cpp" line="201"/>
         <source>Page Number Out Of Bounds</source>
-        <translation>Seitenzahl außerhalb des gültigen Bereichs</translation>
+        <translation>Seitenzahl ausserhalb des gültigen Bereichs</translation>
     </message>
     <message>
         <location filename="../docsections.cpp" line="201"/>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation>Der Wert, den Sie eingegeben haben, liegt außerhalb des gültigen Bereichs (%1-%2).</translation>
+        <translation>Der Wert, den Sie eingegeben haben, liegt ausserhalb des gültigen Bereichs (%1-%2).</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="13"/>
@@ -10539,7 +10718,7 @@ der Datei
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/edit1format.cpp" line="362"/>
         <source>Font Size</source>
-        <translation type="obsolete">Schriftgröße</translation>
+        <translation type="obsolete">Schriftgrösse</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/edit1format.cpp" line="363"/>
@@ -10549,7 +10728,7 @@ der Datei
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/edit1format.cpp" line="364"/>
         <source>Color of text stroke</source>
-        <translation type="obsolete">Textumrißfarbe</translation>
+        <translation type="obsolete">Textumrissfarbe</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/edit1format.cpp" line="366"/>
@@ -10966,7 +11145,7 @@ der Datei
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="177"/>
         <source>Insufficient memory for this image size.</source>
-        <translation>Es ist nicht genügend Speicher für ein Bild dieser Größe vorhanden.</translation>
+        <translation>Es ist nicht genügend Speicher für ein Bild dieser Grösse vorhanden.</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="204"/>
@@ -11031,7 +11210,7 @@ Dateinamen der Bilder haben das Format &quot;Dokumentname-Seite.Dateiformat&quot
     <message>
         <location filename="../plugins/pixmapexport/exportform.ui" line="84"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Größe:</translation>
+        <translation>&amp;Grösse:</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/exportform.ui" line="13"/>
@@ -11113,12 +11292,12 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../plugins/pixmapexport/dialog.cpp" line="113"/>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation>Größe der Bilder. 100% verändert nichts, 200% für doppelt so große Bilder etc.</translation>
+        <translation>Grösse der Bilder. 100% verändert nichts, 200% für doppelt so grosse Bilder etc.</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/exportform.ui" line="44"/>
         <source>Image size in Pixels</source>
-        <translation>Bildgröße in Pixel</translation>
+        <translation>Bildgrösse in Pixel</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/exportform.ui" line="37"/>
@@ -11206,7 +11385,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../extimageprops.cpp" line="115"/>
         <source>Exclusion</source>
-        <translation>Ausschluß</translation>
+        <translation>Ausschluss</translation>
     </message>
     <message>
         <location filename="../extimageprops.cpp" line="116"/>
@@ -11256,7 +11435,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../extimageprops.cpp" line="275"/>
         <source>Live Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Live-Vorschau</translation>
     </message>
 </context>
 <context>
@@ -11264,7 +11443,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../customfdialog.cpp" line="196"/>
         <source>Size:</source>
-        <translation>Größe:</translation>
+        <translation>Grösse:</translation>
     </message>
     <message>
         <location filename="../customfdialog.cpp" line="214"/>
@@ -11329,7 +11508,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../customfdialog.cpp" line="224"/>
         <source>File Format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateiformat:</translation>
     </message>
 </context>
 <context>
@@ -11558,7 +11737,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../fontprefs.cpp" line="130"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation>Suchpfade für Schriften können nur unter Datei &gt; Allgemeine Einstellungen hinzugefügt werden. Dazu darf kein Dokument geöffnet sein. Schließen Sie alle geöffneten Dokumente und ändern Sie unter Datei &gt; Allgemeine Einstellungen &gt; Schriften den Suchpfad.</translation>
+        <translation>Suchpfade für Schriften können nur unter Datei &gt; Allgemeine Einstellungen hinzugefügt werden. Dazu darf kein Dokument geöffnet sein. Schliessen Sie alle geöffneten Dokumente und ändern Sie unter Datei &gt; Allgemeine Einstellungen &gt; Schriften den Suchpfad.</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/fontprefs.cpp" line="57"/>
@@ -11603,13 +11782,13 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="111"/>
         <source>Size of the selected font</source>
-        <translation>Größe der Schrift</translation>
+        <translation>Grösse der Schrift</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
-        <translation>Falsches Üben von Xylophonmusik quält jeden größeren Zwerg</translation>
+        <translation>Falsches Üben von Xylophonmusik quält jeden grösseren Zwerg</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/plugins/fontpreview/fontpreview.cpp" line="97"/>
@@ -11631,7 +11810,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/plugins/fontpreview/fontpreview.cpp" line="165"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation type="obsolete">Wenn Sie hier Text eingeben, starten Sie eine schnelle Suche. Groß- und Kleinschreibung wird ignoriert. Sie können auch Wildcards (*, ?, [...]) verwenden. Beispiele: t* listet alle Schriften auf, die mit t oder T beginnen. *bold* listet alle Schriften mit fetten Schnitten auf.</translation>
+        <translation type="obsolete">Wenn Sie hier Text eingeben, starten Sie eine schnelle Suche. Gross- und Kleinschreibung wird ignoriert. Sie können auch Wildcards (*, ?, [...]) verwenden. Beispiele: t* listet alle Schriften auf, die mit t oder T beginnen. *bold* listet alle Schriften mit fetten Schnitten auf.</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/plugins/fontpreview/fontpreview.cpp" line="43"/>
@@ -11676,7 +11855,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="146"/>
         <source>&amp;Font Size:</source>
-        <translation>Schrift&amp;größe:</translation>
+        <translation>Schrift&amp;grösse:</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="169"/>
@@ -11711,7 +11890,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="239"/>
         <source>&amp;Close</source>
-        <translation>Sch&amp;ließen</translation>
+        <translation>Sch&amp;liessen</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="242"/>
@@ -11721,7 +11900,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="109"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. The given text is taken as substring.</source>
-        <translation>Der hier eingegebene Text dient zur Schnellsuche in den Schriftnamen. Die Suche nimmt keine Rücksicht auf Groß- und Kleinschreibung. Gesucht wird nicht nur am Anfang eines Namens.</translation>
+        <translation>Der hier eingegebene Text dient zur Schnellsuche in den Schriftnamen. Die Suche nimmt keine Rücksicht auf Gross- und Kleinschreibung. Gesucht wird nicht nur am Anfang eines Namens.</translation>
     </message>
 </context>
 <context>
@@ -11774,7 +11953,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>&amp;Font Size:</source>
-        <translation type="obsolete">Schrift&amp;größe:</translation>
+        <translation type="obsolete">Schrift&amp;grösse:</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -11814,7 +11993,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>&amp;Close</source>
-        <translation type="obsolete">Sch&amp;ließen</translation>
+        <translation type="obsolete">Sch&amp;liessen</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -12332,7 +12511,7 @@ and www.scribus.net for downloads.</source>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/helpbrowser.cpp" line="461"/>
         <source>Searching is case unsensitive</source>
-        <translation type="obsolete">Die Suche berücksichtigt Groß- und Kleinschreibung nicht</translation>
+        <translation type="obsolete">Die Suche berücksichtigt Gross- und Kleinschreibung nicht</translation>
     </message>
     <message>
         <location filename="../helpbrowser.cpp" line="409"/>
@@ -12397,7 +12576,7 @@ and www.scribus.net for downloads.</source>
     <message>
         <location filename="../ui/helpbrowser.ui" line="53"/>
         <source>Searching is case insensitive</source>
-        <translation>Die Suche berücksichtigt Groß- und Kleinschreibung nicht</translation>
+        <translation>Die Suche berücksichtigt Gross- und Kleinschreibung nicht</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="86"/>
@@ -12782,23 +12961,24 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="58"/>
         <source>Import Xfig...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiere Xfig...</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="79"/>
         <source>Imports Xfig Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiert Xfig-Dateien</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="80"/>
         <source>Imports most Xfig files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importiert die meisten Xfig-Dateien in das aktuelle Dokument
+und konvertiert deren Vektordaten in Scribus-Objekte.</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="128"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Alle unterstützten Formate</translation>
+        <translation>Alle unterstützten Formate</translation>
     </message>
 </context>
 <context>
@@ -12819,7 +12999,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="19"/>
         <source>Imposition</source>
-        <translation>Ausschießen</translation>
+        <translation>Ausschiessen</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="44"/>
@@ -12920,7 +13100,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="455"/>
         <source>Size</source>
-        <translation>Größe</translation>
+        <translation>Grösse</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="487"/>
@@ -12973,17 +13153,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="37"/>
         <source>&amp;Imposition...</source>
-        <translation>&amp;Ausschießen ...</translation>
+        <translation>&amp;Ausschiessen ...</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="69"/>
         <source>Imposition dialog</source>
-        <translation>Ausschießen-Dialog</translation>
+        <translation>Ausschiessen-Dialog</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="70"/>
         <source>Imposition on grids, booklets and folds</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausschiessen als Raster, Broschüre oder Falz</translation>
     </message>
 </context>
 <context>
@@ -13031,7 +13211,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../inspage.cpp" line="209"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Größe:</translation>
+        <translation>&amp;Grösse:</translation>
     </message>
     <message>
         <location filename="../inspage.cpp" line="224"/>
@@ -13079,12 +13259,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.cpp" line="115"/>
         <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
-        <translation>&lt;b&gt;Einfügen eines Textrahmens&lt;/b&gt;&lt;br/&gt;Ein Textrahmen ermöglicht es Ihnen, irgendeinen Text in einer festgelegten Position und einer Formatierung Ihrer Wahl einzufügen. Falls Sie ein Dokument direkt in den Rahmen importieren möchten, können Sie im &quot;Optionen&quot;-Reiter eine Textdatei auswählen. Scribus unterstützt eine große Anzahl von Formaten, vom einfachen Text bis hin zu OpenOffice.org.&lt;br/&gt;Ihr Text kann direkt auf der Seite oder im Story Editor bearbeitet werden.</translation>
+        <translation>&lt;b&gt;Einfügen eines Textrahmens&lt;/b&gt;&lt;br/&gt;Ein Textrahmen ermöglicht es Ihnen, irgendeinen Text in einer festgelegten Position und einer Formatierung Ihrer Wahl einzufügen. Falls Sie ein Dokument direkt in den Rahmen importieren möchten, können Sie im &quot;Optionen&quot;-Reiter eine Textdatei auswählen. Scribus unterstützt eine grosse Anzahl von Formaten, vom einfachen Text bis hin zu OpenOffice.org.&lt;br/&gt;Ihr Text kann direkt auf der Seite oder im Story Editor bearbeitet werden.</translation>
     </message>
     <message>
         <location filename="../insertaframe.cpp" line="119"/>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
-        <translation>&lt;b&gt;Einfügen eines Bildrahmens&lt;/b&gt;&lt;br/&gt;Ein Bildrahmen ermöglicht es Ihnen, ein Bild auf der Seite zu plazieren. Es können verschiedene Bildeffekte angewendet oder kombiniert werden, darunter Transparenz, Helligkeit oder Posterisierung. Damit lassen sich Bilder retuschieren, oder es können interessante optische Effekte erzielt werden. Die Größe und die Form lassen sich in der Eigenschaftenpalette ändern.</translation>
+        <translation>&lt;b&gt;Einfügen eines Bildrahmens&lt;/b&gt;&lt;br/&gt;Ein Bildrahmen ermöglicht es Ihnen, ein Bild auf der Seite zu plazieren. Es können verschiedene Bildeffekte angewendet oder kombiniert werden, darunter Transparenz, Helligkeit oder Posterisierung. Damit lassen sich Bilder retuschieren, oder es können interessante optische Effekte erzielt werden. Die Grösse und die Form lassen sich in der Eigenschaftenpalette ändern.</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="13"/>
@@ -13194,7 +13374,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/insertaframe.ui" line="340"/>
         <source>Set the dimensions wished below in the X: Y: dialog below.</source>
-        <translation type="obsolete">Stellen Sie hier die Maße des Rahmens ein.</translation>
+        <translation type="obsolete">Stellen Sie hier die Masse des Rahmens ein.</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/insertaframe.ui" line="343"/>
@@ -13214,7 +13394,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.ui" line="304"/>
         <source>&amp;Size</source>
-        <translation>&amp;Größe</translation>
+        <translation>&amp;Grösse</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="328"/>
@@ -13224,7 +13404,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.ui" line="335"/>
         <source>Same as the Page</source>
-        <translation>Seitengröße</translation>
+        <translation>Seitengrösse</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="342"/>
@@ -13314,7 +13494,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.ui" line="356"/>
         <source>Custom Size</source>
-        <translation>Benutzerdefinierte Größe</translation>
+        <translation>Benutzerdefinierte Grösse</translation>
     </message>
 </context>
 <context>
@@ -13432,7 +13612,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Set the dimensions wished below in the X: Y: dialog below.</source>
-        <translation type="obsolete">Stellen Sie hier die Maße des Rahmens ein.</translation>
+        <translation type="obsolete">Stellen Sie hier die Masse des Rahmens ein.</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -13447,12 +13627,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>&amp;Size</source>
-        <translation type="obsolete">&amp;Größe</translation>
+        <translation type="obsolete">&amp;Grösse</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Same as the Page</source>
-        <translation type="obsolete">Seitengröße</translation>
+        <translation type="obsolete">Seitengrösse</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -13608,7 +13788,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../javadocs.cpp" line="57"/>
         <source>&amp;Close</source>
-        <translation>Sch&amp;ließen</translation>
+        <translation>Sch&amp;liessen</translation>
     </message>
     <message>
         <location filename="../javadocs.cpp" line="77"/>
@@ -13737,7 +13917,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../latexeditor.ui" line="96"/>
         <source>Program:</source>
-        <translation type="unfinished"></translation>
+        <translation>Programm:</translation>
     </message>
 </context>
 <context>
@@ -13855,7 +14035,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../layers.cpp" line="564"/>
         <source>Exclusion</source>
-        <translation>Ausschluß</translation>
+        <translation>Ausschluss</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="567"/>
@@ -13900,12 +14080,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../layers.cpp" line="588"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation>Text umfließt Objekte in tieferliegenden Ebenen - Falls aktiviert, fließt Text um andere Objekte herum, auch wenn sich diese auf tieferen Ebenen befinden</translation>
+        <translation>Text umfliesst Objekte in tieferliegenden Ebenen - Falls aktiviert, fliesst Text um andere Objekte herum, auch wenn sich diese auf tieferen Ebenen befinden</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="589"/>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
-        <translation>Umrißmodus - Reduziert die Anzeige auf die Objektumrisse, um die Darstellung sehr komplexer Objekte zu beschleunigen.</translation>
+        <translation>Umrissmodus - Reduziert die Anzeige auf die Objektumrisse, um die Darstellung sehr komplexer Objekte zu beschleunigen.</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="590"/>
@@ -13986,7 +14166,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="181"/>
         <source>Magnification Lens</source>
-        <translation>Vergrößerungslinse</translation>
+        <translation>Vergrösserungslinse</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="191"/>
@@ -14146,7 +14326,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/smlinestyle.cpp" line="57"/>
         <source>Bevel Join</source>
-        <translation type="obsolete">Gefaßt</translation>
+        <translation type="obsolete">Gefasst</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/smlinestyle.cpp" line="58"/>
@@ -14270,7 +14450,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../margindialog.cpp" line="44"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Größe:</translation>
+        <translation>&amp;Grösse:</translation>
     </message>
     <message>
         <location filename="../margindialog.cpp" line="60"/>
@@ -14353,7 +14533,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../marginwidget.cpp" line="154"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Abstand zwischen dem unteren Rand des Satzspiegels und dem Seitenrand (Fußsteg)</translation>
+        <translation>Abstand zwischen dem unteren Rand des Satzspiegels und dem Seitenrand (Fusssteg)</translation>
     </message>
     <message>
         <location filename="../marginwidget.cpp" line="207"/>
@@ -14363,7 +14543,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../marginwidget.cpp" line="208"/>
         <source>O&amp;utside:</source>
-        <translation>Auße&amp;n:</translation>
+        <translation>Ausse&amp;n:</translation>
     </message>
     <message>
         <location filename="../marginwidget.cpp" line="36"/>
@@ -14383,7 +14563,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../marginwidget.cpp" line="102"/>
         <source>Import the margins for the selected page size from the available printers.</source>
-        <translation>Ränder für die ausgewählte Seitengröße von einem der vorhandenen Drucker importieren.</translation>
+        <translation>Ränder für die ausgewählte Seitengrösse von einem der vorhandenen Drucker importieren.</translation>
     </message>
     <message>
         <location filename="../marginwidget.cpp" line="77"/>
@@ -14453,7 +14633,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../marginwidget.cpp" line="214"/>
         <source>Outside:</source>
-        <translation>Außen:</translation>
+        <translation>Aussen:</translation>
     </message>
     <message>
         <location filename="../marginwidget.cpp" line="218"/>
@@ -14849,7 +15029,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/multiline.cpp" line="93"/>
         <source>Bevel Join</source>
-        <translation type="obsolete">Gefaßt</translation>
+        <translation type="obsolete">Gefasst</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/multiline.cpp" line="94"/>
@@ -15165,7 +15345,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../newfile.cpp" line="139"/>
         <source>Document page size, either a standard size or a custom size</source>
-        <translation>Seitengröße des Dokuments, entweder eine Standardgröße oder benutzerdefiniert</translation>
+        <translation>Seitengrösse des Dokuments, entweder eine Standardgrösse oder benutzerdefiniert</translation>
     </message>
     <message>
         <location filename="../newfile.cpp" line="140"/>
@@ -15185,7 +15365,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../newfile.cpp" line="144"/>
         <source>Default unit of measurement for document editing</source>
-        <translation>Standardmaßeinheit für das Dokument</translation>
+        <translation>Standardmasseinheit für das Dokument</translation>
     </message>
     <message>
         <location filename="../newfile.cpp" line="145"/>
@@ -15205,7 +15385,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../newfile.cpp" line="217"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Größe:</translation>
+        <translation>&amp;Grösse:</translation>
     </message>
     <message>
         <location filename="../newfile.cpp" line="226"/>
@@ -15225,7 +15405,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../newfile.cpp" line="287"/>
         <source>&amp;Default Unit:</source>
-        <translation>Standard&amp;maßeinheit:</translation>
+        <translation>Standard&amp;masseinheit:</translation>
     </message>
     <message>
         <location filename="../newfile.cpp" line="299"/>
@@ -15396,7 +15576,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../nodeeditpalette.cpp" line="899"/>
         <source>Close this Bezier Curve</source>
-        <translation>Bézierkurve schließen</translation>
+        <translation>Bézierkurve schliessen</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="900"/>
@@ -15436,7 +15616,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../nodeeditpalette.cpp" line="909"/>
         <source>Enlarge the Size of the Path by shown %</source>
-        <translation>Pfad vergrößern um x %</translation>
+        <translation>Pfad vergrössern um x %</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="912"/>
@@ -15471,27 +15651,27 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../nodeeditpalette.cpp" line="908"/>
         <source>Shrink the Size of the Path by shown %</source>
-        <translation>Größe des Pfads verringern um x %</translation>
+        <translation>Grösse des Pfads verringern um x %</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="910"/>
         <source>Reduce the Size of the Path by the shown value</source>
-        <translation>Größe des Pfads um den angezeigten Wert verringern</translation>
+        <translation>Grösse des Pfads um den angezeigten Wert verringern</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="911"/>
         <source>Enlarge the Size of the Path by the shown value</source>
-        <translation>Größe des Pfads um den angezeigten Wert vergrößern</translation>
+        <translation>Grösse des Pfads um den angezeigten Wert vergrössern</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="913"/>
         <source>% to Enlarge or Shrink By</source>
-        <translation>Prozent vergrößern/verkleinern</translation>
+        <translation>Prozent vergrössern/verkleinern</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="914"/>
         <source>Value to Enlarge or Shrink By</source>
-        <translation>Um den Wert vergrößern/verkleinern</translation>
+        <translation>Um den Wert vergrössern/verkleinern</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="888"/>
@@ -15648,7 +15828,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../oneclick.cpp" line="146"/>
         <source>Size</source>
-        <translation>Größe</translation>
+        <translation>Grösse</translation>
     </message>
     <message>
         <location filename="../oneclick.cpp" line="151"/>
@@ -15892,7 +16072,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../pdfopts.cpp" line="122"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
-        <translation>Jede Seite wird mit automatischer Numerierung als separate PDF-Datei exportiert. Hilfreich fürs Ausschießen.</translation>
+        <translation>Jede Seite wird mit automatischer Numerierung als separate PDF-Datei exportiert. Hilfreich fürs Ausschiessen.</translation>
     </message>
     <message>
         <location filename="../pdfopts.cpp" line="123"/>
@@ -15952,17 +16132,17 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../pdflib_core.cpp" line="6997"/>
         <source>Insufficient memory for processing an image</source>
-        <translation>Es ist nicht genügend Speicher für ein Bild dieser Größe vorhanden</translation>
+        <translation>Es ist nicht genügend Speicher für ein Bild dieser Grösse vorhanden</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="6987"/>
         <source>Failed to write an image : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Es konnte kein Bild gespeichert werden: %1</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="6992"/>
         <source>Failed to load an image mask : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Es konnte keine Bildmaske geladen werden: %1</translation>
     </message>
 </context>
 <context>
@@ -16123,7 +16303,7 @@ Seiten importiert werden sollen, zum Beispiel
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
 durch reine Abstufungen von Schwarz ersetzt.
-Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflußt,
+Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
 die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen.
 Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere Ergebnisse
 erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
@@ -16131,12 +16311,12 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../preview.cpp" line="329"/>
         <source>Resize the scale of the page.</source>
-        <translation>Vorschaugröße.</translation>
+        <translation>Vorschaugrösse.</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="294"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Schliessen</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="1115"/>
@@ -16216,7 +16396,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../preview.cpp" line="330"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Erlaubt die Umwandlung von Schmuckfarben in Prozeßfarben. Falls Sie keine Schmuckfarben in einer Druckerei drucken lassen möchten, sollten Sie die Option besser aktiviert lassen.</translation>
+        <translation>Erlaubt die Umwandlung von Schmuckfarben in Prozessfarben. Falls Sie keine Schmuckfarben in einer Druckerei drucken lassen möchten, sollten Sie die Option besser aktiviert lassen.</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="331"/>
@@ -16259,17 +16439,17 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../pslib.cpp" line="1649"/>
         <source>Insufficient memory for processing an image</source>
-        <translation>Es ist nicht genügend Speicher für ein Bild dieser Größe vorhanden</translation>
+        <translation>Es ist nicht genügend Speicher für ein Bild dieser Grösse vorhanden</translation>
     </message>
     <message>
         <location filename="../pslib.cpp" line="1634"/>
         <source>Failed to write data for an image</source>
-        <translation type="unfinished"></translation>
+        <translation>Es konnten keine Bilddaten gespeichert werden</translation>
     </message>
     <message>
         <location filename="../pslib.cpp" line="1644"/>
         <source>Failed to load an image mask : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Es konnte keine Bildmaske geladen werden: %1</translation>
     </message>
 </context>
 <context>
@@ -16721,27 +16901,27 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="515"/>
         <source>The application &quot;%1&quot; failed to start!</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Programm &quot;%1&quot; konnte nicht gestartet werden!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="519"/>
         <source>The application &quot;%1&quot; crashed!</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Programm  &quot;%1&quot; ist abgestürzt!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="49"/>
         <source>Render</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendern</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="277"/>
         <source>The config file didn&apos;t specify a executable path!</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Konfigurationsdatei legt keine ausführbare Datei fest!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="657"/>
         <source>Render Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderrahmen</translation>
     </message>
 </context>
 <context>
@@ -16908,8 +17088,8 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="150"/>
         <source>The cutting line must cross the polygon and
 both end points must lie outside of the polygon</source>
-        <translation>Die Schnittlinie muß das gesamte Polygon durchqueren und
-beide Endpunkte müssen außerhalb des Polygons liegen</translation>
+        <translation>Die Schnittlinie muss das gesamte Polygon durchqueren und
+beide Endpunkte müssen ausserhalb des Polygons liegen</translation>
     </message>
 </context>
 <context>
@@ -17026,7 +17206,7 @@ beide Endpunkte müssen außerhalb des Polygons liegen</translation>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="93"/>
         <source>Create Path from Stroke</source>
-        <translation>Pfad aus Umriß erzeugen</translation>
+        <translation>Pfad aus Umriss erzeugen</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="72"/>
@@ -17036,7 +17216,7 @@ beide Endpunkte müssen außerhalb des Polygons liegen</translation>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="94"/>
         <source>Converts the stroke of a Path to a filled Path.</source>
-        <translation>Wandelt den Umriß eines Pfades in einen gefüllten Pfad um.</translation>
+        <translation>Wandelt den Umriss eines Pfades in einen gefüllten Pfad um.</translation>
     </message>
 </context>
 <context>
@@ -17102,7 +17282,7 @@ beide Endpunkte müssen außerhalb des Polygons liegen</translation>
     <message>
         <location filename="../picsearch.cpp" line="108"/>
         <source>Size:</source>
-        <translation>Größe:</translation>
+        <translation>Grösse:</translation>
     </message>
     <message>
         <location filename="../picsearch.cpp" line="109"/>
@@ -17218,7 +17398,7 @@ beide Endpunkte müssen außerhalb des Polygons liegen</translation>
     <message>
         <location filename="../picsearchoptions.cpp" line="51"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation>Das Dateisystem wird ohne Berücksichtigung von Groß- und Kleinbuchstaben durchsucht, wenn Sie diese Option wählen. Beachten Sie, daß dies bei den meisten Betriebssystemen außer Windows unüblich ist</translation>
+        <translation>Das Dateisystem wird ohne Berücksichtigung von Gross- und Kleinbuchstaben durchsucht, wenn Sie diese Option wählen. Beachten Sie, dass dies bei den meisten Betriebssystemen ausser Windows unüblich ist</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.cpp" line="58"/>
@@ -17273,7 +17453,7 @@ beide Endpunkte müssen außerhalb des Polygons liegen</translation>
     <message>
         <location filename="../picsearchoptions.ui" line="141"/>
         <source>Case insensitive search</source>
-        <translation>Groß-/Kleinschreibung nicht beachten</translation>
+        <translation>Gross-/Kleinschreibung nicht beachten</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.ui" line="148"/>
@@ -17284,7 +17464,8 @@ beide Endpunkte müssen außerhalb des Polygons liegen</translation>
         <location filename="../picsearchoptions.cpp" line="103"/>
         <source>Base directory for search does not exist.
 Please choose another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Ausgangsverzeichnis für die Suche existiert nicht.
+Bitte wählen Sie ein anderes aus.</translation>
     </message>
 </context>
 <context>
@@ -17312,7 +17493,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Case insensitive search</source>
-        <translation type="obsolete">Groß-/Kleinschreibung nicht beachten</translation>
+        <translation type="obsolete">Gross-/Kleinschreibung nicht beachten</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -17420,7 +17601,7 @@ Please choose another one.</source>
     <message>
         <location filename="../picstatus.ui" line="719"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Schliessen</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -17435,12 +17616,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Case insensitive search</source>
-        <translation type="obsolete">Groß-/Kleinschreibung nicht beachten</translation>
+        <translation type="obsolete">Gross-/Kleinschreibung nicht beachten</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation type="obsolete">Das Dateisystem wird ohne Berücksichtigung von Groß- und Kleinbuchstaben durchsucht, wenn Sie diese Option wählen. Beachten Sie, daß dies bei den meisten Betriebssystemen außer Windows unüblich ist</translation>
+        <translation type="obsolete">Das Dateisystem wird ohne Berücksichtigung von Gross- und Kleinbuchstaben durchsucht, wenn Sie diese Option wählen. Beachten Sie, dass dies bei den meisten Betriebssystemen ausser Windows unüblich ist</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -17565,7 +17746,7 @@ Please choose another one.</source>
     <message>
         <location filename="../picstatus.ui" line="362"/>
         <source>Size</source>
-        <translation>Größe</translation>
+        <translation>Grösse</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="454"/>
@@ -17655,12 +17836,12 @@ Please choose another one.</source>
     <message>
         <location filename="../picstatus.ui" line="16"/>
         <source>Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder verwalten</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="575"/>
         <source>Go to</source>
-        <translation type="unfinished"></translation>
+        <translation>Gehe zu</translation>
     </message>
 </context>
 <context>
@@ -17713,7 +17894,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Size</source>
-        <translation type="obsolete">Größe</translation>
+        <translation type="obsolete">Grösse</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -17793,7 +17974,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Close</source>
-        <translation type="obsolete">Schließen</translation>
+        <translation type="obsolete">Schliessen</translation>
     </message>
 </context>
 <context>
@@ -17894,7 +18075,7 @@ Please choose another one.</source>
     <message>
         <location filename="../pluginmanager.cpp" line="227"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
-        <translation>Es ist ein Problem beim Laden von %1 von %2 Plugins aufgetreten. %3 Wahrscheinlich liegt ein Abhängigkeitsproblem vor, oder es existieren noch ältere Plugins in Ihrem Installationsverzeichnis. Wenn Sie das Installationsverzeichnis löschen, Scribus anschließend neu installieren und das Problem dann immer noch auftritt, melden Sie den Fehler bitte auf bugs.scribus.net.</translation>
+        <translation>Es ist ein Problem beim Laden von %1 von %2 Plugins aufgetreten. %3 Wahrscheinlich liegt ein Abhängigkeitsproblem vor, oder es existieren noch ältere Plugins in Ihrem Installationsverzeichnis. Wenn Sie das Installationsverzeichnis löschen, Scribus anschliessend neu installieren und das Problem dann immer noch auftritt, melden Sie den Fehler bitte auf bugs.scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -18141,7 +18322,7 @@ Indizes</translation>
     <message>
         <location filename="../prefsdialogbase.cpp" line="195"/>
         <source>Apply all changes without closing the dialog</source>
-        <translation>Alle Änderungen anwenden, ohne den Dialog zu schließen</translation>
+        <translation>Alle Änderungen anwenden, ohne den Dialog zu schliessen</translation>
     </message>
     <message>
         <location filename="../prefsdialogbase.cpp" line="196"/>
@@ -18271,7 +18452,7 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <message>
         <location filename="../marginwidget.cpp" line="490"/>
         <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation>Wählen Sie festgelegte Seitenlayouts. &quot;Keine&quot; verändert keine Einstellungen, &quot;Gutenberg&quot; setzt klassische Ränder, &quot;Magazine&quot; stellt alle Ränder auf den gleichen Wert. Maßgeblich ist der Wert für Links/Innen.</translation>
+        <translation>Wählen Sie festgelegte Seitenlayouts. &quot;Keine&quot; verändert keine Einstellungen, &quot;Gutenberg&quot; setzt klassische Ränder, &quot;Magazine&quot; stellt alle Ränder auf den gleichen Wert. Massgeblich ist der Wert für Links/Innen.</translation>
     </message>
 </context>
 <context>
@@ -18443,7 +18624,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../printdialog.cpp" line="208"/>
         <source>Set Media Size</source>
-        <translation>Mediengröße festlegen</translation>
+        <translation>Mediengrösse festlegen</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="214"/>
@@ -18458,7 +18639,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../printdialog.cpp" line="223"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Schmuckfarben in Prozeßfarben umwandeln</translation>
+        <translation>Schmuckfarben in Prozessfarben umwandeln</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/printdialog.cpp" line="263"/>
@@ -18480,7 +18661,7 @@ Seiten importiert werden sollen, zum Beispiel
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
         <translation>Legt die Postscript-Version fest. 
-Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translation>
+Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="629"/>
@@ -18495,12 +18676,12 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../printdialog.cpp" line="381"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Verwendet echtes Schwarz anstelle von Farbmischungen aus Magenta, Gelb und Cyan. UFR hat den größten Effekt auf Bilder, die neutrale oder dunkle Farbtöne haben, die Grau ähneln. Diese Option kann die Druckqualität verbessern. Testen Sie bitte von Fall zu Fall, wie Sie bessere Ergebnisse erhalten. UFR verringert außerdem die Gefahr einer Übersättigung der CMYK-Farben.</translation>
+        <translation>Verwendet echtes Schwarz anstelle von Farbmischungen aus Magenta, Gelb und Cyan. UFR hat den grössten Effekt auf Bilder, die neutrale oder dunkle Farbtöne haben, die Grau ähneln. Diese Option kann die Druckqualität verbessern. Testen Sie bitte von Fall zu Fall, wie Sie bessere Ergebnisse erhalten. UFR verringert ausserdem die Gefahr einer Übersättigung der CMYK-Farben.</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="382"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Konvertiert Schmuckfarben in Prozeßfarben. Sie sollten diese Option nur deaktivieren, wenn Sie Schmuckfarben wirklich benötigen.</translation>
+        <translation>Konvertiert Schmuckfarben in Prozessfarben. Sie sollten diese Option nur deaktivieren, wenn Sie Schmuckfarben wirklich benötigen.</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/printdialog.cpp" line="383"/>
@@ -18510,7 +18691,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../printdialog.cpp" line="385"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>Legen Sie die Druckgröße der Postscript-Datei explizit fest. Nur aktivieren, wenn ihre Druckerei das verlangt.</translation>
+        <translation>Legen Sie die Druckgrösse der Postscript-Datei explizit fest. Nur aktivieren, wenn ihre Druckerei das verlangt.</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="210"/>
@@ -18525,7 +18706,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../printdialog.cpp" line="375"/>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation>Objekte außerhalb des Satzspiegels nicht drucken</translation>
+        <translation>Objekte ausserhalb des Satzspiegels nicht drucken</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="226"/>
@@ -18616,7 +18797,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../printdialog.cpp" line="356"/>
         <source>Outside:</source>
-        <translation>Außen:</translation>
+        <translation>Aussen:</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="391"/>
@@ -18794,7 +18975,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4488"/>
         <source>Bevel Join</source>
-        <translation>Gefaßt</translation>
+        <translation>Gefasst</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4489"/>
@@ -18824,7 +19005,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4682"/>
         <source>Font Size</source>
-        <translation>Schriftgröße</translation>
+        <translation>Schriftgrösse</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4692"/>
@@ -18929,7 +19110,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4667"/>
         <source>Lock or unlock the size of the object</source>
-        <translation>Größenänderung sperren oder entsperren</translation>
+        <translation>Grössenänderung sperren oder entsperren</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/propertiespalette.cpp" line="4619"/>
@@ -18949,7 +19130,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4688"/>
         <source>Saturation of color of text stroke</source>
-        <translation>Tonwert der Textumrißfarbe</translation>
+        <translation>Tonwert der Textumrissfarbe</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4689"/>
@@ -19044,7 +19225,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4725"/>
         <source>Allow the image to be a different size to the frame</source>
-        <translation>Erlaube verschiedene Größen für Bild und Rahmen</translation>
+        <translation>Erlaube verschiedene Grössen für Bild und Rahmen</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4726"/>
@@ -19261,12 +19442,12 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4441"/>
         <source>X-Sc&amp;ale:</source>
-        <translation>&amp;X-Größe:</translation>
+        <translation>&amp;X-Grösse:</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4442"/>
         <source>Y-Scal&amp;e:</source>
-        <translation>&amp;Y-Größe:</translation>
+        <translation>&amp;Y-Grösse:</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4443"/>
@@ -19436,7 +19617,7 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4411"/>
         <source>Text &amp;Flow Around Frame</source>
-        <translation>Text &amp;umfließt Rahmen</translation>
+        <translation>Text &amp;umfliesst Rahmen</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4412"/>
@@ -19446,7 +19627,7 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4413"/>
         <source>Use Frame &amp;Shape</source>
-        <translation>Rahmenum&amp;riß benutzen</translation>
+        <translation>Rahmenum&amp;riss benutzen</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4445"/>
@@ -19461,17 +19642,17 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4675"/>
         <source>Disable text flow from lower frames around object</source>
-        <translation>Umfluß von Text in tieferliegenden Rahmen deaktivieren</translation>
+        <translation>Umfluss von Text in tieferliegenden Rahmen deaktivieren</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4676"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation>Rahmenumriß für den Umfluß von Text in tieferliegenden Rahmen verwenden.</translation>
+        <translation>Rahmenumriss für den Umfluss von Text in tieferliegenden Rahmen verwenden.</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4677"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Das umgebende Rechteck (Zeichenbox) anstatt des Rahmenumrisses für den Umfluß tieferliegender Textrahmen verwenden.</translation>
+        <translation>Das umgebende Rechteck (Zeichenbox) anstatt des Rahmenumrisses für den Umfluss tieferliegender Textrahmen verwenden.</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4359"/>
@@ -19541,7 +19722,7 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4372"/>
         <source>Exclusion</source>
-        <translation>Ausschluß</translation>
+        <translation>Ausschluss</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4373"/>
@@ -19581,7 +19762,7 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4678"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
-        <translation>Wenn Sie diese Option wählen, können Sie die Konturlinie mit dem Werkzeug &quot;Form bearbeiten&quot; weiter oben bearbeiten. Es entsteht eine zweite Linie, die ursprünglich auf der Rahmenform für Textumfluß beruht</translation>
+        <translation>Wenn Sie diese Option wählen, können Sie die Konturlinie mit dem Werkzeug &quot;Form bearbeiten&quot; weiter oben bearbeiten. Es entsteht eine zweite Linie, die ursprünglich auf der Rahmenform für Textumfluss beruht</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4693"/>
@@ -19848,7 +20029,7 @@ so it contains some limitations esp. in the
 case of whitespaces. Please consult Scribus
 manual for more informations.</source>
         <translation type="obsolete">Dies stammt von der Standard-Python-Konsole, 
-so daß Sie mit einigen Einschränkungen rechnen müssen,
+so dass Sie mit einigen Einschränkungen rechnen müssen,
 besonders bei Leerzeichen. Bitte lesen Sie das 
 Scribus-Handbuch, um mehr Informationen zu erhalten.</translation>
     </message>
@@ -19862,7 +20043,9 @@ Scribus-Handbuch, um mehr Informationen zu erhalten.</translation>
         <source>This is a standard Python console with some 
 known limitations. Please consult the Scribus 
 Scripter documentation for futher information. </source>
-        <translation type="unfinished"></translation>
+        <translation>This is a standard Python console with some
+known limitations. Please consult the Scribus
+Scripter documentation for futher information. </translation>
     </message>
 </context>
 <context>
@@ -19989,7 +20172,7 @@ Eigene Farben &amp;definieren &gt;&gt;</translation>
     <message>
         <location filename="../translationdummy.cpp" line="23"/>
         <source>Size</source>
-        <translation>Größe</translation>
+        <translation>Grösse</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="24"/>
@@ -20139,7 +20322,7 @@ Eigene Farben &amp;definieren &gt;&gt;</translation>
     <message>
         <location filename="../translationdummy.cpp" line="53"/>
         <source>Sort by &amp;Size</source>
-        <translation>Nach &amp;Größe sortieren</translation>
+        <translation>Nach &amp;Grösse sortieren</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="54"/>
@@ -20184,7 +20367,7 @@ Eigene Farben &amp;definieren &gt;&gt;</translation>
     <message>
         <location filename="../translationdummy.cpp" line="62"/>
         <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Sind Sie sicher, daß Sie %1 &quot;%2&quot; löschen möchten?&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Sind Sie sicher, dass Sie %1 &quot;%2&quot; löschen möchten?&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="65"/>
@@ -20261,7 +20444,7 @@ Datei wurde nicht gefunden.
     <message>
         <location filename="../translationdummy.cpp" line="149"/>
         <source>&amp;Size</source>
-        <translation>&amp;Größe</translation>
+        <translation>&amp;Grösse</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="150"/>
@@ -20311,7 +20494,7 @@ Datei wurde nicht gefunden.
     <message>
         <location filename="../translationdummy.cpp" line="159"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Schliessen</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="160"/>
@@ -20375,7 +20558,7 @@ Datei wurde nicht gefunden.
     <message>
         <location filename="../translationdummy.cpp" line="9"/>
         <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Über Qt&lt;/h3&gt;&lt;p&gt;Dieses Programm verwendet Qt Version %1&lt;/p&gt;&lt;p&gt;Qt ist ein platformübergreifendes Framework zum Erstellen von GUI-Programmen in C++.&lt;/p&gt;&lt;p&gt;Qt bietet Portierungsmöglichkeiten mit nur einer Quellcode-Basis auf MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux und allen anderen großen kommerziellen Unix-Versionen.&lt;br&gt;Qt ist auch für eingebettete Systeme erhältlich.&lt;/p&gt;&lt;p&gt;Qt ist ein Produkt von Trolltech. Weitere Informationen finden Sie unter &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Über Qt&lt;/h3&gt;&lt;p&gt;Dieses Programm verwendet Qt Version %1&lt;/p&gt;&lt;p&gt;Qt ist ein platformübergreifendes Framework zum Erstellen von GUI-Programmen in C++.&lt;/p&gt;&lt;p&gt;Qt bietet Portierungsmöglichkeiten mit nur einer Quellcode-Basis auf MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux und allen anderen grossen kommerziellen Unix-Versionen.&lt;br&gt;Qt ist auch für eingebettete Systeme erhältlich.&lt;/p&gt;&lt;p&gt;Qt ist ein Produkt von Trolltech. Weitere Informationen finden Sie unter &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -20529,22 +20712,22 @@ wirklich überschreiben?</translation>
         <translation>PDF-Präsentationen</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="552"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="553"/>
         <source>&amp;Scribus Scripts</source>
         <translation>&amp;Scripte für Scribus</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="547"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="548"/>
         <source>&amp;Execute Script...</source>
         <translation>Script &amp;ausführen...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="553"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="554"/>
         <source>&amp;Recent Scripts</source>
         <translation>&amp;Zuletzt verwendete Scripte</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="548"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
         <source>Show &amp;Console</source>
         <translation>&amp;Konsole zeigen</translation>
     </message>
@@ -20772,12 +20955,12 @@ Externe Links</translation>
         <translation>Serbisch</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="550"/>
         <source>&amp;About Script...</source>
         <translation>Ü&amp;ber das Script...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="520"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="521"/>
         <source>About Script</source>
         <translation>Über das Script</translation>
     </message>
@@ -20815,7 +20998,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmddoc.cpp" line="219"/>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
-        <translation>Einheit außerhalb des Bereichs. Benutzen Sie eine der UNIT_*-Konstanten.</translation>
+        <translation>Einheit ausserhalb des Bereichs. Benutzen Sie eine der UNIT_*-Konstanten.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmani.cpp" line="27"/>
@@ -20827,13 +21010,13 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdsetprop.cpp" line="334"/>
         <source>Corner radius must be a positive number.</source>
         <comment>python error</comment>
-        <translation>Eckenradius muß positiv sein.</translation>
+        <translation>Eckenradius muss positiv sein.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="28"/>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kann die Schriftgröße nur von Textrahmen bestimmen.</translation>
+        <translation>Kann die Schriftgrösse nur von Textrahmen bestimmen.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="54"/>
@@ -20845,7 +21028,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="80"/>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kann die Größe des Textes nur von Textrahmen bestimmen.</translation>
+        <translation>Kann die Grösse des Textes nur von Textrahmen bestimmen.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="116"/>
@@ -20893,7 +21076,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="504"/>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
-        <translation>Auswahlindex außerhalb des gültigen Bereichs</translation>
+        <translation>Auswahlindex ausserhalb des gültigen Bereichs</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="747"/>
@@ -20966,7 +21149,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/objimageexport.cpp" line="75"/>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation>Der Dateiname muß eine Zeichenfolge sein.</translation>
+        <translation>Der Dateiname muss eine Zeichenfolge sein.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/objimageexport.cpp" line="98"/>
@@ -20978,7 +21161,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/objimageexport.cpp" line="102"/>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation>Der Bildtyp muß eine Zeichenfolge sein.</translation>
+        <translation>Der Bildtyp muss eine Zeichenfolge sein.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/objimageexport.cpp" line="127"/>
@@ -21062,25 +21245,25 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="276"/>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
-        <translation>Index ist außerhalb des gültigen Bereichs.</translation>
+        <translation>Index ist ausserhalb des gültigen Bereichs.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="313"/>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Die Textrichtung läßt sich nur für Textrahmen festlegen.</translation>
+        <translation>Die Textrichtung lässt sich nur für Textrahmen festlegen.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="339"/>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
-        <translation>Schriftgröße außerhalb des Bereichs - gültig sind Werte zwischen 1 und 512.</translation>
+        <translation>Schriftgrösse ausserhalb des Bereichs - gültig sind Werte zwischen 1 und 512.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="348"/>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Schriftgröße kann nur für Textrahmen geändert werden.</translation>
+        <translation>Schriftgrösse kann nur für Textrahmen geändert werden.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="377"/>
@@ -21092,7 +21275,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="411"/>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation>Zeilenabstand ist muß größer oder gleich 0,1 sein.</translation>
+        <translation>Zeilenabstand ist muss grösser oder gleich 0,1 sein.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="419"/>
@@ -21116,7 +21299,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="465"/>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
-        <translation>Spaltenanzahl muß größer gleich 1 sein.</translation>
+        <translation>Spaltenanzahl muss grösser gleich 1 sein.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="473"/>
@@ -21164,7 +21347,7 @@ Externe Links</translation>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
-        <translation type="obsolete">Der Zielrahmen muß leer sein.</translation>
+        <translation type="obsolete">Der Zielrahmen muss leer sein.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="706"/>
@@ -21433,7 +21616,7 @@ Externe Links</translation>
         <translation>memcpy offset: %1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="576"/>
+        <location filename="../scribus.cpp" line="577"/>
         <source>Scribus Development Version</source>
         <translation>Scribus-Entwickerversion</translation>
     </message>
@@ -21547,7 +21730,7 @@ Externe Links</translation>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="39"/>
         <source>Argument must be page item name, or PyCObject instance</source>
-        <translation>Das Argument muß entweder ein Seiteneintrag oder eine Instanz von PyCObject sein</translation>
+        <translation>Das Argument muss entweder ein Seiteneintrag oder eine Instanz von PyCObject sein</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="90"/>
@@ -21667,7 +21850,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdpage.cpp" line="149"/>
         <source>Page number out of range.</source>
         <comment>python error</comment>
-        <translation>Seitenzahl ist außerhalb des gültigen Bereichs.</translation>
+        <translation>Seitenzahl ist ausserhalb des gültigen Bereichs.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.cpp" line="292"/>
@@ -21718,7 +21901,7 @@ Externe Links</translation>
         <translation>Nur Textrahmen können auf Überfüllung geprüft werden</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="551"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="552"/>
         <source>&amp;Script</source>
         <translation>Sc&amp;ript</translation>
     </message>
@@ -21930,7 +22113,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Suche nach Schriften läuft</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4228"/>
+        <location filename="../scribus.cpp" line="4225"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Die Änderungen am Dokument wurden nicht gesichert, und Sie möchten zur gespeicherten Version zurückkehren. Wollen Sie das wirklich?</translation>
     </message>
@@ -21943,7 +22126,7 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../plugins/scriptplugin/cmddoc.cpp" line="45"/>
         <source>firstPageOrder is bigger than allowed.</source>
         <comment>python error</comment>
-        <translation>firstPageOrder ist größer als erlaubt.</translation>
+        <translation>firstPageOrder ist grösser als erlaubt.</translation>
     </message>
     <message>
         <location filename="../plugins/fileloader/oldscribusformat/oldscribusformat.cpp" line="40"/>
@@ -21966,17 +22149,17 @@ is not exhaustive due to exceptions from called functions.
         <translation>Datei drucken</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3621"/>
+        <location filename="../scribus.cpp" line="3618"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Sie versuchen, mehr Seiten zu importieren, als ab der aktuellen Seite im Dokument vorhanden sind.&lt;/p&gt;Was wollen Sie tun?&lt;br&gt;&lt;ul&gt;&lt;li&gt;Fehlende Seiten &lt;b&gt;erstellen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;Import bei der letzten Seite &lt;b&gt;stoppen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Abbrechen&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3622"/>
+        <location filename="../scribus.cpp" line="3619"/>
         <source>C&amp;reate</source>
         <translation>Er&amp;stellen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3623"/>
+        <location filename="../scribus.cpp" line="3620"/>
         <source>&amp;Import</source>
         <translation>&amp;Importieren</translation>
     </message>
@@ -22068,7 +22251,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../styles/charstyle.cpp" line="162"/>
         <source>size %1 </source>
-        <translation>Größe %1</translation>
+        <translation>Grösse %1</translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="164"/>
@@ -22149,7 +22332,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../langmgr.cpp" line="91"/>
         <source>Norwegian (Bokm&#xc3;&#xa5;l)</source>
-        <translation type="unfinished">Norwegisch (Bokmål)</translation>
+        <translation>Norwegisch (Bokmål)</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="100"/>
@@ -22302,10 +22485,10 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../plugins/gettext/pdbim/pdbim.cpp" line="99"/>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
-        <translation>Dies scheint kein PDB-Dokument zu sein. Bitte melden Sie den Fehler, wenn Sie sicher sind, daß es doch eines ist.</translation>
+        <translation>Dies scheint kein PDB-Dokument zu sein. Bitte melden Sie den Fehler, wenn Sie sicher sind, dass es doch eines ist.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="577"/>
+        <location filename="../scribus.cpp" line="578"/>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation>Sie arbeiten mit einer Entwicklerversion von Scribus 1.3.x. Das Dokument, mit dem Sie arbeiten, wurde mit Scribus 1.2.x oder niedriger erstellt. Wenn Sie jetzt speichern, können Sie die Datei nicht mehr in Scribus 1.2.x verwenden, es sei denn, Sie speichern diese Datei unter einem anderen Namen. Wollen Sie wirklich fortfahren?</translation>
     </message>
@@ -22323,7 +22506,7 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="98"/>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Die Anzahl der Zeilen läßt sich nur in Textrahmen ermitteln.</translation>
+        <translation>Die Anzahl der Zeilen lässt sich nur in Textrahmen ermitteln.</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="49"/>
@@ -22495,7 +22678,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
         <location filename="../units.cpp" line="161"/>
         <source>&#xb0;</source>
         <comment>degrees, unicode 0xB0</comment>
-        <translation type="unfinished">°</translation>
+        <translation>°</translation>
     </message>
     <message>
         <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="89"/>
@@ -22515,7 +22698,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="61"/>
         <source>Imposition</source>
-        <translation>Ausschießen</translation>
+        <translation>Ausschiessen</translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="70"/>
@@ -22688,28 +22871,29 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../latexhelpers.cpp" line="433"/>
         <source>Error</source>
-        <translation type="unfinished">Fehler</translation>
+        <translation>Fehler</translation>
     </message>
     <message>
         <location filename="../latexeditor.cpp" line="224"/>
         <source>Configfile %1 not found or the file is not readable</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurationsdatei %1 wurde nicht gefunden oder ist nicht lesbar</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="71"/>
         <source>Xfig Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Xfig-Importer</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="47"/>
         <source>Xfig File</source>
-        <translation type="unfinished"></translation>
+        <translation>Xfig-Datei</translation>
     </message>
     <message>
         <location filename="../latexhelpers.cpp" line="435"/>
         <source>Parsing the configfile %1 failed! Depending on the type of the error render frames might not work correctly!
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Analyse der Konfigurationsdatei %1 ist fehlgeschlagen. Je nach Art des Fehlers könnten Renderrahmen nicht richtig funktionieren!
+%2</translation>
     </message>
 </context>
 <context>
@@ -22785,7 +22969,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../translationdummy.cpp" line="110"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Schliessen</translation>
     </message>
 </context>
 <context>
@@ -22803,7 +22987,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../translationdummy.cpp" line="116"/>
         <source>&amp;Size</source>
-        <translation>&amp;Größe ändern</translation>
+        <translation>&amp;Grösse ändern</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="117"/>
@@ -22818,7 +23002,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../translationdummy.cpp" line="119"/>
         <source>&amp;Close</source>
-        <translation>Sch&amp;ließen</translation>
+        <translation>Sch&amp;liessen</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="120"/>
@@ -22838,7 +23022,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../translationdummy.cpp" line="123"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Schliessen</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="124"/>
@@ -23090,7 +23274,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/smtextstylewidgets.cpp" line="220"/>
         <source>Font size</source>
-        <translation type="obsolete">Schriftgröße</translation>
+        <translation type="obsolete">Schriftgrösse</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/smtextstylewidgets.cpp" line="221"/>
@@ -23130,7 +23314,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/smtextstylewidgets.cpp" line="228"/>
         <source>Stroke color</source>
-        <translation type="obsolete">Umrißfarbe</translation>
+        <translation type="obsolete">Umrissfarbe</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/smtextstylewidgets.cpp" line="229"/>
@@ -23168,7 +23352,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../smcstylewidget.cpp" line="82"/>
         <source>Font size</source>
-        <translation>Schriftgröße</translation>
+        <translation>Schriftgrösse</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="83"/>
@@ -23208,7 +23392,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../smcstylewidget.cpp" line="90"/>
         <source>Stroke color</source>
-        <translation>Umrißfarbe</translation>
+        <translation>Umrissfarbe</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="91"/>
@@ -23400,7 +23584,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../smlinestylewidget.cpp" line="41"/>
         <source>Bevel Join</source>
-        <translation>Gefaßt</translation>
+        <translation>Gefasst</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="42"/>
@@ -23876,17 +24060,17 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../story.cpp" line="1075"/>
         <source>Color of text stroke</source>
-        <translation>Textumrißfarbe</translation>
+        <translation>Textumrissfarbe</translation>
     </message>
     <message>
         <location filename="../story.cpp" line="1076"/>
         <source>Saturation of color of text stroke</source>
-        <translation>Tonwert der Textumrißfarbe</translation>
+        <translation>Tonwert der Textumrissfarbe</translation>
     </message>
     <message>
         <location filename="../story.cpp" line="1040"/>
         <source>Stroke Color Settings</source>
-        <translation>Umrißfarbe verändern</translation>
+        <translation>Umrissfarbe verändern</translation>
     </message>
 </context>
 <context>
@@ -23909,7 +24093,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../story.cpp" line="1340"/>
         <source>Font Size</source>
-        <translation>Schriftgröße</translation>
+        <translation>Schriftgrösse</translation>
     </message>
     <message>
         <location filename="../story.cpp" line="1341"/>
@@ -24517,17 +24701,17 @@ Drehung %$</translation>
 <context>
     <name>ScribusMainWindow</name>
     <message>
-        <location filename="../scribus.cpp" line="333"/>
+        <location filename="../scribus.cpp" line="334"/>
         <source>Initializing Story Editor</source>
         <translation>Story Editor wird initialisiert</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="339"/>
+        <location filename="../scribus.cpp" line="340"/>
         <source>Initializing Hyphenator</source>
         <translation>Silbentrennung wird initialisiert</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="345"/>
+        <location filename="../scribus.cpp" line="346"/>
         <source>Reading Scrapbook</source>
         <translation>Bibliothek wird geladen</translation>
     </message>
@@ -24547,32 +24731,32 @@ Drehung %$</translation>
         <translation type="obsolete">Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3779"/>
+        <location filename="../scribus.cpp" line="3776"/>
         <source>Fatal Error</source>
         <translation>Fataler Fehler</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9265"/>
+        <location filename="../scribus.cpp" line="9297"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9266"/>
+        <location filename="../scribus.cpp" line="9298"/>
         <source>Open &amp;Recent</source>
         <translation>&amp;Zuletzt verwendete öffnen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9268"/>
+        <location filename="../scribus.cpp" line="9300"/>
         <source>&amp;Import</source>
         <translation>&amp;Importieren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9269"/>
+        <location filename="../scribus.cpp" line="9301"/>
         <source>&amp;Export</source>
         <translation>E&amp;xportieren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9270"/>
+        <location filename="../scribus.cpp" line="9302"/>
         <source>&amp;Edit</source>
         <translation>&amp;Bearbeiten</translation>
     </message>
@@ -24589,7 +24773,7 @@ Drehung %$</translation>
     <message>
         <location filename="../scribus.cpp" line="9306"/>
         <source>&amp;Size</source>
-        <translation type="obsolete">&amp;Größe</translation>
+        <translation type="obsolete">&amp;Grösse</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="9307"/>
@@ -24607,27 +24791,27 @@ Drehung %$</translation>
         <translation type="obsolete">&amp;Effekte</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9272"/>
+        <location filename="../scribus.cpp" line="9304"/>
         <source>&amp;Item</source>
         <translation>&amp;Objekt</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="716"/>
+        <location filename="../scribus.cpp" line="721"/>
         <source>Preview Settings</source>
         <translation>Vorschaumodus</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="701"/>
+        <location filename="../scribus.cpp" line="706"/>
         <source>Level</source>
         <translation>Anordnung</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="707"/>
+        <location filename="../scribus.cpp" line="712"/>
         <source>Send to La&amp;yer</source>
         <translation>Auf andere &amp;Ebene verschieben</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9276"/>
+        <location filename="../scribus.cpp" line="9308"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;PDF-Optionen</translation>
     </message>
@@ -24637,97 +24821,97 @@ Drehung %$</translation>
         <translation type="obsolete">&amp;Form</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9278"/>
+        <location filename="../scribus.cpp" line="9310"/>
         <source>C&amp;onvert To</source>
         <translation>Um&amp;wandeln in</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9280"/>
+        <location filename="../scribus.cpp" line="9312"/>
         <source>I&amp;nsert</source>
         <translation>&amp;Einfügen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9281"/>
+        <location filename="../scribus.cpp" line="9313"/>
         <source>Character</source>
         <translation>Zeichen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9282"/>
+        <location filename="../scribus.cpp" line="9314"/>
         <source>Quote</source>
         <translation>Anführungszeichen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9283"/>
+        <location filename="../scribus.cpp" line="9315"/>
         <source>Space</source>
         <translation>Leerzeichen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9285"/>
+        <location filename="../scribus.cpp" line="9317"/>
         <source>&amp;Page</source>
         <translation>&amp;Seite</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9286"/>
+        <location filename="../scribus.cpp" line="9318"/>
         <source>&amp;View</source>
         <translation>&amp;Ansicht</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9288"/>
+        <location filename="../scribus.cpp" line="9320"/>
         <source>E&amp;xtras</source>
         <translation>E&amp;xtras</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9289"/>
+        <location filename="../scribus.cpp" line="9321"/>
         <source>&amp;Windows</source>
         <translation>&amp;Fenster</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9290"/>
+        <location filename="../scribus.cpp" line="9322"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9291"/>
+        <location filename="../scribus.cpp" line="9323"/>
         <source>&amp;Alignment</source>
         <translation>Aus&amp;richtung</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9301"/>
+        <location filename="../scribus.cpp" line="9333"/>
         <source>Ready</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4131"/>
+        <location filename="../scribus.cpp" line="4128"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3588"/>
+        <location filename="../scribus.cpp" line="3585"/>
         <source>Importing Pages...</source>
         <translation>Seiten werden importiert...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3617"/>
+        <location filename="../scribus.cpp" line="3614"/>
         <source>Import Page(s)</source>
         <translation>Seiten importieren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3659"/>
+        <location filename="../scribus.cpp" line="3656"/>
         <source>Import done</source>
         <translation>Import erfolgreich abgeschlossen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3663"/>
+        <location filename="../scribus.cpp" line="3660"/>
         <source>Found nothing to import</source>
         <translation>Nichts zum Importieren gefunden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3779"/>
+        <location filename="../scribus.cpp" line="3776"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Das Format der Datei %1 kann nicht verwendet werden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3800"/>
+        <location filename="../scribus.cpp" line="3797"/>
         <source>Loading...</source>
         <translation>Lade...</translation>
     </message>
@@ -24742,33 +24926,33 @@ Drehung %$</translation>
         <translation type="obsolete">Einige ICC-Profile in dem Dokument sind auf Ihrem System nicht vorhanden:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3948"/>
+        <location filename="../scribus.cpp" line="3945"/>
         <source> was replaced by: </source>
         <translation> wurde ersetzt durch: </translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3980"/>
+        <location filename="../scribus.cpp" line="3977"/>
         <source>(converted)</source>
         <translation>(konvertiert)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8002"/>
+        <location filename="../scribus.cpp" line="8034"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Die Datei %1 kann nicht geschrieben werden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4306"/>
+        <location filename="../scribus.cpp" line="4303"/>
         <source>Save As</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4335"/>
+        <location filename="../scribus.cpp" line="4332"/>
         <source>Saving...</source>
         <translation>Speichere...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7700"/>
+        <location filename="../scribus.cpp" line="7732"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus hat einige Fehler festgestellt. Sie sollten die Druckvorstufenüberprüfung verwenden, um sie zu korrigieren</translation>
     </message>
@@ -24783,47 +24967,47 @@ Drehung %$</translation>
         <translation type="obsolete">A&amp;bbruch</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4594"/>
+        <location filename="../scribus.cpp" line="4593"/>
         <source>Printing...</source>
         <translation>Drucke...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7816"/>
+        <location filename="../scribus.cpp" line="7848"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4635"/>
+        <location filename="../scribus.cpp" line="4634"/>
         <source>Printing failed!</source>
         <translation>Drucken fehlgeschlagen!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4725"/>
+        <location filename="../scribus.cpp" line="4724"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Objekte in Benutzung können nicht ausgeschnitten werden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4725"/>
+        <location filename="../scribus.cpp" line="4724"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Das Objekt %1 wird gerade im Story Editor bearbeitet, deswegen kann es nicht ausgeschnitten werden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5388"/>
+        <location filename="../scribus.cpp" line="5393"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5400"/>
+        <location filename="../scribus.cpp" line="5405"/>
         <source>Scribus Manual</source>
         <translation>Scribus-Handbuch</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7839"/>
+        <location filename="../scribus.cpp" line="7871"/>
         <source>Save as</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5425"/>
+        <location filename="../scribus.cpp" line="5430"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Textdateien (*.txt);;Alle Dateien(*)</translation>
     </message>
@@ -24838,47 +25022,47 @@ Drehung %$</translation>
         <translation type="obsolete">In Musterseite umwandeln</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6884"/>
+        <location filename="../scribus.cpp" line="6889"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Größe:</translation>
+        <translation>&amp;Grösse:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6884"/>
+        <location filename="../scribus.cpp" line="6889"/>
         <source>Size</source>
-        <translation>Größe</translation>
+        <translation>Grösse</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6914"/>
+        <location filename="../scribus.cpp" line="6919"/>
         <source>&amp;Shade:</source>
         <translation>Ton&amp;wert:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6914"/>
+        <location filename="../scribus.cpp" line="6919"/>
         <source>Shade</source>
         <translation>Tonwert</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7016"/>
+        <location filename="../scribus.cpp" line="7021"/>
         <source>No Style</source>
         <translation>Kein Stil</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7597"/>
+        <location filename="../scribus.cpp" line="7629"/>
         <source>The following programs are missing:</source>
         <translation>Die folgenden Programme fehlen:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7599"/>
+        <location filename="../scribus.cpp" line="7631"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
         <translation>Ghostscript: Sie können weder EPS-Dateien noch die Druckvorschau verwenden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7736"/>
+        <location filename="../scribus.cpp" line="7768"/>
         <source>All</source>
         <translation>Alle</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7785"/>
+        <location filename="../scribus.cpp" line="7817"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus hat Fehler entdeckt.
@@ -24891,7 +25075,7 @@ diese zu finden und zu korrigieren.</translation>
         <translation type="obsolete">EPS-Dateien (*.eps);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7882"/>
+        <location filename="../scribus.cpp" line="7914"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus hat Fehler entdeckt.
@@ -24899,82 +25083,82 @@ Bitte verwenden Sie die Druckvorstufenüberprüfung, um
 diese zu finden und zu korrigieren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7976"/>
+        <location filename="../scribus.cpp" line="8008"/>
         <source>-Page%1</source>
         <translation>-Seite %1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8346"/>
+        <location filename="../scribus.cpp" line="8378"/>
         <source>Some objects are locked.</source>
         <translation>Einige Objekte sind gesperrt.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8342"/>
+        <location filename="../scribus.cpp" line="8374"/>
         <source>&amp;Lock All</source>
         <translation>Alle &amp;sperren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8343"/>
+        <location filename="../scribus.cpp" line="8375"/>
         <source>&amp;Unlock All</source>
         <translation>Alle &amp;entsperren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9036"/>
+        <location filename="../scribus.cpp" line="9068"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9036"/>
+        <location filename="../scribus.cpp" line="9068"/>
         <source>The program %1 is already running!</source>
         <translation>Das Programm %1 läuft schon!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9075"/>
+        <location filename="../scribus.cpp" line="9107"/>
         <source>The program %1 is missing!</source>
         <translation>Das Programm %1 fehlt!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9189"/>
+        <location filename="../scribus.cpp" line="9221"/>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
         <translation>Die gewählte Farbe existiert im Farbsatz des Dokuments noch nicht. Bitte geben Sie einen Namen für die neue Farbe ein.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9192"/>
+        <location filename="../scribus.cpp" line="9224"/>
         <source>Color Not Found</source>
         <translation>Farbe nicht gefunden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9196"/>
+        <location filename="../scribus.cpp" line="9228"/>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
         <translation>Eine Farbe mit diesem Namen existiert schon. Bitte geben Sie einen anderen Namen ein.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9273"/>
+        <location filename="../scribus.cpp" line="9305"/>
         <source>&amp;Level</source>
         <translation>&amp;Anordnung</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9274"/>
+        <location filename="../scribus.cpp" line="9306"/>
         <source>Send to Layer</source>
         <translation>Auf andere Ebene verschieben</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9275"/>
+        <location filename="../scribus.cpp" line="9307"/>
         <source>Previe&amp;w Settings</source>
         <translation>&amp;Vorschau</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9287"/>
+        <location filename="../scribus.cpp" line="9319"/>
         <source>&amp;Tools</source>
         <translation>&amp;Werkzeuge</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9297"/>
+        <location filename="../scribus.cpp" line="9329"/>
         <source>X-Pos:</source>
         <translation>X-Pos:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9298"/>
+        <location filename="../scribus.cpp" line="9330"/>
         <source>Y-Pos:</source>
         <translation>Y-Pos:</translation>
     </message>
@@ -24984,47 +25168,47 @@ diese zu finden und zu korrigieren</translation>
         <translation type="obsolete">Neue Musterseite %1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7601"/>
+        <location filename="../scribus.cpp" line="7633"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
         <translation>Ghostscript: Sie können weder EPS-Dateien noch die Druckvorschau verwenden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7647"/>
+        <location filename="../scribus.cpp" line="7679"/>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
         <translation>Ghostscript fehlt: Die Postscript-Druckvorschau ist nicht verfügbar</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9451"/>
+        <location filename="../scribus.cpp" line="9483"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Wollen Sie das vorhandene Bild wirklich ersetzen?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9271"/>
+        <location filename="../scribus.cpp" line="9303"/>
         <source>Contents</source>
         <translation>Inhalt</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="779"/>
+        <location filename="../scribus.cpp" line="784"/>
         <source>&amp;Character</source>
         <translation>&amp;Zeichen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="797"/>
+        <location filename="../scribus.cpp" line="802"/>
         <source>&amp;Quote</source>
         <translation>&amp;Anführungszeichen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="822"/>
+        <location filename="../scribus.cpp" line="827"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation>&amp;Leerzeichen &amp;&amp; Umbrüche</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9284"/>
+        <location filename="../scribus.cpp" line="9316"/>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;turen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9267"/>
+        <location filename="../scribus.cpp" line="9299"/>
         <source>Paste Recent</source>
         <translation>Zuletzt verwendete Einfügen</translation>
     </message>
@@ -25034,7 +25218,7 @@ diese zu finden und zu korrigieren</translation>
         <translation type="obsolete">Aktualisiere Bilder</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4303"/>
+        <location filename="../scribus.cpp" line="4300"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Dokumente (*.sla *.sla.gz);;Alle Dateien (*)</translation>
     </message>
@@ -25049,61 +25233,56 @@ diese zu finden und zu korrigieren</translation>
         <translation type="obsolete">Gruppe%1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4161"/>
+        <location filename="../scribus.cpp" line="4158"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Wollen Sie wirklich den gesamten Text entfernen?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="278"/>
+        <location filename="../scribus.cpp" line="279"/>
         <source>Scribus </source>
         <translation>Scribus</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9292"/>
+        <location filename="../scribus.cpp" line="9324"/>
         <source>Online &amp;Tutorials</source>
         <translation>Online &amp; Tutorien</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3945"/>
+        <location filename="../scribus.cpp" line="3942"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Einige Farbprofile, die in diesem Dokument verwendet werden, sind nicht installiert:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7839"/>
+        <location filename="../scribus.cpp" line="7871"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="317"/>
+        <location filename="../scribus.cpp" line="318"/>
         <source>Applying User Shortcuts</source>
         <translation>Wende benutzerdefinierte Kürzel an</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4319"/>
+        <location filename="../scribus.cpp" line="4316"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Ihr Dokument wurde in einer temporären Datei gespeichert und kann nicht verschoben werden:
 %1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4690"/>
+        <location filename="../scribus.cpp" line="4689"/>
         <source>Print engine initialization failed</source>
         <translation>Initialisierung des Druckers ist fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="2496"/>
+        <location filename="../scribus.cpp" line="2491"/>
         <source>Updating Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisiere Bilder</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="1883"/>
         <source>Select &amp;All</source>
-        <translation type="unfinished">Alles aus&amp;wählen</translation>
-    </message>
-    <message>
-        <location filename="../scribus.cpp" line="1254"/>
-        <source>Select All in Document</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Alles aus&amp;wählen</translation>
     </message>
 </context>
 <context>
@@ -25181,7 +25360,7 @@ diese zu finden und zu korrigieren</translation>
     <message>
         <location filename="../scribusapp.cpp" line="444"/>
         <source>To override the default language choice:</source>
-        <translation>Um die Standardsprache außer Kraft zu setzen:</translation>
+        <translation>Um die Standardsprache ausser Kraft zu setzen:</translation>
     </message>
     <message>
         <location filename="../scribusapp.cpp" line="445"/>
@@ -25472,7 +25651,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../canvasmode_legacy.cpp" line="2861"/>
         <source>Enter Object Size</source>
-        <translation>Objektgröße eingeben</translation>
+        <translation>Objektgrösse eingeben</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="390"/>
@@ -25529,52 +25708,52 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
 <context>
     <name>ScripterCore</name>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="574"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="575"/>
         <source>Script error</source>
         <translation>Fehler bei der Ausführung eines Scripts</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="353"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="354"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation>Falls das Script ein offizelles Scribus-Script ist, melden Sie den Fehler bitte auf &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="355"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="356"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>Diese Meldung befindet sich auch in Ihrer Zwischenablage. Benutzen Sie Strg+V, um sie in den Bugtracker zu kopieren.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="497"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="498"/>
         <source>Examine Script</source>
         <translation>Script untersuchen</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="424"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="425"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>Ihr Befehl konnte auf Grund eines internen Fehlers nicht ausgeführt werden. Weitere Hinweise finden Sie auf stderr.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="576"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="577"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Konnte das Python-Plug-In nicht einrichten. Weitere Hinweise finden Sie auf stderr.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="510"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
         <source>Documentation for:</source>
         <translation>Handbuch für:</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="515"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="516"/>
         <source>Script</source>
         <translation>Script</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="515"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="516"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation>enthält keinen docstring!</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="497"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="498"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation>Python Scripts (*.py *.PY);;Alle Dateien (*)</translation>
     </message>
@@ -25742,7 +25921,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../search.cpp" line="162"/>
         <source>Font Size</source>
-        <translation>Schriftgröße</translation>
+        <translation>Schriftgrösse</translation>
     </message>
     <message>
         <location filename="../search.cpp" line="165"/>
@@ -25817,7 +25996,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../search.cpp" line="241"/>
         <source>&amp;Ignore Case</source>
-        <translation>Groß-/&amp;Kleinschreibung ignorieren</translation>
+        <translation>Gross-/&amp;Kleinschreibung ignorieren</translation>
     </message>
     <message>
         <location filename="../search.cpp" line="250"/>
@@ -25837,7 +26016,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../search.cpp" line="261"/>
         <source>&amp;Close</source>
-        <translation>Sch&amp;ließen</translation>
+        <translation>Sch&amp;liessen</translation>
     </message>
     <message>
         <location filename="../search.cpp" line="259"/>
@@ -25852,7 +26031,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../search.cpp" line="156"/>
         <source>Alignment</source>
-        <translation type="unfinished">Ausrichtung</translation>
+        <translation>Ausrichtung</translation>
     </message>
 </context>
 <context>
@@ -26574,7 +26753,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../styleselect.cpp" line="271"/>
         <source>All Caps</source>
-        <translation>Großbuchstaben</translation>
+        <translation>Grossbuchstaben</translation>
     </message>
     <message>
         <location filename="../styleselect.cpp" line="269"/>
@@ -26595,7 +26774,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <location filename="../styleselect.cpp" line="276"/>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
-        <translation>Umriß. Halten Sie die Maustaste gedrückt, um die Linienbreite selbst zu bestimmen.</translation>
+        <translation>Umriss. Halten Sie die Maustaste gedrückt, um die Linienbreite selbst zu bestimmen.</translation>
     </message>
     <message>
         <location filename="../styleselect.cpp" line="277"/>
@@ -26970,7 +27149,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabcheckdoc.cpp" line="44"/>
         <source>Check for items not on a page</source>
-        <translation>Auf außerhalb der Seite liegende Objekte überprüfen</translation>
+        <translation>Auf ausserhalb der Seite liegende Objekte überprüfen</translation>
     </message>
     <message>
         <location filename="../tabcheckdoc.cpp" line="50"/>
@@ -27038,12 +27217,12 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdisplay.cpp" line="41"/>
         <source>Set the default zoom level</source>
-        <translation>Legt die Standard-Vergrößerungseinstellung fest</translation>
+        <translation>Legt die Standard-Vergrösserungseinstellung fest</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="42"/>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation>Legen Sie ein Lineal auf dem Bildschirm an und verschieben Sie den Regler, um den Zoom-Level einzustellen, damit die Dokumente in der richtigen Größe angezeigt werden</translation>
+        <translation>Legen Sie ein Lineal auf dem Bildschirm an und verschieben Sie den Regler, um den Zoom-Level einzustellen, damit die Dokumente in der richtigen Grösse angezeigt werden</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="15"/>
@@ -27058,12 +27237,12 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdisplay.ui" line="295"/>
         <source>Adjust Display Size</source>
-        <translation>Anzeigegröße anpassen</translation>
+        <translation>Anzeigegrösse anpassen</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="362"/>
         <source>Scale%</source>
-        <translation>Größe%</translation>
+        <translation>Grösse%</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="319"/>
@@ -27228,12 +27407,12 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdisplay.cpp" line="36"/>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert oder deaktiviert die Anzeige von Bildern</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="134"/>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder anzeigen</translation>
     </message>
 </context>
 <context>
@@ -27326,7 +27505,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Adjust Display Size</source>
-        <translation type="obsolete">Anzeigegröße anpassen</translation>
+        <translation type="obsolete">Anzeigegrösse anpassen</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -27416,7 +27595,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Scale%</source>
-        <translation type="obsolete">Größe%</translation>
+        <translation type="obsolete">Grösse%</translation>
     </message>
 </context>
 <context>
@@ -27429,7 +27608,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdocument.cpp" line="79"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Größe:</translation>
+        <translation>&amp;Grösse:</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="85"/>
@@ -27504,7 +27683,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdocument.cpp" line="192"/>
         <source>Default page size, either a standard size or a custom size</source>
-        <translation>Standardgröße der Seite</translation>
+        <translation>Standardgrösse der Seite</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="193"/>
@@ -27514,7 +27693,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdocument.cpp" line="194"/>
         <source>Default unit of measurement for document editing</source>
-        <translation>Standardmaßeinheit</translation>
+        <translation>Standardmasseinheit</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="195"/>
@@ -27529,12 +27708,12 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdocument.cpp" line="197"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation>Anzahl der rückgängig zu machenden Aktionen. 0 bedeutet, daß unendlich viele Aktionen aufgezeichnet werden.</translation>
+        <translation>Anzahl der rückgängig zu machenden Aktionen. 0 bedeutet, dass unendlich viele Aktionen aufgezeichnet werden.</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="198"/>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation>Wendet die Größenänderung auf alle Seiten im Dokument an</translation>
+        <translation>Wendet die Grössenänderung auf alle Seiten im Dokument an</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="123"/>
@@ -27554,7 +27733,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdocument.cpp" line="199"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
-        <translation>Änderungen der Seitengröße auf alle vorhandenen Musterseiten im Dokument anwenden</translation>
+        <translation>Änderungen der Seitengrösse auf alle vorhandenen Musterseiten im Dokument anwenden</translation>
     </message>
 </context>
 <context>
@@ -27672,7 +27851,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="55"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Pfad zum Ghostscript-Interpreter. Auf Windows-Systemen muß das Programm gswin32c.exe ausgewählt sein, NICHT gswin32.exe. Anderenfalls könnte Scribus beim Start abstürzen.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Pfad zum Ghostscript-Interpreter. Auf Windows-Systemen muss das Programm gswin32c.exe ausgewählt sein, NICHT gswin32.exe. Anderenfalls könnte Scribus beim Start abstürzen.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/tabexternaltoolswidget.ui" line="252"/>
@@ -27712,7 +27891,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/tabexternaltoolswidget.ui" line="367"/>
         <source>&lt;qt&gt;Path to LaTeX executable. Must be a program that produces one of the formats supported by image frames!&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;Pfad zur ausführbarenLaTeX-Datei. Es muß sich dabei um ein Programm handeln, das eines der von Bildrahmen unterstützten Formate ausgibt.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Pfad zur ausführbarenLaTeX-Datei. Es muss sich dabei um ein Programm handeln, das eines der von Bildrahmen unterstützten Formate ausgibt.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/tabexternaltoolswidget.ui" line="409"/>
@@ -27772,52 +27951,52 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabexternaltoolswidget.cpp" line="160"/>
         <source>Locate a Configuration file</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach Konfigurationsdatei suchen</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.cpp" line="162"/>
         <source>Configuration files</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurationsdateien</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="303"/>
         <source>Configurations:</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurationen:</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="312"/>
         <source>Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach oben</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="319"/>
         <source>Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach unten</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="326"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="333"/>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.cpp" line="138"/>
         <source>Locate your editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Suchen Sie Ihren Editor</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="297"/>
         <source>Render Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderrahmen</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="347"/>
         <source>External Editor:</source>
-        <translation type="unfinished"></translation>
+        <translation>Externer Editor:</translation>
     </message>
 </context>
 <context>
@@ -27915,7 +28094,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;Pfad zum Ghostscript-Interpreter. Auf Windows-Systemen muß das Programm gswin32c.exe ausgewählt sein, NICHT gswin32.exe. Anderenfalls könnte Scribus beim Start abstürzen.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Pfad zum Ghostscript-Interpreter. Auf Windows-Systemen muss das Programm gswin32c.exe ausgewählt sein, NICHT gswin32.exe. Anderenfalls könnte Scribus beim Start abstürzen.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -27963,17 +28142,17 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabgeneral.cpp" line="68"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Wählen Sie die Standard-Fensterdekoration. Scribus zeigt Ihnen alle KDE- und Qt-Stile an, falls Qt so konfiguriert ist, daß es die KDE-Plugins durchsucht.</translation>
+        <translation>Wählen Sie die Standard-Fensterdekoration. Scribus zeigt Ihnen alle KDE- und Qt-Stile an, falls Qt so konfiguriert ist, dass es die KDE-Plugins durchsucht.</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="69"/>
         <source>Default font size for the menus and windows</source>
-        <translation>Schriftgröße für Menüs und Dialoge</translation>
+        <translation>Schriftgrösse für Menüs und Dialoge</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="70"/>
         <source>Default font size for the tool windows</source>
-        <translation>Schriftgröße für die Werkzeugfenster</translation>
+        <translation>Schriftgrösse für die Werkzeugfenster</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="71"/>
@@ -28038,17 +28217,17 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabgeneral.ui" line="91"/>
         <source>&amp;Font Size (Menus):</source>
-        <translation>Schriftgröße (&amp;Menüs):</translation>
+        <translation>Schriftgrösse (&amp;Menüs):</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="134"/>
         <source>Font Size (&amp;Palettes):</source>
-        <translation>Schriftgröße (&amp;Paletten):</translation>
+        <translation>Schriftgrösse (&amp;Paletten):</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="164"/>
         <source>Time before a Move or Resize starts:</source>
-        <translation>Verzögerung beim Verschieben oder bei Größenänderungen:</translation>
+        <translation>Verzögerung beim Verschieben oder bei Grössenänderungen:</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="177"/>
@@ -28133,7 +28312,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabgeneral.cpp" line="72"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation>Dialoge werden kleinere, platzsparendere Widgets verwenden. Dazu muß Scribus neu gestartet werden</translation>
+        <translation>Dialoge werden kleinere, platzsparendere Widgets verwenden. Dazu muss Scribus neu gestartet werden</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="196"/>
@@ -28156,7 +28335,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Time before a Move or Resize starts:</source>
-        <translation type="obsolete">Verzögerung beim Verschieben oder bei Größenänderungen:</translation>
+        <translation type="obsolete">Verzögerung beim Verschieben oder bei Grössenänderungen:</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -28166,7 +28345,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>&amp;Font Size (Menus):</source>
-        <translation type="obsolete">Schriftgröße (&amp;Menüs):</translation>
+        <translation type="obsolete">Schriftgrösse (&amp;Menüs):</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -28176,7 +28355,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Font Size (&amp;Palettes):</source>
-        <translation type="obsolete">Schriftgröße (&amp;Paletten):</translation>
+        <translation type="obsolete">Schriftgrösse (&amp;Paletten):</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -28339,7 +28518,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabguides.cpp" line="125"/>
         <source>Major Grid</source>
-        <translation>Großes Raster</translation>
+        <translation>Grosses Raster</translation>
     </message>
     <message>
         <location filename="../tabguides.cpp" line="163"/>
@@ -29128,7 +29307,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="519"/>
         <source>Outside</source>
-        <translation>Außen</translation>
+        <translation>Aussen</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="524"/>
@@ -29173,7 +29352,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="621"/>
         <source>Passwords</source>
-        <translation>Paßwörter</translation>
+        <translation>Passwörter</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="627"/>
@@ -29408,7 +29587,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="964"/>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Wählen Sie ein Paßwort, das es Benutzern erlaubt, die PDF-Datei anzusehen.</translation>
+        <translation>Wählen Sie ein Passwort, das es Benutzern erlaubt, die PDF-Datei anzusehen.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="965"/>
@@ -29493,7 +29672,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="678"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Konvertiert Schmuckfarben zu Prozeßfarben</translation>
+        <translation>Konvertiert Schmuckfarben zu Prozessfarben</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="381"/>
@@ -29533,27 +29712,27 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="956"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
-        <translation>Auflösung für Text und Vektorgrafiken. Beeinflußt nicht die Auflösung von Bitmapdaten wie Fotos.</translation>
+        <translation>Auflösung für Text und Vektorgrafiken. Beeinflusst nicht die Auflösung von Bitmapdaten wie Fotos.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="957"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
-        <translation>Aktiviert verlustlose Komprimierung von Text und Grafiken. Verringert die Größe der PDF-Datei. Nicht ohne Grund deaktivieren.</translation>
+        <translation>Aktiviert verlustlose Komprimierung von Text und Grafiken. Verringert die Grösse der PDF-Datei. Nicht ohne Grund deaktivieren.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="958"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation>Methode für die Komprimierung von Bitmapdaten. Automatisch bedeutet, daß Scribus die beste Methode wählt. ZIP ist verlustlos und gut für Bilder mit flächigen Farben. Mit JPEG erzeugen Sie kleinere PDFs, geeignet für viele Fotos. Hier können kleinere Qualitätsverluste auftreten. Empfehlung: Verändern Sie die Methode Automatisch nur, wenn Sie es wirklich benötigen.</translation>
+        <translation>Methode für die Komprimierung von Bitmapdaten. Automatisch bedeutet, dass Scribus die beste Methode wählt. ZIP ist verlustlos und gut für Bilder mit flächigen Farben. Mit JPEG erzeugen Sie kleinere PDFs, geeignet für viele Fotos. Hier können kleinere Qualitätsverluste auftreten. Empfehlung: Verändern Sie die Methode Automatisch nur, wenn Sie es wirklich benötigen.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="962"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation>Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei. Wenn Sie PDF 1.3 gewählt haben, wird die Datei mit 40-Bit-Verschlüsselung geschützt, bei PDF 1.4 wird 128-Bit-Verschlüsselung verwendet. Warnung: PDF-Verschlüsselung ist nicht so verläßlich wie GPG- oder PGP-Verschlüsselung und besitzt einige Einschränkungen.</translation>
+        <translation>Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei. Wenn Sie PDF 1.3 gewählt haben, wird die Datei mit 40-Bit-Verschlüsselung geschützt, bei PDF 1.4 wird 128-Bit-Verschlüsselung verwendet. Warnung: PDF-Verschlüsselung ist nicht so verlässlich wie GPG- oder PGP-Verschlüsselung und besitzt einige Einschränkungen.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="963"/>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
-        <translation>Wählen Sie ein Master-Paßwort, das alle Sicherheitsfunktionen in der PDF-Datei aktiviert oder deaktiviert</translation>
+        <translation>Wählen Sie ein Master-Passwort, das alle Sicherheitsfunktionen in der PDF-Datei aktiviert oder deaktiviert</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="967"/>
@@ -29568,7 +29747,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="970"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation>Die ist eine fortgeschrittene Einstellung, die standardmäßig nicht aktiviert ist. Sie sollte nur aktiviert werden, wenn dies ausdrücklich von Ihrer Druckerei gefordert wird und diese Ihnen alle benötigten Details mitgeteilt hat. Ansonsten könnte Ihre PDF-Datei nicht korrekt gedruckt werden und Probleme beim plattformübergreifenden Datenaustausch bereiten.</translation>
+        <translation>Die ist eine fortgeschrittene Einstellung, die standardmässig nicht aktiviert ist. Sie sollte nur aktiviert werden, wenn dies ausdrücklich von Ihrer Druckerei gefordert wird und diese Ihnen alle benötigten Details mitgeteilt hat. Ansonsten könnte Ihre PDF-Datei nicht korrekt gedruckt werden und Probleme beim plattformübergreifenden Datenaustausch bereiten.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="996"/>
@@ -29578,7 +29757,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="981"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Ermöglicht die Umwandlung von Schmuck- in Prozeßfarben. Solange Sie Schmuckfarben nicht wirklich benötigen, sollten Sie dies am besten aktiviert lassen.</translation>
+        <translation>Ermöglicht die Umwandlung von Schmuck- in Prozessfarben. Solange Sie Schmuckfarben nicht wirklich benötigen, sollten Sie dies am besten aktiviert lassen.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="342"/>
@@ -29663,7 +29842,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="593"/>
         <source>Zoom Pages to fit Viewer Window</source>
-        <translation>Seiten auf Größe des Betrachterfensters zoomen</translation>
+        <translation>Seiten auf Grösse des Betrachterfensters zoomen</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="599"/>
@@ -29720,7 +29899,7 @@ der PDF-Datei ausgeführt wird:</translation>
     <message>
         <location filename="../tabpdfoptions.cpp" line="982"/>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation>Objekte außerhalb des Seitenrandes nicht exportieren</translation>
+        <translation>Objekte ausserhalb des Seitenrandes nicht exportieren</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="905"/>
@@ -29755,7 +29934,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../tabpdfoptions.cpp" line="950"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation>Legt die Kompatibilität der PDF-Datei fest. Standard ist PDF 1.3 mit der größten Kompatibilität. Mit PDF 1.4 können Sie Transparenz und 128bit-Verschlüsselung verwenden. PDF 1.5 ist notwendig, wenn Sie Ebenen in der PDF-Datei erhalten möchten. PDF/X-3 ist vorgesehen für kommerziellen RGB-Druck mit Farbprofilen. Es ist nur verfügbar, wenn Farbprofile aktiviert sind - verwenden Sie PDX/X-3 nur, wenn Ihre Druckerei das wünscht oder beim Druck auf einem Vierfarb-Laserdrucker.</translation>
+        <translation>Legt die Kompatibilität der PDF-Datei fest. Standard ist PDF 1.3 mit der grössten Kompatibilität. Mit PDF 1.4 können Sie Transparenz und 128bit-Verschlüsselung verwenden. PDF 1.5 ist notwendig, wenn Sie Ebenen in der PDF-Datei erhalten möchten. PDF/X-3 ist vorgesehen für kommerziellen RGB-Druck mit Farbprofilen. Es ist nur verfügbar, wenn Farbprofile aktiviert sind - verwenden Sie PDX/X-3 nur, wenn Ihre Druckerei das wünscht oder beim Druck auf einem Vierfarb-Laserdrucker.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="440"/>
@@ -29850,7 +30029,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../tabpdfoptions.cpp" line="959"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation>Komprimierungsqualität für verlustbehaftete Komprimierung: Minimum (25%), Niedrig (50%), Mittel (75%) und Maximum (95%). Diese Einstellung wirkt sich nicht direkt auf die Größe der Bilder aus, weil Größe und Qualitätsverlust von Bild zu Bild variieren. Selbst wenn &quot;Maximum&quot; ausgewählt ist, tritt immer ein gewisser Qualitätsverlust bei JPEG auf.</translation>
+        <translation>Komprimierungsqualität für verlustbehaftete Komprimierung: Minimum (25%), Niedrig (50%), Mittel (75%) und Maximum (95%). Diese Einstellung wirkt sich nicht direkt auf die Grösse der Bilder aus, weil Grösse und Qualitätsverlust von Bild zu Bild variieren. Selbst wenn &quot;Maximum&quot; ausgewählt ist, tritt immer ein gewisser Qualitätsverlust bei JPEG auf.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="1349"/>
@@ -29860,7 +30039,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../tabpdfoptions.cpp" line="1350"/>
         <source>Outside:</source>
-        <translation>Außen:</translation>
+        <translation>Aussen:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="550"/>
@@ -29930,7 +30109,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../tabpdfoptions.cpp" line="925"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>Paßt die Dokumentgröße an die verfügbare Fläche im Betrachterfenster an.</translation>
+        <translation>Passt die Dokumentgrösse an die verfügbare Fläche im Betrachterfenster an.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="960"/>
@@ -30023,7 +30202,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../tabprinter.cpp" line="32"/>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation>Objekte außerhalb des Satzspiegels nicht drucken</translation>
+        <translation>Objekte ausserhalb des Satzspiegels nicht drucken</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="33"/>
@@ -30035,17 +30214,17 @@ werden ignoriert</translation>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
         <translation>Legt die Postscript-Version fest. 
-Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translation>
+Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="35"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Verwendet echtes Schwarz anstelle von Farbmischungen aus Magenta, Gelb und Cyan. UFR hat den größten Effekt auf Bilder, die neutrale oder dunkle Farbtöne haben, die Grau ähneln. Diese Option kann die Druckqualität verbessern. Testen Sie bitte von Fall zu Fall, wie Sie bessere Ergebnisse erhalten. UFR verringert außerdem die Gefahr einer Übersättigung der CMYK-Farben.</translation>
+        <translation>Verwendet echtes Schwarz anstelle von Farbmischungen aus Magenta, Gelb und Cyan. UFR hat den grössten Effekt auf Bilder, die neutrale oder dunkle Farbtöne haben, die Grau ähneln. Diese Option kann die Druckqualität verbessern. Testen Sie bitte von Fall zu Fall, wie Sie bessere Ergebnisse erhalten. UFR verringert ausserdem die Gefahr einer Übersättigung der CMYK-Farben.</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="36"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Ermöglicht die Umwandlung von Schmuckfarben zu Prozeßfarben. Solange Sie keine Schmuckfarben in einer Druckerei drucken möchten, sollten Sie diese Option aktiviert lassen.</translation>
+        <translation>Ermöglicht die Umwandlung von Schmuckfarben zu Prozessfarben. Solange Sie keine Schmuckfarben in einer Druckerei drucken möchten, sollten Sie diese Option aktiviert lassen.</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="37"/>
@@ -30060,7 +30239,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../tabprinter.cpp" line="39"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>Legen Sie die Druckgröße der Postscript-Datei explizit fest. Nur aktivieren, wenn ihre Druckerei das verlangt.</translation>
+        <translation>Legen Sie die Druckgrösse der Postscript-Datei explizit fest. Nur aktivieren, wenn ihre Druckerei das verlangt.</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="83"/>
@@ -30100,7 +30279,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../tabprinter.ui" line="119"/>
         <source>Set Media Size</source>
-        <translation>Mediengröße festlegen</translation>
+        <translation>Mediengrösse festlegen</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="126"/>
@@ -30165,7 +30344,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../tabprinter.ui" line="274"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Schmuckfarben in Prozeßfarben umwandeln</translation>
+        <translation>Schmuckfarben in Prozessfarben umwandeln</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="281"/>
@@ -30353,7 +30532,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Set Media Size</source>
-        <translation type="obsolete">Mediengröße festlegen</translation>
+        <translation type="obsolete">Mediengrösse festlegen</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -30373,7 +30552,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="obsolete">Schmuckfarben in Prozeßfarben umwandeln</translation>
+        <translation type="obsolete">Schmuckfarben in Prozessfarben umwandeln</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
@@ -30577,7 +30756,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="124"/>
         <source>Size:</source>
-        <translation>Größe:</translation>
+        <translation>Grösse:</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="747"/>
@@ -30617,7 +30796,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="920"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>Falsches Üben von Xylophonmusik quält jeden größeren Zwerg</translation>
+        <translation>Falsches Üben von Xylophonmusik quält jeden grösseren Zwerg</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="291"/>
@@ -30762,7 +30941,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="526"/>
         <source>Magnification Level Defaults</source>
-        <translation>Einstellungen für Vergrößerungsstufen</translation>
+        <translation>Einstellungen für Vergrösserungsstufen</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="527"/>
@@ -30782,7 +30961,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="531"/>
         <source>Size of font for new text frames</source>
-        <translation>Schriftgröße für neue Textrahmen</translation>
+        <translation>Schriftgrösse für neue Textrahmen</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="532"/>
@@ -30807,7 +30986,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/tabtools.cpp" line="536"/>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="obsolete">Bildrahmen ermöglicht das Skalieren auf eine beliebige Größe</translation>
+        <translation type="obsolete">Bildrahmen ermöglicht das Skalieren auf eine beliebige Grösse</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="537"/>
@@ -30827,7 +31006,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/tabtools.cpp" line="540"/>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="obsolete">Bilder werden auf die Größe des Rahmens skaliert</translation>
+        <translation type="obsolete">Bilder werden auf die Grösse des Rahmens skaliert</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/tabtools.cpp" line="541"/>
@@ -30872,17 +31051,17 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="550"/>
         <source>Minimum magnification allowed</source>
-        <translation>Kleinstmögliche Vergrößerungsstufe</translation>
+        <translation>Kleinstmögliche Vergrösserungsstufe</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="551"/>
         <source>Maximum magnification allowed</source>
-        <translation>Größtmögliche Vergrößerungstufe</translation>
+        <translation>Grösstmögliche Vergrösserungstufe</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="552"/>
         <source>Change in magnification for each zoom operation</source>
-        <translation>Abstand zwischen zwei Vergrößerungsstufen</translation>
+        <translation>Abstand zwischen zwei Vergrösserungsstufen</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="553"/>
@@ -30917,7 +31096,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="146"/>
         <source>Text Stroke:</source>
-        <translation>Umriß:</translation>
+        <translation>Umriss:</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="701"/>
@@ -30968,12 +31147,12 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="425"/>
         <source>Regular Polygons</source>
-        <translation>Gleichmäßige Polygone</translation>
+        <translation>Gleichmässige Polygone</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="437"/>
         <source>Zoom</source>
-        <translation>Vergrößerung</translation>
+        <translation>Vergrösserung</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="499"/>
@@ -31048,12 +31227,12 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="536"/>
         <source>Image frames allow images to scale to any size</source>
-        <translation>Mit Bildrahmen können Bilder auf jede Größe skaliert werden</translation>
+        <translation>Mit Bildrahmen können Bilder auf jede Grösse skaliert werden</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="540"/>
         <source>Images in image frames are scaled to the size of the frame</source>
-        <translation>Bilder in Bildrahmen werden auf die Größe des Rahmens skaliert</translation>
+        <translation>Bilder in Bildrahmen werden auf die Grösse des Rahmens skaliert</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="541"/>
@@ -31156,7 +31335,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../tabtypography.cpp" line="151"/>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation>Relative Größe der tiefgestellen Buchstaben im Vergleich zur normalen Schriftgröße</translation>
+        <translation>Relative Grösse der tiefgestellen Buchstaben im Vergleich zur normalen Schriftgrösse</translation>
     </message>
     <message>
         <location filename="../tabtypography.cpp" line="152"/>
@@ -31166,32 +31345,32 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <location filename="../tabtypography.cpp" line="153"/>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation>Relative Größe der hochgestellten Buchstaben im Vergleich zur normalen Schriftgröße</translation>
+        <translation>Relative Grösse der hochgestellten Buchstaben im Vergleich zur normalen Schriftgrösse</translation>
     </message>
     <message>
         <location filename="../tabtypography.cpp" line="154"/>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation>Relative Größe der Kapitälchen im Vergleich zur normalen Schriftgröße</translation>
+        <translation>Relative Grösse der Kapitälchen im Vergleich zur normalen Schriftgrösse</translation>
     </message>
     <message>
         <location filename="../tabtypography.cpp" line="155"/>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation>Prozentuale Vergrößerung des Zeilenabstandes zur Schriftgröße</translation>
+        <translation>Prozentuale Vergrösserung des Zeilenabstandes zur Schriftgrösse</translation>
     </message>
     <message>
         <location filename="../tabtypography.cpp" line="156"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation>Versatz unterhalb der Grundlinie der normalen Schrift als Prozentwert der Größe des Unterbandes</translation>
+        <translation>Versatz unterhalb der Grundlinie der normalen Schrift als Prozentwert der Grösse des Unterbandes</translation>
     </message>
     <message>
         <location filename="../tabtypography.cpp" line="159"/>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation>Linienstärke ausgedrückt in Prozent bezogen auf die Schriftgröße</translation>
+        <translation>Linienstärke ausgedrückt in Prozent bezogen auf die Schriftgrösse</translation>
     </message>
     <message>
         <location filename="../tabtypography.cpp" line="158"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation>Versatz über der Grundlinie der Schrift als Prozentwert der Größe des Oberbandes</translation>
+        <translation>Versatz über der Grundlinie der Schrift als Prozentwert der Grösse des Oberbandes</translation>
     </message>
 </context>
 <context>
@@ -31583,7 +31762,7 @@ Versatz</translation>
     <message>
         <location filename="../undomanager.cpp" line="791"/>
         <source>Resize</source>
-        <translation>Größe ändern</translation>
+        <translation>Grösse ändern</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="792"/>
@@ -31694,12 +31873,12 @@ W: %3, H: %4</translation>
     <message>
         <location filename="../undomanager.cpp" line="816"/>
         <source>Lock size</source>
-        <translation>Größe sperren</translation>
+        <translation>Grösse sperren</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="817"/>
         <source>Unlock size</source>
-        <translation>Größe entsperren</translation>
+        <translation>Grösse entsperren</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="820"/>
@@ -31811,7 +31990,7 @@ bis %2</translation>
     <message>
         <location filename="../undomanager.cpp" line="842"/>
         <source>Set font size</source>
-        <translation>Schriftgröße festlegen</translation>
+        <translation>Schriftgrösse festlegen</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="843"/>
@@ -31926,22 +32105,22 @@ bis %2</translation>
     <message>
         <location filename="../undomanager.cpp" line="870"/>
         <source>Text flows around the frame</source>
-        <translation>Text umfließt den Rahmen</translation>
+        <translation>Text umfliesst den Rahmen</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="871"/>
         <source>Text flows around bounding box</source>
-        <translation>Text umfließt die Bounding Box</translation>
+        <translation>Text umfliesst die Bounding Box</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="872"/>
         <source>Text flows around contour line</source>
-        <translation>Text umfließt Konturlinie</translation>
+        <translation>Text umfliesst Konturlinie</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="874"/>
         <source>No text flow</source>
-        <translation>Kein Textfluß</translation>
+        <translation>Kein Textfluss</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="876"/>
@@ -31961,12 +32140,12 @@ bis %2</translation>
     <message>
         <location filename="../undomanager.cpp" line="879"/>
         <source>Set image scaling</source>
-        <translation>Bildgröße festlegen</translation>
+        <translation>Bildgrösse festlegen</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="880"/>
         <source>Frame size</source>
-        <translation>Rahmengröße</translation>
+        <translation>Rahmengrösse</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="881"/>
@@ -31976,12 +32155,12 @@ bis %2</translation>
     <message>
         <location filename="../undomanager.cpp" line="882"/>
         <source>Keep aspect ratio</source>
-        <translation>Größenverhältnis beibehalten</translation>
+        <translation>Grössenverhältnis beibehalten</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="883"/>
         <source>Break aspect ratio</source>
-        <translation>Größenverhältnis nicht beibehalten</translation>
+        <translation>Grössenverhältnis nicht beibehalten</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="908"/>
@@ -32096,7 +32275,7 @@ bis %2</translation>
     <message>
         <location filename="../undomanager.cpp" line="796"/>
         <source>Change Image Scale</source>
-        <translation>Bildgröße ändern</translation>
+        <translation>Bildgrösse ändern</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="797"/>
@@ -32167,7 +32346,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../undomanager.cpp" line="913"/>
         <source>Adjust frame to the image size</source>
-        <translation>Rahmen an Bildgröße anpassen</translation>
+        <translation>Rahmen an Bildgrösse anpassen</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="838"/>
@@ -32177,7 +32356,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../undomanager.cpp" line="873"/>
         <source>Text flows around image clipping path</source>
-        <translation>Text fließt um den Beschneidungspfad des Bildes</translation>
+        <translation>Text fliesst um den Beschneidungspfad des Bildes</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="914"/>
@@ -32227,17 +32406,17 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../undomanager.cpp" line="866"/>
         <source>Import AI drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>AI-Zeichnung importieren</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="867"/>
         <source>Import XFig drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Xfig-Zeichnung importieren</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="857"/>
         <source>Render frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderrahmen</translation>
     </message>
 </context>
 <context>
@@ -32436,7 +32615,7 @@ Möchten Sie statt dessen den Standardbrowser Ihres Systems starten?</translatio
     <message>
         <location filename="../useprintermarginsdialog.cpp" line="44"/>
         <source>Minimum Margins for Page Size %1</source>
-        <translation>Minimale Seitenränder für Seitengröße %1</translation>
+        <translation>Minimale Seitenränder für Seitengrösse %1</translation>
     </message>
     <message>
         <location filename="../useprintermarginsdialog.ui" line="13"/>
@@ -32623,22 +32802,22 @@ und wandelt deren Vektordaten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../plugins/xfigimplugin/importxfig.cpp" line="142"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importiere: %1</translation>
+        <translation>Importiere: %1</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfig.cpp" line="145"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analysieren der Datei:</translation>
+        <translation>Analysieren der Datei:</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfig.cpp" line="304"/>
         <source>Group%1</source>
-        <translation type="unfinished">Gruppe%1</translation>
+        <translation>Gruppe%1</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfig.cpp" line="1583"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Objekte werden erstellt</translation>
+        <translation>Objekte werden erstellt</translation>
     </message>
 </context>
 <context>
@@ -32897,12 +33076,12 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="198"/>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Sie müssen sicherstellen, daß Bilder und Schriften frei benutzt werden können. Wenn Sie Schriften nicht verbreiten dürfen, dann binden Sie diese beim Export als Vorlage nicht ein.</translation>
+        <translation>Sie müssen sicherstellen, dass Bilder und Schriften frei benutzt werden können. Wenn Sie Schriften nicht verbreiten dürfen, dann binden Sie diese beim Export als Vorlage nicht ein.</translation>
     </message>
     <message>
         <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="199"/>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Wenn Sie Vorlagen erstellen, sollten Sie darauf achten, daß Sie die Informationen im Abschnitt &quot;Vorlagen installieren&quot; beachten. Das bedeutet, Benutzer sollten in der Lage sein, die Vorlage einfach in das entsprechende Verzeichnis zu kopieren und zu benutzen.</translation>
+        <translation>Wenn Sie Vorlagen erstellen, sollten Sie darauf achten, dass Sie die Informationen im Abschnitt &quot;Vorlagen installieren&quot; beachten. Das bedeutet, Benutzer sollten in der Lage sein, die Vorlage einfach in das entsprechende Verzeichnis zu kopieren und zu benutzen.</translation>
     </message>
     <message>
         <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="203"/>
@@ -32912,7 +33091,7 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="208"/>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
-        <translation>Kopieren Sie die existierende template.xml in eine Datei mit der Bezeichnung template.lang_COUNTRY.xml (ersetzen Sie COUNTRY durch denselben Ländercode wie bei den po/qm-Dateien für Ihre Sprache), zum Beispiel template.fi.xml für Finnisch. Diese Kopie muß sich im selben Verzeichnis wie template.xml befinden.</translation>
+        <translation>Kopieren Sie die existierende template.xml in eine Datei mit der Bezeichnung template.lang_COUNTRY.xml (ersetzen Sie COUNTRY durch denselben Ländercode wie bei den po/qm-Dateien für Ihre Sprache), zum Beispiel template.fi.xml für Finnisch. Diese Kopie muss sich im selben Verzeichnis wie template.xml befinden.</translation>
     </message>
     <message>
         <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="74"/>
