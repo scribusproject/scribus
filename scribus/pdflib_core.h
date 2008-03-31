@@ -228,7 +228,7 @@ private:
 	QMap<QString,int> Shadings;
 	QMap<QString,int> Transpar;
 	QMap<QString,ICCD> ICCProfiles;
-	QMap<QString, OCGInfo> OCGEntries;
+	QHash<QString, OCGInfo> OCGEntries;
 	int ObjCounter;
 	QString ResNam;
 	int ResCount;

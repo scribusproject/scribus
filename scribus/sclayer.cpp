@@ -76,7 +76,8 @@ bool ScLayer::operator== (const ScLayer& other) const
 	if (Name == other.Name && LNr == other.LNr && Level == other.Level      &&
 		isPrintable  == other.isPrintable  && isViewable  == other.isViewable  &&
 		flowControl  == other.flowControl  && outlineMode == other.outlineMode && 
-		transparency == other.transparency && blendMode   == other.blendMode)
+		transparency == other.transparency && isEditable == other.isEditable &&
+		blendMode   == other.blendMode)
 	{
 		return true;
 	}
@@ -129,7 +130,8 @@ void ScLayers::levelToLayer (ScLayer& layer, int level) const
 			const ScLayer& ll  = this->at(la2);
 			layer.isViewable   = ll.isViewable;
 			layer.isPrintable  = ll.isPrintable;
-			layer.LNr         = ll.LNr;
+			layer.isEditable   = ll.isEditable;
+			layer.LNr          = ll.LNr;
 			layer.Name         = ll.Name;
 			layer.flowControl  = ll.flowControl;
 			layer.transparency = ll.transparency;

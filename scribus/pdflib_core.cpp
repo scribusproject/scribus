@@ -1623,6 +1623,18 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			PutDoc("/Name ");
 			PutDoc(EncStringUTF16("("+ll.Name+")", ObjCounter-1));
 			PutDoc("\n");
+			PutDoc("/Usage <</Print <</PrintState ");
+			if (ll.isPrintable)
+				PutDoc("/ON");
+			else
+				PutDoc("/OFF");
+			PutDoc(">> /View <</ViewState ");
+			if (ll.isViewable)
+				PutDoc("/ON");
+			else
+				PutDoc("/OFF");
+			PutDoc(">>>>>>");
+			PutDoc("\n");
 			PutDoc(">>\nendobj\n");
 			Lnr++;
 		}
@@ -1646,7 +1658,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 	{
 		doc.Layers.levelToLayer(ll, Lnr);
 		PItems = doc.MasterItems;
-		if (ll.isPrintable)
+		if ((ll.isPrintable) || ((Options.Version == 15) && (Options.useLayers)))
 		{
 			if ((Options.Version == 15) && (Options.useLayers))
 				PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
@@ -2656,7 +2668,7 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 			{
 				doc.Layers.levelToLayer(ll, Lnr);
 				Lnr++;
-				if (ll.isPrintable)
+				if ((ll.isPrintable) || ((Options.Version == 15) && (Options.useLayers)))
 				{
 					if ((Options.Version == 15) && (Options.useLayers))
 						PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
@@ -2753,7 +2765,7 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	for (int la = 0; la < doc.Layers.count() && !abortExport; ++la)
 	{
 		doc.Layers.levelToLayer(ll, Lnr);
-		if (ll.isPrintable)
+		if ((ll.isPrintable) || ((Options.Version == 15) && (Options.useLayers)))
 		{
 			QString inh = "";
 			if ((Options.Version == 15) && (Options.useLayers))
@@ -6893,23 +6905,44 @@ void PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		XRef[8] = bytesWritten();
 		QStringList lay;
 		PutDoc("9 0 obj\n<<\n");
-		PutDoc("/D << /BaseState /ON /Order [ ");
-		QMap<QString, OCGInfo>::Iterator itoc;
-		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+		PutDoc("/D << /Order [ ");
+		ScLayer ll;
+		ll.isPrintable = false;
+		ll.LNr = 0;
+		int Lnr = 0;
+		for (int la = 0; la < doc.Layers.count(); ++la)
 		{
-			lay.prepend(QString::number(itoc.value().ObjNum)+" 0 R ");
+			doc.Layers.levelToLayer(ll, la);
+			if (ll.isEditable)
+				lay.prepend(QString::number(OCGEntries[ll.Name].ObjNum)+" 0 R ");
+			Lnr++;
 		}
 		for (int layc = 0; layc < lay.count(); ++layc)
 		{
 			PutDoc(lay[layc]);
 		}
-		PutDoc("]\n/OFF [ ");
+		PutDoc("]\n");
+		PutDoc("/OFF [ ");
+		QHash<QString, OCGInfo>::Iterator itoc;
 		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
 		{
 			if (!itoc.value().visible)
 				PutDoc(QString::number(itoc.value().ObjNum)+" 0 R ");
 		}
-		PutDoc("] >>\n/OCGs [ ");
+		PutDoc("]\n");
+		PutDoc("/AS [<</Event /Print /OCGs [ ");
+		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+		{
+			PutDoc(QString::number(itoc.value().ObjNum)+" 0 R ");
+		}
+		PutDoc("] /Category [/Print]>> <</Event /View /OCGs [");
+		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+		{
+			PutDoc(QString::number(itoc.value().ObjNum)+" 0 R ");
+		}
+		PutDoc("] /Category [/View]>>]\n");
+		PutDoc(">>\n");
+		PutDoc("/OCGs [ ");
 		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
 		{
 			PutDoc(QString::number(itoc.value().ObjNum)+" 0 R ");
