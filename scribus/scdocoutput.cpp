@@ -23,7 +23,7 @@ bool ScDocOutput::makeOutput(ScribusDoc* doc, vector<int>& pageNumbers)
 		if( outputComponent != NULL )
 		{
 			outputComponent->begin();
-			outputComponent->DrawPage(page);
+			outputComponent->drawPage(page);
 			outputComponent->end();
 		}
 		else

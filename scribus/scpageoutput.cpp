@@ -83,18 +83,18 @@ ScImage::RequestType ScPageOutput::translateImageModeToRequest( ScPainterExBase:
 	return value;
 }
 
-void ScPageOutput::DrawPage( Page* page, ScPainterExBase* painter)
+void ScPageOutput::drawPage( Page* page, ScPainterExBase* painter)
 {
 	int clipx = static_cast<int>(page->xOffset());
 	int clipy = static_cast<int>(page->yOffset());
 	int clipw = qRound(page->width());
 	int cliph = qRound(page->height());
-	DrawMasterItems(painter, page, QRect(clipx, clipy, clipw, cliph));
-	DrawPageItems(painter, page, QRect(clipx, clipy, clipw, cliph));
-	DrawMarks(page, painter, m_marksOptions);
+	drawMasterItems(painter, page, QRect(clipx, clipy, clipw, cliph));
+	drawPageItems(painter, page, QRect(clipx, clipy, clipw, cliph));
+	drawMarks(page, painter, m_marksOptions);
 }
 
-void ScPageOutput::DrawMasterItems(ScPainterExBase *painter, Page *page, const QRect& clip)
+void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, const QRect& clip)
 {
 	QStack<PageItem*> groupStack;
 	QStack<PageItem*> groupClips;
@@ -151,7 +151,7 @@ void ScPageOutput::DrawMasterItems(ScPainterExBase *painter, Page *page, const Q
 							currItem->Dirty = true;*/
 						QRect oldR(currItem->getRedrawBounding(1.0));
 						if (clip.intersects(oldR))
-							DrawItem(currItem, painter, clip);
+							drawItem(currItem, painter, clip);
 						currItem->OwnPage = savedOwnPage;
 						if (!currItem->ChangedMasterItem)
 						{
@@ -238,7 +238,7 @@ void ScPageOutput::DrawMasterItems(ScPainterExBase *painter, Page *page, const Q
 	}
 }
 
-void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, const QRect& clip)
+void ScPageOutput::drawPageItems(ScPainterExBase *painter, Page *page, const QRect& clip)
 {
 	//linkedFramesToShow.clear();
 	QStack<PageItem*> groupStack;
@@ -285,7 +285,7 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, const QRe
 					QRect oldR(currItem->getRedrawBounding(1.0));
 					if (clip.intersects(oldR))
 					{
-						DrawItem( currItem, painter, clip );
+						drawItem( currItem, painter, clip );
 						if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
 						{
 							PageItem *nextItem = currItem;
@@ -355,26 +355,26 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, const QRe
 	}
 }
 
-void ScPageOutput::DrawItem( PageItem* item, ScPainterExBase* painter, const QRect& clip )
+void ScPageOutput::drawItem( PageItem* item, ScPainterExBase* painter, const QRect& clip )
 {
-	DrawItem_Pre(item, painter);
+	drawItem_Pre(item, painter);
 	PageItem::ItemType itemType = item->itemType();
 	if( itemType == PageItem::ImageFrame )
-		DrawItem_ImageFrame( (PageItem_ImageFrame*) item, painter, clip);
+		drawItem_ImageFrame( (PageItem_ImageFrame*) item, painter, clip);
 	else if( itemType == PageItem::Line )
-		DrawItem_Line( (PageItem_Line*) item, painter, clip);
+		drawItem_Line( (PageItem_Line*) item, painter, clip);
 	else if( itemType == PageItem::PathText )
-		DrawItem_PathText(  (PageItem_PathText*) item, painter, clip);
+		drawItem_PathText(  (PageItem_PathText*) item, painter, clip);
 	else if( itemType == PageItem::Polygon )
-		DrawItem_Polygon( (PageItem_Polygon*) item, painter, clip);
+		drawItem_Polygon( (PageItem_Polygon*) item, painter, clip);
 	else if( itemType == PageItem::PolyLine )
-		DrawItem_PolyLine( (PageItem_PolyLine*) item, painter, clip);
+		drawItem_PolyLine( (PageItem_PolyLine*) item, painter, clip);
 	else if( itemType == PageItem::TextFrame )
-		DrawItem_TextFrame( (PageItem_TextFrame*) item, painter, clip);
-	DrawItem_Post(item, painter);
+		drawItem_TextFrame( (PageItem_TextFrame*) item, painter, clip);
+	drawItem_Post(item, painter);
 }
 
-void ScPageOutput::DrawItem_Pre( PageItem* item, ScPainterExBase* painter)
+void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 {
 	painter->save();
 	if (!item->isEmbedded)
@@ -467,7 +467,7 @@ void ScPageOutput::DrawItem_Pre( PageItem* item, ScPainterExBase* painter)
 	painter->setFillRule(item->fillRule);
 }
 
-void ScPageOutput::DrawItem_Post( PageItem* item, ScPainterExBase* painter )
+void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 {
 	bool doStroke=true;
 	if ( item->itemType() == PageItem::PathText || item->itemType() == PageItem::PolyLine || item->itemType() == PageItem::Line )
@@ -510,7 +510,7 @@ void ScPageOutput::DrawItem_Post( PageItem* item, ScPainterExBase* painter )
 	painter->restore();
 }
 
-void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const CharStyle& style, GlyphLayout& glyphs, const QRect& clip)
+void ScPageOutput::drawGlyphs(PageItem* item, ScPainterExBase *painter, const CharStyle& style, GlyphLayout& glyphs, const QRect& clip)
 {
 	uint glyph = glyphs.glyph;
 	if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode())) // NBSPACE
@@ -523,7 +523,7 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 		if (glyphs.more)
 		{
 			painter->translate(glyphs.xadvance, 0);
-			DrawGlyphs(item, painter, style, *glyphs.more, clip);
+			drawGlyphs(item, painter, style, *glyphs.more, clip);
 		}
 		return;
 	}
@@ -607,13 +607,13 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 					ScColorShade tmp = painter->brush();
 					painter->setBrush(painter->pen());
 					painter->setupPolygon(&gly, true);
-					FillPath(item, painter, clip);
+					fillPath(item, painter, clip);
 					painter->setBrush(tmp);
 					painter->restore();
 					painter->setupPolygon(&gly, true);
 				}
 				if (style.fillColor() != CommonStrings::None)
-					FillPath(item, painter, clip);
+					fillPath(item, painter, clip);
 				if ((style.effects() & ScStyle_Outline) && (style.strokeColor() != CommonStrings::None) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
 				{
 					painter->setLineWidth((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) / glySc);
@@ -660,11 +660,11 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 	if (glyphs.more)
 	{
 		painter->translate(glyphs.xadvance, 0);
-		DrawGlyphs(item, painter, style, *glyphs.more, clip);
+		drawGlyphs(item, painter, style, *glyphs.more, clip);
 	}
 }
 
-void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, const QRect& clip, const CharStyle& style, PageItem* cembedded)
+void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const QRect& clip, const CharStyle& style, PageItem* cembedded)
 {
 	if (!cembedded)
 		return;
@@ -715,7 +715,7 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 			continue;
 		}
 		double pws = embedded->m_lineWidth;
-		DrawItem_Pre(embedded, p);
+		drawItem_Pre(embedded, p);
 		switch(embedded->itemType())
 		{
 			case PageItem::ImageFrame:
@@ -723,18 +723,18 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 			case PageItem::TextFrame:
 			case PageItem::Polygon:
 			case PageItem::PathText:
-				DrawItem(embedded, p, clip);
+				drawItem(embedded, p, clip);
 				break;
 			case PageItem::Line:
 			case PageItem::PolyLine:
 				embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-				DrawItem(embedded, p, clip);
+				drawItem(embedded, p, clip);
 				break;
 			default:
 				break;
 		}
 		embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-		DrawItem_Post(embedded, p);
+		drawItem_Post(embedded, p);
 		p->restore();
 		if (groupStack.count() != 0)
 		{
@@ -750,7 +750,7 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 	}
 }
 
-void ScPageOutput::DrawPattern( PageItem* item, ScPainterExBase* painter, const QRect& clip)
+void ScPageOutput::drawPattern( PageItem* item, ScPainterExBase* painter, const QRect& clip)
 {
 	double x1, x2, y1, y2;
 	ScPattern& pattern = m_doc->docPatterns[item->pattern()];
@@ -833,7 +833,7 @@ void ScPageOutput::DrawPattern( PageItem* item, ScPainterExBase* painter, const 
 				itRect.setCoords(x1, y1, x2, y2);
 				itRect = matrix.mapRect( itRect );
 				if ( itRect.intersects(itemRect) )
-					DrawItem(it, painter, clip);
+					drawItem(it, painter, clip);
 			}
 		}
 		it->setXYPos(itx, ity);
@@ -842,13 +842,13 @@ void ScPageOutput::DrawPattern( PageItem* item, ScPainterExBase* painter, const 
 	painter->restore();
 }
 
-void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBase* painter, const QRect& clip  )
+void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBase* painter, const QRect& clip  )
 {
 	ScPainterExBase::ImageMode mode = ScPainterExBase::rgbImages;
 	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
 	{
 		painter->setupPolygon(&item->PoLine);
-		FillPath(item, painter, clip);
+		fillPath(item, painter, clip);
 	}
 	if (item->Pfile.isEmpty())
 	{
@@ -928,7 +928,7 @@ void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 	}
 }
 
-void ScPageOutput::DrawItem_Line( PageItem_Line* item, ScPainterExBase* painter, const QRect& clip )
+void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter, const QRect& clip )
 {
  int startArrowIndex;
  int endArrowIndex;
@@ -967,7 +967,7 @@ void ScPageOutput::DrawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 		painter->setLineWidth( 0 );
 		painter->setFillMode(ScPainterExBase::Solid);
 		painter->setupPolygon( &arrow );
-		FillPath(item, painter, clip);
+		fillPath(item, painter, clip);
 	}
 	if (endArrowIndex != 0)
 	{
@@ -981,11 +981,11 @@ void ScPageOutput::DrawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 		painter->setLineWidth( 0 );
 		painter->setFillMode( ScPainterExBase::Solid );
 		painter->setupPolygon( &arrow );
-		FillPath(item, painter, clip);
+		fillPath(item, painter, clip);
 	}
 }
 
-void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, const QRect& clip )
+void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, const QRect& clip )
 {
 	QString chstr, chstr2, chstr3;
 	ScText *hl;
@@ -1149,10 +1149,10 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		if (hl->ch == SpecialChars::OBJECT)
 		{
 			painter->translate(0.0, item->pathTextBaseOffset());
-			DrawItem_Embedded(hl->embedded.getItem(), painter, clip, itemText.charStyle(a), hl->embedded.getItem());
+			drawItem_Embedded(hl->embedded.getItem(), painter, clip, itemText.charStyle(a), hl->embedded.getItem());
 		}
 		else
-			DrawGlyphs(item, painter, itemText.charStyle(a), hl->glyph, clip);
+			drawGlyphs(item, painter, itemText.charStyle(a), hl->glyph, clip);
 
 		painter->setWorldMatrix(savWM);
 		painter->restore();
@@ -1164,13 +1164,13 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 	}
 }
 
-void ScPageOutput::DrawItem_Polygon ( PageItem_Polygon* item , ScPainterExBase* painter, const QRect& clip )
+void ScPageOutput::drawItem_Polygon ( PageItem_Polygon* item , ScPainterExBase* painter, const QRect& clip )
 {
 	painter->setupPolygon(&item->PoLine);
-	FillPath(item, painter, clip);
+	fillPath(item, painter, clip);
 }
 
-void ScPageOutput::DrawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* painter, const QRect& clip )
+void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* painter, const QRect& clip )
 {
  int startArrowIndex;
  int endArrowIndex;
@@ -1216,7 +1216,7 @@ void ScPageOutput::DrawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 				cli.addPoint(Start);
 			}
 			painter->setupPolygon(&cli);
-			FillPath(item, painter, clip);
+			fillPath(item, painter, clip);
 		}
 		painter->setupPolygon(&item->PoLine, false);
 		if (item->NamedLStyle.isEmpty())
@@ -1257,7 +1257,7 @@ void ScPageOutput::DrawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 					painter->setLineWidth(0);
 					painter->setFillMode(ScPainterExBase::Solid);
 					painter->setupPolygon(&arrow);
-					FillPath(item, painter, clip);
+					fillPath(item, painter, clip);
 					break;
 				}
 			}
@@ -1282,7 +1282,7 @@ void ScPageOutput::DrawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 					painter->setLineWidth(0);
 					painter->setFillMode(ScPainterExBase::Solid);
 					painter->setupPolygon(&arrow);
-					FillPath(item, painter, clip);
+					fillPath(item, painter, clip);
 					break;
 				}
 			}
@@ -1290,7 +1290,7 @@ void ScPageOutput::DrawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 	}
 }
 
-void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, const QRect& clip )
+void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, const QRect& clip )
 {
 	QMatrix wm;
 	QPoint pt1, pt2;
@@ -1315,7 +1315,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
 	{
 		painter->setupPolygon(&item->PoLine);
-		FillPath(item, painter, clip);
+		fillPath(item, painter, clip);
 	}
 	if (item->lineColor() != CommonStrings::None)
 		lineCorr = item->lineWidth() / 2.0;
@@ -1401,9 +1401,9 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						painter->save();
 						painter->translate(CurX, ls.y);
 						if (hl->ch == SpecialChars::OBJECT)
-							DrawItem_Embedded(item, painter, clip, charStyle, hl->embedded.getItem());
+							drawItem_Embedded(item, painter, clip, charStyle, hl->embedded.getItem());
 						else
-							DrawGlyphs(item, painter, charStyle, hl->glyph, clip);
+							drawGlyphs(item, painter, charStyle, hl->glyph, clip);
 						painter->restore();
 					}
 					if (hl->ch == SpecialChars::OBJECT)
@@ -1418,7 +1418,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 	painter->restore();
 }
 
-void ScPageOutput::DrawMarks( Page* page, ScPainterExBase* painter, const MarksOptions& options )
+void ScPageOutput::drawMarks( Page* page, ScPainterExBase* painter, const MarksOptions& options )
 {
 	double markOffs  = options.markOffset;
 	double bleedLeft = 0.0, bleedRight = 0.0;
@@ -1456,14 +1456,14 @@ void ScPageOutput::DrawMarks( Page* page, ScPainterExBase* painter, const MarksO
 		FPoint start, end;
 		double left = offsetX, right = offsetX + width;
 		double bottom = offsetY + height, top = offsetY;
-		DrawBoxMarks( painter, QRectF(QPointF(left, top), QPointF(right, bottom)), bleedBox, markOffs );
+		drawBoxMarks( painter, QRectF(QPointF(left, top), QPointF(right, bottom)), bleedBox, markOffs );
 	}
 	if (options.bleedMarks)
 	{
 		FPoint start, end;
 		double left = offsetX - bleedLeft, right = offsetX + width + bleedRight;
 		double bottom = offsetY + height + bleedBottom, top = offsetY - bleedTop;;
-		DrawBoxMarks( painter, QRectF(QPointF(left, top), QPointF(right, bottom)), bleedBox, markOffs );
+		drawBoxMarks( painter, QRectF(QPointF(left, top), QPointF(right, bottom)), bleedBox, markOffs );
 	}
 	if (options.registrationMarks)
 	{
@@ -1471,26 +1471,26 @@ void ScPageOutput::DrawMarks( Page* page, ScPainterExBase* painter, const MarksO
 		double posY = (offsetY + height + bleedBottom + markOffs + 3.0);
 		painter->save();
 		painter->translate(posX, posY);
-		DrawRegistrationCross( painter );
+		drawRegistrationCross( painter );
 		painter->restore();
 		posX = (2 * offsetX + width) / 2.0 - 7.0;
 		posY = (offsetY - bleedTop - markOffs - 17);
 		painter->save();
 		painter->translate(posX, posY);
-		DrawRegistrationCross( painter );
+		drawRegistrationCross( painter );
 		painter->restore();
 
 		posX = (offsetX - bleedLeft - markOffs - 17);
 		posY = (2 * offsetY + height) / 2.0 - 7.0;
 		painter->save();
 		painter->translate(posX, posY);
-		DrawRegistrationCross( painter );
+		drawRegistrationCross( painter );
 		painter->restore();
 		posX = (offsetX + width + bleedRight + markOffs + 3.0);
 		posY = (2 * offsetY + height) / 2.0 - 7.0;
 		painter->save();
 		painter->translate(posX, posY);
-		DrawRegistrationCross( painter );
+		drawRegistrationCross( painter );
 		painter->restore();
 	}
 	if (options.colorMarks)
@@ -1545,7 +1545,7 @@ void ScPageOutput::DrawMarks( Page* page, ScPainterExBase* painter, const MarksO
 	painter->restore();
 }
 
-void ScPageOutput::DrawBoxMarks( ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset )
+void ScPageOutput::drawBoxMarks( ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset )
 {
 	FPoint start, end;
 	double left   = box.left(), right = box.right();
@@ -1582,7 +1582,7 @@ void ScPageOutput::DrawBoxMarks( ScPainterExBase* painter, const QRectF& box, co
 	painter->drawLine(start, end);
 }
 
-void ScPageOutput::DrawRegistrationCross( ScPainterExBase* painter )
+void ScPageOutput::drawRegistrationCross( ScPainterExBase* painter )
 {
 	painter->save();
 
@@ -1615,15 +1615,15 @@ void ScPageOutput::DrawRegistrationCross( ScPainterExBase* painter )
 	painter->restore();
 }
 
-void ScPageOutput::FillPath( PageItem* item, ScPainterExBase* painter, const QRect& clip )
+void ScPageOutput::fillPath( PageItem* item, ScPainterExBase* painter, const QRect& clip )
 {
 	if( painter->fillMode() == ScPainterExBase::Pattern && !painter->hasCapability(ScPainterExBase::patterns) )
-		DrawPattern( item, painter, clip );
+		drawPattern( item, painter, clip );
 	else
 		painter->fillPath();
 }
 
-void ScPageOutput::StrokePath( PageItem* item, ScPainterExBase* painter, const QRect& clip )
+void ScPageOutput::strokePath( PageItem* item, ScPainterExBase* painter, const QRect& clip )
 {
 	painter->strokePath();
 }

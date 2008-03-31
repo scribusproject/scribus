@@ -48,7 +48,7 @@ void ScPageOutput_Ps2::begin(void)
 	}
 }
 
-void ScPageOutput_Ps2::DrawPage(Page* page)
+void ScPageOutput_Ps2::drawPage(Page* page)
 {
 	// Get page position
 	int clipx = static_cast<int>(page->xOffset());
@@ -67,7 +67,7 @@ void ScPageOutput_Ps2::DrawPage(Page* page)
 	QMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
 	painter.setWorldMatrix( matrix );
 	// Draw page
-	ScPageOutput::DrawPage(page, &painter);
+	ScPageOutput::drawPage(page, &painter);
 }
 
 void ScPageOutput_Ps2::end(void)

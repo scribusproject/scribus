@@ -268,7 +268,7 @@ bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* im
 	painter->setWorldMatrix( matrix );
 
 	painter->clear();
-	pageOutput->DrawPage(page, painter); 
+	pageOutput->drawPage(page, painter); 
 
 	delete painter;
 	delete pageOutput;
@@ -529,7 +529,7 @@ bool ScPrintEngine_GDI::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions
 	QMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
 	painter->setWorldMatrix( matrix );
 
-	pageOutput->DrawPage(page, painter); 
+	pageOutput->drawPage(page, painter); 
 
 	delete painter;
 	delete pageOutput;
@@ -721,7 +721,7 @@ bool ScPrintEngine_GDI::printPage_Cairo ( ScribusDoc* doc, Page* page, PrintOpti
 	QMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
 	painter.setWorldMatrix( matrix );
 
-	pageOutput.DrawPage(page, &painter);
+	pageOutput.drawPage(page, &painter);
 
 	cairo_show_page(context);
 	EndPage( printerDC );

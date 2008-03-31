@@ -38,7 +38,7 @@ public:
 	virtual ~ScPageOutput_Ps2();
 
 	virtual void begin(void);
-	virtual void DrawPage(Page* page);
+	virtual void drawPage(Page* page);
 	virtual void end(void);
 
 	const QRect clip(void);
