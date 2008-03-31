@@ -1104,6 +1104,8 @@ void CMYKChoose::SelFromSwatch(QListWidgetItem* c)
 	Farbe = tmp;
 	setValues();
 	Separations->setChecked(tmp.isSpotColor());
+	if ((isNew) && (!Farbname->isModified()))
+		Farbname->setText(c->text());
 	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
 }
 
