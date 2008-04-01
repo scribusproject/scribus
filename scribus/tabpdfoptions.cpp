@@ -501,10 +501,13 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		TextLabel2e->setBuddy(EffectTime);
 		EffectsLayout->addWidget( EffectTime, 1, 1 );
 		EffectType = new QComboBox(Effects);
-		QString tmpc[] = { tr("No Effect"), tr("Blinds"), tr("Box"), tr("Dissolve"), tr("Glitter"), tr("Split"), tr("Wipe")};
-		size_t ar = sizeof(tmpc) / sizeof(*tmpc);
-		for (uint a = 0; a < ar; ++a)
-			EffectType->addItem(tmpc[a]);
+		EffectType->addItem( tr("No Effect"));
+		EffectType->addItem( tr("Blinds"));
+		EffectType->addItem( tr("Box"));
+		EffectType->addItem( tr("Dissolve"));
+		EffectType->addItem( tr("Glitter"));
+		EffectType->addItem( tr("Split"));
+		EffectType->addItem( tr("Wipe"));
 		EffectType->setEditable(false);
 		TextLabel3e->setBuddy(EffectType);
 		EffectsLayout->addWidget( EffectType, 2, 1 );
@@ -1119,42 +1122,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 			}
 		}
 		CheckBox10->setChecked(Opts.PresentMode);
-		QString tmp;
-		struct PDFPresentationData ef;
-		Pages->clear();
-		EffVal.clear();
-		if (EffVal.count() != 0)
-		{
-			for (int pg2 = 0; pg2 < doc->Pages->count(); ++pg2)
-			{
-				Pages->addItem( tr("Page")+" "+tmp.setNum(pg2+1));
-				if (EffVal.count()-1 < pg2)
-				{
-					ef.pageEffectDuration = 1;
-					ef.pageViewDuration = 1;
-					ef.effectType = 0;
-					ef.Dm = 0;
-					ef.M = 0;
-					ef.Di = 0;
-					EffVal.append(ef);
-				}
-			}
-		}
-		else
-		{
-			for (int pg = 0; pg < doc->Pages->count(); ++pg)
-			{
-				Pages->addItem( tr("Page")+" "+tmp.setNum(pg+1));
-				ef.pageEffectDuration = 1;
-				ef.pageViewDuration = 1;
-				ef.effectType = 0;
-				ef.Dm = 0;
-				ef.M = 0;
-				ef.Di = 0;
-				EffVal.append(ef);
-			}
-		}
 		PagePrev->setChecked(false);
+		PagePr();
 		PageTime->setValue(EffVal[0].pageViewDuration);
 		EffectTime->setValue(EffVal[0].pageEffectDuration);
 		bool df = true;
@@ -1327,6 +1296,21 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		X3Group->setEnabled(false);
 	if (mdoc != 0  && exporting)
 	{
+		EffectType->clear();
+		EffectType->addItem( tr("No Effect"));
+		EffectType->addItem( tr("Blinds"));
+		EffectType->addItem( tr("Box"));
+		EffectType->addItem( tr("Dissolve"));
+		EffectType->addItem( tr("Glitter"));
+		EffectType->addItem( tr("Split"));
+		EffectType->addItem( tr("Wipe"));
+		if (Opts.Version == PDFOptions::PDFVersion_15)
+		{
+			EffectType->addItem( tr("Push"));
+			EffectType->addItem( tr("Cover"));
+			EffectType->addItem( tr("Uncover"));
+			EffectType->addItem( tr("Fade"));
+		}
 		PgSel = 0;
 		Pages->setCurrentRow(0);
 		SetEffOpts(0);
@@ -1421,6 +1405,36 @@ void TabPDFOptions::EnablePDFX(int a)
 	useLayers->setEnabled(a == 2);
 	if (useLayers2)
 		useLayers2->setEnabled(a == 2);
+	int currentEff = EffectType->currentIndex();
+	disconnect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
+	EffectType->clear();
+	EffectType->addItem( tr("No Effect"));
+	EffectType->addItem( tr("Blinds"));
+	EffectType->addItem( tr("Box"));
+	EffectType->addItem( tr("Dissolve"));
+	EffectType->addItem( tr("Glitter"));
+	EffectType->addItem( tr("Split"));
+	EffectType->addItem( tr("Wipe"));
+	if (a == 2)
+	{
+		EffectType->addItem( tr("Push"));
+		EffectType->addItem( tr("Cover"));
+		EffectType->addItem( tr("Uncover"));
+		EffectType->addItem( tr("Fade"));
+		EffectType->setCurrentIndex(currentEff);
+	}
+	else
+	{
+		if (currentEff > 10)
+		{
+			currentEff = 0;
+			EffectType->setCurrentIndex(0);
+			SetEffOpts(0);
+		}
+		else
+			EffectType->setCurrentIndex(currentEff);
+	}
+	connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
 	if (a != 3)
 	{
 		X3Group->setEnabled(false);
@@ -1699,6 +1713,7 @@ void TabPDFOptions::SetEffOpts(int nr)
 	{
 	case 0:
 	case 3:
+	case 10:
 		EDirection->setEnabled(false);
 		EDirection_2->setEnabled(false);
 		EDirection_2_2->setEnabled(false);
@@ -1715,6 +1730,9 @@ void TabPDFOptions::SetEffOpts(int nr)
 		break;
 	case 4:
 	case 6:
+	case 7:
+	case 8:
+	case 9:
 		EDirection->setEnabled(false);
 		EDirection_2->setEnabled(false);
 		EDirection_2_2->setEnabled(true);

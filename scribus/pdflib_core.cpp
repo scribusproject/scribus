@@ -2583,6 +2583,78 @@ void PDFLibCore::PDF_End_Page()
 					}
 					PutDoc("\n");
 					break;
+				case 7:
+					PutDoc("/S /Push\n");
+					PutDoc("/Di ");
+					switch (Options.PresentVals[PgNr].Di)
+					{
+						case 0:
+							PutDoc("0");
+							break;
+						case 1:
+							PutDoc("270");
+							break;
+						case 2:
+							PutDoc("90");
+							break;
+						case 3:
+							PutDoc("180");
+							break;
+						default:
+							PutDoc("0");
+							break;
+					}
+					PutDoc("\n");
+					break;
+				case 8:
+					PutDoc("/S /Cover\n");
+					PutDoc("/Di ");
+					switch (Options.PresentVals[PgNr].Di)
+					{
+						case 0:
+							PutDoc("0");
+							break;
+						case 1:
+							PutDoc("270");
+							break;
+						case 2:
+							PutDoc("90");
+							break;
+						case 3:
+							PutDoc("180");
+							break;
+						default:
+							PutDoc("0");
+							break;
+					}
+					PutDoc("\n");
+					break;
+				case 9:
+					PutDoc("/S /Uncover\n");
+					PutDoc("/Di ");
+					switch (Options.PresentVals[PgNr].Di)
+					{
+						case 0:
+							PutDoc("0");
+							break;
+						case 1:
+							PutDoc("270");
+							break;
+						case 2:
+							PutDoc("90");
+							break;
+						case 3:
+							PutDoc("180");
+							break;
+						default:
+							PutDoc("0");
+							break;
+					}
+					PutDoc("\n");
+					break;
+				case 10:
+					PutDoc("/S /Fade\n");
+					break;
 			}
 			PutDoc(">>\n");
 		}
