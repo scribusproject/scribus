@@ -1235,6 +1235,7 @@ void AIPlug::processData(QString data)
 						ite = tmpSel->itemAt(0);
 						clipCoords.translate(m_Doc->currentPage()->xOffset()-ite->xPos(), m_Doc->currentPage()->yOffset()-ite->yPos());
 						ite->PoLine = clipCoords.copy();
+						ite->PoLine.translate(baseX, baseY);
 					}
 				if (patternMode)
 					PatternElements.append(ite);
@@ -2025,6 +2026,7 @@ void AIPlug::processRaster(QDataStream &ts)
 	QMatrix imgMatrix = QMatrix(m1, m2, m3, m4, m5, m6);
 	QPointF pos = QPointF(imgMatrix.dx(), imgMatrix.dy());
 	pos += QPointF(m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
+	pos += QPointF(baseX, -baseY);
 	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CurrColorFill, CurrColorStroke, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->setWidthHeight(w * m1, h * m4);
