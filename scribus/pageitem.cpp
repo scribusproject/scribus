@@ -3547,7 +3547,151 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 	{
 		it = newNames.colors().find(cstops.at(cst)->name);
 		if (it != newNames.colors().end())
-			cstops.at(cst)->name = *it;
+		{
+			if (*it != CommonStrings::None)
+				cstops.at(cst)->name = *it;
+		}
+	}
+	if (effectsInUse.count() != 0)
+	{
+		QString col1 = CommonStrings::None;
+		QString col2 = CommonStrings::None;
+		QString col3 = CommonStrings::None;
+		QString col4 = CommonStrings::None;
+		for (int a = 0; a < effectsInUse.count(); ++a)
+		{
+			QString tmpstr = effectsInUse.at(a).effectParameters;
+			QString tmpstr2 = "";
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			switch (effectsInUse.at(a).effectCode)
+			{
+				case ScImage::EF_QUADTONE:
+					col1 = fp.readLine();
+					col2 = fp.readLine();
+					col3 = fp.readLine();
+					col4 = fp.readLine();
+					it = newNames.colors().find(col1);
+					if (it != newNames.colors().end())
+					{
+						if (*it != CommonStrings::None)
+							tmpstr2 += *it + "\n";
+						else
+							tmpstr2 += col1 + "\n";
+					}
+					else
+						tmpstr2 += col1 + "\n";
+					it = newNames.colors().find(col2);
+					if (it != newNames.colors().end())
+					{
+						if (*it != CommonStrings::None)
+							tmpstr2 += *it + "\n";
+						else
+							tmpstr2 += col2 + "\n";
+					}
+					else
+						tmpstr2 += col2 + "\n";
+					it = newNames.colors().find(col3);
+					if (it != newNames.colors().end())
+					{
+						if (*it != CommonStrings::None)
+							tmpstr2 += *it + "\n";
+						else
+							tmpstr2 += col3 + "\n";
+					}
+					else
+						tmpstr2 += col3 + "\n";
+					it = newNames.colors().find(col4);
+					if (it != newNames.colors().end())
+					{
+						if (*it != CommonStrings::None)
+							tmpstr2 += *it + "\n";
+						else
+							tmpstr2 += col4 + "\n";
+					}
+					else
+						tmpstr2 += col4 + "\n";
+					tmpstr2 += fp.readAll();
+					break;
+				case ScImage::EF_TRITONE:
+					col1 = fp.readLine();
+					col2 = fp.readLine();
+					col3 = fp.readLine();
+					it = newNames.colors().find(col1);
+					if (it != newNames.colors().end())
+					{
+						if (*it != CommonStrings::None)
+							tmpstr2 += *it + "\n";
+						else
+							tmpstr2 += col1 + "\n";
+					}
+					else
+						tmpstr2 += col1 + "\n";
+					it = newNames.colors().find(col2);
+					if (it != newNames.colors().end())
+					{
+						if (*it != CommonStrings::None)
+							tmpstr2 += *it + "\n";
+						else
+							tmpstr2 += col2 + "\n";
+					}
+					else
+						tmpstr2 += col2 + "\n";
+					it = newNames.colors().find(col3);
+					if (it != newNames.colors().end())
+					{
+						if (*it != CommonStrings::None)
+							tmpstr2 += *it + "\n";
+						else
+							tmpstr2 += col3 + "\n";
+					}
+					else
+						tmpstr2 += col3 + "\n";
+					tmpstr2 += fp.readAll();
+					break;
+				case ScImage::EF_DUOTONE:
+					col1 = fp.readLine();
+					col2 = fp.readLine();
+					it = newNames.colors().find(col1);
+					if (it != newNames.colors().end())
+					{
+						if (*it != CommonStrings::None)
+							tmpstr2 += *it + "\n";
+						else
+							tmpstr2 += col1 + "\n";
+					}
+					else
+						tmpstr2 += col1 + "\n";
+					it = newNames.colors().find(col2);
+					if (it != newNames.colors().end())
+					{
+						if (*it != CommonStrings::None)
+							tmpstr2 += *it + "\n";
+						else
+							tmpstr2 += col2 + "\n";
+					}
+					else
+						tmpstr2 += col2 + "\n";
+					tmpstr2 += fp.readAll();
+					break;
+				case ScImage::EF_COLORIZE:
+					col1 = fp.readLine();
+					it = newNames.colors().find(col1);
+					if (it != newNames.colors().end())
+					{
+						if (*it != CommonStrings::None)
+							tmpstr2 += *it + "\n" + fp.readAll();
+						else
+							tmpstr2 += col1 + "\n" + fp.readAll();
+					}
+					else
+						tmpstr2 += col1 + "\n" + fp.readAll();
+					break;
+				default:
+					tmpstr2 = tmpstr;
+					break;
+			}
+			effectsInUse[a].effectParameters = tmpstr2;
+		}
 	}
 	
 	it = newNames.patterns().find(pattern());
@@ -3568,12 +3712,34 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 	lists.collectColor(lineColor());
 	if (GrType == 0)
 		lists.collectColor(fillColor());
-	else
+	else if (GrType < 8)
 	{
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
 		for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
 		{
 			lists.collectColor(cstops.at(cst)->name);
+		}
+	}
+	if (effectsInUse.count() != 0)
+	{
+		for (int a = 0; a < effectsInUse.count(); ++a)
+		{
+			QString tmpstr = effectsInUse.at(a).effectParameters;
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			switch (effectsInUse.at(a).effectCode)
+			{
+				case ScImage::EF_QUADTONE:
+					lists.collectColor(fp.readLine());
+				case ScImage::EF_TRITONE:
+					lists.collectColor(fp.readLine());
+				case ScImage::EF_DUOTONE:
+					lists.collectColor(fp.readLine());
+				case ScImage::EF_COLORIZE:
+					lists.collectColor(fp.readLine());
+					break;
+				default:
+					break;
+			}
 		}
 	}
 	lists.collectPattern(pattern());
