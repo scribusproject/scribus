@@ -5460,6 +5460,7 @@ void ScribusMainWindow::slotNewPageP(int wo, QString templ)
 		doc->addPageToSection(wo, where, 1);
 	else
 		doc->addPageToSection(wo+1, where, 1);
+	doc->changed();
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
 	pagePalette->rebuildPages();
@@ -5558,6 +5559,8 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		--wot;
 	else if (where==2)
 		wot=doc->Pages->count();
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	view->updatesOn(false);
 	for (cc = 0; cc < numPages; ++cc)
 	{
 		slotNewPage(wot, base[(wot+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns], mov); //Avoid the master page application with QString::null
@@ -5571,7 +5574,10 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 //						 doc->currentPage()->pageNr(), false); // this Apply_MasterPage avoids DreawNew and PagePalette->ReBuild, which is much faster for 100 pp :-)
 		wot ++;
 	}
+	view->updatesOn(true);
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	//Use wo, the dialog currently returns a page Index +1 due to old numbering scheme, function now does the -1 as required
+	doc->changed();
 	doc->addPageToSection(wo, where, numPages);
 	pagePalette->rebuildPages();
 	view->reformPages(mov);

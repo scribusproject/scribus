@@ -2314,7 +2314,8 @@ Page* ScribusView::addPage(int nr, bool mov)
 	if (fe==0)
 		return 0;
 	//Note this picks up the new page or master page depending on the mode.
-	reformPages(mov);
+//	reformPages(mov);
+	Doc->reformPages(mov);
 	setMenTxt(nr);
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	Doc->DragP = false;

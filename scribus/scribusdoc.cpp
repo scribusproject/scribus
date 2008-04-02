@@ -1533,8 +1533,8 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	setLocationBasedPageLRMargins(pageIndex);
 	if (addAutoFrame && automaticTextFrames)
 		addAutomaticTextFrame(pageIndex);
-	if (!isLoading())
-		changed();
+//	if (!isLoading())
+//		changed();
 	return addedPage;
 }
 
