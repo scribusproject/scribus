@@ -111,14 +111,14 @@ void replaceColorsDialog::updateReplacementTable()
 		{
 			QTableWidgetItem *tW;
 			if (it.key() == CommonStrings::None)
-				tW = new QTableWidgetItem(it.key());
+				tW = new QTableWidgetItem(CommonStrings::tr_NoneColor);
 			else
 				tW = new QTableWidgetItem(getColorIcon(it.key()), it.key());
 			tW->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 			replacementTable->setItem(row, 0, tW);
 			QTableWidgetItem *tW2;
 			if (it.value() == CommonStrings::None)
-				tW2 = new QTableWidgetItem(it.value());
+				tW2 = new QTableWidgetItem(CommonStrings::tr_NoneColor);
 			else
 				tW2 = new QTableWidgetItem(getColorIcon(it.value()), it.value());
 			tW->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
