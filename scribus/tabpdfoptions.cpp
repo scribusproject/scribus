@@ -1123,7 +1123,40 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		}
 		CheckBox10->setChecked(Opts.PresentMode);
 		PagePrev->setChecked(false);
-		PagePr();
+		Pages->clear();
+		QString tmp;
+		struct PDFPresentationData ef;
+		if (EffVal.count() != 0)
+		{
+			for (int pg2 = 0; pg2 < doc->Pages->count(); ++pg2)
+			{
+				Pages->addItem( tr("Page")+" "+tmp.setNum(pg2+1));
+				if (EffVal.count()-1 < pg2)
+				{
+					ef.pageEffectDuration = 1;
+					ef.pageViewDuration = 1;
+					ef.effectType = 0;
+					ef.Dm = 0;
+					ef.M = 0;
+					ef.Di = 0;
+					EffVal.append(ef);
+				}
+			}
+		}
+		else
+		{
+			for (int pg = 0; pg < doc->Pages->count(); ++pg)
+			{
+				Pages->addItem( tr("Page")+" "+tmp.setNum(pg+1));
+				ef.pageEffectDuration = 1;
+				ef.pageViewDuration = 1;
+				ef.effectType = 0;
+				ef.Dm = 0;
+				ef.M = 0;
+				ef.Di = 0;
+				EffVal.append(ef);
+			}
+		}
 		PageTime->setValue(EffVal[0].pageViewDuration);
 		EffectTime->setValue(EffVal[0].pageEffectDuration);
 		bool df = true;
@@ -1405,36 +1438,44 @@ void TabPDFOptions::EnablePDFX(int a)
 	useLayers->setEnabled(a == 2);
 	if (useLayers2)
 		useLayers2->setEnabled(a == 2);
-	int currentEff = EffectType->currentIndex();
-	disconnect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
-	EffectType->clear();
-	EffectType->addItem( tr("No Effect"));
-	EffectType->addItem( tr("Blinds"));
-	EffectType->addItem( tr("Box"));
-	EffectType->addItem( tr("Dissolve"));
-	EffectType->addItem( tr("Glitter"));
-	EffectType->addItem( tr("Split"));
-	EffectType->addItem( tr("Wipe"));
-	if (a == 2)
+	if (doc != 0 && pdfExport)
 	{
-		EffectType->addItem( tr("Push"));
-		EffectType->addItem( tr("Cover"));
-		EffectType->addItem( tr("Uncover"));
-		EffectType->addItem( tr("Fade"));
-		EffectType->setCurrentIndex(currentEff);
-	}
-	else
-	{
-		if (currentEff > 10)
+		int currentEff = EffectType->currentIndex();
+		disconnect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
+		EffectType->clear();
+		EffectType->addItem( tr("No Effect"));
+		EffectType->addItem( tr("Blinds"));
+		EffectType->addItem( tr("Box"));
+		EffectType->addItem( tr("Dissolve"));
+		EffectType->addItem( tr("Glitter"));
+		EffectType->addItem( tr("Split"));
+		EffectType->addItem( tr("Wipe"));
+		if (a == 2)
 		{
-			currentEff = 0;
-			EffectType->setCurrentIndex(0);
-			SetEffOpts(0);
+			EffectType->addItem( tr("Push"));
+			EffectType->addItem( tr("Cover"));
+			EffectType->addItem( tr("Uncover"));
+			EffectType->addItem( tr("Fade"));
+			EffectType->setCurrentIndex(currentEff);
 		}
 		else
-			EffectType->setCurrentIndex(currentEff);
+		{
+			if (currentEff > 6)
+			{
+				currentEff = 0;
+				EffectType->setCurrentIndex(0);
+				SetEffOpts(0);
+				for (int pg = 0; pg < doc->Pages->count(); ++pg)
+				{
+					if (EffVal[pg].effectType > 6)
+						EffVal[pg].effectType = 0;
+				}
+			}
+			else
+				EffectType->setCurrentIndex(currentEff);
+		}
+		connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
 	}
-	connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
 	if (a != 3)
 	{
 		X3Group->setEnabled(false);
