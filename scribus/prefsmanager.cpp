@@ -1731,7 +1731,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.scratch.Right = dc.attribute("ScratchRight", "100").toDouble();
 			appPrefs.scratch.Top = dc.attribute("ScratchTop", "20").toDouble();
 			appPrefs.GapHorizontal = dc.attribute("GapHorizontal", "0").toDouble();
-			appPrefs.GapVertical = dc.attribute("GapVertical", "0").toDouble();
+			appPrefs.GapVertical = dc.attribute("GapVertical", "40").toDouble();
 			if (dc.hasAttribute("STECOLOR"))
 				appPrefs.STEcolor = QColor(dc.attribute("STECOLOR"));
 			if (dc.hasAttribute("STEFONT"))
@@ -1963,7 +1963,7 @@ bool PrefsManager::ReadPref(QString ho)
 						if ((appPrefs.pageSets.count() == appPrefs.FacingPages) && ((appPrefs.GapHorizontal < 0) && (appPrefs.GapVertical < 0)))
 						{
 							appPrefs.GapHorizontal = PgsAttr.attribute("GapHorizontal", "0").toDouble();
-							appPrefs.GapVertical = PgsAttr.attribute("GapBelow", "0").toDouble();
+							appPrefs.GapVertical = PgsAttr.attribute("GapBelow", "40").toDouble();
 						}
 					}
 					PGS = PGS.nextSibling();
