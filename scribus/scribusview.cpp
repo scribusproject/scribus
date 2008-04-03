@@ -2827,13 +2827,13 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 {
 	QImage im;
-	double sx = maxGr / Doc->Pages->at(Nr)->width();
-	double sy = maxGr / Doc->Pages->at(Nr)->height();
+	double sx = maxGr / Doc->DocPages.at(Nr)->width();
+	double sy = maxGr / Doc->DocPages.at(Nr)->height();
 	double sc = qMin(sx, sy);
-	int clipx = static_cast<int>(Doc->Pages->at(Nr)->xOffset() * sc);
-	int clipy = static_cast<int>(Doc->Pages->at(Nr)->yOffset() * sc);
-	int clipw = qRound(Doc->Pages->at(Nr)->width() * sc);
-	int cliph = qRound(Doc->Pages->at(Nr)->height() * sc);
+	int clipx = static_cast<int>(Doc->DocPages.at(Nr)->xOffset() * sc);
+	int clipy = static_cast<int>(Doc->DocPages.at(Nr)->yOffset() * sc);
+	int clipw = qRound(Doc->DocPages.at(Nr)->width() * sc);
+	int cliph = qRound(Doc->DocPages.at(Nr)->height() * sc);
 	if ((clipw > 0) && (cliph > 0))
 	{
 		im = QImage(clipw, cliph, QImage::Format_ARGB32);
@@ -2851,8 +2851,10 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 			m_canvas->m_viewMode.previewMode = true;
 			m_canvas->m_viewMode.forceRedraw = true;
 			Page* act = Doc->currentPage();
+			bool mMode = Doc->masterPageMode();
+			Doc->setMasterPageMode(false);
 			Doc->setLoading(true);
-			Doc->setCurrentPage(Doc->Pages->at(Nr));
+			Doc->setCurrentPage(Doc->DocPages.at(Nr));
 			ScPainter *painter = new ScPainter(&im, im.width(), im.height(), 1.0, 0);
 			painter->clear(Doc->papColor);
 			painter->translate(-clipx, -clipy);
@@ -2865,7 +2867,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 			}
 			painter->beginLayer(1.0, 0);
 			painter->setZoomFactor(m_canvas->scale());
-			m_canvas->DrawMasterItems(painter, Doc->Pages->at(Nr), QRect(clipx, clipy, clipw, cliph));
+			m_canvas->DrawMasterItems(painter, Doc->DocPages.at(Nr), QRect(clipx, clipy, clipw, cliph));
 			m_canvas->DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 			painter->endLayer();
 			painter->end();
@@ -2874,8 +2876,9 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 			Doc->guidesSettings.framesShown  = oldFramesShown;
 			Doc->guidesSettings.showControls = oldShowControls;
 			m_canvas->setScale(oldScale);
+			Doc->setMasterPageMode(mMode);
 			Doc->setCurrentPage(act);
-			Doc->setLoading(false);		
+			Doc->setLoading(false);
 			m_canvas->m_viewMode.previewMode = false;
 			m_canvas->m_viewMode.forceRedraw = false;
 			Doc->minCanvasCoordinate = FPoint(cx, cy);

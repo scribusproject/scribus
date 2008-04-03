@@ -91,6 +91,8 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 		ComboBox1->setCurrentIndex(item->annotation().ActionType() - 5);
 	if (item->annotation().ActionType() == 9)
 		ComboBox1->setCurrentIndex(2);
+	if (view->Doc->masterPageMode())
+		ComboBox1->setEnabled(false);
 	Fram = new QStackedWidget(this);
 	AnnotLayout->addWidget( Fram );
 

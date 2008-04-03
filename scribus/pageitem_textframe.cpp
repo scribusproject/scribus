@@ -3452,17 +3452,15 @@ void PageItem_TextFrame::applicableActions(QStringList & actionList)
 	actionList << "fileImportAppendText";
 	actionList << "toolsEditWithStoryEditor";
 	actionList << "insertSampleText";
+	actionList << "itemPDFIsAnnotation";
 	if (doc()->currentPage()->pageName().isEmpty())
-	{
-		actionList << "itemPDFIsAnnotation";
 		actionList << "itemPDFIsBookmark";
-		if (isAnnotation())
-		{
-			if ((annotation().Type() == 0) || (annotation().Type() == 1) || (annotation().Type() > 9))
-				actionList << "itemPDFAnnotationProps";
-			else
-				actionList << "itemPDFFieldProps";
-		}
+	if (isAnnotation())
+	{
+		if ((annotation().Type() == 0) || (annotation().Type() == 1) || (annotation().Type() > 9))
+			actionList << "itemPDFAnnotationProps";
+		else
+			actionList << "itemPDFFieldProps";
 	}
 	if (isTableItem)
 		actionList << "itemConvertToImageFrame";

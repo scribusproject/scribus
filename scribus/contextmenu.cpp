@@ -236,7 +236,8 @@ void ContextMenu::createMenuItems_Selection()
 	QAction *act = addMenu(menuPDF);
 	act->setText( ScribusView::tr("&PDF Options"));
 	menuPDF->addAction(m_AP->scrActions["itemPDFIsAnnotation"]);
-	menuPDF->addAction(m_AP->scrActions["itemPDFIsBookmark"]);
+	if (!m_doc->masterPageMode())
+		menuPDF->addAction(m_AP->scrActions["itemPDFIsBookmark"]);
 	if (selectedItemCount == 1)
 	{
 		menuPDF->addSeparator();
