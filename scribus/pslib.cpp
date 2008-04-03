@@ -1452,14 +1452,15 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		image.applyEffect(c->effectsInUse, colorsToUse, true);
 		int w = image.width();
 		int h = image.height();
+		PutStream(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
 		if (extensionIndicatesPDF(ext))
 		{
 			scalex *= PrefsManager::instance()->appPrefs.gs_Resolution / 300.0;
 			scaley *= PrefsManager::instance()->appPrefs.gs_Resolution / 300.0;
 		}
- 		PutStream(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
- 		PutStream(ToStr(qRound(scalex*w)) + " " + ToStr(qRound(scaley*h)) + " sc\n");
- 		PutStream(((!DoSep) && (!GraySc)) ? "/DeviceCMYK setcolorspace\n" : "/DeviceGray setcolorspace\n");
+//		PutStream(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
+		PutStream(ToStr(qRound(scalex*w)) + " " + ToStr(qRound(scaley*h)) + " sc\n");
+		PutStream(((!DoSep) && (!GraySc)) ? "/DeviceCMYK setcolorspace\n" : "/DeviceGray setcolorspace\n");
 		QByteArray maskArray;
 		ScImage img2;
 		img2.imgInfo.clipPath = "";
