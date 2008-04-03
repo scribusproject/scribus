@@ -28,8 +28,6 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include "htmlreader.h"
 
-#ifdef HAVE_XML
-
 #include "scribusstructs.h"
 #include "gtmeasure.h"
 
@@ -633,4 +631,3 @@ HTMLReader::~HTMLReader()
 	hreader = NULL;
 }
 
-#endif // HAVE_XML

@@ -6,8 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 #include "sxwdia.h"
 
-#ifdef HAVE_XML
-
 #include <QToolTip>
 #include <QBoxLayout>
 #include <QVBoxLayout>
@@ -106,4 +104,3 @@ SxwDialog::~SxwDialog()
 
 }
 
-#endif // HAVE_XML

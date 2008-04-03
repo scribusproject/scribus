@@ -9,8 +9,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-#ifdef HAVE_XML
-
 #include <QDialog>
 class QCheckBox;
 class QPushButton;
@@ -34,7 +32,5 @@ private:
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 };
-
-#endif // HAVE_XML
 
 #endif // CSVDIA_H

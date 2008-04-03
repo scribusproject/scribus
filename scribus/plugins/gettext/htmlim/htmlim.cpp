@@ -30,7 +30,9 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QStringList>
 
-#ifdef HAVE_XML
+#ifndef HAVE_XML
+#error The htmlim plugin requires libxml to build
+#endif
 
 #include "scribusstructs.h"
 #include "gtparagraphstyle.h" // Style for paragraph based formatting.
@@ -81,4 +83,3 @@ HTMLIm::~HTMLIm()
 
 }
 
-#endif // HAVE_XML

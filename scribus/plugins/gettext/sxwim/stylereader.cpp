@@ -26,8 +26,6 @@ for which a new license (GPL+exception) is in place.
  
  #include "stylereader.h"
  
- #ifdef HAVE_XML
- 
  #include <scribusstructs.h>
  #include <gtmeasure.h>
  #include <gtparagraphstyle.h>
@@ -830,4 +828,3 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	sreader->endElement(NULL, NULL, *nname);
  }
  
- #endif

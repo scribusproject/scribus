@@ -28,10 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-#ifdef HAVE_XML
-
 #include <vector>
-
 #include <libxml/HTMLparser.h>
 
 #include <QString>
@@ -111,7 +108,5 @@ public:
 	bool endElement(const QString&, const QString&, const QString &name);
 	bool characters(const QString &ch);
 };
-
-#endif // HAVE_XML
 
 #endif

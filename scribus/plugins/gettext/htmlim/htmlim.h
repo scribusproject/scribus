@@ -38,8 +38,6 @@ extern "C" PLUGIN_API QString FileFormatName();
 
 extern "C" PLUGIN_API QStringList FileExtensions();
 
-#ifdef HAVE_XML
-
 #include "htmlreader.h"
 
 class HTMLIm 
@@ -55,7 +53,5 @@ private:
 // 	int defaultFontSize;
 	void importText(bool textOnly);
 };
-
-#endif // HAVE_XML
 
 #endif // HTMLIM_H

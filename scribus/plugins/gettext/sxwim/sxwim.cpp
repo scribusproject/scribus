@@ -27,7 +27,9 @@ for which a new license (GPL+exception) is in place.
 #include "sxwim.h"
 #include <QStringList>
 
-#ifdef HAVE_XML
+#ifndef HAVE_XML
+#error The sxwim plugin requires libxml to build
+#endif
 
 #include "prefsmanager.h"
 #include <prefsfile.h>
@@ -123,5 +125,3 @@ SxwIm::~SxwIm()
 {
 
 }
-
-#endif
