@@ -1,0 +1,453 @@
+<ui version="4.0" >
+ <class>selectDialog</class>
+ <widget class="QDialog" name="selectDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>411</width>
+    <height>331</height>
+   </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle" >
+   <string>Select Objects</string>
+  </property>
+  <property name="modal" >
+   <bool>true</bool>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="spacing" >
+    <number>5</number>
+   </property>
+   <property name="leftMargin" >
+    <number>10</number>
+   </property>
+   <property name="topMargin" >
+    <number>10</number>
+   </property>
+   <property name="rightMargin" >
+    <number>10</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>10</number>
+   </property>
+   <item>
+    <widget class="QGroupBox" name="rangeGroup" >
+     <property name="title" >
+      <string>Select Objects</string>
+     </property>
+     <layout class="QHBoxLayout" >
+      <property name="spacing" >
+       <number>5</number>
+      </property>
+      <property name="leftMargin" >
+       <number>10</number>
+      </property>
+      <property name="topMargin" >
+       <number>10</number>
+      </property>
+      <property name="rightMargin" >
+       <number>10</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>10</number>
+      </property>
+      <item>
+       <widget class="QRadioButton" name="buttonCurrentPage" >
+        <property name="text" >
+         <string>on current Page</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="buttonCurrentLayer" >
+        <property name="text" >
+         <string>on current Layer</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="buttonWorkspace" >
+        <property name="text" >
+         <string>on the Workspace</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="attributeGroup" >
+     <property name="title" >
+      <string>Select by</string>
+     </property>
+     <property name="checkable" >
+      <bool>true</bool>
+     </property>
+     <property name="checked" >
+      <bool>false</bool>
+     </property>
+     <layout class="QGridLayout" >
+      <property name="leftMargin" >
+       <number>10</number>
+      </property>
+      <property name="topMargin" >
+       <number>10</number>
+      </property>
+      <property name="rightMargin" >
+       <number>10</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>10</number>
+      </property>
+      <property name="horizontalSpacing" >
+       <number>5</number>
+      </property>
+      <property name="verticalSpacing" >
+       <number>5</number>
+      </property>
+      <item row="0" column="0" >
+       <widget class="QCheckBox" name="useItemType" >
+        <property name="text" >
+         <string>Object Type</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QComboBox" name="itemTypeCombo" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <item>
+         <property name="text" >
+          <string>Text Frame</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>Image Frame</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>Shape</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>Polyline</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>Line</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>Render Frame</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QCheckBox" name="useFillColor" >
+        <property name="text" >
+         <string>Fill Color</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="ColorCombo" name="backgroundCombo" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QCheckBox" name="useLineColor" >
+        <property name="text" >
+         <string>Line Color</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="ColorCombo" name="lineCombo" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" >
+       <widget class="QCheckBox" name="useLineWidth" >
+        <property name="text" >
+         <string>Line Width</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" >
+       <widget class="ScrSpinBox" name="lineWidthSpin" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" >
+       <widget class="QCheckBox" name="usePrintState" >
+        <property name="text" >
+         <string>Printable</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1" >
+       <widget class="QComboBox" name="printStateCombo" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <item>
+         <property name="text" >
+          <string>Yes</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>No</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="5" column="0" >
+       <widget class="QCheckBox" name="useLockedState" >
+        <property name="text" >
+         <string>Locked</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1" >
+       <widget class="QComboBox" name="lockStateCombo" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <property name="currentIndex" >
+         <number>1</number>
+        </property>
+        <item>
+         <property name="text" >
+          <string>Yes</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>No</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="6" column="0" >
+       <widget class="QCheckBox" name="useResizeState" >
+        <property name="text" >
+         <string>Resizeable</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1" >
+       <widget class="QComboBox" name="resizeStateCombo" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <item>
+         <property name="text" >
+          <string>Yes</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>No</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ColorCombo</class>
+   <extends>QComboBox</extends>
+   <header>colorcombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>scrspinbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>selectDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>307</x>
+     <y>545</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>selectDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>375</x>
+     <y>545</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>useItemType</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>itemTypeCombo</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>70</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>246</x>
+     <y>116</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>useFillColor</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>backgroundCombo</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>69</x>
+     <y>141</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>265</x>
+     <y>143</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>useLineColor</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>lineCombo</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>52</x>
+     <y>175</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>243</x>
+     <y>179</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>useLineWidth</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>lineWidthSpin</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>46</x>
+     <y>218</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>222</x>
+     <y>222</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>usePrintState</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>printStateCombo</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>71</x>
+     <y>252</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>219</x>
+     <y>260</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>useLockedState</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>lockStateCombo</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>72</x>
+     <y>303</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>239</x>
+     <y>290</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>useResizeState</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>resizeStateCombo</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>82</x>
+     <y>336</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>251</x>
+     <y>328</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

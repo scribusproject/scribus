@@ -44,6 +44,7 @@ SET(SCRIBUS_UI_SRC
   pluginmanagerprefsgui.ui
   replacecolors.ui
   replaceonecolor.ui
+  selectobjects.ui
   shortcutwidget.ui
   smcstylewidget.ui
   smlinestylewidget.ui
@@ -219,6 +220,7 @@ SET(SCRIBUS_MOC_CLASSES
   sctoolbar.h
   search.h
   selection.h
+  selectobjects.h
   selfield.h
   shadebutton.h
   shortcutwidget.h
@@ -512,6 +514,7 @@ SET(SCRIBUS_SOURCES
   sctoolbar.cpp
   search.cpp
   selection.cpp
+  selectobjects.cpp
   selfield.cpp
   serializer.cpp
   shadebutton.cpp

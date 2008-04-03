@@ -1257,7 +1257,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editPasteContentsAbs"]->setTexts( tr("Paste (&Absolute)"));
 	(*scrActions)["editClearContents"]->setTexts( tr("C&lear"));
 	(*scrActions)["editSelectAll"]->setTexts( tr("Select &All"));
-	(*scrActions)["editSelectAllOnLayer"]->setTexts( tr("Select All On Layer"));
+	(*scrActions)["editSelectAllOnLayer"]->setTexts( tr("Advanced Select All..."));
 	(*scrActions)["editDeselectAll"]->setTexts( tr("&Deselect All"));
 	(*scrActions)["editSearchReplace"]->setTexts( tr("&Search/Replace..."));
 	(*scrActions)["editEditWithImageEditor"]->setTexts( tr("Edit Image..."));

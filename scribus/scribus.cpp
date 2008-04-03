@@ -179,6 +179,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuswin.h"
 #include "search.h"
 #include "selection.h"
+#include "selectobjects.h"
 #include "serializer.h"
 #include "smlinestyle.h"
 #include "smtextstyles.h"
@@ -2585,6 +2586,12 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["fileRevert"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
 		pagePalette->enablePalette(false);
+		scrActions["toolsPDFPushButton"]->setEnabled(false);
+		scrActions["toolsPDFTextField"]->setEnabled(false);
+		scrActions["toolsPDFCheckBox"]->setEnabled(false);
+		scrActions["toolsPDFComboBox"]->setEnabled(false);
+		scrActions["toolsPDFListBox"]->setEnabled(false);
+		scrActions["toolsPDFAnnotText"]->setEnabled(false);
 	}
 	else
 	{
@@ -2607,6 +2614,12 @@ void ScribusMainWindow::SwitchWin()
 		}
 		scrActions["fileSaveAs"]->setEnabled(true);
 		scrActions["fileCollect"]->setEnabled(true);
+		scrActions["toolsPDFPushButton"]->setEnabled(true);
+		scrActions["toolsPDFTextField"]->setEnabled(true);
+		scrActions["toolsPDFCheckBox"]->setEnabled(true);
+		scrActions["toolsPDFComboBox"]->setEnabled(true);
+		scrActions["toolsPDFListBox"]->setEnabled(true);
+		scrActions["toolsPDFAnnotText"]->setEnabled(true);
 		pagePalette->enablePalette(true);
 	}
 }
@@ -2957,6 +2970,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		{
 			setTBvals(currItem);
 			scrActions["editSelectAll"]->setEnabled(true);
+			scrActions["editSelectAllOnLayer"]->setEnabled(false);
 			charPalette->setEnabled(true, currItem);
 			if (currItem->asTextFrame())
 				enableTextActions(&scrActions, true, currItem->currentStyle().charStyle().font().scName());
@@ -5267,7 +5281,83 @@ void ScribusMainWindow::slotEditPaste()
 //CB-->Doc ?????
 void ScribusMainWindow::SelectAllOnLayer()
 {
-	SelectAll(true);
+	ColorList UsedC;
+	doc->getUsedColors(UsedC);
+	selectDialog *dia = new selectDialog(this, UsedC, doc->unitIndex());
+	if (dia->exec())
+	{
+		PageItem *currItem;
+		view->Deselect();
+		uint docItemsCount = doc->Items->count();
+		int docCurrentPage = doc->currentPageNumber();
+		doc->m_Selection->delaySignalsOn();
+		int range = dia->getSelectionRange();
+		for (uint a = 0; a < docItemsCount; ++a)
+		{
+			currItem = doc->Items->at(a);
+			if ((currItem->LayerNr == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerNr)))
+			{
+				if ((range == 0) && (currItem->OwnPage != docCurrentPage))
+					continue;
+				if ((range == 2) && (currItem->OwnPage != -1))
+					continue;
+				if (dia->useAttributes())
+				{
+					bool useType = false;
+					bool useFill = false;
+					bool useLine = false;
+					bool useLWidth = false;
+					bool usePrint = false;
+					bool useLocked = false;
+					bool useResize = false;
+					dia->getUsedAttributes(useType, useFill, useLine, useLWidth, usePrint, useLocked, useResize);
+					int Type = 0;
+					QString Fill = "";
+					QString Line = "";
+					double LWidth = 0.0;
+					bool Print = false;
+					bool Locked = false;
+					bool Resize = false;
+					dia->getUsedAttributesValues(Type, Fill, Line, LWidth, Print, Locked, Resize);
+					LWidth = LWidth / doc->unitRatio();
+					if ((useType) && (Type != currItem->realItemType()))
+						continue;
+					if ((useFill) && ((Fill != currItem->fillColor()) || (currItem->GrType != 0)))
+						continue;
+					if ((useLine) && (Line != currItem->lineColor()))
+						continue;
+					if ((useLWidth) && ((LWidth != currItem->lineWidth()) || (currItem->lineColor() == CommonStrings::None)))
+						continue;
+					if ((usePrint) && (Print != currItem->printEnabled()))
+						continue;
+					if ((useLocked) && (Locked != currItem->locked()))
+						continue;
+					if ((useResize) && (Resize != currItem->sizeLocked()))
+						continue;
+					doc->m_Selection->addItem(currItem);
+				}
+				else
+					doc->m_Selection->addItem(currItem);
+			}
+		}
+		doc->m_Selection->delaySignalsOff();
+		int docSelectionCount = doc->m_Selection->count();
+		if (docSelectionCount > 1)
+		{
+			double x, y, w, h;
+			doc->m_Selection->setGroupRect();
+			doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+			propertiesPalette->setXY(x, y);
+			propertiesPalette->setBH(w, h);
+		}
+		if (docSelectionCount > 0)
+		{
+			currItem = doc->m_Selection->itemAt(0);
+			HaveNewSel(currItem->itemType());
+		}
+		view->DrawNew();
+	}
+	delete dia;
 }
 
 void ScribusMainWindow::SelectAll(bool docWideSelect)
@@ -8246,6 +8336,12 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			scrActions["fileDocSetup"]->setEnabled(false);
 			scrActions["filePrint"]->setEnabled(false);
 			scrActions["PrintPreview"]->setEnabled(false);
+			scrActions["toolsPDFPushButton"]->setEnabled(false);
+			scrActions["toolsPDFTextField"]->setEnabled(false);
+			scrActions["toolsPDFCheckBox"]->setEnabled(false);
+			scrActions["toolsPDFComboBox"]->setEnabled(false);
+			scrActions["toolsPDFListBox"]->setEnabled(false);
+			scrActions["toolsPDFAnnotText"]->setEnabled(false);
 			pagePalette->enablePalette(false);
 			dia->show();
 			ActWin->setMasterPagesPalette(dia);
@@ -8277,6 +8373,12 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	bool setter = doc->Pages->count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
+	scrActions["toolsPDFPushButton"]->setEnabled(true);
+	scrActions["toolsPDFTextField"]->setEnabled(true);
+	scrActions["toolsPDFCheckBox"]->setEnabled(true);
+	scrActions["toolsPDFComboBox"]->setEnabled(true);
+	scrActions["toolsPDFListBox"]->setEnabled(true);
+	scrActions["toolsPDFAnnotText"]->setEnabled(true);
 	uint pageCount=doc->DocPages.count();
 	for (uint c=0; c<pageCount; ++c)
 		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
@@ -8687,7 +8789,7 @@ void ScribusMainWindow::recalcColors(QProgressBar *dia)
 
 void ScribusMainWindow::ModifyAnnot()
 {
-	Q_ASSERT(!doc->masterPageMode());
+//	Q_ASSERT(!doc->masterPageMode());
 	if (doc->m_Selection->count() != 0)
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
@@ -8770,6 +8872,7 @@ void ScribusMainWindow::changeLayer(int )
 	scrActions["editPaste"]->setEnabled(((!Buffer2.isEmpty()) || (scrapbookPalette->tempBView->objectMap.count() > 0)) && (setter));
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", ((scrapbookPalette->tempBView->objectMap.count() > 0) && (setter)));
 	scrActions["editSelectAll"]->setEnabled(setter);
+	scrActions["editSelectAllOnLayer"]->setEnabled(setter);
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrMenuMgr->setMenuEnabled("Insert", setter);
 	scrActions["insertFrame"]->setEnabled(setter);
@@ -8783,12 +8886,24 @@ void ScribusMainWindow::changeLayer(int )
 	scrActions["toolsInsertFreehandLine"]->setEnabled(setter);
 	scrActions["toolsInsertPolygon"]->setEnabled(setter);
 	scrActions["toolsInsertLatexFrame"]->setEnabled(setter);
-	scrActions["toolsPDFPushButton"]->setEnabled(setter);
-	scrActions["toolsPDFTextField"]->setEnabled(setter);
-	scrActions["toolsPDFCheckBox"]->setEnabled(setter);
-	scrActions["toolsPDFComboBox"]->setEnabled(setter);
-	scrActions["toolsPDFListBox"]->setEnabled(setter);
-	scrActions["toolsPDFAnnotText"]->setEnabled(setter);
+	if (doc->masterPageMode())
+	{
+		scrActions["toolsPDFPushButton"]->setEnabled(false);
+		scrActions["toolsPDFTextField"]->setEnabled(false);
+		scrActions["toolsPDFCheckBox"]->setEnabled(false);
+		scrActions["toolsPDFComboBox"]->setEnabled(false);
+		scrActions["toolsPDFListBox"]->setEnabled(false);
+		scrActions["toolsPDFAnnotText"]->setEnabled(false);
+	}
+	else
+	{
+		scrActions["toolsPDFPushButton"]->setEnabled(setter);
+		scrActions["toolsPDFTextField"]->setEnabled(setter);
+		scrActions["toolsPDFCheckBox"]->setEnabled(setter);
+		scrActions["toolsPDFComboBox"]->setEnabled(setter);
+		scrActions["toolsPDFListBox"]->setEnabled(setter);
+		scrActions["toolsPDFAnnotText"]->setEnabled(setter);
+	}
 	scrActions["toolsPDFAnnotLink"]->setEnabled(setter);
 }
 
