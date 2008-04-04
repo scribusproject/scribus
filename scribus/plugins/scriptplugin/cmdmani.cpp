@@ -64,10 +64,11 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item==NULL)
 		return NULL;
-	// Grab the old selection
-	//QPtrList<PageItem> oldSelection = ScMW->view->SelItem;
-	//int tempList=ScMW->doc->selection->backupToTempList(0);
+
+	// Grab the old selection - but use it only where is there any
 	Selection tempSelection(*ScMW->doc->m_Selection);
+	bool hadOrigSelection = (ScMW->doc->m_Selection->count() != 0);
+
 	ScMW->doc->m_Selection->clear();
 	// Clear the selection
 	ScMW->view->Deselect();
@@ -79,13 +80,11 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 		ScMW->view->moveGroup(ValueToPoint(x), ValueToPoint(y));
 	else
 		ScMW->view->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
-	// Now restore the selection. We just have to go through and select
-	// each and every item, unfortunately.
-	//ScMW->doc->selection->restoreFromTempList(0, tempList);
-	*ScMW->doc->m_Selection=tempSelection;
-	//ScMW->view->Deselect();
-	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
-	//	ScMW->view->SelectItemNr(oldSelection.current()->ItemNr);
+	// Now restore the original selection
+	ScMW->doc->m_Selection->clear();
+	if (hadOrigSelection)
+		*ScMW->doc->m_Selection=tempSelection;
+
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -101,10 +100,9 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	// Grab the old selection
-	//QPtrList<PageItem> oldSelection = ScMW->view->SelItem;
-	//int tempList=ScMW->doc->selection->backupToTempList(0);
+	// Grab the old selection - but use it only where is there any
 	Selection tempSelection(*ScMW->doc->m_Selection);
+	bool hadOrigSelection = (ScMW->doc->m_Selection->count() != 0);
 	// Clear the selection
 	ScMW->view->Deselect();
 	// Select the item, which will also select its group if
@@ -119,13 +117,11 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	}
 	else
 		ScMW->view->MoveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
-	// Now restore the selection. We just have to go through and select
-	// each and every item, unfortunately.
-	//ScMW->doc->selection->restoreFromTempList(0, tempList);
-	*ScMW->doc->m_Selection=tempSelection;
-	//ScMW->view->Deselect();
-	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
-//		ScMW->view->SelectItemNr(oldSelection.current()->ItemNr);
+	// Now restore the selection.
+	ScMW->view->Deselect();
+	if (hadOrigSelection)
+		*ScMW->doc->m_Selection=tempSelection;
+
 	Py_INCREF(Py_None);
 	return Py_None;
 }
