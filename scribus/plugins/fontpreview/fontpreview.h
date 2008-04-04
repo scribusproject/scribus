@@ -70,6 +70,10 @@ protected:
 	\retval bool true if you can paint sample safely. */
 	bool allowSample();
 
+	//! \brief Paint sample on the dialog opening.
+	void showEvent(QShowEvent * event);
+	void resizeEvent(QResizeEvent * event);
+
 	ScribusDoc* m_Doc;
 
 protected slots:
@@ -98,6 +102,9 @@ protected slots:
 	void sizeSpin_valueChanged( int );
 
 	void cancelButton_clicked();
+
+	//! \brief Show/hide "advanced" columns in the view
+	void setExtendedView(bool state);
 };
 
 #endif // FONTPREVIEW_H

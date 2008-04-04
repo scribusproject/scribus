@@ -30,8 +30,6 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 
 	languageChange();
 
-	resetDisplayButton->setIcon(QIcon(loadIcon("u_undo16.png")));
-
 	fontModel = new FontListModel(this, m_Doc);
 
 	proxyModel = new QSortFilterProxyModel();
@@ -46,6 +44,8 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 	defaultStr = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("fontpreview");
 	uint srt = prefs->getUInt("sortColumn", 0);
+	bool extend = prefs->getBool("extendedView", false);
+	extendedCheckBox->setChecked(extend);
 	Qt::SortOrder srtOrder = (Qt::SortOrder)prefs->getUInt("sortColumnOrder", 0);
 
 	proxyModel->sort(srt, srtOrder);
@@ -59,14 +59,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 	displayButton_clicked();
 	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()));
 
-	connect(displayButton, SIGNAL(clicked()), this, SLOT(displayButton_clicked()));
-	connect(searchEdit, SIGNAL(textChanged(QString)), this, SLOT(searchEdit_textChanged(QString)));
-	connect(searchButton, SIGNAL(clicked()), this, SLOT(searchButton_clicked()));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_clicked()));
-	connect(resetDisplayButton, SIGNAL(clicked()), this, SLOT(resetDisplayButton_clicked()));
-	connect(sizeSpin, SIGNAL(valueChanged(int)), this, SLOT(sizeSpin_valueChanged(int)));
-	connect(fontList->selectionModel(), SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),
-			this, SLOT(fontList_currentChanged(const QModelIndex &, const QModelIndex &)));
+	setExtendedView(extend);
 
 	QString searchName;
 	if (!fontName.isEmpty())
@@ -90,6 +83,16 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 	}
 
 	fontList->resizeColumnsToContents();
+
+	connect(displayButton, SIGNAL(clicked()), this, SLOT(displayButton_clicked()));
+	connect(searchEdit, SIGNAL(textChanged(QString)), this, SLOT(searchEdit_textChanged(QString)));
+	connect(searchButton, SIGNAL(clicked()), this, SLOT(searchButton_clicked()));
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_clicked()));
+	connect(resetDisplayButton, SIGNAL(clicked()), this, SLOT(resetDisplayButton_clicked()));
+	connect(sizeSpin, SIGNAL(valueChanged(int)), this, SLOT(sizeSpin_valueChanged(int)));
+	connect(fontList->selectionModel(), SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),
+			this, SLOT(fontList_currentChanged(const QModelIndex &, const QModelIndex &)));
+	connect(extendedCheckBox, SIGNAL(clicked(bool)), this, SLOT(setExtendedView(bool)));
 }
 
 FontPreview::~FontPreview()
@@ -100,6 +103,7 @@ FontPreview::~FontPreview()
 	prefs->set("ysize", height());
 	prefs->set("fontSize", sizeSpin->value());
 	prefs->set("phrase", displayEdit->text());
+	prefs->set("extendedView", extendedCheckBox->isChecked());
 	sampleItem->cleanupTemporary(); // just to be sure
 }
 
@@ -109,6 +113,18 @@ void FontPreview::languageChange()
 	searchEdit->setToolTip("<qt>" + tr("Typing the text here provides quick searching in the font names. Searching is case insensitive. The given text is taken as substring.") + "</qt>");
 	searchButton->setToolTip(tr("Start searching"));
 	sizeSpin->setToolTip(tr("Size of the selected font"));
+}
+
+void FontPreview::showEvent(QShowEvent * event)
+{
+	paintSample();
+	QDialog::showEvent(event);
+}
+
+void FontPreview::resizeEvent(QResizeEvent * event)
+{
+	paintSample();
+	QDialog::resizeEvent(event);
 }
 
 bool FontPreview::allowSample()
@@ -130,8 +146,8 @@ void FontPreview::paintSample()
 
 	sampleItem->setFontSize(sizeSpin->value() * 10, true);
 	sampleItem->setFont(fontName);
-	QPixmap pixmap = sampleItem->getSample(fontPreview->maximumWidth(),
-										   fontPreview->maximumHeight());
+	QPixmap pixmap = sampleItem->getSample(fontPreview->width(),
+										   fontPreview->height());
 	fontPreview->clear();
 	if (!pixmap.isNull())
 		fontPreview->setPixmap(pixmap);
@@ -194,4 +210,10 @@ void FontPreview::sizeSpin_valueChanged( int )
 void FontPreview::fontList_currentChanged(const QModelIndex &, const QModelIndex &)
 {
 	paintSample();
+}
+
+void FontPreview::setExtendedView(bool state)
+{
+	for (int i=1; i < fontList->model()->columnCount(); ++i)
+		fontList->setColumnHidden(i, !state);
 }

@@ -5,48 +5,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>624</width>
-    <height>490</height>
+    <width>584</width>
+    <height>463</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Fonts Preview</string>
   </property>
   <layout class="QGridLayout" >
-   <property name="leftMargin" >
-    <number>9</number>
-   </property>
-   <property name="topMargin" >
-    <number>9</number>
-   </property>
-   <property name="rightMargin" >
-    <number>9</number>
-   </property>
-   <property name="bottomMargin" >
-    <number>9</number>
-   </property>
-   <property name="horizontalSpacing" >
-    <number>6</number>
-   </property>
-   <property name="verticalSpacing" >
-    <number>6</number>
-   </property>
-   <item row="1" column="0" colspan="8" >
-    <widget class="FontListView" name="fontList" >
-     <property name="alternatingRowColors" >
-      <bool>true</bool>
-     </property>
-     <property name="selectionMode" >
-      <enum>QAbstractItemView::SingleSelection</enum>
-     </property>
-     <property name="selectionBehavior" >
-      <enum>QAbstractItemView::SelectRows</enum>
-     </property>
-     <property name="sortingEnabled" >
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0" colspan="2" >
     <widget class="QLabel" name="searchLabel" >
      <property name="text" >
@@ -73,74 +39,52 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="8" >
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
-      <number>6</number>
+   <item row="1" column="0" colspan="8" >
+    <widget class="QCheckBox" name="extendedCheckBox" >
+     <property name="text" >
+      <string>Show Extended Font Informations</string>
      </property>
-     <property name="leftMargin" >
-      <number>11</number>
-     </property>
-     <property name="topMargin" >
-      <number>11</number>
-     </property>
-     <property name="rightMargin" >
-      <number>11</number>
-     </property>
-     <property name="bottomMargin" >
-      <number>11</number>
-     </property>
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>21</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="fontPreview" >
-       <property name="minimumSize" >
-        <size>
-         <width>600</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="maximumSize" >
-        <size>
-         <width>600</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="frameShape" >
-        <enum>QFrame::Box</enum>
-       </property>
-       <property name="wordWrap" >
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>21</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
+    </widget>
    </item>
-   <item row="3" column="0" >
+   <item row="2" column="0" colspan="8" >
+    <widget class="FontListView" name="fontList" >
+     <property name="alternatingRowColors" >
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode" >
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior" >
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="sortingEnabled" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="8" >
+    <widget class="QLabel" name="fontPreview" >
+     <property name="minimumSize" >
+      <size>
+       <width>500</width>
+       <height>100</height>
+      </size>
+     </property>
+     <property name="maximumSize" >
+      <size>
+       <width>16777215</width>
+       <height>100</height>
+      </size>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="wordWrap" >
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" >
     <widget class="QLabel" name="sizeLabel" >
      <property name="text" >
       <string>&amp;Font Size:</string>
@@ -153,7 +97,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="1" colspan="2" >
+   <item row="4" column="1" colspan="2" >
     <widget class="QSpinBox" name="sizeSpin" >
      <property name="minimum" >
       <number>10</number>
@@ -163,7 +107,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="3" >
+   <item row="4" column="3" >
     <widget class="QLabel" name="displayLabel" >
      <property name="text" >
       <string>Text</string>
@@ -173,14 +117,14 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="4" >
+   <item row="4" column="4" >
     <widget class="QLineEdit" name="displayEdit" >
      <property name="toolTip" >
       <string>Sample text to display</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="5" colspan="2" >
+   <item row="4" column="5" colspan="2" >
     <widget class="QPushButton" name="displayButton" >
      <property name="text" >
       <string>Se&amp;t</string>
@@ -190,17 +134,17 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="7" >
+   <item row="4" column="7" >
     <widget class="QPushButton" name="resetDisplayButton" >
      <property name="toolTip" >
       <string>Reset the text</string>
      </property>
      <property name="text" >
-      <string/>
+      <string>&amp;Default</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="8" >
+   <item row="5" column="0" colspan="8" >
     <layout class="QHBoxLayout" >
      <property name="spacing" >
       <number>6</number>
