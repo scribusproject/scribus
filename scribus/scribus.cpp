@@ -4159,6 +4159,7 @@ void ScribusMainWindow::slotGetContent()
 				view->DrawNew();
 				propertiesPalette->updateColorList();
 				propertiesPalette->ShowCMS();
+				currItem->emitAllToGUI();
 			}
 		}
 		if (currItem->asTextFrame())
@@ -9628,6 +9629,7 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 				view->DrawNew();
 				propertiesPalette->updateColorList();
 				propertiesPalette->ShowCMS();
+				currItem->emitAllToGUI();
 			}
 		}
 	}

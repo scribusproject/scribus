@@ -4814,6 +4814,7 @@ void PageItem::updateClip()
 	if (ContourLine.size() == 0)
 		ContourLine = PoLine.copy();
 	int ph = static_cast<int>(qMax(1.0, lineWidth() / 2.0));
+	bool clipBackup = ClipEdited;
 	switch (itemType())
 	{
 	case PageItem::Line:
@@ -4843,6 +4844,7 @@ void PageItem::updateClip()
 			default:
 				break;
 			}
+			ClipEdited = clipBackup;
 			if ((OldB2 != 0) && (OldH2 != 0) && (width() != 0) && (height() != 0))
 			{
 				double scx = width() / OldB2;
@@ -4869,7 +4871,7 @@ void PageItem::updateClip()
 			}
 			OldB2 = width();
 			OldH2 = height();
-			if (FrameType < 3)
+			if ((FrameType < 3) && (!ClipEdited))
 				ContourLine = PoLine.copy();
 		}
 		else
