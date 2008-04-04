@@ -4859,10 +4859,10 @@ void PageItem::updateClip()
 				GrStartY = gr.point(0).y();
 				GrEndX = gr.point(1).x();
 				GrEndY = gr.point(1).y();
+				ContourLine.map(ma);
 				if (FrameType > 2)
 				{
 					PoLine.map(ma);
-					ContourLine.map(ma);
 					if (asPathText())
 						updatePolyClip();
 					else
