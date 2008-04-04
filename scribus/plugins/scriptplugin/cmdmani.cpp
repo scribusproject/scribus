@@ -68,10 +68,10 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item==NULL)
 		return NULL;
-	// Grab the old selection
-	//QPtrList<PageItem> oldSelection = ScCore->primaryMainWindow()->view->SelItem;
-	//int tempList=ScCore->primaryMainWindow()->doc->selection->backupToTempList(0);
+	// Grab the old selection - but use it only where is there any
 	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+	bool hadOrigSelection = (tempSelection.count() != 0);
+
 	ScCore->primaryMainWindow()->doc->m_Selection->clear();
 	// Clear the selection
 	ScCore->primaryMainWindow()->view->Deselect();
@@ -87,15 +87,11 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 	}
 	else
 		ScCore->primaryMainWindow()->doc->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
-	// Now restore the selection. We just have to go through and select
-	// each and every item, unfortunately.
-	//ScCore->primaryMainWindow()->doc->selection->restoreFromTempList(0, tempList);
-	*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
-	//ScCore->primaryMainWindow()->view->Deselect();
-	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
-	//	ScCore->primaryMainWindow()->view->SelectItemNr(oldSelection.current()->ItemNr);
-//	Py_INCREF(Py_None);
-//	return Py_None;
+	// Now restore the selection.
+	ScCore->primaryMainWindow()->view->Deselect();
+	if (hadOrigSelection)
+		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+
 	Py_RETURN_NONE;
 }
 
@@ -110,10 +106,10 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	// Grab the old selection
-	//QPtrList<PageItem> oldSelection = ScCore->primaryMainWindow()->view->SelItem;
-	//int tempList=ScCore->primaryMainWindow()->doc->selection->backupToTempList(0);
+	// Grab the old selection - but use it only where is there any
 	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+	bool hadOrigSelection = (tempSelection.count() != 0);
+
 	// Clear the selection
 	ScCore->primaryMainWindow()->view->Deselect();
 	// Select the item, which will also select its group if
@@ -130,15 +126,11 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	}
 	else
 		ScCore->primaryMainWindow()->doc->MoveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
-	// Now restore the selection. We just have to go through and select
-	// each and every item, unfortunately.
-	//ScCore->primaryMainWindow()->doc->selection->restoreFromTempList(0, tempList);
-	*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
-	//ScCore->primaryMainWindow()->view->Deselect();
-	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
-//		ScCore->primaryMainWindow()->view->SelectItemNr(oldSelection.current()->ItemNr);
-//	Py_INCREF(Py_None);
-//	return Py_None;
+	// Now restore the selection.
+	ScCore->primaryMainWindow()->view->Deselect();
+	if (hadOrigSelection)
+		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+
 	Py_RETURN_NONE;
 }
 
