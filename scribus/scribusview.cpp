@@ -1880,6 +1880,12 @@ void ScribusView::ToggleAnnotation()
 				if (currItem->isAnnotation())
 				{
 					currItem->AutoName = false;
+					if (Doc->masterPageMode())
+					{
+						currItem->annotation().setType(11);
+						currItem->annotation().setZiel(0);
+						currItem->annotation().setAction("0 0");
+					}
 					if (old)
 						emit DelBM(currItem);
 					currItem->isBookmark = false;

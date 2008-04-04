@@ -73,26 +73,39 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	Layout1->setMargin( 0 );
 
 	ComboBox1 = new QComboBox(this);
-	/* PFJ - 28/02/04 - Changed to QString/size_t/for style */
-	QString combo[] = { tr("Text"), tr("Link"), tr("External Link"),
-	                    tr("External Web-Link")};
-	size_t comboArray = sizeof(combo)/sizeof(*combo);
-	for (uint prop = 0; prop < comboArray; ++prop)
-		ComboBox1->addItem(combo[prop]);
+	if (!view->Doc->masterPageMode())
+		ComboBox1->addItem( tr("Text"));
+	ComboBox1->addItem( tr("Link"));
+	ComboBox1->addItem( tr("External Link"));
+	ComboBox1->addItem( tr("External Web-Link"));
 	ComboBox1->setEditable(false);
 	TextLabel1 = new QLabel( tr("&Type:"), this);
 	TextLabel1->setBuddy(ComboBox1);
 	Layout1->addWidget( TextLabel1 );
 	Layout1->addWidget( ComboBox1 );
 	AnnotLayout->addLayout( Layout1 );
-	item->annotation().Type() < 2 ? ComboBox1->setCurrentIndex(item->annotation().Type()):
-	ComboBox1->setCurrentIndex(item->annotation().Type()-10);
-	if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 8))
-		ComboBox1->setCurrentIndex(item->annotation().ActionType() - 5);
-	if (item->annotation().ActionType() == 9)
-		ComboBox1->setCurrentIndex(2);
 	if (view->Doc->masterPageMode())
-		ComboBox1->setEnabled(false);
+	{
+		if (item->annotation().Type() < 2)
+			ComboBox1->setCurrentIndex(item->annotation().Type() - 1);
+		else
+			ComboBox1->setCurrentIndex(item->annotation().Type()-11);
+		if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 8))
+			ComboBox1->setCurrentIndex(item->annotation().ActionType() - 6);
+		if (item->annotation().ActionType() == 9)
+			ComboBox1->setCurrentIndex(1);
+	}
+	else
+	{
+		if (item->annotation().Type() < 2)
+			ComboBox1->setCurrentIndex(item->annotation().Type());
+		else
+			ComboBox1->setCurrentIndex(item->annotation().Type()-10);
+		if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 8))
+			ComboBox1->setCurrentIndex(item->annotation().ActionType() - 5);
+		if (item->annotation().ActionType() == 9)
+			ComboBox1->setCurrentIndex(2);
+	}
 	Fram = new QStackedWidget(this);
 	AnnotLayout->addWidget( Fram );
 
@@ -190,7 +203,10 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	connect(SpinBox2, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
 	connect(SpinBox3, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
 	connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
-	SetZiel(item->annotation().Type());
+	if (view->Doc->masterPageMode())
+		SetZiel(item->annotation().Type() - 1);
+	else
+		SetZiel(item->annotation().Type());
 	SetCross();
 }
 
@@ -203,7 +219,10 @@ void Annota::SetCo(double x, double y)
 void Annota::SetPg(int v)
 {
 	disconnect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
-	if (ComboBox1->currentIndex() == 2)
+	int link = 2;
+	if (view->Doc->masterPageMode())
+		link = 1;
+	if (ComboBox1->currentIndex() == link)
 	{
 		if (!Pg->SetSeite(v, 100, Destfile->text()))
 		{
@@ -239,7 +258,10 @@ void Annota::SetVals()
 {
 	QString tmp, tmp2;
 	item->annotation().setZiel(SpinBox1->value()-1);
-	item->annotation().setType(ComboBox1->currentIndex()+10);
+	if (view->Doc->masterPageMode())
+		item->annotation().setType(ComboBox1->currentIndex()+11);
+	else
+		item->annotation().setType(ComboBox1->currentIndex()+10);
 	switch (item->annotation().Type())
 	{
 	case 10:
@@ -277,7 +299,10 @@ void Annota::SetVals()
 
 void Annota::SetZiel(int it)
 {
+	int a = it;
 	disconnect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
+	if (view->Doc->masterPageMode())
+		a++;
 	Pg->show();
 	TextLabel3->show();
 	TextLabel4->show();
@@ -285,7 +310,7 @@ void Annota::SetZiel(int it)
 	SpinBox1->show();
 	SpinBox2->show();
 	SpinBox3->show();
-	switch (it)
+	switch (a)
 	{
 	case 1:
 		Fram->setCurrentIndex(1);
@@ -314,7 +339,10 @@ void Annota::SetZiel(int it)
 			Destfile->hide();
 			ChFile->hide();
 			useAbsolute->hide();
-			ComboBox1->setCurrentIndex(1);
+			if (view->Doc->masterPageMode())
+				ComboBox1->setCurrentIndex(0);
+			else
+				ComboBox1->setCurrentIndex(1);
 		}
 		else
 		{
