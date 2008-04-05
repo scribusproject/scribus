@@ -3447,7 +3447,7 @@ Scroll the document in main GUI window by x and y.
         <translation>Gruppe%1</translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="2262"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="2264"/>
         <source>Generating Items</source>
         <translation>Objekte werden erstellt</translation>
     </message>
@@ -5188,12 +5188,17 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../actionmanager.cpp" line="1260"/>
         <source>Select All On Layer</source>
-        <translation>Alles auf der Ebene auswählen</translation>
+        <translation type="obsolete">Alles auf der Ebene auswählen</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1266"/>
         <source>Replace Colors...</source>
         <translation>Farben ersetzen...</translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1260"/>
+        <source>Advanced Select All...</source>
+        <translation>Erweiterte Objektauswahl ...</translation>
     </message>
 </context>
 <context>
@@ -6201,32 +6206,32 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="77"/>
+        <location filename="../annota.cpp" line="78"/>
         <source>Link</source>
         <translation>Verknüpfung</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="77"/>
+        <location filename="../annota.cpp" line="79"/>
         <source>External Link</source>
         <translation>Externe Verknüpfung</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="78"/>
+        <location filename="../annota.cpp" line="80"/>
         <source>External Web-Link</source>
         <translation>Externe Webverknüpfung</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="103"/>
+        <location filename="../annota.cpp" line="118"/>
         <source>Destination</source>
         <translation>Ziel</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="162"/>
+        <location filename="../annota.cpp" line="177"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="379"/>
+        <location filename="../annota.cpp" line="409"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
@@ -6236,37 +6241,37 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation type="obsolete">PDF-Dateien (*.pdf);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="83"/>
+        <location filename="../annota.cpp" line="82"/>
         <source>&amp;Type:</source>
         <translation>&amp;Typ:</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="114"/>
+        <location filename="../annota.cpp" line="129"/>
         <source>C&amp;hange...</source>
         <translation>Ä&amp;ndern...</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="132"/>
+        <location filename="../annota.cpp" line="147"/>
         <source>&amp;Page:</source>
         <translation>&amp;Seite:</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="156"/>
+        <location filename="../annota.cpp" line="171"/>
         <source>&amp;X-Pos</source>
         <translation>&amp;X-Position</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="164"/>
+        <location filename="../annota.cpp" line="179"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Position:</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="379"/>
+        <location filename="../annota.cpp" line="409"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="116"/>
+        <location filename="../annota.cpp" line="131"/>
         <source>Export absolute Filename</source>
         <translation>Absoluten Dateinamen exportieren</translation>
     </message>
@@ -7396,7 +7401,7 @@ alle Farben (egal ob RGB oder CMYK) werden in den Farbraum des Druckers konverti
         <translation type="obsolete">Registrierungsfarbe</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1170"/>
+        <location filename="../cmykfw.cpp" line="1172"/>
         <source>You cannot create a color named &quot;%1&quot;.
 It is a reserved name for transparent color</source>
         <translation>Sie können keine Farbe mit der Bezeichnung &quot;%1&quot; erstellen.
@@ -7413,7 +7418,7 @@ Sie ist reserviert für Transparenz</translation>
         <translation type="obsolete">Wenn das Farbmanagement aktiviert ist, zeigt das Warndreieck an, dass die Farbe ausserhalb des Farbraums (Gamut) des gewählten Druckers ist. Das bedeutet, dass die Farbe nicht so wiedergegeben wird, wie am Monitor angezeigt. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe.</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1179"/>
+        <location filename="../cmykfw.cpp" line="1181"/>
         <source>The name of the color already exists,
 please choose another one.</source>
         <translation>Der Name existiert bereits. Bitte wählen Sie einen anderen.</translation>
@@ -7429,7 +7434,7 @@ please choose another one.</source>
         <translation>Wenn das Farbmanagement aktiviert ist, zeigt ein Warndreieck an, dass die Farbe sich ausserhalb des Gamuts des ausgewählten Druckerprofils befindet. Dies bedeutet, dass die Farbe nicht so gedruckt werden kann, wie sie am Bildschirm angezeigt wird. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe unter &quot;Farbmanagement&quot;.</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1163"/>
+        <location filename="../cmykfw.cpp" line="1165"/>
         <source>You cannot create a color without a name
 Please give it a name</source>
         <translation>Sie können keine Farbe ohne Namen erzeugen
@@ -9179,12 +9184,12 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
         <translation>Vorschaumodus</translation>
     </message>
     <message>
-        <location filename="../contextmenu.cpp" line="404"/>
+        <location filename="../contextmenu.cpp" line="405"/>
         <source>Paste File...</source>
         <translation>Dateien einfügen ...</translation>
     </message>
     <message>
-        <location filename="../contextmenu.cpp" line="437"/>
+        <location filename="../contextmenu.cpp" line="438"/>
         <source>Delete Page</source>
         <translation>Seite löschen</translation>
     </message>
@@ -11769,23 +11774,23 @@ Bildschirm betrachten wollen</translation>
         <translation type="obsolete">Gewählte Schrift ins Menü Stil - Schriftart aufnehmen</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="108"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="112"/>
         <source>Leave preview</source>
         <comment>font preview</comment>
         <translation>Vorschau verlassen</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="110"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="114"/>
         <source>Start searching</source>
         <translation>Suche starten</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="111"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="115"/>
         <source>Size of the selected font</source>
         <translation>Grösse der Schrift</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="44"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
         <translation>Falsches Üben von Xylophonmusik quält jeden grösseren Zwerg</translation>
@@ -11838,47 +11843,47 @@ Bildschirm betrachten wollen</translation>
         <translation>Schriftvorschau</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="53"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="19"/>
         <source>&amp;Quick Search:</source>
         <translation>&amp;Schnellsuche:</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="69"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="35"/>
         <source>&amp;Search</source>
         <translation>&amp;Suchen</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="72"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="38"/>
         <source>Alt+S</source>
         <translation>Alt+S</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="146"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="90"/>
         <source>&amp;Font Size:</source>
         <translation>Schrift&amp;grösse:</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="169"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="113"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="179"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="123"/>
         <source>Sample text to display</source>
         <translation>Beispieltext</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="186"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="130"/>
         <source>Se&amp;t</source>
         <translation>Än&amp;dern</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="189"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="133"/>
         <source>Alt+T</source>
         <translation>Alt+T</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="196"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="140"/>
         <source>Reset the text</source>
         <translation>Text zurücksetzen</translation>
     </message>
@@ -11888,19 +11893,29 @@ Bildschirm betrachten wollen</translation>
         <translation type="obsolete">&amp;Verwenden</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="239"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="183"/>
         <source>&amp;Close</source>
         <translation>Sch&amp;liessen</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="242"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="186"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="109"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="113"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. The given text is taken as substring.</source>
         <translation>Der hier eingegebene Text dient zur Schnellsuche in den Schriftnamen. Die Suche nimmt keine Rücksicht auf Gross- und Kleinschreibung. Gesucht wird nicht nur am Anfang eines Namens.</translation>
+    </message>
+    <message>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="45"/>
+        <source>Show Extended Font Informations</source>
+        <translation>Ausführlichere Schriftinformationen anzeigen</translation>
+    </message>
+    <message>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="143"/>
+        <source>&amp;Default</source>
+        <translation>&amp;Zurücksetzen</translation>
     </message>
 </context>
 <context>
@@ -16115,32 +16130,32 @@ Seiten importiert werden sollen, zum Beispiel
         <translation>Analysiere Objekte auf der Seite:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2433"/>
+        <location filename="../pdflib_core.cpp" line="2445"/>
         <source>Page:</source>
         <translation>Seite:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2446"/>
+        <location filename="../pdflib_core.cpp" line="2458"/>
         <source>Date:</source>
         <translation>Datum:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="6982"/>
+        <location filename="../pdflib_core.cpp" line="7087"/>
         <source>Failed to load an image : %1</source>
         <translation>Konnte Bild %1 nicht laden</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="6997"/>
+        <location filename="../pdflib_core.cpp" line="7102"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Es ist nicht genügend Speicher für ein Bild dieser Grösse vorhanden</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="6987"/>
+        <location filename="../pdflib_core.cpp" line="7092"/>
         <source>Failed to write an image : %1</source>
         <translation>Es konnte kein Bild gespeichert werden: %1</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="6992"/>
+        <location filename="../pdflib_core.cpp" line="7097"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Es konnte keine Bildmaske geladen werden: %1</translation>
     </message>
@@ -16422,32 +16437,32 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
 <context>
     <name>PSLib</name>
     <message>
-        <location filename="../pslib.cpp" line="1703"/>
+        <location filename="../pslib.cpp" line="1704"/>
         <source>Processing Master Page:</source>
         <translation>Musterseiten werden verarbeitet:</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1703"/>
+        <location filename="../pslib.cpp" line="1704"/>
         <source>Exporting Page:</source>
         <translation>Seite wird exportiert:</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1639"/>
+        <location filename="../pslib.cpp" line="1640"/>
         <source>Failed to load an image : %1</source>
         <translation>Konnte Bild %1 nicht laden</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1649"/>
+        <location filename="../pslib.cpp" line="1650"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Es ist nicht genügend Speicher für ein Bild dieser Grösse vorhanden</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1634"/>
+        <location filename="../pslib.cpp" line="1635"/>
         <source>Failed to write data for an image</source>
         <translation>Es konnten keine Bilddaten gespeichert werden</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1644"/>
+        <location filename="../pslib.cpp" line="1645"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Es konnte keine Bildmaske geladen werden: %1</translation>
     </message>
@@ -20712,22 +20727,22 @@ wirklich überschreiben?</translation>
         <translation>PDF-Präsentationen</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="553"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="563"/>
         <source>&amp;Scribus Scripts</source>
         <translation>&amp;Scripte für Scribus</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="548"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="558"/>
         <source>&amp;Execute Script...</source>
         <translation>Script &amp;ausführen...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="554"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="564"/>
         <source>&amp;Recent Scripts</source>
         <translation>&amp;Zuletzt verwendete Scripte</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="559"/>
         <source>Show &amp;Console</source>
         <translation>&amp;Konsole zeigen</translation>
     </message>
@@ -20747,12 +20762,12 @@ wirklich überschreiben?</translation>
         <translation>Alle unterstützten Formate</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/htmlim/htmlim.cpp" line="41"/>
+        <location filename="../plugins/gettext/htmlim/htmlim.cpp" line="43"/>
         <source>HTML Files</source>
         <translation>HTML-Dateien</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/htmlim/htmlim.cpp" line="46"/>
+        <location filename="../plugins/gettext/htmlim/htmlim.cpp" line="48"/>
         <source>html</source>
         <translation>html</translation>
     </message>
@@ -20777,7 +20792,7 @@ wirklich überschreiben?</translation>
         <translation>CSV_header</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/htmlim/htmlreader.cpp" line="620"/>
+        <location filename="../plugins/gettext/htmlim/htmlreader.cpp" line="618"/>
         <source>
 External Links
 </source>
@@ -20955,12 +20970,12 @@ Externe Links</translation>
         <translation>Serbisch</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="550"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="560"/>
         <source>&amp;About Script...</source>
         <translation>Ü&amp;ber das Script...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="521"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="531"/>
         <source>About Script</source>
         <translation>Über das Script</translation>
     </message>
@@ -21091,7 +21106,7 @@ Externe Links</translation>
         <translation type="obsolete">Kann den letzten Rahmen einer Kette nicht abtrennen. Lösen Sie erst die Verkettung der anderen Rahmen.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwim.cpp" line="43"/>
+        <location filename="../plugins/gettext/sxwim/sxwim.cpp" line="45"/>
         <source>OpenOffice.org Writer Documents</source>
         <translation>OpenOffice.org Writer-Dokumente</translation>
     </message>
@@ -21194,13 +21209,13 @@ Externe Links</translation>
         <translation>Die Farbe ist in den Standardfarben nicht vorhanden.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="279"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="271"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
         <translation>Skalieren auf 0% ist nicht möglich.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="393"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="385"/>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
         <translation>Angegebener Rahmen ist kein Bildrahmen.</translation>
@@ -21616,7 +21631,7 @@ Externe Links</translation>
         <translation>memcpy offset: %1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="577"/>
+        <location filename="../scribus.cpp" line="578"/>
         <source>Scribus Development Version</source>
         <translation>Scribus-Entwickerversion</translation>
     </message>
@@ -21706,7 +21721,7 @@ Externe Links</translation>
         <translation type="obsolete">&amp;Ersetzen</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="2091"/>
+        <location filename="../pslib.cpp" line="2092"/>
         <source>All</source>
         <translation>Alle</translation>
     </message>
@@ -21763,19 +21778,19 @@ Externe Links</translation>
         <translation>Types matched, but setting property failed.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="212"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="204"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>Zum Gruppieren müssen mindestens zwei Objekte vorhanden sein</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="237"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="229"/>
         <source>Can&apos;t group less than two items</source>
         <comment>python error</comment>
         <translation>Zum Gruppieren müssen mindestens zwei Objekte vorhanden sein</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="245"/>
+        <location filename="../plugins/scriptplugin/cmdmani.cpp" line="237"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>Need selection or argument list of items to group</translation>
@@ -21901,7 +21916,7 @@ Externe Links</translation>
         <translation>Nur Textrahmen können auf Überfüllung geprüft werden</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="552"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="562"/>
         <source>&amp;Script</source>
         <translation>Sc&amp;ript</translation>
     </message>
@@ -22003,22 +22018,22 @@ is not exhaustive due to exceptions from called functions.
         <translation>Kopie #%1 von</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1877"/>
+        <location filename="../pslib.cpp" line="1878"/>
         <source>Black</source>
         <translation>Schwarz</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1879"/>
+        <location filename="../pslib.cpp" line="1880"/>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1881"/>
+        <location filename="../pslib.cpp" line="1882"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1883"/>
+        <location filename="../pslib.cpp" line="1884"/>
         <source>Yellow</source>
         <translation>Gelb</translation>
     </message>
@@ -22113,7 +22128,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Suche nach Schriften läuft</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4225"/>
+        <location filename="../scribus.cpp" line="4240"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Die Änderungen am Dokument wurden nicht gesichert, und Sie möchten zur gespeicherten Version zurückkehren. Wollen Sie das wirklich?</translation>
     </message>
@@ -22139,27 +22154,27 @@ is not exhaustive due to exceptions from called functions.
         <translation>Deutsch (herkömmlich)</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1693"/>
+        <location filename="../pslib.cpp" line="1694"/>
         <source>Exporting PostScript File</source>
         <translation>Postscript Datei erstellen</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1695"/>
+        <location filename="../pslib.cpp" line="1696"/>
         <source>Printing File</source>
         <translation>Datei drucken</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3618"/>
+        <location filename="../scribus.cpp" line="3632"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Sie versuchen, mehr Seiten zu importieren, als ab der aktuellen Seite im Dokument vorhanden sind.&lt;/p&gt;Was wollen Sie tun?&lt;br&gt;&lt;ul&gt;&lt;li&gt;Fehlende Seiten &lt;b&gt;erstellen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;Import bei der letzten Seite &lt;b&gt;stoppen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Abbrechen&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3619"/>
+        <location filename="../scribus.cpp" line="3633"/>
         <source>C&amp;reate</source>
         <translation>Er&amp;stellen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3620"/>
+        <location filename="../scribus.cpp" line="3634"/>
         <source>&amp;Import</source>
         <translation>&amp;Importieren</translation>
     </message>
@@ -22488,7 +22503,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Dies scheint kein PDB-Dokument zu sein. Bitte melden Sie den Fehler, wenn Sie sicher sind, dass es doch eines ist.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="578"/>
+        <location filename="../scribus.cpp" line="579"/>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation>Sie arbeiten mit einer Entwicklerversion von Scribus 1.3.x. Das Dokument, mit dem Sie arbeiten, wurde mit Scribus 1.2.x oder niedriger erstellt. Wenn Sie jetzt speichern, können Sie die Datei nicht mehr in Scribus 1.2.x verwenden, es sei denn, Sie speichern diese Datei unter einem anderen Namen. Wollen Sie wirklich fortfahren?</translation>
     </message>
@@ -22686,7 +22701,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
         <translation>WMF-Import</translation>
     </message>
     <message>
-        <location filename="../sclayer.cpp" line="386"/>
+        <location filename="../sclayer.cpp" line="388"/>
         <source>New Layer</source>
         <translation>Neue Ebene</translation>
     </message>
@@ -24701,17 +24716,17 @@ Drehung %$</translation>
 <context>
     <name>ScribusMainWindow</name>
     <message>
-        <location filename="../scribus.cpp" line="334"/>
+        <location filename="../scribus.cpp" line="335"/>
         <source>Initializing Story Editor</source>
         <translation>Story Editor wird initialisiert</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="340"/>
+        <location filename="../scribus.cpp" line="341"/>
         <source>Initializing Hyphenator</source>
         <translation>Silbentrennung wird initialisiert</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="346"/>
+        <location filename="../scribus.cpp" line="347"/>
         <source>Reading Scrapbook</source>
         <translation>Bibliothek wird geladen</translation>
     </message>
@@ -24731,32 +24746,32 @@ Drehung %$</translation>
         <translation type="obsolete">Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3776"/>
+        <location filename="../scribus.cpp" line="3790"/>
         <source>Fatal Error</source>
         <translation>Fataler Fehler</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9297"/>
+        <location filename="../scribus.cpp" line="9419"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9298"/>
+        <location filename="../scribus.cpp" line="9420"/>
         <source>Open &amp;Recent</source>
         <translation>&amp;Zuletzt verwendete öffnen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9300"/>
+        <location filename="../scribus.cpp" line="9422"/>
         <source>&amp;Import</source>
         <translation>&amp;Importieren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9301"/>
+        <location filename="../scribus.cpp" line="9423"/>
         <source>&amp;Export</source>
         <translation>E&amp;xportieren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9302"/>
+        <location filename="../scribus.cpp" line="9424"/>
         <source>&amp;Edit</source>
         <translation>&amp;Bearbeiten</translation>
     </message>
@@ -24791,27 +24806,27 @@ Drehung %$</translation>
         <translation type="obsolete">&amp;Effekte</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9304"/>
+        <location filename="../scribus.cpp" line="9426"/>
         <source>&amp;Item</source>
         <translation>&amp;Objekt</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="721"/>
+        <location filename="../scribus.cpp" line="722"/>
         <source>Preview Settings</source>
         <translation>Vorschaumodus</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="706"/>
+        <location filename="../scribus.cpp" line="707"/>
         <source>Level</source>
         <translation>Anordnung</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="712"/>
+        <location filename="../scribus.cpp" line="713"/>
         <source>Send to La&amp;yer</source>
         <translation>Auf andere &amp;Ebene verschieben</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9308"/>
+        <location filename="../scribus.cpp" line="9430"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;PDF-Optionen</translation>
     </message>
@@ -24821,97 +24836,97 @@ Drehung %$</translation>
         <translation type="obsolete">&amp;Form</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9310"/>
+        <location filename="../scribus.cpp" line="9432"/>
         <source>C&amp;onvert To</source>
         <translation>Um&amp;wandeln in</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9312"/>
+        <location filename="../scribus.cpp" line="9434"/>
         <source>I&amp;nsert</source>
         <translation>&amp;Einfügen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9313"/>
+        <location filename="../scribus.cpp" line="9435"/>
         <source>Character</source>
         <translation>Zeichen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9314"/>
+        <location filename="../scribus.cpp" line="9436"/>
         <source>Quote</source>
         <translation>Anführungszeichen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9315"/>
+        <location filename="../scribus.cpp" line="9437"/>
         <source>Space</source>
         <translation>Leerzeichen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9317"/>
+        <location filename="../scribus.cpp" line="9439"/>
         <source>&amp;Page</source>
         <translation>&amp;Seite</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9318"/>
+        <location filename="../scribus.cpp" line="9440"/>
         <source>&amp;View</source>
         <translation>&amp;Ansicht</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9320"/>
+        <location filename="../scribus.cpp" line="9442"/>
         <source>E&amp;xtras</source>
         <translation>E&amp;xtras</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9321"/>
+        <location filename="../scribus.cpp" line="9443"/>
         <source>&amp;Windows</source>
         <translation>&amp;Fenster</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9322"/>
+        <location filename="../scribus.cpp" line="9444"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9323"/>
+        <location filename="../scribus.cpp" line="9445"/>
         <source>&amp;Alignment</source>
         <translation>Aus&amp;richtung</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9333"/>
+        <location filename="../scribus.cpp" line="9455"/>
         <source>Ready</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4128"/>
+        <location filename="../scribus.cpp" line="4142"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3585"/>
+        <location filename="../scribus.cpp" line="3599"/>
         <source>Importing Pages...</source>
         <translation>Seiten werden importiert...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3614"/>
+        <location filename="../scribus.cpp" line="3628"/>
         <source>Import Page(s)</source>
         <translation>Seiten importieren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3656"/>
+        <location filename="../scribus.cpp" line="3670"/>
         <source>Import done</source>
         <translation>Import erfolgreich abgeschlossen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3660"/>
+        <location filename="../scribus.cpp" line="3674"/>
         <source>Found nothing to import</source>
         <translation>Nichts zum Importieren gefunden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3776"/>
+        <location filename="../scribus.cpp" line="3790"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Das Format der Datei %1 kann nicht verwendet werden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3797"/>
+        <location filename="../scribus.cpp" line="3811"/>
         <source>Loading...</source>
         <translation>Lade...</translation>
     </message>
@@ -24926,33 +24941,33 @@ Drehung %$</translation>
         <translation type="obsolete">Einige ICC-Profile in dem Dokument sind auf Ihrem System nicht vorhanden:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3945"/>
+        <location filename="../scribus.cpp" line="3959"/>
         <source> was replaced by: </source>
         <translation> wurde ersetzt durch: </translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3977"/>
+        <location filename="../scribus.cpp" line="3991"/>
         <source>(converted)</source>
         <translation>(konvertiert)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8034"/>
+        <location filename="../scribus.cpp" line="8131"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Die Datei %1 kann nicht geschrieben werden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4303"/>
+        <location filename="../scribus.cpp" line="4318"/>
         <source>Save As</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4332"/>
+        <location filename="../scribus.cpp" line="4347"/>
         <source>Saving...</source>
         <translation>Speichere...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7732"/>
+        <location filename="../scribus.cpp" line="7829"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus hat einige Fehler festgestellt. Sie sollten die Druckvorstufenüberprüfung verwenden, um sie zu korrigieren</translation>
     </message>
@@ -24967,47 +24982,47 @@ Drehung %$</translation>
         <translation type="obsolete">A&amp;bbruch</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4593"/>
+        <location filename="../scribus.cpp" line="4608"/>
         <source>Printing...</source>
         <translation>Drucke...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7848"/>
+        <location filename="../scribus.cpp" line="7945"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4634"/>
+        <location filename="../scribus.cpp" line="4649"/>
         <source>Printing failed!</source>
         <translation>Drucken fehlgeschlagen!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4724"/>
+        <location filename="../scribus.cpp" line="4739"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Objekte in Benutzung können nicht ausgeschnitten werden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4724"/>
+        <location filename="../scribus.cpp" line="4739"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Das Objekt %1 wird gerade im Story Editor bearbeitet, deswegen kann es nicht ausgeschnitten werden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5393"/>
+        <location filename="../scribus.cpp" line="5484"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5405"/>
+        <location filename="../scribus.cpp" line="5496"/>
         <source>Scribus Manual</source>
         <translation>Scribus-Handbuch</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7871"/>
+        <location filename="../scribus.cpp" line="7968"/>
         <source>Save as</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5430"/>
+        <location filename="../scribus.cpp" line="5521"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Textdateien (*.txt);;Alle Dateien(*)</translation>
     </message>
@@ -25022,47 +25037,47 @@ Drehung %$</translation>
         <translation type="obsolete">In Musterseite umwandeln</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6889"/>
+        <location filename="../scribus.cpp" line="6986"/>
         <source>&amp;Size:</source>
         <translation>&amp;Grösse:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6889"/>
+        <location filename="../scribus.cpp" line="6986"/>
         <source>Size</source>
         <translation>Grösse</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6919"/>
+        <location filename="../scribus.cpp" line="7016"/>
         <source>&amp;Shade:</source>
         <translation>Ton&amp;wert:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6919"/>
+        <location filename="../scribus.cpp" line="7016"/>
         <source>Shade</source>
         <translation>Tonwert</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7021"/>
+        <location filename="../scribus.cpp" line="7118"/>
         <source>No Style</source>
         <translation>Kein Stil</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7629"/>
+        <location filename="../scribus.cpp" line="7726"/>
         <source>The following programs are missing:</source>
         <translation>Die folgenden Programme fehlen:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7631"/>
+        <location filename="../scribus.cpp" line="7728"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
         <translation>Ghostscript: Sie können weder EPS-Dateien noch die Druckvorschau verwenden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7768"/>
+        <location filename="../scribus.cpp" line="7865"/>
         <source>All</source>
         <translation>Alle</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7817"/>
+        <location filename="../scribus.cpp" line="7914"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus hat Fehler entdeckt.
@@ -25075,7 +25090,7 @@ diese zu finden und zu korrigieren.</translation>
         <translation type="obsolete">EPS-Dateien (*.eps);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7914"/>
+        <location filename="../scribus.cpp" line="8011"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus hat Fehler entdeckt.
@@ -25083,82 +25098,82 @@ Bitte verwenden Sie die Druckvorstufenüberprüfung, um
 diese zu finden und zu korrigieren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8008"/>
+        <location filename="../scribus.cpp" line="8105"/>
         <source>-Page%1</source>
         <translation>-Seite %1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8378"/>
+        <location filename="../scribus.cpp" line="8487"/>
         <source>Some objects are locked.</source>
         <translation>Einige Objekte sind gesperrt.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8374"/>
+        <location filename="../scribus.cpp" line="8483"/>
         <source>&amp;Lock All</source>
         <translation>Alle &amp;sperren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8375"/>
+        <location filename="../scribus.cpp" line="8484"/>
         <source>&amp;Unlock All</source>
         <translation>Alle &amp;entsperren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9068"/>
+        <location filename="../scribus.cpp" line="9190"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9068"/>
+        <location filename="../scribus.cpp" line="9190"/>
         <source>The program %1 is already running!</source>
         <translation>Das Programm %1 läuft schon!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9107"/>
+        <location filename="../scribus.cpp" line="9229"/>
         <source>The program %1 is missing!</source>
         <translation>Das Programm %1 fehlt!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9221"/>
+        <location filename="../scribus.cpp" line="9343"/>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
         <translation>Die gewählte Farbe existiert im Farbsatz des Dokuments noch nicht. Bitte geben Sie einen Namen für die neue Farbe ein.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9224"/>
+        <location filename="../scribus.cpp" line="9346"/>
         <source>Color Not Found</source>
         <translation>Farbe nicht gefunden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9228"/>
+        <location filename="../scribus.cpp" line="9350"/>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
         <translation>Eine Farbe mit diesem Namen existiert schon. Bitte geben Sie einen anderen Namen ein.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9305"/>
+        <location filename="../scribus.cpp" line="9427"/>
         <source>&amp;Level</source>
         <translation>&amp;Anordnung</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9306"/>
+        <location filename="../scribus.cpp" line="9428"/>
         <source>Send to Layer</source>
         <translation>Auf andere Ebene verschieben</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9307"/>
+        <location filename="../scribus.cpp" line="9429"/>
         <source>Previe&amp;w Settings</source>
         <translation>&amp;Vorschau</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9319"/>
+        <location filename="../scribus.cpp" line="9441"/>
         <source>&amp;Tools</source>
         <translation>&amp;Werkzeuge</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9329"/>
+        <location filename="../scribus.cpp" line="9451"/>
         <source>X-Pos:</source>
         <translation>X-Pos:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9330"/>
+        <location filename="../scribus.cpp" line="9452"/>
         <source>Y-Pos:</source>
         <translation>Y-Pos:</translation>
     </message>
@@ -25168,47 +25183,47 @@ diese zu finden und zu korrigieren</translation>
         <translation type="obsolete">Neue Musterseite %1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7633"/>
+        <location filename="../scribus.cpp" line="7730"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
         <translation>Ghostscript: Sie können weder EPS-Dateien noch die Druckvorschau verwenden</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7679"/>
+        <location filename="../scribus.cpp" line="7776"/>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
         <translation>Ghostscript fehlt: Die Postscript-Druckvorschau ist nicht verfügbar</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9483"/>
+        <location filename="../scribus.cpp" line="9605"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Wollen Sie das vorhandene Bild wirklich ersetzen?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9303"/>
+        <location filename="../scribus.cpp" line="9425"/>
         <source>Contents</source>
         <translation>Inhalt</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="784"/>
+        <location filename="../scribus.cpp" line="785"/>
         <source>&amp;Character</source>
         <translation>&amp;Zeichen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="802"/>
+        <location filename="../scribus.cpp" line="803"/>
         <source>&amp;Quote</source>
         <translation>&amp;Anführungszeichen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="827"/>
+        <location filename="../scribus.cpp" line="828"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation>&amp;Leerzeichen &amp;&amp; Umbrüche</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9316"/>
+        <location filename="../scribus.cpp" line="9438"/>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;turen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9299"/>
+        <location filename="../scribus.cpp" line="9421"/>
         <source>Paste Recent</source>
         <translation>Zuletzt verwendete Einfügen</translation>
     </message>
@@ -25218,7 +25233,7 @@ diese zu finden und zu korrigieren</translation>
         <translation type="obsolete">Aktualisiere Bilder</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4300"/>
+        <location filename="../scribus.cpp" line="4315"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Dokumente (*.sla *.sla.gz);;Alle Dateien (*)</translation>
     </message>
@@ -25233,49 +25248,49 @@ diese zu finden und zu korrigieren</translation>
         <translation type="obsolete">Gruppe%1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4158"/>
+        <location filename="../scribus.cpp" line="4173"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Wollen Sie wirklich den gesamten Text entfernen?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="279"/>
+        <location filename="../scribus.cpp" line="280"/>
         <source>Scribus </source>
         <translation>Scribus</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9324"/>
+        <location filename="../scribus.cpp" line="9446"/>
         <source>Online &amp;Tutorials</source>
         <translation>Online &amp; Tutorien</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3942"/>
+        <location filename="../scribus.cpp" line="3956"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Einige Farbprofile, die in diesem Dokument verwendet werden, sind nicht installiert:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7871"/>
+        <location filename="../scribus.cpp" line="7968"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="318"/>
+        <location filename="../scribus.cpp" line="319"/>
         <source>Applying User Shortcuts</source>
         <translation>Wende benutzerdefinierte Kürzel an</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4316"/>
+        <location filename="../scribus.cpp" line="4331"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Ihr Dokument wurde in einer temporären Datei gespeichert und kann nicht verschoben werden:
 %1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4689"/>
+        <location filename="../scribus.cpp" line="4704"/>
         <source>Print engine initialization failed</source>
         <translation>Initialisierung des Druckers ist fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="2491"/>
+        <location filename="../scribus.cpp" line="2492"/>
         <source>Updating Images</source>
         <translation>Aktualisiere Bilder</translation>
     </message>
@@ -25446,7 +25461,7 @@ diese zu finden und zu korrigieren</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../contextmenu.cpp" line="390"/>
+        <location filename="../contextmenu.cpp" line="391"/>
         <source>&amp;Paste</source>
         <translation>Einf&amp;ügen</translation>
     </message>
@@ -25501,17 +25516,17 @@ diese zu finden und zu korrigieren</translation>
         <translation type="obsolete">Zeichen:</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="4763"/>
+        <location filename="../pageitem.cpp" line="4931"/>
         <source>Print: </source>
         <translation>Drucken:</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="4765"/>
+        <location filename="../pageitem.cpp" line="4933"/>
         <source>Enabled</source>
         <translation>ja</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="4767"/>
+        <location filename="../pageitem.cpp" line="4935"/>
         <source>Disabled</source>
         <translation>nein</translation>
     </message>
@@ -25531,17 +25546,17 @@ diese zu finden und zu korrigieren</translation>
         <translation>&amp;PDF-Optionen</translation>
     </message>
     <message>
-        <location filename="../contextmenu.cpp" line="279"/>
+        <location filename="../contextmenu.cpp" line="280"/>
         <source>Send to La&amp;yer</source>
         <translation>Auf andere &amp;Ebene verschieben</translation>
     </message>
     <message>
-        <location filename="../contextmenu.cpp" line="313"/>
+        <location filename="../contextmenu.cpp" line="314"/>
         <source>Le&amp;vel</source>
         <translation>An&amp;ordnung</translation>
     </message>
     <message>
-        <location filename="../contextmenu.cpp" line="338"/>
+        <location filename="../contextmenu.cpp" line="339"/>
         <source>Conve&amp;rt to</source>
         <translation>&amp;Umwandeln in</translation>
     </message>
@@ -25561,18 +25576,18 @@ diese zu finden und zu korrigieren</translation>
         <translation type="obsolete">Sie versuchen einen Rahmen mit sich selbst zu verketten.</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3798"/>
+        <location filename="../scribusview.cpp" line="3808"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Ein in Bearbeitung befindliches Objekt kann nicht
 umgewandelt werden</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3798"/>
+        <location filename="../scribusview.cpp" line="3808"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Das Objekt %1 wird gerade im Story Editor bearbeitet und kann deswegen nicht umgewandelt werden</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2302"/>
+        <location filename="../scribusview.cpp" line="2308"/>
         <source>Page %1 to %2</source>
         <translation>Seite %1 bis %2</translation>
     </message>
@@ -25602,12 +25617,12 @@ umgewandelt werden</translation>
         <translation type="obsolete">Graustufen</translation>
     </message>
     <message>
-        <location filename="../contextmenu.cpp" line="370"/>
+        <location filename="../contextmenu.cpp" line="371"/>
         <source>Contents</source>
         <translation>Inhalt</translation>
     </message>
     <message>
-        <location filename="../contextmenu.cpp" line="396"/>
+        <location filename="../contextmenu.cpp" line="397"/>
         <source>Paste Recent</source>
         <translation>Zuletzt verwendete einfügen</translation>
     </message>
@@ -25622,7 +25637,7 @@ umgewandelt werden</translation>
         <translation type="obsolete">Zeilen:</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3469"/>
+        <location filename="../scribusview.cpp" line="3479"/>
         <source>Group%1</source>
         <translation>Gruppe%1</translation>
     </message>
@@ -25708,7 +25723,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
 <context>
     <name>ScripterCore</name>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="575"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="585"/>
         <source>Script error</source>
         <translation>Fehler bei der Ausführung eines Scripts</translation>
     </message>
@@ -25723,37 +25738,37 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation>Diese Meldung befindet sich auch in Ihrer Zwischenablage. Benutzen Sie Strg+V, um sie in den Bugtracker zu kopieren.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="498"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="508"/>
         <source>Examine Script</source>
         <translation>Script untersuchen</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="425"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="432"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>Ihr Befehl konnte auf Grund eines internen Fehlers nicht ausgeführt werden. Weitere Hinweise finden Sie auf stderr.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="577"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="587"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Konnte das Python-Plug-In nicht einrichten. Weitere Hinweise finden Sie auf stderr.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="521"/>
         <source>Documentation for:</source>
         <translation>Handbuch für:</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="516"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="526"/>
         <source>Script</source>
         <translation>Script</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="516"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="526"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation>enthält keinen docstring!</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="498"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="508"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation>Python Scripts (*.py *.PY);;Alle Dateien (*)</translation>
     </message>
@@ -26808,57 +26823,57 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
 <context>
     <name>SxwDialog</name>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="54"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="52"/>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Namen der Datei vor jedem Absatzstil anfügen</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="63"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="61"/>
         <source>Do not ask again</source>
         <translation>Einstellungen merken</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="74"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="72"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="27"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="25"/>
         <source>OpenOffice.org Writer Importer Options</source>
         <translation>Optionen für den OpenOffice.org-Writer-Import</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="38"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="36"/>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation>Damit werden bereits vorhandene Stile im aktuellen Dokument überschrieben</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="45"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="43"/>
         <source>Merge Paragraph Styles</source>
         <translation>Absatzstile zusammenführen</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="47"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="45"/>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
         <translation>Absatzstile nach Attributen zusammenführen. Diese Option führt zu weniger Absatzstilen, selbst wenn im Originaldokument Stile anders benannt sind.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="56"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="54"/>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
         <translation>Name des Dokuments an Absatzstile anhängen.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="65"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="63"/>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation>Diese Einstellungen als Standard festlegen und beim Import von Dateien, die mit OpenOffice 1.x erstellt wurden, nicht erneut nachfragen.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="36"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="34"/>
         <source>Overwrite Paragraph Styles</source>
         <translation>Absatzstile überschreiben</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="76"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="74"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
@@ -29205,7 +29220,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation>&amp;Präsentationseffekte aktivieren</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1770"/>
+        <location filename="../tabpdfoptions.cpp" line="1829"/>
         <source>Page</source>
         <translation>Seite</translation>
     </message>
@@ -29255,82 +29270,82 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation> sek</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="504"/>
+        <location filename="../tabpdfoptions.cpp" line="1446"/>
         <source>No Effect</source>
         <translation>Kein Effekt</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="504"/>
+        <location filename="../tabpdfoptions.cpp" line="1447"/>
         <source>Blinds</source>
         <translation>Jalousie</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="504"/>
+        <location filename="../tabpdfoptions.cpp" line="1448"/>
         <source>Box</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="504"/>
+        <location filename="../tabpdfoptions.cpp" line="1449"/>
         <source>Dissolve</source>
         <translation>Auflösen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="504"/>
+        <location filename="../tabpdfoptions.cpp" line="1450"/>
         <source>Glitter</source>
         <translation>Schachbrett</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="504"/>
+        <location filename="../tabpdfoptions.cpp" line="1451"/>
         <source>Split</source>
         <translation>Teilen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="504"/>
+        <location filename="../tabpdfoptions.cpp" line="1452"/>
         <source>Wipe</source>
         <translation>Wischen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="512"/>
+        <location filename="../tabpdfoptions.cpp" line="515"/>
         <source>Horizontal</source>
         <translation>Horizontal</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="513"/>
+        <location filename="../tabpdfoptions.cpp" line="516"/>
         <source>Vertical</source>
         <translation>Vertikal</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="518"/>
+        <location filename="../tabpdfoptions.cpp" line="521"/>
         <source>Inside</source>
         <translation>Innen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="519"/>
+        <location filename="../tabpdfoptions.cpp" line="522"/>
         <source>Outside</source>
         <translation>Aussen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="524"/>
+        <location filename="../tabpdfoptions.cpp" line="527"/>
         <source>Left to Right</source>
         <translation>Von links nach rechts</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="524"/>
+        <location filename="../tabpdfoptions.cpp" line="527"/>
         <source>Top to Bottom</source>
         <translation>Von oben nach unten</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="524"/>
+        <location filename="../tabpdfoptions.cpp" line="527"/>
         <source>Bottom to Top</source>
         <translation>Von unten nach oben</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="524"/>
+        <location filename="../tabpdfoptions.cpp" line="527"/>
         <source>Right to Left</source>
         <translation>Von rechts nach links</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="525"/>
+        <location filename="../tabpdfoptions.cpp" line="528"/>
         <source>Top-left to Bottom-Right</source>
         <translation>Schräg von links oben</translation>
     </message>
@@ -29340,132 +29355,132 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation type="obsolete">Effekt auf alle Seiten an&amp;wenden</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="535"/>
+        <location filename="../tabpdfoptions.cpp" line="538"/>
         <source>E&amp;xtras</source>
         <translation>E&amp;xtras</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="619"/>
+        <location filename="../tabpdfoptions.cpp" line="622"/>
         <source>&amp;Use Encryption</source>
         <translation>&amp;Verschlüsselung benutzen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="621"/>
+        <location filename="../tabpdfoptions.cpp" line="624"/>
         <source>Passwords</source>
         <translation>Passwörter</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="627"/>
+        <location filename="../tabpdfoptions.cpp" line="630"/>
         <source>&amp;User:</source>
         <translation>&amp;Benutzer:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="629"/>
+        <location filename="../tabpdfoptions.cpp" line="632"/>
         <source>&amp;Owner:</source>
         <translation>&amp;Besitzer:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="641"/>
+        <location filename="../tabpdfoptions.cpp" line="644"/>
         <source>Settings</source>
         <translation>Berechtigungen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="647"/>
+        <location filename="../tabpdfoptions.cpp" line="650"/>
         <source>Allow &amp;Printing the Document</source>
         <translation>Dokument &amp;drucken erlauben</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="649"/>
+        <location filename="../tabpdfoptions.cpp" line="652"/>
         <source>Allow &amp;Changing the Document</source>
         <translation>Dokument än&amp;dern erlauben</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="651"/>
+        <location filename="../tabpdfoptions.cpp" line="654"/>
         <source>Allow Cop&amp;ying Text and Graphics</source>
         <translation>Kopieren von &amp;Text und Bildern zulassen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="653"/>
+        <location filename="../tabpdfoptions.cpp" line="656"/>
         <source>Allow Adding &amp;Annotations and Fields</source>
         <translation>Hinzufügen von &amp;Anmerkungen erlauben</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="656"/>
+        <location filename="../tabpdfoptions.cpp" line="659"/>
         <source>S&amp;ecurity</source>
         <translation>Sicher&amp;heit</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="662"/>
+        <location filename="../tabpdfoptions.cpp" line="665"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="667"/>
+        <location filename="../tabpdfoptions.cpp" line="670"/>
         <source>Output &amp;Intended For:</source>
         <translation>Ausgabe &amp;vorgesehen für:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="670"/>
+        <location filename="../tabpdfoptions.cpp" line="673"/>
         <source>Screen / Web</source>
         <translation>Monitor / Internet</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="671"/>
+        <location filename="../tabpdfoptions.cpp" line="674"/>
         <source>Printer</source>
         <translation>Drucker</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="672"/>
+        <location filename="../tabpdfoptions.cpp" line="675"/>
         <source>Grayscale</source>
         <translation>Graustufen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="684"/>
+        <location filename="../tabpdfoptions.cpp" line="687"/>
         <source>&amp;Use Custom Rendering Settings</source>
         <translation>&amp;Benutzerdefinierte Ausgabeeinstellungen verwenden</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="686"/>
+        <location filename="../tabpdfoptions.cpp" line="689"/>
         <source>Rendering Settings</source>
         <translation>Ausgabeeinstellungen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="694"/>
+        <location filename="../tabpdfoptions.cpp" line="697"/>
         <source>Fre&amp;quency:</source>
         <translation>&amp;Häufigkeit:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="701"/>
+        <location filename="../tabpdfoptions.cpp" line="704"/>
         <source>&amp;Angle:</source>
         <translation>&amp;Winkel:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="709"/>
+        <location filename="../tabpdfoptions.cpp" line="712"/>
         <source>S&amp;pot Function:</source>
         <translation>&amp;Punktaufbau:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="713"/>
+        <location filename="../tabpdfoptions.cpp" line="716"/>
         <source>Simple Dot</source>
         <translation>Punkt</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="714"/>
+        <location filename="../tabpdfoptions.cpp" line="717"/>
         <source>Line</source>
         <translation>Linie</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="715"/>
+        <location filename="../tabpdfoptions.cpp" line="718"/>
         <source>Round</source>
         <translation>Rund</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="716"/>
+        <location filename="../tabpdfoptions.cpp" line="719"/>
         <source>Ellipse</source>
         <translation>Ellipse</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="728"/>
+        <location filename="../tabpdfoptions.cpp" line="731"/>
         <source>Solid Colors:</source>
         <translation>Farben:</translation>
     </message>
@@ -29475,37 +29490,37 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation type="obsolete">ICC-Profile benutzen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="764"/>
+        <location filename="../tabpdfoptions.cpp" line="767"/>
         <source>Profile:</source>
         <translation>Profil:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="767"/>
+        <location filename="../tabpdfoptions.cpp" line="770"/>
         <source>Rendering-Intent:</source>
         <translation>Renderpriorität:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="746"/>
+        <location filename="../tabpdfoptions.cpp" line="749"/>
         <source>Perceptual</source>
         <translation>Wahrnehmung</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="746"/>
+        <location filename="../tabpdfoptions.cpp" line="749"/>
         <source>Relative Colorimetric</source>
         <translation>Relativ farbmetrisch</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="746"/>
+        <location filename="../tabpdfoptions.cpp" line="749"/>
         <source>Saturation</source>
         <translation>Farbsättigung</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="746"/>
+        <location filename="../tabpdfoptions.cpp" line="749"/>
         <source>Absolute Colorimetric</source>
         <translation>Absolut farbmetrisch</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="753"/>
+        <location filename="../tabpdfoptions.cpp" line="756"/>
         <source>Images:</source>
         <translation>Bilder:</translation>
     </message>
@@ -29515,162 +29530,162 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation type="obsolete">Eingebettete Profile nicht benutzen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="781"/>
+        <location filename="../tabpdfoptions.cpp" line="784"/>
         <source>C&amp;olor</source>
         <translation>&amp;Farbe</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="845"/>
+        <location filename="../tabpdfoptions.cpp" line="848"/>
         <source>PDF/X-3 Output Intent</source>
         <translation>PDF/X-3 Ausgabebedingung</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="855"/>
+        <location filename="../tabpdfoptions.cpp" line="858"/>
         <source>&amp;Info String:</source>
         <translation>&amp;Infotext:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="858"/>
+        <location filename="../tabpdfoptions.cpp" line="861"/>
         <source>Output &amp;Profile:</source>
         <translation>Ausgabe&amp;profil:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="904"/>
+        <location filename="../tabpdfoptions.cpp" line="907"/>
         <source>Show page previews of each page listed above.</source>
         <translation>Vorschau für aufgeführte Seiten anzeigen.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="907"/>
+        <location filename="../tabpdfoptions.cpp" line="910"/>
         <source>Type of the display effect.</source>
         <translation>Auswahl des Effekts.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="908"/>
+        <location filename="../tabpdfoptions.cpp" line="911"/>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
         <translation>Richtung für die Effekte Rollen und Schachbrett.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="909"/>
+        <location filename="../tabpdfoptions.cpp" line="912"/>
         <source>Starting position for the box and split effects.</source>
         <translation>Startposition für die Effekte Einblenden und Teilen.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="910"/>
+        <location filename="../tabpdfoptions.cpp" line="913"/>
         <source>Direction of the glitter or wipe effects.</source>
         <translation>Richtung für die Effekte Jalousie und Teilen.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="911"/>
+        <location filename="../tabpdfoptions.cpp" line="914"/>
         <source>Apply the selected effect to all pages.</source>
         <translation>Gewählten Effekt auf alle Seiten anwenden.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="944"/>
+        <location filename="../tabpdfoptions.cpp" line="947"/>
         <source>Export all pages to PDF</source>
         <translation>Alle Seiten als PDF exportieren</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="945"/>
+        <location filename="../tabpdfoptions.cpp" line="948"/>
         <source>Export a range of pages to PDF</source>
         <translation>Einen Seitenbereich als PDF exportieren</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="953"/>
+        <location filename="../tabpdfoptions.cpp" line="956"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
         <translation>Erzeugt PDF-Artikel, die für die Navigation in verketteten Textrahmen nützlich sind.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="961"/>
+        <location filename="../tabpdfoptions.cpp" line="964"/>
         <source>DPI (Dots Per Inch) for image export.</source>
         <translation>DPI (Punkte pro Zoll) für den Export von Bildern.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="964"/>
+        <location filename="../tabpdfoptions.cpp" line="967"/>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation>Wählen Sie ein Passwort, das es Benutzern erlaubt, die PDF-Datei anzusehen.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="965"/>
+        <location filename="../tabpdfoptions.cpp" line="968"/>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
         <translation>Drucken erlauben. Wenn nicht ausgewählt, ist das Drucken verboten.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="966"/>
+        <location filename="../tabpdfoptions.cpp" line="969"/>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
         <translation>Veränderung der PDF-Datei gestatten. Wenn nicht ausgewählt, wird die Veränderung verhindert.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="971"/>
+        <location filename="../tabpdfoptions.cpp" line="974"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Farbprofil für Füllfarben einbetten</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="972"/>
+        <location filename="../tabpdfoptions.cpp" line="975"/>
         <source>Color profile for solid colors</source>
         <translation>Farbprofil für Füllfarben</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="973"/>
+        <location filename="../tabpdfoptions.cpp" line="976"/>
         <source>Rendering intent for solid colors</source>
         <translation>Rendermethode für Füllfarben</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="974"/>
+        <location filename="../tabpdfoptions.cpp" line="977"/>
         <source>Embed a color profile for images</source>
         <translation>Farbprofil für Bilder einbetten</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="975"/>
+        <location filename="../tabpdfoptions.cpp" line="978"/>
         <source>Do not use color profiles that are embedded in source images</source>
         <translation>Farbprofile der Quellbilder nicht benutzen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="976"/>
+        <location filename="../tabpdfoptions.cpp" line="979"/>
         <source>Color profile for images</source>
         <translation>Farbprofil für Bilder</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="977"/>
+        <location filename="../tabpdfoptions.cpp" line="980"/>
         <source>Rendering intent for images</source>
         <translation>Rendermethode für Bilder</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="995"/>
+        <location filename="../tabpdfoptions.cpp" line="998"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
         <translation>Ausgabeprofil zum Drucken. Wenn möglich, benutzen Sie das Profil Ihres Druckers.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="990"/>
+        <location filename="../tabpdfoptions.cpp" line="993"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Zugabe für Anschnitt oben</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="991"/>
+        <location filename="../tabpdfoptions.cpp" line="994"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation>Zugabe für Anschnitt unten</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="992"/>
+        <location filename="../tabpdfoptions.cpp" line="995"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation>Zugabe für Anschnitt links</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="993"/>
+        <location filename="../tabpdfoptions.cpp" line="996"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Zugabe für Anschnitt rechts</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="978"/>
+        <location filename="../tabpdfoptions.cpp" line="981"/>
         <source>Mirror Page(s) horizontally</source>
         <translation>Dokument horizontal spiegeln</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="979"/>
+        <location filename="../tabpdfoptions.cpp" line="982"/>
         <source>Mirror Page(s) vertically</source>
         <translation>Dokument vertikal spiegeln</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="678"/>
+        <location filename="../tabpdfoptions.cpp" line="681"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Konvertiert Schmuckfarben zu Prozessfarben</translation>
     </message>
@@ -29680,82 +29695,82 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation>Kompressions&amp;qualität:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="902"/>
+        <location filename="../tabpdfoptions.cpp" line="905"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
         <translation>Schriften in PDF einbetten. Dadurch bleiben das Layout und das Aussehen des Dokuments erhalten.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="906"/>
+        <location filename="../tabpdfoptions.cpp" line="909"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation>Länge eines Effekts. Je kürzer, desto schneller ist der Effekt, je länger, desto langsamer.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="948"/>
+        <location filename="../tabpdfoptions.cpp" line="951"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
         <translation>Geben Sie, durch Kommata getrennt, die Seiten ein, die verarbeitet werden sollen. * steht für alle Seiten, 1-5 für einen Bereich oder eine einzelne Seite. </translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="951"/>
+        <location filename="../tabpdfoptions.cpp" line="954"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation>Legt die Bindung für PDF-Dateien fest. Nur verändern, wenn Sie es wirklich brauchen. Standard: Links.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="952"/>
+        <location filename="../tabpdfoptions.cpp" line="955"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
         <translation>Erzeugt kleine Vorschaubilder von jeder Seite. Einige PDF-Betrachter nutzen diese Vorschaubilder zur Navigation.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="955"/>
+        <location filename="../tabpdfoptions.cpp" line="958"/>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
         <translation>Fügt die Lesezeichen mit in die PDF-Datei ein. So können Sie in langen PDF-Dateien besser navigieren.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="956"/>
+        <location filename="../tabpdfoptions.cpp" line="959"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
         <translation>Auflösung für Text und Vektorgrafiken. Beeinflusst nicht die Auflösung von Bitmapdaten wie Fotos.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="957"/>
+        <location filename="../tabpdfoptions.cpp" line="960"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
         <translation>Aktiviert verlustlose Komprimierung von Text und Grafiken. Verringert die Grösse der PDF-Datei. Nicht ohne Grund deaktivieren.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="958"/>
+        <location filename="../tabpdfoptions.cpp" line="961"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
         <translation>Methode für die Komprimierung von Bitmapdaten. Automatisch bedeutet, dass Scribus die beste Methode wählt. ZIP ist verlustlos und gut für Bilder mit flächigen Farben. Mit JPEG erzeugen Sie kleinere PDFs, geeignet für viele Fotos. Hier können kleinere Qualitätsverluste auftreten. Empfehlung: Verändern Sie die Methode Automatisch nur, wenn Sie es wirklich benötigen.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="962"/>
+        <location filename="../tabpdfoptions.cpp" line="965"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei. Wenn Sie PDF 1.3 gewählt haben, wird die Datei mit 40-Bit-Verschlüsselung geschützt, bei PDF 1.4 wird 128-Bit-Verschlüsselung verwendet. Warnung: PDF-Verschlüsselung ist nicht so verlässlich wie GPG- oder PGP-Verschlüsselung und besitzt einige Einschränkungen.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="963"/>
+        <location filename="../tabpdfoptions.cpp" line="966"/>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
         <translation>Wählen Sie ein Master-Passwort, das alle Sicherheitsfunktionen in der PDF-Datei aktiviert oder deaktiviert</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="967"/>
+        <location filename="../tabpdfoptions.cpp" line="970"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
         <translation>Erlaubt das Entnehmen von Text oder Grafiken aus der PDF-Datei. Falls nicht aktiviert, können Texte oder Grafiken nicht kopiert werden.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="968"/>
+        <location filename="../tabpdfoptions.cpp" line="971"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
         <translation>Erlaubt das Hinzufügen von Anmerkungen. Falls nicht aktiviert, können keine Anmerkungen eingefügt werden.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="970"/>
+        <location filename="../tabpdfoptions.cpp" line="973"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Die ist eine fortgeschrittene Einstellung, die standardmässig nicht aktiviert ist. Sie sollte nur aktiviert werden, wenn dies ausdrücklich von Ihrer Druckerei gefordert wird und diese Ihnen alle benötigten Details mitgeteilt hat. Ansonsten könnte Ihre PDF-Datei nicht korrekt gedruckt werden und Probleme beim plattformübergreifenden Datenaustausch bereiten.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="996"/>
+        <location filename="../tabpdfoptions.cpp" line="999"/>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation>Vorgeschriebener Text für PDF/X-3, ohne den die Datei nicht der PDF/X-3-Spezifikation entspricht. Wir empfehlen, den Titel des Dokumentes zu verwenden.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="981"/>
+        <location filename="../tabpdfoptions.cpp" line="984"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Ermöglicht die Umwandlung von Schmuck- in Prozessfarben. Solange Sie Schmuckfarben nicht wirklich benötigen, sollten Sie dies am besten aktiviert lassen.</translation>
     </message>
@@ -29775,87 +29790,87 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation type="obsolete">Bilder &amp;neu berechnen auf:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="541"/>
+        <location filename="../tabpdfoptions.cpp" line="544"/>
         <source>Display Settings</source>
         <translation>Anzeigeeinstellungen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="556"/>
+        <location filename="../tabpdfoptions.cpp" line="559"/>
         <source>Single Page</source>
         <translation>Einzelne Seite</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="559"/>
+        <location filename="../tabpdfoptions.cpp" line="562"/>
         <source>Continuous</source>
         <translation>Fortlaufend</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="562"/>
+        <location filename="../tabpdfoptions.cpp" line="565"/>
         <source>Double Page Left</source>
         <translation>Doppelseite links</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="565"/>
+        <location filename="../tabpdfoptions.cpp" line="568"/>
         <source>Double Page Right</source>
         <translation>Doppelseite rechts</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="569"/>
+        <location filename="../tabpdfoptions.cpp" line="572"/>
         <source>Visual Appearance</source>
         <translation>Anzeige</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="575"/>
+        <location filename="../tabpdfoptions.cpp" line="578"/>
         <source>Use Viewers Defaults</source>
         <translation>Standardeinstellung des Betrachters verwenden</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="578"/>
+        <location filename="../tabpdfoptions.cpp" line="581"/>
         <source>Use Full Screen Mode</source>
         <translation>Vollbildmodus verwenden</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="581"/>
+        <location filename="../tabpdfoptions.cpp" line="584"/>
         <source>Display Bookmarks Tab</source>
         <translation>Lesezeichen anzeigen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="584"/>
+        <location filename="../tabpdfoptions.cpp" line="587"/>
         <source>Display Thumbnails</source>
         <translation>Vorschaubilder anzeigen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="587"/>
+        <location filename="../tabpdfoptions.cpp" line="590"/>
         <source>Display Layers Tab</source>
         <translation>Reiter für Ebenen anzeigen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="589"/>
+        <location filename="../tabpdfoptions.cpp" line="592"/>
         <source>Hide Viewers Toolbar</source>
         <translation>Symbolleisten ausblenden</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="591"/>
+        <location filename="../tabpdfoptions.cpp" line="594"/>
         <source>Hide Viewers Menubar</source>
         <translation>Menüleiste ausblenden</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="593"/>
+        <location filename="../tabpdfoptions.cpp" line="596"/>
         <source>Zoom Pages to fit Viewer Window</source>
         <translation>Seiten auf Grösse des Betrachterfensters zoomen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="599"/>
+        <location filename="../tabpdfoptions.cpp" line="602"/>
         <source>Special Actions</source>
         <translation>Erweiterte Aktionen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1174"/>
+        <location filename="../tabpdfoptions.cpp" line="1176"/>
         <source>No Script</source>
         <translation>Kein Script</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="612"/>
+        <location filename="../tabpdfoptions.cpp" line="615"/>
         <source>Viewer</source>
         <translation>Betrachter</translation>
     </message>
@@ -29880,29 +29895,29 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation>Kompressionsmethode für Bilder</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="605"/>
+        <location filename="../tabpdfoptions.cpp" line="608"/>
         <source>Javascript to be executed
 when PDF document is opened:</source>
         <translation>Javascript, das beim Öffnen
 der PDF-Datei ausgeführt wird:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="903"/>
+        <location filename="../tabpdfoptions.cpp" line="906"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Aktiviert die Präsentationseffekte beim Öffnen der Datei in Adobe&amp;#174; Reader&amp;#174; im Vollbildmodus und anderen PDF-Betrachtern, die diese unterstützen.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="954"/>
+        <location filename="../tabpdfoptions.cpp" line="957"/>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
         <translation>Ebenen werden mit exportiert. Nur in PDF-1.5-Dateien möglich.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="982"/>
+        <location filename="../tabpdfoptions.cpp" line="985"/>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>Objekte ausserhalb des Seitenrandes nicht exportieren</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="905"/>
+        <location filename="../tabpdfoptions.cpp" line="908"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Dauer, für die die Seite angezeigt wird, bevor die Präsenation auf der Seite startet. Bei 0 werden die Übergänge deaktiviert.</translation>
     </message>
@@ -29914,25 +29929,25 @@ Ansonsten wird die ursprüngliche Auflösung verwendet. Die Aktivierung dieser
 Option kann den Speicherbedarf erhöhen und die Ausgabe verlangsamen.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="969"/>
+        <location filename="../tabpdfoptions.cpp" line="972"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation>Farbmodell für die Ausgabe der PDF-Datei.
 Wählen Sie Monitor/Internet für PDF-Dateien, die auf dem Monitor angezeigt oder mit herkömmlichen Druckern gedruckt werden sollen.
 Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen Sie Graustufen, wenn Sie eine Graustufen-PDF benötigen.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="681"/>
+        <location filename="../tabpdfoptions.cpp" line="684"/>
         <source>Force Overprint Mode</source>
         <translation>Überdrucken erzwingen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="980"/>
+        <location filename="../tabpdfoptions.cpp" line="983"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation>Aktiviert den Überdrucken-Modus für das ganze Dokument. Einstellungen für einzelne Objekte
 werden ignoriert</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="950"/>
+        <location filename="../tabpdfoptions.cpp" line="953"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Legt die Kompatibilität der PDF-Datei fest. Standard ist PDF 1.3 mit der grössten Kompatibilität. Mit PDF 1.4 können Sie Transparenz und 128bit-Verschlüsselung verwenden. PDF 1.5 ist notwendig, wenn Sie Ebenen in der PDF-Datei erhalten möchten. PDF/X-3 ist vorgesehen für kommerziellen RGB-Druck mit Farbprofilen. Es ist nur verfügbar, wenn Farbprofile aktiviert sind - verwenden Sie PDX/X-3 nur, wenn Ihre Druckerei das wünscht oder beim Druck auf einem Vierfarb-Laserdrucker.</translation>
     </message>
@@ -29952,97 +29967,97 @@ werden ignoriert</translation>
         <translation>Alle in &amp;Kurven umwandeln</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="789"/>
+        <location filename="../tabpdfoptions.cpp" line="792"/>
         <source>Printer Marks</source>
         <translation>Druckermarken</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="794"/>
+        <location filename="../tabpdfoptions.cpp" line="797"/>
         <source>Crop Marks</source>
         <translation>Schneidemarken</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="796"/>
+        <location filename="../tabpdfoptions.cpp" line="799"/>
         <source>Bleed Marks</source>
         <translation>Anschnittmarken</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="798"/>
+        <location filename="../tabpdfoptions.cpp" line="801"/>
         <source>Registration Marks</source>
         <translation>Registrierungsmarken</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="800"/>
+        <location filename="../tabpdfoptions.cpp" line="803"/>
         <source>Color Bars</source>
         <translation>Farbbalken</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="802"/>
+        <location filename="../tabpdfoptions.cpp" line="805"/>
         <source>Page Information</source>
         <translation>Seiteninformation</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="805"/>
+        <location filename="../tabpdfoptions.cpp" line="808"/>
         <source>Offset:</source>
         <translation>Versatz:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="815"/>
+        <location filename="../tabpdfoptions.cpp" line="818"/>
         <source>Bleed Settings</source>
         <translation>Anschnitteinstellungen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="821"/>
+        <location filename="../tabpdfoptions.cpp" line="824"/>
         <source>Top:</source>
         <translation>Oben:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="826"/>
+        <location filename="../tabpdfoptions.cpp" line="829"/>
         <source>Bottom:</source>
         <translation>Unten:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="831"/>
+        <location filename="../tabpdfoptions.cpp" line="834"/>
         <source>Left:</source>
         <translation>Links:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="836"/>
+        <location filename="../tabpdfoptions.cpp" line="839"/>
         <source>Right:</source>
         <translation>Rechts:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="840"/>
+        <location filename="../tabpdfoptions.cpp" line="843"/>
         <source>Use Document Bleeds</source>
         <translation>Dokumenteinstellungen für Anschnitt verwenden</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="866"/>
+        <location filename="../tabpdfoptions.cpp" line="869"/>
         <source>Pre-Press</source>
         <translation>Pre-Press</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="912"/>
+        <location filename="../tabpdfoptions.cpp" line="915"/>
         <source>Convert all glyphs in the document to outlines.</source>
         <translation>Alle Zeichen im Dokument in Kurven umwandeln.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="959"/>
+        <location filename="../tabpdfoptions.cpp" line="962"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation>Komprimierungsqualität für verlustbehaftete Komprimierung: Minimum (25%), Niedrig (50%), Mittel (75%) und Maximum (95%). Diese Einstellung wirkt sich nicht direkt auf die Grösse der Bilder aus, weil Grösse und Qualitätsverlust von Bild zu Bild variieren. Selbst wenn &quot;Maximum&quot; ausgewählt ist, tritt immer ein gewisser Qualitätsverlust bei JPEG auf.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1349"/>
+        <location filename="../tabpdfoptions.cpp" line="1366"/>
         <source>Inside:</source>
         <translation>Innen:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1350"/>
+        <location filename="../tabpdfoptions.cpp" line="1367"/>
         <source>Outside:</source>
         <translation>Aussen:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="550"/>
+        <location filename="../tabpdfoptions.cpp" line="553"/>
         <source>Document Layout</source>
         <translation>Dokumentlayout</translation>
     </message>
@@ -30052,67 +30067,67 @@ werden ignoriert</translation>
         <translation>Höchste Bildauflösung:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="914"/>
+        <location filename="../tabpdfoptions.cpp" line="917"/>
         <source>Show the document in single page mode</source>
         <translation>Zeigen Sie das Dokument im Einzelseitenmodus</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="915"/>
+        <location filename="../tabpdfoptions.cpp" line="918"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
         <translation>Zeigen Sie das Dokument im Einzelseitenmodus, aber mit fortlaufender Seitenanzeige</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="916"/>
+        <location filename="../tabpdfoptions.cpp" line="919"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
         <translation>Zeigen Sie das Dokument im Doppelseitenmodus, beginnend mit der ersten Seite</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="917"/>
+        <location filename="../tabpdfoptions.cpp" line="920"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
         <translation>Zeigen Sie das Dokument im Doppelseitenmodus, wobei die erste Seite rechts dargestellt wird</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="918"/>
+        <location filename="../tabpdfoptions.cpp" line="921"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
         <translation>Verwenden Sie die Benutzereinstellungen im PDF-Betrachter</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="919"/>
+        <location filename="../tabpdfoptions.cpp" line="922"/>
         <source>Enables viewing the document in full screen</source>
         <translation>Ermöglicht das Betrachten im Vollbildmodus</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="920"/>
+        <location filename="../tabpdfoptions.cpp" line="923"/>
         <source>Display the bookmarks upon opening</source>
         <translation>Zeigt die Lesezeichen beim Öffnen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="921"/>
+        <location filename="../tabpdfoptions.cpp" line="924"/>
         <source>Display the page thumbnails upon opening</source>
         <translation>Zeigt die Vorschaubilder der Seiten beim Öffnen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="922"/>
+        <location filename="../tabpdfoptions.cpp" line="925"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
         <translation>Erzwingt die Darstellung von Ebenen. Nur für PDF-Version 1.5 oder höher von Bedeutung.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="923"/>
+        <location filename="../tabpdfoptions.cpp" line="926"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
         <translation>Blendet die Werkzeugleiste aus</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="924"/>
+        <location filename="../tabpdfoptions.cpp" line="927"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
         <translation>Blendet die Menüleiste aus.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="925"/>
+        <location filename="../tabpdfoptions.cpp" line="928"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
         <translation>Passt die Dokumentgrösse an die verfügbare Fläche im Betrachterfenster an.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="960"/>
+        <location filename="../tabpdfoptions.cpp" line="963"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation>Setzt die maximale Auflösung der Bitmap-Dateien auf den angegebenen Wert. Bilder mit geringerer Auflösung sind von diesen Einstellungen nicht betroffen. Falls Sie diese Methode auswählen, wird der Speicherverbrauch stark ansteigen, und der Export dauert länger.</translation>
     </message>
@@ -30122,7 +30137,7 @@ werden ignoriert</translation>
         <translation type="obsolete">Hiermit werden Schneidemarken in der ausgegebenen PDF-Datei eingefügt.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="985"/>
+        <location filename="../tabpdfoptions.cpp" line="988"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation>Hiermit werden Anschnittmarken in der ausgegebenen PDF-Datei eingefügt</translation>
     </message>
@@ -30132,49 +30147,69 @@ werden ignoriert</translation>
         <translation type="obsolete">Hiermit werden Registrierungsmarken erzeugt, die auf jeder Farbseparation zu sehen sind</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="987"/>
+        <location filename="../tabpdfoptions.cpp" line="990"/>
         <source>Add color calibration bars</source>
         <translation>Hiermit werden Farbbalken hinzugefügt</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="988"/>
+        <location filename="../tabpdfoptions.cpp" line="991"/>
         <source>Add document information which includes the document title and page numbers</source>
         <translation>Hiermit werden Dokumentinformationen wie Name und Seitenzahl in der ausgegebenen PDF-Datei eingefügt</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="989"/>
+        <location filename="../tabpdfoptions.cpp" line="992"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation>Gibt den Versatz der Registrierungsmarken an</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="994"/>
+        <location filename="../tabpdfoptions.cpp" line="997"/>
         <source>Use the existing bleed settings from the document preferences</source>
         <translation>Verwendet die Anschnittvorgabe aus den Dokumenteinstellungen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="984"/>
+        <location filename="../tabpdfoptions.cpp" line="987"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation>Erzeugt Schnittmarken in der PDF-Datei, die anzeigen, wo die Bögen nach dem Druck beschnitten werden sollen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="986"/>
+        <location filename="../tabpdfoptions.cpp" line="989"/>
         <source>Add registration marks to each separation</source>
         <translation>Registrierungsmarken zu jeder Separation hinzufügen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="758"/>
+        <location filename="../tabpdfoptions.cpp" line="761"/>
         <source>Use Color Profile</source>
         <translation>Farbprofil verwenden</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="761"/>
+        <location filename="../tabpdfoptions.cpp" line="764"/>
         <source>Do not use embedded color profiles</source>
         <translation>Eingebettete Farbprofile nicht verwenden</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="532"/>
+        <location filename="../tabpdfoptions.cpp" line="535"/>
         <source>&amp;Apply Effect to all Pages</source>
         <translation>Effekt auf &amp;alle Seiten anwenden</translation>
+    </message>
+    <message>
+        <location filename="../tabpdfoptions.cpp" line="1455"/>
+        <source>Push</source>
+        <translation>Schieben</translation>
+    </message>
+    <message>
+        <location filename="../tabpdfoptions.cpp" line="1456"/>
+        <source>Cover</source>
+        <translation>Überdecken</translation>
+    </message>
+    <message>
+        <location filename="../tabpdfoptions.cpp" line="1457"/>
+        <source>Uncover</source>
+        <translation>Abdecken</translation>
+    </message>
+    <message>
+        <location filename="../tabpdfoptions.cpp" line="1458"/>
+        <source>Fade</source>
+        <translation>Ausblenden</translation>
     </message>
 </context>
 <context>
@@ -33148,6 +33183,52 @@ Null bedeutet unbegrenzt.</translation>
     </message>
 </context>
 <context>
+    <name>replaceColorDialog</name>
+    <message>
+        <location filename="../replaceonecolor.ui" line="13"/>
+        <source>Replace Color</source>
+        <translation>Farbe ersetzen</translation>
+    </message>
+    <message>
+        <location filename="../replaceonecolor.ui" line="54"/>
+        <source>Replace:</source>
+        <translation>Ersetzen:</translation>
+    </message>
+    <message>
+        <location filename="../replaceonecolor.ui" line="70"/>
+        <source>with:</source>
+        <translation>mit:</translation>
+    </message>
+</context>
+<context>
+    <name>replaceColorsDialog</name>
+    <message>
+        <location filename="../replacecolors.cpp" line="52"/>
+        <source>Original</source>
+        <translation>Original</translation>
+    </message>
+    <message>
+        <location filename="../replacecolors.cpp" line="53"/>
+        <source>Replacement</source>
+        <translation>Ersatz</translation>
+    </message>
+    <message>
+        <location filename="../replacecolors.ui" line="13"/>
+        <source>Replace Colors</source>
+        <translation>Farben ersetzen</translation>
+    </message>
+    <message>
+        <location filename="../replacecolors.ui" line="68"/>
+        <source>Add ...</source>
+        <translation>Hinzufügen ...</translation>
+    </message>
+    <message>
+        <location filename="../replacecolors.ui" line="78"/>
+        <source>Remove</source>
+        <translation>Entfernen</translation>
+    </message>
+</context>
+<context>
     <name>satdialog</name>
     <message>
         <location filename="../plugins/saveastemplateplugin/satdialog.ui" line="13"/>
@@ -33243,6 +33324,109 @@ Null bedeutet unbegrenzt.</translation>
         <location filename="../plugins/saveastemplateplugin/satdialog.ui" line="89"/>
         <source>&amp;More Details</source>
         <translation>&amp;Weitere Details</translation>
+    </message>
+</context>
+<context>
+    <name>selectDialog</name>
+    <message>
+        <location filename="../selectobjects.ui" line="43"/>
+        <source>Select Objects</source>
+        <translation>Markiere Objekte</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="64"/>
+        <source>on current Page</source>
+        <translation>auf der aktuellen Seite</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="74"/>
+        <source>on current Layer</source>
+        <translation>auf der aktuellen Ebene</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="81"/>
+        <source>on the Scratch Space</source>
+        <translation>in der Ablagefläche</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="91"/>
+        <source>Select by</source>
+        <translation>Auswahl nach</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="121"/>
+        <source>Object Type</source>
+        <translation>Objekttyp</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="132"/>
+        <source>Text Frame</source>
+        <translation>Textrahmen</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="137"/>
+        <source>Image Frame</source>
+        <translation>Bildrahmen</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="142"/>
+        <source>Shape</source>
+        <translation>Form</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="147"/>
+        <source>Polyline</source>
+        <translation>Polylinie</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="152"/>
+        <source>Line</source>
+        <translation>Linie</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="157"/>
+        <source>Render Frame</source>
+        <translation>Renderrahmen</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="165"/>
+        <source>Fill Color</source>
+        <translation>Füllfarbe</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="179"/>
+        <source>Line Color</source>
+        <translation>Linienfarbe</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="193"/>
+        <source>Line Width</source>
+        <translation>Linienbreite</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="207"/>
+        <source>Printable</source>
+        <translation>Druckbar</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="269"/>
+        <source>Yes</source>
+        <translation>Ja</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="274"/>
+        <source>No</source>
+        <translation>Nein</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="231"/>
+        <source>Locked</source>
+        <translation>Gesperrt</translation>
+    </message>
+    <message>
+        <location filename="../selectobjects.ui" line="258"/>
+        <source>Resizeable</source>
+        <translation>Größenänderung möglich</translation>
     </message>
 </context>
 <context>
