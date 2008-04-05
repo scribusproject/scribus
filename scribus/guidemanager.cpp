@@ -420,28 +420,39 @@ void GuideManager::resetMarginsForPage()
 	}
 	else selected = false;
 
-	locTop = ScMW->doc->pageMargins.Top;
-	locBottom = ScMW->doc->pageMargins.Bottom;
+// 	locTop = ScMW->doc->pageMargins.Top;
+// 	locBottom = ScMW->doc->pageMargins.Bottom;
+	locTop = ScMW->doc->currentPage->Margins.Top;
+	locBottom = ScMW->doc->currentPage->Margins.Bottom;
 
-	PageLocation pageLocation = ScMW->doc->locationOfPage(ScMW->doc->currentPageNumber());
-	switch (pageLocation)
-	{
-		case MiddlePage :
-			locLeft = ScMW->doc->pageMargins.Left;
-			locRight = ScMW->doc->pageMargins.Left;
-			break;
-		case LeftPage:
-			locLeft = ScMW->doc->pageMargins.Right;
-			locRight = ScMW->doc->pageMargins.Left;
-			break;
-		case RightPage:
-			locRight = ScMW->doc->pageMargins.Right;
-			locLeft = ScMW->doc->pageMargins.Left;
-			break;
-		default:
-			locRight = 0;
-			locLeft = 0;
-	}
+	locRight = ScMW->doc->currentPage->Margins.Right;
+	locLeft = ScMW->doc->currentPage->Margins.Left;
+
+// 	PageLocation pageLocation = ScMW->doc->locationOfPage(ScMW->doc->currentPageNumber());
+// 	switch (pageLocation)
+// 	{
+// 		case MiddlePage :
+// // 			locLeft = ScMW->doc->pageMargins.Left;
+// // 			locRight = ScMW->doc->pageMargins.Right;
+// 			locLeft = ScMW->doc->currentPage->Margins.Left;
+// 			locRight = ScMW->doc->currentPage->Margins.Right;
+// 			break;
+// 		case LeftPage:
+// // 			locLeft = ScMW->doc->pageMargins.Right;
+// // 			locRight = ScMW->doc->pageMargins.Left;
+// 			locLeft = ScMW->doc->currentPage->Margins.Left;
+// 			locRight = ScMW->doc->currentPage->Margins.Righ;
+// 			break;
+// 		case RightPage:
+// // 			locRight = ScMW->doc->pageMargins.Right;
+// // 			locLeft = ScMW->doc->pageMargins.Left;
+// 			locRight = ScMW->doc->currentPage->Margins.Right;
+// 			locLeft = ScMW->doc->currentPage->Margins.Left;
+// 			break;
+// 		default:
+// 			locRight = 0;
+// 			locLeft = 0;
+// 	}
 }
 
 void GuideManager::addRows()
