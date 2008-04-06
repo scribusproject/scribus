@@ -27,7 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "util.h"
 
-ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, PageItem *item, ScribusView *view )  : QDialog( parent, "ExtImageProps", true, 0 )
+ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, PageItem *item, ScribusView *view )
+	: QDialog( parent, "ExtImageProps", true, 0 )
 {
 	setIcon(loadIcon("AppIcon.png"));
 	setCaption( tr( "Extended Image Properties" ) );
@@ -241,6 +242,15 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 	tabLayout_2->addWidget( resetPath );
 	propsTab->insertTab( tab_2, tr( "Paths" ) );
 	ExtImagePropsLayout->addWidget( propsTab );
+
+	QHBoxLayout * closeLayout = new QHBoxLayout(this);
+	QSpacerItem * closeSpace = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	QPushButton * closeButton = new QPushButton(tr("&Close"), this);
+	closeLayout->addItem(closeSpace);
+	closeLayout->addWidget(closeButton);
+
+	ExtImagePropsLayout->addLayout(closeLayout);
+
 	resize(330, 320);
 	clearWState( WState_Polished );
 	connect(pathList, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selPath(QListBoxItem*) ) );
@@ -248,7 +258,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
 	connect(resetPath, SIGNAL(clicked()), this, SLOT(noPath()));
-	
+	connect(closeButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 void ExtImageProps::changedLayer()
