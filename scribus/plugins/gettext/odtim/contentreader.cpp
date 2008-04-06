@@ -343,20 +343,23 @@ QString ContentReader::getName()
 
 void ContentReader::getStyle()
 {
-	gtParagraphStyle* par = NULL;
+	gtStyle *style = NULL, *tmp = NULL;
 	if (styleNames.size() == 0)
-		par = dynamic_cast<gtParagraphStyle*>(sreader->getStyle("default-style"));
+		style = sreader->getStyle("default-style");
 	else
-		par = dynamic_cast<gtParagraphStyle*>(sreader->getStyle(styleNames[0]));
-	assert(par != NULL);
-	gtParagraphStyle* tmp = new gtParagraphStyle(*par);
+		style = sreader->getStyle(styleNames[0]);
+	assert (style != NULL);
+	gtParagraphStyle* par = dynamic_cast<gtParagraphStyle*>(style);
+	if (par)
+		tmp = new gtParagraphStyle(*par);
+	else
+		tmp = new gtStyle(*style);
 	for (uint i = 1; i < styleNames.size(); ++i)
 	{
 		Properties& p = tmap[styleNames[i]];
 		for (uint j = 0; j < p.size(); ++j)
 			sreader->updateStyle(tmp, sreader->getStyle(styleNames[i - 1]), p[j].first, p[j].second);
 	}
-
 	currentStyle = tmp;
 	sreader->setStyle(getName(), tmp);
 }
