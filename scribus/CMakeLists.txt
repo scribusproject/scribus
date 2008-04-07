@@ -599,8 +599,6 @@ IF(WIN32)
   SET(SCRIBUS_MOC_WIN32_ONLY_CLASSES scprintengine_gdi.h)
   SET(SCRIBUS_WIN32_ONLY_SOURCES
       scpainterex_cairo.cpp
-      scpainterex_gdi.cpp
-      scpainterex_gdiplus.cpp
       scprintengine_gdi.cpp
       )
   SET(SCRIBUS_MAIN_CPP main_win32.cpp)
@@ -658,7 +656,7 @@ IF(WIN32)
 	COMPILE_FLAGS -DCOMPILE_SCRIBUS_MAIN_APP
 	ENABLE_EXPORTS TRUE
 	)
-  SET(WIN32_ONLY_LIBS GdiPlus.lib mscms.lib)
+  SET(WIN32_ONLY_LIBS mscms.lib)
 ELSE(WIN32)
   SET(WIN32_ONLY_LIBS)
 ENDIF(WIN32)

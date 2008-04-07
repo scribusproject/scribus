@@ -61,17 +61,6 @@ protected:
 	\author Jean Ghali
 	*/
 	bool printPage_PS  ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context );
-	/*! \brief Print a page to a gdi printer
-	Print a page using cairo-based drawing code ( works on all printers : PS, PCL, GDI... )
-	\param doc the document whose page is to be printer
-	\param page the page to print
-	\param options print options
-	\param printerDC an initialized printer device context
-	\param context cairo context
-	\retval bool true on success 
-	\author Jean Ghali
-	*/
-	bool printPage_Cairo ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context );
 	/*! \brief Send a file to printer using PostScript Passthrough
 	Send a postscript file to a printer using ps passthrough ( works on PS printers only )
 	\param filePath the Postscript file path
