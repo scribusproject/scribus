@@ -4995,7 +4995,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>&amp;Include text in barcode</source>
-        <translation>&amp;Text in Strichcode einfügen</translation>
+        <translation>T&amp;ext in Strichcode einfügen</translation>
     </message>
     <message>
         <source>Alt+I</source>
@@ -5047,7 +5047,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>&amp;Text</source>
-        <translation>&amp;Text</translation>
+        <translation>Te&amp;xt</translation>
     </message>
     <message>
         <source>Alt+T</source>
