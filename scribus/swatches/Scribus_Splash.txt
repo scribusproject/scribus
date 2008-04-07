@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swatch>
+	<COLOR CMYK="#e3bc285a" NAME="Scribus 01" />
+        <COLOR CMYK="#deb01427" NAME="Scribus 02" />
+        <COLOR CMYK="#000000cd" NAME="Scribus 03" />
+        <COLOR CMYK="#ca900b14" NAME="Scribus 04" />
+        <COLOR CMYK="#9c808c9a" NAME="Scribus 05" />
+        <COLOR CMYK="#914d0607" NAME="Scribus 06" />
+        <COLOR CMYK="#70547e56" NAME="Scribus 07" />
+        <COLOR CMYK="#3181f175" NAME="Scribus 08" />
+        <COLOR CMYK="#5f475147" NAME="Scribus 09" />
+	<COLOR CMYK="#207aef69" NAME="Scribus 10" />
+        <COLOR CMYK="#553f5637" NAME="Scribus 11" />
+        <COLOR CMYK="#3021240e" NAME="Scribus 12" />
+        <COLOR CMYK="#20161805" NAME="Scribus 13" />
+        <COLOR CMYK="#250f7302" NAME="Scribus 14" />
+        <COLOR CMYK="#1d141203" NAME="Scribus 15" />
+        <COLOR CMYK="#0c064500" NAME="Scribus 16" />
+        <COLOR CMYK="#09015100" NAME="Scribus 17" />
+	<COLOR CMYK="#ffffffff" NAME="Black" />
+	<COLOR CMYK="#00000000" NAME="White" />
+	<COLOR CMYK="#996666ff" NAME="Rich Black" />
+	<COLOR CMYK="#ffffffff" NAME="Registration" Register="1" />
+</swatch>
