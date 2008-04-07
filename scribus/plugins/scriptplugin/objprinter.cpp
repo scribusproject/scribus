@@ -158,7 +158,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		self->printer = printer;
 	}
 // set defaul name of file to print into
-	QString tf = ScCore->primaryMainWindow()->doc->PDF_Options.Datei;
+	QString tf = ScCore->primaryMainWindow()->doc->PDF_Options.fileName;
 	if (tf.isEmpty()) {
 		QFileInfo fi = QFileInfo(ScCore->primaryMainWindow()->doc->DocName);
 		tf = fi.path()+"/"+fi.baseName()+".pdf";

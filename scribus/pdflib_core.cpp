@@ -731,7 +731,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	tmp.replace(QRegExp(":"), "");
 	Datum += tmp;
 	QString IDg(Datum);
-	IDg += Options.Datei;
+	IDg += Options.fileName;
 	IDg += "Scribus "+QString(VERSION);
 	IDg += "Scribus PDF Library "+QString(VERSION);
 	IDg += doc.documentInfo.getTitle();

@@ -4332,7 +4332,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 			else if (!ret)
 				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg( QDir::toNativeSeparators(fn) ), CommonStrings::tr_OK);
 			else
-				doc->PDF_Options.Datei = ""; // #1482 reset the pdf file name
+				doc->PDF_Options.fileName = ""; // #1482 reset the pdf file name
 		}
 	}
 	mainWindowStatusLabel->setText( tr("Ready"));
@@ -8077,7 +8077,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		QMap<int,QPixmap> thumbs;
 		int components=dia.colorSpaceComponents();
 		QString nam(dia.cmsDescriptor());
-		QString fileName = doc->PDF_Options.Datei;
+		QString fileName = doc->PDF_Options.fileName;
 		QString errorMsg;
 		parsePagesString(pageString, &pageNs, doc->DocPages.count());
 		if (doc->PDF_Options.useDocBleeds)
@@ -8106,7 +8106,7 @@ void ScribusMainWindow::doSaveAsPDF()
 				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs, errorMsg, &cancelled))
 				{
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-					QString message = tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei);
+					QString message = tr("Cannot write the file: \n%1").arg(doc->PDF_Options.fileName);
 					if (!errorMsg.isEmpty())
 						message = QString("%1\n%2").arg(message).arg(errorMsg);
 					QMessageBox::warning(this, CommonStrings::trWarning, message, CommonStrings::tr_OK);
@@ -8128,7 +8128,7 @@ void ScribusMainWindow::doSaveAsPDF()
 			if (!getPDFDriver(fileName, nam, components, pageNs, thumbs, errorMsg))
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				QString message = tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei);
+				QString message = tr("Cannot write the file: \n%1").arg(doc->PDF_Options.fileName);
 				if (!errorMsg.isEmpty())
 					message = QString("%1\n%2").arg(message).arg(errorMsg);
 				QMessageBox::warning(this, CommonStrings::trWarning, message, CommonStrings::tr_OK);

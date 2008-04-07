@@ -128,7 +128,7 @@ void PDFOptionsIO::buildSettings()
 	addElem(m_root, "rotateDegrees", m_opts->RotateDeg);
 	addElem(m_root, "presentMode", m_opts->PresentMode);
 	addPresentationData();
-	addElem(m_root, "filename", m_opts->Datei);
+	addElem(m_root, "filename", m_opts->fileName);
 	addElem(m_root, "isGrayscale", m_opts->isGrayscale);
 	addElem(m_root, "useRGB", m_opts->UseRGB);
 	addElem(m_root, "useProfiles", m_opts->UseProfiles);
@@ -355,7 +355,7 @@ bool PDFOptionsIO::readSettings()
 		return false;
 	if (!readPresentationData())
 		return false;
-	if (!readElem(m_root, "filename", &m_opts->Datei))
+	if (!readElem(m_root, "filename", &m_opts->fileName))
 		return false;
 	if (!readElem(m_root, "isGrayscale", &m_opts->isGrayscale))
 		return false;

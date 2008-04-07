@@ -69,8 +69,8 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	NameLayout->setAlignment( Qt::AlignTop );
 	fileNameLineEdit = new QLineEdit( Name );
 	fileNameLineEdit->setMinimumSize( QSize( 268, 22 ) );
-	if (!Opts.Datei.isEmpty())
-		fileNameLineEdit->setText( QDir::convertSeparators(Opts.Datei) );
+	if (!Opts.fileName.isEmpty())
+		fileNameLineEdit->setText( QDir::convertSeparators(Opts.fileName) );
 	else
 	{
 		QFileInfo fi(docFileName);
@@ -228,7 +228,7 @@ void PDFExportDialog::fileNameChanged()
 
 void PDFExportDialog::updateDocOptions()
 {
-	Opts.Datei = QDir::fromNativeSeparators(fileNameLineEdit->text());
+	Opts.fileName = QDir::fromNativeSeparators(fileNameLineEdit->text());
 	Opts.doMultiFile = multiFile->isChecked();
 	Opts.Thumbnails = Options->CheckBox1->isChecked();
 	Opts.Compress = Options->Compression->isChecked();

@@ -427,7 +427,7 @@ void PrefsManager::initDefaults()
 	appPrefs.PDF_Options.doClip = false;
 	appPrefs.PDF_Options.RotateDeg = 0;
 	appPrefs.PDF_Options.PresentMode = false;
-	appPrefs.PDF_Options.Datei = "";
+	appPrefs.PDF_Options.fileName = "";
 	appPrefs.PDF_Options.PresentVals.clear();
 	appPrefs.PDF_Options.isGrayscale = false;
 	appPrefs.PDF_Options.UseRGB = true;
@@ -2176,7 +2176,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.PDF_Options.Version = (PDFOptions::PDFVersion)dc.attribute("Version").toInt();
 			appPrefs.PDF_Options.Resolution = dc.attribute("Resolution").toInt();
 			appPrefs.PDF_Options.Binding = dc.attribute("Binding").toInt();
-			appPrefs.PDF_Options.Datei = "";
+			appPrefs.PDF_Options.fileName = "";
 			appPrefs.PDF_Options.isGrayscale = static_cast<bool>(dc.attribute("Grayscale", "0").toInt());
 			appPrefs.PDF_Options.UseRGB = static_cast<bool>(dc.attribute("RGBMode", "0").toInt());
 			appPrefs.PDF_Options.UseProfiles = static_cast<bool>(dc.attribute("UseProfiles", "0").toInt());

@@ -249,7 +249,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		return -1;
 	}
 // defaut save into file
-	QString tf = ScCore->primaryMainWindow()->doc->PDF_Options.Datei;
+	QString tf = ScCore->primaryMainWindow()->doc->PDF_Options.fileName;
 	if (tf.isEmpty()) {
 		QFileInfo fi = QFileInfo(ScCore->primaryMainWindow()->doc->DocName);
 		tf = fi.path()+"/"+fi.baseName()+".pdf";
@@ -973,7 +973,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 // apply file attribute
 	QString fn;
 	fn = QString(PyString_AsString(self->file));
-	ScCore->primaryMainWindow()->doc->PDF_Options.Datei = fn;
+	ScCore->primaryMainWindow()->doc->PDF_Options.fileName = fn;
 // apply pages attribute
 	std::vector<int> pageNs;
 	int nn=PyList_Size(self->pages);
