@@ -1840,6 +1840,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	}
 
 	obj->itemText.setCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
+	last->StyleStart = obj->itemText.length();
 /*
 	QString dbg("");
 	for (int i=0; i < obj->itemText.length(); ++i)

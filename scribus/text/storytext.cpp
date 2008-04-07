@@ -537,8 +537,9 @@ void StoryText::applyCharStyle(int pos, uint len, const CharStyle& style )
 	ScText* itText;
 	for (uint i=pos; i < pos+len; ++i) {
 		itText = d->at(i);
-		if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
-			itText->parstyle->charStyle().applyCharStyle(style);
+		// #6165 : applying style on last character applies style on whole text on next open 
+		/*if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
+			itText->parstyle->charStyle().applyCharStyle(style);*/
 		itText->applyCharStyle(style);
 	}
 
@@ -657,8 +658,9 @@ void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 	ScText* itText;
 	for (uint i=pos; i < pos+len; ++i) {
 		itText = d->at(i);
-		if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
-			itText->parstyle->charStyle() = style;
+		// #6165 : applying style on last character applies style on whole text on next open 
+		/*if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
+			itText->parstyle->charStyle() = style;*/
 		itText->setStyle(style);
 	}
 	
