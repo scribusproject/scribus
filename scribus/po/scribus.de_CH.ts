@@ -6688,7 +6688,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="90"/>
         <source>&amp;Include text in barcode</source>
-        <translation>&amp;Text in Strichcode einfügen</translation>
+        <translation>T&amp;ext in Strichcode einfügen</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="93"/>
@@ -6753,7 +6753,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="272"/>
         <source>&amp;Text</source>
-        <translation>&amp;Text</translation>
+        <translation>Te&amp;xt</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="275"/>
