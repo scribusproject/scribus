@@ -271,6 +271,10 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	Layout6->setMargin(0);
 	/* scaling */
 	scaleLabel = new QLabel( tr("Scaling:"), this);
+	// NOTE: Be careful when you change scaleBox item order.
+	// There is an index order related check in the resizeEvent().
+	// resizeEvent() will re-create preview when is one of "Fit to ..."
+	// options in use. - 20080204 PV
 	scaleBox = new QComboBox(this);
 	scaleBox->setEditable(false);
 	scaleBox->setFocusPolicy(Qt::NoFocus);
@@ -1148,4 +1152,18 @@ void PPreview::imageLoadError(QPixmap &Bild, int page)
 	Bild = QPixmap(1,1);
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	getUserSelection(page);
+}
+
+void PPreview::resizeEvent(QResizeEvent * event)
+{
+	QDialog::resizeEvent(event);
+	int cx = scaleBox->currentIndex();
+	// repaint only for "fit to" options in the combo box
+	if (cx > 3)
+	{
+		// HACK: SMode is reset to insane value to force redraw
+		// as the value is checked for change.
+		SMode = -1;
+		scaleBox_valueChanged(cx);
+	}
 }

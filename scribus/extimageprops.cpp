@@ -32,7 +32,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util.h"
 
-ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view )  : QDialog( parent )
+ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view )
+	: QDialog( parent )
 {
 	setModal(true);
 	setWindowTitle( tr( "Extended Image Properties" ) );

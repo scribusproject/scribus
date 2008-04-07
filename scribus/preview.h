@@ -166,5 +166,10 @@ protected:
 	void setValues();
 	void getUserSelection(int);
 	void imageLoadError(QPixmap &, int);
+
+	//! \brief repaint sample on the dialog change
+	void resizeEvent(QResizeEvent * event);
+
 };
-#endif // QUERY_H
+
+#endif
