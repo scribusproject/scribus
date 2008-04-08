@@ -2540,7 +2540,7 @@ void ScribusView::slotDoZoom()
 	else
 		SetCCPo(oldX, oldY);
 	updatesOn(true);
-	DrawNew();
+	//DrawNew(); // updatesOn() should trigger the necessary paintEvent - JG
 	undoManager->setUndoEnabled(true);
 }
 
