@@ -70,14 +70,14 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	fileNameLineEdit = new QLineEdit( Name );
 	fileNameLineEdit->setMinimumSize( QSize( 268, 22 ) );
 	if (!Opts.fileName.isEmpty())
-		fileNameLineEdit->setText( QDir::convertSeparators(Opts.fileName) );
+		fileNameLineEdit->setText( QDir::toNativeSeparators(Opts.fileName) );
 	else
 	{
 		QFileInfo fi(docFileName);
 		if (fi.exists())
 		{
 			QString fileName(fi.path()+"/"+fi.baseName()+".pdf");
-			fileNameLineEdit->setText( QDir::convertSeparators(fileName) );
+			fileNameLineEdit->setText( QDir::toNativeSeparators(fileName) );
 		}
 		else
 		{
@@ -86,7 +86,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 			if (pdfdir.right(1) != "/")
 				pdfdir += "/";
 			QString fileName(pdfdir+fi.baseName()+".pdf");
-			fileNameLineEdit->setText( QDir::convertSeparators(fileName) );
+			fileNameLineEdit->setText( QDir::toNativeSeparators(fileName) );
 		}
 	}
 	NameLayout->addWidget( fileNameLineEdit, 0, 0 );
@@ -145,7 +145,7 @@ void PDFExportDialog::DoExport()
 	QString fn = QDir::fromNativeSeparators(fileNameLineEdit->text());
 	// Checking if the path exists
 	QFileInfo fi(fn);
-	QString dirPath = QDir::convertSeparators(fi.absolutePath());
+	QString dirPath = QDir::toNativeSeparators(fi.absolutePath());
 	if (!QFile::exists(fi.absolutePath()))
 	{
 		if (QMessageBox::question(this, tr( "Save as PDF" ),
@@ -209,21 +209,23 @@ void PDFExportDialog::ChangeFile()
 	QString wdir = dirs->get("pdf", ".");
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("PDF Files (*.pdf);;All Files (*)"), fdNone);
 	if (!fileNameLineEdit->text().isEmpty())
-		dia.setSelection(fileNameLineEdit->text());
+	{
+		QString fileName = QDir::fromNativeSeparators(fileNameLineEdit->text()); 
+		dia.setSelection(fileName);
+	}
 	if (dia.exec() == QDialog::Accepted)
 	{
-		fn = dia.selectedFile();
+		// selectedFile() may return path with native separators
+		fn = QDir::fromNativeSeparators(dia.selectedFile());
 		dirs->set("pdf", fn.left(fn.lastIndexOf("/")));
-	}
-	else
-		return;
-	fileNameLineEdit->setText( QDir::convertSeparators(fn) );
+		fileNameLineEdit->setText( QDir::toNativeSeparators(fn) );
+	}	
 }
 
 void PDFExportDialog::fileNameChanged()
 {
 	QString fileName = checkFileExtension(fileNameLineEdit->text(),"pdf");
-	fileNameLineEdit->setText( QDir::convertSeparators(fileName) );
+	fileNameLineEdit->setText( QDir::toNativeSeparators(fileName) );
 }
 
 void PDFExportDialog::updateDocOptions()
