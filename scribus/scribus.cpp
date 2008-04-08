@@ -1078,30 +1078,6 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 	}
 }
 
-void ScribusMainWindow::wheelEvent(QWheelEvent *w)
-{
-	if (HaveDoc)
-	{
-		view->wheelEvent(w);
-/*		int wheelVal=prefsManager->mouseWheelValue();
-		if ((w->orientation() != Qt::Vertical) || ( w->modifiers() & Qt::ShiftModifier ))
-		{
-			if (w->delta() < 0)
-				view->scrollBy(wheelVal, 0);
-			else
-				view->scrollBy(-wheelVal, 0);
-		}
-		else
-		{
-			if (w->delta() < 0)
-				view->scrollBy(0, wheelVal);
-			else
-				view->scrollBy(0, -wheelVal);
-		}
-		w->accept();*/
-	}
-}
-
 //Special keys assigned to actions are stolen by the action and not passed to
 //keyPressEvent so process them here.
 void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int unicodevalue)

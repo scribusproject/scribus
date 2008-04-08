@@ -149,7 +149,6 @@ public:
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
 	void mouseReleaseEvent(QMouseEvent *m);
-	void wheelEvent(QWheelEvent *w);
 	void setTBvals(PageItem *currItem);
 	void ShowSubs();
 	void applyNewMaster(QString name);
