@@ -2158,7 +2158,9 @@ void ScribusView::resizeEvent ( QResizeEvent * event )
 	rulerMover->setGeometry(1, 1, m_vhRulerHW, m_vhRulerHW);
 	m_canvas->m_viewMode.forceRedraw = true;
 	m_canvas->resetRenderMode();
-	m_canvas->update();
+	// Per Qt doc, not painting should be done in a resizeEvent,
+	// a paint event will be emitted right afterwards
+	// m_canvas->update(); 
 }
 
 
@@ -2542,6 +2544,10 @@ void ScribusView::slotDoZoom()
 	updatesOn(true);
 	//DrawNew(); // updatesOn() should trigger the necessary paintEvent - JG
 	undoManager->setUndoEnabled(true);
+	// Do some GUI stuff... Maybe do that in setScale?
+	zoomSpinBox->blockSignals(true);
+	zoomSpinBox->setValue(m_canvas->scale()/Prefs->DisScale*100);
+	zoomSpinBox->blockSignals(false);
 }
 
 void ScribusView::setZoom()
@@ -4491,6 +4497,30 @@ void ScribusView::scrollContentsBy(int dx, int dy)
 void ScribusView::scrollBy(int x, int y) // deprecated
 {
 	setContentsPos(horizontalScrollBar()->value() + x, verticalScrollBar()->value() + y);
+}
+
+void ScribusView::zoom(int globalX, int globalY, double scale, bool preservePoint)
+{
+	undoManager->setUndoEnabled(false);
+	updatesOn(false);
+	FPoint docPoint = m_canvas->globalToCanvas(QPoint(globalX, globalY));
+	setScale(scale);
+	QPoint localPoint = m_canvas->canvasToLocal(docPoint);
+	int nw = qMax(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), visibleWidth());
+	int nh = qMax(qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()), visibleHeight());
+	resizeContents(nw, nh); // FIXME : should be avoided here, cause an unnecessary paintEvent despite updates disabled
+	if (preservePoint)
+	{
+		QPoint canvasPoint = m_canvas->mapFromGlobal(QPoint(globalX, globalY));
+		setContentsPos(localPoint.x() - canvasPoint.x(), localPoint.y() - canvasPoint.x());
+	}
+	else
+	{
+		QSize viewsize = viewport()->size();
+		setContentsPos(localPoint.x() - viewsize.width() / 2, localPoint.y() - viewsize.height() / 2);
+	}
+	updatesOn(true);
+	undoManager->setUndoEnabled(true);
 }
 
 
