@@ -2252,7 +2252,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m->accept();
 	m_view->stopDragTimer();
-	m_canvas->update();
+	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
 	if (m_doc->appMode == modeEditGradientVectors)
 		return;
 	if (m_doc->appMode == modeCopyProperties)
