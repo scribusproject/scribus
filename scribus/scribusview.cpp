@@ -2531,7 +2531,7 @@ void ScribusView::slotDoZoom()
 	updatesOn(false);
 	int nw = qMax(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), visibleWidth());
 	int nh = qMax(qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()), visibleHeight());
-	resizeContents(nw, nh);
+	resizeContents(nw, nh); // FIXME : should be avoided here, cause an unnecessary paintEvent despite updates disabled
 	if (Doc->m_Selection->count() != 0)
 	{
 		PageItem *currItem = Doc->m_Selection->itemAt(0);
