@@ -60,5 +60,12 @@ extern PyObject* NotFoundError;
 /*! Exception raised when the user tries to create an object with the same name as one that already exists */
 extern PyObject* NameExistsError;
 
+/*! A helper variable for better string comparsions to reduce warnings:
+"warning: comparison with string literal results in unspecified behaviour"
+what is criticised by some linux distributors */
+#ifndef EMPTY_STRING
+#define EMPTY_STRING const_cast<char*>("")
+#endif
+
 #endif
 

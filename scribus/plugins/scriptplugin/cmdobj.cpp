@@ -16,6 +16,7 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
 	char *Name = const_cast<char*>("");
+
 	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -31,12 +32,12 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 								ScCore->primaryMainWindow()->doc->toolSettings.dWidth,
 								ScCore->primaryMainWindow()->doc->toolSettings.dBrush, ScCore->primaryMainWindow()->doc->toolSettings.dPen, true);
 //	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
-	if (Name != "")
+	if (Name != EMPTY_STRING)
 	{
 		if (!ItemExists(QString::fromUtf8(Name)))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
 	}
-//	if (Name != "")
+//	if (Name != EMPTY_STRING)
 //		ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8());
 }
@@ -65,9 +66,9 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 //		return NULL;
 //	}
 //	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
-//	if (Name != "")
+//	if (Name != EMPTY_STRING)
 //		ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
-	if (Name != "")
+	if (Name != EMPTY_STRING)
 	{
 		if (!ItemExists(QString::fromUtf8(Name)))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
@@ -97,9 +98,9 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 //		return NULL;
 //	}
 //	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
-//	if (Name != "")
+//	if (Name != EMPTY_STRING)
 //		ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
-	if (Name != "")
+	if (Name != EMPTY_STRING)
 	{
 		if (!ItemExists(QString::fromUtf8(Name)))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
@@ -129,7 +130,7 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 //		return NULL;
 //	}
 //	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
-	if (Name != "")
+	if (Name != EMPTY_STRING)
 	{
 		if (!ItemExists(QString::fromUtf8(Name)))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
@@ -187,9 +188,9 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->SizeItem(it->PoLine.WidthHeight().x(),
 						 it->PoLine.WidthHeight().y(), i, false, false, false);
 	ScCore->primaryMainWindow()->view->AdjustItemSize(it);*/
-//	if (Name != "")
+//	if (Name != EMPTY_STRING)
 //		it->setItemName(QString::fromUtf8(Name));
-	if (Name != "")
+	if (Name != EMPTY_STRING)
 	{
 		if (!ItemExists(QString::fromUtf8(Name)))
 			it->setItemName(QString::fromUtf8(Name));
@@ -265,11 +266,11 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScCore->primaryMainWindow()->doc->AdjustItemSize(it);
-//	if (Name != "")
+//	if (Name != EMPTY_STRING)
 //	{
 //		it->setItemName(QString::fromUtf8(Name));
 //	}
-	if (Name != "")
+	if (Name != EMPTY_STRING)
 	{
 		if (!ItemExists(QString::fromUtf8(Name)))
 			it->setItemName(QString::fromUtf8(Name));
@@ -350,9 +351,9 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScCore->primaryMainWindow()->doc->AdjustItemSize(it);
-//	if (Name != "")
+//	if (Name != EMPTY_STRING)
 //		it->setItemName(QString::fromUtf8(Name));
-	if (Name != "")
+	if (Name != EMPTY_STRING)
 	{
 		if (!ItemExists(QString::fromUtf8(Name)))
 			it->setItemName(QString::fromUtf8(Name));
@@ -442,9 +443,9 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScCore->primaryMainWindow()->doc->AdjustItemSize(it);
-//	if (Name != "")
+//	if (Name != EMPTY_STRING)
 //		it->setItemName(QString::fromUtf8(Name));
-	if (Name != "")
+	if (Name != EMPTY_STRING)
 	{
 		if (!ItemExists(QString::fromUtf8(Name)))
 			it->setItemName(QString::fromUtf8(Name));
@@ -485,9 +486,9 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(i);
 	ScCore->primaryMainWindow()->view->ToPathText();
 	ScCore->primaryMainWindow()->doc->MoveItem(pageUnitXToDocX(x) - it->xPos(), pageUnitYToDocY(y) - it->yPos(), it);
-//	if (Name != "")
+//	if (Name != EMPTY_STRING)
 //		it->setItemName(QString::fromUtf8(Name));
-	if (Name != "")
+	if (Name != EMPTY_STRING)
 	{
 		if (!ItemExists(QString::fromUtf8(Name)))
 			it->setItemName(QString::fromUtf8(Name));
@@ -606,7 +607,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 			return NULL;
 		}
 		// for current item only
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() == 0 || name != "")
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() == 0 || name != EMPTY_STRING)
 		{
 			// quick hack to always apply on the right frame - pv
 			ScCore->primaryMainWindow()->view->Deselect(true);

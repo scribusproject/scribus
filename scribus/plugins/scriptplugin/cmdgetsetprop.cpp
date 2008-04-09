@@ -253,8 +253,8 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 
 	// Get the QMetaProperty for the property, so we can check
 	// if it's a set/enum and do name/value translation.
-	const QMetaObject* objmeta = obj->metaObject();
-/*qt4 FIXME	int i = objmeta->findProperty(propertyName, true);
+/*qt4 FIXME	const QMetaObject* objmeta = obj->metaObject();
+	int i = objmeta->findProperty(propertyName, true);
 	if (i == -1)
 	{
 		PyErr_SetString(PyExc_ValueError,

@@ -219,7 +219,7 @@ void run()
 /*                                                                                      */
 /****************************************************************************************/
 
-static PyObject *scribus_retval(PyObject* /*self*/, PyObject* args)
+/*static */PyObject *scribus_retval(PyObject* /*self*/, PyObject* args)
 {
 	char *Name = NULL;
 	if (!PyArg_ParseTuple(args, (char*)"s", &Name))
@@ -233,7 +233,7 @@ static PyObject *scribus_retval(PyObject* /*self*/, PyObject* args)
 	return PyInt_FromLong(0L);
 }
 
-static PyObject *scribus_getval(PyObject* /*self*/)
+/*static */PyObject *scribus_getval(PyObject* /*self*/)
 {
 	return PyString_FromString(scripterCore->inValue.toUtf8().data());
 }
@@ -500,6 +500,7 @@ void initscribus(ScribusMainWindow *pl)
 	}
 	PyObject *m, *d;
 	PyImport_AddModule((char*)"scribus");
+
 	PyType_Ready(&Printer_Type);
 	PyType_Ready(&PDFfile_Type);
 	PyType_Ready(&ImageExport_Type);

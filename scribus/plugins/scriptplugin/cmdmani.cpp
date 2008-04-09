@@ -372,7 +372,8 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	char *name = const_cast<char*>("");
 	long int scaleToFrame = 0;
 	long int proportional = 1;
-	char* kwargs[] = {"scaletoframe", "proportional", "name", NULL};
+	char* kwargs[] = {const_cast<char*>("scaletoframe"),
+		const_cast<char*>("proportional"), const_cast<char*>("name"), NULL};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "i|ies", kwargs, &scaleToFrame, &proportional, "utf-8", &name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -393,12 +394,12 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	if (proportional != -1)
 		item->AspectRatio = proportional > 0;
 	// Force the braindead app to notice the changes
-	
+
 	//FIXME emit or something so we dont need this
 	ScCore->primaryMainWindow()->propertiesPalette->setLvalue(item->imageXScale(), item->imageYScale(), item->imageXOffset(), item->imageYOffset());
 	item->AdjustPictScale();
 	//ScCore->primaryMainWindow()->view->AdjustPictScale(item);
-	
+
 	item->update();
 //	Py_INCREF(Py_None);
 //	return Py_None;

@@ -22,34 +22,35 @@ for which a new license (GPL+exception) is in place.
 PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyObject* keywords)
 {
 	char* keywordargs[] = {
-					  							const_cast<char*>("name"),
-					  							const_cast<char*>("linespacingmode"),
-					  							const_cast<char*>("linespacing"),
-					  							const_cast<char*>("alignment"),
-					  							const_cast<char*>("leftmargin"),
-					  							const_cast<char*>("rightmargin"),
-					  							const_cast<char*>("gapbefore"),
-					  							const_cast<char*>("gapafter"),
-					  							const_cast<char*>("firstindent"),
-					  							const_cast<char*>("hasdropcap"),
-					  							const_cast<char*>("dropcaplines"),
-					  							const_cast<char*>("dropcapoffset"),
-					  							const_cast<char*>("charstyle"),
-					  						NULL};
+			const_cast<char*>("name"),
+			const_cast<char*>("linespacingmode"),
+			const_cast<char*>("linespacing"),
+			const_cast<char*>("alignment"),
+			const_cast<char*>("leftmargin"),
+			const_cast<char*>("rightmargin"),
+			const_cast<char*>("gapbefore"),
+			const_cast<char*>("gapafter"),
+			const_cast<char*>("firstindent"),
+			const_cast<char*>("hasdropcap"),
+			const_cast<char*>("dropcaplines"),
+			const_cast<char*>("dropcapoffset"),
+			const_cast<char*>("charstyle"),
+			NULL};
 	char *Name = const_cast<char*>(""), *CharStyle = const_cast<char*>("");
 	int LineSpacingMode = 0, LineSpacing = 15, Alignment = 0, LeftMargin = 0, RightMargin = 0, GapBefore = 0, GapAfter = 0, FirstIndent = 0, DropCapLines = 2, DropCapOffset = 0, HasDropCap = 0;
-	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|iiiiiiiiiiies", keywordargs, "utf-8", &Name, &LineSpacingMode, &LineSpacing, &Alignment,
-																																										&LeftMargin, &RightMargin, &GapBefore, &GapAfter, &FirstIndent,
-																																										&HasDropCap, &DropCapLines, &DropCapOffset, "utf-8", &CharStyle))
+	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|iiiiiiiiiiies",
+		 keywordargs, "utf-8", &Name, &LineSpacingMode, &LineSpacing, &Alignment,
+		&LeftMargin, &RightMargin, &GapBefore, &GapAfter, &FirstIndent,
+		&HasDropCap, &DropCapLines, &DropCapOffset, "utf-8", &CharStyle))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty paragraph style name.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
-	
+
 	ParagraphStyle TmpParagraphStyle;
 	TmpParagraphStyle.setName(Name);
 	TmpParagraphStyle.setLineSpacingMode((ParagraphStyle::LineSpacingMode)LineSpacingMode);
@@ -76,11 +77,11 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 	StyleSet<ParagraphStyle> TmpStyleSet;
 	TmpStyleSet.create(TmpParagraphStyle);
 	ScCore->primaryMainWindow()->doc->redefineStyles(TmpStyleSet, false);
-	
+
 	Py_RETURN_NONE;
 }
 
-/*! 03.01.2007 - 05.01.2007 : Joachim Neu : Create a char style. 
+/*! 03.01.2007 - 05.01.2007 : Joachim Neu : Create a char style.
 			Special thanks go to avox for helping me! */
 PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject* keywords)
 {
@@ -108,22 +109,22 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 					  						NULL};
 	char *Name = const_cast<char*>(""), *Font = const_cast<char*>("Times"), *Features = const_cast<char*>("inherit"), *FillColor = const_cast<char*>("Black"), *StrokeColor = const_cast<char*>("Black"), *Language = const_cast<char*>("");
 	double FontSize = 200, FillShade = 1, StrokeShade = 1, ScaleH = 1, ScaleV = 1, BaselineOffset = 0, ShadowXOffset = 0, ShadowYOffset = 0, OutlineWidth = 0, UnderlineOffset = 0, UnderlineWidth = 0, StrikethruOffset = 0, StrikethruWidth = 0, Tracking = 0;
-	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddes", keywordargs, 
-																									"utf-8", &Name, "utf-8", &Font, &FontSize, "utf-8", &Features, 
-																									"utf-8", &FillColor, &FillShade, "utf-8", &StrokeColor, &StrokeShade, &BaselineOffset, &ShadowXOffset, 
+	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddes", keywordargs,
+																									"utf-8", &Name, "utf-8", &Font, &FontSize, "utf-8", &Features,
+																									"utf-8", &FillColor, &FillShade, "utf-8", &StrokeColor, &StrokeShade, &BaselineOffset, &ShadowXOffset,
 																									&ShadowYOffset, &OutlineWidth, &UnderlineOffset, &UnderlineWidth, &StrikethruOffset, &StrikethruWidth,
 																									&ScaleH, &ScaleV, &Tracking, "utf-8", &Language))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if(Name == "")
+	if(Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty char style name.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
-	
+
 	QStringList FeaturesList = QString(Features).split(QString(","));
-	
+
 	CharStyle TmpCharStyle;
 	TmpCharStyle.setName(Name);
 	TmpCharStyle.setFont((*ScCore->primaryMainWindow()->doc->AllFonts)[QString(Font)]);
@@ -145,11 +146,11 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	TmpCharStyle.setScaleV(ScaleV * 1000);
 	TmpCharStyle.setTracking(Tracking);
 	TmpCharStyle.setLanguage(QString(Language));
-	
+
 	StyleSet<CharStyle> TmpStyleSet;
 	TmpStyleSet.create(TmpCharStyle);
 	ScCore->primaryMainWindow()->doc->redefineCharStyles(TmpStyleSet, false);
-	
+
 	Py_RETURN_NONE;
 }
 

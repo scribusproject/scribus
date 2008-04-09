@@ -44,7 +44,7 @@ extern "C" PLUGIN_API ScPlugin* scriptplugin_getPlugin();
 extern "C" PLUGIN_API void scriptplugin_freePlugin(ScPlugin* plugin);
 
 /** Some useful Subroutines */
-static PyObject *scribus_retval(PyObject *self, PyObject* args);
-static PyObject *scribus_getval(PyObject *self);
+/*static */PyObject *scribus_retval(PyObject *self, PyObject* args);
+/*static */PyObject *scribus_getval(PyObject *self);
 
 #endif // CMSPLUG_H

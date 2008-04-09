@@ -106,7 +106,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	}
 	if (!format)
 		// User specified no format, so use the historical default of PPM format.
-		format = "PPM";
+		format =  const_cast<char*>("PPM");
 	QPixmap pm = FontSample(PrefsManager::instance()->appPrefs.AvailFonts[QString::fromUtf8(Name)], Size, ts, Qt::white);
 	// If the user specified an empty filename, return the image data as
 	// a string. Otherwise, save it to disk.
@@ -197,7 +197,7 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Layer == "")
+	if (Layer == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -237,7 +237,7 @@ PyObject *scribus_layervisible(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name").toLocal8Bit().constData());
 		return NULL;
@@ -270,7 +270,7 @@ PyObject *scribus_layerprint(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -303,7 +303,7 @@ PyObject *scribus_layerlock(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -336,7 +336,7 @@ PyObject *scribus_layeroutline(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -369,7 +369,7 @@ PyObject *scribus_layerflow(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -402,7 +402,7 @@ PyObject *scribus_layerblend(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name").toLocal8Bit().constData());
 		return NULL;
@@ -435,7 +435,7 @@ PyObject *scribus_layertrans(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name").toLocal8Bit().constData());
 		return NULL;
@@ -467,7 +467,7 @@ PyObject *scribus_glayervisib(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -498,7 +498,7 @@ PyObject *scribus_glayerprint(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -529,7 +529,7 @@ PyObject *scribus_glayerlock(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -560,7 +560,7 @@ PyObject *scribus_glayeroutline(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -591,7 +591,7 @@ PyObject *scribus_glayerflow(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -622,7 +622,7 @@ PyObject *scribus_glayerblend(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -653,7 +653,7 @@ PyObject *scribus_glayertrans(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -685,7 +685,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -741,7 +741,7 @@ PyObject *scribus_createlayer(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (Name == EMPTY_STRING)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create layer without a name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -778,5 +778,5 @@ PV */
 void cmdmiscdocwarnings()
 {
     QStringList s;
-    s << scribus_setredraw__doc__ <<scribus_fontnames__doc__ << scribus_xfontnames__doc__ <<scribus_renderfont__doc__ << scribus_getlayers__doc__ << scribus_setactlayer__doc__ << scribus_getactlayer__doc__ << scribus_senttolayer__doc__ <<scribus_layervisible__doc__ <<scribus_layerprint__doc__ <<scribus_layerlock__doc__ <<scribus_layeroutline__doc__ <<scribus_layerflow__doc__ <<scribus_layerblend__doc__ <<scribus_layertrans__doc__ <<scribus_glayervisib__doc__ <<scribus_glayerprint__doc__ <<scribus_glayerlock__doc__ <<scribus_glayeroutline__doc__ <<scribus_glayerflow__doc__ <<scribus_glayerblend__doc__ <<scribus_glayertrans__doc__ <<scribus_removelayer__doc__ <<scribus_createlayer__doc__ <<scribus_getlanguage__doc__;
+	s << scribus_setredraw__doc__ <<scribus_fontnames__doc__ << scribus_xfontnames__doc__ <<scribus_renderfont__doc__ << scribus_getlayers__doc__ << scribus_setactlayer__doc__ << scribus_getactlayer__doc__ << scribus_senttolayer__doc__ <<scribus_layervisible__doc__ <<scribus_layerprint__doc__ <<scribus_layerlock__doc__ <<scribus_layeroutline__doc__ <<scribus_layerflow__doc__ <<scribus_layerblend__doc__ <<scribus_layertrans__doc__ <<scribus_glayervisib__doc__ <<scribus_glayerprint__doc__ <<scribus_glayerlock__doc__ <<scribus_glayeroutline__doc__ <<scribus_glayerflow__doc__ <<scribus_glayerblend__doc__ <<scribus_glayertrans__doc__ <<scribus_removelayer__doc__ <<scribus_createlayer__doc__ <<scribus_getlanguage__doc__ <<scribus_moveselectiontofront__doc__<< scribus_moveselectiontoback__doc__;
 }
