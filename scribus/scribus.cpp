@@ -272,7 +272,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	}
 
 //	origEventFilter = qApp->setEventFilter(reportFocusChanges);
-	
+
 	previewDinUse = false;
 	printDinUse = false;
 	internalCopy = false;
@@ -319,7 +319,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		ScCore->setSplashStatus( tr("Applying User Shortcuts") );
 	prefsManager->applyLoadedShortCuts();
 	initKeyboardShortcuts();
-	
+
 	resize(610, 600);
 	wsp = new QWorkspace( this );
 	setCentralWidget( wsp );
@@ -372,7 +372,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 //	connect(ClipB, SIGNAL(selectionChanged()), this, SLOT(ClipChange()));
 	setAcceptDrops(true);
 	QCoreApplication::instance()->installEventFilter(this);
-	
+
 	return retVal;
 }
 
@@ -1135,7 +1135,7 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		else
 			return true;
 	}
-	if ( e->type() == QEvent::KeyPress ) 
+	if ( e->type() == QEvent::KeyPress )
 	{
 		QKeyEvent *k = (QKeyEvent *)e;
 		int keyMod=0;
@@ -1327,7 +1327,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				//CB We should be able to get this calculated by the canvas.... it is already in m_canvas->globalToCanvas(m->globalPos());
 				QPoint p(QCursor::pos() - mapToGlobal(QPoint(0,0)));
 				FPoint fp(p.x() / view->scale() + doc->minCanvasCoordinate.x(),
-				p.y() / view->scale() + doc->minCanvasCoordinate.y());	
+				p.y() / view->scale() + doc->minCanvasCoordinate.y());
 				cmen = new ContextMenu(this, doc, fp.x(), fp.y());
 			}
 			else
@@ -1340,8 +1340,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			}
 			delete cmen;
 		}
-		
-		
+
+
 		/**
 		 * With no item selected we can:
 		 * - With space, get into panning mode (modePanning)
@@ -3129,7 +3129,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			PageItem* bx=doc->m_Selection->itemAt(1);
 			if (currItem==bx)
 				bx=doc->m_Selection->itemAt(0);
-		
+
 			if ((currItem->asTextFrame() && (bx->asPolygon() || bx->asPolyLine())) || (bx->asTextFrame() && (currItem->asPolygon() || currItem->asPolyLine())))
 			{
 				if ((currItem->nextInChain() == 0) && (currItem->prevInChain() == 0) && (bx->nextInChain() == 0) && (bx->prevInChain() == 0) && (currItem->Groups.count() == 0) && (bx->Groups.count() == 0))
@@ -3854,7 +3854,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			lpo.Angle = 45;
 			doc->PDF_Options.LPISettings.insert("Black", lpo);
 		}
-		
+
 		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 		if (!doc->CMSSettings.CMSinUse)
 			doc->HasCMS = false;
@@ -6655,7 +6655,8 @@ void ScribusMainWindow::setAppMode(int mode)
 void ScribusMainWindow::setMainWindowActive()
 {
 	activateWindow();
-	raise();
+	if (!ScriptRunning)
+		raise();
 }
 
 void ScribusMainWindow::setItemTypeStyle(int id)
@@ -7729,7 +7730,8 @@ void ScribusMainWindow::ShowSubs()
 // 	pdfToolBar->initVisibility();
 
 	activateWindow();
-	raise();
+	if (!ScriptRunning)
+		raise();
 }
 
 void ScribusMainWindow::doPrintPreview()
@@ -7960,7 +7962,7 @@ void ScribusMainWindow::reallySaveAsEps()
 }
 
 bool ScribusMainWindow::getPDFDriver(const QString & fn, const QString & nam, int Components,
-									 const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs, 
+									 const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs,
 									 QString& error, bool* cancelled)
 {
 	ScCore->fileWatcher->forceScan();

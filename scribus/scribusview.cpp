@@ -146,7 +146,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	RotMode(0),
 	DrHY(-1), DrVX(-1),
 //	EdPoints(true),
-//	m_MouseButtonPressed(false),	
+//	m_MouseButtonPressed(false),
 //	operItemMoving(false),
 //	MoveGY(false), MoveGX(false),
 	HaveSelRect(false),
@@ -300,7 +300,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_canvas->resetRenderMode();
 	m_ScMW->scrActions["viewFitPreview"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
 //	m_SnapCounter = 0;
-	
+
 	Doc->regionsChanged()->connectObserver(this);
 	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(zoomInToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
@@ -427,8 +427,8 @@ void ScribusView::changed(QRectF re)
 
 void ScribusView::startGesture(CanvasGesture* gesture)
 {
-//	qDebug() << "start gesture" << typeid(*m_canvasMode).name() 
-//			<< "---->" 
+//	qDebug() << "start gesture" << typeid(*m_canvasMode).name()
+//			<< "---->"
 //			<< typeid(*gesture).name();
 	m_canvasMode->deactivate(true);
 	gesture->setDelegate(m_canvasMode);
@@ -477,7 +477,7 @@ void ScribusView::requestMode(int appMode)
 			appMode = modeNormal;
 			m_previousMode = -1;
 			updateNecessary = true;
-			break;			
+			break;
 		case submodeEndNodeEdit:     // return from node/shape editing
 //			appMode = m_previousMode < 0 ? modeNormal : m_previousMode;
 			appMode = modeNormal;
@@ -513,7 +513,7 @@ void ScribusView::requestMode(int appMode)
 			m_previousMode = appMode;
 			m_ScMW->callImageEditor();
 			break;
-		case submodeAnnotProps: 
+		case submodeAnnotProps:
 			appMode = Doc->appMode;
 			m_previousMode = appMode;
 			m_ScMW->ModifyAnnot();
@@ -524,7 +524,7 @@ void ScribusView::requestMode(int appMode)
 //				qDebug() << "request mode: UNKNOWN" << appMode;
 				appMode = modeNormal;
 			}
-			m_previousMode = appMode;			
+			m_previousMode = appMode;
 			break;
 	}
 
@@ -637,7 +637,7 @@ void ScribusView::leaveEvent(QEvent *e)
 {
 	m_canvasMode->leaveEvent(e);
 	return;
-	
+
 /*	if (BlockLeave)
 		return; */
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
@@ -811,7 +811,8 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		e->acceptProposedAction();
 		//<<#3524
 		activateWindow();
-		raise();
+		if (!m_ScMW->ScriptRunning)
+			raise();
 		m_ScMW->newActWin(Doc->WinHan);
 		updateContents();
 		//>>
@@ -952,7 +953,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						}
 					}
 				}
-				else 
+				else
 				{
 					emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
 				}
@@ -1039,7 +1040,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 								{
 									fin = Doc->m_Selection->findItem(after);
 									if (fin != -1)
-										after = pasted.at(fin);									
+										after = pasted.at(fin);
 									bb->link(after);
 								}
 							}
@@ -1482,7 +1483,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
-	
+
 	if (!_groupTransactionStarted && selectedItemCount > 1)
 	{
 		QString tooltip = Um::ItemsInvolved + "\n";
@@ -1508,7 +1509,7 @@ void ScribusView::RotateGroup(double win)
 									  Um::Rotate, tooltip, Um::IRotate);
 		_groupTransactionStarted = true;
 	}
-	
+
 	Doc->rotateGroup(win, RCenter);
 }
 
@@ -1521,7 +1522,7 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText, Selection* 
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
-	
+
 	if (!_groupTransactionStarted && selectedItemCount > 1)
 	{
 		QString tooltip = Um::ItemsInvolved + "\n";
@@ -1561,11 +1562,11 @@ bool ScribusView::slotSetCurs(int x, int y)
 		if ((QRegion(p.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
 		        (QRegion(p.map(currItem->Clip)).contains(mpo)))
 		{
-			FPoint point((x + 0*Doc->minCanvasCoordinate.x()) / m_canvas->scale() - currItem->xPos(), 
+			FPoint point((x + 0*Doc->minCanvasCoordinate.x()) / m_canvas->scale() - currItem->xPos(),
 						 (y + 0*Doc->minCanvasCoordinate.x()) / m_canvas->scale() - currItem->yPos());
 			currItem->CPos = currItem->itemText.length() == 0 ? 0 :
-				currItem->itemText.screenToPosition(point);			
-			
+				currItem->itemText.screenToPosition(point);
+
 			if (currItem->itemText.length() > 0)
 			{
 				int b=currItem->CPos-1;
@@ -1706,7 +1707,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 				}
 				else
 					Doc->m_Selection->addItem(currItem);
-				
+
 				for (int ga=0; ga<Doc->Items->count(); ++ga)
 				{
 					if (Doc->Items->at(ga)->Groups.count() != 0)
@@ -1734,14 +1735,14 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 					updateContents(currItem->getRedrawBounding(m_canvas->scale()));
 				}
 			}
-			//CB FIXME/TODO We are surely prepending here and we have turned off 
+			//CB FIXME/TODO We are surely prepending here and we have turned off
 			//emitting in prepend below so do it here.
 			//Doc->m_Selection->itemAt(0)->emitAllToGUI();
 		}
 	}
 	else
 	{
-	//CB Prepend used to occur to enable level changes to work properly, however with 
+	//CB Prepend used to occur to enable level changes to work properly, however with
 	//current selection code we dont seem to need that anymore
 	/*
 		if (Doc->m_Selection->count() > 1)
@@ -2160,7 +2161,7 @@ void ScribusView::resizeEvent ( QResizeEvent * event )
 	m_canvas->resetRenderMode();
 	// Per Qt doc, not painting should be done in a resizeEvent,
 	// a paint event will be emitted right afterwards
-	// m_canvas->update(); 
+	// m_canvas->update();
 }
 
 
@@ -2189,7 +2190,7 @@ bool ScribusView::mousePressed()
 }
 
 void ScribusView::resetMousePressed()
-{	
+{
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 }
 
@@ -2214,7 +2215,7 @@ void ScribusView::startGroupTransaction(const QString& action, const QString& de
 		if (selectedItemCount == 1)
 		{
 			target = itemSelection->itemAt(0)->getUName();
-			targetIcon = itemSelection->itemAt(0)->getUPixmap(); 
+			targetIcon = itemSelection->itemAt(0)->getUPixmap();
 		}
 		m_groupTransaction = new UndoTransaction(undoManager->beginTransaction(target, targetIcon,
 																			   action, tooltip, actionIcon));
@@ -2224,7 +2225,7 @@ void ScribusView::startGroupTransaction(const QString& action, const QString& de
 
 
 /**
-  
+
 */
 void ScribusView::endGroupTransaction()
 {
@@ -2403,8 +2404,8 @@ void ScribusView::updateCanvas(QRectF box)
 			h += (y - static_cast<int>(y));  // since y will be rounded down below
 		}
 		// enlarge the rectangle when rounding to int:
-		m_canvas->update(static_cast<int>(x), static_cast<int>(y), 
-						 qMin(qRound(h + 0.5), viewport()->width()), 
+		m_canvas->update(static_cast<int>(x), static_cast<int>(y),
+						 qMin(qRound(h + 0.5), viewport()->width()),
 						 qMin(qRound(w + 0.5), viewport()->height()));
 */	}
 	else
@@ -2421,12 +2422,12 @@ void ScribusView::setCanvasOrigin(double x, double y)
 {
 	double scale = m_canvas->scale();
 	horizontalScrollBar()->setValue(qRound(x * scale));
-	verticalScrollBar()->setValue(qRound(y * scale));	
+	verticalScrollBar()->setValue(qRound(y * scale));
 	// fix ranges
 	QSize maxViewport = maximumViewportSize();
-	horizontalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.x() * scale), 
+	horizontalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.x() * scale),
 									qRound(Doc->maxCanvasCoordinate.x() * scale) - maxViewport.width());
-	verticalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.y() * scale), 
+	verticalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.y() * scale),
 								  qRound(Doc->maxCanvasCoordinate.y() * scale) - maxViewport.height());
 }
 
@@ -2469,7 +2470,7 @@ FPoint ScribusView::canvasOrigin() const
 QRectF ScribusView::visibleCanvas() const
 {
 	double scale = m_canvas->scale();
-	return QRectF(horizontalScrollBar()->value() / scale, 
+	return QRectF(horizontalScrollBar()->value() / scale,
 				  verticalScrollBar()->value() / scale,
 				  viewport()->width() / scale,
 				  viewport()->height() / scale);
@@ -2484,16 +2485,16 @@ void ScribusView::adjustCanvas(double width, double height, double dX, double dY
 {
 	QSize maxViewport = maximumViewportSize();
 	double scale = m_canvas->scale();
-	horizontalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.x() * scale), 
+	horizontalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.x() * scale),
 									qRound(Doc->maxCanvasCoordinate.x() * scale) - maxViewport.width());
-	verticalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.y() * scale), 
+	verticalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.y() * scale),
 								  qRound(Doc->maxCanvasCoordinate.y() * scale) - maxViewport.height());
-//	qDebug() << "adjustCanvas" << width << height << dX << dY 
-//		<< "(" << Doc->minCanvasCoordinate.x() << Doc->minCanvasCoordinate.y() << ") - (" 
+//	qDebug() << "adjustCanvas" << width << height << dX << dY
+//		<< "(" << Doc->minCanvasCoordinate.x() << Doc->minCanvasCoordinate.y() << ") - ("
 //		<< Doc->maxCanvasCoordinate.x() << Doc->maxCanvasCoordinate.y() << ") @" << scale << maxViewport;
 	widget()->resize(qRound((Doc->maxCanvasCoordinate.x()-Doc->minCanvasCoordinate.x())*scale),
 				   qRound((Doc->maxCanvasCoordinate.y()-Doc->minCanvasCoordinate.y())*scale));
-	
+
 	if (false && !m_canvas->m_viewMode.operItemMoving)
 	{
 		bool updback = updateOn;
@@ -3020,7 +3021,7 @@ void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 		m_ScMW->guidePalette->clearRestoreHorizontalList();
 	}
 	else
-	{ 
+	{
 		if (oldIndex >= 0)
 		{
 			Doc->currentPage()->guides.deleteHorizontal( Doc->currentPage()->guides.horizontal(oldIndex, GuideManagerCore::Standard), GuideManagerCore::Standard);
@@ -3083,7 +3084,7 @@ void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
 		m_ScMW->guidePalette->clearRestoreVerticalList();
 	}
 	else
-	{ 
+	{
 		if (oldIndex >= 0)
 		{
 			Doc->currentPage()->guides.deleteVertical( Doc->currentPage()->guides.vertical(oldIndex, GuideManagerCore::Standard), GuideManagerCore::Standard);
@@ -3114,7 +3115,7 @@ void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
 	emit DocChanged();
 */
 }
-#endif 
+#endif
 
 //CB-->Doc
 void ScribusView::SetFrameRect()
@@ -3825,7 +3826,7 @@ void ScribusView::TextToPath()
 			double x, y, wide;
 			QString chstr, ccounter;
 			PageItem* bb;
-			
+
 			if (currItem->asPathText())
 			{
 				for (int a = 0; a < currItem->itemText.length(); ++a)
@@ -4317,17 +4318,17 @@ void ScribusView::setScale(const double newScale)
 
 	if (Scale > 32*Prefs->DisScale)
 		Scale=32*Prefs->DisScale;
-	
+
 	m_canvas->setScale(Scale);
-	
+
 	unitChange();
 }
 
 
 
-double ScribusView::scale() const 
-{ 
-	return m_canvas->scale(); 
+double ScribusView::scale() const
+{
+	return m_canvas->scale();
 }
 
 
@@ -4336,7 +4337,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 {
 //	if (obj == horizRuler || obj == vertRuler || obj == rulerMover)
 //		return true; // FIXME:av
-	
+
 	if (obj == widget() && event->type() == QEvent::MouseMove)
 	{
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
@@ -4411,7 +4412,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	// rulermover events
 	// hruler events
 	// vruler events
-	
+
 	return QScrollArea::eventFilter(obj, event);
 }
 
