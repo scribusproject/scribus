@@ -25,7 +25,7 @@ Returns true if a new document was created.
 </source>
         <translation>newDocDialog() -&gt; bool
 
-Zeigt den Dialog \&quot;Neues Dokument\&quot; an. Damit können Sie ein neues Dokument erstellen, wenn der Benutzer die standardmässigen Einstellung aktzeptiert. Erzeugt kein neues Dokument, wenn der Benutzer auf \&quot;Abbrechen\&quot; klickt. 
+Zeigt den Dialog \&quot;Neues Dokument\&quot; an. Damit können Sie ein neues Dokument erstellen, wenn der Benutzer die standardmäßigen Einstellung aktzeptiert. Erzeugt kein neues Dokument, wenn der Benutzer auf \&quot;Abbrechen\&quot; klickt. 
 Gibt den Wert \&quot;true\&quot; zurück, wenn ein neues Dokument erstellt wurde.</translation>
     </message>
     <message>
@@ -52,7 +52,7 @@ If the object &quot;name&quot; belongs to a group, the whole group is moved.
         <translation>moveObject(dx, dy [, &quot;name&quot;])
 
 Verschiebt das Objekt &quot;name&quot; um dx und dy relativ zur Position. Die 
-Entfernungsangaben werden in der Masseinheit des Dokuments 
+Entfernungsangaben werden in der Maßeinheit des Dokuments 
 angegeben (siehe Konstanten UNIT*). Wenn &quot;name&quot; nicht vorhanden ist, 
 wird das ausgewählte Objekt verschoben und wenn &quot;name&quot; zu einer Gruppe
 gehört, wird die gesamte Gruppe verschoben.</translation>
@@ -69,7 +69,7 @@ setRedraw(True) in a finally: clause at the top level of your script.
 
 Wenn bool=False, dann wird die Seite nicht neu neu aufgebaut (redraw ist deaktiviert).
 Standard ist bool=True. Diese Einstellung bleibt bestehen, auch wenn das Script beendet ist.
-Stellen Sie also sicher, dass setRedraw(True) aufgerufen wird, bevor das Script beendet wird.</translation>
+Stellen Sie also sicher, daß setRedraw(True) aufgerufen wird, bevor das Script beendet wird.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdobj.h" line="26"/>
@@ -86,7 +86,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
         <translation>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
 Erzeugt ein neues Rechteck auf der aktuellen Seite und gibt seinen Namen zurück. Die
-Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe UNIT-Konstanten).
+Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe UNIT-Konstanten).
 &quot;name&quot; sollte eine eindeutige Identifikation des Rechtecks ermöglichen, weil Sie den Objekt-
 namen immer wieder benötigen. Ist &quot;name&quot; nicht vorhanden, wählt Scribus einen Namen für Sie.
 
@@ -117,8 +117,8 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>getFontSize([&quot;name&quot;]) -&gt; float
 
-Gibt die Schriftgrösse in Punkten für den Textrahmen &quot;name&quot; zurück. Wenn innerhalb
-des Rahmens Text markiert ist, wird die Schriftgrösse des ersten Zeichens verwendet.
+Gibt die Schriftgröße in Punkten für den Textrahmen &quot;name&quot; zurück. Wenn innerhalb
+des Rahmens Text markiert ist, wird die Schriftgröße des ersten Zeichens verwendet.
 Wenn &quot;name&quot; nicht vergeben ist, wird der selektierte Textrahmen verwendet.</translation>
     </message>
     <message>
@@ -130,7 +130,7 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
         <translation>messagebarText(&quot;string&quot;)
 
-Schreibt &quot;string&quot; in die Statuszeile von Scribus. Der Text muss
+Schreibt &quot;string&quot; in die Statuszeile von Scribus. Der Text muß
 UTF8-kodiert oder ein &apos;unicode&apos;-String sein (empfohlen).</translation>
     </message>
     <message>
@@ -153,7 +153,7 @@ gezählt, egal welches die angezeigte erste Seitennummer Ihres Dokumentes ist. D
 Parameter &quot;masterpage&quot; legt den Namen der Musterseite für die neue Seite fest</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>importSVG(&quot;string&quot;)
 
 The &quot;string&quot; must be a valid filename for a SVG image. The text
@@ -204,14 +204,44 @@ PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation>firstPageOrder = What is position of first page in the document.(new line)
+        <translation>newDocument(size, margins, orientation, firstPageNumber,
+(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)(sp)unit, pagesType, firstPageOrder, numPages) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the(new line)
+following meaning:(new line)
+(new line)
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
 Indexed from 0 (0 = first).
+
 numPage = Number of pages to be created.
+
 The values for width, height and the margins are expressed in the given unit
 for the document. PAPER_* constants are expressed in points. If your document
 is not in points, make sure to account for this.
+
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
 PAGE_4, 3, 1)
+
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.</translation>
     </message>
     <message>
@@ -223,7 +253,10 @@ x and y specify the coordinate of the topleft corner of the SVG placed on the pa
 
 If loading was successful, the selection contains the imported SVG
 </source>
-        <translation></translation>
+        <translation>placeSVG(&quot;filename&quot;, x, y)
+Places the SVG &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the SVG placed on the page
+If loading was successful, the selection contains the imported SVG</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdstyle.h" line="43"/>
@@ -270,47 +303,7 @@ dropcapoffset [optional] -&gt; offset of the caps if used
 &quot;charstyle&quot; [optional] -&gt; char style to use
 
 </source>
-        <translation>createParagraphStyle(...)￼
-
-Creates a paragraph style. This function takes the following keyword parameters:￼
-
-&quot;name&quot; [required] -&gt; specifies the name of the paragraphstyle to create￼
-
-linespacingmode [optional] -&gt; specifies the linespacing mode; possible modes are:￼
-
-fixed linespacing:          0￼
-
-automatic linespacing:      1￼
-
-baseline grid linespacing:  2￼
-
-linespacing [optional] -&gt; specifies the linespacing if using fixed linespacing￼
-
-alignment [optional] -&gt; specifies the alignment of the paragraph￼
-
--&gt; left:     0￼
-
--&gt; center:   1￼
-
--&gt; right:    2￼
-
--&gt; justify:  3￼
-
--&gt; extend:   4￼
-
-leftmargin [optional], rightmargin [optional] -&gt; specify the margin￼
-
-gapbefore [optional], gapafter [optional] -&gt; specify the gaps to the heading and following paragraphs￼
-
-firstindent [optional] -&gt; the indent of the first line￼
-
-hasdropcap [optional] -&gt; specifies if there are caps (1 = yes, 0 = no)￼
-
-dropcaplines [optional] -&gt; height (in lines) of the caps if used￼
-
-dropcapoffset [optional] -&gt; offset of the caps if used￼
-
-&quot;charstyle&quot; [optional] -&gt; char style to use</translation>
+        <translation>createParagraphStyle(...)Creates a paragraph style. This function takes the following keyword parameters:&quot;name&quot; [required] -&gt; specifies the name of the paragraphstyle to createlinespacingmode [optional] -&gt; specifies the linespacing mode; possible modes are:fixed linespacing:          0automatic linespacing:      1baseline grid linespacing:  2linespacing [optional] -&gt; specifies the linespacing if using fixed linespacingalignment [optional] -&gt; specifies the alignment of the paragraph-&gt; left:     0-&gt; center:   1-&gt; right:    2-&gt; justify:  3-&gt; extend:   4leftmargin [optional], rightmargin [optional] -&gt; specify the margingapbefore [optional], gapafter [optional] -&gt; specify the gaps to the heading and following paragraphsfirstindent [optional] -&gt; the indent of the first linehasdropcap [optional] -&gt; specifies if there are caps (1 = yes, 0 = no)dropcaplines [optional] -&gt; height (in lines) of the caps if useddropcapoffset [optional] -&gt; offset of the caps if used&quot;charstyle&quot; [optional] -&gt; char style to use</translation>
     </message>
 </context>
 <context>
@@ -372,7 +365,7 @@ May raise ValueError if an invalid color name is specified.
         <translation>deleteColor(&quot;name&quot;, &quot;replace&quot;)
 
 Löscht die Farbe &quot;name&quot;. An allen Stellen, wo &quot;name&quot; im Dokument auftritt,
-wird sie durch &quot;replace&quot; ersetzt. Standardmässig ist &quot;replace&quot; gar keine Farbe -
+wird sie durch &quot;replace&quot; ersetzt. Standardmäßig ist &quot;replace&quot; gar keine Farbe -
 Transparenz.
 
 Sie können deleteColor auch verwenden, wenn kein Dokument geöffnet ist, dann
@@ -442,7 +435,7 @@ Der Text der Botschaft kann auch einfachen HTML-Code enthalten.
 Gibt die Nummer des Buttons wieder, der gedrückt wurde, beginnend mit 1.
 Für Buttons und Symbole gibt es vordefinierte Konstanten, die gleichen wie in
 der Qt-Dokumentation.
-Die sind im Modul definiert und heissen BUTTON_* und ICON_* . Es gibt auch zwei
+Die sind im Modul definiert und heißen BUTTON_* und ICON_* . Es gibt auch zwei
 spezielle Konstanten, die auch den Wert 0 annehmen können: BUTTONOPT_DEFAULT aktiviert den 
 jeweiligen Button per Druck auf Enter.
 BUTTONOPT_ESCAPE drückt die Escape-Taste falls dieser Button gedrückt wird.
@@ -482,7 +475,7 @@ May throw NoDocOpenError if there is no document to close
 </source>
         <translation>closeDoc()
 
-Schliesst das aktuelle Dokument, ohne Änderungen zu sichern.
+Schließt das aktuelle Dokument, ohne Änderungen zu sichern.
 
 Wenn kein Dokument offen ist, tritt der Fehler NoDocOpenError auf</translation>
     </message>
@@ -545,7 +538,7 @@ relativ oder absolut sein.
 Schlägt das Sichern fehl, tritt der Fehler ScribusError auf.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>setMargins(lr, rr, tr, br)
 
 Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
@@ -555,7 +548,7 @@ constants.
         <translation type="obsolete">setMargins(lr, rr, tr, br)
 
 Verändert die Ränder des Dokuments. Links=lr, Rechts=rr, Oben=tr, Unten=br.
-Die Einheit wird durch die Masseinheit des Dokuments vorgegeben, siehe die
+Die Einheit wird durch die Maßeinheit des Dokuments vorgegeben, siehe die
 Konstanten UNIT_&lt;type&gt;.</translation>
     </message>
     <message>
@@ -569,7 +562,7 @@ May raise ValueError if an invalid unit is passed.
 </source>
         <translation>setUnit(type)
 
-Ändert die Masseinheit des Dokuments auf &quot;type&quot;. Mögliche Einheiten geben Sie durch die 
+Ändert die Maßeinheit des Dokuments auf &quot;type&quot;. Mögliche Einheiten geben Sie durch die 
 Konstanten UNIT_&lt;type&gt; an.
 
 Ist die Einheit ungültig, tritt der Fehler ValueError auf.</translation>
@@ -584,7 +577,7 @@ UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 </source>
         <translation>getUnit() -&gt; integer (Scribus unit constant)
 
-Gibt die Masseinheit des Dokuments zurück. Der Rückgabewert ist eine
+Gibt die Maßeinheit des Dokuments zurück. Der Rückgabewert ist eine
 der möglichen UNIT_*-Konstanten:
 UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</translation>
     </message>
@@ -738,7 +731,7 @@ for reference.
         <translation>getSize([&quot;name&quot;]) -&gt; (Breite,Höhe)
 
 Gibt das Zahlenpaar (Breite,Höhe) des Objekts &quot;name&quot; zurück. Ist &quot;name&quot; nicht
-angegeben, wird das aktuelle Objekt verwendet. Die Grösse wird in der Masseinheit
+angegeben, wird das aktuelle Objekt verwendet. Die Größe wird in der Maßeinheit
 des Dokuments angegeben - siehe die UNIT_*-Konstanten.</translation>
     </message>
     <message>
@@ -775,7 +768,7 @@ belongs to a group, the whole group is moved.
 </source>
         <translation>moveObjectAbs(x, y [, &quot;name&quot;])
 
-Bewegt das Objekt &quot;name&quot; an die neue Stelle. Die Koordinaten werden in der Masseinheit
+Bewegt das Objekt &quot;name&quot; an die neue Stelle. Die Koordinaten werden in der Maßeinheit
 des Dokuments angegeben (siehe UNIT_*-Konstanten). Ist &quot;name&quot; nicht angegeben, wird das
 aktuelle Objekt benutzt. Gehört &quot;name&quot; zu einer Gruppe, wird die Gruppe verschoben.</translation>
     </message>
@@ -805,7 +798,7 @@ is not given the currently selected item is used.
 </source>
         <translation>sizeObject(width, height [, &quot;name&quot;])
 
-Ändert die Grösse von &quot;name&quot; auf die Breite width und die Höhe height.
+Ändert die Größe von &quot;name&quot; auf die Breite width und die Höhe height.
 ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt benutzt.</translation>
     </message>
     <message>
@@ -861,7 +854,7 @@ items are used.
 </source>
         <translation>groupObjects(list)
 
-Gruppiert die Elemente in &quot;list&quot;. &quot;list&quot; muss die Namen der zu gruppierenden 
+Gruppiert die Elemente in &quot;list&quot;. &quot;list&quot; muß die Namen der zu gruppierenden 
 Objekte enthalten. Ist &quot;list&quot; nicht angegeben, werden die aktuell gewählten 
 Objekte verwendet.</translation>
     </message>
@@ -888,9 +881,9 @@ May raise ValueError if an invalid scale factor is passed.
 </source>
         <translation>scaleGroup(factor [,&quot;name&quot;])
 
-Skaliert die Gruppe, zu dem das Objekt &quot;name&quot; gehört. Werte grösser als 1 vergrössern das Objekt, 
+Skaliert die Gruppe, zu dem das Objekt &quot;name&quot; gehört. Werte größer als 1 vergrößern das Objekt, 
 Werte kleiner als 1 verkleinert das Objekt. Zum Beispiel bedeutet 0.5 = 50 % oder 1.5=150% der 
-Originalgrösse. &quot;factor&quot; muss grösser als 0 sein. Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt
+Originalgröße. &quot;factor&quot; muß größer als 0 sein. Ist &quot;name&quot; nicht angegeben, wird das aktuelle Objekt
 benutzt.</translation>
     </message>
     <message>
@@ -1022,7 +1015,7 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
 
-Verschiebt das Objekt &quot;name&quot; auf die Ebene &quot;layer&quot;. Die Ebene muss
+Verschiebt das Objekt &quot;name&quot; auf die Ebene &quot;layer&quot;. Die Ebene muß
 vorhanden sein. Ist &quot;name&quot; nicht angegeben, wird das aktive Objekt benutzt.
 
 Ist die Ebene nicht vorhanden, tritt der Fehler NotFoundError auf.
@@ -1103,7 +1096,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
         <translation>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
 Erzeugt eine Ellipse auf der aktuellen Seite und gibt ihren Namen zurück. Die Koordinaten
-werden in der Masseinheit des Dokuments angegeben (siehe UNIT-Konstanten). &quot;name&quot; sollte
+werden in der Maßeinheit des Dokuments angegeben (siehe UNIT-Konstanten). &quot;name&quot; sollte
 das Objekt eindeutig identifizieren, weil Sie den Namen für spätere Zwecke brauchen. Ist &quot;name&quot;
 nicht angegeben, erzeugt Scribus einen Namen für das Objekt.
 
@@ -1124,7 +1117,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
         <translation>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
 Erzeugt einen Bildrahmen auf der aktuellen Seite und gibt seinen Namen zurück.
-Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
+Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1146,7 +1139,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
         <translation>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
 Erzeugt einen neuen Textrahmen auf der aktuellen Seite und gibt seinen Namen zurück.
-Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
+Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1168,7 +1161,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
         <translation>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
 
 Erzeugt eine Linie von P(x1,y1) zu P(x2,y2) und gibt ihren Namen zurück.
-Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
+Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1194,7 +1187,7 @@ the number of values passed don&apos;t group into points without leftovers.
 
 Erzeugt eine Mehrfachlinie und und gibt ihren Namen zurück. Die Punkte werden in
 der folgenden Reihenfolge gespeichert: [x1, y1, x2,...xn, yn].
-Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
+Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1224,8 +1217,8 @@ the number of values passed don&apos;t group into points without leftovers.
 Erzeugt ein Vieleck und gibt seinen Namen zurück. Die Punkte werden in
 der folgenden Reihenfolge gespeichert: [x1, y1, x2,...xn, yn]. Sie müssen
 mindestens 3 Punkte angeben, aber Sie müssen den ersten Punkt nicht zum
-Schliessen des Polygons erneut angeben - das geschieht automatisch.
-Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
+Schließen des Polygons erneut angeben - das geschieht automatisch.
+Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1258,7 +1251,7 @@ der folgenden Reihenfolge gespeichert:
 [x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]. 
 x und y steht dabei für die X- und Y-Koordinaten und kx und ky steht für den
 Kontrollpunkt der Kurve. 
-Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
+Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1283,7 +1276,7 @@ May raise NotFoundError if one or both of the named base object don&apos;t exist
 
 Erzeugt Text auf einem Pfad, indem die Objekte &quot;textbox&quot; und &quot;beziercurve&quot;
 zusammengefügt werden.
-Die Koordinaten werden in der Masseinheit des Dokuments angegeben (siehe
+Die Koordinaten werden in der Maßeinheit des Dokuments angegeben (siehe
 UNIT-Konstanten). &quot;name&quot; sollte das Objekt eindeutig identifizieren, weil Sie den
 Namen für spätere Zwecke benötigen. Wenn Sie &quot;name&quot; nicht angeben, legt Scribus
 einen Namen für das Objekt fest.
@@ -1405,7 +1398,7 @@ May raise IndexError if the page number is out of range.
 </source>
         <translation type="obsolete">gotoPage(nr)
 
-Geht zur Seite &quot;nr&quot;, das heisst, die Seite &quot;nr&quot; wird zur aktuellen Seite. Zur Zeit ändert
+Geht zur Seite &quot;nr&quot;, das heißt, die Seite &quot;nr&quot; wird zur aktuellen Seite. Zur Zeit ändert
 sich allerdings nicht die Seite, die der User sieht, es wird nur intern die aktuelle
 Seite geändert.
 
@@ -1431,7 +1424,7 @@ document&apos;s current units - see UNIT_&lt;type&gt; constants.
         <translation>getHGuides() -&gt; list
 
 Gibt eine Liste zurück, die die Position der horizontalen Hilfslinien enthält. Die Werte
-werden in der Masseinheit des Dokuments angegeben, siehe UNIT-Konstanten.</translation>
+werden in der Maßeinheit des Dokuments angegeben, siehe UNIT-Konstanten.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.h" line="123"/>
@@ -1445,7 +1438,7 @@ Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any l
 </source>
         <translation>setHGuides(list)
 
-Legt horizontale Hilfslinien fest, list muss eine Liste der Linien sein, angegeben in der Masseinheit
+Legt horizontale Hilfslinien fest, list muß eine Liste der Linien sein, angegeben in der Maßeinheit
 des Dokuments, siehe UNIT-Konstanten.
 
 Beispiel:
@@ -1481,7 +1474,7 @@ See UNIT_&lt;type&gt; constants and getPageMargins()
 </source>
         <translation>getPageSize() -&gt; tuple
 
-Gibt eine Liste mit der Seitengrösse in der aktuellen Masseinheit zurück, siehe
+Gibt eine Liste mit der Seitengröße in der aktuellen Maßeinheit zurück, siehe
 UNIT-Konstanten und getPageMargins()</translation>
     </message>
     <message>
@@ -1498,7 +1491,7 @@ the page...
 Gibt eine Liste zurück mit den Objekten auf der aktuelle Seite. Die Reihenfolge
 der Werte ist: (Name, Typ des Objekts, Anordnung).
 
-Beispiel: [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)] bedeutet, dass das Objekt Text1 heisst, 
+Beispiel: [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)] bedeutet, daß das Objekt Text1 heißt, 
 ein Textrahmen ist  (type 4) und sich auf der ersten Seite befindet...</translation>
     </message>
     <message>
@@ -1539,8 +1532,8 @@ May raise ValueError if the line width is out of bounds.
 </source>
         <translation>setLineWidth(width, [&quot;name&quot;])
 
-Setzt die Linienbreite für das Objekt &quot;name&quot; auf &quot;width&quot;. &quot;width&quot; muss zwischen 
-0.0 und 12.0 gross sein und wird in Punkt angegeben. Ist &quot;name&quot; nicht angegeben,
+Setzt die Linienbreite für das Objekt &quot;name&quot; auf &quot;width&quot;. &quot;width&quot; muß zwischen 
+0.0 und 12.0 groß sein und wird in Punkt angegeben. Ist &quot;name&quot; nicht angegeben,
 wird das aktuelle Objekt verwendet.
 
 Ist die Linienbreite ungültig, tritt der Fehler ValueError auf.</translation>
@@ -1620,7 +1613,7 @@ May raise ValueError if the fill shade is out of bounds.
         <translation>setFillShade(shade, [&quot;name&quot;])
 
 Setzt den Tonwert der Füllfarbe für das Objekt &quot;name&quot; auf &quot;shade&quot;.
-&quot;shade&quot; muss eine ganze Zahl zwischen 0 und 100 sein. Ist &quot;name&quot;
+&quot;shade&quot; muß eine ganze Zahl zwischen 0 und 100 sein. Ist &quot;name&quot;
 nicht angegeben, wird das aktuelle Objekt benutzt.
 
 Ist der Tonwert ungültig, tritt der Fehler ValueError auf.</translation>
@@ -1766,7 +1759,7 @@ used.
         <translation>setText(&quot;text&quot;, [&quot;name&quot;])
 
 Ändert den Text im Rahmen &quot;name&quot; auf den String &quot;text&quot;.
-Der Text muss URF8-kodiert sein - verwenden Sie z.B. unicode(text, &apos;iso-8859-2&apos;).
+Der Text muß URF8-kodiert sein - verwenden Sie z.B. unicode(text, &apos;iso-8859-2&apos;).
 Lesen Sie in der FAQ nach für weitere Informationen. Ist &quot;name&quot; nicht angegeben, 
 wird der aktuelle Textrahmen verwendet.</translation>
     </message>
@@ -1801,12 +1794,12 @@ May throw ValueError for a font size that&apos;s out of bounds.
 </source>
         <translation>setFontSize(size, [&quot;name&quot;])
 
-Setzt die Schriftgrösse im Textrahmen &quot;name&quot; auf den Wert &quot;size&quot;. &quot;size&quot; ist
+Setzt die Schriftgröße im Textrahmen &quot;name&quot; auf den Wert &quot;size&quot;. &quot;size&quot; ist
 ein Wert in Punkten zwischen 1 und 512. Ist eine Markierung vorhanden, wird
 nur die die Markiertung verändert. Ist &quot;name&quot; nicht angegeben, wird der aktuelle
 Textrahmen verwendet.
 
-Ist die Schriftgrösse ungültig, wird der Fehler ValueError ausgegeben.</translation>
+Ist die Schriftgröße ungültig, wird der Fehler ValueError ausgegeben.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="175"/>
@@ -1949,7 +1942,7 @@ used.
 
 Setzt den Tonwert für den Textrahmen &quot;name&quot; auf &quot;shade&quot;.
 Ist Text in dem Rahmen ausgewählt, wird nur der ausgewählt Text
-verändert. &quot;shade&quot; muss eine ganze Zahl zwischen 0 und 100 sein.
+verändert. &quot;shade&quot; muß eine ganze Zahl zwischen 0 und 100 sein.
 Ist &quot;name&quot; nicht vorhanden oder angegeben, wird der aktuelle Rahmen verwendet.</translation>
     </message>
     <message>
@@ -1965,7 +1958,7 @@ May throw ScribusException if linking rules are violated.
         <translation>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
 
 Zwei Textrahmen verketten. &quot;Fromname&quot; wird mit &quot;Toname&quot; verkettet. Der Zielrahmen
-muss leer sein und darf nicht mit anderen Rahmen verkettet sein.
+muß leer sein und darf nicht mit anderen Rahmen verkettet sein.
 
 Werden die Regeln verletzt, erscheint der Fehler ScribusException.</translation>
     </message>
@@ -2082,7 +2075,7 @@ May raise WrongFrameTypeError.
 
 Setzt die Eigenschaft An Rahmen anpassen für den gewählten Bildrahmen oder angegebenen
 Bildrahmen.
-&apos;proportional&apos; verkleinert das Bild proportional zur ursprünglichen Grösse.
+&apos;proportional&apos; verkleinert das Bild proportional zur ursprünglichen Größe.
 Sowohl &apos;scaletoframe&apos; als auch &apos;proportional&apos; sind boolsche Werte.
 
 Kann den Fehler WrongFrameTypeError verursachen.</translation>
@@ -2100,8 +2093,8 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
-Gibt zurück, ob die Ebene gedruckt wird oder nicht. True bedeutet, dass die Ebene
-gedruckt wird, False bedeutet, dass das Drucken deaktiviert ist.
+Gibt zurück, ob die Ebene gedruckt wird oder nicht. True bedeutet, daß die Ebene
+gedruckt wird, False bedeutet, daß das Drucken deaktiviert ist.
 
 Der Fehler NotFoundError tritt auf, wenn die Ebene nicht existiert.
 Der Fehler ValueError tritt auf, wenn der Ebenenname ungültig ist.</translation>
@@ -2121,7 +2114,7 @@ May raise ValueError if an empty sample or filename is passed.
 </source>
         <translation>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
 
-Erzeugt ein Bild mit dem Text &quot;sample&quot; in der Schrift &quot;font&quot; und der Grösse &quot;size&quot;.
+Erzeugt ein Bild mit dem Text &quot;sample&quot; in der Schrift &quot;font&quot; und der Größe &quot;size&quot;.
 Ist &quot;filename&quot; angegeben, wird das Bild unter &quot;filename&quot; abgespeichert. Ansonsten
 werden die Bilddaten als String zurückgegeben. Das optionale Argument &quot;format&quot; gibt 
 an, welches Bildformat generiert werden soll. Unterstützt werden die Formate, die auch 
@@ -2523,6 +2516,7 @@ Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot
 is not given the currently selected Item is used.
 </source>
         <translation>getFillTransparency([&quot;name&quot;]) -&gt; float
+
 Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.</translation>
     </message>
@@ -2534,6 +2528,7 @@ Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
         <translation>getFillBlendmode([&quot;name&quot;]) -&gt; integer
+
 Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.</translation>
     </message>
@@ -2545,6 +2540,7 @@ Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot
 is not given the currently selected Item is used.
 </source>
         <translation>getLineTransparency([&quot;name&quot;]) -&gt; float
+
 Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.</translation>
     </message>
@@ -2556,6 +2552,7 @@ Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
         <translation>getLineBlendmode([&quot;name&quot;]) -&gt; integer
+
 Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.</translation>
     </message>
@@ -2570,13 +2567,15 @@ May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation>setLayerLocked(&quot;layer&quot;, locked)
+
 Sets the layer &quot;layer&quot; to be locked or not. If locked is set to
 true the layer will be locked.
+
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>setLayerOutlined&quot;layer&quot;, outline)
 
 Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
@@ -2586,13 +2585,15 @@ May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation type="obsolete">setLayerOutlined&quot;layer&quot;, outline)
+
 Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
 true the layer will be displayed outlined.
+
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>setLayerFlow&quot;layer&quot;, flow)
 
 Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
@@ -2602,13 +2603,15 @@ May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation type="obsolete">setLayerFlow&quot;layer&quot;, flow)
+
 Sets the layers &quot;layer&quot;(sp)(sp)flowcontrol to flow. If flow is set to
 true text in layers above this one will flow around objects on this layer.
+
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>setLayerBlendmode&quot;layer&quot;, blend)
 
 Sets the layers &quot;layer&quot;  blendmode to blend.
@@ -2617,12 +2620,14 @@ May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation type="obsolete">setLayerBlendmode&quot;layer&quot;, blend)
+
 Sets the layers &quot;layer&quot;(sp)(sp)blendmode to blend.
+
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>setLayerTransparency&quot;layer&quot;, trans)
 
 Sets the layers &quot;layer&quot;  transparency to trans.
@@ -2631,7 +2636,9 @@ May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation type="obsolete">setLayerTransparency&quot;layer&quot;, trans)
+
 Sets the layers &quot;layer&quot;(sp)(sp)transparency to trans.
+
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.</translation>
     </message>
@@ -2647,9 +2654,11 @@ May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation>isLayerLocked(&quot;layer&quot;) -&gt; bool
+
 Returns whether the layer &quot;layer&quot; is locked or not, a value of True means
 that the layer &quot;layer&quot; is editable, a value of False means that the layer
 &quot;layer&quot; is locked.
+
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.</translation>
     </message>
@@ -2665,9 +2674,11 @@ May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation>isLayerOutlined(&quot;layer&quot;) -&gt; bool
+
 Returns whether the layer &quot;layer&quot; is outlined or not, a value of True means
 that the layer &quot;layer&quot; is outlined, a value of False means that the layer
 &quot;layer&quot; is normal.
+
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.</translation>
     </message>
@@ -2682,8 +2693,10 @@ May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation>isLayerFlow(&quot;layer&quot;) -&gt; bool
+
 Returns whether text flows around objects on layer &quot;layer&quot;, a value of True means
 that text flows around, a value of False means that the text does not flow around.
+
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.</translation>
     </message>
@@ -2697,7 +2710,9 @@ May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation>getLayerBlendmode(&quot;layer&quot;) -&gt; int
+
 Returns the &quot;layer&quot; layer blendmode,
+
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.</translation>
     </message>
@@ -2711,7 +2726,9 @@ May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation>getLayerTransparency(&quot;layer&quot;) -&gt; float
+
 Returns the &quot;layer&quot; layer transparency,
+
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.</translation>
     </message>
@@ -2728,8 +2745,9 @@ Setting &quot;state&quot; to 3 will make text flow around contour line.
 If &quot;state&quot; is not passed, text flow is toggled.
 </source>
         <translation>textFlowMode(&quot;name&quot; [, state])
+
 Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
-Called with parameters string name and optional int &quot;state&quot; (0 &lt;= state &lt;= 3).
+Called with parameters string name and optional int &quot;state&quot; (0 &lt;= state &lt;= 3).(new line)
 Setting &quot;state&quot; to 0 will disable text flow.
 Setting &quot;state&quot; to 1 will make text flow around object frame.
 Setting &quot;state&quot; to 2 will make text flow around bounding box.
@@ -2743,10 +2761,11 @@ If &quot;state&quot; is not passed, text flow is toggled.</translation>
 creates a Duplicate of the selected Object (or Selection Group).
 </source>
         <translation>duplicateObject([&quot;name&quot;]) -&gt; string
+
 creates a Duplicate of the selected Object (or Selection Group).</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>setFillTransparency(transparency, [&quot;name&quot;])
 
 Sets the fill transparency of the object &quot;name&quot; to transparency
@@ -2754,12 +2773,13 @@ is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
         <translation type="obsolete">setFillTransparency(transparency, [&quot;name&quot;])
+
 Sets the fill transparency of the object &quot;name&quot; to transparency
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>setFillBlendmode(blendmode, [&quot;name&quot;])
 
 Sets the fill blendmode of the object &quot;name&quot; to blendmode
@@ -2767,12 +2787,13 @@ is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
         <translation type="obsolete">setFillBlendmode(blendmode, [&quot;name&quot;])
+
 Sets the fill blendmode of the object &quot;name&quot; to blendmode
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>setLineTransparency(transparency, [&quot;name&quot;])
 
 Sets the line transparency of the object &quot;name&quot; to transparency
@@ -2783,11 +2804,10 @@ currently selected item is used.
 
 Sets the line transparency of the object &quot;name&quot; to transparency
 is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</translation>
+currently selected item is used.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>setLineBlendmode(blendmode, [&quot;name&quot;])
 
 Sets the line blendmode of the object &quot;name&quot; to blendmode
@@ -2795,6 +2815,7 @@ is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
         <translation type="obsolete">setLineBlendmode(blendmode, [&quot;name&quot;])
+
 Sets the line blendmode of the object &quot;name&quot; to blendmode
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.</translation>
@@ -2807,6 +2828,7 @@ Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Descr
 strings.
 </source>
         <translation>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.</translation>
     </message>
@@ -2816,9 +2838,7 @@ strings.</translation>
 
 Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page
 </source>
-        <translation>getPageType() -&gt; integer
-
-Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page</translation>
+        <translation>getPageType() -&gt; integerReturns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="55"/>
@@ -2943,7 +2963,7 @@ not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+        <translation>nsertText(&quot;text&quot;, pos, [&quot;name&quot;])
 
 Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
 Text must be UTF encoded (see setText() as reference) The first character has an
@@ -2962,11 +2982,11 @@ true the layer will be displayed outlined.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>placeSVG(&quot;filename&quot;, x, y)
-(new line)
-Places the SVG &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the SVG placed on the page
-If loading was successful, the selection contains the imported SVG.</translation>
+        <translation>setLayerOutlined(&quot;layer&quot;, outline)
+Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
+true the layer will be displayed outlined.
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="170"/>
@@ -3111,11 +3131,7 @@ Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockT
 margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
 constants.
 </source>
-        <translation>setMargins(lr, rr, tr, br)
-
-Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockTop(tr) and Qt::DockBottom(br)
-margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
-constants.</translation>
+        <translation>setMargins(lr, rr, tr, br)Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockTop(tr) and Qt::DockBottom(br)margins are given in the measurement units of the document - see UNIT_&lt;type&gt;constants.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmddialog.h" line="46"/>
@@ -3138,25 +3154,7 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
-        <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filename
-
-Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
-with the filter string &quot;filter&quot;. A default filename or file path can also
-supplied, leave this string empty when you don&apos;t want to use it.  A value of
-True for haspreview enables a small preview widget in the FileSelect box.  When
-the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
-otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
-the dialog shows and returns only directories. The default for all of the
-optional parameters is False.
-
-The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
-
-For example &apos;Images (*.png *.xpm *.jpg)&apos;.
-
-Refer to the Qt-Documentation for QFileDialog for details on filters.
-
-Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
-Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)</translation>
+        <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filenameShows a File Open dialog box with the caption &quot;caption&quot;. Files are filteredwith the filter string &quot;filter&quot;. A default filename or file path can alsosupplied, leave this string empty when you don&apos;t want to use it.  A value ofTrue for haspreview enables a small preview widget in the FileSelect box.  Whenthe issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialogotherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is Truethe dialog shows and returns only directories. The default for all of theoptional parameters is False.The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.For example &apos;Images (*.png *.xpm *.jpg)&apos;.Refer to the Qt-Documentation for QFileDialog for details on filters.Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetprop.h" line="102"/>
@@ -3166,11 +3164,7 @@ Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; 
 the currently selected item is used.  The join types are:
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
-        <translation>getLineJoin([&quot;name&quot;]) -&gt; integer (see constants)
-
-Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
-the currently selected item is used.  The join types are:
-JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND</translation>
+        <translation>getLineJoin([&quot;name&quot;]) -&gt; integer (see constants)Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not giventhe currently selected item is used.  The join types are:JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmani.h" line="48"/>
@@ -3182,13 +3176,7 @@ default, the top left vertex at zero rotation. Positive values mean counter
 clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation>rotateObject(rot [, &quot;name&quot;])
-
-Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
-rotated by the vertex that is currently selected as the rotation point - by
-default, the top left vertex at zero rotation. Positive values mean counter
-clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
-given the currently selected item is used.</translation>
+        <translation>rotateObject(rot [, &quot;name&quot;])Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object isrotated by the vertex that is currently selected as the rotation point - bydefault, the top left vertex at zero rotation. Positive values mean counterclockwise rotation when the default rotation point is used. If &quot;name&quot; is notgiven the currently selected item is used.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.h" line="91"/>
@@ -3200,13 +3188,7 @@ just sets the page that script commands will operates on.
 
 May raise IndexError if the page number is out of range.
 </source>
-        <translation>gotoPage(nr)
-
-Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
-gotoPage doesn&apos;t (currently) change the page the user&apos;s view is displaying, it
-just sets the page that script commands will operates on.
-
-May raise IndexError if the page number is out of range.</translation>
+        <translation>gotoPage(nr)Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note thatgotoPage doesn&apos;t (currently) change the page the user&apos;s view is displaying, itjust sets the page that script commands will operates on.May raise IndexError if the page number is out of range.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="370"/>
@@ -3217,12 +3199,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
-
-Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame</translation>
+        <translation>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.If &quot;name&quot; is not given the currently selected item is used.May raise WrongFrameTypeError if the target frame is not a text frame</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="329"/>
@@ -3231,7 +3208,6 @@ May raise WrongFrameTypeError if the target frame is not a text frame</translati
 Moves current selection to front.
 </source>
         <translation>moveSelectionToFront()
-
 Moves current selection to front.</translation>
     </message>
     <message>
@@ -3241,7 +3217,6 @@ Moves current selection to front.</translation>
 Moves current selection to back.
 </source>
         <translation>moveSelectionToFront()
-
 Moves current selection to back.</translation>
     </message>
     <message>
@@ -3262,8 +3237,7 @@ fromDoc: string; the filename of the document to import pages from
 pageList: tuple with page numbers of pages to import
 create: number; 0 to replace existing pages, 1 (default) to insert new pages
 importWhere: number; the page number (of the current document) at which import the pages
-importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document
-</translation>
+importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdstyle.h" line="80"/>
@@ -3354,6 +3328,7 @@ fontsize [optional] -&gt; font size to set (double)
 
 -&gt; outline
 
+
 -&gt; shadowed
 
 -&gt; allcaps
@@ -3378,9 +3353,7 @@ scaleh [optional], scalev [optional] -&gt; scale of the chars
 
 tracking [optional] -&gt; tracking of the text
 
-&quot;language&quot; [optional] -&gt; language code
-
-</translation>
+&quot;language&quot; [optional] -&gt; language code</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="341"/>
@@ -3394,11 +3367,9 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation>hyphenateText([&quot;name&quot;]) -&gt; bool
 
 Does hyphenation on text frame &quot;name&quot;.
-
 If &quot;name&quot; is not given the currently selected item is used.
 
-May raise WrongFrameTypeError if the target frame is not a text frame
-</translation>
+May raise WrongFrameTypeError if the target frame is not a text frame</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="355"/>
@@ -3414,8 +3385,7 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 Does dehyphenation on text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 
-May raise WrongFrameTypeError if the target frame is not a text frame
-</translation>
+May raise WrongFrameTypeError if the target frame is not a text frame</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/guiapp.h" line="106"/>
@@ -3482,7 +3452,7 @@ Scroll the document in main GUI window by x and y.
     <message>
         <location filename="../about.cpp" line="461"/>
         <source>&amp;Close</source>
-        <translation>Sch&amp;liessen</translation>
+        <translation>Sch&amp;ließen</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="148"/>
@@ -3572,12 +3542,12 @@ Scroll the document in main GUI window by x and y.
     <message>
         <location filename="../about.cpp" line="182"/>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
-        <translation>Mac OS&amp;#174; X Aqua-Portierung:</translation>
+        <translation>Mac OS&amp;#174; X Aqua Portierung:</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="190"/>
         <source>Windows&amp;#174; Port:</source>
-        <translation>Windows&amp;#174;-Portierung:</translation>
+        <translation>Windows&amp;#174; Portierung:</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="210"/>
@@ -3595,7 +3565,7 @@ Scroll the document in main GUI window by x and y.
         <translation type="obsolete">Auf Updates über&amp;prüfen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected. The Windows version does not use fontconfig or CUPS libraries.</source>
         <translation type="obsolete">Diese Leiste zeigt die Version, das Build-Datum und die kompilierte Unterstützung für Programmbibliotheken. C-C-T-F bedeutet im einzelnen: 
 C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zusätzliche Buchstabe am Ende bezeichnet den Renderer, nämlich entweder C (Cairo) oder A (libart). Wird eine der Bibliotheken nicht unterstützt, steht statt dessen ein *. Hier wird auch die von Scribus gefundene Ghostscript-Version angezeigt. Die Windows-Version benutz weder fontconfig noch CUPS.</translation>
@@ -3608,7 +3578,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../about.cpp" line="186"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation>OS/2&amp;#174;/eComStation&amp;#8482;-Portierung:</translation>
+        <translation>OS/2&amp;#174;/eComStation&amp;#8482; Portierung:</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="207"/>
@@ -3722,17 +3692,17 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
 <context>
     <name>AboutPluginsBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Scribus: About Plug-ins</source>
         <translation type="obsolete">Scribus: Über die Plug-Ins</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Close</source>
-        <translation type="obsolete">Sch&amp;liessen</translation>
+        <translation type="obsolete">Sch&amp;ließen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
@@ -3752,7 +3722,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../actionmanager.cpp" line="1232"/>
         <source>&amp;Close</source>
-        <translation>Sch&amp;liessen</translation>
+        <translation>Sch&amp;ließen</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1233"/>
@@ -3870,12 +3840,12 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation>&amp;Farben...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Paragraph Styles...</source>
         <translation type="obsolete">&amp;Absatzstile...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Line Styles...</source>
         <translation type="obsolete">&amp;Linienstile...</translation>
     </message>
@@ -3952,7 +3922,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../actionmanager.cpp" line="1297"/>
         <source>&amp;All Caps</source>
-        <translation>&amp;Grossbuchstaben</translation>
+        <translation>&amp;Großbuchstaben</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1298"/>
@@ -4017,7 +3987,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../actionmanager.cpp" line="1314"/>
         <source>Si&amp;ze is Locked</source>
-        <translation>Grössen&amp;änderung gesperrt</translation>
+        <translation>Größen&amp;änderung gesperrt</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1318"/>
@@ -4215,7 +4185,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation>&amp;200%</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Thumbnails</source>
         <translation type="obsolete">&amp;Vorschaubilder</translation>
     </message>
@@ -4352,12 +4322,12 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../actionmanager.cpp" line="1409"/>
         <source>Zoom in or out</source>
-        <translation>Vergrössern oder verkleinern</translation>
+        <translation>Vergrößern oder verkleinern</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1410"/>
         <source>Zoom in</source>
-        <translation>Vergrössern</translation>
+        <translation>Vergrößern</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1411"/>
@@ -4467,7 +4437,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../actionmanager.cpp" line="1452"/>
         <source>Toolti&amp;ps</source>
-        <translation>Tool&amp;tips</translation>
+        <translation>Tool&amp;tipps</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1453"/>
@@ -4550,92 +4520,92 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <translation>Zitatstrich</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Apostrophe</source>
         <translation type="obsolete">Apostroph</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Straight Double</source>
         <translation type="obsolete">Zollzeichen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Single Left</source>
         <translation type="obsolete">Einfaches Anführungszeichen rechts</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Single Right</source>
         <translation type="obsolete">Einfaches Anführungszeichen rechts (Englisch)</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Double Left</source>
         <translation type="obsolete">Doppeltes Anführungszeichen rechts</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Double Right</source>
         <translation type="obsolete">Doppeltes Anführungszeichen rechts (Englisch)</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Single Reversed</source>
         <translation type="obsolete">Anführungszeichen links (Englisch) gespiegelt</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Double Reversed</source>
         <translation type="obsolete">Doppeltes Anführungszeichen links (Englisch) gespiegelt</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Single Left Guillemet</source>
         <translation type="obsolete">&lt;</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Single Right Guillemet</source>
         <translation type="obsolete">&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Double Left Guillemet</source>
         <translation type="obsolete">&lt;&lt;</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Double Right Guillemet</source>
         <translation type="obsolete">&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Low Single Comma</source>
         <translation type="obsolete">Einfaches Anführungszeichen links</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Low Double Comma</source>
         <translation type="obsolete">Doppeltes Anführungszeichen links</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>CJK Single Left</source>
         <translation type="obsolete">Einfaches Anführungszeichen links (CJK)</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>CJK Single Right</source>
         <translation type="obsolete">Einfaches Anführungszeichen rechts (CJK)</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>CJK Double Left</source>
         <translation type="obsolete">Doppeltes Anführungszeichen links (CJK)</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>CJK Double Right</source>
         <translation type="obsolete">Doppeltes Anführungszeichen rechts (CJK)</translation>
     </message>
@@ -4850,7 +4820,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <location filename="../actionmanager.cpp" line="1344"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
-        <translation>&amp;Umriss</translation>
+        <translation>&amp;Umriß</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1429"/>
@@ -5237,37 +5207,37 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
 <context>
     <name>AlignDistributeBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Align and Distribute</source>
         <translation type="obsolete">Ausrichten und verteilen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Align</source>
         <translation type="obsolete">Ausrichten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Selected Guide:</source>
         <translation type="obsolete">&amp;Ausgewählte Hilfslinie:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Relative To:</source>
         <translation type="obsolete">&amp;Relativ zu:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>...</source>
         <translation type="obsolete">...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Distribute</source>
         <translation type="obsolete">Verteilen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Distance:</source>
         <translation type="obsolete">Ab&amp;stand:</translation>
     </message>
@@ -5362,32 +5332,32 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../aligndistribute.cpp" line="133"/>
         <source>Distribute right sides equidistantly</source>
-        <translation>Rechte Seiten gleichmässig verteilen</translation>
+        <translation>Rechte Seiten gleichmäßig verteilen</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="135"/>
         <source>Distribute bottoms equidistantly</source>
-        <translation>Unterseiten gleichmässig verteilen</translation>
+        <translation>Unterseiten gleichmäßig verteilen</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="137"/>
         <source>Distribute centers equidistantly horizontally</source>
-        <translation>Objektmitten gleichmässig horizontal verteilen</translation>
+        <translation>Objektmitten gleichmäßig horizontal verteilen</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="143"/>
         <source>Distribute left sides equidistantly</source>
-        <translation>Linke Seiten gleichmässig verteilen</translation>
+        <translation>Linke Seiten gleichmäßig verteilen</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="145"/>
         <source>Distribute centers equidistantly vertically</source>
-        <translation>Objektmitten gleichmässig vertikal verteilen</translation>
+        <translation>Objektmitten gleichmäßig vertikal verteilen</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="147"/>
         <source>Distribute tops equidistantly</source>
-        <translation>Oberseiten gleichmässig verteilen</translation>
+        <translation>Oberseiten gleichmäßig verteilen</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="157"/>
@@ -5708,7 +5678,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../annot.cpp" line="442"/>
         <source>Password</source>
-        <translation>Passwort</translation>
+        <translation>Paßwort</translation>
     </message>
     <message>
         <location filename="../annot.cpp" line="449"/>
@@ -5893,7 +5863,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../annot.cpp" line="989"/>
         <source>Value must be greater than or equal to:</source>
-        <translation>Wert muss grösser oder gleich sein als:</translation>
+        <translation>Wert muß größer oder gleich sein als:</translation>
     </message>
     <message>
         <location filename="../annot.cpp" line="993"/>
@@ -6093,7 +6063,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../annot.cpp" line="2031"/>
         <source>Mouse Exit</source>
-        <translation>Mauszeiger verlässt Feld</translation>
+        <translation>Mauszeiger verläßt Feld</translation>
     </message>
     <message>
         <location filename="../annot.cpp" line="2031"/>
@@ -6392,7 +6362,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="68"/>
         <source>Adds support for spell-checking via aspell. Languages can be chosen from among the installed aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
-        <translation>Fügt Unterstützung für die Rechtschreibprüfung mit aspell hinzu. Die Sprachen können aus den installierten aspell-Wörterbüchern ausgewählt werden, und die Überprüfung lässt sich während der Eingabe oder auf ausgewählten Text anwenden.</translation>
+        <translation>Fügt Unterstützung für die Rechtschreibprüfung mit aspell hinzu. Die Sprachen können aus den installierten aspell-Wörterbüchern ausgewählt werden, und die Überprüfiung läßt sich während der Eingabe oder auf ausgewählten Text anwenden.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="69"/>
@@ -6528,7 +6498,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../autoformbuttongroup.cpp" line="1213"/>
         <source>Flow Chart</source>
-        <translation>Flussdiagramm</translation>
+        <translation>Flußdiagramm</translation>
     </message>
     <message>
         <location filename="../autoformbuttongroup.cpp" line="1214"/>
@@ -6609,7 +6579,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="88"/>
         <source>Variable number of digits and capital letters</source>
-        <translation>Kombinationen aus Ziffern und Grossbuchstaben</translation>
+        <translation>Kombinationen aus Ziffern und Großbuchstaben</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="97"/>
@@ -6624,7 +6594,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="66"/>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
-        <translation>Kombination aus ASCII-Zeichen und Sonderzeichen, beginnend mit dem passenden Startzeichen für den Zeichensatz. Bei USS/EAN-128 muss am Anfang ein FNC1-Symbol direkt nach dem Startzeichen stehen.</translation>
+        <translation>Kombination aus ASCII-Zeichen und Sonderzeichen, beginnend mit dem passenden Startzeichen für den Zeichensatz. Bei USS/EAN-128 muß am Anfang ein FNC1-Symbol direkt nach dem Startzeichen stehen.</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="69"/>
@@ -6688,7 +6658,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="90"/>
         <source>&amp;Include text in barcode</source>
-        <translation type="unfinished">T&amp;ext in Strichcode einfügen</translation>
+        <translation>T&amp;ext in Strichcode einfügen</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="93"/>
@@ -6753,7 +6723,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="272"/>
         <source>&amp;Text</source>
-        <translation type="unfinished">Te&amp;xt</translation>
+        <translation>Te&amp;xt</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="275"/>
@@ -6768,7 +6738,7 @@ Wörterbuch</translation>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="304"/>
         <source>Hints and help is shown here</source>
-        <translation>Hier sehen Sie Tips und Tricks</translation>
+        <translation>Hier sehen Sie Tipps und Tricks</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="314"/>
@@ -6903,7 +6873,7 @@ Bitte wählen Sie eine andere.</translation>
     <message>
         <location filename="../scrapbookpalette.cpp" line="1449"/>
         <source>Close the selected scrapbook</source>
-        <translation>Markierte Bibliothek schliessen</translation>
+        <translation>Markierte Bibliothek schließen</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="844"/>
@@ -6943,7 +6913,7 @@ Bitte wählen Sie eine andere.</translation>
     <message>
         <location filename="../scrapbookpalette.cpp" line="892"/>
         <source>Close</source>
-        <translation>Schliessen</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="895"/>
@@ -7022,7 +6992,7 @@ Bitte wählen Sie eine andere.</translation>
     <message>
         <location filename="../buttonicon.cpp" line="56"/>
         <source>When Icon is too big</source>
-        <translation>bei zu grossem Icon</translation>
+        <translation>bei zu großem Icon</translation>
     </message>
     <message>
         <location filename="../buttonicon.cpp" line="56"/>
@@ -7169,7 +7139,7 @@ This requires very accurate profiles and serves only as a warning.</source>
         <translation>Aktiviert die Gamut-Warnung, d. h. die Anzeige von Farben, welche 
 auf Grund der Eigenschaften des gewählten Ausgabegerätes für den 
 Druck nicht korrekt wiedergegeben werden können. Bitte beachten Sie, 
-dass dies sehr genaue Geräteprofile erfordert.</translation>
+daß dies sehr genaue Geräteprofile erfordert.</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="31"/>
@@ -7194,7 +7164,7 @@ dass dies sehr genaue Geräteprofile erfordert.</translation>
     <message>
         <location filename="../cmsprefs.cpp" line="130"/>
         <source>Mark Colors out of &amp;Gamut</source>
-        <translation>Farben ausserhalb des Farbbereichs &amp;markieren</translation>
+        <translation>Farben außerhalb des Farbbereichs &amp;markieren</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="134"/>
@@ -7413,9 +7383,9 @@ Sie ist reserviert für Transparenz</translation>
         <translation type="obsolete">Diese Option ermöglicht es, die Farbe auf allen Platten zu drucken. Registrierungsfarben werden für Druckermarken wie Schneidemarken oder Passkreuze verwendet. Sie werden üblicherweise nicht im Layout selbst gebraucht.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="obsolete">Wenn das Farbmanagement aktiviert ist, zeigt das Warndreieck an, dass die Farbe ausserhalb des Farbraums (Gamut) des gewählten Druckers ist. Das bedeutet, dass die Farbe nicht so wiedergegeben wird, wie am Monitor angezeigt. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe.</translation>
+        <translation type="obsolete">Wenn das Farbmanagement aktiviert ist, zeigt das Warndreieck an, dass die Farbe außerhalb des Farbraums (Gamut) des gewählten Druckers ist. Das bedeutet, dass die Farbe nicht so wiedergegeben wird, wie am Monitor angezeigt. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe.</translation>
     </message>
     <message>
         <location filename="../cmykfw.cpp" line="1181"/>
@@ -7431,7 +7401,7 @@ please choose another one.</source>
     <message>
         <location filename="../cmykfw.cpp" line="971"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation>Wenn das Farbmanagement aktiviert ist, zeigt ein Warndreieck an, dass die Farbe sich ausserhalb des Gamuts des ausgewählten Druckerprofils befindet. Dies bedeutet, dass die Farbe nicht so gedruckt werden kann, wie sie am Bildschirm angezeigt wird. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe unter &quot;Farbmanagement&quot;.</translation>
+        <translation>Wenn das Farbmanagement aktiviert ist, zeigt ein Warndreieck an, daß die Farbe sich außerhalb des Gamuts des ausgewählten Druckerprofils befindet. Dies bedeutet, daß die Farbe nicht so gedruckt werden kann, wie sie am Bildschirm angezeigt wird. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe unter &quot;Farbmanagement&quot;.</translation>
     </message>
     <message>
         <location filename="../cmykfw.cpp" line="1165"/>
@@ -7472,32 +7442,32 @@ Bitte vergeben Sie einen Namen</translation>
 <context>
     <name>CStylePBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Form1</source>
         <translation type="obsolete">Form1</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Parent</source>
         <translation type="obsolete">Verknüpft mit</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Based On:</source>
         <translation type="obsolete">Basiert auf:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Basic Formatting</source>
         <translation type="obsolete">Grundlegende Formatierung</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Advanced Formatting</source>
         <translation type="obsolete">Erweiterte Formatierung</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Colors</source>
         <translation type="obsolete">Farben</translation>
     </message>
@@ -7537,7 +7507,7 @@ Bitte vergeben Sie einen Namen</translation>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.cpp" line="488"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation>Scribus konnte die gewünschte Farbe nicht finden. Sie haben wahrscheinlich Schwarz, Grau oder Weiss ausgewählt.
+        <translation>Scribus konnte die gewünschte Farbe nicht finden. Sie haben wahrscheinlich Schwarz, Grau oder Weiß ausgewählt.
 Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     </message>
     <message>
@@ -7669,7 +7639,7 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="431"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="361"/>
@@ -7740,200 +7710,200 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
 <context>
     <name>CWDialogBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Color Wheel</source>
         <translation type="obsolete">Farbkreis</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
         <translation type="obsolete">Klicken Sie auf das Farbrad, um die Ausgangsfarbe zu erhalten. Das Farbmodell wird vom ausgewählten Reiter bestimmt.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>CMYK</source>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>C:</source>
         <translation type="obsolete">C:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>M:</source>
         <translation type="obsolete">M:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Y:</source>
         <translation type="obsolete">Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>K:</source>
         <translation type="obsolete">K:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>RGB:</source>
         <translation type="obsolete">RGB:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>RGB</source>
         <translation type="obsolete">RGB</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>R:</source>
         <translation type="obsolete">R:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>G:</source>
         <translation type="obsolete">G:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>B:</source>
         <translation type="obsolete">B:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>CMYK:</source>
         <translation type="obsolete">CMYK:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Document</source>
         <translation type="obsolete">Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
         <translation type="obsolete">Wählen Sie eine der Methoden zur Erstellung eines Farbschemas aus.
 Die Dokumentation enthält hierzu weitere Informationen.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Angle:</source>
         <translation type="obsolete">Winkel:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
         <translation type="obsolete">Der Unterschied zwischen dem ausgewählten und den gezählten Werten. Weitere Informationen finden Sie in der Hilfe.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Preview:</source>
         <translation type="obsolete">Vorschau:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Vision Defect Type:</source>
         <translation type="obsolete">Art der Sehbehinderung:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Sample color scheme.</source>
         <translation type="obsolete">Vorschau der Farbharmonie.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Colors of your chosen color scheme.</source>
         <translation type="obsolete">Die Farben Ihres gewählten Farbschemas.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Merge</source>
         <translation type="obsolete">&amp;Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+M</source>
         <translation type="obsolete">Alt+M</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Merge created colors into the document colors</source>
         <translation type="obsolete">Farben zu den Dokumentfarben hinzufügen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Replace</source>
         <translation type="obsolete">&amp;Ersetzen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+R</source>
         <translation type="obsolete">Alt+R</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Replace created colors in the document colors</source>
         <translation type="obsolete">Vorhandene Dokumentfarben durch die neuen Farben ersetzen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Leave colors untouched</source>
         <translation type="obsolete">Farben unverändert lassen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Simulate common vision defects here. Select type of the defect.</source>
         <translation type="obsolete">Hier können Sie die Art der Sehbehinderung auswählen, die Sie simulieren wollen.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Color Scheme Method</source>
         <translation type="obsolete">Farbschema</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>HSV:</source>
         <translation type="obsolete">HSV:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>HSV</source>
         <translation type="obsolete">HSV</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>H:</source>
         <translation type="obsolete">H:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>S:</source>
         <translation type="obsolete">S:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>V:</source>
         <translation type="obsolete">V:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Result Colors</source>
         <translation type="obsolete">Ergebnis</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source> %</source>
-        <translation type="obsolete">%</translation>
+        <translation type="obsolete"> %</translation>
     </message>
 </context>
 <context>
@@ -8161,7 +8131,7 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/charselect.cpp" line="634"/>
         <source>Clean the Palette?</source>
-        <translation type="obsolete">Inhalt entfernen? </translation>
+        <translation type="obsolete">Inhalt entfernen?</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/charselect.cpp" line="635"/>
@@ -8205,7 +8175,7 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
 <context>
     <name>CharTable</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Delete</source>
         <translation type="obsolete">Löschen</translation>
     </message>
@@ -8228,12 +8198,12 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
     <message>
         <location filename="../checkDocument.cpp" line="874"/>
         <source>Text overflow</source>
-        <translation>Überfliessender Text</translation>
+        <translation>Überfließender Text</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="875"/>
         <source>Object is not on a Page</source>
-        <translation>Objekt ausserhalb einer Seite</translation>
+        <translation>Objekt außerhalb einer Seite</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="876"/>
@@ -8318,7 +8288,7 @@ Die Dokumentation enthält hierzu weitere Informationen.</translation>
     <message>
         <location filename="../checkDocument.cpp" line="879"/>
         <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
-        <translation>Auflösung ist grösser als %1 dpi, aktuell %2 x %3 dpi</translation>
+        <translation>Auflösung ist größer als %1 dpi, aktuell %2 x %3 dpi</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="883"/>
@@ -8504,7 +8474,7 @@ zusammengestellt werden</translation>
         <translation>Namen wählen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Open</source>
         <translation type="obsolete">Öffnen</translation>
     </message>
@@ -8521,12 +8491,12 @@ zusammengestellt werden</translation>
     <message>
         <location filename="../colorm.cpp" line="172"/>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation>Wenn das Farbmanagement aktiviert ist, zeigt das Warndreieck an, dass die Farbe ausserhalb des Farbraums (Gamut) des gewählten Druckers ist. Das bedeutet, dass die Farbe nicht so wiedergegeben wird, wie am Monitor angezeigt. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe.</translation>
+        <translation>Wenn das Farbmanagement aktiviert ist, zeigt das Warndreieck an, daß die Farbe außerhalb des Farbraums (Gamut) des gewählten Druckers ist. Das bedeutet, daß die Farbe nicht so wiedergegeben wird, wie am Monitor angezeigt. Weitere Hinweise zu diesem Thema finden Sie in der Online-Hilfe.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
-        <translation type="obsolete">Dokumente (*.sla *.scd);;Andere Dateien (*.eps *.epsi *.ps *.ai);;Alle Dateien (*)</translation>
+        <translation type="obsolete">Dokumente (*.sla *.scd);;Andere Dateien (*eps *.epsi *.ps *.ai);;Alle Dateien (*)</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/colorm.cpp" line="428"/>
@@ -9008,7 +8978,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
         <translation>Zeicheneinzug rechts</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Both sides</source>
         <comment>Optical Margin Setting</comment>
         <translation type="obsolete">Beidseitig</translation>
@@ -9019,7 +8989,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
         <translation>Minimale Laufweite</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Norm. Word Tracking</source>
         <translation type="obsolete">Normale Laufweite</translation>
     </message>
@@ -9420,7 +9390,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../cpalette.cpp" line="907"/>
         <source>Offsets</source>
-        <translation>Versatz</translation>
+        <translation>Abstände</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="908"/>
@@ -9440,17 +9410,17 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../cpalette.cpp" line="913"/>
         <source>X-Scale:</source>
-        <translation>X-Grösse:</translation>
+        <translation>X-Größe:</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="915"/>
         <source>Y-Scale:</source>
-        <translation>Y-Grösse:</translation>
+        <translation>Y-Größe:</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="917"/>
         <source>Rotation</source>
-        <translation>Drehung</translation>
+        <translation>Rotation</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="918"/>
@@ -9460,12 +9430,12 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../cpalette.cpp" line="938"/>
         <source>Pattern</source>
-        <translation>Füllmuster</translation>
+        <translation>Muster</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="952"/>
         <source>Exclusion</source>
-        <translation>Ausschluss</translation>
+        <translation>Ausschluß</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="959"/>
@@ -9508,7 +9478,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../ui/createrange.ui" line="163"/>
         <source>Alt+L</source>
-        <translation>Alt+L</translation>
+        <translation>Alt*L</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="186"/>
@@ -9593,7 +9563,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../ui/createrange.ui" line="478"/>
         <source>Page Group Size:</source>
-        <translation>Grösse der Seitengruppe:</translation>
+        <translation>Größe der Seitengruppe:</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="525"/>
@@ -9619,142 +9589,142 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
 <context>
     <name>CreateRangeBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Create Range</source>
         <translation type="obsolete">Seitenfolge erstellen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Number of Pages in Document:</source>
         <translation type="obsolete">Anzahl der Seiten im Dokument:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Doc Page Range</source>
         <translation type="obsolete">Seitenfolge im Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Basic Range Selection</source>
         <translation type="obsolete">Grundeinstellungen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Add a Range of Pages</source>
         <translation type="obsolete">Seitenfolge hinzufügen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Consecutive Pages</source>
         <translation type="obsolete">Aufeinanderfolgende Seiten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>From:</source>
         <translation type="obsolete">Von:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>To:</source>
         <translation type="obsolete">bis:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Comma Separated List</source>
         <translation type="obsolete">Kommaseparierte Liste</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Even Pages</source>
         <translation type="obsolete">Gerade Seiten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Odd Pages</source>
         <translation type="obsolete">Ungerade Seiten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Add To Range</source>
         <translation type="obsolete">&amp;Zur Folge hinzufügen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Range of Pages</source>
         <translation type="obsolete">Seitenfolge</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Move &amp;Up</source>
         <translation type="obsolete">Nach &amp;oben</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+U</source>
         <translation type="obsolete">Alt+U</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Move &amp;Down</source>
         <translation type="obsolete">Nach &amp;unten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+D</source>
         <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>De&amp;lete</source>
         <translation type="obsolete">Lö&amp;schen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+L</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Advanced Reordering</source>
         <translation type="obsolete">Erweiterte Anordnung</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Page Group Size:</source>
-        <translation type="obsolete">Grösse der Seitengruppe:</translation>
+        <translation type="obsolete">Größe der Seitengruppe:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Sample Page Order:</source>
         <translation type="obsolete">Beispielanordnung:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Page Order</source>
         <translation type="obsolete">Anordnung</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+O</source>
         <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
@@ -10220,7 +10190,7 @@ in die Meta-Daten einer PDF-Datei eingebettet werden</translation>
     <message>
         <location filename="../docinfo.cpp" line="161"/>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Ein Abriss des Inhalts.
+        <translation>Ein Abriß des Inhalts.
 Hier kann eine kurze Beschreibung oder Zusammenfassung stehen. 
 Sie wird beim Export in die PDF-Datei eingebettet</translation>
     </message>
@@ -10286,17 +10256,17 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
     <message>
         <location filename="../docsections.cpp" line="79"/>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
-        <translation>&lt;b&gt;Name:&lt;/b&gt; Optionale Bezeichnung für den Abschnitt, z. B. Index.&lt;br/&gt;&lt;b&gt;Sichtbar:&lt;/b&gt; Entscheiden Sie, ob die Seitennummern angezeigt werden sollen.&lt;br/&gt;&lt;b&gt;Von:&lt;/b&gt; Der Seitenindex für diesen Abschnitt, mit dem die Zählung beginnen soll.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt;Der Seitenindex für diesen Abschnitt, mit dem die Zählung enden soll.&lt;br/&gt;&lt;b&gt;Stil:&lt;/b&gt; Wählen Sie den Numerierungsstil aus.&lt;br/&gt;&lt;b&gt;Beginn:&lt;/b&gt; Die Seitennummer, ab der die Zählung beginnen soll. Wenn Sie beispielsweise hier 2 eintragen und als Stil a, b, c wählen, wird mit b angefangen.</translation>
+        <translation>&lt;b&gt;Name:&lt;/b&gt; Optionale Bezeichnung für den Abschnitt, z. B. Index.&lt;br/&gt;&lt;b&gt;Sichtbar:&lt;/b&gt; Entscheiden Sie, ob die Seitennummern angezeigt werden sollen.&lt;br/&gt;&lt;b&gt;Von:&lt;/b&gt; Der Seitenindex für diesen Abschnitt, mit dem die Zählung beginnen soll.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt;Der Seitenindex für diesen Abschnitt, mit dem die Zählung enden soll.&lt;br/&gt;&lt;b&gt;Stil:&lt;/b&gt; Wählen Sie den Nummerierungsstil aus.&lt;br/&gt;&lt;b&gt;Beginn:&lt;/b&gt; Die Seitennummer, ab der die Zählung beginnen soll. Wenn Sie beispielsweise hier 2 eintragen und als Stil a, b, c wählen, wird mit b angefangen.</translation>
     </message>
     <message>
         <location filename="../docsections.cpp" line="201"/>
         <source>Page Number Out Of Bounds</source>
-        <translation>Seitenzahl ausserhalb des gültigen Bereichs</translation>
+        <translation>Seitenzahl außerhalb des gültigen Bereichs</translation>
     </message>
     <message>
         <location filename="../docsections.cpp" line="201"/>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation>Der Wert, den Sie eingegeben haben, liegt ausserhalb des gültigen Bereichs (%1-%2).</translation>
+        <translation>Der Wert, den Sie eingegeben haben, liegt außerhalb des gültigen Bereichs (%1-%2).</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="13"/>
@@ -10357,57 +10327,57 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
 <context>
     <name>DocSectionsBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Document Sections</source>
         <translation type="obsolete">Dokumentabschnitte</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Name</source>
         <translation type="obsolete">Name</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>From</source>
         <translation type="obsolete">von</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>To</source>
         <translation type="obsolete">bis</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Style</source>
         <translation type="obsolete">Stil</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Start</source>
         <translation type="obsolete">Beginn</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Add</source>
         <translation type="obsolete">&amp;Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+H</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+D</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Shown</source>
         <translation type="obsolete">Sichtbar</translation>
     </message>
@@ -10561,82 +10531,82 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
 <context>
     <name>DocumentItemAttributesBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Document Item Attributes</source>
         <translation type="obsolete">Eigenschaften des Dokumentobjekts</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Name</source>
         <translation type="obsolete">Name</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Type</source>
         <translation type="obsolete">Typ</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Value</source>
         <translation type="obsolete">Wert</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Parameter</source>
         <translation type="obsolete">Parameter</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Relationship</source>
         <translation type="obsolete">Beziehung</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Relationship To</source>
         <translation type="obsolete">Beziehung zu</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Auto Add To</source>
         <translation type="obsolete">Automatisch hinzufügen zu</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Add</source>
         <translation type="obsolete">&amp;Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Copy</source>
         <translation type="obsolete">&amp;Kopieren</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+D</source>
         <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>C&amp;lear</source>
         <translation type="obsolete">&amp;Entfernen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+L</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
@@ -10723,7 +10693,7 @@ der Datei
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/edit1format.cpp" line="362"/>
         <source>Font Size</source>
-        <translation type="obsolete">Schriftgrösse</translation>
+        <translation type="obsolete">Schriftgröße</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/edit1format.cpp" line="363"/>
@@ -10944,7 +10914,7 @@ der Datei
     <message>
         <location filename="../editor.cpp" line="37"/>
         <source>Ctrl+N</source>
-        <translation>Strg+N</translation>
+        <translation>Str+N</translation>
     </message>
     <message>
         <location filename="../editor.cpp" line="48"/>
@@ -11138,7 +11108,7 @@ der Datei
         <translation>existiert bereits. Soll die Datei überschrieben werden?</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>All</source>
         <translation type="obsolete">Alle</translation>
     </message>
@@ -11150,7 +11120,7 @@ der Datei
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="177"/>
         <source>Insufficient memory for this image size.</source>
-        <translation>Es ist nicht genügend Speicher für ein Bild dieser Grösse vorhanden.</translation>
+        <translation>Es ist nicht genügend Speicher für ein Bild dieser Größe vorhanden.</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="204"/>
@@ -11215,7 +11185,7 @@ Dateinamen der Bilder haben das Format &quot;Dokumentname-Seite.Dateiformat&quot
     <message>
         <location filename="../plugins/pixmapexport/exportform.ui" line="84"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Grösse:</translation>
+        <translation>&amp;Größe:</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/exportform.ui" line="13"/>
@@ -11258,7 +11228,7 @@ Dateinamen der Bilder haben das Format &quot;Dokumentname-Seite.Dateiformat&quot
         <translation>&amp;Bereich</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>C</source>
         <translation type="obsolete">C</translation>
     </message>
@@ -11297,12 +11267,12 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../plugins/pixmapexport/dialog.cpp" line="113"/>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation>Grösse der Bilder. 100% verändert nichts, 200% für doppelt so grosse Bilder etc.</translation>
+        <translation>Größe der Bilder. 100% verändert nichts, 200% für doppelt so große Bilder etc.</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/exportform.ui" line="44"/>
         <source>Image size in Pixels</source>
-        <translation>Bildgrösse in Pixel</translation>
+        <translation>Bildgröße in Pixel</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/exportform.ui" line="37"/>
@@ -11390,7 +11360,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../extimageprops.cpp" line="115"/>
         <source>Exclusion</source>
-        <translation>Ausschluss</translation>
+        <translation>Ausschluß</translation>
     </message>
     <message>
         <location filename="../extimageprops.cpp" line="116"/>
@@ -11448,7 +11418,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../customfdialog.cpp" line="196"/>
         <source>Size:</source>
-        <translation>Grösse:</translation>
+        <translation>Größe:</translation>
     </message>
     <message>
         <location filename="../customfdialog.cpp" line="214"/>
@@ -11542,7 +11512,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../fontcombo.cpp" line="148"/>
         <source>Face:</source>
-        <translation>Font:</translation>
+        <translation>Schrift:</translation>
     </message>
     <message>
         <location filename="../fontcombo.cpp" line="149"/>
@@ -11742,7 +11712,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../fontprefs.cpp" line="130"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation>Suchpfade für Schriften können nur unter Datei &gt; Allgemeine Einstellungen hinzugefügt werden. Dazu darf kein Dokument geöffnet sein. Schliessen Sie alle geöffneten Dokumente und ändern Sie unter Datei &gt; Allgemeine Einstellungen &gt; Schriften den Suchpfad.</translation>
+        <translation>Suchpfade für Schriften können nur unter Datei &gt; Allgemeine Einstellungen hinzugefügt werden. Dazu darf kein Dokument geöffnet sein. Schließen Sie alle geöffneten Dokumente und ändern Sie unter Datei &gt; Allgemeine Einstellungen &gt; Schriften den Suchpfad.</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/fontprefs.cpp" line="57"/>
@@ -11787,13 +11757,13 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="115"/>
         <source>Size of the selected font</source>
-        <translation>Grösse der Schrift</translation>
+        <translation>Größe der Schrift</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="44"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
-        <translation>Falsches Üben von Xylophonmusik quält jeden grösseren Zwerg</translation>
+        <translation>Falsches Üben von Xylophonmusik quält jeden größeren Zwerg</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/plugins/fontpreview/fontpreview.cpp" line="97"/>
@@ -11808,14 +11778,14 @@ Bildschirm betrachten wollen</translation>
         <translation type="obsolete">System</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Sample will be shown after key release</source>
         <translation type="obsolete">Die Vorschau wird nach Loslassen der Taste angezeigt</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/plugins/fontpreview/fontpreview.cpp" line="165"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation type="obsolete">Wenn Sie hier Text eingeben, starten Sie eine schnelle Suche. Gross- und Kleinschreibung wird ignoriert. Sie können auch Wildcards (*, ?, [...]) verwenden. Beispiele: t* listet alle Schriften auf, die mit t oder T beginnen. *bold* listet alle Schriften mit fetten Schnitten auf.</translation>
+        <translation type="obsolete">Wenn Sie hier Text eingeben, starten Sie eine schnelle Suche. Groß- und Kleinschreibung wird ignoriert. Sie können auch Wildcards (*, ?, [...]) verwenden. Beispiele: t* listet alle Schriften auf, die mit t oder T beginnen. *bold* listet alle Schriften mit fetten Schnitten auf.</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/plugins/fontpreview/fontpreview.cpp" line="43"/>
@@ -11860,7 +11830,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="90"/>
         <source>&amp;Font Size:</source>
-        <translation>Schrift&amp;grösse:</translation>
+        <translation>Schrift&amp;größe:</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="113"/>
@@ -11895,7 +11865,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="183"/>
         <source>&amp;Close</source>
-        <translation>Sch&amp;liessen</translation>
+        <translation>Sch&amp;ließen</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="186"/>
@@ -11905,7 +11875,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="113"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. The given text is taken as substring.</source>
-        <translation>Der hier eingegebene Text dient zur Schnellsuche in den Schriftnamen. Die Suche nimmt keine Rücksicht auf Gross- und Kleinschreibung. Gesucht wird nicht nur am Anfang eines Namens.</translation>
+        <translation>Der hier eingegebene Text dient zur Schnellsuche in den Schriftnamen. Die Suche nimmt keine Rücksicht auf Groß- und Kleinschreibung. Gesucht wird nicht nur am Anfang eines Namens.</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="45"/>
@@ -11921,97 +11891,97 @@ Bildschirm betrachten wollen</translation>
 <context>
     <name>FontPreviewBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Fonts Preview</source>
         <translation type="obsolete">Schriftvorschau</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Quick Search:</source>
         <translation type="obsolete">&amp;Schnellsuche:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Search</source>
         <translation type="obsolete">&amp;Suchen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+S</source>
         <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Font Name</source>
         <translation type="obsolete">Name der Schrift</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Doc</source>
         <translation type="obsolete">Doc</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Type</source>
         <translation type="obsolete">Typ</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Subset</source>
         <translation type="obsolete">Unterteilen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Access</source>
         <translation type="obsolete">Zugriff</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Font Size:</source>
-        <translation type="obsolete">Schrift&amp;grösse:</translation>
+        <translation type="obsolete">Schrift&amp;größe:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Text</source>
         <translation type="obsolete">Text</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Sample text to display</source>
         <translation type="obsolete">Beispieltext</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Se&amp;t</source>
         <translation type="obsolete">Än&amp;dern</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+T</source>
         <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Reset the text</source>
         <translation type="obsolete">Text zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Append</source>
         <translation type="obsolete">&amp;Verwenden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+V</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Close</source>
-        <translation type="obsolete">Sch&amp;liessen</translation>
+        <translation type="obsolete">Sch&amp;ließen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
@@ -12169,7 +12139,7 @@ im Dokument gespeichert.</translation>
     <message>
         <location filename="../guidemanager.ui" line="128"/>
         <source>Alt+L</source>
-        <translation>Alz+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="125"/>
@@ -12280,167 +12250,167 @@ im Dokument gespeichert.</translation>
 <context>
     <name>GuideManagerBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Manage Guides</source>
         <translation type="obsolete">Hilfslinien bearbeiten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Horizontals</source>
         <translation type="obsolete">Horizontal</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Guide</source>
         <translation type="obsolete">Hilfslinie</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Add</source>
         <translation type="obsolete">&amp;Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+H</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>D&amp;elete</source>
         <translation type="obsolete">&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+E</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Verticals</source>
         <translation type="obsolete">Vertikal</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>A&amp;dd</source>
         <translation type="obsolete">Hin&amp;zufügen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+D</source>
         <translation type="obsolete">Alt+Z</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>De&amp;lete</source>
         <translation type="obsolete">Lö&amp;schen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+L</source>
         <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Lock Guides</source>
         <translation type="obsolete">Hilfslinien &amp;sperren</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Appl&amp;y to All Pages</source>
         <translation type="obsolete">Auf alle Seiten an&amp;wenden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+Y</source>
         <translation type="obsolete">Alt+W</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Number:</source>
         <translation type="obsolete">&amp;Anzahl:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>U&amp;se Gap:</source>
         <translation type="obsolete">A&amp;bstand:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+S</source>
         <translation type="obsolete">Alt+B</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Nu&amp;mber:</source>
         <translation type="obsolete">An&amp;zahl:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Use &amp;Gap:</source>
         <translation type="obsolete">Abstan&amp;d:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+G</source>
         <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Refer To</source>
         <translation type="obsolete">Bezogen auf</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Page</source>
         <translation type="obsolete">&amp;Seite</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+P</source>
         <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>M&amp;argins</source>
         <translation type="obsolete">&amp;Ränder</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>S&amp;election</source>
         <translation type="obsolete">&amp;Markierung</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Misc</source>
         <translation type="obsolete">&amp;Sonstiges</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Delete all guides from the current page</source>
         <translation type="obsolete">Entfernt alle Hilfslinien auf der aktuellen Seite</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Delete all guides from the current document</source>
         <translation type="obsolete">Entfernt alle Hilfslinien im Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Single</source>
         <translation type="obsolete">&amp;Einfach</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Column/Row</source>
         <translation type="obsolete">&amp;Spalte/Zeile</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Delete Guides from Current &amp;Page</source>
         <translation type="obsolete">Hilfslinien auf der Seite &amp;löschen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Delete Guides from &amp;All Pages</source>
         <translation type="obsolete">Hilfslinien auf &amp;allen Seiten löschen</translation>
     </message>
@@ -12526,7 +12496,7 @@ and www.scribus.net for downloads.</source>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/helpbrowser.cpp" line="461"/>
         <source>Searching is case unsensitive</source>
-        <translation type="obsolete">Die Suche berücksichtigt Gross- und Kleinschreibung nicht</translation>
+        <translation type="obsolete">Die Suche berücksichtigt Groß- und Kleinschreibung nicht</translation>
     </message>
     <message>
         <location filename="../helpbrowser.cpp" line="409"/>
@@ -12591,7 +12561,7 @@ and www.scribus.net for downloads.</source>
     <message>
         <location filename="../ui/helpbrowser.ui" line="53"/>
         <source>Searching is case insensitive</source>
-        <translation>Die Suche berücksichtigt Gross- und Kleinschreibung nicht</translation>
+        <translation>Die Suche berücksichtigt Groß- und Kleinschreibung nicht</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="86"/>
@@ -13014,7 +12984,7 @@ und konvertiert deren Vektordaten in Scribus-Objekte.</translation>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="19"/>
         <source>Imposition</source>
-        <translation>Ausschiessen</translation>
+        <translation>Ausschießen</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="44"/>
@@ -13115,7 +13085,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="455"/>
         <source>Size</source>
-        <translation>Grösse</translation>
+        <translation>Größe</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="487"/>
@@ -13168,17 +13138,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="37"/>
         <source>&amp;Imposition...</source>
-        <translation>&amp;Ausschiessen ...</translation>
+        <translation>&amp;Ausschießen ...</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="69"/>
         <source>Imposition dialog</source>
-        <translation>Ausschiessen-Dialog</translation>
+        <translation>Ausschießen-Dialog</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="70"/>
         <source>Imposition on grids, booklets and folds</source>
-        <translation>Ausschiessen als Raster, Broschüre oder Falz</translation>
+        <translation>Ausschießen als Raster, Broschüre oder Falz</translation>
     </message>
 </context>
 <context>
@@ -13226,7 +13196,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../inspage.cpp" line="209"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Grösse:</translation>
+        <translation>&amp;Größe:</translation>
     </message>
     <message>
         <location filename="../inspage.cpp" line="224"/>
@@ -13274,12 +13244,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.cpp" line="115"/>
         <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
-        <translation>&lt;b&gt;Einfügen eines Textrahmens&lt;/b&gt;&lt;br/&gt;Ein Textrahmen ermöglicht es Ihnen, irgendeinen Text in einer festgelegten Position und einer Formatierung Ihrer Wahl einzufügen. Falls Sie ein Dokument direkt in den Rahmen importieren möchten, können Sie im &quot;Optionen&quot;-Reiter eine Textdatei auswählen. Scribus unterstützt eine grosse Anzahl von Formaten, vom einfachen Text bis hin zu OpenOffice.org.&lt;br/&gt;Ihr Text kann direkt auf der Seite oder im Story Editor bearbeitet werden.</translation>
+        <translation>&lt;b&gt;Einfügen eines Textrahmens&lt;/b&gt;&lt;br/&gt;Ein Textrahmen ermöglicht es Ihnen, irgendeinen Text in einer festgelegten Position und einer Formatierung Ihrer Wahl einzufügen. Falls Sie ein Dokument direkt in den Rahmen importieren möchten, können Sie im &quot;Optionen&quot;-Reiter eine Textdatei auswählen. Scribus unterstützt eine große Anzahl von Formaten, vom einfachen Text bis hin zu OpenOffice.org.&lt;br/&gt;Ihr Text kann direkt auf der Seite oder im Story Editor bearbeitet werden.</translation>
     </message>
     <message>
         <location filename="../insertaframe.cpp" line="119"/>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
-        <translation>&lt;b&gt;Einfügen eines Bildrahmens&lt;/b&gt;&lt;br/&gt;Ein Bildrahmen ermöglicht es Ihnen, ein Bild auf der Seite zu plazieren. Es können verschiedene Bildeffekte angewendet oder kombiniert werden, darunter Transparenz, Helligkeit oder Posterisierung. Damit lassen sich Bilder retuschieren, oder es können interessante optische Effekte erzielt werden. Die Grösse und die Form lassen sich in der Eigenschaftenpalette ändern.</translation>
+        <translation>&lt;b&gt;Einfügen eines Bildrahmens&lt;/b&gt;&lt;br/&gt;Ein Bildrahmen ermöglicht es Ihnen, ein Bild auf der Seite zu plazieren. Es können verschiedene Bildeffekte angewendet oder kombiniert werden, darunter Transparenz, Helligkeit oder Posterisierung. Damit lassen sich Bilder retuschieren, oder es können interessante optische Effekte erzielt werden. Die Größe und die Form lassen sich in der Eigenschaftenpalette ändern.</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="13"/>
@@ -13300,6 +13270,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../insertaframe.ui" line="68"/>
         <source>&amp;Image Frame</source>
         <translation>&amp;Bildrahmen</translation>
+    </message>
+    <message>
+        <location filename="../../scribus135/trunk/Scribus/scribus/insertaframe.ui" line="93"/>
+        <source>T&amp;able</source>
+        <translation type="obsolete">Ta&amp;belle</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/insertaframe.ui" line="106"/>
@@ -13379,7 +13354,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/insertaframe.ui" line="330"/>
         <source>Selecting this places the frame in the upper left of the page bleed defined in your doc setup.</source>
-        <translation type="obsolete">Plaziert den Rahmen oben links in der Anschnittzugabe, wie Sie unter Datei &gt; Dokument einrichten eingestellt wurde.</translation>
+        <translation type="obsolete">Platziert den Rahmen oben links in der Anschnittzugabe, wie Sie unter Datei &gt; Dokument einrichten eingestellt wurde.</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="204"/>
@@ -13389,12 +13364,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/insertaframe.ui" line="340"/>
         <source>Set the dimensions wished below in the X: Y: dialog below.</source>
-        <translation type="obsolete">Stellen Sie hier die Masse des Rahmens ein.</translation>
+        <translation type="obsolete">Stellen Sie hier die Maße des Rahmens ein.</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/insertaframe.ui" line="343"/>
         <source>Custom Position:</source>
-        <translation type="obsolete">Benutzerdefiniert:</translation>
+        <translation type="obsolete">Benutzerdefinierte Position:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="257"/>
@@ -13409,7 +13384,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.ui" line="304"/>
         <source>&amp;Size</source>
-        <translation>&amp;Grösse</translation>
+        <translation>&amp;Größe</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="328"/>
@@ -13419,7 +13394,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.ui" line="335"/>
         <source>Same as the Page</source>
-        <translation>Seitengrösse</translation>
+        <translation>Seitengröße</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="342"/>
@@ -13509,248 +13484,248 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.ui" line="356"/>
         <source>Custom Size</source>
-        <translation>Benutzerdefinierte Grösse</translation>
+        <translation>Benutzerdefinierte Größe</translation>
     </message>
 </context>
 <context>
     <name>InsertAFrameBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Insert A Frame</source>
         <translation type="obsolete">Rahmen einfügen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>T&amp;ype</source>
         <translation type="obsolete">T&amp;yp</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Text Frame</source>
         <translation type="obsolete">&amp;Textrahmen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+T</source>
         <translation type="obsolete">Alt+T</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Image Frame</source>
         <translation type="obsolete">&amp;Bildrahmen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+I</source>
         <translation type="obsolete">Alt+B</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>T&amp;able</source>
-        <translation type="obsolete">T&amp;abelle</translation>
+        <translation type="obsolete">Ta&amp;belle</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+A</source>
-        <translation type="obsolete">Alt+A#</translation>
+        <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Shape</source>
         <translation type="obsolete">Form</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Polygon</source>
         <translation type="obsolete">Polygon</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Location</source>
-        <translation type="obsolete">&amp;Plazierung</translation>
+        <translation type="obsolete">&amp;Platzierung</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Page Placement</source>
-        <translation type="obsolete">Plazierung auf der Seite</translation>
+        <translation type="obsolete">Platzierung auf der Seite</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Current Page</source>
         <translation type="obsolete">Aktuelle Seite</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Selecting this will place the frame only on the current page.</source>
         <translation type="obsolete">Der Rahmen wird nur auf der aktuellen Seite eingefügt.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Range of Pages:</source>
         <translation type="obsolete">Bereich:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Selecting this will place frame on the selected range. </source>
         <translation type="obsolete">Die Rahmen werden im gewählten Bereich eingefügt.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Position of Frame</source>
         <translation type="obsolete">Position des Rahmens</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Top Left of Page</source>
         <translation type="obsolete">Oben links (Seite)</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Selecting this puts the frame on the top left with postion 0,0</source>
         <translation type="obsolete">Fügt den Rahmen mit den Koordinaten 0,0 ein</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Top Left of Margins</source>
         <translation type="obsolete">Oben links (Satzspiegel)</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Selecting this places the frame in the upper left of the page margins defined in your doc setup.</source>
         <translation type="obsolete">Fügt den Rahmen oben links im Satzspiegel ein, wie Sie ihn in den Dokumenteinstellungen eingerichtet haben.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Custom Position:</source>
-        <translation type="obsolete">Benutzerdefiniert:</translation>
+        <translation type="obsolete">Benutzerdefinierte Position:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Set the dimensions wished below in the X: Y: dialog below.</source>
-        <translation type="obsolete">Stellen Sie hier die Masse des Rahmens ein.</translation>
+        <translation type="obsolete">Stellen Sie hier die Maße des Rahmens ein.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>X:</source>
         <translation type="obsolete">X:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Y:</source>
         <translation type="obsolete">Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Size</source>
-        <translation type="obsolete">&amp;Grösse</translation>
+        <translation type="obsolete">&amp;Größe</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Same as the Page</source>
-        <translation type="obsolete">Seitengrösse</translation>
+        <translation type="obsolete">Seitengröße</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Same as the Page Margins</source>
         <translation type="obsolete">Satzspiegel</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Custom Size:</source>
         <translation type="obsolete">Benutzerdefiniert:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Height:</source>
         <translation type="obsolete">Höhe:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Width:</source>
         <translation type="obsolete">Breite:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Options</source>
         <translation type="obsolete">&amp;Optionen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Source Image:</source>
         <translation type="obsolete">Bildquelle:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Select File...</source>
         <translation type="obsolete">&amp;Datei...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+S</source>
         <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>There are no options for this type of frame</source>
         <translation type="obsolete">Für diesen Rahmentyp gibt es keine Optionen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Source Document:</source>
         <translation type="obsolete">Dokument:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Columns:</source>
         <translation type="obsolete">Spalten:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Gap:</source>
         <translation type="obsolete">Abstand:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Link Created Frames</source>
         <translation type="obsolete">Erstellte Texrahmen verbinden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>...</source>
         <translation type="obsolete">...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Top Left of Bleed</source>
         <translation type="obsolete">Anschnitt oben links</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Selecting this places the frame in the upper left of the page bleed defined in your doc setup.</source>
-        <translation type="obsolete">Plaziert den Rahmen oben links in der Anschnittzugabe, wie Sie unter Datei &gt; Dokument einrichten eingestellt wurde.</translation>
+        <translation type="obsolete">Platziert den Rahmen oben links in der Anschnittzugabe, wie Sie unter Datei &gt; Dokument einrichten eingestellt wurde.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Same as the Bleed</source>
         <translation type="obsolete">Wie Anschnitt</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Same as the Imported Image</source>
         <translation type="obsolete">Wie importierte Seite</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>All Pages</source>
         <translation type="obsolete">Alle Seiten</translation>
     </message>
@@ -13803,7 +13778,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../javadocs.cpp" line="57"/>
         <source>&amp;Close</source>
-        <translation>Sch&amp;liessen</translation>
+        <translation>Sch&amp;ließen</translation>
     </message>
     <message>
         <location filename="../javadocs.cpp" line="77"/>
@@ -13841,7 +13816,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../latexeditor.ui" line="122"/>
         <source>Program Messages:</source>
-        <translation>Programmeldungen:</translation>
+        <translation>Programm-Meldungen:</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/latexeditor.ui" line="125"/>
@@ -14050,7 +14025,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../layers.cpp" line="564"/>
         <source>Exclusion</source>
-        <translation>Ausschluss</translation>
+        <translation>Ausschluß</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="567"/>
@@ -14095,12 +14070,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../layers.cpp" line="588"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation>Text umfliesst Objekte in tieferliegenden Ebenen - Falls aktiviert, fliesst Text um andere Objekte herum, auch wenn sich diese auf tieferen Ebenen befinden</translation>
+        <translation>Text umfließt Objekte in tieferliegenden Ebenen - Falls aktiviert, fließt Text um andere Objekte herum, auch wenn sich diese auf tieferen Ebenen befinden</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="589"/>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
-        <translation>Umrissmodus - Reduziert die Anzeige auf die Objektumrisse, um die Darstellung sehr komplexer Objekte zu beschleunigen.</translation>
+        <translation>Umrißmodus - Reduziert die Anzeige auf die Objektumrisse, um die Darstellung sehr komplexer Objekte zu beschleunigen.</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="590"/>
@@ -14110,7 +14085,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../layers.cpp" line="580"/>
         <source>Duplicates the current layer</source>
-        <translation>Dupliziert die aktuelle Ebene</translation>
+        <translation>Dupliziert die akuelle Ebene</translation>
     </message>
 </context>
 <context>
@@ -14181,7 +14156,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="181"/>
         <source>Magnification Lens</source>
-        <translation>Vergrösserungslinse</translation>
+        <translation>Vergrößerungslinse</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="191"/>
@@ -14240,7 +14215,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation type="obsolete">Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
     </message>
@@ -14296,17 +14271,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LineStyleWBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>LineStyleWBase</source>
         <translation type="obsolete">LinienStyleWBase</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>%</source>
         <translation type="obsolete">%</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Line Width:</source>
         <translation type="obsolete">Linienbreite:</translation>
     </message>
@@ -14465,7 +14440,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../margindialog.cpp" line="44"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Grösse:</translation>
+        <translation>&amp;Größe:</translation>
     </message>
     <message>
         <location filename="../margindialog.cpp" line="60"/>
@@ -14548,7 +14523,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../marginwidget.cpp" line="154"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Abstand zwischen dem unteren Rand des Satzspiegels und dem Seitenrand (Fusssteg)</translation>
+        <translation>Abstand zwischen dem unteren Rand des Satzspiegels und dem Seitenrand (Fußsteg)</translation>
     </message>
     <message>
         <location filename="../marginwidget.cpp" line="207"/>
@@ -14558,7 +14533,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../marginwidget.cpp" line="208"/>
         <source>O&amp;utside:</source>
-        <translation>Ausse&amp;n:</translation>
+        <translation>Auße&amp;n:</translation>
     </message>
     <message>
         <location filename="../marginwidget.cpp" line="36"/>
@@ -14578,7 +14553,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../marginwidget.cpp" line="102"/>
         <source>Import the margins for the selected page size from the available printers.</source>
-        <translation>Ränder für die ausgewählte Seitengrösse von einem der vorhandenen Drucker importieren.</translation>
+        <translation>Ränder für die ausgewählte Seitengröße von einem der vorhandenen Drucker importieren.</translation>
     </message>
     <message>
         <location filename="../marginwidget.cpp" line="77"/>
@@ -14648,7 +14623,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../marginwidget.cpp" line="214"/>
         <source>Outside:</source>
-        <translation>Aussen:</translation>
+        <translation>Außen:</translation>
     </message>
     <message>
         <location filename="../marginwidget.cpp" line="218"/>
@@ -14663,12 +14638,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../marginwidget.cpp" line="155"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Abstand zwischen dem linken Rand des Satzsspiegels und dem Seitenrand. Falls Sie ein doppelseitiges oder drei- bzw. vierfach gefaltetes Layout gewählt haben, kann dieser Abstand dazu verwendet werden, korrekte Ränder für die Bindung zu erhalten</translation>
+        <translation>Abstand zwischen dem linken Rand des Satzsspiegels und dem Seitenrand. Falls Sie ein doppelseitiges oder ein drei- bzw. vierfach gefaltetes Layout gewählt haben, kann dieser Abstand dazu verwendet werden, korrekte Ränder für die Bindung zu erhalten</translation>
     </message>
     <message>
         <location filename="../marginwidget.cpp" line="156"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Abstand zwischen dem rechten Rand des Satzsspiegels und dem Seitenrand. Falls Sie ein doppelseitiges oder drei- bzw. vierfach gefaltetes Layout gewählt haben, kann dieser Abstand dazu verwendet werden, korrekte Ränder für die Bindung zu erhalten</translation>
+        <translation>Abstand zwischen dem rechten Rand des Satzsspiegels und dem Seitenrand. Falls Sie ein doppelseitiges oder ein drei- bzw. vierfach gefaltetes Layout gewählt haben, kann dieser Abstand dazu verwendet werden, korrekte Ränder für die Bindung zu erhalten</translation>
     </message>
 </context>
 <context>
@@ -14853,7 +14828,7 @@ p, li { white-space: pre-wrap; }
         <translation>Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation type="obsolete">Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
     </message>
@@ -15108,17 +15083,17 @@ Seiten importiert werden sollen, zum Beispiel
 <context>
     <name>MultiProgressDialogBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Progress</source>
         <translation type="obsolete">Fortschritt</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Overall Progress:</source>
         <translation type="obsolete">Gesamter Fortschritt:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
@@ -15224,87 +15199,87 @@ Seiten importiert werden sollen, zum Beispiel
 <context>
     <name>MultipleDuplicateBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Multiple Duplicate</source>
         <translation type="obsolete">Mehrfach Duplizieren</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;By Number of Copies</source>
         <translation type="obsolete">&amp;Nach Anzahl der Kopien</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Number of Copies:</source>
         <translation type="obsolete">An&amp;zahl der Kopien:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Shift Created Items By</source>
         <translation type="obsolete">&amp;Erstellte Objekte verschieben um</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+S</source>
         <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Create &amp;Gap Between Items Of</source>
         <translation type="obsolete">A&amp;bstand zwischen Objekten erstellen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+G</source>
         <translation type="obsolete">Alt+G</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Horizontal Shift:</source>
         <translation type="obsolete">&amp;Horizontaler Versatz:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Vertical Shift:</source>
         <translation type="obsolete">&amp;Vertikaler Versatz:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>By &amp;Rows &amp;&amp; Columns</source>
         <translation type="obsolete">Nach Zeilen &amp;&amp; &amp;Spalten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Vertical Gap:</source>
         <translation type="obsolete">Vertikaler Abstand:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Horizontal Gap:</source>
         <translation type="obsolete">Horizontaler Abstand:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Number of Rows:</source>
         <translation type="obsolete">Anzahl der Zeilen:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Number of Columns:</source>
         <translation type="obsolete">Anzahl der Spalten:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Rotation:</source>
         <translation type="obsolete">Drehung:</translation>
     </message>
@@ -15360,7 +15335,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../newfile.cpp" line="139"/>
         <source>Document page size, either a standard size or a custom size</source>
-        <translation>Seitengrösse des Dokuments, entweder eine Standardgrösse oder benutzerdefiniert</translation>
+        <translation>Seitengröße des Dokuments, entweder eine Standardgröße oder benutzerdefiniert</translation>
     </message>
     <message>
         <location filename="../newfile.cpp" line="140"/>
@@ -15380,7 +15355,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../newfile.cpp" line="144"/>
         <source>Default unit of measurement for document editing</source>
-        <translation>Standardmasseinheit für das Dokument</translation>
+        <translation>Standardmaßeinheit für das Dokument</translation>
     </message>
     <message>
         <location filename="../newfile.cpp" line="145"/>
@@ -15400,7 +15375,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../newfile.cpp" line="217"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Grösse:</translation>
+        <translation>&amp;Größe:</translation>
     </message>
     <message>
         <location filename="../newfile.cpp" line="226"/>
@@ -15420,7 +15395,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../newfile.cpp" line="287"/>
         <source>&amp;Default Unit:</source>
-        <translation>Standard&amp;masseinheit:</translation>
+        <translation>Standard&amp;maßeinheit:</translation>
     </message>
     <message>
         <location filename="../newfile.cpp" line="299"/>
@@ -15591,7 +15566,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../nodeeditpalette.cpp" line="899"/>
         <source>Close this Bezier Curve</source>
-        <translation>Bézierkurve schliessen</translation>
+        <translation>Bézierkurve schließen</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="900"/>
@@ -15631,7 +15606,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../nodeeditpalette.cpp" line="909"/>
         <source>Enlarge the Size of the Path by shown %</source>
-        <translation>Pfad vergrössern um x %</translation>
+        <translation>Pfad vergrößern um x %</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="912"/>
@@ -15666,27 +15641,27 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../nodeeditpalette.cpp" line="908"/>
         <source>Shrink the Size of the Path by shown %</source>
-        <translation>Grösse des Pfads verringern um x %</translation>
+        <translation>Größe des Pfads verringern um x %</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="910"/>
         <source>Reduce the Size of the Path by the shown value</source>
-        <translation>Grösse des Pfads um den angezeigten Wert verringern</translation>
+        <translation>Größe des Pfads um den angezeigten Wert verringern</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="911"/>
         <source>Enlarge the Size of the Path by the shown value</source>
-        <translation>Grösse des Pfads um den angezeigten Wert vergrössern</translation>
+        <translation>Größe des Pfads um den angezeigten Wert vergrößern</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="913"/>
         <source>% to Enlarge or Shrink By</source>
-        <translation>Prozent vergrössern/verkleinern</translation>
+        <translation>Prozent vergrößern/verkleinern</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="914"/>
         <source>Value to Enlarge or Shrink By</source>
-        <translation>Um den Wert vergrössern/verkleinern</translation>
+        <translation>Um den Wert vergrößern/verkleinern</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="888"/>
@@ -15843,7 +15818,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../oneclick.cpp" line="146"/>
         <source>Size</source>
-        <translation>Grösse</translation>
+        <translation>Größe</translation>
     </message>
     <message>
         <location filename="../oneclick.cpp" line="151"/>
@@ -16021,7 +15996,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../outlinepalette.cpp" line="733"/>
         <source>Page </source>
-        <translation>Seite</translation>
+        <translation>Seite </translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="788"/>
@@ -16087,7 +16062,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../pdfopts.cpp" line="122"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
-        <translation>Jede Seite wird mit automatischer Numerierung als separate PDF-Datei exportiert. Hilfreich fürs Ausschiessen.</translation>
+        <translation>Jede Seite wird mit automatischer Nummerierung als separate PDF-Datei exportiert. Hilfreich fürs Ausschießen.</translation>
     </message>
     <message>
         <location filename="../pdfopts.cpp" line="123"/>
@@ -16147,7 +16122,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../pdflib_core.cpp" line="7102"/>
         <source>Insufficient memory for processing an image</source>
-        <translation>Es ist nicht genügend Speicher für ein Bild dieser Grösse vorhanden</translation>
+        <translation>Es ist nicht genügend Speicher für ein Bild dieser Größe vorhanden</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="7092"/>
@@ -16318,7 +16293,7 @@ Seiten importiert werden sollen, zum Beispiel
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
 durch reine Abstufungen von Schwarz ersetzt.
-Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
+Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflußt,
 die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen.
 Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere Ergebnisse
 erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
@@ -16326,12 +16301,12 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../preview.cpp" line="329"/>
         <source>Resize the scale of the page.</source>
-        <translation>Vorschaugrösse.</translation>
+        <translation>Vorschaugröße.</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="294"/>
         <source>Close</source>
-        <translation>Schliessen</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="1115"/>
@@ -16411,12 +16386,13 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../preview.cpp" line="330"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Erlaubt die Umwandlung von Schmuckfarben in Prozessfarben. Falls Sie keine Schmuckfarben in einer Druckerei drucken lassen möchten, sollten Sie die Option besser aktiviert lassen.</translation>
+        <translation>Erlaubt die Umwandlung von Schmuckfarben in Prozeßfarben. Falls Sie keine Schmuckfarben in einer Druckerei drucken lassen möchten, sollten Sie die Option besser aktiviert lassen.</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="331"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation>Aktiviert den Überdrucken-Modus für das ganze Dokument. Einstellungen für einzelne Objekte werden ignoriert</translation>
+        <translation>Aktiviert den Überdrucken-Modus für das ganze Dokument. Einstellungen für einzelne Objekte
+werden ignoriert</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/preview.cpp" line="326"/>
@@ -16454,7 +16430,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../pslib.cpp" line="1650"/>
         <source>Insufficient memory for processing an image</source>
-        <translation>Es ist nicht genügend Speicher für ein Bild dieser Grösse vorhanden</translation>
+        <translation>Es ist nicht genügend Speicher für ein Bild dieser Größe vorhanden</translation>
     </message>
     <message>
         <location filename="../pslib.cpp" line="1635"/>
@@ -16513,47 +16489,47 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
 <context>
     <name>PStyleWBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Form1</source>
         <translation type="obsolete">Form1</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Properties</source>
         <translation type="obsolete">Eigenschaften</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Parent</source>
         <translation type="obsolete">Verknüpft mit</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Distances and Alignment</source>
         <translation type="obsolete">Abstände und Ausrichtung</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Drop Caps</source>
         <translation type="obsolete">Initialen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Parent&apos;s Drop Cap Status</source>
         <translation type="obsolete">Initialen im verknüpften Stil</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Tabulators and Indentation</source>
         <translation type="obsolete">Tabulatoren und Einzüge</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Ch&amp;aracter Style</source>
         <translation type="obsolete">Z&amp;eichenstil</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Based On:</source>
         <translation type="obsolete">Basiert auf:</translation>
     </message>
@@ -16652,7 +16628,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../pageitemattributes.ui" line="81"/>
         <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <translation>Altd+D</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="88"/>
@@ -16713,87 +16689,87 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
 <context>
     <name>PageItemAttributesBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Page Item Attributes</source>
         <translation type="obsolete">Eigenschaften des Seitenobjekts</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Name</source>
         <translation type="obsolete">Name</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Type</source>
         <translation type="obsolete">Typ</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Value</source>
         <translation type="obsolete">Wert</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Parameter</source>
         <translation type="obsolete">Parameter</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Relationship</source>
         <translation type="obsolete">Beziehung</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Relationship To</source>
         <translation type="obsolete">Beziehung zu</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Add</source>
         <translation type="obsolete">&amp;Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Copy</source>
         <translation type="obsolete">&amp;Kopieren</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+D</source>
         <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>C&amp;lear</source>
         <translation type="obsolete">&amp;Entfernen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+L</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
@@ -16836,7 +16812,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="257"/>
         <source>Could not create a temporary file to run the application!</source>
-        <translation>Konnte keine temporäre Datei erstellen, um das Programm aufzurufen!</translation>
+        <translation>Konnte keine temporäre Datei erstellen, um den externen Editor aufzurufen!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="327"/>
@@ -17049,7 +17025,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
 <context>
     <name>PageSelector</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>%1 of %1</source>
         <translation type="obsolete">%1 von %1</translation>
     </message>
@@ -17103,8 +17079,8 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="150"/>
         <source>The cutting line must cross the polygon and
 both end points must lie outside of the polygon</source>
-        <translation>Die Schnittlinie muss das gesamte Polygon durchqueren und
-beide Endpunkte müssen ausserhalb des Polygons liegen</translation>
+        <translation>Die Schnittlinie muß das gesamte Polygon durchqueren und
+beide Endpunkte müssen außerhalb des Polygons liegen</translation>
     </message>
 </context>
 <context>
@@ -17221,7 +17197,7 @@ beide Endpunkte müssen ausserhalb des Polygons liegen</translation>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="93"/>
         <source>Create Path from Stroke</source>
-        <translation>Pfad aus Umriss erzeugen</translation>
+        <translation>Pfad aus Umriß erzeugen</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="72"/>
@@ -17231,7 +17207,7 @@ beide Endpunkte müssen ausserhalb des Polygons liegen</translation>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="94"/>
         <source>Converts the stroke of a Path to a filled Path.</source>
-        <translation>Wandelt den Umriss eines Pfades in einen gefüllten Pfad um.</translation>
+        <translation>Wandelt den Umriß eines Pfades in einen gefüllten Pfad um.</translation>
     </message>
 </context>
 <context>
@@ -17259,7 +17235,7 @@ beide Endpunkte müssen ausserhalb des Polygons liegen</translation>
     <message>
         <location filename="../patterndialog.ui" line="14"/>
         <source>Patterns</source>
-        <translation>Füllmuster</translation>
+        <translation>Muster</translation>
     </message>
     <message>
         <location filename="../patterndialog.ui" line="50"/>
@@ -17297,7 +17273,7 @@ beide Endpunkte müssen ausserhalb des Polygons liegen</translation>
     <message>
         <location filename="../picsearch.cpp" line="108"/>
         <source>Size:</source>
-        <translation>Grösse:</translation>
+        <translation>Größe:</translation>
     </message>
     <message>
         <location filename="../picsearch.cpp" line="109"/>
@@ -17378,32 +17354,32 @@ beide Endpunkte müssen ausserhalb des Polygons liegen</translation>
 <context>
     <name>PicSearchBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Result</source>
         <translation type="obsolete">Ergebnis</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Search Results for: </source>
         <translation type="obsolete">Suchergebnis für: </translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Preview</source>
         <translation type="obsolete">Vor&amp;schau</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+P</source>
         <translation type="obsolete">Alt+P</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Select</source>
         <translation type="obsolete">&amp;Auswählen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+S</source>
         <translation type="obsolete">Alt+S</translation>
     </message>
@@ -17413,7 +17389,7 @@ beide Endpunkte müssen ausserhalb des Polygons liegen</translation>
     <message>
         <location filename="../picsearchoptions.cpp" line="51"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation>Das Dateisystem wird ohne Berücksichtigung von Gross- und Kleinbuchstaben durchsucht, wenn Sie diese Option wählen. Beachten Sie, dass dies bei den meisten Betriebssystemen ausser Windows unüblich ist</translation>
+        <translation>Das Dateisystem wird ohne Berücksichtigung von Groß- und Kleinbuchstaben durchsucht, wenn Sie diese Option wählen. Beachten Sie, daß dies bei den meisten Betriebssystemen außer Windows unüblich ist</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.cpp" line="58"/>
@@ -17468,7 +17444,7 @@ beide Endpunkte müssen ausserhalb des Polygons liegen</translation>
     <message>
         <location filename="../picsearchoptions.ui" line="141"/>
         <source>Case insensitive search</source>
-        <translation>Gross-/Kleinschreibung nicht beachten</translation>
+        <translation>Groß-/Kleinschreibung nicht beachten</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.ui" line="148"/>
@@ -17486,47 +17462,47 @@ Bitte wählen Sie ein anderes aus.</translation>
 <context>
     <name>PicSearchOptionsBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Search Images</source>
         <translation type="obsolete">Bilder suchen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Start at:</source>
         <translation type="obsolete">Beginnen in:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Change...</source>
         <translation type="obsolete">Ändern...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Search for:</source>
         <translation type="obsolete">Suchen nach:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Case insensitive search</source>
-        <translation type="obsolete">Gross-/Kleinschreibung nicht beachten</translation>
+        <translation type="obsolete">Groß-/Kleinschreibung nicht beachten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Search recursivly</source>
         <translation type="obsolete">Rekursive Suche</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Searching</source>
         <translation type="obsolete">Suche</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Start Search</source>
         <translation type="obsolete">Suche starten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Search recursively</source>
         <translation type="obsolete">Rekursive Suche</translation>
     </message>
@@ -17539,47 +17515,47 @@ Bitte wählen Sie ein anderes aus.</translation>
         <translation type="obsolete">Gehe zu</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>OK</source>
         <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Missing</source>
         <translation type="obsolete">Nicht vorhanden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Search</source>
         <translation type="obsolete">Suchen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Name</source>
         <translation type="obsolete">Name</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Path</source>
         <translation type="obsolete">Pfad</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Page</source>
         <translation type="obsolete">Seite</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Print</source>
         <translation type="obsolete">Drucken</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Status</source>
         <translation type="obsolete">Status</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Cancel Search</source>
         <translation type="obsolete">Suche abbrechen</translation>
     </message>
@@ -17594,7 +17570,7 @@ Bitte wählen Sie ein anderes aus.</translation>
         <translation>Scribus-Bildersuche</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>The search failed: %1</source>
         <translation type="obsolete">Die Suche war nicht erfolgreich: %1</translation>
     </message>
@@ -17604,47 +17580,47 @@ Bitte wählen Sie ein anderes aus.</translation>
         <translation>Keine Bilder mit dem Namen &quot;%1&quot; gefunden .</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Select a base directory for search</source>
         <translation type="obsolete">Startverzeichnis für Suche auswählen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Search Directory</source>
         <translation type="obsolete">Verzeichnis</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="719"/>
         <source>Close</source>
-        <translation>Schliessen</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Set a new location for the selected items. Useful when you may have moved the document but not the images.</source>
-        <translation type="obsolete">Wählen Sie ein neues Verzeichnis für die gewählten Bilddateien. Nützlich, wenn Sie das Dokument, aber nicht die Bilder verschoben haben.</translation>
+        <translation type="obsolete">Wählen Sie ein neues Verzeichnis für die gewählten Bildddateien. Nützlich, wenn Sie das Dokument, aber nicht die Bilder verschoben haben.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Select a base directory for your selected rows</source>
         <translation type="obsolete">Wählen Sie ein Basisverzeichnis für die ausgewählten Dateien</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Case insensitive search</source>
-        <translation type="obsolete">Gross-/Kleinschreibung nicht beachten</translation>
+        <translation type="obsolete">Groß-/Kleinschreibung nicht beachten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation type="obsolete">Das Dateisystem wird ohne Berücksichtigung von Gross- und Kleinbuchstaben durchsucht, wenn Sie diese Option wählen. Beachten Sie, dass dies bei den meisten Betriebssystemen ausser Windows unüblich ist</translation>
+        <translation type="obsolete">Das Dateisystem wird ohne Berücksichtigung von Groß- und Kleinbuchstaben durchsucht, wenn Sie diese Option wählen. Beachten Sie, dass dies bei den meisten Betriebssystemen außer Windows unüblich ist</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Show thumbnails</source>
         <translation type="obsolete">Vorschaubilder anzeigen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Show/hide image thumbnails</source>
         <translation type="obsolete">Vorschaubilder anzeigen/verbergen</translation>
     </message>
@@ -17671,7 +17647,7 @@ Bitte wählen Sie ein anderes aus.</translation>
     <message>
         <location filename="../picstatus.cpp" line="267"/>
         <source>EPS/PS</source>
-        <translation>EPS(PS</translation>
+        <translation>EPS/PS</translation>
     </message>
     <message>
         <location filename="../picstatus.cpp" line="270"/>
@@ -17761,7 +17737,7 @@ Bitte wählen Sie ein anderes aus.</translation>
     <message>
         <location filename="../picstatus.ui" line="362"/>
         <source>Size</source>
-        <translation>Grösse</translation>
+        <translation>Größe</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="454"/>
@@ -17791,7 +17767,7 @@ Bitte wählen Sie ein anderes aus.</translation>
     <message>
         <location filename="../picstatus.ui" line="562"/>
         <source>eff. DPI:</source>
-        <translation>eff. dpi:</translation>
+        <translation>eff. DPI:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="552"/>
@@ -17862,134 +17838,134 @@ Bitte wählen Sie ein anderes aus.</translation>
 <context>
     <name>PicStatusBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Manage Pictures</source>
         <translation type="obsolete">Bilder verwalten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Information</source>
         <translation type="obsolete">Information</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Path:</source>
         <translation type="obsolete">Pfad:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Search...</source>
         <translation type="obsolete">Suche ...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Name:</source>
         <translation type="obsolete">Name:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Image</source>
         <translation type="obsolete">Bild</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>DPI:</source>
         <translation type="obsolete">dpi:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Format:</source>
         <translation type="obsolete">Format:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Colorspace:</source>
         <translation type="obsolete">Farbraum:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Size</source>
-        <translation type="obsolete">Grösse</translation>
+        <translation type="obsolete">Größe</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Pixels:</source>
         <translation type="obsolete">Pixel:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Scale:</source>
         <translation type="obsolete">Skalierung:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Printed:</source>
         <translation type="obsolete">Gedruckt:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Layout</source>
         <translation type="obsolete">Layout</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>On Page:</source>
         <translation type="obsolete">Auf Seite:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Goto</source>
         <translation type="obsolete">Gehe zu</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>eff. DPI:</source>
-        <translation type="obsolete">eff. dpi:</translation>
+        <translation type="obsolete">eff. DPI:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Object:</source>
         <translation type="obsolete">Objekt:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Select</source>
         <translation type="obsolete">Auswählen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Image Tools</source>
         <translation type="obsolete">Bildwerkzeuge</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Layers &amp;&amp; Paths...</source>
         <translation type="obsolete">Ebenen &amp;&amp; Pfade ...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Image Visible</source>
         <translation type="obsolete">Bild sichtbar</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Image Effects...</source>
         <translation type="obsolete">Bildeffekte ...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Edit Image...</source>
         <translation type="obsolete">Bild bearbeiten ...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Print Image</source>
         <translation type="obsolete">Bild drucken</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Close</source>
-        <translation type="obsolete">Schliessen</translation>
+        <translation type="obsolete">Schließen</translation>
     </message>
 </context>
 <context>
@@ -18090,7 +18066,7 @@ Bitte wählen Sie ein anderes aus.</translation>
     <message>
         <location filename="../pluginmanager.cpp" line="227"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
-        <translation>Es ist ein Problem beim Laden von %1 von %2 Plugins aufgetreten. %3 Wahrscheinlich liegt ein Abhängigkeitsproblem vor, oder es existieren noch ältere Plugins in Ihrem Installationsverzeichnis. Wenn Sie das Installationsverzeichnis löschen, Scribus anschliessend neu installieren und das Problem dann immer noch auftritt, melden Sie den Fehler bitte auf bugs.scribus.net.</translation>
+        <translation>Es ist ein Problem beim Laden von %1 von %2 Plugins aufgetreten. %3 Wahrscheinlich liegt ein Abhängigkeitsproblem vor, oder es existieren noch ältere Plugins in Ihrem Installationsverzeichnis. Wenn Sie das Installationsverzeichnis löschen, Scribus anschließend neu installieren und das Problem dann immer noch auftritt, melden Sie den Fehler bitte auf bugs.scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -18322,7 +18298,7 @@ Indizes</translation>
     <message>
         <location filename="../prefsdialogbase.cpp" line="191"/>
         <source>Export...</source>
-        <translation>Exportieren...</translation>
+        <translation>Export...</translation>
     </message>
     <message>
         <location filename="../prefsdialogbase.cpp" line="193"/>
@@ -18337,7 +18313,7 @@ Indizes</translation>
     <message>
         <location filename="../prefsdialogbase.cpp" line="195"/>
         <source>Apply all changes without closing the dialog</source>
-        <translation>Alle Änderungen anwenden, ohne den Dialog zu schliessen</translation>
+        <translation>Alle Änderungen anwenden, ohne den Dialog zu schließen</translation>
     </message>
     <message>
         <location filename="../prefsdialogbase.cpp" line="196"/>
@@ -18467,7 +18443,7 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <message>
         <location filename="../marginwidget.cpp" line="490"/>
         <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation>Wählen Sie festgelegte Seitenlayouts. &quot;Keine&quot; verändert keine Einstellungen, &quot;Gutenberg&quot; setzt klassische Ränder, &quot;Magazine&quot; stellt alle Ränder auf den gleichen Wert. Massgeblich ist der Wert für Links/Innen.</translation>
+        <translation>Wählen Sie festgelegte Seitenlayouts. &quot;Keine&quot; verändert keine Einstellungen, &quot;Gutenberg&quot; setzt klassische Ränder, &quot;Magazine&quot; stellt alle Ränder auf den gleichen Wert. Maßgeblich ist der Wert für Links/Innen.</translation>
     </message>
 </context>
 <context>
@@ -18639,7 +18615,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../printdialog.cpp" line="208"/>
         <source>Set Media Size</source>
-        <translation>Mediengrösse festlegen</translation>
+        <translation>Mediengröße festlegen</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="214"/>
@@ -18654,7 +18630,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <location filename="../printdialog.cpp" line="223"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Schmuckfarben in Prozessfarben umwandeln</translation>
+        <translation>Schmuckfarben in Prozeßfarben umwandeln</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/printdialog.cpp" line="263"/>
@@ -18676,7 +18652,7 @@ Seiten importiert werden sollen, zum Beispiel
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
         <translation>Legt die Postscript-Version fest. 
-Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translation>
+Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="629"/>
@@ -18691,12 +18667,12 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../printdialog.cpp" line="381"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Verwendet echtes Schwarz anstelle von Farbmischungen aus Magenta, Gelb und Cyan. UFR hat den grössten Effekt auf Bilder, die neutrale oder dunkle Farbtöne haben, die Grau ähneln. Diese Option kann die Druckqualität verbessern. Testen Sie bitte von Fall zu Fall, wie Sie bessere Ergebnisse erhalten. UFR verringert ausserdem die Gefahr einer Übersättigung der CMYK-Farben.</translation>
+        <translation>Verwendet echtes Schwarz anstelle von Farbmischungen aus Magenta, Gelb und Cyan. UFR hat den größten Effekt auf Bilder, die neutrale oder dunkle Farbtöne haben, die Grau ähneln. Diese Option kann die Druckqualität verbessern. Testen Sie bitte von Fall zu Fall, wie Sie bessere Ergebnisse erhalten. UFR verringert außerdem die Gefahr einer Übersättigung der CMYK-Farben.</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="382"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Konvertiert Schmuckfarben in Prozessfarben. Sie sollten diese Option nur deaktivieren, wenn Sie Schmuckfarben wirklich benötigen.</translation>
+        <translation>Konvertiert Schmuckfarben in Prozeßfarben. Sie sollten diese Option nur deaktivieren, wenn Sie Schmuckfarben wirklich benötigen.</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/printdialog.cpp" line="383"/>
@@ -18706,7 +18682,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../printdialog.cpp" line="385"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>Legen Sie die Druckgrösse der Postscript-Datei explizit fest. Nur aktivieren, wenn ihre Druckerei das verlangt.</translation>
+        <translation>Legen Sie die Druckgröße der Postscript-Datei explizit fest. Nur aktivieren, wenn ihre Druckerei das verlangt.</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="210"/>
@@ -18721,7 +18697,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../printdialog.cpp" line="375"/>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation>Objekte ausserhalb des Satzspiegels nicht drucken</translation>
+        <translation>Objekte außerhalb des Satzspiegels nicht drucken</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="226"/>
@@ -18812,7 +18788,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../printdialog.cpp" line="356"/>
         <source>Outside:</source>
-        <translation>Aussen:</translation>
+        <translation>Außen:</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="391"/>
@@ -18835,7 +18811,7 @@ werden ignoriert</translation>
         <translation>Zugabe für Anschnitt rechts</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
         <translation type="obsolete">Hiermit werden Schneidemarken in der ausgegebenen PDF-Datei eingefügt.</translation>
     </message>
@@ -18990,7 +18966,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4488"/>
         <source>Bevel Join</source>
-        <translation>Gefasst</translation>
+        <translation>Gefaßt</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4489"/>
@@ -19020,7 +18996,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4682"/>
         <source>Font Size</source>
-        <translation>Schriftgrösse</translation>
+        <translation>Schriftgröße</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4692"/>
@@ -19125,7 +19101,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4667"/>
         <source>Lock or unlock the size of the object</source>
-        <translation>Grössenänderung sperren oder entsperren</translation>
+        <translation>Größenänderung sperren oder entsperren</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/propertiespalette.cpp" line="4619"/>
@@ -19145,7 +19121,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4688"/>
         <source>Saturation of color of text stroke</source>
-        <translation>Tonwert der Textumrissfarbe</translation>
+        <translation>Tonwert der Textumrißfarbe</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4689"/>
@@ -19153,7 +19129,7 @@ werden ignoriert</translation>
         <translation>Tonwert der Textfarbe</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Style of current paragraph</source>
         <translation type="obsolete">Stilvorlage für aktuellen Absatz</translation>
     </message>
@@ -19240,7 +19216,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4725"/>
         <source>Allow the image to be a different size to the frame</source>
-        <translation>Erlaube verschiedene Grössen für Bild und Rahmen</translation>
+        <translation>Erlaube verschiedene Größen für Bild und Rahmen</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4726"/>
@@ -19445,7 +19421,7 @@ ab&amp;runden:</translation>
         <translation>&amp;Tabulatoren...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>St&amp;yle:</source>
         <translation type="obsolete">S&amp;til:</translation>
     </message>
@@ -19457,12 +19433,12 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4441"/>
         <source>X-Sc&amp;ale:</source>
-        <translation>&amp;X-Grösse:</translation>
+        <translation>&amp;X-Größe:</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4442"/>
         <source>Y-Scal&amp;e:</source>
-        <translation>&amp;Y-Grösse:</translation>
+        <translation>&amp;Y-Größe:</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4443"/>
@@ -19632,7 +19608,7 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4411"/>
         <source>Text &amp;Flow Around Frame</source>
-        <translation>Text &amp;umfliesst Rahmen</translation>
+        <translation>Text &amp;umfließt Rahmen</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4412"/>
@@ -19642,7 +19618,7 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4413"/>
         <source>Use Frame &amp;Shape</source>
-        <translation>Rahmenum&amp;riss benutzen</translation>
+        <translation>Rahmenum&amp;riß benutzen</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4445"/>
@@ -19657,17 +19633,17 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4675"/>
         <source>Disable text flow from lower frames around object</source>
-        <translation>Umfluss von Text in tieferliegenden Rahmen deaktivieren</translation>
+        <translation>Umfluß von Text in tieferliegenden Rahmen deaktivieren</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4676"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation>Rahmenumriss für den Umfluss von Text in tieferliegenden Rahmen verwenden.</translation>
+        <translation>Rahmenumriß für den Umfluß von Text in tieferliegenden Rahmen verwenden.</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4677"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Das umgebende Rechteck (Zeichenbox) anstatt des Rahmenumrisses für den Umfluss tieferliegender Textrahmen verwenden.</translation>
+        <translation>Das umgebende Rechteck (Zeichenbox) anstatt des Rahmenumrisses für den Umfluß tieferliegender Textrahmen verwenden.</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4359"/>
@@ -19737,7 +19713,7 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4372"/>
         <source>Exclusion</source>
-        <translation>Ausschluss</translation>
+        <translation>Ausschluß</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4373"/>
@@ -19777,7 +19753,7 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4678"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
-        <translation>Wenn Sie diese Option wählen, können Sie die Konturlinie mit dem Werkzeug &quot;Form bearbeiten&quot; weiter oben bearbeiten. Es entsteht eine zweite Linie, die ursprünglich auf der Rahmenform für Textumfluss beruht</translation>
+        <translation>Wenn Sie diese Option wählen, können Sie die Konturlinie mit dem Werkzeug &quot;Form bearbeiten&quot; weiter oben bearbeiten. Es entsteht eine zweite Linie, die ursprünglich auf der Rahmenform für Textumfluß beruht</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4693"/>
@@ -20003,7 +19979,7 @@ ab&amp;runden:</translation>
         <translation>Scribus Python-Konsole</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
         <translation type="obsolete">Dies stammt von der normalen Python-Konsole, weshalb es einige Einschränkungen enthält, vor allem im Bereich Leerzeichen. Bitte lesen Sie das Scribus-Handbuch, um weitere Informationen zu erhalten.</translation>
     </message>
@@ -20018,7 +19994,7 @@ ab&amp;runden:</translation>
         <translation>Python Scripts (*.py *.PY)</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Line: %1 Column: %2</source>
         <translation type="obsolete">Zeile: %1 Spalte: %2</translation>
     </message>
@@ -20044,7 +20020,7 @@ so it contains some limitations esp. in the
 case of whitespaces. Please consult Scribus
 manual for more informations.</source>
         <translation type="obsolete">Dies stammt von der Standard-Python-Konsole, 
-so dass Sie mit einigen Einschränkungen rechnen müssen,
+so daß Sie mit einigen Einschränkungen rechnen müssen,
 besonders bei Leerzeichen. Bitte lesen Sie das 
 Scribus-Handbuch, um mehr Informationen zu erhalten.</translation>
     </message>
@@ -20058,7 +20034,7 @@ Scribus-Handbuch, um mehr Informationen zu erhalten.</translation>
         <source>This is a standard Python console with some 
 known limitations. Please consult the Scribus 
 Scripter documentation for futher information. </source>
-        <translation>This is a standard Python console with some
+        <translation>This is a standard Python console with some 
 known limitations. Please consult the Scribus
 Scripter documentation for futher information. </translation>
     </message>
@@ -20187,7 +20163,7 @@ Eigene Farben &amp;definieren &gt;&gt;</translation>
     <message>
         <location filename="../translationdummy.cpp" line="23"/>
         <source>Size</source>
-        <translation>Grösse</translation>
+        <translation>Größe</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="24"/>
@@ -20337,7 +20313,7 @@ Eigene Farben &amp;definieren &gt;&gt;</translation>
     <message>
         <location filename="../translationdummy.cpp" line="53"/>
         <source>Sort by &amp;Size</source>
-        <translation>Nach &amp;Grösse sortieren</translation>
+        <translation>Nach &amp;Größe sortieren</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="54"/>
@@ -20382,7 +20358,7 @@ Eigene Farben &amp;definieren &gt;&gt;</translation>
     <message>
         <location filename="../translationdummy.cpp" line="62"/>
         <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Sind Sie sicher, dass Sie %1 &quot;%2&quot; löschen möchten?&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Sind Sie sicher, daß Sie %1 &quot;%2&quot; löschen möchten?&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="65"/>
@@ -20459,7 +20435,7 @@ Datei wurde nicht gefunden.
     <message>
         <location filename="../translationdummy.cpp" line="149"/>
         <source>&amp;Size</source>
-        <translation>&amp;Grösse</translation>
+        <translation>&amp;Größe</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="150"/>
@@ -20509,7 +20485,7 @@ Datei wurde nicht gefunden.
     <message>
         <location filename="../translationdummy.cpp" line="159"/>
         <source>Close</source>
-        <translation>Schliessen</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="160"/>
@@ -20573,7 +20549,7 @@ Datei wurde nicht gefunden.
     <message>
         <location filename="../translationdummy.cpp" line="9"/>
         <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Über Qt&lt;/h3&gt;&lt;p&gt;Dieses Programm verwendet Qt Version %1&lt;/p&gt;&lt;p&gt;Qt ist ein platformübergreifendes Framework zum Erstellen von GUI-Programmen in C++.&lt;/p&gt;&lt;p&gt;Qt bietet Portierungsmöglichkeiten mit nur einer Quellcode-Basis auf MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux und allen anderen grossen kommerziellen Unix-Versionen.&lt;br&gt;Qt ist auch für eingebettete Systeme erhältlich.&lt;/p&gt;&lt;p&gt;Qt ist ein Produkt von Trolltech. Weitere Informationen finden Sie unter &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Über Qt&lt;/h3&gt;&lt;p&gt;Dieses Programm verwendet Qt Version %1&lt;/p&gt;&lt;p&gt;Qt ist ein platformübergreifendes Framework zum Erstellen von GUI-Programmen in C++.&lt;/p&gt;&lt;p&gt;Qt bietet Portierungsmöglichkeiten mit nur einer Quellcode-Basis auf MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux und allen anderen großen kommerziellen Unix-Versionen.&lt;br&gt;Qt ist auch für eingebettete Systeme erhältlich.&lt;/p&gt;&lt;p&gt;Qt ist ein Produkt von Trolltech. Weitere Informationen finden Sie unter &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -20612,7 +20588,7 @@ wirklich überschreiben?</translation>
         <translation type="obsolete">SVG-Bilder (*.svg *.svgz);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>SVG-Images (*.svg);;All Files (*)</source>
         <translation type="obsolete">SVG-Bilder (*.svg);;Alle Dateien (*)</translation>
     </message>
@@ -21013,7 +20989,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmddoc.cpp" line="219"/>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
-        <translation>Einheit ausserhalb des Bereichs. Benutzen Sie eine der UNIT_*-Konstanten.</translation>
+        <translation>Einheit außerhalb des Bereichs. Benutzen Sie eine der UNIT_*-Konstanten.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmani.cpp" line="27"/>
@@ -21025,13 +21001,13 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdsetprop.cpp" line="334"/>
         <source>Corner radius must be a positive number.</source>
         <comment>python error</comment>
-        <translation>Eckenradius muss positiv sein.</translation>
+        <translation>Eckenradius muß positiv sein.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="28"/>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kann die Schriftgrösse nur von Textrahmen bestimmen.</translation>
+        <translation>Kann die Schriftgröße nur von Textrahmen bestimmen.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="54"/>
@@ -21043,7 +21019,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="80"/>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kann die Grösse des Textes nur von Textrahmen bestimmen.</translation>
+        <translation>Kann die Größe des Textes nur von Textrahmen bestimmen.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="116"/>
@@ -21091,7 +21067,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="504"/>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
-        <translation>Auswahlindex ausserhalb des gültigen Bereichs</translation>
+        <translation>Auswahlindex außerhalb des gültigen Bereichs</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="747"/>
@@ -21100,7 +21076,7 @@ Externe Links</translation>
         <translation>Objekt ist kein verketteter Textrahmen, also kann die Verkettung nicht gelöst werden.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
         <translation type="obsolete">Kann den letzten Rahmen einer Kette nicht abtrennen. Lösen Sie erst die Verkettung der anderen Rahmen.</translation>
@@ -21164,7 +21140,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/objimageexport.cpp" line="75"/>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation>Der Dateiname muss eine Zeichenfolge sein.</translation>
+        <translation>Der Dateiname muß eine Zeichenfolge sein.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/objimageexport.cpp" line="98"/>
@@ -21176,7 +21152,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/objimageexport.cpp" line="102"/>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation>Der Bildtyp muss eine Zeichenfolge sein.</translation>
+        <translation>Der Bildtyp muß eine Zeichenfolge sein.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/objimageexport.cpp" line="127"/>
@@ -21260,25 +21236,25 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="276"/>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
-        <translation>Index ist ausserhalb des gültigen Bereichs.</translation>
+        <translation>Index ist außerhalb des gültigen Bereichs.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="313"/>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Die Textrichtung lässt sich nur für Textrahmen festlegen.</translation>
+        <translation>Die Textrichtung läßt sich nur für Textrahmen festlegen.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="339"/>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
-        <translation>Schriftgrösse ausserhalb des Bereichs - gültig sind Werte zwischen 1 und 512.</translation>
+        <translation>Schriftgröße außerhalb des Bereichs - gültig sind Werte zwischen 1 und 512.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="348"/>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Schriftgrösse kann nur für Textrahmen geändert werden.</translation>
+        <translation>Schriftgröße kann nur für Textrahmen geändert werden.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="377"/>
@@ -21290,7 +21266,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="411"/>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation>Zeilenabstand ist muss grösser oder gleich 0,1 sein.</translation>
+        <translation>Zeilenabstand ist muß größer oder gleich 0,1 sein.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="419"/>
@@ -21314,7 +21290,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="465"/>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
-        <translation>Spaltenanzahl muss grösser gleich 1 sein.</translation>
+        <translation>Spaltenanzahl muß größer gleich 1 sein.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="473"/>
@@ -21359,7 +21335,7 @@ Externe Links</translation>
         <translation>Nur Textrahmen können verkettet werden.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
         <translation type="obsolete">Der Zielrahmen muss leer sein.</translation>
@@ -21716,7 +21692,7 @@ Externe Links</translation>
         <translation>Datei existiert bereits</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Replace</source>
         <translation type="obsolete">&amp;Ersetzen</translation>
     </message>
@@ -21745,7 +21721,7 @@ Externe Links</translation>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="39"/>
         <source>Argument must be page item name, or PyCObject instance</source>
-        <translation>Das Argument muss entweder ein Seiteneintrag oder eine Instanz von PyCObject sein</translation>
+        <translation>Das Argument muß entweder ein Seiteneintrag oder eine Instanz von PyCObject sein</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="90"/>
@@ -21865,7 +21841,7 @@ Externe Links</translation>
         <location filename="../plugins/scriptplugin/cmdpage.cpp" line="149"/>
         <source>Page number out of range.</source>
         <comment>python error</comment>
-        <translation>Seitenzahl ist ausserhalb des gültigen Bereichs.</translation>
+        <translation>Seitenzahl ist außerhalb des gültigen Bereichs.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.cpp" line="292"/>
@@ -22141,7 +22117,7 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../plugins/scriptplugin/cmddoc.cpp" line="45"/>
         <source>firstPageOrder is bigger than allowed.</source>
         <comment>python error</comment>
-        <translation>firstPageOrder ist grösser als erlaubt.</translation>
+        <translation>firstPageOrder ist größer als erlaubt.</translation>
     </message>
     <message>
         <location filename="../plugins/fileloader/oldscribusformat/oldscribusformat.cpp" line="40"/>
@@ -22266,7 +22242,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../styles/charstyle.cpp" line="162"/>
         <source>size %1 </source>
-        <translation>Grösse %1</translation>
+        <translation>Größe %1</translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="164"/>
@@ -22500,7 +22476,7 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../plugins/gettext/pdbim/pdbim.cpp" line="99"/>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
-        <translation>Dies scheint kein PDB-Dokument zu sein. Bitte melden Sie den Fehler, wenn Sie sicher sind, dass es doch eines ist.</translation>
+        <translation>Dies scheint kein PDB-Dokument zu sein. Bitte melden Sie den Fehler, wenn Sie sicher sind, daß es doch eines ist.</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="579"/>
@@ -22521,7 +22497,7 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="98"/>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Die Anzahl der Zeilen lässt sich nur in Textrahmen ermitteln.</translation>
+        <translation>Die Anzahl der Zeilen läßt sich nur in Textrahmen ermitteln.</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="49"/>
@@ -22570,7 +22546,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
         <translation>Hebräisch</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
         <translation type="obsolete">Unterstützung für Scribus 1.3.0-&gt;1.3.3.7</translation>
     </message>
@@ -22660,6 +22636,11 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
         <translation>Scribus 1.3.0-&gt;1.3.3 Support </translation>
     </message>
     <message>
+        <location filename="../../scribus135/trunk/Scribus/scribus/units.cpp" line="143"/>
+        <source> %</source>
+        <translation type="obsolete"> %</translation>
+    </message>
+    <message>
         <location filename="../units.cpp" line="163"/>
         <source>%</source>
         <translation>%</translation>
@@ -22713,7 +22694,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="61"/>
         <source>Imposition</source>
-        <translation>Ausschiessen</translation>
+        <translation>Ausschießen</translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="70"/>
@@ -22866,7 +22847,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="92"/>
         <source>PathFinder</source>
-        <translation>PathFinder#</translation>
+        <translation>PathFinder</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="85"/>
@@ -22984,7 +22965,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../translationdummy.cpp" line="110"/>
         <source>Close</source>
-        <translation>Schliessen</translation>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -23002,7 +22983,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../translationdummy.cpp" line="116"/>
         <source>&amp;Size</source>
-        <translation>&amp;Grösse ändern</translation>
+        <translation>&amp;Größe ändern</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="117"/>
@@ -23017,7 +22998,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../translationdummy.cpp" line="119"/>
         <source>&amp;Close</source>
-        <translation>Sch&amp;liessen</translation>
+        <translation>Sch&amp;ließen</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="120"/>
@@ -23037,7 +23018,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../translationdummy.cpp" line="123"/>
         <source>Close</source>
-        <translation>Schliessen</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <location filename="../translationdummy.cpp" line="124"/>
@@ -23179,7 +23160,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
 <context>
     <name>SMBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Style Manager</source>
         <translation type="obsolete">Stilverwaltung</translation>
     </message>
@@ -23262,7 +23243,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
 <context>
     <name>SMCStylePage</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source> pt</source>
         <translation type="obsolete">Pt</translation>
     </message>
@@ -23272,7 +23253,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
         <translation type="obsolete"> %</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Parent</source>
         <translation type="obsolete">Verknüpfung</translation>
     </message>
@@ -23289,7 +23270,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/smtextstylewidgets.cpp" line="220"/>
         <source>Font size</source>
-        <translation type="obsolete">Schriftgrösse</translation>
+        <translation type="obsolete">Schriftgröße</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/smtextstylewidgets.cpp" line="221"/>
@@ -23367,7 +23348,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../smcstylewidget.cpp" line="82"/>
         <source>Font size</source>
-        <translation>Schriftgrösse</translation>
+        <translation>Schriftgröße</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="83"/>
@@ -23407,7 +23388,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../smcstylewidget.cpp" line="90"/>
         <source>Stroke color</source>
-        <translation>Umrissfarbe</translation>
+        <translation>Umrißfarbe</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="91"/>
@@ -23437,7 +23418,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../smcstylewidget.ui" line="271"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.ui" line="198"/>
@@ -23599,7 +23580,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../smlinestylewidget.cpp" line="41"/>
         <source>Bevel Join</source>
-        <translation>Gefasst</translation>
+        <translation>Gefaßt</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="42"/>
@@ -23680,12 +23661,12 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
         <translation>Am Grundlinienraster ausrichten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source> pt</source>
         <translation type="obsolete">Pt</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Parent</source>
         <translation type="obsolete">Verknüpfter Stil</translation>
     </message>
@@ -23725,47 +23706,47 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
         <translation>Abstand vom Text:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Based on</source>
         <translation type="obsolete">Basiert auf</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Parent style</source>
         <translation type="obsolete">Übergeordneter Stil</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Line spacing mode</source>
         <translation type="obsolete">Art des Zeilenabstandes</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Line spacing</source>
         <translation type="obsolete">Zeilenabstand</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Space above</source>
         <translation type="obsolete">Abstand darüber</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Space below</source>
         <translation type="obsolete">Abstand darunter</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Enable or disable drop cap</source>
         <translation type="obsolete">Initialen aktivieren oder deaktivieren</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Drop cap lines</source>
         <translation type="obsolete">Zeilen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Drop cap offset</source>
         <translation type="obsolete">Versatz</translation>
     </message>
@@ -23775,22 +23756,22 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
         <translation>Ausrichtung</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>First line indent</source>
         <translation type="obsolete">Einzug der ersten Zeile</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Left indent</source>
         <translation type="obsolete">Linker Einzug</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Right indent</source>
         <translation type="obsolete">Rechter Einzug</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Tabulators</source>
         <translation type="obsolete">Tabulatoren</translation>
     </message>
@@ -23930,22 +23911,22 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
 <context>
     <name>SMReplaceDiaBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Delete Styles</source>
         <translation type="obsolete">Stil löschen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Ca&amp;ncel</source>
         <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+N</source>
         <translation type="obsolete">Alt+B</translation>
     </message>
@@ -23963,7 +23944,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../smsccombobox.cpp" line="82"/>
         <source>Use Parent Value</source>
-        <translation>Verknüpften Wert verwenden</translation>
+        <translation>Den verknüpften Wert verwenden</translation>
     </message>
 </context>
 <context>
@@ -23971,7 +23952,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../smshadebutton.cpp" line="74"/>
         <source>Use Parent Value</source>
-        <translation>Verknüpften Wert verwenden</translation>
+        <translation>Den verknüpften Wert verwenden</translation>
     </message>
 </context>
 <context>
@@ -24075,17 +24056,17 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../story.cpp" line="1075"/>
         <source>Color of text stroke</source>
-        <translation>Textumrissfarbe</translation>
+        <translation>Textumrißfarbe</translation>
     </message>
     <message>
         <location filename="../story.cpp" line="1076"/>
         <source>Saturation of color of text stroke</source>
-        <translation>Tonwert der Textumrissfarbe</translation>
+        <translation>Tonwert der Textumrißfarbe</translation>
     </message>
     <message>
         <location filename="../story.cpp" line="1040"/>
         <source>Stroke Color Settings</source>
-        <translation>Umrissfarbe verändern</translation>
+        <translation>Umrißfarbe verändern</translation>
     </message>
 </context>
 <context>
@@ -24108,7 +24089,7 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <location filename="../story.cpp" line="1340"/>
         <source>Font Size</source>
-        <translation>Schriftgrösse</translation>
+        <translation>Schriftgröße</translation>
     </message>
     <message>
         <location filename="../story.cpp" line="1341"/>
@@ -24649,7 +24630,7 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
         <translation>Beim Öffnen von ICC-Profilen ist ein Fehler aufgetreten. Das Farbmanagement ist nicht aktiviert.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3</source>
@@ -24687,10 +24668,10 @@ Vertikaler Abstand: %3</translation>
 Horizontal shift: %2
 Vertical shift: %3
 Rotation: %4</source>
-        <translation>Anzahl Kopien: %!
+        <translation>Anzahl Kopien: %1
 Horizontaler Versatz: %2
-Vertikaler Versatz: %3
-Drehung %$</translation>
+Vertikaler Versatz %3
+Drehung: %4</translation>
     </message>
     <message>
         <location filename="../scribusdoc.cpp" line="5790"/>
@@ -24788,7 +24769,7 @@ Drehung %$</translation>
     <message>
         <location filename="../scribus.cpp" line="9306"/>
         <source>&amp;Size</source>
-        <translation type="obsolete">&amp;Grösse</translation>
+        <translation type="obsolete">&amp;Größe</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="9307"/>
@@ -24972,12 +24953,12 @@ Drehung %$</translation>
         <translation>Scribus hat einige Fehler festgestellt. Sie sollten die Druckvorstufenüberprüfung verwenden, um sie zu korrigieren</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Ignore</source>
         <translation type="obsolete">&amp;Ignorieren</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Abort</source>
         <translation type="obsolete">A&amp;bbruch</translation>
     </message>
@@ -25039,12 +25020,12 @@ Drehung %$</translation>
     <message>
         <location filename="../scribus.cpp" line="6986"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Grösse:</translation>
+        <translation>&amp;Größe:</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="6986"/>
         <source>Size</source>
-        <translation>Grösse</translation>
+        <translation>Größe</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="7016"/>
@@ -25238,7 +25219,7 @@ diese zu finden und zu korrigieren</translation>
         <translation>Dokumente (*.sla *.sla.gz);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Documents (*.sla);;All Files (*)</source>
         <translation type="obsolete">Dokumente (*.sla);;Alle Dateien (*)</translation>
     </message>
@@ -25298,6 +25279,11 @@ diese zu finden und zu korrigieren</translation>
         <location filename="../scribus.cpp" line="1883"/>
         <source>Select &amp;All</source>
         <translation type="obsolete">Alles aus&amp;wählen</translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="1254"/>
+        <source>Select All in Document</source>
+        <translation type="obsolete">Alles im Dokument auswählen</translation>
     </message>
 </context>
 <context>
@@ -25375,7 +25361,7 @@ diese zu finden und zu korrigieren</translation>
     <message>
         <location filename="../scribusapp.cpp" line="444"/>
         <source>To override the default language choice:</source>
-        <translation>Um die Standardsprache ausser Kraft zu setzen:</translation>
+        <translation>Um die Standardsprache außer Kraft zu setzen:</translation>
     </message>
     <message>
         <location filename="../scribusapp.cpp" line="445"/>
@@ -25571,7 +25557,7 @@ diese zu finden und zu korrigieren</translation>
         <translation>Textrahmen verketten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
         <translation type="obsolete">Sie versuchen einen Rahmen mit sich selbst zu verketten.</translation>
     </message>
@@ -25666,7 +25652,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../canvasmode_legacy.cpp" line="2861"/>
         <source>Enter Object Size</source>
-        <translation>Objektgrösse eingeben</translation>
+        <translation>Objektgröße eingeben</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="390"/>
@@ -25702,7 +25688,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation>wurde seit dem letzten Speichern verändert.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Discard</source>
         <translation type="obsolete">&amp;Verwerfen</translation>
     </message>
@@ -25801,43 +25787,43 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation>Autostart-Script:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Errors:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Fehler:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Comments:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Kommentare:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Keywords:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Stichwörter:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Signs:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Zeichen:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Numbers:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Zahlen:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Strings:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Strings:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Base Texts:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Base Texts:</translation>
@@ -25936,7 +25922,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../search.cpp" line="162"/>
         <source>Font Size</source>
-        <translation>Schriftgrösse</translation>
+        <translation>Schriftgröße</translation>
     </message>
     <message>
         <location filename="../search.cpp" line="165"/>
@@ -25964,7 +25950,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation>Tonwert</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
@@ -26011,7 +25997,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../search.cpp" line="241"/>
         <source>&amp;Ignore Case</source>
-        <translation>Gross-/&amp;Kleinschreibung ignorieren</translation>
+        <translation>Groß-/&amp;Kleinschreibung ignorieren</translation>
     </message>
     <message>
         <location filename="../search.cpp" line="250"/>
@@ -26031,7 +26017,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../search.cpp" line="261"/>
         <source>&amp;Close</source>
-        <translation>Sch&amp;liessen</translation>
+        <translation>Sch&amp;ließen</translation>
     </message>
     <message>
         <location filename="../search.cpp" line="259"/>
@@ -26226,7 +26212,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
 <context>
     <name>Spalette</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>No Style</source>
         <translation type="obsolete">Kein Stil</translation>
     </message>
@@ -26259,7 +26245,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation type="obsolete">Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation type="obsolete">Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
     </message>
@@ -26555,10 +26541,10 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../stylemanager.ui" line="456"/>
         <source>&lt;&lt; &amp;Done</source>
-        <translation>&lt;&lt; &amp;Fertig</translation>
+        <translation>&lt;&lt;&amp;Fertig</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Edit &gt;&gt;</source>
         <translation type="obsolete">&amp;Bearbeiten &gt;&gt;</translation>
     </message>
@@ -26655,7 +26641,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../stylemanager.ui" line="78"/>
         <source>Shortcut</source>
-        <translation>Tastaturkürzel</translation>
+        <translation>Kürzel</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="73"/>
@@ -26768,7 +26754,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../styleselect.cpp" line="271"/>
         <source>All Caps</source>
-        <translation>Grossbuchstaben</translation>
+        <translation>Großbuchstaben</translation>
     </message>
     <message>
         <location filename="../styleselect.cpp" line="269"/>
@@ -26789,7 +26775,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <location filename="../styleselect.cpp" line="276"/>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
-        <translation>Umriss. Halten Sie die Maustaste gedrückt, um die Linienbreite selbst zu bestimmen.</translation>
+        <translation>Umriß. Halten Sie die Maustaste gedrückt, um die Linienbreite selbst zu bestimmen.</translation>
     </message>
     <message>
         <location filename="../styleselect.cpp" line="277"/>
@@ -26938,7 +26924,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/tocindexprefs.ui" line="107"/>
         <source>Page Numbers Placed:</source>
-        <translation type="obsolete">Plazierung der Seitenzahlen:</translation>
+        <translation type="obsolete">Platzierung der Seitenzahlen:</translation>
     </message>
     <message>
         <location filename="../tocindexprefs.ui" line="174"/>
@@ -27004,82 +26990,82 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
 <context>
     <name>TOCIndexPrefsBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Table of Contents and Indexes</source>
         <translation type="obsolete">Inhaltsverzeichnisse und Indices</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Table Of Contents</source>
         <translation type="obsolete">Inhaltsverzeichnis</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Add</source>
         <translation type="obsolete">&amp;Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+H</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+D</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>The frame the table of contents will be placed into</source>
         <translation type="obsolete">Der Rahmen, in den das Inhaltsverzeichnis eingefügt werden soll</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Page Numbers Placed:</source>
-        <translation type="obsolete">Plazierung der Seitenzahlen:</translation>
+        <translation type="obsolete">Platzierung der Seitenzahlen:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Item Attribute Name:</source>
         <translation type="obsolete">Bezeichnung des Dokumentobjekts:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
         <translation type="obsolete">Das Dokumentobjekt, welches auf Rahmen als Grundlage für die Erstellung von Einträgen angewendet wird</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="obsolete">Plazierung von Seitennummern am Anfang oder am Ende einer Zeile, beziehungsweise überhaupt nicht</translation>
+        <translation type="obsolete">Platzierung von Seitennummern am Anfang oder am Ende einer Zeile, beziehungsweise überhaupt nicht</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>List Non-Printing Entries</source>
         <translation type="obsolete">Nicht druckende Einträge anzeigen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Include frames that are set to not print as well</source>
         <translation type="obsolete">Auch Rahmen einbeziehen, die nicht gedruckt werden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>The paragraph style used for the entry lines</source>
         <translation type="obsolete">Der Abstatzstil, der für die Einträge verwendet wird</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Paragraph Style:</source>
         <translation type="obsolete">Absatzstil:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Destination Frame:</source>
         <translation type="obsolete">Zielrahmen:</translation>
     </message>
@@ -27159,12 +27145,12 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabcheckdoc.cpp" line="89"/>
         <source>Ignore non-printable Layers</source>
-        <translation>Nicht druckbare Ebenen ignorieren</translation>
+        <translation>Ignoriere nicht druckbare Ebenen</translation>
     </message>
     <message>
         <location filename="../tabcheckdoc.cpp" line="44"/>
         <source>Check for items not on a page</source>
-        <translation>Auf ausserhalb der Seite liegende Objekte überprüfen</translation>
+        <translation>Auf außerhalb der Seite liegende Objekte überprüfen</translation>
     </message>
     <message>
         <location filename="../tabcheckdoc.cpp" line="50"/>
@@ -27232,12 +27218,12 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdisplay.cpp" line="41"/>
         <source>Set the default zoom level</source>
-        <translation>Legt die Standard-Vergrösserungseinstellung fest</translation>
+        <translation>Legt die Standard-Vergrößerungseinstellung fest</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="42"/>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation>Legen Sie ein Lineal auf dem Bildschirm an und verschieben Sie den Regler, um den Zoom-Level einzustellen, damit die Dokumente in der richtigen Grösse angezeigt werden</translation>
+        <translation>Legen Sie ein Lineal auf dem Bildschirm an und verschieben Sie den Regler, um den Zoom-Level einzustellen, damit die Dokumente in der richtigen Größe angezeigt werden</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="15"/>
@@ -27252,12 +27238,12 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdisplay.ui" line="295"/>
         <source>Adjust Display Size</source>
-        <translation>Anzeigegrösse anpassen</translation>
+        <translation>Anzeigegröße anpassen</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="362"/>
         <source>Scale%</source>
-        <translation>Grösse%</translation>
+        <translation>Größe%</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="319"/>
@@ -27433,184 +27419,184 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
 <context>
     <name>TabDisplayBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Page Display</source>
         <translation type="obsolete">Anzeige</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Show Layer Indicators</source>
         <translation type="obsolete">Ebenenmarkierungen anzeigen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Show Frames</source>
         <translation type="obsolete">Rahmen anzeigen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Show Text Chains</source>
         <translation type="obsolete">Verkettung von Textrahmen anzeigen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Display &amp;Unprintable Area in Margin Color</source>
         <translation type="obsolete">Nicht druck&amp;baren Rand in der Seitenrandlinienfarbe zeigen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+U</source>
         <translation type="obsolete">Alt+B</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Rulers Relative to Page</source>
         <translation type="obsolete">Lineale relativ zur Seite</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Show Text Control Characters</source>
         <translation type="obsolete">Kontrollzeichen anzeigen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Show Pictures</source>
         <translation type="obsolete">Bilder anzeigen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Scratch Space</source>
         <translation type="obsolete">Ablagefläche</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Left:</source>
         <translation type="obsolete">&amp;Links:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Right:</source>
         <translation type="obsolete">&amp;Rechts:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Bottom:</source>
         <translation type="obsolete">&amp;Unten:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Top:</source>
         <translation type="obsolete">&amp;Oben:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Gaps Between Pages</source>
         <translation type="obsolete">Abstände zwischen Seiten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Horizontal:</source>
         <translation type="obsolete">Horizontal:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Vertical:</source>
         <translation type="obsolete">Vertikal:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Adjust Display Size</source>
-        <translation type="obsolete">Anzeigegrösse anpassen</translation>
+        <translation type="obsolete">Anzeigegröße anpassen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>To adjust the display drag the ruler below with the slider.</source>
         <translation type="obsolete">Verschieben Sie das Lineal mit dem Regler, um die Anzeige anzupassen.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>General</source>
         <translation type="obsolete">Allgemein</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Colors</source>
         <translation type="obsolete">Farben</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Pages:</source>
         <translation type="obsolete">Seiten:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Fill Color:</source>
         <translation type="obsolete">Füllfarbe:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Selected Page Border:</source>
         <translation type="obsolete">Ausgewählter Seitenrand:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Frames</source>
         <translation type="obsolete">Rahmen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Locked:</source>
         <translation type="obsolete">Gesperrt:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Normal:</source>
         <translation type="obsolete">Normal:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Selected:</source>
         <translation type="obsolete">Ausgewählt:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Linked:</source>
         <translation type="obsolete">Verkettet:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Grouped:</source>
         <translation type="obsolete">Gruppiert:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Annotation:</source>
         <translation type="obsolete">Anmerkung:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Text:</source>
         <translation type="obsolete">Text:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Control Characters:</source>
         <translation type="obsolete">Steuerzeichen:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Show Bleed Area</source>
         <translation type="obsolete">Anschnittzugabe anzeigen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>TabDisplayBase</source>
         <translation type="obsolete">TabDisplayBase</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Scale%</source>
-        <translation type="obsolete">Grösse%</translation>
+        <translation type="obsolete">Größe%</translation>
     </message>
 </context>
 <context>
@@ -27623,7 +27609,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdocument.cpp" line="79"/>
         <source>&amp;Size:</source>
-        <translation>&amp;Grösse:</translation>
+        <translation>&amp;Größe:</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="85"/>
@@ -27698,7 +27684,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdocument.cpp" line="192"/>
         <source>Default page size, either a standard size or a custom size</source>
-        <translation>Standardgrösse der Seite</translation>
+        <translation>Standardgröße der Seite</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="193"/>
@@ -27708,7 +27694,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdocument.cpp" line="194"/>
         <source>Default unit of measurement for document editing</source>
-        <translation>Standardmasseinheit</translation>
+        <translation>Standardmaßeinheit</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="195"/>
@@ -27723,12 +27709,12 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdocument.cpp" line="197"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation>Anzahl der rückgängig zu machenden Aktionen. 0 bedeutet, dass unendlich viele Aktionen aufgezeichnet werden.</translation>
+        <translation>Anzahl der rückgängig zu machenden Aktionen. 0 bedeutet, daß unendlich viele Aktionen aufgezeichnet werden.</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="198"/>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation>Wendet die Grössenänderung auf alle Seiten im Dokument an</translation>
+        <translation>Wendet die Größenänderung auf alle Seiten im Dokument an</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="123"/>
@@ -27748,7 +27734,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabdocument.cpp" line="199"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
-        <translation>Änderungen der Seitengrösse auf alle vorhandenen Musterseiten im Dokument anwenden</translation>
+        <translation>Änderungen der Seitengröße auf alle vorhandenen Musterseiten im Dokument anwenden</translation>
     </message>
 </context>
 <context>
@@ -27866,7 +27852,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="55"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Pfad zum Ghostscript-Interpreter. Auf Windows-Systemen muss das Programm gswin32c.exe ausgewählt sein, NICHT gswin32.exe. Anderenfalls könnte Scribus beim Start abstürzen.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Pfad zum Ghostscript-Interpreter. Auf Windows-Systemen muß das Programm gswin32c.exe ausgewählt sein, NICHT gswin32.exe. Anderenfalls könnte Scribus beim Start abstürzen.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/tabexternaltoolswidget.ui" line="252"/>
@@ -27936,7 +27922,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="360"/>
         <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Pfad zum Editor.&lt;/qt&gt;</translation>
+        <translation>qt&gt;Pfad zum Editor.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="407"/>
@@ -28017,122 +28003,122 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
 <context>
     <name>TabExternalToolsWidgetBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>External Tools</source>
         <translation type="obsolete">Externe Tools</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>PostScript Interpreter</source>
         <translation type="obsolete">Postscript-Interpreter</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Name of Executable:</source>
         <translation type="obsolete">Name der &amp;ausführbaren Datei:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Change..</source>
         <translation type="obsolete">&amp;Ändern..</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+Ä</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Antialias &amp;Text</source>
         <translation type="obsolete">&amp;Text weichzeichnen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+T</source>
         <translation type="obsolete">Alt+T</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation type="obsolete">Text bei EPS- und PDF-Anzeige weichzeichnen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Antialias &amp;Graphics</source>
         <translation type="obsolete">&amp;Bilder weichzeichnen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+G</source>
         <translation type="obsolete">Alt+B</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
         <translation type="obsolete">Grafiken bei EPS- und PDF-Anzeige weichzeichnen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Resolution:</source>
         <translation type="obsolete">Auflösung:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source> dpi</source>
         <translation type="obsolete"> dpi</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Image Processing Tool</source>
         <translation type="obsolete">Bildbearbeitungsprogramm</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Name of &amp;Executable:</source>
         <translation type="obsolete">Name der &amp;ausführbaren Datei:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Change...</source>
         <translation type="obsolete">&amp;Ändern...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Rescan</source>
         <translation type="obsolete">Er&amp;neut scannen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+R</source>
         <translation type="obsolete">Alt+N</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Pfad zum Ghostscript-Interpreter. Auf Windows-Systemen muss das Programm gswin32c.exe ausgewählt sein, NICHT gswin32.exe. Anderenfalls könnte Scribus beim Start abstürzen.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Pfad zum Bildbearbeitungsprogramm. Wenn Sie GIMP verwenden, empfehlen wir Ihnen, hier gimp-remote einzutragen; dann können Sie Bilder in einer laufenden Instanz von GIMP bearbeiten.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Web Browser</source>
         <translation type="obsolete">Webbrowser</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Web Browser to launch with links from the Help system</source>
         <translation type="obsolete">Wählen Sie den Webbrowser, der für die Links in der Hilfe gestartet werden soll</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Pfad zum Webbrowser. Wird für die externen Links in der Hilfe verwendet.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
         <translation type="obsolete">Erneut nach externen Tools suchen, wenn Sie nicht im gewählten Pfad vorhanden sind</translation>
     </message>
@@ -28157,17 +28143,17 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabgeneral.cpp" line="68"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Wählen Sie die Standard-Fensterdekoration. Scribus zeigt Ihnen alle KDE- und Qt-Stile an, falls Qt so konfiguriert ist, dass es die KDE-Plugins durchsucht.</translation>
+        <translation>Wählen Sie die Standard-Fensterdekoration. Scribus zeigt Ihnen alle KDE- und Qt-Stile an, falls Qt so konfiguriert ist, daß es die KDE-Plugins durchsucht.</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="69"/>
         <source>Default font size for the menus and windows</source>
-        <translation>Schriftgrösse für Menüs und Dialoge</translation>
+        <translation>Schriftgröße für Menüs und Dialoge</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="70"/>
         <source>Default font size for the tool windows</source>
-        <translation>Schriftgrösse für die Werkzeugfenster</translation>
+        <translation>Schriftgröße für die Werkzeugfenster</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="71"/>
@@ -28232,17 +28218,17 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabgeneral.ui" line="91"/>
         <source>&amp;Font Size (Menus):</source>
-        <translation>Schriftgrösse (&amp;Menüs):</translation>
+        <translation>Schriftgröße (&amp;Menüs):</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="134"/>
         <source>Font Size (&amp;Palettes):</source>
-        <translation>Schriftgrösse (&amp;Paletten):</translation>
+        <translation>Schriftgröße (&amp;Paletten):</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="164"/>
         <source>Time before a Move or Resize starts:</source>
-        <translation>Verzögerung beim Verschieben oder bei Grössenänderungen:</translation>
+        <translation>Verzögerung bei Objektänderungen:</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="177"/>
@@ -28322,12 +28308,12 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabgeneral.ui" line="393"/>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation>Alt+H</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="72"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation>Dialoge werden kleinere, platzsparendere Widgets verwenden. Dazu muss Scribus neu gestartet werden</translation>
+        <translation>Dialoge werden kleinere, platzsparendere Widgets verwenden. Dazu muß Scribus neu gestartet werden</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="196"/>
@@ -28338,132 +28324,132 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
 <context>
     <name>TabGeneralBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Language:</source>
         <translation type="obsolete">&amp;Sprache:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Theme:</source>
         <translation type="obsolete">&amp;Thema:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Time before a Move or Resize starts:</source>
-        <translation type="obsolete">Verzögerung beim Verschieben oder bei Grössenänderungen:</translation>
+        <translation type="obsolete">Verzögerung bei Objektänderungen:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source> ms</source>
         <translation type="obsolete">ms</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Font Size (Menus):</source>
-        <translation type="obsolete">Schriftgrösse (&amp;Menüs):</translation>
+        <translation type="obsolete">Schriftgröße (&amp;Menüs):</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source> pt</source>
         <translation type="obsolete">pt</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Font Size (&amp;Palettes):</source>
-        <translation type="obsolete">Schriftgrösse (&amp;Paletten):</translation>
+        <translation type="obsolete">Schriftgröße (&amp;Paletten):</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Wheel Jump:</source>
         <translation type="obsolete">&amp;Radvorschub:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Recent Documents:</source>
         <translation type="obsolete">&amp;Zuletzt verwendete Dokumente:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Paths</source>
         <translation type="obsolete">Pfade</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Documents:</source>
         <translation type="obsolete">&amp;Dokumente:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Change...</source>
         <translation type="obsolete">&amp;Auswählen...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+C</source>
-        <translation type="obsolete">Alt+A</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;ICC Profiles:</source>
         <translation type="obsolete">&amp;ICC-Profile:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>C&amp;hange...</source>
         <translation type="obsolete">A&amp;uswählen...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+H</source>
         <translation type="obsolete">Alt+U</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Scripts:</source>
         <translation type="obsolete">&amp;Scripts:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Ch&amp;ange...</source>
         <translation type="obsolete">Auswä&amp;hlen...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+H</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Document &amp;Templates:</source>
         <translation type="obsolete">Dokument&amp;vorlagen:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Cha&amp;nge...</source>
         <translation type="obsolete">Auswäh&amp;len...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+N</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>User Interface</source>
         <translation type="obsolete">Benutzeroberfläche</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Show Startup Dialog</source>
         <translation type="obsolete">Start-Dialog zu Beginn anzeigen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Show Splashscreen on Startup</source>
         <translation type="obsolete">Splashscreen beim Programmstart zeigen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>TabGeneralBase</source>
         <translation type="obsolete">TabGeneralBase</translation>
     </message>
@@ -28533,7 +28519,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabguides.cpp" line="125"/>
         <source>Major Grid</source>
-        <translation>Grosses Raster</translation>
+        <translation>Großes Raster</translation>
     </message>
     <message>
         <location filename="../tabguides.cpp" line="163"/>
@@ -28868,132 +28854,132 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
 <context>
     <name>TabKeyboardShortcutsWidgetBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Keyboard Shortcuts</source>
         <translation type="obsolete">Tastenkürzel</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Search:</source>
         <translation type="obsolete">Suche:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Action</source>
         <translation type="obsolete">Aktion</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Shortcut</source>
         <translation type="obsolete">Kürzel</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Shortcut for Selected Action</source>
         <translation type="obsolete">Tastenkürzel für die gewählte Aktion</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;No Key</source>
         <translation type="obsolete">&amp;Keine Taste</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+N</source>
         <translation type="obsolete">Alt+K</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;User Defined Key</source>
         <translation type="obsolete">&amp;Benutzerdefinierte Taste</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+U</source>
         <translation type="obsolete">Alt+B</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Set &amp;Key</source>
         <translation type="obsolete">Taste &amp;definieren</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+K</source>
         <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>CTRL+ALT+SHIFT+W</source>
         <translation type="obsolete">CTRL+ALT+SHIFT+W</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Loadable Shortcut Sets</source>
         <translation type="obsolete">Benutzerdefinierten Satz laden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Keyboard shortcut sets available to load</source>
         <translation type="obsolete">Verfügbare Tastenkürzel-Sätze</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Load</source>
         <translation type="obsolete">&amp;Laden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+L</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Load the selected shortcut set</source>
         <translation type="obsolete">Gewählten Satz laden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Import...</source>
         <translation type="obsolete">&amp;Importieren...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+I</source>
         <translation type="obsolete">Alt+I</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Import a shortcut set into the current configuration</source>
         <translation type="obsolete">Tastenkürzel-Satz in die aktuelle Konfiguration importieren</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Export...</source>
         <translation type="obsolete">E&amp;xportieren...</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+E</source>
         <translation type="obsolete">Alt+X</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Export the current shortcuts into an importable file</source>
         <translation type="obsolete">Tastenkürzel-Satz exportieren</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Reset</source>
         <translation type="obsolete">&amp;Zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+R</source>
         <translation type="obsolete">Alt+Z</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Reload the default Scribus shortcuts</source>
         <translation type="obsolete">Standard-Tastenkürzel von Scribus erneut laden</translation>
     </message>
@@ -29037,32 +29023,32 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
 <context>
     <name>TabMiscellaneousBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Form1</source>
         <translation type="obsolete">Form1</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Always ask before fonts are replaced when loading a document</source>
         <translation type="obsolete">Immer nachfragen, bevor Schriften ersetzt werden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
         <translation type="obsolete">Vorschau des aktuellen Absatzstils während der Bearbeitung anzeigen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Lorem Ipsum</source>
         <translation type="obsolete">Beispieltext</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Always use standard Lorem Ipsum</source>
         <translation type="obsolete">Immer den Standard-Beispieltext verwenden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Count of the Paragraphs:</source>
         <translation type="obsolete">Anzahl der Absätze:</translation>
     </message>
@@ -29195,12 +29181,12 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation>Verfügbare Schriften:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;&gt;&gt;</source>
         <translation type="obsolete">&amp;&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;&lt;&lt;</source>
         <translation type="obsolete">&amp;&lt;&lt;</translation>
     </message>
@@ -29322,7 +29308,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="522"/>
         <source>Outside</source>
-        <translation>Aussen</translation>
+        <translation>Außen</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="527"/>
@@ -29367,7 +29353,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="624"/>
         <source>Passwords</source>
-        <translation>Passwörter</translation>
+        <translation>Paßwörter</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="630"/>
@@ -29602,7 +29588,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="967"/>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Wählen Sie ein Passwort, das es Benutzern erlaubt, die PDF-Datei anzusehen.</translation>
+        <translation>Wählen Sie ein Paßwort, das es Benutzern erlaubt, die PDF-Datei anzusehen.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="968"/>
@@ -29687,7 +29673,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="681"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Konvertiert Schmuckfarben zu Prozessfarben</translation>
+        <translation>Konvertiert Schmuckfarben zu Prozeßfarben</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="381"/>
@@ -29727,27 +29713,27 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="959"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
-        <translation>Auflösung für Text und Vektorgrafiken. Beeinflusst nicht die Auflösung von Bitmapdaten wie Fotos.</translation>
+        <translation>Auflösung für Text und Vektorgrafiken. Beeinflußt nicht die Auflösung von Bitmapdaten wie Fotos.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="960"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
-        <translation>Aktiviert verlustlose Komprimierung von Text und Grafiken. Verringert die Grösse der PDF-Datei. Nicht ohne Grund deaktivieren.</translation>
+        <translation>Aktiviert verlustlose Komprimierung von Text und Grafiken. Verringert die Größe der PDF-Datei. Nicht ohne Grund deaktivieren.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="961"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation>Methode für die Komprimierung von Bitmapdaten. Automatisch bedeutet, dass Scribus die beste Methode wählt. ZIP ist verlustlos und gut für Bilder mit flächigen Farben. Mit JPEG erzeugen Sie kleinere PDFs, geeignet für viele Fotos. Hier können kleinere Qualitätsverluste auftreten. Empfehlung: Verändern Sie die Methode Automatisch nur, wenn Sie es wirklich benötigen.</translation>
+        <translation>Methode für die Komprimierung von Bitmapdaten. Automatisch bedeutet, daß Scribus die beste Methode wählt. ZIP ist verlustlos und gut für Bilder mit flächigen Farben. Mit JPEG erzeugen Sie kleinere PDFs, geeignet für viele Fotos. Hier können kleinere Qualitätsverluste auftreten. Empfehlung: Verändern Sie die Methode Automatisch nur, wenn Sie es wirklich benötigen.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="965"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation>Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei. Wenn Sie PDF 1.3 gewählt haben, wird die Datei mit 40-Bit-Verschlüsselung geschützt, bei PDF 1.4 wird 128-Bit-Verschlüsselung verwendet. Warnung: PDF-Verschlüsselung ist nicht so verlässlich wie GPG- oder PGP-Verschlüsselung und besitzt einige Einschränkungen.</translation>
+        <translation>Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei. Wenn Sie PDF 1.3 gewählt haben, wird die Datei mit 40-Bit-Verschlüsselung geschützt, bei PDF 1.4 wird 128-Bit-Verschlüsselung verwendet. Warnung: PDF-Verschlüsselung ist nicht so verläßlich wie GPG- oder PGP-Verschlüsselung und besitzt einige Einschränkungen.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="966"/>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
-        <translation>Wählen Sie ein Master-Passwort, das alle Sicherheitsfunktionen in der PDF-Datei aktiviert oder deaktiviert</translation>
+        <translation>Wählen Sie ein Master-Paßwort, das alle Sicherheitsfunktionen in der PDF-Datei aktiviert oder deaktiviert</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="970"/>
@@ -29762,7 +29748,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="973"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation>Die ist eine fortgeschrittene Einstellung, die standardmässig nicht aktiviert ist. Sie sollte nur aktiviert werden, wenn dies ausdrücklich von Ihrer Druckerei gefordert wird und diese Ihnen alle benötigten Details mitgeteilt hat. Ansonsten könnte Ihre PDF-Datei nicht korrekt gedruckt werden und Probleme beim plattformübergreifenden Datenaustausch bereiten.</translation>
+        <translation>Die ist eine fortgeschrittene Einstellung, die standardmäßig nicht aktiviert ist. Sie sollte nur aktiviert werden, wenn dies ausdrücklich von Ihrer Druckerei gefordert wird und diese Ihnen alle benötigten Details mitgeteilt hat. Ansonsten könnte Ihre PDF-Datei nicht korrekt gedruckt werden und Probleme beim plattformübergreifenden Datenaustausch bereiten.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="999"/>
@@ -29772,7 +29758,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="984"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Ermöglicht die Umwandlung von Schmuck- in Prozessfarben. Solange Sie Schmuckfarben nicht wirklich benötigen, sollten Sie dies am besten aktiviert lassen.</translation>
+        <translation>Ermöglicht die Umwandlung von Schmuck- in Prozeßfarben. Solange Sie Schmuckfarben nicht wirklich benötigen, sollten Sie dies am besten aktiviert lassen.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="342"/>
@@ -29785,7 +29771,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <translation>Kom&amp;primierungsmethode:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Resa&amp;mple Images to:</source>
         <translation type="obsolete">Bilder &amp;neu berechnen auf:</translation>
     </message>
@@ -29857,7 +29843,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../tabpdfoptions.cpp" line="596"/>
         <source>Zoom Pages to fit Viewer Window</source>
-        <translation>Seiten auf Grösse des Betrachterfensters zoomen</translation>
+        <translation>Seiten auf Größe des Betrachterfensters zoomen</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="602"/>
@@ -29914,7 +29900,7 @@ der PDF-Datei ausgeführt wird:</translation>
     <message>
         <location filename="../tabpdfoptions.cpp" line="985"/>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation>Objekte ausserhalb des Seitenrandes nicht exportieren</translation>
+        <translation>Objekte außerhalb des Seitenrandes nicht exportieren</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="908"/>
@@ -29922,7 +29908,7 @@ der PDF-Datei ausgeführt wird:</translation>
         <translation>Dauer, für die die Seite angezeigt wird, bevor die Präsenation auf der Seite startet. Bei 0 werden die Übergänge deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation type="obsolete">Berechnet die Auflösung von Bitmap-Grafiken in der gewünschten Höhe neu. 
 Ansonsten wird die ursprüngliche Auflösung verwendet. Die Aktivierung dieser 
@@ -29949,7 +29935,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../tabpdfoptions.cpp" line="953"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation>Legt die Kompatibilität der PDF-Datei fest. Standard ist PDF 1.3 mit der grössten Kompatibilität. Mit PDF 1.4 können Sie Transparenz und 128bit-Verschlüsselung verwenden. PDF 1.5 ist notwendig, wenn Sie Ebenen in der PDF-Datei erhalten möchten. PDF/X-3 ist vorgesehen für kommerziellen RGB-Druck mit Farbprofilen. Es ist nur verfügbar, wenn Farbprofile aktiviert sind - verwenden Sie PDX/X-3 nur, wenn Ihre Druckerei das wünscht oder beim Druck auf einem Vierfarb-Laserdrucker.</translation>
+        <translation>Legt die Kompatibilität der PDF-Datei fest. Standard ist PDF 1.3 mit der größten Kompatibilität. Mit PDF 1.4 können Sie Transparenz und 128bit-Verschlüsselung verwenden. PDF 1.5 ist notwendig, wenn Sie Ebenen in der PDF-Datei erhalten möchten. PDF/X-3 ist vorgesehen für kommerziellen RGB-Druck mit Farbprofilen. Es ist nur verfügbar, wenn Farbprofile aktiviert sind - verwenden Sie PDX/X-3 nur, wenn Ihre Druckerei das wünscht oder beim Druck auf einem Vierfarb-Laserdrucker.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="440"/>
@@ -30044,7 +30030,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../tabpdfoptions.cpp" line="962"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation>Komprimierungsqualität für verlustbehaftete Komprimierung: Minimum (25%), Niedrig (50%), Mittel (75%) und Maximum (95%). Diese Einstellung wirkt sich nicht direkt auf die Grösse der Bilder aus, weil Grösse und Qualitätsverlust von Bild zu Bild variieren. Selbst wenn &quot;Maximum&quot; ausgewählt ist, tritt immer ein gewisser Qualitätsverlust bei JPEG auf.</translation>
+        <translation>Komprimierungsqualität für verlustbehaftete Komprimierung: Minimum (25%), Niedrig (50%), Mittel (75%) und Maximum (95%). Diese Einstellung wirkt sich nicht direkt auf die Größe der Bilder aus, weil Größe und Qualitätsverlust von Bild zu Bild variieren. Selbst wenn &quot;Maximum&quot; ausgewählt ist, tritt immer ein gewisser Qualitätsverlust bei JPEG auf.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="1366"/>
@@ -30054,7 +30040,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../tabpdfoptions.cpp" line="1367"/>
         <source>Outside:</source>
-        <translation>Aussen:</translation>
+        <translation>Außen:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="553"/>
@@ -30124,7 +30110,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../tabpdfoptions.cpp" line="928"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>Passt die Dokumentgrösse an die verfügbare Fläche im Betrachterfenster an.</translation>
+        <translation>Paßt die Dokumentgröße an die verfügbare Fläche im Betrachterfenster an.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="963"/>
@@ -30132,7 +30118,7 @@ werden ignoriert</translation>
         <translation>Setzt die maximale Auflösung der Bitmap-Dateien auf den angegebenen Wert. Bilder mit geringerer Auflösung sind von diesen Einstellungen nicht betroffen. Falls Sie diese Methode auswählen, wird der Speicherverbrauch stark ansteigen, und der Export dauert länger.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
         <translation type="obsolete">Hiermit werden Schneidemarken in der ausgegebenen PDF-Datei eingefügt.</translation>
     </message>
@@ -30142,7 +30128,7 @@ werden ignoriert</translation>
         <translation>Hiermit werden Anschnittmarken in der ausgegebenen PDF-Datei eingefügt</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Add registration marks which are added to each separation</source>
         <translation type="obsolete">Hiermit werden Registrierungsmarken erzeugt, die auf jeder Farbseparation zu sehen sind</translation>
     </message>
@@ -30237,7 +30223,7 @@ werden ignoriert</translation>
     <message>
         <location filename="../tabprinter.cpp" line="32"/>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation>Objekte ausserhalb des Satzspiegels nicht drucken</translation>
+        <translation>Objekte außerhalb des Satzspiegels nicht drucken</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="33"/>
@@ -30249,17 +30235,17 @@ werden ignoriert</translation>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
         <translation>Legt die Postscript-Version fest. 
-Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translation>
+Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="35"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Verwendet echtes Schwarz anstelle von Farbmischungen aus Magenta, Gelb und Cyan. UFR hat den grössten Effekt auf Bilder, die neutrale oder dunkle Farbtöne haben, die Grau ähneln. Diese Option kann die Druckqualität verbessern. Testen Sie bitte von Fall zu Fall, wie Sie bessere Ergebnisse erhalten. UFR verringert ausserdem die Gefahr einer Übersättigung der CMYK-Farben.</translation>
+        <translation>Verwendet echtes Schwarz anstelle von Farbmischungen aus Magenta, Gelb und Cyan. UFR hat den größten Effekt auf Bilder, die neutrale oder dunkle Farbtöne haben, die Grau ähneln. Diese Option kann die Druckqualität verbessern. Testen Sie bitte von Fall zu Fall, wie Sie bessere Ergebnisse erhalten. UFR verringert außerdem die Gefahr einer Übersättigung der CMYK-Farben.</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="36"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Ermöglicht die Umwandlung von Schmuckfarben zu Prozessfarben. Solange Sie keine Schmuckfarben in einer Druckerei drucken möchten, sollten Sie diese Option aktiviert lassen.</translation>
+        <translation>Ermöglicht die Umwandlung von Schmuckfarben zu Prozeßfarben. Solange Sie keine Schmuckfarben in einer Druckerei drucken möchten, sollten Sie diese Option aktiviert lassen.</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="37"/>
@@ -30274,7 +30260,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabprinter.cpp" line="39"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>Legen Sie die Druckgrösse der Postscript-Datei explizit fest. Nur aktivieren, wenn ihre Druckerei das verlangt.</translation>
+        <translation>Legen Sie die Druckgröße der Postscript-Datei explizit fest. Nur aktivieren, wenn ihre Druckerei das verlangt.</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="83"/>
@@ -30314,7 +30300,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabprinter.ui" line="119"/>
         <source>Set Media Size</source>
-        <translation>Mediengrösse festlegen</translation>
+        <translation>Mediengröße festlegen</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="126"/>
@@ -30379,7 +30365,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabprinter.ui" line="274"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Schmuckfarben in Prozessfarben umwandeln</translation>
+        <translation>Schmuckfarben in Prozeßfarben umwandeln</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="281"/>
@@ -30500,207 +30486,207 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
 <context>
     <name>TabPrinterBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Print Destination</source>
         <translation type="obsolete">Ausgabeziel</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alternative Printer Command</source>
         <translation type="obsolete">Alternativer Druckbefehl</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Command:</source>
         <translation type="obsolete">Befehl:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Options</source>
         <translation type="obsolete">Optionen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Postscript Options</source>
         <translation type="obsolete">Postscript-Optionen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Level 1</source>
         <translation type="obsolete">Level 1</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Level 2</source>
         <translation type="obsolete">Level 2</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Level 3</source>
         <translation type="obsolete">Level 3</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Print in Color if Available</source>
         <translation type="obsolete">In Farbe drucken, falls möglich</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Print in Grayscale</source>
         <translation type="obsolete">In Graustufen drucken</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Page</source>
         <translation type="obsolete">Seite</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation type="obsolete">Seite(n) horizontal spiegeln</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Mirror Page(s) Vertical</source>
         <translation type="obsolete">Seite(n) vertikal spiegeln</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Set Media Size</source>
-        <translation type="obsolete">Mediengrösse festlegen</translation>
+        <translation type="obsolete">Mediengröße festlegen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Clip to Page Margins</source>
         <translation type="obsolete">Auf Seitenränder beschneiden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Color</source>
         <translation type="obsolete">Farbe</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Apply Under Color Removal</source>
         <translation type="obsolete">Unterfarbenreduktion anwenden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation type="obsolete">Schmuckfarben in Prozessfarben umwandeln</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Force Overprint Mode</source>
         <translation type="obsolete">Überdrucken erzwingen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Apply ICC Profiles</source>
         <translation type="obsolete">ICC-Profile anwenden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>General</source>
         <translation type="obsolete">Allgemein</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Print Normal</source>
         <translation type="obsolete">Normal drucken</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Print Separations</source>
         <translation type="obsolete">Farbseparationen drucken</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Marks &amp;&amp; Bleeds</source>
-        <translation type="obsolete">Marken und Anschnitt</translation>
+        <translation type="obsolete">Marken &amp;&amp; Anschnitt</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Printer Marks</source>
         <translation type="obsolete">Druckermarken</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Crop Marks</source>
         <translation type="obsolete">Schneidemarken</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Bleed Marks</source>
         <translation type="obsolete">Anschnittmarken</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Registration Marks</source>
         <translation type="obsolete">Registrierungsmarken</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Offset:</source>
         <translation type="obsolete">Versatz:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Color Bars</source>
         <translation type="obsolete">Farbbalken</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Bleed Settings</source>
         <translation type="obsolete">Anschnitteinstellungen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Top:</source>
         <translation type="obsolete">Oben:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Bottom:</source>
         <translation type="obsolete">Unten:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Left:</source>
         <translation type="obsolete">Links:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Right:</source>
         <translation type="obsolete">Rechts:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>TabPrinterBase</source>
         <translation type="obsolete">TabPrinterBase</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation type="obsolete">Hiermit werden Schneidemarken in der ausgegebenen PDF-Datei eingefügt</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation type="obsolete">Hiermit werden Anschnittmarken in der ausgegebenen PDF-Datei eingefügt</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Add registration marks which are added to each separation</source>
         <translation type="obsolete">Hiermit werden Registrierungsmarken erzeugt, die auf jeder Farbseparation zu sehen sind</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>ndicate the distance offset for the registration marks</source>
         <translation type="obsolete">Gibt den Versatz der Registrierungsmarken an</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Add color calibration bars</source>
         <translation type="obsolete">Hiermit werden Farbbalken hinzugefügt</translation>
     </message>
@@ -30741,37 +30727,37 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
 <context>
     <name>TabScrapbookBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Send Copied Items Automatically to Scrapbook</source>
         <translation type="obsolete">Kopierte Objekte automatisch zur Bibliothek hinzufügen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
         <translation type="obsolete">Mit dieser Funktion kann die Bibliothek kann als Erweiterung der Zwischenablage genutzt werde. Das einfache Kopieren eines Objekts oder einer Gruppe von Objekten sendet diese automatisch an die Bibliothek</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Keep Copied Items Permanently Across Sessions</source>
         <translation type="obsolete">Kopierte Objekte dauerhaft bereithalten</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>This enables copied items to be kept permanently in the scrapbook.</source>
         <translation type="obsolete">Mit dieser Funktion können kopierte Objekte dauerhaft der Bibliothek hinzugefügt werden.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Number of Copied Items to Keep in Scrapbook:</source>
         <translation type="obsolete">Anzahl der kopierten Objekte in der Bibliothek:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>The minimum number is 1; the maximum us 100.</source>
         <translation type="obsolete">Das Minimum ist 1, das Maximum 100.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>TabScrapbookBase</source>
         <translation type="obsolete">TabScrapbookBase</translation>
     </message>
@@ -30791,7 +30777,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="124"/>
         <source>Size:</source>
-        <translation>Grösse:</translation>
+        <translation>Größe:</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="747"/>
@@ -30831,7 +30817,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="920"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>Falsches Üben von Xylophonmusik quält jeden grösseren Zwerg</translation>
+        <translation>Falsches Üben von Xylophonmusik quält jeden größeren Zwerg</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="291"/>
@@ -30976,7 +30962,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="526"/>
         <source>Magnification Level Defaults</source>
-        <translation>Einstellungen für Vergrösserungsstufen</translation>
+        <translation>Einstellungen für Vergrößerungsstufen</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="527"/>
@@ -30996,7 +30982,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="531"/>
         <source>Size of font for new text frames</source>
-        <translation>Schriftgrösse für neue Textrahmen</translation>
+        <translation>Schriftgröße für neue Textrahmen</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="532"/>
@@ -31021,7 +31007,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/tabtools.cpp" line="536"/>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="obsolete">Bildrahmen ermöglicht das Skalieren auf eine beliebige Grösse</translation>
+        <translation type="obsolete">Bildrahmen ermöglicht das Skalieren auf eine beliebige Größe</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="537"/>
@@ -31041,7 +31027,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/tabtools.cpp" line="540"/>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="obsolete">Bilder werden auf die Grösse des Rahmens skaliert</translation>
+        <translation type="obsolete">Bilder werden auf die Größe des Rahmens skaliert</translation>
     </message>
     <message>
         <location filename="../../scribus135/trunk/Scribus/scribus/tabtools.cpp" line="541"/>
@@ -31086,17 +31072,17 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="550"/>
         <source>Minimum magnification allowed</source>
-        <translation>Kleinstmögliche Vergrösserungsstufe</translation>
+        <translation>Kleinstmögliche Vergrößerungsstufe</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="551"/>
         <source>Maximum magnification allowed</source>
-        <translation>Grösstmögliche Vergrösserungstufe</translation>
+        <translation>Größtmögliche Vergrößerungstufe</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="552"/>
         <source>Change in magnification for each zoom operation</source>
-        <translation>Abstand zwischen zwei Vergrösserungsstufen</translation>
+        <translation>Abstand zwischen zwei Vergrößerungsstufen</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="553"/>
@@ -31131,7 +31117,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="146"/>
         <source>Text Stroke:</source>
-        <translation>Umriss:</translation>
+        <translation>Umriß:</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="701"/>
@@ -31167,7 +31153,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="230"/>
         <source>Shapes</source>
-        <translation>Formen</translation>
+        <translation>Objekte</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="285"/>
@@ -31182,12 +31168,12 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="425"/>
         <source>Regular Polygons</source>
-        <translation>Gleichmässige Polygone</translation>
+        <translation>Gleichmäßige Polygone</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="437"/>
         <source>Zoom</source>
-        <translation>Vergrösserung</translation>
+        <translation>Vergrößerung</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="499"/>
@@ -31262,12 +31248,12 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabtools.cpp" line="536"/>
         <source>Image frames allow images to scale to any size</source>
-        <translation>Mit Bildrahmen können Bilder auf jede Grösse skaliert werden</translation>
+        <translation>Mit Bildrahmen können Bilder auf jede Größe skaliert werden</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="540"/>
         <source>Images in image frames are scaled to the size of the frame</source>
-        <translation>Bilder in Bildrahmen werden auf die Grösse des Rahmens skaliert</translation>
+        <translation>Bilder in Bildrahmen werden auf die Größe des Rahmens skaliert</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="541"/>
@@ -31370,7 +31356,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabtypography.cpp" line="151"/>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation>Relative Grösse der tiefgestellen Buchstaben im Vergleich zur normalen Schriftgrösse</translation>
+        <translation>Relative Größe der tiefgestellen Buchstaben im Vergleich zur normalen Schriftgröße</translation>
     </message>
     <message>
         <location filename="../tabtypography.cpp" line="152"/>
@@ -31380,32 +31366,32 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
     <message>
         <location filename="../tabtypography.cpp" line="153"/>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation>Relative Grösse der hochgestellten Buchstaben im Vergleich zur normalen Schriftgrösse</translation>
+        <translation>Relative Größe der hochgestellten Buchstaben im Vergleich zur normalen Schriftgröße</translation>
     </message>
     <message>
         <location filename="../tabtypography.cpp" line="154"/>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation>Relative Grösse der Kapitälchen im Vergleich zur normalen Schriftgrösse</translation>
+        <translation>Relative Größe der Kapitälchen im Vergleich zur normalen Schriftgröße</translation>
     </message>
     <message>
         <location filename="../tabtypography.cpp" line="155"/>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation>Prozentuale Vergrösserung des Zeilenabstandes zur Schriftgrösse</translation>
+        <translation>Prozentuale Vergrößerung des Zeilenabstandes zur Schriftgröße</translation>
     </message>
     <message>
         <location filename="../tabtypography.cpp" line="156"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation>Versatz unterhalb der Grundlinie der normalen Schrift als Prozentwert der Grösse des Unterbandes</translation>
+        <translation>Versatz unterhalb der Grundlinie der normalen Schrift als Prozentwert der Größe des Unterbandes</translation>
     </message>
     <message>
         <location filename="../tabtypography.cpp" line="159"/>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation>Linienstärke ausgedrückt in Prozent bezogen auf die Schriftgrösse</translation>
+        <translation>Linienstärke ausgedrückt in Prozent bezogen auf die Schriftgröße</translation>
     </message>
     <message>
         <location filename="../tabtypography.cpp" line="158"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation>Versatz über der Grundlinie der Schrift als Prozentwert der Grösse des Oberbandes</translation>
+        <translation>Versatz über der Grundlinie der Schrift als Prozentwert der Größe des Oberbandes</translation>
     </message>
 </context>
 <context>
@@ -31563,7 +31549,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
         <translation type="obsolete">Seite </translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Free items</source>
         <translation type="obsolete">Freie Objekte</translation>
     </message>
@@ -31718,7 +31704,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
         <translation type="obsolete">Inhalt</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation type="obsolete">Der Name &quot;%1&quot; ist nicht eindeutig.&lt;br/&gt; Bitte wählen Sie einen anderen.</translation>
     </message>
@@ -31797,7 +31783,7 @@ Versatz</translation>
     <message>
         <location filename="../undomanager.cpp" line="791"/>
         <source>Resize</source>
-        <translation>Grösse ändern</translation>
+        <translation>Größe ändern</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="792"/>
@@ -31908,12 +31894,12 @@ W: %3, H: %4</translation>
     <message>
         <location filename="../undomanager.cpp" line="816"/>
         <source>Lock size</source>
-        <translation>Grösse sperren</translation>
+        <translation>Größe sperren</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="817"/>
         <source>Unlock size</source>
-        <translation>Grösse entsperren</translation>
+        <translation>Größe entsperren</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="820"/>
@@ -32025,7 +32011,7 @@ bis %2</translation>
     <message>
         <location filename="../undomanager.cpp" line="842"/>
         <source>Set font size</source>
-        <translation>Schriftgrösse festlegen</translation>
+        <translation>Schriftgröße festlegen</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="843"/>
@@ -32140,22 +32126,22 @@ bis %2</translation>
     <message>
         <location filename="../undomanager.cpp" line="870"/>
         <source>Text flows around the frame</source>
-        <translation>Text umfliesst den Rahmen</translation>
+        <translation>Text umfließt den Rahmen</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="871"/>
         <source>Text flows around bounding box</source>
-        <translation>Text umfliesst die Bounding Box</translation>
+        <translation>Text umfließt die Bounding Box</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="872"/>
         <source>Text flows around contour line</source>
-        <translation>Text umfliesst Konturlinie</translation>
+        <translation>Text umfließt Konturlinie</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="874"/>
         <source>No text flow</source>
-        <translation>Kein Textfluss</translation>
+        <translation>Kein Textfluß</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="876"/>
@@ -32175,12 +32161,12 @@ bis %2</translation>
     <message>
         <location filename="../undomanager.cpp" line="879"/>
         <source>Set image scaling</source>
-        <translation>Bildgrösse festlegen</translation>
+        <translation>Bildgröße festlegen</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="880"/>
         <source>Frame size</source>
-        <translation>Rahmengrösse</translation>
+        <translation>Rahmengröße</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="881"/>
@@ -32190,12 +32176,12 @@ bis %2</translation>
     <message>
         <location filename="../undomanager.cpp" line="882"/>
         <source>Keep aspect ratio</source>
-        <translation>Grössenverhältnis beibehalten</translation>
+        <translation>Größenverhältnis beibehalten</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="883"/>
         <source>Break aspect ratio</source>
-        <translation>Grössenverhältnis nicht beibehalten</translation>
+        <translation>Größenverhältnis nicht beibehalten</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="908"/>
@@ -32310,7 +32296,7 @@ bis %2</translation>
     <message>
         <location filename="../undomanager.cpp" line="796"/>
         <source>Change Image Scale</source>
-        <translation>Bildgrösse ändern</translation>
+        <translation>Bildgröße ändern</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="797"/>
@@ -32381,7 +32367,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../undomanager.cpp" line="913"/>
         <source>Adjust frame to the image size</source>
-        <translation>Rahmen an Bildgrösse anpassen</translation>
+        <translation>Rahmen an Bildgröße anpassen</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="838"/>
@@ -32391,7 +32377,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../undomanager.cpp" line="873"/>
         <source>Text flows around image clipping path</source>
-        <translation>Text fliesst um den Beschneidungspfad des Bildes</translation>
+        <translation>Text fließt um den Beschneidungspfad des Bildes</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="914"/>
@@ -32441,12 +32427,12 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../undomanager.cpp" line="866"/>
         <source>Import AI drawing</source>
-        <translation>AI-Zeichnung importieren</translation>
+        <translation>Importiere AI-Datei</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="867"/>
         <source>Import XFig drawing</source>
-        <translation>Xfig-Zeichnung importieren</translation>
+        <translation>Importiere Xfig-Datei</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="857"/>
@@ -32525,22 +32511,22 @@ X: %4, Y: %5</translation>
 <context>
     <name>UnicodeSearchBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Unicode Search</source>
         <translation type="obsolete">Unicode-Suche</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Search:</source>
         <translation type="obsolete">&amp;Suche:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Hex</source>
         <translation type="obsolete">Hex</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Meaning</source>
         <translation type="obsolete">Bezeichnung</translation>
     </message>
@@ -32642,7 +32628,7 @@ Fehler:%2 in Zeile: %3, Spalte %4</translation>
         <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences.
 Would you like to start the system&apos;s default browser instead?</source>
         <translation>Scribus konnte den Internetbrowser %1 nicht starten. Bitte überprüfen Sie die Daten in den Allgemeinen Einstellungen.
-Möchten Sie statt dessen den Standardbrowser Ihres Systems starten?</translation>
+Möchten Sie stattdessen den Standardbrowser Ihres Systems starten?</translation>
     </message>
 </context>
 <context>
@@ -32650,7 +32636,7 @@ Möchten Sie statt dessen den Standardbrowser Ihres Systems starten?</translatio
     <message>
         <location filename="../useprintermarginsdialog.cpp" line="44"/>
         <source>Minimum Margins for Page Size %1</source>
-        <translation>Minimale Seitenränder für Seitengrösse %1</translation>
+        <translation>Minimale Seitenränder für Seitengröße %1</translation>
     </message>
     <message>
         <location filename="../useprintermarginsdialog.ui" line="13"/>
@@ -32711,57 +32697,57 @@ Möchten Sie statt dessen den Standardbrowser Ihres Systems starten?</translatio
 <context>
     <name>UsePrinterMarginsDialogBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Use Printer Margins</source>
         <translation type="obsolete">Druckerränder verwenden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Select &amp;Printer:</source>
         <translation type="obsolete">&amp;Drucker wählen:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Margins</source>
         <translation type="obsolete">Ränder</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Right:</source>
         <translation type="obsolete">Rechts:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Top:</source>
         <translation type="obsolete">&amp;Oben:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Bottom:</source>
         <translation type="obsolete">&amp;Unten:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Left:</source>
         <translation type="obsolete">&amp;Links:</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+O</source>
         <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
@@ -32769,27 +32755,27 @@ Möchten Sie statt dessen den Standardbrowser Ihres Systems starten?</translatio
 <context>
     <name>ValueDialog</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Insert value</source>
         <translation type="obsolete">Wert einfügen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Enter a value then press OK.</source>
         <translation type="obsolete">Geben Sie einen Wert ein und klicken Sie auf OK.</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Enter a value then press OK</source>
         <translation type="obsolete">Geben Sie einen Wert ein und klicken Sie auf OK</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Alt+O</source>
         <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Send your value to the script</source>
         <translation type="obsolete">Wert an das Script senden</translation>
     </message>
@@ -33111,12 +33097,12 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="198"/>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Sie müssen sicherstellen, dass Bilder und Schriften frei benutzt werden können. Wenn Sie Schriften nicht verbreiten dürfen, dann binden Sie diese beim Export als Vorlage nicht ein.</translation>
+        <translation>Sie müssen sicherstellen, daß Bilder und Schriften frei benutzt werden können. Wenn Sie Schriften nicht verbreiten dürfen, dann binden Sie diese beim Export als Vorlage nicht ein.</translation>
     </message>
     <message>
         <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="199"/>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Wenn Sie Vorlagen erstellen, sollten Sie darauf achten, dass Sie die Informationen im Abschnitt &quot;Vorlagen installieren&quot; beachten. Das bedeutet, Benutzer sollten in der Lage sein, die Vorlage einfach in das entsprechende Verzeichnis zu kopieren und zu benutzen.</translation>
+        <translation>Wenn Sie Vorlagen erstellen, sollten Sie darauf achten, daß Sie die Informationen im Abschnitt &quot;Vorlagen installieren&quot; beachten. Das bedeutet, Benutzer sollten in der Lage sein, die Vorlage einfach in das entsprechende Verzeichnis zu kopieren und zu benutzen.</translation>
     </message>
     <message>
         <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="203"/>
@@ -33126,7 +33112,7 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="208"/>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
-        <translation>Kopieren Sie die existierende template.xml in eine Datei mit der Bezeichnung template.lang_COUNTRY.xml (ersetzen Sie COUNTRY durch denselben Ländercode wie bei den po/qm-Dateien für Ihre Sprache), zum Beispiel template.fi.xml für Finnisch. Diese Kopie muss sich im selben Verzeichnis wie template.xml befinden.</translation>
+        <translation>Kopieren Sie die existierende template.xml in eine Datei mit der Bezeichnung template.lang_COUNTRY.xml (ersetzen Sie COUNTRY durch denselben Ländercode wie bei den po/qm-Dateien für Ihre Sprache), zum Beispiel template.fi.xml für Finnisch. Diese Kopie muß sich im selben Verzeichnis wie template.xml befinden.</translation>
     </message>
     <message>
         <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="74"/>
@@ -33147,37 +33133,37 @@ Null bedeutet unbegrenzt.</translation>
 <context>
     <name>patternDialogBase</name>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Patterns</source>
-        <translation type="obsolete">Füllmuster</translation>
+        <translation type="obsolete">Muster</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Load</source>
         <translation type="obsolete">Laden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Load Set</source>
         <translation type="obsolete">Satz laden</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Remove</source>
         <translation type="obsolete">Entfernen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>OK</source>
         <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Cancel</source>
         <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Remove All</source>
         <translation type="obsolete">Alle entfernen</translation>
     </message>
@@ -33276,17 +33262,17 @@ Null bedeutet unbegrenzt.</translation>
         <translation>Email</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>More Details</source>
         <translation type="obsolete">Mehr Details</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>OK</source>
         <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136965632"/>
+        <location filename="../../scribus135/trunk/Scribus/scribus/po" line="136953768"/>
         <source>Less Details</source>
         <translation type="obsolete">Weniger Details</translation>
     </message>
