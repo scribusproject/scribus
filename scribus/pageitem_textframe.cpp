@@ -594,6 +594,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					absa = hl->cab;
 					if (m_Doc->docParagraphStyles[absa].LineSpaMode == 1)
 						m_Doc->docParagraphStyles[absa].LineSpa = RealFHeight(m_Doc, hl->cfont, hl->csize);
+					else if (m_Doc->docParagraphStyles[absa].LineSpaMode == 2)
+						m_Doc->docParagraphStyles[absa].LineSpa = m_Doc->typographicSettings.valueBaseGrid;
 					if (a == 0)
 					{
 						if (BackBox != 0)
