@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QRegExp>
 #include <cmath>
-#include <zlib.h>
 
 #include "color.h"
 #include "commonstrings.h"
@@ -28,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
+#include "scgzfile.h"
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusXml.h"
@@ -223,7 +223,7 @@ bool SVGPlug::import(QString fname, int flags)
 bool SVGPlug::loadData(QString fName)
 {
 	QString f("");
-	bool isCompressed = false;
+	bool isCompressed = false, success = false;
 	QByteArray bb(3, ' ');
 	QFile fi(fName);
 	if (fi.open(QIODevice::ReadOnly))
@@ -236,22 +236,21 @@ bool SVGPlug::loadData(QString fName)
 	}
 	if ((fName.right(2) == "gz") || (isCompressed))
 	{
-		gzFile gzDoc;
-		char buff[4097];
-		int i;
-		gzDoc = gzopen(fName.toLatin1().constData(),"rb");
-		if(gzDoc == NULL)
+		ScGzFile file(fName);
+		if (!file.open(QIODevice::ReadOnly))
 			return false;
-		while((i = gzread(gzDoc,&buff,4096)) > 0)
-		{
-			buff[i] = '\0';
-			f.append(buff);
-		}
-		gzclose(gzDoc);
+		success = inpdoc.setContent(&file);
+		file.close();
 	}
 	else
-		loadText(fName, &f);
-	return inpdoc.setContent(f);
+	{
+		QFile file(fName);
+		if (!file.open(QIODevice::ReadOnly))
+			return false;
+		success = inpdoc.setContent(&file);
+		file.close();
+	}
+	return success;
 }
 
 void SVGPlug::convert(int flags)
