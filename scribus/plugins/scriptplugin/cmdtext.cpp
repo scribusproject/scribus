@@ -236,6 +236,8 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	QString Daten = QString::fromUtf8(Text);
+	Daten.replace("\r\n", SpecialChars::PARSEP);
+	Daten.replace(QChar('\n') , SpecialChars::PARSEP);
 	PyMem_Free(Text);
 	currItem->itemText.clear();
 	currItem->CPos = 0;
