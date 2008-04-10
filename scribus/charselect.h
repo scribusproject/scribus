@@ -113,6 +113,7 @@ public slots:
 	void newFont(int font);
 	void newCharClass(int c);
 	void delEdit();
+	//! Perform inserting into the text frame
 	void insChar();
 
 protected:
@@ -124,6 +125,7 @@ protected:
 	QHBoxLayout* layout1;
 	QVBoxLayout* layout2;
 	QHBoxLayout* layout3;
+
 };
 
 class SCRIBUS_API ChTable : public QTable

@@ -18,6 +18,8 @@ for which a new license (GPL+exception) is in place.
 #include <qfont.h>
 #include <qpopupmenu.h>
 #include <qwidget.h>
+#include <qregexp.h>
+#include <qvalidator.h>
 
 #include "scribus.h"
 #include "scribusdoc.h"
@@ -309,18 +311,21 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusMainWindow *pl
 	zTabelle->setReadOnly(true);
 	scanFont();
 	zAuswahlLayout->addWidget( zTabelle );
-	
+
 	layout3 = new QHBoxLayout;
 	layout3->setSpacing( 6 );
 	layout3->setMargin( 0 );
-	
+
 	layout2 = new QVBoxLayout;
 	layout2->setSpacing( 6 );
 	layout2->setMargin( 0 );
 
 	insCode = new QLineEdit( this, "insText" );
 	insCode->setMaxLength(4);
-	insCode->setInputMask(">NNNN");
+// 	insCode->setInputMask(">NNNN");
+	QValidator* insValidator = new QRegExpValidator(QRegExp("[A-F,a-f,0-9]{4}"), this);
+	insCode->setValidator(insValidator);
+
 	insCode->clear();
 	insText = new QLabel( insCode, tr("&Insert Code:"), this, "insText" );
 	insCode->setFixedWidth(insText->width());
@@ -365,7 +370,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusMainWindow *pl
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	connect(insCode, SIGNAL(returnPressed()), this, SLOT(newChar()));
-	connect(insCode, SIGNAL(lostFocus()), this, SLOT(newChar()));
+// isn't it confusing? 	connect(insCode, SIGNAL(lostFocus()), this, SLOT(newChar()));
 	setupRangeCombo();
 	newCharClass(0);
 }
@@ -728,7 +733,7 @@ void CharSelect::newFont(int font)
 
 void CharSelect::newChar()
 {
-	QString tx = insCode->text();
+	QString tx = insCode->text().upper();
 	tx.prepend("0x");
 	bool ok = false;
 	uint code = tx.toUInt(&ok, 16);
@@ -778,6 +783,9 @@ void CharSelect::delEdit()
 
 void CharSelect::insChar()
 {
+	if (insCode->hasFocus())
+		return; // don't insert glyphs when user edits HEX unicode directly
+
 	if (needReturn)
 	{
 		m_characters = chToIns;
