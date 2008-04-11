@@ -2545,10 +2545,6 @@ void ScribusView::slotDoZoom()
 	updatesOn(true);
 	//DrawNew(); // updatesOn() should trigger the necessary paintEvent - JG
 	undoManager->setUndoEnabled(true);
-	// Do some GUI stuff... Maybe do that in setScale?
-	zoomSpinBox->blockSignals(true);
-	zoomSpinBox->setValue(m_canvas->scale()/Prefs->DisScale*100);
-	zoomSpinBox->blockSignals(false);
 }
 
 void ScribusView::setZoom()
@@ -2558,8 +2554,7 @@ void ScribusView::setZoom()
 	int w = qRound(qMin(visibleWidth() / m_canvas->scale(), Doc->currentPage()->width()));
 	int h = qRound(qMin(visibleHeight() / m_canvas->scale(), Doc->currentPage()->height()));
 	rememberOldZoomLocation(w / 2 + x,h / 2 + y);
-	setScale(zoomSpinBox->value() / 100.0 * Prefs->DisScale);
-	slotDoZoom();
+	zoom(oldX, oldY, zoomSpinBox->value() / 100.0 * Prefs->DisScale, false);
 	setFocus();
 }
 
@@ -2570,12 +2565,12 @@ void ScribusView::slotZoom100()
 	int w = qRound(qMin(visibleWidth() / m_canvas->scale(), Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
 	int h = qRound(qMin(visibleHeight() / m_canvas->scale(), Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
 	rememberOldZoomLocation(w / 2 + x,h / 2 + y);
-	setScale(Prefs->DisScale);
-	slotDoZoom();
+	zoom(oldX, oldY, Prefs->DisScale, false);
 }
 
 void ScribusView::slotZoomIn(int mx,int my)
 {
+	// FIXME : mx and my should really be ScribusView local coordinates or global coordinates
 	if ((mx == 0) && (my == 0))
 	{
 		int x = qRound(qMax(contentsX() / m_canvas->scale(), Doc->minCanvasCoordinate.x()));
@@ -2586,13 +2581,14 @@ void ScribusView::slotZoomIn(int mx,int my)
 	}
 	else
 		rememberOldZoomLocation(mx,my);
-	setScale(m_canvas->scale() * static_cast<double>(Doc->toolSettings.magStep)/100.0);
-	slotDoZoom();
+	double newScale = m_canvas->scale() * static_cast<double>(Doc->toolSettings.magStep)/100.0;
+	zoom(oldX, oldY, newScale, true);
 }
 
 /** Verkleinert die Ansicht */
 void ScribusView::slotZoomOut(int mx,int my)
 {
+	// FIXME : mx and my should really be ScribusView local coordinates or global coordinates
 	if ((mx == 0) && (my == 0))
 	{
 		int x = qRound(qMax(contentsX() / m_canvas->scale(), Doc->minCanvasCoordinate.x()));
@@ -2603,8 +2599,8 @@ void ScribusView::slotZoomOut(int mx,int my)
 	}
 	else
 		rememberOldZoomLocation(mx,my);
-	setScale(m_canvas->scale() / (static_cast<double>(Doc->toolSettings.magStep)/100.0));
-	slotDoZoom();
+	double newScale = m_canvas->scale() / (static_cast<double>(Doc->toolSettings.magStep)/100.0);
+	zoom(oldX, oldY, newScale, true);
 }
 
 #if 0
@@ -4229,7 +4225,8 @@ void ScribusView::wheelEvent(QWheelEvent *w)
 //	evSpon = true;
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (MidButt) || (w->modifiers() == Qt::ControlModifier))
 	{
-		w->delta() > 0 ? slotZoomIn() : slotZoomOut();
+		FPoint mp = m_canvas->globalToCanvas(w->globalPos());
+		w->delta() > 0 ? slotZoomIn(mp.x(), mp.y()) : slotZoomOut(mp.x(), mp.y());
 	}
 	else
 	{
@@ -4320,6 +4317,10 @@ void ScribusView::setScale(const double newScale)
 		Scale=32*Prefs->DisScale;
 
 	m_canvas->setScale(Scale);
+
+	zoomSpinBox->blockSignals(true);
+	zoomSpinBox->setValue(m_canvas->scale()/Prefs->DisScale*100);
+	zoomSpinBox->blockSignals(false);
 
 	unitChange();
 }
@@ -4500,26 +4501,27 @@ void ScribusView::scrollBy(int x, int y) // deprecated
 	setContentsPos(horizontalScrollBar()->value() + x, verticalScrollBar()->value() + y);
 }
 
-void ScribusView::zoom(int globalX, int globalY, double scale, bool preservePoint)
+void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoint)
 {
+	QPoint canvasPoint;
+	QPoint globalPoint = m_canvas->canvasToGlobal(QPointF(canvasX, canvasY));
+	double newScale    = (scale > 32*Prefs->DisScale) ? (32*Prefs->DisScale) : scale;
 	undoManager->setUndoEnabled(false);
 	updatesOn(false);
-	FPoint docPoint = m_canvas->globalToCanvas(QPoint(globalX, globalY));
-	setScale(scale);
-	QPoint localPoint = m_canvas->canvasToLocal(docPoint);
+	setScale(newScale);
+	QPoint localPoint = m_canvas->canvasToLocal( QPointF(canvasX, canvasY) );
 	int nw = qMax(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), visibleWidth());
 	int nh = qMax(qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()), visibleHeight());
 	resizeContents(nw, nh); // FIXME : should be avoided here, cause an unnecessary paintEvent despite updates disabled
 	if (preservePoint)
-	{
-		QPoint canvasPoint = m_canvas->mapFromGlobal(QPoint(globalX, globalY));
-		setContentsPos(localPoint.x() - canvasPoint.x(), localPoint.y() - canvasPoint.x());
-	}
+		canvasPoint = viewport()->mapFromGlobal(globalPoint);
 	else
 	{
 		QSize viewsize = viewport()->size();
-		setContentsPos(localPoint.x() - viewsize.width() / 2, localPoint.y() - viewsize.height() / 2);
+		canvasPoint = QPoint(viewsize.width() / 2, viewsize.height() / 2);
 	}
+	canvasPoint += QPoint( -Doc->minCanvasCoordinate.x() * m_canvas->scale(), -Doc->minCanvasCoordinate.y() * m_canvas->scale());
+	setContentsPos(localPoint.x() - canvasPoint.x(), localPoint.y() - canvasPoint.y());
 	updatesOn(true);
 	undoManager->setUndoEnabled(true);
 }

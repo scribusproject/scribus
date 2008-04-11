@@ -251,7 +251,7 @@ public: // for now
 	int visibleHeight() { return viewport()->size().height(); } ;
 	void stopAllDrags();
 	void scrollBy(int x, int y);
-	void zoom(int globalX, int globalY, double scale, bool preservePoint);
+	void zoom(int canvasX, int canvasY, double scale, bool preservePoint);
 
 public slots: // Public slots
 	void languageChange();
