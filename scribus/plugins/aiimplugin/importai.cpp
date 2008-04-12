@@ -416,7 +416,12 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 					PoDoFo::PdfObject *priv = illy->GetIndirectKey("Private");
 					if (priv == NULL)
 						priv = illy;
-					int num = priv->GetIndirectKey("NumBlock")->GetNumber() + 1;
+					int num = 0;
+					PoDoFo::PdfObject *numBl = priv->GetIndirectKey("NumBlock");
+					if (numBl != NULL)
+						num = numBl->GetNumber() + 1;
+					if (num == 0)
+						num = 99999;
 					QString name = "AIPrivateData%1";
 					QString Key = name.arg(1);
 					PoDoFo::PdfObject *data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
@@ -445,6 +450,8 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 							{
 								Key = name.arg(a);
 								data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
+								if (data == NULL)
+									break;
 								PoDoFo::PdfStream const *stream = data->GetStream();
 								char *Buffer;
 								long bLen;
