@@ -472,6 +472,7 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 	{
 		outf.close();
 		e.PrintErrorMsg();
+		QFile::remove(outfile);
 		return false;
 	}
 #endif
