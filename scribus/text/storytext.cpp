@@ -528,8 +528,13 @@ void StoryText::applyCharStyle(int pos, uint len, const CharStyle& style )
 	if (pos < 0)
 		pos += length();
 
-	assert(pos >= 0);
-	assert(pos + signed(len) <= length());
+/* Why do we use an assert here instead of a gracefully return doing nothing ????? */
+//	assert(pos >= 0);
+//	assert(pos + signed(len) <= length());
+	if (pos < 0)
+		return;
+	if (pos + signed(len) > length())
+		return;
 
 	if (len == 0)
 		return;
