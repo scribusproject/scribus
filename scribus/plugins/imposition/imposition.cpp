@@ -1537,7 +1537,7 @@ void Imposition::accepted()
 	view->show();
 	scMW->newActWin(w);
 	targetDoc->setCurrentPage(targetDoc->DocPages.at(0));
-	view->slotDoZoom();
+	view->zoom();
 	view->GotoPage(0);
 
 	connect(scMW->wsp, SIGNAL(windowActivated(QWidget *)), scMW, SLOT(newActWin(QWidget *)));

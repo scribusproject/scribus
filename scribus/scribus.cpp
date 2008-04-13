@@ -4063,7 +4063,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		newActWin(w);
 		doc->setCurrentPage(doc->DocPages.at(0));
 		view->cmsToolbarButton->setChecked(doc->HasCMS);
-		view->slotDoZoom();
+		view->zoom();
 		view->GotoPage(0);
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
@@ -5750,8 +5750,7 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 		view->rememberOldZoomLocation(qRound(doc->currentPage()->xOffset() + doc->currentPage()->width() / 2.0), qRound(doc->currentPage()->yOffset() + doc->currentPage()->height() / 2.0));
 	else
 		view->rememberOldZoomLocation(w / 2 + x,h / 2 + y);
-	view->setScale(finalZoomFactor);
-	view->slotDoZoom();
+	view->zoom(finalZoomFactor);
 }
 
 void ScribusMainWindow::ToggleStickyTools()
@@ -7676,9 +7675,8 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 		for ( int i = 0; i < windowCount; ++i )
 		{
 			QWidget* w = windows.at(i);
-			ScribusWin* scw = (ScribusWin*)w;
-			scw->view()->setScale((scw->view()->scale() / oldDisplayScale) * prefsManager->displayScale());
-			scw->view()->slotDoZoom();
+			ScribusWin* scw = (ScribusWin*) w;
+			scw->view()->zoom((scw->view()->scale() / oldDisplayScale) * prefsManager->displayScale());
 		}
 	}
 }

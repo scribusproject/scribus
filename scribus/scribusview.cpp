@@ -2522,31 +2522,6 @@ void ScribusView::setMenTxt(int Seite)
 	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
 
-/** Fuehrt die Vergroesserung/Verkleinerung aus */
-void ScribusView::slotDoZoom()
-{
-	undoManager->setUndoEnabled(false);
-	if (m_canvas->scale() > 32*Prefs->DisScale)
-	{
-		setScale(32*Prefs->DisScale);
-		return;
-	}
-	updatesOn(false);
-	int nw = qMax(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), visibleWidth());
-	int nh = qMax(qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()), visibleHeight());
-	resizeContents(nw, nh); // FIXME : should be avoided here, cause an unnecessary paintEvent despite updates disabled
-	if (Doc->m_Selection->count() != 0)
-	{
-		PageItem *currItem = Doc->m_Selection->itemAt(0);
-		SetCCPo(currItem->xPos() + currItem->width() / 2.0, currItem->yPos() + currItem->height() / 2.0);
-	}
-	else
-		SetCCPo(oldX, oldY);
-	updatesOn(true);
-	//DrawNew(); // updatesOn() should trigger the necessary paintEvent - JG
-	undoManager->setUndoEnabled(true);
-}
-
 void ScribusView::setZoom()
 {
 	int x = qRound(qMax(contentsX() / m_canvas->scale(), 0.0));
@@ -2746,7 +2721,7 @@ void ScribusView::showMasterPage(int nr)
 	pageSelector->setEnabled(false);
 	updateOn = false;
 //	reformPages();
-	slotDoZoom();
+	zoom();
 	oldX = qRound(Doc->currentPage()->xOffset()- 10);
 	oldY = qRound(Doc->currentPage()->yOffset()- 10);
 	SetCPo(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
@@ -4499,6 +4474,20 @@ void ScribusView::scrollContentsBy(int dx, int dy)
 void ScribusView::scrollBy(int x, int y) // deprecated
 {
 	setContentsPos(horizontalScrollBar()->value() + x, verticalScrollBar()->value() + y);
+}
+
+void ScribusView::zoom(double scale)
+{
+	double zPointX = oldX, zPointY = oldY;
+	if (scale <= 0.0)
+		scale = m_canvas->scale();
+	if (Doc->m_Selection->count() != 0)
+	{
+		PageItem *currItem = Doc->m_Selection->itemAt(0);
+		zPointX = currItem->xPos() + currItem->width() / 2.0;
+		zPointY = currItem->yPos() + currItem->height() / 2.0;
+	}
+	zoom( qRound(zPointX), qRound(zPointY), scale, false);
 }
 
 void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoint)

@@ -251,6 +251,7 @@ public: // for now
 	int visibleHeight() { return viewport()->size().height(); } ;
 	void stopAllDrags();
 	void scrollBy(int x, int y);
+	void zoom(double scale = 0.0);
 	void zoom(int canvasX, int canvasY, double scale, bool preservePoint);
 
 public slots: // Public slots
@@ -263,7 +264,6 @@ public slots: // Public slots
 	void slotUpdateContents();
 	void slotUpdateContents(const QRect &r);
   /** Zooms in or out */
-	void slotDoZoom();
 	void slotZoom100();
   /** Zooms in */
 	void slotZoomIn(int mx=0,int my=0);
