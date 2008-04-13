@@ -63,6 +63,7 @@ AIPlug::AIPlug(ScribusDoc* doc, int flags)
 	tmpSel=new Selection(this, false);
 	m_Doc=doc;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
+	progressDialog = NULL;
 }
 
 bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
@@ -1436,7 +1437,7 @@ void AIPlug::processData(QString data)
 			else
 				CurrColorFill = parseColorRGB(Xdata);
 		}
-		else if ((command == "XX") || (command == "Xx"))
+		else if ((command == "XX") || (command == "Xx") || (command == "Xk"))
 		{
 			if (command == "XX")
 				CurrColorStroke = parseCustomColorX(Cdata, CurrStrokeShade, da2[da2.count()-2]);
@@ -2253,7 +2254,7 @@ bool AIPlug::convert(QString fn)
 	commandList << "u" << "U" << "W" << "q" << "Q";									// Object creation
 	commandList << "A" << "w" << "j" << "J" << "Xy" << "XR";						// Graphic state
 	commandList << "k" << "K" << "Xa" << "XA" << "x" << "X" << "XX" << "Xx";		// Color commands
-	commandList << "g" << "G" << "p";												// Color commands
+	commandList << "Xk" << "g" << "G" << "p";										// Color commands
 	commandList << "Ln" << "Lb" << "LB";											// Layer commands
 	commandList << "Bd" << "BD" << "%_Bs" << "Bg" << "Bb" << "BB" << "Bm" << "Xm";	// Gradient commands
 	commandList << "To" << "TO" << "Tf" << "Tp" << "Tx" << "TX" << "T*" << "Tk";	// Text commands

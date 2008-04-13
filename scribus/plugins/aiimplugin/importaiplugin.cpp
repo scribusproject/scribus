@@ -158,6 +158,8 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 	}
 	else if (!(flags & lfInteractive))
 		UndoManager::instance()->setUndoEnabled(true);
+	if (!success)
+		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
 	delete dia;
 	return success;
 }
