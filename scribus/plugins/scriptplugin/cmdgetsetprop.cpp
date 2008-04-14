@@ -363,9 +363,9 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	if (propertyType == "bool")
 	{
 		matched = true;
-		if (objValue == Py_False)
+		if (PyObject_IsTrue(objValue) == 0)
 			success = obj->setProperty(propertyName, 0);
-		else if (objValue == Py_True)
+		else if (PyObject_IsTrue(objValue) == 1)
 			success = obj->setProperty(propertyName, 1);
 		else if (PyInt_Check(objValue))
 			success = obj->setProperty(propertyName, PyInt_AsLong(objValue) == 0);
@@ -377,9 +377,9 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	else if (propertyType == "int")
 	{
 		matched = true;
-		if (objValue == Py_False)
+		if (PyObject_IsTrue(objValue) == 0)
 			success = obj->setProperty(propertyName, 0);
-		else if (objValue == Py_True)
+		else if (PyObject_IsTrue(objValue) == 1)
 			success = obj->setProperty(propertyName, 1);
 		else if (PyInt_Check(objValue))
 			success = obj->setProperty(propertyName, (int)PyInt_AsLong(objValue));
