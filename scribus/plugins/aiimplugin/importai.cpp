@@ -471,7 +471,9 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 	catch (PoDoFo::PdfError& e)
 	{
 		outf.close();
+		qDebug("Scribus caught and handled the following exception from PoDoFo while processing a PDF format ai file:\n----\n");
 		e.PrintErrorMsg();
+		qDebug("----\nThe ai file could not be imported.\n");
 		QFile::remove(outfile);
 		return false;
 	}
