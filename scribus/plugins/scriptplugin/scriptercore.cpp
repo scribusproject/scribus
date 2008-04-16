@@ -256,7 +256,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	PyThreadState *stateo = NULL;
 	PyThreadState *state = NULL;
 	QFileInfo fi(fileName);
-	QByteArray na = fi.fileName().toLatin1();
+	QByteArray na = fi.fileName().toLocal8Bit();
 	// Set up a sub-interpreter if needed:
 	if (!inMainInterpreter)
 	{

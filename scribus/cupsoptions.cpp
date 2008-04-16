@@ -77,7 +77,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent )
 	ppd_file_t	*ppd;				/* PPD data */
 	ppd_group_t	*group;			/* Current group */
 	num_dests = cupsGetDests(&dests);
-	dest = cupsGetDest(Geraet.toLatin1().constData(), NULL, num_dests, dests);
+	dest = cupsGetDest(Geraet.toLocal8Bit().constData(), NULL, num_dests, dests);
 	if (!(dest == NULL || (filename = cupsGetPPD(dest->name)) == NULL || (ppd = ppdOpenFile(filename)) == NULL))
 	{
 		ppdMarkDefaults(ppd);
