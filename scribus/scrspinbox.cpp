@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QKeyEvent>
 #include <QRegExp>
 
+#include "commonstrings.h"
 #include "scrspinbox.h"
 #include "units.h"
 #include "fparser.h"
@@ -109,32 +110,36 @@ static const QString FinishTag("\xA0");
 double ScrSpinBox::valueFromText ( const QString & text ) const
 {
 	//Get all our units strings
-	QString trStrPT=unitGetStrFromIndex(SC_PT);
-	QString trStrMM=unitGetStrFromIndex(SC_MM);
-	QString trStrIN=unitGetStrFromIndex(SC_IN);
-	QString trStrP =unitGetStrFromIndex(SC_P);
-	QString trStrCM=unitGetStrFromIndex(SC_CM);
-	QString trStrC =unitGetStrFromIndex(SC_C);
-	QString strPT=unitGetUntranslatedStrFromIndex(SC_PT);
-	QString strMM=unitGetUntranslatedStrFromIndex(SC_MM);
-	QString strIN=unitGetUntranslatedStrFromIndex(SC_IN);
-	QString strP =unitGetUntranslatedStrFromIndex(SC_P);
-	QString strCM=unitGetUntranslatedStrFromIndex(SC_CM);
-	QString strC =unitGetUntranslatedStrFromIndex(SC_C);
+//CB: Replaced by new CommonStrings versions
+// 	QString trStrPT=unitGetStrFromIndex(SC_PT);
+// 	QString trStrMM=unitGetStrFromIndex(SC_MM);
+// 	QString trStrIN=unitGetStrFromIndex(SC_IN);
+// 	QString trStrP =unitGetStrFromIndex(SC_P);
+// 	QString trStrCM=unitGetStrFromIndex(SC_CM);
+// 	QString trStrC =unitGetStrFromIndex(SC_C);
+// 	QString strPT=unitGetUntranslatedStrFromIndex(SC_PT);
+// 	QString strMM=unitGetUntranslatedStrFromIndex(SC_MM);
+// 	QString strIN=unitGetUntranslatedStrFromIndex(SC_IN);
+// 	QString strP =unitGetUntranslatedStrFromIndex(SC_P);
+// 	QString strCM=unitGetUntranslatedStrFromIndex(SC_CM);
+// 	QString strC =unitGetUntranslatedStrFromIndex(SC_C);
 	//Get a copy for use
 	QString ts = text.trimmed();
-	
+	//Find our suffix
+	QString su(suffix().trimmed());
+	//Get the index of our suffix
+	int toConvertToIndex=unitIndexFromString(su);
 	//Replace our pica XpY.Z format with (X*12+Y.Z)pt
-	if (trStrP.localeAwareCompare(strP)!=0)
-		ts.replace(trStrP, strP);
-	QRegExp rxP("(\\d+)"+strP+"(\\d+\\.?\\d*)");
+	if (CommonStrings::trStrP.localeAwareCompare(CommonStrings::strP)!=0)
+		ts.replace(CommonStrings::trStrP, CommonStrings::strP);
+	QRegExp rxP("\\b(\\d+)"+CommonStrings::strP+"(\\d+\\.?\\d*)?\\b");
 	int posP = 0;
 	while (posP >= 0)
 	{
 		posP = rxP.indexIn(ts, posP);
 		if (posP >= 0)
 		{
-			QString replacement = QString("%1%2").arg(rxP.cap(1).toDouble()*(static_cast<double>(unitGetBaseFromIndex(SC_PICAS))) + rxP.cap(2).toDouble()).arg(strPT);
+			QString replacement = QString("%1%2").arg(rxP.cap(1).toDouble()*(static_cast<double>(unitGetBaseFromIndex(SC_PICAS))) + rxP.cap(2).toDouble()).arg(CommonStrings::strPT);
 			ts.replace(posP, rxP.cap(0).length(), replacement);
 		}
 	}
@@ -144,7 +149,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	ts.replace("°", "");
 	ts.replace(FinishTag, "");
 	ts = ts.trimmed();
-	QString su(suffix().trimmed());
+
 	if (ts.endsWith(su))
 		ts = ts.left(ts.length()-su.length());
 	int pos = ts.length();
@@ -163,7 +168,6 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	}
 	if (ts.endsWith("."))
 		ts.append("0");
-	
 	//CB FParser doesn't handle unicode well/at all.
 	//So, instead of just getting the translated strings and
 	//sticking them in as variables in the parser, if they are
@@ -173,18 +177,18 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	//To return to previous functionality, remove the follow replacement ifs,
 	//S&R in the trStr* assignments trStrPT->strPT and remove the current str* ones. 
 	//IE, send the translated strings through to the regexp.
-	if (trStrPT.localeAwareCompare(strPT)!=0)
-		ts.replace(trStrPT, strPT);
-	if (trStrMM.localeAwareCompare(strMM)!=0)
-		ts.replace(trStrMM, strMM);
-	if (trStrIN.localeAwareCompare(strIN)!=0)
-		ts.replace(trStrIN, strIN);
-	if (trStrCM.localeAwareCompare(strCM)!=0)
-		ts.replace(trStrCM, strCM);
-	if (trStrC.localeAwareCompare(strPT)!=0)
-		ts.replace(trStrC, strC);
+	if (CommonStrings::trStrPT.localeAwareCompare(CommonStrings::strPT)!=0)
+		ts.replace(CommonStrings::trStrPT, CommonStrings::strPT);
+	if (CommonStrings::trStrMM.localeAwareCompare(CommonStrings::strMM)!=0)
+		ts.replace(CommonStrings::trStrMM, CommonStrings::strMM);
+	if (CommonStrings::trStrIN.localeAwareCompare(CommonStrings::strIN)!=0)
+		ts.replace(CommonStrings::trStrIN, CommonStrings::strIN);
+	if (CommonStrings::trStrCM.localeAwareCompare(CommonStrings::strCM)!=0)
+		ts.replace(CommonStrings::trStrCM, CommonStrings::strCM);
+	if (CommonStrings::trStrC.localeAwareCompare(CommonStrings::strPT)!=0)
+		ts.replace(CommonStrings::trStrC, CommonStrings::strC);
 	//Replace in our typed text all of the units strings with *unitstring
-	QRegExp rx("\\b(\\d+)\\s*("+strPT+"|"+strMM+"|"+strC+"|"+strCM+"|"+strIN+")\\b");
+	QRegExp rx("\\b(\\d+)\\s*("+CommonStrings::strPT+"|"+CommonStrings::strMM+"|"+CommonStrings::strC+"|"+CommonStrings::strCM+"|"+CommonStrings::strIN+")\\b");
 	pos = 0;
 	while (pos >= 0) {
 		pos = rx.indexIn(ts, pos);
@@ -193,17 +197,16 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 			ts.replace(pos, rx.cap(0).length(), replacement);
 		}
 	}
-	//Get the index of our suffix
-	int toConvertToIndex=unitIndexFromString(su);
+
 	//Add in the fparser constants using our unit strings, and the conversion factors.
 	FunctionParser fp;
 // 	setFPConstants(fp);
-	fp.AddConstant(strPT.toStdString(), value2value(1.0, SC_PT, toConvertToIndex));
-	fp.AddConstant(strMM.toStdString(), value2value(1.0, SC_MM, toConvertToIndex));
-	fp.AddConstant(strIN.toStdString(), value2value(1.0, SC_IN, toConvertToIndex));
-	fp.AddConstant(strP.toStdString(), value2value(1.0, SC_P, toConvertToIndex));
-	fp.AddConstant(strCM.toStdString(), value2value(1.0, SC_CM, toConvertToIndex));
-	fp.AddConstant(strC.toStdString(), value2value(1.0, SC_C, toConvertToIndex));
+	fp.AddConstant(CommonStrings::strPT.toStdString(), value2value(1.0, SC_PT, toConvertToIndex));
+	fp.AddConstant(CommonStrings::strMM.toStdString(), value2value(1.0, SC_MM, toConvertToIndex));
+	fp.AddConstant(CommonStrings::strIN.toStdString(), value2value(1.0, SC_IN, toConvertToIndex));
+	fp.AddConstant(CommonStrings::strP.toStdString(), value2value(1.0, SC_P, toConvertToIndex));
+	fp.AddConstant(CommonStrings::strCM.toStdString(), value2value(1.0, SC_CM, toConvertToIndex));
+	fp.AddConstant(CommonStrings::strC.toStdString(), value2value(1.0, SC_C, toConvertToIndex));
 
 	fp.AddConstant("old", value());
 	if (m_constants)

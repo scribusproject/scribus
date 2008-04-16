@@ -236,6 +236,20 @@ public:
 	static QString trPostScript3;
 	static QString WindowsGDI;
 	static QString trWindowsGDI;
+	
+	//Units strings
+	static QString trStrPT;
+	static QString trStrMM;
+	static QString trStrIN;
+	static QString trStrP;
+	static QString trStrCM;
+	static QString trStrC;
+	static QString strPT;
+	static QString strMM;
+	static QString strIN;
+	static QString strP;
+	static QString strCM;
+	static QString strC;
 };
 
 #endif
