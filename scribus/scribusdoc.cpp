@@ -6615,22 +6615,19 @@ void ScribusDoc::removeLayer(int l, bool dl)
 	m_View->Deselect();
 	Selection tmpSelection(this, false);
 	int newLayerNr = 0;
-	if (!dl)
+	// Find the new layer identifier
+	const ScLayer* lcurr = Layers.layerByNumber(l);
+	if (lcurr)
 	{
-		// Find the new layer identifier
-		const ScLayer* lcurr = Layers.layerByNumber(l);
-		if (lcurr)
+		const ScLayer* lbelow = Layers.layerBelow(lcurr->Level);
+		if (lcurr == lbelow)
 		{
-			const ScLayer* lbelow = Layers.layerBelow(lcurr->Level);
-			if (lcurr == lbelow)
-			{
-				const ScLayer* labove = Layers.layerAbove(lcurr->Level);
-				if (labove)
-					newLayerNr = labove->LNr;
-			}
-			else if (lbelow)
-				newLayerNr = lbelow->LNr;
+			const ScLayer* labove = Layers.layerAbove(lcurr->Level);
+			if (labove)
+				newLayerNr = labove->LNr;
 		}
+		else if (lbelow)
+			newLayerNr = lbelow->LNr;
 	}
 	for (int b = 0; b < MasterItems.count(); ++b)
 	{
