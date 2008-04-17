@@ -2239,7 +2239,6 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	w->setView(tempView);
 	ActWin = w;
 	tempDoc->WinHan = w;
-	w->setCentralWidget(tempView);
 	if (requiresGUI)
 		tempDoc->connectDocSignals(); //Must be before the first reformpages
 	tempView->reformPages(true);
@@ -3795,7 +3794,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		alignDistributePalette->setDoc(doc);
 		ActWin = w;
 		doc->WinHan = w;
-		w->setCentralWidget(view);
 		wsp->addWindow(w);
 		w->setUpdatesEnabled(false);
 		view->updatesOn(false);

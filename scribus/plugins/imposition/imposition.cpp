@@ -1526,7 +1526,6 @@ void Imposition::accepted()
 	
 	targetDoc->WinHan = w;
 	
-	w->setCentralWidget(view);
 	scMW->wsp->addWindow(w);
 	
 	scMW->HaveDoc++;

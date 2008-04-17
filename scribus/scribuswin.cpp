@@ -83,6 +83,7 @@ void ScribusWin::setView(ScribusView* newView)
 	statusFrameLayout->addWidget(m_View->visualMenu);
 	statusBar()->addPermanentWidget(statusFrame, 4);
 	currentDir = QDir::currentPath();
+	setCentralWidget(newView);
 }
 
 void ScribusWin::slotAutoSave()
