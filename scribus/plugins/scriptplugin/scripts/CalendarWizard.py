@@ -122,7 +122,7 @@ localization = {
      ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela']],
 'Portuguese' :
     [['Janeiro', 'Fevereiro', u'Mar\xe7o', 'Abril',
-      'Pode', 'Junho', 'Julho', 'Agosto', 'Setembro',
+      'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
       'Outubro', 'Novembro', 'Dezembro'],
      ['Segunda-feira', u'Ter\xe7a-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', u'S\xe1bado', 'Domingo']],
 'Russian' :
