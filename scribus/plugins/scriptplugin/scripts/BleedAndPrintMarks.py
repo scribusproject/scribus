@@ -1,25 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-""" 
+"""
 
 Diese Skript exportiert ein Dokument mit Beschnittrand samt Marken als PDF.
 Hierzu ist wie folgt vorzugehen:
 
-0) Ihr Dokument muß eine minimale Ablagefläche oberhalb, links und rechts von 20 pt und 
-   einen minimalen vertikalen Abstand zwischen den Seiten von 40 pt aufweisen 
-   (siehe Datei->Dokument einrichten->Anzeige). Das Script ist nur für Dokumente getestet, 
+0) Ihr Dokument muß eine minimale Ablagefläche oberhalb, links und rechts von 20 pt und
+   einen minimalen vertikalen Abstand zwischen den Seiten von 40 pt aufweisen
+   (siehe Datei->Dokument einrichten->Anzeige). Das Script ist nur für Dokumente getestet,
    bei denen alle Seiten gleich groß sind!
-   
+
 1) Speichern Sie Ihr Dokument.
 
 2) Starten Sie dieses Skript.
 
 3) Zuerst werden Sie nach Einheit und Größe des Beschnittrandes
-   sowie die Farbnamen gefragt. Die Größe des Beschnittrandes wird automatisch verkleinert, wenn dieser 
+   sowie die Farbnamen gefragt. Die Größe des Beschnittrandes wird automatisch verkleinert, wenn dieser
    größer als der halbe vertikale Abstand zwischen den Seiten ist.
 
-4) Dann werden Sie nach dem Namen eines Verzeichnisses gefragt, in dem je ein Scribus-Dokument 
+4) Dann werden Sie nach dem Namen eines Verzeichnisses gefragt, in dem je ein Scribus-Dokument
    für linke und rechte Seiten abgelegt und die gedruckten Seiten abgelegt werden.
 
 5) Wählen Sie die Optioen für die Beschnittmarken und die Beschriftung aus.
@@ -31,26 +31,26 @@ Autor: Konrad Stania mit Ergänzungen durch Gregory Pittman und Petr Vanek
 
 ##########################################
 
-This script exports a document with 20 pt bleed and crop-marks as PDF. 
+This script exports a document with 20 pt bleed and crop-marks as PDF.
 
 USAGE:
 
 
-0) Make a document with min. 20 pt scratch space above and on the right of the page and 40 pt vertical distance 
+0) Make a document with min. 20 pt scratch space above and on the right of the page and 40 pt vertical distance
    between the pages. The script is tested only for documents in which every page the same size.
 
-1) Save your document 
+1) Save your document
 
 2) Start the script.
 
-3) Enter the unit and size of the bleed, the color names for the marks and text. 
+3) Enter the unit and size of the bleed, the color names for the marks and text.
   The bleed will be automatically reduced if it's larger then the half vertical distance between the pages.
 
 4) Choose a directory where the tempory files and the output is stored.
 
 5) Choose whether you like to have marks and/or text.
 
-Execution of the script will result in one pdf for each page and three Scribus-files 
+Execution of the script will result in one pdf for each page and three Scribus-files
 
 Author: Konrad Stania, with additions by Gregory Pittman and Petr Vanek
 
@@ -88,36 +88,22 @@ try:
 except ImportError:
     print "This script only runs from within Scribus."
     sys.exit(1)
-    
+
 def main():
-    #setRedraw(False) 
-    
-    #the xml-interpretation with expat does not like some chars. We will have to substitute them and 
+    #setRedraw(False)
+
+    #the xml-interpretation with expat does not like some chars. We will have to substitute them and
     #change this back before going to interpret the new files with scribus
     #Append this list, if you encounter an expat-error concerning xml with wrong chars
     #We have to decide if you are using it on Win or Linux
 
     charsToChangeWin1333 = ["&#x1a;","&#x1b;","&#x1c;","&#x1d;","&#x1e;","&#x18;","&#x4;", "&#x5;"]
-    charsToChangeLin1333 = ["\x1a","\x1b","\x1c","\x1d","\x1e","\x18","\x04", "\x05"]
-    # petr vanek - lin chars are now the same as win ones
-
-    ##charsToChangeLin1333 = ["UnSinnx"]
-    #if os.name == "posix":
-      #defaultSystemVersion = "lin1333"
-    #else:
-      #defaultSystemVersion = "win1333"
-      
-    #SystemVersion = valueDialog("Bleed and Marks - OS and Scribus Version - Betriebssystem und Scribus-Version:", "OS and Scribus Version: win1333 lin1333" ,defaultSystemVersion)
-   
-    #if SystemVersion == "lin1333":
-      #charsToChange = charsToChangeLin1333
-    #else:
-      #charsToChange = charsToChangeWin1333
-      #SystemVersion = "win1333"
 
     charsToChange = charsToChangeWin1333
-
-    fgcol = valueDialog("Bleed and Marks", "Foreground Color for Marks (The script will create the color if it doesn't exist)\nVordergrundfarbe für Marken (Das Skript erstellt die Farbe, wenn sie nicht vorhanden ist):" ,"regcol")
+    fgcolmesg = "Foreground Color for Marks\n (The script will create the color if it doesn't exist):"
+    if (lang == "DE"):
+        fgcolmesg = "Vordergrundfarbe für Marken\n (Das Skript erstellt die Farbe, wenn sie nicht vorhanden ist):"
+    fgcol = valueDialog("Bleed and Marks", fgcolmesg ,"regcol")
     if fgcol == '':
         return
     try:
@@ -135,16 +121,22 @@ def main():
     setUnit(0)
 
     #deselectAll()
+    baseDirmesg = "Output Directory"
+    if (lang == "DE"):
+        baseDirmesg = "Ausgabeverzeichnis"
+    baseDirName = fileDialog("Bleed and Marks - " + baseDirmesg, "*","./" ,False, False, True)
 
-    baseDirName = fileDialog("Bleed and Marks - Output Directory - Ausgabeverzeichnis", "*","./" ,False, False, True)
-
-    baseFileName = baseDirName + "scribus_print"
+    baseName = valueDialog("Bleed and Marks", "File names will begin with (prefix):", "scribus_print")
+    baseFileName = baseDirName + baseName
     exportType = "pdf"
     UnitFakt = 1
     bleedVal = 20
-    UnitType = "pt"    
+    UnitType = "pt"
 
-    UnitType = valueDialog("Bleed and Marks", "Unit for Bleed - Maßeinheit für die Randgröße \npt, mm, cm , mm")
+    UnitTypemesg = "Unit for Bleed: \npt, mm, cm, in"
+    if (lang == "DE"):
+        UnitTypemesg = "Maßeinheit für die Randgröße: \npt, mm, cm"
+    UnitType = valueDialog("Bleed and Marks", UnitTypemesg, "mm")
 
     if UnitType == "mm":
         UnitFakt = 1/25.4*72
@@ -153,40 +145,60 @@ def main():
     if UnitType == "cm":
         UnitFakt = 1/2.54*72
         bleedVal = 0.1*int(20.0/72*2.54*10)
-    
+
+    if UnitType == "in":
+        UnitFakt = 72
+        bleedVal = 20.0/72
+
     if UnitType == "pt":
         UnitType = "pt"
         UnitFakt = 1
         bleedVal = 20
-    
-    bleedVal = float(valueDialog("Bleed and Marks", "Size of Bleed, automatically limited to half of vertical gap between pages["+ UnitType +"]\nGröße des Beschnittrandes, automatisch beschränkt auf den halben vertikalen Abstand zwischen den Seiten ["+ UnitType +"]:" ,'%5.3f'% bleedVal))
-    
-    
-    TypeOfPages = valueDialog("Bleed and Marks - Pagetype - Seitenart", "Double first right - Doppelseite, erste rechts = dr,\nDouble first left - Doppelseite, erste links = dl,\nSingle pages - Einzelne Seiten = s" ,"dr")
+    bleedValmesg = "Size of Bleed, automatically limited\n to half of vertical gap between pages["+ UnitType +"]:"
+    if (lang == "DE"):
+        bleedValmesg = "Größe des Beschnittrandes, automatisch beschränkt\n auf den halben vertikalen Abstand zwischen den Seiten ["+ UnitType +"]:"
+    bleedVal = float(valueDialog("Bleed and Marks", bleedValmesg ,'%5.3f'% bleedVal))
+
+    pageTypemesg1 = "Page Type"
+    pageTypemesg2 = "Double first right = dr, Double first left = dl,\nSingle pages = s"
+    if (lang == "DE"):
+        pageTypemesg1 = "Seitenart"
+        pageTypemesg2 = "Doppelseite, erste rechts = dr, Doppelseite, erste links = dl,\nEinzelne Seiten = s"
+    TypeOfPages = valueDialog("Bleed and Marks - " + pageTypemesg1, pageTypemesg2,"dr")
     #which marks can be "l", "r", "b" and defines whether left, right or both marks are printed
     whichMarks = "b"
 
     if TypeOfPages <> "errfind":
-    
-        doCropMarks = int(valueDialog("Bleed and Marks", "Print Crop Marks - Drucke Schnittmarken 1=Yes-Ja, 0=No-Nein" ,"1"))
-        doRegMarks = int(valueDialog("Bleed and Marks", "Print Registration Marks - Drucke Paßkreuze 1=Yes-Ja, 0=No-Nein" ,"1"))
-        doColorSamples = int(valueDialog("Bleed and Marks", "Print color bar - Drucke Farbbalken 1=Yes-Ja, 0=No-Nein" ,"1"))
+        printCropmesg = "Print Crop Marks: 1 = Yes, 2 = No"
+        printRegmesg = "Print Registration Marks: 1 = Yes, 2 = No"
+        printCBarmesg = "Print Color Bar: 1 = Yes, 2 = No"
+    if (lang == "DE"):
+        printCropmesg = "Drucke Schnittmarken: 1 = Ja, 2 = Nein"
+        printRegmesg = "Drucke Paßkreuze: 1 = Ja, 2 = Nein"
+        printCBarmesg = "Drucke Farbbalken: 1 = Ja, 2 = Nein"
 
-        jobname = valueDialog("Bleed and Marks", "Info Text - Infotext" ,"Created by Scribus") 
-        if len(jobname) > 0:
-          doJobText = int("1")
-        else:
-          doJobText = int("0")
+    doCropMarks = int(valueDialog("Bleed and Marks", printCropmesg,"1"))
+    doRegMarks = int(valueDialog("Bleed and Marks", printRegmesg,"1"))
+    doColorSamples = int(valueDialog("Bleed and Marks", printCBarmesg,"1"))
+
+    jobname = valueDialog("Bleed and Marks", "Info Text" ,"Created by Scribus")
+    if len(jobname) > 0:
+        doJobText = int("1")
+    else:
+        doJobText = int("0")
 
     #preparing the file-environment
-    
+
     tmpFileName = baseDirName + "tmp.sla"
     rightPageName = baseDirName + "rightpage.sla"
     leftPageName = baseDirName + "leftpage.sla"
     saveDocAs(tmpFileName)
-    messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
+    processmesg = "Processing the document, please wait"
+    if (lang == "DE"):
+        processmesg = "Dokument in Bearbeitung, bitte warten"
+    messagebarText(processmesg)
     #closeDoc()
-    messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten")
+#    messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten")
 
     #Here we clean-up the xml documents from illegal characters
     #Here we replace \x1A \x1B \x1C etc. in the Document to prevent expat from crashing
@@ -197,62 +209,46 @@ def main():
 
     # define an uniqe string to replace the bad chars
     charsToChangeMark = "__bleed_and_export_" + '%4.0f'% (10000+80000*random.random())
-    while richtig.find(charsToChangeMark) > (-1) : 
+    while richtig.find(charsToChangeMark) > (-1) :
        charsToChangeMark = "__bleed_and_export_" + '%4.0f'% (10000+80000*random.random())
-      
+
     # change all bad chars
     toChangeCounter = 1000
     for toChange in charsToChange:
         richtig = richtig.replace(toChange,charsToChangeMark +"_"+ '%4i'% toChangeCounter)
         toChangeCounter = toChangeCounter + 1
-                
+
     # write the corrected tmp-file
     outFile = open(tmpFileName,"w")
     outFile.write(richtig)
     outFile.close()
- 
+
     if TypeOfPages == "errfind":
       # this helps to find the illegal ones
       LineNumber = int(valueDialog("bleed_and_export.py", "Line-Zeile" ,"1"))
       #ColNumber = int(valueDialog("bleed_and_export.py", "Collumn-Spalte" ,"1"))
-   
+
       inFile = open(tmpFileName,"r")
-      for x in range(LineNumber): 
+      for x in range(LineNumber):
         Zeile = inFile.readline()
 
       inFile.close()
       suspectList = "Dangerous chars: "
       Spalte = 0
-      
-      if SystemVersion == "win1333":
-      
-        for x in Zeile:
-           if Zeile[Spalte:Spalte+3] == "&#x":
-             suspect = Zeile[Spalte:Spalte+6]
-             suspectList = suspectList + suspect[0:1+suspect.find(";")] + " "
-      
-           Spalte = Spalte + 1
 
-           
-        messageBox("Bleed and Marks", suspectList + "The following would be valid - Achtung, folgende wären gültig: &#x9, &#xa, &#xd" , ICON_INFORMATION)
+      for x in Zeile:
+        if Zeile[Spalte:Spalte+3] == "&#x":
+          suspect = Zeile[Spalte:Spalte+6]
+          suspectList = suspectList + suspect[0:1+suspect.find(";")] + " "
 
-      if SystemVersion == "lin1333":
-        spalte = 0
-        for x in Zeile:
-           if ord(Zeile[Spalte]) < ord("\x1f"):
-             
-             suspect = " "'%x'% ord(Zeile[Spalte])
-             suspectList = suspectList + suspect
-      
-           Spalte = Spalte + 1
+        Spalte = Spalte + 1
 
-           
-        messageBox("Bleed and Marks", suspectList + "The following would be valid - Achtung, folgende wären gültig: 9, a, d"  , ICON_INFORMATION)
+      suspectListmesg = "The following would be valid: &#x9, &#xa, &#xd"
+      if (lang == "DE"):
+           suspectListmesg = "Achtung, folgende wären gültig: &#x9, &#xa, &#xd"
+      messageBox("Bleed and Marks", suspectList + suspectListmesg, ICON_INFORMATION)
 
 
- 
-    
-      
     if TypeOfPages == "s" or TypeOfPages =="dr" or TypeOfPages =="dl":
       #Here we make the xml-operations for left pages:
 
@@ -261,29 +257,29 @@ def main():
       theDocumentNodeRef = theDocumentNode[0]
 
       thePageSetSetsNodeRef = theDocumentNodeRef.getElementsByTagName('PageSets')[0].getElementsByTagName('Set')
-      
+
       for xRef in thePageSetSetsNodeRef:
-          
+
           if float(xRef.attributes["GapBelow"].value) <= (2 * bleedVal*UnitFakt):
-              
+
               bleedVal = float(xRef.attributes["GapBelow"].value) / UnitFakt / 2
-              
-            
+
+
       for xRef in thePageSetSetsNodeRef:
           xRef.attributes["GapBelow"].value = '%5.3f'%(float(xRef.attributes["GapBelow"].value) - 2 *bleedVal*UnitFakt)
-      
+
       theDocumentNodeRef.attributes["PAGEHEIGHT"].value =  '%5.3f'%(float(theDocumentNodeRef.attributes["PAGEHEIGHT"].value) + 2 * bleedVal*UnitFakt)
       theDocumentNodeRef.attributes["PAGEWIDTH"].value =  '%5.3f'%(float(theDocumentNodeRef.attributes["PAGEWIDTH"].value) + 2 * bleedVal*UnitFakt)
       theDocumentNodeRef.attributes["ScratchTop"].value =  '%5.3f'%(float(theDocumentNodeRef.attributes["ScratchTop"].value) - bleedVal*UnitFakt)
       theDocumentNodeRef.attributes["ScratchLeft"].value =  '%5.3f'%(float(theDocumentNodeRef.attributes["ScratchLeft"].value) - bleedVal*UnitFakt)
-      
+
       thePageNodeRef = theDocumentNodeRef.getElementsByTagName('PAGE')
       for xRef in thePageNodeRef :
           xRef.attributes["PAGEHEIGHT"].value =   '%5.3f'%(float(xRef.attributes["PAGEHEIGHT"].value) + 2 * bleedVal*UnitFakt)
           xRef.attributes["PAGEWIDTH"].value =   '%5.3f'%(float(xRef.attributes["PAGEWIDTH"].value) + 2 * bleedVal*UnitFakt)
-      
+
       theMasterPageNodeRef = theDocumentNodeRef.getElementsByTagName('MASTERPAGE')
- 
+
       for xRef in theMasterPageNodeRef :
           xRef.attributes["PAGEHEIGHT"].value = '%5.3f'%(float(xRef.attributes["PAGEHEIGHT"].value) + 2 * bleedVal*UnitFakt)
           xRef.attributes["PAGEWIDTH"].value =  '%5.3f'%(float(xRef.attributes["PAGEWIDTH"].value) + 2 * bleedVal*UnitFakt)
@@ -303,16 +299,16 @@ def main():
       outFile.close()
       outxml = "n"
 
-              
+
     if TypeOfPages =="dr" or TypeOfPages =="dl":
        #Here we make the xml-operations for right pages of double sides documents
-      
+
       theDocumentNodeRef.attributes["ScratchLeft"].value =  '%5.3f'%(float(theDocumentNodeRef.attributes["ScratchLeft"].value) - 2 * bleedVal*UnitFakt)
 
       outxml  = xmldoc.toxml()
-      
+
       #put back the illegal char
-      
+
       toChangeCounter = 1000
       for toChange in charsToChange:
         outxml = outxml.replace(charsToChangeMark +"_" + '%4i'% toChangeCounter, toChange)
@@ -322,21 +318,21 @@ def main():
       outFile.write(outxml[outxml.find("<SCRIBUS"):len(outxml)])
       outFile.close()
       outxml = "n"
-       
-      
+
+
     #From here we do the drawing and exporting to pdf
-      
+
     if TypeOfPages == "dr":
       ##and here we open it
-   
-      openDoc(rightPageName) 
 
-      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
-      
+      openDoc(rightPageName)
+
+      messagebarText(processmesg)
+
       seitenanzahl = pageCount()
       for xcounter in range(seitenanzahl):
           seitennummer = xcounter + 1
-          if seitennummer%2 > 0:  
+          if seitennummer%2 > 0:
              gotoPage(seitennummer)
              resultFileName = baseFileName + '_%(0)05i'% {"0":seitennummer} + "." + exportType
              # draw marks etc
@@ -354,17 +350,17 @@ def main():
 
       saveDoc()
       closeDoc()
-    
-      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
+
+      messagebarText(processmesg)
 
       openDoc(leftPageName)
 
-      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
-      
+      messagebarText(processmesg)
+
       seitenanzahl = pageCount()
       for xcounter in range(seitenanzahl ):
           seitennummer = xcounter + 1
-          if seitennummer%2 == 0:  
+          if seitennummer%2 == 0:
              gotoPage(seitennummer)
              resultFileName = baseFileName + '_%(0)05i'% {"0":seitennummer} + "." + exportType
              # draw marks etc
@@ -384,20 +380,20 @@ def main():
       closeDoc()
       os.remove(tmpFileName)
 
-      
+
     if TypeOfPages == "s":
-    
+
     ##and here we open it
-      
+
       openDoc(leftPageName)
 
-      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
-      
+      messagebarText(processmesg)
+
       seitenanzahl = pageCount()
-      
+
       for xcounter in range(seitenanzahl):
           seitennummer = xcounter + 1
-            
+
           gotoPage(seitennummer)
           resultFileName = baseFileName + '_%(0)05i'% {"0":seitennummer} + "." + exportType
           # draw marks etc
@@ -409,7 +405,7 @@ def main():
                 PrintJobName(jobname, resultFileName, bleedVal,bgcol,fgcol,UnitFakt,UnitType, seitennummer)
           if doRegMarks == 1:
                 DrawRegMarks(bleedVal,bgcol,fgcol,UnitFakt,whichMarks)
-                  
+
              # export one page
           dotheExport(exportType,resultFileName,seitennummer,bleedVal,UnitFakt)
 
@@ -423,15 +419,15 @@ def main():
 
 
       ##and here we open it
-      
-      openDoc(rightPageName) 
 
-      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
+      openDoc(rightPageName)
+
+      messagebarText(processmesg)
 
       seitenanzahl = pageCount()
       for xcounter in range(seitenanzahl ):
           seitennummer = xcounter + 1
-          if seitennummer%2 == 0:  
+          if seitennummer%2 == 0:
              gotoPage(seitennummer)
              resultFileName = baseFileName + '_%(0)05i'% {"0":seitennummer} + "." + exportType
              # draw marks etc
@@ -449,14 +445,14 @@ def main():
 
       saveDoc()
       closeDoc()
-      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
+      messagebarText(processmesg)
       openDoc(leftPageName)
-      messagebarText("Processing the document, please wait - Dokument in Bearbeitung, bitte warten") 
-      
+      messagebarText(processmesg)
+
       seitenanzahl = pageCount()
       for xcounter in range(seitenanzahl ):
           seitennummer = xcounter + 1
-          if seitennummer%2 > 0:  
+          if seitennummer%2 > 0:
              gotoPage(seitennummer)
              resultFileName = baseFileName + '_%(0)05i'% {"0":seitennummer} + "." + exportType
              # draw marks etc
@@ -504,7 +500,7 @@ def dotheExport(exportType,resultFileName,seitennummer,bleedVal,UnitFakt):
       pdfExport.pages = [seitennummer]
       pdfExport.file = resultFileName
       pdfExport.save()
-      
+
    # if exportType == "ps":
    #   psExport = Printer()
    #   psExport.file = resultFileName
@@ -512,80 +508,87 @@ def dotheExport(exportType,resultFileName,seitennummer,bleedVal,UnitFakt):
    #   psExport.pages = [seitennummer]
    #   psExport.printer = "File"
    #   psExport.print()
-        
+
 def PrintJobName(jobname, resultFileName, bleedVal,bgcol,fgcol,UnitFakt,UnitType,seitennummer):
     # Die Dimension der Eingabewerte fuer bleedValue ist in der jeweiligen Einheit
-    
-    shortresultFileName = resultFileName[-23:] + "  Page-Seite: " + '%(0)05i'% {"0":seitennummer} + "  Date-Datum: " +  date.today().strftime("%Y-%m-%d")
+    Pagemesg = "  Page: "
+    Datemesg = "  Date: "
+    if (lang == "DE"):
+        Pagemesg = "  Seite: "
+        Datemesg = "  Datum: "
+    shortresultFileName = resultFileName[-23:] + Pagemesg + '%(0)05i'% {"0":seitennummer} + Datemesg +  date.today().strftime("%Y-%m-%d")
     pageX,pageY = getPageSize()
     textboxT = createText(bleedVal*UnitFakt+2, 1, pageX/2 - 12 - bleedVal*UnitFakt, bleedVal*UnitFakt-10)
     setTextColor(fgcol,textboxT)
     setLineWidth(0,textboxT)
     setLineColor(bgcol,textboxT)
-    setFillColor(bgcol,textboxT) 
-    insertText(shortresultFileName, 0,textboxT ) 
+    setFillColor(bgcol,textboxT)
+    insertText(shortresultFileName, 0,textboxT )
     setFontSize(6, textboxT)
     textboxB1 = createText(bleedVal*UnitFakt+2, pageY-bleedVal*UnitFakt + 8, pageX/2 - 12 - bleedVal*UnitFakt, bleedVal*UnitFakt-9)
     setTextColor(fgcol,textboxB1)
     setLineWidth(0,textboxB1)
     setLineColor(bgcol,textboxB1)
-    setFillColor(bgcol,textboxB1) 
-    insertText("Total: " + '%5.2f'% (pageX/UnitFakt)  + "x" + '%5.2f'% (pageY/UnitFakt)+"["+UnitType+"]" + ", Crop-Beschnitt:" + '%5.2f'% bleedVal+"["+UnitType+"]" + ", Prod.:" + '%5.2f'% (pageX/UnitFakt - 2 * bleedVal) + "x"+ '%5.2f'% (pageY/UnitFakt - 2 * bleedVal)+"["+UnitType+"]", 0,textboxB1 )
+    setFillColor(bgcol,textboxB1)
+    cropmesg = ", Crop:"
+    if (lang == "DE"):
+        cropmesg = ", Beschnitt:"
+    insertText("Total: " + '%5.2f'% (pageX/UnitFakt)  + "x" + '%5.2f'% (pageY/UnitFakt)+"["+UnitType+"]" + cropmesg + '%5.2f'% bleedVal+"["+UnitType+"]" + ", Prod.:" + '%5.2f'% (pageX/UnitFakt - 2 * bleedVal) + "x"+ '%5.2f'% (pageY/UnitFakt - 2 * bleedVal)+"["+UnitType+"]", 0,textboxB1 )
     setFontSize(6, textboxB1)
     setLineSpacing(8,textboxB1)
     textboxB2 = createText(pageX/2 + 10, pageY-bleedVal*UnitFakt + 8, pageX/2 - 12 - bleedVal*UnitFakt, bleedVal*UnitFakt-9)
     setTextColor(fgcol,textboxB2)
     setLineWidth(0,textboxB2)
     setLineColor(bgcol,textboxB2)
-    setFillColor(bgcol,textboxB2) 
+    setFillColor(bgcol,textboxB2)
     insertText(jobname , 0,textboxB2 )
     setFontSize(6, textboxB2)
     setLineSpacing(8,textboxB2)
 
 
-    
+
 
 def DrawColorSamples(bleedVal,bgcol,fgcol,UnitFakt):
 
     defineColor("bleed_export_c_100",255,  0,  0,  0)
     defineColor("bleed_export_c__80",204,  0,  0,  0)
-    defineColor("bleed_export_c__40",102,  0,  0,  0)    
+    defineColor("bleed_export_c__40",102,  0,  0,  0)
 
     defineColor("bleed_export_m_100",  0,255,  0,  0)
     defineColor("bleed_export_m__80",  0,204,  0,  0)
     defineColor("bleed_export_m__40",  0,102,  0,  0)
-    
+
     defineColor("bleed_export_y_100",  0,  0,255,  0)
     defineColor("bleed_export_y__80",  0,  0,204,  0)
     defineColor("bleed_export_y__40",  0,  0,102,  0)
-    
+
     defineColor("bleed_export_k_100",  0,  0,  0,255)
     defineColor("bleed_export_k__80",  0,  0,  0,204)
     defineColor("bleed_export_k__40",  0,  0,  0,102)
-    
+
     defineColor("bleed_export_cmy50",128,128,128,  0)
-    
+
     pageX,pageY = getPageSize()
     boxw = bleedVal*UnitFakt - 10
     if boxw > 20:
       boxw = 20
     FontSize = boxw/4
     if FontSize < 2 :
-      FontSize = 2 
+      FontSize = 2
     boxdist = 5
     boxh = ((pageY - 20 - bleedVal*UnitFakt*2 - 20)  /  13) - boxdist
     if boxh > boxw:
-      boxh = boxw 
+      boxh = boxw
     upperLeftx = pageX - boxw
     upperLefty = bleedVal*UnitFakt + 5
     gruppenListe = list()
     for Farbe in ["bleed_export_c_100","bleed_export_c__80","bleed_export_c__40","bleed_export_m_100","bleed_export_m__80","bleed_export_m__40","bleed_export_y_100","bleed_export_y__80","bleed_export_y__40","bleed_export_k_100","bleed_export_k__80","bleed_export_k__40","bleed_export_cmy50"]:
-       
+
        if upperLefty > pageY/2 - (FontSize * 1.5 + boxh + + 7 + 15):
          if upperLefty < pageY/2 - 15:
             upperLefty = pageY/2 + 20
-       
-       
+
+
        tbox = createText(upperLeftx, upperLefty, boxw, FontSize * 4)
        insertText(Farbe[len(Farbe)-5:len(Farbe)] , 0, tbox)
        setFontSize(FontSize, tbox)
@@ -594,22 +597,22 @@ def DrawColorSamples(bleedVal,bgcol,fgcol,UnitFakt):
        setLineWidth(0, tbox)
        setLineColor(bgcol, tbox)
        setFillColor(bgcol, tbox)
-       
+
        upperLefty = upperLefty + FontSize * 1.8
 
        cbox = createRect(upperLeftx, upperLefty, boxw, boxh)
        setLineWidth(0, cbox)
        setLineColor(Farbe, cbox)
-       setFillColor(Farbe, cbox)       
-       
+       setFillColor(Farbe, cbox)
+
        upperLefty = upperLefty + boxh + 7
-       
+
        gruppenListe.append(cbox)
        gruppenListe.append(tbox)
-       
-    
+
+
     groupObjects(gruppenListe)
-    
+
 def DrawCropMarks(bleedVal,bgcol,fgcol,UnitFakt,whichMarks):
     # Die Dimension der Eingabewerte fuer bleedValue ist in der jeweiligen Einheit
     pageX,pageY = getPageSize()
@@ -676,17 +679,17 @@ def DrawCropMarks(bleedVal,bgcol,fgcol,UnitFakt,whichMarks):
        setLineColor(fgcol,f08)
 
 
-    
+
 def DrawRegMarks(bleedVal,bgcol,fgcol,UnitFakt,whichMarks):
 
     # Die Dimension der Eingabewerte fuer bleedValue ist in der jeweiligen Einheit
     pageX,pageY = getPageSize()
-    
+
     if whichMarks == "l" or whichMarks == "b":
        # left mark:
        DrawOneReg(bleedVal*UnitFakt-12.5,pageY/2,bgcol,fgcol)
 
-    if whichMarks == "r" or whichMarks == "b":    
+    if whichMarks == "r" or whichMarks == "b":
        # rigth mark:
        DrawOneReg(pageX-bleedVal*UnitFakt+12.5,pageY/2,bgcol,fgcol)
 
@@ -695,7 +698,7 @@ def DrawRegMarks(bleedVal,bgcol,fgcol,UnitFakt,whichMarks):
     # bottom mark:
     DrawOneReg(pageX/2,pageY-bleedVal*UnitFakt+12.5,bgcol,fgcol)
 
-    
+
 def DrawOneReg(centerX,centerY,bgcol,fgcol):
     # Diese Funktion muss in der Einheit Punkt aufgerufen werden
     outercircle = createEllipse(centerX-7.5,centerY-7.5 , 15, 15)
@@ -708,14 +711,14 @@ def DrawOneReg(centerX,centerY,bgcol,fgcol):
 
     lin05 = createLine(centerX-2.5, centerY,  centerX+2.5, centerY)
     lin06 = createLine(centerX, centerY-2.5,  centerX, centerY+2.5)
-    
+
     # line widths in Poinzs
     lwb = 3.0
     lwf = 0.25
-    
+
     setLineWidth(0,outercircle)
     setLineColor(bgcol,outercircle)
-    setFillColor(bgcol,outercircle) 
+    setFillColor(bgcol,outercircle)
     setLineWidth(lwf,middlecircle)
     setLineColor(fgcol,middlecircle)
     setFillColor(bgcol,middlecircle)
@@ -735,9 +738,15 @@ def DrawOneReg(centerX,centerY,bgcol,fgcol):
     setLineColor(bgcol,lin05)
     setLineColor(bgcol,lin06)
 
-    
+
 if __name__ == '__main__':
+    lang = valueDialog("Dialog Language - " + os.name, "Delete or alter this value to have dialogs in German" ,"English")
+    if (lang != "English"):
+        lang = "DE"
     if haveDoc():
         main()
     else:
-        messageBox("Bleed and Marks", "There must be an open document." "Es muß ein Dokument geöffnet sein.", ICON_INFORMATION)
+        docerrmesg = "There must be an open document."
+    if (lang == "DE"):
+        docerrmesg = "Es muß ein Dokument geöffnet sein."
+        messageBox("Bleed and Marks", docerrmesg, ICON_INFORMATION)
