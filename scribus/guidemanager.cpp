@@ -97,6 +97,9 @@ GuideManager::GuideManager(QWidget* parent) :
 	connect(deleteAllGuides, SIGNAL(clicked()),
 			this, SLOT(deleteAllGuides_clicked()));
 
+	connect(lockCheck, SIGNAL(stateChanged(int)),
+			this, SLOT(lockCheck_stateChanged(int)));
+
 	connect(horizontalModel, SIGNAL(valueChanged()), this, SLOT(horizontalModel_valueChanged()));
 	connect(verticalModel, SIGNAL(valueChanged()), this, SLOT(verticalModel_valueChanged()));
 }
