@@ -2040,8 +2040,11 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			GetItemProps(newVersion, &pg, &OB, fileDir);
 			OB.Xpos = Xp + pg.attribute("XPOS").toDouble() - GrX;
 			OB.Ypos = Yp + pg.attribute("YPOS").toDouble() - GrY;
-			OB.startArrowIndex =  arrowID[pg.attribute("startArrowIndex", "0").toInt()];
-			OB.endArrowIndex =  arrowID[pg.attribute("endArrowIndex", "0").toInt()];
+//CB: 6077 using the wrong index here.. 
+//			OB.startArrowIndex =  arrowID[pg.attribute("startArrowIndex", "0").toInt()];
+//			OB.endArrowIndex =  arrowID[pg.attribute("endArrowIndex", "0").toInt()];
+			OB.startArrowIndex =  pg.attribute("startArrowIndex", "0").toInt();
+			OB.endArrowIndex =  pg.attribute("endArrowIndex", "0").toInt();
 			OB.isBookmark=pg.attribute("BOOKMARK").toInt();
 			OB.NamedLStyle = pg.attribute("NAMEDLST", "");
 			if (!doc->MLineStyles.contains(OB.NamedLStyle))
