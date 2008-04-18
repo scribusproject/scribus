@@ -326,18 +326,11 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QStr
 		{
 			PrintDest->setCurrentIndex(PrintDest->count()-1);
 			prefs->set("CurrentPrn", PrintDest->currentText());
-			ToFile = false;
 		}
 	}
 
 	PrintDest->addItem( tr("File"));
-	if (PDev.isEmpty())
-	{
-		selectedPrn = PrintDest->itemText(0);
-		ToFile = false;
-	}
-	else
-		selectedPrn = PDev;
+	selectedPrn = PDev.isEmpty() ? PrintDest->itemText(0) : PDev;
 
 	// Fill Separation list
 	QString sep[] =
@@ -363,8 +356,9 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QStr
 		DateiT->setEnabled(true);
 		LineEdit1->setEnabled(true);
 		ToolButton1->setEnabled(true);
-		ToFile = true;
 	}
+
+	ToFile = (PrintDest->currentText() == tr("File"));
 
 	setMaximumSize(sizeHint());
 	PrintDest->setFocus();
