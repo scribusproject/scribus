@@ -241,6 +241,8 @@ bool ScPrintEngine_GDI::printPages( ScribusDoc* doc, PrintOptions& options, HDC 
 			return false;
 		}
 	}
+	else if ((printPageFunc == &ScPrintEngine_GDI::printPage_PS) && options.outputSeparations)
+		printPageFunc = &ScPrintEngine_GDI::printPage_PS_Sep;
 
 	jobId = StartDocW( printerDC, &docInfo );
 	if ( jobId <= 0 )
@@ -466,12 +468,32 @@ bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions
 	
 	if( ret == 0 )
 	{
+		double bleedH = options.bleeds.Left + options.bleeds.Right;
+		double bleedV = options.bleeds.Top  + options.bleeds.Bottom;
 		StartPage( printerDC );
-		succeed = sendPSFile( tempFilePath, printerDC, page->width(), page->height() );
+		succeed = sendPSFile( tempFilePath, printerDC, page->width() + bleedH, page->height() + bleedV);
 		EndPage( printerDC );
 	}
 	
 	QFile::remove( tempFilePath );
+	return succeed;
+}
+
+bool ScPrintEngine_GDI::printPage_PS_Sep( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context )
+{
+	bool succeed = true;
+	QStringList separations;
+	if (options.separationName != QObject::tr("All"))
+		separations.append( options.separationName );
+	else
+		separations += options.allSeparations;
+	for (int i = 0; i < separations.count(); ++i)
+	{
+		PrintOptions tempOptions = options;
+		tempOptions.separationName = separations.at(i);
+		succeed &= printPage_PS(doc, page, tempOptions, printerDC, context);
+		if (!succeed) break;
+	}
 	return succeed;
 }
 

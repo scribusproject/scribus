@@ -41,7 +41,7 @@ protected:
 	bool printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName );
 	/*! \brief Print a page to a gdi printer
 	Print a page using GDI drawing code ( works on all printers : PS, PCL, GDI... )
-	\param doc the document whose page is to be printer
+	\param doc the document whose page is to be printed
 	\param page the page to print
 	\param options print options
 	\param printerDC an initialized printer device context
@@ -52,7 +52,7 @@ protected:
 	bool printPage_GDI ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context );
 	/*! \brief Print a page to a PostScript printer using passthroughs
 	Print a page using PS drawing code and PS passthroughs ( works on PS printers only )
-	\param doc the document whose page is to be printer
+	\param doc the document whose page is to be printed
 	\param page the page to print
 	\param options print options
 	\param printerDC an initialized printer device context
@@ -61,6 +61,17 @@ protected:
 	\author Jean Ghali
 	*/
 	bool printPage_PS  ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context );
+	/*! \brief Print a page separations to a PostScript printer using passthroughs
+	Print a page using PS drawing code and PS passthroughs ( works on PS printers only )
+	\param doc the document whose page is to be printed
+	\param page the page to print
+	\param options print options
+	\param printerDC an initialized printer device context
+	\param context cairo context (not used by this function)
+	\retval bool true on success 
+	\author Jean Ghali
+	*/
+	bool printPage_PS_Sep  ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, cairo_t* context );
 	/*! \brief Send a file to printer using PostScript Passthrough
 	Send a postscript file to a printer using ps passthrough ( works on PS printers only )
 	\param filePath the Postscript file path
