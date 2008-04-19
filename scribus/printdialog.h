@@ -152,14 +152,11 @@ protected:
 	QPushButton* OptButton;
 	QPushButton* pageNrButton;
 	ScribusDoc*  m_doc;
-	QString      selectedPrn;
 	PrintEngineMap printEngineMap;
-	bool ToFile;
-	bool ToSeparation;
 	PrefsContext* prefs;
 	void setStoredValues(bool gcr);
 	CupsOptions *cdia;
-	int unit;
+	int    unit;
 	double unitRatio;
 	void   getOptions();
 	void   storeValues();

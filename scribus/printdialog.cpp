@@ -62,7 +62,6 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QStr
 	unitRatio = unitGetRatioFromIndex(doc->unitIndex());
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 	DevMode = PSettings;
-	ToSeparation = false;
 	PrinterOpts = "";
 	setWindowTitle( tr( "Setup Printer" ) );
 	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
@@ -330,7 +329,6 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QStr
 	}
 
 	PrintDest->addItem( tr("File"));
-	selectedPrn = PDev.isEmpty() ? PrintDest->itemText(0) : PDev;
 
 	// Fill Separation list
 	QString sep[] =
@@ -357,8 +355,6 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QStr
 		LineEdit1->setEnabled(true);
 		ToolButton1->setEnabled(true);
 	}
-
-	ToFile = (PrintDest->currentText() == tr("File"));
 
 	setMaximumSize(sizeHint());
 	PrintDest->setFocus();
@@ -405,17 +401,18 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QStr
 
 	setStoredValues(gcr);
 #if defined(_WIN32)
-	if (!ToFile)
+	if (!outputToFile())
 		PrinterUtil::initDeviceSettings( PrintDest->currentText(), DevMode );
 #endif
-	printEngineMap = PrinterUtil::getPrintEngineSupport(PrintDest->currentText(), ToFile);
+
+	printEngineMap = PrinterUtil::getPrintEngineSupport(PrintDest->currentText(), outputToFile());
 	refreshPrintEngineBox();
 
 	bool ps1Supported = printEngineMap.contains(CommonStrings::trPostScript1);
 	bool ps2Supported = printEngineMap.contains(CommonStrings::trPostScript2);
 	bool ps3Supported = printEngineMap.contains(CommonStrings::trPostScript3);
 	bool psSupported  = (ps1Supported || ps2Supported || ps3Supported);
-	printEngines->setEnabled(ToFile || psSupported);
+	printEngines->setEnabled(psSupported || outputToFile());
 	UseICC->setEnabled(m_doc->HasCMS && psSupported);
 }
 
@@ -432,7 +429,7 @@ void PrintDialog::SetOptions()
 #ifdef HAVE_CUPS
 	PrinterOpts = "";
 	if (!cdia)
-		cdia = new CupsOptions(this, selectedPrn);
+		cdia = new CupsOptions(this, PrintDest->currentText());
 	if (!cdia->exec())
 	{
 		delete cdia; // if options was canceled delete dia 
@@ -462,7 +459,7 @@ void PrintDialog::getOptions()
 #ifdef HAVE_CUPS
 	PrinterOpts = "";
 	if (!cdia)
-		cdia = new CupsOptions(this, selectedPrn);
+		cdia = new CupsOptions(this, PrintDest->currentText());
 	struct CupsOptions::OpData daten;
 	QMap<QString,CupsOptions::OpData>::Iterator it;
 	for (it = cdia->KeyToText.begin(); it != cdia->KeyToText.end(); ++it)
@@ -529,17 +526,15 @@ void PrintDialog::SelComm()
 	PrintDest->setEnabled(!test);
 	if (OtherCom->isChecked())
 	{
-		ToFile = false;
 		DateiT->setEnabled(false);
 		LineEdit1->setEnabled(false);
 		ToolButton1->setEnabled(false);
 		OptButton->setEnabled(false);
-
 	}
 	else
 	{
 		SelPrinter(PrintDest->currentText());
-		if (selectedPrn != tr("File"))
+		if (PrintDest->currentText() != tr("File"))
 			OptButton->setEnabled(true);
 	}
 }
@@ -547,6 +542,24 @@ void PrintDialog::SelComm()
 void PrintDialog::SelEngine(const QString& eng)
 {
 	prefs->set("CurrentPrnEngine", printEngineMap[printEngines->currentText()]);
+	bool psSupported = outputToFile();
+	psSupported |= (eng == CommonStrings::trPostScript1);
+	psSupported |= (eng == CommonStrings::trPostScript2);
+	psSupported |= (eng == CommonStrings::trPostScript3);
+	if (psSupported)
+	{
+		PrintSep->setEnabled( true );
+		UseICC->setEnabled( m_doc->HasCMS );
+	}
+	else
+	{
+		setCurrentComboItem(PrintSep, tr("Print Normal"));
+		PrintSep->setEnabled( false );
+		setCurrentComboItem(SepArt, tr("All"));
+		SepArt->setEnabled( false );
+		UseICC->setEnabled( false );
+		UseICC->setChecked( false );
+	}
 }
 
 void PrintDialog::SelPrinter(const QString& prn)
@@ -555,10 +568,9 @@ void PrintDialog::SelPrinter(const QString& prn)
 	DateiT->setEnabled(toFile);
 	LineEdit1->setEnabled(toFile);
 	ToolButton1->setEnabled(toFile);
-	ToFile = toFile;
 	OptButton->setEnabled(!toFile);
 #if defined(_WIN32)
-	if ( !ToFile )
+	if (!toFile)
 	{
 		if( !PrinterUtil::getDefaultSettings(PrintDest->currentText(), DevMode) )
 			qWarning( tr("Failed to retrieve printer settings").toAscii().data() );
@@ -566,7 +578,7 @@ void PrintDialog::SelPrinter(const QString& prn)
 #endif
 
 	// Get page description language supported by the selected printer
-	printEngineMap = PrinterUtil::getPrintEngineSupport(prn, ToFile);
+	printEngineMap = PrinterUtil::getPrintEngineSupport(prn, toFile);
 	refreshPrintEngineBox();
 
 	prefs->set("CurrentPrn", prn);
@@ -576,7 +588,7 @@ void PrintDialog::SelPrinter(const QString& prn)
 	bool ps2Supported = printEngineMap.contains(CommonStrings::trPostScript2);
 	bool ps3Supported = printEngineMap.contains(CommonStrings::trPostScript3);
 	bool psSupported  = (ps1Supported || ps2Supported || ps3Supported);
-	if (psSupported || ToFile)
+	if (psSupported || toFile)
 	{
 		printEngines->setEnabled( true );
 		PrintSep->setEnabled( true );
@@ -589,11 +601,9 @@ void PrintDialog::SelPrinter(const QString& prn)
 		PrintSep->setEnabled( false );
 		setCurrentComboItem(SepArt, tr("All"));
 		SepArt->setEnabled( false );
-		ToSeparation = false;
 		UseICC->setEnabled( false );
 		UseICC->setChecked( false );
 	}
-	selectedPrn = prn;
 }
 
 void PrintDialog::SelRange(bool e)
@@ -604,16 +614,7 @@ void PrintDialog::SelRange(bool e)
 
 void PrintDialog::SelMode(int e)
 {
-	if (e == 0)
-	{
-		SepArt->setEnabled( false );
-		ToSeparation = false;
-	}
-	else
-	{
-		SepArt->setEnabled( true );
-		ToSeparation = true;
-	}
+	SepArt->setEnabled( (e != 0) );
 }
 
 void PrintDialog::SelFile()
@@ -644,7 +645,7 @@ void PrintDialog::storeValues()
 
 	m_doc->Print_Options.printer = PrintDest->currentText();
 	m_doc->Print_Options.filename = QDir::fromNativeSeparators(LineEdit1->text());
-	m_doc->Print_Options.toFile = ToFile;
+	m_doc->Print_Options.toFile = outputToFile();
 	m_doc->Print_Options.copies = numCopies();
 	m_doc->Print_Options.outputSeparations = outputSeparations();
 	m_doc->Print_Options.separationName = separationName();
@@ -708,7 +709,6 @@ void PrintDialog::setStoredValues(bool gcr)
 			PrintDest->setCurrentIndex(selectedDest);
 			prefs->set("CurrentPrn", PrintDest->currentText());
 			SelPrinter(PrintDest->currentText());
-			selectedPrn = PrintDest->currentText();
 		}
 		OtherCom->setChecked(prefs->getBool("OtherCom", false));
 		if (OtherCom->isChecked())
@@ -729,10 +729,7 @@ void PrintDialog::setStoredValues(bool gcr)
 		if ((selectedSep > -1) && (selectedSep < 5))
 			SepArt->setCurrentIndex(selectedSep);
 		if (PrintSep->currentIndex() == 1)
-		{
 			SepArt->setEnabled(true);
-			ToSeparation = true;
-		}
 		setPrintEngine((PrintEngine) prefs->getInt("PSLevel", PostScript3));
 		MirrorHor->setChecked(prefs->getBool("MirrorH", false));
 		MirrorVert->setChecked(prefs->getBool("MirrorV", false));
@@ -742,7 +739,7 @@ void PrintDialog::setStoredValues(bool gcr)
 		spotColors->setChecked(!prefs->getBool("doSpot", true));
 		overprintMode->setChecked(prefs->getBool("doOverprint", false));
 		bool iccInUse  = m_doc->HasCMS ? prefs->getBool("ICCinUse", false) : false;
-		bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || ToFile;
+		bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || outputToFile();
 		UseICC->setChecked( psPrinter ? iccInUse : false );
 		UseICC->setEnabled( psPrinter );
 		BleedTop->setValue(prefs->getDouble("BleedTop",0.0)*unitRatio);
@@ -763,7 +760,6 @@ void PrintDialog::setStoredValues(bool gcr)
 			PrintDest->setCurrentIndex(selectedDest);
 			prefs->set("CurrentPrn", PrintDest->currentText());
 			SelPrinter(PrintDest->currentText());
-			selectedPrn = PrintDest->currentText();
 		}
 		OtherCom->setChecked(m_doc->Print_Options.useAltPrintCommand);
 		if (OtherCom->isChecked())
@@ -792,10 +788,7 @@ void PrintDialog::setStoredValues(bool gcr)
 		if ((selectedSep > -1) && (selectedSep < SepArt->count()))
 			SepArt->setCurrentIndex(selectedSep);
 		if (PrintSep->currentIndex() == 1)
-		{
 			SepArt->setEnabled(true);
-			ToSeparation = true;
-		}
 		setPrintEngine(m_doc->Print_Options.prnEngine);
 		MirrorHor->setChecked(m_doc->Print_Options.mirrorH);
 		MirrorVert->setChecked(m_doc->Print_Options.mirrorV);
@@ -805,7 +798,7 @@ void PrintDialog::setStoredValues(bool gcr)
 		spotColors->setChecked(!m_doc->Print_Options.useSpotColors);
 		overprintMode->setChecked(m_doc->Print_Options.doOverprint);
 		bool iccInUse  = m_doc->HasCMS ? m_doc->Print_Options.useICC : false;
-		bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || ToFile;
+		bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || outputToFile();
 		UseICC->setChecked( psPrinter ? iccInUse : false );
 		UseICC->setEnabled( psPrinter );
 		BleedTop->setValue(m_doc->Print_Options.bleeds.Top*unitRatio);
@@ -822,7 +815,7 @@ void PrintDialog::setStoredValues(bool gcr)
 
 QString PrintDialog::printerName()
 {
-	return selectedPrn;
+	return PrintDest->currentText();
 }
 
 QString PrintDialog::outputFileName()
@@ -832,7 +825,7 @@ QString PrintDialog::outputFileName()
 
 bool PrintDialog::outputToFile()
 {
-	return ToFile;
+	return (PrintDest->currentText() == tr("File"));
 }
 
 int PrintDialog::numCopies()
@@ -842,7 +835,7 @@ int PrintDialog::numCopies()
 
 bool PrintDialog::outputSeparations()
 {
-	return ToSeparation;
+	return SepArt->isEnabled();
 }
 
 QString PrintDialog::separationName()
