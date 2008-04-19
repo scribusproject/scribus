@@ -1,5 +1,43 @@
 
 Scribus - 1.3.5svn
+- 0003605: [User Interface] focus jumping to menus (cbradney) - resolved.
+- 0002867: [PPCOSX / Macintosh] Drag doesn't work on Scribus/Aqua (avox) - resolved.
+- 0001569: [User Interface] Drag-scrolling while drawing, moving and resizing objects doesn't work (avox) - resolved.
+- 0006194: [Printing] incorrect printing of separations on Windows (jghali) - resolved.
+- 0006082: [General] Selection in a corner (avox) - resolved.
+- 0006954: [General] Lock Guides option in Page > Manage Guides (Guide Manager window) doesn’t work (subik) - resolved.
+- 0005212: [Internal] Issues with dereferencing type-punned pointer (cbradney) - resolved.
+- 0006929: [General] Picas behave as points in New Document (cbradney) - resolved.
+- 0006957: [General] Crash on layer deletion (jghali) - resolved.
+- 0006950: [Import / Export] Crash after selecting AI file in the file dialog (fschmid) - resolved.
+- 0006937: [Canvas] No wrapping of lines with script (jghali) - resolved.
+- 0006245: [General] Margin guides values (jghali) - resolved.
+- 0006932: [Usability] scribus main window always catches attention while running long-during script (subik) - closed.
+- 0006947: [Import / Export] Crash during AI import (fschmid) - closed.
+- 0006943: [Import / Export] AI import crashes Scribus (fschmid) - closed.
+- 0006863: [General] Scribus crashes when copying an object outside page area (jghali) - closed.
+- 0006165: [Styles] Applying character style on last character applies style on whole text on next open (avox) - closed.
+- 0006924: [Website] Small Typos in FAQ - Miscellaneous section (Page 2) (cbradney) - closed.
+- 0006927: [User Interface] print preview : actualization needed after frame resize (subik) - closed.
+- 0006815: [PPCOSX / Macintosh] Paste hot key does not work on Macintosh (avox) - closed.
+- 0006923: [Plug-ins] GetText files are not well commented. (plinnell) - closed.
+- 0006912: [Graphics / Image Frames] Resizing of a recangular image frame resets Contour Line (fschmid) - closed.
+- 0005450: [PDF] PDF URL link element in Master pages doesn't get rendered in final .PDF (fschmid) - closed.
+- 0004570: [General] More options to Edit > Select All: (fschmid) - closed.
+- 0006825: [Usability] Better usablity of the Font Preview (subik) - closed.
+- 0006915: [Printing] Print layout for embedded pdf : result different than pdf layout (fschmid) - closed.
+- 0006904: [PDF] Add PDF 1.5 presentation effects (fschmid) - closed.
+- 0006909: [Usability] Don't display all pages when inserting (fschmid) - closed.
+- 0006905: [PDF] Starting PDF export triggers crash (fschmid) - closed.
+- 0006896: [User Interface] Python console is indicated as "active" after Scribus launch (jghali) - closed.
+- 0004921: [General] Select all selects across all pages (cbradney) - closed.
+- 0006893: [General] Ability to replace color of all items of specified color (fschmid) - closed.
+- 0006892: [User Interface] Magnetic snapping doesn't work while creating frame (fschmid) - closed.
+- 0006879: [Build System] Error during compilation (cbradney) - closed.
+- 0006180: [General] Arrows display bad when grouped (fschmid) - closed.
+- 0002191: [Shape Drawing] Arrow heads do not redraw correctly (fschmid) - closed.
+- 0004652: [General] Editing lines with arrows creates ugly artifacts (fschmid) - closed.
+- 0006889: [Import / Export] Enable the use of EPS and AI files as swatch files (fschmid) - closed.
 - 0006878: [General] Corruption when saving document with objects using gradients (jghali) - resolved.
 - 0006245: [General] Margin guides values (jghali) - resolved.
 - 0003439: [Plug-ins] font preview: selecting the first two fonts makes the font size and sample fields move left (subik) - resolved.
