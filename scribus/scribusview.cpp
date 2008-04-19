@@ -4457,10 +4457,8 @@ int ScribusView::contentsHeight()
 
 void ScribusView::setContentsPos(int x, int y)
 {
-	int originX = qRound(Doc->minCanvasCoordinate.x() * scale());
-	int originY = qRound(Doc->minCanvasCoordinate.y() * scale());
-	horizontalScrollBar()->setValue(x - originX);
-	verticalScrollBar()->setValue(y - originY);
+	horizontalScrollBar()->setValue(x);
+	verticalScrollBar()->setValue(y);
 	setRulerPos(contentsX(), contentsY());
 }
 
@@ -4509,7 +4507,6 @@ void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoin
 		QSize viewsize = viewport()->size();
 		canvasPoint = QPoint(viewsize.width() / 2, viewsize.height() / 2);
 	}
-	canvasPoint += QPoint( -Doc->minCanvasCoordinate.x() * m_canvas->scale(), -Doc->minCanvasCoordinate.y() * m_canvas->scale());
 	setContentsPos(localPoint.x() - canvasPoint.x(), localPoint.y() - canvasPoint.y());
 	updatesOn(true);
 	undoManager->setUndoEnabled(true);
