@@ -283,7 +283,12 @@ void StoryText::removeChars(int pos, uint len)
 	
 	assert( len > 0 );
 	assert( pos >= 0 );
-	assert( pos + static_cast<int>(len) <= length() );
+	// This case can be handled more gracefully
+	// assert( pos + static_cast<int>(len) <= length() );
+	if (pos >= length())
+		return;
+	if (pos + static_cast<int>(len) > length())
+		len = length() - pos;
 
 	for ( int i=pos + static_cast<int>(len) - 1; i >= pos; --i )
 	{

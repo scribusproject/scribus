@@ -397,7 +397,7 @@ void SEditor::handleContentsChange(int position, int charsRemoved, int charsAdde
 {
 	if (blockContentsChangeHook <= 0)
 	{
-		if (charsRemoved > 0)
+		if (charsRemoved > 0 && StyledText.length() > 0)
 			StyledText.removeChars(position, charsRemoved);
 		if (charsAdded > 0)
 		{
@@ -2616,7 +2616,6 @@ bool StoryEditor::Do_new()
 			return false;
 		}
 	}
-	Editor->StyledText.clear();
 	Editor->clear();
 	Editor->setUndoRedoEnabled(false);
 	Editor->setUndoRedoEnabled(true);
