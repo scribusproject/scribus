@@ -3434,6 +3434,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 	(*Editor->ParagStyles.at(pa)) = Editor->currentParaStyle;
 	if (Editor->StyledText.count() != 0)
 	{
+		int scrollPos = Editor->verticalScrollBar()->value();
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 		//Disconnect these too as they otherwise run for every character - Michael Koren #5577
 		disconnect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
@@ -3489,8 +3490,9 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			Editor->updateFromChars(pa);
 		}
 		Editor->setCursorPosition(pa, 0);
+		Editor->verticalScrollBar()->setValue(scrollPos);
+		//Editor->ensureCursorVisible();
 		updateProps(pa, 0);
-		Editor->ensureCursorVisible();
 		//Add this once here to replace the signal. modifiedText() is called below already  - Michael Koren #5577
 		EditorBar->doRepaint();
 		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
@@ -3569,6 +3571,7 @@ void StoryEditor::changeAlign(int )
 	Editor->getCursorPosition(&p, &i);
 	if (Editor->StyledText.count() != 0)
 	{
+		int scrollPos = Editor->verticalScrollBar()->value();
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 		//disconnect these too as they otherwise run for every character - Michael Koren #5577
 		disconnect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
@@ -3644,7 +3647,8 @@ void StoryEditor::changeAlign(int )
 		if (sel)
 			Editor->setSelection(PStart2, SelStart2, PEnd2, SelEnd2);
 		Editor->setCursorPosition(p, i);
-		Editor->ensureCursorVisible();
+		Editor->verticalScrollBar()->setValue(scrollPos);
+		//Editor->ensureCursorVisible();
 		updateProps(p, i);
 		//Add this once here to replace the signal. modifiedText() is called below already  - Michael Koren #5577
 		EditorBar->doRepaint();
