@@ -235,9 +235,9 @@ QString ScrSpinBox::textFromValue ( double value ) const
 	{
 // 		QString r=QString("%1%2%3").arg((static_cast<int>(value))/12).arg(unitGetStrFromIndex(m_unitIndex)).arg(fabs(fmod(value, 12)));
 		int a=(static_cast<int>(value))/12;
+		double b=fabs(fmod(value, 12));
 		QString prefix((a==0 && value < 0.0) ? "-" : "");
-		QString r2=QString("%1%2%3%4").arg(prefix).arg(a).arg(unitGetStrFromIndex(m_unitIndex)).arg(fabs(fmod(value, 12)));
-		return r2;
+		return QString("%1%2%3%4").arg(prefix).arg(a).arg(unitGetStrFromIndex(m_unitIndex)).arg(b);
 	}
 	return QDoubleSpinBox::textFromValue ( value );
 }

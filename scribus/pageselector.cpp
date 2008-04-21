@@ -254,6 +254,11 @@ void PageSelector::changeEvent(QEvent *e)
 
 void PageSelector::languageChange()
 {
+	Start->setToolTip("Go to the first page");
+	Back->setToolTip("Go to the previous page");
+	Forward->setToolTip("Go to the next page");
+	Last->setToolTip("Go to the last page");
+	PageCombo->setToolTip("Select the current page");
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 	setCurrentComboItem(PageCombo, tr( "%1 of %2" ).arg(APage).arg(LastPG));
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );

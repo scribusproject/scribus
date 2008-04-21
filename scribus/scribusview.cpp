@@ -341,12 +341,18 @@ void ScribusView::changeEvent(QEvent *e)
 
 void ScribusView::languageChange()
 {
+	zoomDefaultToolbarButton->setToolTip("Zoom to 100%");
+	zoomOutToolbarButton->setToolTip("Zoom out by the stepping value in Tools preferences");
+	zoomInToolbarButton->setToolTip("Zoom in by the stepping value in Tools preferences");
+	zoomSpinBox->setToolTip("Current zoom level");
 	cmsToolbarButton->setToolTip("");
 	previewToolbarButton->setToolTip("");
+	layerMenu->setToolTip("Select the current layer");
+	unitSwitcher->setToolTip("Select the current unit");
 	visualMenu->setToolTip("");
-	cmsToolbarButton->setToolTip( tr("Switches Color Management on or off"));
-	previewToolbarButton->setToolTip( tr("Enables the Preview Mode"));
-	visualMenu->setToolTip( tr("Here you can select the visual appearance of the display\nYou can choose between normal and several color blindness forms"));
+	cmsToolbarButton->setToolTip( tr("Enable/disable Color Management"));
+	previewToolbarButton->setToolTip( tr("Enable/disable the Preview Mode"));
+	visualMenu->setToolTip( tr("Select the visual appearance of the display. You can choose between normal and several color blindness forms"));
 	disconnect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 	visualMenu->clear();
 	visualMenu->addItem(CommonStrings::trVisionNormal);
