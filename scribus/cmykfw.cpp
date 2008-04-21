@@ -620,6 +620,7 @@ void CMYKChoose::SelSwatch(int n)
 			QString ext = fi.suffix().toLower();
 			if (extensionIndicatesEPSorPS(ext) || (ext == "ai"))
 			{
+				bool isAtend = false;
 				QString tmp, tmp2, FarNam;
 				double c, m, y, k;
 				ScColor cc;
@@ -630,33 +631,16 @@ void CMYKChoose::SelSwatch(int n)
 					while (!ts.atEnd())
 					{
 						tmp = readLinefromDataStream(ts);
-						if (((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor"))) && extensionIndicatesEPSorPS(ext))
+						if ((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor")))
 						{
-							if (tmp.startsWith("%%CMYKCustomColor"))
-								tmp = tmp.remove(0,18);
-							else if (tmp.startsWith("%%CMYKProcessColor"))
-								tmp = tmp.remove(0,19);
-							QTextStream ts2(&tmp, QIODevice::ReadOnly);
-							ts2 >> c >> m >> y >> k;
-							FarNam = ts2.readAll();
-							FarNam = FarNam.trimmed();
-							FarNam = FarNam.remove(0,1);
-							FarNam = FarNam.remove(FarNam.length()-1,1);
-							FarNam = FarNam.simplified();
-							cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
-							cc.setSpotColor(true);
-							if (!CurrSwatch.contains(FarNam))
-								CurrSwatch.insert(FarNam, cc);
-							while (!ts.atEnd())
+							if (tmp.contains("(atend)"))
+								isAtend = true;
+							else
 							{
-								quint64 oldPos = ts.device()->pos();
-								tmp = readLinefromDataStream(ts);
-								if (!tmp.startsWith("%%+"))
-								{
-									ts.device()->seek(oldPos);
-									break;
-								}
-								tmp = tmp.remove(0,3);
+								if (tmp.startsWith("%%CMYKCustomColor"))
+									tmp = tmp.remove(0,18);
+								else if (tmp.startsWith("%%CMYKProcessColor"))
+									tmp = tmp.remove(0,19);
 								QTextStream ts2(&tmp, QIODevice::ReadOnly);
 								ts2 >> c >> m >> y >> k;
 								FarNam = ts2.readAll();
@@ -668,6 +652,68 @@ void CMYKChoose::SelSwatch(int n)
 								cc.setSpotColor(true);
 								if (!CurrSwatch.contains(FarNam))
 									CurrSwatch.insert(FarNam, cc);
+								while (!ts.atEnd())
+								{
+									quint64 oldPos = ts.device()->pos();
+									tmp = readLinefromDataStream(ts);
+									if (!tmp.startsWith("%%+"))
+									{
+										ts.device()->seek(oldPos);
+										break;
+									}
+									tmp = tmp.remove(0,3);
+									QTextStream ts2(&tmp, QIODevice::ReadOnly);
+									ts2 >> c >> m >> y >> k;
+									FarNam = ts2.readAll();
+									FarNam = FarNam.trimmed();
+									FarNam = FarNam.remove(0,1);
+									FarNam = FarNam.remove(FarNam.length()-1,1);
+									FarNam = FarNam.simplified();
+									cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+									cc.setSpotColor(true);
+									if (!CurrSwatch.contains(FarNam))
+										CurrSwatch.insert(FarNam, cc);
+								}
+							}
+						}
+						if (tmp.startsWith("%%RGBCustomColor"))
+						{
+							if (tmp.contains("(atend)"))
+								isAtend = true;
+							else
+							{
+								tmp = tmp.remove(0,17);
+								QTextStream ts2(&tmp, QIODevice::ReadOnly);
+								ts2 >> c >> m >> y;
+								FarNam = ts2.readAll();
+								FarNam = FarNam.trimmed();
+								FarNam = FarNam.remove(0,1);
+								FarNam = FarNam.remove(FarNam.length()-1,1);
+								FarNam = FarNam.simplified();
+								cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y));
+								if (!CurrSwatch.contains(FarNam))
+									CurrSwatch.insert(FarNam, cc);
+								while (!ts.atEnd())
+								{
+									quint64 oldPos = ts.device()->pos();
+									tmp = readLinefromDataStream(ts);
+									if (!tmp.startsWith("%%+"))
+									{
+										ts.device()->seek(oldPos);
+										break;
+									}
+									tmp = tmp.remove(0,3);
+									QTextStream ts2(&tmp, QIODevice::ReadOnly);
+									ts2 >> c >> m >> y;
+									FarNam = ts2.readAll();
+									FarNam = FarNam.trimmed();
+									FarNam = FarNam.remove(0,1);
+									FarNam = FarNam.remove(FarNam.length()-1,1);
+									FarNam = FarNam.simplified();
+									cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y));
+									if (!CurrSwatch.contains(FarNam))
+										CurrSwatch.insert(FarNam, cc);
+								}
 							}
 						}
 						if (tmp.startsWith("%%EndComments"))
@@ -709,7 +755,8 @@ void CMYKChoose::SelSwatch(int n)
 									}
 								}
 							}
-							break;
+							if (!isAtend)
+								break;
 						}
 					}
 					f.close();
