@@ -2930,6 +2930,7 @@ void StoryEditor::changeStyle()
 	p = Editor->StyledText.nrOfParagraph(pos);
 	if (Editor->StyledText.length() != 0)
 	{
+		int scrollPos = Editor->verticalScrollBar()->value();
 		disconnect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 		disconnect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
 		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
@@ -2961,7 +2962,7 @@ void StoryEditor::changeStyle()
 			Editor->textCursor().setPosition(SelStart);
 			Editor->textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
 		}
-		Editor->ensureCursorVisible();
+		Editor->verticalScrollBar()->setValue(scrollPos);
 		updateProps();
 		EditorBar->doRepaint();
 		connect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
