@@ -114,7 +114,9 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 
 void SideBar::mouseReleaseEvent(QMouseEvent *m)
 {
-	int p = editor->cursorForPosition(QPoint(2, m->y()+offs)).position();
+	QPoint globalPos = m->globalPos();
+	QPoint viewPos   = editor->viewport()->mapFromGlobal(globalPos);
+	int p = editor->cursorForPosition(QPoint(2, viewPos.y()/*+offs*/)).position();
 	CurrentPar = editor->StyledText.nrOfParagraph(p);
 	int pos = editor->StyledText.startOfParagraph(p);
 
@@ -155,7 +157,8 @@ void SideBar::paintEvent(QPaintEvent *e)
 	inRep = true;
 	QLabel::paintEvent(e);
 	QList<QRect> paraList;
-	for (uint pr = 0; pr < editor->StyledText.nrOfParagraphs(); ++pr)
+	uint paraNumber = editor->StyledText.nrOfParagraphs();
+	for (uint pr = 0; pr < paraNumber; ++pr)
 	{
 		int pos = editor->StyledText.startOfParagraph(pr);
 		QTextCursor cur(editor->document());
@@ -168,7 +171,8 @@ void SideBar::paintEvent(QPaintEvent *e)
 	if ((editor != 0) && (noUpdt))
 	{
 		int gesY = 0;
-		for (uint pa = 0; pa < editor->StyledText.nrOfParagraphs(); ++pa)
+		QString trNoStyle = tr("No Style");
+		for (uint pa = 0; pa < paraNumber; ++pa)
 		{
 			QRect re = paraList[pa];
 			if (!re.isValid())
@@ -184,7 +188,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 				re.moveTop(gesY-offs+2);
 				QString parname = editor->StyledText.paragraphStyle(editor->StyledText.startOfParagraph(pa)).parent();
 				if (parname.isEmpty())
-					parname = tr("No Style");
+					parname = trNoStyle;
 				p.drawText(re, Qt::AlignLeft | Qt::AlignTop, parname);
 			}
 			gesY += hh;
@@ -607,7 +611,9 @@ void SEditor::updateAll()
 		return;
 	}
 	setUpdatesEnabled(false);
-	int pos = textCursor().position();
+	this->blockSignals(true);
+	int cursorPos = textCursor().position();
+	int scrollPos = verticalScrollBar()->value();
 	QString Text = "";
 	QString chars;
 	int Csty = StyledText.charStyle(0).effects();
@@ -617,7 +623,7 @@ void SEditor::updateAll()
 	for (uint pa = 0; pa < StyledText.nrOfParagraphs(); ++pa)
 	{
 		int start = StyledText.startOfParagraph(pa);
-		int end = StyledText.endOfParagraph(pa);
+		int end   = StyledText.endOfParagraph(pa);
 		const ParagraphStyle& pstyle(StyledText.paragraphStyle(start));
 		Ali = pstyle.alignment();
 		setAlign(Ali);
@@ -704,9 +710,14 @@ void SEditor::updateAll()
 	setAlign(Ali);
 	setStyle(Csty);
 	insertPlainText(Text);
-	textCursor().setPosition(pos);
+	QTextCursor tCursor = textCursor();
+	tCursor.setPosition(cursorPos);
+	setTextCursor(tCursor);
+	verticalScrollBar()->setValue(scrollPos);
+	this->blockSignals(false);
 	setUpdatesEnabled(true);
 	--blockContentsChangeHook;
+	emit textChanged();
 	//CB Removed to fix 2083 setCursorPosition(p, i);
 }
 
@@ -744,7 +755,9 @@ void SEditor::updateFromChars(int pa)
 	textCursor().clearSelection();
 	setAlign(StyledText.paragraphStyle(start).alignment());
 	setUpdatesEnabled(true);
-	textCursor().setPosition(pos);
+	QTextCursor tCursor = textCursor();
+	tCursor.setPosition(pos);
+	setTextCursor(tCursor);
 }
 
 /* updates the internal StyledText structure, applies 'newStyle' to the selection */
@@ -2845,7 +2858,8 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 		disconnect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 		disconnect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
 		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
-		int pos = Editor->textCursor().position();
+		int cursorPos = Editor->textCursor().position();
+		int scrollPos = Editor->verticalScrollBar()->value();
 
 /*		qDebug(QString("changeStyleSB: pa=%2, start=%2, new=%3 %4")
 			   .arg(pa)
@@ -2856,10 +2870,11 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 		Editor->StyledText.applyStyle(Editor->StyledText.startOfParagraph(pa), newStyle);
 
 		Editor->updateFromChars(pa);
-		Editor->textCursor().setPosition(pos);
-//		Editor->setCursorPosition(pa, 0);
-//		updateProps(pa, 0);
-//		Editor->ensureCursorVisible();
+		QTextCursor tCursor = Editor->textCursor();
+		tCursor.setPosition(cursorPos);
+		Editor->setTextCursor(tCursor);
+		Editor->verticalScrollBar()->setValue(scrollPos);
+
 		EditorBar->doRepaint();
 		connect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 		connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
