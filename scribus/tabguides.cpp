@@ -258,8 +258,8 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	QToolTip::add( inForeground, tr( "Guides are visible above all objects on the page" ) );
 	QToolTip::add( minorSpace, tr( "Distance between the minor grid lines" ) );
 	QToolTip::add( majorSpace, tr( "Distance between the major grid lines" ) );
-	QToolTip::add( snapDistance, tr( "Distance within which an object will snap to your placed guides" ) );
-	QToolTip::add( grabDistance, tr( "Radius of the area where Scribus will allow you to grab an objects handles" ) );
+	QToolTip::add( snapDistance,  "<qt>" + tr( "Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting." ) + "</qt>");
+	QToolTip::add( grabDistance,  "<qt>" + tr( "Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting." ) + "</qt>");
 	QToolTip::add( minorGridColor, tr( "Color of the minor grid lines" ) );
 	QToolTip::add( majorGridColor, tr( "Color of the major grid lines" ) );
 	QToolTip::add( guideColor, tr( "Color of the guide lines you insert" ) );
