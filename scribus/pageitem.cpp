@@ -1128,7 +1128,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		double scpInv = 1.0 / (qMax(view->scale(), 1.0));
 		if (!isGroupControl)
 		{
-			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
+			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) /* || (itemType() == TextFrame) */ || (itemType() == PathText)))
 			{
 				p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((isBookmark) || (m_isAnnotation))
