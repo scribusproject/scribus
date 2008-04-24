@@ -66,6 +66,9 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_formats.h"
 #include "util_math.h"
+#ifdef HAVE_CAIRO
+	#include <cairo.h>
+#endif
 
 using namespace std;
 
@@ -1128,7 +1131,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		double scpInv = 1.0 / (qMax(view->scale(), 1.0));
 		if (!isGroupControl)
 		{
-			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) /* || (itemType() == TextFrame) */ || (itemType() == PathText)))
+			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == PathText)))
 			{
 				p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((isBookmark) || (m_isAnnotation))
@@ -1157,15 +1160,33 @@ void PageItem::DrawObj_Post(ScPainter *p)
 						p->setupPolygon(&tclip);
 					}
 				}
-				else if (itemType() == ImageFrame)
+				else
+// Ugly Hack to fix rendering problems with cairo-1.5.10 and up follows
+#ifdef HAVE_CAIRO
+	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)
+					p->setupPolygon(&PoLine, false);
+	#else
 					p->setupPolygon(&PoLine);
+	#endif
+#else
+					p->setupPolygon(&PoLine);
+#endif
 				p->strokePath();
 			}
 		}
 		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
 			p->setPen(Qt::lightGray, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+// Ugly Hack to fix rendering problems with cairo-1.5.10 and up follows
+#ifdef HAVE_CAIRO
+	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)
+			p->setupPolygon(&ContourLine, false);
+	#else
 			p->setupPolygon(&ContourLine);
+	#endif
+#else
+			p->setupPolygon(&ContourLine);
+#endif
 			p->strokePath();
 		}
 		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)) && ((isGroupControl) || (Groups.count() == 0)) && (!view->m_canvas->isPreviewMode()))

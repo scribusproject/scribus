@@ -51,6 +51,9 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "util.h"
 #include "util_math.h"
+#ifdef HAVE_CAIRO
+	#include <cairo.h>
+#endif
 
 
 using namespace std;
@@ -2507,7 +2510,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		double scpInv = 1.0 / (qMax(view->scale(), 1.0));
-		if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
+		if ((Frame) && (m_Doc->guidesSettings.framesShown))
 		{
 			p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			if ((isBookmark) || (m_isAnnotation))
@@ -2518,33 +2521,31 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 				p->setPen(PrefsManager::instance()->appPrefs.DFrameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 
 			p->setFillMode(0);
-			if (itemType()==PathText)
-			{
-				if (Clip.count() != 0)
-				{
-					FPointArray tclip;
-					FPoint np = FPoint(Clip.point(0));
-					tclip.resize(2);
-					tclip.setPoint(0, np);
-					tclip.setPoint(1, np);
-					for (int a = 1; a < Clip.size(); ++a)
-					{
-						np = FPoint(Clip.point(a));
-						tclip.putPoints(tclip.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
-					}
-					np = FPoint(Clip.point(0));
-					tclip.putPoints(tclip.size(), 2, np.x(), np.y(), np.x(), np.y());
-					p->setupPolygon(&tclip);
-				}
-			}
-			else
-				p->setupPolygon(&PoLine);
+// Ugly Hack to fix rendering problems with cairo-1.5.10 and up follows
+#ifdef HAVE_CAIRO
+	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)
+			p->setupPolygon(&PoLine, false);
+	#else
+			p->setupPolygon(&PoLine);
+	#endif
+#else
+			p->setupPolygon(&PoLine);
+#endif
 			p->strokePath();
 		}
 		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
 			p->setPen(Qt::lightGray, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+// Ugly Hack to fix rendering problems with cairo-1.5.10 and up follows
+#ifdef HAVE_CAIRO
+	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)
+			p->setupPolygon(&ContourLine, false);
+	#else
 			p->setupPolygon(&ContourLine);
+	#endif
+#else
+			p->setupPolygon(&ContourLine);
+#endif
 			p->strokePath();
 		}
 
