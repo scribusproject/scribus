@@ -25,15 +25,6 @@ If you modify this file, you may extend this exception to your version of the
 file, but you are not obligated to do so. If you do not wish to do so, delete
 this exception statement from your version.
 
-In addition, as a special exception, the listed copyright holders above give 
-permission to link the code of this program with the Microsoft GDI+ dynamic
-link library (commonly known as GDI+) (or with modified versions of Microsoft
-GDI+ dynamic link library that use the same license as Microsoft GDI+ dynamic
-link library). You must obey the GNU General Public  License in all respects
-for all of the code used other than Microsoft GDI+ dynamic link library. If 
-you modify this file, you may extend this exception to your version of the file,
-but you are not obligated to do so. If you do not wish to do so, delete this
-exception statement from your version.
 
 
 		    GNU GENERAL PUBLIC LICENSE
