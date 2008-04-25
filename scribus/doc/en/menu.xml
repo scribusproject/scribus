@@ -130,6 +130,7 @@
 	</area>
 	<area text="Other Information" file="otherinfo.html">
 		<submenuitem text="Community" file="resources.html"/>
+		<submenuitem text="Mailing Lists" file="mailing_lists.html"/>
 		<submenuitem file="irc.html" text="IRC"/>
 		<submenuitem text="Printers" file="scprinters.html"/>
 		<submenuitem text="Download" file="download.html"/>
