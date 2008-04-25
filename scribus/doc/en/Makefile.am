@@ -12,7 +12,7 @@ scripterapi-font.html scripterapi-getobjprop.html scripterapi.html scripterapi-l
 scripterapi-page.html scripterapi-select.html scripterapi-setobjprop.html scripterapi-textframes.html scripter-faq.html \
 scripterapi-PDFfile.html scripterapi-Printer.html scripterapi-ImageExport.html settings1.html specs.html  short-words.html toolbox10.html toolbox11.html \
 toolbox12.html  toolbox1.html toolbox14.html  toolbox2.html toolbox3.html toolbox4.html toolbox5.html toolbox6.html toolbox7.html toolbox8.html \
-toolbox9.html toolbox.html topten.html translation_howto.html  otherinfo.html documentation.html tutorials.html CMakeLists.txt
+toolbox9.html toolbox.html topten.html translation_howto.html  otherinfo.html documentation.html tutorials.html CMakeLists.txt mailing_lists.html
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/doc/scribus-$(VERSION)/en/
@@ -63,6 +63,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/lipsum.html $(prefix)/share/doc/scribus-$(VERSION)/en/lipsum.html
 	$(INSTALL_DATA) $(srcdir)/machints1.html $(prefix)/share/doc/scribus-$(VERSION)/en/machints1.html
 	$(INSTALL_DATA) $(srcdir)/machints2.html $(prefix)/share/doc/scribus-$(VERSION)/en/machints2.html
+	$(INSTALL_DATA) $(srcdir)/mailing_lists.html $(prefix)/share/doc/scribus-$(VERSION)/en/mailing_lists.html
 	$(INSTALL_DATA) $(srcdir)/menu.xml $(prefix)/share/doc/scribus-$(VERSION)/en/menu.xml
 	$(INSTALL_DATA) $(srcdir)/moncal.html $(prefix)/share/doc/scribus-$(VERSION)/en/moncal.html
 	$(INSTALL_DATA) $(srcdir)/mouse.html $(prefix)/share/doc/scribus-$(VERSION)/en/mouse.html
@@ -181,6 +182,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/lipsum.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/machints1.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/machints2.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/mailing_lists.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/menu.xml
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/moncal.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/mouse.html

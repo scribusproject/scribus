@@ -1,14 +1,16 @@
-<qt>
-<title>Getting Support</title>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>General Questions</title>
+</head>
+<body>
 <a name="top"></a>
-<h2>Getting Support</h2>
+<h2>General Questions</h2>
 <ul>
 	<li><a href="#1">How do I contact the Scribus Team or find interactive help?</a></li>
-	
-	<!--<li><a href="#3">How do get I formatted tables in Scribus?</a></li>-->
-
-
-	<!--<li><a href="#4">Help! My palettes have disappeared!</a></li>
+	<li><a href="#2">Color Management does not appear in the menu.</a></li>
+	<li><a href="#3">How do get I formatted tables in Scribus?</a></li>
+	<li><a href="#4">Help! My palettes have disappeared!</a></li>
 	<li><a href="#5">Scribus is slow to launch. Why ?</a></li>
 	<li><a href="#6">What is the difference between PDF 1.3, PDF 1.4 and PDF 1.5 ?</a></li>
 	<li><a href="#7">Why don't my fonts display properly on Red Hat 8, 9 or Fedora Core-1 ?</a></li>
@@ -21,26 +23,19 @@
 	<li><a href="#28">Scribus seems to hang in an infinite loop when importing EPS or PS files. Why?</a></li>
 	<li><a href="#29">Why don't images print on a HP LaserJet 1xxx series printer from within Scribus or from exported PS/PDF files, but can be viewed in PDFs.</a></li>
 	<li><a href="#30">How do I compile Scribus with debugging enabled ?</a></li>
-	<li><a href="#32">How do I get Arabic text to display correctly with proper glyph shaping and RTL text direction, the most I can get out of Scribus right now is RTL text with no glyph shaping?</a></li>-->
+	<li><a href="#32">How do I get Arabic text to display correctly with proper glyph shaping and RTL text direction, the most I can get out of Scribus right now is RTL text with no glyph shaping?</a></li>
 </ul>
 
 <h3>Answers</h3>
 
-
-<li>The complete set of the latest docs are <a href="http://docs.scribus.net">online</a> as well being included with Scribus. The Scribus Help browser can search on keywords, has bookmark capability and history. There are translations of the docs into French, German, Italian and Polish underway.</li>
-<li><a name="1"></a>	There is an active and friendly mailing list details at: <a href="http://nashi.altmuehlnet.de/mailman/listinfo/scribus">http://nashi.altmuehlnet.de/mailman/listinfo/scribus</a>. The archives are also searchable at <a href="http://nsj.srem.pl/cgi-bin/search.cgi">http://nsj.srem.pl/cgi-bin/search.cgi</a></li>
-<li> Find the developers on IRC, see: Scribus on <a href="irc.html">IRC</a> for more details.</li>
-
-<li>All the Scribus developers e-mail details are in <strong>Help > About</strong>.  Please do <strong>not</strong> write them directly for support questions.</li>
-
-<li>Scribus is supported commerically by some members of the Scribus Team. Commercial organizations and other institutions are urged to visit <a href="www.scribus.biz">www.scribus.biz</a> for more information.</li>
-
-<br />
-<a href="#top">Back to top</a><hr/>
-	<p><a href="faq2.html">Next</a></p>
-</qt>
-	
-	<!--<li><a name="2"></a>
+<ul>
+	<li><a name="1"></a>
+		<p class="faqquestion">How do I contact the Scribus Team or find interactive help?</p>
+		<p>1. There is an active and friendly mailing list details at http://lists.scribus.info/mailman/listinfo/scribus. The archives are also searchable at http://nsj.srem.pl/cgi-bin/search.cgi</p>
+		<p>2. Find the developers on IRC, on the irc.freenode.net network in the #scribus channel.</p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="2"></a>
 		<p class="faqquestion">Color Management does not appear in the menu.</p>
 		<p>Make sure you have .icc and or .icm profiles in the /scribus/profiles directory, or in the directory that you have set in Settings->Preferences. Ideally, you will have a set of profiles which includes one for your monitor, one for the images and any scanner or input device profiles and profiles for your printer or output device. You need a minimum of 1 RGB color space icc profile and 1 CMYK icc color space profile for the color managment options to be enabled. See the details in Color Management for Scribus for links and info about color profiles.</p>
 		<p>If you install littlecms from an rpm, make sure you have installed the development libraries as well. If not, install the rpm, run ldconfig or /sbin/ldconfig as root, remove config.cache from the source directory, then run ./configure again and recompile.</p>
@@ -88,7 +83,9 @@
 	</li>
 	<li><a name="13"></a>
 		<p class="faqquestion">How do you change paper size once page has been created?</p>
-		<p>You can't</p>
+		<p>In 1.3.x, you can change the size of the current page or a range of pages in the Page menu, under Manage Page Properties.</p>
+		<p>You can change this for the whole document under File->Document Setup.</p>
+		<p>Scribus 1.3.x allows multiple page sizes per document.</p>
 		<a href="#top">Back to top</a><hr/>
 	</li>
 	<li><a name="14"></a>
@@ -153,5 +150,6 @@ or from exported ps/pdf files, but can be viewed in PDFs.</p>
 		<p>The glyph shaping is a very difficult thing to achieve, we plan to add this in one of the 1.3.x Developers versions.</p>
 		<a href="#top">Back to top</a><hr/>
 	</li>
-</ul>-->
-</qt>
+</ul>
+</body>
+</html>

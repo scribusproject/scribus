@@ -12,7 +12,8 @@
 			<submenuitem text="Scribus Source &amp; SVN" file="install1.html"/>
 			<submenuitem text="Requirements" file="install2.html"/>
 			<submenuitem text="Compiling &amp; Installing" file="install3.html"/>
-			<submenuitem text="Compiling &amp; Installing using CMake" file="install4.html"/>
+			<submenuitem text="Compiling using CMake" file="install4.html"/>
+			<submenuitem text="Compiling using CMake on OS X" file="install5.html"/>                     
 			<submenuitem text="Parallel Install" file="parallel-install.html"/>
 			<submenuitem text="Debian dpkg Information" file="install-dpkg.html"/>
 		</submenuitem>
@@ -129,6 +130,7 @@
 	</area>
 	<area text="Other Information" file="otherinfo.html">
 		<submenuitem text="Community" file="resources.html"/>
+		<submenuitem text="Mailing Lists" file="mailing_lists.html"/>
 		<submenuitem file="irc.html" text="IRC"/>
 		<submenuitem text="Printers" file="scprinters.html"/>
 		<submenuitem text="Download" file="download.html"/>
