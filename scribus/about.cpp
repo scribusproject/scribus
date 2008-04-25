@@ -54,7 +54,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "22";
+	QString BUILD_DAY = "25";
 	QString BUILD_MONTH = CommonStrings::april;
 	QString BUILD_YEAR = "2008";
 	QString BUILD_TIME = "";
@@ -395,8 +395,8 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 		"<tr><td colspan=\"2\"><p><a href=\"http://bugs.scribus.net\">http://bugs.scribus.net</a></p></td></tr>" +
 		"<tr><td><b>" + tr("Developer Blog").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://rants.scribus.net\">http://rants.scribus.net</a></p></td></tr>" +
-		"<tr><td><b>" + tr("Mailing List").utf8() + "</b></td><td></td></tr>" +
-		"<tr><td colspan=\"2\"><p><a href=\"http://nashi.altmuehlnet.de/mailman/listinfo/scribus\">http://nashi.altmuehlnet.de/mailman/listinfo/scribus</a></p></td></tr>" +
+		"<tr><td><b>" + tr("Mailing Lists").utf8() + "</b></td><td></td></tr>" +
+		"<tr><td colspan=\"2\"><p><a href=\"http://lists.scribus.info/\">http://lists.scribus.info/</a></p></td></tr>" +
 		"</table>"));
 	tabLayout_4 = new QHBoxLayout( tab_4 );
 	tabLayout_4->setSpacing( 6 );
