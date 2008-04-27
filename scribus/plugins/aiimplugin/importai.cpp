@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 #include "util.h"
+#include "util_color.h"
 #include "util_file.h"
 #include "util_formats.h"
 #include "util_icon.h"
@@ -561,7 +562,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 {
 	QString tmp, BBox, tmp2, FarNam;
 	ScColor cc;
-	double c, m, yc, k;
+//	double c, m, yc, k;
 	bool found = false;
 	QFile f(fName);
 	if (f.open(QIODevice::ReadOnly))
@@ -588,42 +589,6 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 			{
 				found = true;
 				BBox = tmp.remove("%%HiResBoundingBox:");
-			}
-/* Read CustomColors if available */
-			if (tmp.startsWith("%%CMYKCustomColor"))
-			{
-				tmp = tmp.remove(0,18);
-				QTextStream ts2(&tmp, QIODevice::ReadOnly);
-				ts2 >> c >> m >> yc >> k;
-				FarNam = ts2.readAll();
-				FarNam = FarNam.trimmed();
-				FarNam = FarNam.remove(0,1);
-				FarNam = FarNam.remove(FarNam.length()-1,1);
-				cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
-				cc.setSpotColor(true);
-				CustColors.insert(FarNam, cc);
-				importedColors.append(FarNam);
-				while (!ts.atEnd())
-				{
-					uint oldPos = ts.device()->pos();
-					tmp = readLinefromDataStream(ts);
-					if (!tmp.startsWith("%%+"))
-					{
-						ts.device()->seek(oldPos);
-						break;
-					}
-					tmp = tmp.remove(0,3);
-					QTextStream ts2(&tmp, QIODevice::ReadOnly);
-					ts2 >> c >> m >> yc >> k;
-					FarNam = ts2.readAll();
-					FarNam = FarNam.trimmed();
-					FarNam = FarNam.remove(0,1);
-					FarNam = FarNam.remove(FarNam.length()-1,1);
-					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
-					cc.setSpotColor(true);
-					CustColors.insert(FarNam, cc);
-					importedColors.append(FarNam);
-				}
 			}
 			if (tmp.startsWith("%%For"))
 			{
@@ -667,6 +632,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 				ts2 >> x >> y >> b >> h;
 			}
 		}
+		importColorsFromFile(fName, CustColors);
 	}
 	return found;
 }
@@ -722,7 +688,7 @@ QString AIPlug::parseColor(QString data)
 		tmp.setRegistrationColor(false);
 		QString namPrefix = "FromAI";
 		m_Doc->PageColors.insert(namPrefix+tmp.name(), tmp);
-		importedColors.append(namPrefix+tmp.name());
+//		importedColors.append(namPrefix+tmp.name());
 		ret = namPrefix+tmp.name();
 	}
 	return ret;
@@ -760,7 +726,7 @@ QString AIPlug::parseColorGray(QString data)
 		tmp.setRegistrationColor(false);
 		QString namPrefix = "FromAI";
 		m_Doc->PageColors.insert(namPrefix+tmp.name(), tmp);
-		importedColors.append(namPrefix+tmp.name());
+//		importedColors.append(namPrefix+tmp.name());
 		ret = namPrefix+tmp.name();
 	}
 	return ret;
@@ -802,7 +768,7 @@ QString AIPlug::parseColorRGB(QString data)
 		tmp.setRegistrationColor(false);
 		QString namPrefix = "FromAI";
 		m_Doc->PageColors.insert(namPrefix+tmp.name(), tmp);
-		importedColors.append(namPrefix+tmp.name());
+//		importedColors.append(namPrefix+tmp.name());
 		ret = namPrefix+tmp.name();
 	}
 	return ret;
@@ -854,7 +820,7 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 		tmp.setSpotColor(true);
 		tmp.setRegistrationColor(false);
 		m_Doc->PageColors.insert(FarNam, tmp);
-		importedColors.append(FarNam);
+//		importedColors.append(FarNam);
 		ret = FarNam;
 	}
 	return ret;
@@ -933,7 +899,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 			tmp.setSpotColor(true);
 		tmp.setRegistrationColor(false);
 		m_Doc->PageColors.insert(FarNam, tmp);
-		importedColors.append(FarNam);
+//		importedColors.append(FarNam);
 		ret = FarNam;
 	}
 	return ret;

@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolor.h"
 #include "fpointarray.h"
 #include <QList>
+#include <QPainterPath>
 
 class MultiProgressDialog;
 class ScribusDoc;
@@ -108,7 +109,7 @@ private:
 	bool cancel;
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
-	QStringList importedColors;
+	QPainterPath boundingBoxRect;
 
 public slots:
 	void cancelRequested() { cancel = true; }

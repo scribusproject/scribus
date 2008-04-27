@@ -118,7 +118,6 @@ private:
 	bool cancel;
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
-	QStringList importedColors;
 	int importerFlags;
 	QStringList commandList;
 	bool convertedPDF;

@@ -102,4 +102,11 @@ void SCRIBUS_API clipColor(double& red, double& green, double& blue);
 /*! \brief return the translated colorspace name */
 QString SCRIBUS_API colorSpaceText(int cs);
 
+/*! \brief loads colors from EPS + AI and SLA files, reads also Scribus swatch files 
+ * \param fileName the file to import
+ * \param EditColors Color list to store the imported colors
+ * \return true if any colors have been found
+*/
+bool SCRIBUS_API importColorsFromFile(QString fileName, ColorList &EditColors);
+
 #endif

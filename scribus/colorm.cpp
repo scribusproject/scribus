@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribusdoc.h"
 #include "util.h"
+#include "util_color.h"
 #include "util_formats.h"
 #include "util_icon.h"
 
@@ -282,128 +283,25 @@ void ColorManager::loadDefaults(const QString &txt)
 	}
 	if (txt != "Scribus Small")
 	{
-		QFileInfo fi = QFileInfo(pfadC2);
-		QString ext = fi.suffix().toLower();
-		if (extensionIndicatesEPSorPS(ext) || (ext == "ai"))
+		if (importColorsFromFile(pfadC2, EditColors))
 		{
-			importColorsFromFile(pfadC2);
 			EditColors.insert("White", ScColor(0, 0, 0, 0));
 			EditColors.insert("Black", ScColor(0, 0, 0, 255));
 		}
 		else
 		{
-			QFile fiC(pfadC2);
-			if (fiC.open(QIODevice::ReadOnly))
-			{
-				QString ColorEn, Cname;
-				int Rval, Gval, Bval, Kval;
-				QTextStream tsC(&fiC);
-				ColorEn = tsC.readLine();
-				if (ColorEn.startsWith("<?xml version="))
-				{
-					QByteArray docBytes("");
-					loadRawText(pfadC2, docBytes);
-					QString docText("");
-					docText = QString::fromUtf8(docBytes);
-					QDomDocument docu("scridoc");
-					docu.setContent(docText);
-					ScColor lf = ScColor();
-					QDomElement elem = docu.documentElement();
-					QDomNode PAGE = elem.firstChild();
-					while(!PAGE.isNull())
-					{
-						QDomElement pg = PAGE.toElement();
-						if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
-						{
-							if (pg.hasAttribute("CMYK"))
-								lf.setNamedColor(pg.attribute("CMYK"));
-							else
-								lf.fromQColor(QColor(pg.attribute("RGB")));
-							if (pg.hasAttribute("Spot"))
-								lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
-							else
-								lf.setSpotColor(false);
-							if (pg.hasAttribute("Register"))
-								lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
-							else
-								lf.setRegistrationColor(false);
-							EditColors.insert(pg.attribute("NAME"), lf);
-						}
-						PAGE=PAGE.nextSibling();
-					}
-				}
-				else
-				{
-					while (!tsC.atEnd())
-					{
-						ScColor tmp;
-						ColorEn = tsC.readLine().trimmed();
-						if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
-							continue;
-						
-						if (ColorEn[0].isNumber()) {
-							QTextStream CoE(&ColorEn, QIODevice::ReadOnly);
-							CoE >> Rval;
-							CoE >> Gval;
-							CoE >> Bval;
-							if (cus)
-							{
-								CoE >> Kval;
-								Cname = CoE.readAll().trimmed();
-								tmp.setColor(Rval, Gval, Bval, Kval);
-							}
-							else
-							{
-								Cname = CoE.readAll().trimmed();
-								tmp.setColorRGB(Rval, Gval, Bval);
-							}
-						}
-						else
-						{
-							QStringList fields = ColorEn.split(QChar(9), QString::SkipEmptyParts);
-							if (fields.count() != 5)
-								continue;
-							Cname = fields[0];
-							Rval = fields[1].toInt();
-							Gval = fields[2].toInt();
-							Bval = fields[3].toInt();
-							Kval = fields[4].toInt();
-							tmp.setColor(Rval, Gval, Bval, Kval);
-						}
-						if ((c<customSetStartIndex) && (Cname.length()==0))
-						{
-							if (!cus)
-								Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).toUpper();
-							else
-								Cname=QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).toUpper();
-							Cname.replace(" ","0");
-						}
-						if (EditColors.contains(Cname))
-						{
-							if (tmp==EditColors[Cname])
-								continue;
-							Cname=QString("%1%2").arg(Cname).arg(EditColors.count());
-						}
-						EditColors.insert(Cname, tmp);
-					}
-				}
-				fiC.close();
-			}
-			else
-			{
-				setCurrentComboItem(LoadColSet, "Scribus Small");
-				EditColors.insert("White", ScColor(0, 0, 0, 0));
-				EditColors.insert("Black", ScColor(0, 0, 0, 255));
-				ScColor cc = ScColor(255, 255, 255, 255);
-				cc.setRegistrationColor(true);
-				EditColors.insert("Registration", cc);
-				EditColors.insert("Blue", ScColor(255, 255, 0, 0));
-				EditColors.insert("Cyan", ScColor(255, 0, 0, 0));
-				EditColors.insert("Green", ScColor(255, 0, 255, 0));
-				EditColors.insert("Red", ScColor(0, 255, 255, 0));
-				EditColors.insert("Yellow", ScColor(0, 0, 255, 0));
-				EditColors.insert("Magenta", ScColor(0, 255, 0, 0));
-			}
+			setCurrentComboItem(LoadColSet, "Scribus Small");
+			EditColors.insert("White", ScColor(0, 0, 0, 0));
+			EditColors.insert("Black", ScColor(0, 0, 0, 255));
+			ScColor cc = ScColor(255, 255, 255, 255);
+			cc.setRegistrationColor(true);
+			EditColors.insert("Registration", cc);
+			EditColors.insert("Blue", ScColor(255, 255, 0, 0));
+			EditColors.insert("Cyan", ScColor(255, 0, 0, 0));
+			EditColors.insert("Green", ScColor(255, 0, 255, 0));
+			EditColors.insert("Red", ScColor(0, 255, 255, 0));
+			EditColors.insert("Yellow", ScColor(0, 0, 255, 0));
+			EditColors.insert("Magenta", ScColor(0, 255, 0, 0));
 		}
 	}
 	updateCList();
@@ -423,185 +321,12 @@ void ColorManager::importColors()
 		fileName = dia.selectedFile();
 	else
 		return;
-	int oldCount = EditColors.count();
 	if (!fileName.isEmpty())
 		dirs->set("colors", fileName.left(fileName.lastIndexOf("/")));
-	importColorsFromFile(fileName);
-	if (EditColors.count() == oldCount)
+	if (!importColorsFromFile(fileName, EditColors))
 		QMessageBox::information(this, tr("Information"), "<qt>" + tr("The file %1 does not contain colors which can be imported.\nIf the file was a PostScript-based, try to import it with File -&gt; Import. \nNot all files have DSC conformant comments where the color descriptions are located.\n This prevents importing colors from some files.\nSee the Edit Colors section of the documentation for more details.").arg(fileName) + "</qt>", 1, 0, 0);
-		
-}
-
-void ColorManager::importColorsFromFile(QString fileName)
-{
-	if (!fileName.isEmpty())
-	{
-		QFileInfo fi = QFileInfo(fileName);
-		QString ext = fi.suffix().toLower();
-		if (extensionIndicatesEPSorPS(ext) || (ext == "ai"))
-		{
-			QString tmp, tmp2, FarNam;
-			double c, m, y, k;
-			ScColor cc;
-			QFile f(fileName);
-			if (f.open(QIODevice::ReadOnly))
-			{
-				bool isAtend = false;
-				QDataStream ts(&f);
-				while (!ts.atEnd())
-				{
-					tmp = readLinefromDataStream(ts);
-					if ((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor")))
-					{
-						if (tmp.contains("(atend)"))
-							isAtend = true;
-						else
-						{
-							if (tmp.startsWith("%%CMYKCustomColor"))
-								tmp = tmp.remove(0,18);
-							else if (tmp.startsWith("%%CMYKProcessColor"))
-								tmp = tmp.remove(0,19);
-							QTextStream ts2(&tmp, QIODevice::ReadOnly);
-							ts2 >> c >> m >> y >> k;
-							FarNam = ts2.readAll();
-							FarNam = FarNam.trimmed();
-							FarNam = FarNam.remove(0,1);
-							FarNam = FarNam.remove(FarNam.length()-1,1);
-							FarNam = FarNam.simplified();
-							cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
-							cc.setSpotColor(true);
-							if (!EditColors.contains(FarNam))
-								EditColors.insert(FarNam, cc);
-							while (!ts.atEnd())
-							{
-								quint64 oldPos = ts.device()->pos();
-								tmp = readLinefromDataStream(ts);
-								if (!tmp.startsWith("%%+"))
-								{
-									ts.device()->seek(oldPos);
-									break;
-								}
-								tmp = tmp.remove(0,3);
-								QTextStream ts2(&tmp, QIODevice::ReadOnly);
-								ts2 >> c >> m >> y >> k;
-								FarNam = ts2.readAll();
-								FarNam = FarNam.trimmed();
-								FarNam = FarNam.remove(0,1);
-								FarNam = FarNam.remove(FarNam.length()-1,1);
-								FarNam = FarNam.simplified();
-								cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
-								cc.setSpotColor(true);
-								if (!EditColors.contains(FarNam))
-									EditColors.insert(FarNam, cc);
-							}
-						}
-					}
-					if (tmp.startsWith("%%RGBCustomColor"))
-					{
-						if (tmp.contains("(atend)"))
-							isAtend = true;
-						else
-						{
-							tmp = tmp.remove(0,17);
-							QTextStream ts2(&tmp, QIODevice::ReadOnly);
-							ts2 >> c >> m >> y;
-							FarNam = ts2.readAll();
-							FarNam = FarNam.trimmed();
-							FarNam = FarNam.remove(0,1);
-							FarNam = FarNam.remove(FarNam.length()-1,1);
-							FarNam = FarNam.simplified();
-							cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y));
-							if (!EditColors.contains(FarNam))
-								EditColors.insert(FarNam, cc);
-							while (!ts.atEnd())
-							{
-								quint64 oldPos = ts.device()->pos();
-								tmp = readLinefromDataStream(ts);
-								if (!tmp.startsWith("%%+"))
-								{
-									ts.device()->seek(oldPos);
-									break;
-								}
-								tmp = tmp.remove(0,3);
-								QTextStream ts2(&tmp, QIODevice::ReadOnly);
-								ts2 >> c >> m >> y;
-								FarNam = ts2.readAll();
-								FarNam = FarNam.trimmed();
-								FarNam = FarNam.remove(0,1);
-								FarNam = FarNam.remove(FarNam.length()-1,1);
-								FarNam = FarNam.simplified();
-								cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y));
-								if (!EditColors.contains(FarNam))
-									EditColors.insert(FarNam, cc);
-							}
-						}
-					}
-					if (tmp.startsWith("%%EndComments"))
-					{
-						if (ext == "ai")
-						{
-							while (!ts.atEnd())
-							{
-								bool isX = false;
-								tmp = readLinefromDataStream(ts);
-								if ((tmp.endsWith("Xa") || tmp.endsWith(" k") || tmp.endsWith(" x")) && (tmp.length() > 4))
-								{
-									QTextStream ts2(&tmp, QIODevice::ReadOnly);
-									ts2 >> c >> m >> y >> k;
-									if (tmp.endsWith(" x"))
-									{
-										isX = true;
-										int an = tmp.indexOf("(");
-										int en = tmp.lastIndexOf(")");
-										FarNam = tmp.mid(an+1, en-an-1);
-										FarNam = FarNam.simplified();
-									}
-									tmp = readLinefromDataStream(ts);
-									if (tmp.endsWith("Pc"))
-									{
-										if (!isX)
-										{
-											tmp = tmp.trimmed();
-											tmp = tmp.remove(0,1);
-											int en = tmp.indexOf(")");
-											FarNam = tmp.mid(0, en);
-											FarNam = FarNam.simplified();
-										}
-										cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
-										cc.setSpotColor(true);
-										if (!EditColors.contains(FarNam))
-											EditColors.insert(FarNam, cc);
-									}
-								}
-							}
-						}
-						if (!isAtend)
-							break;
-					}
-				}
-				f.close();
-				updateCList();
-			}
-		}
-		else
-		{
-			FileLoader fl(fileName);
-			if (fl.TestFile() == -1)
-			//TODO put in nice user warning
-				return;
-			ColorList LColors;
-			if (fl.ReadColors(fileName, LColors))
-			{
-				ColorList::Iterator it;
-				for (it = LColors.begin(); it != LColors.end(); ++it)
-				{
-					if (!EditColors.contains(it.key()))
-						EditColors.insert(it.key(), it.value());
-				}
-				updateCList();
-			}
-		}
-	}
+	else
+		updateCList();
 }
 
 void ColorManager::deleteUnusedColors()

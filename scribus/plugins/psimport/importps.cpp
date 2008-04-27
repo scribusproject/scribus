@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 #include "util.h"
+#include "util_color.h"
 #include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
@@ -58,7 +59,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	cancel = false;
-	double x, y, b, h, c, m, k;
+	double x, y, b, h;
 	bool ret = false;
 	bool found = false;
 	CustColors.clear();
@@ -119,48 +120,8 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 						BBox = tmp.remove("%%BoundingBox");
 					}
 				}
-/* Read CustomColors if available */
-				if (tmp.startsWith("%%CMYKCustomColor"))
-				{
-					tmp = tmp.remove(0,18);
-					QTextStream ts2(&tmp, QIODevice::ReadOnly);
-					ts2 >> c >> m >> y >> k;
-					FarNam = ts2.readAll();
-					FarNam = FarNam.trimmed();
-					FarNam = FarNam.remove(0,1);
-					FarNam = FarNam.remove(FarNam.length()-1,1);
-//					QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
-//					FarNam = FarNam.simplified().replace( badchars, "_" );
-					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
-					cc.setSpotColor(true);
-					CustColors.insert(FarNam, cc);
-					importedColors.append(FarNam);
-					while (!ts.atEnd())
-					{
-						uint oldPos = ts.device()->pos();
-						tmp = readLinefromDataStream(ts);
-						if (!tmp.startsWith("%%+"))
-						{
-							ts.device()->seek(oldPos);
-							break;
-						}
-						tmp = tmp.remove(0,3);
-						QTextStream ts2(&tmp, QIODevice::ReadOnly);
-						ts2 >> c >> m >> y >> k;
-						FarNam = ts2.readAll();
-						FarNam = FarNam.trimmed();
-						FarNam = FarNam.remove(0,1);
-						FarNam = FarNam.remove(FarNam.length()-1,1);
-//						QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
-//						FarNam = FarNam.simplified().replace( badchars, "_" );
-						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
-						cc.setSpotColor(true);
-						CustColors.insert(FarNam, cc);
-						importedColors.append(FarNam);
-					}
-				}
 				if (tmp.startsWith("%%EndComments"))
-					break;
+					break; 
 			}
 			f.close();
 			if (found)
@@ -173,6 +134,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				}
 			}
 		}
+		importColorsFromFile(fName, CustColors);
 	}
 	baseX = 0;
 	baseY = 0;
@@ -214,6 +176,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		if (!m_Doc->PageColors.contains(it.key()))
 			m_Doc->PageColors.insert(it.key(), it.value());
 	}
+	boundingBoxRect.addRect(0, 0, b-x, h-y);
 	Elements.clear();
 	FPoint minSize = m_Doc->minCanvasCoordinate;
 	FPoint maxSize = m_Doc->maxCanvasCoordinate;
@@ -268,30 +231,6 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 					miny = qMin(miny, y1);
 					maxx = qMax(maxx, x2);
 					maxy = qMax(maxy, y2);
-/*					double lw = currItem->lineWidth() / 2.0;
-					if (currItem->rotation() != 0)
-					{
-						FPointArray pb;
-						pb.resize(0);
-						pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
-						pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-						pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-						pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-						for (uint pc = 0; pc < 4; ++pc)
-						{
-							minx = qMin(minx, pb.point(pc).x());
-							miny = qMin(miny, pb.point(pc).y());
-							maxx = qMax(maxx, pb.point(pc).x());
-							maxy = qMax(maxy, pb.point(pc).y());
-						}
-					}
-					else
-					{
-						minx = qMin(minx, currItem->xPos()-lw);
-						miny = qMin(miny, currItem->yPos()-lw);
-						maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-						maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-					} */
 				}
 				double gx = minx;
 				double gy = miny;
@@ -449,6 +388,21 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
+/*
+// Destill the eps with ghostscript to get a clean eps file
+	QString cleanFile = getShortPathName(ScPaths::getTempFileDir())+ "/clean.eps";
+	args.append( "-q" );
+	args.append( "-dNOPAUSE" );
+	args.append( "-sDEVICE=epswrite" );
+	args.append( "-dBATCH" );
+	args.append( "-dSAFER" );
+	args.append( "-dDEVICEWIDTH=250000" );
+	args.append( "-dDEVICEHEIGHT=250000" );
+	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(cleanFile)) );
+	args.append( QDir::convertSeparators(fn) );
+	System(getShortPathName(PrefsManager::instance()->ghostscriptExecutable()), args, errFile, errFile, &cancel);
+	args.clear();
+*/
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
 	args.append( "-sDEVICE=nullpage" );
@@ -529,6 +483,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		parseOutput(tmpFile, extensionIndicatesEPSorPS(ext));
 	}
 	QFile::remove(tmpFile);
+//	QFile::remove(cleanFile);
 	if (progressDialog)
 		progressDialog->close();
 	return true;
@@ -717,39 +672,78 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				CurrColor = parseColor(params, eps, colorModelRGB);
 			else if (token == "ci")
 			{
-				clipCoords = Coords;
 				if (Coords.size() != 0)
 				{
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
-					ite = m_Doc->Items->at(z);
-					ite->PoLine = Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
-					ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-					ite->ClipEdited = true;
-					ite->FrameType = 3;
-//					ite->fillRule = (fillRuleEvenOdd);
-					FPoint wh = getMaxClipF(&ite->PoLine);
-					ite->setWidthHeight(wh.x(),wh.y());
-					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-//					ite->setFillTransparency(1.0 - Opacity);
-					m_Doc->AdjustItemSize(ite);
-					ite->Groups.push(m_Doc->GroupCounter);
-					if (groupStack.count() != 0)
+					QString vers = QString(qVersion()).left(5);
+					if (vers < "4.3.3")
 					{
-						QStack<int> groupOld = groupStack.top()->Groups;
-						for (int gg = 0; gg < groupOld.count(); gg++)
+						clipCoords = Coords;
+						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+						ite = m_Doc->Items->at(z);
+						ite->PoLine = Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+						ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+						ite->ClipEdited = true;
+						ite->FrameType = 3;
+						FPoint wh = getMaxClipF(&ite->PoLine);
+						ite->setWidthHeight(wh.x(),wh.y());
+						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+						m_Doc->AdjustItemSize(ite);
+						ite->Groups.push(m_Doc->GroupCounter);
+						if (groupStack.count() != 0)
 						{
-							ite->Groups.push(groupOld[gg]);
+							QStack<int> groupOld = groupStack.top()->Groups;
+							for (int gg = 0; gg < groupOld.count(); gg++)
+							{
+								ite->Groups.push(groupOld[gg]);
+							}
+						}
+						ite->isGroupControl = true;
+						ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
+						ite->AutoName = false;
+						ite->setTextFlowMode(PageItem::TextFlowDisabled);
+						Elements.append(ite);
+						groupStack.push(ite);
+						elemCount.push(Elements.count());
+						gsStackMarks.push(gsStack.count());
+						m_Doc->GroupCounter++;
+					}
+					else
+					{
+						QPainterPath tmpPath = Coords.toQPainterPath(true);
+						tmpPath = boundingBoxRect.intersected(tmpPath);
+						if ((tmpPath.boundingRect().width() != 0) && (tmpPath.boundingRect().height() != 0))
+						{
+							clipCoords.fromQPainterPath(tmpPath);
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+							ite = m_Doc->Items->at(z);
+							ite->PoLine = clipCoords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+							ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+							ite->ClipEdited = true;
+							ite->FrameType = 3;
+							FPoint wh = getMaxClipF(&ite->PoLine);
+							ite->setWidthHeight(wh.x(),wh.y());
+							ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+							m_Doc->AdjustItemSize(ite);
+							ite->Groups.push(m_Doc->GroupCounter);
+							if (groupStack.count() != 0)
+							{
+								QStack<int> groupOld = groupStack.top()->Groups;
+								for (int gg = 0; gg < groupOld.count(); gg++)
+								{
+									ite->Groups.push(groupOld[gg]);
+								}
+							}
+							ite->isGroupControl = true;
+							ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
+							ite->AutoName = false;
+							ite->setTextFlowMode(PageItem::TextFlowDisabled);
+							Elements.append(ite);
+							groupStack.push(ite);
+							elemCount.push(Elements.count());
+							gsStackMarks.push(gsStack.count());
+							m_Doc->GroupCounter++;
 						}
 					}
-					ite->isGroupControl = true;
-					ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
-					ite->AutoName = false;
-					ite->setTextFlowMode(PageItem::TextFlowDisabled);
-					Elements.append(ite);
-					groupStack.push(ite);
-					elemCount.push(Elements.count());
-					gsStackMarks.push(gsStack.count());
-					m_Doc->GroupCounter++;
 				}
 				Coords   = FPointArray(0);
 				lastPath = "";
@@ -1095,7 +1089,7 @@ QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 		if (!eps)
 			namPrefix = "FromPS";
 		m_Doc->PageColors.insert(namPrefix+tmp.name(), tmp);
-		importedColors.append(namPrefix+tmp.name());
+//		importedColors.append(namPrefix+tmp.name());
 		ret = namPrefix+tmp.name();
 	}
 	return ret;
