@@ -1291,6 +1291,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					}
 					view->FirstPoly = true;
 					break;
+				case modeEyeDropper:
+					break;
 				default:
 					if (currItem->Sizing)
 					{
