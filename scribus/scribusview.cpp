@@ -2372,8 +2372,12 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						ApplyGuides(&nx, &ny);
 						npx = FPoint(nx, ny, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
 					}
-					else
-						npx = ApplyGridF(FPoint(nx, ny, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true));
+					else {
+						FPoint npg(ApplyGridF(FPoint(nx, ny)));
+						nx = npg.x();
+						ny = npg.y();
+						npx = FPoint(nx, ny, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
+					}
 					if ((frameResizeHandle == 1) && !(currItem->asLine()) && (Doc->SnapGuides))
 						SizeItem(npx.x(), npx.y(), currItem->ItemNr);
 					bool sav = Doc->SnapGuides;
