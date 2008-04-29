@@ -1269,6 +1269,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case modeEditGradientVectors:
 				case modeCopyProperties:
 					view->Deselect(false);
+				case modeEyeDropper:
 				case modePanning:
 					view->requestMode(modeNormal);
 					break;
@@ -1290,8 +1291,6 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						slotDocCh();
 					}
 					view->FirstPoly = true;
-					break;
-				case modeEyeDropper:
 					break;
 				default:
 					if (currItem->Sizing)
