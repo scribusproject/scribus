@@ -9,5 +9,7 @@
 	<COLOR CMYK="#ffffffff" NAME="Black" />
 	<COLOR CMYK="#00000000" NAME="White" />
 	<COLOR CMYK="#996666ff" NAME="Rich Black" />
+	<COLOR CMYK="#00994cff" NAME="Warm Black" />
+	<COLOR CMYK="#990000ff" NAME="Cool Black" />
 	<COLOR CMYK="#ffffffff" NAME="Registration" Register="1" />
 </swatch>

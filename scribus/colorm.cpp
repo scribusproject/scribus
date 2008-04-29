@@ -170,7 +170,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	duplicateColorButton->setToolTip( "<qt>" + tr( "Make a copy of the currently selected color" ) + "</qt>");
 	deleteColorButton->setToolTip( "<qt>" + tr( "Delete the currently selected color" ) + "</qt>");
 	saveButton->setToolTip( "<qt>" + tr( "Make the current colorset the default color set" ) + "</qt>");
-	colorListBox->setToolTip( "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
+	colorListBox->setToolTip( "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle.  More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Never use Registration, except for printers marks and crop marks." ) + "</qt>");
 	connect( saveButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( newColorButton, SIGNAL( clicked() ), this, SLOT( newColor() ) );

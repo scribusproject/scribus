@@ -1,5 +1,15 @@
 
 Scribus - 1.3.5svn
+- 0006403: [Usability] Dragging frame off edge of screen fails to scroll and then causes all frame handles to disappear, requiring restart. (cbradney) - resolved.
+- 0005889: [General] Make automatic frame creation with Shift+click less responsive to mouse movements (cbradney) - resolved.
+- 0006969: [Story Editor / Text Frames] Setting style for a paragraph past the first page or story editor makes cursor jump back to first paragraph (jghali) - resolved.
+- 0005765: [User Interface] One selected page in the "Arrange Pages" dialog isn't marked as selected (fschmid) - resolved.
+- 0004368: [User Interface] Add tooltips to all entries of the status bar (cbradney) - resolved.
+- 0004869: [Graphics / Image Frames] Preview for "Blur" image effect doesn't work (fschmid) - resolved.
+- 0004167: [Story Editor / Text Frames] Text flow between newly linked frames only shown after choosing the "select" tool (cbradney) - resolved.
+- 0006966: [General] Below 12 points, negative values are displayed as positive values in XYZ tab for X-pos and Y-pos when using Picas as unit (cbradney) - resolved.
+- 0006968: [Story Editor / Text Frames] Crash when inserting text into empty text frame (jghali) - resolved.
+- 0006926: [User Interface] Panning with Space bar and mouse doesn't work (jghali) - resolved.
 - 0003605: [User Interface] focus jumping to menus (cbradney) - resolved.
 - 0002867: [PPCOSX / Macintosh] Drag doesn't work on Scribus/Aqua (avox) - resolved.
 - 0001569: [User Interface] Drag-scrolling while drawing, moving and resizing objects doesn't work (avox) - resolved.
