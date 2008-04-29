@@ -1343,6 +1343,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					}
 					view->FirstPoly = true;
 					break;
+				case modeEyeDropper:
+					break;
 				default:
 					view->Deselect(false);
 					doc->Items->remove(currItem->ItemNr);
