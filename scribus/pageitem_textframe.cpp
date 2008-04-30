@@ -55,7 +55,6 @@ for which a new license (GPL+exception) is in place.
 	#include <cairo.h>
 #endif
 
-
 using namespace std;
 
 PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
@@ -1237,16 +1236,9 @@ void PageItem_TextFrame::layout()
 							leftIndent += style.firstIndent();
 
 						if (current.startOfCol)
-						{
-//							qDebug(QString("startofcol adjust: y=%1->%2").arg(current.yPos).arg(current.yPos+1));
-
 							current.yPos++;
-						}
 						else
-						{
-							current.yPos += style.lineSpacing();
-//							qDebug(QString("next line: y=%1").arg(current.yPos));
-						}
+							current.yPos += qMax(style.lineSpacing(), 1.0);
 //						qDebug(QString("layout: next lower line grid=%1 x %2").arg(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing).arg(m_Doc->typographicSettings.valueBaseGrid));
 						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 						{
@@ -2480,29 +2472,29 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 				p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
 				if (DashValues.count() != 0)
 					p->setDash(DashValues, DashOffset);
-			}
-			else
-				p->setLineWidth(0);
-			if (!isTableItem)
-			{
-				p->setupPolygon(&PoLine);
-				if (NamedLStyle.isEmpty())
-					p->strokePath();
-				else
+				if (!isTableItem)
 				{
-					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-					QColor tmp;
-					for (int it = ml.size()-1; it > -1; it--)
-					{
-						SetQColor(&tmp, ml[it].Color, ml[it].Shade);
-						p->setPen(tmp, ml[it].Width,
-								static_cast<Qt::PenStyle>(ml[it].Dash),
-								static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-								static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+					p->setupPolygon(&PoLine);
+					if (NamedLStyle.isEmpty())
 						p->strokePath();
+					else
+					{
+						multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+						QColor tmp;
+						for (int it = ml.size()-1; it > -1; it--)
+						{
+							SetQColor(&tmp, ml[it].Color, ml[it].Shade);
+							p->setPen(tmp, ml[it].Width,
+									static_cast<Qt::PenStyle>(ml[it].Dash),
+									static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
+									static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+							p->strokePath();
+						}
 					}
 				}
 			}
+			else
+				p->setLineWidth(0);
 			if (lineBlendmode() != 0)
 				p->endLayer();
 		}
