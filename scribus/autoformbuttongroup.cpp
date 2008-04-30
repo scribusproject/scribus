@@ -15,6 +15,74 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "util_icon.h"
 
+AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QMenu( parent )
+{
+	signalMapper = new QSignalMapper(this);
+	menu1 = new QMenu( tr("Default Shapes"));
+	addShape(menu1, 0);
+	addShape(menu1, 1);
+	addShape(menu1, 2);
+	addShape(menu1, 3);
+	addShape(menu1, 8);
+	addShape(menu1, 9);
+	addShape(menu1, 10);
+	addShape(menu1, 11);
+	addShape(menu1, 12);
+	addShape(menu1, 13);
+	addShape(menu1, 14);
+	addShape(menu1, 15);
+	addShape(menu1, 16);
+	addShape(menu1, 17);
+	menu2 = new QMenu( tr("Arrows"));
+	addShape(menu2, 4);
+	addShape(menu2, 5);
+	addShape(menu2, 6);
+	addShape(menu2, 7);
+	addShape(menu2, 20);
+	addShape(menu2, 21);
+	addShape(menu2, 22);
+	menu3 = new QMenu( tr("Flow Chart"));
+	addShape(menu3, 24);
+	addShape(menu3, 25);
+	addShape(menu3, 26);
+	addShape(menu3, 27);
+	addShape(menu3, 28);
+	addShape(menu3, 29);
+	addShape(menu3, 30);
+	addShape(menu3, 31);
+	menu4 = new QMenu( tr("Jigsaw"));
+	addShape(menu4, 32);
+	addShape(menu4, 33);
+	addShape(menu4, 34);
+	addShape(menu4, 35);
+	addShape(menu4, 36);
+	addShape(menu4, 37);
+	addShape(menu4, 38);
+	addShape(menu4, 39);
+	addShape(menu4, 40);
+	addShape(menu4, 41);
+	addShape(menu4, 42);
+	addShape(menu4, 43);
+	menu5 = new QMenu( tr("Specials"));
+	addShape(menu5, 18);
+	addShape(menu5, 19);
+	addShape(menu5, 23);
+	addShape(menu5, 44);
+	addMenu(menu1);
+	addMenu(menu2);
+	addMenu(menu3);
+	addMenu(menu4);
+	addMenu(menu5);
+	connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(selForm(int)));
+}
+
+void AutoformButtonGroup::addShape(QMenu* menu, int shapenum)
+{
+	QAction *action = menu->addAction(QIcon(getIconPixmap(shapenum, 16)), "");
+	connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
+	signalMapper->setMapping(action, shapenum);
+}
+/*
 AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QFrame( parent )
 {
 	QSizePolicy policy = QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -524,7 +592,7 @@ void AutoformButtonGroup::toggleSpecials(bool visible)
 	parentWidget()->updateGeometry();
 	parentWidget()->resize(pS);
 }
-
+*/
 double* AutoformButtonGroup::getShapeData(int a, int *n)
 {
 	double *vals = NULL;
@@ -1209,8 +1277,9 @@ void AutoformButtonGroup::changeEvent(QEvent *e)
 
 void AutoformButtonGroup::languageChange()
 {
-	checkDoubleArrows->setText( tr("Arrows"));
-	checkFlowChart->setText( tr("Flow Chart"));
-	checkJigSaw->setText( tr("Jigsaw"));
-	checkSpecials->setText( tr("Specials"));
+	menu1->setTitle( tr("Default Shapes"));
+	menu2->setTitle( tr("Arrows"));
+	menu3->setTitle( tr("Flow Chart"));
+	menu4->setTitle( tr("Jigsaw"));
+	menu5->setTitle( tr("Specials"));
 }

@@ -8,27 +8,29 @@ for which a new license (GPL+exception) is in place.
 #define AUTOFORMBUTTONGROUP_H
 
 #include <QWidget>
-#include <QToolButton>
-#include <QFrame>
-#include <QGridLayout>
+#include <QMenu>
+#include <QSignalMapper>
+//#include <QToolButton>
+//#include <QFrame>
+//#include <QGridLayout>
 #include <QPixmap>
-#include <QButtonGroup>
-#include <QCheckBox>
+//#include <QButtonGroup>
+//#include <QCheckBox>
 #include <QEvent>
 #include "scribusapi.h"
 
-
-class SCRIBUS_API AutoformButtonGroup : public QFrame
+class SCRIBUS_API AutoformButtonGroup : public QMenu
 {
     Q_OBJECT
 
 public:
 	AutoformButtonGroup( QWidget* parent );
 	~AutoformButtonGroup() {};
+	void addShape(QMenu* menu, int shapenum);
 	double* getShapeData(int a, int *n);
 	QPixmap getIconPixmap(int nr, int pixmapSize=22);
 	virtual void changeEvent(QEvent *e);
-	QButtonGroup* buttonGroup;
+/*	QButtonGroup* buttonGroup;
 	QToolButton* toolButton1;
 	QToolButton* toolButton2;
 	QToolButton* toolButton3;
@@ -78,23 +80,30 @@ public:
 	QCheckBox* checkSpecials;
 	QToolButton* toolButton24;
 	QToolButton* toolButton45;
-	
+*/
 public slots:
 	void selForm(int a);
 	void languageChange();
-
+/*
 private slots:
 	void toggleDoubleArrows(bool visible);
 	void toggleSpecials(bool visible);
 	void toggleFlowChart(bool visible);
 	void toggleJigSaw(bool visible);
-
+*/
 signals:
 	void FormSel(int, int, double *);
 	void buttonClicked(int);
 
 protected:
-	QGridLayout* buttonGroup1Layout;
+	QSignalMapper *signalMapper;
+	QMenu *menu1;
+	QMenu *menu2;
+	QMenu *menu3;
+	QMenu *menu4;
+	QMenu *menu5;
+/*	QGridLayout* buttonGroup1Layout;
+*/
 };
 
 #endif

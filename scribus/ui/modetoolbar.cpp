@@ -51,12 +51,13 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsInsertTableFrame"]);
 	
 	this->addAction(m_ScMW->scrActions["toolsInsertShape"]);
-	insertShapeButtonMenu = new QMenu();
+//	insertShapeButtonMenu = new QMenu();
 	Rechteck = new AutoformButtonGroup( NULL );
-	insertShapeButtonAct = new QWidgetAction( this );
-	insertShapeButtonAct->setDefaultWidget(Rechteck);
-	insertShapeButtonMenu->addAction(insertShapeButtonAct);
-	m_ScMW->scrActions["toolsInsertShape"]->setMenu(insertShapeButtonMenu);
+//	insertShapeButtonAct = new QWidgetAction( this );
+//	insertShapeButtonAct->setDefaultWidget(Rechteck);
+//	insertShapeButtonMenu->addAction(insertShapeButtonAct);
+//	m_ScMW->scrActions["toolsInsertShape"]->setMenu(insertShapeButtonMenu);
+	m_ScMW->scrActions["toolsInsertShape"]->setMenu(Rechteck);
 	QToolButton* tb = dynamic_cast<QToolButton*>(this->widgetForAction(m_ScMW->scrActions["toolsInsertShape"]));
 	tb->setPopupMode(QToolButton::MenuButtonPopup);
 	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(0,16)));
@@ -97,7 +98,7 @@ void ModeToolBar::GetPolyProps()
 void ModeToolBar::SelShape(int s, int c, double *vals)
 {
 	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(s,16)));
-	insertShapeButtonMenu->hide();
+//	insertShapeButtonMenu->hide();
 	SubMode = s;
 	ValCount = c;
 	ShapeVals = vals;
