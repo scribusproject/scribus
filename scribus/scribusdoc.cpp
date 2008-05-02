@@ -9068,8 +9068,8 @@ void ScribusDoc::RotateItem(double angle, PageItem *currItem)
 		switch (RotMode)
 		{
 		case 2:
-			ma.translate(currItem->width()/2, currItem->height()/2);
-			n = FPoint(-currItem->width()/2, -currItem->height()/2);
+			ma.translate(currItem->width()/2.0, currItem->height()/2.0);
+			n = FPoint(-currItem->width()/2.0, -currItem->height()/2.0);
 			break;
 		case 4:
 			ma.translate(currItem->width(), currItem->height());
@@ -9795,6 +9795,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 		currItem = m_Selection->itemAt(0);
 		if (currItem->Groups.count() != 0)
 			return;
+		m_Selection->delaySignalsOn();
 		currItem->Frame = false;
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
@@ -9821,6 +9822,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 		m_View->Deselect(true);
 		for (int c = 0; c < toDel.count(); ++c)
 			m_View->SelectItemNr(toDel.at(c));
+		m_Selection->delaySignalsOff();
 		itemSelection_DeleteItem();
 		regionsChanged()->update(QRectF());
 	}
@@ -9831,6 +9833,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 	PageItem *bb;
 	uint StartInd = 0;
 	uint z;
+	m_Selection->delaySignalsOn();
 	PageItem *currItem = m_Selection->itemAt(0);
 	uint EndInd = currItem->PoLine.size();
 	for (uint a = EndInd-1; a > 0; --a)
@@ -9854,6 +9857,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 	AdjustItemSize(currItem);
 	currItem->ContourLine = currItem->PoLine.copy();
 	currItem->ClipEdited = true;
+	m_Selection->delaySignalsOff();
 	//FIXME: stop using m_View
 	m_View->Deselect(true);
 	regionsChanged()->update(QRectF());
