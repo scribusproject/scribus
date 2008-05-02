@@ -981,11 +981,11 @@ void ScPainter::drawVPath( int mode )
 		if( m_array.count() > 0 )
 		{
 			dashes = new double[ m_array.count() ];
-			for( int i = 0; i < m_array.count();++ i )
+			for( int i = 0; i < m_array.count(); ++i )
 			{
 				dashes[i] = static_cast<double>(m_array[i]);
 			}
-			cairo_set_dash( m_cr, dashes, m_array.count(), static_cast<double>(m_offset));
+			cairo_set_dash( m_cr, dashes, m_array.count(), m_offset);
 		}
 		else
 			cairo_set_dash( m_cr, NULL, 0, 0 );
