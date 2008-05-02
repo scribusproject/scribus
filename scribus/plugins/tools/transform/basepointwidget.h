@@ -13,9 +13,9 @@ class QButtonGroup;
 class QRadioButton;
 class QFrame;
 
-#include "scribusapi.h"
+#include "pluginapi.h"
 
-class SCRIBUS_API BasePointWidget : public QGroupBox
+class PLUGIN_API BasePointWidget : public QGroupBox
 {
 	Q_OBJECT
 public:
