@@ -99,12 +99,14 @@ public:
 		QRectF pagebox(pg->xOffset(), pg->yOffset(), pg->width(), pg->height());
 		doc->invalidateRegion(pagebox);
 		doc->regionsChanged()->update(pagebox);
+		doc->changed();
 	}
 	
 	void changed(PageItem* it)
 	{
 		it->invalidateLayout();
 		doc->regionsChanged()->update(it->getBoundingRect());
+		doc->changed();
 	}
 };
 
@@ -1306,7 +1308,7 @@ void ScribusDoc::setModified(const bool isModified)
 
 bool ScribusDoc::isModified() const
 {
-  return modified;
+	return modified;
 }
 
 
