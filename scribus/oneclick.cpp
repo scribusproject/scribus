@@ -176,7 +176,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 		spinHeight->setSuffix(unitGetSuffixFromIndex(6));
 		spinHeight->setWrapping( true );
 		spinHeight->setValues( 0, 359.99, 2, 0);
-		spinHeight->setValue(defH * m_unitRatio);
+		spinHeight->setValue(defH);
 	}
 	SizeGroupLayout->addWidget( spinHeight, 1, 1 );
 	if (mode == 0)
