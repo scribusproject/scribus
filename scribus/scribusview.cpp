@@ -4185,6 +4185,7 @@ void ScribusView::TextToPath()
 			Doc->itemSelection_DeleteItem(&tmpSelection);
 		}
 		Doc->m_Selection->copy(tmpSelection, true);
+		m_ScMW->HaveNewSel(-1);
 		trans.commit();
 	}
 #endif
