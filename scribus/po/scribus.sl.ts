@@ -789,7 +789,13 @@ the current measurement unit of the document (see UNIT constants).  If &quot;nam
 is not given the currently selected item is used.  If the object &quot;name&quot;
 belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveObjectAbs(x, y [, &quot;ime&quot;])
+
+Premakne predmet &quot;ime&quot; na novo mesto. Koordinate so izražene v
+trenutnih merskih enotah dokumenta (glejte konstante UNIT).  Če &quot;ime&quot;
+ni podano, je uporabljen trenutno izbrani predmet. Če predmt &quot;ime&quot;
+pripada skupini, se premakne celotna skupina.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmani.h" line="69"/>
@@ -978,7 +984,13 @@ Sets the active layer to the layer named &quot;name&quot;.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setActiveLayer(&quot;ime&quot;)
+
+Določi aktivno plast na plast, imenovano &quot;ime&quot;.
+
+Lahko vrne napako NotFoundError, če plasti ni mogoče najti.
+Lahko vrne napako ValueError, če ime plasti ni sprejemljivo.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="92"/>
@@ -1000,7 +1012,14 @@ If &quot;name&quot; is not given the currently selected item is used.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>sentToLayer(&quot;plast&quot; [, &quot;ime&quot;])
+
+Pošlje predmet &quot;ime&quot; na plast &quot;plast&quot;. Plast mora obstajati.
+Če &quot;ime&quot; ni podano, je uporabljen trenutno izbran predmet.
+
+Lahko vrne napako NotFoundError, če plasti ni mogoče najti.
+Lahko vrne napako ValueError, če ime plasti ni sprejemljivo.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="118"/>
@@ -1012,7 +1031,14 @@ the layer is invisible.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLayerVisible(&quot;plast&quot;, vidna)
+
+Določi, ali naj bo plast &quot;plast&quot; vidna ali ne. Če je vidna nastavljena na false,
+plast ni vidna.
+
+Lahko vrne napako NotFoundError, če plasti ni mogoče najti.
+Lahko vrne napako ValueError, če ime plasti ni sprejemljivo.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="300"/>
@@ -1045,7 +1071,7 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 
 Ustvari novo plast z imenom &quot;ime&quot;.
 
-Lahko vrne napako ValueError. če ime plasti ni sprejemljivo.</translation>
+Lahko vrne napako ValueError, če ime plasti ni sprejemljivo.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="320"/>
@@ -1111,7 +1137,16 @@ object because you need this name for further access to that object. If
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createLine(x1, y1, x2, y2, [&quot;ime&quot;]) -&gt; string
+
+Ustvari novo črto od točke(x1, y1) do točke(x2, y2) in vrne
+njeno ime. Koordinate so podane v trenutnih merskih enotah
+dokumenta (glejte konstante UNIT). &quot;ime&quot; mora biti enkatni označevalec
+predmeta, saj to ime potrebujete za kasnejše dostopanje do predmeta. Če
+&quot;ime&quot; ni podano, ga bo Scribus ustvarl namesto vas.
+
+Lahko vrne napako NameExistsError,  če izrecno podate ime, ki je že uporabljeno.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdobj.h" line="108"/>
@@ -1279,7 +1314,14 @@ page number is.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deletePage(št)
+
+Izbriše podano stran. Ne stori ničesar, če dokument vsebuje le eno stran.
+Številke strani se štejejo od 1 naprej, ne glede na to, katera je prva prikazana
+številka strani.
+
+Lahko vrne napako IndexError, če je številka strani zunaj veljavnega obsega
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.h" line="100"/>
@@ -1373,7 +1415,12 @@ Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFillColor(&quot;barva&quot;, [&quot;ime&quot;])
+
+Nastavi barvo polnila predmeta &quot;ime&quot; na barvo &quot;barva&quot;. &quot;barva&quot;
+je ime ene od določenih barv. Če &quot;ime&quot; ni podano,
+je uporabljen trenutno izbran element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdsetprop.h" line="63"/>
@@ -1382,7 +1429,11 @@ currently selected item is used.
 Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineColor(&quot;barva&quot;, [&quot;ime&quot;])
+
+Nastavi barvo črt predmeta &quot;ime&quot; na barvo &quot;barva&quot;. Če &quot;ime&quot;
+ni podan, je uporabljen trenutno izbran element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdsetprop.h" line="96"/>
@@ -1417,7 +1468,12 @@ Sets the line join style of the object &quot;name&quot; to the style &quot;join&
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for join - JOIN_&lt;type&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineJoin(spoj, [&quot;ime&quot;])
+
+Nastavi slog spoja črt predmeta &quot;ime&quot; na slog &quot;spoj&quot;.
+Če &quot;ime&quot; ni podano,je uporabljen trenutno izbrani element. Obstajajo
+že določene konstante za spoj - JOIN_&lt;vrsta&gt;.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdsetprop.h" line="132"/>
@@ -1427,7 +1483,12 @@ Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&qu
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineEnd(vrstakonca, [&quot;ime&quot;])
+
+Določi konec črte predmeta &quot;ime&quot; na slog &quot;vrstakonca&quot;.
+Če &quot;ime&quot; ni podano, je uporabljen trenutno izbrani predmet. Obstajajo
+že določene konstante za &quot;vrstakonca&quot; - CAP_&lt;type&gt;.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdsetprop.h" line="143"/>
@@ -1461,7 +1522,13 @@ in points. If &quot;name&quot; is not given the currently selected item is used.
 
 May raise ValueError if the corner radius is negative.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setCornerRadius(radij, [&quot;ime&quot;])
+
+Določi radij oglišča predmeta &quot;ime&quot;. Radij je izražen v slikovnih
+točkah. Če &quot;ime&quot; ni podano, je uporabljen trenutno izbran predmet.
+
+Lahko vrne napako ValueError, če je radij negativen.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdsetprop.h" line="181"/>
@@ -1472,7 +1539,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise NotFoundError if the line style doesn&apos;t exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setMultiLine(&quot;imenovaniSlog&quot;, [&quot;ime&quot;])
+
+Določi slog črt predmeta &quot;ime&quot; na imenovani slog &quot;imenovaniSlog&quot;.
+Če &quot;ime&quot; ni podano, je uporabljen trenutno izbrani predmet.
+
+Lahko vrne napako NotFoundError, če slog črte ne obstaja.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="35"/>
@@ -1483,7 +1556,12 @@ has some text selected the value assigned to the first character
 of the selection is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFont([&quot;ime&quot;]) -&gt; string
+
+Vrne ime pisave za besedilni okvir &quot;ime&quot;. Če je v tem besedilnem
+okviru izbrano besedilo, je vrnjena vrednost, dodeljena prvemu znaku
+izbora. Če &quot;ime&quot; ni podano, je uporabljen trenutno izbran predmet.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="45"/>
@@ -1492,7 +1570,11 @@ selected item is used.
 Returns the length of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getTextLength([&quot;ime&quot;]) -&gt; integer
+
+Vrne dolžino besedila v besedilnem okviru &quot;ime&quot;.
+Če &quot;ime&quot; ni podano, je uporabljen trenutno izbran okvir.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="67"/>
@@ -1503,7 +1585,13 @@ selected, the selected text is returned. All text in the frame, not just
 currently visible text, is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getText([&quot;ime&quot;]) -&gt; string
+
+Vrne besedilo besedilnega okvira &quot;ime&quot;. Če je v tem besedilnem okviru izbrano
+besedilo, bo vrnjeno to izbrano besedilo. Vrnjeno je vse besedilo v okviru, ne le
+trenutno vidno besedilo. Če &quot;ime&quot; ni podano, je uporabljen trenutno
+izbrani element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="79"/>
@@ -1514,7 +1602,12 @@ linked with this frame. If this textframe has some text selected, the selected
 text is returned. If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getAllText([&quot;ime&quot;]) -&gt; string
+
+Vrne besedilo besedilnega okvira &quot;ime&quot; in vseh besedilnih okvirov, ki so z njim
+povezani. Če je v tem besedilnem okviru izbrano besedilo, vrne izbrano
+besedilo. Če &quot;ime&quot; ni podano, je uporabljen trenutno izbrani element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="89"/>
@@ -1523,7 +1616,11 @@ used.
 Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
 points. If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineSpacing([&quot;ime&quot;]) -&gt; float
+
+Vrne razmik med vrsticami (&quot;vodilni&quot;) besedilnega okvira &quot;ime&quot;, izražen v
+točkah. Če &quot;ime&quot; ni podano, je uporabljen trenutno izbran predmet.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="99"/>
@@ -1532,7 +1629,11 @@ points. If &quot;name&quot; is not given the currently selected item is used.
 Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
 &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColumnGap([&quot;ime&quot;]) -&gt; float
+
+Vrne velikost razmika med stolpci besedilnega okvira &quot;ime&quot;, izraženo v točkah. Če
+&quot;ime&quot; ni podano, je uporabljen trenutno izbran element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="109"/>
@@ -1541,7 +1642,11 @@ Returns the column gap size of the text frame &quot;name&quot; expressed in poin
 Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColumns([&quot;ime&quot;]) -&gt; integer
+
+Vrne število stolpcev besedilnega okvira &quot;ime&quot;. Če &quot;ime&quot; ni podano,
+je uporabljen trenutno izbran element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="121"/>
@@ -1611,7 +1716,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May throw ValueError if number of columns is not at least one.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setColumns(št, [&quot;ime&quot;])
+
+Določi število stolpcev besedilnega okvira &quot;ime&quot; na celoštevilsko vrednost &quot;št&quot;.
+Če &quot;ime&quot; ni podano, je uporabljen trenutno izbrani element.
+
+Lahko vrne napako ValueError, če je število stolpcev manjše od ena.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="212"/>
@@ -1633,7 +1744,12 @@ Deletes any text in the text frame &quot;name&quot;. If there is some text selec
 only the selected text will be deleted. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteText([&quot;ime&quot;])
+
+Izbriše vse besedilo iz besedilnega okvira &quot;ime&quot;. Če je izbrano besedilo,
+bo izbrisano le izbrano besedilo. Če &quot;ime&quot; ni podano, bo uporabljen
+trenutno izbrani element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="248"/>
@@ -1643,7 +1759,12 @@ Sets the text color of the text frame &quot;name&quot; to the color &quot;color&
 is some text selected only the selected text is changed. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextColor(&quot;barva&quot;, [&quot;ime&quot;])
+
+Nastavi barvo besedila besedilnega okvira &quot;ime&quot; na barvo &quot;barva&quot;. Če je
+izbrano besedilo, se spremeni le izbrano besedilo. Če &quot;ime&quot; ni podano,
+je uporabljen trenutno izbran element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="258"/>
@@ -1709,7 +1830,11 @@ currently selected item is used.</source>
 Cleans up the Scribus progress bar previous settings. It is called before the
 new progress bar use. See progressSet.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressReset()
+
+Počisti prejšnje nastavitve vrstice napredka Scribus. Kličemo jo pred novo rabo
+vrstice napredka. Glejte tudi progressSet.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/guiapp.h" line="47"/>
@@ -1718,7 +1843,11 @@ new progress bar use. See progressSet.
 Sets the progress bar&apos;s maximum steps value to the specified number.
 See progressSet.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressTotal(maks)
+
+Določi največjo vrednost korak vrstice napredka na podano številko.
+Glejte tudi progressSet.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/guiapp.h" line="61"/>
@@ -2114,7 +2243,10 @@ ni podano, je uporabljen trenutno izbran element.
 Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillBlendmode([&quot;ime&quot;]) -&gt; integer
+Vrne način spajanja polnila predmeta &quot;ime&quot;. Če &quot;ime&quot;
+ni podano, je uporabljen trenutno izbrani predmet.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetprop.h" line="61"/>
@@ -2136,7 +2268,11 @@ ni podano, je uporabljen trenutno izbran element.
 Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineBlendmode([&quot;ime&quot;]) -&gt; integer
+
+Vrne način spajanja vrstic predmeta &quot;ime&quot;. Če &quot;ime&quot;
+ni podano, je uporabljen trenutno izbrani predmet.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetprop.h" line="102"/>
@@ -2327,7 +2463,13 @@ Returns the &quot;layer&quot; layer blendmode,
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLayerBlendmode(&quot;plast&quot;) -&gt; int
+
+Vrne način spajanja plasti &quot;plast&quot;.
+
+Lahko vrne napako NotFoundError, če plasti ni mogoče najti.
+Lahko vrne napako ValueError, če ime plasti ni sprejemljivo.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="287"/>
@@ -2366,7 +2508,10 @@ If &quot;state&quot; is not passed, text flow is toggled.
 
 Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageType() -&gt; integer
+
+Vrne vrsto strani, 0 pomeni levo stran, 1 pomeni srednjo stran in 2 pomeni desno stran
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.h" line="91"/>
@@ -2400,7 +2545,11 @@ Nastavi prosojnost polnila predmeta &quot;ime&quot; na vrednost prosojnost
 Sets the fill blendmode of the object &quot;name&quot; to blendmode
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFillBlendmode(načinspajanja, [&quot;ime&quot;])
+
+Določi način spajanja predmeta &quot;ime&quot; na načinspajanja
+Če &quot;ime&quot; ni podano, je uporabljen trenutno izbran element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdsetprop.h" line="73"/>
@@ -2422,7 +2571,11 @@ Nastavi prosojnost črt predmeta &quot;ime&quot; na vrednost prosojnost
 Sets the line blendmode of the object &quot;name&quot; to blendmode
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineBlendmode(načinspajanja, [&quot;ime&quot;])
+
+Nastavi način spajanja črt predmeta &quot;ime&quot; na načinspajanja.
+Če &quot;ime&quot; ni podano, bo uporabljen trenutno izbrani predmet.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="55"/>
@@ -2459,7 +2612,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setPDFBookmark(&quot;vklop&quot;, [&quot;ime&quot;])
+
+Določa, ali je (vklop = 1) besedilni okvir &quot;ime&quot; zaznamek ali ne.
+Če &quot;ime&quot; ni podano, je uporabljen trenutno izbrani element.
+
+Lahko vrne napako WrongFrameTypeError, če ciljni okvir ni besedilni okvir
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/svgimport.h" line="33"/>
@@ -2518,7 +2677,10 @@ x in y določata koordinate vrhnjega levega kota na stran postavljenega ODG
 
 Moves current selection to front.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveSelectionToFront()
+
+Premakne trenutni izbor v ospredje.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="338"/>
@@ -2526,7 +2688,10 @@ Moves current selection to front.
 
 Moves current selection to back.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveSelectionToBack()
+
+Premakne trenutni izbor v ozadje.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.h" line="198"/>
@@ -2611,7 +2776,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>hyphenateText([&quot;ime&quot;]) -&gt; bool
+
+Izvede deljenje besed v besedilnem okviru &quot;ime&quot;.
+Če &quot;ime&quot; ni podano, je uporabljen trenutno izbrani predmet.
+
+Lahko vrne napako WrongFrameTypeError, če ciljni okvir ni besedilni okvir
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="355"/>
@@ -2622,7 +2793,14 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>dehyphenateText([&quot;ime&quot;]) -&gt; bool
+
+Izvede odstranjevanje delitve besed v besedilnem okviru &quot;ime&quot;.
+
+Če &quot;ime&quot; ni podano, je uporabljen trenutno izbrani predmet.
+
+Lahko vrne napako WrongFrameTypeError, če ciljni okvir ni besedilni okvir
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/guiapp.h" line="106"/>
@@ -2630,7 +2808,10 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 
 Scroll the document in main GUI window by x and y.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>scrollDocument(x,y)
+
+Drsi po dokumentu v glavnem oknu vmesnika za podani vrednosti x in y.
+</translation>
     </message>
 </context>
 <context>
@@ -38770,7 +38951,7 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabruler.cpp" line="490"/>
         <source>Period</source>
-        <translation type="unfinished"></translation>
+        <translation>Razdobje</translation>
     </message>
 </context>
 <context>
