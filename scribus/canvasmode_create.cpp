@@ -198,7 +198,7 @@ void CreateMode::activate(bool fromGesture)
 				else
 				{
 					m_doc->SizeItem(xSize, ySize, currItem->ItemNr, false, true, false);
-					m_doc->AdjustItemSize(currItem);
+// 					m_doc->AdjustItemSize(currItem);
 				}
 				currItem->ContourLine = currItem->PoLine.copy();
 				switch (originPoint)
@@ -243,14 +243,14 @@ void CreateMode::activate(bool fromGesture)
 		}
 		else
 		{
-			if (!currItem->asLine())
-				m_doc->AdjustItemSize(currItem);
-			else
+			if (currItem->asLine())
 			{
 //				currItem->OldB2 = currItem->width();
 //				currItem->OldH2 = currItem->height();
 				currItem->updateClip();
 			}
+// 			else
+// 				m_doc->AdjustItemSize(currItem);
 			currItem->ContourLine = currItem->PoLine.copy();
 			m_doc->setRedrawBounding(currItem);
 			currItem->OwnPage = m_doc->OnPage(currItem);
