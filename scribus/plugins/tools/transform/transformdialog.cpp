@@ -326,7 +326,7 @@ QMatrix TransformDialog::getTransformMatrix()
 				ret.scale(ite->firstValue / 100.0, ite->secondValue / 100.0);
 				break;
 			case 1002:
-				ret.translate(ite->firstValue, ite->secondValue);
+				ret.translate(ite->firstValue / m_unitRatio, ite->secondValue / m_unitRatio);
 				break;
 			case 1003:
 				ret.rotate(ite->firstValue);
