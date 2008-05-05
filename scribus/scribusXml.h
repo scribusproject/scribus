@@ -27,12 +27,15 @@ for which a new license (GPL+exception) is in place.
 #include "styles/styleset.h"
 
 class QXmlStreamAttributes;
+class QXmlStreamReader;
 class QXmlStreamWriter;
 class PageItem;
 class PrefsManager;
 class ScribusView;
 class SCFonts;
 class ScribusDoc;
+class ScPattern;
+class ScXmlStreamWriter;
 
 class SCRIBUS_API ScriXmlDoc
 {
@@ -65,17 +68,27 @@ public:
 protected:
 	PrefsManager* prefsManager;
 
+	bool	attrHasValue(const QXmlStreamAttributes& attrs, const char* attName);
 	bool	attrAsBool(const QXmlStreamAttributes& attrs, const char* attName, bool defVal = false);
 	int     attrAsInt (const QXmlStreamAttributes& attrs, const char*attName, int  defVal = 0);
 	double  attrAsDbl (const QXmlStreamAttributes& attrs, const char* attName, double defVal = 0.0);
 	QString attrAsString (const QXmlStreamAttributes& attrs, const char* attName, const QString& defVal);
 
 	void GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPasteBuffer *OB, const QString& baseDir, bool newVersion);
-	void GetItemText (const QXmlStreamAttributes& attrs, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);
-	void SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem* item, const QString& baseDir, bool newFormat);
-	void WriteObject (QXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item, const QString& baseDir, QMap<int, int> &UsedMapped2Saved);
+	void GetItemText (const QXmlStreamAttributes& attrs, StoryText& story, ScribusDoc *doc, LastStyles* last, bool VorLFound, bool impo);
+	void GetStyle(QXmlStreamReader& reader, ParagraphStyle &vg, StyleSet<ParagraphStyle>* tempStyles, ScribusDoc* doc, bool fl);
 
-	void    GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
+	void ReadPattern(QXmlStreamReader& reader, ScribusDoc* doc, ScribusView *view, const QString& fileName, int& GrMax, bool styleFound, bool newVersion);
+	void ReadCStyle (QXmlStreamReader& reader, CharStyle& style, ScribusDoc* doc);
+	void ReadPStyle (QXmlStreamReader& reader, ParagraphStyle &style, ScribusDoc* doc);
+
+	void SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem* item, const QString& baseDir, bool newFormat);
+	void WriteObject (ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item, const QString& baseDir, QMap<int, int> &UsedMapped2Saved);
+	void WriteITEXTs (ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item);
+	void WriteLegacyCStyle (ScXmlStreamWriter& writer, const CharStyle& style);
+	void WriteCStyle (ScXmlStreamWriter& writer, const CharStyle& style);
+	void WritePStyle (ScXmlStreamWriter& writer, const ParagraphStyle& style, const QString& nodeName);
+	
 	QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
 };
 

@@ -49,12 +49,29 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_color.h"
 #include "scpattern.h"
+#include "scxmlstreamwriter.h"
 
 using namespace std;
 
 ScriXmlDoc::ScriXmlDoc()
 {
 	prefsManager=PrefsManager::instance();
+}
+
+bool ScriXmlDoc::attrHasValue(const QXmlStreamAttributes& attrs, const char* attName)
+{
+	QLatin1String attString(attName);
+	bool hasValue = false;
+	QXmlStreamAttributes::ConstIterator pIter, pEnd  = attrs.constEnd();
+	for (pIter = attrs.constBegin(); pIter != pEnd; ++pIter)
+	{
+		if (pIter->name() == attString)
+		{
+			hasValue = true;
+			break;
+		}
+	}
+	return hasValue;
 }
 
 bool ScriXmlDoc::attrAsBool(const QXmlStreamAttributes& attrs, const char* attName, bool defVal)
@@ -370,8 +387,10 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 	OB->DashOffset = attrAsDbl(attrs, "DASHOFF", 0.0);
 }
 
-void ScriXmlDoc::GetItemText(const QXmlStreamAttributes& attrs, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj)
+void ScriXmlDoc::GetItemText(const QXmlStreamAttributes& attrs, StoryText& story, ScribusDoc *doc, LastStyles* last, bool VorLFound, bool impo)
 {
+	CharStyle newStyle;
+	QString pstylename;
 	QString tmp2, tmf, tmpf, tmp3;
 	tmp2 = attrAsString(attrs, "CH", "");
 	tmp2.replace(QRegExp("\r"), QChar(5));
@@ -379,6 +398,7 @@ void ScriXmlDoc::GetItemText(const QXmlStreamAttributes& attrs, ScribusDoc *doc,
 	tmp2.replace(QRegExp("\t"), QChar(4));
 	tmpf = attrAsString(attrs, "CFONT", doc->toolSettings.defFont);
 	bool unknown = false;
+
 	ScFace dummy = ScFace::none();
 	if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
 	{
@@ -415,28 +435,86 @@ void ScriXmlDoc::GetItemText(const QXmlStreamAttributes& attrs, ScribusDoc *doc,
 			doc->AddFont(tmpf);
 		}
 	}
-	int size = qRound(attrAsDbl(attrs, "CSIZE") * 10);
-	QString fcolor = attrAsString(attrs, "CCOLOR", CommonStrings::None);
-	int extra;
-	if (!attrs.value("CEXTRA").isEmpty())
-		extra = qRound(attrAsDbl(attrs, "CEXTRA") / attrAsDbl(attrs, "CSIZE", 1.0) * 1000.0);
+
+	if (unknown)
+		newStyle.setFont(dummy);
 	else
-		extra = attrAsInt(attrs, "CKERN");
-	int shade  = attrAsInt(attrs, "CSHADE");
-	int cstyle = attrAsInt(attrs, "CSTYLE") & 2047;
-	QString stroke = attrAsString(attrs, "CSTROKE", CommonStrings::None);
-	int shade2 = attrAsInt(attrs, "CSHADE2", 100);
-	int scale  = qRound(attrAsDbl(attrs, "CSCALE", 100.0) * 10);
-	int scalev = qRound(attrAsDbl(attrs, "CSCALEV", 100.0) * 10);
-	int base   = qRound(attrAsDbl(attrs, "CBASE", 0.0) * 10);
-	int shX    = qRound(attrAsDbl(attrs, "CSHX", 5.0) * 10);
-	int shY    = qRound(attrAsDbl(attrs, "CSHY", -5.0) * 10);
-	int outL   = qRound(attrAsDbl(attrs, "COUT", 1.0) * 10);
-	int ulp    = qRound(attrAsDbl(attrs, "CULP", -0.1) * 10);
-	int ulw    = qRound(attrAsDbl(attrs, "CULW", -0.1) * 10);
-	int stp    = qRound(attrAsDbl(attrs, "CSTP", -0.1) * 10);
-	int stw    = qRound(attrAsDbl(attrs, "CSTW", -0.1) * 10);
+		newStyle.setFont((*doc->AllFonts)[tmpf]);
+	
+	if (attrHasValue(attrs, "CSIZE"))
+		newStyle.setFontSize( qRound(attrAsDbl(attrs, "CSIZE") * 10) );
+
+	if (attrHasValue(attrs, "CCOLOR"))
+		newStyle.setFillColor( attrAsString(attrs, "CCOLOR", CommonStrings::None) );
+
+	if (attrHasValue(attrs, "CSHADE"))
+		newStyle.setFillShade( attrAsInt(attrs, "CSHADE") );
+
+	if (attrHasValue(attrs, "CEXTRA"))
+		newStyle.setTracking( qRound(attrAsDbl(attrs, "CEXTRA") / attrAsDbl(attrs, "CSIZE", 1.0) * 1000.0) );
+	else if (attrHasValue(attrs, "CKERN"))
+		newStyle.setTracking( attrAsInt(attrs, "CKERN") );
+
+	if (attrHasValue(attrs, "CSTROKE"))
+		newStyle.setStrokeColor( attrAsString(attrs, "CSTROKE", CommonStrings::None) );
+
+	if (attrHasValue(attrs, "CSHADE2"))
+		newStyle.setStrokeShade( attrAsInt(attrs, "CSHADE2", 100) );
+
+	if (attrHasValue(attrs, "CSCALE"))
+	{
+		int scaleh = qRound(attrAsDbl(attrs, "CSCALE", 100.0) * 10);
+		newStyle.setScaleH(qMin(qMax(scaleh, 100), 4000));
+	}
+
+	if (attrHasValue(attrs, "CSCALEV"))
+	{
+		int scalev = qRound(attrAsDbl(attrs, "CSCALEV", 100.0) * 10);
+		newStyle.setScaleV(qMin(qMax(scalev, 100), 4000));
+	}
+
+	if (attrHasValue(attrs, "CBASE"))
+		newStyle.setBaselineOffset( qRound(attrAsDbl(attrs, "CBASE", 0.0) * 10) );
+
+	if (attrHasValue(attrs, "CSHX"))
+		newStyle.setShadowXOffset( qRound(attrAsDbl(attrs, "CSHX", 5.0) * 10) );
+
+	if (attrHasValue(attrs, "CSHY"))
+		newStyle.setShadowYOffset( qRound(attrAsDbl(attrs, "CSHY", -5.0) * 10) );
+
+	if (attrHasValue(attrs, "COUT"))
+		newStyle.setOutlineWidth( qRound(attrAsDbl(attrs, "COUT", 1.0) * 10) );
+
+	if (attrHasValue(attrs, "CULP"))
+		newStyle.setUnderlineOffset( qRound(attrAsDbl(attrs, "CULP", -0.1) * 10) );
+
+	if (attrHasValue(attrs, "CULW"))
+		newStyle.setUnderlineWidth( qRound(attrAsDbl(attrs, "CULW", -0.1) * 10) );
+
+	if (attrHasValue(attrs, "CSTP"))
+		newStyle.setStrikethruOffset( qRound(attrAsDbl(attrs, "CSTP", -0.1) * 10) );
+
+	if (attrHasValue(attrs, "CSTW"))
+		newStyle.setStrikethruWidth( qRound(attrAsDbl(attrs, "CSTW", -0.1) * 10) );
+
+	if (attrHasValue(attrs, "CSTYLE"))
+	{
+		int cstyle = attrAsInt(attrs, "CSTYLE") & 2047;
+		newStyle.setFeatures(static_cast<StyleFlag>(cstyle).featureList());
+	}
+	
 	QString pstyleName = attrAsString(attrs, "PSTYLE", "");
+	int calign = attrAsInt(attrs, "CALIGN", -1);	
+	int cab    = attrAsInt(attrs, "CAB", -1);
+	if (cab >= 5) {
+		pstylename = DoVorl[cab];
+		calign = -1;
+	}
+	else if (cab >= 0) {
+		pstylename = "";
+		calign = cab;
+	}
+
 	for (int cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		CharStyle style;
@@ -445,56 +523,45 @@ void ScriXmlDoc::GetItemText(const QXmlStreamAttributes& attrs, ScribusDoc *doc,
 			ch = SpecialChars::PARSEP;
 		if (ch == QChar(4))
 			ch = SpecialChars::TAB;
-		if (unknown)
-			style.setFont(dummy);
+
+		if (impo && cab >= 0 && VorLFound)
+			last->ParaStyle = DoVorl[cab];
 		else
-			style.setFont((*doc->AllFonts)[tmpf]);
-		style.setFontSize(size);
-		style.setFillColor(fcolor);
-		style.setTracking(extra);
-		style.setFillShade(shade);
-		style.setFeatures(static_cast<StyleFlag>(cstyle).featureList());
-/*
- int pstyleNr;
-		if (impo)
-		{
-				if (VorLFound)
-					pstyleNr = DoVorl[ab].toUInt();
-				else
-				{
-					if (ab < 5)
-						pstyleNr = ab;
-					else
-						pstyleNr = 0;
-				}
+			last->ParaStyle = pstylename;
+
+		int pos = story.length();
+		story.insertChars(pos, QString(ch));
+
+		if (newStyle != last->Style) {
+			story.applyCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
+			last->Style = newStyle;
+			last->StyleStart = pos;
 		}
-		else
-			pstyleNr = ab;
-*/		
-		style.setStrokeColor(stroke);
-		style.setStrokeShade(shade2);
-		style.setScaleH(qMin(qMax(scale, 100), 4000));
-		style.setScaleV(qMin(qMax(scalev, 100), 4000));
-		style.setBaselineOffset(base);
-		style.setShadowXOffset(shX);
-		style.setShadowYOffset(shY);
-		style.setOutlineWidth(outL);
-		style.setUnderlineOffset(ulp);
-		style.setUnderlineWidth(ulw);
-		style.setStrikethruOffset(stp);
-		style.setStrikethruWidth(stw);
-		int pos = obj->itemText.length();
-		obj->itemText.insertChars(pos, QString(ch));
 		if (ch == SpecialChars::PARSEP)
 		{
 			ParagraphStyle pstyle;
-			pstyle.setParent(pstyleName);
-			obj->itemText.applyStyle(pos, pstyle);
+			if (!pstyleName.isEmpty())
+				pstyle.setParent(pstyleName);
+			if (calign >= 0)
+				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
+			story.applyStyle(pos, pstyle);
 		}
 		else
-			obj->itemText.applyCharStyle(pos, 1, style);
+			story.applyCharStyle(pos, 1, style);
 	}
-	return;
+	story.applyCharStyle(last->StyleStart, story.length()-last->StyleStart, last->Style);
+	ParagraphStyle pstyle;
+	if (!last->ParaStyle.isEmpty()) 
+	{
+		pstyle.setParent( last->ParaStyle );
+		story.applyStyle(story.length()-1, pstyle);
+	}
+	if (calign >= 0)
+	{
+		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
+		story.applyStyle(story.length()-1, pstyle);
+	}
+	last->StyleStart = story.length();
 }
 
 QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
@@ -528,75 +595,75 @@ QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
 	return tmpf;
 }
 
-void ScriXmlDoc::SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem* item, const QString& baseDir, bool newFormat)
+void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem* item, const QString& baseDir, bool newFormat)
 {
 	double xf, yf;
 	QString tmp, tmpy;
 	if (newFormat)
-		writer.writeAttribute("OwnPage", QString::number(item->OwnPage));
+		writer.writeAttribute("OwnPage", item->OwnPage);
 	const ParagraphStyle& defaultStyle = item->itemText.defaultStyle();
 	const CharStyle&      charStyle    = item->itemText.defaultStyle().charStyle();
-	writer.writeAttribute("PTYPE"    ,QString::number(item->realItemType()));
-	writer.writeAttribute("XPOS"     ,QString::number(item->xPos() - doc->currentPage()->xOffset()));
-	writer.writeAttribute("YPOS"     ,QString::number(item->yPos() - doc->currentPage()->yOffset()));
-	writer.writeAttribute("WIDTH"    ,QString::number(item->width()));
-	writer.writeAttribute("HEIGHT"   ,QString::number(item->height()));
-	writer.writeAttribute("RADRECT"  ,QString::number(item->cornerRadius()));
-	writer.writeAttribute("FRTYPE"   ,QString::number(item->FrameType));
+	writer.writeAttribute("PTYPE"    ,item->realItemType());
+	writer.writeAttribute("XPOS"     ,item->xPos() - doc->currentPage()->xOffset());
+	writer.writeAttribute("YPOS"     ,item->yPos() - doc->currentPage()->yOffset());
+	writer.writeAttribute("WIDTH"    ,item->width());
+	writer.writeAttribute("HEIGHT"   ,item->height());
+	writer.writeAttribute("RADRECT"  ,item->cornerRadius());
+	writer.writeAttribute("FRTYPE"   ,item->FrameType);
 	writer.writeAttribute("CLIPEDIT" ,item->ClipEdited ? "1" : "0");
-	writer.writeAttribute("PWIDTH"   ,QString::number(item->lineWidth()));
+	writer.writeAttribute("PWIDTH"   ,item->lineWidth());
 	writer.writeAttribute("PCOLOR"   ,item->fillColor());
 	writer.writeAttribute("PCOLOR2"  ,item->lineColor());
+	writer.writeAttribute("IFONT"    ,charStyle.font().scName());
+	writer.writeAttribute("ISIZE"    ,charStyle.fontSize() / 10.0);
 	writer.writeAttribute("TXTFILL"  ,charStyle.fillColor());
 	writer.writeAttribute("TXTSTROKE",charStyle.strokeColor());
-	writer.writeAttribute("TXTSTRSH" ,QString::number(charStyle.strokeShade()));
-	writer.writeAttribute("TXTFILLSH",QString::number(charStyle.fillShade()));
-	writer.writeAttribute("TXTSCALE" ,QString::number(charStyle.scaleH() / 10.0));
-	writer.writeAttribute("TXTSCALEV",QString::number(charStyle.scaleV() / 10.0));
-	writer.writeAttribute("TXTBASE"  ,QString::number(charStyle.baselineOffset() / 10.0));
-	writer.writeAttribute("TXTSHX"   ,QString::number(charStyle.shadowXOffset() / 10.0));
-	writer.writeAttribute("TXTSHY"   ,QString::number(charStyle.shadowYOffset() / 10.0));
-	writer.writeAttribute("TXTOUT"   ,QString::number(charStyle.outlineWidth() / 10.0));
-	writer.writeAttribute("TXTULP"   ,QString::number(charStyle.underlineOffset() / 10.0));
-	writer.writeAttribute("TXTULW"   ,QString::number(charStyle.underlineWidth() / 10.0));
-	writer.writeAttribute("TXTSTP"   ,QString::number(charStyle.strikethruOffset() / 10.0));
-	writer.writeAttribute("TXTSTW"   ,QString::number(charStyle.strikethruWidth() / 10.0));
-	writer.writeAttribute("TXTSTYLE" ,QString::number(charStyle.effects()));
-	writer.writeAttribute("COLUMNS"  ,QString::number(item->columns()));
-	writer.writeAttribute("COLGAP"   ,QString::number(item->columnGap()));
+	writer.writeAttribute("TXTSTRSH" ,charStyle.strokeShade());
+	writer.writeAttribute("TXTFILLSH",charStyle.fillShade());
+	writer.writeAttribute("TXTSCALE" ,charStyle.scaleH() / 10.0);
+	writer.writeAttribute("TXTSCALEV",charStyle.scaleV() / 10.0);
+	writer.writeAttribute("TXTBASE"  ,charStyle.baselineOffset() / 10.0);
+	writer.writeAttribute("TXTSHX"   ,charStyle.shadowXOffset() / 10.0);
+	writer.writeAttribute("TXTSHY"   ,charStyle.shadowYOffset() / 10.0);
+	writer.writeAttribute("TXTOUT"   ,charStyle.outlineWidth() / 10.0);
+	writer.writeAttribute("TXTULP"   ,charStyle.underlineOffset() / 10.0);
+	writer.writeAttribute("TXTULW"   ,charStyle.underlineWidth() / 10.0);
+	writer.writeAttribute("TXTSTP"   ,charStyle.strikethruOffset() / 10.0);
+	writer.writeAttribute("TXTSTW"   ,charStyle.strikethruWidth() / 10.0);
+	writer.writeAttribute("TXTKERN"  ,charStyle.tracking());
+	writer.writeAttribute("TXTSTYLE" ,charStyle.effects());
+	writer.writeAttribute("COLUMNS"  ,item->columns());
+	writer.writeAttribute("COLGAP"   ,item->columnGap());
 	writer.writeAttribute("NAMEDLST" ,item->NamedLStyle);
-	writer.writeAttribute("SHADE"    ,QString::number(item->fillShade()));
-	writer.writeAttribute("SHADE2"   ,QString::number(item->lineShade()));
-	writer.writeAttribute("GRTYP"    ,QString::number(item->GrType));
-	writer.writeAttribute("ROT"      ,QString::number(item->rotation()));
-	writer.writeAttribute("PLINEART" ,QString::number(item->PLineArt));
-	writer.writeAttribute("PLINEEND" ,QString::number(item->PLineEnd));
-	writer.writeAttribute("PLINEJOIN",QString::number(item->PLineJoin));
-	writer.writeAttribute("LINESP"   ,QString::number(defaultStyle.lineSpacing()));
-	writer.writeAttribute("LINESPMode",QString::number(defaultStyle.lineSpacingMode()));
-	writer.writeAttribute("TXTKERN"  ,QString::number(charStyle.tracking()));
-	writer.writeAttribute("LOCALSCX" ,QString::number(item->imageXScale()));
-	writer.writeAttribute("LOCALSCY" ,QString::number(item->imageYScale()));
-	writer.writeAttribute("LOCALX"   ,QString::number(item->imageXOffset()));
-	writer.writeAttribute("LOCALY"   ,QString::number(item->imageYOffset()));
+	writer.writeAttribute("SHADE"    ,item->fillShade());
+	writer.writeAttribute("SHADE2"   ,item->lineShade());
+	writer.writeAttribute("GRTYP"    ,item->GrType);
+	writer.writeAttribute("ROT"      ,item->rotation());
+	writer.writeAttribute("PLINEART" ,item->PLineArt);
+	writer.writeAttribute("PLINEEND" ,item->PLineEnd);
+	writer.writeAttribute("PLINEJOIN",item->PLineJoin);
+	writer.writeAttribute("LINESP"   ,defaultStyle.lineSpacing());
+	writer.writeAttribute("LINESPMode",defaultStyle.lineSpacingMode());
+	writer.writeAttribute("LOCALSCX" ,item->imageXScale());
+	writer.writeAttribute("LOCALSCY" ,item->imageYScale());
+	writer.writeAttribute("LOCALX"   ,item->imageXOffset());
+	writer.writeAttribute("LOCALY"   ,item->imageYOffset());
 	writer.writeAttribute("PICART"   ,item->imageShown() ? "1" : "0");
 	writer.writeAttribute("PLTSHOW"  ,item->PoShow ? "1" : "0");
-	writer.writeAttribute("BASEOF"   ,QString::number(item->BaseOffs));
-	writer.writeAttribute("textPathType",QString::number(item->textPathType));
+	writer.writeAttribute("BASEOF"   ,item->BaseOffs);
+	writer.writeAttribute("textPathType",item->textPathType);
 	writer.writeAttribute("textPathFlipped",item->textPathFlipped ? "1" : "0");
 	writer.writeAttribute("FLIPPEDH" , item->imageFlippedH() ? "1" : "0");
 	writer.writeAttribute("FLIPPEDV" , item->imageFlippedV() ? "1" : "0");
 /*	writer.writeAttribute("BBOXX",item->BBoxX);
 	writer.writeAttribute("BBOXH",item->BBoxH); */
-	writer.writeAttribute("IFONT"    ,charStyle.font().scName());
-	writer.writeAttribute("ISIZE"    ,QString::number(charStyle.fontSize() / 10.0) );
 	writer.writeAttribute("SCALETYPE",item->ScaleType ? "1" : "0");
 	writer.writeAttribute("RATIO"    ,item->AspectRatio ? "1" : "0");
 	writer.writeAttribute("PRINTABLE",item->printEnabled() ? "1" : "0");
 	if(item->isAnnotation())
 	{
 		writer.writeAttribute("ANNOTATION","1");
-		writer.writeAttribute("ANTYPE"  , QString::number(item->annotation().Type()));
+		writer.writeAttribute("ANTYPE"  , item->annotation().Type());
 		writer.writeAttribute("ANACTION", item->annotation().Action());
 		writer.writeAttribute("ANEACT"  , item->annotation().E_act());
 		writer.writeAttribute("ANXACT"  , item->annotation().X_act());
@@ -611,22 +678,22 @@ void ScriXmlDoc::SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 			writer.writeAttribute("ANEXTERN", item->annotation().Extern());
 		else
 			writer.writeAttribute("ANEXTERN", Path2Relative(item->annotation().Extern(), baseDir));
-		writer.writeAttribute("ANZIEL"  , QString::number(item->annotation().Ziel()));
-		writer.writeAttribute("ANACTYP" , QString::number(item->annotation().ActionType()));
+		writer.writeAttribute("ANZIEL"  , item->annotation().Ziel());
+		writer.writeAttribute("ANACTYP" , item->annotation().ActionType());
 		writer.writeAttribute("ANTOOLTIP", item->annotation().ToolTip());
-		writer.writeAttribute("ANBWID"  , QString::number(item->annotation().Bwid()));
-		writer.writeAttribute("ANBSTY"  , QString::number(item->annotation().Bsty()));
-		writer.writeAttribute("ANFEED"  , QString::number(item->annotation().Feed()));
-		writer.writeAttribute("ANFLAG"  , QString::number(item->annotation().Flag()));
-		writer.writeAttribute("ANFONT"  , QString::number(item->annotation().Font()));
-		writer.writeAttribute("ANFORMAT", QString::number(item->annotation().Format()));
+		writer.writeAttribute("ANBWID"  , item->annotation().Bwid());
+		writer.writeAttribute("ANBSTY"  , item->annotation().Bsty());
+		writer.writeAttribute("ANFEED"  , item->annotation().Feed());
+		writer.writeAttribute("ANFLAG"  , item->annotation().Flag());
+		writer.writeAttribute("ANFONT"  , item->annotation().Font());
+		writer.writeAttribute("ANFORMAT", item->annotation().Format());
 		writer.writeAttribute("ANROLL"  , item->annotation().RollOver());
 		writer.writeAttribute("ANDOWN"  , item->annotation().Down());
-		writer.writeAttribute("ANVIS"   , QString::number(item->annotation().Vis()));
-		writer.writeAttribute("ANMC"    , QString::number(item->annotation().MaxChar()));
+		writer.writeAttribute("ANVIS"   , item->annotation().Vis());
+		writer.writeAttribute("ANMC"    , item->annotation().MaxChar());
 		writer.writeAttribute("ANCHK"   , item->annotation().IsChk() ? "1" : "0");
 		writer.writeAttribute("ANAA"    , item->annotation().AAact() ? "1" : "0");
-		writer.writeAttribute("ANCHKS"  , QString::number(item->annotation().ChkStil()));
+		writer.writeAttribute("ANCHKS"  , item->annotation().ChkStil());
 		writer.writeAttribute("ANBCOL"  , item->annotation().borderColor());
 		writer.writeAttribute("ANHTML"  , item->annotation().HTML() ? "1" : "0");
 		writer.writeAttribute("ANICON"  , item->annotation().UseIcons() ? "1" : "0");
@@ -637,17 +704,17 @@ void ScriXmlDoc::SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("ANNOTATION","0");
 	writer.writeAttribute("ANNAME", !item->AutoName ? item->itemName() : QString(""));
 	// "TEXTFLOWMODE" succeed to "TEXTFLOW" "TEXTFLOW2" and "TEXTFLOW3" attributes
-	writer.writeAttribute("TEXTFLOWMODE", QString::number((int) item->textFlowMode()) );
+	writer.writeAttribute("TEXTFLOWMODE", (int) item->textFlowMode() );
 	// Set "TEXTFLOW" "TEXTFLOW2" and "TEXTFLOW3" attributes for compatibility
 	// with versions prior to 1.3.4
 	writer.writeAttribute("TEXTFLOW" , item->textFlowAroundObject()    ? "1" : "0");
 	writer.writeAttribute("TEXTFLOW2", item->textFlowUsesBoundingBox() ? "1" : "0");
 	writer.writeAttribute("TEXTFLOW3", item->textFlowUsesContourLine() ? "1" : "0");
 	writer.writeAttribute("AUTOTEXT" , item->isAutoText ? "1" : "0");
-	writer.writeAttribute("EXTRA"    , QString::number(item->textToFrameDistLeft()));
-	writer.writeAttribute("TEXTRA"   , QString::number(item->textToFrameDistTop()));
-	writer.writeAttribute("BEXTRA"   , QString::number(item->textToFrameDistBottom()));
-	writer.writeAttribute("REXTRA"   , QString::number(item->textToFrameDistRight()));
+	writer.writeAttribute("EXTRA"    , item->textToFrameDistLeft());
+	writer.writeAttribute("TEXTRA"   , item->textToFrameDistTop());
+	writer.writeAttribute("BEXTRA"   , item->textToFrameDistBottom());
+	writer.writeAttribute("REXTRA"   , item->textToFrameDistRight());
 	if (((item->asImageFrame() && !item->asLatexFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
 		writer.writeAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
 	if (!item->Pfile2.isEmpty())
@@ -660,25 +727,25 @@ void ScriXmlDoc::SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("PFILE3","");
 	writer.writeAttribute("PRFILE"     , item->IProfile);
 	writer.writeAttribute("EPROF"      , item->EmProfile);
-	writer.writeAttribute("IRENDER"    , QString::number(item->IRender));
+	writer.writeAttribute("IRENDER"    , item->IRender);
 	writer.writeAttribute("EMBEDDED"   , item->UseEmbedded ? "1" : "0");
 	writer.writeAttribute("LOCK"       , item->locked() ? "1" : "0");
 	writer.writeAttribute("LOCKR"      , item->sizeLocked() ? "1" : "0");
 	writer.writeAttribute("REVERS"     , item->reversed() ? "1" : "0");
-	writer.writeAttribute("TransValue" , QString::number(item->fillTransparency()));
-	writer.writeAttribute("TransValueS", QString::number(item->lineTransparency()));
-	writer.writeAttribute("TransBlend" , QString::number(item->fillBlendmode()));
-	writer.writeAttribute("TransBlendS", QString::number(item->lineBlendmode()));
-	writer.writeAttribute("isTableItem", QString::number(static_cast<int>(item->isTableItem)));
-	writer.writeAttribute("TopLine"    , QString::number(static_cast<int>(item->TopLine)));
-	writer.writeAttribute("LeftLine"   , QString::number(static_cast<int>(item->LeftLine)));
-	writer.writeAttribute("RightLine"  , QString::number(static_cast<int>(item->RightLine)));
-	writer.writeAttribute("BottomLine" , QString::number(static_cast<int>(item->BottomLine)));
+	writer.writeAttribute("TransValue" , item->fillTransparency());
+	writer.writeAttribute("TransValueS", item->lineTransparency());
+	writer.writeAttribute("TransBlend" , item->fillBlendmode());
+	writer.writeAttribute("TransBlendS", item->lineBlendmode());
+	writer.writeAttribute("isTableItem", static_cast<int>(item->isTableItem));
+	writer.writeAttribute("TopLine"    , static_cast<int>(item->TopLine));
+	writer.writeAttribute("LeftLine"   , static_cast<int>(item->LeftLine));
+	writer.writeAttribute("RightLine"  , static_cast<int>(item->RightLine));
+	writer.writeAttribute("BottomLine" , static_cast<int>(item->BottomLine));
 	if (item->asLatexFrame()) {
 		PageItem_LatexFrame *latexitem = item->asLatexFrame();
 		//NOTE: Even though these settings are written they can't be read back
 		// because CopyPasteBuffer does not support them
-		writer.writeAttribute("LatexDpi", QString::number(latexitem->dpi()));
+		writer.writeAttribute("LatexDpi", latexitem->dpi());
 		writer.writeAttribute("LatexConfig", latexitem->configFile());
 		writer.writeAttribute("LatexUsePreamble",
 			QString::number(static_cast<int>(latexitem->usePreamble())));
@@ -686,37 +753,37 @@ void ScriXmlDoc::SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 	if (item->isTableItem)
 	{
 		if (item->TopLink != 0)
-			writer.writeAttribute("TopLINK", QString::number(item->TopLink->ItemNr));
+			writer.writeAttribute("TopLINK", item->TopLink->ItemNr);
 		else
 			writer.writeAttribute("TopLINK", "-1");
 		if (item->LeftLink != 0)
-			writer.writeAttribute("LeftLINK", QString::number(item->LeftLink->ItemNr));
+			writer.writeAttribute("LeftLINK", item->LeftLink->ItemNr);
 		else
 			writer.writeAttribute("LeftLINK", "-1");
 		if (item->RightLink != 0)
-			writer.writeAttribute("RightLINK", QString::number(item->RightLink->ItemNr));
+			writer.writeAttribute("RightLINK", item->RightLink->ItemNr);
 		else
 			writer.writeAttribute("RightLINK", "-1");
 		if (item->BottomLink != 0)
-			writer.writeAttribute("BottomLINK", QString::number(item->BottomLink->ItemNr));
+			writer.writeAttribute("BottomLINK", item->BottomLink->ItemNr);
 		else
 			writer.writeAttribute("BottomLINK", "-1");
-		writer.writeAttribute("OwnLINK", QString::number(item->ItemNr));
+		writer.writeAttribute("OwnLINK", item->ItemNr);
 	}
 	writer.writeAttribute("isGroupControl", item->isGroupControl ? "1" : "0");
 	if (item->isGroupControl)
 	{
 		if (item->groupsLastItem != 0)
-			writer.writeAttribute("groupsLastItem", QString::number(item->groupsLastItem->ItemNr - item->ItemNr));
+			writer.writeAttribute("groupsLastItem", item->groupsLastItem->ItemNr - item->ItemNr);
 	}
-	writer.writeAttribute("NUMDASH", QString::number(item->DashValues.count()));
+	writer.writeAttribute("NUMDASH", item->DashValues.count());
 	QString dlp = "";
 	QList<double>::Iterator dax;
 	for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
 		dlp += tmp.setNum((*dax)) + " ";
 	writer.writeAttribute("DASHS"  , dlp);
-	writer.writeAttribute("DASHOFF", QString::number(item->DashOffset));
-	writer.writeAttribute("NUMPO"  , QString::number(item->PoLine.size()));
+	writer.writeAttribute("DASHOFF", item->DashOffset);
+	writer.writeAttribute("NUMPO"  , item->PoLine.size());
 	QString polp = "";
 	for (uint nxx=0; nxx<item->PoLine.size(); ++nxx)
 	{
@@ -724,7 +791,7 @@ void ScriXmlDoc::SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		polp += tmp.setNum(xf) + " " + tmpy.setNum(yf) + " ";
 	}
 	writer.writeAttribute("POCOOR", polp);
-	writer.writeAttribute("NUMCO" , QString::number(item->ContourLine.size()));
+	writer.writeAttribute("NUMCO" , item->ContourLine.size());
 	QString colp = "";
 	for (uint nxx=0; nxx<item->ContourLine.size(); ++nxx)
 	{
@@ -732,33 +799,43 @@ void ScriXmlDoc::SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		colp += tmp.setNum(xf) + " " + tmpy.setNum(yf) + " ";
 	}
 	writer.writeAttribute("COCOOR"  , colp);
-	writer.writeAttribute("NUMGROUP", QString::number(item->Groups.count()));
+	writer.writeAttribute("NUMGROUP", item->Groups.count());
 	QString glp = "";
 	QStack<int>::Iterator nx;
 	for (nx = item->Groups.begin(); nx != item->Groups.end(); ++nx)
 		glp += tmp.setNum((*nx)) + " ";
 	writer.writeAttribute("GROUPS"  , glp);
 	writer.writeAttribute("LANGUAGE", charStyle.language());
-	writer.writeAttribute("startArrowIndex", QString::number(item->startArrowIndex()));
-	writer.writeAttribute("endArrowIndex"  , QString::number(item->endArrowIndex()));
+	writer.writeAttribute("startArrowIndex", item->startArrowIndex());
+	writer.writeAttribute("endArrowIndex"  , item->endArrowIndex());
 }
 
 //CB: Private only now
-void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<ParagraphStyle> & docParagraphStyles, ScribusDoc* doc, bool fl)
+void ScriXmlDoc::GetStyle(QXmlStreamReader &reader, ParagraphStyle &vg, StyleSet<ParagraphStyle>* tempStyles, ScribusDoc* doc, bool fl)
 {
-	bool fou;
+	bool fou = false;
 	QString tmpf, tmf, tmV;
 	double xf, xf2;
-	fou = false;
-	vg.setName(pg.attribute("NAME"));
-	vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode", "0").toInt()));
-	vg.setLineSpacing(pg.attribute("LINESP").toDouble());
-	vg.setLeftMargin(pg.attribute("INDENT", "0").toDouble());
-	vg.setFirstIndent(pg.attribute("FIRST", "0").toDouble());
-	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg.attribute("ALIGN").toInt()));
-	vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
-	vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
-	tmpf = pg.attribute("FONT", doc->toolSettings.defFont);
+	const StyleSet<ParagraphStyle>& docParagraphStyles = tempStyles ? *tempStyles : doc->paragraphStyles();
+	QString tagName = reader.name().toString();
+	if (tagName != "STYLE" || !reader.isStartElement())
+		return;
+	QXmlStreamAttributes attrs = reader.attributes();
+	vg.setName( attrAsString(attrs, "NAME", "") );
+	vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(attrAsInt(attrs, "LINESPMode", 0)));
+	if (static_cast<bool>(attrAsInt(attrs, "BASE", 0)))
+		vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);
+	vg.setLineSpacing( attrAsDbl(attrs, "LINESP") );
+	vg.setLeftMargin( attrAsDbl(attrs, "INDENT", 0.0) );
+	vg.setFirstIndent( attrAsDbl(attrs, "FIRST", 0.0) );
+	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(attrAsInt(attrs, "ALIGN", 0)));
+	vg.setGapBefore( attrAsDbl(attrs, "VOR", 0.0) );
+	vg.setGapAfter( attrAsDbl(attrs, "NACH", 0.0) );
+	vg.setHasDropCap   (static_cast<bool>(attrAsInt(attrs, "DROP", 0)));
+	vg.setDropCapLines ( attrAsInt(attrs, "DROPLIN", 2) );
+	vg.setDropCapOffset( attrAsDbl(attrs, "DROPDIST", 0.0) );
+
+	tmpf = attrAsString(attrs, "FONT", doc->toolSettings.defFont);
 	if (tmpf.isEmpty())
 		tmpf = doc->toolSettings.defFont;
 	tmf = tmpf;
@@ -766,39 +843,36 @@ void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<Paragrap
 		tmpf = AskForFont(prefsManager->appPrefs.AvailFonts, tmpf, doc);
 	else
 		tmpf = DoFonts[tmf];
-	vg.charStyle().setFont(prefsManager->appPrefs.AvailFonts[tmpf]);
-	vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
-	vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
-	vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
-	vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
-	vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
-	vg.charStyle().setFillColor(pg.attribute("FCOLOR", doc->toolSettings.dBrush));
-	vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
-	vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", doc->toolSettings.dPen));
-	vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
 
-	if (static_cast<bool>(pg.attribute("BASE", "0").toInt()))
-		vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);
-	vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
-	vg.charStyle().setShadowYOffset(qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10));
-	vg.charStyle().setOutlineWidth(qRound(pg.attribute("TXTOUT", "1").toDouble() * 10));
-	vg.charStyle().setUnderlineOffset(qRound(pg.attribute("TXTULP", "-0.1").toDouble() * 10));
-	vg.charStyle().setUnderlineWidth(qRound(pg.attribute("TXTULW", "-0.1").toDouble() * 10));
-	vg.charStyle().setStrikethruOffset(qRound(pg.attribute("TXTSTP", "-0.1").toDouble() * 10));
-	vg.charStyle().setStrikethruWidth(qRound(pg.attribute("TXTSTW", "-0.1").toDouble() * 10));
-	vg.charStyle().setScaleH(qRound(pg.attribute("SCALEH", "100").toDouble() * 10));
-	vg.charStyle().setScaleV(qRound(pg.attribute("SCALEV", "100").toDouble() * 10));
-	vg.charStyle().setBaselineOffset(qRound(pg.attribute("BASEO", "0").toDouble() * 10));
-	vg.charStyle().setTracking(qRound(pg.attribute("KERN", "0").toDouble() * 10));
+	vg.charStyle().setFont(prefsManager->appPrefs.AvailFonts[tmpf]);
+	vg.charStyle().setFontSize(qRound(attrAsDbl(attrs, "FONTSIZE", 12.0) * 10.0));
+	vg.charStyle().setFeatures(static_cast<StyleFlag>(attrAsInt(attrs, "EFFECT", 0)).featureList());
+	vg.charStyle().setFillColor(attrAsString(attrs, "FCOLOR", doc->toolSettings.dBrush));
+	vg.charStyle().setFillShade(attrAsInt(attrs, "FSHADE", 100));
+	vg.charStyle().setStrokeColor(attrAsString(attrs, "SCOLOR", doc->toolSettings.dPen));
+	vg.charStyle().setStrokeShade(attrAsInt(attrs, "SSHADE", 100));
+	vg.charStyle().setShadowXOffset(qRound(attrAsDbl(attrs, "TXTSHX", 5.0) * 10));
+	vg.charStyle().setShadowYOffset(qRound(attrAsDbl(attrs, "TXTSHY", -5.0) * 10));
+	vg.charStyle().setOutlineWidth(qRound(attrAsDbl(attrs, "TXTOUT", 1.0) * 10));
+	vg.charStyle().setUnderlineOffset(qRound(attrAsDbl(attrs, "TXTULP", -0.1) * 10));
+	vg.charStyle().setUnderlineWidth(qRound(attrAsDbl(attrs, "TXTULW", -0.1) * 10));
+	vg.charStyle().setStrikethruOffset(qRound(attrAsDbl(attrs, "TXTSTP", -0.1) * 10));
+	vg.charStyle().setStrikethruWidth(qRound(attrAsDbl(attrs, "TXTSTW", -0.1) * 10));
+	vg.charStyle().setScaleH(qRound(attrAsDbl(attrs, "SCALEH", 100.0) * 10));
+	vg.charStyle().setScaleV(qRound(attrAsDbl(attrs, "SCALEV", 100.0) * 10));
+	vg.charStyle().setBaselineOffset(attrAsDbl(attrs, "BASEO", 0.0) * 10);
+	vg.charStyle().setTracking(qRound(attrAsDbl(attrs, "KERN", 0.0) * 10));
 //	vg.tabValues().clear();
-	if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
+
+	int numTab = attrAsInt(attrs, "NUMTAB", 0);
+	if (numTab != 0)
 	{
 		QList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
-		QString tmp = pg.attribute("TABS");
+		QString tmp = attrAsString(attrs, "TABS", "");
 		QTextStream tgv(&tmp, QIODevice::ReadOnly);
 		tbs.clear();
-		for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
+		for (int cxv = 0; cxv < numTab; cxv += 2)
 		{
 			tgv >> xf;
 			tgv >> xf2;
@@ -813,24 +887,22 @@ void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<Paragrap
 	else
 	{
 		QList<ParagraphStyle::TabRecord> tbs;
-		QDomNode IT = pg.firstChild();
-		while(!IT.isNull())
+		while (!reader.atEnd() && !reader.hasError())
 		{
-			QDomElement it = IT.toElement();
-			if (it.tagName()=="Tabs")
+			QXmlStreamReader::TokenType tType = reader.readNext();
+			QString tagName = reader.name().toString();
+			if (tagName == "STYLE" && reader.isEndElement()) 
+				break;
+			if (tagName == "Tabs" && reader.isStartElement())
 			{
 				ParagraphStyle::TabRecord tb;
-				tb.tabPosition = it.attribute("Pos").toDouble();
-				tb.tabType = it.attribute("Type").toInt();
-				QString tbCh = "";
-				tbCh = it.attribute("Fill","");
-				if (tbCh.isEmpty())
-					tb.tabFillChar = QChar();
-				else
-					tb.tabFillChar = tbCh[0];
+				QXmlStreamAttributes tabAttrs = reader.attributes();
+				tb.tabPosition = attrAsDbl(tabAttrs, "Pos");
+				tb.tabType     = attrAsInt(tabAttrs, "Type");
+				QString tbCh   = attrAsString(tabAttrs, "Fill","");
+				tb.tabFillChar = tbCh.isEmpty() ? QChar() : tbCh.at(0);
 				tbs.append(tb);
 			}
-			IT=IT.nextSibling();
 		}
 		vg.setTabValues(tbs);
 	}
@@ -875,7 +947,14 @@ void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<Paragrap
 	}
 	if (!fou)
 	{
-		docParagraphStyles.create(vg);
+		if (tempStyles)
+			tempStyles->create(vg);
+		else
+		{
+			StyleSet<ParagraphStyle> tmp;
+			tmp.create(vg);
+			doc->redefineStyles(tmp, false);
+		}
 		if (fl)
 		{
 			DoVorl[VorlC] = tmV.setNum(docParagraphStyles.count()-1);
@@ -938,7 +1017,6 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	QMap<int,int> arrowID;
 	QMap<PageItem*, int> groupID;
 	QMap<int, ImageLoadRequest> loadRequests;
-	QList<QXmlStreamAttributes> iTextElems;
 	QList<PageItem*>  TableItems;
 	ScImageEffectList imageEffects;
 	bool VorLFound = false;
@@ -1101,210 +1179,18 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			if (!doc->MLineStyles.contains(mlName))
 				doc->MLineStyles.insert(mlName, ml);
 		}
-		/*if(pg.tagName()=="STYLE")
+		if (tagName=="STYLE")
 		{
-			GetStyle(pg, vg, doc->docParagraphStyles, doc, true);
+			GetStyle(sReader, vg, NULL, doc, true);
 			VorLFound = true;
-		}*/
+		}
 		if (tagName=="Pattern")
 		{
 			ScPattern pat;
 			uint ac = doc->Items->count();
-			bool savedAlignGrid   = doc->useRaster;
-			bool savedAlignGuides = doc->SnapGuides;
-			bool isGroupControl   = false;
-			doc->useRaster  = false;
-			doc->SnapGuides = false;
-			QString patClipPath;
-			QString patName   = attrs.value("Name").toString();
-			double  patScaleX = attrAsDbl(attrs, "scaleX", 0.0);
-			double  patScaleY = attrAsDbl(attrs, "scaleY", 0.0);
-			double  patWidth  = attrAsDbl(attrs, "width", 0.0);
-			double  patHeight = attrAsDbl(attrs, "height", 0.0);
-			int     patOwnLink = 0;
-			int groupsLastItem = 0;
-			QString patText   = sReader.readElementText();
-			QXmlStreamReader sReader1(patText);
-			while(!sReader1.atEnd() && !sReader1.hasError())
-			{
-				sReader1.readNext();
-				if (sReader1.hasError())
-					break;
-				QString tagName1 = sReader1.name().toString();
-				QXmlStreamAttributes attrs1 = sReader1.attributes();
-				
-				if (tagName1 == "PatternItem" && sReader1.isStartElement())
-				{
-					iTextElems.clear();
-					loadRequests.clear();
-					imageEffects.clear();
-					GetItemProps(attrs1, &OB, fileDir, newVersion);
-					patClipPath    = attrs1.value("ImageClip").toString();
-					patOwnLink     = attrAsInt(attrs1, "OwnLINK", 0);
-					isGroupControl = attrAsBool(attrs1, "isGroupControl", false);
-					groupsLastItem = attrAsInt(attrs1, "groupsLastItem", 0);
-					OB.Xpos = attrAsDbl(attrs1, "XPOS") + doc->currentPage()->xOffset();
-					OB.Ypos = attrAsDbl(attrs1, "YPOS") + doc->currentPage()->yOffset();
-					OB.startArrowIndex = arrowID[ attrAsInt(attrs1, "startArrowIndex", 0) ];
-					OB.endArrowIndex   = arrowID[ attrAsInt(attrs1, "endArrowIndex", 0)];
-					OB.isBookmark      = attrAsInt(attrs1, "BOOKMARK");
-					OB.NamedLStyle     = attrs1.value("NAMEDLST").toString();
-					if (!doc->MLineStyles.contains(OB.NamedLStyle))
-						OB.NamedLStyle = "";
-					OB.itemText        = "";
-					OB.textAlignment   = attrAsInt(attrs1, "ALIGN");
-					tmf = attrAsString(attrs1, "IFONT", doc->toolSettings.defFont);
-					if (tmf.isEmpty())
-						tmf = doc->toolSettings.defFont;
-					if (DoFonts[tmf].isEmpty())
-						OB.IFont = doc->toolSettings.defFont;
-					else
-						OB.IFont = DoFonts[tmf];
-					OB.LayerNr  = 0;
-					OB.Language = attrAsString(attrs1, "LANGUAGE", doc->Language);
-					tmp = "";
-					if ( (!attrs1.value("GROUPS").isEmpty()) && (attrAsInt(attrs1, "GROUSPS", 0) != 0))
-					{
-						tmp = attrAsString(attrs1, "GROUPS", "");
-						QTextStream fg(&tmp, QIODevice::ReadOnly);
-						OB.Groups.clear();
-						int numGroups = attrAsInt(attrs1, "NUMGROUP", 0);
-						for (int cx = 0; cx < numGroups; ++cx)
-						{
-							fg >> x;
-							OB.Groups.push(x+doc->GroupCounter);
-							GrMax = qMax(GrMax, x+doc->GroupCounter);
-						}
-						tmp.clear();
-					}
-					else
-						OB.Groups.clear();
-					tmp.clear();
-				}
-				if (tagName1 == "ITEXT" && sReader1.isStartElement())
-				{
-					iTextElems.append( sReader1.attributes() );
-					continue;
-				}
-				if (tagName1 == "ImageEffect" && sReader1.isStartElement())
-				{
-					struct ImageEffect ef;
-					ef.effectParameters = attrAsString(attrs1, "Param", "");
-					ef.effectCode       = attrAsInt(attrs1, "Code");
-					imageEffects.append(ef);
-				}
-				if (tagName1 == "PSDLayer" && sReader1.isStartElement())
-				{
-					struct ImageLoadRequest loadingInfo;
-					loadingInfo.blend   = attrAsString(attrs1, "Blend", "");
-					loadingInfo.opacity = attrAsInt(attrs1, "Opacity", 1);
-					loadingInfo.visible = attrAsBool(attrs, "Visible", false);
-					loadingInfo.useMask = attrAsBool(attrs, "useMask", true);
-					loadRequests.insert( attrAsInt(attrs1, "Layer"), loadingInfo);
-				}
-				if (tagName1 == "CSTOP" && sReader1.isStartElement())
-				{
-					QString name = attrs1.value("NAME").toString();
-					double ramp  = attrAsDbl(attrs1, "RAMP", 0.0);
-					int shade    = attrAsInt(attrs1, "SHADE", 100);
-					double opa   = attrAsDbl(attrs1, "TRANS", 1.0);
-					OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
-					OB.GrColor   = "";
-					OB.GrColor2  = "";
-				}
-				if (tagName1=="Tabs" && sReader1.isStartElement())
-				{
-					ParagraphStyle::TabRecord tb;
-					tb.tabPosition  = attrAsDbl(attrs1, "Pos");
-					tb.tabType      = attrAsInt(attrs1, "Type");
-					QStringRef tbCh = attrs1.value("Fill");
-					if (tbCh.isEmpty())
-						tb.tabFillChar = QChar();
-					else
-						tb.tabFillChar = tbCh.at(0);
-					OB.TabValues.append(tb);
-				}
-				if (Fi && attrAsBool(attrs1, "relativePaths", false))
-				{
-					if (!OB.Pfile.isEmpty())
-					{
-						QFileInfo pfi(fileName);
-						QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile));
-						QFileInfo pfi2(test);
-						OB.Pfile = pfi2.absoluteFilePath();
-					}
-					if (!OB.Pfile2.isEmpty())
-					{
-						QFileInfo pfi(fileName);
-						QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile2));
-						QFileInfo pfi2(test);
-						OB.Pfile2 = pfi2.absoluteFilePath();
-					}
-					if (!OB.Pfile3.isEmpty())
-					{
-						QFileInfo pfi(fileName);
-						QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile3));
-						QFileInfo pfi2(test);
-						OB.Pfile3 = pfi2.absoluteFilePath();
-					}
-				}
-				if (tagName1 == "PatternItem" && sReader1.isEndElement())
-				{
-					view->PasteItem(&OB, true, true, false);
-					PageItem* Neu = doc->Items->at(doc->Items->count()-1);
-					Neu->setXYPos(Neu->xPos() - doc->currentPage()->xOffset(), Neu->yPos() - doc->currentPage()->yOffset(), true);
-					for (int iElem = 0; iElem < iTextElems.count(); ++iElem)
-						GetItemText(iTextElems.at(iElem), doc, VorLFound, true, Neu);
-					Neu->effectsInUse = imageEffects;
-					Neu->pixm.imgInfo.RequestProps = loadRequests;
-					Neu->pixm.imgInfo.isRequest    = (loadRequests.count() > 0);
-					if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0))
-						doc->LoadPict(Neu->Pfile, Neu->ItemNr, true);
-					if (Neu->pixm.imgInfo.PDSpathData.contains(patClipPath))
-					{
-						Neu->imageClip = Neu->pixm.imgInfo.PDSpathData[patClipPath].copy();
-						Neu->pixm.imgInfo.usedPath = patClipPath;
-						QMatrix cl;
-						cl.translate(Neu->imageXOffset()*Neu->imageXScale(), Neu->imageYOffset()*Neu->imageYScale());
-						cl.scale(Neu->imageXScale(), Neu->imageYScale());
-						Neu->imageClip.map(cl);
-					}
-					if (Neu->isTableItem)
-					{
-						TableItems.append(Neu);
-						TableID.insert(patOwnLink, Neu->ItemNr);
-					}
-					Neu->isGroupControl = isGroupControl;
-					if (Neu->isGroupControl)
-						groupID.insert(Neu, groupsLastItem + Neu->ItemNr);
-					if (Neu->asPathText())
-						Neu->updatePolyClip();
-					imageEffects.clear();
-					loadRequests.clear();
-					iTextElems.clear();
-				}
-			}
-			doc->useRaster = savedAlignGrid;
-			doc->SnapGuides = savedAlignGuides;
-			uint ae = doc->Items->count();
-			if (ae > ac)
-			{
-				pat.setDoc(doc);
-				PageItem* currItem = doc->Items->at(ac);
-				pat.pattern = currItem->DrawObj_toImage();
-				for (uint as = ac; as < ae; ++as)
-				{
-					PageItem* Neu = doc->Items->takeAt(ac);
-					Neu->ItemNr = pat.items.count();
-					pat.items.append(Neu);
-				}
-				pat.scaleX = patScaleX;
-				pat.scaleY = patScaleY;
-				pat.width  = patWidth;
-				pat.height = patHeight;
-				if (!doc->docPatterns.contains(patName))
-					doc->docPatterns.insert(patName, pat);
-			}
+			QString patFile = Fi ? fileName : QString();
+			ReadPattern(sReader, doc, view, patFile, GrMax, VorLFound, newVersion);
+			
 		}
 	}
 
@@ -1316,18 +1202,20 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	int  groupsLastItem = 0;
 	int  itemOwnLink    = 0;
 	QString itemClip;
+	StoryText  storyText;
+	LastStyles lastStyles;
 	while(!sReader.atEnd() && !sReader.hasError())
 	{
 		sReader.readNext();
 		QString tagName = sReader.name().toString();
 		QXmlStreamAttributes attrs = sReader.attributes();
-
 		if (sReader.isStartElement() && tagName == "ITEM")
 		{
 			inItem = true;
 			imageEffects.clear();
 			loadRequests.clear();
-			iTextElems.clear();
+			storyText = StoryText();
+			lastStyles = LastStyles();
 			GetItemProps(attrs, &OB, fileDir, newVersion);
 			OB.Xpos = Xp + attrAsDbl(attrs, "XPOS", 0.0) - GrX;
 			OB.Ypos = Yp + attrAsDbl(attrs, "YPOS", 0.0) - GrY;
@@ -1373,8 +1261,17 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		}
 		if (inItem && sReader.isStartElement() && tagName == "ITEXT")
 		{
-			iTextElems.append(sReader.attributes());
+			GetItemText(sReader.attributes(), storyText, doc, &lastStyles, VorLFound, true);
 //			continue;
+		}
+		if (inItem && sReader.isStartElement() && tagName == "PARA")
+		{
+			storyText.insertChars(storyText.length(), SpecialChars::PARSEP);
+			ParagraphStyle newStyle;
+			PrefsManager* prefsManager=PrefsManager::instance();
+			ReadPStyle(sReader, newStyle, doc);
+			storyText.setStyle(storyText.length()-1, newStyle);
+			storyText.setCharStyle(storyText.length()-1, 1, lastStyles.Style);
 		}
 		if (inItem && sReader.isStartElement() && tagName == "LATEX-SOURCE")
 		{
@@ -1444,10 +1341,11 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		}
 		if (sReader.isEndElement() && (tagName == "ITEM"))
 		{
+			LastStyles lastStyle;
 			view->PasteItem(&OB, true, true, false);
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
-			for (int iElem = 0; iElem < iTextElems.count(); ++iElem)
-				GetItemText(iTextElems.at(iElem), doc, VorLFound, true, Neu);
+			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
+			Neu->itemText = storyText;
 			Neu->effectsInUse = imageEffects;
 			Neu->pixm.imgInfo.RequestProps = loadRequests;
 			Neu->pixm.imgInfo.isRequest    = (loadRequests.count() > 0);
@@ -1474,7 +1372,6 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				Neu->updatePolyClip();
 			imageEffects.clear();
 			loadRequests.clear();
-			iTextElems.clear();
 			inItem = false;
 		}
 	}
@@ -1519,6 +1416,222 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	return (!sReader.hasError());
 }
 
+void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusView *view, const QString& fileName, 
+							 int& GrMax, bool styleFound, bool newVersion)
+{
+	QString tmp, tmpf, tmf;
+	QList<PageItem*>  TableItems;
+	QMap<int, ImageLoadRequest> loadRequests;
+	QMap<int,int> TableID;
+	QMap<int,int> arrowID;
+	QMap<PageItem*, int> groupID;
+	ScImageEffectList imageEffects;
+	ScPattern pat;
+	struct CopyPasteBuffer OB;
+	bool savedAlignGrid   = doc->useRaster;
+	bool savedAlignGuides = doc->SnapGuides;
+	bool isGroupControl   = false;
+	bool isFile = !fileName.isEmpty();
+	doc->useRaster  = false;
+	doc->SnapGuides = false;
+	QXmlStreamAttributes attrs = reader.attributes();
+	QString patClipPath;
+	QString patName   = attrs.value("Name").toString();
+	double  patScaleX = attrAsDbl(attrs, "scaleX", 0.0);
+	double  patScaleY = attrAsDbl(attrs, "scaleY", 0.0);
+	double  patWidth  = attrAsDbl(attrs, "width", 0.0);
+	double  patHeight = attrAsDbl(attrs, "height", 0.0);
+	int     patOwnLink = 0;
+	int     groupsLastItem = 0, x;
+	uint    ac = doc->Items->count();
+	QString patText    = reader.readElementText();
+	QString fileDir    = QDir::homePath();
+	StoryText  storyText;
+	LastStyles lastStyles;
+
+	QXmlStreamReader sReader(patText);
+	while(!sReader.atEnd() && !sReader.hasError())
+	{
+		sReader.readNext();
+		if (sReader.hasError())
+			break;
+		QString tagName1 = sReader.name().toString();
+		QXmlStreamAttributes attrs1 = sReader.attributes();
+		
+		if (tagName1 == "PatternItem" && sReader.isStartElement())
+		{
+			loadRequests.clear();
+			imageEffects.clear();
+			storyText  = StoryText();
+			lastStyles = LastStyles();
+			GetItemProps(attrs1, &OB, fileDir, newVersion);
+			patClipPath    = attrs1.value("ImageClip").toString();
+			patOwnLink     = attrAsInt(attrs1, "OwnLINK", 0);
+			isGroupControl = attrAsBool(attrs1, "isGroupControl", false);
+			groupsLastItem = attrAsInt(attrs1, "groupsLastItem", 0);
+			OB.Xpos = attrAsDbl(attrs1, "XPOS") + doc->currentPage()->xOffset();
+			OB.Ypos = attrAsDbl(attrs1, "YPOS") + doc->currentPage()->yOffset();
+			OB.startArrowIndex = arrowID[ attrAsInt(attrs1, "startArrowIndex", 0) ];
+			OB.endArrowIndex   = arrowID[ attrAsInt(attrs1, "endArrowIndex", 0)];
+			OB.isBookmark      = attrAsInt(attrs1, "BOOKMARK");
+			OB.NamedLStyle     = attrs1.value("NAMEDLST").toString();
+			if (!doc->MLineStyles.contains(OB.NamedLStyle))
+				OB.NamedLStyle = "";
+			OB.itemText        = "";
+			OB.textAlignment   = attrAsInt(attrs1, "ALIGN");
+			tmf = attrAsString(attrs1, "IFONT", doc->toolSettings.defFont);
+			if (tmf.isEmpty())
+				tmf = doc->toolSettings.defFont;
+			if (DoFonts[tmf].isEmpty())
+				OB.IFont = doc->toolSettings.defFont;
+			else
+				OB.IFont = DoFonts[tmf];
+			OB.LayerNr  = 0;
+			OB.Language = attrAsString(attrs1, "LANGUAGE", doc->Language);
+			tmp = "";
+			if ( (!attrs1.value("GROUPS").isEmpty()) && (attrAsInt(attrs1, "GROUSPS", 0) != 0))
+			{
+				tmp = attrAsString(attrs1, "GROUPS", "");
+				QTextStream fg(&tmp, QIODevice::ReadOnly);
+				OB.Groups.clear();
+				int numGroups = attrAsInt(attrs1, "NUMGROUP", 0);
+				for (int cx = 0; cx < numGroups; ++cx)
+				{
+					fg >> x;
+					OB.Groups.push(x+doc->GroupCounter);
+					GrMax = qMax(GrMax, x+doc->GroupCounter);
+				}
+				tmp.clear();
+			}
+			else
+				OB.Groups.clear();
+			tmp.clear();
+		}
+		if (tagName1 == "ITEXT" && sReader.isStartElement())
+		{
+			GetItemText(sReader.attributes(), storyText, doc, &lastStyles, styleFound, true);
+		}
+		if (tagName1 == "ImageEffect" && sReader.isStartElement())
+		{
+			struct ImageEffect ef;
+			ef.effectParameters = attrAsString(attrs1, "Param", "");
+			ef.effectCode       = attrAsInt(attrs1, "Code");
+			imageEffects.append(ef);
+		}
+		if (tagName1 == "PSDLayer" && sReader.isStartElement())
+		{
+			struct ImageLoadRequest loadingInfo;
+			loadingInfo.blend   = attrAsString(attrs1, "Blend", "");
+			loadingInfo.opacity = attrAsInt(attrs1, "Opacity", 1);
+			loadingInfo.visible = attrAsBool(attrs, "Visible", false);
+			loadingInfo.useMask = attrAsBool(attrs, "useMask", true);
+			loadRequests.insert( attrAsInt(attrs1, "Layer"), loadingInfo);
+		}
+		if (tagName1 == "CSTOP" && sReader.isStartElement())
+		{
+			QString name = attrs1.value("NAME").toString();
+			double ramp  = attrAsDbl(attrs1, "RAMP", 0.0);
+			int shade    = attrAsInt(attrs1, "SHADE", 100);
+			double opa   = attrAsDbl(attrs1, "TRANS", 1.0);
+			OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+			OB.GrColor   = "";
+			OB.GrColor2  = "";
+		}
+		if (tagName1=="Tabs" && sReader.isStartElement())
+		{
+			ParagraphStyle::TabRecord tb;
+			tb.tabPosition  = attrAsDbl(attrs1, "Pos");
+			tb.tabType      = attrAsInt(attrs1, "Type");
+			QStringRef tbCh = attrs1.value("Fill");
+			if (tbCh.isEmpty())
+				tb.tabFillChar = QChar();
+			else
+				tb.tabFillChar = tbCh.at(0);
+			OB.TabValues.append(tb);
+		}
+		if (isFile && attrAsBool(attrs1, "relativePaths", false))
+		{
+			if (!OB.Pfile.isEmpty())
+			{
+				QFileInfo pfi(fileName);
+				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile));
+				QFileInfo pfi2(test);
+				OB.Pfile = pfi2.absoluteFilePath();
+			}
+			if (!OB.Pfile2.isEmpty())
+			{
+				QFileInfo pfi(fileName);
+				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile2));
+				QFileInfo pfi2(test);
+				OB.Pfile2 = pfi2.absoluteFilePath();
+			}
+			if (!OB.Pfile3.isEmpty())
+			{
+				QFileInfo pfi(fileName);
+				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile3));
+				QFileInfo pfi2(test);
+				OB.Pfile3 = pfi2.absoluteFilePath();
+			}
+		}
+		if (tagName1 == "PatternItem" && sReader.isEndElement())
+		{
+			LastStyles lastStyle;
+			view->PasteItem(&OB, true, true, false);
+			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
+			Neu->setXYPos(Neu->xPos() - doc->currentPage()->xOffset(), Neu->yPos() - doc->currentPage()->yOffset(), true);
+			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
+			Neu->itemText = storyText;
+			Neu->effectsInUse = imageEffects;
+			Neu->pixm.imgInfo.RequestProps = loadRequests;
+			Neu->pixm.imgInfo.isRequest    = (loadRequests.count() > 0);
+			if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0))
+				doc->LoadPict(Neu->Pfile, Neu->ItemNr, true);
+			if (Neu->pixm.imgInfo.PDSpathData.contains(patClipPath))
+			{
+				Neu->imageClip = Neu->pixm.imgInfo.PDSpathData[patClipPath].copy();
+				Neu->pixm.imgInfo.usedPath = patClipPath;
+				QMatrix cl;
+				cl.translate(Neu->imageXOffset()*Neu->imageXScale(), Neu->imageYOffset()*Neu->imageYScale());
+				cl.scale(Neu->imageXScale(), Neu->imageYScale());
+				Neu->imageClip.map(cl);
+			}
+			if (Neu->isTableItem)
+			{
+				TableItems.append(Neu);
+				TableID.insert(patOwnLink, Neu->ItemNr);
+			}
+			Neu->isGroupControl = isGroupControl;
+			if (Neu->isGroupControl)
+				groupID.insert(Neu, groupsLastItem + Neu->ItemNr);
+			if (Neu->asPathText())
+				Neu->updatePolyClip();
+			imageEffects.clear();
+			loadRequests.clear();
+		}
+	}
+	doc->useRaster = savedAlignGrid;
+	doc->SnapGuides = savedAlignGuides;
+	uint ae = doc->Items->count();
+	if (ae > ac)
+	{
+		pat.setDoc(doc);
+		PageItem* currItem = doc->Items->at(ac);
+		pat.pattern = currItem->DrawObj_toImage();
+		for (uint as = ac; as < ae; ++as)
+		{
+			PageItem* Neu = doc->Items->takeAt(ac);
+			Neu->ItemNr = pat.items.count();
+			pat.items.append(Neu);
+		}
+		pat.scaleX = patScaleX;
+		pat.scaleY = patScaleY;
+		pat.width  = patWidth;
+		pat.height = patHeight;
+		if (!doc->docPatterns.contains(patName))
+			doc->docPatterns.insert(patName, pat);
+	}
+}
+
 QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* selection)
 {
 	if (selection->count()==0)
@@ -1538,7 +1651,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		ELL.append(selection->itemAt(cor)->ItemNr);
 	qSort(ELL);
 	documentStr.reserve(524288);
-	QXmlStreamWriter writer(&documentStr);
+	ScXmlStreamWriter writer(&documentStr);
 //	writer.writeStartDocument();
 //	don't use that function here, as it inserts an unneeded version info into that xml, which
 //	breaks our reading code at several places.
@@ -1549,8 +1662,8 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		selection->getGroupRect(&gx, &gy, &gw, &gh);
 		xp = gx - doc->currentPage()->xOffset();
 		yp = gy - doc->currentPage()->yOffset();
-		writer.writeAttribute("W", QString::number(gw));
-		writer.writeAttribute("H", QString::number(gh));
+		writer.writeAttribute("W", gw);
+		writer.writeAttribute("H", gh);
 	}
 	else
 	{
@@ -1574,20 +1687,20 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 				maxx = qMax(maxx, pb.point(pc).x());
 				maxy = qMax(maxy, pb.point(pc).y());
 			}
-			writer.writeAttribute("W", QString::number(maxx - minx));
-			writer.writeAttribute("H", QString::number(maxy - miny));
+			writer.writeAttribute("W", maxx - minx);
+			writer.writeAttribute("H", maxy - miny);
 		}
 		else
 		{
-			writer.writeAttribute("W", QString::number(item->width()));
-			writer.writeAttribute("H", QString::number(item->height()));
+			writer.writeAttribute("W", item->width());
+			writer.writeAttribute("H", item->height());
 		}
 		xp = item->xPos() - doc->currentPage()->xOffset();
 		yp = item->yPos() - doc->currentPage()->yOffset();
 	}
-	writer.writeAttribute("XP", QString::number(xp));
-	writer.writeAttribute("YP", QString::number(yp));
-	writer.writeAttribute("COUNT",   QString::number(selection->count()));
+	writer.writeAttribute("XP", xp);
+	writer.writeAttribute("YP", yp);
+	writer.writeAttribute("COUNT",   selection->count());
 	writer.writeAttribute("Version", QString(VERSION));
 	QMap<QString,int>::Iterator itf;
 	for (itf = doc->UsedFonts.begin(); itf != doc->UsedFonts.end(); ++itf)
@@ -1611,15 +1724,14 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	}
 	QMap<int, ParagraphStyle> UsedStyles;
 	QMap<int, int> UsedMapped2Saved;
-//	int NewStylesNum = 5;
+	int NewStylesNum = 5;
 	UsedStyles.clear();
 	UsedMapped2Saved.clear();
-/*
+
 	ParagraphStyle vg;
 //	if (doc->docParagraphStyles.count() > 5)
 	{
-		//for (uint co=0; co<Selitems->count(); ++co)
-		for (uint co=0; co<selection->count(); ++co)
+		for (int co=0; co < selection->count(); ++co)
 		{
 			item = doc->Items->at(ELL[co]);
 			int parstyle = findParagraphStyle(doc, item->itemText.defaultStyle());
@@ -1642,66 +1754,64 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 #endif
 			}
 		}
-		QValueList<int> StyleNumb = UsedStyles.keys();
-		qHeapSort(StyleNumb);
-		for (uint ff = 0; ff < StyleNumb.count(); ++ff)
+		QList<int> StyleNumb = UsedStyles.keys();
+		qSort(StyleNumb);
+		for (int ff = 0; ff < StyleNumb.count(); ++ff)
 		{
-			int actSt = (*StyleNumb.at(ff));
+			int actSt = StyleNumb.at(ff);
 			UsedMapped2Saved.insert(actSt, NewStylesNum);
 			NewStylesNum++;
-			QDomElement fo=docu.createElement("STYLE");
-			fo.setAttribute("NAME",UsedStyles[actSt].name());
-			fo.setAttribute("ALIGN",UsedStyles[actSt].alignment());
-			fo.setAttribute("LINESPMode",UsedStyles[actSt].lineSpacingMode());
+			QMap<int, ParagraphStyle>::ConstIterator paraStyle = UsedStyles.find(actSt);
+			writer.writeStartElement("STYLE");
+			writer.writeAttribute("NAME",  paraStyle->name());
+			writer.writeAttribute("ALIGN", static_cast<int>(paraStyle->alignment()));
+			writer.writeAttribute("LINESPMode", static_cast<int>(paraStyle->lineSpacingMode()));
 			//CB #2738:
 			//UsedStyles[actSt].LineSpa is something like this is using automatic from the font:
 			//10.34912109375000000000. Default attribute value is then 10.3491 which then becomes //10.34909999999999996589 and then does not compare. This fixes, should we change our
 			//default precision?
-			fo.setAttribute("LINESP",QString::number(UsedStyles[actSt].lineSpacing(),'f',13));
-			fo.setAttribute("INDENT",UsedStyles[actSt].leftMargin());
-			fo.setAttribute("FIRST",UsedStyles[actSt].firstIndent());
-			fo.setAttribute("VOR",UsedStyles[actSt].gapBefore());
-			fo.setAttribute("NACH",UsedStyles[actSt].gapAfter());
-			fo.setAttribute("FONT",UsedStyles[actSt].charStyle().font().scName());
-			fo.setAttribute("FONTSIZE",UsedStyles[actSt].charStyle().fontSize() / 10.0);
-			fo.setAttribute("DROP", static_cast<int>(UsedStyles[actSt].hasDropCap()));
-			fo.setAttribute("DROPLIN", UsedStyles[actSt].dropCapLines());
-			fo.setAttribute("DROPDIST", UsedStyles[actSt].dropCapOffset());
-			fo.setAttribute("EFFECT", UsedStyles[actSt].charStyle().effects());
-			if (UsedStyles[actSt].tabValues().count() != 0)
+			writer.writeAttribute("LINESP", QString::number(paraStyle->lineSpacing(),'f',13));
+			writer.writeAttribute("INDENT", paraStyle->leftMargin());
+			writer.writeAttribute("FIRST",  paraStyle->firstIndent());
+			writer.writeAttribute("VOR",    paraStyle->gapBefore());
+			writer.writeAttribute("NACH",   paraStyle->gapAfter());
+			writer.writeAttribute("FONT",   paraStyle->charStyle().font().scName());
+			writer.writeAttribute("FONTSIZE", paraStyle->charStyle().fontSize() / 10.0);
+			writer.writeAttribute("DROP",     static_cast<int>(paraStyle->hasDropCap()));
+			writer.writeAttribute("DROPLIN",  paraStyle->dropCapLines());
+			writer.writeAttribute("DROPDIST", paraStyle->dropCapOffset());
+			writer.writeAttribute("EFFECT",   paraStyle->charStyle().effects());
+			
+			writer.writeAttribute("FCOLOR", paraStyle->charStyle().fillColor());
+			writer.writeAttribute("FSHADE", paraStyle->charStyle().fillShade());
+			writer.writeAttribute("SCOLOR", paraStyle->charStyle().strokeColor());
+			writer.writeAttribute("SSHADE", paraStyle->charStyle().strokeShade());
+			writer.writeAttribute("BASE",   static_cast<int>(paraStyle->lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing));
+			writer.writeAttribute("TXTSHX", paraStyle->charStyle().shadowXOffset() / 10.0);
+			writer.writeAttribute("TXTSHY", paraStyle->charStyle().shadowYOffset() / 10.0);
+			writer.writeAttribute("TXTOUT", paraStyle->charStyle().outlineWidth() / 10.0);
+			writer.writeAttribute("TXTULP", paraStyle->charStyle().underlineOffset() / 10.0);
+			writer.writeAttribute("TXTULW", paraStyle->charStyle().underlineWidth() / 10.0);
+			writer.writeAttribute("TXTSTP", paraStyle->charStyle().strikethruOffset() / 10.0);
+			writer.writeAttribute("TXTSTW", paraStyle->charStyle().strikethruWidth() / 10.0);
+			writer.writeAttribute("SCALEH", paraStyle->charStyle().scaleH() / 10.0);
+			writer.writeAttribute("SCALEV", paraStyle->charStyle().scaleV() / 10.0);
+			writer.writeAttribute("BASEO",  paraStyle->charStyle().baselineOffset() / 10.0);
+			writer.writeAttribute("KERN",   paraStyle->charStyle().tracking() / 10.0);
+			for (int a = 0; a < paraStyle->tabValues().count(); ++a)
 			{
-				for (uint a = 0; a < UsedStyles[actSt].tabValues().count(); ++a)
-				{
-					QDomElement tabs = docu.createElement("Tabs");
-					tabs.setAttribute("Type", (*UsedStyles[actSt].tabValues().at(a)).tabType);
-					tabs.setAttribute("Pos", (*UsedStyles[actSt].tabValues().at(a)).tabPosition);
-					QString tabCh = "";
-					if (!(*UsedStyles[actSt].tabValues().at(a)).tabFillChar.isNull())
-						tabCh = QString((*UsedStyles[actSt].tabValues().at(a)).tabFillChar);
-					tabs.setAttribute("Fill", tabCh);
-					fo.appendChild(tabs);
-				}
+				writer.writeEmptyElement("Tabs");
+				writer.writeAttribute("Type", paraStyle->tabValues().at(a).tabType);
+				writer.writeAttribute("Pos",  paraStyle->tabValues().at(a).tabPosition);
+				QString tabCh = "";
+				if (!paraStyle->tabValues().at(a).tabFillChar.isNull())
+					tabCh = QString(paraStyle->tabValues().at(a).tabFillChar);
+				writer.writeAttribute("Fill", tabCh);
 			}
-			fo.setAttribute("FCOLOR",UsedStyles[actSt].charStyle().fillColor());
-			fo.setAttribute("FSHADE",UsedStyles[actSt].charStyle().fillShade());
-			fo.setAttribute("SCOLOR",UsedStyles[actSt].charStyle().strokeColor());
-			fo.setAttribute("SSHADE",UsedStyles[actSt].charStyle().strokeShade());
-			fo.setAttribute("BASE", static_cast<int>(UsedStyles[actSt].lineSpacingMode() == ParagraphStyle::BaselineGridSpacing));
-			fo.setAttribute("TXTSHX",UsedStyles[actSt].charStyle().shadowXOffset() / 10.0);
-			fo.setAttribute("TXTSHY",UsedStyles[actSt].charStyle().shadowYOffset() / 10.0);
-			fo.setAttribute("TXTOUT",UsedStyles[actSt].charStyle().outlineWidth() / 10.0);
-			fo.setAttribute("TXTULP",UsedStyles[actSt].charStyle().underlineOffset() / 10.0);
-			fo.setAttribute("TXTULW",UsedStyles[actSt].charStyle().underlineWidth() / 10.0);
-			fo.setAttribute("TXTSTP",UsedStyles[actSt].charStyle().strikethruOffset() / 10.0);
-			fo.setAttribute("TXTSTW",UsedStyles[actSt].charStyle().strikethruWidth() / 10.0);
-			fo.setAttribute("SCALEH",UsedStyles[actSt].charStyle().scaleH() / 10.0);
-			fo.setAttribute("SCALEV",UsedStyles[actSt].charStyle().scaleV() / 10.0);
-			fo.setAttribute("BASEO",UsedStyles[actSt].charStyle().baselineOffset() / 10.0);
-			fo.setAttribute("KERN",UsedStyles[actSt].charStyle().tracking() / 10.0);
-			elem.appendChild(fo);
+			writer.writeEndElement();
 		}
 	}
- */
+
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
 	{
@@ -1713,11 +1823,11 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		{
 			writer.writeStartElement("SubLine");
 			writer.writeAttribute("Color"   , (*itMU2).Color);
-			writer.writeAttribute("Shade"   , QString::number((*itMU2).Shade));
-			writer.writeAttribute("Dash"    , QString::number((*itMU2).Dash));
-			writer.writeAttribute("LineEnd" , QString::number((*itMU2).LineEnd));
-			writer.writeAttribute("LineJoin", QString::number((*itMU2).LineJoin));
-			writer.writeAttribute("Width"   , QString::number((*itMU2).Width));
+			writer.writeAttribute("Shade"   , (*itMU2).Shade);
+			writer.writeAttribute("Dash"    , (*itMU2).Dash);
+			writer.writeAttribute("LineEnd" , (*itMU2).LineEnd);
+			writer.writeAttribute("LineJoin", (*itMU2).LineJoin);
+			writer.writeAttribute("Width"   , (*itMU2).Width);
 			writer.writeEndElement();
 		}
 		writer.writeEndElement();
@@ -1751,7 +1861,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			if (itar.value().userArrow)
 			{
 				writer.writeStartElement("Arrows");
-				writer.writeAttribute("NumPoints", QString::number(itar.value().points.size()));
+				writer.writeAttribute("NumPoints", itar.value().points.size());
 				QString arp = "";
 				double xa, ya;
 				for (uint nxx = 0; nxx < itar.value().points.size(); ++nxx)
@@ -1761,7 +1871,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 				}
 				writer.writeAttribute("Points", arp);
 				writer.writeAttribute("Name"  , itar.value().name);
-				writer.writeAttribute("Index" , QString::number(itar.key()));
+				writer.writeAttribute("Index" , itar.key());
 				writer.writeEndElement();
 			}
 		}
@@ -1772,10 +1882,10 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		ScPattern& pa = doc->docPatterns[patterns[c]];
 		writer.writeStartElement("Pattern");
 		writer.writeAttribute ("Name"  , patterns[c]);
-		writer.writeAttribute ("scaleX", QString::number(pa.scaleX));
-		writer.writeAttribute ("scaleY", QString::number(pa.scaleY));
-		writer.writeAttribute("width" , QString::number(pa.width));
-		writer.writeAttribute ("height", QString::number(pa.height));
+		writer.writeAttribute ("scaleX", pa.scaleX);
+		writer.writeAttribute ("scaleY", pa.scaleY);
+		writer.writeAttribute("width" , pa.width);
+		writer.writeAttribute ("height", pa.height);
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			QDir::setCurrent(QDir::homePath());
@@ -1799,29 +1909,26 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	return documentStr;
 }
 
-void ScriXmlDoc::WriteObject(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item, const QString& baseDir, 
+void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item, const QString& baseDir, 
 							 QMap<int, int> &UsedMapped2Saved)
 {
-	int tst, tst2;
-	double te, tsh, tshs, te2, tsh2, tshs2;
-	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
-	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
+	QString text, tmp, tmpy;
 	QString CurDirP = QDir::currentPath();
 	
 	const ParagraphStyle& defaultStyle = item->itemText.defaultStyle();
 
 	int textAlignment = item->itemText.defaultStyle().alignment();
-	writer.writeAttribute("ALIGN", QString::number(textAlignment));
+	writer.writeAttribute("ALIGN", textAlignment);
 	SetItemProps(writer, doc, item, baseDir, false);
 	//writer.writeAttribute("LOCK", "0");
-	//writer.writeAttribute("XPOS",  QString::number(item->xPos() - doc->currentPage()->xOffset()));
-	//writer.writeAttribute("YPOS",  QString::number(item->yPos() - doc->currentPage()->yOffset()));
+	//writer.writeAttribute("XPOS",  item->xPos() - doc->currentPage()->xOffset());
+	//writer.writeAttribute("YPOS",  item->yPos() - doc->currentPage()->yOffset());
 	writer.writeAttribute("BOOKMARK"   , item->isBookmark ? "1" : "0");
 	writer.writeAttribute("fillRule"   , item->fillRule ? "1" : "0");
 	writer.writeAttribute("doOverprint", item->doOverprint ? "1" : "0");
 	writer.writeAttribute("ImageClip"  , item->pixm.imgInfo.usedPath);
 
-	writer.writeAttribute("NUMTEXT", QString::number(item->itemText.length()));
+	writer.writeAttribute("NUMTEXT", item->itemText.length());
 	QString txnu = "";
 	for(int kt = 0; kt < item->itemText.length(); ++kt)
 #ifndef NLS_PROTO
@@ -1837,10 +1944,10 @@ void ScriXmlDoc::WriteObject(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem
 
 	if (item->GrType != 0 && item->GrType != 8)
 	{
-		writer.writeAttribute("GRSTARTX", QString::number(item->GrStartX));
-		writer.writeAttribute("GRSTARTY", QString::number(item->GrStartY));
-		writer.writeAttribute("GRENDX"  , QString::number(item->GrEndX));
-		writer.writeAttribute("GRENDY"  , QString::number(item->GrEndY));
+		writer.writeAttribute("GRSTARTX", item->GrStartX);
+		writer.writeAttribute("GRSTARTY", item->GrStartY);
+		writer.writeAttribute("GRENDX"  , item->GrEndX);
+		writer.writeAttribute("GRENDY"  , item->GrEndY);
 	}
 
 	if (item->effectsInUse.count() != 0)
@@ -1848,7 +1955,7 @@ void ScriXmlDoc::WriteObject(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem
 		for (int a = 0; a < item->effectsInUse.count(); ++a)
 		{
 			writer.writeStartElement("ImageEffect");
-			writer.writeAttribute("Code" , QString::number(item->effectsInUse.at(a).effectCode));
+			writer.writeAttribute("Code" , item->effectsInUse.at(a).effectCode);
 			writer.writeAttribute("Param", item->effectsInUse.at(a).effectParameters);
 			writer.writeEndElement();
 		}
@@ -1858,8 +1965,8 @@ void ScriXmlDoc::WriteObject(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem
 		for (int a = 0; a < item->itemText.defaultStyle().tabValues().count(); ++a)
 		{
 			writer.writeStartElement("Tabs");
-			writer.writeAttribute("Type", QString::number((defaultStyle.tabValues().at(a)).tabType));
-			writer.writeAttribute("Pos" , QString::number((defaultStyle.tabValues().at(a)).tabPosition));
+			writer.writeAttribute("Type", (defaultStyle.tabValues().at(a)).tabType);
+			writer.writeAttribute("Pos" , (defaultStyle.tabValues().at(a)).tabPosition);
 			QString tabCh = "";
 			if (!(defaultStyle.tabValues().at(a)).tabFillChar.isNull())
 				tabCh = QString((defaultStyle.tabValues().at(a)).tabFillChar);
@@ -1873,10 +1980,10 @@ void ScriXmlDoc::WriteObject(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem
 		for (it2 = item->pixm.imgInfo.RequestProps.begin(); it2 != item->pixm.imgInfo.RequestProps.end(); ++it2)
 		{
 			writer.writeStartElement("PSDLayer");
-			writer.writeAttribute("Layer"  , QString::number(it2.key()));
+			writer.writeAttribute("Layer"  , it2.key());
 			writer.writeAttribute("Visible", it2.value().visible ? "1" : "0");
 			writer.writeAttribute("useMask", it2.value().useMask ? "1" : "0");
-			writer.writeAttribute("Opacity", QString::number(it2.value().opacity) );
+			writer.writeAttribute("Opacity", it2.value().opacity);
 			writer.writeAttribute("Blend"  , it2.value().blend);
 			writer.writeEndElement();
 		}
@@ -1888,11 +1995,11 @@ void ScriXmlDoc::WriteObject(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem
 			writer.writeAttribute("pattern", item->pattern());
 			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
 			item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
-			writer.writeAttribute("pScaleX"  , QString::number(patternScaleX));
-			writer.writeAttribute("pScaleY"  , QString::number(patternScaleY));
-			writer.writeAttribute("pOffsetX" , QString::number(patternOffsetX));
-			writer.writeAttribute("pOffsetY" , QString::number(patternOffsetY));
-			writer.writeAttribute("pRotation", QString::number(patternRotation));
+			writer.writeAttribute("pScaleX"  , patternScaleX);
+			writer.writeAttribute("pScaleY"  , patternScaleY);
+			writer.writeAttribute("pOffsetX" , patternOffsetX);
+			writer.writeAttribute("pOffsetY" , patternOffsetY);
+			writer.writeAttribute("pRotation", patternRotation);
 		}
 		else
 		{
@@ -1900,180 +2007,357 @@ void ScriXmlDoc::WriteObject(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 			{
 				writer.writeStartElement("CSTOP");
-				writer.writeAttribute("RAMP" , QString::number(cstops.at(cst)->rampPoint));
+				writer.writeAttribute("RAMP" , cstops.at(cst)->rampPoint);
 				writer.writeAttribute("NAME" , cstops.at(cst)->name);
-				writer.writeAttribute("SHADE", QString::number(cstops.at(cst)->shade));
-				writer.writeAttribute("TRANS", QString::number(cstops.at(cst)->opacity));
+				writer.writeAttribute("SHADE", cstops.at(cst)->shade);
+				writer.writeAttribute("TRANS", cstops.at(cst)->opacity);
 				writer.writeEndElement();
 			}
 			// must be writen before
-			// writer.writeAttribute("GRSTARTX", QString::number(item->GrStartX));
-			// writer.writeAttribute("GRSTARTY", QString::number(item->GrStartY));
-			// writer.writeAttribute("GRENDX"  , QString::number(item->GrEndX));
-			// writer.writeAttribute("GRENDY"  , QString::number(item->GrEndY));
+			// writer.writeAttribute("GRSTARTX", item->GrStartX);
+			// writer.writeAttribute("GRSTARTY", item->GrStartY);
+			// writer.writeAttribute("GRENDX"  , item->GrEndX);
+			// writer.writeAttribute("GRENDY"  , item->GrEndY);
 		}
 	}
 	if (item->asLatexFrame()) {
 		writer.writeTextElement("LATEX-SOURCE", item->asLatexFrame()->formula());
 	}
 	QDir::setCurrent(CurDirP);
-	for(int k=0;k<item->itemText.length();++k)
+	WriteITEXTs(writer, doc, item);
+}
+
+void ScriXmlDoc::WriteITEXTs(ScXmlStreamWriter &writer, ScribusDoc *doc, PageItem *item)
+{
+	CharStyle lastStyle;
+	int lastPos = 0;
+	QString text, pstylename;
+
+	for( int k = 0; k < item->itemText.length(); ++k)
 	{
-		const CharStyle& style4(item->itemText.charStyle(k));
+		const CharStyle& style(item->itemText.charStyle(k));
 		QChar ch = item->itemText.text(k);
-		writer.writeStartElement("ITEXT");
-		ts = style4.fontSize() / 10.0;
-		tf = style4.font().scName();
-		tc = style4.fillColor();
-		te = style4.tracking();
-		tsh = style4.fillShade();
-		tst = style4.effects() & 2047;
-		tcs = style4.strokeColor();
-		tshs = style4.strokeShade();
-		tsc = style4.scaleH() / 10.0;
-		tscv = style4.scaleV() / 10.0;
-		tb = style4.baselineOffset() / 10.0;
-		tsx = style4.shadowXOffset() / 10.0;
-		tsy = style4.shadowYOffset() / 10.0;
-		tout = style4.outlineWidth() / 10.0;
-		tulp = style4.underlineOffset() / 10.0;
-		tulw = style4.underlineWidth() / 10.0;
-		tstp = style4.strikethruOffset()/ 10.0;
-		tstw = style4.strikethruWidth() / 10.0;
-		// QChar(5) and QChar(4) trigger QXmlStreamReader errors
-		/*if (ch == SpecialChars::PARSEP)
-			text = QChar(5);
-		else if (ch == SpecialChars::TAB)
-			text = QChar(4);
-		else
-			text = ch;*/
-		text = ch;
-		QString pstylename = "";
+		pstylename = QString();
 		if (ch == SpecialChars::PARSEP)
 			pstylename = item->itemText.paragraphStyle(k).parent();
-		++k;
-		if (k == item->itemText.length())
+		if ((style != lastStyle || ch == SpecialChars::PARSEP) && (k - lastPos > 0))
 		{
-			writer.writeAttribute("CH"     , text);
-			writer.writeAttribute("CSIZE"  , QString::number(ts));
-			writer.writeAttribute("CFONT"  , tf);
-			writer.writeAttribute("CCOLOR" , tc);
-			writer.writeAttribute("CKERN"  , QString::number(te));
-			writer.writeAttribute("CSHADE" , QString::number(tsh));
-			writer.writeAttribute("CSTYLE" , QString::number(tst));
-			writer.writeAttribute("CSTROKE", tcs);
-			writer.writeAttribute("CSHADE2", QString::number(tshs));
-			writer.writeAttribute("CSCALE" , QString::number(tsc));
-			writer.writeAttribute("CSCALEV", QString::number(tscv));
-			writer.writeAttribute("CBASE"  , QString::number(tb));
-			writer.writeAttribute("CSHX"   , QString::number(tsx));
-			writer.writeAttribute("CSHY"   , QString::number(tsy));
-			writer.writeAttribute("COUT"   , QString::number(tout));
-			writer.writeAttribute("CULP"   , QString::number(tulp));
-			writer.writeAttribute("CULW"   , QString::number(tulw));
-			writer.writeAttribute("CSTP"   , QString::number(tstp));
-			writer.writeAttribute("CSTW"   , QString::number(tstw));
-			writer.writeAttribute("PSTYLE" , pstylename);
-			writer.writeEndElement();
-			break;
+			text = item->itemText.text(lastPos, k - lastPos);
+			writer.writeEmptyElement("ITEXT");
+			writer.writeAttribute("CH"     ,text);
+			WriteLegacyCStyle(writer, lastStyle);
+			writer.writeAttribute("PSTYLE" ,pstylename);
+			lastPos = k;
+			lastStyle = style;
 		}
-		const CharStyle& style5(item->itemText.charStyle(k));
-		ch = item->itemText.text(k);
-		ts2 = style5.fontSize() / 10.0;
-		tf2 = style5.font().scName();
-		tc2 = style5.fillColor();
-		te2 = style5.tracking();
-		tsh2 = style5.fillShade();
-		tst2 = style5.effects() & 2047;
-		tcs2 = style5.strokeColor();
-		tshs2 = style5.strokeShade();
-		tsc2 = style5.scaleH() / 10.0;
-		tscv2 = style5.scaleV() / 10.0;
-		tb2 = style5.baselineOffset() / 10.0;
-		tsx2 = style5.shadowXOffset() / 10.0;
-		tsy2 = style5.shadowYOffset() / 10.0;
-		tout2 = style5.outlineWidth() / 10.0;
-		tulp2 = style5.underlineOffset() / 10.0;
-		tulw2 = style5.underlineWidth() / 10.0;
-		tstp2 = style5.strikethruOffset() / 10.0;
-		tstw2 = style5.strikethruWidth() / 10.0;
-		QString pstylename2 = "";
 		if (ch == SpecialChars::PARSEP)
-			pstylename2 = item->itemText.paragraphStyle(k).parent();
-		while ((ts2 == ts)
-						&& (tf2 == tf)
-						&& (tc2 == tc)
-						&& (te2 == te)
-						&& (tsh2 == tsh)
-						&& (tshs2 == tshs)
-						&& (tsc2 == tsc)
-						&& (tscv2 == tscv)
-						&& (tcs2 == tcs)
-						&& (tb2 == tb)
-						&& (tsx2 == tsx)
-						&& (tsy2 == tsy)
-						&& (tout2 == tout)
-						&& (tulp2 == tulp)
-						&& (tulw2 == tulw)
-						&& (tstp2 == tstp)
-						&& (tstw2 == tstw)
-						&& (tst2 == tst)
-			   && (pstylename == pstylename2))
 		{
-			if (ch == QChar(13))
-				text += QChar(5);
-			else if (ch == QChar(9))
-				text += QChar(4);
-			else
-				text += ch;
-			++k;
-			if (k == item->itemText.length())
-				break;
-			const CharStyle& style6(item->itemText.charStyle(k));
-			ch = item->itemText.text(k);
-			ts2 = style6.fontSize() / 10.0;
-			tf2 = style6.font().scName();
-			tc2 = style6.fillColor();
-			te2 = style6.tracking();
-			tsh2 = style6.fillShade();
-			tst2 = style6.effects() & 2047;
-			tcs2 = style6.strokeColor();
-			tshs2 = style6.strokeShade();
-			tsc2 = style6.scaleH() / 10.0;
-			tscv2 = style6.scaleV() / 10.0;
-			tb2 = style6.baselineOffset() / 10.0;
-			tsx2 = style6.shadowXOffset() / 10.0;
-			tsy2 = style6.shadowYOffset() / 10.0;
-			tout2 = style6.outlineWidth() / 10.0;
-			tulp2 = style6.underlineOffset() / 10.0;
-			tulw2 = style6.underlineWidth() / 10.0;
-			tstp2 = style6.strikethruOffset() / 10.0;
-			tstw2 = style6.strikethruWidth() / 10.0;
-			pstylename2 = "";
-			if (ch == SpecialChars::PARSEP)
-				pstylename2 = item->itemText.paragraphStyle(k).parent();
+			WritePStyle(writer, item->itemText.paragraphStyle(k), "PARA");
+			lastPos = k + 1;
 		}
-		writer.writeAttribute("CH"     ,text);
-		writer.writeAttribute("CSIZE"  ,QString::number(ts));
-		writer.writeAttribute("CFONT"  ,tf);
-		writer.writeAttribute("CCOLOR" ,tc);
-		writer.writeAttribute("CKERN"  ,QString::number(te));
-		writer.writeAttribute("CSHADE" ,QString::number(tsh));
-		writer.writeAttribute("CSTYLE" ,QString::number(tst));
-		writer.writeAttribute("CSTROKE",tcs);
-		writer.writeAttribute("CSHADE2",QString::number(tshs));
-		writer.writeAttribute("CSCALE" ,QString::number(tsc));
-		writer.writeAttribute("CSCALEV",QString::number(tscv));
-		writer.writeAttribute("CBASE"  ,QString::number(tb));
-		writer.writeAttribute("CSHX"   ,QString::number(tsx));
-		writer.writeAttribute("CSHY"   ,QString::number(tsy));
-		writer.writeAttribute("COUT"   ,QString::number(tout));
-		writer.writeAttribute("CULP"   ,QString::number(tulp));
-		writer.writeAttribute("CULW"   ,QString::number(tulw));
-		writer.writeAttribute("CSTP"   ,QString::number(tstp));
-		writer.writeAttribute("CSTW"   ,QString::number(tstw));
-		writer.writeAttribute("PSTYLE" ,pstylename);
-		k--;
-		writer.writeEndElement();
 	}
+	// write pending chars
+	if ( item->itemText.length() - lastPos > 0)
+	{
+		writer.writeEmptyElement("ITEXT");
+		text = item->itemText.text(lastPos, item->itemText.length() - lastPos);
+		writer.writeAttribute("CH"     ,text);
+		WriteLegacyCStyle(writer, lastStyle); 
+		writer.writeAttribute("PSTYLE" ,pstylename);
+	}
+	// paragraphstyle for trailing chars
+	if (item->itemText.length() > 0 && item->itemText.text(item->itemText.length()-1) != SpecialChars::PARSEP)
+		WritePStyle(writer, item->itemText.paragraphStyle(item->itemText.length()), "PARA");
 }
+
+void ScriXmlDoc::WriteLegacyCStyle (ScXmlStreamWriter& writer, const CharStyle& style)
+{
+	if ( ! style.isInhFont())	
+		writer.writeAttribute("CFONT", style.font().scName());
+	if ( ! style.isInhFontSize())
+		writer.writeAttribute("CSIZE", style.fontSize() / 10.0);
+	if ( ! style.isInhFillColor())
+		writer.writeAttribute("CCOLOR", style.fillColor());
+	if ( ! style.isInhFillShade())
+		writer.writeAttribute("CSHADE", style.fillShade());
+	if ( ! style.isInhStrokeColor())
+		writer.writeAttribute("CSTROKE", style.strokeColor());
+	if ( ! style.isInhStrokeShade())
+		writer.writeAttribute("CSHADE2", style.strokeShade());
+	if ( ! style.isInhShadowXOffset())
+		writer.writeAttribute("CSHX", style.shadowXOffset() / 10.0);
+	if ( ! style.isInhShadowYOffset())
+		writer.writeAttribute("CSHY", style.shadowYOffset() / 10.0);
+	if ( ! style.isInhOutlineWidth())
+		writer.writeAttribute("COUT", style.outlineWidth() / 10.0);
+	if ( ! style.isInhUnderlineOffset())
+		writer.writeAttribute("CULP", style.underlineOffset() / 10.0);
+	if ( ! style.isInhUnderlineWidth())
+		writer.writeAttribute("CULW", style.underlineWidth() / 10.0);
+	if ( ! style.isInhStrikethruOffset())
+		writer.writeAttribute("CSTP", style.strikethruOffset() / 10.0);
+	if ( ! style.isInhStrikethruWidth())
+		writer.writeAttribute("CSTW", style.strikethruWidth() / 10.0);
+	if ( ! style.isInhScaleH())
+		writer.writeAttribute("CSCALE", style.scaleH() / 10.0);
+	if ( ! style.isInhScaleV())
+		writer.writeAttribute("CSALEV", style.scaleV() / 10.0);
+	writer.writeAttribute("CSTYLE", style.effects() & 2047);
+}
+
+void ScriXmlDoc::WriteCStyle (ScXmlStreamWriter& writer, const CharStyle& style)
+{
+	if ( ! style.name().isEmpty() )
+		writer.writeAttribute("CNAME", style.name());
+	if ( ! style.parent().isEmpty() )
+		writer.writeAttribute("CPARENT", style.parent());
+	if ( ! style.isInhFont())	
+		writer.writeAttribute("FONT", style.font().scName());
+	if ( ! style.isInhFontSize())
+		writer.writeAttribute("FONTSIZE", style.fontSize() / 10.0);
+	if ( ! style.isInhFeatures())
+		writer.writeAttribute("FEATURES", style.features().join(" "));
+	if ( ! style.isInhFillColor())
+		writer.writeAttribute("FCOLOR", style.fillColor());
+	if ( ! style.isInhFillShade())
+		writer.writeAttribute("FSHADE", style.fillShade());
+	if ( ! style.isInhStrokeColor())
+		writer.writeAttribute("SCOLOR", style.strokeColor());
+	if ( ! style.isInhStrokeShade())
+		writer.writeAttribute("SSHADE", style.strokeShade());
+	if ( ! style.isInhShadowXOffset())
+		writer.writeAttribute("TXTSHX", style.shadowXOffset() / 10.0);
+	if ( ! style.isInhShadowYOffset())
+		writer.writeAttribute("TXTSHY", style.shadowYOffset() / 10.0);
+	if ( ! style.isInhOutlineWidth())
+		writer.writeAttribute("TXTOUT", style.outlineWidth() / 10.0);
+	if ( ! style.isInhUnderlineOffset())
+		writer.writeAttribute("TXTULP", style.underlineOffset() / 10.0);
+	if ( ! style.isInhUnderlineWidth())
+		writer.writeAttribute("TXTULW", style.underlineWidth() / 10.0);
+	if ( ! style.isInhStrikethruOffset())
+		writer.writeAttribute("TXTSTP", style.strikethruOffset() / 10.0);
+	if ( ! style.isInhStrikethruWidth())
+		writer.writeAttribute("TXTSTW", style.strikethruWidth() / 10.0);
+	if ( ! style.isInhScaleH())
+		writer.writeAttribute("SCALEH", style.scaleH() / 10.0);
+	if ( ! style.isInhScaleV())
+		writer.writeAttribute("SCALEV", style.scaleV() / 10.0);
+	if ( ! style.isInhBaselineOffset())
+		writer.writeAttribute("BASEO", style.baselineOffset() / 10.0);
+	if ( ! style.isInhTracking())
+		writer.writeAttribute("KERN", style.tracking() / 10.0); 
+	if ( ! style.isInhWordTracking())
+		writer.writeAttribute("wordTrack", style.wordTracking());
+	if ( ! style.shortcut().isEmpty() )
+		writer.writeAttribute("SHORTCUT", style.shortcut()); // shortcuts won't be inherited
+}
+
+void ScriXmlDoc::WritePStyle (ScXmlStreamWriter& writer, const ParagraphStyle& style, const QString& nodeName)
+{
+	bool styleHasTabs = (!style.isInhTabValues() && (style.tabValues().count() > 0));
+	writer.writeStartElement(nodeName);
+	if ( ! style.name().isEmpty() )
+		writer.writeAttribute("NAME", style.name());
+	if ( ! style.parent().isEmpty())
+		writer.writeAttribute("PARENT", style.parent());
+	
+	if ( ! style.isInhAlignment())
+		writer.writeAttribute("ALIGN", style.alignment());
+	if ( ! style.isInhLineSpacingMode())
+		writer.writeAttribute("LINESPMode", style.lineSpacingMode());
+	if ( ! style.isInhLineSpacing())
+		writer.writeAttribute("LINESP", style.lineSpacing());
+	if ( ! style.isInhLeftMargin())
+		writer.writeAttribute("INDENT", style.leftMargin());
+	if ( ! style.isInhRightMargin())
+		writer.writeAttribute("RMARGIN", style.rightMargin());
+	if ( ! style.isInhFirstIndent())
+		writer.writeAttribute("FIRST", style.firstIndent());
+	if ( ! style.isInhGapBefore())
+		writer.writeAttribute("VOR", style.gapBefore());
+	if ( ! style.isInhGapAfter())
+		writer.writeAttribute("NACH", style.gapAfter());
+	if ( ! style.isInhHasDropCap())
+		writer.writeAttribute("DROP", static_cast<int>(style.hasDropCap()));
+	if ( ! style.isInhDropCapLines())
+		writer.writeAttribute("DROPLIN", style.dropCapLines());
+	if ( ! style.isInhDropCapOffset())
+		writer.writeAttribute("DROPDIST", style.dropCapOffset());
+	if ( ! style.isInhOpticalMargins())
+		writer.writeAttribute("OpticalMargins", style.opticalMargins());
+	if ( ! style.isInhHyphenationMode())
+		writer.writeAttribute("HyphenationMode", style.hyphenationMode());
+	if ( ! style.isInhMinWordTracking())
+		writer.writeAttribute("MinWordTrack", style.minWordTracking());
+	if ( ! style.isInhMinGlyphExtension())
+		writer.writeAttribute("MinGlyphShrink", style.minGlyphExtension());
+	if ( ! style.isInhMaxGlyphExtension())
+		writer.writeAttribute("MaxGlyphExtend", style.maxGlyphExtension());
+
+	if ( ! style.shortcut().isEmpty() )
+		writer.writeAttribute("PSHORTCUT", style.shortcut()); // shortcuts won't be inherited
+
+	WriteCStyle(writer, style.charStyle());
+
+	if ( ! style.isInhTabValues())
+	{
+		for (int a = 0; a < style.tabValues().count(); ++a)
+		{
+			writer.writeEmptyElement("Tabs");
+			writer.writeAttribute("Type", (style.tabValues().at(a)).tabType);
+			writer.writeAttribute("Pos", (style.tabValues().at(a)).tabPosition);
+			QString tabCh = "";
+			if (!(style.tabValues().at(a)).tabFillChar.isNull())
+				tabCh = QString((style.tabValues().at(a)).tabFillChar);
+			writer.writeAttribute("Fill", tabCh);
+		}
+	}
+
+	writer.writeEndElement();
+}
+
+void ScriXmlDoc::ReadCStyle(QXmlStreamReader& reader, CharStyle & newStyle, ScribusDoc *doc)
+{
+	QXmlStreamAttributes attrs = reader.attributes();
+
+	if ( attrHasValue(attrs, "CNAME"))
+		newStyle.setName(attrAsString(attrs, "CNAME", ""));
+	if ( attrHasValue(attrs, "CPARENT"))
+		newStyle.setParent(attrAsString(attrs, "CPARENT", ""));
+	
+	if ( attrHasValue(attrs, "FONT"))
+		newStyle.setFont(doc->AllFonts->findFont(attrAsString(attrs, "FONT", doc->toolSettings.defFont),doc));
+	
+	if ( attrHasValue(attrs, "FONTSIZE"))
+		newStyle.setFontSize(qRound(attrAsDbl(attrs, "FONTSIZE", 12) * 10));
+	
+	if ( attrHasValue(attrs, "FCOLOR"))
+		newStyle.setFillColor(attrAsString(attrs, "FCOLOR", CommonStrings::None));
+	
+	if ( attrHasValue(attrs, "KERN"))
+		newStyle.setTracking(qRound(attrAsDbl(attrs, "KERN") * 10));
+	
+	if ( attrHasValue(attrs, "FSHADE"))
+		newStyle.setFillShade(attrAsInt(attrs, "FSHADE"));
+	
+	if ( attrHasValue(attrs, "EFFECTS"))
+		newStyle.setFeatures(static_cast<StyleFlag>(attrAsInt(attrs, "EFFECTS")).featureList());
+	
+	if ( attrHasValue(attrs, "EFFECT"))
+		newStyle.setFeatures(static_cast<StyleFlag>(attrAsInt(attrs, "EFFECT")).featureList());
+	
+	if ( attrHasValue(attrs, "FEATURES"))
+		newStyle.setFeatures(attrAsString(attrs, "FEATURES", "").split( " ", QString::SkipEmptyParts));
+	
+	if ( attrHasValue(attrs, "SCOLOR"))
+		newStyle.setStrokeColor(attrAsString(attrs, "SCOLOR", CommonStrings::None));
+	
+	if ( attrHasValue(attrs, "SSHADE"))
+		newStyle.setStrokeShade(attrAsInt(attrs, "SSHADE"));
+	
+	if ( attrHasValue(attrs, "SCALEH"))
+		newStyle.setScaleH(qRound(attrAsDbl(attrs, "SCALEH") * 10));
+	
+	if ( attrHasValue(attrs, "SCALEV"))
+		newStyle.setScaleV(qRound(attrAsDbl(attrs, "SCALEV") * 10));
+	
+	if ( attrHasValue(attrs, "BASEO"))
+		newStyle.setBaselineOffset(qRound(attrAsDbl(attrs, "BASEO") * 10));
+	
+	if ( attrHasValue(attrs, "TXTSHX"))
+		newStyle.setShadowXOffset(qRound(attrAsDbl(attrs, "TXTSHX") * 10));
+	
+	if ( attrHasValue(attrs, "TXTSHY"))
+		newStyle.setShadowYOffset(qRound(attrAsDbl(attrs, "TXTSHY") * 10));
+	
+	if ( attrHasValue(attrs, "TXTOUT"))
+		newStyle.setOutlineWidth(qRound(attrAsDbl(attrs, "TXTOUT") * 10));
+	
+	if ( attrHasValue(attrs, "TXTULP"))
+		newStyle.setUnderlineOffset(qRound(attrAsDbl(attrs, "TXTULP") * 10));
+	
+	if ( attrHasValue(attrs, "TXTULW"))
+		newStyle.setUnderlineWidth(qRound(attrAsDbl(attrs, "TXTULW") * 10));
+	
+	if ( attrHasValue(attrs, "TXTSTP"))
+		newStyle.setStrikethruOffset(qRound(attrAsDbl(attrs, "TXTSTP") * 10));
+	
+	if ( attrHasValue(attrs, "TXTSTW"))
+		newStyle.setStrikethruWidth(qRound(attrAsDbl(attrs, "TXTSTW") * 10));
+
+	if ( attrHasValue(attrs, "SHORTCUT"))
+		newStyle.setShortcut(attrAsString(attrs, "SHORTCUT", ""));
+
+	if ( attrHasValue(attrs, "wordTrack"))
+		newStyle.setWordTracking(attrAsDbl(attrs, "wordTrack"));
+}
+
+void ScriXmlDoc::ReadPStyle(QXmlStreamReader& reader, ParagraphStyle &style, ScribusDoc* doc)
+{
+	QXmlStreamAttributes attrs = reader.attributes();
+	style.erase();
+	style.setName( attrAsString(attrs, "NAME", "") );
+	style.setParent( attrAsString(attrs, "PARENT", ""));
+	if ( attrHasValue(attrs, "LINESPMode"))
+		style.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(attrAsInt(attrs, "LINESPMode")));
+	if ( attrHasValue(attrs, "LINESP"))
+		style.setLineSpacing(attrAsDbl(attrs, "LINESP"));
+	if ( attrHasValue(attrs, "INDENT"))
+		style.setLeftMargin(attrAsDbl(attrs, "INDENT"));
+	if ( attrHasValue(attrs, "RMARGIN"))
+		style.setRightMargin(attrAsDbl(attrs, "RMARGIN"));
+	if ( attrHasValue(attrs, "FIRST"))
+		style.setFirstIndent(attrAsDbl(attrs, "FIRST"));
+	if ( attrHasValue(attrs, "ALIGN"))
+		style.setAlignment(static_cast<ParagraphStyle::AlignmentType>(attrAsInt(attrs, "ALIGN")));
+	if ( attrHasValue(attrs, "VOR"))
+		style.setGapBefore(attrAsDbl(attrs, "VOR"));
+	if ( attrHasValue(attrs, "NACH"))
+		style.setGapAfter(attrAsDbl(attrs, "NACH"));
+	if ( attrHasValue(attrs, "DROP"))
+		style.setHasDropCap(static_cast<bool>(attrAsInt(attrs, "DROP")));
+	if ( attrHasValue(attrs, "DROPLIN"))
+		style.setDropCapLines(attrAsInt(attrs, "DROPLIN"));
+	if ( attrHasValue(attrs, "DROPDIST"))
+		style.setDropCapOffset(attrAsDbl(attrs, "DROPDIST"));
+	if ( attrHasValue(attrs, "PSHORTCUT"))
+		style.setShortcut(attrAsString(attrs, "PSHORTCUT", ""));
+
+	if ( attrHasValue(attrs, "OpticalMargins"))
+		style.setOpticalMargins(attrAsInt(attrs, "OpticalMargins"));
+	if ( attrHasValue(attrs, "HyphenationMode"))
+		style.setHyphenationMode(attrAsInt(attrs, "HyphenationMode"));
+	if ( attrHasValue(attrs, "MinWordTrack"))
+		style.setMinWordTracking(attrAsDbl(attrs, "MinWordTrack"));
+	if ( attrHasValue(attrs, "NormWordTrack"))
+		style.charStyle().setWordTracking(attrAsDbl(attrs, "NormWordTrack"));
+	if ( attrHasValue(attrs, "MinGlyphShrink"))
+		style.setMinGlyphExtension(attrAsDbl(attrs, "MinGlyphShrink"));
+	if ( attrHasValue(attrs, "MaxGlyphExtend"))
+		style.setMaxGlyphExtension(attrAsDbl(attrs, "MaxGlyphExtend"));
+
+	ReadCStyle(reader, style.charStyle(), doc);
+
+	QList<ParagraphStyle::TabRecord> tabs;
+	while (!reader.atEnd() && !reader.hasError())
+	{
+		QXmlStreamReader::TokenType tType = reader.readNext();
+		QString tagName = reader.name().toString();
+		if (tagName == "PARA" && reader.isEndElement()) 
+			break;
+		if (tagName == "Tabs" && reader.isStartElement())
+		{
+			ParagraphStyle::TabRecord tab;
+			QXmlStreamAttributes tabAttrs = reader.attributes();
+			tab.tabPosition = attrAsDbl(tabAttrs, "Pos");
+			tab.tabType     = attrAsInt(tabAttrs, "Type");
+			QString tbCh    = attrAsString(tabAttrs, "Fill","");
+			tab.tabFillChar = tbCh.isEmpty() ? QChar() : tbCh.at(0);
+			tabs.append(tab);
+		}
+	}
+	if (tabs.count() < 0)
+		style.setTabValues(tabs);
+}
+

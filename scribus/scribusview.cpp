@@ -822,7 +822,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		m_ScMW->newActWin(Doc->WinHan);
 		updateContents();
 		//>>
-		QFileInfo fi = QFileInfo(url.path());
+		QFileInfo fi(url.path());
 		QString ext = fi.suffix().toUpper();
 		QStringList imfo;
 		QList<QByteArray> imgs = QImageReader::supportedImageFormats();
@@ -3339,8 +3339,14 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		}
 		{
 			ParagraphStyle pstyle;
+			pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(Buffer->textAlignment));
 			pstyle.setLineSpacing(Buffer->LineSp);
 			pstyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(Buffer->LineSpMode));
+			if (Doc->AllFonts->contains(Buffer->IFont))
+				pstyle.charStyle().setFont((*Doc->AllFonts)[Buffer->IFont]);
+			else
+				pstyle.charStyle().setFont((*Doc->AllFonts)[Doc->toolSettings.defFont]);
+			pstyle.charStyle().setFontSize(Buffer->ISize);
 			pstyle.charStyle().setFillColor(Buffer->TxtFill);
 			pstyle.charStyle().setStrokeColor(Buffer->TxtStroke);
 			pstyle.charStyle().setFillShade(Buffer->ShTxtFill);

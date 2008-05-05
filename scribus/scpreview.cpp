@@ -347,12 +347,12 @@ QPixmap ScPreview::createPreview(QString data)
 					tmp2 = it.attribute("CH");
 					tmp2.replace(QRegExp("\r"), QChar(5));
 					tmp2.replace(QRegExp("\n"), QChar(5));
-					tmp3 = "\t" + DoFonts[it.attribute("CFONT")] + "\t";
-					tmp3 += it.attribute("CSIZE") + "\t";
-					tmp3 += it.attribute("CCOLOR") + "\t";
+					tmp3 = "\t" + DoFonts[it.attribute("CFONT", OB.IFont)] + "\t";
+					tmp3 += it.attribute("CSIZE" , QString::number(OB.ISize)) + "\t";
+					tmp3 += it.attribute("CCOLOR", OB.TxtFill) + "\t";
 //					tmp3 += it.attribute("CEXTRA") + "\t";
 					tmp3 += "0\t";
-					tmp3 += it.attribute("CSHADE") + "\t";
+					tmp3 += it.attribute("CSHADE", QString::number(OB.ShTxtFill)) + "\t";
 					tmp3 += it.attribute("CSTYLE") + "\t";
 					tmp3 += "0\t";
 					tmp3 += it.attribute("CSTROKE",CommonStrings::None) + "\t";
@@ -362,6 +362,21 @@ QPixmap ScPreview::createPreview(QString data)
 					{
 						tmpx += tmp2.at(cxx)+tmp3;
 					}
+				}
+				if (it.tagName()=="PARA")
+				{
+					tmp2 = QChar(5);
+					tmp3 = "\t" + DoFonts[it.attribute("FONT", OB.IFont)] + "\t";
+					tmp3 += it.attribute("FONTSIZE" , QString::number(OB.ISize)) + "\t";
+					tmp3 += it.attribute("FCOLOR", OB.TxtFill) + "\t";
+					tmp3 += "0\t";
+					tmp3 += it.attribute("FSHADE", QString::number(OB.ShTxtFill)) + "\t";
+					tmp3 += it.attribute("CSTYLE") + "\t";
+					tmp3 += "0\t";
+					tmp3 += it.attribute("SCOLOR",CommonStrings::None) + "\t";
+					tmp3 += it.attribute("SSHADE","100") + "\t";
+					tmp3 += it.attribute("SCALEH","100") + "\n";
+					tmpx += tmp2+tmp3;
 				}
 				IT=IT.nextSibling();
 			}
