@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "scpaths.h"
 #include "scribus.h"
+#include "scribuscore.h"
 #include "undomanager.h"
 #include "util_ghostscript.h"
 #include "util_icon.h"
@@ -233,8 +234,26 @@ void BarcodeGenerator::okButton_pressed()
 	// it's created by previous run...
 	hide();
 	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_PSIMPORT);
-	if( fmt )
+
+	UndoTransaction * tran = 0;
+	if (UndoManager::undoEnabled())
+	{
+		tran = new UndoTransaction(
+				UndoManager::instance()->beginTransaction(
+							ScCore->primaryMainWindow()->doc->currentPage()->getUName(),
+							Um::IImageFrame,
+							Um::ImportBarcode,
+							ui.bcCombo->currentText() + " (" + ui.codeEdit->text() + ")",
+							Um::IEPS)
+						);
+	}
+
+	if (fmt)
+	{
 		fmt->loadFile(psFile, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive);
+		if (tran)
+			tran->commit();
+	}
 	accept();
 }
 

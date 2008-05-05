@@ -862,6 +862,7 @@ void UndoManager::languageChange()
 	UndoManager::ConvertTo          = tr("Convert to");
 	UndoManager::ImportSVG          = tr("Import SVG image");
 	UndoManager::ImportEPS          = tr("Import EPS image");
+	UndoManager::ImportBarcode      = tr("Import Barcode");
 	UndoManager::ImportOOoDraw      = tr("Import OpenOffice.org Draw image");
 	UndoManager::ImportAI           = tr("Import AI drawing");
 	UndoManager::ImportXfig         = tr("Import XFig drawing");
@@ -1055,6 +1056,7 @@ QString UndoManager::PathText           = "";
 QString UndoManager::ConvertTo          = "";
 QString UndoManager::ImportSVG          = "";
 QString UndoManager::ImportEPS          = "";
+QString UndoManager::ImportBarcode      = "";
 QString UndoManager::ImportOOoDraw      = "";
 QString UndoManager::ImportAI           = "";
 QString UndoManager::ImportXfig         = "";

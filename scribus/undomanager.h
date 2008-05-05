@@ -512,6 +512,7 @@ public:
 	static QString ConvertTo;
 	static QString ImportSVG;
 	static QString ImportEPS;
+	static QString ImportBarcode;
 	static QString ImportOOoDraw;
 	static QString ImportAI;
 	static QString ImportXfig;
