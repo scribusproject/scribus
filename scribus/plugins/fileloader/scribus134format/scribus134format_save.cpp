@@ -30,18 +30,8 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QList>
 #include <QDataStream>
-#include <QXmlStreamWriter>
 
-class ScXmlStreamWriter : public QXmlStreamWriter
-{
-public:
-	ScXmlStreamWriter(void) : QXmlStreamWriter() {}
-	ScXmlStreamWriter(QIODevice* device) : QXmlStreamWriter(device) {}
-	void writeAttribute(const QString & name, const QString & value) { QXmlStreamWriter::writeAttribute(name, value); }
-	void writeAttribute(const QString & name, int value)    { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
-	void writeAttribute(const QString & name, uint value)   { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
-	void writeAttribute(const QString & name, double value) { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
-};
+#include "scxmlstreamwriter.h"
 
 bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* fmt */)
 {
