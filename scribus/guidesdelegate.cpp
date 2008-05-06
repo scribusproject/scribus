@@ -38,7 +38,6 @@ void GuidesDelegate::setModelData(QWidget *editor,
 								  const QModelIndex &index) const
 {
 	ScrSpinBox *w = static_cast<ScrSpinBox*>(editor);
-	w->interpretText();
 	double value = w->value();
 	model->setData(index, value);
 }
