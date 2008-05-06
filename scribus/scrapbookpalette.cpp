@@ -95,7 +95,7 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 	{
 		if ( fi.exists() )
 		{
-			QUrl ur(dt);
+			QUrl ur = QUrl::fromLocalFile(dt);
 			dt = ur.toString();
 		}
 	}

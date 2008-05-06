@@ -822,7 +822,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		m_ScMW->newActWin(Doc->WinHan);
 		updateContents();
 		//>>
-		QFileInfo fi(url.path());
+		QFileInfo fi(url.toLocalFile());
 		QString ext = fi.suffix().toUpper();
 		QStringList imfo;
 		QList<QByteArray> imgs = QImageReader::supportedImageFormats();
@@ -932,11 +932,11 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					}
 					else if (fi.suffix().toLower() == "sce")
 					{
-						emit LoadElem(url.path(), dropPosDoc.x(), dropPosDoc.y(), true, false, Doc, this);
+						emit LoadElem(url.toLocalFile(), dropPosDoc.x(), dropPosDoc.y(), true, false, Doc, this);
 					}
 					else
 					{
-						FileLoader *fileLoader = new FileLoader(url.path());
+						FileLoader *fileLoader = new FileLoader(url.toLocalFile());
 						int testResult = fileLoader->TestFile();
 						delete fileLoader;
 						if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
@@ -944,7 +944,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 							const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 							if( fmt )
 							{
-								fmt->loadFile(url.path(), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+								fmt->loadFile(url.toLocalFile(), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 								if (Doc->m_Selection->count() > 1)
 								{
 									double x2, y2, w, h;
