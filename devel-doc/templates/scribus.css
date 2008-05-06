@@ -1,22 +1,10 @@
-/*
+/*/*
  * CSS file for Scribus doxygen docs.
  * author: Petr Vanek, <petr@yarpen.cz>
  */
-/*
-body {
-	font-color: black;
-	font-size: 12pt;
-	background-color: #1e72a8;
-	color: black;
-	font-family: sans-serif;
-	padding: 0px;
-	margin: 0px;
-}
-*/
 body {
     color: #000000;
-#    background: #ffffff;
-background-color: #1e72a8;
+    background-color: #1e72a8;
     padding: 0px;
     margin: 0px;
     font-family: Trebuchet, "Trebuchet MS", Tahoma, Verdana, Arial, Sans-Serif;
@@ -134,6 +122,11 @@ b {
 	font-weight: normal;
 }
 
+hr {
+    color: white;
+    border: 1px solid white;
+    margin-top: 3em;
+}
 
 /*
  * Syntax highlighting
@@ -162,5 +155,25 @@ img.formulaInl { vertical-align: middle; }
 .comment	   { color: #800000 }
 .preprocessor  { color: #806020 }
 .stringliteral { color: #002080 }
-.charliteral   { color: #008080 } 
+.charliteral   { color: #008080 }
+
+
+.indexkey, .indexvalue {
+    vertical-align: top;
+    border: 1px solid black;
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+}
+
+.memname {
+    font-weight: bold;
+}
+
+div.memitem {
+    border: 1px solid #aaa;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+}
 
