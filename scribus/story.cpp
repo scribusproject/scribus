@@ -705,7 +705,13 @@ void SEditor::updateAll()
 				Text += ch;
 		}
 		if (pa < StyledText.nrOfParagraphs()-1)
+		{
+			setAlign(Ali);
+			setStyle(Csty);
 			Text += "\n";
+			insertPlainText(Text);
+			Text = "";
+		}
 	}
 	setAlign(Ali);
 	setStyle(Csty);
@@ -824,7 +830,9 @@ void SEditor::setStyle(int Csty)
 		charF.setVerticalAlignment(QTextCharFormat::AlignSubScript);
 	else
 		charF.setVerticalAlignment(QTextCharFormat::AlignNormal);
-	textCursor().setCharFormat(charF);
+	QTextCursor tCursor = textCursor();
+	tCursor.setCharFormat(charF);
+	setTextCursor(tCursor);
 	--blockContentsChangeHook;
 }
 
