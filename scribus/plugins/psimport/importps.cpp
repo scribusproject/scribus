@@ -1047,6 +1047,7 @@ QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 				{
 					ret = it.key();
 					found = true;
+					break;
 				}
 			}
 		}
@@ -1077,6 +1078,7 @@ QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 				{
 					ret = it.key();
 					found = true;
+					break;
 				}
 			}
 		}
