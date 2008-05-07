@@ -678,6 +678,8 @@ void Canvas::paintEvent ( QPaintEvent * p )
 
 void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cliph)
 {
+//	QTime tim;
+//	tim.start();
 //	qDebug() << "drawContents" << clipx << clipy << clipw << cliph;
 	uint docPagesCount=m_doc->Pages->count();
 	ScPainter *painter=0;
@@ -749,6 +751,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	psx->drawImage(clipx, clipy, img);
 	delete painter;
 	painter=NULL;
+//	qDebug( "Time elapsed: %d ms", tim.elapsed() );
 }
 
 void Canvas::drawControls(QPainter *psx)
