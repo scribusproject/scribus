@@ -2426,7 +2426,9 @@ void StoryEditor::updateProps(int p, int ch)
 			start = Editor->StyledText.length() - 1;
 		if (start < 0)
 			start = 0;
+		const ParagraphStyle& paraStyle(Editor->StyledText.paragraphStyle(start));
 		const CharStyle& charStyle(Editor->StyledText.charStyle(start));
+		Editor->CurrAlign = paraStyle.alignment();
 		Editor->CurrTextFill = charStyle.fillColor();
 		Editor->CurrTextFillSh = charStyle.fillShade();
 		Editor->CurrTextStroke = charStyle.strokeColor();
