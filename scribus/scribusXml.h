@@ -26,9 +26,9 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "styles/styleset.h"
 
-class QXmlStreamAttributes;
-class QXmlStreamReader;
-class QXmlStreamWriter;
+#include <QXmlStreamAttributes>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 class PageItem;
 class PrefsManager;
 class ScribusView;
@@ -70,7 +70,7 @@ protected:
 
 	bool	attrHasValue(const QXmlStreamAttributes& attrs, const char* attName);
 	bool	attrAsBool(const QXmlStreamAttributes& attrs, const char* attName, bool defVal = false);
-	int     attrAsInt (const QXmlStreamAttributes& attrs, const char*attName, int  defVal = 0);
+	int     attrAsInt (const QXmlStreamAttributes& attrs, const char* attName, int  defVal = 0);
 	double  attrAsDbl (const QXmlStreamAttributes& attrs, const char* attName, double defVal = 0.0);
 	QString attrAsString (const QXmlStreamAttributes& attrs, const char* attName, const QString& defVal);
 
