@@ -820,6 +820,7 @@ void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapSt
 	m_offset = 0;
 	getDashArray(st, w, m_array);
 #else
+	m_array.clear();
 	PLineStyle = st;
 #endif
 }

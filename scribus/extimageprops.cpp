@@ -170,10 +170,6 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			{
 				QCheckBox *cp = new QCheckBox((*it2).layerName, this);
 				cp->setPalette(palette);
-				if ((info->isRequest) && (info->RequestProps.contains(counter)))
-					cp->setChecked(info->RequestProps[counter].visible);
-				else
-					cp->setChecked(!((*it2).flags & 2));
 				QPixmap pm;
 				pm=QPixmap::fromImage((*it2).thumb);
 				col1Width = qMax(col1Width, pm.width());
@@ -181,20 +177,24 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 				FlagsSicht.append(cp);
 				connect(cp, SIGNAL(clicked()), this, SLOT(changedLayer()));
 				layerTable->setCellWidget(info->layerInfo.count()-counter-1, 0, cp);
+				if ((info->isRequest) && (info->RequestProps.contains(counter)))
+					cp->setChecked(info->RequestProps[counter].visible);
+				else
+					cp->setChecked(!((*it2).flags & 2));
 				if (!(*it2).thumb_mask.isNull())
 				{
 					QCheckBox *cp2 = new QCheckBox((*it2).layerName, this);
 					cp2->setPalette(palette);
-					if ((info->isRequest) && (info->RequestProps.contains(counter)))
-						cp2->setChecked(info->RequestProps[counter].useMask);
-					else
-						cp2->setChecked(true);
 					QPixmap pm2;
 					pm2=QPixmap::fromImage((*it2).thumb_mask);
 					col2Width = qMax(col2Width, pm2.width());
 					cp2->setIcon(pm2);
 					connect(cp2, SIGNAL(clicked()), this, SLOT(changedLayer()));
 					layerTable->setCellWidget(info->layerInfo.count()-counter-1, 1, cp2);
+					if ((info->isRequest) && (info->RequestProps.contains(counter)))
+						cp2->setChecked(info->RequestProps[counter].useMask);
+					else
+						cp2->setChecked(true);
 					FlagsMask.append(cp2);
 				}
 				else

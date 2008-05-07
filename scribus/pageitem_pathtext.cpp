@@ -216,7 +216,11 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 			CurX = dx;
 			currPerc = currPath.percentAtLength(CurX);
 		}
+#if QT_VERSION  >= 0x040400
+		double currAngle = currPath.slopeAtPercent(currPerc) * (180.0/M_PI);
+#else
 		double currAngle = currPath.angleAtPercent(currPerc);
+#endif
 		QPointF currPoint = currPath.pointAtPercent(currPerc);
 		tangent = FPoint(cos(currAngle * M_PI / 180.0), sin(currAngle * M_PI / 180.0));
 		point = FPoint(currPoint.x(), currPoint.y());

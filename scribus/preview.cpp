@@ -163,39 +163,39 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 		Table->setItem(0, 1, new QTableWidgetItem( tr("Cyan")));
 		QCheckBox *cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
-		cp->setChecked(prefsManager->appPrefs.PrPr_C);
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(0, 0, cp);
+		cp->setChecked(prefsManager->appPrefs.PrPr_C);
 		flagsVisible.insert("Cyan", cp);
 		Table->setItem(1, 1, new QTableWidgetItem( tr("Magenta")));
 		cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
-		cp->setChecked(prefsManager->appPrefs.PrPr_M);
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(1, 0, cp);
+		cp->setChecked(prefsManager->appPrefs.PrPr_M);
 		flagsVisible.insert("Magenta", cp);
 		Table->setItem(2, 1, new QTableWidgetItem( tr("Yellow")));
 		cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
-		cp->setChecked(prefsManager->appPrefs.PrPr_Y);
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(2, 0, cp);
+		cp->setChecked(prefsManager->appPrefs.PrPr_Y);
 		flagsVisible.insert("Yellow", cp);
 		Table->setItem(3, 1, new QTableWidgetItem( tr("Black")));
 		cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
-		cp->setChecked(prefsManager->appPrefs.PrPr_K);
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(3, 0, cp);
+		cp->setChecked(prefsManager->appPrefs.PrPr_K);
 		flagsVisible.insert("Black", cp);
 		for (int sp = 0; sp < spots.count(); ++sp)
 		{
 			Table->setItem(sp+4, 1, new QTableWidgetItem(spots[sp]));
 			cp = new QCheckBox(this);
 			cp->setFocusPolicy(Qt::NoFocus);
-			cp->setChecked(true);
 			connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 			Table->setCellWidget(sp+4, 0, cp);
+			cp->setChecked(true);
 			flagsVisible.insert(spots[sp], cp);
 		}
 		Layout2->addWidget(Table);
