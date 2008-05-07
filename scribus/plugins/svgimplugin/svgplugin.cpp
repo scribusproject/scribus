@@ -1848,6 +1848,7 @@ QString SVGPlug::parseColor( const QString &s )
 		{
 			ret = it.key();
 			found = true;
+			break;
 		}
 	}
 	if (!found)

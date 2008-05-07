@@ -781,10 +781,11 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 			Doku->PageColors[it.key()].getRGB(&hR, &hG, &hB);
 			if ((Rc == hR) && (Gc == hG) && (Bc == hB))
 			{
-				if (Doku->PageColors[it.key()].getColorModel() == colorModelRGB)
+				if (it.data().getColorModel() == colorModelRGB)
 				{
 					ret = it.key();
 					found = true;
+					break;
 				}
 			}
 		}
@@ -811,10 +812,11 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 			Doku->PageColors[it.key()].getCMYK(&hC, &hM, &hY, &hK);
 			if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
 			{
-				if (Doku->PageColors[it.key()].getColorModel() == colorModelCMYK)
+				if (it.data().getColorModel() == colorModelCMYK)
 				{
 					ret = it.key();
 					found = true;
+					break;
 				}
 			}
 		}
