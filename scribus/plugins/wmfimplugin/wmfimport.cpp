@@ -188,6 +188,7 @@ QString WMFImport::importColor(const QColor& color)
 			{
 				retColorName = it.key();
 				found = true;
+				break;
 			}
 		}
 	}
