@@ -102,13 +102,13 @@ void LineFormatItemDelegate::redraw(const QVariant& data) const
 		const ScColor& col = item.m_doc->PageColors[item.m_Line[its].Color];
 		tmpf = ScColorEngine::getDisplayColor(col, item.m_doc, item.m_Line[its].Shade);
 		QPen pen;
-		QList<double> m_array;
+		QVector<double> m_array;
 		if (item.m_Line[its].Dash == 1)
 			pen.setStyle(Qt::SolidLine);
 		else
 		{
 			getDashArray(item.m_Line[its].Dash, 1, m_array);
-			pen.setDashPattern(m_array.toVector());
+			pen.setDashPattern(m_array);
 		}
 		pen.setColor(tmpf);
 		pen.setWidth(qMax(static_cast<int>(item.m_Line[its].Width), 1));

@@ -778,7 +778,7 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	}
 	writer.writeAttribute("NUMDASH", item->DashValues.count());
 	QString dlp = "";
-	QList<double>::Iterator dax;
+	QVector<double>::Iterator dax;
 	for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
 		dlp += tmp.setNum((*dax)) + " ";
 	writer.writeAttribute("DASHS"  , dlp);

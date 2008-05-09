@@ -240,7 +240,7 @@ void ScPainterEx_Cairo::setPenOpacity( double op )
 	m_strokeTrans = op;
 }
 
-void ScPainterEx_Cairo::setDash(const QList<double>& array, double ofs)
+void ScPainterEx_Cairo::setDash(const QVector<double>& array, double ofs)
 {
 	m_array = array;
 	m_offset = ofs;
@@ -319,17 +319,9 @@ void ScPainterEx_Cairo::drawVPath( int mode )
 		strokeColor.getRgbF(&r, &g, &b);
 		cairo_set_source_rgba( m_cr, r, g, b, m_strokeTrans );
 		
-		double *dashes = NULL;
 		cairo_set_line_width( m_cr, m_lineWidth );
 		if( m_array.count() > 0 )
-		{
-			dashes = new double[ m_array.count() ];
-			for( int i = 0; i < m_array.count();++ i )
-			{
-				dashes[i] = static_cast<double>(m_array[i]);
-			}
-			cairo_set_dash( m_cr, dashes, m_array.count(), static_cast<double>(m_offset));
-		}
+			cairo_set_dash( m_cr, m_array.data(), m_array.count(), static_cast<double>(m_offset));
 		else
 			cairo_set_dash( m_cr, NULL, 0, 0 );
 		if (m_strokeTrans != 1.0)
@@ -349,8 +341,6 @@ void ScPainterEx_Cairo::drawVPath( int mode )
 		else if( m_lineJoin == Qt::MiterJoin )
 			cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_MITER );
 		cairo_stroke_preserve( m_cr );
-		if( m_array.count() > 0 )
-			delete [] dashes;
 	}
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_restore( m_cr );

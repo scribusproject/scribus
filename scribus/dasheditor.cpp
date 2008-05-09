@@ -270,7 +270,7 @@ void DashPreview::setActStep(double t)
 	emit dashChanged();
 }
 
-void DashPreview::setDashValues(QList<double> vals)
+void DashPreview::setDashValues(QVector<double> vals)
 {
 	DashValues = vals;
 	ActStop = 0;
@@ -327,9 +327,9 @@ void DashEditor::setPos(double p)
 	connect(Position, SIGNAL(valueChanged(double)), Preview, SLOT(setActStep(double)));
 }
 
-void DashEditor::setDashValues(QList<double> vals, double linewidth, double offset)
+void DashEditor::setDashValues(QVector<double> vals, double linewidth, double offset)
 {
-	QList<double> tmp;
+	QVector<double> tmp;
 	for (int a = 0; a < vals.count(); a++)
 	{
 		tmp.append(vals[a] / linewidth);
@@ -340,9 +340,9 @@ void DashEditor::setDashValues(QList<double> vals, double linewidth, double offs
 	connect(Offset, SIGNAL(valueChanged(double)), this, SIGNAL(dashChanged()));
 }
 
-QList<double> DashEditor::getDashValues(double linewidth)
+QVector<double> DashEditor::getDashValues(double linewidth)
 {
-	QList<double> tmp;
+	QVector<double> tmp;
 	for (int a = 0; a < Preview->DashValues.count(); a++)
 	{
 		tmp.append(Preview->DashValues[a] * linewidth);

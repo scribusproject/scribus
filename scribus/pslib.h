@@ -98,7 +98,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_setcmykcolor_stroke(double c, double m, double y, double k);
 		virtual void PS_setlinewidth(double w);
 		virtual void PS_setcapjoin(Qt::PenCapStyle ca, Qt::PenJoinStyle jo);
-		virtual void PS_setdash(Qt::PenStyle st, double offset, QList<double> dash);
+		virtual void PS_setdash(Qt::PenStyle st, double offset, QVector<double> dash);
 		virtual void PS_selectfont(QString f, double s);
 		virtual void PS_fill();
 		virtual void PS_fillspot(QString color, double shade);

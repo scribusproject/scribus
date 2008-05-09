@@ -131,7 +131,7 @@ public:
 	virtual void setPen( const ScColorShade &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo );
 	virtual void setPenOpacity( double op );
 	virtual void setLineWidth( double w);
-	virtual void setDash(const QList<double>& array, double ofs);
+	virtual void setDash(const QVector<double>& array, double ofs);
 	virtual void setBrush( const ScColorShade & );
 	virtual void setBrushOpacity( double op );
 	virtual void setOpacity( double op );
@@ -209,7 +209,7 @@ private:
 /* Line Join Style */
 	Qt::PenJoinStyle m_lineJoin;
 /* The Dash Array */
-	QList<double> m_array;
+	QVector<double> m_array;
 	double m_offset;
 /* Transformation Stack */
 	QStack<QMatrix> m_stack;

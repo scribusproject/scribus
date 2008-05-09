@@ -549,9 +549,9 @@ void XfigPlug::useColor(int colorNum, int area_fill, bool forFill)
 	}
 }
 
-QList<double> XfigPlug::getDashValues(double linewidth, int code)
+QVector<double> XfigPlug::getDashValues(double linewidth, int code)
 {
-	QList<double> tmp;
+	QVector<double> tmp;
 	if (code == 1)
 	{
 		tmp << qMax(4.0 * linewidth, 0.1);

@@ -1714,7 +1714,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 				if (ite->DashValues.count() != 0)
 				{
 					PutPage("[ ");
-					QList<double>::iterator it;
+					QVector<double>::iterator it;
 					for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 					{
 						int da = static_cast<int>(*it);
@@ -3233,7 +3233,7 @@ QString PDFLibCore::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
 	if (ite->DashValues.count() != 0)
 	{
 		tmp += "[ ";
-		QList<double>::iterator it;
+		QVector<double>::iterator it;
 		for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 		{
 			int da = static_cast<int>(*it);
@@ -3372,7 +3372,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 	if (ite->DashValues.count() != 0)
 	{
 		tmp += "[ ";
-		QList<double>::iterator it;
+		QVector<double>::iterator it;
 		for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 		{
 			int da = static_cast<int>(*it);

@@ -1783,7 +1783,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 		newStyle.setBaselineOffset(qRound(it->attribute("CBASE", "0").toDouble() * 10));
 
 	if (it->hasAttribute("CSHX"))
-	newStyle.setShadowXOffset(qRound(it->attribute("CSHX", "5").toDouble() * 10));
+		newStyle.setShadowXOffset(qRound(it->attribute("CSHX", "5").toDouble() * 10));
 
 	if (it->hasAttribute("CSHY"))
 		newStyle.setShadowYOffset(qRound(it->attribute("CSHY", "-5").toDouble() * 10));
@@ -1851,7 +1851,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
 //	qDebug(QString("par style at end: %1/%2 (%3) calign %4").arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign));
 	obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
-	return;
+	//last->StyleStart = obj->itemText.length();
 }
 
 
@@ -3689,7 +3689,7 @@ void Scribus13Format::SetItemProps(QDomElement *ob, PageItem* item, const QStrin
 	}
 	ob->setAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
 	QString dlp = "";
-	QList<double>::Iterator dax;
+	QVector<double>::Iterator dax;
 	for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
 		dlp += tmp.setNum((*dax)) + " ";
 	ob->setAttribute("DASHS", dlp);

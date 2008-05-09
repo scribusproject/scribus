@@ -835,138 +835,142 @@ void setCurrentComboItem(QComboBox *box, QString text)
 
 QString getDashString(int dashtype, double linewidth)
 {
-	QString Dt = QString::number(qMax(1.0*linewidth, 0.1));
-	QString Sp = QString::number(qMax(2.0*linewidth, 0.1));
-	QString Da = QString::number(qMax(4.0*linewidth, 0.1));
-	QString tmp = "";
+	QString dashString;
+	QVector<double> dashArray;
+	getDashArray(dashtype, linewidth, dashArray);
+	for (int a = 0; a < dashArray.size(); ++a)
+	{
+		dashString += QString::number(dashArray.at(a));
+		if (a < (dashArray.size() - 1))
+			dashString += " ";
+	}
+	return dashString;
+}
+
+void getDashArray(int dashtype, double linewidth, QVector<double> &m_array)
+{
+	m_array.clear();
+	if ((dashtype == 1) || (dashtype == 0))
+		return;
+	double Dt = qMax(1.0*linewidth, 0.1);
+	double Sp = qMax(2.0*linewidth, 0.1);
+	double Da = qMax(4.0*linewidth, 0.1);
 	switch (dashtype)
 	{
 		case 1:
 			break;
 		case 2:
-			tmp += Da+" "+Sp;
+			m_array << Da << Sp;
 			break;
 		case 3:
-			tmp += Dt+" "+Sp;
+			m_array << Dt << Sp;
 			break;
 		case 4:
-			tmp += Da+" "+Sp+" "+Dt+" "+Sp;
+			m_array << Da << Sp << Dt << Sp;
 			break;
 		case 5:
-			tmp += Da+" "+Sp+" "+Dt+" "+Sp+" "+Dt+" "+Sp;
+			m_array << Da << Sp << Dt << Sp << Dt << Sp;
 			break;
 // Additional line styles taken from Inkscape
 		case 6:
-			tmp += QString("%1 %2").arg(qMax(1.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
+			m_array << qMax(1.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 7:
-			tmp += QString("%1 %2").arg(qMax(1.0 * linewidth, 0.01)).arg(qMax(3.0 * linewidth, 0.01));
+			m_array << qMax(1.0 * linewidth, 0.01) << qMax(3.0 * linewidth, 0.01);
 			break;
 		case 8:
-			tmp += QString("%1 %2").arg(qMax(1.0 * linewidth, 0.01)).arg(qMax(4.0 * linewidth, 0.01));
+			m_array << qMax(1.0 * linewidth, 0.01) << qMax(4.0 * linewidth, 0.01);
 			break;
 		case 9:
-			tmp += QString("%1 %2").arg(qMax(1.0 * linewidth, 0.01)).arg(qMax(6.0 * linewidth, 0.01));
+			m_array << qMax(1.0 * linewidth, 0.01) << qMax(6.0 * linewidth, 0.01);
 			break;
 		case 10:
-			tmp += QString("%1 %2").arg(qMax(1.0 * linewidth, 0.01)).arg(qMax(8.0 * linewidth, 0.01));
+			m_array << qMax(1.0 * linewidth, 0.01) << qMax(8.0 * linewidth, 0.01);
 			break;
 		case 11:
-			tmp += QString("%1 %2").arg(qMax(1.0 * linewidth, 0.01)).arg(qMax(12.0 * linewidth, 0.01));
+			m_array << qMax(1.0 * linewidth, 0.01) << qMax(12.0 * linewidth, 0.01);
 			break;
 		case 12:
-			tmp += QString("%1 %2").arg(qMax(1.0 * linewidth, 0.01)).arg(qMax(24.0 * linewidth, 0.01));
+			m_array << qMax(1.0 * linewidth, 0.01) << qMax(24.0 * linewidth, 0.01);
 			break;
 		case 13:
-			tmp += QString("%1 %2").arg(qMax(1.0 * linewidth, 0.01)).arg(qMax(48.0 * linewidth, 0.01));
+			m_array << qMax(1.0 * linewidth, 0.01) << qMax(48.0 * linewidth, 0.01);
 			break;
 		case 14:
-			tmp += QString("%1 %2").arg(qMax(2.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
+			m_array << qMax(2.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 15:
-			tmp += QString("%1 %2").arg(qMax(3.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
+			m_array << qMax(3.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 16:
-			tmp += QString("%1 %2").arg(qMax(4.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
+			m_array << qMax(4.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 17:
-			tmp += QString("%1 %2").arg(qMax(6.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
+			m_array << qMax(6.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 18:
-			tmp += QString("%1 %2").arg(qMax(8.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
+			m_array << qMax(8.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 19:
-			tmp += QString("%1 %2").arg(qMax(10.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
+			m_array << qMax(10.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 20:
-			tmp += QString("%1 %2").arg(qMax(12.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
+			m_array << qMax(12.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 21:
-			tmp += QString("%1 %2").arg(qMax(2.0 * linewidth, 0.01)).arg(qMax(2.0 * linewidth, 0.01));
+			m_array << qMax(2.0 * linewidth, 0.01) << qMax(2.0 * linewidth, 0.01);
 			break;
 		case 22:
-			tmp += QString("%1 %2").arg(qMax(3.0 * linewidth, 0.01)).arg(qMax(3.0 * linewidth, 0.01));
+			m_array << qMax(3.0 * linewidth, 0.01) << qMax(3.0 * linewidth, 0.01);
 			break;
 		case 23:
-			tmp += QString("%1 %2").arg(qMax(4.0 * linewidth, 0.01)).arg(qMax(4.0 * linewidth, 0.01));
+			m_array << qMax(4.0 * linewidth, 0.01) << qMax(4.0 * linewidth, 0.01);
 			break;
 		case 24:
-			tmp += QString("%1 %2").arg(qMax(6.0 * linewidth, 0.01)).arg(qMax(6.0 * linewidth, 0.01));
+			m_array << qMax(6.0 * linewidth, 0.01) << qMax(6.0 * linewidth, 0.01);
 			break;
 		case 25:
-			tmp += QString("%1 %2").arg(qMax(8.0 * linewidth, 0.01)).arg(qMax(8.0 * linewidth, 0.01));
+			m_array << qMax(8.0 * linewidth, 0.01) << qMax(8.0 * linewidth, 0.01);
 			break;
 		case 26:
-			tmp += QString("%1 %2").arg(qMax(10.0 * linewidth, 0.01)).arg(qMax(10.0 * linewidth, 0.01));
+			m_array << qMax(10.0 * linewidth, 0.01) << qMax(10.0 * linewidth, 0.01);
 			break;
 		case 27:
-			tmp += QString("%1 %2").arg(qMax(12.0 * linewidth, 0.01)).arg(qMax(12.0 * linewidth, 0.01));
+			m_array << qMax(12.0 * linewidth, 0.01) << qMax(12.0 * linewidth, 0.01);
 			break;
 		case 28:
-			tmp += QString("%1 %2").arg(qMax(2.0 * linewidth, 0.01)).arg(qMax(4.0 * linewidth, 0.01));
+			m_array << qMax(2.0 * linewidth, 0.01) << qMax(4.0 * linewidth, 0.01);
 			break;
 		case 29:
-			tmp += QString("%1 %2").arg(qMax(2.0 * linewidth, 0.01)).arg(qMax(6.0 * linewidth, 0.01));
+			m_array << qMax(2.0 * linewidth, 0.01) << qMax(6.0 * linewidth, 0.01);
 			break;
 		case 30:
-			tmp += QString("%1 %2").arg(qMax(6.0 * linewidth, 0.01)).arg(qMax(2.0 * linewidth, 0.01));
+			m_array << qMax(6.0 * linewidth, 0.01) << qMax(2.0 * linewidth, 0.01);
 			break;
 		case 31:
-			tmp += QString("%1 %2").arg(qMax(4.0 * linewidth, 0.01)).arg(qMax(8.0 * linewidth, 0.01));
+			m_array << qMax(4.0 * linewidth, 0.01) << qMax(8.0 * linewidth, 0.01);
 			break;
 		case 32:
-			tmp += QString("%1 %2").arg(qMax(8.0 * linewidth, 0.01)).arg(qMax(4.0 * linewidth, 0.01));
+			m_array << qMax(8.0 * linewidth, 0.01) << qMax(4.0 * linewidth, 0.01);
 			break;
 		case 33:
-			tmp += QString("%1 %2 %3 %4").arg(qMax(2.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01)).arg(qMax(0.5 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
+			m_array << qMax(2.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
+			m_array << qMax(0.5 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 34:
-			tmp += QString("%1 %2 %3 %4").arg(qMax(8.0 * linewidth, 0.01)).arg(qMax(2.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01)).arg(qMax(2.0 * linewidth, 0.01));
+			m_array << qMax(8.0 * linewidth, 0.01) << qMax(2.0 * linewidth, 0.01);
+			m_array << qMax(1.0 * linewidth, 0.01) << qMax(2.0 * linewidth, 0.01);
 			break;
 		case 35:
-			tmp += QString("%1 %2").arg(qMax(0.5 * linewidth, 0.01)).arg(qMax(0.5 * linewidth, 0.01));
+			m_array << qMax(0.5 * linewidth, 0.01) << qMax(0.5 * linewidth, 0.01);
 			break;
 		case 36:
-			tmp += QString("%1 %2").arg(qMax(0.25 * linewidth, 0.01)).arg(qMax(0.25 * linewidth, 0.01));
+			m_array << qMax(0.25 * linewidth, 0.01) << qMax(0.25 * linewidth, 0.01);
 			break;
 		case 37:
-			tmp += QString("%1 %2").arg(qMax(0.1 * linewidth, 0.01)).arg(qMax(0.1 * linewidth, 0.01));
+			m_array << qMax(0.1 * linewidth, 0.01) << qMax(0.1 * linewidth, 0.01);
 			break;
 		default:
 			break;
-	}
-	return tmp;
-}
-
-void getDashArray(int dashtype, double linewidth, QList<double> &m_array)
-{
-	m_array.clear();
-	if ((dashtype == 1) || (dashtype == 0))
-		return;
-	QString tmp = getDashString(dashtype, linewidth);
-	QStringList dashes = tmp.split(" ");
-	for (int a = 0; a < dashes.size(); a++)
-	{
-		m_array.append(dashes[a].toDouble());
 	}
 }

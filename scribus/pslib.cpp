@@ -884,12 +884,12 @@ void PSLib::PS_setlinewidth(double w)
 	LineW = w;
 }
 
-void PSLib::PS_setdash(Qt::PenStyle st, double offset, QList<double> dash)
+void PSLib::PS_setdash(Qt::PenStyle st, double offset, QVector<double> dash)
 {
 	if (dash.count() != 0)
 	{
 		PutStream("[ ");
-		QList<double>::iterator it;
+		QVector<double>::iterator it;
 		for ( it = dash.begin(); it != dash.end(); ++it )
 		{
 			PutStream(ToStr(*it)+" ");
@@ -1674,7 +1674,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		pagemult = spots.count();
 	else
 		pagemult = 1;
-	QList<double> dum;
+	QVector<double> dum;
 	double gx = 0.0;
 	double gy = 0.0;
 	double gw = 0.0;
@@ -2122,7 +2122,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	int h, s, v, k;
 	int d;
 	ScText *hl;
-	QList<double> dum;
+	QVector<double> dum;
 	dum.clear();
 	QChar chstr;
 	QString tmps;
@@ -3597,7 +3597,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	int h, s, v, k;
 	double tsz;
 	double wideR = 0.0;
-	QList<double> dum;
+	QVector<double> dum;
 	dum.clear();
 
 	QChar chstr = hl->ch;

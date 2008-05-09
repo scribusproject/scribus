@@ -1982,7 +1982,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	//		gc->stroke.setMiterLimit( params.todouble() );
 	else if( command == "stroke-dasharray" )
 	{
-		QList<double> array;
+		QVector<double> array;
 		if(params != "none")
 		{
 			QString params2 = params.simplified().replace(',', " ");

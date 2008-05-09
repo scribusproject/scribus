@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMenu>
 #include <QRect>
 #include <QRectF>
+#include <QVector>
 
 #include "scribusapi.h"
 #include "annotation.h"
@@ -472,11 +473,11 @@ public:
 	bool controlsGroup() const { return isGroupControl; }
 	void setControlsGroup(bool val) { isGroupControl = val; }
 	
-	QList<double> DashValues;
+	QVector<double> DashValues;
 	double DashOffset;
-	const QList<double>& dashes() const { return DashValues; }
-	QList<double>& dashes() { return DashValues; }
-	void setDashes(QList<double> val) { DashValues = val; }
+	const QVector<double>& dashes() const { return DashValues; }
+	QVector<double>& dashes() { return DashValues; }
+	void setDashes(QVector<double> val) { DashValues = val; }
 	double dashOffset() const { return DashOffset; }
 	void setDashOffset(double val) { DashOffset = val; }
 	VGradient fill_gradient;

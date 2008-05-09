@@ -51,7 +51,7 @@ void LineCombo::updateList()
 QPixmap LineCombo::createIcon(int type)
 {
 	QPen pen;
-	QList<double> m_array;
+	QVector<double> m_array;
 	QPixmap pmap(73, 7);
 	pmap.fill(Qt::transparent);
 	QPainter p;
@@ -61,7 +61,7 @@ QPixmap LineCombo::createIcon(int type)
 	else
 	{
 		getDashArray(type + 1, 1, m_array);
-		pen.setDashPattern(m_array.toVector());
+		pen.setDashPattern(m_array);
 	}
 	pen.setColor(Qt::black);
 	pen.setWidth(3);

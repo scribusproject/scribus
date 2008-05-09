@@ -97,7 +97,7 @@ private:
 	QList<PageItem*> Elements;
 	ColorList CustColors;
 	double LineW, Opacity, DashOffset, baseX, baseY;
-	QList<double> DashPattern;
+	QVector<double> DashPattern;
 	QString CurrColor;
 	FPointArray Coords;
 	FPointArray clipCoords;

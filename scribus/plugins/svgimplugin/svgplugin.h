@@ -144,7 +144,7 @@ public:
 	bool Display;
 	bool CSpace;
 	QString CurCol;
-	QList<double> dashArray;
+	QVector<double> dashArray;
 	double dashOffset;
 	QString FontFamily;
 	QString FontStyle;

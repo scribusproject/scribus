@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QString>
 #include <QStringList>
+#include <QVector>
 
 #include "pagestructs.h"
 #include "style.h"
@@ -128,10 +129,10 @@ Useful for duration holes finding.
 \author Petr Vanek */
 void tDebug(QString message);
 
-
 QString SCRIBUS_API readLinefromDataStream(QDataStream &s);
 void SCRIBUS_API setCurrentComboItem(QComboBox *box, QString text);
+
 QString SCRIBUS_API getDashString(int dashtype, double linewidth);
-void SCRIBUS_API getDashArray(int dashtype, double linewidth, QList<double> &m_array);
+void    SCRIBUS_API getDashArray(int dashtype, double linewidth, QVector<double> &m_array);
 
 #endif

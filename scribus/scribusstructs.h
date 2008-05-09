@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include <QString>
 #include <QMap>
+#include <QVector>
 
 #include <vector>
 
@@ -156,7 +157,7 @@ struct CopyPasteBuffer
 	int Cols;
 	double ColGap;
 	QList<ParagraphStyle::TabRecord> TabValues;
-	QList<double> DashValues;
+	QVector<double> DashValues;
 	double DashOffset;
 	bool isTableItem;
 	bool TopLine;

@@ -697,13 +697,13 @@ void SMLineStyle::updatePreview()
 	for (int it = (*tmpLine).size()-1; it > -1; it--)
 	{
 		QPen pen;
-		QList<double> m_array;
+		QVector<double> m_array;
 		if ((*tmpLine)[it].Dash == 1)
 			pen.setStyle(Qt::SolidLine);
 		else
 		{
 			getDashArray((*tmpLine)[it].Dash, 1, m_array);
-			pen.setDashPattern(m_array.toVector());
+			pen.setDashPattern(m_array);
 		}
 		pen.setColor(calcFarbe((*tmpLine)[it].Color, (*tmpLine)[it].Shade));
 		pen.setWidth(qMax(static_cast<int>((*tmpLine)[it].Width), 1));

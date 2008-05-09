@@ -5,6 +5,7 @@
 #include <QList>
 #include <QStack>
 #include <QStringList>
+#include <QVector>
 
 class ScFace;
 class FPointArray;
@@ -23,6 +24,8 @@ Xml_string toXMLString(const FPointArray& path);
 
 Xml_string toXMLString(const QList<double>& doublelist);
 Xml_string toXMLString(const QList<int>& intlist);
+Xml_string toXMLString(const QVector<double>& doublelist);
+Xml_string toXMLString(const QVector<int>& intlist);
 Xml_string toXMLString(const QStringList& list);
 
 unsigned int parseUInt(const Xml_string& str);
@@ -35,6 +38,8 @@ bool parseBool(const Xml_string& str);
 QStringList parseStringList(const Xml_string& str);
 QList<double> parseDoubleList(const Xml_string& str);
 QList<int> parseIntList(const Xml_string& str);
+QVector<double> parseDoubleVector(const Xml_string& str);
+QVector<int> parseIntVector(const Xml_string& str);
 QStack<int> parseIntStack(const Xml_string& str);
 
 

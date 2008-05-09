@@ -112,7 +112,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 		currDoc = ScCore->primaryMainWindow()->doc;
 	if (currDoc->m_Selection->count() > 0)
 	{
-		QList<double> m_array;
+		QVector<double> m_array;
 		PageItem *currItem = currDoc->m_Selection->itemAt(0);
 		FPointArray path = currItem->PoLine;
 		QPainterPath pp;
@@ -128,7 +128,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 		else
 		{
 			getDashArray(currItem->lineStyle(), 1, m_array);
-			stroke.setDashPattern(m_array.toVector());
+			stroke.setDashPattern(m_array);
 		}
 		stroke.setWidth(currItem->lineWidth());
 		QPainterPath result = stroke.createStroke(pp);

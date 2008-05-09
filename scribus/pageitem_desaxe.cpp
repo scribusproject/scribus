@@ -653,7 +653,7 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule("latex-source", LatexSource());
 	ruleset.addRule(itemPrefix, LatexParams());
 	
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,QList<double> >( & PageItem::setDashes, "line-dashes", &parseDoubleList ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,QVector<double> >( & PageItem::setDashes, "line-dashes", &parseDoubleVector ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setDashOffset, "line-dash-offset", &parseDouble ));
 
 	StoryText::desaxeRules(itemPrefix, ruleset, "text-content");

@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QPainterPath>
 #include <QPainter>
-#include <QList>
+#include <QVector>
 #include <QStack>
 #include <QColor>
 #include <QMatrix>
@@ -86,7 +86,7 @@ public:
 	virtual void setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo );
 	virtual void setPenOpacity( double op );
 	virtual void setLineWidth( double w);
-	virtual void setDash(const QList<double>& array, double ofs);
+	virtual void setDash(const QVector<double>& array, double ofs);
 	virtual void setBrush( const QColor & );
 	virtual void setBrushOpacity( double op );
 	virtual void setOpacity( double op );
@@ -162,7 +162,7 @@ private:
   /*! \brief Line Join Style */
 	Qt::PenJoinStyle PLineJoin;
   /*! \brief The Dash Array */
-	QList<double> m_array;
+	QVector<double> m_array;
 	double m_offset;
 	/*! \brief Zoom Factor of the Painter */
 	double m_zoomFactor;

@@ -74,7 +74,7 @@ public:
 	double  fillTrans;
 	double  strokeTrans;
 	double  strokeWidth;
-	QList<double> dashes;
+	QVector<double> dashes;
 	bool    haveGradient;
 	int     gradientType;
 	VGradient gradient;

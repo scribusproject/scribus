@@ -53,8 +53,8 @@ public:
 	void mouseMoveEvent(QMouseEvent *m);
 	void leaveEvent(QEvent*);
 	void enterEvent(QEvent*);
-	void setDashValues(QList<double> vals);
-	QList<double> DashValues;
+	void setDashValues(QVector<double> vals);
+	QVector<double> DashValues;
 	QList<double> StopM;
 	bool Mpressed;
 	bool outside;
@@ -79,8 +79,8 @@ public:
 	~DashEditor() {};
 	
 	virtual void changeEvent(QEvent *e);
-	void setDashValues(QList<double> vals, double linewidth, double offset);
-	QList<double> getDashValues(double linewidth);
+	void setDashValues(QVector<double> vals, double linewidth, double offset);
+	QVector<double> getDashValues(double linewidth);
 	
 	DashPreview *Preview;
 	QLabel *Desc;

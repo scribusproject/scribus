@@ -836,7 +836,7 @@ void ScPainter::setPenOpacity( double op )
 }
 
 
-void ScPainter::setDash(const QList<double>& array, double ofs)
+void ScPainter::setDash(const QVector<double>& array, double ofs)
 {
 	m_array = array;
 	m_offset = ofs;
@@ -977,17 +977,9 @@ void ScPainter::drawVPath( int mode )
 	}
 	else
 	{
-		double *dashes = NULL;
 		cairo_set_line_width( m_cr, LineWidth );
 		if( m_array.count() > 0 )
-		{
-			dashes = new double[ m_array.count() ];
-			for( int i = 0; i < m_array.count(); ++i )
-			{
-				dashes[i] = static_cast<double>(m_array[i]);
-			}
-			cairo_set_dash( m_cr, dashes, m_array.count(), m_offset);
-		}
+			cairo_set_dash( m_cr, m_array.data(), m_array.count(), m_offset);
 		else
 			cairo_set_dash( m_cr, NULL, 0, 0 );
 		double r, g, b;
@@ -1010,8 +1002,6 @@ void ScPainter::drawVPath( int mode )
 		else if( PLineJoin == Qt::MiterJoin )
 			cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_MITER );
 		cairo_stroke_preserve( m_cr );
-		if( m_array.count() > 0 )
-			delete [] dashes;
 	}
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_restore( m_cr );
@@ -1086,7 +1076,7 @@ void ScPainter::drawVPath(int mode)
 			else
 			{
 				getDashArray(PLineStyle, 1, m_array);
-				pen.setDashPattern(m_array.toVector());
+				pen.setDashPattern(m_array);
 				pen.setColor(paint);
 				pen.setWidthF(LineWidth);
 				pen.setCapStyle(PLineEnd);
