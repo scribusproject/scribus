@@ -1313,6 +1313,12 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("OpticalMargins", item->itemText.defaultStyle().opticalMargins());
 	if ( ! item->itemText.defaultStyle().isInhHyphenationMode())
 		docu.writeAttribute("HyphenationMode", item->itemText.defaultStyle().hyphenationMode());
+	if ( ! item->itemText.defaultStyle().isInhLeftMargin() )
+		docu.writeAttribute("leftMargin", item->itemText.defaultStyle().leftMargin());
+	if ( ! item->itemText.defaultStyle().isInhRightMargin())
+		docu.writeAttribute("rightMargin", item->itemText.defaultStyle().rightMargin());
+	if ( ! item->itemText.defaultStyle().isInhFirstIndent())
+		docu.writeAttribute("firstIndent", item->itemText.defaultStyle().firstIndent());
 	docu.writeAttribute("COLUMNS", item->columns());
 	docu.writeAttribute("COLGAP", item->columnGap());
 	docu.writeAttribute("NAMEDLST",item->NamedLStyle);

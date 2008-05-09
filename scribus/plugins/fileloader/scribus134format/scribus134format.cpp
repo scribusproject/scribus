@@ -2246,7 +2246,14 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		pstyle.setOpticalMargins(obj->attribute("OpticalMargins").toInt());
 	if (obj->hasAttribute("HyphenationMode"))
 		pstyle.setHyphenationMode(obj->attribute("HyphenationMode").toInt());
+	if (obj->hasAttribute("leftMargin"))
+		pstyle.setLeftMargin(obj->attribute("leftMargin").toDouble());
+	if (obj->hasAttribute("rightMargin"))
+		pstyle.setRightMargin(obj->attribute("rightMargin").toDouble());
+	if (obj->hasAttribute("firstIndent"))
+		pstyle.setFirstIndent(obj->attribute("firstIndent").toDouble());
 	currItem->itemText.setDefaultStyle(pstyle);
+
 	currItem->setRotation(obj->attribute("ROT").toDouble());
 	currItem->setTextToFrameDist(obj->attribute("EXTRA").toDouble(),
 								obj->attribute("REXTRA", "1").toDouble(),
