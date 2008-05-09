@@ -82,19 +82,10 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 	QString chstr, chstr2, chstr3;
 	ScText *hl;
 	double dx;
-//	double sp = 0;
-//	double oldSp = 0;
-//	double oCurX = 0;
 	FPoint point = FPoint(0, 0);
-//	FPoint normal = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
-//	FPoint extPoint = FPoint(0, 0);
-//	bool ext = false;
-//	bool first = true;
-//	double fsx = 0;
 	uint seg = 0;
 	double segLen = 0;
-//	double distCurX;
 	QColor tmp;
 	CurX = Extra;
 	QString cachedStroke = "";
@@ -201,9 +192,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 			dx = (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) / 2.0;
 		else
 			dx = hl->glyph.wide() / 2.0;
-//		qDebug(QString("pathtext-draw: parent %1 parentc %2").arg((uint)itemText.paragraphStyle(a).parentStyle()).arg((uint)itemText.charStyle(a).parentStyle()));
-//		qDebug(QString("pathtext-draw: co %1 %2 %3 %4").arg(itemText.charStyle(a).fillColor()).arg(itemText.charStyle(a).fillShade()).arg(itemText.charStyle(a).strokeColor()).arg(itemText.charStyle(a).strokeShade()));
-//		qDebug(QString("pathtext-draw: fo %1 %2").arg(itemText.charStyle(a).font().scName()).arg(hl->glyph.glyph));
 		CurX += dx;
 
 		double currPerc = currPath.percentAtLength(CurX);
@@ -216,69 +204,16 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 			CurX = dx;
 			currPerc = currPath.percentAtLength(CurX);
 		}
-#if QT_VERSION  >= 0x040400
-		double currAngle = currPath.slopeAtPercent(currPerc) * (180.0/M_PI);
-#else
 		double currAngle = currPath.angleAtPercent(currPerc);
+#if QT_VERSION  >= 0x040400
+		if (currAngle <= 180.0)
+			currAngle *= -1.0;
+		else
+			currAngle = 360.0 - currAngle;
 #endif
 		QPointF currPoint = currPath.pointAtPercent(currPerc);
 		tangent = FPoint(cos(currAngle * M_PI / 180.0), sin(currAngle * M_PI / 180.0));
 		point = FPoint(currPoint.x(), currPoint.y());
-
-/*
-		ext = false;
-		while ( (seg < PoLine.size()-3) && (CurX > fsx + segLen))
-		{
-			fsx += segLen;
-			seg += 4;
-			if (seg > PoLine.size()-3)
-				break;
-			segLen = PoLine.lenPathSeg(seg);
-			ext = true;
-		}
-		if (seg > PoLine.size()-3)
-			break;
-		if (CurX > fsx + segLen)
-			break;
-		if (ext)
-		{
-			sp = 0;
-			distCurX = PoLine.lenPathDist(seg, 0, sp);
-			while (distCurX <= ((CurX - oCurX) - (fsx - oCurX)))
-			{
-				sp += 0.001;
-				distCurX = PoLine.lenPathDist(seg, 0, sp);
-			}
-			PoLine.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
-			CurX = (CurX - (CurX - fsx)) + distCurX;
-			oldSp = sp;
-			ext = false;
-		}
-		else
-		{
-			if( seg < PoLine.size()-3 )
-			{
-				if (CurX > fsx + segLen)
-					break;
-				distCurX = PoLine.lenPathDist(seg, oldSp, sp);
-				while (distCurX <= (CurX - oCurX))
-				{
-					sp += 0.001;
-					if (sp >= 1.0)
-					{
-						sp = 0.9999;
-						break;
-					}
-					distCurX = PoLine.lenPathDist(seg, oldSp, sp);
-				}
-				PoLine.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
-				CurX = oCurX + distCurX;
-				oldSp = sp;
-			}
-			else
-				break;
-		}
-*/
 		hl->glyph.xoffset = 0;
 		hl->PtransX = point.x();
 		hl->PtransY = point.y();
@@ -350,20 +285,14 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 		p->setWorldMatrix(savWM);
 		p->restore();
 		MaxChars = a+1;
-//		oCurX = CurX;
 		CurX -= dx;
 		if (hl->ch == SpecialChars::OBJECT)
 			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
 		else
 			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;
-//		first = false;
 	}
 	MaxChars++;  // ugly Hack
 #endif
-//	qDebug(QString("PageItem_PathText::DrawObj_Item repos=%1, %2 chars, [%3 %4 %5 %6 %7 %8] with %9").arg(m_Doc->RePos).arg(MaxChars)
-//		   .arg(p->worldMatrix().m11()).arg(p->worldMatrix().m12()).arg(p->worldMatrix().m21()).arg(p->worldMatrix().m22()).arg(p->worldMatrix().dx()).arg(p->worldMatrix().dy())
-//		   .arg(QString("pen %1 brush%2 device%3 isPainting=%4").arg(p->pen().rgb()).arg(p->brush().rgb()).arg(p->device()? p->device()->paintingActive() : -999))
-//		   );
 }
 
 bool PageItem_PathText::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGroupLayout)
