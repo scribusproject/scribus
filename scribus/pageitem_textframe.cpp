@@ -1825,7 +1825,7 @@ void PageItem_TextFrame::layout()
 						else
 						{
 //							qDebug(QString("next line (auto): y=%1+%2").arg(current.yPos).arg(style.lineSpacing()));
-							//current.yPos += itemText.style.lineSpacing();
+							//current.yPos += style.lineSpacing();
 							//#5845 : use next paragraph line spacing for switching to next paragraph instead of current one
 							current.yPos += itemText.paragraphStyle(a+1).lineSpacing();
 						}
