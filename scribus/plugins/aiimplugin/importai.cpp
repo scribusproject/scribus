@@ -679,6 +679,7 @@ QString AIPlug::parseColor(QString data)
 			{
 				ret = it.key();
 				found = true;
+				break;
 			}
 		}
 	}
@@ -717,6 +718,7 @@ QString AIPlug::parseColorGray(QString data)
 			{
 				ret = it.key();
 				found = true;
+				break;
 			}
 		}
 	}
@@ -759,6 +761,7 @@ QString AIPlug::parseColorRGB(QString data)
 			{
 				ret = it.key();
 				found = true;
+				break;
 			}
 		}
 	}
@@ -812,6 +815,7 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 			{
 				ret = it.key();
 				found = true;
+				break;
 			}
 		}
 	}
@@ -855,6 +859,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 				{
 					ret = it.key();
 					found = true;
+					break;
 				}
 			}
 		}
@@ -880,6 +885,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 				{
 					ret = it.key();
 					found = true;
+					break;
 				}
 			}
 		}
