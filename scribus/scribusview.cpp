@@ -869,8 +869,27 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			update();
 			return;
 		}
+		bool vectorFile = false;
+		if (fi.exists())
+		{
+			if ((fi.suffix().toLower() == "sml") || (fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sce"))
+				vectorFile = true;
+			else
+			{
+				FileLoader *fileLoader = new FileLoader(url.toLocalFile());
+				int testResult = fileLoader->TestFile();
+				delete fileLoader;
+				if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+					vectorFile = true;
+			}
+		}
+		else
+		{
+			if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSFRAGMENT")))
+				vectorFile = true;
+		}
 		//if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
-		if (Doc->m_Selection->count()>0 && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE)) // && (img))
+		if (Doc->m_Selection->count()>0 && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && !vectorFile) // && (img))
 		{
 			PageItem *b = Doc->m_Selection->itemAt(0);
 			if (b->itemType() == PageItem::ImageFrame)
