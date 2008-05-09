@@ -2254,6 +2254,17 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		pstyle.setFirstIndent(obj->attribute("firstIndent").toDouble());
 	currItem->itemText.setDefaultStyle(pstyle);
 
+	if (obj->hasAttribute("PSTYLE"))
+	{
+		QString pstyleName = obj->attribute("PSTYLE");
+		if (!pstyleName.isEmpty())
+		{
+			ParagraphStyle defStyle(currItem->itemText.defaultStyle());
+			defStyle.setParent(pstyleName);
+			currItem->itemText.setDefaultStyle(defStyle);
+		}
+	}
+
 	currItem->setRotation(obj->attribute("ROT").toDouble());
 	currItem->setTextToFrameDist(obj->attribute("EXTRA").toDouble(),
 								obj->attribute("REXTRA", "1").toDouble(),
