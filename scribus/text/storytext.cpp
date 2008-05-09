@@ -210,7 +210,8 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 		}
 		if (other.text(i) == SpecialChars::PARSEP) {
 			insertChars(pos, SpecialChars::PARSEP);
-			applyStyle(pos, otherDefault);
+			//#5845 : disable for now as it has nasty side effects when linking frames
+			//applyStyle(pos, otherDefault);
 			applyStyle(pos, other.paragraphStyle(i));
 			cstyleStart = i+1;
 			pos += 1;
@@ -233,7 +234,8 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 		applyCharStyle(pos, len, cstyle);
 		pos += len;
 		if (other.text(otherEnd-1) != SpecialChars::PARSEP) {
-			applyStyle(pos, otherDefault);
+			//#5845 : disable for now as it has nasty side effects when linking frames
+			//applyStyle(pos, otherDefault);
 			applyStyle(pos, other.paragraphStyle(otherEnd-1));
 		}
 	}
