@@ -9878,9 +9878,10 @@ void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, 
 	tmpSel.disconnectAllItemsFromGUI();
 	tmpSel.delaySignalsOn();
 	m_updateManager.setUpdatesDisabled();
-	//FIXME: Add undo, just need the parameters to be correct
-/*	if (selectedItemCount > 1)
-		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ConvertTo, "", Um::IGroup);*/
+	UndoTransaction* convertTransaction = NULL;
+	if (UndoManager::undoEnabled() && selectedItemCount > 1)
+		convertTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ConvertTo, "", Um::IGroup));
+
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
@@ -9891,8 +9892,8 @@ void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, 
 				newItem->update();
 		}
 	}
-/*	if (selectedItemCount > 1)
-		undoManager->commit();*/
+	if (convertTransaction)
+		convertTransaction->commit();
 	tmpSel.delaySignalsOff();
 	m_updateManager.setUpdatesEnabled();
 	changed();

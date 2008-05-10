@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <QDebug>
 #include <QPixmap>
 
 #include "guidemanager.h"
@@ -294,17 +295,13 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 	m_Doc->setMasterPageMode(!oldItem->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
-		m_Doc->Items->takeAt(newItem->ItemNr);
-		m_Doc->Items->append(oldItem);
-		oldItem->ItemNr = m_Doc->Items->count()-1;
+		m_Doc->Items->replace(newItem->ItemNr, oldItem);
 		oldItem->updatePolyClip();
 		m_Doc->AdjustItemSize(oldItem);
 	}
 	else
 	{
-		m_Doc->Items->takeAt(oldItem->ItemNr);
-		m_Doc->Items->append(newItem);
-		newItem->ItemNr = m_Doc->Items->count()-1;
+		m_Doc->Items->replace(oldItem->ItemNr, newItem);
 	}
 	m_Doc->setMasterPageMode(oldMPMode);
 }
