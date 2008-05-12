@@ -1,5 +1,5 @@
 #Subdirectories
-# ADD_SUBDIRECTORY(2geomtools)
+ADD_SUBDIRECTORY(2geomtools)
 ADD_SUBDIRECTORY(lenseffects)
 ADD_SUBDIRECTORY(pathcut)
 ADD_SUBDIRECTORY(pathfinder)
