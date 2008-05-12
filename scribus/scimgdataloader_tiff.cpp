@@ -735,8 +735,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 			if (PhotoshopLen2 > 40)
 			{
 				m_imageInfoRecord.layerInfo.clear();
-				QByteArray arrayPhot;
-				arrayPhot.fromRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
+				QByteArray arrayPhot = QByteArray::fromRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
 				QDataStream s(&arrayPhot,QIODevice::ReadOnly);
 				if (byteOrder[0] == 'M')
 					s.setByteOrder( QDataStream::BigEndian );
