@@ -1,0 +1,149 @@
+<ui version="4.0" >
+ <class>PathDialogBase</class>
+ <widget class="QDialog" name="PathDialogBase" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>311</width>
+    <height>218</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Path along Path</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <layout class="QGridLayout" >
+     <item row="0" column="0" >
+      <widget class="QLabel" name="label" >
+       <property name="text" >
+        <string>Effect Type</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="QComboBox" name="typeCombo" >
+       <item>
+        <property name="text" >
+         <string>Single</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Single, stretched</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Repeated</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Repeated, stretched</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QLabel" name="label_2" >
+       <property name="text" >
+        <string>Horizontal Offset</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" >
+      <widget class="ScrSpinBox" name="offsetXSpin" />
+     </item>
+     <item row="2" column="0" >
+      <widget class="QLabel" name="label_4" >
+       <property name="text" >
+        <string>Vertical Offset</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" >
+      <widget class="ScrSpinBox" name="offsetYSpin" />
+     </item>
+     <item row="3" column="0" >
+      <widget class="QCheckBox" name="rotateCheckBox" >
+       <property name="text" >
+        <string>Rotate Object by 90°</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0" >
+      <widget class="QLabel" name="label_3" >
+       <property name="text" >
+        <string>Gap between Objects</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" >
+      <widget class="ScrSpinBox" name="gapSpin" />
+     </item>
+     <item row="5" column="0" colspan="2" >
+      <widget class="QCheckBox" name="previewCheck" >
+       <property name="text" >
+        <string>Preview on Canvas</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>scrspinbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>PathDialogBase</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>PathDialogBase</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
