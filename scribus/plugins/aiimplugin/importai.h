@@ -33,10 +33,8 @@ public:
 	\author Franz Schmid
 	\date
 	\brief Create the AI importer window.
-	\param fName QString
-	\param flags combination of loadFlags
-	\param showProgress if progress must be displayed
-	\retval EPSPlug plugin
+	\param doc a Scribus document reference
+	\param flags combination of loadFlags - see loadFlags in LoadSavePlugin
 	*/
 	AIPlug( ScribusDoc* doc, int flags );
 	~AIPlug();
@@ -45,12 +43,12 @@ public:
 	\author Franz Schmid
 	\date
 	\brief Perform import.
-	\param fn QString
-	\param flags combination of loadFlags
+	\param fNameIn QString a filename to import
+	\param flags combination of loadFlags in LoadSavePlugin
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, int flags, bool showProgress = true);
+	bool import(QString fNameIn, int flags, bool showProgress = true);
 
 private:
 	
@@ -58,14 +56,12 @@ private:
 	\author Franz Schmid
 	\date
 	\brief Does the conversion.
-	\param fn QString
-	\param x X position
-	\param y Y position
-	\param b double
-	\param h double
+	\param infile a filename
+	\param outfile a filename for output
 	\retval bool true if conversion was ok
 	 */
 	bool extractFromPDF(QString infile, QString outfile);
+
 	bool decompressAIData(QString &fName);
 	bool parseHeader(QString fName, double &x, double &y, double &b, double &h);
 	QString removeAIPrefix(QString comment);

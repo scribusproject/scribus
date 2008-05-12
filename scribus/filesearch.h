@@ -67,11 +67,11 @@ public slots:
 
 signals:
 	/*! \brief Emitted when the search has finished.
-	\param 1 is list of paths matched,
-	\param 2 is filename searched for.
+	\param paths is list of paths matched,
+	\param filename is filename searched for.
 	Remember you can simply discard one or both params.
 	*/
-	void searchComplete(const QStringList&, const QString&);
+	void searchComplete(const QStringList& paths, const QString& filename);
 
 protected slots:
 	virtual void next();

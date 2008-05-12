@@ -36,6 +36,7 @@ in alpha mask too.
 \param target a base pixmap. Some kind of painter.
 \param x coordinate
 \param y coordinate
+\param useMask unused now
  */
 void SCRIBUS_API paintAlert(QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0, bool useMask = true);
 QImage SCRIBUS_API ProofImage(QImage *Im, ScribusDoc* doc);
@@ -65,19 +66,21 @@ QColor SCRIBUS_API getOldColorShade(uchar red, uchar green, uchar blue, int shad
  * \param green the green component (modified in place).
  * \param blue the blue component (modified in place).
  */
+void SCRIBUS_API RGBTOHSV ( uchar& red, uchar& green, uchar& blue );
+
 unsigned char SCRIBUS_API INT_MULT ( unsigned char a, unsigned char b );
+
 /*! \brief Convert a color in HSV space to RGB space.
  * \param hue the hue component (modified in place).
  * \param saturation the saturation component (modified in place).
  * \param value the value component (modified in place).
  */
-void SCRIBUS_API RGBTOHSV ( uchar& red, uchar& green, uchar& blue );
-/*! \brief Convert a color in RGB space to HLS space (Hue, Lightness, Saturation).
- * \param red the red component (modified in place).
- * \param green the green component (modified in place).
- * \param blue the blue component (modified in place).
- */
 void SCRIBUS_API HSVTORGB ( uchar& hue, uchar& saturation, uchar& value );
+/*! \brief Convert a color in RGB space to HLS space (Hue, Lightness, Saturation).
+ * \param red the red component.
+ * \param green the green component.
+ * \param blue the blue component.
+ */
 void SCRIBUS_API RGBTOHLS ( uchar& red, uchar& green, uchar& blue );
 /*! \brief Implement the HLS "double hex-cone".
  * \param n1 lightness fraction (?)

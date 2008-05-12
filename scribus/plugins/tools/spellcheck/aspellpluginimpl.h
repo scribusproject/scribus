@@ -63,7 +63,6 @@ private:
 		/*! brief Number of frames changed. */
 		uint fnframes;
 		/*!
-		  \fn Changes::Changes
 		  \author Gora Mohanty <gora@srijan.in>
 		  \brief Constructor for counts of items changes
 		  \param nwords: No. of words changed in this frame.
@@ -89,7 +88,6 @@ private:
 
 protected:
 	/*!
-	  \fn AspellPluginImpl::checkText
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Initializes the position in the current text, sets the current word, and starts spell-checking.
 	  \param None
@@ -97,7 +95,6 @@ protected:
 	*/
 	void checkText();
 	/*!
-	  \fn AspellPluginImpl::nextWord
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Skips to the beginning of the next word in 'fcontent', the text being spell-checked.
 	  \param None
@@ -105,7 +102,6 @@ protected:
 	*/
 	void nextWord();
 	/*!
-	  \fn AspellPluginImpl::setPreferences()
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Save user preferences
 	  \param language: Language for aspell dictionary
@@ -118,7 +114,6 @@ protected:
 			    const QString& encoding=Speller::Aspell::Suggest::kDEF_ENCODING,
 			    const QString& entry=kDEF_ASPELL_ENTRY);
 	/*!
-	  \fn AspellPluginImpl::getPreferences()
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Retrieve saved user preferences: language, jargon, encoding.
 	  \param None
@@ -126,7 +121,6 @@ protected:
 	*/
 	void getPreferences();
 	/*!
-	  \fn AspellPluginImpl::activateSpellGUI()
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Activates spell-checking GUI elements in spell-checking tab, i.e., everything except combo box at top
 	  \param None
@@ -134,7 +128,6 @@ protected:
 	*/
 	void activateSpellGUI();
 	/*!
-	  \fn AspellPluginImpl::deactivateSpellGUI()
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Deactivates spell-checking GUI elements in spell-checking tab, i.e., everything except combo box at top
 	  \param None
@@ -142,7 +135,6 @@ protected:
 	*/
 	void deactivateSpellGUI();
 	/*!
-	  \fn AspellPluginImpl::parseItem
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Base method to spell-check text in current frame.
 	  \param None
@@ -150,7 +142,6 @@ protected:
 	*/
 	void parseItem();
 	/*!
-	  \fn AspellPluginImpl::parseSelection
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Spell-check selected frames in the page
 	  \param None
@@ -158,7 +149,6 @@ protected:
 	*/
         void parseSelection();
 	/*!
-	  \fn AspellPluginImpl::spellCheckDone
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Called when spell-checking is completed. Pops up an information dialog.
 	  \param None
@@ -168,7 +158,6 @@ protected:
 
 public:
 	/*!
-	  \fn AspellPluginImpl::AspellPluginImpl
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Constructor for spell-checking plugin implementation.
 	  \param doc: Scribus doc
@@ -177,7 +166,6 @@ public:
 	*/
 	AspellPluginImpl(ScribusDoc* doc, QWidget* parent=NULL);
 	/*!
-	  \fn AspellPluginImpl::~AspellPluginImpl
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Destructor for spell-checking plugin implementation.
 	  \param None
@@ -187,7 +175,6 @@ public:
 
 public slots:
 	/*!
-	  \fn AspellPluginImpl::on_fcloseBtn_clicked
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Slot: Called when the "Close" button is clicked. Makes any pending replacements, and closes spell-check window.
 	  \param None
@@ -195,7 +182,6 @@ public slots:
 	*/
 	void on_fcloseBtn_clicked();
 	/*!
-	  \fn AspellPluginImpl::on_fchangeBtn_clicked
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Slot: Called when the "Change" button is clicked. Replaces the word being checked with the currently selected replacement.
 	  \param None
@@ -203,7 +189,6 @@ public slots:
 	*/
 	void on_fchangeBtn_clicked();
 	/*!
-	  \fn AspellPluginImpl::on_fchangeAllBtn_clicked
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Slot: Called when the "Change All" button is clicked. Replaces all occurrences of the word being checked with the currently selected replacement.
 	  \param None
@@ -211,7 +196,6 @@ public slots:
 	*/
 	void on_fchangeAllBtn_clicked();
 	/*!
-	  \fn AspellPluginImpl::on_fskipBtn_clicked
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Slot: Called when the "Skip" button is clicked. Skips the word currently being spell-checked.
 	  \param None
@@ -219,7 +203,6 @@ public slots:
 	*/
 	void on_fskipBtn_clicked();
 	/*!
-	  \fn AspellPluginImpl::on_fskipAllBtn_clicked
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Slot: Called when the "Skip All" button is clicked. Skips all occurences of the word currently being spell-checked.
 	  \param None
@@ -227,7 +210,6 @@ public slots:
 	*/
 	void on_fskipAllBtn_clicked();
 	/*!
-	  \fn AspellPluginImpl::on_faddWordBtn_clicked
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Slot: Called when the "Add word" button is clicked. Adds current suggestion to user's personal directory.
 	  \param None
@@ -235,7 +217,6 @@ public slots:
 	*/
 	void on_faddWordBtn_clicked();
 	/*!
-	  \fn AspellPluginImpl::on_flistReplacements_currentIndexChanged
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Slot: Called when an item in the list of aspell suggestions is highlighted. Changes the current word (in the text edit box).
 	  \param None
@@ -243,7 +224,6 @@ public slots:
 	*/
 	void on_flistReplacements_itemActivated();
 	/*!
-	  \fn AspellPluginImpl::on_flistDicts_currentIndexChanged
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Slot: Called when an item in the list of available aspell dictionaries is selected. Resets aspell dictionary to selected one.
 	  \param None

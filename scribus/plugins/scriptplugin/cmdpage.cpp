@@ -323,10 +323,11 @@ PyObject *scribus_getpagemargins(PyObject* /* self */)
 }
 
 /*!
- \fn import_addpage()
+ \fn import_addpages(int total, int pos)
  \author Alessandro Pira <alex@alessandropira.org>
  \date 11-11-2007
- \param total: number of pages to add, pos: position in the document
+ \param total number of pages to add, pos: position in the document
+ \param pos position of the imported pages
  \retval void
  */
 // This function is used by scribus_importpage() to add new pages
@@ -360,10 +361,11 @@ void import_addpages(int total, int pos) {
 }
 
 /*!
- \fn scribus_importpage()
+ \fn scribus_importpage(PyObject*,  PyObject* args)
  \author Alessandro Pira <alex@alessandropira.org>
  \date 11-11-2007
- \param PyObject-encoded ("fromDoc", (pageList), [create, imortwhere, importwherePage])
+ \param PyObject unused reference
+ \param args Python function args ("fromDoc", (pageList), [create, imortwhere, importwherePage])
  \retval Py_RETURN_NONE if ok, null if error
  */
 PyObject *scribus_importpage(PyObject* /* self */, PyObject* args)

@@ -70,7 +70,6 @@ class SWSyntaxHighlighter : public QSyntaxHighlighter
 
 		/*! Reimplementation of the Qt highligtion for simple cfg file
 		\param text string (one row) provided by text editor via QSyntaxHighlighter inheritance.
-		\param endStateOfLastPara how is the syntax left for next paragraph
 		 */
 		void highlightBlock(const QString &text);
 };

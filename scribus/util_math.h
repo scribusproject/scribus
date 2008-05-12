@@ -43,8 +43,8 @@ inline double SCRIBUS_API square(double);
 inline double SCRIBUS_API distance(double, double);
 /*! \brief Constrains an angle of rotation to 45 degree intervals
    Will make code simpler and reduce interval or provide as a parameter
-   \param double angle Angle in degrees
-   \param double contrain value in degrees
+   \param angle angle Angle in degrees
+   \param constrain contrain value in degrees
    \retval double Constrained angle
  */
 double SCRIBUS_API constrainAngle(double angle, double constrain);

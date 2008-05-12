@@ -60,7 +60,8 @@ public:
 		\date Jan 2005
 		\brief Constructor for an action that may require a specific menu type, such as a DLL menu
 		\param mType menuType, of Normal, RecentFile or DLL
-		\param icon Iconset for the action
+		\param icon16 Iconset for the action
+		\param icon22 Iconset for the action
 		\param menuText Text to be in the menus for this action
 		\param accel Accelerator QKeySequence
 		\param parent Parent of this action
@@ -68,7 +69,9 @@ public:
 		\param extraDouble extra double value
 		\param extraQString extra QString value
 	 */
-	ScrAction( ActionType mType, const QPixmap & icon16, const QPixmap & icon22, const QString &menuText, QKeySequence accel, QObject *parent, int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
+	ScrAction( ActionType mType, const QPixmap & icon16, const QPixmap & icon22,
+			   const QString &menuText, QKeySequence accel, QObject *parent,
+			   int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
 	/*!
 		\author Craig Bradney
 		\date Jan 2005

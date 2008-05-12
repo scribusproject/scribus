@@ -38,11 +38,12 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 
 /*!
- \fn About::About( QWidget* parent )
+ \fn About::About( QWidget* parent, AboutMode diaMode )
  \author Franz Schmid
  \date
  \brief Constructor for About dialog box
  \param parent QWidget pointer to parent window
+ \param diaMode a dialog mode. See AboutMode.
  \retval About dialog
  */
 About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )

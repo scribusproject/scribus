@@ -176,7 +176,7 @@ public:
 	/*! \brief Finds the fonts on the system
 	Must be run after: PrefsManager::setup()
 	Must be run before: PrefsManager::initDefaults()
-	\param ho a file name to write
+	\param showFontInfo flag to get extended fotn info
 	\retval bool true on finding 1 or more fonts */
 	bool GetAllFonts(bool showFontInfo);
 

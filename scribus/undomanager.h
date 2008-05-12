@@ -210,7 +210,7 @@ public:
 	 * @param targetPixmap Icon for the target on which this transaction works.
 	 * this icon will be drawn first when the action is presented in Action History
 	 * window and icon for the action will be drawn over this one.
-	 * @param name name for the transaction (f.e. "Move" would make with the above
+	 * @param actionName name for the transaction (f.e. "Move" would make with the above
 	 * "Move Selection")
 	 * The result can only be used for initializing a Transaction object, eg. on the stack:
 	 *      Transaction groupTransaction(undoManger->beginTransaction(...));
@@ -232,7 +232,7 @@ public:
 	 */
 	//void cancelTransaction();
 	
-	/**
+	/*
 	 * @brief Commit the current transaction.
 	 *
 	 * Current transaction will be commited and <code>UndoManager</code> will be switched
@@ -256,7 +256,7 @@ public:
 	
 	/**
 	 * @brief Returns true if in transaction mode if not will return false.
-	 * @return true if in transaction mode if not will return false
+	 * @return bool true if in transaction mode if not will return false
 	 */
 	bool isTransactionMode();
 	

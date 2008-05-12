@@ -129,8 +129,8 @@ int mainApp(ScribusQApp& app)
 \author Jean Ghali
 \date Sun Oct 30 14:30:30 CET 2005
 \brief describe the behavior to be adopted against specific exception
-\param DWORD exceptionCode the value returned by GetExceptionCode()
-\retval EXCEPTION_EXECUTE_HANDLER if handler is to be executed or EXCEPTION_CONTINUE_EXECUTION if not
+\param exceptionCode the value returned by GetExceptionCode()
+\retval LONG EXCEPTION_EXECUTE_HANDLER if handler is to be executed or EXCEPTION_CONTINUE_EXECUTION if not
 */
 LONG exceptionFilter(DWORD exceptionCode)
 {
@@ -171,8 +171,8 @@ LONG exceptionFilter(DWORD exceptionCode)
 \author Jean Ghali
 \date Sun Oct 30 14:30:30 CET 2005
 \brief return a string describing a specific exception
-\param DWORD exceptionCode the value returned by GetExceptionCode()
-\retval string describing the specified exception
+\param exceptionCode the value returned by GetExceptionCode()
+\retval QString describing the specified exception
 */
 static QString exceptionDescription(DWORD exceptionCode)
 {

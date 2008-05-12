@@ -240,10 +240,11 @@ bool FileLoader::LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QStri
 }
 
 /*!
- \fn bool FileLoader::LoadFile()
+ \fn bool FileLoader::LoadFile(ScribusDoc* currDoc)
  \author Franz Schmid
  \date
  \brief Loads the file "FileName" as a Scribus document
+ \param currDoc the current document
  \retval bool true when loading is succsessful, false otherwise
  */
 bool FileLoader::LoadFile(ScribusDoc* currDoc)

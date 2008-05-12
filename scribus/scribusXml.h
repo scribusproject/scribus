@@ -47,7 +47,7 @@ public:
 	\author Frederic Dubuy <effediwhy@gmail.com>, Petr Vanek
 	\date august 17th 2004, 10/03/2004
 	\brief Preliminary Scribus file validator. totally rewritten when fixing crash bug #1092. It's much simpler now.
-	\param fileName filename of file to test
+	\param file filename of file to test
 	\retval bool true = Scribus format file, false : not Scribus
 	*/
 	bool    ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);

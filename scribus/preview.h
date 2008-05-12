@@ -44,9 +44,8 @@ public:
 	\param parent QWidget *
 	\param vin ScribusView *
 	\param docu ScribusDoc *
-	\param tiffSep tiff separations
-	\param printer printer name
-	\param pngAlpha int
+	\param printer a name of the printer
+	\param engine a printer engine
 	*/
 	PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString printer, PrintEngine engine );
 	~PPreview() {};

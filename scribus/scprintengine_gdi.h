@@ -34,7 +34,6 @@ protected:
 	\param printerDC an initialized printer device context
 	\param devMode the DEVMODE structure used for creating printerDC
 	\param fileName file name to print into
-	\param forceGDI optional boolean. false as default.
 	\retval bool true on success 
 	\author Jean Ghali
 	*/

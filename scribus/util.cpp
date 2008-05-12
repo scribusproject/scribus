@@ -118,7 +118,7 @@ int System(const QString exename, const QStringList & args, const QString fileSt
 }
 
 // On Windows, return short path name, else return longPath;
-QString getShortPathName(QString longPath)
+QString getShortPathName(const QString & longPath)
 {
 	QString shortPath(longPath);
 #if defined _WIN32

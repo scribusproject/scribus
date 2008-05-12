@@ -86,13 +86,17 @@ QString SCRIBUS_API GetAttr(QDomElement *el, QString at, QString def="0");
    * If output file paths are provided, any existing file will be truncated and
    * overwritten.
    *
+	\param exename name of the executable
    * @param args Arguments, as per QProcess documentation.
    * @param fileStdErr Path to save error output to, or "" to discard.
-   * @param fileStdOut Path to save normal output to, or "" to discard.
+   * @param fileStdOut Path to save normal output to, or "" to discard
+	\param cancel a reference(!) to bool - flag used to kill the process
    * @return Program exit code, or 1 on failure.
    *
 */
-int SCRIBUS_API System(const QString exename, const QStringList & args, const QString fileStdErr = "", const QString fileStdOut = "", bool* cancel = NULL);
+int SCRIBUS_API System(const QString exename, const QStringList & args,
+					   const QString fileStdErr = "", const QString fileStdOut = "",
+					   bool* cancel = NULL);
 
 /*!
  \fn QString checkFileExtension(const QString &currName, const QString &extension)
@@ -101,11 +105,15 @@ int SCRIBUS_API System(const QString exename, const QStringList & args, const QS
  \param currName Current filename
  \param extension File extension to ensure exists
  */
-QString SCRIBUS_API checkFileExtension(const QString &, const QString &);
-//! \brief On Windows, return short path name, else return longPath;
-QString SCRIBUS_API getShortPathName(QString longPath);
+QString SCRIBUS_API checkFileExtension(const QString & currName, const QString & extension);
+/*! \brief On Windows, return short path name, else return longPath
+\param longPath the whole path
+\retval QString transformed path
+*/
+QString SCRIBUS_API getShortPathName(const QString & longPath);
 /*! \brief Creates a common name for page exports (SVG, bitmap, EPS).
    Output format is: documentname-page01.extension
+   \param currDoc a reference to the ScribusDoc document
    \param pageNo number of the exported page (begins from 1)
    \param extension "svg" or e.g. "png" etc.
    \retval QString standardized filename

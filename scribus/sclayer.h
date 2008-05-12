@@ -46,20 +46,19 @@ public:
 
 	/**
 	 * @brief  Get bottom layer
-	 * @param  level the layer level
 	 * @return bottom layer or NULL if list is empty
 	 */
 	const ScLayer* bottomLayer (void) const;
 
 	/**
 	 * @brief  Get top layer
-	 * @param  level the layer level
 	 * @return top layer or NULL if list is empty
 	 */
 	const ScLayer* topLayer (void) const;
 
 	/**
 	 * @brief  Get layer at a specific level, replace old Level2Layer in util.cpp
+	\param layer a reference to the ScLayer
 	 * @param  level the layer level
 	 * @return the desired layer or NULL if not found
 	 */
@@ -67,14 +66,12 @@ public:
 
 	/**
 	 * @brief  Get bottom layer
-	 * @param  level the layer level
 	 * @return bottom layer or NULL if list is empty
 	 */
 	ScLayer* bottom(void);
 
 	/**
 	 * @brief  Get top layer
-	 * @param  level the layer level
 	 * @return top layer or NULL if list is empty
 	 */
 	ScLayer* top(void);
@@ -88,21 +85,21 @@ public:
 
 	/**
 	 * @brief  Get layer with a specific number
-	 * @param  level the layer number
+	 * @param  nr the layer number
 	 * @return layer with the specified number or NULL if not found
 	 */
 	ScLayer* byNumber(const int nr);
 
 	/**
 	 * @brief  Get layer above the layer with the specified ID
-	 * @param  layer the layer
+	 * @param  nr number of the layer level
 	 * @return layer above the specific layer or top layer if no layer above specified level was found
 	 */
 	ScLayer* above (int nr);
 
 	/**
 	 * @brief  Get layer below the layer with the specified ID
-	 * @param  level the layer level
+	 * @param  nr the layer level
 	 * @return layer below the specific layer or bottom layer if no layer below specified level was found
 	 */
 	ScLayer* below (int nr);
@@ -116,14 +113,14 @@ public:
 
 	/**
 	 * @brief  Get layer with a specific number
-	 * @param  level the layer number
+	 * @param  nr the layer number
 	 * @return layer with the specified number or NULL if not found
 	 */
 	const ScLayer* layerByNumber (int nr) const;
 
 	/**
-	 * @brief  Get layer with a specific number
-	 * @param  level the layer number
+	 * @brief  Get layer with a specific name
+	 * @param  name the layer name
 	 * @return layer with the specified name or NULL if not found
 	 */
 	const ScLayer* layerByName (const QString& name) const;
@@ -165,7 +162,7 @@ public:
 
 	/**
 	 * @brief  Add a layer to the layer list
-	 * @param  layerName the layer name (may be empty)
+	 * @param  layer the layer object
 	 * @return the new layer id on success, -1 on failure
 	 */
 	int addLayer(const ScLayer& layer);
@@ -247,7 +244,7 @@ public:
 	 * @brief Set the layer locked via the layer number
 	 * @param layerNumber ID of the layer
 	 * @param isViewable true = layer is locked
-	 * @return Success or failure
+	 * @return bool Success or failure
 	 */
 	bool setLayerLocked(const int layerNumber, const bool isViewable);
 

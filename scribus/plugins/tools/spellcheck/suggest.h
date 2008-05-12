@@ -42,7 +42,6 @@ from 0.60 onwards
 	    std::string    fencoding;
 
 	    /*!
-	      \fn Speller::Aspell::Suggest::checkError
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Checks aspell speller for an error condition.
 	      \param None
@@ -51,7 +50,6 @@ from 0.60 onwards
 	    */
 	    void checkError() throw( std::runtime_error );
 	    /*!
-	      \fn Speller::Aspell::Suggest::checkConfigError
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Checks for aspell configuration error.
 	      \param None
@@ -60,7 +58,6 @@ from 0.60 onwards
 	    */
 	    void checkConfigError() throw( std::runtime_error );
 	    /*!
-	      \fn AspellPluginImpl::init
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Initializes aspell: called from constructors.
 	      \param lang: Language of aspell dictionary.
@@ -74,7 +71,6 @@ from 0.60 onwards
 		    const std::string& encoding)
 		    throw( std::invalid_argument, std::runtime_error );
 	    /*!
-	      \fn Speller::Aspell::Suggest::printWordList
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Prints list of words to stdout as UTF-8, with delimiter 'delim'.
 	      \param wlist: Pointer to start of word list.
@@ -85,7 +81,6 @@ from 0.60 onwards
 	    void printWordList(const AspellWordList* wlist,
 			       char delim='\n') throw(std::invalid_argument);
 	    /*!
-	      \fn Speller::Aspell::Suggest::setConfig
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Sets aspell speller configuration, as per current set of parameters.
 	      \param None 
@@ -94,7 +89,6 @@ from 0.60 onwards
 	    */
 	    void setConfig() throw( std::invalid_argument );
 	    /*!
-	      \fn Speller::Aspell::Suggest::storeWordList
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Stores list of words in 'replacement'.
 	      \param wlist: Pointer to start of word list.
@@ -126,7 +120,6 @@ from 0.60 onwards
 	    // "iso8859-1" for Basic Latin. See aspell lang.dat file for
 	    // actual encoding used for a given dictionary.
 	    /*!
-	      \fn Speller::Aspell::Suggest::Suggest
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Default constructor for spell-checking class.
 	      \param lang: Language of aspell dictionary.
@@ -141,7 +134,6 @@ from 0.60 onwards
 		    const std::string& encoding=kDEF_ENCODING)
 		    throw( std::invalid_argument, std::runtime_error );
 	    /*!
-	      \fn Speller::Aspell::Suggest::Suggest
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Constructor for spell-checking class.
 	      \param dinfo: aspell dictionary info structure.
@@ -154,7 +146,6 @@ from 0.60 onwards
 		    const std::string& encoding=kDEF_ENCODING)
 		    throw( std::invalid_argument, std::runtime_error );
 	    /*!
-	      \fn Speller::Aspell::Suggest::addPersonalList
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Adds 'word' to personal list.
 	      \param word: Word to be added to personal list.
@@ -164,7 +155,6 @@ from 0.60 onwards
 	    void addPersonalList(const std::string& word)
 		    throw( std::runtime_error );
 	    /*!
-	      \fn Speller::Aspell::Suggest::checkWord
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Spell-checks 'word'.
 	      \param word: Word to be checked.
@@ -172,7 +162,6 @@ from 0.60 onwards
 	    */
 	    bool checkWord(const std::string& word);
 	    /*!
-	      \fn Speller::Aspell::Suggest::checkWord
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Spell-checks 'word'.
 	      \param word: Word to be checked.
@@ -183,7 +172,6 @@ from 0.60 onwards
 			   std::vector<std::string>& replacement,
 			   bool always=true) throw( std::invalid_argument );
 	    /*!
-	      \fn Speller::Aspell::Suggest::clearSessionList
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Clears the current session word list.
 	      \param None
@@ -192,7 +180,6 @@ from 0.60 onwards
 	    */
 	    void clearSessionList() throw( std::runtime_error );
 	    /*!
-	      \fn Speller::Aspell::Suggest::getConfigOpt
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Gets value of configuration option, 'opt'.
 	      \param opt: Name of option whose setting is to be retrieved.
@@ -200,7 +187,6 @@ from 0.60 onwards
 	    */
 	    std::string getConfigOpt(const std::string& opt);
 	    /*!
-	      \fn Speller::Aspell::Suggest::getConfigOpt
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Gets value of list type configuration option, 'opt'.
 	      \param opt: Name of option whose setting is to be retrieved.
@@ -210,7 +196,6 @@ from 0.60 onwards
 	    void getConfigOpt(const std::string& opt,
 			      std::vector<std::string>& vals);
 	    /*!
-	      \fn Speller::Aspell::Suggest::ignoreWord
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Ignores 'word' for current session.
 	      \param word: Word to be ignored.
@@ -220,7 +205,6 @@ from 0.60 onwards
 	    void ignoreWord(const std::string& word)
 		    throw( std::runtime_error );
 	    /*!
-	      \fn AspellPluginImpl::listDicts
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Obtains list of available aspell dictionaries.
 	      \param vals: Array of aspell dictionary info structs
@@ -228,7 +212,6 @@ from 0.60 onwards
 	    */
 	    void listDicts(std::vector<AspellDictInfo>& vals);
 	    /*!
-	      \fn AspellPluginImpl::listDicts
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Obtains list of available aspell dictionaries.
 	      \param vals: Array of formatted strings for aspell dictionary entries. Each has format <name>--<lang>--<jargon>--<size>
@@ -236,7 +219,6 @@ from 0.60 onwards
 	    */
 	    void listDicts(std::vector<std::string>& vals);
 	    /*!
-	      \fn Speller::Aspell::Suggest::printMainList
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Prints main word list. WARNING: This causes a crash due to a bug in aspell, as of aspell version 0.60.3.
 	      \param None
@@ -245,7 +227,6 @@ from 0.60 onwards
 	    */
 	    void printMainList() throw( std::invalid_argument );
 	    /*!
-	      \fn Speller::Aspell::Suggest::printPersonalList
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Prints personal word list.
 	      \param None
@@ -254,7 +235,6 @@ from 0.60 onwards
 	    */
 	    void printPersonalList() throw( std::invalid_argument );
 	    /*!
-	      \fn Speller::Aspell::Suggest::printSessionList
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Prints session word list.
 	      \param None
@@ -263,7 +243,6 @@ from 0.60 onwards
 	    */
 	    void printSessionList() throw( std::invalid_argument );
 	    /*!
-	      \fn Speller::Aspell::Suggest::printSuggestions
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Spell-checks word, and prints suggested replacements.
 	      \param word: Word to be checked.
@@ -274,7 +253,6 @@ from 0.60 onwards
 	    bool printSuggestions(const std::string& word, bool always=true)
 		    throw( std::invalid_argument );
 	    /*!
-	      \fn Speller::Aspell::Suggest::resetConfig
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Resets aspell configuration, as per current set of parameters.
 	      \param None
@@ -285,7 +263,6 @@ from 0.60 onwards
 	    void resetConfig()
 		    throw( std::invalid_argument, std::runtime_error );
 	    /*!
-	      \fn Speller::Aspell::Suggest::resetConfig
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Resets aspell configuration, as per current set of parameters, after resetting lang, jargon, and encoding.
 	      \param lang: Language of aspell dictionary.
@@ -300,7 +277,6 @@ from 0.60 onwards
 			     const std::string& encoding=kDEF_ENCODING)
 		    throw( std::invalid_argument, std::runtime_error );
 	    /*!
-	      \fn Speller::Aspell::Suggest::saveLists
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Saves all word lists.
 	      \param None
@@ -309,7 +285,6 @@ from 0.60 onwards
 	    */
 	    void saveLists() throw( std::runtime_error );
 	    /*!
-	      \fn Speller::Aspell::Suggest::setConfigOpt
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Sets configuration option, 'opt' to value 'val'.
 	      \param opt: Option to be set.
@@ -320,7 +295,6 @@ from 0.60 onwards
 	    void setConfigOpt(const std::string& opt, const std::string& val)
 		    throw( std::invalid_argument );
 	    /*!
-	      \fn Speller::Aspell::Suggest::storeMainList
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Stores main word list. WARNING: This causes a crash due to a bug in aspell, as of aspell version 0.60.3.
 	      \param None
@@ -330,7 +304,6 @@ from 0.60 onwards
 	    void StoreMainList(std::vector<std::string>& replacement)
 		    throw( std::invalid_argument );
 	    /*!
-	      \fn Speller::Aspell::Suggest::storePersonalList
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Stores personal word list.
 	      \param None
@@ -340,7 +313,6 @@ from 0.60 onwards
 	    void StorePersonalList(std::vector<std::string>& replacement)
 		    throw( std::invalid_argument );
 	    /*!
-	      \fn Speller::Aspell::Suggest::storeSessionList
 	      \author Gora Mohanty <gora@srijan.in>
 	      \brief Stores session word list.
 	      \param None

@@ -28,8 +28,10 @@ class CollectForOutput : public QObject
 
 public:
 	/*! \brief Setup the attributes
-	\param withFonts collect/move fonts into output directory too
-	\param compressDoc use gzipped document
+	\param doc a Scribus doecument reference
+	\param withFontsA collect/move fonts into output directory too
+	\param withProfilesA collect/move CMS profiles into output directory too
+	\param compressDocA use gzipped document
 	*/
 	CollectForOutput(ScribusDoc* doc, bool withFontsA=false, bool withProfilesA=false, bool compressDocA=false);
 	~CollectForOutput(){};

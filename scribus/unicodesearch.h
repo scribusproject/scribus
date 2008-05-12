@@ -33,8 +33,7 @@ class SCRIBUS_API UnicodeSearch : public QDialog, public Ui::UnicodeSearch
 public:
 	/*! \brief QDialog like constructor
 	\param parent standard qt widget
-	\param name string name
-	\param modal is modal flag */
+	*/
 	UnicodeSearch(QWidget* parent = 0);
 	~UnicodeSearch(){};
 	
@@ -93,7 +92,6 @@ class SCRIBUS_API UnicodeChooseButton : public QPushButton
 public:
 	/*! \brief QWidget like constructor.
 	\param parent a QWidget parent
-	\param name string name of the widget
 	*/
 	UnicodeChooseButton(QWidget * parent);
 	~UnicodeChooseButton(){};

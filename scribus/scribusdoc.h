@@ -265,7 +265,7 @@ public:
 	/**
 	 * @brief Set the layer locked via the layer number
 	 * @param layerNumber Number of the layer
-	 * @param isViewable true = layer is locked
+	 * @param isLocked true = layer is locked
 	 * @return Success or failure
 	 */
 	bool setLayerLocked(const int layerNumber, const bool isLocked);
@@ -304,7 +304,7 @@ public:
 	/**
 	 * @brief Set the layer layerBlendMode via the layer number
 	 * @param layerNumber Number of the layer
-	 * @param trans layerBlendMode
+	 * @param blend layerBlendMode
 	 * @return Success or failure
 	 */
 	bool setLayerBlendMode(const int layerNumber, int blend);
@@ -585,19 +585,8 @@ public:
 	
 	/**
 	 * @brief Allow the user to create a frame easily with some simple placement and sizing options
-	 * @param type Type of frame. @sa PageItem::ItemType
-	 * @param locationType Whether the item is only created on the current page or a range 
-	 * @param positionType Location of frame. 0 for 0,0 of page. 1 for 0,0 of page margins, 2, for custom
-	 * @param sizeType Size of frame. 0 for page size, 1 for margin size, 2 for custom
-	 * @param fX X position
-	 * @param fY Y position
-	 * @param fWidth Width of frame
-	 * @param fHeight Height of frame
-	 * @param source Source image or text file for image or text frames
-	 * @param impsetup Import setup for text frames for gtGetText
-	 * @param columnCount Number of columns if created item is a text frame
-	 * @param columnGap Gap between columns if created item is a text frame
-	 * @return 
+	 * @param iafData a InsertAFrameData structure with params
+	 * @return int item id? FIXME
 	 */
 	int itemAddUserFrame(InsertAFrameData &iafData);
 

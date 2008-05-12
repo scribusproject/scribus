@@ -93,7 +93,7 @@ public:
 	static int platformDllSearchFlags();
 
 	/*! \brief Return a pointer to this instance.
-	 \Note: for now, returns a reference to (*ScMW->pluginManager); should
+	 \note for now, returns a reference to (*ScMW->pluginManager); should
 	 probably be turned into a singleton later. */
 	static PluginManager & instance();
 

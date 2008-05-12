@@ -36,7 +36,6 @@ public:
 		to search for missing Images.
 	\param parent Pointer to parent window
 	\param docu Pointer to the current Document
-	\param viewi Pointer to the current View
 	 */
 	PicStatus(QWidget* parent, ScribusDoc *docu);
 	~PicStatus() {};

@@ -647,7 +647,6 @@ public:
 	
 	/**
 	 * @brief Set the fill pattern transformation of the object.
-	 * @param matrix fill pattern transformation matrix for the object
 	 */
 	void setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
 

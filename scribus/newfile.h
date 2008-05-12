@@ -129,8 +129,7 @@ public slots:
 	void setPGsize(const QString &);
 	void setDS(int layout);
 	/*! Opens document on doubleclick
-	\param index no of the item
-	\author Petr Vanek <petr@yarpen.cz
+	\author Petr Vanek <petr@yarpen.cz>
 	*/
 	void recentDocListBox_doubleClicked();
 	void openFile();

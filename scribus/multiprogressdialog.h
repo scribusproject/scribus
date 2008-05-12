@@ -53,12 +53,10 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 		 * @param titleText Title of the dialog
 		 * @param cancelButtonText Text of the cancel button.. Cancel, Close, @sa CommontStrings::
 		 * @param parent Parent widget for the dialog, commonly ScMW
-		 * @param name
-		 * @param modal 
-		 * @param f 
-		 * @return 
+		 * @param f Qt GUI flags
 		 */
-		MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent=0, Qt::WFlags f=0);
+		MultiProgressDialog(const QString& titleText, const QString & cancelButtonText,
+							QWidget* parent=0, Qt::WFlags f=0);
 		~MultiProgressDialog();
 		
 		/**
