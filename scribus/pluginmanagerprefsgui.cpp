@@ -52,8 +52,8 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 		// load at start?
 		bool onStart = pluginManager.enableOnStartup(pName);
 		QCheckBox *onStartCheck = new QCheckBox(onStart ? CommonStrings::trYes : CommonStrings::trNo, this);
-		onStartCheck->setChecked(onStart);
 		pluginTable->setCellWidget(i, 3, onStartCheck);
+		onStartCheck->setChecked(onStart);
 
 		PluginManagerTableItem *i4 = new PluginManagerTableItem(pName);
 		pluginTable->setItem(i, 4, i4); // plugname for developers
