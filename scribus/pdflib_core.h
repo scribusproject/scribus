@@ -30,6 +30,11 @@ class ScText;
 
 #include "scribusstructs.h"
 
+#ifdef HAVE_PODOFO
+#include <podofo/podofo.h>
+#endif
+
+
 /**
  * PDFLibCore provides Scribus's implementation of PDF export functionality.
  *
@@ -56,7 +61,18 @@ public:
 	bool  exportAborted(void) const;
 
 private:
-
+	struct ShIm
+	{
+		int ResNum;
+		int Width;
+		int Height;
+		double reso;
+		double sxa;
+		double sya;
+		double xa;
+		double ya;
+	};
+	
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi);
 	void PDF_Begin_Page(const Page* pag, QPixmap pm = 0);
 	void PDF_End_Page();
@@ -108,9 +124,14 @@ private:
 
 	void       PutPage(const QString & in) { Content += in; }
 	void       StartObj(int nr);
-	void       WritePDFStream(const QString& cc);
-	void       WritePDFString(const QString& cc);
-	QString    PDFEncode(const QString & in);
+	uint       newObject() { return ObjCounter++; }
+	uint       WritePDFStream(const QString& cc);
+	uint       WritePDFString(const QString& cc);
+	void       writeXObject(uint objNr, QString dictionary, QByteArray stream);
+	uint       writeObject(QString type, QString dictionary);
+	uint       writeGState(QString dictionary) { return writeObject("/ExtGState", dictionary); }
+	uint       writeActions(const Annotation&);
+//	QString    PDFEncode(const QString & in);
 	QByteArray ComputeMD5(const QString& in);
 	QByteArray ComputeRC4Key(int ObjNum);
 	
@@ -123,9 +144,14 @@ private:
 	QString PDF_TransparenzStroke(PageItem *currItem);
 	bool    PDF_Annotation(PageItem *ite, uint PNr);
 	void    PDF_Form(const QString& im);
-	void    PDF_xForm(double w, double h, QString im);
+	void    PDF_xForm(uint objNr, double w, double h, QString im);
 	bool    PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN = false, const QString& Profil = "", bool Embedded = false, int Intent = 1, QString* output = NULL);
-
+	bool    PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, int Intent, ShIm& imgInfo, QString* output = NULL);
+#if HAVE_PODOFO
+	void copyPoDoFoObject(const PoDoFo::PdfObject* obj, uint scObjID, QMap<PoDoFo::PdfReference, uint>& importedObjects);
+	void copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::PdfReference>& referencedObjects, QMap<PoDoFo::PdfReference, uint>& importedObjects);
+#endif
+		
 	int bytesWritten() { return Spool.pos(); }
 
 	
@@ -187,17 +213,6 @@ private:
 		int ResNum;
 		QString ResName;
 		QString ICCArray;
-	};
-	struct ShIm
-	{
-		int ResNum;
-		int Width;
-		int Height;
-		double aufl;
-		double sxa;
-		double sya;
-		double xa;
-		double ya;
 	};
 	struct OCGInfo
 	{

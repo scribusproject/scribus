@@ -51,6 +51,8 @@ void ImageInfoRecord::init(void)
 	lowResScale = 1.0;
 	PDSpathData.clear();
 	RequestProps.clear();
+	numberOfPages = 1;
+	actualPageNumber = 0; // default
 	clipPath.resize(0);
 	usedPath.resize(0);
 	profileName.resize(0);

@@ -42,6 +42,7 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int gsRes, bool /*thumb
 	initialize();
 	m_imageInfoRecord.type = ImageTypePDF;
 	m_imageInfoRecord.exifDataValid = false;
+	m_imageInfoRecord.numberOfPages = 99; // FIXME
 	args.append("-r"+QString::number(gsRes));
 	args.append("-sOutputFile="+tmpFile);
 	args.append("-dFirstPage=1");

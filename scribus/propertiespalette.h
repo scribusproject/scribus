@@ -255,6 +255,7 @@ private slots:
 	void NewTracking();
 	void handleFlipH();
 	void handleFlipV();
+	void NewPage();
 	void ToggleKette();
 	void HChange();
 	void VChange();
@@ -356,6 +357,7 @@ protected:
 	QVBoxLayout* Layout24;
 	QHBoxLayout* Layout18;
 	QGridLayout* Layout12_2;
+	QGridLayout* imagePageNumberSelector; 
 	QHBoxLayout* NameGroupLayout;
 	QGridLayout* GeoGroupLayout;
 	QGridLayout* LayerGroupLayout;
@@ -431,6 +433,7 @@ protected:
 	QLabel* ChBaseTxt;
 	QLabel* ScaleTxt;
 	QLabel* ScaleTxtV;
+	QLabel* imagePageNumberLabel;
 	QLabel* imgDPIXLabel;
 	QLabel* imgDPIYLabel;
 	QLabel* startArrowText;
@@ -556,6 +559,7 @@ protected:
 	ScrSpinBox* normWordTrackingSpinBox;
 	ScrSpinBox* minGlyphExtSpinBox;
 	ScrSpinBox* maxGlyphExtSpinBox;
+	QSpinBox* imagePageNumber;
 	QSpinBox* DCol;
 	QSpinBox* TransSpin;
 

@@ -130,6 +130,8 @@ public:
 	bool exifDataValid;
 	int  lowResType; /* 0 = full Resolution, 1 = 72 dpi, 2 = 36 dpi */
 	double lowResScale;
+	int numberOfPages;
+	int actualPageNumber;
 	QMap<QString, FPointArray> PDSpathData;
 	QMap<int, ImageLoadRequest> RequestProps;
 	QString clipPath;

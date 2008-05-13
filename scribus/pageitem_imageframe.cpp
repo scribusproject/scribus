@@ -415,6 +415,13 @@ QString PageItem_ImageFrame::infoDescription()
 		else
 			htmlText.append(colorSpaceText(pixm.imgInfo.colorspace));
 		htmlText.append("<br/>");
+		if (pixm.imgInfo.numberOfPages > 1)
+		{
+			if (pixm.imgInfo.actualPageNumber > 0)
+				htmlText.append(ScribusView::tr("Page: ") + QString::number(pixm.imgInfo.actualPageNumber) + "/" + QString::number(pixm.imgInfo.numberOfPages)+ "<br/>");
+			else
+				htmlText.append(ScribusView::tr("Pages: ") + QString::number(pixm.imgInfo.numberOfPages)+ "<br/>");
+		}
 	}
 	else
 	{

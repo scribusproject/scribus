@@ -445,6 +445,8 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 	initialize();
 	m_imageInfoRecord.type = ImageTypeEPS;
 	m_imageInfoRecord.exifDataValid = false;
+	if (ext == "ps")
+		m_imageInfoRecord.numberOfPages = 98; // FIXME
 	doThumbnail = thumbnail;
 	colorPlates2.clear();
 	colorPlates.clear();

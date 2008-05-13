@@ -880,6 +880,18 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	pageLayout_4->setSpacing( 5 );
 	pageLayout_4->setMargin( 0 );
 
+	imagePageNumberSelector = new QGridLayout();
+	imagePageNumberSelector->setSpacing( 5 );
+	imagePageNumberSelector->setMargin( 0 );
+	imagePageNumber = new QSpinBox( page_4 );
+	imagePageNumber->setMinimum(0);
+	imagePageNumber->setSpecialValueText(tr( "Auto" ));
+	imagePageNumberLabel = new QLabel( "&Pagenumber:", page_4 );
+	imagePageNumberLabel->setBuddy(imagePageNumber);
+	imagePageNumberSelector->addWidget( imagePageNumberLabel, 0, 0 );
+	imagePageNumberSelector->addWidget( imagePageNumber, 0, 1);
+	pageLayout_4->addLayout( imagePageNumberSelector );
+	
 	FreeScale = new QRadioButton( "&Free Scaling", page_4 );
 	FreeScale->setChecked( true );
 	pageLayout_4->addWidget( FreeScale );
@@ -1115,6 +1127,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(LineSp, SIGNAL(valueChanged(double)), this, SLOT(NewLineSpacing()));
 	connect(Size, SIGNAL(valueChanged(double)), this, SLOT(NewSize()));
 	connect(Extra, SIGNAL(valueChanged(double)), this, SLOT(NewTracking()));
+	connect(imagePageNumber, SIGNAL(valueChanged(int)), this, SLOT(NewPage()));
 	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	connect(imageXOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
@@ -1283,8 +1296,13 @@ void PropertiesPalette::SelTab(int t)
 		Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
 		Cpal->gradEdit->Preview->updateDisplay();
 	}
-	if ((HaveDoc) && (HaveItem) && (t == idShapeItem))
-		DCol->setMaximum(qMax(qRound(CurItem->width() / qMax(CurItem->ColGap, 10.0)), 1));
+	if ((HaveDoc) && (HaveItem))
+	{
+		if (t == idShapeItem)
+			DCol->setMaximum(qMax(qRound(CurItem->width() / qMax(CurItem->ColGap, 10.0)), 1));
+		if (t == idImageItem)
+			imagePageNumber->setMaximum(CurItem->pixm.imgInfo.numberOfPages);
+	}
 }
 
 void PropertiesPalette::setDoc(ScribusDoc *d)
@@ -1541,6 +1559,10 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		DTop->setValue(i2->textToFrameDistTop()*m_unitRatio);
 		DBottom->setValue(i2->textToFrameDistBottom()*m_unitRatio);
 		DRight->setValue(i2->textToFrameDistRight()*m_unitRatio);
+	}
+	if (CurItem->asImageFrame())
+	{
+		imagePageNumber->setMaximum(CurItem->pixm.imgInfo.numberOfPages);
 	}
 	Revert->setChecked(CurItem->reversed());
 	setTextFlowMode(CurItem->textFlowMode());
@@ -3100,6 +3122,14 @@ void PropertiesPalette::NewCols()
 	setCols(CurItem->Cols, CurItem->ColGap);
 	CurItem->update();
 	emit DocChanged();
+}
+
+void PropertiesPalette::NewPage()
+{
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	CurItem->pixm.imgInfo.actualPageNumber = imagePageNumber->value();
+	CurItem->update();
 }
 
 void PropertiesPalette::NewGap()
