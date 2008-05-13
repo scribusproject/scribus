@@ -132,6 +132,25 @@ IF (_machine_ppc_64)
     SET(ARCH_PPC_64 1)
 ENDIF (_machine_ppc_64)
 
+STRING(REGEX MATCH "(sparc-*)" _machine_sparc "${MACHINE}")
+IF (_machine_sparc)
+    MESSAGE(STATUS "Found target Sparc")
+    SET(ARCH_SPARC 1)
+ENDIF (_machine_sparc)
+
+STRING(REGEX MATCH "(sparcv9-*)" _machine_sparcv9 "${MACHINE}")
+IF (_machine_sparcv9)
+    MESSAGE(STATUS "Found target Sparc v9")
+    SET(ARCH_SPARCV9 1)
+ENDIF (_machine_sparcv9)
+
+STRING(REGEX MATCH "(sparc64-*)" _machine_sparc64 "${MACHINE}")
+IF (_machine_sparc64)
+    MESSAGE(STATUS "Found target Sparc64")
+    SET(ARCH_SPARC64 1)
+    SET(ARCH64BIT 1)
+ENDIF (_machine_sparc64)
+
 #convert any 64 bit build into generic 64 tag for below
 IF (ARCH_X86_64 OR ARCH_SPARC_64 OR ARCH_MIPS_64 OR ARCH_PPC_64) 
   SET(ARCH64BIT 1)
