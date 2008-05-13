@@ -13,7 +13,13 @@ INCLUDE (CheckIncludeFiles)
 # Set Compiler Flags
 # SET(CMAKE_CXX_FLAGS "${GTK2_CFLAGS} ${cairo_CFLAGS} -Wall")
 SET(CMAKE_CXX_FLAGS "-Wall")
-SET(CMAKE_MAKE_PROGRAM "${CMAKE_MAKE_PROGRAM} -j2")
+SET(CMAKE_MAKE_PROGRAM "${CMAKE_MAKE_PROGRAM}")
+# We need to pass -fPIC only to lib2geom on amd64 - avoid it elsewhere see: http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=3
+
+STRING(REGEX MATCH "(x86_64-*)|(X86_64-*)|(AMD64-*)|(amd64-*)" _machine_x86_64 "${MACHINE}")
+IF (_machine_x86_64)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fPIC")
+ENDIF (_machine_x86_64)
 
 SET(CMAKE_MAJOR_MINOR "${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}")
 IF("${CMAKE_MAJOR_MINOR}" STREQUAL "2.2")
