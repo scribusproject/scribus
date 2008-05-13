@@ -611,6 +611,7 @@ ADD_CUSTOM_TARGET(uninstall
 
 #Add our source subdirs
 ADD_SUBDIRECTORY(scribus)
+ADD_SUBDIRECTORY(translations/qm)
 
 #Install our READMEs etc.
 INSTALL(FILES
