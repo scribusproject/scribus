@@ -6106,7 +6106,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PoDoFo::PdfMemoryOutputStream outMemStream ( 1 );
 //			PoDoFo::PdfFilteredEncodeStream outMemStream (outMemStreamRaw, ePdfFilter_FlateDecode, false); 
 			PoDoFo::PdfArray carray(page->GetContents()->GetArray());
-			for(unsigned int ci = 0; ci < carray.GetSize(); ++ci)
+			for(unsigned int ci = 0; ci < carray.size(); ++ci)
 			{
 				if(carray[ci].HasStream())
 				{
