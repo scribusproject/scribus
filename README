@@ -12,6 +12,10 @@ CHANGES 1.3.3.x to 1.3.5
       -DCMAKE_INSTALL_PREFIX=/path/to/install/dir
    argument to CMake to set where Scribus should be installed.
 
+3) In some cases Scribus 1.3.3 uses wrong character sizes when layouting text. 
+   This might cause differences in linebreaking if you open a 1.3.3.x
+   document in 1.3.5.
+
 CHANGES 1.2.x to 1.3.x
 ======================
 
@@ -111,7 +115,7 @@ Please see bugs.scribus.net for a more comprehensive list of known issues.
 PSD/CMYK TIFF Support
 ---------------------
 
-1.3.2 now has support for CMYK PSD and 8-bit CMYK TIFF support. RGB PSD and
+1.3.2+ now has support for CMYK PSD and 8-bit CMYK TIFF support. RGB PSD and
 16-bit TIFF support is being developed. PSD and TIFF support includes layers, ICC
 profiles and embedding clipping paths. CMYKA is supported in Scribus 1.3.4+
 
@@ -157,12 +161,15 @@ See the "ICC Profiles for colour management" section above for details.
 
 Also see the section entitled `GHOSTSCRIPT' above.
 
-SuSE 10.x
+SuSE 
 --------
 
 To enable direct CUPS support which recommended, make sure both cups-devel and
 openssl-devel are installed. Suse enables ssl support in CUPS. The current
 Scribus config checks do not test for this. See the BUILDING file for details.
+
+The Scribus Team builds rpms for all current releases and recommends their use
+over self compiling.
 
 Red Hat / Fedora
 ----------------
