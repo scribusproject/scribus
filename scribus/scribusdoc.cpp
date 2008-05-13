@@ -6302,19 +6302,21 @@ void ScribusDoc::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
 	if ((newMaxX != maxCanvasCoordinate.x()) || (newMaxY != maxCanvasCoordinate.y())
 	|| (newMinX != minCanvasCoordinate.x()) || (newMinY != minCanvasCoordinate.y()))
 	{
-		//Save the old values for the emit, but update now to ensure we are all ready
-		double oldMinX=minCanvasCoordinate.x();
-		double oldMinY=minCanvasCoordinate.y();
+//		//Save the old values for the emit, but update now to ensure we are all ready
+//		double oldMinX=minCanvasCoordinate.x();
+//		double oldMinY=minCanvasCoordinate.y();
 		maxCanvasCoordinate = FPoint(newMaxX, newMaxY);
 		minCanvasCoordinate = FPoint(newMinX, newMinY);
+		regionsChanged()->update(QRectF());
+
 		//CB TODO Make a list of views we belong to and make this the doc's active view via an internal*
-		if (ScCore->usingGUI()) 
-		{
-			// Why using a signal here ? much slower than a direct call
+//		if (ScCore->usingGUI()) 
+//		{
+//			// Why using a signal here ? much slower than a direct call
 //			emit canvasAdjusted(newMaxX - newMinX, newMaxY - newMinY, oldMinX - newMinX, oldMinY - newMinY);
 //FIXME: stop using m_View
-			m_View->adjustCanvas(newMaxX - newMinX, newMaxY - newMinY, oldMinX - newMinX, oldMinY - newMinY);
-		}
+//			m_View->adjustCanvas(newMaxX - newMinX, newMaxY - newMinY, oldMinX - newMinX, oldMinY - newMinY);
+//		}
 	}
 }
 

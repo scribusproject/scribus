@@ -423,6 +423,25 @@ void ScribusView::togglePreview()
 
 void ScribusView::changed(QRectF re)
 {
+	double scale = m_canvas->scale();
+	int newCanvasWidth = qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * scale);
+	int newCanvasHeight = qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * scale);
+	if (!re.isValid() && // dont check this all the time
+		( m_oldCanvasWidth != newCanvasWidth || m_oldCanvasHeight != newCanvasHeight))
+	{
+		QSize maxViewport = maximumViewportSize();
+		horizontalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.x() * scale),
+										qRound(Doc->maxCanvasCoordinate.x() * scale) - maxViewport.width());
+		verticalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.y() * scale),
+									  qRound(Doc->maxCanvasCoordinate.y() * scale) - maxViewport.height());
+		/*	qDebug() << "adjustCanvas [" << m_oldCanvasWidth << m_oldCanvasHeight << " ] -> [" << newCanvasWidth << newCanvasHeight 
+				<< "] (" << Doc->minCanvasCoordinate.x() << Doc->minCanvasCoordinate.y() << ") - ("
+				<< Doc->maxCanvasCoordinate.x() << Doc->maxCanvasCoordinate.y() << ") @" << scale << maxViewport;
+		*/
+		widget()->resize(newCanvasWidth, newCanvasHeight);	
+		m_oldCanvasWidth = newCanvasWidth;
+		m_oldCanvasHeight = newCanvasHeight;
+	}
 	if (!Doc->isLoading() && !m_ScMW->ScriptRunning)
 	{
 //		qDebug() << "ScribusView-changed(): changed region:" << re;
@@ -2506,6 +2525,7 @@ QRectF ScribusView::visibleCanvas() const
   Legacy.
   Now ignores the parameters and just adjusts the canvas widget according to min/maxCanvasCoordinate
  */
+/*
 void ScribusView::adjustCanvas(double width, double height, double dX, double dY)
 {
 	QSize maxViewport = maximumViewportSize();
@@ -2534,7 +2554,7 @@ void ScribusView::adjustCanvas(double width, double height, double dX, double dY
 		updatesOn(updback);
 	}
 //	evSpon = false;
-}
+}*/
 
 void ScribusView::setMenTxt(int Seite)
 {

@@ -304,7 +304,7 @@ public slots: // Public slots
 	void PasteToPage();
 //	void PasteRecentToPage(int id);
 	void TextToPath();
-	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
+//	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
 	
 private: // Private attributes
 	int m_previousMode;
@@ -318,6 +318,8 @@ private: // Private attributes
 	int  oldX;
 	int  oldY;
 	int  m_groupTransactions;
+	int m_oldCanvasHeight;
+	int m_oldCanvasWidth;
 	UndoTransaction*  m_groupTransaction;
 	bool _isGlobalMode;
 //	bool forceRedraw;
