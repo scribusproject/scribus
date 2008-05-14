@@ -65,6 +65,7 @@ TransformDialog::TransformDialog(QWidget* parent, ScribusDoc *doc) : QDialog(par
 	rotationValue->setSuffix(unitGetSuffixFromIndex(6));
 	horizontalSkew->setSuffix(unitGetSuffixFromIndex(6));
 	verticalSkew->setSuffix(unitGetSuffixFromIndex(6));
+	linkSkew->setChecked(true);
 	numberOfCopies->setValue(0);
 	basePoint->setTitle( tr("Origin"));
 	basePoint->RotationGroup->button(m_doc->RotMode)->setChecked(true);
