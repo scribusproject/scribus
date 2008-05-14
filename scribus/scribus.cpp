@@ -2598,6 +2598,10 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["toolsPDFAnnotText"]->setEnabled(true);
 		pagePalette->enablePalette(true);
 	}
+	if (doc->layerCount() > 1)
+		scrMenuMgr->setMenuEnabled("ItemLayer", true);
+	else
+		scrMenuMgr->setMenuEnabled("ItemLayer", false);
 }
 
 void ScribusMainWindow::HaveNewDoc()
@@ -2674,6 +2678,10 @@ void ScribusMainWindow::HaveNewDoc()
 	bool setter = doc->Pages->count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
+	if (doc->layerCount() > 1)
+		scrMenuMgr->setMenuEnabled("ItemLayer", true);
+	else
+		scrMenuMgr->setMenuEnabled("ItemLayer", false);
 
 	//Update palettes
 	updateActiveWindowCaption(doc->DocName);
@@ -8881,6 +8889,10 @@ void ScribusMainWindow::changeLayer(int )
 		scrActions["toolsPDFAnnotText"]->setEnabled(setter);
 	}
 	scrActions["toolsPDFAnnotLink"]->setEnabled(setter);
+	if (doc->layerCount() > 1)
+		scrMenuMgr->setMenuEnabled("ItemLayer", true);
+	else
+		scrMenuMgr->setMenuEnabled("ItemLayer", false);
 }
 
 void ScribusMainWindow::showLayer()
