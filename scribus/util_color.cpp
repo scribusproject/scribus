@@ -638,7 +638,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 							FarNam = FarNam.remove(0,1);
 							FarNam = FarNam.remove(FarNam.length()-1,1);
 							FarNam = FarNam.simplified();
-							cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+							cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 							cc.setSpotColor(true);
 							if (!EditColors.contains(FarNam))
 								EditColors.insert(FarNam, cc);
@@ -659,7 +659,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 								FarNam = FarNam.remove(0,1);
 								FarNam = FarNam.remove(FarNam.length()-1,1);
 								FarNam = FarNam.simplified();
-								cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+								cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 								cc.setSpotColor(true);
 								if (!EditColors.contains(FarNam))
 									EditColors.insert(FarNam, cc);
@@ -680,7 +680,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 							FarNam = FarNam.remove(0,1);
 							FarNam = FarNam.remove(FarNam.length()-1,1);
 							FarNam = FarNam.simplified();
-							cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y));
+							cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y));
 							if (!EditColors.contains(FarNam))
 								EditColors.insert(FarNam, cc);
 							while (!ts.atEnd())
@@ -700,7 +700,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 								FarNam = FarNam.remove(0,1);
 								FarNam = FarNam.remove(FarNam.length()-1,1);
 								FarNam = FarNam.simplified();
-								cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y));
+								cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y));
 								if (!EditColors.contains(FarNam))
 									EditColors.insert(FarNam, cc);
 							}
@@ -737,7 +737,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 											FarNam = tmp.mid(0, en);
 											FarNam = FarNam.simplified();
 										}
-										cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+										cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 										cc.setSpotColor(true);
 										if (!EditColors.contains(FarNam))
 											EditColors.insert(FarNam, cc);
