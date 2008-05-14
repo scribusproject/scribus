@@ -1387,7 +1387,8 @@ void PageItem_TextFrame::layout()
 							tglyph->xadvance = 0;
 						}
 					}
-					hl->glyph.xadvance = current.xPos - tabs.xPos;
+					current.xPos -= (legacy ? 1.0 : 0.0);
+					hl->glyph.xadvance = current.xPos + wide + kernVal - tabs.xPos;
 //					wide = current.xPos - RTabX;
 					tabs.charIndex = a;
 				}
@@ -1413,8 +1414,7 @@ void PageItem_TextFrame::layout()
 			else // other tabs.active			
 			{
 				current.xPos = qMax(current.xPos, current.colLeft);
-			}
-			
+			}		
 			
 			//FIXME: asce / desc set correctly?
 			if (legacy && 
