@@ -529,6 +529,8 @@ void PluginManager::languageChange()
 				pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
 				if (pluginAction != 0)
 					pluginAction->setText( ai.text );
+				if ((!ai.menu.isEmpty()) && (!ai.subMenuName.isEmpty()))
+					ScCore->primaryMainWindow()->scrMenuMgr->setText(ai.menu, ai.subMenuName);
 			}
 		}
 	}
