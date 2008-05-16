@@ -88,19 +88,19 @@ bool AspellPlugin::run(ScribusDoc* doc, QString target)
 }
 
 // Low level plugin API
-int aspellplugin_getPluginAPIVersion()
+int x_aspellplugin_getPluginAPIVersion()
 {
 	return PLUGIN_API_VERSION;
 }
 
-ScPlugin* aspellplugin_getPlugin()
+ScPlugin* x_aspellplugin_getPlugin()
 {
 	AspellPlugin* plug = new AspellPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
 
-void aspellplugin_freePlugin(ScPlugin* plugin)
+void x_aspellplugin_freePlugin(ScPlugin* plugin)
 {
 	AspellPlugin* plug = dynamic_cast<AspellPlugin*>(plugin);
 	Q_ASSERT(plug);

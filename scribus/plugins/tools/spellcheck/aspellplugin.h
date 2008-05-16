@@ -33,8 +33,8 @@ class PLUGIN_API AspellPlugin : public ScActionPlugin
 		// Special features (none)
 };
 
-extern "C" PLUGIN_API int aspellplugin_getPluginAPIVersion();
-extern "C" PLUGIN_API ScPlugin* aspellplugin_getPlugin();
-extern "C" PLUGIN_API void aspellplugin_freePlugin(ScPlugin* plugin);
+extern "C" PLUGIN_API int x_aspellplugin_getPluginAPIVersion();
+extern "C" PLUGIN_API ScPlugin* x_aspellplugin_getPlugin();
+extern "C" PLUGIN_API void x_aspellplugin_freePlugin(ScPlugin* plugin);
 
 #endif
