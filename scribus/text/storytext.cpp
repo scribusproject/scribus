@@ -203,7 +203,7 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 			continue;
 		int len = i - cstyleStart;
 		if (len > 0) {
-			insertChars(pos, other.text(cstyleStart, len));
+			insertCharsWithSmartHyphens(pos, other.textWithSmartHyphens(cstyleStart, len));
 			applyCharStyle(pos, len, otherDefault.charStyle());
 			applyCharStyle(pos, len, cstyle);
 			pos += len;
@@ -229,7 +229,7 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 	}
 	int len = otherEnd - cstyleStart;
 	if (len > 0) {
-		insertChars(pos, other.text(cstyleStart, len));
+		insertCharsWithSmartHyphens(pos, other.textWithSmartHyphens(cstyleStart, len));
 		applyCharStyle(pos, len, otherDefault.charStyle());
 		applyCharStyle(pos, len, cstyle);
 		pos += len;
@@ -345,6 +345,62 @@ void StoryText::insertChars(int pos, QString txt, bool applyNeighbourStyle) //, 
 	invalidate(pos, pos + txt.length());
 }
 
+void StoryText::insertCharsWithSmartHyphens(int pos, QString txt, bool applyNeighbourStyle)
+{
+	if (pos < 0)
+		pos += length()+1;
+
+	assert(pos >= 0);
+	assert(pos <= length());
+	
+	if (txt.length() == 0)
+		return;
+	
+	const StyleContext* cStyleContext = paragraphStyle(pos).charStyleContext();
+
+	ScText clone;
+	if (applyNeighbourStyle)
+	{
+		int referenceChar = qMax(0, qMin(pos, length()-1));
+		clone.applyCharStyle(charStyle(referenceChar));
+		clone.setEffects(ScStyle_Default);
+	}
+
+	int inserted = 0;
+	for (int i = 0; i < txt.length(); ++i) 
+	{
+		QChar ch = txt.at(i);
+		int  len = length();
+		bool insert = true; 
+		if (ch == SpecialChars::SHYPHEN && len > 0) {
+			ScText* lastItem = this->item(len-1);
+			// double SHY means user provided SHY, single SHY is automatic one
+			if (lastItem->effects() & ScStyle_HyphenationPossible)
+				lastItem->setEffects(lastItem->effects() & ~ScStyle_HyphenationPossible);
+			else
+			{
+				lastItem->setEffects(lastItem->effects() | ScStyle_HyphenationPossible);
+				insert = false;
+			}
+		}
+		if (insert)
+		{
+			ScText * item = new ScText(clone);
+			item->ch = ch;
+			item->setContext(cStyleContext);
+			d->insert(len, item);
+			d->len++;
+			if (item->ch == SpecialChars::PARSEP) {
+				insertParSep(len);
+			}
+			++inserted;
+		}
+	}
+
+	d->len = d->count();
+	invalidate(pos, pos + inserted);
+}
+
 void StoryText::replaceChar(int pos, QChar ch)
 {
 	if (pos < 0)
@@ -430,6 +486,28 @@ QString StoryText::text(int pos, uint len) const
 		result += that->d->at(i)->ch;
 	}
 
+	return result;
+}
+
+QString StoryText::textWithSmartHyphens(int pos, uint len) const
+{
+	QString result("");
+	int lastPos = pos;
+
+	len = qMin((uint) (length() - pos), len);
+	for (int i = pos; i < pos+signed(len); ++i)
+	{
+		if (this->charStyle(i).effects() & ScStyle_HyphenationPossible 
+			// duplicate SHYPHEN if already present to indicate a user provided SHYPHEN:
+			|| this->text(i) == SpecialChars::SHYPHEN)
+		{
+			result += text(lastPos, i + 1 - lastPos);
+			result += SpecialChars::SHYPHEN;
+			lastPos = i+1;
+		}
+	}
+	if (lastPos < pos+signed(len))
+		result += text(lastPos, pos+signed(len) - lastPos);
 	return result;
 }
 
@@ -1288,7 +1366,7 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			// something new, write pending chars
 			if  (i - lastPos > 0)
 			{
-				handler.chars(text(lastPos, i-lastPos));
+				handler.chars(textWithSmartHyphens(lastPos, i-lastPos));
 			}
 			lastPos = i;
 		}
@@ -1352,7 +1430,7 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	}
 	
 	if  (length() - lastPos > 0)
-		handler.chars(text(lastPos, length()-lastPos));
+		handler.chars(textWithSmartHyphens(lastPos, length()-lastPos));
 	handler.end("span");
 	handler.end("p");
 	
@@ -1369,8 +1447,38 @@ class AppendText_body : public Action_body
 public:	
 	void chars(const Xml_string& txt)
 	{
+		QChar chr;
+		int   lastPos = 0, len;
 		StoryText* obj = this->dig->top<StoryText>();
-		obj->insertChars(-1, txt ); 
+		for (int i = 0; i < txt.length(); ++i)
+		{
+			chr = txt.at(i);
+			if (chr == SpecialChars::SHYPHEN && i > 0)
+			{
+				int toInsert = i - lastPos;
+				if (toInsert > 0)
+					obj->insertChars(obj->length(), txt.mid(lastPos, toInsert));
+				len = obj->length();
+				ScText* lastItem = obj->item(len-1);
+				// double SHY means user provided SHY, single SHY is automatic one
+				if (lastItem->effects() & ScStyle_HyphenationPossible)
+				{
+					lastItem->setEffects(lastItem->effects() & ~ScStyle_HyphenationPossible);
+					obj->insertChars(len, QString(chr));
+				}
+				else
+				{
+					lastItem->setEffects(lastItem->effects() | ScStyle_HyphenationPossible);
+				}
+				lastPos = i + 1;
+			} 
+		}
+		if (lastPos < txt.length())
+		{
+			QString ins = (lastPos == 0) ? txt : txt.right(txt.length() - lastPos);
+			len = obj->length();
+			obj->insertChars(len, ins);
+		}
 	}
 };
 

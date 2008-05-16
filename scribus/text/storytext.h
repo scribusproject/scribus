@@ -263,6 +263,9 @@ private:
 	bool m_validLayout;
 	double m_magicX;
 	int m_lastMagicPos;
+
+	QString textWithSmartHyphens (int pos, uint len) const;
+	void    insertCharsWithSmartHyphens(int pos, QString txt, bool applyNeighbourStyle = false);
 	
  	/// mark these runs as invalid, ie. need itemize and shaping
  	void invalidate(int firstRun, int lastRun);
