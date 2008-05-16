@@ -82,6 +82,7 @@ for which a new license (GPL+exception) is in place.
 #include "applytemplatedialog.h"
 #include "arrowchooser.h"
 #include "autoform.h"
+#include "basepointwidget.h"
 #include "bookmarkpalette.h"
 #include "canvasmode.h"
 #include "charselect.h"
@@ -3098,7 +3099,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		break;
 	}
 	doc->CurrentSel = SelectedType;
-	propertiesPalette->RotationGroup->button(doc->RotMode)->setChecked(true);
+	propertiesPalette->RotationGroup->setCheckedId(doc->RotMode);
 	if (docSelectionCount > 1)
 	{
 		if (!doc->m_Selection->itemsAreSameType())

@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include "arrowchooser.h"
 #include "autoform.h"
+#include "basepointwidget.h"
 #include "commonstrings.h"
 #include "colorlistbox.h"
 #include "sccolorengine.h"
@@ -228,7 +229,8 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	GeoGroupLayout->addWidget( Rot, 4, 1 );
 	basepointLabel = new QLabel( "Basepoint:", GeoGroup );
 	GeoGroupLayout->addWidget( basepointLabel, 5, 0 );
-	RotationGroup = new QButtonGroup( GeoGroup );
+	RotationGroup = new BasePointWidget(GeoGroup, 0);
+/*	RotationGroup = new QButtonGroup( GeoGroup );
 	Layout12 = new QGridLayout;
 	Layout12->setMargin(0);
 	Layout12->setSpacing(0);
@@ -291,7 +293,8 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	BottomRight->setText( "" );
 	BottomRight->setMaximumSize( BottomRight->iconSize() );
 	Layout12->addWidget( BottomRight, 2, 2, Qt::AlignCenter );
-	GeoGroupLayout->addLayout( Layout12, 5, 1, 1, 1, Qt::AlignLeft);
+	GeoGroupLayout->addLayout( Layout12, 5, 1, 1, 1, Qt::AlignLeft); */
+	GeoGroupLayout->addWidget( RotationGroup, 5, 1, 1, 1, Qt::AlignLeft);
 	pageLayout->addWidget( GeoGroup );
 
 	layout60 = new QHBoxLayout;
@@ -1634,8 +1637,10 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idShapeItem, false);
 		TabStack->setItemEnabled(idGroupItem, true);
-		TabStack->setItemEnabled(idLineItem, false);
-		TabStack->setItemEnabled(idColorsItem, false);
+		TabStack->setItemEnabled(idLineItem, true);
+		TabStack->setItemEnabled(idColorsItem, true);
+//		TabStack->setItemEnabled(idLineItem, false);
+//		TabStack->setItemEnabled(idColorsItem, false);
 		TabStack->setItemEnabled(idTextItem, false);
 		TabStack->setItemEnabled(idImageItem, false);
 		if (CurItem->FrameType == 0)
@@ -1793,15 +1798,16 @@ void PropertiesPalette::NewSel(int nr)
 		RoVal = 0;
 		double gx, gy, gh, gw;
 		doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		if (TopLeft->isChecked())
+		int bp = RotationGroup->checkedId();
+		if (bp == 0)
 			m_ScMW->view->RCenter = FPoint(gx, gy);
-		if (TopRight->isChecked())
+		else if (bp == 1)
 			m_ScMW->view->RCenter = FPoint(gx + gw, gy);
-		if (Center->isChecked())
+		else if (bp == 2)
 			m_ScMW->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
-		if (BottomLeft->isChecked())
+		else if (bp == 3)
 			m_ScMW->view->RCenter = FPoint(gx, gy + gh);
-		if (BottomRight->isChecked())
+		else if (bp == 0)
 			m_ScMW->view->RCenter = FPoint(gx + gw, gy + gh);
 		xposLabel->setText( tr( "&X-Pos:" ) );
 		widthLabel->setText( tr( "&Width:" ) );
@@ -1854,11 +1860,12 @@ void PropertiesPalette::NewSel(int nr)
 // 		RoundRect->setEnabled(false);
 		Distance->setEnabled(false);
 		LineMode->setEnabled(false);
-		TopLeft->setEnabled(true);
+		RotationGroup->setEnabled(true);
+/*		TopLeft->setEnabled(true);
 		TopRight->setEnabled(true);
 		BottomLeft->setEnabled(true);
 		BottomRight->setEnabled(true);
-		Center->setEnabled(true);
+		Center->setEnabled(true); */
 		visID = TabStack->currentIndex();
 		TabStack->widget(0)->setEnabled(true);
 		TabStack->setItemEnabled(idXYZItem, true);
@@ -1946,11 +1953,12 @@ void PropertiesPalette::NewSel(int nr)
 			TabStack->setItemEnabled(idLineItem, true);
 			RoundRect->setEnabled(false);
 			LineMode->setEnabled(true);
-			TopLeft->setEnabled(false);
+			RotationGroup->setEnabled(false);
+/*			TopLeft->setEnabled(false);
 			TopRight->setEnabled(false);
 			BottomLeft->setEnabled(false);
 			BottomRight->setEnabled(false);
-			Center->setEnabled(false);
+			Center->setEnabled(false); */
 // 			if ((visID == 1) || (visID == 2) || (visID == 3))
 // 				TabStack->setCurrentIndex(0);
 			break;
@@ -2164,15 +2172,16 @@ void PropertiesPalette::setXY(double x, double y)
 	HaveItem = false;
 //	ma.translate(x, y);
 	ma.rotate(r);
-	if (TopLeft->isChecked())
+	int bp = RotationGroup->checkedId();
+	if (bp == 0)
 		n = FPoint(0.0, 0.0);
-	if (TopRight->isChecked())
+	else if (bp == 1)
 		n = FPoint(b, 0.0);
-	if (Center->isChecked())
+	else if (bp == 2)
 		n = FPoint(b / 2.0, h / 2.0);
-	if (BottomLeft->isChecked())
+	else if (bp == 3)
 		n = FPoint(0.0, h);
-	if (BottomRight->isChecked())
+	else if (bp == 4)
 		n = FPoint(b, h);
 	inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 	inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
@@ -2710,11 +2719,12 @@ void PropertiesPalette::NewX()
 		if (doc->m_Selection->isMultipleSelection())
 		{
 			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			if ((TopLeft->isChecked()) || (BottomLeft->isChecked()))
+			int bp = RotationGroup->checkedId();
+			if ((bp == 0) || (bp == 3))
 				base = gx;
-			if (Center->isChecked())
+			else if (bp == 2)
 				base = gx + gw / 2.0;
-			if ((TopRight->isChecked()) || (BottomRight->isChecked()))
+			else if ((bp == 1) || (bp == 4))
 				base = gx + gw;
 			if (!_userActionOn)
 				m_ScMW->view->startGroupTransaction();
@@ -2747,15 +2757,16 @@ void PropertiesPalette::NewX()
 			{
 				ma.translate(CurItem->xPos(), CurItem->yPos());
 				ma.rotate(CurItem->rotation());
-				if (TopLeft->isChecked())
+				int bp = RotationGroup->checkedId();
+				if (bp == 0)
 					base = CurItem->xPos();
-				if (Center->isChecked())
+				else if (bp == 2)
 					base = ma.m11() * (CurItem->width() / 2.0) + ma.m21() * (CurItem->height() / 2.0) + ma.dx();
-				if (TopRight->isChecked())
+				else if (bp == 1)
 					base = ma.m11() * CurItem->width() + ma.m21() * 0.0 + ma.dx();
-				if (BottomRight->isChecked())
+				else if (bp == 4)
 					base = ma.m11() * CurItem->width() + ma.m21() * CurItem->height() + ma.dx();
-				if (BottomLeft->isChecked())
+				else if (bp == 3)
 					base = ma.m11() * 0.0 + ma.m21() * CurItem->height() + ma.dx();
 				doc->MoveItem(x - base, 0, CurItem, true);
 			}
@@ -2787,11 +2798,12 @@ void PropertiesPalette::NewY()
 	if (doc->m_Selection->isMultipleSelection())
 	{
 		doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		if ((TopLeft->isChecked()) || (TopRight->isChecked()))
+		int bp = RotationGroup->checkedId();
+		if ((bp == 0) || (bp == 1))
 			base = gy;
-		if (Center->isChecked())
+		else if (bp == 2)
 			base = gy + gh / 2.0;
-		if ((BottomLeft->isChecked()) || (BottomRight->isChecked()))
+		else if ((bp == 3) || (bp == 4))
 			base = gy + gh;
 		if (!_userActionOn)
 			m_ScMW->view->startGroupTransaction();
@@ -2824,15 +2836,16 @@ void PropertiesPalette::NewY()
 		{
 			ma.translate(CurItem->xPos(), CurItem->yPos());
 			ma.rotate(CurItem->rotation());
-			if (TopLeft->isChecked())
+			int bp = RotationGroup->checkedId();
+			if (bp == 0)
 				base = CurItem->yPos();
-			if (Center->isChecked())
+			else if (bp == 2)
 				base = ma.m22() * (CurItem->height() / 2.0) + ma.m12() * (CurItem->width() / 2.0) + ma.dy();
-			if (TopRight->isChecked())
+			else if (bp == 1)
 				base = ma.m22() * 0.0 + ma.m12() * CurItem->width() + ma.dy();
-			if (BottomRight->isChecked())
+			else if (bp == 4)
 				base = ma.m22() * CurItem->height() + ma.m12() * CurItem->width() + ma.dy();
-			if (BottomLeft->isChecked())
+			else if (bp == 3)
 				base = ma.m22() * CurItem->height() + ma.m12() * 0.0 + ma.dy();
 			doc->MoveItem(0, y - base, CurItem, true);
 		}
@@ -3670,15 +3683,16 @@ void PropertiesPalette::NewRotMode(int m)
 //			ma.translate(CurItem->xPos()-doc->getXOffsetForPage(CurItem->OwnPage), CurItem->yPos()-doc->getYOffsetForPage(CurItem->OwnPage));
 			ma.translate(CurItem->xPos(), CurItem->yPos());
 			ma.rotate(r);
-			if (TopLeft->isChecked())
+			int bp = RotationGroup->checkedId();
+			if (bp == 0)
 				n = FPoint(0.0, 0.0);
-			if (TopRight->isChecked())
+			else if (bp == 1)
 				n = FPoint(b, 0.0);
-			if (Center->isChecked())
+			else if (bp == 2)
 				n = FPoint(b / 2.0, h / 2.0);
-			if (BottomLeft->isChecked())
+			else if (bp == 3)
 				n = FPoint(0.0, h);
-			if (BottomRight->isChecked())
+			else if (bp == 4)
 				n = FPoint(b, h);
 			inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 			inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
@@ -4588,11 +4602,11 @@ void PropertiesPalette::languageChange()
 	Height->setToolTip("");
 	Rot->setToolTip("");
 	basepointLabel->setToolTip("");
-	TopLeft->setToolTip("");
-	TopRight->setToolTip("");
-	BottomLeft->setToolTip("");
-	BottomRight->setToolTip("");
-	Center->setToolTip("");
+//	TopLeft->setToolTip("");
+//	TopRight->setToolTip("");
+//	BottomLeft->setToolTip("");
+//	BottomRight->setToolTip("");
+//	Center->setToolTip("");
 	FlipH->setToolTip("");
 	FlipV->setToolTip("");
 	Zup->setToolTip("");
@@ -4679,11 +4693,11 @@ void PropertiesPalette::languageChange()
 	Height->setToolTip( tr("Height"));
 	Rot->setToolTip( tr("Rotation of object at current basepoint"));
 	basepointLabel->setToolTip( tr("Point from which measurements or rotation angles are referenced"));
-	TopLeft->setToolTip( tr("Select top left for basepoint"));
-	TopRight->setToolTip( tr("Select top right for basepoint"));
-	BottomLeft->setToolTip( tr("Select bottom left for basepoint"));
-	BottomRight->setToolTip( tr("Select bottom right for basepoint"));
-	Center->setToolTip( tr("Select center for basepoint"));
+//	TopLeft->setToolTip( tr("Select top left for basepoint"));
+//	TopRight->setToolTip( tr("Select top right for basepoint"));
+//	BottomLeft->setToolTip( tr("Select bottom left for basepoint"));
+//	BottomRight->setToolTip( tr("Select bottom right for basepoint"));
+//	Center->setToolTip( tr("Select center for basepoint"));
 	DoGroup->setToolTip( tr("Group the selected objects"));
 	DoUnGroup->setToolTip( tr("Destroys the selected group"));
 	FlipH->setToolTip( tr("Flip Horizontal"));
@@ -4929,15 +4943,16 @@ void PropertiesPalette::doGrouping()
 	setMultipleSelection(true);
 	double gx, gy, gh, gw;
 	doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-	if (TopLeft->isChecked())
+	int bp = RotationGroup->checkedId();
+	if (bp == 0)
 		m_ScMW->view->RCenter = FPoint(gx, gy);
-	if (TopRight->isChecked())
+	else if (bp == 1)
 		m_ScMW->view->RCenter = FPoint(gx + gw, gy);
-	if (Center->isChecked())
+	else if (bp == 2)
 		m_ScMW->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
-	if (BottomLeft->isChecked())
+	else if (bp == 3)
 		m_ScMW->view->RCenter = FPoint(gx, gy + gh);
-	if (BottomRight->isChecked())
+	else if (bp == 4)
 		m_ScMW->view->RCenter = FPoint(gx + gw, gy + gh);
 	TabStack->setItemEnabled(idShapeItem, false);
 }

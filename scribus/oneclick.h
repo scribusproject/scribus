@@ -15,13 +15,11 @@ class QLabel;
 class QCheckBox;
 class QPushButton;
 class QGroupBox;
-class QButtonGroup;
-class QRadioButton;
-class QFrame;
 class ScrSpinBox;
 class LinkButton;
 
 #include "scribusapi.h"
+#include "basepointwidget.h"
 
 class SCRIBUS_API OneClick : public QDialog
 {
@@ -35,7 +33,7 @@ public:
 	LinkButton* linkSize;
 	QCheckBox* checkRemember;
 	QGroupBox* RotationGroupContainer;
-	QButtonGroup* RotationGroup;
+	BasePointWidget* RotationGroup;
 
 public slots:
 	void ToggleKette();
@@ -46,22 +44,12 @@ private:
 	QVBoxLayout* queryLayout;
 	QGridLayout* editLayout;
 	QGridLayout* Layout12a;
-	QGridLayout* Layout12;
 	QGridLayout* SizeGroupLayout;
 	QHBoxLayout* okCancelLayout;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QLabel* questionLabel;
 	QLabel* questionLabel2;
-	QRadioButton* TopLeft;
-	QRadioButton* TopRight;
-	QRadioButton* Center;
-	QRadioButton* BottomLeft;
-	QRadioButton* BottomRight;
-	QFrame* Line1;
-	QFrame* Line2;
-	QFrame* Line4;
-	QFrame* Line5;
 	QGroupBox* SizeGroup;
 };
 

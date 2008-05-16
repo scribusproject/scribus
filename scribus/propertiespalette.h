@@ -58,6 +58,7 @@ class ScribusMainWindow;
 class UserActionSniffer;
 class DashEditor;
 class Selection;
+class BasePointWidget;
 
 
 struct SCRIBUS_API LineFormatValue
@@ -161,12 +162,12 @@ public:
 	FontComboH* Fonts;
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;
-	QButtonGroup* RotationGroup;
-	QRadioButton* TopLeft;
+	BasePointWidget* RotationGroup;
+/*	QRadioButton* TopLeft;
 	QRadioButton* TopRight;
 	QRadioButton* Center;
 	QRadioButton* BottomLeft;
-	QRadioButton* BottomRight;
+	QRadioButton* BottomRight; */
 	QGroupBox* textFlowOptions;
 	QGroupBox* textFlowOptions2;
 	QButtonGroup* textFlowOptionsB;
@@ -347,7 +348,7 @@ protected:
 	QHBoxLayout* layout60;
 	QGridLayout* Layout44;
 	QHBoxLayout* Layout13;
-	QGridLayout* Layout12;
+//	QGridLayout* Layout12;
 	QHBoxLayout* layout47;
 	QVBoxLayout* layout46;
 	QGridLayout* layout41;
@@ -570,10 +571,10 @@ protected:
 	QRadioButton* KnockOut;
 	QRadioButton* Overprint;
 
-	QFrame* Line1;
-	QFrame* Line2;
-	QFrame* Line4;
-	QFrame* Line5;
+//	QFrame* Line1;
+//	QFrame* Line2;
+//	QFrame* Line4;
+//	QFrame* Line5;
 	QFrame* Frame4;
 
 	QMenu* lineSpacingPop;

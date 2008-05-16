@@ -78,6 +78,7 @@ SET(SCRIBUS_MOC_CLASSES
   arrowchooser.h
   autoform.h
   autoformbuttongroup.h
+  basepointwidget.h
   bookmarkpalette.h
   bookmwin.h
   buttonicon.h
@@ -291,6 +292,7 @@ SET(SCRIBUS_SOURCES
   arrowchooser.cpp
   autoform.cpp
   autoformbuttongroup.cpp
+  basepointwidget.cpp
   bookmarkpalette.cpp
   bookmwin.cpp
   buttonicon.cpp

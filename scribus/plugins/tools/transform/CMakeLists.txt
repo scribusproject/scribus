@@ -8,13 +8,11 @@ transformdialogbase.ui
 )
 
 SET(TRANSFORMEFFECT_PLUGIN_MOC_CLASSES
-basepointwidget.h
 transformdialog.h
 transformeffect.h
 )
 
 SET(TRANSFORMEFFECT_PLUGIN_SOURCES
-basepointwidget.cpp
 transformdialog.cpp
 transformeffect.cpp
 )

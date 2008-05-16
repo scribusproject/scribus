@@ -149,6 +149,7 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 			}
 			else
 			{
+				QList<PageItem*> Elements;
 				bool savedAlignGrid = currDoc->useRaster;
 				bool savedAlignGuides = currDoc->SnapGuides;
 				currDoc->useRaster = false;
@@ -161,6 +162,7 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 				QMatrix matrixPre;
 				QMatrix matrixAft;
 				PageItem *currItem = currDoc->m_Selection->itemAt(0);
+				Elements.append(currItem);
 				switch (baseP)
 				{
 					case 2:
@@ -198,8 +200,14 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 					currItem->ClipEdited = true;
 					currItem->FrameType = 3;
 					currDoc->AdjustItemSize(currItem);
+					Elements.append(currItem);
 					comulatedMatrix *= matrix;
 				}
+				for (int c = 0; c < Elements.count(); ++c)
+				{
+					currDoc->m_Selection->addItem(Elements.at(c), true);
+				}
+				currDoc->m_Selection->setGroupRect();
 				currDoc->RotMode = rotBack;
 				currDoc->useRaster = savedAlignGrid;
 				currDoc->SnapGuides = savedAlignGuides;
@@ -207,6 +215,7 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 				currDoc->m_Selection->delaySignalsOff();
 				currDoc->view()->updatesOn(true);
 				currDoc->scMW()->ScriptRunning = false;
+				currDoc->m_Selection->connectItemToGUI();
 			}
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			currDoc->view()->DrawNew();
