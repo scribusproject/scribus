@@ -128,10 +128,12 @@ void FDialogPreview::GenPreview(QString name)
 {
 	QPixmap pm;
 	QString Buffer = "";
+	updtPix();
+	if (name.isEmpty())
+		return;
 	QFileInfo fi = QFileInfo(name);
 	if (fi.isDir())
 		return;
-	updtPix();
 	int w = pixmap()->width();
 	int h = pixmap()->height();
 	bool mode = false;
