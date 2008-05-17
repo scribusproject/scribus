@@ -275,29 +275,33 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						if (specialWords.contains(found2))
 						{
 							outs = specialWords.value(found2);
-							uint ii = 0;
+							uint ii = 1;
 							for (i = 1; i < outs.length()-1; ++i)
 							{
 								QChar cht = outs[i];
 								if (cht == '-')
-									buffer[ii] = 1;
+									buffer[ii-1] = 1;
 								else
+								{
 									buffer[ii] = 0;
-								ii++;
+									++ii;
+								}
 							}
 						}
 						if (rememberedWords.contains(input))
 						{
 							outs = rememberedWords.value(input);
-							uint ii = 0;
+							uint ii = 1;
 							for (i = 1; i < outs.length()-1; ++i)
 							{
 								QChar cht = outs[i];
 								if (cht == '-')
-									buffer[ii] = 1;
+									buffer[ii-1] = 1;
 								else
+								{
 									buffer[ii] = 0;
-								ii++;
+									++ii;
+								}
 							}
 							it->itemText.hyphenateWord(firstC, found.length(), buffer);
 						}
@@ -314,15 +318,17 @@ void Hyphenator::slotHyphenate(PageItem* it)
 							if (dia->exec())
 							{
 								outs = dia->Wort->text();
-								uint ii = 0;
+								uint ii = 1;
 								for (i = 1; i < outs.length()-1; ++i)
 								{
 									QChar cht = outs[i];
 									if (cht == '-')
-										buffer[ii] = 1;
+										buffer[ii-1] = 1;
 									else
+									{
 										buffer[ii] = 0;
-									ii++;
+										++ii;
+									}
 								}
 								if (!rememberedWords.contains(input))
 									rememberedWords.insert(input, outs);
