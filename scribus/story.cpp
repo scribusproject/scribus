@@ -881,7 +881,7 @@ void SEditor::paste()
 	if (mimeData->hasFormat("application/x-scribus-styledtext"))
 	{
 		const StyledTextMimeData* styledData = dynamic_cast<const StyledTextMimeData*>(mimeData);
-		if (mimeData)
+		if (styledData)
 		{
 			const StoryText& styledText = styledData->styledText();
 			advanceLen = styledText.length();
