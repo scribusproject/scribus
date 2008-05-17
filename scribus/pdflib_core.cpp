@@ -78,10 +78,11 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_math.h"
 
-
 using namespace std;
 
-#include <tiffio.h>
+#if defined(_WIN32)
+#undef GetObject
+#endif
 
 
 PDFLibCore::PDFLibCore(ScribusDoc & docu)
@@ -6364,340 +6365,358 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		// no embedded PDF:
 		if (!imageLoaded)
 		{ 
-		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != ImageType7))
-		{
-			bitmapFromGS = true;
-			QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
-			if (Options.RecalcPic)
+			if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != ImageType7))
 			{
-				afl = qMin(Options.PicRes, Options.Resolution);
-				ImInfo.reso = afl / 72.0;
-			}
-			else
-				afl = Options.Resolution;
-			if (ext == "pdf")
-			{
-				CMSettings cms(c->doc(), Profil, Intent);
-				if (Options.UseRGB)
-					imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
-				else
+				bitmapFromGS = true;
+				QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
+				if (Options.RecalcPic)
 				{
-					if ((doc.HasCMS) && (Options.UseProfiles2))
+					afl = qMin(Options.PicRes, Options.Resolution);
+					ImInfo.reso = afl / 72.0;
+				}
+				else
+					afl = Options.Resolution;
+				if (ext == "pdf")
+				{
+					CMSettings cms(c->doc(), Profil, Intent);
+					if (Options.UseRGB)
 						imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 					else
 					{
-						if (Options.isGrayscale)
+						if ((doc.HasCMS) && (Options.UseProfiles2))
 							imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 						else
-							imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, afl);
+						{
+							if (Options.isGrayscale)
+								imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
+							else
+								imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, afl);
+						}
 					}
 				}
-			}
-			else
-			{
-				QFile f(fn);
-				if (f.open(QIODevice::ReadOnly))
+				else
 				{
-					QDataStream ts(&f);
-					while (!ts.atEnd())
+					QFile f(fn);
+					if (f.open(QIODevice::ReadOnly))
 					{
-						tmp = readLinefromDataStream(ts);
-						if (tmp.startsWith("%%BoundingBox:"))
+						QDataStream ts(&f);
+						while (!ts.atEnd())
 						{
-							found = true;
-							BBox = tmp.remove("%%BoundingBox:");
-						}
-						if (!found)
-						{
-							if (tmp.startsWith("%%BoundingBox"))
+							tmp = readLinefromDataStream(ts);
+							if (tmp.startsWith("%%BoundingBox:"))
 							{
 								found = true;
-								BBox = tmp.remove("%%BoundingBox");
+								BBox = tmp.remove("%%BoundingBox:");
 							}
+							if (!found)
+							{
+								if (tmp.startsWith("%%BoundingBox"))
+								{
+									found = true;
+									BBox = tmp.remove("%%BoundingBox");
+								}
+							}
+							if (tmp.startsWith("%%EndComments"))
+								break;
 						}
-						if (tmp.startsWith("%%EndComments"))
-							break;
-					}
-					f.close();
-					if (found)
-					{
-						CMSettings cms(c->doc(), Profil, Intent);
-						if (Options.UseRGB)
-							imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
-						else
+						f.close();
+						if (found)
 						{
-							if ((doc.HasCMS) && (Options.UseProfiles2))
+							CMSettings cms(c->doc(), Profil, Intent);
+							if (Options.UseRGB)
 								imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 							else
 							{
-								if (Options.isGrayscale)
+								if ((doc.HasCMS) && (Options.UseProfiles2))
 									imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 								else
-									imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, afl);
+								{
+									if (Options.isGrayscale)
+										imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
+									else
+										imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, afl);
+								}
 							}
 						}
 					}
 				}
+				if (!imageLoaded)
+				{
+					PDF_Error_ImageLoadFailure(fn);
+					return false;
+				}
+				if (Options.RecalcPic)
+				{
+					ImInfo.sxa = sx * (1.0 / ImInfo.reso);
+					ImInfo.sya = sy * (1.0 / ImInfo.reso);
+				}
 			}
-			if (!imageLoaded)
+			// not PS/PDF
+			else
 			{
-				PDF_Error_ImageLoadFailure(fn);
-				return false;
+				img.imgInfo.valid = false;
+				img.imgInfo.clipPath = "";
+				img.imgInfo.PDSpathData.clear();
+				img.imgInfo.layerInfo.clear();
+				img.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
+				img.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
+				CMSettings cms(c->doc(), Profil, Intent);
+				if (Options.UseRGB)
+					imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, 72, &realCMYK);
+				else
+				{
+					if ((doc.HasCMS) && (Options.UseProfiles2))
+						imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RawData, 72, &realCMYK);
+					else
+					{
+						if (Options.isGrayscale)
+							imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, 72, &realCMYK);
+						else
+							imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, 72, &realCMYK);
+					}
+				}
+				if (!imageLoaded)
+				{
+					PDF_Error_ImageLoadFailure(fn);
+					return false;
+				}
+				if ((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))
+				{
+					double afl = qMin(Options.PicRes, Options.Resolution);
+					a2 = (72.0 / sx) / afl;
+					a1 = (72.0 / sy) / afl;
+					origWidth = img.width();
+					origHeight = img.height();
+					ax = img.width() / a2;
+					ay = img.height() / a1;
+					if ((Options.UseRGB) || (Options.isGrayscale) || ((Options.UseProfiles2) && !(img.imgInfo.colorspace == ColorSpaceCMYK)) )
+					{
+						ColorSpaceEnum colsp = img.imgInfo.colorspace;
+						bool prog = img.imgInfo.progressive;
+						img = img.scaled(qRound(ax), qRound(ay), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+						img.imgInfo.colorspace = colsp;
+						img.imgInfo.progressive = prog;
+					}
+					else
+						img.scaleImage(qRound(ax), qRound(ay));
+					ImInfo.sxa = sx * a2;
+					ImInfo.sya = sy * a1;
+				}
+				ImInfo.reso = 1;
 			}
-			if (Options.RecalcPic)
+			if ((doc.HasCMS) && (Options.UseProfiles2))
+			{
+				if (!ICCProfiles.contains(Profil))
+				{
+					ScImage img3;
+					int components = 0;
+					uint embeddedProfile = newObject();
+					StartObj(embeddedProfile);
+					QByteArray dataP;
+					struct ICCD dataD;
+					if ((Embedded) && (!Options.EmbeddedI))
+						img3.getEmbeddedProfile(fn, &dataP, &components);
+					if (dataP.isEmpty())
+					{
+						if (img.imgInfo.colorspace == ColorSpaceCMYK)
+						{
+							QString profilePath;
+							if (Embedded && ScCore->InputProfilesCMYK.contains(Options.ImageProf))
+								profilePath = ScCore->InputProfilesCMYK[Options.ImageProf];
+							else if (ScCore->InputProfilesCMYK.contains(Profil))
+								profilePath = ScCore->InputProfilesCMYK[Profil];
+							else
+								profilePath = ScCore->InputProfilesCMYK[c->doc()->CMSSettings.DefaultImageCMYKProfile];
+							loadRawBytes(profilePath, dataP);
+							components = 4;
+						}
+						else
+						{
+							QString profilePath;
+							if (Embedded && ScCore->InputProfiles.contains(Options.ImageProf))
+								profilePath = ScCore->InputProfiles[Options.ImageProf];
+							else if (ScCore->InputProfiles.contains(Profil))
+								profilePath = ScCore->InputProfiles[Profil];
+							else
+								profilePath = ScCore->InputProfiles[c->doc()->CMSSettings.DefaultImageRGBProfile];
+							loadRawBytes(profilePath, dataP);
+							components = 3;
+						}
+					}
+					PutDoc("<<\n");
+					if ((Options.CompressMethod != PDFOptions::Compression_None) && Options.Compress)
+					{
+						QByteArray compData = CompressArray(dataP);
+						if (compData.size() > 0)
+						{
+							PutDoc("/Filter /FlateDecode\n");
+							dataP = compData;
+						}
+					}
+					PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
+					PutDoc("/N "+QString::number(components)+"\n");
+					PutDoc(">>\nstream\n");
+					EncodeArrayToStream(dataP, embeddedProfile);
+					PutDoc("\nendstream\nendobj\n");
+					uint profileResource = newObject();
+					StartObj(profileResource);
+					dataD.ResName = ResNam+QString::number(ResCount);
+					dataD.ICCArray = "[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]";
+					dataD.ResNum = profileResource;
+					ICCProfiles[Profil] = dataD;
+					PutDoc("[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]\n");
+					PutDoc("endobj\n");
+					ResCount++;
+				}
+			}
+			QByteArray im2;
+			ScImage img2;
+			img2.imgInfo.clipPath = "";
+			img2.imgInfo.PDSpathData.clear();
+			img2.imgInfo.layerInfo.clear();
+			img2.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
+			img2.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
+			if (c->pixm.imgInfo.type == ImageType7)
+				alphaM = false;
+			else
+			{
+				bool gotAlpha = false;
+				bool pdfVer14 = (Options.Version >= 14);
+				gotAlpha = img2.getAlpha(fn, im2, true, pdfVer14, afl, img.width(), img.height());
+				if (!gotAlpha)
+				{
+					PDF_Error_MaskLoadFailure(fn);
+					return false;
+				}
+				alphaM = !im2.isEmpty();
+			}
+			bool imgE = false;
+			if ((Options.UseRGB) || (Options.isGrayscale))
+				imgE = false;
+			else
+			{
+				if ((Options.UseProfiles2) && (img.imgInfo.colorspace != ColorSpaceCMYK))
+					imgE = false;
+				else
+					imgE = true;
+			}
+			origWidth = img.width();
+			origHeight = img.height();
+			img.applyEffect(c->effectsInUse, c->doc()->PageColors, imgE);
+			if (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale())))))
 			{
 				ImInfo.sxa = sx * (1.0 / ImInfo.reso);
 				ImInfo.sya = sy * (1.0 / ImInfo.reso);
 			}
-		}
-		// not PS/PDF
-		else
-		{
-			img.imgInfo.valid = false;
-			img.imgInfo.clipPath = "";
-			img.imgInfo.PDSpathData.clear();
-			img.imgInfo.layerInfo.clear();
-			img.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
-			img.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
-			CMSettings cms(c->doc(), Profil, Intent);
-			if (Options.UseRGB)
-				imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, 72, &realCMYK);
+			uint maskObj = 0;
+			if (alphaM)
+			{
+				bool compAlphaAvail = false;
+				maskObj = newObject();
+				StartObj(maskObj);
+				PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
+				if (Options.CompressMethod != PDFOptions::Compression_None)
+				{
+					QByteArray compAlpha = CompressArray(im2);
+					if (compAlpha.size() > 0)
+					{
+						im2 = compAlpha;
+						compAlphaAvail = true;
+					}
+				}
+				if (Options.Version >= 14)
+				{
+					PutDoc("/Width "+QString::number(origWidth)+"\n");
+					PutDoc("/Height "+QString::number(origHeight)+"\n");
+					PutDoc("/ColorSpace /DeviceGray\n");
+					PutDoc("/BitsPerComponent 8\n");
+					PutDoc("/Length "+QString::number(im2.size())+"\n");
+				}
+				else
+				{
+					PutDoc("/Width "+QString::number(origWidth)+"\n");
+					PutDoc("/Height "+QString::number(origHeight)+"\n");
+					PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
+					PutDoc("/Length "+QString::number(im2.size())+"\n");
+				}
+				if ((Options.CompressMethod != PDFOptions::Compression_None) && compAlphaAvail)
+					PutDoc("/Filter /FlateDecode\n");
+				PutDoc(">>\nstream\n");
+				EncodeArrayToStream(im2, maskObj);
+				PutDoc("\nendstream\nendobj\n");
+				Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = maskObj;
+				ResCount++;
+			}
+			uint imageObj = newObject();
+			StartObj(imageObj);
+			PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
+			PutDoc("/Width "+QString::number(img.width())+"\n");
+			PutDoc("/Height "+QString::number(img.height())+"\n");
+			if ((doc.HasCMS) && (Options.UseProfiles2))
+			{
+				PutDoc("/ColorSpace "+ICCProfiles[Profil].ICCArray+"\n");
+				PutDoc("/Intent /");
+				int inte2 = Intent;
+				if (Options.EmbeddedI)
+					inte2 = Options.Intent2;
+				static const QString cmsmode[] = {"Perceptual", "RelativeColorimetric", "Saturation", "AbsoluteColorimetric"};
+				PutDoc(cmsmode[inte2] + "\n");
+			}
 			else
 			{
-				if ((doc.HasCMS) && (Options.UseProfiles2))
-					imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RawData, 72, &realCMYK);
+				if (Options.UseRGB)
+					PutDoc("/ColorSpace /DeviceRGB\n");
 				else
 				{
 					if (Options.isGrayscale)
-						imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, 72, &realCMYK);
+						PutDoc("/ColorSpace /DeviceGray\n");
 					else
-						imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, 72, &realCMYK);
+						PutDoc("/ColorSpace /DeviceCMYK\n");
 				}
 			}
-			if (!imageLoaded)
+			enum PDFOptions::PDFCompression cm = Options.CompressMethod;
+			bool exportToCMYK = false, exportToGrayscale = false, jpegUseOriginal = false;
+			if (!Options.UseRGB && !(doc.HasCMS && Options.UseProfiles2 && !realCMYK))
 			{
-				PDF_Error_ImageLoadFailure(fn);
-				return false;
+				exportToGrayscale = Options.isGrayscale;
+				if (exportToGrayscale)
+					exportToCMYK      = !Options.isGrayscale;
+				else
+					exportToCMYK      = !Options.UseRGB;
 			}
-			if ((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))
+			if (extensionIndicatesJPEG(ext) && (cm != PDFOptions::Compression_None))
 			{
-				double afl = qMin(Options.PicRes, Options.Resolution);
-				a2 = (72.0 / sx) / afl;
-				a1 = (72.0 / sy) / afl;
-				origWidth = img.width();
-				origHeight = img.height();
-				ax = img.width() / a2;
-				ay = img.height() / a1;
-				if ((Options.UseRGB) || (Options.isGrayscale) || ((Options.UseProfiles2) && !(img.imgInfo.colorspace == ColorSpaceCMYK)) )
+				if (((Options.UseRGB || Options.UseProfiles2) && (cm == PDFOptions::Compression_Auto) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
 				{
-					ColorSpaceEnum colsp = img.imgInfo.colorspace;
-					bool prog = img.imgInfo.progressive;
-					img = img.scaled(qRound(ax), qRound(ay), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-					img.imgInfo.colorspace = colsp;
-					img.imgInfo.progressive = prog;
+					jpegUseOriginal = true;
+					cm = PDFOptions::Compression_JPEG;
+				}
+				else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
+				{
+					jpegUseOriginal = exportToCMYK = true;
+					cm = PDFOptions::Compression_JPEG;
 				}
 				else
-					img.scaleImage(qRound(ax), qRound(ay));
-				ImInfo.sxa = sx * a2;
-				ImInfo.sya = sy * a1;
-			}
-			ImInfo.reso = 1;
-		}
-		if ((doc.HasCMS) && (Options.UseProfiles2))
-		{
-			if (!ICCProfiles.contains(Profil))
-			{
-				ScImage img3;
-				int components = 0;
-				uint embeddedProfile = newObject();
-				StartObj(embeddedProfile);
-				QByteArray dataP;
-				struct ICCD dataD;
-				if ((Embedded) && (!Options.EmbeddedI))
-					img3.getEmbeddedProfile(fn, &dataP, &components);
-				if (dataP.isEmpty())
 				{
-					if (img.imgInfo.colorspace == ColorSpaceCMYK)
+					if (Options.CompressMethod == PDFOptions::Compression_JPEG)
 					{
-						QString profilePath;
-						if (Embedded && ScCore->InputProfilesCMYK.contains(Options.ImageProf))
-							profilePath = ScCore->InputProfilesCMYK[Options.ImageProf];
-						else if (ScCore->InputProfilesCMYK.contains(Profil))
-							profilePath = ScCore->InputProfilesCMYK[Profil];
-						else
-							profilePath = ScCore->InputProfilesCMYK[c->doc()->CMSSettings.DefaultImageCMYKProfile];
-						loadRawBytes(profilePath, dataP);
-						components = 4;
+						if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
+						{
+							exportToGrayscale = Options.isGrayscale;
+							if (exportToGrayscale)
+								exportToCMYK      = !Options.isGrayscale;
+							else
+								exportToCMYK      = !Options.UseRGB;
+						}
+						cm = PDFOptions::Compression_JPEG;
 					}
 					else
-					{
-						QString profilePath;
-						if (Embedded && ScCore->InputProfiles.contains(Options.ImageProf))
-							profilePath = ScCore->InputProfiles[Options.ImageProf];
-						else if (ScCore->InputProfiles.contains(Profil))
-							profilePath = ScCore->InputProfiles[Profil];
-						else
-							profilePath = ScCore->InputProfiles[c->doc()->CMSSettings.DefaultImageRGBProfile];
-						loadRawBytes(profilePath, dataP);
-						components = 3;
-					}
-				}
-				PutDoc("<<\n");
-				if ((Options.CompressMethod != PDFOptions::Compression_None) && Options.Compress)
-				{
-					QByteArray compData = CompressArray(dataP);
-					if (compData.size() > 0)
-					{
-						PutDoc("/Filter /FlateDecode\n");
-						dataP = compData;
-					}
-				}
-				PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
-				PutDoc("/N "+QString::number(components)+"\n");
-				PutDoc(">>\nstream\n");
-				EncodeArrayToStream(dataP, embeddedProfile);
-				PutDoc("\nendstream\nendobj\n");
-				uint profileResource = newObject();
-				StartObj(profileResource);
-				dataD.ResName = ResNam+QString::number(ResCount);
-				dataD.ICCArray = "[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]";
-				dataD.ResNum = profileResource;
-				ICCProfiles[Profil] = dataD;
-				PutDoc("[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]\n");
-				PutDoc("endobj\n");
-				ResCount++;
-			}
-		}
-		QByteArray im2;
-		ScImage img2;
-		img2.imgInfo.clipPath = "";
-		img2.imgInfo.PDSpathData.clear();
-		img2.imgInfo.layerInfo.clear();
-		img2.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
-		img2.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
-		if (c->pixm.imgInfo.type == ImageType7)
-			alphaM = false;
-		else
-		{
-			bool gotAlpha = false;
-			bool pdfVer14 = (Options.Version >= 14);
-			gotAlpha = img2.getAlpha(fn, im2, true, pdfVer14, afl, img.width(), img.height());
-			if (!gotAlpha)
-			{
-				PDF_Error_MaskLoadFailure(fn);
-				return false;
-			}
-			alphaM = !im2.isEmpty();
-		}
-		bool imgE = false;
-		if ((Options.UseRGB) || (Options.isGrayscale))
-			imgE = false;
-		else
-		{
-			if ((Options.UseProfiles2) && (img.imgInfo.colorspace != ColorSpaceCMYK))
-				imgE = false;
-			else
-				imgE = true;
-		}
-		origWidth = img.width();
-		origHeight = img.height();
-		img.applyEffect(c->effectsInUse, c->doc()->PageColors, imgE);
-		if (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale())))))
-		{
-			ImInfo.sxa = sx * (1.0 / ImInfo.reso);
-			ImInfo.sya = sy * (1.0 / ImInfo.reso);
-		}
-		uint maskObj = 0;
-		if (alphaM)
-		{
-			bool compAlphaAvail = false;
-			maskObj = newObject();
-			StartObj(maskObj);
-			PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
-			if (Options.CompressMethod != PDFOptions::Compression_None)
-			{
-				QByteArray compAlpha = CompressArray(im2);
-				if (compAlpha.size() > 0)
-				{
-					im2 = compAlpha;
-					compAlphaAvail = true;
+						cm = PDFOptions::Compression_ZIP;
 				}
 			}
-			if (Options.Version >= 14)
-			{
-				PutDoc("/Width "+QString::number(origWidth)+"\n");
-				PutDoc("/Height "+QString::number(origHeight)+"\n");
-				PutDoc("/ColorSpace /DeviceGray\n");
-				PutDoc("/BitsPerComponent 8\n");
-				PutDoc("/Length "+QString::number(im2.size())+"\n");
-			}
 			else
 			{
-				PutDoc("/Width "+QString::number(origWidth)+"\n");
-				PutDoc("/Height "+QString::number(origHeight)+"\n");
-				PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
-				PutDoc("/Length "+QString::number(im2.size())+"\n");
-			}
-			if ((Options.CompressMethod != PDFOptions::Compression_None) && compAlphaAvail)
-				PutDoc("/Filter /FlateDecode\n");
-			PutDoc(">>\nstream\n");
-			EncodeArrayToStream(im2, maskObj);
-			PutDoc("\nendstream\nendobj\n");
-			Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = maskObj;
-			ResCount++;
-		}
-		uint imageObj = newObject();
-		StartObj(imageObj);
-		PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
-		PutDoc("/Width "+QString::number(img.width())+"\n");
-		PutDoc("/Height "+QString::number(img.height())+"\n");
-		if ((doc.HasCMS) && (Options.UseProfiles2))
-		{
-			PutDoc("/ColorSpace "+ICCProfiles[Profil].ICCArray+"\n");
-			PutDoc("/Intent /");
-			int inte2 = Intent;
-			if (Options.EmbeddedI)
-				inte2 = Options.Intent2;
-			static const QString cmsmode[] = {"Perceptual", "RelativeColorimetric", "Saturation", "AbsoluteColorimetric"};
-			PutDoc(cmsmode[inte2] + "\n");
-		}
-		else
-		{
-			if (Options.UseRGB)
-				PutDoc("/ColorSpace /DeviceRGB\n");
-			else
-			{
-				if (Options.isGrayscale)
-					PutDoc("/ColorSpace /DeviceGray\n");
-				else
-					PutDoc("/ColorSpace /DeviceCMYK\n");
-			}
-		}
-		enum PDFOptions::PDFCompression cm = Options.CompressMethod;
-		bool exportToCMYK = false, exportToGrayscale = false, jpegUseOriginal = false;
-		if (!Options.UseRGB && !(doc.HasCMS && Options.UseProfiles2 && !realCMYK))
-		{
-			exportToGrayscale = Options.isGrayscale;
-			if (exportToGrayscale)
-				exportToCMYK      = !Options.isGrayscale;
-			else
-				exportToCMYK      = !Options.UseRGB;
-		}
-		if (extensionIndicatesJPEG(ext) && (cm != PDFOptions::Compression_None))
-		{
-			if (((Options.UseRGB || Options.UseProfiles2) && (cm == PDFOptions::Compression_Auto) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
-			{
-				jpegUseOriginal = true;
-				cm = PDFOptions::Compression_JPEG;
-			}
-			else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
-			{
-				jpegUseOriginal = exportToCMYK = true;
-				cm = PDFOptions::Compression_JPEG;
-			}
-			else
-			{
-				if (Options.CompressMethod == PDFOptions::Compression_JPEG)
+				if ((Options.CompressMethod == PDFOptions::Compression_JPEG) || (Options.CompressMethod == PDFOptions::Compression_Auto))
 				{
 					if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
 					{
@@ -6708,78 +6727,60 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 							exportToCMYK      = !Options.UseRGB;
 					}
 					cm = PDFOptions::Compression_JPEG;
-				}
-				else
-					cm = PDFOptions::Compression_ZIP;
-			}
-		}
-		else
-		{
-			if ((Options.CompressMethod == PDFOptions::Compression_JPEG) || (Options.CompressMethod == PDFOptions::Compression_Auto))
-			{
-				if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
-				{
-					exportToGrayscale = Options.isGrayscale;
-					if (exportToGrayscale)
-						exportToCMYK      = !Options.isGrayscale;
-					else
-						exportToCMYK      = !Options.UseRGB;
-				}
-				cm = PDFOptions::Compression_JPEG;
-				/*if (Options.CompressMethod == PDFOptions::Compression_Auto)
-				{
-					QFileInfo fi(tmpFile);
-					if (fi.size() < im.size())
+					/*if (Options.CompressMethod == PDFOptions::Compression_Auto)
 					{
-						im.resize(0);
-						if (!loadRawBytes(tmpFile, im))
-							return false;
-						cm = PDFOptions::Compression_JPEG;
-					}
-					else
-						cm = PDFOptions::Compression_ZIP;
-				}*/
+						QFileInfo fi(tmpFile);
+						if (fi.size() < im.size())
+						{
+							im.resize(0);
+							if (!loadRawBytes(tmpFile, im))
+								return false;
+							cm = PDFOptions::Compression_JPEG;
+						}
+						else
+							cm = PDFOptions::Compression_ZIP;
+					}*/
+				}
 			}
-		}
-		int bytesWritten = 0;
-		PutDoc("/BitsPerComponent 8\n");
-		uint lengthObj = newObject();
-		PutDoc("/Length "+QString::number(lengthObj)+" 0 R\n");
-		if (cm == PDFOptions::Compression_JPEG)
-			PutDoc("/Filter /DCTDecode\n");
-		else if (cm != PDFOptions::Compression_None)
-			PutDoc("/Filter /FlateDecode\n");
-		if (exportToCMYK && (cm == PDFOptions::Compression_JPEG))
-			PutDoc("/Decode [1 0 1 0 1 0 1 0]\n");
-		if (alphaM)
-		{
-			if (Options.Version >= 14)
-				PutDoc("/SMask "+QString::number(maskObj)+" 0 R\n");
+			int bytesWritten = 0;
+			PutDoc("/BitsPerComponent 8\n");
+			uint lengthObj = newObject();
+			PutDoc("/Length "+QString::number(lengthObj)+" 0 R\n");
+			if (cm == PDFOptions::Compression_JPEG)
+				PutDoc("/Filter /DCTDecode\n");
+			else if (cm != PDFOptions::Compression_None)
+				PutDoc("/Filter /FlateDecode\n");
+			if (exportToCMYK && (cm == PDFOptions::Compression_JPEG))
+				PutDoc("/Decode [1 0 1 0 1 0 1 0]\n");
+			if (alphaM)
+			{
+				if (Options.Version >= 14)
+					PutDoc("/SMask "+QString::number(maskObj)+" 0 R\n");
+				else
+					PutDoc("/Mask "+QString::number(maskObj)+" 0 R\n");
+			}
+			PutDoc(">>\nstream\n");
+			if (cm == PDFOptions::Compression_JPEG)
+				bytesWritten = WriteJPEGImageToStream(img, fn, imageObj, exportToCMYK, exportToGrayscale, jpegUseOriginal);
+			else if (cm == PDFOptions::Compression_ZIP)
+				bytesWritten = WriteFlateImageToStream(img, imageObj, exportToCMYK, exportToGrayscale);
 			else
-				PutDoc("/Mask "+QString::number(maskObj)+" 0 R\n");
-		}
-		PutDoc(">>\nstream\n");
-		if (cm == PDFOptions::Compression_JPEG)
-			bytesWritten = WriteJPEGImageToStream(img, fn, imageObj, exportToCMYK, exportToGrayscale, jpegUseOriginal);
-		else if (cm == PDFOptions::Compression_ZIP)
-			bytesWritten = WriteFlateImageToStream(img, imageObj, exportToCMYK, exportToGrayscale);
-		else
-			bytesWritten = WriteImageToStream(img, imageObj, exportToCMYK, exportToGrayscale);
-		PutDoc("\nendstream\nendobj\n");
-		if (bytesWritten <= 0)
-		{
-			PDF_Error_ImageWriteFailure(fn);
-			return false;
-		}
-		StartObj(lengthObj);
-		PutDoc(QString("    %1\n").arg(bytesWritten));
-		PutDoc("endobj\n");
-		Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = imageObj;
-		ImInfo.ResNum = ResCount;
-		ImInfo.Width = img.width();
-		ImInfo.Height = img.height();
-		ImInfo.xa = sx;
-		ImInfo.ya = sy;
+				bytesWritten = WriteImageToStream(img, imageObj, exportToCMYK, exportToGrayscale);
+			PutDoc("\nendstream\nendobj\n");
+			if (bytesWritten <= 0)
+			{
+				PDF_Error_ImageWriteFailure(fn);
+				return false;
+			}
+			StartObj(lengthObj);
+			PutDoc(QString("    %1\n").arg(bytesWritten));
+			PutDoc("endobj\n");
+			Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = imageObj;
+			ImInfo.ResNum = ResCount;
+			ImInfo.Width = img.width();
+			ImInfo.Height = img.height();
+			ImInfo.xa = sx;
+			ImInfo.ya = sy;
 		} // not embedded PDF
 		if (c->effectsInUse.count() == 0)
 			SharedImages.insert(fn, ImInfo);
