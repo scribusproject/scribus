@@ -478,25 +478,28 @@ void SEditor::insertCharsInternal(const QString& t)
 {
 	if (textCursor().hasSelection())
 		deleteSel();
-	int pos = qMin(textCursor().position(), StyledText.length());
-	StyledText.insertChars(pos, t, true);
+	int pos = textCursor().hasSelection() ? textCursor().selectionStart() : textCursor().position();
+	pos = qMin(pos, StyledText.length());
+	insertCharsInternal(t, pos);
 }
 
 void SEditor::insertCharsInternal(const QString& t, int pos)
 {
 	if (textCursor().hasSelection())
-		deleteSel();
+		textCursor().removeSelectedText();
+	int oldLength = StyledText.length();
 	StyledText.insertChars(pos, t, true);
+	int newLength = StyledText.length();
+	insertUpdate(pos, newLength - oldLength);
 }
 
 void SEditor::insertStyledText(const StoryText& styledText)
 {
 	if (styledText.length() == 0)
 		return;
-	if (textCursor().hasSelection())
-		deleteSel();
-	int pos = qMin(textCursor().position(), StyledText.length());
-	StyledText.insert(pos, styledText);
+	int pos = textCursor().hasSelection() ? textCursor().selectionStart() : textCursor().position();
+	pos = qMin(pos, StyledText.length());
+	insertStyledText(styledText, pos);
 }
 
 void SEditor::insertStyledText(const StoryText& styledText, int pos)
@@ -504,8 +507,11 @@ void SEditor::insertStyledText(const StoryText& styledText, int pos)
 	if (styledText.length() == 0)
 		return;
 	if (textCursor().hasSelection())
-		deleteSel();
+		textCursor().removeSelectedText();
+	int oldLength = StyledText.length();
 	StyledText.insert(pos, styledText);
+	int newLength = StyledText.length();
+	insertUpdate(pos, newLength - oldLength);
 }
 
 void SEditor::saveItemText(PageItem *currItem)
@@ -603,40 +609,42 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 
 void SEditor::updateAll()
 {
-	++blockContentsChangeHook;
 	clear();
-	if (StyledText.length() == 0)
-	{
-		--blockContentsChangeHook;
+	insertUpdate(0, StyledText.length());
+}
+
+void SEditor::insertUpdate(int position, int len)
+{
+	if (StyledText.length() == 0 || len == 0)
 		return;
-	}
+	QString chars, text = "";
+	++blockContentsChangeHook;
 	setUpdatesEnabled(false);
 	this->blockSignals(true);
 	int cursorPos = textCursor().position();
 	int scrollPos = verticalScrollBar()->value();
-	QString Text = "";
-	QString chars;
-	int Csty = StyledText.charStyle(0).effects();
-	int Ali = StyledText.paragraphStyle(0).alignment();
-	setAlign(Ali);
-	setStyle(Csty);
-	for (uint pa = 0; pa < StyledText.nrOfParagraphs(); ++pa)
+	int end  = qMin(StyledText.length(), position + len);
+	int cSty = StyledText.charStyle(position).effects();
+	int pAli = StyledText.paragraphStyle(position).alignment();
+	setAlign(pAli);
+	setStyle(cSty);
+	for (int pos = position; pos < end; ++pos)
 	{
-		int start = StyledText.startOfParagraph(pa);
-		int end   = StyledText.endOfParagraph(pa);
-		const ParagraphStyle& pstyle(StyledText.paragraphStyle(start));
-		Ali = pstyle.alignment();
-		setAlign(Ali);
-		if (start >= end && pa < StyledText.nrOfParagraphs()-1)
+		const CharStyle& cstyle(StyledText.charStyle(pos));
+		const QChar ch = StyledText.text(pos);
+		if (ch == SpecialChars::PARSEP)
 		{
-			Text += "\n";
+			text += "\n";
+			const ParagraphStyle& pstyle(StyledText.paragraphStyle(pos));
+			pAli = pstyle.alignment();
+			setAlign(pAli);
+			setStyle(cSty);
+			insertPlainText(text);
+			cSty = cstyle.effects();
+			text = "";
 			continue;
 		}
-		for (int a = start; a < end; ++a)
-		{
-			const CharStyle& cstyle(StyledText.charStyle(a));
-			const QChar ch = StyledText.text(a);
-			if (Csty != cstyle.effects() ||
+		if (cSty != cstyle.effects() ||
 				ch == SpecialChars::OBJECT ||
 				ch == SpecialChars::PAGENUMBER ||
 				ch == SpecialChars::PAGECOUNT ||
@@ -645,77 +653,71 @@ void SEditor::updateAll()
 				ch == SpecialChars::COLBREAK ||
 				ch == SpecialChars::NBHYPHEN ||
 				ch == SpecialChars::LINEBREAK)
-			{
-				setAlign(Ali);
-				setStyle(Csty);
-				insertPlainText(Text);
-				Text = "";
-				Csty = cstyle.effects();
-			}
-
-			if (ch == SpecialChars::OBJECT)
-			{
-				setColor(true);
-				insertPlainText("@");
-				setColor(false);
-			}
-			else if (ch == SpecialChars::PAGENUMBER)
-			{
-				setColor(true);
-				insertPlainText("#");
-				setColor(false);
-			}
-			else if (ch == SpecialChars::PAGECOUNT)
-			{
-				setColor(true);
-				insertPlainText("%");
-				setColor(false);
-			}
-			else if (ch == SpecialChars::NBSPACE)
-			{
-				setColor(true);
-				insertPlainText("_");
-				setColor(false);
-			}
-			else if (ch == SpecialChars::FRAMEBREAK)
-			{
-				setColor(true);
-				insertPlainText("|");
-				setColor(false);
-			}
-			else if (ch == SpecialChars::COLBREAK)
-			{
-				setColor(true);
-				insertPlainText("^");
-				setColor(false);
-			}
-			else if (ch == SpecialChars::NBHYPHEN)
-			{
-				setColor(true);
-				insertPlainText("=");
-				setColor(false);
-			}
-			else if (ch == SpecialChars::LINEBREAK)
-			{
-				setColor(true);
-				insertPlainText("*");
-				setColor(false);
-			}
-			else
-				Text += ch;
-		}
-		if (pa < StyledText.nrOfParagraphs()-1)
 		{
-			setAlign(Ali);
-			setStyle(Csty);
-			Text += "\n";
-			insertPlainText(Text);
-			Text = "";
+			setAlign(pAli);
+			setStyle(cSty);
+			insertPlainText(text);
+			cSty = cstyle.effects();
+			text = "";
 		}
+		if (ch == SpecialChars::OBJECT)
+		{
+			setColor(true);
+			insertPlainText("@");
+			setColor(false);
+		}
+		else if (ch == SpecialChars::PAGENUMBER)
+		{
+			setColor(true);
+			insertPlainText("#");
+			setColor(false);
+		}
+		else if (ch == SpecialChars::PAGECOUNT)
+		{
+			setColor(true);
+			insertPlainText("%");
+			setColor(false);
+		}
+		else if (ch == SpecialChars::NBSPACE)
+		{
+			setColor(true);
+			insertPlainText("_");
+			setColor(false);
+		}
+		else if (ch == SpecialChars::FRAMEBREAK)
+		{
+			setColor(true);
+			insertPlainText("|");
+			setColor(false);
+		}
+		else if (ch == SpecialChars::COLBREAK)
+		{
+			setColor(true);
+			insertPlainText("^");
+			setColor(false);
+		}
+		else if (ch == SpecialChars::NBHYPHEN)
+		{
+			setColor(true);
+			insertPlainText("=");
+			setColor(false);
+		}
+		else if (ch == SpecialChars::LINEBREAK)
+		{
+			setColor(true);
+			insertPlainText("*");
+			setColor(false);
+		}
+		else
+			text += ch;
 	}
-	setAlign(Ali);
-	setStyle(Csty);
-	insertPlainText(Text);
+	if (position < end)
+	{
+		const ParagraphStyle& pstyle(StyledText.paragraphStyle(end - 1));
+		setAlign(pstyle.alignment());
+	}
+	setStyle(cSty);
+	insertPlainText(text);
 	QTextCursor tCursor = textCursor();
 	tCursor.setPosition(cursorPos);
 	setTextCursor(tCursor);
@@ -724,7 +726,7 @@ void SEditor::updateAll()
 	setUpdatesEnabled(true);
 	--blockContentsChangeHook;
 	emit textChanged();
-	//CB Removed to fix 2083 setCursorPosition(p, i);
+	//CB Removed to fix 2083 setCursorPosition(p, i);	
 }
 
 
@@ -910,7 +912,6 @@ void SEditor::paste()
 			return;
 		}
 	}
-	updateAll();
 	setUpdatesEnabled(false);
 	//qDebug("SE::paste: cursor");
 //	setCursorPosition(currentPara, currentCharPos);

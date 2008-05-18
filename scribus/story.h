@@ -143,6 +143,8 @@ protected:
 	void insertStyledText(const StoryText& styledText);
 	void insertStyledText(const StoryText& styledText, int position);
 
+	void insertUpdate(int position, int len);
+
 	int  blockContentsChangeHook;
 	void keyPressEvent(QKeyEvent *k);
 	void inputMethodEvent(QInputMethodEvent *event);
