@@ -370,10 +370,10 @@ void StoryText::insertCharsWithSmartHyphens(int pos, QString txt, bool applyNeig
 	for (int i = 0; i < txt.length(); ++i) 
 	{
 		QChar ch = txt.at(i);
-		int  len = length();
+		int  index  = pos + i;
 		bool insert = true; 
-		if (ch == SpecialChars::SHYPHEN && len > 0) {
-			ScText* lastItem = this->item(len-1);
+		if (ch == SpecialChars::SHYPHEN && index > 0) {
+			ScText* lastItem = this->item(index - 1);
 			// double SHY means user provided SHY, single SHY is automatic one
 			if (lastItem->effects() & ScStyle_HyphenationPossible)
 				lastItem->setEffects(lastItem->effects() & ~ScStyle_HyphenationPossible);
@@ -388,10 +388,10 @@ void StoryText::insertCharsWithSmartHyphens(int pos, QString txt, bool applyNeig
 			ScText * item = new ScText(clone);
 			item->ch = ch;
 			item->setContext(cStyleContext);
-			d->insert(len, item);
+			d->insert(index, item);
 			d->len++;
 			if (item->ch == SpecialChars::PARSEP) {
-				insertParSep(len);
+				insertParSep(index);
 			}
 			++inserted;
 		}
