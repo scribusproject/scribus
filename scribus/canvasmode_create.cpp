@@ -218,6 +218,8 @@ void CreateMode::activate(bool fromGesture)
 						m_doc->MoveItem(-currItem->width(), -currItem->height(), currItem, false);
 						break;
 				}
+				FPoint tp(getMaxClipF(&currItem->PoLine));
+				currItem->setWidthHeight(tp.x(), tp.y(), true);
 				m_doc->setRedrawBounding(currItem);
 				currItem->OwnPage = m_doc->OnPage(currItem);
 				currItem->OldB2 = currItem->width();
@@ -232,6 +234,7 @@ void CreateMode::activate(bool fromGesture)
 											Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
 				m_doc->SnapGuides = oldSnap;
 				currItem->update();
+				currItem->emitAllToGUI();
 			}
 			else
 			{
@@ -252,6 +255,8 @@ void CreateMode::activate(bool fromGesture)
 // 			else
 // 				m_doc->AdjustItemSize(currItem);
 			currItem->ContourLine = currItem->PoLine.copy();
+			FPoint tp(getMaxClipF(&currItem->PoLine));
+			currItem->setWidthHeight(tp.x(), tp.y(), true);
 			m_doc->setRedrawBounding(currItem);
 			currItem->OwnPage = m_doc->OnPage(currItem);
 			currItem->Sizing = false;
@@ -266,6 +271,7 @@ void CreateMode::activate(bool fromGesture)
 			m_createTransaction = NULL;
 			currItem->update();
 			inItemCreation = false;
+			currItem->emitAllToGUI();
 		}
 		m_doc->changed();
 		if (!PrefsManager::instance()->appPrefs.stickyTools)

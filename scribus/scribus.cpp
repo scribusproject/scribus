@@ -6280,6 +6280,7 @@ void ScribusMainWindow::NoFrameEdit()
 		if (doc->m_Selection->count() != 0)
 		{
 			HaveNewSel(doc->m_Selection->itemAt(0)->itemType());
+			doc->m_Selection->itemAt(0)->emitAllToGUI();
 			view->DrawNew();
 		}
 		else
