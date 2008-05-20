@@ -99,8 +99,8 @@ public:
 	/*! \brief Save the preferences.
 	\param fname optional filename with preferences. If is not given,
 	the defualt is used. */
-	void SavePrefs(const QString & fname=QString::null);
-	void SavePrefsXML();
+	void SavePrefs(const QString & fname=QString::null, bool closing = false);
+	void SavePrefsXML(bool closing = false);
 
 	/*! \brief Writes the preferences physically to the file.
 	Here is the XML file created itself.

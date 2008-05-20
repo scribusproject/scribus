@@ -680,7 +680,7 @@ void PrefsManager::ReadPrefsXML()
 }
 
 
-void PrefsManager::SavePrefs(const QString & fname)
+void PrefsManager::SavePrefs(const QString & fname, bool closing)
 {
 	// If closing because of a crash don't save prefs as we can
 	// accidentally nuke the settings if the crash is before prefs are loaded
@@ -700,7 +700,7 @@ void PrefsManager::SavePrefs(const QString & fname)
 		appPrefs.RecentDocs.append(ScMW->RecentDocs[m]);
 	}
 	ScMW->getDefaultPrinter(&appPrefs.PrinterName, &appPrefs.PrinterFile, &appPrefs.PrinterCommand);
-	SavePrefsXML();
+	SavePrefsXML(closing);
 	QString realFile;
 	if (fname.isNull())
 		realFile = prefsLocation+"/scribus13.rc";
@@ -710,7 +710,7 @@ void PrefsManager::SavePrefs(const QString & fname)
 		alertSavePrefsFailed();
 }
 
-void PrefsManager::SavePrefsXML()
+void PrefsManager::SavePrefsXML(bool closing)
 {
     if (prefsFile)
     {
@@ -720,6 +720,13 @@ void PrefsManager::SavePrefsXML()
             //continue here...
             //Prefs."blah blah" =...
         }
+		if (closing && prefsFile->hasContext("print_options"))
+		{
+			PrefsContext* printOptionsContext = prefsFile->getContext("print_options");
+			if (printOptionsContext) {
+				printOptionsContext->set("Copies", 1);
+			}
+		}
         prefsFile->write();
     }
 }

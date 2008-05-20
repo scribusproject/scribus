@@ -47,6 +47,11 @@ PrefsFile::PrefsFile(const QString& pFilePath, bool write)
 	load();
 }
 
+bool PrefsFile::hasContext(const QString& contextName)
+{
+	return contexts.contains(contextName);
+}
+
 PrefsContext* PrefsFile::getContext(const QString& contextName, bool persistent)
 {
 	if (!contexts.contains(contextName))

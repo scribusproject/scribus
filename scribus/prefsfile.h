@@ -50,7 +50,7 @@ public:
 	PrefsFile();
 	PrefsFile(const QString& pFilePath, bool write = true);
 	~PrefsFile();
-	bool contextExists();
+	bool          hasContext(const QString& contextName);
 	PrefsContext* getContext(const QString& contextName, bool persistent = true);
 	PrefsContext* getPluginContext(const QString& contextName, bool persistent = true);
 	void write();

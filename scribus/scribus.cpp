@@ -1852,7 +1852,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	prefsManager->appPrefs.RecentScrapbooks.clear();
 	prefsManager->appPrefs.RecentScrapbooks = scrapbookPalette->getOpenScrapbooks();
 	if (!emergencyActivated)
-		prefsManager->SavePrefs();
+		prefsManager->SavePrefs(QString::null, true);
 	UndoManager::deleteInstance();
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	exit(0);
