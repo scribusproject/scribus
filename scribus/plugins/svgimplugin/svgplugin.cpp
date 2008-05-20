@@ -316,7 +316,7 @@ void SVGPlug::convert(int flags)
 			viewTransformY = points[1].toDouble();
 			viewScaleX = w2 / points[2].toDouble();
 			viewScaleY = h2 / points[3].toDouble();
-			matrix.translate(viewTransformX, viewTransformY);
+			matrix.translate(-viewTransformX * viewScaleX, -viewTransformY * viewScaleY);
 			matrix.scale(viewScaleX, viewScaleY);
 			m_gc.top()->matrix = matrix;
 		}
@@ -800,12 +800,14 @@ void SVGPlug::parseClipPath(const QDomElement &e)
 			parseSVG( b2.attribute( "d" ), &clip );
 		else if (b2.nodeName() == "rect")
 		{
-			double width = parseUnit( b2.attribute( "width" ));
+			double x = parseUnit( b2.attribute( "x", "0.0" ));
+			double y = parseUnit( b2.attribute( "y", "0.0" ));
+			double width  = parseUnit( b2.attribute( "width" ));
 			double height = parseUnit( b2.attribute( "height" ) );
-			clip.addQuadPoint(0.0, 0.0, 0.0, 0.0, width, 0.0, width, 0.0);
-			clip.addQuadPoint(width, 0.0, width, 0.0, width, height, width, height);
-			clip.addQuadPoint(width, height, width, height, 0.0, height, 0.0, height);
-			clip.addQuadPoint(0.0, height, 0.0, height, 0.0, 0.0, 0.0, 0.0);
+			clip.addQuadPoint(x, y, x, y, width+x, y, width+x, y);
+			clip.addQuadPoint(width+x, y, width+x, y, width+x, height+y, width+x, height+y);
+			clip.addQuadPoint(width+x, height+y, width+x, height+y, x, height+y, x, height+y);
+			clip.addQuadPoint(x, height+y, x, height+y, x, y, x, y);
 		}
 		if (clip.size() >= 2)
 			m_clipPaths.insert(id, clip);
@@ -919,9 +921,10 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		if (clipPath.size() != 0)
 		{
 			QMatrix mm = gc->matrix;
-			mm.translate(-gx + BaseX, -gy + BaseY);
+			//mm.translate(-gx + BaseX, -gy + BaseY);
 			neu->PoLine = clipPath.copy();
 			neu->PoLine.map(mm);
+			neu->PoLine.translate(-gx + BaseX, -gy + BaseY);
 			clipPath.resize(0);
 			/* fix for needless large groups created by the cairo svg-export, won't work tho with complex clip paths
 			FPoint tp2(getMinClipF(&neu->PoLine));
