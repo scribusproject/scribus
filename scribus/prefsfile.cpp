@@ -47,6 +47,11 @@ PrefsFile::PrefsFile(const QString& pFilePath, bool write)
 	load();
 }
 
+bool PrefsFile::hasContext(const QString& contextName)
+{
+	return contexts.contains(contextName);
+}
+
 PrefsContext* PrefsFile::getContext(const QString& contextName, bool persistent)
 {
 	if (!contexts.contains(contextName))
@@ -70,16 +75,12 @@ PrefsContext* PrefsFile::getUserPrefsContext(const QString& contextName, bool pe
 
 void PrefsFile::load()
 {
-	PrefsReader* handler = new PrefsReader(&contexts, &pluginContexts);
-	QFile* rc = new QFile(prefsFilePath);
-	QXmlInputSource* source = new QXmlInputSource(rc);
-	QXmlSimpleReader* reader = new QXmlSimpleReader();
-	reader->setContentHandler(handler);
-	reader->parse(source);
-	delete reader;
-	delete source;
-	delete rc;
-	delete handler;
+	PrefsReader handler(&contexts, &pluginContexts);
+	QFile rc(prefsFilePath);
+	QXmlInputSource  source(&rc);
+	QXmlSimpleReader reader;
+	reader.setContentHandler(&handler);
+	reader.parse(source);
 }
 
 void PrefsFile::write()

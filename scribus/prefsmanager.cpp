@@ -898,6 +898,13 @@ void PrefsManager::ReadPrefsXML()
             //continue here...
             //Prefs."blah blah" =...
 		}
+		if (prefsFile->hasContext("print_options"))
+		{
+			// Reset copies number to 1 when user start new session
+			PrefsContext* printOptionsContext = prefsFile->getContext("print_options");
+			if (printOptionsContext)
+				printOptionsContext->set("Copies", 1);
+		}
 	}
 }
 
