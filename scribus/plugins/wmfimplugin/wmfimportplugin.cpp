@@ -63,14 +63,14 @@ WMFImportPlugin::WMFImportPlugin() : LoadSavePlugin(),
 	// support.
 	languageChange();
 }
-
+/*
 void WMFImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 {
 	importAction->setEnabled(true);
 	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
 	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
-
+*/
 WMFImportPlugin::~WMFImportPlugin()
 {
 	unregisterAll();

@@ -309,6 +309,7 @@ public slots:
 	void rebuildRecentPasteMenu();
 	void pasteRecent(QString fn);
 	void pasteFromScrapbook(QString fn);
+	void importVectorFile();
 	void rebuildLayersList();
 	bool slotDocOpen();
 	bool loadDoc(QString);

@@ -71,14 +71,14 @@ SVGImportPlugin::SVGImportPlugin() : LoadSavePlugin(),
 	// support.
 	languageChange();
 }
-
+/*
 void SVGImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 {
 	importAction->setEnabled(true);
 	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
 	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
-
+*/
 SVGImportPlugin::~SVGImportPlugin()
 {
 	unregisterAll();

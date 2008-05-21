@@ -75,7 +75,7 @@ OODrawImportPlugin::OODrawImportPlugin() :
 	// it in one place. This includes registering file formats.
 	languageChange();
 }
-
+/*
 void OODrawImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 {
 	// Then hook up the action
@@ -83,7 +83,7 @@ void OODrawImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
 	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
-
+*/
 OODrawImportPlugin::~OODrawImportPlugin()
 {
 	unregisterAll();

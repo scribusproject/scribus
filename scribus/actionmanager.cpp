@@ -120,6 +120,8 @@ void ActionManager::initFileMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="fileImportImage";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="fileImportVector";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 
 	//File Export Menu
 	name="fileExportText";
@@ -161,6 +163,7 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["fileImportText2"], SIGNAL(triggered()), mainWindow, SLOT(slotGetContent2()) );
 	connect( (*scrActions)["fileImportAppendText"], SIGNAL(triggered()), mainWindow, SLOT(slotFileAppend()) );
 	connect( (*scrActions)["fileImportImage"], SIGNAL(triggered()), mainWindow, SLOT(slotGetContent()) );
+	connect( (*scrActions)["fileImportVector"], SIGNAL(triggered()), mainWindow, SLOT(importVectorFile()) );
 	//File Export Menu
 	connect( (*scrActions)["fileExportText"], SIGNAL(triggered()), mainWindow, SLOT(SaveText()) );
 	connect( (*scrActions)["fileExportAsEPS"], SIGNAL(triggered()), mainWindow, SLOT(SaveAsEps()) );
@@ -1237,6 +1240,8 @@ void ActionManager::languageChange()
 	(*scrActions)["fileImportText"]->setTexts( tr("Get Text..."));
 	(*scrActions)["fileImportAppendText"]->setTexts( tr("Append &Text..."));
 	(*scrActions)["fileImportImage"]->setTexts( tr("Get Image..."));
+	(*scrActions)["fileImportVector"]->setTexts( tr("Get Vector File..."));
+
 	(*scrActions)["fileExportText"]->setTexts( tr("Save &Text..."));
 	(*scrActions)["fileExportAsEPS"]->setTexts( tr("Save as &EPS..."));
 	(*scrActions)["fileExportAsPDF"]->setTexts( tr("Save as P&DF..."));
@@ -1650,11 +1655,11 @@ void ActionManager::createDefaultMenus()
 	defMenus.append(QPair<QString, QStringList>("Window", QStringList()));
 	defMenus.append(QPair<QString, QStringList>("Help", QStringList()));
 // 	defMenus.append(QPair<QString, QStringList>("Other", QStringList()));
-
+	
 	QVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus.begin();
 	//File
 	itmenu->second << "fileNew" << "fileOpen" << "fileClose" << "fileSave" << "fileSaveAs" << "fileRevert" << "fileCollect";
-	itmenu->second << "fileImportText" << "fileImportText2" << "fileImportAppendText" << "fileImportImage" << "fileExportText" << "fileExportAsEPS" << "fileExportAsPDF";
+	itmenu->second << "fileImportText" << "fileImportText2" << "fileImportAppendText" << "fileImportImage" << "fileImportVector" << "fileExportText" << "fileExportAsEPS" << "fileExportAsPDF";
 	itmenu->second << "fileDocSetup" << "filePreferences" << "filePrint" << "PrintPreview" << "fileQuit";
 	++itmenu;
 	//Edit

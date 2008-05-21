@@ -44,14 +44,14 @@ ImportPSPlugin::ImportPSPlugin() : LoadSavePlugin(),
 	// place. This includes registering file format support.
 	languageChange();
 }
-
+/*
 void ImportPSPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 {
 	importAction->setEnabled(true);
 	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
 	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
-
+*/
 void ImportPSPlugin::languageChange()
 {
 	importAction->setText( tr("Import PostScript..."));

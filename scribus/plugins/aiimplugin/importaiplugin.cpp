@@ -45,14 +45,14 @@ ImportAIPlugin::ImportAIPlugin() : LoadSavePlugin(),
 	// place. This includes registering file format support.
 	languageChange();
 }
-
+/*
 void ImportAIPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 {
 	importAction->setEnabled(true);
 	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
 	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
-
+*/
 void ImportAIPlugin::languageChange()
 {
 	importAction->setText( tr("Import AI..."));

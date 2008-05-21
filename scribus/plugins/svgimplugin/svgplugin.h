@@ -37,7 +37,7 @@ class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
-		virtual void addToMainWindowMenu(ScribusMainWindow *);
+		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 	public slots:
 		/*!

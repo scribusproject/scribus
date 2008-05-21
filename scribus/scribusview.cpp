@@ -870,24 +870,6 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				}
 			}
 		}
-//		qDebug() << "drop - img:" << img << "file:" << fi.exists() << "suffix:" << fi.suffix() << "select by drag:" << selectedItemByDrag;
-		//CB When we drag an image to a page from outside
-		//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
-		if ((fi.exists()) && (img) && !selectedItemByDrag)// && (!SeleItemPos(e->pos())))
-		{
-			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
-			PageItem *b = Doc->Items->at(z);
-			b->LayerNr = Doc->activeLayer();
-			Doc->LoadPict(url.path(), b->ItemNr);
-			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
-			b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
-			b->OldB2 = b->width();
-			b->OldH2 = b->height();
-			b->updateClip();
-			emit DocChanged();
-			update();
-			return;
-		}
 		bool vectorFile = false;
 		if (fi.exists())
 		{
@@ -906,6 +888,24 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		{
 			if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSFRAGMENT")))
 				vectorFile = true;
+		}
+//		qDebug() << "drop - img:" << img << "file:" << fi.exists() << "suffix:" << fi.suffix() << "select by drag:" << selectedItemByDrag;
+		//CB When we drag an image to a page from outside
+		//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
+		if ((fi.exists()) && (img) && !selectedItemByDrag && !vectorFile)// && (!SeleItemPos(e->pos())))
+		{
+			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			PageItem *b = Doc->Items->at(z);
+			b->LayerNr = Doc->activeLayer();
+			Doc->LoadPict(url.path(), b->ItemNr);
+			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
+			b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
+			b->OldB2 = b->width();
+			b->OldH2 = b->height();
+			b->updateClip();
+			emit DocChanged();
+			update();
+			return;
 		}
 		//if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
 		if (Doc->m_Selection->count()>0 && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && !vectorFile) // && (img))
@@ -944,10 +944,10 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		{
 			Deselect(true);
 			uint oldDocItemCount = Doc->Items->count();
-			if ((!img) && (Doc->DraggedElem == 0))
+			if (((!img) || (vectorFile)) && (Doc->DraggedElem == 0))
 			{
 				activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate));
-				if ((fi.exists()) && (!img))
+				if (fi.exists())
 				{
 					QString data;
 					if (fi.suffix().toLower() == "sml")
@@ -983,7 +983,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 							if( fmt )
 							{
 								fmt->loadFile(url.toLocalFile(), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-								if (Doc->m_Selection->count() > 1)
+								if (Doc->m_Selection->count() > 0)
 								{
 									double x2, y2, w, h;
 									Doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);

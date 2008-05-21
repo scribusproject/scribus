@@ -212,6 +212,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_ghostscript.h"
 #include "util_icon.h"
 #include "vruler.h"
+#include "loadsaveplugin.h"
+#include "plugins/formatidlist.h"
 
 
 #if defined(_WIN32)
@@ -606,6 +608,8 @@ void ScribusMainWindow::initMenuBar()
 // 	scrMenuMgr->addMenuItem(scrActions["fileImportText2"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportAppendText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportImage"], "FileImport");
+	scrMenuMgr->addMenuItem(scrActions["fileImportVector"], "FileImport");
+
 	scrMenuMgr->createMenu("FileExport", tr("&Export"), "File");
 	scrMenuMgr->addMenuItem(scrActions["fileExportText"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsEPS"], "FileExport");
@@ -3495,6 +3499,60 @@ void ScribusMainWindow::doPasteRecent(QString data)
 		pasteAction.commit();
 		slotDocCh(false);
 		doc->regionsChanged()->update(QRectF());
+	}
+}
+
+void ScribusMainWindow::importVectorFile()
+{
+	QString fileName = "";
+	QString formats = "";
+	QString allFormats = tr("All Supported Formats")+" (";
+	int fmtCode = FORMATID_ODGIMPORT;
+	const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
+	while (fmt != 0)
+	{
+		if (fmt->load)
+		{
+			formats += fmt->filter + ";;";
+			int an = fmt->filter.indexOf("(");
+			int en = fmt->filter.indexOf(")");
+			while (an != -1)
+			{
+				allFormats += fmt->filter.mid(an+1, en-an-1)+" ";
+				an = fmt->filter.indexOf("(", en);
+				en = fmt->filter.indexOf(")", an);
+			}
+		}
+		fmtCode++;
+		fmt = LoadSavePlugin::getFormatById(fmtCode);
+	}
+	allFormats += "*.sce *.SCE ";
+	allFormats += "*.shape *.SHAPE ";
+	allFormats += "*.sml *.SML);;";
+	formats += "Scribus Objects (*.sce *.SCE);;";
+	formats += "Dia Shapes (*.shape *.SHAPE);;";
+	formats += "Kivio Stencils (*.sml *.SML)";
+	allFormats += formats;
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	QString wdir = dirs->get("pastefile", ".");
+	CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdExistingFiles);
+	if (dia.exec() == QDialog::Accepted)
+		fileName = dia.selectedFile();
+	else
+		return;
+	if (!fileName.isEmpty())
+	{
+		PrefsManager::instance()->prefsFile->getContext("dirs")->set("pastefile", fileName.left(fileName.lastIndexOf("/")));
+		QMimeData* md = new QMimeData();
+		QUrl ur = QUrl::fromLocalFile(fileName);
+		md->setText(ur.toString());
+		QDrag* dr = new QDrag(this);
+		dr->setMimeData(md);
+		const QPixmap& dragCursor = loadIcon("DragPix.xpm");
+		dr->setDragCursor(dragCursor, Qt::CopyAction);
+		dr->setDragCursor(dragCursor, Qt::MoveAction);
+		dr->setDragCursor(dragCursor, Qt::LinkAction);
+		dr->exec();
 	}
 }
 

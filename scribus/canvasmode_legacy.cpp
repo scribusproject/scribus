@@ -4968,22 +4968,37 @@ void LegacyMode::setResizeCursor(int how)
 void LegacyMode::importToPage()
 {
 	QString fileName;
-	QString formats = "Scribus Objects (*.sce *.SCE);;";
-	formats += "Dia Shapes (*.shape *.SHAPE);;";
-	formats += "Kivio Stencils (*.sml *.SML);;";
+	QString allFormats = tr("All Supported Formats")+" (";
+	QString formats = "";
 	int fmtCode = FORMATID_ODGIMPORT;
 	const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
 	while (fmt != 0)
 	{
 		if (fmt->load)
+		{
 			formats += fmt->filter + ";;";
+			int an = fmt->filter.indexOf("(");
+			int en = fmt->filter.indexOf(")");
+			while (an != -1)
+			{
+				allFormats += fmt->filter.mid(an+1, en-an-1)+" ";
+				an = fmt->filter.indexOf("(", en);
+				en = fmt->filter.indexOf(")", an);
+			}
+		}
 		fmtCode++;
 		fmt = LoadSavePlugin::getFormatById(fmtCode);
 	}
-	formats += tr("All Files (*)");
+	allFormats += "*.sce *.SCE ";
+	allFormats += "*.shape *.SHAPE ";
+	allFormats += "*.sml *.SML);;";
+	formats += "Scribus Objects (*.sce *.SCE);;";
+	formats += "Dia Shapes (*.shape *.SHAPE);;";
+	formats += "Kivio Stencils (*.sml *.SML)";
+	allFormats += formats;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
-	CustomFDialog dia(m_view, wdir, tr("Open"), formats, fdExistingFiles);
+	CustomFDialog dia(m_view, wdir, tr("Open"), allFormats, fdExistingFiles);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
