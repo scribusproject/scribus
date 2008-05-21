@@ -370,7 +370,7 @@ void StoryText::insertCharsWithSmartHyphens(int pos, QString txt, bool applyNeig
 	for (int i = 0; i < txt.length(); ++i) 
 	{
 		QChar ch = txt.at(i);
-		int  index  = pos + i;
+		int  index  = pos + inserted;
 		bool insert = true; 
 		if (ch == SpecialChars::SHYPHEN && index > 0) {
 			ScText* lastItem = this->item(index - 1);
