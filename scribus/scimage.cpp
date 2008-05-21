@@ -819,7 +819,6 @@ void ScImage::applyCurve(bool cmyk)
 	QRgb r;
 	int c, m, y, k;
 	unsigned char *p;
-	unsigned char rc, gc, bc;
 	for( int yi=0; yi < h; ++yi )
 	{
 		s = (QRgb*)(scanLine( yi ));
@@ -829,14 +828,10 @@ void ScImage::applyCurve(bool cmyk)
 			if (cmyk)
 			{
 				p = (unsigned char *) s;
-				rc = 255 - qMin(255, p[0] + p[3]);
-				gc = 255 - qMin(255, p[1] + p[3]);
-				bc = 255 - qMin(255, p[2] + p[3]);
-				c = 255 - curveTable[(int)rc];
-				m = 255 - curveTable[(int)gc];
-				y = 255 - curveTable[(int)bc];
-				k = qMin(qMin(c, m), y);
-				*s = qRgba(y - k, m - k, c - k, k );
+				p[0] = 255 - curveTable[255 - p[0]];
+				p[1] = 255 - curveTable[255 - p[1]];
+				p[2] = 255 - curveTable[255 - p[2]];
+				p[3] = 255 - curveTable[255 - p[3]];
 			}
 			else
 			{
