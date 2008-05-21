@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1">
+<!DOCTYPE TS><TS version="1.1" language="pl_PL">
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -3206,27 +3207,27 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     <message>
         <location filename="../about.cpp" line="204"/>
         <source>Splash Screen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ekran startowy:</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="443"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ten panel wyświetla wersję, datę zbudowania i wkompilowane w Scribusa biblioteki.</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="444"/>
         <source>The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.Last Letter is the renderer C=cairo or Q=Qt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">C-C-T-F jest równoważne z: C=LittleCMS C=CUPS T=TIFF (wparcie) F=Fontconfig (wsparcie). Ostatnia litera oznacza mechanizm renderowania C=Cairo lub Q=Qt</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="445"/>
         <source>Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Brak bibliotek jest sygnalizowany przez *. Jednocześnie wskazuje to na wersję Ghostscripta wykrytą przez Scribusa.</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="446"/>
         <source>The Windows version does not use fontconfig or CUPS libraries.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wersia dla Windows nie korzysta z bibliotek fontconfig i CUPS.</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="137"/>
@@ -3241,12 +3242,12 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     <message>
         <location filename="../about.cpp" line="478"/>
         <source>Check for Updates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sprawdź aktualizacje</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="476"/>
         <source>Abort Update Check</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anuluj sprawdzenie aktualizacji</translation>
     </message>
 </context>
 <context>
@@ -3304,7 +3305,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     <message>
         <location filename="../aboutplugins.ui" line="13"/>
         <source>Scribus: About Plug-ins</source>
-        <translation type="unfinished">Scribus: O wtyczkach</translation>
+        <translation>Scribus: O wtyczkach</translation>
     </message>
 </context>
 <context>
@@ -4145,7 +4146,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     <message>
         <location filename="../actionmanager.cpp" line="1502"/>
         <source>Quotation Dash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kreska dialogowa</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -4771,12 +4772,12 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     <message>
         <location filename="../actionmanager.cpp" line="1278"/>
         <source>Edit Latex Source...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Edytuj źródło LaTeXa...</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1432"/>
         <source>Insert &amp;Text Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Utwórz ramkę &amp;tekstową</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1433"/>
@@ -4786,77 +4787,77 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     <message>
         <location filename="../actionmanager.cpp" line="1434"/>
         <source>Insert &amp;Latex Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wstaw ramkę &amp;LaTeX</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1435"/>
         <source>Insert T&amp;able</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wstaw ta&amp;belę</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1436"/>
         <source>Insert &amp;Shape</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wstaw &amp;figurę geometryczną</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1437"/>
         <source>Insert &amp;Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wstaw &amp;wielokąt</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1438"/>
         <source>Insert &amp;Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wstaw &amp;linię</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1439"/>
         <source>Insert &amp;Bezier Curve</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wstaw krzywą &amp;Beziera</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1440"/>
         <source>Insert &amp;Freehand Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wstaw &amp;odręczną linię</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1467"/>
         <source>Scribus Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Strona domowa Scribusa</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1468"/>
         <source>Scribus Online Documentation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dokumentacja On-line</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1469"/>
         <source>Scribus Wiki</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Scribus Wiki</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1470"/>
         <source>Getting Started with Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pierwsze kroki ze Scribusem</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1402"/>
         <source>Show Context Menu</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pokaż menu kontekstowe</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1452"/>
         <source>&amp;Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Zarządzaj obrazkami</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1463"/>
         <source>&amp;About Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">O &amp;wtyczkach</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1471"/>
         <source>Check updates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sprawdź aktualizacje</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1476"/>
@@ -5075,17 +5076,17 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <location filename="../aligndistribute.ui" line="35"/>
         <source>Align</source>
-        <translation type="unfinished">Wyrównaj</translation>
+        <translation>Wyrównaj</translation>
     </message>
     <message>
         <location filename="../aligndistribute.ui" line="79"/>
         <source>&amp;Selected Guide:</source>
-        <translation type="unfinished">&amp;Wybrana linia pomocnicza:</translation>
+        <translation>&amp;Wybrana linia pomocnicza:</translation>
     </message>
     <message>
         <location filename="../aligndistribute.ui" line="92"/>
         <source>&amp;Relative To:</source>
-        <translation type="unfinished">&amp;Do:</translation>
+        <translation>&amp;Względnie Do:</translation>
     </message>
     <message>
         <location filename="../aligndistribute.ui" line="431"/>
@@ -5095,12 +5096,12 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <location filename="../aligndistribute.ui" line="270"/>
         <source>Distribute</source>
-        <translation type="unfinished">Rozmieść</translation>
+        <translation>Rozmieść</translation>
     </message>
     <message>
         <location filename="../aligndistribute.ui" line="490"/>
         <source>&amp;Distance:</source>
-        <translation type="unfinished">&amp;Odstęp:</translation>
+        <translation>&amp;Odstęp:</translation>
     </message>
 </context>
 <context>
@@ -6164,7 +6165,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <location filename="../annot.cpp" line="1282"/>
         <source>Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Obrazki (*.tif *.png *.jpg *.xpm;;%1;;Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -6252,7 +6253,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <location filename="../annota.cpp" line="355"/>
         <source>%1;;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1;;Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -6370,7 +6371,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <location filename="../applytemplatedialog.cpp" line="52"/>
         <source>Possible Hyphenation</source>
-        <translation type="unfinished">Propozycja podziału</translation>
+        <translation>Propozycja podziału</translation>
     </message>
 </context>
 <context>
@@ -6439,22 +6440,22 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="31"/>
         <source>Spell-Checker</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprawdzanie pisowni</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="63"/>
         <source>Spell-checking support</source>
-        <translation type="unfinished"></translation>
+        <translation>Wsparcie sprawdzania pisowni</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="68"/>
         <source>Adds support for spell-checking via aspell. Languages can be chosen from among the installed aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaje wsparcie dla sprawdzania pisowni poprzez aspell. Język można wybrać spośród zainstalowanych słowników aspella, a sprawdzenie pisowni może odbywać się w trakcie pisania lub na wybranym fragmencie tekstu.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellplugin.cpp" line="69"/>
         <source>0.1</source>
-        <translation type="unfinished"></translation>
+        <translation>0.1</translation>
     </message>
 </context>
 <context>
@@ -6462,53 +6463,54 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="13"/>
         <source>Spell Check</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprawdzenie Pisowni</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="49"/>
         <source>Mis-spelling:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Błędna pisownia:</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="99"/>
         <source>Replacement:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zamiana:</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="140"/>
         <source>Active dictionary: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktywny słownik: </translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="183"/>
         <source>Personal
 Dictionary</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Słownik
+osobisty</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="212"/>
         <source>&amp;Add Word</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Dodaj słowo</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="241"/>
         <source>&amp;Change</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Zmień</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="266"/>
         <source>C&amp;hange All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Z&amp;mień wszystko</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="291"/>
         <source>&amp;Skip</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Pomiń</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="310"/>
         <source>S&amp;kip All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">P&amp;omiń wszystko</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginbase.ui" line="351"/>
@@ -6521,22 +6523,22 @@ Dictionary</source>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
         <source>Loaded </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Załadowany</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
         <source>default </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">domyślny</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="30"/>
         <source> aspell dictionary.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> słownik aspell.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="57"/>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in aspell speller configuration.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wtyczka aspell (AspellPluginImpl::AspellPluginImpl): Błąd konfiguracji aspella.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="64"/>
@@ -6546,17 +6548,17 @@ Dictionary</source>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="211"/>
         <source>Spell-Checker</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sprawdzanie pisowni</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="211"/>
         <source>Spell-checking completed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zakończono sprawdzanie pisowni.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="222"/>
         <source>Spell-checking done.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zakończono sprawdzanie pisowni.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/spellcheck/aspellpluginimpl.cpp" line="329"/>
@@ -6584,12 +6586,12 @@ Dictionary</source>
     <message>
         <location filename="../autoformbuttongroup.cpp" line="1213"/>
         <source>Flow Chart</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Diagram przepływu</translation>
     </message>
     <message>
         <location filename="../autoformbuttongroup.cpp" line="1214"/>
         <source>Jigsaw</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Puzzle</translation>
     </message>
     <message>
         <location filename="../autoformbuttongroup.cpp" line="1215"/>
@@ -6612,7 +6614,7 @@ Dictionary</source>
     <message>
         <location filename="../plugins/barcodegenerator/barcode.cpp" line="23"/>
         <source>&amp;Barcode...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Kod kreskowy</translation>
     </message>
 </context>
 <context>
@@ -6705,12 +6707,12 @@ Dictionary</source>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="104"/>
         <source>Select Type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wybierz typ</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="144"/>
         <source>Select Barcode Type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wybierz typ kodu kreskowego</translation>
     </message>
 </context>
 <context>
@@ -6878,7 +6880,7 @@ Dictionary</source>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="15"/>
         <source>Insert Barcode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wprowadź kod</translation>
     </message>
     <message>
         <location filename="../plugins/barcodegenerator/barcodegenerator.ui" line="24"/>
@@ -7065,37 +7067,37 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../scrapbookpalette.cpp" line="1113"/>
         <source>New Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nowa nazwa</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="739"/>
         <source>Scrapbook (*.scs *.SCS)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Biblioteka (*.scs *.SCS)</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="833"/>
         <source>Paste to Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wklej na Stronę</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="889"/>
         <source>Save as...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako...</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="892"/>
         <source>Close</source>
-        <translation type="unfinished">Zamknij</translation>
+        <translation>Zamknij</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="895"/>
         <source>Delete Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuń zawartość</translation>
     </message>
     <message>
         <location filename="../scrapbookpalette.cpp" line="1068"/>
         <source>Do you really want to delete all entries?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Czy na pewno usunąć wszystkie elementy?</translation>
     </message>
 </context>
 <context>
@@ -7457,17 +7459,17 @@ wszystkie kolory, zarówno RGB jak i CMYK, zostaną zamienione na przestrzeń ko
     <message>
         <location filename="../cmsprefs.cpp" line="43"/>
         <source>&amp;RGB Images:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Obrazy &amp;RGB:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="51"/>
         <source>&amp;CMYK Images:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Obrazy &amp;CMYK:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="98"/>
         <source>Images:</source>
-        <translation type="unfinished">Obrazki:</translation>
+        <translation type="unfinished">Obrazy:</translation>
     </message>
 </context>
 <context>
@@ -7631,18 +7633,19 @@ proszę wybrać inną nazwę.</translation>
     <message>
         <location filename="../cmykfw.cpp" line="386"/>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wybranie tej opcji spowoduje ustawienie koloru jako koloru &quot;spot&quot;, a co za tym idzie dodatkowej płyty podczas wykonywania rozbarwień lub naświetlania. Opcji tej używa się najczęściej w sytuacji gdy logo lub kolor wymaga dokładnej reprezentacji i nie może być odwzorowane za pomocą farb CMYK. Dobrym przykładem może być użycie farb metalicznych lub fluorescencyjnych, które nie dają się łatwo odwzorować w przestrzeni CMYK.</translation>
     </message>
     <message>
         <location filename="../cmykfw.cpp" line="866"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jeśli włączone jest zarządzanie kolorem, trójkątny wskaźnik ostrzegawczy informuje, że wybrany kolor może znajdować się poza przestrzenią kolorów wybranego profilu drukarki. Oznacza to, że wybrany kolor może wyglądać na wydruki inaczej niż na ekranie. Więcej wskazówek odnośnie ostrzeżeń przestrzeni kolorów można znaleźć w pomocy on-line pod hasłem Zarządzanie kolorem.</translation>
     </message>
     <message>
         <location filename="../cmykfw.cpp" line="1058"/>
         <source>You cannot create a color without a name
 Please give it a name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie można utworzyć koloru bez nazwy
+Podaj nazwę koloru</translation>
     </message>
 </context>
 <context>
@@ -7779,37 +7782,37 @@ Please give it a name</source>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="15"/>
         <source>Color Wheel</source>
-        <translation type="unfinished">Koło barw</translation>
+        <translation>Koło barw</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="47"/>
         <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
-        <translation type="unfinished">Kliknij na kole, aby uzyskać kolor podstawowy. Model kolorów zależy od tego, jak zakładka została wybrana po prawej stronie.</translation>
+        <translation>Kliknij na kole, aby uzyskać kolor podstawowy. Model kolorów zależy od tego, jak zakładka została wybrana po prawej stronie.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="54"/>
         <source>Result Colors</source>
-        <translation type="unfinished">Kolory wynikowe</translation>
+        <translation>Kolory wynikowe</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="311"/>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="532"/>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="718"/>
         <source>HSV</source>
-        <translation type="unfinished">HSV</translation>
+        <translation>HSV</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="108"/>
         <source>Colors of your chosen color scheme.</source>
-        <translation type="unfinished">Kolory wybranego schematu koloru.</translation>
+        <translation>Kolory wybranego schematu koloru.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="118"/>
@@ -7819,17 +7822,17 @@ Please give it a name</source>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="144"/>
         <source>Angle:</source>
-        <translation type="unfinished">Kąt:</translation>
+        <translation>Kąt:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="154"/>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation type="unfinished">Różnica pomiędzy wybraną wartością a wartością obliczoną. Zajrzyj do dokumentacji, aby uzyskać więcej informacji.</translation>
+        <translation>Różnica pomiędzy wybraną wartością a wartością obliczoną. Zajrzyj do dokumentacji, aby uzyskać więcej informacji.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="169"/>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation type="unfinished">Wybierz jedną z metod tworzenia schematu koloru. W dokumentacji programu znajdziesz więcej informacji.</translation>
+        <translation>Wybierz jedną z metod tworzenia schematu koloru. W dokumentacji programu znajdziesz więcej informacji.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="203"/>
@@ -7839,12 +7842,12 @@ Please give it a name</source>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="206"/>
         <source>&amp;Merge</source>
-        <translation type="unfinished">&amp;Scal</translation>
+        <translation>&amp;Scal</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="209"/>
         <source>Alt+M</source>
-        <translation type="unfinished">Alt+M</translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="216"/>
@@ -7854,122 +7857,122 @@ Please give it a name</source>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="219"/>
         <source>&amp;Replace</source>
-        <translation type="unfinished">Zas&amp;tąp</translation>
+        <translation>Zas&amp;tąp</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="222"/>
         <source>Alt+R</source>
-        <translation type="unfinished">Alt+R</translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="229"/>
         <source>Leave colors untouched</source>
-        <translation type="unfinished">Nie zmieniaj kolorów</translation>
+        <translation>Nie zmieniaj kolorów</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="232"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="235"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="244"/>
         <source>Preview:</source>
-        <translation type="unfinished">Podgląd:</translation>
+        <translation>Podgląd:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="268"/>
         <source>Sample color scheme.</source>
-        <translation type="unfinished">Przykładowy schemat koloru.</translation>
+        <translation>Przykładowy schemat koloru.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="287"/>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation type="unfinished">Symulacja częstych wad wzroku. Wybierz typ wady wzroku.</translation>
+        <translation>Symulacja częstych wad wzroku. Wybierz typ wady wzroku.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="294"/>
         <source>Vision Defect Type:</source>
-        <translation type="unfinished">Typ wady wzroku:</translation>
+        <translation>Typ wady wzroku:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="331"/>
         <source>C:</source>
-        <translation type="unfinished">C:</translation>
+        <translation>C:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="431"/>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="361"/>
         <source>M:</source>
-        <translation type="unfinished">M:</translation>
+        <translation>M:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="391"/>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="421"/>
         <source>K:</source>
-        <translation type="unfinished">K:</translation>
+        <translation>K:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="827"/>
         <source>RGB:</source>
-        <translation type="unfinished">RGB:</translation>
+        <translation>RGB:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="674"/>
         <source>HSV:</source>
-        <translation type="unfinished">HSV:</translation>
+        <translation>HSV:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="560"/>
         <source>R:</source>
-        <translation type="unfinished">R:</translation>
+        <translation>R:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="587"/>
         <source>G:</source>
-        <translation type="unfinished">G:</translation>
+        <translation>G:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="614"/>
         <source>B:</source>
-        <translation type="unfinished">B:</translation>
+        <translation>B:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="863"/>
         <source>CMYK:</source>
-        <translation type="unfinished">CMYK:</translation>
+        <translation>CMYK:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="746"/>
         <source>H:</source>
-        <translation type="unfinished">H:</translation>
+        <translation>H:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="773"/>
         <source>S:</source>
-        <translation type="unfinished">S:</translation>
+        <translation>S:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="800"/>
         <source>V:</source>
-        <translation type="unfinished">V:</translation>
+        <translation>V:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="907"/>
         <source>Document</source>
-        <translation type="unfinished">Dokument</translation>
+        <translation>Dokument</translation>
     </message>
 </context>
 <context>
@@ -8448,17 +8451,17 @@ Please give it a name</source>
     <message>
         <location filename="../charselect.cpp" line="653"/>
         <source>Empty the Palette?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Opróżnić paletę?</translation>
     </message>
     <message>
         <location filename="../charselect.cpp" line="654"/>
         <source>You will remove all characters from this palette. Are you sure?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usuwasz wszystkie znaki palety. Jesteś pewien?</translation>
     </message>
     <message>
         <location filename="../charselect.ui" line="30"/>
         <source>Hide/Show Enhanced Palette</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ukryj/Pokaż paletę rozszerzoną</translation>
     </message>
 </context>
 <context>
@@ -8482,7 +8485,7 @@ Please give it a name</source>
     <message>
         <location filename="../chartableview.cpp" line="22"/>
         <source>Delete</source>
-        <translation type="unfinished">Usuń</translation>
+        <translation>Usuń</translation>
     </message>
 </context>
 <context>
@@ -8843,7 +8846,7 @@ Please give it a name</source>
     <message>
         <location filename="../colorm.cpp" line="172"/>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jeśli włączone jest zarządzanie kolorem, trójkątny wskaźnik ostrzegawczy informuje, że wybrany kolor może znajdować się poza przestrzenią kolorów wybranego profilu drukarki. Oznacza to, że wybrany kolor może wyglądać na wydruki inaczej niż na ekranie. Kolory &quot;spot&quot; są oznaczane czerwonym kółkiem.</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -9679,25 +9682,25 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../commonstrings.cpp" line="320"/>
         <source>RGB</source>
         <comment>Colorspace</comment>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="321"/>
         <source>CMYK</source>
         <comment>Colorspace</comment>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="322"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation type="unfinished">Odcienie szarości</translation>
+        <translation>Odcienie szarości</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="323"/>
         <source>Duotone</source>
         <comment>Colorspace</comment>
-        <translation type="unfinished">Duotone</translation>
+        <translation>Duotone</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="324"/>
@@ -9708,42 +9711,42 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../commonstrings.cpp" line="350"/>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="245"/>
         <source>Text Frame</source>
-        <translation type="unfinished">Ramka tekstowa</translation>
+        <translation>Ramka tekstowa</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="246"/>
         <source>Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ramka obrazu</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="247"/>
         <source>Line</source>
-        <translation type="unfinished">Linia</translation>
+        <translation>Linia</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="248"/>
         <source>Polygon</source>
-        <translation type="unfinished">Wielokąt</translation>
+        <translation>Wielokąt</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="249"/>
         <source>Polyline</source>
-        <translation type="unfinished">Linia łamana</translation>
+        <translation>Linia łamana</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="250"/>
         <source>Text on a Path</source>
-        <translation type="unfinished">Tekst na ścieżce</translation>
+        <translation>Tekst na ścieżce</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="251"/>
         <source>LaTeX Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ramka LaTeX</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="252"/>
@@ -9754,22 +9757,22 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../commonstrings.cpp" line="253"/>
         <source>PDF Push Button</source>
-        <translation type="unfinished">Przycisk PDF</translation>
+        <translation>Przycisk PDF</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="254"/>
         <source>PDF Text Field</source>
-        <translation type="unfinished">Pole tekstowe PDF</translation>
+        <translation>Pole tekstowe PDF</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="255"/>
         <source>PDF Check Box</source>
-        <translation type="unfinished">Pole wyboru PDF</translation>
+        <translation>Pole wyboru PDF</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="256"/>
         <source>PDF Combo Box</source>
-        <translation type="unfinished">Lista rozwijana PDF</translation>
+        <translation>Lista rozwijana PDF</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="257"/>
@@ -9812,12 +9815,12 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../contextmenu.cpp" line="191"/>
         <source>Preview Settings</source>
-        <translation type="unfinished">Rodzielczość podglądu</translation>
+        <translation type="unfinished">Ustawienia podglądu</translation>
     </message>
     <message>
         <location filename="../contextmenu.cpp" line="379"/>
         <source>Paste File...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wklej plik...</translation>
     </message>
 </context>
 <context>
@@ -9825,17 +9828,17 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../ui/copypagetomasterpage.ui" line="16"/>
         <source>Convert Page to Master Page</source>
-        <translation type="unfinished">Zamień stronę na stronę wzorcową</translation>
+        <translation>Zamień stronę na stronę wzorcową</translation>
     </message>
     <message>
         <location filename="../ui/copypagetomasterpage.ui" line="24"/>
         <source>Name:</source>
-        <translation type="unfinished">Nazwa:</translation>
+        <translation>Nazwa:</translation>
     </message>
     <message>
         <location filename="../ui/copypagetomasterpage.ui" line="39"/>
         <source>Copy Applied Master Page Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skopiuj obiekty użytej strony wzorcowej</translation>
     </message>
 </context>
 <context>
@@ -9843,7 +9846,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../ui/copypagetomasterpagedialog.cpp" line="18"/>
         <source>New Master Page %1</source>
-        <translation type="unfinished">Nowa strona wzorcowa  %1</translation>
+        <translation>Nowa strona wzorcowa  %1</translation>
     </message>
 </context>
 <context>
@@ -10111,7 +10114,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../cpalette.cpp" line="959"/>
         <source>Display only used Colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tylko kolory w użyciu</translation>
     </message>
 </context>
 <context>
@@ -10139,37 +10142,37 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../ui/createrange.ui" line="136"/>
         <source>Range of Pages</source>
-        <translation type="unfinished">Zakres stron</translation>
+        <translation>Zakres stron</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="160"/>
         <source>De&amp;lete</source>
-        <translation type="unfinished">U&amp;suń</translation>
+        <translation>U&amp;suń</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="163"/>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="186"/>
         <source>Move &amp;Down</source>
-        <translation type="unfinished">Przesuń &amp;niżej</translation>
+        <translation>Przesuń &amp;niżej</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="189"/>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="196"/>
         <source>Move &amp;Up</source>
-        <translation type="unfinished">Przesuń &amp;wyżej</translation>
+        <translation>Przesuń &amp;wyżej</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="199"/>
         <source>Alt+U</source>
-        <translation type="unfinished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="218"/>
@@ -10189,12 +10192,12 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../ui/createrange.ui" line="259"/>
         <source>From:</source>
-        <translation type="unfinished">Od:</translation>
+        <translation>Od:</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="291"/>
         <source>To:</source>
-        <translation type="unfinished">do:</translation>
+        <translation>do:</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="334"/>
@@ -10204,17 +10207,17 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../ui/createrange.ui" line="337"/>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="362"/>
         <source>Odd Pages</source>
-        <translation type="unfinished">Strony nieparzyste</translation>
+        <translation>Strony nieparzyste</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="372"/>
         <source>Comma Separated List</source>
-        <translation type="unfinished">Lista rozdzielona przecinkami</translation>
+        <translation>Lista rozdzielona przecinkami</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="383"/>
@@ -10239,22 +10242,22 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../ui/createrange.ui" line="525"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="528"/>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="535"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="538"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -10646,12 +10649,12 @@ This can be set in the Preferences.</source>
     <message>
         <location filename="../customfdialog.cpp" line="274"/>
         <source>Show Preview</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pokaż podgląd</translation>
     </message>
     <message>
         <location filename="../customfdialog.cpp" line="304"/>
         <source>&amp;Include Color Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Dołącz profile koloru</translation>
     </message>
 </context>
 <context>
@@ -10747,7 +10750,7 @@ This can be set in the Preferences.</source>
     <message>
         <location filename="../dasheditor.cpp" line="363"/>
         <source>Value:</source>
-        <translation type="unfinished">Wartość:</translation>
+        <translation>Wartość:</translation>
     </message>
     <message>
         <location filename="../dasheditor.cpp" line="364"/>
@@ -11147,27 +11150,27 @@ Przydatne informacje na temat typów MIME znajdują się w RFC2045 i RFC2046</tr
     <message>
         <location filename="../docsections.ui" line="83"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Dodaj</translation>
+        <translation>&amp;Dodaj</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="86"/>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="93"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Usuń</translation>
+        <translation>&amp;Usuń</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="96"/>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="32"/>
         <source>Name</source>
-        <translation type="unfinished">Nazwa</translation>
+        <translation>Nazwa</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="37"/>
@@ -11177,22 +11180,22 @@ Przydatne informacje na temat typów MIME znajdują się w RFC2045 i RFC2046</tr
     <message>
         <location filename="../docsections.ui" line="42"/>
         <source>From</source>
-        <translation type="unfinished">Od</translation>
+        <translation>Od</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="47"/>
         <source>To</source>
-        <translation type="unfinished">Do</translation>
+        <translation>Do</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="52"/>
         <source>Style</source>
-        <translation type="unfinished">Styl</translation>
+        <translation>Styl</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="57"/>
         <source>Start</source>
-        <translation type="unfinished">Początek</translation>
+        <translation>Początek</translation>
     </message>
 </context>
 <context>
@@ -11308,22 +11311,22 @@ Przydatne informacje na temat typów MIME znajdują się w RFC2045 i RFC2046</tr
     <message>
         <location filename="../docitemattrprefs.ui" line="26"/>
         <source>Name</source>
-        <translation type="unfinished">Nazwa</translation>
+        <translation>Nazwa</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="31"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="36"/>
         <source>Value</source>
-        <translation type="unfinished">Wartość</translation>
+        <translation>Wartość</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="41"/>
         <source>Parameter</source>
-        <translation type="unfinished">Parametr</translation>
+        <translation>Parametr</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="46"/>
@@ -11343,42 +11346,42 @@ Przydatne informacje na temat typów MIME znajdują się w RFC2045 i RFC2046</tr
     <message>
         <location filename="../docitemattrprefs.ui" line="82"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Dodaj</translation>
+        <translation>&amp;Dodaj</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="85"/>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="92"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Kopiuj</translation>
+        <translation>&amp;Kopiuj</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="95"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="102"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Usuń</translation>
+        <translation>&amp;Usuń</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="105"/>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="112"/>
         <source>C&amp;lear</source>
-        <translation type="unfinished">W&amp;yczyść</translation>
+        <translation>W&amp;yczyść</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="115"/>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.cpp" line="17"/>
@@ -11820,7 +11823,7 @@ nie powiodła się!</translation>
     <message>
         <location filename="../ui/edittoolbar.cpp" line="29"/>
         <source>Edit</source>
-        <translation type="unfinished">Edycja</translation>
+        <translation>Edycja</translation>
     </message>
 </context>
 <context>
@@ -11913,27 +11916,27 @@ nie powiodła się!</translation>
     <message>
         <location filename="../editor.cpp" line="37"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../editor.cpp" line="48"/>
         <source>Ctrl+Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Z</translation>
     </message>
     <message>
         <location filename="../editor.cpp" line="53"/>
         <source>Ctrl+X</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+X</translation>
     </message>
     <message>
         <location filename="../editor.cpp" line="56"/>
         <source>Ctrl+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+C</translation>
     </message>
     <message>
         <location filename="../editor.cpp" line="59"/>
         <source>Ctrl-V</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl-V</translation>
     </message>
 </context>
 <context>
@@ -12114,12 +12117,12 @@ nie powiodła się!</translation>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="203"/>
         <source>Save as Image</source>
-        <translation type="unfinished">Zapisz jako obrazek</translation>
+        <translation>Zapisz jako obrazek</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="177"/>
         <source>Insufficient memory for this image size.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Za mało pamięci dla wybranego rozmiaru obrazka.</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="204"/>
@@ -12285,7 +12288,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../plugins/pixmapexport/exportform.ui" line="37"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Etykieta Tekstowa</translation>
     </message>
 </context>
 <context>
@@ -12670,7 +12673,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../ui/filetoolbar.cpp" line="31"/>
         <source>File</source>
-        <translation type="unfinished">Plik</translation>
+        <translation>Plik</translation>
     </message>
 </context>
 <context>
@@ -12691,37 +12694,37 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../fontlistmodel.cpp" line="63"/>
         <source>Font Name</source>
-        <translation type="unfinished">Nazwa fontu</translation>
+        <translation>Nazwa fontu</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="65"/>
         <source>Use Font</source>
-        <translation type="unfinished">Użyj fontu</translation>
+        <translation>Użyj fontu</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="67"/>
         <source>Family</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rodzina</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="69"/>
         <source>Style</source>
-        <translation type="unfinished">Styl</translation>
+        <translation>Styl</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="71"/>
         <source>Variant</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Odmiana</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="73"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="75"/>
         <source>Format</source>
-        <translation type="unfinished">Format</translation>
+        <translation>Format</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="77"/>
@@ -12731,7 +12734,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../fontlistmodel.cpp" line="79"/>
         <source>Subset</source>
-        <translation type="unfinished">Podzbiór</translation>
+        <translation type="unfinished">Podzestaw</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="81"/>
@@ -12741,7 +12744,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../fontlistmodel.cpp" line="83"/>
         <source>Used in Doc</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Użyte w dokumencie</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="85"/>
@@ -12752,30 +12755,30 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
         <location filename="../fontlistmodel.cpp" line="144"/>
         <source>Unknown</source>
         <comment>font type</comment>
-        <translation type="unfinished">Nieznany</translation>
+        <translation>Nieznany</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="157"/>
         <source>Unknown</source>
         <comment>font format</comment>
-        <translation type="unfinished">Nieznany</translation>
+        <translation>Nieznany</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="164"/>
         <source>User</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Użytkownik</translation>
+        <translation type="unfinished">Użytkownika</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="165"/>
         <source>System</source>
         <comment>font preview</comment>
-        <translation type="unfinished">System</translation>
+        <translation type="unfinished">Systemowe</translation>
     </message>
     <message>
         <location filename="../fontlistmodel.cpp" line="190"/>
         <source>Click to change the value</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kliknij by zmienić wartość</translation>
     </message>
 </context>
 <context>
@@ -12990,7 +12993,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="69"/>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Szukaj</translation>
+        <translation>&amp;Szukaj</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -13092,7 +13095,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="13"/>
         <source>Fonts Preview</source>
-        <translation type="unfinished">Podgląd fontów</translation>
+        <translation>Podgląd fontów</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="53"/>
@@ -13102,32 +13105,32 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="72"/>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="146"/>
         <source>&amp;Font Size:</source>
-        <translation type="unfinished">S&amp;topień pisma:</translation>
+        <translation>S&amp;topień pisma:</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="169"/>
         <source>Text</source>
-        <translation type="unfinished">Tekst</translation>
+        <translation>Tekst</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="179"/>
         <source>Sample text to display</source>
-        <translation type="unfinished">Przykładowy tekst do wyświetlenia</translation>
+        <translation>Przykładowy tekst do wyświetlenia</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="186"/>
         <source>Se&amp;t</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation type="unfinished">&amp;Ustaw</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="189"/>
         <source>Alt+T</source>
-        <translation type="unfinished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="196"/>
@@ -13142,17 +13145,17 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="239"/>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Zamknij</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="242"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="105"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. The given text is taken as substring.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wpisywanie tekstu w tym polu umożliwia szybkie przeszukanie w nazwach fontów. Wyszukiwanie jest niewrażliwe na wielkość znaku. Tekst jest wyszukiwany jako podłańcuch.</translation>
     </message>
 </context>
 <context>
@@ -13367,12 +13370,12 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../guidemanager.ui" line="64"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Dodaj</translation>
+        <translation>&amp;Dodaj</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="74"/>
         <source>D&amp;elete</source>
-        <translation type="unfinished">&amp;Usuń</translation>
+        <translation>&amp;Usuń</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -13382,17 +13385,17 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../guidemanager.ui" line="100"/>
         <source>A&amp;dd</source>
-        <translation type="unfinished">Doda&amp;j</translation>
+        <translation>Doda&amp;j</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="110"/>
         <source>De&amp;lete</source>
-        <translation type="unfinished">U&amp;suń</translation>
+        <translation>U&amp;suń</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="125"/>
         <source>&amp;Lock Guides</source>
-        <translation type="unfinished">&amp;Zabezpiecz linie pomocnicze</translation>
+        <translation>&amp;Zabezpiecz linie pomocnicze</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -13513,27 +13516,27 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../guidemanager.ui" line="362"/>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="313"/>
         <source>Alt+E</source>
-        <translation type="unfinished">Alt+E</translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="239"/>
         <source>Verticals</source>
-        <translation type="unfinished">Pionowe</translation>
+        <translation>Pionowe</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="103"/>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="128"/>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="326"/>
@@ -13543,7 +13546,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../guidemanager.ui" line="329"/>
         <source>Alt+Y</source>
-        <translation type="unfinished">Alt+Y</translation>
+        <translation>Alt+Y</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="146"/>
@@ -13563,7 +13566,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../guidemanager.ui" line="184"/>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="281"/>
@@ -13573,7 +13576,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../guidemanager.ui" line="349"/>
         <source>Alt+P</source>
-        <translation type="unfinished">Alt+P</translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="300"/>
@@ -13598,7 +13601,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../guidemanager.ui" line="271"/>
         <source>Alt+G</source>
-        <translation type="unfinished">Alt+G</translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="337"/>
@@ -13608,7 +13611,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../guidemanager.ui" line="343"/>
         <source>Delete all guides from the current page</source>
-        <translation type="unfinished">Usuń linie pomocnicze z aktualnej strony</translation>
+        <translation>Usuń linie pomocnicze z aktualnej strony</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="346"/>
@@ -13618,7 +13621,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../guidemanager.ui" line="356"/>
         <source>Delete all guides from the current document</source>
-        <translation type="unfinished">Usuń wszystkie linie pomocnicze z aktualnego dokumentu</translation>
+        <translation>Usuń wszystkie linie pomocnicze z aktualnego dokumentu</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="359"/>
@@ -13628,7 +13631,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../guidemanager.ui" line="15"/>
         <source>Guide Manager</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zarządzaj Liniami Pomocniczymi</translation>
     </message>
 </context>
 <context>
@@ -13976,17 +13979,17 @@ proszę również zajrzeć pod www.scribus.net do działu &quot;Download&quot;.<
     <message>
         <location filename="../ui/helpbrowser.ui" line="137"/>
         <source>Scribus Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pomoc Scribusa</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="53"/>
         <source>Searching is case insensitive</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wyszukiweanie jest niewrażliwe na wielkość znaków</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="86"/>
         <source>1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">1</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="153"/>
@@ -13996,12 +13999,12 @@ proszę również zajrzeć pod www.scribus.net do działu &quot;Download&quot;.<
     <message>
         <location filename="../ui/helpbrowser.ui" line="163"/>
         <source>Find &amp;Next...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Znajdź &amp;Następny...</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="168"/>
         <source>Find &amp;Previous...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Znajdź &amp;Poprzedni...</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="173"/>
@@ -14017,7 +14020,7 @@ proszę również zajrzeć pod www.scribus.net do działu &quot;Download&quot;.<
         <location filename="../helpbrowser.cpp" line="715"/>
         <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;h2&gt;&lt;p&gt;Przepraszamy, nie zaintalowano podręcznika!&lt;/p&gt;&lt;p&gt;Przejdź na stronę:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net po najnowszą wersję podręcznika&lt;/li&gt;&lt;li&gt;http://www.scribus.net by pobrać pliki&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
 </context>
 <context>
@@ -14064,13 +14067,15 @@ proszę również zajrzeć pod www.scribus.net do działu &quot;Download&quot;.<
         <location filename="../hyask.cpp" line="77"/>
         <source>Add to the
 Exception List</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dodaj do
+wyjątków</translation>
     </message>
     <message>
         <location filename="../hyask.cpp" line="97"/>
         <source>Add to the
 Ignore List</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dodaj do
+ignorowanych</translation>
     </message>
 </context>
 <context>
@@ -14125,22 +14130,22 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     <message>
         <location filename="../hysettings.cpp" line="84"/>
         <source>Ignore List</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ignorowane</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="113"/>
         <source>Add a new Entry</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dodaj nowy wpis</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="125"/>
         <source>Edit Entry</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Edytuj wpis</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="125"/>
         <source>Exception List</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wyjątki</translation>
     </message>
 </context>
 <context>
@@ -14261,18 +14266,19 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     <message>
         <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="58"/>
         <source>Import AI...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Importuj AI...</translation>
     </message>
     <message>
         <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="79"/>
         <source>Imports Illustrator Files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Importuje pliki Illustratora</translation>
     </message>
     <message>
         <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="80"/>
         <source>Imports most Illustrator files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Importuje większość plików Illustratora do bieżącego dokumentu,
+zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
 </context>
 <context>
@@ -14350,18 +14356,18 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="57"/>
         <source>Import PostScript...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Importuj PostScript...</translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="78"/>
         <source>Imports PostScript Files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Importuje pliki PostScriptowe</translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="79"/>
         <source>Imports most PostScript files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Importuje większość plików PostScriptowych do aktualnego dokumentu, zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
 </context>
 <context>
@@ -14369,23 +14375,23 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="58"/>
         <source>Import Xfig...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Importuj Xfig...</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="79"/>
         <source>Imports Xfig Files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Importuje pliki Xfig</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="80"/>
         <source>Imports most Xfig files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Importuje większość plików Xfig do aktualnego dokumentu, zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <location filename="../plugins/xfigimplugin/importxfigplugin.cpp" line="128"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Wszystkie obsługiwane formaty</translation>
+        <translation>Wszystkie obsługiwane formaty</translation>
     </message>
 </context>
 <context>
@@ -14393,12 +14399,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/imposition/imposition.cpp" line="72"/>
         <source>Portrait</source>
-        <translation type="unfinished">Portret</translation>
+        <translation>Portret</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/imposition.cpp" line="73"/>
         <source>Landscape</source>
-        <translation type="unfinished">Pejzaż</translation>
+        <translation>Pejzaż</translation>
     </message>
 </context>
 <context>
@@ -14406,67 +14412,67 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="19"/>
         <source>Imposition</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impozycja</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="44"/>
         <source>Gri&amp;d</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Siatka</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="102"/>
         <source>Copies</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopie</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="157"/>
         <source>Do&amp;uble sided</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Dwustronna</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="160"/>
         <source>Alt+U</source>
-        <translation type="unfinished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="186"/>
         <source>Front side</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Przód</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="218"/>
         <source>Back side</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tył</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="253"/>
         <source>&amp;Booklet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Broszura</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="285"/>
         <source>Pages per sheet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stron na arkusz</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="296"/>
         <source>4</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="301"/>
         <source>8</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">8</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="306"/>
         <source>16</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">16</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="318"/>
         <source>Pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Strony</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="325"/>
@@ -14479,27 +14485,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="339"/>
         <source>Fold</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Składanka</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="349"/>
         <source>Front page from</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Przód z</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="376"/>
         <source>Double sided</source>
-        <translation type="unfinished">Podwójna strona</translation>
+        <translation type="unfinished">Dwustronna</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="387"/>
         <source>Back page from</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tył z</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="415"/>
         <source>Destination page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Strona docelowa</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="455"/>
@@ -14509,47 +14515,47 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="487"/>
         <source>Orientation</source>
-        <translation type="unfinished">Orientacja</translation>
+        <translation>Orientacja</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="519"/>
         <source>Width</source>
-        <translation type="unfinished">Szerokość</translation>
+        <translation>Szerokość</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="564"/>
         <source>Height</source>
-        <translation type="unfinished">Wysokość</translation>
+        <translation>Wysokość</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="620"/>
         <source>Preview</source>
-        <translation type="unfinished">Podgląd</translation>
+        <translation>Podgląd</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="627"/>
         <source>Refresh preview</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Odśwież podgląd</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="671"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="674"/>
         <source>Alt+G</source>
-        <translation type="unfinished">Alt+G</translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="681"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="684"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -14557,17 +14563,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="37"/>
         <source>&amp;Imposition...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Impozycja...</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="69"/>
         <source>Imposition dialog</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Okno impozycji</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="70"/>
         <source>Imposition on grids, booklets and folds</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impozycja na siatkach, broszurach i składankach</translation>
     </message>
 </context>
 <context>
@@ -14693,7 +14699,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.cpp" line="115"/>
         <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Wstaw ramkę tekstową&lt;/b&gt;&lt;br/&gt;Ramka tekstowa pozwala na wprowadzenie dowolnego tekstu w określonym miejscu z wybranym przez użytkownika formatowaniem. Użytkownik może wybrać plik tekstowy (na zakładce Opcje) jeśli chce bezpośrednio zaimportować zapisany dokument do ramki. Scribus posiada możliwość improtu z szerokiej palety formatów: od zwykłego tekstu po format OpenOffice&apos;a&lt;br/&gt;Tekst może być edytowany i formatowany bezpośrednio na stronie lub z użyciem prostego edytora artykułów.</translation>
     </message>
     <message>
         <location filename="../insertaframe.cpp" line="119"/>
@@ -14703,7 +14709,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.ui" line="13"/>
         <source>Insert A Frame</source>
-        <translation type="unfinished">Wstaw ramkę</translation>
+        <translation>Wstaw ramkę</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="29"/>
@@ -14723,7 +14729,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.ui" line="68"/>
         <source>&amp;Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ramka &amp;graficzna</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="83"/>
@@ -14828,22 +14834,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.ui" line="257"/>
         <source>X:</source>
-        <translation type="unfinished">X:</translation>
+        <translation>X:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="250"/>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="304"/>
         <source>&amp;Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Rozmiar</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="328"/>
         <source>Same as the Page Margins</source>
-        <translation type="unfinished">Taki sam jak marginesy strony</translation>
+        <translation>Taki sam jak marginesy strony</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="335"/>
@@ -14868,22 +14874,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.ui" line="395"/>
         <source>Height:</source>
-        <translation type="unfinished">Wysokość:</translation>
+        <translation>Wysokość:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="402"/>
         <source>Width:</source>
-        <translation type="unfinished">Szerokość:</translation>
+        <translation>Szerokość:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="449"/>
         <source>&amp;Options</source>
-        <translation type="unfinished">Op&amp;cje</translation>
+        <translation>Op&amp;cje</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="596"/>
         <source>Source Image:</source>
-        <translation type="unfinished">Obrazek źródłowy:</translation>
+        <translation>Obrazek źródłowy:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="914"/>
@@ -14898,27 +14904,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.ui" line="638"/>
         <source>There are no options for this type of frame</source>
-        <translation type="unfinished">Brak opcji dla tego typu ramki</translation>
+        <translation>Brak opcji dla tego typu ramki</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="507"/>
         <source>Columns:</source>
-        <translation type="unfinished">Łamy:</translation>
+        <translation>Łamy:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="497"/>
         <source>Gap:</source>
-        <translation type="unfinished">Odstęp:</translation>
+        <translation>Odstęp:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="531"/>
         <source>Link Created Frames</source>
-        <translation type="unfinished">Połącz utworzone ramki</translation>
+        <translation>Połącz utworzone ramki</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="546"/>
         <source>Source Document:</source>
-        <translation type="unfinished">Dokument źródłowy:</translation>
+        <translation>Dokument źródłowy:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="974"/>
@@ -14938,12 +14944,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.ui" line="211"/>
         <source>Custom Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inna pozycja</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="356"/>
         <source>Custom Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inny rozmiar</translation>
     </message>
 </context>
 <context>
@@ -15433,97 +15439,97 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../latexeditor.ui" line="32"/>
         <source>Enter Code:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wprowadź kod:</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="44"/>
         <source>Update</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktualizuj</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="51"/>
         <source>Revert</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Odwróć</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="122"/>
         <source>Program Messages:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Komunikaty programu:</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="162"/>
         <source>Status: Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stan: nieznany</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="148"/>
         <source>Kill Program</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zabij program</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="65"/>
         <source>Options</source>
-        <translation type="unfinished">Opcje</translation>
+        <translation>Opcje</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="73"/>
         <source>Resolution:</source>
-        <translation type="unfinished">Rozdzielczość:</translation>
+        <translation>Rozdzielczość:</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="80"/>
         <source>Automatic</source>
-        <translation type="unfinished">Automatyczny</translation>
+        <translation>Automatyczny</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="83"/>
         <source> DPI</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DPI</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="96"/>
         <source>Program:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Program:</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="108"/>
         <source>Use Preamble</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Użyj preambuły</translation>
     </message>
     <message>
         <location filename="../latexeditor.cpp" line="180"/>
         <source>Status: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stan: </translation>
     </message>
     <message>
         <location filename="../latexeditor.cpp" line="183"/>
         <source>Error</source>
-        <translation type="unfinished">Błąd</translation>
+        <translation>Błąd</translation>
     </message>
     <message>
         <location filename="../latexeditor.cpp" line="185"/>
         <source>Finished</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zakończono</translation>
     </message>
     <message>
         <location filename="../latexeditor.cpp" line="188"/>
         <source>Running</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wykonuję</translation>
     </message>
     <message>
         <location filename="../latexeditor.cpp" line="368"/>
         <source>No item selected!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie wybrano obiektu!</translation>
     </message>
     <message>
         <location filename="../latexeditor.cpp" line="370"/>
         <source>Insert symbol</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wstaw znak</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="13"/>
         <source>Editor</source>
-        <translation type="unfinished">Edytor</translation>
+        <translation>Edytor</translation>
     </message>
 </context>
 <context>
@@ -15706,32 +15712,32 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../layers.cpp" line="543"/>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wskaźnik koloru warstwy - Każda warstwa ma przypisany kolor, który wyświetlany jest na kanwie jeśli wskaźnik warstwy został włączony. Możesz kliknąć dwukrotnie by zmienić kolor. </translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="544"/>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Włącz widoczność warstwy - odznacz aby wyłączyć wyświetlanie warstwy </translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="546"/>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zablokuj lub odblokuj warstwę - odznaczony oznacza odblokowanie warstwy</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="547"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tekst opływa obiekty na niższych warstwach - Włączenie tej opcji powoduje, że ramki tekstowe opływają także obiekty z warstw niższych</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="548"/>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tryb Szkieletowy - Przełącza wyświetlanie obiektów w tryb szkieletowy, w celu przyśpieszenia wyświetlania skomplikowanych obiektów.</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="549"/>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nazwa warstwy - Kliknij dwa razy by zmienić nazwę</translation>
     </message>
 </context>
 <context>
@@ -15744,7 +15750,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../canvasmode_legacy.cpp" line="4976"/>
         <source>Open</source>
-        <translation type="unfinished">Otwórz</translation>
+        <translation>Otwórz</translation>
     </message>
 </context>
 <context>
@@ -15752,62 +15758,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="13"/>
         <source>Optical Lens</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Soczewka</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="64"/>
         <source>Add Lens</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dodaj soczewkę</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="71"/>
         <source>Remove Lens</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usuń soczewkę</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="98"/>
         <source>+</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">+</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="105"/>
         <source>-</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">-</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="123"/>
         <source>Lens Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ustawienia soczewki</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="147"/>
         <source>X Pos:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wsp. X:</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="164"/>
         <source>Y Pos:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wsp. Y:</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="198"/>
         <source>Radius:</source>
-        <translation type="unfinished">Promień:</translation>
+        <translation>Promień:</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="215"/>
         <source>Strength:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Moc:</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="181"/>
         <source>Magnification Lens</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Soczewka powiększająca</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lensdialogbase.ui" line="191"/>
         <source>Fish Eye Lens</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Soczewka &quot;Rybie Oko&quot;</translation>
     </message>
 </context>
 <context>
@@ -15815,22 +15821,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="66"/>
         <source>Lens Effects...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Efekty Soczewek...</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="70"/>
         <source>Path Tools</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Narzędzia ścieżek</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="86"/>
         <source>Lens Effects</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Efekt Soczewki</translation>
     </message>
     <message>
         <location filename="../plugins/tools/lenseffects/lenseffects.cpp" line="87"/>
         <source>Apply fancy lens effects</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zastosuj efekt soczewki</translation>
     </message>
 </context>
 <context>
@@ -16378,12 +16384,12 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <location filename="../marginwidget.cpp" line="155"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Odstęp pomiędzy lewą linią pomocniczą marginesu a krawędzią stronyJeśli wybrałeś strony widzące się, obszar marginesu może być użyty to osiągnięcia prawidłowych marginesów dla zszycia</translation>
     </message>
     <message>
         <location filename="../marginwidget.cpp" line="156"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ostęp pomiędzy linią pomocniczą prawego marginesu i krawędzią strony.Jeśli zostały wybrane strony widzące się, to margines ten może zostać użyty dla osiągnięcia prawidłowego marginesu dla zszycia</translation>
     </message>
 </context>
 <context>
@@ -16612,7 +16618,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message encoding="UTF-8">
         <location filename="../measurements.cpp" line="111"/>
         <source> °</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> °</translation>
     </message>
 </context>
 <context>
@@ -16937,22 +16943,22 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../multiprogressdialog.ui" line="13"/>
         <source>Progress</source>
-        <translation type="unfinished">Postęp</translation>
+        <translation>Postęp</translation>
     </message>
     <message>
         <location filename="../multiprogressdialog.ui" line="24"/>
         <source>Overall Progress:</source>
-        <translation type="unfinished">Całkowity postęp:</translation>
+        <translation>Całkowity postęp:</translation>
     </message>
     <message>
         <location filename="../multiprogressdialog.ui" line="67"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
     <message>
         <location filename="../multiprogressdialog.cpp" line="74"/>
         <source>%v of %m</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%v z %m</translation>
     </message>
 </context>
 <context>
@@ -17018,7 +17024,7 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../multipleduplicate.ui" line="94"/>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="81"/>
@@ -17028,12 +17034,12 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../multipleduplicate.ui" line="84"/>
         <source>Alt+G</source>
-        <translation type="unfinished">Alt+G</translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="145"/>
         <source>Rotation:</source>
-        <translation type="unfinished">Obrót:</translation>
+        <translation>Obrót:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="217"/>
@@ -17043,17 +17049,17 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../multipleduplicate.ui" line="245"/>
         <source>Vertical Gap:</source>
-        <translation type="unfinished">Odstęp pionowy:</translation>
+        <translation>Odstęp pionowy:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="272"/>
         <source>Horizontal Gap:</source>
-        <translation type="unfinished">Odstęp poziomy:</translation>
+        <translation>Odstęp poziomy:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="289"/>
         <source>Number of Rows:</source>
-        <translation type="unfinished">Ilość wierszy:</translation>
+        <translation>Ilość wierszy:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="309"/>
@@ -17063,12 +17069,12 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../multipleduplicate.ui" line="383"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="399"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -17738,12 +17744,12 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <location filename="../nodeeditpalette.cpp" line="882"/>
         <source>to Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">do Kanwy</translation>
     </message>
     <message>
         <location filename="../nodeeditpalette.cpp" line="883"/>
         <source>to Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">do Strony</translation>
     </message>
 </context>
 <context>
@@ -17928,12 +17934,12 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <location filename="../outlinepalette.cpp" line="858"/>
         <source>Element</source>
-        <translation type="unfinished">Element</translation>
+        <translation>Element</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="270"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nazwa &quot;%1&quot; już istnieje.&lt;br/&gt;Proszę wybrać inną.</translation>
     </message>
     <message>
         <location filename="../outlinepalette.cpp" line="826"/>
@@ -17953,7 +17959,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <location filename="../outlinepalette.cpp" line="857"/>
         <source>Outline</source>
-        <translation type="unfinished">Struktura</translation>
+        <translation type="unfinished">Szkielet</translation>
     </message>
 </context>
 <context>
@@ -18047,52 +18053,52 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <location filename="../pdflib_core.cpp" line="130"/>
         <source>Saving PDF</source>
-        <translation type="unfinished">Zapisywanie PDF</translation>
+        <translation>Zapisywanie PDF</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="134"/>
         <source>Exporting Master Page:</source>
-        <translation type="unfinished">Ekport stron wzorcowych:</translation>
+        <translation>Ekport stron wzorcowych:</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="134"/>
         <source>Exporting Page:</source>
-        <translation type="unfinished">Eksport stron:</translation>
+        <translation>Eksport stron:</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="134"/>
         <source>Exporting Items on Current Page:</source>
-        <translation type="unfinished">Eksportowanie obiektów na aktualnej stronie:</translation>
+        <translation>Eksportowanie obiektów na aktualnej stronie:</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="2435"/>
         <source>Page:</source>
-        <translation type="unfinished">Strona:</translation>
+        <translation>Strona:</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="2448"/>
         <source>Date:</source>
-        <translation type="unfinished">Data:</translation>
+        <translation>Data:</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="6955"/>
         <source>Failed to load an image : %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie udało się wczytać obrazka: %1</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="6960"/>
         <source>Failed to write an image : %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie udało się zapisać obrazka: %1</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="6965"/>
         <source>Failed to load an image mask : %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie udało się wczytać maski obrazka: %1</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="6970"/>
         <source>Insufficient memory for processing an image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Za mało pamięci by przetworzyć obrazek</translation>
     </message>
 </context>
 <context>
@@ -18492,12 +18498,12 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../preview.cpp" line="258"/>
         <source>Apply Color Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zastosuj profile kolorów</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="332"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pozwala na osadzenie profili kolorów w strumieniu danych do druku, jeśli włączone jest zarządzanie kolorami</translation>
     </message>
 </context>
 <context>
@@ -18525,22 +18531,22 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../pslib.cpp" line="1628"/>
         <source>Failed to write data for an image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie udało się zapisać danych obrazka</translation>
     </message>
     <message>
         <location filename="../pslib.cpp" line="1633"/>
         <source>Failed to load an image : %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie udało się wczytać obrazka : %1</translation>
     </message>
     <message>
         <location filename="../pslib.cpp" line="1638"/>
         <source>Failed to load an image mask : %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie udało się wczytać maski obrazka : %1</translation>
     </message>
     <message>
         <location filename="../pslib.cpp" line="1643"/>
         <source>Insufficient memory for processing an image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Za mało pamięci do przekształcenia obrazka</translation>
     </message>
 </context>
 <context>
@@ -18727,17 +18733,17 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../pageitemattributes.ui" line="23"/>
         <source>Name</source>
-        <translation type="unfinished">Nazwa</translation>
+        <translation>Nazwa</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="28"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="33"/>
         <source>Value</source>
-        <translation type="unfinished">Wartość</translation>
+        <translation>Wartość</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="38"/>
@@ -18757,52 +18763,52 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../pageitemattributes.ui" line="58"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Dodaj</translation>
+        <translation>&amp;Dodaj</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="61"/>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="68"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Kopiuj</translation>
+        <translation>&amp;Kopiuj</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="71"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="78"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Usuń</translation>
+        <translation>&amp;Usuń</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="81"/>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="88"/>
         <source>C&amp;lear</source>
-        <translation type="unfinished">W&amp;yczyść</translation>
+        <translation>W&amp;yczyść</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="91"/>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="114"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="130"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.cpp" line="21"/>
@@ -18813,7 +18819,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../pageitemattributes.ui" line="13"/>
         <source>Attributes</source>
-        <translation type="unfinished">Atrybuty</translation>
+        <translation>Atrybuty</translation>
     </message>
 </context>
 <context>
@@ -18914,12 +18920,12 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../pageitem_imageframe.cpp" line="333"/>
         <source>Preview Settings</source>
-        <translation type="unfinished">Rodzielczość podglądu</translation>
+        <translation type="unfinished">Ustawienia podglądu</translation>
     </message>
     <message>
         <location filename="../pageitem_imageframe.cpp" line="401"/>
         <source>Image</source>
-        <translation type="unfinished">Obrazek</translation>
+        <translation>Obrazek</translation>
     </message>
 </context>
 <context>
@@ -18927,62 +18933,62 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="669"/>
         <source>Latex</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">LaTeX</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="676"/>
         <source>Error</source>
-        <translation type="unfinished">Błąd</translation>
+        <translation>Błąd</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="193"/>
         <source>Running the external application failed!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie udało się uruchomić zewnętrznej aplikacji!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="259"/>
         <source>Could not create a temporary file to run the application!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie udało się utworzyć pliku tymczasowego!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="335"/>
         <source>Information</source>
-        <translation type="unfinished">Informacja</translation>
+        <translation>Informacja</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="279"/>
         <source>Please specify a latex executable in the preferences!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wpisz w preferencjach nazwę pliku wykonywalnego LaTeXa!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="329"/>
         <source>An editor for this frame is already running!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Edytor dla tej ramki jest już uruchomiony!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="337"/>
         <source>Please specify an editor in the preferences!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wybierz edytor w preferencjach!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="429"/>
         <source>Could not create a temporary file to run the external editor!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie udało się utworzyć pliku tymczasowego!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="492"/>
         <source>Running the editor failed with exitcode %d!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie udało się uruchomić edytora. Kod: %d!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="508"/>
         <source>Running the editor &quot;%1&quot; failed!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie udało się uruchomić edytora &quot;%1&quot;!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="536"/>
         <source>Running the application &quot;%1&quot; failed!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nie udało się uruchomić aplikacji &quot;%1&quot;!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="647"/>
@@ -18992,7 +18998,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="681"/>
         <source>Running</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wykonuję</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="526"/>
@@ -19002,27 +19008,27 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="530"/>
         <source>The application &quot;%1&quot; crashed!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aplikacja &quot;%1: zakończyła działanie!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="670"/>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aplikacja</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="671"/>
         <source>DPI</source>
-        <translation type="unfinished">DPI</translation>
+        <translation>DPI</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="673"/>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stan</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="678"/>
         <source>Finished</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zakończono</translation>
     </message>
 </context>
 <context>
@@ -19035,17 +19041,17 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../pageitem_pathtext.cpp" line="398"/>
         <source>Lines: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wierszy: </translation>
     </message>
     <message>
         <location filename="../pageitem_pathtext.cpp" line="404"/>
         <source>Words: </source>
-        <translation type="unfinished">Słów: </translation>
+        <translation>Słów: </translation>
     </message>
     <message>
         <location filename="../pageitem_pathtext.cpp" line="412"/>
         <source>Chars: </source>
-        <translation type="unfinished">Znaków: </translation>
+        <translation>Znaków: </translation>
     </message>
 </context>
 <context>
@@ -19058,7 +19064,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../pageitem_textframe.cpp" line="3323"/>
         <source>Text Frame</source>
-        <translation type="unfinished">Ramka tekstowa</translation>
+        <translation>Ramka tekstowa</translation>
     </message>
     <message>
         <location filename="../pageitem_textframe.cpp" line="3327"/>
@@ -19068,7 +19074,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../pageitem_textframe.cpp" line="3335"/>
         <source>Lines: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wierszy: </translation>
     </message>
     <message>
         <location filename="../pageitem_textframe.cpp" line="3341"/>
@@ -19286,38 +19292,39 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="70"/>
         <source>Cut Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wytnij wielokąt</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="76"/>
         <source>Path Tools</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Narzędzia ścieżek</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="100"/>
         <source>Cuts a Polygon by a Polyline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wycina wielokąt według linii łamanej</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="119"/>
         <source>Qt Version too old</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zbyt stara wersja Qt</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="119"/>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ta wtyczka wymaga Qt w wersji co najmniej 4.3.3</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="150"/>
         <source>Error</source>
-        <translation type="unfinished">Błąd</translation>
+        <translation>Błąd</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathcut/pathcut.cpp" line="150"/>
         <source>The cutting line must cross the polygon and
 both end points must lie outside of the polygon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Linia tnąca musi przecinać wielokąt,
+a oba punkty końcowe muszą znajdować się na zewnątrz wielokąta</translation>
     </message>
 </context>
 <context>
@@ -19325,32 +19332,32 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="13"/>
         <source>Boolean Path Operations</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Operacje Boole&apos;a</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="149"/>
         <source>Keep a copy of the original Item after applying the operation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zachowaj kopię oryginalnego elementu po zastosowaniu operacji</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="152"/>
         <source>keep</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zachowaj</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="94"/>
         <source>+</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">+</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="186"/>
         <source>=</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">=</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="265"/>
         <source>Operation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Operacja</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="341"/>
@@ -19360,7 +19367,7 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="362"/>
         <source>Swap Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zamień obiekty</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="386"/>
@@ -19370,17 +19377,17 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="407"/>
         <source>Result gets Color of:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wynik przyjmuje kolor z:</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="417"/>
         <source>first Shape</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pierwszy kształt</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderbase.ui" line="427"/>
         <source>second Shape</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">drugi kształt</translation>
     </message>
 </context>
 <context>
@@ -19388,12 +19395,12 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderdialog.cpp" line="91"/>
         <source>Result gets Color of:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wynik przyjmuje kolor z:</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinderdialog.cpp" line="115"/>
         <source>Intersection gets Color of:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Przecięcie przyjmuje kolor z:</translation>
     </message>
 </context>
 <context>
@@ -19401,32 +19408,32 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="71"/>
         <source>Path Operations...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Operacje na ścieżkach...</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="75"/>
         <source>Path Tools</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Narzędzia ścieżek</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="100"/>
         <source>Path Operations</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Operacje na ścieżkach</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="101"/>
         <source>Apply fancy boolean operations to paths.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zastosuj operacje Boole&apos;a na ścieżkach.</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="120"/>
         <source>Qt Version too old</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zbyt stara wersja Qt</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathfinder/pathfinder.cpp" line="120"/>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wtyczka wymaga Qt w wersji co najmniej 4.3.3</translation>
     </message>
 </context>
 <context>
@@ -19434,17 +19441,17 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="93"/>
         <source>Create Path from Stroke</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Utwórz ścieżkę z obrysu</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="72"/>
         <source>Path Tools</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Narzędzia ścieżek</translation>
     </message>
     <message>
         <location filename="../plugins/tools/pathstroker/pathstroker.cpp" line="94"/>
         <source>Converts the stroke of a Path to a filled Path.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Przekształca obrys ścieżki na wypełnioną ścieżkę</translation>
     </message>
 </context>
 <context>
@@ -19497,12 +19504,12 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../patterndialog.ui" line="94"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../patterndialog.ui" line="101"/>
         <source>Cancel</source>
-        <translation type="unfinished">Anuluj</translation>
+        <translation>Anuluj</translation>
     </message>
 </context>
 <context>
@@ -19530,7 +19537,7 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../picsearch.ui" line="128"/>
         <source>Cancel</source>
-        <translation type="unfinished">Anuluj</translation>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <location filename="../picsearch.cpp" line="108"/>
@@ -19585,7 +19592,7 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../picsearch.ui" line="89"/>
         <source>Alt+P</source>
-        <translation type="unfinished">Alt+P</translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <location filename="../picsearch.ui" line="115"/>
@@ -19595,7 +19602,7 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../picsearch.ui" line="118"/>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
 </context>
 <context>
@@ -19696,7 +19703,7 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../picsearchoptions.ui" line="142"/>
         <source>Search recursively</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Szykaj rekurencyjnie</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.cpp" line="90"/>
@@ -19783,7 +19790,7 @@ Please choose another one.</source>
     <message>
         <location filename="../picstatus.ui" line="575"/>
         <source>Goto</source>
-        <translation type="unfinished">Idź do</translation>
+        <translation>Idź do</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -19848,7 +19855,7 @@ Please choose another one.</source>
     <message>
         <location filename="../picstatus.ui" line="719"/>
         <source>Close</source>
-        <translation type="unfinished">Zamknij</translation>
+        <translation>Zamknij</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -19953,7 +19960,7 @@ Please choose another one.</source>
     <message>
         <location filename="../picstatus.ui" line="81"/>
         <source>Information</source>
-        <translation type="unfinished">Informacja</translation>
+        <translation>Informacja</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="159"/>
@@ -19978,32 +19985,32 @@ Please choose another one.</source>
     <message>
         <location filename="../picstatus.ui" line="346"/>
         <source>DPI:</source>
-        <translation type="unfinished">DPI:</translation>
+        <translation>DPI:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="333"/>
         <source>Format:</source>
-        <translation type="unfinished">Format:</translation>
+        <translation>Format:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="320"/>
         <source>Colorspace:</source>
-        <translation type="unfinished">Przestrzeń barw:</translation>
+        <translation>Przestrzeń barw:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="362"/>
         <source>Size</source>
-        <translation type="unfinished">Rozmiar</translation>
+        <translation>Rozmiar</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="454"/>
         <source>Pixels:</source>
-        <translation type="unfinished">Pikseli:</translation>
+        <translation>Pikseli:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="444"/>
         <source>Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skaluj:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="418"/>
@@ -20068,22 +20075,22 @@ Please choose another one.</source>
     <message>
         <location filename="../picstatus.ui" line="635"/>
         <source>Extended Image Properties...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rozszerzone właściwości obrazka...</translation>
     </message>
     <message>
         <location filename="../picstatus.cpp" line="218"/>
         <source>Sort by Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sortuj według nazwy</translation>
     </message>
     <message>
         <location filename="../picstatus.cpp" line="220"/>
         <source>Sort by Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sortuj wedłog stron</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="16"/>
         <source>Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zarządzaj obrazkami</translation>
     </message>
 </context>
 <context>
@@ -20366,7 +20373,7 @@ Please choose another one.</source>
     <message>
         <location filename="../pluginmanager.cpp" line="227"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wystąpił problem podczas ładowania wtyczki %1 z %2. %3 Prawdopodobnie wynika on z niezaspokojonych zależności lub z istnienia starych wtyczek w katalogu instalacji. Jesli problem pojawia się po oczyszczeniu katalogu i ponownej instalacji, zgłoś błąd na stronie bugs.scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -20424,7 +20431,7 @@ Please choose another one.</source>
     <message>
         <location filename="../pluginmanagerprefsgui.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formularz</translation>
     </message>
 </context>
 <context>
@@ -22068,12 +22075,12 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../printdialog.cpp" line="387"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tworzy znaczniki spadów, wskazywane przez  _ . _ i uwidacznia limit spadów</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="388"/>
         <source>Add registration marks which are added to each separation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dodaj pasery widoczne na wszystkich separacjach</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="389"/>
@@ -22083,27 +22090,27 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../printdialog.cpp" line="390"/>
         <source>Indicate the distance offset for the registration marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ustaw odstęp dla paserów</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="395"/>
         <source>Use the existing bleed settings from the document preferences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Użyj istniejących ustawień spadów</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="386"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tworzy w pliku PDF znaczniki cięcia wskazujący na miejsce cięcia arkusza po wydruku</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="229"/>
         <source>Apply Color Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zastosuj profile kolorów</translation>
     </message>
     <message>
         <location filename="../printdialog.cpp" line="384"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pozwala na osadzanie profili kolorów w strumieniu danych do druku, jeśli włączone jest zarządzanie kolorami</translation>
     </message>
 </context>
 <context>
@@ -22936,7 +22943,7 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../propertiespalette.cpp" line="4817"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kolor obrysu tekstu i/lub cieniowiania, w zalezności od wyboru. Jesli oba są wybrane, współdzielą ten sam kolor.</translation>
     </message>
     <message>
         <location filename="../propertiespalette.cpp" line="4818"/>
@@ -26451,7 +26458,7 @@ Therefore the image may be not correct</source>
     </message>
     <message encoding="UTF-8">
         <location filename="../langmgr.cpp" line="91"/>
-        <source>Norwegian (Bokm�l)</source>
+        <source>Norwegian (Bokm�l)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
