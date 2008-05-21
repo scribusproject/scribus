@@ -33,8 +33,8 @@ for which a new license (GPL+exception) is in place.
 const QString StyleManager::SEPARATOR = "$$$$"; // dumb but it works
 
 StyleManager::StyleManager(QWidget *parent, const char *name)
-	: ScrPaletteBase(parent, name), item_(0), widget_(0),
-	shortcutWidget_(0), currentType_(QString::null), isEditMode_(true), doc_(0)
+	: ScrPaletteBase(parent, name), m_item(0), m_widget(0),
+	m_shortcutWidget(0), m_currentType(QString::null), m_isEditMode(true), m_doc(0)
 {
 	setupUi(this);
 
@@ -43,27 +43,27 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 
 	applyButton->setEnabled(false);
 	resetButton->setEnabled(false);
-	layout_ = new QGridLayout(mainFrame);
-	newPopup_ = new QMenu(newButton);
-	rightClickPopup_ = new QMenu(styleView);
-	newButton->setMenu(newPopup_);
+	m_layout = new QGridLayout(mainFrame);
+	m_newPopup = new QMenu(newButton);
+	m_rightClickPopup = new QMenu(styleView);
+	newButton->setMenu(m_newPopup);
 	QString pname(name);
 	if (pname.isEmpty())
 		pname = "styleManager";
-	prefs_ = PrefsManager::instance()->prefsFile->getContext(pname);
-	isEditMode_ = true;
-	isStoryEditMode_ = false;
-	editPosition_.setX(prefs_->getInt("eX", x()));
-	editPosition_.setY(prefs_->getInt("eY", y()));
+	m_prefs = PrefsManager::instance()->prefsFile->getContext(pname);
+	m_isEditMode = true;
+	m_isStoryEditMode = false;
+	m_editPosition.setX(m_prefs->getInt("eX", x()));
+	m_editPosition.setY(m_prefs->getInt("eY", y()));
 
 	newButton->setEnabled(false);
 	cloneButton->setEnabled(false);
 	importButton->setEnabled(false);
 	deleteButton->setEnabled(false);
-	rightClickPopup_->setEnabled(false);
-	newPopup_->setEnabled(false);
+	m_rightClickPopup->setEnabled(false);
+	m_newPopup->setEnabled(false);
 
-	connect(newPopup_, SIGNAL(triggered(QAction*)), this, SLOT(slotNewPopup(QAction*)));
+	connect(m_newPopup, SIGNAL(triggered(QAction*)), this, SLOT(slotNewPopup(QAction*)));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(slotOk()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(slotImport()));
 	connect(resetButton, SIGNAL(clicked()), this, SLOT(slotClean()));
@@ -98,9 +98,9 @@ void StyleManager::languageChange()
 // These are for general Style Manager widgets (not for c/pstyles except the name field
 
 	// for the "<< Done" button when in edit mode
-	exitEditModeOk_ = tr("Apply all changes and exit edit mode");
+	m_exitEditModeOk = tr("Apply all changes and exit edit mode");
 	// for the "Edit >>" button when not in edit mode
-	enterEditModeOk_= tr("Edit styles");
+	m_enterEditModeOk= tr("Edit styles");
 
 	nameEdit->setToolTip(     tr("Name of the selected style"));
 	resetButton->setToolTip(  tr("Reset all changes"));
@@ -117,58 +117,58 @@ void StyleManager::languageChange()
 	nameLabel->setText( tr("Name:"));
 	resetButton->setText( tr("&Reset"));
 	applyButton->setText( tr("&Apply"));
-	doneText= tr("&Done");
-	editText= tr("&Edit");
+	m_doneText= tr("&Done");
+	m_editText= tr("&Edit");
 	setOkButtonText();
 	newButton->setText( tr("&New"));
 	importButton->setText( tr("&Import"));
 	cloneButton->setText( tr("&Clone"));
 	deleteButton->setText( tr("&Delete"));
 
-	if (isEditMode_)
-		okButton->setToolTip( exitEditModeOk_);
+	if (m_isEditMode)
+		okButton->setToolTip( m_exitEditModeOk);
 	else
-		okButton->setToolTip( enterEditModeOk_);
+		okButton->setToolTip( m_enterEditModeOk);
 
-	if (shortcutWidget_)
-		shortcutWidget_->languageChange();
+	if (m_shortcutWidget)
+		m_shortcutWidget->languageChange();
 
-	newPopup_->clear();
+	m_newPopup->clear();
 	QStringList popupStrings;
-	for (int i = 0; i < items_.count(); ++i)
+	for (int i = 0; i < m_items.count(); ++i)
 	{
-		popupStrings << items_.at(i)->typeNameSingular();
-		items_.at(i)->languageChange();
-		styleClassesPS_[items_.at(i)->typeNamePlural()] = items_.at(i)->typeNameSingular();
-		styleClassesSP_[items_.at(i)->typeNameSingular()] = items_.at(i)->typeNamePlural();
+		popupStrings << m_items.at(i)->typeNameSingular();
+		m_items.at(i)->languageChange();
+		m_styleClassesPS[m_items.at(i)->typeNamePlural()] = m_items.at(i)->typeNameSingular();
+		m_styleClassesSP[m_items.at(i)->typeNameSingular()] = m_items.at(i)->typeNamePlural();
 	}
 	popupStrings.sort();
 	for (int i = 0; i < popupStrings.count(); ++i)
-		newPopup_->addAction(popupStrings[i]);
+		m_newPopup->addAction(popupStrings[i]);
 
 	styleView->clear();
-	for (int i = 0; i < items_.count(); ++i)
-		addNewType(items_.at(i));
+	for (int i = 0; i < m_items.count(); ++i)
+		addNewType(m_items.at(i));
 	styleView->resizeColumnToContents(0);
 
-	rightClickPopup_->clear();
-	rcpNewId_ = rightClickPopup_->addMenu(newPopup_);
-	rcpNewId_->setText( tr("New"));
-	rightClickPopup_->addAction( tr("Import"), this, SLOT(slotImport()));
-	rightClickPopup_->addSeparator();
-	rcpEditId_ = rightClickPopup_->addAction( tr("Edit"), this, SLOT(slotEdit()));
-	rcpCloneId_ = rightClickPopup_->addAction( tr("Clone"), this, SLOT(slotClone()));
-	rcpToScrapId_ = rightClickPopup_->addAction( tr("Send to Scrapbook"), this, SLOT(slotScrap()));
-	rightClickPopup_->addSeparator();
-	rcpDeleteId_ = rightClickPopup_->addAction( tr("Delete"), this, SLOT(slotDelete()));
+	m_rightClickPopup->clear();
+	m_rcpNewId = m_rightClickPopup->addMenu(m_newPopup);
+	m_rcpNewId->setText( tr("New"));
+	m_rightClickPopup->addAction( tr("Import"), this, SLOT(slotImport()));
+	m_rightClickPopup->addSeparator();
+	m_rcpEditId = m_rightClickPopup->addAction( tr("Edit"), this, SLOT(slotEdit()));
+	m_rcpCloneId = m_rightClickPopup->addAction( tr("Clone"), this, SLOT(slotClone()));
+	m_rcpToScrapId = m_rightClickPopup->addAction( tr("Send to Scrapbook"), this, SLOT(slotScrap()));
+	m_rightClickPopup->addSeparator();
+	m_rcpDeleteId = m_rightClickPopup->addAction( tr("Delete"), this, SLOT(slotDelete()));
 }
 
 void StyleManager::unitChange()
 {
-	if (doc_)
+	if (m_doc)
 	{
-		for (int i = 0; i < items_.count(); ++i)
-			items_.at(i)->unitChange();
+		for (int i = 0; i < m_items.count(); ++i)
+			m_items.at(i)->unitChange();
 
 		slotSetupWidget();
 	}
@@ -176,8 +176,8 @@ void StyleManager::unitChange()
 
 void StyleManager::setOkButtonText()
 {
-	if (!isStoryEditMode_)
-		okButton->setText(isEditMode_ ? "<< " + doneText : editText + " >>");
+	if (!m_isStoryEditMode)
+		okButton->setText(m_isEditMode ? "<< " + m_doneText : m_editText + " >>");
 	else
 		okButton->setText(CommonStrings::tr_OK);
 }
@@ -186,51 +186,51 @@ void StyleManager::setDoc(ScribusDoc *doc)
 {
 	if (doc)
 	{
-		doc_ = doc;
+		m_doc = doc;
 		newButton->setEnabled(true);
 		cloneButton->setEnabled(true);
 		importButton->setEnabled(true);
 		deleteButton->setEnabled(true);
-		rightClickPopup_->setEnabled(true);
-		newPopup_->setEnabled(true);
+		m_rightClickPopup->setEnabled(true);
+		m_newPopup->setEnabled(true);
 		connect(doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(slotDocSelectionChanged()));
 	}
 	else
 	{
-		doc_ = 0;
+		m_doc = 0;
 		newButton->setEnabled(false);
 		cloneButton->setEnabled(false);
 		importButton->setEnabled(false);
 		deleteButton->setEnabled(false);
-		rightClickPopup_->setEnabled(false);
-		newPopup_->setEnabled(false);
+		m_rightClickPopup->setEnabled(false);
+		m_newPopup->setEnabled(false);
 	}
 
 	// clear the style list and reload from new doc
 	styleView->clear();
-	styleActions_.clear();
-	for (int i = 0; i < items_.count(); ++i)
+	m_styleActions.clear();
+	for (int i = 0; i < m_items.count(); ++i)
 	{
-		items_.at(i)->currentDoc(doc);
-		addNewType(items_.at(i)); // forces a reload
-		if (doc_)
-			items_.at(i)->unitChange();
+		m_items.at(i)->currentDoc(doc);
+		addNewType(m_items.at(i)); // forces a reload
+		if (m_doc)
+			m_items.at(i)->unitChange();
 	}
 	styleView->resizeColumnToContents(0);
 }
 
 void StyleManager::updateColorList()
 {
-	for (int i = 0; i < items_.count(); ++i)
+	for (int i = 0; i < m_items.count(); ++i)
 	{
-		items_.at(i)->currentDoc(doc_);
-		items_.at(i)->reload();
+		m_items.at(i)->currentDoc(m_doc);
+		m_items.at(i)->reload();
 	}
 }
 
 void StyleManager::addStyle(StyleItem *item)
 {
-	items_.append(item);
+	m_items.append(item);
 	addNewType(item);
 	languageChange(); // upgrade the popup menu with the new item
 	connect(item, SIGNAL(selectionDirty()), this, SLOT(slotDirty()));
@@ -240,8 +240,8 @@ void StyleManager::slotApply()
 {
 	if (applyButton->isEnabled())
 	{
-		for (int i = 0; i < items_.count(); ++i)
-			items_.at(i)->apply();
+		for (int i = 0; i < m_items.count(); ++i)
+			m_items.at(i)->apply();
 	}
 
 	slotClean();
@@ -249,13 +249,13 @@ void StyleManager::slotApply()
 
 void StyleManager::slotDelete()
 {
-	if (!isEditMode_)
+	if (!m_isEditMode)
 		slotOk(); // switch to edit mode before deleting
 
 	QStringList selected;
 
-	if (!rcStyle_.isNull())
-		selected << rcStyle_;
+	if (!m_rcStyle.isNull())
+		selected << m_rcStyle;
 	else
 	{
 		QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::Selected);
@@ -265,17 +265,17 @@ void StyleManager::slotDelete()
 			++it;
 		}
 	}
-	if (!item_ || selected.isEmpty())
+	if (!m_item || selected.isEmpty())
 		return; // nothing to delete
 
 	QStringList tmp;
-	QList<StyleName> styles = item_->styles(false); // get list from cache
+	QList<StyleName> styles = m_item->styles(false); // get list from cache
 	for (int i = 0; i < styles.count(); ++i)
 		tmp << styles[i].first;
 	SMReplaceDia *dia = new SMReplaceDia(selected, tmp, this);
-	if (dia->exec() && item_)
+	if (dia->exec() && m_item)
 	{
-		item_->deleteStyles(dia->items());
+		m_item->deleteStyles(dia->items());
 		applyButton->setEnabled(true);
 		resetButton->setEnabled(true);
 		reloadStyleView(false);
@@ -287,7 +287,7 @@ void StyleManager::slotDelete()
 
 void StyleManager::slotImport()
 {
-	if (!doc_)
+	if (!m_doc)
 		return;
 
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -302,7 +302,7 @@ void StyleManager::slotImport()
 		StyleSet<CharStyle> tmpCharStyles;
 		QMap<QString, multiLine> tmpLineStyles;
 
-		doc_->loadStylesFromFile(selectedFile, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
+		m_doc->loadStylesFromFile(selectedFile, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
 
 // FIXME Once all styles are derived from Style remove this and make a proper
 //       implementation
@@ -311,21 +311,21 @@ void StyleManager::slotImport()
 		SMParagraphStyle *pstyle = 0;
 		SMCharacterStyle *cstyle = 0;
 		SMLineStyle      *lstyle = 0;
-		for (int i = 0; i < items_.count(); ++i)
+		for (int i = 0; i < m_items.count(); ++i)
 		{
-			pstyle = dynamic_cast<SMParagraphStyle*>(items_.at(i));
+			pstyle = dynamic_cast<SMParagraphStyle*>(m_items.at(i));
 			if (pstyle)
 				break;
 		}
-		for (int i = 0; i < items_.count(); ++i)
+		for (int i = 0; i < m_items.count(); ++i)
 		{
-			cstyle = dynamic_cast<SMCharacterStyle*>(items_.at(i));
+			cstyle = dynamic_cast<SMCharacterStyle*>(m_items.at(i));
 			if (cstyle)
 				break;
 		}
-		for (int i = 0; i < items_.count(); ++i)
+		for (int i = 0; i < m_items.count(); ++i)
 		{
-			lstyle = dynamic_cast<SMLineStyle*>(items_.at(i));
+			lstyle = dynamic_cast<SMLineStyle*>(m_items.at(i));
 			if (lstyle)
 				break;
 		}
@@ -338,7 +338,7 @@ void StyleManager::slotImport()
 		QList<QPair<QString, QString> > selected;
 		if (dia2->exec())
 		{
-			if (!isEditMode_)
+			if (!m_isEditMode)
 				slotOk();
 			QStringList neededColors;
 			neededColors.clear();
@@ -359,9 +359,9 @@ void StyleManager::slotImport()
 						pstyle->tmpStyles()->create(sty);
 				}
 				selected << QPair<QString, QString>(pstyle->typeName(), sty.name());
-				if ((!doc_->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
+				if ((!m_doc->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
 					neededColors.append(sty.charStyle().strokeColor());
-				if ((!doc_->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
+				if ((!m_doc->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
 					neededColors.append(sty.charStyle().fillColor());
 			}
 
@@ -381,9 +381,9 @@ void StyleManager::slotImport()
 						cstyle->tmpStyles()->create(sty);
 				}
 				selected << QPair<QString, QString>(cstyle->typeName(), sty.name());
-				if ((!doc_->PageColors.contains(sty.strokeColor())) && (!neededColors.contains(sty.strokeColor())))
+				if ((!m_doc->PageColors.contains(sty.strokeColor())) && (!neededColors.contains(sty.strokeColor())))
 					neededColors.append(sty.strokeColor());
-				if ((!doc_->PageColors.contains(sty.fillColor())) && (!neededColors.contains(sty.fillColor())))
+				if ((!m_doc->PageColors.contains(sty.fillColor())) && (!neededColors.contains(sty.fillColor())))
 					neededColors.append(sty.fillColor());
 			}
 
@@ -400,7 +400,7 @@ void StyleManager::slotImport()
 
 				for (int i = 0; i < sty.count(); ++i)
 				{
-					if ((!doc_->PageColors.contains(sty[i].Color)) && (!neededColors.contains(sty[i].Color)))
+					if ((!m_doc->PageColors.contains(sty[i].Color)) && (!neededColors.contains(sty[i].Color)))
 						neededColors.append(sty[i].Color);
 				}
 			}
@@ -420,15 +420,15 @@ void StyleManager::slotImport()
 					for (itc = LColors.begin(); itc != LColors.end(); ++itc)
 					{
 						if (neededColors.contains(itc.key()))
-							doc_->PageColors.insert(itc.key(), itc.value());
+							m_doc->PageColors.insert(itc.key(), itc.value());
 					}
 				}
 			}
 		}
 		delete dia2;
 // Start hack part 2
-		pstyle->currentDoc(doc_);
-		cstyle->currentDoc(doc_);
+		pstyle->currentDoc(m_doc);
+		cstyle->currentDoc(m_doc);
 // end hack part 2
 		reloadStyleView(false);
 		setSelection(selected);
@@ -466,10 +466,10 @@ void StyleManager::setSelection(const QList<QPair<QString, QString> > &selected)
 
 void StyleManager::slotEdit()
 {
-	if (!isEditMode_)
+	if (!m_isEditMode)
 		slotOk(); // switch to edit mode for cloning
 
-	if (!rcStyle_.isNull())
+	if (!m_rcStyle.isNull())
 	{
 		QTreeWidgetItemIterator it(styleView);
 		while (*it)
@@ -477,8 +477,8 @@ void StyleManager::slotEdit()
 			StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
 			if (item && !item->isRoot())
 			{
-				if (item->rootName() == styleClassesSP_[rcType_] &&
-				    item->text(0) == rcStyle_)
+				if (item->rootName() == m_styleClassesSP[m_rcType] &&
+				    item->text(0) == m_rcStyle)
 				{
 					styleView->setCurrentItem(item);
 					item->setSelected(true);
@@ -487,18 +487,18 @@ void StyleManager::slotEdit()
 			}
 			++it;
 		}
-		rcStyle_ = QString::null;
-		rcType_ = QString::null;
+		m_rcStyle = QString::null;
+		m_rcType = QString::null;
 	}
 }
 
 
 void StyleManager::slotClone()
 {
-	if (!isEditMode_)
+	if (!m_isEditMode)
 		slotOk(); // switch to edit mode for cloning
 
-	if (!rcStyle_.isNull())
+	if (!m_rcStyle.isNull())
 	{
 		QTreeWidgetItemIterator it(styleView);
 		while (*it)
@@ -506,8 +506,8 @@ void StyleManager::slotClone()
 			StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
 			if (item && !item->isRoot())
 			{
-				if (item->rootName() == styleClassesSP_[rcType_] &&
-				    item->text(0) == rcStyle_)
+				if (item->rootName() == m_styleClassesSP[m_rcType] &&
+				    item->text(0) == m_rcStyle)
 				{
 					styleView->setCurrentItem(item);
 					item->setSelected(true);
@@ -516,8 +516,8 @@ void StyleManager::slotClone()
 			}
 			++it;
 		}
-		rcStyle_ = QString::null;
-		rcType_ = QString::null;
+		m_rcStyle = QString::null;
+		m_rcType = QString::null;
 	}
 
 	QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::Selected);
@@ -544,42 +544,42 @@ void StyleManager::slotScrap()
 void StyleManager::slotNew()
 {
 //#5334: Dont open into edit mdoe until user has selected a style type
-// 	if (!isEditMode_)
+// 	if (!m_isEditMode)
 // 		slotOk(); // switch to edit mode for a new style
 
 	// TODO maybe there's something more clever for this
-	newPopup_->exec(newButton->mapToGlobal(QPoint(0, newButton->height() + 2)));
+	m_newPopup->exec(newButton->mapToGlobal(QPoint(0, newButton->height() + 2)));
 }
 
 void StyleManager::slotNewPopup(QAction *i)
 {
-	if (!isEditMode_)
+	if (!m_isEditMode)
 		slotOk(); // switch to edit mode for a new style
 
-	QString typeName = rcType_;
+	QString typeName = m_rcType;
 	if (typeName.isNull())
 		typeName = i->text();
 	else if (i->text().isNull())
 		return;
 
-	rcType_ = QString::null;
-	rcStyle_ = QString::null;
+	m_rcType = QString::null;
+	m_rcStyle = QString::null;
 
 	createNewStyle(typeName);
 }
 
 void StyleManager::slotNewPopup()
 {
-	slotNewPopup(rcpNewId_);
+	slotNewPopup(m_rcpNewId);
 }
 
 void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*, int col*/)
 {
 	StyleViewItem *item = static_cast<StyleViewItem*>(styleView->currentItem());
-	rcStyle_ = QString::null;
-	rcType_ = QString::null;
+	m_rcStyle = QString::null;
+	m_rcType = QString::null;
 
-	if (isEditMode_ && item) // make item the only selection if in edit mode
+	if (m_isEditMode && item) // make item the only selection if in edit mode
 	{                        // default behaviour for right clicking is not to select the item
 		styleView->clearSelection();
 		styleView->setCurrentItem(item);
@@ -588,49 +588,49 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 
 	if (item && !item->isRoot())
 	{
-		rightClickPopup_->removeAction(rcpNewId_);
-		rcpNewId_ = rightClickPopup_->addAction( tr("New %1").arg(styleClassesPS_[item->rootName()]),
+		m_rightClickPopup->removeAction(m_rcpNewId);
+		m_rcpNewId = m_rightClickPopup->addAction( tr("New %1").arg(m_styleClassesPS[item->rootName()]),
 												this, SLOT(slotNewPopup()));
-		rcpDeleteId_->setEnabled(true);
-		rcpEditId_->setEnabled(true);
-		rcpCloneId_->setEnabled(true);
-		rcpToScrapId_->setEnabled(true);
-		rcStyle_ = item->text(0);
-		rcType_ = styleClassesPS_[item->rootName()];
-		loadType(styleClassesPS_[item->rootName()]);
+		m_rcpDeleteId->setEnabled(true);
+		m_rcpEditId->setEnabled(true);
+		m_rcpCloneId->setEnabled(true);
+		m_rcpToScrapId->setEnabled(true);
+		m_rcStyle = item->text(0);
+		m_rcType = m_styleClassesPS[item->rootName()];
+		loadType(m_styleClassesPS[item->rootName()]);
 	}
 	else if (item && item->isRoot())
 	{
-		rightClickPopup_->removeAction(rcpNewId_);
-		rcpNewId_ = rightClickPopup_->addAction( tr("New %1").arg(styleClassesPS_[item->text(0)]),
+		m_rightClickPopup->removeAction(m_rcpNewId);
+		m_rcpNewId = m_rightClickPopup->addAction( tr("New %1").arg(m_styleClassesPS[item->text(0)]),
 												this, SLOT(slotNewPopup()));
-		rcpDeleteId_->setEnabled(false);
-		rcpEditId_->setEnabled(false);
-		rcpCloneId_->setEnabled(false);
-		rcpToScrapId_->setEnabled(false);
-		rcType_ = styleClassesPS_[item->text(0)];
-		loadType(rcType_);
+		m_rcpDeleteId->setEnabled(false);
+		m_rcpEditId->setEnabled(false);
+		m_rcpCloneId->setEnabled(false);
+		m_rcpToScrapId->setEnabled(false);
+		m_rcType = m_styleClassesPS[item->text(0)];
+		loadType(m_rcType);
 	}
 	else
 	{
-		rightClickPopup_->removeAction(rcpNewId_);
-		rcpNewId_ = rightClickPopup_->addMenu(newPopup_);
-		rcpNewId_->setText( tr("New"));
-		rcpDeleteId_->setEnabled(false);
-		rcpEditId_->setEnabled(false);
-		rcpCloneId_->setEnabled(false);
-		rcpToScrapId_->setEnabled(false);
+		m_rightClickPopup->removeAction(m_rcpNewId);
+		m_rcpNewId = m_rightClickPopup->addMenu(m_newPopup);
+		m_rcpNewId->setText( tr("New"));
+		m_rcpDeleteId->setEnabled(false);
+		m_rcpEditId->setEnabled(false);
+		m_rcpCloneId->setEnabled(false);
+		m_rcpToScrapId->setEnabled(false);
 	}
 
-	rightClickPopup_->exec(styleView->mapToGlobal(point));
+	m_rightClickPopup->exec(styleView->mapToGlobal(point));
 }
 
 void StyleManager::slotDoubleClick(QTreeWidgetItem *item, /*const QPoint &point, */int col)
 {
-	rcStyle_ = QString::null;
-	rcType_ = QString::null;
+	m_rcStyle = QString::null;
+	m_rcType = QString::null;
 
-	if (isEditMode_ && item) // make item the only selection if in edit mode
+	if (m_isEditMode && item) // make item the only selection if in edit mode
 	{
 		styleView->clearSelection();
 		styleView->setCurrentItem(item);
@@ -641,30 +641,30 @@ void StyleManager::slotDoubleClick(QTreeWidgetItem *item, /*const QPoint &point,
 	StyleViewItem *sitem = dynamic_cast<StyleViewItem*>(item);
 	if (sitem && !sitem->isRoot())
 	{
-		rcType_ = sitem->rootName();
-		rcStyle_ = sitem->text(0);
+		m_rcType = sitem->rootName();
+		m_rcStyle = sitem->text(0);
 		slotEdit(); // switch to edit mode
 	}
 	else if (sitem && sitem->isRoot())
 	{
 		//slotOk will recreate all items so sitem is invalid after that call
 		QString itext = sitem->text(0);
-		if (!isEditMode_)
+		if (!m_isEditMode)
 			slotOk(); 
 		createNewStyle(itext);
 	}
-	rcStyle_ = QString::null;
-	rcType_ = QString::null;
+	m_rcStyle = QString::null;
+	m_rcType = QString::null;
 }
 
 void StyleManager::createNewStyle(const QString &typeName, const QString &fromParent)
 {
-	if (!doc_)
+	if (!m_doc)
 		return;
 	loadType(typeName); // get the right style class
-	Q_ASSERT(item_);
+	Q_ASSERT(m_item);
 	QString newName = fromParent.isNull() ?
-			item_->newStyle() : item_->newStyle(fromParent);
+			m_item->newStyle() : m_item->newStyle(fromParent);
 	if (newName.isNull())
 		return;
 	StyleViewItem *root = 0;
@@ -674,7 +674,7 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 		StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
 		if (item)
 		{
-			if (item->text(NAME_COL) == item_->typeName())
+			if (item->text(NAME_COL) == m_item->typeName())
 			{
 				root = item;
 				break;
@@ -684,7 +684,7 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 	}
 	assert(root);
 	styleView->clearSelection();
-	StyleViewItem *newItem = new StyleViewItem(root, newName, item_->typeName());
+	StyleViewItem *newItem = new StyleViewItem(root, newName, m_item->typeName());
 	Q_CHECK_PTR(newItem);
 	newItem->setDirty(true);
 	styleView->setCurrentItem(newItem);
@@ -700,7 +700,7 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 void StyleManager::slotOk()
 {
 	static bool isFirst = true;
-	if (isEditMode_)
+	if (m_isEditMode)
 	{
 		disconnect(styleView, SIGNAL(itemSelectionChanged()), this, SLOT(slotSetupWidget()));
 		slotApply();
@@ -710,26 +710,26 @@ void StyleManager::slotOk()
 		applyButton->hide();
 		resetButton->hide();
 		rightFrame->hide();
-		isEditMode_ = false;
-		for (int i = 0; i < items_.count(); ++i)
+		m_isEditMode = false;
+		for (int i = 0; i < m_items.count(); ++i)
 		{
-			items_.at(i)->apply();
-			items_.at(i)->editMode(false);
+			m_items.at(i)->apply();
+			m_items.at(i)->editMode(false);
 		}
-		okButton->setToolTip( enterEditModeOk_);
+		okButton->setToolTip( m_enterEditModeOk);
 		slotClean();
 		slotDocSelectionChanged();
 
 		if (!isFirst)
-			move(editPosition_);
-		prefs_->set("isEditMode", isEditMode_);
+			move(m_editPosition);
+		m_prefs->set("isEditMode", m_isEditMode);
 		connect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
 		        this, SLOT(slotApplyStyle(QTreeWidgetItem*,QTreeWidgetItem*)));
 		connect(styleView, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
 				this, SLOT(slotApplyStyle(QTreeWidgetItem*,int)));
-		if (isStoryEditMode_)
+		if (m_isStoryEditMode)
 		{
-			isStoryEditMode_=false;
+			m_isStoryEditMode=false;
 			hide();
 		}
 	}
@@ -742,21 +742,21 @@ void StyleManager::slotOk()
 
 		slotSetupWidget();
 		styleView->setSelectionMode(QAbstractItemView::ExtendedSelection);
-		editPosition_.setX(x());
-		editPosition_.setY(y());
-		prefs_->set("eX", x());
-		prefs_->set("eY", y());
+		m_editPosition.setX(x());
+		m_editPosition.setY(y());
+		m_prefs->set("eX", x());
+		m_prefs->set("eY", y());
 		editFrame->show();
 		applyButton->show();
 		resetButton->show();
 		rightFrame->show();
-		isEditMode_ = true;
-		for (int i = 0; i < items_.count(); ++i)
-			items_.at(i)->editMode(true);
-		okButton->setToolTip( exitEditModeOk_);
+		m_isEditMode = true;
+		for (int i = 0; i < m_items.count(); ++i)
+			m_items.at(i)->editMode(true);
+		okButton->setToolTip( m_exitEditModeOk);
 		slotClean();
 
-		prefs_->set("isEditMode", isEditMode_);
+		m_prefs->set("isEditMode", m_isEditMode);
 		connect(styleView, SIGNAL(itemSelectionChanged()), this, SLOT(slotSetupWidget()));
 	}
 	setOkButtonText();
@@ -770,10 +770,10 @@ void StyleManager::slotOk()
 void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 {
 	if (item) {
-		item_ = item;
+		m_item = item;
 
-		QList<StyleName> styles = item_->styles(loadFromDoc);
-		StyleViewItem *rootItem = new StyleViewItem(styleView, item_->typeName());
+		QList<StyleName> styles = m_item->styles(loadFromDoc);
+		StyleViewItem *rootItem = new StyleViewItem(styleView, m_item->typeName());
 		styleView->expandItem(rootItem);
 		QMap<QString, StyleViewItem*> sitems;
 
@@ -782,12 +782,12 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 			StyleViewItem *sitem;
 			if (styles[i].second.isNull())
 			{
-				sitem = new StyleViewItem(rootItem, styles[i].first, item_->typeName());
+				sitem = new StyleViewItem(rootItem, styles[i].first, m_item->typeName());
 			}
 			else if (sitems.contains(styles[i].second))
 			{
 				StyleViewItem *parent = sitems[styles[i].second];
-				sitem = new StyleViewItem(parent, styles[i].first, item_->typeName());
+				sitem = new StyleViewItem(parent, styles[i].first, m_item->typeName());
 				styleView->expandItem(parent);
 			}
 			else 
@@ -806,21 +806,21 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 					continue;
 				else 
 				{
-					qDebug(QString("stylemanager: unknown parent '%1' of %2 style '%3'").arg(styles[i].second).arg(item_->typeName()).arg(styles[i].first).toLatin1().constData());
-					sitem = new StyleViewItem(rootItem, styles[i].first, item_->typeName());
+					qDebug(QString("stylemanager: unknown parent '%1' of %2 style '%3'").arg(styles[i].second).arg(m_item->typeName()).arg(styles[i].first).toLatin1().constData());
+					sitem = new StyleViewItem(rootItem, styles[i].first, m_item->typeName());
 				}
 			}
 			
 			sitems[styles[i].first] = sitem;
-			sitem->setText(SHORTCUT_COL, item_->shortcut(sitem->text(NAME_COL)));
+			sitem->setText(SHORTCUT_COL, m_item->shortcut(sitem->text(NAME_COL)));
 			
 			QString key = sitem->rootName() + SEPARATOR + sitem->text(NAME_COL);
-			if (styleActions_.contains(key))
+			if (m_styleActions.contains(key))
 				continue;
 
-			styleActions_[key] =
-				new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",	sitem->text(SHORTCUT_COL), doc_->view(), 0, 0.0, key);
-			connect(styleActions_[key], SIGNAL(triggeredData(QString)),
+			m_styleActions[key] =
+				new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",	sitem->text(SHORTCUT_COL), m_doc->view(), 0, 0.0, key);
+			connect(m_styleActions[key], SIGNAL(triggeredData(QString)),
 					this, SLOT(slotApplyStyle(QString)));
 		}
 	}
@@ -857,17 +857,17 @@ void StyleManager::slotClean()
 		++it;
 	}
 
-	if (isEditMode_)
+	if (m_isEditMode)
 	{
-		StyleItem *tmp = item_;
+		StyleItem *tmp = m_item;
 
-		for (int i = 0; i < items_.count(); ++i)
+		for (int i = 0; i < m_items.count(); ++i)
 		{
-			item_ = items_.at(i);
+			m_item = m_items.at(i);
 			reloadStyleView();
 		}
 		slotSetupWidget();
-		item_ = tmp;
+		m_item = tmp;
 	}
 	applyButton->setEnabled(false);
 	resetButton->setEnabled(false);
@@ -888,11 +888,11 @@ void StyleManager::reloadStyleView(bool loadFromDoc)
 	}
 
 	styleView->clear();
-	if (item_ && loadFromDoc)
-		item_->reload();
+	if (m_item && loadFromDoc)
+		m_item->reload();
 
-	for (int i = 0; i < items_.count(); ++i)
-		addNewType(items_.at(i), false);
+	for (int i = 0; i < m_items.count(); ++i)
+		addNewType(m_items.at(i), false);
 
 	QTreeWidgetItemIterator it2(styleView, QTreeWidgetItemIterator::Selectable);
 
@@ -924,19 +924,19 @@ void StyleManager::insertShortcutPage(QTabWidget *twidget)
 {
 	if (twidget)
 	{
-		if (!shortcutWidget_)
+		if (!m_shortcutWidget)
 		{
-			shortcutWidget_ = new ShortcutWidget(0);
-			connect(shortcutWidget_, SIGNAL(newKey(const QString&)),
+			m_shortcutWidget = new ShortcutWidget(0);
+			connect(m_shortcutWidget, SIGNAL(newKey(const QString&)),
 					this, SLOT(slotShortcutChanged(const QString&)));
 		}
-		twidget->addTab(shortcutWidget_, tr("Shortcut"));
+		twidget->addTab(m_shortcutWidget, tr("Shortcut"));
 	}
 }
 
 void StyleManager::slotNameChanged(const QString& name)
 {
-	if (item_ && !nameIsUnique(name))
+	if (m_item && !nameIsUnique(name))
 	{
 		uniqueLabel->show();
 		okButton->setEnabled(false);
@@ -951,9 +951,9 @@ void StyleManager::slotNameChanged(const QString& name)
 	}
 
 
-	if (item_)
+	if (m_item)
 	{
-		item_->nameChanged(name);
+		m_item->nameChanged(name);
 		updateActionName(styleView->currentItem()->text(NAME_COL), name);
 		styleView->currentItem()->setText(NAME_COL, name);
 		applyButton->setEnabled(true);
@@ -964,27 +964,27 @@ void StyleManager::slotNameChanged(const QString& name)
 
 void StyleManager::updateActionName(const QString &oldName, const QString &newName)
 {
-	if (!item_)
+	if (!m_item)
 		return;
-	QString oldKey = item_->typeName() + SEPARATOR + oldName;
-	QString newKey = item_->typeName() + SEPARATOR + newName;
+	QString oldKey = m_item->typeName() + SEPARATOR + oldName;
+	QString newKey = m_item->typeName() + SEPARATOR + newName;
 
-	if (styleActions_.contains(oldKey))
+	if (m_styleActions.contains(oldKey))
 	{
-		ScrAction *a = styleActions_[oldKey];
+		ScrAction *a = m_styleActions[oldKey];
 		disconnect(a, SIGNAL(triggeredData(QString)), this, SLOT(slotApplyStyle(QString)));
 		ScrAction *b = new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",
-			               a->shortcut(), doc_->view(), 0, 0.0, newKey);
-		styleActions_.remove(oldKey);
+			               a->shortcut(), m_doc->view(), 0, 0.0, newKey);
+		m_styleActions.remove(oldKey);
 		delete a;
-		styleActions_[newKey] = b;
+		m_styleActions[newKey] = b;
 		connect(b, SIGNAL(triggeredData(QString)), this, SLOT(slotApplyStyle(QString)));
 	}
 }
 
 void StyleManager::slotShortcutChanged(const QString& shortcut)
 {
-	if (!doc_)
+	if (!m_doc)
 		return;
 
 	StyleViewItem *sitem = dynamic_cast<StyleViewItem*>(styleView->currentItem());
@@ -996,24 +996,24 @@ void StyleManager::slotShortcutChanged(const QString& shortcut)
 		QMessageBox::information(this, CommonStrings::trWarning,
 		                         tr("This key sequence is already in use"),
 		                         CommonStrings::tr_OK);
-		shortcutWidget_->setShortcut(item_->shortcut(sitem->text(NAME_COL)));
+		m_shortcutWidget->setShortcut(m_item->shortcut(sitem->text(NAME_COL)));
 		return;
 	}
 
 	sitem->setText(SHORTCUT_COL, shortcut.isNull() ? "" : shortcut);
 	QString key = sitem->rootName() + SEPARATOR + sitem->text(NAME_COL);
-	if (styleActions_.contains(key))
-		styleActions_[key]->setShortcut(shortcut);
+	if (m_styleActions.contains(key))
+		m_styleActions[key]->setShortcut(shortcut);
 	else
 	{
-		styleActions_[key] =
-			new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", shortcut, doc_->view(), 0, 0.0, key);
-		connect(styleActions_[key], SIGNAL(triggeredData(QString)),
+		m_styleActions[key] =
+			new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", shortcut, m_doc->view(), 0, 0.0, key);
+		connect(m_styleActions[key], SIGNAL(triggeredData(QString)),
 		        this, SLOT(slotApplyStyle(QString)));
 	}
 
-	if (item_)
-		item_->setShortcut(shortcut);
+	if (m_item)
+		m_item->setShortcut(shortcut);
 }
 
 bool StyleManager::shortcutExists(const QString &keys)
@@ -1021,7 +1021,7 @@ bool StyleManager::shortcutExists(const QString &keys)
 	QKeySequence key(keys);
 
 	QMap<QString, QPointer<ScrAction> >::iterator it;
-	for (it = styleActions_.begin(); it != styleActions_.end(); ++it)
+	for (it = m_styleActions.begin(); it != m_styleActions.end(); ++it)
 	{
 		if ((*it)->shortcut() == key)
 			return true;
@@ -1040,20 +1040,20 @@ bool StyleManager::shortcutExists(const QString &keys)
 
 void StyleManager::slotApplyStyle(QString keyString)
 {
-	if (isEditMode_)
+	if (m_isEditMode)
 		return;
 
 	QStringList slist = keyString.split(SEPARATOR, QString::SkipEmptyParts);
 	Q_ASSERT(slist.count() == 2);
 
 	loadType(slist[0]);
-	item_->toSelection(slist[1]);
+	m_item->toSelection(slist[1]);
 	slotDocSelectionChanged();
 }
 
 bool StyleManager::nameIsUnique(const QString &name)
 {
-	QList<StyleName> names = item_->styles(false);
+	QList<StyleName> names = m_item->styles(false);
 	for (int i = 0; i < names.count(); ++i)
 	{
 		if (names[i].first == name)
@@ -1068,31 +1068,31 @@ void StyleManager::slotSetupWidget()
 	QPair<QString, QStringList> selection = namesFromSelection();
 	QString typeName = selection.first;
 
-	if (typeName.isNull() && widget_)
-		widget_->setEnabled(false); // nothing selected or two or more different types
-	else if (!item_ || item_->typeName() != typeName || widget_ != item_->widget())
+	if (typeName.isNull() && m_widget)
+		m_widget->setEnabled(false); // nothing selected or two or more different types
+	else if (!m_item || m_item->typeName() != typeName || m_widget != m_item->widget())
 		loadType(typeName); // new type selected
-	else if (widget_ && !widget_->isEnabled())
-		widget_->setEnabled(true);
+	else if (m_widget && !m_widget->isEnabled())
+		m_widget->setEnabled(true);
 
 	disconnect(nameEdit, SIGNAL(textChanged(const QString&)),
 	           this, SLOT(slotNameChanged(const QString&)));
 	if (!typeName.isNull())
 	{
-		item_->selected(selection.second);
+		m_item->selected(selection.second);
 		if (selection.second.count() > 1)
 		{
 			nameEdit->setText( tr("More than one style selected"));
 			nameEdit->setEnabled(false);
-			shortcutWidget_->setEnabled(false);
-			shortcutWidget_->setShortcut(QString::null);
+			m_shortcutWidget->setEnabled(false);
+			m_shortcutWidget->setShortcut(QString::null);
 		}
 		else
 		{
 			nameEdit->setText(selection.second[0]);
 			nameEdit->setEnabled(true);
-			shortcutWidget_->setEnabled(true);
-			shortcutWidget_->setShortcut(item_->shortcut(selection.second[0]));
+			m_shortcutWidget->setEnabled(true);
+			m_shortcutWidget->setShortcut(m_item->shortcut(selection.second[0]));
 		}
 	}
 	else
@@ -1110,17 +1110,17 @@ void StyleManager::slotApplyStyle(QTreeWidgetItem *item)
 {
 	StyleViewItem *sitem = dynamic_cast<StyleViewItem*>(item);
 
-	if (isEditMode_ || !sitem || sitem->isRoot())
+	if (m_isEditMode || !sitem || sitem->isRoot())
 		return; // don't apply a style in edit mode or if there was no item/type selected
 
 	styleView->clearSelection();
 
-	if (!item_ || item_->typeName() != sitem->rootName())
+	if (!m_item || m_item->typeName() != sitem->rootName())
 		loadType(sitem->rootName()); // load the type where we want to apply this style
 
-	Q_ASSERT(item_);
+	Q_ASSERT(m_item);
 
-	item_->toSelection(sitem->text(NAME_COL)); // apply selected style to the selection
+	m_item->toSelection(sitem->text(NAME_COL)); // apply selected style to the selection
 
 	slotDocSelectionChanged();
 }
@@ -1137,7 +1137,7 @@ void StyleManager::slotApplyStyle(QTreeWidgetItem *item, int)
 
 void StyleManager::slotDocSelectionChanged()
 {
-	if (isEditMode_)
+	if (m_isEditMode)
 		return; // don't track changes when in edit mode
 
 	disconnect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
@@ -1147,8 +1147,8 @@ void StyleManager::slotDocSelectionChanged()
 
 	QList<QPair<QString, QString> > selected;
 
-	for (int i = 0; i < items_.count(); ++i)
-		selected << QPair<QString, QString>(items_.at(i)->typeName(), items_.at(i)->fromSelection());
+	for (int i = 0; i < m_items.count(); ++i)
+		selected << QPair<QString, QString>(m_items.at(i)->typeName(), m_items.at(i)->fromSelection());
 	
 	QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::Selectable);
 	StyleViewItem *item;
@@ -1189,7 +1189,7 @@ QPair<QString, QStringList> StyleManager::namesFromSelection()
 	QString typeName(QString::null);
 	QStringList styleNames;
 
-	if (rcStyle_.isNull())
+	if (m_rcStyle.isNull())
 	{
 		QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::Selected);
 		while (*it)
@@ -1216,53 +1216,53 @@ QPair<QString, QStringList> StyleManager::namesFromSelection()
 	}
 	else // right click selection which doesn't show in the gui
 	{
-		typeName = rcType_;
-		styleNames << rcStyle_;
+		typeName = m_rcType;
+		styleNames << m_rcStyle;
 	}
 	return QPair<QString, QStringList>(typeName, styleNames);
 }
 
-// sets the current type to name including item_ and the main widget
+// sets the current type to name including m_item and the main widget
 // for editing styles
 void StyleManager::loadType(const QString &name)
 {
-	item_ = 0;
-	for (int i = 0; i < items_.count(); ++i)
+	m_item = 0;
+	for (int i = 0; i < m_items.count(); ++i)
 	{
-		if (items_.at(i)->typeNameSingular() == name || items_.at(i)->typeName() == name)
+		if (m_items.at(i)->typeNameSingular() == name || m_items.at(i)->typeName() == name)
 		{
-			item_ = items_.at(i);
+			m_item = m_items.at(i);
 			break;
 		}
 	}
-	if (!item_)
+	if (!m_item)
 		return;
 
-	if (widget_)
+	if (m_widget)
 	{   // remove the old style type's widget
-		widget_->hide();
-		layout_->removeWidget(widget_);
-//		widget_->reparent(0,0, QPoint(0,0), false);
+		m_widget->hide();
+		m_layout->removeWidget(m_widget);
+//		m_widget->reparent(0,0, QPoint(0,0), false);
 		// show the widget for the new style type
-		if (shortcutWidget_)
-			widget_->removeTab(widget_->indexOf(shortcutWidget_));
+		if (m_shortcutWidget)
+			m_widget->removeTab(m_widget->indexOf(m_shortcutWidget));
 	}
-	widget_ = item_->widget(); // show the widget for the style type
-	insertShortcutPage(widget_);
-	widget_->setParent(mainFrame);
-	layout_->addWidget(widget_, 0, 0);
+	m_widget = m_item->widget(); // show the widget for the style type
+	insertShortcutPage(m_widget);
+	m_widget->setParent(mainFrame);
+	m_layout->addWidget(m_widget, 0, 0);
 	layout()->activate();
-	widget_->resize(widget_->minimumSizeHint());
-	widget_->show();
+	m_widget->resize(m_widget->minimumSizeHint());
+	m_widget->show();
 }
 
 void StyleManager::hideEvent(QHideEvent *e)
 {
-	prefs_->set("eX", x());
-	prefs_->set("eY", y());
-	prefs_->set("isEditMode", isEditMode_);
-	prefs_->set("InitX", x());
-	prefs_->set("InitY", y());
+	m_prefs->set("eX", x());
+	m_prefs->set("eY", y());
+	m_prefs->set("isEditMode", m_isEditMode);
+	m_prefs->set("InitX", x());
+	m_prefs->set("InitY", y());
 	storeVisibility(false);
 	storePosition();
 	ScrPaletteBase::hideEvent(e);
@@ -1271,11 +1271,11 @@ void StyleManager::hideEvent(QHideEvent *e)
 
 void StyleManager::closeEvent(QCloseEvent *e)
 {
-	prefs_->set("eX", x());
-	prefs_->set("eY", y());
-	prefs_->set("isEditMode", isEditMode_);
-	prefs_->set("InitX", x());
-	prefs_->set("InitY", y());
+	m_prefs->set("eX", x());
+	m_prefs->set("eY", y());
+	m_prefs->set("isEditMode", m_isEditMode);
+	m_prefs->set("InitX", x());
+	m_prefs->set("InitY", y());
 	storeVisibility(false);
 	storePosition();
 	ScrPaletteBase::closeEvent(e);
@@ -1287,7 +1287,7 @@ void StyleManager::showEvent(QShowEvent *e)
 	static bool isFirst = true;
 	if (isModal())
 	{
-		isStoryEditMode_=true;
+		m_isStoryEditMode=true;
 		applyButton->setEnabled(false);
 		slotEdit();
 	}
@@ -1295,7 +1295,7 @@ void StyleManager::showEvent(QShowEvent *e)
 	ScrPaletteBase::showEvent(e);
 	if (isFirst)
 	{
-		QPoint p(prefs_->getInt("InitX", x()), prefs_->getInt("InitY", y()));
+		QPoint p(m_prefs->getInt("InitX", x()), m_prefs->getInt("InitY", y()));
 		move(p);
 		isFirst = false;
 	}
@@ -1303,11 +1303,11 @@ void StyleManager::showEvent(QShowEvent *e)
 
 StyleManager::~StyleManager()
 {
-	prefs_->set("eX", x());
-	prefs_->set("eY", y());
-	prefs_->set("isEditMode", isEditMode_);
-	prefs_->set("InitX", x());
-	prefs_->set("InitY", y());
+	m_prefs->set("eX", x());
+	m_prefs->set("eY", y());
+	m_prefs->set("isEditMode", m_isEditMode);
+	m_prefs->set("InitX", x());
+	m_prefs->set("InitY", y());
 	storeVisibility(this->isVisible());
 	storePosition();
 }

@@ -49,35 +49,35 @@ protected:
 	void showEvent(QShowEvent *e);
 
 private:
-	QList<StyleItem*> items_;
-	StyleItem          *item_;
-	QGridLayout        *layout_;
-	QTabWidget         *widget_;
-	ShortcutWidget     *shortcutWidget_;
-	QString             currentType_;
-	QMenu              *newPopup_;
-	QMenu              *rightClickPopup_;
+	QList<StyleItem*>   m_items;
+	StyleItem          *m_item;
+	QGridLayout        *m_layout;
+	QTabWidget         *m_widget;
+	ShortcutWidget     *m_shortcutWidget;
+	QString             m_currentType;
+	QMenu              *m_newPopup;
+	QMenu              *m_rightClickPopup;
 
-	QAction            *rcpNewId_;
-	QAction            *rcpDeleteId_;
-	QAction            *rcpEditId_;
-	QAction            *rcpCloneId_;
-	QAction            *rcpToScrapId_;
+	QAction            *m_rcpNewId;
+	QAction            *m_rcpDeleteId;
+	QAction            *m_rcpEditId;
+	QAction            *m_rcpCloneId;
+	QAction            *m_rcpToScrapId;
 
-	bool                isEditMode_;
-	bool                isStoryEditMode_;
-	QPoint              editPosition_;
-	QString             rcStyle_;
-	QString             rcType_;
-	QString             exitEditModeOk_;
-	QString             enterEditModeOk_;
-	QString             doneText;
-	QString             editText;
+	bool                m_isEditMode;
+	bool                m_isStoryEditMode;
+	QPoint              m_editPosition;
+	QString             m_rcStyle;
+	QString             m_rcType;
+	QString             m_exitEditModeOk;
+	QString             m_enterEditModeOk;
+	QString             m_doneText;
+	QString             m_editText;
 
-	ScribusDoc         *doc_;
-	PrefsContext       *prefs_;
+	ScribusDoc         *m_doc;
+	PrefsContext       *m_prefs;
 
-	QMap<QString, QPointer<ScrAction> > styleActions_;
+	QMap<QString, QPointer<ScrAction> > m_styleActions;
 
 	static const int     NAME_COL     = 0;
 	static const int     SHORTCUT_COL = 1;
@@ -88,8 +88,8 @@ private:
 	bool nameIsUnique(const QString &name);
 
 	// will be used to map plural style name to it's singular
-	QMap<QString, QString> styleClassesPS_;
-	QMap<QString, QString> styleClassesSP_;
+	QMap<QString, QString> m_styleClassesPS;
+	QMap<QString, QString> m_styleClassesSP;
 
 	// QPair.first will be the type name (null if nothing is selected or
 	// if there are styles from more than one type in the selection)
