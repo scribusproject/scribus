@@ -132,17 +132,22 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	//Replace our pica XpY.Z format with (X*12+Y.Z)pt
 	if (CommonStrings::trStrP.localeAwareCompare(CommonStrings::strP)!=0)
 		ts.replace(CommonStrings::trStrP, CommonStrings::strP);
-	QRegExp rxP("\\b(\\d+)"+CommonStrings::strP+"(\\d+\\.?\\d*)?\\b");
+	QRegExp rxP("\\b(\\d+)"+CommonStrings::strP+"?(\\d+\\.?\\d*)?\\b");
 	int posP = 0;
 	while (posP >= 0)
 	{
+// 		qDebug() << "#";
 		posP = rxP.indexIn(ts, posP);
 		if (posP >= 0)
 		{
+// 			qDebug() << rxP.cap(1);
+// 			qDebug() << rxP.cap(2);
 			QString replacement = QString("%1%2").arg(rxP.cap(1).toDouble()*(static_cast<double>(unitGetBaseFromIndex(SC_PICAS))) + rxP.cap(2).toDouble()).arg(CommonStrings::strPT);
 			ts.replace(posP, rxP.cap(0).length(), replacement);
+// 			qDebug() << ts;
 		}
 	}
+// 	qDebug() << "##" << ts;
 	
 	ts.replace(",", ".");
 	ts.replace("%", "");
