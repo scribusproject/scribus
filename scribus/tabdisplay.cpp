@@ -15,18 +15,21 @@ for which a new license (GPL+exception) is in place.
 
 #include <QList>
 #include <QPixmap>
+#include <QDesktopWidget>
 
 #include "tabdisplay.h"
 
 #include "scrspinbox.h"
 #include "prefsmanager.h"
 #include "units.h"
+#include "util_icon.h"
 
 
 TabDisplay::TabDisplay(QWidget* parent, const char* name)
 	: QWidget(parent)
 {
 	setupUi(this);
+	buttonRestoreDPI->setIcon(QIcon(loadIcon("screen.png")));
 	backColor->setToolTip( "<qt>" + tr( "Color for paper" ) + "</qt>");
 	checkUnprintable->setToolTip( "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
 	checkLink->setToolTip( "<qt>" + tr("Enable or disable  the display of linked frames.") + "</qt>");
@@ -51,6 +54,7 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 	connect(buttonSelectedPage, SIGNAL(clicked()), this, SLOT(changePageBorderColor()));
 	connect(buttonControlChars, SIGNAL(clicked()), this, SLOT(changeControlCharsColor()));
 
+	connect(buttonRestoreDPI, SIGNAL(clicked()), this, SLOT(restoreDisScale()));
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 	connect(rulerUnitCombo, SIGNAL(activated(int)), this, SLOT(drawRuler()));
 }
@@ -132,7 +136,7 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guid
 	gapVertical->setDecimals( decimals );
 	gapVertical->setMaximum(1000);
 	CaliSlider->setValue(qRound(100 * DisScale) - 150);
-	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
+	CaliAnz->setText(QString::number(qRound(DisScale*72.0))+ tr(" dpi"));
 	rulerUnitCombo->clear();
 	rulerUnitCombo->addItems(unitGetTextUnitList());
 	rulerUnitCombo->setCurrentIndex(docUnitIndex);
@@ -175,11 +179,24 @@ void TabDisplay::setPaperColor(QColor neu)
 	}
 }
 
+void TabDisplay::restoreDisScale()
+{
+	disconnect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
+	int dpi = qApp->desktop()->logicalDpiX();
+	if ((dpi < 60) || (dpi > 250))
+		dpi = 72;
+	DisScale = dpi / 72.0;
+	CaliSlider->setValue(qRound(100 * DisScale) - 150);
+	drawRuler();
+	CaliAnz->setText(QString::number(qRound(DisScale*72.0))+ tr(" dpi"));
+	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
+}
+
 void TabDisplay::setDisScale()
 {
 	DisScale = qMax((150.0 + CaliSlider->value()) / 100.0, 0.01);
 	drawRuler();
-	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
+	CaliAnz->setText(QString::number(qRound(DisScale*72.0))+ tr(" dpi"));
 }
 
 void TabDisplay::drawRuler()

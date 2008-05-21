@@ -53,6 +53,11 @@ class SCRIBUS_API TabDisplay : public QWidget, public Ui::TabDisplay
 		void drawRuler();
 		/*!
 		\author Franz Schmid
+		\brief Sets Scale for ruler scale from the display value
+		*/
+		void restoreDisScale();
+		/*!
+		\author Franz Schmid
 		\brief Preferences (Display, Display Size). Sets Scale for ruler scale
 		*/
 		void setDisScale();

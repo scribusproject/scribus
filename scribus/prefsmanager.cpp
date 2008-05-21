@@ -318,7 +318,13 @@ void PrefsManager::initDefaults()
 	appPrefs.AutoCheck = false;
 	appPrefs.AutoSave = true;
 	appPrefs.AutoSaveTime = 600000;
-	appPrefs.DisScale = 1.0;
+
+	int dpi = qApp->desktop()->logicalDpiX();
+	if ((dpi < 60) || (dpi > 200))
+		dpi = 72;
+	appPrefs.DisScale = dpi / 72.0;
+
+//	appPrefs.DisScale = 1.0;
 	appPrefs.DocDir = ScPaths::getUserDocumentDir();
 	appPrefs.ProfileDir = "";
 	appPrefs.ScriptDir = "";
@@ -1774,7 +1780,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.DControlCharColor = QColor(dc.attribute("DControlCharColor","#800000"));
 			appPrefs.guidesSettings.margColor = QColor(dc.attribute("MARGC","#0000ff"));
 			appPrefs.marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
-			appPrefs.DisScale = dc.attribute("DScale", "1").toDouble();
+			appPrefs.DisScale = dc.attribute("DScale", QString::number(appPrefs.DisScale)).toDouble();
 		}
 		if (dc.tagName()=="TYPO")
 		{

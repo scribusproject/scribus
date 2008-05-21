@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>631</width>
-    <height>434</height>
+    <width>623</width>
+    <height>439</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -295,24 +295,6 @@
           <string>Adjust Display Size</string>
          </property>
          <layout class="QGridLayout" >
-          <property name="leftMargin" >
-           <number>10</number>
-          </property>
-          <property name="topMargin" >
-           <number>10</number>
-          </property>
-          <property name="rightMargin" >
-           <number>10</number>
-          </property>
-          <property name="bottomMargin" >
-           <number>10</number>
-          </property>
-          <property name="horizontalSpacing" >
-           <number>5</number>
-          </property>
-          <property name="verticalSpacing" >
-           <number>5</number>
-          </property>
           <item row="0" column="0" colspan="2" >
            <widget class="QLabel" name="CaliText" >
             <property name="text" >
@@ -368,6 +350,16 @@
             </item>
            </layout>
           </item>
+          <item row="1" column="1" >
+           <widget class="QToolButton" name="buttonRestoreDPI" >
+            <property name="toolTip" >
+             <string>Resets the scale to the default dpi of your display</string>
+            </property>
+            <property name="text" >
+             <string/>
+            </property>
+           </widget>
+          </item>
           <item row="2" column="0" >
            <widget class="QLabel" name="CaliRuler" >
             <property name="minimumSize" >
@@ -403,8 +395,8 @@
          </property>
          <property name="sizeHint" >
           <size>
-           <width>589</width>
-           <height>31</height>
+           <width>581</width>
+           <height>16</height>
           </size>
          </property>
         </spacer>
