@@ -2707,10 +2707,6 @@ Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.</translati
         <translation>Fejlreportering og anmodning om nye funktioner</translation>
     </message>
     <message>
-        <source>Mailing List</source>
-        <translation>Postliste</translation>
-    </message>
-    <message>
         <source>Official Translations and Translators:</source>
         <translation>Officielle oversættelser og oversættere:</translation>
     </message>
@@ -2769,6 +2765,14 @@ Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.</translati
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation>OS/2&amp;#174;/eComStation&amp;#8482; Port:</translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation>Udvikler Blog</translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
+        <translation>Post-lister</translation>
     </message>
 </context>
 <context>
@@ -7546,6 +7550,10 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
         <source>Paths</source>
         <translation>Stier</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Luk</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -7596,6 +7604,10 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <source>Colorspace:</source>
         <translation>Farverum:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation>Version:</translation>
     </message>
 </context>
 <context>
@@ -10734,10 +10746,6 @@ hjørner:</translation>
         <translation>Ja</translation>
     </message>
     <message>
-        <source>Goto</source>
-        <translation>Gå til</translation>
-    </message>
-    <message>
         <source>Name</source>
         <translation>Navn</translation>
     </message>
@@ -10796,6 +10804,10 @@ hjørner:</translation>
     <message>
         <source>Manage Images</source>
         <translation>Håndtér billeder</translation>
+    </message>
+    <message>
+        <source>Go to</source>
+        <translation>Gå til</translation>
     </message>
 </context>
 <context>
@@ -11613,12 +11625,16 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>Scribus Python konsol</translation>
     </message>
     <message>
-        <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation>Denne konsol er baseret på standard Python konsollen, så den indeholde nogle begrænsninger specielt m.h.t. hvidt-rum (whitespaces). Se venligst Scribus manualen for mere information.</translation>
-    </message>
-    <message>
         <source>Open Python Script File</source>
         <translation>Åbn python script fil</translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
+        <translation>Dette er en standard Python konsol med nogle
+kendte begrænsninger. Slå venligst op i Scribus
+Scripter dokumentationen for yderligere information.</translation>
     </message>
 </context>
 <context>
@@ -16042,14 +16058,6 @@ Vertikal forskydning: %3</translation>
         <translation>Afstand mellem hovedlinierne</translation>
     </message>
     <message>
-        <source>Distance within which an object will snap to your placed guides</source>
-        <translation>Den afstand indenfor hvor et objekt vil placere sig på en hjælpelinie</translation>
-    </message>
-    <message>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>Størrelsen af det område, hvor du kan tage om et objekts håndtag</translation>
-    </message>
-    <message>
         <source>Color of the minor grid lines</source>
         <translation>Farve på linierne</translation>
     </message>
@@ -16092,6 +16100,14 @@ Vertikal forskydning: %3</translation>
     <message>
         <source>Turns the margins on or off</source>
         <translation>Slår margenerne til eller fra </translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation>Den afstand indenfor hvor et objekt vil placere sig på en hjælpelinie. Efter at have indstillet dette, er du nød til at genstarte Scribus, før ændringen træder i kraft.</translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+        <translation>Størrelsen af det område, hvor du kan tage om et objekts håndtag. Efter at have indstillet dette, er du nød til at genstarte Scribus, før ændringen træder i kraft.</translation>
     </message>
 </context>
 <context>
