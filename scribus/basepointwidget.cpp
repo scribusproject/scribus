@@ -12,13 +12,13 @@ BasePointWidget::BasePointWidget(QWidget *pa, int mode) : QWidget(pa)
 	m_mode = mode;
 	if (m_mode == 0)
 	{
-		setMinimumSize(QSize(56, 56));
-		setMaximumSize(QSize(56, 56));
+		setMinimumSize(QSize(48, 48));
+		setMaximumSize(QSize(48, 48));
 	}
 	else
 	{
-		setMinimumSize(QSize(56, 16));
-		setMaximumSize(QSize(56, 16));
+		setMinimumSize(QSize(48, 16));
+		setMaximumSize(QSize(48, 16));
 	}
 	setMouseTracking(true);
 	selectedBase = 0;
