@@ -184,27 +184,16 @@ void StyleManager::setOkButtonText()
 
 void StyleManager::setDoc(ScribusDoc *doc)
 {
-	if (doc)
-	{
-		m_doc = doc;
-		newButton->setEnabled(true);
-		cloneButton->setEnabled(true);
-		importButton->setEnabled(true);
-		deleteButton->setEnabled(true);
-		m_rightClickPopup->setEnabled(true);
-		m_newPopup->setEnabled(true);
-		connect(doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(slotDocSelectionChanged()));
-	}
-	else
-	{
-		m_doc = 0;
-		newButton->setEnabled(false);
-		cloneButton->setEnabled(false);
-		importButton->setEnabled(false);
-		deleteButton->setEnabled(false);
-		m_rightClickPopup->setEnabled(false);
-		m_newPopup->setEnabled(false);
-	}
+	bool hasDoc = (doc != NULL);
+	m_doc = doc;
+	newButton->setEnabled(hasDoc);
+	cloneButton->setEnabled(hasDoc);
+	importButton->setEnabled(hasDoc);
+	deleteButton->setEnabled(hasDoc);
+	m_rightClickPopup->setEnabled(hasDoc);
+	m_newPopup->setEnabled(hasDoc);
+	if (m_doc)
+		connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(slotDocSelectionChanged()));
 
 	// clear the style list and reload from new doc
 	styleView->clear();
