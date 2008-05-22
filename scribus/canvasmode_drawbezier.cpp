@@ -405,6 +405,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 				m_createTransaction = NULL;
 			}
 			currItem->update();
+			currItem->emitAllToGUI();
 		}
 		
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
