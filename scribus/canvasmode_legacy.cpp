@@ -454,6 +454,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		Myp = newY;
 		m_view->RefreshGradient(currItem, dx * m_canvas->scale(), dy * m_canvas->scale());
 		m_ScMW->propertiesPalette->updateColorSpecialGradient();
+		currItem->update();
 		return;
 	}
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeMeasurementTool))
