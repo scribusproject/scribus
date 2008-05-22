@@ -645,7 +645,7 @@ void PrefsManager::initArrowStyles()
 	points.resize(0);
 	arrow.name = "Arrow2L";
 	points.parseSVG("M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z");
-	points.translate(1, 0);
+	points.translate(-6.0, -0.016013256);
 	points.map(arrowRotate);
 	arrow.points = points.copy();
 	appPrefs.arrowStyles.append(arrow);
