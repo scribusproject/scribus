@@ -1642,14 +1642,16 @@ double SVGPlug::parseUnit(const QString &unit)
 QMatrix SVGPlug::parseTransform( const QString &transform )
 {
 	QMatrix ret;
+	// Workaround for QString::split() bug when string ends with space
+	QString trans = transform.simplified();
 	// Split string for handling 1 transform statement at a time
-	QStringList subtransforms = transform.split(')', QString::SkipEmptyParts);
+	QStringList subtransforms = trans.split(')', QString::SkipEmptyParts);
 	QStringList::ConstIterator it = subtransforms.begin();
 	QStringList::ConstIterator end = subtransforms.end();
 	for(; it != end; ++it)
 	{
 		QMatrix result;
-		QStringList subtransform = (*it).split('(', QString::SkipEmptyParts);
+		QStringList subtransform = it->split('(', QString::SkipEmptyParts);
 		subtransform[0] = subtransform[0].trimmed().toLower();
 		subtransform[1] = subtransform[1].simplified();
 		QRegExp reg("[,( ]");
