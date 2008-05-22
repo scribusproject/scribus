@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QDebug>
 #include <QEvent>
 #include <QMenu>
 #include <QToolTip>
@@ -184,7 +185,10 @@ void StyleManager::setOkButtonText()
 
 void StyleManager::setDoc(ScribusDoc *doc)
 {
+	ScribusDoc* oldDoc = m_doc;
 	bool hasDoc = (doc != NULL);
+	if (m_doc && (m_doc != doc))
+		disconnect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(slotDocSelectionChanged()));
 	m_doc = doc;
 	newButton->setEnabled(hasDoc);
 	cloneButton->setEnabled(hasDoc);
@@ -192,7 +196,7 @@ void StyleManager::setDoc(ScribusDoc *doc)
 	deleteButton->setEnabled(hasDoc);
 	m_rightClickPopup->setEnabled(hasDoc);
 	m_newPopup->setEnabled(hasDoc);
-	if (m_doc)
+	if (m_doc && (m_doc != oldDoc) && this->isVisible())
 		connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(slotDocSelectionChanged()));
 
 	// clear the style list and reload from new doc
@@ -1129,6 +1133,8 @@ void StyleManager::slotDocSelectionChanged()
 	if (m_isEditMode)
 		return; // don't track changes when in edit mode
 
+	qDebug() << "Style Manager : doc selection changed";
+
 	disconnect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
 	           this, SLOT(slotApplyStyle(QTreeWidgetItem*, QTreeWidgetItem*)));
 
@@ -1247,6 +1253,8 @@ void StyleManager::loadType(const QString &name)
 
 void StyleManager::hideEvent(QHideEvent *e)
 {
+	if (m_doc)
+		disconnect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(slotDocSelectionChanged()));
 	m_prefs->set("eX", x());
 	m_prefs->set("eY", y());
 	m_prefs->set("isEditMode", m_isEditMode);
@@ -1288,6 +1296,8 @@ void StyleManager::showEvent(QShowEvent *e)
 		move(p);
 		isFirst = false;
 	}
+	if (m_doc)
+		connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(slotDocSelectionChanged()));
 }
 
 StyleManager::~StyleManager()

@@ -1527,11 +1527,13 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 					if (frameResizeHandle < 0 || m->modifiers() != Qt::NoModifier)
 					{
+						m_doc->m_Selection->delaySignalsOn();
 						SeleItem(m); //Where we send the mouse press event to select an item
 						if (GetItem(&currItem))
 							frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 						else
 							frameResizeHandle = 0;
+						m_doc->m_Selection->delaySignalsOff();
 					}
 					if (currItem && !currItem->locked() && frameResizeHandle > 0)
 					{
@@ -4373,6 +4375,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 //				qDebug() << "select item: found BENEATH" << currItem << "groups" << currItem->Groups.count();
 				if (currItem->Groups.count() > 0)
 				{
+					m_doc->m_Selection->delaySignalsOn();
 					for (int ga=0; ga<m_doc->Items->count(); ++ga)
 					{
 						PageItem* item = m_doc->Items->at(ga);
@@ -4387,6 +4390,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 							}
 						}
 					}
+					m_doc->m_Selection->delaySignalsOff();
 				}
 				else
 				{
