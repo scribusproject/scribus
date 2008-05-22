@@ -3543,16 +3543,33 @@ void ScribusMainWindow::importVectorFile()
 	if (!fileName.isEmpty())
 	{
 		PrefsManager::instance()->prefsFile->getContext("dirs")->set("pastefile", fileName.left(fileName.lastIndexOf("/")));
-		QMimeData* md = new QMimeData();
-		QUrl ur = QUrl::fromLocalFile(fileName);
-		md->setText(ur.toString());
-		QDrag* dr = new QDrag(this);
-		dr->setMimeData(md);
-		const QPixmap& dragCursor = loadIcon("DragPix.xpm");
-		dr->setDragCursor(dragCursor, Qt::CopyAction);
-		dr->setDragCursor(dragCursor, Qt::MoveAction);
-		dr->setDragCursor(dragCursor, Qt::LinkAction);
-		dr->exec();
+		QFileInfo fi(fileName);
+		QString suffix = fi.suffix().toLower();
+		if ((suffix == "sce") || (suffix == "sml") || (suffix == "shape"))
+		{
+			QMimeData* md = new QMimeData();
+			QUrl ur = QUrl::fromLocalFile(fileName);
+			md->setText(ur.toString());
+			QDrag* dr = new QDrag(this);
+			dr->setMimeData(md);
+			const QPixmap& dragCursor = loadIcon("DragPix.xpm");
+			dr->setDragCursor(dragCursor, Qt::CopyAction);
+			dr->setDragCursor(dragCursor, Qt::MoveAction);
+			dr->setDragCursor(dragCursor, Qt::LinkAction);
+			dr->exec();
+		}
+		else
+		{
+			FileLoader *fileLoader = new FileLoader(fileName);
+			int testResult = fileLoader->TestFile();
+			delete fileLoader;
+			if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+			{
+				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+				if( fmt )
+					fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive);
+			}
+		}
 	}
 }
 
