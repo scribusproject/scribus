@@ -155,15 +155,16 @@ bool Selection::connectItemToGUI()
 		}
 		ret = pi->connectToGUI();
 		pi->emitAllToGUI();
-		emit selectionChanged();
+		m_sigSelectionChanged = true;
 	}
 	else
 	{
 		ret = m_SelList.first()->connectToGUI();
 		m_SelList.first()->emitAllToGUI();
-		emit selectionChanged();
-		emit selectionIsMultiple(m_hasGroupSelection);
+		m_sigSelectionChanged    = true;
+		m_sigSelectionIsMultiple = true;
 	}
+	sendSignals(false);
 	return ret;
 }
 
@@ -437,11 +438,12 @@ void Selection::delaySignalsOff(void)
 		sendSignals();
 }
 
-void Selection::sendSignals(void)
+void Selection::sendSignals(bool guiConnect)
 {
 	if (m_isGUISelection && (m_delaySignals <= 0))
 	{
-		connectItemToGUI();
+		if (guiConnect)
+			connectItemToGUI();
 		if (m_sigSelectionChanged)
 			emit selectionChanged();
 		if (m_sigSelectionIsMultiple)

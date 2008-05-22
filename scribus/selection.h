@@ -165,7 +165,7 @@ class SCRIBUS_API Selection : public QObject
 		bool m_sigSelectionChanged;
 		bool m_sigSelectionIsMultiple;
 
-		void sendSignals(void);
+		void sendSignals(bool guiConnect = true);
 		
 	signals:
 		void selectionIsMultiple(bool);
