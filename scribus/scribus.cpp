@@ -4598,18 +4598,19 @@ bool ScribusMainWindow::DoFileClose()
 	QString fName(view->Doc->DocName);
 	view->close();
 	delete view;
+	view = NULL;
 	doc->setLoading(true);
 	guidePalette->setDoc(0);
 	charPalette->setDoc(0);
+	tocGenerator->setDoc(0);
+	styleManager->setDoc(0);
 	layerPalette->ClearInhalt();
 	docCheckerPalette->buildErrorList(0);
 	ScCore->fileWatcher->removeFile(fName);
 	HaveDoc--;
-	view = NULL;
 	delete doc;
 	doc = NULL;
 	ActWin = NULL;
-	tocGenerator->setDoc(doc);
 	if ( HaveDoc == 0 )
 	{
 		QString prefsDocDir( PrefsManager::instance()->documentDir() );
@@ -4618,7 +4619,6 @@ bool ScribusMainWindow::DoFileClose()
 		else
 			QDir::setCurrent( QDir::homePath() );
 	}
-	styleManager->setDoc(0);
 	return true;
 }
 
