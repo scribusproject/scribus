@@ -70,6 +70,10 @@ void LensEffectsPlugin::languageChange()
 	m_actionInfo.subMenuName = tr("Path Tools");
 	m_actionInfo.enabledOnStartup = true;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
+	m_actionInfo.notSuitableFor.append(PageItem::TextFrame);
+	m_actionInfo.notSuitableFor.append(PageItem::ImageFrame);
+	m_actionInfo.notSuitableFor.append(PageItem::PathText);
+	m_actionInfo.notSuitableFor.append(PageItem::LatexFrame);
 	m_actionInfo.needsNumObjects = 3;
 }
 

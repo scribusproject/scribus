@@ -74,6 +74,10 @@ void MeshDistortionPlugin::languageChange()
 	m_actionInfo.enabledOnStartup = true;
 	m_actionInfo.forAppMode.append(modeNormal);
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
+	m_actionInfo.notSuitableFor.append(PageItem::TextFrame);
+	m_actionInfo.notSuitableFor.append(PageItem::ImageFrame);
+	m_actionInfo.notSuitableFor.append(PageItem::PathText);
+	m_actionInfo.notSuitableFor.append(PageItem::LatexFrame);
 	m_actionInfo.needsNumObjects = 3;
 }
 
