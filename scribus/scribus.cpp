@@ -3535,7 +3535,7 @@ void ScribusMainWindow::importVectorFile()
 	allFormats += formats;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
-	CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdExistingFiles);
+	CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdHidePreviewCheckBox | fdExistingFiles);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -8025,7 +8025,7 @@ void ScribusMainWindow::reallySaveAsEps()
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("eps", prefsDocDir);
 	else
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("eps", ".");
-	QString fn = CFileDialog( wdir, tr("Save as"), tr("%1;;All Files (*)").arg(formatsManager->extensionsForFormat(FormatsManager::EPS)), fna, fdNone);
+	QString fn = CFileDialog( wdir, tr("Save as"), tr("%1;;All Files (*)").arg(formatsManager->extensionsForFormat(FormatsManager::EPS)), fna, fdHidePreviewCheckBox | fdNone);
 	if (!fn.isEmpty())
 	{
 		prefsManager->prefsFile->getContext("dirs")->set("eps", fn.left(fn.lastIndexOf("/")));

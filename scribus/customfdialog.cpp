@@ -379,10 +379,20 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 			Layout1C->addItem( spacer2 );
 			vboxLayout->addWidget(LayoutC);
 		}
-		bool setter = flags & fdShowPreview;
-		showPreview->setChecked(setter);
-		previewIsShown = setter;
-		pw->setVisible(setter);
+		bool setter2 = flags & fdHidePreviewCheckBox;
+		if (!setter2)
+		{
+			bool setter = flags & fdShowPreview;
+			showPreview->setChecked(setter);
+			previewIsShown = setter;
+			pw->setVisible(setter);
+		}
+		else
+		{
+			showPreview->hide();
+			previewIsShown = false;
+			pw->setVisible(false);
+		}
 		if (flags & fdCompressFile)
 			connect(SaveZip, SIGNAL(clicked()), this, SLOT(handleCompress()));
 	}

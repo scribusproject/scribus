@@ -74,7 +74,8 @@ typedef enum {
 	fdExistingFiles = 2, // When set, set to the QFileDialog::ExistingFile mode when true, QFileDialog::AnyFile otherwise
 	fdCompressFile = 4, // Show and handle the "Compress" behaviour and CheckBox (true)
 	fdShowCodecs = 8, // Show and handle text codecs and ComboBox (true)
-	fdDirectoriesOnly = 16 // Show only directories
+	fdDirectoriesOnly = 16, // Show only directories
+	fdHidePreviewCheckBox = 32 // Hide preview Checkbox
 } fdFlags;
 
 /*! \brief A Scribus own file dialog.
