@@ -9,36 +9,47 @@
 # LIBFONTCONFIG_LIBS, link information
 # LIBFONTCONFIG_CFLAGS, cflags for include information
 
+IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
+  INCLUDE(UsePkgConfig)
+  PKGCONFIG(fontconfig _fontconfigIncDir _fontconfigLinkDir _fontconfigLinkFlags _fontconfigCflags)
+  SET(FONTCONFIG_LIBS ${_fontconfigCflags})
+ELSE (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
+  INCLUDE(FindPkgConfig)
+  pkg_search_module(FONTCONFIG REQUIRED fontconfig)
+ENDIF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
 
-INCLUDE(UsePkgConfig)
+#INCLUDE(UsePkgConfig)
 
 # use pkg-config to get the directories and then use these values
 # in the FIND_PATH() and FIND_LIBRARY() calls
-PKGCONFIG(fontconfig _fontconfigIncDir _fontconfigLinkDir _fontconfigLinkFlags _fontconfigCflags)
+#PKGCONFIG(fontconfig _fontconfigIncDir _fontconfigLinkDir _fontconfigLinkFlags _fontconfigCflags)
 
-SET(FONTCONFIG_LIBS ${_fontconfigCflags})
+#SET(FONTCONFIG_LIBS ${_fontconfigCflags})
 
 IF(BUILD_OSX_BUNDLE)
-  FIND_PATH(FONTCONFIG_INCLUDE_DIR fontconfig/fontconfig.h
-    /opt/local/include
+  FIND_PATH(FONTCONFIG_INCLUDE_DIR
+    NAMES fontconfig/fontconfig.h
+    PATHS ${FONTCONFIG_INCLUDE_DIRS} /opt/local/include
     NO_DEFAULT_PATH
   )
-  FIND_LIBRARY(FONTCONFIG_LIBRARY NAMES fontconfig
-    PATHS /opt/local/lib
+  FIND_LIBRARY(FONTCONFIG_LIBRARY 
+    NAMES fontconfig
+    PATHS ${FONTCONFIG_LIBRARY_DIRS} /opt/local/lib
     NO_DEFAULT_PATH
   )
 ELSE(BUILD_OSX_BUNDLE)
-  FIND_PATH(FONTCONFIG_INCLUDE_DIR fontconfig/fontconfig.h
+  FIND_PATH(FONTCONFIG_INCLUDE_DIR 
+    NAMES fontconfig/fontconfig.h
+	PATHS ${FONTCONFIG_INCLUDE_DIRS} 
     ${_fontconfigIncDir}
     /usr/include
     /usr/local/include
-    PATH_SUFFIXES
-    fontconfig
+    PATH_SUFFIXES fontconfig
   )
   # quick hack as the above finds it nicely but our source includes the libart_lgpl text at the moment
   #STRING(REGEX REPLACE "/libart_lgpl" "" FONTCONFIG_INCLUDE_DIR ${FONTCONFIG_INCLUDE_DIR})
   FIND_LIBRARY(FONTCONFIG_LIBRARY NAMES fontconfig
-    PATHS /usr/lib /usr/local/lib
+    PATHS ${FONTCONFIG_LIBRARY_DIRS} /usr/lib /usr/local/lib
   )
 ENDIF(BUILD_OSX_BUNDLE)
 
