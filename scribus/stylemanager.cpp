@@ -266,16 +266,14 @@ void StyleManager::slotDelete()
 	QList<StyleName> styles = m_item->styles(false); // get list from cache
 	for (int i = 0; i < styles.count(); ++i)
 		tmp << styles[i].first;
-	SMReplaceDia *dia = new SMReplaceDia(selected, tmp, this);
-	if (dia->exec() && m_item)
+	SMReplaceDia dia(selected, tmp, this);
+	if (dia.exec() && m_item)
 	{
-		m_item->deleteStyles(dia->items());
+		m_item->deleteStyles(dia.items());
 		applyButton->setEnabled(true);
 		resetButton->setEnabled(true);
 		reloadStyleView(false);
 	}
-
-	delete dia;
 }
 
 
