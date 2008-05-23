@@ -982,7 +982,8 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			QString col;
 			int shading;
 			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
-			fp >> col;
+		//	fp >> col;
+			col = fp.readLine();
 			fp >> shading;
 			setCurrentComboItem(colData, col);
 			shade->setValue(shading);

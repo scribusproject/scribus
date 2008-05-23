@@ -154,7 +154,8 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 				QString col = CommonStrings::None;
 				int shading = 100;
 				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				fp >> col;
+			//	fp >> col;
+				col = fp.readLine();
 				fp >> shading;
 				colorize(doc, colors[col], shading, cmyk);
 			}
