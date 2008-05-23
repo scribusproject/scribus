@@ -68,7 +68,7 @@ void TransformEffectPlugin::languageChange()
 	m_actionInfo.menu = "Item";
 	m_actionInfo.menuAfterName = "MulDuplicate";
 	m_actionInfo.enabledOnStartup = true;
-	m_actionInfo.needsNumObjects = 1;
+	m_actionInfo.needsNumObjects = 3;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
 	m_actionInfo.forAppMode.append(modeNormal);
 }
@@ -114,38 +114,58 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 			int baseP = dia->getBasepoint();
 			if (nrOfCopies == 0)
 			{
+				double gx, gy, gh, gw;
 				PageItem *currItem = currDoc->m_Selection->itemAt(0);
-				QMatrix matrixPre;
-				QMatrix matrixAft;
-				switch (baseP)
+				if (currDoc->m_Selection->count() == 1)
 				{
-					case 2:
-						matrixPre.translate(-currItem->width()/2.0, -currItem->height()/2.0);
-						matrixAft.translate(currItem->width()/2.0, currItem->height()/2.0);
-						break;
-					case 4:
-						matrixPre.translate(-currItem->width(), -currItem->height());
-						matrixAft.translate(currItem->width(), currItem->height());
-						break;
-					case 3:
-						matrixPre.translate(0, -currItem->height());
-						matrixAft.translate(0, currItem->height());
-						break;
-					case 1:
-						matrixPre.translate(-currItem->width(), 0);
-						matrixAft.translate(currItem->width(), 0);
-						break;
+					gx = currItem->xPos();
+					gy = currItem->yPos();
+					gw = currItem->width();
+					gh = currItem->height();
 				}
-				currItem->PoLine.map(matrixPre);
-				currItem->PoLine.map(matrix);
-				currItem->PoLine.map(matrixAft);
-				currItem->ContourLine.map(matrixPre);
-				currItem->ContourLine.map(matrix);
-				currItem->ContourLine.map(matrixAft);
-				currItem->Frame = false;
-				currItem->ClipEdited = true;
-				currItem->FrameType = 3;
-				currDoc->AdjustItemSize(currItem);
+				else
+					currDoc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+				for (int a = 0; a < currDoc->m_Selection->count(); ++a)
+				{
+					PageItem *currItem = currDoc->m_Selection->itemAt(a);
+					double deltaX = currItem->xPos() - gx;
+					double deltaY = currItem->yPos() - gy;
+					QMatrix matrixPre = QMatrix();
+					QMatrix matrixAft = QMatrix();
+					switch (baseP)
+					{
+						case 2:
+							matrixPre.translate(-gw/2.0, -gh/2.0);
+							matrixAft.translate(gw/2.0, gh/2.0);
+							break;
+						case 4:
+							matrixPre.translate(-gw, -gh);
+							matrixAft.translate(gw, gh);
+							break;
+						case 3:
+							matrixPre.translate(0, -gh);
+							matrixAft.translate(0, gh);
+							break;
+						case 1:
+							matrixPre.translate(-gw, 0);
+							matrixAft.translate(gw, 0);
+							break;
+					}
+					currItem->PoLine.translate(deltaX, deltaY);
+					currItem->PoLine.map(matrixPre);
+					currItem->PoLine.map(matrix);
+					currItem->PoLine.map(matrixAft);
+					currItem->PoLine.translate(-deltaX, -deltaY);
+					currItem->ContourLine.translate(deltaX, deltaY);
+					currItem->ContourLine.map(matrixPre);
+					currItem->ContourLine.map(matrix);
+					currItem->ContourLine.map(matrixAft);
+					currItem->ContourLine.translate(-deltaX, -deltaY);
+					currItem->Frame = false;
+					currItem->ClipEdited = true;
+					currItem->FrameType = 3;
+					currDoc->AdjustItemSize(currItem);
+				}
 			}
 			else
 			{
@@ -159,29 +179,8 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 				currDoc->m_Selection->delaySignalsOn();
 				currDoc->scMW()->ScriptRunning = true;
 				QMatrix comulatedMatrix = matrix;
-				QMatrix matrixPre;
-				QMatrix matrixAft;
 				PageItem *currItem = currDoc->m_Selection->itemAt(0);
 				Elements.append(currItem);
-				switch (baseP)
-				{
-					case 2:
-						matrixPre.translate(-currItem->width()/2.0, -currItem->height()/2.0);
-						matrixAft.translate(currItem->width()/2.0, currItem->height()/2.0);
-						break;
-					case 4:
-						matrixPre.translate(-currItem->width(), -currItem->height());
-						matrixAft.translate(currItem->width(), currItem->height());
-						break;
-					case 3:
-						matrixPre.translate(0, -currItem->height());
-						matrixAft.translate(0, currItem->height());
-						break;
-					case 1:
-						matrixPre.translate(-currItem->width(), 0);
-						matrixAft.translate(currItem->width(), 0);
-						break;
-				}
 				int rotBack = currDoc->RotMode;
 				currDoc->RotMode = 0;
 				currDoc->scMW()->slotEditCopy();
@@ -189,18 +188,59 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 				for (int b = 0; b < nrOfCopies; b++)
 				{
 					currDoc->scMW()->slotEditPaste();
+					double gx, gy, gh, gw;
 					currItem = currDoc->m_Selection->itemAt(0);
-					currItem->PoLine.map(matrixPre);
-					currItem->PoLine.map(comulatedMatrix);
-					currItem->PoLine.map(matrixAft);
-					currItem->ContourLine.map(matrixPre);
-					currItem->ContourLine.map(comulatedMatrix);
-					currItem->ContourLine.map(matrixAft);
-					currItem->Frame = false;
-					currItem->ClipEdited = true;
-					currItem->FrameType = 3;
-					currDoc->AdjustItemSize(currItem);
-					Elements.append(currItem);
+					if (currDoc->m_Selection->count() == 1)
+					{
+						gx = currItem->xPos();
+						gy = currItem->yPos();
+						gw = currItem->width();
+						gh = currItem->height();
+					}
+					else
+						currDoc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+					for (int a = 0; a < currDoc->m_Selection->count(); ++a)
+					{
+						currItem = currDoc->m_Selection->itemAt(a);
+						double deltaX = currItem->xPos() - gx;
+						double deltaY = currItem->yPos() - gy;
+						QMatrix matrixPre = QMatrix();
+						QMatrix matrixAft = QMatrix();
+						switch (baseP)
+						{
+							case 2:
+								matrixPre.translate(-gw/2.0, -gh/2.0);
+								matrixAft.translate(gw/2.0, gh/2.0);
+								break;
+							case 4:
+								matrixPre.translate(-gw, -gh);
+								matrixAft.translate(gw, gh);
+								break;
+							case 3:
+								matrixPre.translate(0, -gh);
+								matrixAft.translate(0, gh);
+								break;
+							case 1:
+								matrixPre.translate(-gw, 0);
+								matrixAft.translate(gw, 0);
+								break;
+						}
+						currItem->PoLine.translate(deltaX, deltaY);
+						currItem->PoLine.map(matrixPre);
+						currItem->PoLine.map(comulatedMatrix);
+						currItem->PoLine.map(matrixAft);
+						currItem->PoLine.translate(-deltaX, -deltaY);
+						currItem->ContourLine.translate(deltaX, deltaY);
+						currItem->ContourLine.map(matrixPre);
+						currItem->ContourLine.map(comulatedMatrix);
+						currItem->ContourLine.map(matrixAft);
+						currItem->ContourLine.translate(-deltaX, -deltaY);
+						currItem->Frame = false;
+						currItem->ClipEdited = true;
+						currItem->FrameType = 3;
+						currDoc->AdjustItemSize(currItem);
+						Elements.append(currItem);
+					}
 					comulatedMatrix *= matrix;
 				}
 				for (int c = 0; c < Elements.count(); ++c)
