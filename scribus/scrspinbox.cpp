@@ -132,7 +132,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	//Replace our pica XpY.Z format with (X*12+Y.Z)pt
 	if (CommonStrings::trStrP.localeAwareCompare(CommonStrings::strP)!=0)
 		ts.replace(CommonStrings::trStrP, CommonStrings::strP);
-	QRegExp rxP("\\b(\\d+)"+CommonStrings::strP+"?(\\d+\\.?\\d*)?\\b");
+	QRegExp rxP("\\b(\\d+)"+CommonStrings::strP+"(\\d+\\.?\\d*)?\\b");
 	int posP = 0;
 	while (posP >= 0)
 	{
