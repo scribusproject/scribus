@@ -261,7 +261,8 @@ void SMLineStyle::apply()
 	}
 	doc_->changed();
 	doc_->scMW()->propertiesPalette->SetLineFormats(doc_);
-	doc_->view()->DrawNew();
+	// Better not call DrawNew() here, as this will cause several unnecessary calls
+	// doc_->view()->DrawNew();
 	selectionIsDirty_ = false;
 }
 

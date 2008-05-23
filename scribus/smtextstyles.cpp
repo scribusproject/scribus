@@ -272,7 +272,8 @@ void SMParagraphStyle::apply()
 
 	doc_->scMW()->propertiesPalette->paraStyleCombo->updateFormatList();
 	doc_->scMW()->propertiesPalette->charStyleCombo->updateFormatList();
-	doc_->scMW()->view->DrawNew();
+	// Better not call DrawNew() here, as this will cause several unnecessary calls
+	// doc_->view()->DrawNew();
 	doc_->changed();
 }
 
@@ -1386,7 +1387,8 @@ void SMCharacterStyle::apply()
 
 	doc_->scMW()->propertiesPalette->paraStyleCombo->updateFormatList();
 	doc_->scMW()->propertiesPalette->charStyleCombo->updateFormatList();
-	doc_->scMW()->view->DrawNew();
+	// Better not call DrawNew() here, as this will cause several unnecessary calls
+	// doc_->view()->DrawNew();
 	doc_->changed();
 }
 
@@ -1959,4 +1961,5 @@ SMCharacterStyle::~SMCharacterStyle()
 	page_ = 0;
 	widget_ = 0;
 }
+
 

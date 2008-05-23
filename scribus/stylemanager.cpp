@@ -235,8 +235,9 @@ void StyleManager::slotApply()
 	{
 		for (int i = 0; i < m_items.count(); ++i)
 			m_items.at(i)->apply();
+		if (m_doc)
+			m_doc->view()->DrawNew();
 	}
-
 	slotClean();
 }
 
