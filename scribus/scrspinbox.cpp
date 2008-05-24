@@ -126,13 +126,15 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	//Get a copy for use
 	QString ts = text.trimmed();
 	//Find our suffix
-	QString su(suffix().trimmed());
-	//Get the index of our suffix
-	int toConvertToIndex=unitIndexFromString(su);
+	QString su(unitGetStrFromIndex(m_unitIndex));
 	//Replace our pica XpY.Z format with (X*12+Y.Z)pt
 	if (CommonStrings::trStrP.localeAwareCompare(CommonStrings::strP)!=0)
 		ts.replace(CommonStrings::trStrP, CommonStrings::strP);
-	QRegExp rxP("\\b(\\d+)"+CommonStrings::strP+"(\\d+\\.?\\d*)?\\b");
+	QRegExp rxP;
+	if (m_unitIndex==SC_PICAS)
+		rxP.setPattern("\\b(\\d+)"+CommonStrings::strP+"?(\\d+\\.?\\d*)?\\b");
+	else
+		rxP.setPattern("\\b(\\d+)"+CommonStrings::strP+"(\\d+\\.?\\d*)?\\b");
 	int posP = 0;
 	while (posP >= 0)
 	{
@@ -206,12 +208,12 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	//Add in the fparser constants using our unit strings, and the conversion factors.
 	FunctionParser fp;
 // 	setFPConstants(fp);
-	fp.AddConstant(CommonStrings::strPT.toStdString(), value2value(1.0, SC_PT, toConvertToIndex));
-	fp.AddConstant(CommonStrings::strMM.toStdString(), value2value(1.0, SC_MM, toConvertToIndex));
-	fp.AddConstant(CommonStrings::strIN.toStdString(), value2value(1.0, SC_IN, toConvertToIndex));
-	fp.AddConstant(CommonStrings::strP.toStdString(), value2value(1.0, SC_P, toConvertToIndex));
-	fp.AddConstant(CommonStrings::strCM.toStdString(), value2value(1.0, SC_CM, toConvertToIndex));
-	fp.AddConstant(CommonStrings::strC.toStdString(), value2value(1.0, SC_C, toConvertToIndex));
+	fp.AddConstant(CommonStrings::strPT.toStdString(), value2value(1.0, SC_PT, m_unitIndex));
+	fp.AddConstant(CommonStrings::strMM.toStdString(), value2value(1.0, SC_MM, m_unitIndex));
+	fp.AddConstant(CommonStrings::strIN.toStdString(), value2value(1.0, SC_IN, m_unitIndex));
+	fp.AddConstant(CommonStrings::strP.toStdString(), value2value(1.0, SC_P, m_unitIndex));
+	fp.AddConstant(CommonStrings::strCM.toStdString(), value2value(1.0, SC_CM, m_unitIndex));
+	fp.AddConstant(CommonStrings::strC.toStdString(), value2value(1.0, SC_C, m_unitIndex));
 
 	fp.AddConstant("old", value());
 	if (m_constants)
