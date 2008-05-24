@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_formats.h"
 #include "scstreamfilter.h"
-
+#include <QDebug>
 extern "C"
 {
 #define XMD_H           // shut JPEGlib up
@@ -663,7 +663,6 @@ bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double
 	normal_kernel = (double *)malloc(widthk*widthk*sizeof(double));
 	if(!normal_kernel)
 		return(false);
-	*dest = QImage();
 	*dest = QImage(width(), height(), QImage::Format_ARGB32);
 	normalize=0.0;
 	for(i=0; i < (widthk*widthk); i++)
@@ -689,10 +688,11 @@ bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double
 				for(mcx=0; mcx < widthk; ++mcx, ++sx)
 				{
 					mx = sx < 0 ? 0 : sx > width()-1 ? width()-1 : sx;
-					red += (*k)*(qRed(scanLine(my)[mx])*257);
-					green += (*k)*(qGreen(scanLine(my)[mx])*257);
-					blue += (*k)*(qBlue(scanLine(my)[mx])*257);
-					alpha += (*k)*(qAlpha(scanLine(my)[mx])*257);
+					int px = pixel(mx, my);
+					red += (*k)*(qRed(px)*257);
+					green += (*k)*(qGreen(px)*257);
+					blue += (*k)*(qBlue(px)*257);
+					alpha += (*k)*(qAlpha(px)*257);
 					++k;
 				}
 			}
@@ -1314,7 +1314,7 @@ QByteArray ScImage::ImageToArray()
 
 void ScImage::convertToGray(void)
 {
-	int i = 0, k;
+	int k;
 	int h = height();
 	int w = width();
 	QRgb *s, r;
@@ -1497,7 +1497,7 @@ bool ScImage::writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mas
 	int  c, m, y, k;
 	int  h = height();
 	int  w = width();
-	int  maskIndex = 0, pending = 0;
+	int  pending = 0;
 	int  scanLineSize = (pl == -1) ? (5 * w) : (2 * w);
 	int  bufferSize   = qMax(scanLineSize, (65536 - 65536 % scanLineSize));
 	if (mask.size() < (h * w))  // Check if mask provide enough data
