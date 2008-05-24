@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_formats.h"
 #include "scstreamfilter.h"
-#include <QDebug>
+
 extern "C"
 {
 #define XMD_H           // shut JPEGlib up
