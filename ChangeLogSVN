@@ -1,5 +1,49 @@
 
 Scribus - 1.3.5svn
+- 0004709: [General] Attach text to multiple paths (fschmid) - resolved.
+- 0007046: [Undo/Redo] Crash after selecting "Initial State" and "Show selected Object only" in "Action History" (jghali) - resolved.
+- 0006560: [User Interface] incorrect icon for paragraph alignment in SE (jghali) - resolved.
+- 0007030: [Story Editor / Text Frames] Incorrect semi-manual hyphenation (jghali) - resolved.
+- 0007028: [User Interface] "Item->Send to Layer" should be disabled when there is only one layer (fschmid) - resolved.
+- 0007027: [Plug-ins] The translation of Item > Path Tools doesn't switch unless one restarts Scribus (fschmid) - resolved.
+- 0007025: [Shape Drawing] Link Buttons in the Transform Tool do not work (fschmid) - resolved.
+- 0006503: [Styles] Bad alignment when using tabs in paragraph styles (jghali) - resolved.
+- 0007022: [Import / Export] incorrect handling of transparency in tiff file (jghali) - resolved.
+- 0005213: [Styles] Paragraph indent is not saved in Style Manager (jghali) - resolved.
+- 0007007: [Plug-ins] Cannot insert barcode onto objects (fschmid) - resolved.
+- 0006980: [Story Editor / Text Frames] The alignment of the last paragraph is used for the whole text in the SE (jghali) - resolved.
+- 0005814: [Undo/Redo] Give barcode creator unique name for undo actions (subik) - resolved.
+- 0005405: [Import / Export] SXD/ODF/SVG import : text alignement not correct when importing file in a new doc (jghali) - resolved.
+- 0006594: [General] Text frames lose alignment when sent to the Scrapbook (jghali) - resolved.
+- 0005889: [General] Make automatic frame creation with Shift+click less responsive to mouse movements (cbradney) - resolved.
+- 0006968: [Story Editor / Text Frames] Crash when inserting text into empty text frame (jghali) - resolved.
+- 0006950: [Import / Export] Crash after selecting AI file in the file dialog (fschmid) - resolved.
+- 0007026: [Import / Export] EPS-Import: Spot Colors are listed twice (fschmid) - closed.
+- 0007037: [Import / Export] Import of UK-Flag in svg format results in invalid image (jghali) - closed.
+- 0007044: [Shape Drawing] line: end of line and arrow overlap (fschmid) - closed.
+- 0006038: [Story Editor / Text Frames] Hyphenation is lost after copying of frame (jghali) - closed.
+- 0006940: [User Interface] The Basepoint picker in the PP is not drawn properly (fschmid) - closed.
+- 0005765: [User Interface] One selected page in the "Arrange Pages" dialog isn't marked as selected (fschmid) - closed.
+- 0006969: [Story Editor / Text Frames] Setting style for a paragraph past the first page or story editor makes cursor jump back to first paragraph (jghali) - closed.
+- 0007034: [User Interface] Scribus should be able to use the display resolution setting (fschmid) - closed.
+- 0007002: [Translation] Small update for Polish translation (plinnell) - closed.
+- 0006973: [General] No save/discard/cancel request when closing modified document (cbradney) - closed.
+- 0006967: [General] Round Corners accessible only when frame is still selected once created (cbradney) - closed.
+- 0004494: [Usability] convert to... only works on first selected item (cbradney) - closed.
+- 0006107: [Color Management] Decide on small standard color set for 1.3.5 release (plinnell) - closed.
+- 0005845: [Story Editor / Text Frames] pre 1.3.4 text/style data is altered (jghali) - closed.
+- 0006992: [Translation] Updated Slovenian translation (cbradney) - closed.
+- 0006082: [General] Selection in a corner (avox) - closed.
+- 0006954: [General] Lock Guides option in Page > Manage Guides (Guide Manager window) doesn’t work (subik) - closed.
+- 0005212: [Internal] Issues with dereferencing type-punned pointer (cbradney) - closed.
+- 0003605: [User Interface] focus jumping to menus (cbradney) - closed.
+- 0002867: [PPCOSX / Macintosh] Drag doesn't work on Scribus/Aqua (avox) - closed.
+- 0006966: [General] Below 12 points, negative values are displayed as positive values in XYZ tab for X-pos and Y-pos when using Picas as unit (cbradney) - closed.
+- 0004167: [Story Editor / Text Frames] Text flow between newly linked frames only shown after choosing the "select" tool (cbradney) - closed.
+- 0006790: [Shape Drawing] Inserting shapes via the menu entries requires two clicks to work (fschmid) - closed.
+- 0006963: [Graphics / Image Frames] Insert Shape tool have no choice to pick from in the palette. Palette is empty. (fschmid) - closed.
+- 0006926: [User Interface] Panning with Space bar and mouse doesn't work (jghali) - closed.
+- 0006937: [Canvas] No wrapping of lines with script (jghali) - closed.
 - 0006403: [Usability] Dragging frame off edge of screen fails to scroll and then causes all frame handles to disappear, requiring restart. (cbradney) - resolved.
 - 0005889: [General] Make automatic frame creation with Shift+click less responsive to mouse movements (cbradney) - resolved.
 - 0006969: [Story Editor / Text Frames] Setting style for a paragraph past the first page or story editor makes cursor jump back to first paragraph (jghali) - resolved.
