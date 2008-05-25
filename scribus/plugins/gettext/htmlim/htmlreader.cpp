@@ -118,15 +118,14 @@ void HTMLReader::startElement(void*, const xmlChar * fullname, const xmlChar ** 
 {
 	elemJustStarted = true;
 	elemJustFinished = false;
-	QString* name = new QString((const char*) fullname);
-	name = new QString(name->lower());
-	QXmlAttributes* attrs = new QXmlAttributes();
+	QString name(QString((const char*) fullname).lower());
+	QXmlAttributes attrs;
 	if (atts)
 	{
 		for(const xmlChar** cur = atts; cur && *cur; cur += 2)
-			attrs->append(QString((char*)*cur), NULL, QString((char*)*cur), QString((char*)*(cur + 1)));
+			attrs.append(QString((char*)*cur), NULL, QString((char*)*cur), QString((char*)*(cur + 1)));
 	}
-	hreader->startElement(NULL, NULL, *name, *attrs);
+	hreader->startElement(NULL, NULL, name, attrs);
 }
 
 bool HTMLReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs) 
@@ -305,9 +304,8 @@ void HTMLReader::endElement(void*, const xmlChar * name)
 {
 	elemJustStarted = false;
 	elemJustFinished = true;
-	QString *nname = new QString((const char*) name);
-	nname = new QString(nname->lower());
-	hreader->endElement(NULL, NULL, *nname);
+	QString nname(QString((const char*) name).lower());
+	hreader->endElement(NULL, NULL, nname);
 }
 
 bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
