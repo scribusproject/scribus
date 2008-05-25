@@ -345,7 +345,8 @@ void UndoManager::setState(UndoGui* gui, int uid)
 
 	if (stacks_[currentDoc_].redoItems() > 0)
 	{
-		--itendR;
+		if (itendR > itstartR)
+			--itendR;
 		for (; itstartR <= itendR; ++itstartR) // insert redo actions
 		{
 			UndoState*  state  = *itstartR;
