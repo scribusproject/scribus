@@ -103,6 +103,7 @@ public:
 	bool RecalcPic;
 	bool Bookmarks;
 	int  PicRes;
+	bool embedPDF;
 	PDFVersion Version;
 	int  Resolution;
 	int  Binding;

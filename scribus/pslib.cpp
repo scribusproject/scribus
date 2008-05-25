@@ -1356,14 +1356,14 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 	image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 	CMSettings cms(c->doc(), Prof, c->IRender);
-	if (!image.LoadPicture(fn, cms, UseEmbedded, UseProf, ScImage::CMYKData, 300, &dummy))
+	if (!image.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, UseEmbedded, UseProf, ScImage::CMYKData, 300, &dummy))
 	{
 		PS_Error_ImageLoadFailure(fn);
 		return false;
 	}
 	image.applyEffect(c->effectsInUse, colorsToUse, true);
 	QByteArray maskArray;
-	bool alphaLoaded = image.getAlpha(fn, maskArray, false, true, 300);
+	bool alphaLoaded = image.getAlpha(fn, c->pixm.imgInfo.actualPageNumber, maskArray, false, true, 300);
 	if (!alphaLoaded)
 	{
 		PS_Error_MaskLoadFailure(fn);
@@ -1444,7 +1444,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 		CMSettings cms(c->doc(), Prof, c->IRender);
 		int resolution = (c->pixm.imgInfo.type == ImageType7) ? 72 : 300;
-		if ( !image.LoadPicture(fn, cms, UseEmbedded, UseProf, ScImage::CMYKData, resolution, &dummy) )
+		if ( !image.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, UseEmbedded, UseProf, ScImage::CMYKData, resolution, &dummy) )
 		{
 			PS_Error_ImageLoadFailure(fn);
 			return false;
@@ -1470,7 +1470,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		img2.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 		if (c->pixm.imgInfo.type != ImageType7)
 		{
-			bool alphaLoaded = img2.getAlpha(fn, maskArray, false, true, 300);
+			bool alphaLoaded = img2.getAlpha(fn, c->pixm.imgInfo.actualPageNumber, maskArray, false, true, 300);
 			if (!alphaLoaded)
 			{
 				PS_Error_MaskLoadFailure(fn);

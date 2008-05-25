@@ -3141,7 +3141,10 @@ void PropertiesPalette::NewPage()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
+	bool reallynew = (CurItem->pixm.imgInfo.actualPageNumber != imagePageNumber->value());
 	CurItem->pixm.imgInfo.actualPageNumber = imagePageNumber->value();
+	if (reallynew)
+		CurItem->loadImage(CurItem->externalFile(), true);
 	CurItem->update();
 }
 

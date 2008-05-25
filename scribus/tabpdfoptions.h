@@ -78,6 +78,7 @@ public:
 	QRadioButton* doublePageLeft;
 	QRadioButton* doublePageRight;
 	QCheckBox* DSColor;
+	QCheckBox* EmbedPDF;
 	QCheckBox* EmbedProfs;
 	QCheckBox* EmbedProfs2;
 	QCheckBox* Encry;
@@ -107,7 +108,7 @@ public:
 	QCheckBox* useSpot;
 	QCheckBox* overprintMode;
 	QRadioButton* useThumbnails;
-	QSpinBox* ValC;
+	QSpinBox* ValC;  // == PicRes
 	// End GUI member pointers
 
 signals:

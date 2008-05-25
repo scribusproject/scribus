@@ -4,6 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <QDebug>
 #include <QFile>
 #include <QFileInfo>
 
@@ -11,6 +12,11 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scimgdataloader_pdf.h"
+
+#ifdef HAVE_PODOFO
+#include <podofo/podofo.h>
+#endif
+
 
 ScImgDataLoader_PDF::ScImgDataLoader_PDF(void) : ScImgDataLoader()
 {
@@ -23,13 +29,13 @@ void ScImgDataLoader_PDF::initSupportedFormatList(void)
 	m_supportedFormats.append( "pdf" );
 }
 
-void ScImgDataLoader_PDF::loadEmbeddedProfile(const QString& fn)
+void ScImgDataLoader_PDF::loadEmbeddedProfile(const QString& fn, int /* page */)
 {
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
 }
 
-bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int gsRes, bool /*thumbnail*/)
+bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int page, int gsRes, bool /*thumbnail*/)
 {
 	QStringList args;
 	if (!QFile::exists(fn))
@@ -40,14 +46,33 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int gsRes, bool /*thumb
 	float yres = gsRes;
 
 	initialize();
+	m_imageInfoRecord.actualPageNumber = page;
+
 	m_imageInfoRecord.type = ImageTypePDF;
 	m_imageInfoRecord.exifDataValid = false;
 	m_imageInfoRecord.numberOfPages = 99; // FIXME
+#ifdef HAVE_PODOFO
+	try
+	{
+#if PODOFO_VERSION == 0 && PODOFO_MINOR == 5 && PODOFO_REVISION == 99
+		PoDoFo::PdfMemDocument doc( fn.toLocal8Bit().data() );
+#else
+		PoDoFo::PdfDocument doc( fn.toLocal8Bit().data() );
+#endif
+	m_imageInfoRecord.numberOfPages = doc.GetPageCount();
+	}
+	catch(PoDoFo::PdfError& e)
+	{
+		qDebug("PoDoFo error while reading page count!");
+		e.PrintErrorMsg();
+	}		
+#endif
 	args.append("-r"+QString::number(gsRes));
 	args.append("-sOutputFile="+tmpFile);
-	args.append("-dFirstPage=1");
-	args.append("-dLastPage=1");
+	args.append("-dFirstPage=" + QString::number(qMax(1, page)));
+	args.append("-dLastPage=" + QString::number(qMax(1, page)));
 	args.append(picFile);
+//	qDebug() << "scimgdataloader_pdf:" << args;
 	int retg = callGS(args);
 	if (retg == 0)
 	{
@@ -78,11 +103,14 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int gsRes, bool /*thumb
 	return false;
 }
 
-bool ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int gsRes, bool& hasAlpha)
+bool ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int page, int gsRes, bool& hasAlpha)
 {
 	float xres, yres;
 //	short resolutionunit = 0;
+
 	initialize();
+	m_imageInfoRecord.actualPageNumber = page;
+
 	hasAlpha = false;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
@@ -96,10 +124,11 @@ bool ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int gsRes, bool
 	args.append("-r"+QString::number(gsRes));
 //	args.append("-sOutputFile=\""+tmpFile + "\"");
 	args.append("-sOutputFile="+tmpFile);
-	args.append("-dFirstPage=1");
-	args.append("-dLastPage=1");
+	args.append("-dFirstPage=" + QString::number(qMax(1, page)));
+	args.append("-dLastPage=" + QString::number(qMax(1, page)));
 //	args.append("\""+picFile+"\"");
 	args.append(picFile);
+//	qDebug() << "scimgdataloader_pdf(alpha):" << args;
 	int retg = callGS(args);
 	if (retg == 0)
 	{

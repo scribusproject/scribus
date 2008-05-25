@@ -4,12 +4,13 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <QByteArray>
+#include <QDataStream>
+#include <QDebug>
 #include <QFile>
 #include <QFileInfo>
 #include <QRegExp>
 #include <QTextStream>
-#include <QDataStream>
-#include <QByteArray>
 
 #include "scpaths.h"
 #include "scribuscore.h"
@@ -49,7 +50,7 @@ void ScImgDataLoader_PS::initSupportedFormatList(void)
 	m_supportedFormats.append( "epsi" );
 }
 
-void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn)
+void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn, int /* page */)
 {
 	QChar tc;
 	QString tmp;
@@ -179,7 +180,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					ScImage thum;
 					CMSettings cms(0, "", 0);
 					bool mode = true;
-					if (thum.LoadPicture(tmpFile, cms, false, false, ScImage::RGBData, 72, &mode))
+					if (thum.LoadPicture(tmpFile, 1, cms, false, false, ScImage::RGBData, 72, &mode))
 					{
 						m_imageInfoRecord.exifDataValid = true;
 						m_imageInfoRecord.exifInfo.thumbnail = thum.qImage().copy();
@@ -197,6 +198,14 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 			tmp = readLinefromDataStream(ts);
 			if (tmp.startsWith("%%Creator: "))
 				Creator = tmp.remove("%%Creator: ");
+			if (tmp.startsWith("%%Pages: "))
+			{
+				tmp = tmp.remove("%%Pages: ");
+				bool ok;
+				int pages = tmp.toInt( &ok );
+				if (ok)
+					m_imageInfoRecord.numberOfPages = pages; 
+			}
 			if (tmp.startsWith("%%Trailer"))
 				inTrailer = true;
 			if (tmp.startsWith("%%BoundingBox:"))
@@ -425,7 +434,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 	return found;
 }
 
-bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnail)
+bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, bool thumbnail)
 {
 	QStringList args;
 	double x, y, b, h;
@@ -437,16 +446,17 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 	QString ext = fi.suffix().toLower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
-	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
+	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + QString("sc%1.png").arg(qMax(1, page)));
+	QString tmpFiles = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc%d.png");
 	QString picFile = QDir::convertSeparators(fn);
 	float xres = gsRes;
 	float yres = gsRes;
 
 	initialize();
+
 	m_imageInfoRecord.type = ImageTypeEPS;
 	m_imageInfoRecord.exifDataValid = false;
-	if (ext == "ps")
-		m_imageInfoRecord.numberOfPages = 98; // FIXME
+	m_imageInfoRecord.numberOfPages = 1; // will be overwritten by parse()
 	doThumbnail = thumbnail;
 	colorPlates2.clear();
 	colorPlates.clear();
@@ -514,6 +524,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 		}
 		else
 			m_imageInfoRecord.colorspace = ColorSpaceRGB;
+		m_imageInfoRecord.actualPageNumber = page;
 		return true;
 	}
 	if (found)
@@ -537,7 +548,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 					args.append("-dEPSCrop");
 			}
 			args.append("-r"+QString::number(gsRes));
-			args.append("-sOutputFile="+tmpFile);
+			args.append("-sOutputFile="+tmpFiles);
 			args.append(picFile);
 			h = h * gsRes / 72.0;
 			int retg = callGS(args);
@@ -570,7 +581,12 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 						}
 					}
 				}
-				QFile::remove(tmpFile);
+
+				QStringList files = QStringList("sc*.png");
+				files = QDir(ScPaths::getTempFileDir()).entryList(files);
+				for (int i=0; i < files.count(); ++i)
+					QFile::remove(QDir::convertSeparators(ScPaths::getTempFileDir() + files[i]));
+				
 				if (extensionIndicatesEPS(ext))
 				{
 					m_imageInfoRecord.BBoxX = static_cast<int>(x);
@@ -602,8 +618,9 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 				args.append("-dEPSCrop");
 			args.append("-dGrayValues=256");
 			args.append("-r"+QString::number(gsRes));
-			args.append("-sOutputFile="+tmpFile);
+			args.append("-sOutputFile="+tmpFiles);
 			args.append(picFile);
+//			qDebug() << "scimgdataloader_ps:" << args;
 			int retg = callGS(args, "bitcmyk");
 			if (retg == 0)
 			{
@@ -634,7 +651,12 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 					}
 					f.close();
 				}
-				QFile::remove(tmpFile);
+				
+				QStringList files = QStringList("sc*.png");
+				files = QDir(ScPaths::getTempFileDir()).entryList(files);
+				for (int i=0; i < files.count(); ++i)
+					QFile::remove(QDir::convertSeparators(ScPaths::getTempFileDir() + files[i]));
+				
 				if (extensionIndicatesEPS(ext))
 				{
 					m_imageInfoRecord.BBoxX = static_cast<int>(x);
@@ -652,7 +674,12 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 				m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 				m_image.setDotsPerMeterY ((int) (yres / 0.0254));
 			}
+			else
+			{
+				qDebug() << "Ghostscript returned result" << retg;
+			}
 		}
+		m_imageInfoRecord.actualPageNumber = page;
 		return true;
 	}
 	return false;
@@ -669,7 +696,7 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 	double x, y, b, h;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
-	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
+	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc1.png");
 	int retg;
 	int GsMajor;
 	int GsMinor;
@@ -684,7 +711,7 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 	if ((GsMajor >= 8) && (GsMinor >= 53))
 		args.append("-dNOPSICC");		// prevent GS from applying an embedded ICC profile as it will be applied later on in ScImage.
 	args.append("-r"+QString::number(gsRes));
-	args.append("-sOutputFile="+tmpFile);
+	args.append("-sOutputFile=" + tmpFile);
 	args.append(QDir::convertSeparators(fn));
 	if (psMode == 4)
 		retg = callGS(args, "bitcmyk");
@@ -748,7 +775,9 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 			m_imageInfoRecord.type = ImageType7;
 			m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		}
+		
 		QFile::remove(tmpFile);
+
 		if (extensionIndicatesEPS(ext))
 		{
 			m_imageInfoRecord.BBoxX = static_cast<int>(x);
@@ -762,6 +791,10 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 		m_image.setDotsPerMeterX ((int) (m_imageInfoRecord.xres / 0.0254));
 		m_image.setDotsPerMeterY ((int) (m_imageInfoRecord.yres / 0.0254));
 	}
+	else
+	{
+		qDebug() << "Ghostscript returned result" << retg;
+	}
 }
 
 void ScImgDataLoader_PS::decodeA85(QByteArray &psdata, QString tmp)
@@ -769,7 +802,7 @@ void ScImgDataLoader_PS::decodeA85(QByteArray &psdata, QString tmp)
 	uchar byte;
 	ushort data;
 	unsigned long sum = 0;
-    int quintet = 0;
+	int quintet = 0;
 	for (int c = 0; c < tmp.length(); c++)
 	{
 		byte = QChar(tmp.at(c)).cell();
@@ -790,7 +823,7 @@ void ScImgDataLoader_PS::decodeA85(QByteArray &psdata, QString tmp)
 				psdata[psdata.size()-1] = data;
 				quintet = 0;
 				sum = 0;
-	    	}
+			}
 		}
 		else if (byte == 'z')
 		{
@@ -1076,7 +1109,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 	ts2 >> x >> y >> b >> h;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
-	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
+	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc1.jpg");
 	QFile f2(tmpFile);
 	QString tmp;
 	m_image = QImage(psXSize, psYSize, QImage::Format_ARGB32);
@@ -1206,7 +1239,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 	ts2 >> x >> y >> b >> h;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
-	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
+	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc1.jpg");
 	QFile f2(tmpFile);
 	QString tmp;
 	tmpImg = QImage(psXSize, psYSize, QImage::Format_ARGB32);
@@ -1326,7 +1359,7 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	double x, y, b, h;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
-	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
+	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc1.png");
 	QString tmpFile2 = QDir::convertSeparators(ScPaths::getTempFileDir() + "tmp.eps");
 	QString baseFile = fi.absolutePath();
 	QString picFile = QDir::convertSeparators(fn);
@@ -1440,7 +1473,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 	double x, y, b, h;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
-	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
+	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc1.png");
 	QString baseFile = fi.absolutePath();
 	QString picFile;
 	float xres = gsRes;
@@ -1563,16 +1596,19 @@ void ScImgDataLoader_PS::blendImages(QImage &source, ScColor col)
 	}
 }
 
-bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes, bool& hasAlpha)
+bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gsRes, bool& hasAlpha)
 {
 	float xres, yres;
+
 	initialize();
+
 	hasAlpha = false;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return false;
 	QString ext = fi.suffix().toLower();
-	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
+	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + QString("sc%1.png").arg(qMax(1, page)));
+	QString tmpFiles = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc%d.png");
 	QString picFile = QDir::convertSeparators(fn);
 	double x, y, b, h;
 	bool found = false;
@@ -1591,8 +1627,9 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes, bool&
 				args.append("-dEPSCrop");
 		}
 		args.append("-r"+QString::number(gsRes));
-		args.append("-sOutputFile="+tmpFile);
+		args.append("-sOutputFile="+tmpFiles);
 		args.append(picFile);
+//		qDebug() << "scimgdataloader_ps(alpha):" << args;
 		int retg = callGS(args);
 		if (retg == 0)
 		{
@@ -1623,11 +1660,22 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes, bool&
 					}
 				}
 			}
-			QFile::remove(tmpFile);
+			
+			QStringList files = QStringList("sc*.png");
+			files = QDir(ScPaths::getTempFileDir()).entryList(files);
+			for (int i=0; i < files.count(); ++i)
+				QFile::remove(QDir::convertSeparators(ScPaths::getTempFileDir() + files[i]));
+
 			hasAlpha = true;
+			m_imageInfoRecord.actualPageNumber = page;
 			return true;
+		}
+		else
+		{
+			qDebug() << "Ghostscript returned result" << retg;
 		}
 		return false;
 	}
+	m_imageInfoRecord.actualPageNumber = page;
 	return true;
 }

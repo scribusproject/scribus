@@ -87,7 +87,7 @@ public:
 	bool writePSImageToFilter(ScStreamFilter* filter, int pl);
 	bool writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl);
 
-	bool getAlpha(QString fn, QByteArray& alpha, bool PDF, bool pdf14, int gsRes = 72, int scaleXSize = 0, int scaleYSize = 0);
+	bool getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes = 72, int scaleXSize = 0, int scaleYSize = 0);
 	bool Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 
 	// Image effects
@@ -101,11 +101,11 @@ public:
 
 	// Retrieve an embedded ICC profile from the file path `fn', storing it in `profile'.
 	// TODO: Bad API. Should probably be static member returning an ICCProfile (custom class) or something like that.
-	void getEmbeddedProfile(const QString & fn, QByteArray *profile, int *components);
+	void getEmbeddedProfile(const QString & fn, QByteArray *profile, int *components, int page = 0);
 
 	// Load an image into this ScImage instance
 	// TODO: document params, split into smaller functions
-	bool LoadPicture(const QString & fn, const CMSettings& cmSettings, bool useEmbedded, bool useProf, RequestType requestType, int gsRes, bool *realCMYK = 0, bool showMsg = false);
+	bool LoadPicture(const QString & fn, int page, const CMSettings& cmSettings, bool useEmbedded, bool useProf, RequestType requestType, int gsRes, bool *realCMYK = 0, bool showMsg = false);
 
 	ImageInfoRecord imgInfo;
 

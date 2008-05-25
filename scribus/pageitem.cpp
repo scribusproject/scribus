@@ -4169,7 +4169,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		gsRes=PrefsManager::instance()->gsResolution();
 	bool dummy;
 	CMSettings cms(m_Doc, IProfile, IRender);
-	if (!pixm.LoadPicture(filename, cms, UseEmbedded, true, ScImage::RGBProof, gsRes, &dummy, showMsg))
+	if (!pixm.LoadPicture(filename, pixm.imgInfo.actualPageNumber, cms, UseEmbedded, true, ScImage::RGBProof, gsRes, &dummy, showMsg))
 	{
 		Pfile = fi.absoluteFilePath();
 		PicAvail = false;

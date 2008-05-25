@@ -597,7 +597,7 @@ QPixmap ScPreview::createPreview(QString data)
 						}
 						ScImage pixm;
 						CMSettings cms(0, "", 0);
-						pixm.LoadPicture(OB.Pfile, cms, false, false, ScImage::RGBData, 72);
+						pixm.LoadPicture(OB.Pfile, 1, cms, false, false, ScImage::RGBData, 72); //FIXME: OB doesnt know about pagenr
 						pS->scale(OB.LocalScX, OB.LocalScY);
 						pS->translate(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY));
 						QImage img(pixm.qImage());

@@ -35,7 +35,7 @@ void ScImgDataLoader_TIFF::initSupportedFormatList(void)
 	m_supportedFormats.append( "tiff" );
 }
 
-void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn)
+void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn, int /*page*/)
 {
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
@@ -64,7 +64,7 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn)
 	}
 }
 
-bool ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int res, bool& hasAlpha)
+bool ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha)
 {
 	bool success = true;
 	bool valid   = m_imageInfoRecord.isRequest;
@@ -75,11 +75,11 @@ bool ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int res, bool&
 	if (!QFile::exists(fn))
 		return false;
 	hasAlpha = false;
-	if (testAlphaChannelAvailability(fn, hasAlpha))
+	if (testAlphaChannelAvailability(fn, page, hasAlpha))
 	{
 		if (hasAlpha == false)
 			success = true;
-		else if(loadPicture(fn, res, false))
+		else if(loadPicture(fn, page, res, false))
 		{
 			m_imageInfoRecord.valid = true;
 			hasAlpha = success = true;
@@ -99,7 +99,7 @@ bool ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int res, bool&
 	return success;
 }
 
-int ScImgDataLoader_TIFF::getLayers(const QString& fn)
+int ScImgDataLoader_TIFF::getLayers(const QString& fn, int /*page*/)
 {
 	int layerNum = 1;
 	int test;
@@ -131,7 +131,7 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn)
 	return layerNum;
 }
 
-bool ScImgDataLoader_TIFF::testAlphaChannelAvailability(const QString& fn, bool& hasAlpha)
+bool ScImgDataLoader_TIFF::testAlphaChannelAvailability(const QString& fn, int /*page*/, bool& hasAlpha)
 {
 	int  test;
 	bool success = false;
@@ -565,7 +565,7 @@ void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString la
 	}
 }
 
-bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnail)
+bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, bool thumbnail)
 {
 	bool bilevel = false;
 	bool failedPS = false;
@@ -600,7 +600,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 	m_imageInfoRecord.RequestProps = req;
 	m_imageInfoRecord.isRequest = valid;
 	m_imageInfoRecord.type = ImageTypeTIF;
-	getLayers(fn);
+	getLayers(fn, page);
 	TIFFSetTagExtender(TagExtender);
 	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
 	if(tif)
@@ -912,7 +912,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 				else
 				{
 					arrayPhot.clear();
-					getLayers(fn);
+					getLayers(fn, page);
 				}
 			}
 		}

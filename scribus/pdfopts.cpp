@@ -241,6 +241,7 @@ void PDFExportDialog::updateDocOptions()
 	Opts.SubsetList = Options->FontsToOutline;
 	Opts.RecalcPic = Options->DSColor->isChecked();
 	Opts.PicRes = Options->ValC->value();
+	Opts.embedPDF = Options->EmbedPDF->isChecked();
 	Opts.Bookmarks = Options->CheckBM->isChecked();
 	Opts.Binding = Options->ComboBind->currentIndex();
 	Opts.MirrorH = Options->MirrorH->isChecked();

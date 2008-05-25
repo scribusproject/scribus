@@ -76,6 +76,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	doublePageLeft(0),
 	doublePageRight(0),
 	DSColor(0),
+	EmbedPDF(0),
 	EmbedProfs(0),
 	EmbedProfs2(0),
 	Encry(0),
@@ -350,6 +351,11 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	TextLabel2->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 	GroupBox1Layout->addWidget( TextLabel2, 6, 0 );
 	GroupBox1Layout->addWidget( Resolution, 6, 1, Qt::AlignLeft );
+	EmbedPDF = new QCheckBox( tr("Embed PDFs (EXPERIMENTAL)"), GroupBox1 );
+	GroupBox1Layout->addWidget( EmbedPDF, 7, 0, 1, 3 );
+#ifndef HAVE_PODOFO
+	EmbedPDF->setEnabled(false);
+#endif
 	Layout13->addWidget( GroupBox1 );
 	tabLayout->addLayout( Layout13 );
 	Compression = new QCheckBox( tr( "Com&press Text and Vector Graphics" ), tabGeneral );
@@ -957,6 +963,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	useLayers->setToolTip( "<qt>" + tr( "Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen." ) + "</qt>" );
 	CheckBM->setToolTip( "<qt>" + tr( "Embed the bookmarks you created in your document. These are useful for navigating long PDF documents." ) + "</qt>" );
 	Resolution->setToolTip( "<qt>" + tr( "Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos." ) + "</qt>" );
+	EmbedPDF->setToolTip( "<qt>" + tr( "Export PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to 'true'." ) + "</qt>" );
 	Compression->setToolTip( "<qt>" + tr( "Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size." ) + "</qt>" );
 	CMethod->setToolTip( "<qt>" + tr( "Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options." ) + "</qt>");
 	CQuality->setToolTip( "<qt>" + tr( "Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg." ) + "</qt>");
@@ -1038,6 +1045,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	else
 		useLayers->setEnabled(false);
 	Resolution->setValue(Opts.Resolution);
+	EmbedPDF->setChecked(Opts.embedPDF);
 	Compression->setChecked( Opts.Compress );
 	CMethod->setCurrentIndex(Opts.CompressMethod);
 	CQuality->setCurrentIndex(Opts.Quality);

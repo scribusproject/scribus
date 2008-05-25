@@ -19,13 +19,13 @@ void ScImgDataLoader_GIMP::initSupportedFormatList(void)
 	m_supportedFormats.append( "pat" );
 }
 
-void ScImgDataLoader_GIMP::loadEmbeddedProfile(const QString& fn)
+void ScImgDataLoader_GIMP::loadEmbeddedProfile(const QString& fn, int /*page*/)
 {
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
 }
 
-bool ScImgDataLoader_GIMP::loadPicture(const QString& fn, int /*res*/, bool /*thumbnail*/)
+bool ScImgDataLoader_GIMP::loadPicture(const QString& fn, int /*page*/, int /*res*/, bool /*thumbnail*/)
 {
 	if (!QFile::exists(fn))
 		return false;
@@ -114,7 +114,7 @@ bool ScImgDataLoader_GIMP::loadPicture(const QString& fn, int /*res*/, bool /*th
 	return true;
 }
 
-bool ScImgDataLoader_GIMP::preloadAlphaChannel(const QString& fn, int res, bool& hasAlpha)
+bool ScImgDataLoader_GIMP::preloadAlphaChannel(const QString& fn, int /*page*/, int res, bool& hasAlpha)
 {
 	initialize();
 	hasAlpha = false;

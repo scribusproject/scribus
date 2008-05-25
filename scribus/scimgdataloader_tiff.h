@@ -28,7 +28,7 @@ protected:
 		CM_LABCOLOR = 9
 	};
 	void initSupportedFormatList();
-	int  getLayers(const QString& fn);
+	int  getLayers(const QString& fn, int page);
 	bool getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK);
 	bool getImageData_RGBA(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 bitspersample, uint16 samplesperpixel);
 	void blendOntoTarget(RawImage *tmp, int layOpa, QString layBlend, bool cmyk, bool useMask);
@@ -36,7 +36,7 @@ protected:
 	bool loadChannel( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg);
 	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
 
-	bool testAlphaChannelAvailability(const QString& fn, bool& hasAlpha);
+	bool testAlphaChannelAvailability(const QString& fn, int page, bool& hasAlpha);
 	void unmultiplyRGBA(RawImage *image);
 
 	int    random_table[4096];
@@ -46,9 +46,9 @@ public:
 	ScImgDataLoader_TIFF(void);
 
 //	virtual void preloadAlphaChannel(const QString& fn, int res);
-	virtual bool preloadAlphaChannel(const QString& fn, int res, bool& hasAlpha);
-	virtual void loadEmbeddedProfile(const QString& fn);
-	virtual bool loadPicture(const QString& fn, int res, bool thumbnail);
+	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
+	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);
+	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail);
 };
 
 #endif

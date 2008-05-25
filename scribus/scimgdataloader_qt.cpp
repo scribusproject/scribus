@@ -24,13 +24,13 @@ void ScImgDataLoader_QT::initSupportedFormatList(void)
 		m_supportedFormats.append( fmtList[i].toLower() );
 }
 
-void ScImgDataLoader_QT::loadEmbeddedProfile(const QString& fn)
+void ScImgDataLoader_QT::loadEmbeddedProfile(const QString& fn, int /*page*/)
 {
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
 }
 
-bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*res*/, bool /*thumbnail*/)
+bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*page*/, int /*res*/, bool /*thumbnail*/)
 {
 	if (!QFile::exists(fn))
 		return false;
@@ -56,7 +56,7 @@ bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*res*/, bool /*thum
 	return false; //TODO: I think this should be false!
 }
 
-bool ScImgDataLoader_QT::preloadAlphaChannel(const QString& fn, int res, bool& hasAlpha)
+bool ScImgDataLoader_QT::preloadAlphaChannel(const QString& fn, int /*page*/, int res, bool& hasAlpha)
 {
 	initialize();
 	hasAlpha = false;

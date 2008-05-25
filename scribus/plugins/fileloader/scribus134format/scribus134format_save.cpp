@@ -1114,6 +1114,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		docu.writeAttribute("OnMasterPage", item->OnMasterPage);
 		docu.writeAttribute("ImageClip", item->pixm.imgInfo.usedPath);
 		docu.writeAttribute("ImageRes", item->pixm.imgInfo.lowResType);
+		docu.writeAttribute("Pagenumber", item->pixm.imgInfo.actualPageNumber);
 		docu.writeAttribute("isInline", static_cast<int>(item->isEmbedded));
 		docu.writeAttribute("fillRule", static_cast<int>(item->fillRule));
 		docu.writeAttribute("doOverprint", static_cast<int>(item->doOverprint));

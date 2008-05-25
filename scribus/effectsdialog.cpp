@@ -49,7 +49,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	currentOptions = 0;
 	bool mode = false;
 	CMSettings cms(docc, "", 0);
-	image.LoadPicture(currItem->Pfile, cms, false, false, ScImage::RGBData, 72, &mode);
+	image.LoadPicture(currItem->Pfile, currItem->pixm.imgInfo.actualPageNumber, cms, false, false, ScImage::RGBData, 72, &mode);
 	int ix = image.width();
 	int iy = image.height();
 	imageScale = 1.0;

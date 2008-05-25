@@ -5561,9 +5561,9 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 						if (!ite->Pfile2.isEmpty())
 						{
 							CMSettings cms(ite->doc(), "", 0);
-							img.LoadPicture(ite->Pfile2, cms, false, false, ScImage::RGBData, 72);
+							img.LoadPicture(ite->Pfile2, 1, cms, false, false, ScImage::RGBData, 72);
 							QByteArray im;
-							img3.getAlpha(ite->Pfile2, im, true, false);
+							img3.getAlpha(ite->Pfile2, 1, im, true, false);
 							IconOb += !im.isEmpty() ? 3 : 2;
 							im.resize(0);
 							icon2Obj = newObject();
@@ -5572,9 +5572,9 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 						if (!ite->Pfile3.isEmpty())
 						{
 							CMSettings cms(ite->doc(), "", 0);
-							img2.LoadPicture(ite->Pfile3, cms, false, false, ScImage::RGBData, 72);
+							img2.LoadPicture(ite->Pfile3, 1, cms, false, false, ScImage::RGBData, 72);
 							QByteArray im;
-							img3.getAlpha(ite->Pfile3, im, true, false);
+							img3.getAlpha(ite->Pfile3, 1, im, true, false);
 							IconOb += !im.isEmpty() ? 3 : 2;
 							im.resize(0);
 							icon3Obj = newObject();
@@ -5967,6 +5967,9 @@ void PDFLibCore::PDF_Bookmark(PageItem *currItem, double ypos)
 
 bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, int Intent, ShIm& imgInfo, QString* output)
 {
+	if (!Options.embedPDF)
+		return false;
+	
 #ifdef HAVE_PODOFO
 	try
 	{
@@ -5975,7 +5978,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 #else
 		PoDoFo::PdfDocument doc( fn.toLocal8Bit().data() );
 #endif
-		PoDoFo::PdfPage*         page      = doc.GetPage(0);
+		PoDoFo::PdfPage*         page      = doc.GetPage(qMin(qMax(1, c->pixm.imgInfo.actualPageNumber), c->pixm.imgInfo.numberOfPages) - 1);
 		PoDoFo::PdfObject* contents  = page? page->GetContents() : NULL;
 		PoDoFo::PdfObject* resources = page? page->GetResources() : NULL;
 		for (PoDoFo::PdfObject* par = page->GetObject(); par && !resources; par = par->GetIndirectKey("Parent"))
@@ -6360,7 +6363,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		{
 			imageLoaded = PDF_EmbeddedPDF(c, fn, sx, sy, x, y, fromAN, Profil, Embedded, Intent, ImInfo, output);
 		}
-		if(!imageLoaded && extensionIndicatesPDF(ext) && c->effectsInUse.count() == 0)
+		if(!imageLoaded && extensionIndicatesPDF(ext) && c->effectsInUse.count() == 0 && Options.embedPDF)
 			qDebug()<< "Failed to embed the PDF file";
 		// no embedded PDF:
 		if (!imageLoaded)
@@ -6368,7 +6371,6 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != ImageType7))
 			{
 				bitmapFromGS = true;
-				QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 				if (Options.RecalcPic)
 				{
 					afl = qMin(Options.PicRes, Options.Resolution);
@@ -6380,17 +6382,17 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				{
 					CMSettings cms(c->doc(), Profil, Intent);
 					if (Options.UseRGB)
-						imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
+						imageLoaded = img.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, Embedded, true, ScImage::RGBData, afl);
 					else
 					{
 						if ((doc.HasCMS) && (Options.UseProfiles2))
-							imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
+							imageLoaded = img.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, Embedded, true, ScImage::RGBData, afl);
 						else
 						{
 							if (Options.isGrayscale)
-								imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
+								imageLoaded = img.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, Embedded, true, ScImage::RGBData, afl);
 							else
-								imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, afl);
+								imageLoaded = img.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, Embedded, true, ScImage::CMYKData, afl);
 						}
 					}
 				}
@@ -6424,17 +6426,17 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 						{
 							CMSettings cms(c->doc(), Profil, Intent);
 							if (Options.UseRGB)
-								imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
+								imageLoaded = img.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, Embedded, true, ScImage::RGBData, afl);
 							else
 							{
 								if ((doc.HasCMS) && (Options.UseProfiles2))
-									imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
+									imageLoaded = img.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, Embedded, true, ScImage::RGBData, afl);
 								else
 								{
 									if (Options.isGrayscale)
-										imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
+										imageLoaded = img.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, Embedded, true, ScImage::RGBData, afl);
 									else
-										imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, afl);
+										imageLoaded = img.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, Embedded, true, ScImage::CMYKData, afl);
 								}
 							}
 						}
@@ -6462,17 +6464,17 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				img.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 				CMSettings cms(c->doc(), Profil, Intent);
 				if (Options.UseRGB)
-					imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, 72, &realCMYK);
+					imageLoaded = img.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, Embedded, true, ScImage::RGBData, 72, &realCMYK);
 				else
 				{
 					if ((doc.HasCMS) && (Options.UseProfiles2))
-						imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RawData, 72, &realCMYK);
+						imageLoaded = img.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, Embedded, true, ScImage::RawData, 72, &realCMYK);
 					else
 					{
 						if (Options.isGrayscale)
-							imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, 72, &realCMYK);
+							imageLoaded = img.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, Embedded, true, ScImage::RGBData, 72, &realCMYK);
 						else
-							imageLoaded = img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, 72, &realCMYK);
+							imageLoaded = img.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, Embedded, true, ScImage::CMYKData, 72, &realCMYK);
 					}
 				}
 				if (!imageLoaded)
@@ -6582,7 +6584,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			{
 				bool gotAlpha = false;
 				bool pdfVer14 = (Options.Version >= 14);
-				gotAlpha = img2.getAlpha(fn, im2, true, pdfVer14, afl, img.width(), img.height());
+				gotAlpha = img2.getAlpha(fn, c->pixm.imgInfo.actualPageNumber, im2, true, pdfVer14, afl, img.width(), img.height());
 				if (!gotAlpha)
 				{
 					PDF_Error_MaskLoadFailure(fn);

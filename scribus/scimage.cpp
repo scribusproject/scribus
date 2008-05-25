@@ -1758,7 +1758,7 @@ void ScImage::scaleImage(int nwidth, int nheight)
 	return;
 }
 
-bool ScImage::getAlpha(QString fn, QByteArray& alpha, bool PDF, bool pdf14, int gsRes, int scaleXSize, int scaleYSize)
+bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes, int scaleXSize, int scaleYSize)
 {
 	bool gotAlpha = false;
 	ScImgDataLoader* pDataLoader = NULL;
@@ -1775,9 +1775,13 @@ bool ScImage::getAlpha(QString fn, QByteArray& alpha, bool PDF, bool pdf14, int 
 	if (extensionIndicatesJPEG(ext))
 		return true;
 	if (extensionIndicatesPDF(ext))
+	{
 		pDataLoader = new ScImgDataLoader_PDF();
+	}
 	else if (extensionIndicatesEPSorPS(ext))
+	{
 		pDataLoader = new ScImgDataLoader_PS();
+	}
 	else if (extensionIndicatesTIFF(ext))
 	{
 		pDataLoader = new ScImgDataLoader_TIFF();
@@ -1796,7 +1800,7 @@ bool ScImage::getAlpha(QString fn, QByteArray& alpha, bool PDF, bool pdf14, int 
 	if	(pDataLoader)
 	{
 		bool hasAlpha    = false;
-		bool alphaLoaded = pDataLoader->preloadAlphaChannel(fn, gsRes, hasAlpha);
+		bool alphaLoaded = pDataLoader->preloadAlphaChannel(fn, page, gsRes, hasAlpha);
 		if (!alphaLoaded || !hasAlpha)
 		{
 			delete pDataLoader;
@@ -1876,7 +1880,7 @@ bool ScImage::getAlpha(QString fn, QByteArray& alpha, bool PDF, bool pdf14, int 
 	return gotAlpha;
 }
 
-void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *components)
+void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *components, int page)
 {
 	Q_ASSERT(profile);
 	Q_ASSERT(components);
@@ -1901,7 +1905,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 
 	if	(pDataLoader)
 	{
-		pDataLoader->loadEmbeddedProfile(fn);
+		pDataLoader->loadEmbeddedProfile(fn, page);
 		QByteArray embeddedProfile = pDataLoader->embeddedProfile();
 		if	(embeddedProfile.size())
 		{
@@ -1920,7 +1924,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 	}
 }
 
-bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
+bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSettings,
 						  bool useEmbedded, bool useProf, RequestType requestType,
 						  int gsRes, bool *realCMYK, bool showMsg)
 {
@@ -1953,13 +1957,16 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		ext = getImageType(fn);
 
 	if (extensionIndicatesPDF(ext))
+	{
 		pDataLoader.reset( new ScImgDataLoader_PDF() );
+	}
 	else if (extensionIndicatesEPSorPS(ext))
+	{
 		pDataLoader.reset( new ScImgDataLoader_PS() );
+	}
 	else if (extensionIndicatesTIFF(ext))
 	{
 		pDataLoader.reset( new ScImgDataLoader_TIFF() );
-		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
 	else if (extensionIndicatesPSD(ext))
 	{
@@ -1973,7 +1980,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	else
 		pDataLoader.reset( new ScImgDataLoader_QT() );
 
-	if	(pDataLoader->loadPicture(fn, gsRes, (requestType == Thumbnail)))
+	if	(pDataLoader->loadPicture(fn, page, gsRes, (requestType == Thumbnail)))
 	{
 		QImage::operator=(pDataLoader->image());
 		imgInfo = pDataLoader->imageInfoRecord();

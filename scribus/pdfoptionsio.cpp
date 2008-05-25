@@ -108,6 +108,7 @@ void PDFOptionsIO::buildSettings()
 	addElem(m_root, "recalcPic", m_opts->RecalcPic);
 	addElem(m_root, "bookmarks", m_opts->Bookmarks);
 	addElem(m_root, "picRes", m_opts->PicRes);
+	addElem(m_root, "embedPDF", m_opts->embedPDF);
 	QString pdfVersString;
 	switch (m_opts->Version)
 	{
@@ -336,6 +337,8 @@ bool PDFOptionsIO::readSettings()
 		return false;
 	if (!readElem(m_root, "picRes", &m_opts->PicRes))
 		return false;
+	if (!readElem(m_root, "embedPDF", &m_opts->embedPDF))
+		m_opts->embedPDF = false;
 	readPDFVersion();
 	if (!readElem(m_root, "resolution", &m_opts->Resolution))
 		return false;

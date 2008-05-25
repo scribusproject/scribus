@@ -2033,6 +2033,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		currItem->IRender = obj->attribute("IRENDER", "1").toInt();
 		currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 		currItem->pixm.imgInfo.lowResType = obj->attribute("ImageRes", "1").toInt();
+		currItem->pixm.imgInfo.actualPageNumber = obj->attribute("Pagenumber", "0").toInt();
 		IT = obj->firstChild();
 		while(!IT.isNull())
 		{

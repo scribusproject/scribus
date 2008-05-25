@@ -42,7 +42,7 @@ void ScImgDataLoader_PSD::initSupportedFormatList(void)
 	m_supportedFormats.append( "psd" );
 }
 
-void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn)
+void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn, int /*page*/)
 {
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
@@ -89,7 +89,7 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn)
 	}
 }
 
-bool ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int res, bool& hasAlpha)
+bool ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int /*page*/, int res, bool& hasAlpha)
 {
 	bool valid = m_imageInfoRecord.isRequest;
 	QMap<int, ImageLoadRequest> req = m_imageInfoRecord.RequestProps;
@@ -133,7 +133,7 @@ bool ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int res, bool& 
 	return false;
 }
 
-bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int res, bool thumbnail)
+bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int /*page*/, int res, bool thumbnail)
 {
 	bool isCMYK = false;
 	float xres = 72.0, yres = 72.0;

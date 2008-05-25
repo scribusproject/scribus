@@ -46,7 +46,7 @@ void ScImgDataLoader_JPEG::initSupportedFormatList(void)
 	m_supportedFormats.append( "jpeg" );
 }
 
-void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn)
+void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 {
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
@@ -93,7 +93,7 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn)
 	jpeg_destroy_decompress (&cinfo);
 }
 
-bool ScImgDataLoader_JPEG::preloadAlphaChannel(const QString& fn, int res, bool& hasAlpha)
+bool ScImgDataLoader_JPEG::preloadAlphaChannel(const QString& fn, int /*page*/, int res, bool& hasAlpha)
 {
 	// No support for aplha in jpeg pictures
 	initialize();
@@ -101,7 +101,7 @@ bool ScImgDataLoader_JPEG::preloadAlphaChannel(const QString& fn, int res, bool&
 	return true;
 }
 
-bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnail)
+bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res, bool thumbnail)
 {
 	bool isCMYK = false;
 	bool fromPS = false;
