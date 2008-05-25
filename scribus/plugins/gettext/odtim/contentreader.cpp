@@ -42,11 +42,11 @@ ContentReader::ContentReader(QString documentName, StyleReader *s, gtWriter *w, 
 	importTextOnly = textOnly;
 	defaultStyle = NULL;
 	currentStyle = NULL;
-	append = false;
 	inList = false;
 	inNote = false;
 	inNoteBody = false;
 	inSpan = false;
+	append = 0;
 	listIndex = 0;
 	listLevel = 0;
 	currentList = "";
@@ -59,7 +59,7 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 {
 	if ((name == "text:p") || (name == "text:h"))
 	{
-		append = true;
+		++append;
 		QString name = "";
 		for (int i = 0; i < attrs.count(); ++i)
 		{
@@ -182,7 +182,7 @@ bool ContentReader::characters(const QString &ch)
 	tmp = tmp.remove("\n");
 	tmp = tmp.remove(""); // Remove all OO.o hyphenation chars
 	tmp = tmp.replace(QChar(160), SpecialChars::NBSPACE); // replace OO.o nbsp with Scribus nbsp
-	if (append)
+	if (append > 0)
 		write(tmp);
 	return true;
 }
@@ -192,7 +192,7 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 	if ((name == "text:p") || (name == "text:h"))
 	{
 		write("\n");
-		append = false;
+		--append;
 		if (inList || inNote || inNoteBody)
 			styleNames.pop_back();
 		else

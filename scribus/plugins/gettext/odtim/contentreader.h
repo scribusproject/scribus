@@ -58,13 +58,13 @@ private:
 	gtStyle *lastStyle;
 	gtStyle *pstyle;
 	bool importTextOnly;
-	bool append;
 	bool inList;
 	bool inNote;
 	bool inNoteBody;
 	bool inSpan;
-	int listLevel;
-	int listIndex;
+	int  append;
+	int  listLevel;
+	int  listIndex;
 	ListStyle *currentListStyle;
 	std::vector<int> listIndex2;
 	bool inT;
