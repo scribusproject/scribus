@@ -60,14 +60,14 @@ private:
 	gtStyle *lastStyle;
 	gtStyle *pstyle;
 	bool importTextOnly;
-	bool append;
 	bool inList;
 	bool inNote;
 	bool inNoteBody;
 	bool isOrdered;
 	bool inSpan;
-	int listLevel;
-	int listIndex;
+	int  append;
+	int  listLevel;
+	int  listIndex;
 	std::vector<int> listIndex2;
 	std::vector<bool> isOrdered2;
 	bool inT;
