@@ -4696,8 +4696,11 @@ bool PageItem::disconnectFromGUI()
 {
 	if (!ScCore->usingGUI())
 		return false;
-	PropertiesPalette* pp=m_Doc->scMW()->propertiesPalette;
-	disconnect(this, 0, pp, 0);
+	// Disconnecting only signals from PP will leave some remaining connections
+	// and cause progressive slowdowns
+	// PropertiesPalette* pp=m_Doc->scMW()->propertiesPalette;
+	// disconnect(this, 0, pp, 0);
+	disconnect(this, 0, 0, 0);
 	return true;
 }
 
