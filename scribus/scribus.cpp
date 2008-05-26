@@ -2799,6 +2799,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	assert (docSelectionCount == 0 || currItem != NULL); // help coverity analysis
 
 	actionManager->disconnectNewSelectionActions();
+	scrActions["editSelectAllOnLayer"]->setEnabled(true);
 	scrActions["editDeselectAll"]->setEnabled(SelectedType != -1);
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	charPalette->setEnabled(false, 0);
