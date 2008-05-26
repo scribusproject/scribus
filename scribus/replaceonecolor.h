@@ -41,6 +41,8 @@ public:
 	~replaceColorDialog() {};
 	const QString getOriginalColor();
 	const QString getReplacementColor();
+	void setReplacementColor(QString color);
+	void setOriginalColor(QString color);
 };
 
 #endif

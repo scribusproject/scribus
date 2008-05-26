@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>409</width>
-    <height>248</height>
+    <width>373</width>
+    <height>231</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -19,26 +19,8 @@
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="spacing" >
-    <number>5</number>
-   </property>
-   <property name="leftMargin" >
-    <number>10</number>
-   </property>
-   <property name="topMargin" >
-    <number>10</number>
-   </property>
-   <property name="rightMargin" >
-    <number>10</number>
-   </property>
-   <property name="bottomMargin" >
-    <number>10</number>
-   </property>
    <item>
     <layout class="QHBoxLayout" >
-     <property name="spacing" >
-      <number>5</number>
-     </property>
      <item>
       <widget class="QTableWidget" name="replacementTable" >
        <property name="minimumSize" >
@@ -59,9 +41,6 @@
      </item>
      <item>
       <layout class="QVBoxLayout" >
-       <property name="spacing" >
-        <number>5</number>
-       </property>
        <item>
         <widget class="QPushButton" name="addButton" >
          <property name="text" >
@@ -74,11 +53,24 @@
        </item>
        <item>
         <widget class="QPushButton" name="removeButton" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
          <property name="text" >
           <string>Remove</string>
          </property>
          <property name="autoDefault" >
           <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="editButton" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="text" >
+          <string>Edit...</string>
          </property>
         </widget>
        </item>
@@ -89,8 +81,8 @@
          </property>
          <property name="sizeHint" >
           <size>
-           <width>20</width>
-           <height>40</height>
+           <width>75</width>
+           <height>41</height>
           </size>
          </property>
         </spacer>

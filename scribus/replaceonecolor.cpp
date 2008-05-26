@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "replaceonecolor.h"
 #include "util_icon.h"
+#include "util.h"
 
 replaceColorDialog::replaceColorDialog(QWidget* parent, ColorList &availableColors, ColorList &usedColors) : QDialog(parent)
 {
@@ -46,4 +47,14 @@ const QString replaceColorDialog::getOriginalColor()
 const QString replaceColorDialog::getReplacementColor()
 {
 	return replacementColor->currentText();
+}
+
+void replaceColorDialog::setOriginalColor(QString color)
+{
+	setCurrentComboItem(originalColor, color);
+}
+
+void replaceColorDialog::setReplacementColor(QString color)
+{
+	setCurrentComboItem(replacementColor, color);
 }

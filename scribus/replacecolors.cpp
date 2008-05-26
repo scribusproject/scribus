@@ -60,6 +60,7 @@ replaceColorsDialog::replaceColorsDialog(QWidget* parent, ColorList &colorList, 
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addColor()));
 	connect(replacementTable, SIGNAL(cellClicked(int, int)), this, SLOT(selReplacement(int)));
 	connect(removeButton, SIGNAL(clicked()), this, SLOT(delReplacement()));
+	connect(editButton, SIGNAL(clicked()), this, SLOT(editReplacement()));
 }
 
 void replaceColorsDialog::addColor()
@@ -83,6 +84,7 @@ void replaceColorsDialog::selReplacement(int sel)
 {
 	selectedRow = sel;
 	removeButton->setEnabled(true);
+	editButton->setEnabled(true);
 }
 
 void replaceColorsDialog::delReplacement()
@@ -93,6 +95,30 @@ void replaceColorsDialog::delReplacement()
 		replacementTable->removeRow(selectedRow);
 		selectedRow = -1;
 		removeButton->setEnabled(false);
+		editButton->setEnabled(false);
+	}
+}
+
+void replaceColorsDialog::editReplacement()
+{
+	if (selectedRow > -1)
+	{
+		replaceColorDialog *dia = new replaceColorDialog(this, EditColors, UsedColors);
+		dia->setReplacementColor(replacementTable->item(selectedRow, 1)->text());
+		dia->setOriginalColor(replacementTable->item(selectedRow, 0)->text());
+		if (dia->exec())
+		{
+			replaceMap.remove(replacementTable->item(selectedRow, 0)->text());
+			QString orig = dia->getOriginalColor();
+			if (orig == CommonStrings::tr_NoneColor)
+				orig = CommonStrings::None;
+			QString repl = dia->getReplacementColor();
+			if (repl == CommonStrings::tr_NoneColor)
+				repl = CommonStrings::None;
+			replaceMap.insert(orig, repl);
+			updateReplacementTable();
+		}
+		delete dia;
 	}
 }
 
@@ -102,6 +128,7 @@ void replaceColorsDialog::updateReplacementTable()
 	replacementTable->setRowCount(0);
 	selectedRow = -1;
 	removeButton->setEnabled(false);
+	editButton->setEnabled(false);
 	if (replaceMap.count() > 0)
 	{
 		replacementTable->setRowCount(replaceMap.count());

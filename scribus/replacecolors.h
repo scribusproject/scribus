@@ -48,6 +48,7 @@ private slots:
 	void addColor();
 	void selReplacement(int sel);
 	void delReplacement();
+	void editReplacement();
 
 private:
 	void updateReplacementTable();
