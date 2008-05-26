@@ -1,6 +1,8 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="1.1" language="nl_NL">
+<defaultcodec></defaultcodec>
 <context>
-    <name></name>
+    <name>@default</name>
     <message>
         <source>getFontSize([&quot;name&quot;]) -&gt; float
 
@@ -149,9 +151,6 @@ May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>@default</name>
     <message>
         <source>getFont([&quot;name&quot;]) -&gt; string
 
@@ -2744,11 +2743,11 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>&amp;400%</source>
-        <translation type="unfinished">&amp;400%</translation>
+        <translation>&amp;400%</translation>
     </message>
     <message>
         <source>&amp;Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeeldingen &amp;beheren</translation>
     </message>
 </context>
 <context>
@@ -4144,11 +4143,11 @@ Als uw document foto&apos;s bevat wordt deze instelling aangeraden.</translation
     </message>
     <message>
         <source>&amp;RGB Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;RGB-afbeeldingen:</translation>
     </message>
     <message>
         <source>&amp;CMYK Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;CMYK-afbeeldingen:</translation>
     </message>
 </context>
 <context>
@@ -4258,7 +4257,8 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     <message>
         <source>You cannot create a color without a name
 Please give it a name</source>
-        <translation type="unfinished"></translation>
+        <translation>U kan niet een kleur maken zonder een naam
+Geef het AUB een naam</translation>
     </message>
 </context>
 <context>
@@ -4503,7 +4503,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>Annotation uses a non TrueType font</source>
-        <translation type="unfinished"></translation>
+        <translation>Annotatie gebruikt een niet-TrueType font</translation>
     </message>
 </context>
 <context>
@@ -5081,7 +5081,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>Postscript</translation>
     </message>
 </context>
 <context>
@@ -6826,14 +6826,14 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Font Preview</source>
-        <translation type="unfinished">Fontvoorbeeld</translation>
+        <translation>Fontvoorbeeld</translation>
     </message>
 </context>
 <context>
     <name>FontPreviewPlugin</name>
     <message>
         <source>&amp;Font Preview...</source>
-        <translation>&amp;Fontweergave...</translation>
+        <translation>&amp;Fontvoorbeeld...</translation>
     </message>
     <message>
         <source>Font Preview dialog</source>
@@ -8739,7 +8739,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit object wel of niet exporteren</translation>
     </message>
 </context>
 <context>
@@ -9140,11 +9140,11 @@ hoeken:</translation>
     </message>
     <message>
         <source>to Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>naar canvas</translation>
     </message>
     <message>
         <source>to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>naar pagina</translation>
     </message>
 </context>
 <context>
@@ -9797,7 +9797,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeelingen beheren</translation>
     </message>
 </context>
 <context>
@@ -10435,11 +10435,11 @@ hoeken:</translation>
     </message>
     <message>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeeldingen tonen</translation>
     </message>
     <message>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet weergave van afbeeldingen aan of uit</translation>
     </message>
 </context>
 <context>
@@ -12541,29 +12541,29 @@ aangeroepen functies.
     </message>
     <message>
         <source>Chinese (Trad.)</source>
-        <translation type="unfinished"></translation>
+        <translation>Chinees (Trad.)</translation>
     </message>
     <message>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
-        <translation type="unfinished"></translation>
+        <translation>Het font %1 heeft gebroken metriek in bestand %2, negeer metriek</translation>
     </message>
     <message>
         <source>Valid metrics were found for font %1, using metrics in file %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Geldige metriek werd gevonden voor font %1, gebruik metriek in bestand %2</translation>
     </message>
     <message>
         <source>Insufficient memory for this image size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Onvoldoende geheugen voor deze afbeeldinggrootte.</translation>
     </message>
     <message>
         <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vul ondoorzichtigheid  buiten bereik, moet zijn 0.0 &lt;= opacity &lt;= 1.0</translation>
     </message>
     <message>
         <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Transparantie buiten bereik, moet zijn 0 &lt;=  transparency &lt;= 1.</translation>
     </message>
 </context>
 <context>
@@ -12903,11 +12903,11 @@ aangeroepen functies.
     </message>
     <message>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeeldingen tonen</translation>
     </message>
     <message>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet weergave van afbeeldingen aan of uit</translation>
     </message>
 </context>
 <context>
@@ -13820,7 +13820,8 @@ Verticaal shift: %3</translation>
     <message>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Uw document is opgeslagen in een tijdelijk bestand en kan niet verplaatst worden:
+%1</translation>
     </message>
 </context>
 <context>
@@ -13919,7 +13920,7 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Show location ICC profile information on console while starting</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon locatie ICC profiel informatie in console bij het starten</translation>
     </message>
 </context>
 <context>
@@ -14074,11 +14075,11 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Export: </source>
-        <translation type="unfinished"></translation>
+        <translation>Exporteren:</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation type="unfinished">Afbeelding</translation>
+        <translation>Afbeelding</translation>
     </message>
 </context>
 <context>
@@ -15845,11 +15846,11 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
-        <translation type="unfinished">Alle fonts insluiten in PDF. Insluiten van fonts zorgt dat de layout en aanzicht van het document behouden blijven. </translation>
+        <translation>Alle fonts insluiten in PDF. Insluiten van fonts zorgt dat de layout en aanzicht van het document behouden blijven. Sommige fonts zoals Open Type kunnen alleen ingesloten worden als subset, aangezien ze niet ingesloten kunnen worden in PDF versies voor PDF 1.6.</translation>
     </message>
     <message>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
-        <translation type="unfinished"></translation>
+        <translation>Subset alle fonts in PDF. Subsetten van fonts is wanneer enkel de karakters gebruikt in de PDF zijn ingesloten, niet het gehele font. Sommige fonts zoals Open Type kunnen alleen ingesloten worden als subset, aangezien ze niet ingesloten kunnen worden in PDF versies voor PDF 1.6.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
@@ -15861,7 +15862,7 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>&amp;Apply Effect to all Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Effect op &amp;alle pagina&apos;s toepassen</translation>
     </message>
 </context>
 <context>
@@ -16177,31 +16178,31 @@ als PDF document wordt geopend:</translation>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished">Geen</translation>
+        <translation>Geen</translation>
     </message>
     <message>
         <source>&amp;Scale Image to Frame Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeelding &amp;schalen naar framegrootte</translation>
     </message>
     <message>
         <source>Image Frame Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschappen voor afbeeldingframe</translation>
     </message>
     <message>
         <source>Image frames allow images to scale to any size</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeeldingsframes kunnen afbeeldingen meeschalen naar elke grootte</translation>
     </message>
     <message>
         <source>Images in image frames are scaled to the size of the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeeldingen in afbeeldingsframes worden altijd naar de grootte van het frame geschaald</translation>
     </message>
     <message>
         <source>Automatically scaled images keep their original proportions</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisch geschaalde afbeeldingen houden hun oorspronkelijke beeldverhouding</translation>
     </message>
     <message>
         <source>Fill color of image frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Vulkleur voor afbeeldingsframes</translation>
     </message>
 </context>
 <context>
@@ -16385,11 +16386,11 @@ als PDF document wordt geopend:</translation>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished">Geen</translation>
+        <translation>Geen</translation>
     </message>
     <message>
         <source>Period</source>
-        <translation type="unfinished"></translation>
+        <translation>Punt</translation>
     </message>
 </context>
 <context>
