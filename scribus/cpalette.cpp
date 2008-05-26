@@ -628,6 +628,10 @@ void Cpalette::slotGrad(int number)
 		gradEdit->Preview->fill_gradient = currentItem->fill_gradient;
 		gradEdit->Preview->updateDisplay();
 	}
+	if (number > 0)
+		blendMode->setEnabled(false);
+	else
+		blendMode->setEnabled(true);
 	emit NewGradient(number);
 }
 
