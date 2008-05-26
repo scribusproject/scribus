@@ -19,7 +19,4 @@ ADD_SUBDIRECTORY(xfigimplugin)
 # ADD_SUBDIRECTORY(imposition)
 ADD_SUBDIRECTORY(tools)
 
-if (HAVE_ASPELL)
-#ADD_SUBDIRECTORY(aspellplugin)
-endif (HAVE_ASPELL)
 # ADD_SUBDIRECTORY(myplugin)
