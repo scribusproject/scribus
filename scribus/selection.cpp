@@ -263,7 +263,10 @@ bool Selection::removeItem(PageItem *item)
 		if (removeOk)
 		{
 			if (m_isGUISelection)
+			{
 				item->setSelected(false);
+				item->disconnectFromGUI();
+			}
 			item->isSingleSel = false;
 		}
 		if (m_SelList.isEmpty())
