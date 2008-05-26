@@ -198,7 +198,8 @@ void CreateMode::activate(bool fromGesture)
 				else
 				{
 					m_doc->SizeItem(xSize, ySize, currItem->ItemNr, false, true, false);
-// 					m_doc->AdjustItemSize(currItem);
+					FPoint tp(getMaxClipF(&currItem->PoLine));
+					currItem->setWidthHeight(tp.x(), tp.y(), true);
 				}
 				currItem->ContourLine = currItem->PoLine.copy();
 				switch (originPoint)
@@ -218,8 +219,6 @@ void CreateMode::activate(bool fromGesture)
 						m_doc->MoveItem(-currItem->width(), -currItem->height(), currItem, false);
 						break;
 				}
-				FPoint tp(getMaxClipF(&currItem->PoLine));
-				currItem->setWidthHeight(tp.x(), tp.y(), true);
 				m_doc->setRedrawBounding(currItem);
 				currItem->OwnPage = m_doc->OnPage(currItem);
 				currItem->OldB2 = currItem->width();
@@ -247,16 +246,13 @@ void CreateMode::activate(bool fromGesture)
 		else
 		{
 			if (currItem->asLine())
-			{
-//				currItem->OldB2 = currItem->width();
-//				currItem->OldH2 = currItem->height();
 				currItem->updateClip();
+ 			else
+ 			{
+				FPoint tp(getMaxClipF(&currItem->PoLine));
+				currItem->setWidthHeight(tp.x(), tp.y(), true);
 			}
-// 			else
-// 				m_doc->AdjustItemSize(currItem);
 			currItem->ContourLine = currItem->PoLine.copy();
-			FPoint tp(getMaxClipF(&currItem->PoLine));
-			currItem->setWidthHeight(tp.x(), tp.y(), true);
 			m_doc->setRedrawBounding(currItem);
 			currItem->OwnPage = m_doc->OnPage(currItem);
 			currItem->Sizing = false;
