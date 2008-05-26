@@ -609,8 +609,10 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 
 void SEditor::updateAll()
 {
+	++blockContentsChangeHook;
 	clear();
 	insertUpdate(0, StyledText.length());
+	--blockContentsChangeHook;
 }
 
 void SEditor::insertUpdate(int position, int len)
