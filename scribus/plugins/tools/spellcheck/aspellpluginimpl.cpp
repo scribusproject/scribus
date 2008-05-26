@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "util.h"
 #include <QMessageBox>
+
 const char* AspellPluginImpl::kDEF_CONTEXT = "AspellPlugin";
 const QString AspellPluginImpl::kDEF_ASPELL_ENTRY =
 	QString( "en" ) + Speller::Aspell::Suggest::kDICT_DELIM +
@@ -137,6 +138,11 @@ void AspellPluginImpl::nextWord()
 		++fpos;
 	}
 	pe = fpos;
+	if (pa == pe)
+	{
+		spellCheckDone();	// No more new Text, bail out from Spellchecking
+		return;
+	}
 	fcontent = fFrame->itemText.text(pa, pe - pa);
 	fpos = pa;
 }
