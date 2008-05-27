@@ -21,7 +21,10 @@ QWidget * GuidesDelegate::createEditor(QWidget *parent,
 									   const QStyleOptionViewItem &/* option */,
 									   const QModelIndex &/* index */) const
 {
-	ScrSpinBox *editor = new ScrSpinBox(0, 1000, parent, m_doc?m_doc->unitIndex():0);
+	Q_ASSERT_X(m_doc != 0, "GuidesDelegate::createEditor",
+			   "No reference to the doc");
+	ScrSpinBox *editor = new ScrSpinBox(0, m_doc->currentPage()->height(),
+										parent, m_doc->unitIndex());
 	return editor;
 }
 
