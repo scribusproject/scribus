@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "scrspinbox.h"
 #include "scribusdoc.h"
 #include "guidesdelegate.h"
+#include "units.h"
 
 
 GuidesDelegate::GuidesDelegate(QObject *parent)
@@ -57,6 +58,7 @@ void GuidesDelegate::setDoc(ScribusDoc * doc)
 	m_doc = doc;
 }
 
+
 // horizontals
 
 GuidesHDelegate::GuidesHDelegate(QObject *parent)
@@ -70,8 +72,10 @@ QWidget * GuidesHDelegate::createEditor(QWidget *parent,
 {
 	Q_ASSERT_X(m_doc != 0, "GuidesHDelegate::createEditor",
 			   "No reference to the doc");
-	ScrSpinBox *editor = new ScrSpinBox(0, m_doc->currentPage()->height(),
-										parent, m_doc->unitIndex());
+	ScrSpinBox *editor =
+			new ScrSpinBox(0.0,
+						   m_doc->currentPage()->height() * unitGetRatioFromIndex(m_doc->unitIndex()),
+						   parent, m_doc->unitIndex());
 	return editor;
 }
 
@@ -89,7 +93,9 @@ QWidget * GuidesVDelegate::createEditor(QWidget *parent,
 {
 	Q_ASSERT_X(m_doc != 0, "GuidesVDelegate::createEditor",
 			   "No reference to the doc");
-	ScrSpinBox *editor = new ScrSpinBox(0, m_doc->currentPage()->width(),
-										parent, m_doc->unitIndex());
+	ScrSpinBox *editor =
+			new ScrSpinBox(0,
+						   m_doc->currentPage()->width() * unitGetRatioFromIndex(m_doc->unitIndex()),
+						   parent, m_doc->unitIndex());
 	return editor;
 }
