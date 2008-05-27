@@ -9712,27 +9712,20 @@ void ScribusMainWindow::PutToPatterns()
 {
 	QString patternName = "Pattern_"+doc->m_Selection->itemAt(0)->itemName();
 	patternName = patternName.trimmed().simplified().replace(" ", "_");
-	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
-	dia->setEditText(patternName, true);
-	if (dia->exec())
+	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+	dia.setEditText(patternName, true);
+	if (dia.exec())
 	{
-		patternName = dia->getEditText();
+		patternName = dia.getEditText();
 		while (doc->docPatterns.contains(patternName))
 		{
-			if (!dia->exec())
-			{
-				delete dia;
+			if (!dia.exec())
 				return;
-			}
-			patternName = dia->getEditText();
+			patternName = dia.getEditText();
 		}
 	}
 	else
-	{
-		delete dia;
 		return;
-	}
-	delete dia;
 	undoManager->setUndoEnabled(false);
 	int ac = doc->Items->count();
 	uint oldNum = doc->TotalItems;
