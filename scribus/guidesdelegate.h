@@ -24,9 +24,10 @@ class GuidesDelegate : public QItemDelegate
 	public:
 		GuidesDelegate(QObject *parent = 0);
 
-		QWidget *createEditor(QWidget *parent,
-							const QStyleOptionViewItem &option,
-							const QModelIndex &index) const;
+// implemented in inheritance
+// 		QWidget *createEditor(QWidget *parent,
+// 							const QStyleOptionViewItem &option,
+// 							const QModelIndex &index) const;
 
 		void setEditorData(QWidget *editor, const QModelIndex &index) const;
 
@@ -41,8 +42,40 @@ class GuidesDelegate : public QItemDelegate
 		void unitChange(int docUnitDecimals);
 		void setDoc(ScribusDoc * doc);
 
-	private:
+	protected:
 		ScribusDoc *m_doc;
+};
+
+
+/*! \brief A delegate for horizontal guides model/view.
+Limit guides for page height
+ */
+class GuidesHDelegate : public GuidesDelegate
+{
+	Q_OBJECT
+
+	public:
+		GuidesHDelegate(QObject *parent = 0);
+
+		QWidget *createEditor(QWidget *parent,
+							  const QStyleOptionViewItem &option,
+							  const QModelIndex &index) const;
+};
+
+
+/*! \brief A delegate for vertical guides model/view.
+Limit guides for page width
+ */
+class GuidesVDelegate : public GuidesDelegate
+{
+	Q_OBJECT
+
+	public:
+		GuidesVDelegate(QObject *parent = 0);
+
+		QWidget *createEditor(QWidget *parent,
+							  const QStyleOptionViewItem &option,
+							  const QModelIndex &index) const;
 };
 
 #endif

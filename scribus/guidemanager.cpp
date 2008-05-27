@@ -52,9 +52,10 @@ GuideManager::GuideManager(QWidget* parent) :
 	// MVC
 	horizontalModel = new GuidesModel(this);
 	verticalModel = new GuidesModel(this);
-	GuidesDelegate * delegate = new GuidesDelegate();
-	horizontalView->setItemDelegateForColumn(0, delegate);
-	verticalView->setItemDelegateForColumn(0, delegate);
+	GuidesHDelegate * hdelegate = new GuidesHDelegate();
+	GuidesVDelegate * vdelegate = new GuidesVDelegate();
+	horizontalView->setItemDelegateForColumn(0, hdelegate);
+	verticalView->setItemDelegateForColumn(0, vdelegate);
 	horizontalView->setModel(horizontalModel);
 	verticalView->setModel(verticalModel);
 
@@ -89,7 +90,7 @@ GuideManager::GuideManager(QWidget* parent) :
 			this, SLOT(verticalMarginsAutoButton_toggled(bool)));
 	connect(verticalSelectionAutoButton, SIGNAL(toggled(bool)),
 			this, SLOT(verticalSelectionAutoButton_toggled(bool)));
-	
+
 	connect(applyToAllAutoButton, SIGNAL(clicked()),
 			this, SLOT(applyToAllAutoButton_clicked()));
 	connect(deletePageButton, SIGNAL(clicked()),
@@ -107,7 +108,8 @@ GuideManager::GuideManager(QWidget* parent) :
 void GuideManager::setDoc(ScribusDoc* doc)
 {
 	m_Doc=doc;
-	qobject_cast<GuidesDelegate*>(horizontalView->itemDelegateForColumn(0))->setDoc(doc);
+	qobject_cast<GuidesHDelegate*>(horizontalView->itemDelegateForColumn(0))->setDoc(doc);
+	qobject_cast<GuidesVDelegate*>(verticalView->itemDelegateForColumn(0))->setDoc(doc);
 	if (!m_Doc)
 		currentPage = 0;
 	tabWidget->setEnabled(doc ? true : false);
@@ -251,7 +253,7 @@ void GuideManager::unitChange()
 	verticalGroupBox->setTitle(verticalGroupBox->title().remove(" ("+suffix.trimmed()+")"));
 	docUnitIndex = m_Doc->unitIndex();
 	int docUnitDecimals = unitGetPrecisionFromIndex(docUnitIndex);
-	
+
 	suffix = unitGetSuffixFromIndex(docUnitIndex);
 	horizontalAutoGapSpin->setSuffix(suffix);
 	verticalAutoGapSpin->setSuffix(suffix);
@@ -262,7 +264,8 @@ void GuideManager::unitChange()
 	// models display
 	horizontalModel->unitChange(docUnitIndex, docUnitDecimals);
 	verticalModel->unitChange(docUnitIndex, docUnitDecimals);
-	qobject_cast<GuidesDelegate*>(horizontalView->itemDelegateForColumn(0))->setDoc(m_Doc);
+	qobject_cast<GuidesHDelegate*>(horizontalView->itemDelegateForColumn(0))->setDoc(m_Doc);
+	qobject_cast<GuidesVDelegate*>(verticalView->itemDelegateForColumn(0))->setDoc(m_Doc);
 }
 
 void GuideManager::delHorButton_clicked()

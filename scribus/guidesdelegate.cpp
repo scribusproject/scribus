@@ -17,16 +17,16 @@ GuidesDelegate::GuidesDelegate(QObject *parent)
 {
 }
 
-QWidget * GuidesDelegate::createEditor(QWidget *parent,
-									   const QStyleOptionViewItem &/* option */,
-									   const QModelIndex &/* index */) const
-{
-	Q_ASSERT_X(m_doc != 0, "GuidesDelegate::createEditor",
-			   "No reference to the doc");
-	ScrSpinBox *editor = new ScrSpinBox(0, m_doc->currentPage()->height(),
-										parent, m_doc->unitIndex());
-	return editor;
-}
+// QWidget * GuidesDelegate::createEditor(QWidget *parent,
+// 									   const QStyleOptionViewItem &/* option */,
+// 									   const QModelIndex &/* index */) const
+// {
+// 	Q_ASSERT_X(m_doc != 0, "GuidesDelegate::createEditor",
+// 			   "No reference to the doc");
+// 	ScrSpinBox *editor = new ScrSpinBox(0, m_doc->currentPage()->height(),
+// 										parent, m_doc->unitIndex());
+// 	return editor;
+// }
 
 void GuidesDelegate::setEditorData(QWidget *editor,
 								   const QModelIndex &index) const
@@ -55,4 +55,41 @@ void GuidesDelegate::updateEditorGeometry(QWidget *editor,
 void GuidesDelegate::setDoc(ScribusDoc * doc)
 {
 	m_doc = doc;
+}
+
+// horizontals
+
+GuidesHDelegate::GuidesHDelegate(QObject *parent)
+	: GuidesDelegate(parent)
+{
+}
+
+QWidget * GuidesHDelegate::createEditor(QWidget *parent,
+									   const QStyleOptionViewItem &/* option */,
+									   const QModelIndex &/* index */) const
+{
+	Q_ASSERT_X(m_doc != 0, "GuidesHDelegate::createEditor",
+			   "No reference to the doc");
+	ScrSpinBox *editor = new ScrSpinBox(0, m_doc->currentPage()->height(),
+										parent, m_doc->unitIndex());
+	return editor;
+}
+
+
+// verticals
+
+GuidesVDelegate::GuidesVDelegate(QObject *parent)
+	: GuidesDelegate(parent)
+{
+}
+
+QWidget * GuidesVDelegate::createEditor(QWidget *parent,
+									   const QStyleOptionViewItem &/* option */,
+									   const QModelIndex &/* index */) const
+{
+	Q_ASSERT_X(m_doc != 0, "GuidesVDelegate::createEditor",
+			   "No reference to the doc");
+	ScrSpinBox *editor = new ScrSpinBox(0, m_doc->currentPage()->width(),
+										parent, m_doc->unitIndex());
+	return editor;
 }
