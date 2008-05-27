@@ -640,7 +640,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 							FarNam = FarNam.simplified();
 							cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 							cc.setSpotColor(true);
-							if (!EditColors.contains(FarNam))
+							if ((!EditColors.contains(FarNam)) && (!FarNam.isEmpty()))
 								EditColors.insert(FarNam, cc);
 							while (!ts.atEnd())
 							{
@@ -661,7 +661,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 								FarNam = FarNam.simplified();
 								cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 								cc.setSpotColor(true);
-								if (!EditColors.contains(FarNam))
+								if ((!EditColors.contains(FarNam)) && (!FarNam.isEmpty()))
 									EditColors.insert(FarNam, cc);
 							}
 						}
@@ -681,7 +681,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 							FarNam = FarNam.remove(FarNam.length()-1,1);
 							FarNam = FarNam.simplified();
 							cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y));
-							if (!EditColors.contains(FarNam))
+							if ((!EditColors.contains(FarNam)) && (!FarNam.isEmpty()))
 								EditColors.insert(FarNam, cc);
 							while (!ts.atEnd())
 							{
@@ -701,7 +701,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 								FarNam = FarNam.remove(FarNam.length()-1,1);
 								FarNam = FarNam.simplified();
 								cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y));
-								if (!EditColors.contains(FarNam))
+								if ((!EditColors.contains(FarNam)) && (!FarNam.isEmpty()))
 									EditColors.insert(FarNam, cc);
 							}
 						}
@@ -811,6 +811,16 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors)
 									lf.setRegistrationColor(false);
 								if (!EditColors.contains(pg.attribute("NAME")))
 									EditColors.insert(pg.attribute("NAME"), lf);
+							}
+							else if (pg.tagName()=="draw:color" && pg.attribute("draw:name")!=CommonStrings::None)
+							{
+								if (pg.hasAttribute("draw:color"))
+									lf.setNamedColor(pg.attribute("draw:color"));
+								lf.setSpotColor(false);
+								lf.setRegistrationColor(false);
+								QString nam = pg.attribute("draw:name");
+								if ((!EditColors.contains(nam)) && (!nam.isEmpty()))
+									EditColors.insert(nam, lf);
 							}
 							PAGE=PAGE.nextSibling();
 						}

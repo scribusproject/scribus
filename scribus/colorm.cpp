@@ -315,7 +315,10 @@ void ColorManager::importColors()
 	
 	
 	QString docexts("*.sla *.sla.gz *.scd *.scd.gz");
-	CustomFDialog dia(this, wdir, tr("Import"), tr("Documents (%1);;Other Files (%2);;All Files (*)").arg(docexts).arg(FormatsManager::instance()->extensionListForFormat(FormatsManager::EPS|FormatsManager::PS|FormatsManager::AI, 0)));
+	QString aiepsext(FormatsManager::instance()->extensionListForFormat(FormatsManager::EPS|FormatsManager::PS|FormatsManager::AI, 0));
+	QString ooexts(" *.soc");
+	QString filter = tr("All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)").arg(docexts+" "+aiepsext+ooexts).arg(docexts).arg(aiepsext+ooexts);
+	CustomFDialog dia(this, wdir, tr("Import"), filter);
 	
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
