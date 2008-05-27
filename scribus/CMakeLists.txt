@@ -669,6 +669,17 @@ ELSE(WIN32)
   SET(WIN32_ONLY_LIBS)
 ENDIF(WIN32)
 
+##TEST FIX FOR 6897
+IF (GCC AND NOT WIN32)
+# Use the -E / --export-dynamic flag to ensure that symbols in the Scribus
+# binary are in the public symbol table for plugins. The symbols must also
+# be set as SCRIBUS_API if we're building with -fvisibility=hidden .
+# Should fix bug 6897 .
+     SET_TARGET_PROPERTIES(scribus PROPERTIES LINK_FLAGS -Wl,-E)
+ ENDIF (GCC AND NOT WIN32)
+##
+
+
 #Set up libraries to link with all found packages
 
 #Select Libart_LGPL or Cairo
