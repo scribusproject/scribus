@@ -41,8 +41,9 @@ for which a new license (GPL+exception) is in place.
 class QString;
 class QPixmap;
 class UndoGui;
-class TransactionData;
 class PrefsContext;
+
+struct TransactionData;
 
 /** @brief Key is the doc name, value is it's undo stack */
 typedef QMap<QString, UndoStack> StackMap;
