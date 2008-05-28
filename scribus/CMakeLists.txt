@@ -675,7 +675,7 @@ IF (GCC AND NOT WIN32)
 # binary are in the public symbol table for plugins. The symbols must also
 # be set as SCRIBUS_API if we're building with -fvisibility=hidden .
 # Should fix bug 6897 .
-     SET_TARGET_PROPERTIES(scribus PROPERTIES LINK_FLAGS -Wl,-E)
+     SET_TARGET_PROPERTIES(${EXE_NAME} PROPERTIES LINK_FLAGS -Wl,-E)
  ENDIF (GCC AND NOT WIN32)
 ##
 
