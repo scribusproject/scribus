@@ -2310,6 +2310,8 @@ void StoryEditor::updateProps(int p, int ch)
 		if (!firstSet)
 		{
 			const CharStyle& curstyle(pos < Editor->StyledText.length()? currItem->itemText.charStyle(pos) : currItem->itemText.defaultStyle().charStyle());
+			const ParagraphStyle parStyle(pos < Editor->StyledText.length()? currItem->itemText.paragraphStyle(pos) : currItem->itemText.defaultStyle());
+			Editor->CurrAlign = parStyle.alignment();
 			Editor->CurrTextFill = curstyle.fillColor();
 			Editor->CurrTextFillSh = curstyle.fillShade();
 			Editor->CurrTextStroke = curstyle.strokeColor();
@@ -2969,12 +2971,11 @@ void StoryEditor::changeStyle()
 			Editor->StyledText.applyStyle(Editor->StyledText.startOfParagraph(pa), newStyle);
 			Editor->updateFromChars(pa);
 		}
-		Editor->textCursor().setPosition(pos);
+		QTextCursor textCursor = Editor->textCursor();
+		textCursor.setPosition(sel ? SelStart : pos);
 		if (sel)
-		{
-			Editor->textCursor().setPosition(SelStart);
-			Editor->textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
-		}
+			textCursor.setPosition(SelEnd, QTextCursor::KeepAnchor);
+		Editor->setTextCursor(textCursor);
 		Editor->verticalScrollBar()->setValue(scrollPos);
 		updateProps();
 		EditorBar->doRepaint();
@@ -3056,12 +3057,11 @@ void StoryEditor::changeAlign(int )
 			Editor->StyledText.applyStyle(Editor->StyledText.startOfParagraph(pa), newStyle);
 			Editor->updateFromChars(pa);
 		}
-		Editor->textCursor().setPosition(pos);
+		QTextCursor textCursor = Editor->textCursor();
+		textCursor.setPosition(sel ? SelStart : pos);
 		if (sel)
-		{
-			Editor->textCursor().setPosition(SelStart);
-			Editor->textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
-		}
+			textCursor.setPosition(SelEnd, QTextCursor::KeepAnchor);
+		Editor->setTextCursor(textCursor);
 		Editor->ensureCursorVisible();
 		updateProps();
 		EditorBar->doRepaint();
