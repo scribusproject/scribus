@@ -3744,9 +3744,20 @@ QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 	QColor tmpR;
 	if (Options.isGrayscale)
 	{
-		tmpR = tmpC.getShadeColorProof(Shade);
-		tmpR.rgb(&h, &s, &v);
-		tmp = FToStr((0.3 * h + 0.59 * s + 0.11 * v) / 255.0);
+		bool kToGray = false;
+		if (tmpC.getColorModel() == colorModelCMYK)
+		{
+			tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
+			kToGray = (h == 0 && s == 0 && v == 0);
+		}
+		if (kToGray)
+			tmp = FToStr(1.0 - k / 255.0);
+		else
+		{
+			tmpR = tmpC.getShadeColorProof(Shade);
+			tmpR.rgb(&h, &s, &v);
+			tmp = FToStr((0.3 * h + 0.59 * s + 0.11 * v) / 255.0);
+		}
 		return tmp;
 	}
 	if (Options.UseRGB)
@@ -3800,9 +3811,20 @@ QString PDFlib::SetFarbeGrad(const QString& farbe, int Shade)
 	QColor tmpR;
 	if (Options.isGrayscale)
 	{
-		tmpR = tmpC.getShadeColorProof(Shade);
-		tmpR.rgb(&h, &s, &v);
-		tmp = FToStr((0.3 * h + 0.59 * s + 0.11 * v) / 255.0);
+		bool kToGray = false;
+		if (tmpC.getColorModel() == colorModelCMYK)
+		{
+			tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
+			kToGray = (h == 0 && s == 0 && v == 0);
+		}
+		if (kToGray)
+			tmp = FToStr(1.0 - k / 255.0);
+		else
+		{
+			tmpR = tmpC.getShadeColorProof(Shade);
+			tmpR.rgb(&h, &s, &v);
+			tmp = FToStr((0.3 * h + 0.59 * s + 0.11 * v) / 255.0);
+		}
 		return tmp;
 	}
 	if (Options.UseRGB)
