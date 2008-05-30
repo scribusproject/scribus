@@ -189,11 +189,14 @@ bool loadRawText(const QString & filename, QByteArray & buf)
 	QFileInfo fi(f);
 	if (fi.exists())
 	{
-		QByteArray tempBuf(f.size() + 1, ' ');
+		// Allocating one more bytes for null terminator is unneeded with Qt4
+		// as QByteArray ensure null termination automatically
+		// Triggers also QDomDocument parsing errors
+		QByteArray tempBuf(f.size() /*+ 1*/, ' ');
 		if (f.open(QIODevice::ReadOnly))
 		{
 			unsigned int bytesRead = f.read(tempBuf.data(), f.size());
-			tempBuf[bytesRead] = '\0';
+			/*tempBuf[bytesRead] = '\0';*/
 			ret = bytesRead == f.size();
 			if (ret)
 				buf = tempBuf; // sharing makes this efficient
