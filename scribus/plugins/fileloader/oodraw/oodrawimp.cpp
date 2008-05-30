@@ -224,7 +224,7 @@ bool OODPlug::import( QString fileName, int flags )
 {
 	bool importDone = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	QString f, f2, f3;
+	QByteArray f, f2, f3;
 	if ( !QFile::exists(fileName) )
 		return false;
 // 	m_styles.setAutoDelete( true );
@@ -236,29 +236,24 @@ bool OODPlug::import( QString fileName, int flags )
 	// Qt4 NULL -> isNull()
 	if ((!stylePath.isNull()) && (!contentPath.isNull()))
 	{
+		HaveMeta = false;
 		QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
 		docname = docname.left(docname.lastIndexOf("."));
-		loadText(stylePath, &f);
+		loadRawText(stylePath, f);
 		if(!inpStyles.setContent(f))
 			return false;
-		loadText(contentPath, &f2);
+		loadRawText(contentPath, f2);
 		if(!inpContents.setContent(f2))
 			return false;
-		QFile f1(stylePath);
-		f1.remove();
-		QFile f2(contentPath);
-		f2.remove();
-		if (!metaPath.isNull())
+		QFile::remove(stylePath);
+		QFile::remove(contentPath);
+		HaveMeta = false;
+		if (!metaPath.isEmpty())
 		{
-			HaveMeta = true;
-			loadText(metaPath, &f3);
-			if(!inpMeta.setContent(f3))
-				HaveMeta = false;
-			QFile f3(metaPath);
-			f3.remove();
+			loadRawText(metaPath, f3);
+			HaveMeta = inpMeta.setContent(f3);
+			QFile::remove(f3);
 		}
-		else
-			HaveMeta = false;
 	}
 	else if ((stylePath.isNull()) && (!contentPath.isNull()))
 	{
@@ -1148,21 +1143,7 @@ PageItem* OODPlug::parseTextP (const QDomElement& elm, PageItem* item)
 			continue;
 		storeObjectStyles(e);
 		item->itemText.insertChars(-1, SpecialChars::PARSEP);
-		if (e.hasChildNodes())
-			item = parseTextSpans(e, item);
-		else
-		{
-			if ( m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size") )
-			{
-				ParagraphStyle newStyle;
-				parseParagraphStyle(newStyle, e);
-				item->itemText.applyStyle(-1, newStyle);
-			}
-			item->itemText.insertChars(-2, e.text() );
-			if (!item->asPolyLine() && !item->asTextFrame())
-				item = m_Doc->convertItemTo(item, PageItem::TextFrame);
-		}
-		
+		item = parseTextSpans(e, item);
 	}
 	return item;
 }
@@ -1172,24 +1153,32 @@ PageItem* OODPlug::parseTextSpans(const QDomElement& elm, PageItem* item)
 	bool firstSpan = true;
 	for ( QDomNode n = elm.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
+		QString chars;
 		QDomElement e = n.toElement();
-		QString sTag = e.tagName();
-		if (e.text().isEmpty() || sTag != "text:span")
+		if (n.isElement() && (e.tagName() == "text:span"))
+		{
+			chars = e.text().simplified();
+			storeObjectStyles(e);
+		}
+		if (n.isText())
+		{
+			QDomText t = n.toText();
+			chars = t.data().simplified();
+		}
+		if (chars.isEmpty())
 			continue;
-		storeObjectStyles(e);
-		QString chars = e.text();
 		int pos = item->itemText.length();
 		if ( firstSpan && (m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size")) )
 		{
 			ParagraphStyle newStyle;
-			parseParagraphStyle(newStyle, e);
+			parseParagraphStyle(newStyle, n.isElement() ? e : elm);
 			item->itemText.applyStyle(-1, newStyle);
 		}
 		item->itemText.insertChars( -2, chars);
 		if ( !firstSpan && m_styleStack.hasAttribute("fo:font-size") )
 		{
 			CharStyle newStyle;
-			parseCharStyle(newStyle, e);
+			parseCharStyle(newStyle, n.isElement() ? e : elm);
 			item->itemText.applyCharStyle(pos, chars.length(), newStyle);
 		}
 		if (!item->asPolyLine() && !item->asTextFrame())
