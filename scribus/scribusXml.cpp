@@ -425,6 +425,7 @@ void ScriXmlDoc::GetItemText(const QXmlStreamAttributes& attrs, StoryText& story
 		}
 		else
 			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
+//		tmpf = ReplacedFonts[tmpf];
 	}
 	else
 	{
@@ -1045,11 +1046,13 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	// In case ff contains some old broken scribus xml
 	ff.replace(QChar(5), SpecialChars::PARSEP);
 	ff.replace(QChar(4), SpecialChars::TAB);
+	ff.replace(QChar(0), QChar(32));
+	ff.replace("&#x5;", SpecialChars::PARSEP);
+	ff.replace("&#x4;", SpecialChars::TAB);
 
 	bool isScribusElem = false;
 	QXmlStreamReader     sReader(ff);
 	QXmlStreamAttributes attrs;
-	
 	while (!sReader.atEnd() && !sReader.hasError())
 	{
 		if (sReader.readNext() == QXmlStreamReader::StartElement)
@@ -1187,7 +1190,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		if (tagName=="Pattern")
 		{
 			ScPattern pat;
-			uint ac = doc->Items->count();
+//			uint ac = doc->Items->count();
 			QString patFile = Fi ? fileName : QString();
 			ReadPattern(sReader, doc, view, patFile, GrMax, VorLFound, newVersion);
 			
@@ -1268,7 +1271,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		{
 			storyText.insertChars(storyText.length(), SpecialChars::PARSEP);
 			ParagraphStyle newStyle;
-			PrefsManager* prefsManager=PrefsManager::instance();
+//			PrefsManager* prefsManager=PrefsManager::instance();
 			ReadPStyle(sReader, newStyle, doc);
 			storyText.setStyle(storyText.length()-1, newStyle);
 			storyText.setCharStyle(storyText.length()-1, 1, lastStyles.Style);
@@ -1709,8 +1712,10 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		writer.writeAttribute("NAME",itf.key());
 		writer.writeEndElement();
 	}
+	ColorList usedColors;
+	doc->getUsedColors(usedColors);
 	ColorList::Iterator itc;
-	for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
+	for (itc = usedColors.begin(); itc != usedColors.end(); ++itc)
 	{
 		writer.writeStartElement("COLOR");
 		writer.writeAttribute("NAME",itc.key());
@@ -2155,7 +2160,7 @@ void ScriXmlDoc::WriteCStyle (ScXmlStreamWriter& writer, const CharStyle& style)
 
 void ScriXmlDoc::WritePStyle (ScXmlStreamWriter& writer, const ParagraphStyle& style, const QString& nodeName)
 {
-	bool styleHasTabs = (!style.isInhTabValues() && (style.tabValues().count() > 0));
+//	bool styleHasTabs = (!style.isInhTabValues() && (style.tabValues().count() > 0));
 	writer.writeStartElement(nodeName);
 	if ( ! style.name().isEmpty() )
 		writer.writeAttribute("NAME", style.name());
