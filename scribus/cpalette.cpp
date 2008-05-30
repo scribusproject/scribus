@@ -57,6 +57,86 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scpattern.h"
 
+GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "GradientVectorPalette", false, 0 )
+{
+	freeGradientLayout = new QGridLayout(this);
+	freeGradientLayout->setMargin(5);
+	freeGradientLayout->setSpacing(5);
+	GTextX1 = new QLabel("X1:", this );
+	freeGradientLayout->addWidget( GTextX1, 0, 0 );
+	GTextY1 = new QLabel("Y1:", this );
+	freeGradientLayout->addWidget( GTextY1, 1, 0 );
+	gX1 = new ScrSpinBox( -3000, 3000, this, 0);
+	freeGradientLayout->addWidget( gX1, 0, 1 );
+	gY1 = new ScrSpinBox( -3000, 3000, this, 0);
+	freeGradientLayout->addWidget( gY1, 1, 1 );
+	GTextX2 = new QLabel("X2:", this );
+	freeGradientLayout->addWidget( GTextX2, 0, 2 );
+	GTextY2 = new QLabel("Y2:", this );
+	freeGradientLayout->addWidget( GTextY2, 1, 2 );
+	gX2 = new ScrSpinBox( -3000, 3000, this, 0);
+	freeGradientLayout->addWidget( gX2, 0, 3 );
+	gY2 = new ScrSpinBox( -3000, 3000, this, 0);
+	freeGradientLayout->addWidget( gY2, 1, 3 );
+	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	languageChange();
+}
+
+void GradientVectorDialog::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+	else
+		QWidget::changeEvent(e);
+}
+
+void GradientVectorDialog::languageChange()
+{
+	setWindowTitle( tr( "Gradient Vector" ));
+	resize(minimumSizeHint());
+}
+
+void GradientVectorDialog::setValues(double x1, double y1, double x2, double y2)
+{
+	disconnect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	gX1->setValue(x1);
+	gX2->setValue(x2);
+	gY1->setValue(y1);
+	gY2->setValue(y2);
+	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+}
+
+void GradientVectorDialog::changeSpecial()
+{
+	emit NewSpecial(gX1->value(), gY1->value(), gX2->value(), gY2->value());
+}
+
+void GradientVectorDialog::unitChange(int unitIndex)
+{
+	disconnect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	gX1->setNewUnit(unitIndex);
+	gY1->setNewUnit(unitIndex);
+	gX2->setNewUnit(unitIndex);
+	gY2->setNewUnit(unitIndex);
+	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+}
 
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 {
@@ -67,6 +147,9 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	currentGradient = 0;
 	currentItem = NULL;
 	patternList = NULL;
+	CGradDia = NULL;
+	CGradDia = new GradientVectorDialog(this->parentWidget());
+	CGradDia->hide();
 	Form1Layout = new QVBoxLayout(this);
 	Form1Layout->setMargin(0);
 	Form1Layout->setSpacing(0);
@@ -106,12 +189,10 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	GradLayout->addWidget( gradientQCombo );
 	gradEdit = new GradientEditor(this);
 	GradLayout->addWidget(gradEdit, Qt::AlignHCenter);
-	freeGradientQFrame = new QFrame( this );
+/*	freeGradientQFrame = new QFrame( this );
 	freeGradientQFrame->setFrameShape( QFrame::NoFrame );
 	freeGradientQFrame->setFrameShadow( QFrame::Plain );
 	freeGradientLayout = new QGridLayout( freeGradientQFrame);
-	Form1Layout->setMargin(5);
-	Form1Layout->setSpacing(5);
 	GTextX1 = new QLabel("X1:", freeGradientQFrame );
 	freeGradientLayout->addWidget( GTextX1, 0, 0 );
 	GTextY1 = new QLabel("Y1:", freeGradientQFrame );
@@ -131,7 +212,12 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	gradEditButton = new QToolButton(freeGradientQFrame);
 	gradEditButton->setCheckable(true);
 	freeGradientLayout->addWidget(gradEditButton, 2, 0, 1, 4);
-	GradLayout->addWidget( freeGradientQFrame );
+	GradLayout->addWidget( freeGradientQFrame ); */
+	gradEditButton = new QToolButton(this);
+	gradEditButton->setCheckable(true);
+	GradLayout->addWidget(gradEditButton);
+	Form1Layout->setMargin(5);
+	Form1Layout->setSpacing(5);
 	Form1Layout->addLayout(GradLayout);
 	colorListQLBox = new ColorListBox(this);
 	colorListQLBox->setMinimumSize( QSize( 150, 30 ) );
@@ -245,10 +331,6 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
-	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	connect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	connect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
@@ -259,8 +341,10 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(gradEdit->Preview, SIGNAL(currTrans(double )), this, SLOT(setGradTrans(double )));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(gradEdit->Preview, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
-	connect(gradEditButton, SIGNAL(clicked()), this, SIGNAL(editGradient()));
+	connect(gradEditButton, SIGNAL(clicked()), this, SLOT(editGradientVector()));
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
+	connect(CGradDia, SIGNAL(NewSpecial(double, double, double, double)), this, SIGNAL(NewSpecial(double, double, double, double)));
+	connect(CGradDia, SIGNAL(paletteShown(bool)), this, SLOT(setActiveGradDia(bool)));
 }
 
 void Cpalette::setCurrentItem(PageItem* item)
@@ -283,7 +367,7 @@ void Cpalette::updateFromItem()
 		return;
 	if (!currentDoc)
 		return;
-	freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+	gradEditButton->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 	gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 	patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 	gradientQCombo->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
@@ -305,8 +389,8 @@ void Cpalette::updateFromItem()
 		gradEdit->Preview->fill_gradient = currentItem->fill_gradient;
 		gradientQCombo->setCurrentIndex(currentItem->GrType);
 		gradEdit->Preview->updateDisplay();
-		double dur = currentDoc->unitRatio();
-		setSpecialGradient(currentItem->GrStartX * dur, currentItem->GrStartY * dur, currentItem->GrEndX * dur, currentItem->GrEndY * dur);
+//		double dur = currentDoc->unitRatio();
+//		setSpecialGradient(currentItem->GrStartX * dur, currentItem->GrStartY * dur, currentItem->GrEndX * dur, currentItem->GrEndY * dur);
 	}
 	if (patternList->count() == 0)
 	{
@@ -318,7 +402,7 @@ void Cpalette::updateFromItem()
 		if (gradientQCombo->count() < 9)		// readd the Pattern entry
 			gradientQCombo->addItem( tr("Pattern"));
 	}
-	freeGradientLayout->activate();
+//	freeGradientLayout->activate();
 	GradLayout->activate();
 	Form1Layout->activate();
 	layout()->activate();
@@ -332,8 +416,8 @@ void Cpalette::InhaltButton()
 	{
 		Mode = 1;
 		Innen->setChecked(false);
-		freeGradientQFrame->hide();
-		freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		gradEditButton->hide();
+		gradEditButton->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		gradientQCombo->hide();
 		gradientQCombo->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		gradEdit->hide();
@@ -344,11 +428,11 @@ void Cpalette::InhaltButton()
 		colorListQLBox->show();
 		displayAllColors->show();
 		GradientMode = false;
-		freeGradientLayout->activate();
+//		freeGradientLayout->activate();
 		GradLayout->activate();
 		Form1Layout->activate();
 		layout()->activate();
-		freeGradientQFrame->updateGeometry();
+		gradEditButton->updateGeometry();
 		gradEdit->updateGeometry();
 		colorListQLBox->updateGeometry();
 //		updateCList();
@@ -376,20 +460,20 @@ void Cpalette::InnenButton()
 			}
 			if (gradientQCombo->currentIndex() > 5)
 			{
-				freeGradientQFrame->show();
-				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+				gradEditButton->show();
+				gradEditButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 			}
 			else
 			{
-				freeGradientQFrame->hide();
-				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+				gradEditButton->hide();
+				gradEditButton->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			}
 		}
-		freeGradientLayout->activate();
+//		freeGradientLayout->activate();
 		GradLayout->activate();
 		Form1Layout->activate();
 		layout()->activate();
-		freeGradientQFrame->updateGeometry();
+		gradEditButton->updateGeometry();
 		gradEdit->updateGeometry();
 		colorListQLBox->updateGeometry();
 		updateGeometry();
@@ -431,12 +515,6 @@ void Cpalette::updatePatternList()
 		if (gradientQCombo->count() < 9)		// readd the Pattern entry
 			gradientQCombo->addItem( tr("Pattern"));
 	}
-	// Qt4 gradientQCombo->listBox()->item(8)->setSelectable(patternList->count() != 0);
-	/* qt4 FIXME
-	QStandardItem* si=dynamic_cast<QStandardItem*>(gradientQCombo->view()->children().at(8));
-	if (si)
-		si->setSelectable(patternList->count() != 0);
-	*/
 	patternBox->clearSelection();
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 }
@@ -651,9 +729,9 @@ void Cpalette::ChooseGrad(int number)
 		if (number == 8)
 		{
 			PM1->setEnabled(false);
-			freeGradientQFrame->hide();
+			gradEditButton->hide();
 			gradEdit->hide();
-			freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			gradEditButton->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			colorListQLBox->hide();
 			colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
@@ -670,13 +748,13 @@ void Cpalette::ChooseGrad(int number)
 			gradEdit->show();
 			if (gradientQCombo->currentIndex() > 5)
 			{
-				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-				freeGradientQFrame->show();
+				gradEditButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+				gradEditButton->show();
 			}
 			else
 			{
-				freeGradientQFrame->hide();
-				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+				gradEditButton->hide();
+				gradEditButton->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			}
 			colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 			colorListQLBox->show();
@@ -688,19 +766,19 @@ void Cpalette::ChooseGrad(int number)
 		PM1->setEnabled(true);
 		patternFrame->hide();
 		patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-		freeGradientQFrame->hide();
+		gradEditButton->hide();
 		gradEdit->hide();
-		freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+//		freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 		colorListQLBox->show();
 		displayAllColors->show();
 	}
-	freeGradientLayout->activate();
+//	freeGradientLayout->activate();
 	GradLayout->activate();
 	Form1Layout->activate();
 	layout()->activate();
-	freeGradientQFrame->updateGeometry();
+	gradEditButton->updateGeometry();
 	gradEdit->updateGeometry();
 	colorListQLBox->updateGeometry();
 	updateGeometry();
@@ -789,23 +867,32 @@ void Cpalette::setActGradient(int typ)
 
 void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2)
 {
-	disconnect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	gX1->setValue(x1);
-	gX2->setValue(x2);
-	gY1->setValue(y1);
-	gY2->setValue(y2);
-	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	if (CGradDia)
+		CGradDia->setValues(x1, y1, x2, y2);
 }
 
-void Cpalette::changeSpecial()
+void Cpalette::editGradientVector()
 {
-	emit NewSpecial(gX1->value(), gY1->value(), gX2->value(), gY2->value());
+	if (gradEditButton->isChecked())
+	{
+		CGradDia->unitChange(currentDoc->unitIndex());
+		CGradDia->setValues(currentItem->GrStartX, currentItem->GrStartY, currentItem->GrEndX, currentItem->GrEndY);
+		CGradDia->show();
+	}
+	else
+	{
+		CGradDia->hide();
+	}
+	emit editGradient();
+}
+
+void Cpalette::setActiveGradDia(bool active)
+{
+	if (!active)
+	{
+		gradEditButton->setChecked(false);
+		emit editGradient();
+	}
 }
 
 void Cpalette::setActShade()
@@ -868,24 +955,14 @@ void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, doub
 
 void Cpalette::unitChange(double oldUnitRatio, double newUnitRatio, int unitIndex)
 {
-	disconnect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	disconnect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	disconnect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	disconnect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
-	gX1->setNewUnit(unitIndex);
-	gY1->setNewUnit(unitIndex);
-	gX2->setNewUnit(unitIndex);
-	gY2->setNewUnit(unitIndex);
 	spinXoffset->setNewUnit(unitIndex);
 	spinYoffset->setNewUnit(unitIndex);
-	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
-	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	connect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	connect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+	if (CGradDia)
+		CGradDia->unitChange(unitIndex);
 }
 
 void Cpalette::changeEvent(QEvent *e)
@@ -901,10 +978,6 @@ void Cpalette::changeEvent(QEvent *e)
 void Cpalette::languageChange()
 {
 	QString ptSuffix=tr(" pt");
-	gX1->setSuffix(ptSuffix);
-	gY1->setSuffix(ptSuffix);
-	gX2->setSuffix(ptSuffix);
-	gY2->setSuffix(ptSuffix);
 	QString pctSuffix=tr(" %");
 	PM1->setSuffix(pctSuffix);
 	TransSpin->setSuffix(pctSuffix);
@@ -923,10 +996,6 @@ void Cpalette::languageChange()
 
 	ShadeTxt->setText( tr( "Shade:" ) );
 	TransTxt->setText( tr( "Opacity:" ) );
-	GTextX1->setText( tr( "X1:"));
-	GTextY1->setText( tr( "Y1:" ));
-	GTextX2->setText( tr( "X2:" ));
-	GTextY2->setText( tr( "Y2:" ));
 	gradEditButton->setText( tr("Move Vector"));
 
 	int oldGradient=gradientQCombo->currentIndex();

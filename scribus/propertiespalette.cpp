@@ -3848,6 +3848,9 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 		CurItem->GrEndX = x2 / m_unitRatio;
 		CurItem->GrEndY = y2 / m_unitRatio;
 		CurItem->update();
+		QRectF upRect(QPointF(CurItem->GrStartX, CurItem->GrStartY), QPointF(CurItem->GrEndX, CurItem->GrEndY));
+		upRect.translate(CurItem->xPos(), CurItem->yPos());
+		doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
 		emit DocChanged();
 	}
 }
@@ -4802,8 +4805,7 @@ void PropertiesPalette::updateColorSpecialGradient()
 	double dur=doc->unitRatio();
 	PageItem *currItem=doc->m_Selection->itemAt(0);
 	if (currItem)
-		Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
-								currItem->GrEndX * dur, currItem->GrEndY * dur);
+		Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur, currItem->GrEndX * dur, currItem->GrEndY * dur);
 }
 
 void PropertiesPalette::updateSpinBoxConstants()

@@ -44,6 +44,7 @@ class QVBoxLayout;
 #include "scribusapi.h"
 #include "gradienteditor.h"
 #include "scribusdoc.h"
+#include "scrpalettebase.h"
 
 class PageItem;
 class ColorListBox;
@@ -55,6 +56,37 @@ class LinkButton;
 /**
   *@author Franz Schmid
   */
+
+class SCRIBUS_API GradientVectorDialog : public ScrPaletteBase
+{
+	Q_OBJECT
+
+public:
+	GradientVectorDialog( QWidget* parent);
+	~GradientVectorDialog() {};
+	virtual void changeEvent(QEvent *e);
+
+public slots:
+	void languageChange();
+	void setValues(double x1, double y1, double x2, double y2);
+	void changeSpecial();
+	void unitChange(int unitIndex);
+
+signals:
+	void NewSpecial(double, double, double, double);
+
+protected:
+	QGridLayout* freeGradientLayout;
+	QLabel* GTextX1;
+	QLabel* GTextY1;
+	QLabel* GTextX2;
+	QLabel* GTextY2;
+	ScrSpinBox* gY1;
+	ScrSpinBox* gX2;
+	ScrSpinBox* gX1;
+	ScrSpinBox* gY2;
+};
+
 class SCRIBUS_API Cpalette : public QWidget
 {
 	Q_OBJECT
@@ -93,7 +125,8 @@ public slots:
 	void setActGradient(int typ);
 	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
 	void setSpecialGradient(double x1, double y1, double x2, double y2);
-	void changeSpecial();
+	void editGradientVector();
+	void setActiveGradDia(bool active);
 	void setActShade();
 	void setActTrans(double, double);
 	void changeBlendMode(int);
@@ -126,7 +159,7 @@ protected:
 	QHBoxLayout* Layout1;
 	QGridLayout* Layout1t;
 	QVBoxLayout* GradLayout;
-	QGridLayout* freeGradientLayout;
+//	QGridLayout* freeGradientLayout;
 	QPixmap alertIcon;
 	QPixmap cmykIcon;
 	QPixmap rgbIcon;
@@ -160,7 +193,8 @@ protected:
 	QSpinBox *PM1;
 	QComboBox* gradientQCombo;
 	GradientEditor* gradEdit;
-	QFrame* freeGradientQFrame;
+	GradientVectorDialog* CGradDia;
+/*	QFrame* freeGradientQFrame;
 	QLabel* GTextX1;
 	QLabel* GTextY1;
 	QLabel* GTextX2;
@@ -168,7 +202,7 @@ protected:
 	ScrSpinBox* gY1;
 	ScrSpinBox* gX2;
 	ScrSpinBox* gX1;
-	ScrSpinBox* gY2;
+	ScrSpinBox* gY2; */
 	QToolButton *gradEditButton;
 	QLabel* TransTxt;
 	QLabel* TransTxt2;
