@@ -148,7 +148,7 @@ void replaceColorsDialog::updateReplacementTable()
 				tW2 = new QTableWidgetItem(CommonStrings::tr_NoneColor);
 			else
 				tW2 = new QTableWidgetItem(getColorIcon(it.value()), it.value());
-			tW->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+			tW2->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 			replacementTable->setItem(row, 1, tW2);
 			row++;
 		}
