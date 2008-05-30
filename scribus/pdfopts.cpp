@@ -255,7 +255,8 @@ void PDFExportDialog::updateDocOptions()
 	Opts.UseLPI = Options->UseLPI->isChecked();
 	Opts.useLayers = Options->useLayers->isChecked();
 	Opts.UseSpotColors = !Options->useSpot->isChecked();
-	Opts.doOverprint = Options->overprintMode->isChecked();
+//	Opts.doOverprint = Options->overprintMode->isChecked();
+	Opts.doOverprint = false;
 	Opts.displayBookmarks = Options->useBookmarks->isChecked();
 	Opts.displayFullscreen = Options->useFullScreen->isChecked();
 	Opts.displayLayers = Options->useLayers2->isChecked();

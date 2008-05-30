@@ -689,6 +689,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 
 	overprintMode = new QCheckBox( tr( "Force Overprint Mode" ), tabColor);
 	tabColorLayout->addWidget( overprintMode );
+	overprintMode->hide();
 
 	UseLPI = new QCheckBox( tr( "&Use Custom Rendering Settings" ), tabColor);
 	tabColorLayout->addWidget( UseLPI );
@@ -1633,7 +1634,7 @@ void TabPDFOptions::EnableLPI(int a)
 			ProfsGroup->hide();
 		}
 		useSpot->show();
-		overprintMode->show();
+//		overprintMode->show();
 		if (doc!=0)
 		{
 			UseLPI->show();
