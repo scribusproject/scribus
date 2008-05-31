@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "filewatcher.h"
 #include "latexeditor.h"
 #include "latexhelpers.h"
+#include "util.h"
 
 
 PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
@@ -70,7 +71,7 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	
 	QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_render_XXXXXX");
 	tempfile->open();
-	tempFileBase = tempfile->fileName();
+	tempFileBase = getLongPathName(tempfile->fileName());
 	tempfile->close();
 	delete tempfile;
 	Q_ASSERT(!tempFileBase.isEmpty());
@@ -281,27 +282,27 @@ void PageItem_LatexFrame::runApplication()
 	{
 		firstWarningLatexMissing = true;
 	}
+
+	QStringList commands_args = full_command.split(' ', QString::SkipEmptyParts);
+	QString     prog_name = commands_args.first();
+	commands_args.removeFirst();
 	
 	if (full_command.contains("%file")) {
-		full_command.replace("%file", tempFileBase);
+		commands_args.replaceInStrings("%file", QDir::toNativeSeparators(tempFileBase));
 	} else {
-		full_command += " " + tempFileBase;
+		commands_args.append(QDir::toNativeSeparators(tempFileBase));
 	}
 	if (full_command.contains("%dir")) {
-		full_command.replace("%dir", QDir::tempPath());
+		commands_args.replaceInStrings("%dir", QDir::toNativeSeparators(QDir::tempPath()));
 	}
 	latex->setWorkingDirectory(QDir::tempPath());
-	
-#ifdef _WIN32
-	full_command.replace("\"", "\"\"\""); //Required by QT on windows
-#endif
 	
 	imageFile = tempFileBase + config->imageExtension();
 
 	writeFileContents(&tempfile);
 	tempfile.close();
 	
-	latex->start(full_command);
+	latex->start(prog_name, commands_args);
 	emit stateChanged(QProcess::Starting);
 }
 
@@ -332,17 +333,22 @@ void PageItem_LatexFrame::runEditor()
 	
 	writeEditorFile(); //This must be at this position, because it sets editorFile
 	
+	QString editorFilePath = QString("\"%1\"").arg(editorFile);
+	QString tempFilePath   = getLongPathName(QDir::tempPath());
 	if (full_command.contains("%file")) {
-		full_command.replace("%file", editorFile);
+		full_command.replace("%file", QDir::toNativeSeparators(editorFilePath));
 	} else {
-		full_command += " " + editorFile;
+		full_command += " " + QDir::toNativeSeparators(editorFilePath);
 	}
-	full_command.replace("%dir", QDir::tempPath());
+	full_command.replace("%dir", QDir::toNativeSeparators(tempFilePath));
 	editor->setWorkingDirectory(QDir::tempPath());
-	
+
+/* Comment out as this will prevent editor to open files whose name contains space.
+   That will almost certainly happen, as temporary filenames are located in 
+   the "Document and Settings" directory , and hence have spaces in their names)
 #ifdef _WIN32
 	full_command.replace("\"", "\"\"\""); //Required by QT on windows
-#endif
+#endif */
 	editor->start(full_command);
 }
 
@@ -417,7 +423,7 @@ void PageItem_LatexFrame::writeEditorFile()
 				tr("Could not create a temporary file to run the external editor!") 
 				+ "</qt>", 1, 0, 0);
 		}
-		editorFile = editortempfile->fileName();
+		editorFile = getLongPathName(editortempfile->fileName());
 		editortempfile->setAutoRemove(false);
 		editortempfile->close();
 		delete editortempfile;

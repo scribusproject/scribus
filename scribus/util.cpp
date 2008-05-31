@@ -137,7 +137,25 @@ QString getShortPathName(const QString & longPath)
 	return shortPath;
 }
 
-
+// On Windows, return short path name, else return longPath;
+QString getLongPathName(const QString & shortPath)
+{
+	QString longPath(shortPath);
+#if defined _WIN32
+	QFileInfo fInfo(longPath);
+	if (fInfo.exists())
+	{
+		WCHAR longName[MAX_PATH + 1];
+		// An error should not be blocking as ERROR_INVALID_PARAMETER can simply mean
+		// that volume does not support long filenames, so return shortPath in this case
+		QString nativePath = QDir::convertSeparators(shortPath);
+		int ret = GetLongPathNameW((LPCWSTR) nativePath.utf16(), longName, MAX_PATH);
+		if (ret != ERROR_INVALID_PARAMETER && ret < MAX_PATH)
+			longPath = QString::fromUtf16((const ushort*) longName);
+	}
+#endif
+	return longPath;
+}
 
 QString GetAttr(QDomElement *el, QString at, QString def)
 {

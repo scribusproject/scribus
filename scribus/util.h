@@ -111,6 +111,11 @@ QString SCRIBUS_API checkFileExtension(const QString & currName, const QString &
 \retval QString transformed path
 */
 QString SCRIBUS_API getShortPathName(const QString & longPath);
+/*! \brief On Windows, return long path name, else return shortPath
+\param shortPath the short path
+\retval QString transformed path
+*/
+QString SCRIBUS_API getLongPathName(const QString & shortPath);
 /*! \brief Creates a common name for page exports (SVG, bitmap, EPS).
    Output format is: documentname-page01.extension
    \param currDoc a reference to the ScribusDoc document
