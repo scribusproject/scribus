@@ -110,6 +110,7 @@ void PathAlongPathPlugin::deleteAboutData(const AboutData* about) const
 
 bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 {
+	firstUpdate = true;
 	currDoc = doc;
 	if (currDoc == 0)
 		currDoc = ScCore->primaryMainWindow()->doc;
@@ -160,6 +161,7 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 		patternItem->ClipEdited = true;
 		patternItem->FrameType = 3;
 		patternItem->setXYPos(originalXPos, originalYPos);
+		firstUpdate = true;
 	}
 	else
 	{
@@ -179,7 +181,16 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 	patternItem->OldB2 = patternItem->width();
 	patternItem->OldH2 = patternItem->height();
 	patternItem->updateClip();
-	currDoc->view()->DrawNew();
+	if (firstUpdate)
+		currDoc->view()->DrawNew();
+	else
+	{
+		QRectF oldR(pathItem->getBoundingRect());
+		QRectF newR(patternItem->getBoundingRect());
+		currDoc->regionsChanged()->update(newR.unite(oldR));
+	}
+	if (effectType != -1)
+		firstUpdate = false;
 }
 
 FPointArray

@@ -69,6 +69,7 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		double originalXPos;
 		double originalYPos;
 		ScribusDoc* currDoc;
+		bool firstUpdate;
 	public slots:
 		void updateEffect(int effectType, double offset, double offsetY, double gap, bool rotate);
 
