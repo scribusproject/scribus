@@ -200,7 +200,7 @@ bool OODPlug::import( QString fileName, int flags )
 {
 	bool importDone = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	QString f, f2, f3;
+	QCString f, f2, f3;
 	if ( !QFile::exists(fileName) )
 		return false;
 	m_styles.setAutoDelete( true );
@@ -213,10 +213,10 @@ bool OODPlug::import( QString fileName, int flags )
 	{
 		QString docname = fileName.right(fileName.length() - fileName.findRev("/") - 1);
 		docname = docname.left(docname.findRev("."));
-		loadText(stylePath, &f);
+		loadRawText(stylePath, f);
 		if(!inpStyles.setContent(f))
 			return false;
-		loadText(contentPath, &f2);
+		loadRawText(contentPath, f2);
 		if(!inpContents.setContent(f2))
 			return false;
 		QFile f1(stylePath);
@@ -226,7 +226,7 @@ bool OODPlug::import( QString fileName, int flags )
 		if (metaPath != NULL)
 		{
 			HaveMeta = true;
-			loadText(metaPath, &f3);
+			loadRawText(metaPath, f3);
 			if(!inpMeta.setContent(f3))
 				HaveMeta = false;
 			QFile f3(metaPath);
