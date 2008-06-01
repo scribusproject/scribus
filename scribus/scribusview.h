@@ -344,6 +344,7 @@ private slots:
 protected: // Protected methods
 	virtual void viewportPaintEvent ( QPaintEvent * p );
 	virtual void drawContents(QPainter *p, int clipx, int clipy, int clipw, int cliph);
+	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);
 	virtual void contentsDragEnterEvent(QDragEnterEvent *e);
 	virtual void contentsDragMoveEvent(QDragMoveEvent *e);

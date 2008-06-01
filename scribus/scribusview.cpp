@@ -877,6 +877,12 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	p->setZoomFactor(z);
 }
 
+void ScribusView::enterEvent(QEvent *)
+{
+	if (Doc->appMode == modePanning)
+		qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
+}
+
 void ScribusView::leaveEvent(QEvent *)
 {
 /*	if (BlockLeave)
