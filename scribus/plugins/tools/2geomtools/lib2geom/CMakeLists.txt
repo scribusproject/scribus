@@ -1,4 +1,4 @@
-PROJECT(lib2geom CXX)
+# PROJECT(lib2geom CXX)
 SET(2GEOM_VERSION 0.1.0)
 #CB SET(CMAKE_BACKWARDS_COMPATIBILITY 2.4)
 #CB SET(CMAKE_INCLUDE_CURRENT_DIR TRUE)
@@ -15,11 +15,6 @@ SET(2GEOM_VERSION 0.1.0)
 #CB SET(CMAKE_CXX_FLAGS "-Wall")
 #CB SET(CMAKE_MAKE_PROGRAM "${CMAKE_MAKE_PROGRAM}")
 # We need to pass -fPIC only to lib2geom on amd64 - avoid it elsewhere see: http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=3
-
-STRING(REGEX MATCH "(x86_64-*)|(X86_64-*)|(AMD64-*)|(amd64-*)" _machine_x86_64 "${MACHINE}")
-IF (_machine_x86_64)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fPIC")
-ENDIF (_machine_x86_64)
 
 OPTION(2GEOM_BUILD_SHARED
   "Build lib2geom and libtoy as shared libraries."

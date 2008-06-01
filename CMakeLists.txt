@@ -308,6 +308,12 @@ ELSE(APPLE)
     # vanilla gcc
     SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -fstrict-aliasing")
     SET(CMAKE_C_FLAGS_DEBUG "-O0 -g3 -Wall -fstrict-aliasing")
+    
+    IF (_machine_x86 OR _machine_x86_64)
+      SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fPIC")
+      SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fPIC")
+    ENDIF (_machine_x86 OR _machine_x86_64)
+    
   ENDIF(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
 ENDIF(APPLE)
 
