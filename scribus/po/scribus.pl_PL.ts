@@ -1,5 +1,4 @@
 <!DOCTYPE TS><TS>
-<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -2401,7 +2400,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>Lista dyskusyjna</translation>
+        <translation type="obsolete">Lista dyskusyjna</translation>
     </message>
     <message>
         <source>Official Translations and Translators:</source>
@@ -2514,6 +2513,14 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation>Wersja dla OS/2&amp;#174;/eComStation&amp;#8482;:</translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation>Blog autorów Scribusa</translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
+        <translation>Listy dyskusyjne</translation>
     </message>
 </context>
 <context>
@@ -3565,7 +3572,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>&amp;Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zarządzanie obrazkami</translation>
     </message>
 </context>
 <context>
@@ -5259,11 +5266,11 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
     </message>
     <message>
         <source>&amp;RGB Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazki R&amp;GB:</translation>
     </message>
     <message>
         <source>&amp;CMYK Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazki &amp;CMYK:</translation>
     </message>
 </context>
 <context>
@@ -5399,7 +5406,7 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     <message>
         <source>You cannot create a color without a name
 Please give it a name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można utworzyć koloru bez nazwy. Proszę nadać nazwę</translation>
     </message>
 </context>
 <context>
@@ -8106,6 +8113,10 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
         <source>Exclusion</source>
         <translation>Wyjątek</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Zamknij</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -8156,6 +8167,10 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <source>Colorspace:</source>
         <translation>Przestrzeń barw:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation>Wersja:</translation>
     </message>
 </context>
 <context>
@@ -8590,7 +8605,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Font Preview</source>
-        <translation type="unfinished">Podgląd fontów</translation>
+        <translation>Podgląd fontów</translation>
     </message>
 </context>
 <context>
@@ -11292,11 +11307,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>to Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>na obszar roboczy</translation>
     </message>
     <message>
         <source>to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>na stronę</translation>
     </message>
 </context>
 <context>
@@ -12126,7 +12141,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Goto</source>
-        <translation>Idź do</translation>
+        <translation type="obsolete">Idź do</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -12174,7 +12189,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Zarządzanie obrazkami</translation>
+    </message>
+    <message>
+        <source>Go to</source>
+        <translation>Idź do</translation>
     </message>
 </context>
 <context>
@@ -13095,11 +13114,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj obrazki</translation>
     </message>
     <message>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącza lub wyłącza wyświetlanie obrazków</translation>
     </message>
 </context>
 <context>
@@ -13351,11 +13370,19 @@ Czy chcesz przejąć te pliki do nowej wersji Scribusa?</translation>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation>Niniejsza konsola pochodzi od standardowej konsoli Pythona i dlatego zawiera pewne ograniczenia, szczególnie jeśli chodzi o wolną przestrzeń. Zajrzyj do dokumentacji Scribusa, aby dowiedzieć się więcej.</translation>
+        <translation type="obsolete">Niniejsza konsola pochodzi od standardowej konsoli Pythona i dlatego zawiera pewne ograniczenia, szczególnie jeśli chodzi o wolną przestrzeń. Zajrzyj do dokumentacji Scribusa, aby dowiedzieć się więcej.</translation>
     </message>
     <message>
         <source>Open Python Script File</source>
         <translation>Otwórz skrypt w Pythonie</translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
+        <translation>Niniejsza konsola to standardowa konsola Pythona 
+z pewnymi znanymi ograniczeniami. Zajrzyj do dokumentacji 
+skryptownika Scribusa, aby dowiedzieć się więcej.</translation>
     </message>
 </context>
 <context>
@@ -15866,11 +15893,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj obrazki</translation>
     </message>
     <message>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącza lub wyłącza wyświetlanie obrazków</translation>
     </message>
 </context>
 <context>
@@ -17520,7 +17547,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Scribus </source>
-        <translation type="obsolete">Scribus </translation>
+        <translation>Scribus </translation>
     </message>
     <message>
         <source>Your document was saved to a temporary file and could not be moved: 
@@ -17835,7 +17862,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation type="unfinished">Obrazek</translation>
+        <translation>Obrazek</translation>
     </message>
 </context>
 <context>
@@ -19048,11 +19075,11 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation>Odstęp, w którego granicach obiekt przemieści się do linii pomocniczych</translation>
+        <translation type="obsolete">Odstęp, w którego granicach obiekt przemieści się do linii pomocniczych</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>Promień obszaru, w którym Scribus pozwoli ci na uchwycenie obiektu</translation>
+        <translation type="obsolete">Promień obszaru, w którym Scribus pozwoli ci na uchwycenie obiektu</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -19105,6 +19132,14 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
         <translation>Odstęp od górnej krawędzi strony to pierwszej linii pisma</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20069,7 +20104,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>&amp;Apply Effect to all Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Zastos&amp;uj efekt do wszystkich stron</translation>
     </message>
 </context>
 <context>
@@ -20389,27 +20424,27 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>&amp;Scale Image to Frame Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Dopas&amp;uj obrazek do rozmiaru ramki</translation>
     </message>
     <message>
         <source>Image Frame Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Właściwości ramki graficznej</translation>
     </message>
     <message>
         <source>Image frames allow images to scale to any size</source>
-        <translation type="unfinished"></translation>
+        <translation>Ramki graficzne pozwalają na skalowanie obrazków do dowolnego rozmiaru</translation>
     </message>
     <message>
         <source>Images in image frames are scaled to the size of the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazki w ramkach graficznych są skalowane to rozmiaru ramki</translation>
     </message>
     <message>
         <source>Automatically scaled images keep their original proportions</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatyczne skalowanie obrazków zachowuje ich oryginalne proporcje</translation>
     </message>
     <message>
         <source>Fill color of image frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolor wypełnienia ramek graficznych</translation>
     </message>
 </context>
 <context>
@@ -20604,7 +20639,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Period</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkt</translation>
     </message>
 </context>
 <context>
