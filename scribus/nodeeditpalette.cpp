@@ -761,6 +761,10 @@ void NodePalette::MoveK()
 		return;
 	doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
 	doc->nodeEdit.EdPoints = false;
+	doc->nodeEdit.ClRe = -1;
+	doc->nodeEdit.ClRe2 = -1;
+	doc->nodeEdit.SegP1 = -1;
+	doc->nodeEdit.SegP2 = -1;
 	if (doc->m_Selection->count() > 0)
 		doc->m_Selection->itemAt(0)->update();
 	SymMove->setEnabled(true);

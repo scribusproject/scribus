@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <utility>
 
 #include <QByteArray>
-//#include <QDebug>
+// #include <QDebug>
 #include <QEventLoop>
 #include <QFile>
 #include <QList>
@@ -10300,6 +10300,8 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, FPoint ip)
 void NodeEditContext::reset1Control(PageItem* currItem)
 {
 	ScribusDoc* Doc = currItem->doc();
+	if (ClRe % 2 == 0)
+		return;
 	UndoManager* undoManager = UndoManager::instance();
 
 	// do no record anything else but the core reset points action
@@ -10331,13 +10333,13 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 		currItem->PoLine.setPoint(Doc->nodeEdit.ClRe, np);
 		Doc->AdjustItemSize(currItem);
 	}
-	FPointArray cli;
-	if ((Doc->nodeEdit.isContourLine) && (currItem->ContourLine.size() != 0))
-		cli = currItem->ContourLine;
-	else
-		cli = currItem->PoLine;
-	//	MarkClip(currItem, cli, true);
-	Doc->update();
+//	FPointArray cli;
+//	if ((Doc->nodeEdit.isContourLine) && (currItem->ContourLine.size() != 0))
+//		cli = currItem->ContourLine;
+//	else
+//		cli = currItem->PoLine;
+//		MarkClip(currItem, cli, true);
+//	Doc->update();
 	
 	undoManager->setUndoEnabled(true);
 	FPointArray newClip(Doc->nodeEdit.isContourLine ? currItem->ContourLine : currItem->PoLine);
@@ -10385,9 +10387,15 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	if ((Doc->nodeEdit.ClRe == 0) || (Doc->nodeEdit.ClRe == static_cast<int>(currItem->PoLine.size()-2)))
 	{
 		if (Doc->nodeEdit.isContourLine)
-			currItem->ContourLine.setPoint(Doc->nodeEdit.ClRe+1, np);
+		{
+			currItem->ContourLine.setPoint(1, np);
+			currItem->ContourLine.setPoint(currItem->PoLine.size()-1, np);
+		}
 		else
-			currItem->PoLine.setPoint(Doc->nodeEdit.ClRe+1, np);
+		{
+			currItem->PoLine.setPoint(1, np);
+			currItem->PoLine.setPoint(currItem->PoLine.size()-1, np);
+		}
 	}
 	else
 	{
