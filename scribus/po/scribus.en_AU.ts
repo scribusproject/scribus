@@ -2727,10 +2727,6 @@ If &quot;name&quot; is not given the currently selected item is used.
       <translation>Bugs and Feature Requests</translation>
     </message>
     <message>
-      <source>Mailing List</source>
-      <translation>Mailing List</translation>
-    </message>
-    <message>
       <source>Official Translations and Translators:</source>
       <translation>Official Translations and Translators:</translation>
     </message>
@@ -2789,6 +2785,14 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
       <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
       <translation>OS/2&amp;#174;/eComStation&amp;#8482; Port:</translation>
+    </message>
+    <message>
+      <source>Developer Blog</source>
+      <translation>Developer Blog</translation>
+    </message>
+    <message>
+      <source>Mailing Lists</source>
+      <translation>Mailing Lists</translation>
     </message>
   </context>
   <context>
@@ -7549,6 +7553,10 @@ Use 72 dpi for Images intended for the Screen</translation>
       <source>Exclusion</source>
       <translation>Exclusion</translation>
     </message>
+    <message>
+      <source>&amp;Close</source>
+      <translation>&amp;Close</translation>
+    </message>
   </context>
   <context>
     <name>FDialogPreview</name>
@@ -7599,6 +7607,10 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
       <source>Colorspace:</source>
       <translation>Colourspace:</translation>
+    </message>
+    <message>
+      <source>Version:</source>
+      <translation>Version:</translation>
     </message>
   </context>
   <context>
@@ -10710,10 +10722,6 @@ Corners:</translation>
   <context>
     <name>PicStatus</name>
     <message>
-      <source>Goto</source>
-      <translation>Goto</translation>
-    </message>
-    <message>
       <source>Yes</source>
       <translation>Yes</translation>
     </message>
@@ -10772,6 +10780,10 @@ Corners:</translation>
     <message>
       <source>Manage Images</source>
       <translation>Manage Images</translation>
+    </message>
+    <message>
+      <source>Go to</source>
+      <translation>Go to</translation>
     </message>
   </context>
   <context>
@@ -11584,12 +11596,16 @@ Do you want to migrate them to the new Scribus version?</translation>
       <translation>Scribus Python Console</translation>
     </message>
     <message>
-      <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-      <translation>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</translation>
-    </message>
-    <message>
       <source>Open Python Script File</source>
       <translation>Open Python Script File</translation>
+    </message>
+    <message>
+      <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
+      <translation>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </translation>
     </message>
   </context>
   <context>
@@ -15999,14 +16015,6 @@ Vertical shift: %3</translation>
       <translation>Distance between the major grid lines</translation>
     </message>
     <message>
-      <source>Distance within which an object will snap to your placed guides</source>
-      <translation>Distance within which an object will snap to your placed guides</translation>
-    </message>
-    <message>
-      <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-      <translation>Radius of the area where Scribus will allow you to grab an objects handles</translation>
-    </message>
-    <message>
       <source>Color of the minor grid lines</source>
       <translation>Colour of the minor grid lines</translation>
     </message>
@@ -16057,6 +16065,14 @@ Vertical shift: %3</translation>
     <message>
       <source>Distance from the top of the page for the first baseline</source>
       <translation>Distance from the top of the page for the first baseline</translation>
+    </message>
+    <message>
+      <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+      <translation>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</translation>
+    </message>
+    <message>
+      <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+      <translation>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</translation>
     </message>
   </context>
   <context>
