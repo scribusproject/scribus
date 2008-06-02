@@ -4574,7 +4574,8 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 			ax = a;
 			for (int xx=0; xx<ax+1; ++xx)
 			{
-				if (nextItem->itemText.at(a)->ch == QChar(13))
+//				if (nextItem->itemText.at(a)->ch == QChar(13))
+				if ((nextItem->itemText.at(a)->ch == QChar(13)) && (!nextItem->itemText.at(a)->cselect))
 				{
 					cr = false;
 					break;
