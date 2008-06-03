@@ -2034,11 +2034,11 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Developer Blog</source>
-        <translation type="unfinished"></translation>
+        <translation>Блог разработчиков</translation>
     </message>
     <message>
         <source>Mailing Lists</source>
-        <translation type="unfinished"></translation>
+        <translation>Списки рассылки</translation>
     </message>
 </context>
 <context>
@@ -3010,7 +3010,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>&amp;Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Используемые изображения...</translation>
     </message>
 </context>
 <context>
@@ -4531,7 +4531,8 @@ It is a reserved name for transparent color</source>
     <message>
         <source>You cannot create a color without a name
 Please give it a name</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы неможете создать безымянный цвет.
+Дайте ему имя.</translation>
     </message>
 </context>
 <context>
@@ -6833,7 +6834,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Закрыть</translation>
+        <translation>&amp;Закрыть</translation>
     </message>
 </context>
 <context>
@@ -6888,7 +6889,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">Версия:</translation>
+        <translation>Версия:</translation>
     </message>
 </context>
 <context>
@@ -10759,11 +10760,11 @@ Corners:</source>
     </message>
     <message>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывать изображения</translation>
     </message>
     <message>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить или отключить показ растровых изображений</translation>
     </message>
 </context>
 <context>
@@ -10965,7 +10966,8 @@ Do you want to migrate them to the new Scribus version?</source>
         <source>This is a standard Python console with some 
 known limitations. Please consult the Scribus 
 Scripter documentation for futher information. </source>
-        <translation type="unfinished"></translation>
+        <translation>Это версия Python консоли с рядом ограничений.
+Подробности изложены в документации к сценаристу Scribus. </translation>
     </message>
 </context>
 <context>
@@ -13207,11 +13209,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывать изображения</translation>
     </message>
     <message>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить или отключить показ растровых изображений</translation>
     </message>
 </context>
 <context>
@@ -14382,7 +14384,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Image</source>
-        <translation type="unfinished">Изображение</translation>
+        <translation>Изображение</translation>
     </message>
 </context>
 <context>
@@ -15430,11 +15432,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Расстояние, начиная с которого объект начнет «прилипать» к направляющим линиям. Для учета этого изменения Scribus придется перезапустить.</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Радиус области, внутри которой можно захватывать точки контроля над объектом. Для учета этого изменения Scribus придется перезапустить.</translation>
     </message>
 </context>
 <context>
@@ -16208,7 +16210,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Apply Effect to all Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>П&amp;рименить ко всем страницам</translation>
     </message>
 </context>
 <context>
@@ -16531,27 +16533,28 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Scale Image to Frame Size</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Масштабировать до размера блока</translation>
     </message>
     <message>
         <source>Image Frame Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Свойства графического блока</translation>
     </message>
     <message>
         <source>Image frames allow images to scale to any size</source>
-        <translation type="unfinished"></translation>
+        <translation>Блоки позволяют произвольно масштабировать изображения</translation>
     </message>
     <message>
         <source>Images in image frames are scaled to the size of the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Изображения в блоке масштабируются под его размер</translation>
     </message>
     <message>
         <source>Automatically scaled images keep their original proportions</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматически масштабируемые изображения 
+сохраняют исходное соотношение сторон</translation>
     </message>
     <message>
         <source>Fill color of image frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Цвет заливки графических блоков</translation>
     </message>
 </context>
 <context>
