@@ -10310,8 +10310,6 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 	oldClip = new FPointArray(Doc->nodeEdit.isContourLine ? currItem->ContourLine.copy() : currItem->PoLine.copy());
 	oldItemX = currItem->xPos();
 	oldItemY = currItem->yPos();
-	//	isContourLine = Doc->nodeEdit.isContourLine;
-	
 	currItem->ClipEdited = true;
 	FPoint np;
 	if (Doc->nodeEdit.isContourLine)
@@ -10324,7 +10322,6 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 	{
 		currItem->ContourLine.setPoint(Doc->nodeEdit.ClRe, np);
 		Doc->regionsChanged()->update(QRectF());
-		//		currItem->Tinput = true;
 		currItem->FrameOnly = true;
 		currItem->update();
 	}
@@ -10333,14 +10330,6 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 		currItem->PoLine.setPoint(Doc->nodeEdit.ClRe, np);
 		Doc->AdjustItemSize(currItem);
 	}
-//	FPointArray cli;
-//	if ((Doc->nodeEdit.isContourLine) && (currItem->ContourLine.size() != 0))
-//		cli = currItem->ContourLine;
-//	else
-//		cli = currItem->PoLine;
-//		MarkClip(currItem, cli, true);
-//	Doc->update();
-	
 	undoManager->setUndoEnabled(true);
 	FPointArray newClip(Doc->nodeEdit.isContourLine ? currItem->ContourLine : currItem->PoLine);
 	if (*oldClip != newClip)
@@ -10373,59 +10362,58 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	oldClip = new FPointArray(Doc->nodeEdit.isContourLine ? currItem->ContourLine.copy() : currItem->PoLine.copy());
 	oldItemX = currItem->xPos();
 	oldItemY = currItem->yPos();
-	//	isContourLine = Doc->nodeEdit.isContourLine;
-	
 	currItem->ClipEdited = true;
-	FPoint np;
+	FPointArray Clip;
 	if (Doc->nodeEdit.isContourLine)
-		np = currItem->ContourLine.point(Doc->nodeEdit.ClRe);
+		Clip = currItem->ContourLine.copy();
 	else
-		np = currItem->PoLine.point(Doc->nodeEdit.ClRe);
-	
+		Clip = currItem->PoLine.copy();
+	int EndInd = Clip.size();
+	int StartInd = 0;
+	for (uint n = ClRe; n < Clip.size(); ++n)
+	{
+		if (Clip.point(n).x() > 900000)
+		{
+			EndInd = n;
+			break;
+		}
+	}
+	if (ClRe > 0)
+	{
+		for (uint n2 = ClRe; n2 > 0; n2--)
+		{
+			if (n2 == 0)
+				break;
+			if (Clip.point(n2).x() > 900000)
+			{
+				StartInd = n2 + 1;
+				break;
+			}
+		}
+	}
+	FPoint np = Clip.point(Doc->nodeEdit.ClRe);
 	currItem->OldB2 = currItem->width();
 	currItem->OldH2 = currItem->height();
-	if ((Doc->nodeEdit.ClRe == 0) || (Doc->nodeEdit.ClRe == static_cast<int>(currItem->PoLine.size()-2)))
+	if ((Doc->nodeEdit.ClRe == StartInd) || (Doc->nodeEdit.ClRe == EndInd-2))
 	{
-		if (Doc->nodeEdit.isContourLine)
-		{
-			currItem->ContourLine.setPoint(1, np);
-			currItem->ContourLine.setPoint(currItem->PoLine.size()-1, np);
-		}
-		else
-		{
-			currItem->PoLine.setPoint(1, np);
-			currItem->PoLine.setPoint(currItem->PoLine.size()-1, np);
-		}
+		Clip.setPoint(StartInd+1, np);
+		Clip.setPoint(EndInd-1, np);
 	}
 	else
 	{
-		if (Doc->nodeEdit.isContourLine)
-		{
-			currItem->ContourLine.setPoint(Doc->nodeEdit.ClRe+1, np);
-			currItem->ContourLine.setPoint((Doc->nodeEdit.ClRe % 4 != 0 ? Doc->nodeEdit.ClRe + 3 : Doc->nodeEdit.ClRe - 1), np);
-		}
-		else
-		{
-			currItem->PoLine.setPoint(Doc->nodeEdit.ClRe+1, np);
-			currItem->PoLine.setPoint((Doc->nodeEdit.ClRe % 4 != 0 ? Doc->nodeEdit.ClRe + 3 : Doc->nodeEdit.ClRe - 1), np);
-		}
+		Clip.setPoint(Doc->nodeEdit.ClRe+1, np);
+		Clip.setPoint((Doc->nodeEdit.ClRe % 4 != 0 ? Doc->nodeEdit.ClRe + 3 : Doc->nodeEdit.ClRe - 1), np);
 	}
 	if (!Doc->nodeEdit.isContourLine)
+	{
+		currItem->PoLine = Clip.copy();
 		Doc->AdjustItemSize(currItem);
+	}
 	else
 	{
+		currItem->ContourLine = Clip.copy();
 		Doc->regionsChanged()->update(QRectF());
-		//		currItem->Tinput = true;
-		//		currItem->FrameOnly = true;
-		//		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
 	}
-	FPointArray cli;
-	if ((Doc->nodeEdit.isContourLine) && (currItem->ContourLine.size() != 0))
-		cli = currItem->ContourLine;
-	else
-		cli = currItem->PoLine;
-	//	MarkClip(currItem, cli, true);
-	
 	Doc->update();
 	
 	undoManager->setUndoEnabled(true);
