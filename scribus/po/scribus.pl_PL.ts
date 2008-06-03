@@ -17547,7 +17547,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Scribus </source>
-        <translation>Scribus </translation>
+        <translation type="obsolete">Scribus </translation>
     </message>
     <message>
         <source>Your document was saved to a temporary file and could not be moved: 

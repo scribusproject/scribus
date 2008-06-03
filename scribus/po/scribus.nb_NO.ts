@@ -2108,7 +2108,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>E-postliste</translation>
+        <translation type="obsolete">E-postliste</translation>
     </message>
     <message>
         <source>About Scribus %1</source>
@@ -2161,6 +2161,14 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation>OS/2&amp;#174;/eComStation&amp;#8482; Port:</translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6948,6 +6956,10 @@ Bruk 72 ppt på bilder som bare skal vises på skjerm</translation>
         <source>Paths</source>
         <translation>Stier</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -6998,6 +7010,10 @@ Bruk 72 ppt på bilder som bare skal vises på skjerm</translation>
     <message>
         <source>Colorspace:</source>
         <translation>Fargeområde:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Versjon:</translation>
     </message>
 </context>
 <context>
@@ -10152,7 +10168,7 @@ Corners:</source>
     </message>
     <message>
         <source>Goto</source>
-        <translation>Gå til</translation>
+        <translation type="obsolete">Gå til</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -10196,6 +10212,10 @@ Corners:</source>
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11032,11 +11052,17 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation>Dette skallet er hentet fra et standard Python-skall og har derfor noen begrensninger, spesielt når det gjelder mellomrom. Se håndboka for Scribus for mer informasjon.</translation>
+        <translation type="obsolete">Dette skallet er hentet fra et standard Python-skall og har derfor noen begrensninger, spesielt når det gjelder mellomrom. Se håndboka for Scribus for mer informasjon.</translation>
     </message>
     <message>
         <source>Open Python Script File</source>
         <translation>Åpne en Pythonskript-fil</translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15537,11 +15563,11 @@ Loddrett forskyvning: %3</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation>Festeområde for hjelpelinjene, objekter nærmere enn dette vil festes til dem</translation>
+        <translation type="obsolete">Festeområde for hjelpelinjene, objekter nærmere enn dette vil festes til dem</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>Radiusen på området der Scribus vil la deg gripe håndtakene til et objekt</translation>
+        <translation type="obsolete">Radiusen på området der Scribus vil la deg gripe håndtakene til et objekt</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -15586,6 +15612,14 @@ Loddrett forskyvning: %3</translation>
     <message>
         <source>Turns the margins on or off</source>
         <translation>Slå av eller på marglinjene</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

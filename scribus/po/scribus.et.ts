@@ -1760,7 +1760,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>Meililist</translation>
+        <translation type="obsolete">Meililist</translation>
     </message>
     <message>
         <source>&amp;Online</source>
@@ -1780,6 +1780,14 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6684,6 +6692,10 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <source>Paths</source>
         <translation>Trajektoorid</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">S&amp;ulge</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -6734,6 +6746,10 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     <message>
         <source>Scribus Document</source>
         <translation>Scribuse dokument</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Versioon:</translation>
     </message>
 </context>
 <context>
@@ -10201,7 +10217,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Goto</source>
-        <translation>Liigu</translation>
+        <translation type="obsolete">Liigu</translation>
     </message>
     <message>
         <source>Select a base directory for search</source>
@@ -10221,6 +10237,10 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11037,7 +11057,7 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation>Selle aluseks on standardne Pythoni konsool, mistõttu selles on teatud piiranguid, eriti tühimärkide kasutamises. Täpsemalt räägib sellest Scribuse käsiraamat.</translation>
+        <translation type="obsolete">Selle aluseks on standardne Pythoni konsool, mistõttu selles on teatud piiranguid, eriti tühimärkide kasutamises. Täpsemalt räägib sellest Scribuse käsiraamat.</translation>
     </message>
     <message>
         <source>Script Console</source>
@@ -11074,6 +11094,12 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
     <message>
         <source>Save Current Output</source>
         <translation>Aktiivse väljundi salvestamine</translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15804,11 +15830,11 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation>Vahemaa, mille tagant objekt haaratakse juhtjoone külge</translation>
+        <translation type="obsolete">Vahemaa, mille tagant objekt haaratakse juhtjoone külge</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>Ala raadius, kus Scribus lubab haarata objekti pidemetest</translation>
+        <translation type="obsolete">Ala raadius, kus Scribus lubab haarata objekti pidemetest</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -15853,6 +15879,14 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     <message>
         <source>Turns the margins on or off</source>
         <translation>Lülitab veeriste näitamise sisse või välja</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

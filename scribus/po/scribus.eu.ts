@@ -2922,7 +2922,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>Posta-zerrenda</translation>
+        <translation type="obsolete">Posta-zerrenda</translation>
     </message>
     <message>
         <source>Official Translations and Translators:</source>
@@ -2991,6 +2991,14 @@ Ghostscript-en bertsioa ere adierazten du.
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7807,6 +7815,10 @@ Esportatutako fitxategiaren izena honelakoa izan daiteke:
         <source>Paths</source>
         <translation>Bideak</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -7857,6 +7869,10 @@ Esportatutako fitxategiaren izena honelakoa izan daiteke:
     <message>
         <source>Grayscale</source>
         <translation>Gris-eskala</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Bertsioa:</translation>
     </message>
 </context>
 <context>
@@ -11101,7 +11117,7 @@ UCRek gainsaturazioaren posibilitatea gutxitzen du CMH tintekin.</translation>
     </message>
     <message>
         <source>Goto</source>
-        <translation>Joan</translation>
+        <translation type="obsolete">Joan</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -11145,6 +11161,10 @@ UCRek gainsaturazioaren posibilitatea gutxitzen du CMH tintekin.</translation>
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11987,7 +12007,7 @@ marjina guztiak balio berdinarekin uzten ditu.</translation>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation>Python-en kontsola estandarretik datorrenez, zenbait murriztapen ditu, zuriuneen kasuak bederen. Irakurri Scribus-eko eskuliburua informazio gehiagorako.</translation>
+        <translation type="obsolete">Python-en kontsola estandarretik datorrenez, zenbait murriztapen ditu, zuriuneen kasuak bederen. Irakurri Scribus-eko eskuliburua informazio gehiagorako.</translation>
     </message>
     <message>
         <source>Script Console</source>
@@ -12024,6 +12044,12 @@ marjina guztiak balio berdinarekin uzten ditu.</translation>
     <message>
         <source>Open Python Script File</source>
         <translation>Ireki Python script fitxategia</translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16493,11 +16519,11 @@ bertsioko dokumentua inportatzean.</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation>Distantzia objektu bat kokatutako gidei atxikitzeko</translation>
+        <translation type="obsolete">Distantzia objektu bat kokatutako gidei atxikitzeko</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>Arearen erradioa, bertatik objektua har daitekeena kudeatzeko</translation>
+        <translation type="obsolete">Arearen erradioa, bertatik objektua har daitekeena kudeatzeko</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -16554,6 +16580,14 @@ bertsioko dokumentua inportatzean.</translation>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
         <translation>Lehen lerromarraren distantzia orriaren gainetik</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -1751,10 +1751,6 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mailing List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Official Translations and Translators:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1812,6 +1808,14 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6737,6 +6741,10 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <source>Paths</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Tutup</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -6786,6 +6794,10 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10375,7 +10387,7 @@ Silakan pilih nama lain.</translation>
     </message>
     <message>
         <source>Goto</source>
-        <translation type="unfinished">Pergi ke</translation>
+        <translation type="obsolete">Pergi ke</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -10419,6 +10431,10 @@ Silakan pilih nama lain.</translation>
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11280,10 +11296,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Script Console</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11317,6 +11329,12 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Open Python Script File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16270,14 +16288,6 @@ Geser Template ke Tampilan Halaman di bawah ini.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Color of the minor grid lines</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16331,6 +16341,14 @@ Geser Template ke Tampilan Halaman di bawah ini.</translation>
     </message>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

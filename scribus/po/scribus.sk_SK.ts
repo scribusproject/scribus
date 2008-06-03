@@ -1754,7 +1754,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>E-mailová konferencia</translation>
+        <translation type="obsolete">E-mailová konferencia</translation>
     </message>
     <message>
         <source>&amp;Online</source>
@@ -1811,6 +1811,14 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6877,6 +6885,10 @@ Názov exportovaného súboru bude &apos;názovdokumentu-číslostrany.typsúbor
         <source>Paths</source>
         <translation>Cesty</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -6927,6 +6939,10 @@ Názov exportovaného súboru bude &apos;názovdokumentu-číslostrany.typsúbor
     <message>
         <source>Scribus Document</source>
         <translation>Scribus dokument</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Verzia:</translation>
     </message>
 </context>
 <context>
@@ -10570,7 +10586,7 @@ v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže z
     </message>
     <message>
         <source>Goto</source>
-        <translation>Ísť na</translation>
+        <translation type="obsolete">Ísť na</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -10590,6 +10606,10 @@ v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže z
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11580,7 +11600,7 @@ Chcete ich migrovať na novú verziu?</translation>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation>Je odvodené od štandardnej Python konzoly a tak obsahuje niektoré obmedzenia zvlášť v prípade medzier. V Scribus  manuály nájdete viac informácií.</translation>
+        <translation type="obsolete">Je odvodené od štandardnej Python konzoly a tak obsahuje niektoré obmedzenia zvlášť v prípade medzier. V Scribus  manuály nájdete viac informácií.</translation>
     </message>
     <message>
         <source>Script Console</source>
@@ -11620,6 +11640,12 @@ Chcete ich migrovať na novú verziu?</translation>
     </message>
     <message>
         <source>Open Python Script File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16934,11 +16960,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation>Vzdialenosť, v ktorej sa objekt bude pritiahnutý k umiestneným vodítkam</translation>
+        <translation type="obsolete">Vzdialenosť, v ktorej sa objekt bude pritiahnutý k umiestneným vodítkam</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>Polomer oblasti, ktorú Scribus považuje za oblasť daného objektu </translation>
+        <translation type="obsolete">Polomer oblasti, ktorú Scribus považuje za oblasť daného objektu </translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -16983,6 +17009,14 @@ Vertical shift: %3</source>
     <message>
         <source>Turns the margins on or off</source>
         <translation>Zapnutie/Vypnutie okrajov</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

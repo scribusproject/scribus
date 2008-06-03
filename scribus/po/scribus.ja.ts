@@ -1756,7 +1756,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>メーリングリスト</translation>
+        <translation type="obsolete">メーリングリスト</translation>
     </message>
     <message>
         <source>&amp;Online</source>
@@ -1784,6 +1784,14 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6990,6 +6998,10 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <source>Exlusion</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">閉じる(&amp;C)</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -7040,6 +7052,10 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source>Scribus Document</source>
         <translation>Scribusドキュメント</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">バージョン:</translation>
     </message>
 </context>
 <context>
@@ -10888,7 +10904,7 @@ Corners:</source>
     </message>
     <message>
         <source>Goto</source>
-        <translation>移動</translation>
+        <translation type="obsolete">移動</translation>
     </message>
     <message>
         <source>Select a base directory for search</source>
@@ -10916,6 +10932,10 @@ Corners:</source>
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11746,10 +11766,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>Scribus Pythonコンソール</translation>
     </message>
     <message>
-        <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Script Console</source>
         <translation>スクリプトコンソール</translation>
     </message>
@@ -11792,6 +11808,12 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17204,12 +17226,8 @@ Vertical shift: %3</source>
         <translation>メジャーグリッド線の間隔</translation>
     </message>
     <message>
-        <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>オブジェクトを扱う際につかむことのできる範囲の半径</translation>
+        <translation type="obsolete">オブジェクトを扱う際につかむことのできる範囲の半径</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -17254,6 +17272,14 @@ Vertical shift: %3</source>
     <message>
         <source>Turns the margins on or off</source>
         <translation>マージンをON/OFFする</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

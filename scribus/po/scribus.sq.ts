@@ -9537,7 +9537,7 @@ Librari suport që mungojnë tregohen me a *</translation>
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>Listë Postimesh</translation>
+        <translation type="obsolete">Listë Postimesh</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and
@@ -9595,6 +9595,14 @@ Mungesë suporti librarish tregohet me një *</translation>
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15221,6 +15229,10 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
         <source>Paths</source>
         <translation type="unfinished">Shtigje</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Mbyll</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -15270,6 +15282,10 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>Colorspace:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20701,7 +20717,7 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
     <message>
         <source>Goto</source>
-        <translation>Shko te</translation>
+        <translation type="obsolete">Shko te</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -20749,6 +20765,10 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22335,10 +22355,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Script Console</source>
         <translation type="unfinished">Konsol Programthesh</translation>
     </message>
@@ -22372,6 +22388,12 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Open Python Script File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28965,12 +28987,8 @@ të mos kërkojë ripohimin tuaj sërish</translation>
         <translation type="unfinished">Hapësirë midis vijash rrjete të madhevogël</translation>
     </message>
     <message>
-        <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished">Rrezja e zonës ku Scribus-i do t&apos;ju lejojë të mbërtheni veshët e një objekti</translation>
+        <translation type="obsolete">Rrezja e zonës ku Scribus-i do t&apos;ju lejojë të mbërtheni veshët e një objekti</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -29014,6 +29032,14 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>Turns the margins on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

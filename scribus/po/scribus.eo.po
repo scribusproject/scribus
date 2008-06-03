@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.eo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-12 22:37+0100\n"
+"POT-Creation-Date: 2008-06-03 00:06+0200\n"
 "PO-Revision-Date: 2008-05-11 12:45+0200\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@gmail.com>\n"
 "Language-Team: Italiano <it@li.org>\n"
@@ -625,7 +625,8 @@ msgstr "De dekstre maldekstren"
 msgid "Top-left to Bottom-Right"
 msgstr "De supre maldekstre ĝis malsupre dekstre"
 
-msgid "&Apply Effect on all Pages"
+#, fuzzy
+msgid "&Apply Effect to all Pages"
 msgstr "&Apliku efekton al ĉiuj paĝoj"
 
 msgid "E&xtras"
@@ -866,7 +867,8 @@ msgstr ""
 msgid "Type of the display effect."
 msgstr "Tipo de montr-efekto."
 
-msgid "Direction of the effect of moving lines for the split and blind effects."
+msgid ""
+"Direction of the effect of moving lines for the split and blind effects."
 msgstr "Direkto de la moveblaj linioj por la opak- kaj disig-efektoj."
 
 msgid "Starting position for the box and split effects."
@@ -1018,9 +1020,11 @@ msgid "Choose a password for users to be able to read your PDF."
 msgstr "Elektu pasvorton por uzuloj kiu ebligas al ili legi vian PDF-dosieron."
 
 msgid "Allow printing of the PDF. If un-checked, printing is prevented. "
-msgstr "Permesas printadon de la PDF-dosieron. Se ne markita, ne eblas printi. "
+msgstr ""
+"Permesas printadon de la PDF-dosieron. Se ne markita, ne eblas printi. "
 
-msgid "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
+msgid ""
+"Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
 msgstr ""
 "Permesas redakton de la PDF-dosiero. Se ne markita ne eblas modifi la PDF-"
 "dosieron."
@@ -1134,8 +1138,9 @@ msgstr "Disponeblaj kampoj"
 msgid "Selected Fields"
 msgstr "Elektitaj kampoj"
 
-msgid "Manage Pictures"
-msgstr "Administru bildojn"
+#, fuzzy
+msgid "Manage Images"
+msgstr "Administru gvidilojn"
 
 msgid "Name"
 msgstr "Nomo"
@@ -1161,7 +1166,8 @@ msgstr "Serĉu"
 msgid "Cancel Search"
 msgstr "Nuligu la serĉadon"
 
-msgid "Goto"
+#, fuzzy
+msgid "Go to"
 msgstr "Iru al"
 
 msgid "Select a base directory for search"
@@ -1583,7 +1589,7 @@ msgstr "Kopiu ĉi tie"
 msgid "Move Here"
 msgstr "Movu ĉi tien"
 
-msgid "Picture"
+msgid "Image"
 msgstr "Bildo"
 
 msgid "File: "
@@ -1792,7 +1798,8 @@ msgid "Could not open preferences file \"%1\" for writing: %2"
 msgstr "Ne eblis malfermi preferdosieron \"%1\" por skribado: %2"
 
 msgid "Writing to preferences file \"%1\" failed: QIODevice status code %2"
-msgstr "Ne eblis la skribado de la preferdosiero \"%1\": QIODevice status code %2"
+msgstr ""
+"Ne eblis la skribado de la preferdosiero \"%1\": QIODevice status code %2"
 
 msgid "Failed to open prefs file \"%1\": %2"
 msgstr "Ne eblis malfermi la preferdosieron \"%1\": %2"
@@ -2030,8 +2037,9 @@ msgstr "Montru &neprinteblan areon per marĝenkoloro"
 msgid "Alt+U"
 msgstr "Alt+U"
 
-msgid "Show Pictures"
-msgstr "Montru bildojn"
+#, fuzzy
+msgid "Show Images"
+msgstr "Montru &bildojn"
 
 msgid "Show Text Chains"
 msgstr "Montru ligitajn tekstojn"
@@ -2105,14 +2113,16 @@ msgstr "Koloradministrado"
 msgid "Enable or disable the display of linked text frames."
 msgstr "Ebligu aŭ malebligu la montron de la ligitaj tekstokadroj."
 
-msgid "Display non-printing characters such as paragraph markers in text frames"
+msgid ""
+"Display non-printing characters such as paragraph markers in text frames"
 msgstr "Montru ne printotajn signojn kiel alineaj markiloj en la tekstokadroj"
 
 msgid "Turns the display of frames on or off"
 msgstr "(Mal)ebligas la montron de la kadroj"
 
-msgid "Turns the display of pictures on or off"
-msgstr "(Mal)ebligas la montron de la bildoj"
+#, fuzzy
+msgid "Turns the display of images on or off"
+msgstr "(Mal)ebligas la montron de la kadroj"
 
 msgid "Color for paper"
 msgstr "Koloro por la papero"
@@ -3040,8 +3050,9 @@ msgstr "Enmetu Bezier-kurbon"
 msgid "Insert Freehand Line"
 msgstr "Enmetu mandesegnitan linion"
 
-msgid "&Manage Pictures"
-msgstr "Ad&ministru bildojn"
+#, fuzzy
+msgid "&Manage Images"
+msgstr "&Aranĝu paĝojn"
 
 msgid "&Hyphenate Text"
 msgstr "Di&vidu vortojn"
@@ -3272,10 +3283,12 @@ msgid "Selection"
 msgstr "Areo"
 
 msgid "Align right sides of objects to left side of anchor"
-msgstr "Alĝustigu la dekstrajn flankojn de la objektoj kun la maldekstra de la ankro"
+msgstr ""
+"Alĝustigu la dekstrajn flankojn de la objektoj kun la maldekstra de la ankro"
 
 msgid "Align left sides of objects to right side of anchor"
-msgstr "Alĝustigu la dekstrajn flankojn de la objektoj kun la dekstra de la ankro"
+msgstr ""
+"Alĝustigu la dekstrajn flankojn de la objektoj kun la dekstra de la ankro"
 
 msgid "Align bottoms"
 msgstr "Alĝustigu la malsuprajn flankojn"
@@ -3284,7 +3297,8 @@ msgid "Align right sides"
 msgstr "Alĝustigu la dektrajn flankojn"
 
 msgid "Align tops of objects to bottom of anchor"
-msgstr "Alĝustigu la suprajn flankojn de la objektoj kun la malsupra de la ankro"
+msgstr ""
+"Alĝustigu la suprajn flankojn de la objektoj kun la malsupra de la ankro"
 
 msgid "Center on vertical axis"
 msgstr "Centrigu laŭ vertikala akso"
@@ -3296,7 +3310,8 @@ msgid "Center on horizontal axis"
 msgstr "Centrigu laŭ horizontala akso"
 
 msgid "Align bottoms of objects to top of anchor"
-msgstr "Alĝustigu la malsuprajn flankojn de la objektoj kun la supra de la ankro"
+msgstr ""
+"Alĝustigu la malsuprajn flankojn de la objektoj kun la supra de la ankro"
 
 msgid "Align tops"
 msgstr "Alĝustigu la suprajn flankojn"
@@ -3311,7 +3326,8 @@ msgid "Make horizontal gaps between objects equal"
 msgstr "Egaligu la horizontalan distancon inter la objektoj"
 
 msgid "Make horizontal gaps between objects equal to the value specified"
-msgstr "Egaligu la horizontalan distancon inter la objektoj al la elektita valoro"
+msgstr ""
+"Egaligu la horizontalan distancon inter la objektoj al la elektita valoro"
 
 msgid "Distribute right sides equidistantly"
 msgstr "Dismetu la dekstrajn flankojn egaldistance"
@@ -3326,7 +3342,8 @@ msgid "Make vertical gaps between objects equal"
 msgstr "Egaligu la vertikalan distancon inter la objektoj"
 
 msgid "Make vertical gaps between objects equal to the value specified"
-msgstr "Egaligu la vertikalan distancon inter la objektoj al la elektita valoro"
+msgstr ""
+"Egaligu la vertikalan distancon inter la objektoj al la elektita valoro"
 
 msgid "Distribute left sides equidistantly"
 msgstr "Dismetu la maldekstrajn flankojn egaldistance"
@@ -3436,10 +3453,13 @@ msgstr ""
 "Trastrekita. Tenu premita momente la butonon por ŝanĝi la linilarĝon kaj la "
 "ŝovon."
 
-msgid "Outline. Hold down the button momentarily to change the outline stroke width."
-msgstr "Konturita. Tenu premita momente la butonon por ŝanĝi la konturan linilarĝon."
+msgid ""
+"Outline. Hold down the button momentarily to change the outline stroke width."
+msgstr ""
+"Konturita. Tenu premita momente la butonon por ŝanĝi la konturan linilarĝon."
 
-msgid "Shadowed Text. Hold down the button momentarily to enable the offset spacing."
+msgid ""
+"Shadowed Text. Hold down the button momentarily to enable the offset spacing."
 msgstr ""
 "Ombrumita teksto. Tenu premita momente la butonon por ebligi la "
 "deŝovagordojn."
@@ -3634,7 +3654,8 @@ msgstr "Apriora orientiĝo de la dokumentpaĝoj"
 msgid "Width of document pages, editable if you have chosen a custom page size"
 msgstr "Larĝo de la dokumentpaĝoj, modifebla se vi elektis propran paĝograndon"
 
-msgid "Height of document pages, editable if you have chosen a custom page size"
+msgid ""
+"Height of document pages, editable if you have chosen a custom page size"
 msgstr "Alto de la dokumentpaĝoj, modifebla se vi elektis propran paĝograndon"
 
 msgid ""
@@ -3968,7 +3989,8 @@ msgstr "Movu malfonen"
 msgid "Move to back"
 msgstr "Movu fonen"
 
-msgid "Indicates the level the object is on, 0 means the object is at the bottom"
+msgid ""
+"Indicates the level the object is on, 0 means the object is at the bottom"
 msgstr "Montras la nivelon de la objektoj, 0 signifas ke ĝi estas fone"
 
 msgid "Lock or unlock the object"
@@ -5106,11 +5128,18 @@ msgstr "Distanco inter la malgrandkradaj linioj"
 msgid "Distance between the major grid lines"
 msgstr "Distanco inter la grandkradaj linioj"
 
-msgid "Distance within which an object will snap to your placed guides"
+#, fuzzy
+msgid ""
+"Distance within which an object will snap to your placed guides. After "
+"setting this you will need to restart Scribus to set this setting."
 msgstr "Distanco ene de kiu objekto alĝustiĝos al la gvidiloj"
 
-msgid "Radius of the area where Scribus will allow you to grab an objects handles"
-msgstr "Radiuso de la areo ene de kiu Scribus ebligos la kapton de la objektoteniloj"
+#, fuzzy
+msgid ""
+"Radius of the area where Scribus will allow you to grab an objects handles."
+"After setting this you will need to restart Scribus to set this setting."
+msgstr ""
+"Radiuso de la areo ene de kiu Scribus ebligos la kapton de la objektoteniloj"
 
 msgid "Color of the minor grid lines"
 msgstr "Koloro de la malgrandkradaj linioj"
@@ -5297,8 +5326,10 @@ msgstr "Apliku la marĝenajn ŝanĝojn al ĉiuj paĝoj en la dokumento"
 msgid "Printer Margins..."
 msgstr "Printilmarĝenoj..."
 
-msgid "Import the margins for the selected page size from the available printers."
-msgstr "Importu la marĝenojn por la elektita paĝogrando el la disponeblaj printiloj."
+msgid ""
+"Import the margins for the selected page size from the available printers."
+msgstr ""
+"Importu la marĝenojn por la elektita paĝogrando el la disponeblaj printiloj."
 
 msgid "Distance between the top margin guide and the edge of the page"
 msgstr "Distanco inter la supra marĝeno kaj la rando de la paĝo"
@@ -5804,7 +5835,8 @@ msgid "You need at least the Icon for Normal to use Icons for Buttons"
 msgstr "Necesas minimume normala piktogramo por uzi piktogramojn kiel butonojn"
 
 msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
-msgstr "Bildoj (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Ĉiaj dosieroj (*)"
+msgstr ""
+"Bildoj (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Ĉiaj dosieroj (*)"
 
 msgid "Example:"
 msgstr "Ekzemplo:"
@@ -5831,10 +5863,14 @@ msgid "Font %1 is broken, no embedding"
 msgstr "La tiparo %1 estas damaĝita, ĝi ne estos inkludita"
 
 msgid "Font %1 has broken metrics in file %2, ignoring metrics"
-msgstr "La tiparo %1 havas difektitan metrikon en la dosiero %2, la metriko estos ignorita"
+msgstr ""
+"La tiparo %1 havas difektitan metrikon en la dosiero %2, la metriko estos "
+"ignorita"
 
 msgid "Valid metrics were found for font %1, using metrics in file %2"
-msgstr "Oni trovis validan metrikon por la tiparo %1, oni utiligos ĝin en la dosiero %2"
+msgstr ""
+"Oni trovis validan metrikon por la tiparo %1, oni utiligos ĝin en la dosiero "
+"%2"
 
 msgid "Font %1 is broken (FreeType2), discarding it"
 msgstr "La tiparo %1 estas damaĝita (Freetype2), ĝi ne estos utiligita"
@@ -6425,7 +6461,8 @@ msgstr ""
 msgid ""
 "An unambiguous reference to the document within a given context such as ISBN "
 "or URI"
-msgstr "Neambigua referenco al la dokumento ene de donita kunteksto kiel ISBN aŭ URI"
+msgstr ""
+"Neambigua referenco al la dokumento ene de donita kunteksto kiel ISBN aŭ URI"
 
 msgid ""
 "A reference to a document from which the present document is derived, eg. "
@@ -6555,11 +6592,13 @@ msgstr "&Aktivigu koloradministradon"
 msgid "System Profiles"
 msgstr "Administraj agordaroj"
 
-msgid "&RGB Pictures:"
-msgstr "&RVB-bildoj:"
+#, fuzzy
+msgid "&RGB Images:"
+msgstr "Bildoj:"
 
-msgid "&CMYK Pictures:"
-msgstr "&CMYK-bildoj:"
+#, fuzzy
+msgid "&CMYK Images:"
+msgstr "Bildoj:"
 
 msgid "&Solid Colors:"
 msgstr "&Homogenaj koloroj:"
@@ -6717,6 +6756,12 @@ msgstr "G:"
 
 msgid "B:"
 msgstr "B:"
+
+#, fuzzy
+msgid ""
+"You cannot create a color without a name\n"
+"Please give it a name"
+msgstr "Ne eblas krei koloron sennoman."
 
 msgid ""
 "You cannot create a color named \"%1\".\n"
@@ -6890,8 +6935,10 @@ msgstr "Dokumenta paĝogrando, apriora aŭ propra"
 msgid "Orientation of the document's pages"
 msgstr "Orientiĝo de la dokumentaj paĝoj"
 
-msgid "Width of the document's pages, editable if you have chosen a custom page size"
-msgstr "Larĝo de la dokumentpaĝoj, redaktebla se vi elektis propran paĝograndon"
+msgid ""
+"Width of the document's pages, editable if you have chosen a custom page size"
+msgstr ""
+"Larĝo de la dokumentpaĝoj, redaktebla se vi elektis propran paĝograndon"
 
 msgid ""
 "Height of the document's pages, editable if you have chosen a custom page "
@@ -6980,7 +7027,8 @@ msgstr "&Horizontala skalado:"
 msgid "&Vertical Scaling:"
 msgstr "&Vertikala skalado:"
 
-msgid "&Scale Picture to Frame Size"
+#, fuzzy
+msgid "&Scale Image to Frame Size"
 msgstr "&Skalu bildon ĝis kadrogrando"
 
 msgid "Keep Aspect &Ratio"
@@ -7016,8 +7064,9 @@ msgstr "Progre&sio:"
 msgid "Text Frame Properties"
 msgstr "Tekstokadraj ecoj"
 
-msgid "Picture Frame Properties"
-msgstr "Bildokadraj ecoj"
+#, fuzzy
+msgid "Image Frame Properties"
+msgstr "Tekstokadraj ecoj"
 
 msgid "Shape Drawing Properties"
 msgstr "Formdesegnaj ecoj"
@@ -7049,7 +7098,8 @@ msgstr "Distanco inter tekstokadraj kolumnoj"
 msgid "Sample of your font"
 msgstr "Ekzemplo de la tiparo"
 
-msgid "Picture frames allow pictures to scale to any size"
+#, fuzzy
+msgid "Image frames allow images to scale to any size"
 msgstr "La bildokadroj ebligas ĉian ajn grandon al la bildoj"
 
 msgid "Horizontal scaling of images"
@@ -7061,13 +7111,16 @@ msgstr "Vertikala skalado de la bildoj"
 msgid "Keep horizontal and vertical scaling the same"
 msgstr "Konservas horizontalan kaj vertikalan skalojn egalaj"
 
-msgid "Pictures in picture frames are scaled to the size of the frame"
+#, fuzzy
+msgid "Images in image frames are scaled to the size of the frame"
 msgstr "La bildoj en la kadroj estas alĝustigitaj al la grando de la kadro"
 
-msgid "Automatically scaled pictures keep their original proportions"
+#, fuzzy
+msgid "Automatically scaled images keep their original proportions"
 msgstr "La bildoj aŭtomate alĝustigitaj konservas originajn proporciojn"
 
-msgid "Fill color of picture frames"
+#, fuzzy
+msgid "Fill color of image frames"
 msgstr "Plenigkoloro de la bildokadroj"
 
 msgid "Saturation of color of fill"
@@ -7467,7 +7520,8 @@ msgid "No updates are available for your version of Scribus %1"
 msgstr "Ne estas disponeblaj ĝisdatigoj por via versio de Scribus %1"
 
 msgid "One or more updates for your version of Scribus (%1) are available:"
-msgstr "Unu aŭ pluraj ĝisdatigoj estas disponeblaj por via versio de Scribus (%1):"
+msgstr ""
+"Unu aŭ pluraj ĝisdatigoj estas disponeblaj por via versio de Scribus (%1):"
 
 msgid "This list may contain development versions."
 msgstr "Ĉi tiu listo povas enteni prilaboratajn versiojn."
@@ -7497,9 +7551,6 @@ msgid ""
 msgstr ""
 "Vi estas redaktanta la objekton %1 per la Interna Tekstoredaktilo. La "
 "forigoperacio estos nuligita"
-
-msgid "Image"
-msgstr "Bildo"
 
 msgid "PathText"
 msgstr "Teksto sur la desegno"
@@ -7630,7 +7681,11 @@ msgstr "Interreta referenco"
 msgid "Bugs and Feature Requests"
 msgstr "Cimoj kaj petoj pri program-ebloj"
 
-msgid "Mailing List"
+msgid "Developer Blog"
+msgstr ""
+
+#, fuzzy
+msgid "Mailing Lists"
 msgstr "Dissendolisto"
 
 msgid "&Online"
@@ -7792,7 +7847,8 @@ msgid "Loading..."
 msgstr "Ŝargas..."
 
 msgid "Some ICC profiles used by this document are not installed:"
-msgstr "Kelkaj ICC-profiloj utiligitaj de ĉi tiu dokumentoj ne estas instalitaj:"
+msgstr ""
+"Kelkaj ICC-profiloj utiligitaj de ĉi tiu dokumentoj ne estas instalitaj:"
 
 msgid " was replaced by: "
 msgstr "estis anstataŭita de: "
@@ -7835,11 +7891,11 @@ msgstr ""
 "Scribus trovis kelkajn erarojn. Estas konsilinde utiligi la Antaŭkontrolon "
 "por korekti ilin"
 
-msgid "&Ignore"
-msgstr "&Ignoru"
-
 msgid "&Abort"
 msgstr "&Nuligu"
+
+msgid "&Ignore"
+msgstr "&Ignoru"
 
 msgid "Printing failed!"
 msgstr "Ne eblas printi!"
@@ -7879,7 +7935,8 @@ msgid "Ghostscript : You cannot use EPS images or Print Preview"
 msgstr "Ghostscript: Ne eblas utiligi EPS-bildojn aŭ printantaŭrigadon"
 
 msgid "Ghostscript : You cannot use EPS images or PostScript Print Preview"
-msgstr "Ghostscript: Ne eblas utiligi EPS-bildojn aŭ postskripta printantaŭrigardon"
+msgstr ""
+"Ghostscript: Ne eblas utiligi EPS-bildojn aŭ postskripta printantaŭrigardon"
 
 msgid "Ghostscript is missing : Postscript Print Preview is not available"
 msgstr "Mankas Ghostscript: Ne estas disponebla Postskripta printantaŭrigardo"
@@ -7929,7 +7986,8 @@ msgstr "Koloro ne trovita"
 msgid ""
 "The name you have selected already exists. Please enter a different name for "
 "this new color."
-msgstr "La nomo enmetita jam ekzistas. Bonvolu elekti alian por ĉi tiu nova koloro."
+msgstr ""
+"La nomo enmetita jam ekzistas. Bonvolu elekti alian por ĉi tiu nova koloro."
 
 msgid "&Level"
 msgstr "Nive&lo"
@@ -8607,7 +8665,8 @@ msgstr "Opcioj de importilo de OpenDocument"
 msgid "Overwrite Paragraph Styles"
 msgstr "Superskribu aline-stilojn"
 
-msgid "Enabling this will overwrite existing styles in the current Scribus document"
+msgid ""
+"Enabling this will overwrite existing styles in the current Scribus document"
 msgstr ""
 "Se oni ebligas tion, ĉiuj stiloj de la aktuala Scribus-dokumento estos "
 "superskribitaj"
@@ -8844,7 +8903,8 @@ msgid "Save user configuration"
 msgstr "Konservu la uzulkonfiguron"
 
 msgid "Reload system wide configuration and remove user defined one"
-msgstr "Reŝargu la tutsisteman konfiguron kaj forigu tiun difinitan de la uzulo"
+msgstr ""
+"Reŝargu la tutsisteman konfiguron kaj forigu tiun difinitan de la uzulo"
 
 msgid ""
 "Edit custom configuration. If you save it, it will be used over system wide "
@@ -9117,7 +9177,8 @@ msgid "Insert index out of bounds."
 msgstr "Enmeta indekso eksterlima."
 
 msgid "Alignment out of range. Use one of the scribus.ALIGN* constants."
-msgstr "Alĝustigo eksterintervala. Utiligu unu el la konstantoj de scribus.ALIGN*."
+msgstr ""
+"Alĝustigo eksterintervala. Utiligu unu el la konstantoj de scribus.ALIGN*."
 
 msgid "Cannot set text alignment on a non-text frame."
 msgstr "Ne eblas agordi tekstoalĝustigon en ne-teksta kadro."
@@ -9270,7 +9331,8 @@ msgstr " ne estas dokumentita!"
 msgid "About Script"
 msgstr "Pri Scriptoj"
 
-msgid "Setting up the Python plugin failed. Error details were printed to stderr. "
+msgid ""
+"Setting up the Python plugin failed. Error details were printed to stderr. "
 msgstr ""
 "La agordado de la Piton-kromprogramo malsukcesis. Kromajn detalojn oni "
 "trovos en stderr"
@@ -9413,9 +9475,9 @@ msgid "Scribus Python Console"
 msgstr "Pitona skriptokonzolo"
 
 msgid ""
-"This is derived from standard Python console so it contains some limitations "
-"esp. in the case of whitespaces. Please consult Scribus manual for more "
-"informations."
+"This is a standard Python console with some \n"
+"known limitations. Please consult the Scribus \n"
+"Scripter documentation for futher information. "
 msgstr ""
 
 msgid "Script Console"
@@ -9445,7 +9507,8 @@ msgstr "Konservu la aktualan eligon"
 
 #, fuzzy
 msgid "Argument must be page item name, or PyCObject instance"
-msgstr "La argumento devas esti la nomo de paĝobjekto, aŭ ekzemplo de PyCObject"
+msgstr ""
+"La argumento devas esti la nomo de paĝobjekto, aŭ ekzemplo de PyCObject"
 
 msgid "Property not found"
 msgstr "Eco ne trovita"
@@ -9465,14 +9528,22 @@ msgstr "Ne eblis konverti '%1' al eco-tipo '%2'"
 msgid "Types matched, but setting property failed."
 msgstr "La tipoj kongruas, sed ne eblis agordi la ecojn."
 
-msgid "Line width out of bounds, must be 0 <= line_width <= 12."
-msgstr "Lini-larĝo eksterlima, ĝi devas esti 0 <= lini-larĝo <= 12."
+msgid "Fill shade out of bounds, must be 0 <= shade <= 100."
+msgstr "Plenig-intenso eksterlima, ĝi devas esti 0 <= intenso <= 100."
+
+#, fuzzy
+msgid "Fill opacity out of bounds, must be 0.0 <= opacity <= 1.0"
+msgstr "Plenig-intenso eksterlima, ĝi devas esti 0 <= intenso <= 100."
+
+#, fuzzy
+msgid "Transparency out of bounds, must be 0 <= transparency <= 1."
+msgstr "Lini-intenso eksterlima, ĝi devas esti 0 <= intenso <= 100."
 
 msgid "Line shade out of bounds, must be 0 <= shade <= 100."
 msgstr "Lini-intenso eksterlima, ĝi devas esti 0 <= intenso <= 100."
 
-msgid "Fill shade out of bounds, must be 0 <= shade <= 100."
-msgstr "Plenig-intenso eksterlima, ĝi devas esti 0 <= intenso <= 100."
+msgid "Line width out of bounds, must be 0 <= line_width <= 12."
+msgstr "Lini-larĝo eksterlima, ĝi devas esti 0 <= lini-larĝo <= 12."
 
 msgid "Corner radius must be a positive number."
 msgstr "La angulradio devas esti pozitiva numero."
@@ -9517,7 +9588,8 @@ msgid "Page number out of range."
 msgstr "Paĝonumero eksterintervala."
 
 msgid "Given master page name does not match any existing."
-msgstr "La enmetita nomo de la ŝablonpaĝo kongruas kun neniu el la ekzistantaj."
+msgstr ""
+"La enmetita nomo de la ŝablonpaĝo kongruas kun neniu el la ekzistantaj."
 
 msgid "argument is not list: must be list of float values."
 msgstr "la argumento ne estas listo: ĝi devas esti listo de decimalaj valoroj."
@@ -9625,3 +9697,26 @@ msgstr ""
 "Detalojn pri tio, kio povas rifuzi ĉiu esceptofunkcio oni povas legi en la "
 "funkcio-dokumentaro\n"
 
+#~ msgid "Manage Pictures"
+#~ msgstr "Administru bildojn"
+
+#~ msgid "Picture"
+#~ msgstr "Bildo"
+
+#~ msgid "Show Pictures"
+#~ msgstr "Montru bildojn"
+
+#~ msgid "Turns the display of pictures on or off"
+#~ msgstr "(Mal)ebligas la montron de la bildoj"
+
+#~ msgid "&Manage Pictures"
+#~ msgstr "Ad&ministru bildojn"
+
+#~ msgid "&RGB Pictures:"
+#~ msgstr "&RVB-bildoj:"
+
+#~ msgid "&CMYK Pictures:"
+#~ msgstr "&CMYK-bildoj:"
+
+#~ msgid "Picture Frame Properties"
+#~ msgstr "Bildokadraj ecoj"

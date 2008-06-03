@@ -1827,10 +1827,6 @@ Dynodir cynhaliaeth raglengelloedd sydd ar goll gan *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mailing List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Official Translations and Translators:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1888,6 +1884,14 @@ Dynodir cynhaliaeth raglengelloedd sydd ar goll gan *</translation>
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7378,6 +7382,10 @@ Defnyddiwch 72 dpi ar gyfer Delweddau a fwriedir i&apos;r Sgrin</translation>
         <source>Paths</source>
         <translation type="unfinished">Llwybrau</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Cau</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -7427,6 +7435,10 @@ Defnyddiwch 72 dpi ar gyfer Delweddau a fwriedir i&apos;r Sgrin</translation>
     </message>
     <message>
         <source>Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12611,7 +12623,7 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
     <message>
         <source>Goto</source>
-        <translation>Ewch i</translation>
+        <translation type="obsolete">Ewch i</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -12679,6 +12691,10 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14215,10 +14231,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Script Console</source>
         <translation type="unfinished">Terfynell Sgript</translation>
     </message>
@@ -14252,6 +14264,12 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Open Python Script File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20534,11 +20552,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished">Pellter y bydd gwrthrcyh yn neidio i&apos;ch cyfeiryddion tu mewn iddo</translation>
+        <translation type="obsolete">Pellter y bydd gwrthrcyh yn neidio i&apos;ch cyfeiryddion tu mewn iddo</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished">Radiws y cylch lle bydd Scribus yn gadael i chi gipio ar dolenni gwrthrych</translation>
+        <translation type="obsolete">Radiws y cylch lle bydd Scribus yn gadael i chi gipio ar dolenni gwrthrych</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -20598,6 +20616,14 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

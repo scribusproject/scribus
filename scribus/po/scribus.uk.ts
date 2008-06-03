@@ -2816,7 +2816,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>Список розсилки</translation>
+        <translation type="obsolete">Список розсилки</translation>
     </message>
     <message>
         <source>Official Translations and Translators:</source>
@@ -2883,6 +2883,14 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation>OS/2&amp;#174;/eComStation&amp;#8482; Порт:</translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7674,6 +7682,10 @@ Use 72 dpi for Images intended for the Screen</source>
         <source>Paths</source>
         <translation>Шляхи</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Зачинити</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -7724,6 +7736,10 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Colorspace:</source>
         <translation>Кольоровий простір:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Версія:</translation>
     </message>
 </context>
 <context>
@@ -10926,7 +10942,7 @@ UCR найбільше впливає на ті частини зображен�
     <name>PicStatus</name>
     <message>
         <source>Goto</source>
-        <translation>Перейти до</translation>
+        <translation type="obsolete">Перейти до</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -10990,6 +11006,10 @@ UCR найбільше впливає на ті частини зображен�
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11833,11 +11853,17 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation>Модифікована з стандартної консолі Пітону, тому може містити деякі обмеження особливу у випадку проміжків. Будь-ласка зверніться до керівництва користувача Scribus за подальшою інформацією.</translation>
+        <translation type="obsolete">Модифікована з стандартної консолі Пітону, тому може містити деякі обмеження особливу у випадку проміжків. Будь-ласка зверніться до керівництва користувача Scribus за подальшою інформацією.</translation>
     </message>
     <message>
         <source>Open Python Script File</source>
         <translation>Відчинити сценарій на мові Пітон</translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16313,11 +16339,11 @@ Scribus.</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation>Зона притягування об&apos;єкта до розмітки</translation>
+        <translation type="obsolete">Зона притягування об&apos;єкта до розмітки</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>Радіус захвату вузлів об&apos;єктів</translation>
+        <translation type="obsolete">Радіус захвату вузлів об&apos;єктів</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -16370,6 +16396,14 @@ Scribus.</translation>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
         <translation>Відстань від верхнього краю сторінки до першої базової лінії</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

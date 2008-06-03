@@ -2624,7 +2624,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>郵遞列表</translation>
+        <translation type="obsolete">郵遞列表</translation>
     </message>
     <message>
         <source>Official Translations and Translators:</source>
@@ -2701,6 +2701,14 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation type="unfinished">這個面板顯示版本, 編譯日期, 和支援 Scribus 的 library。C-C-T-F 代表 C=littlecms C=CUPS T=TIFF 支援 F=Fontconfig 支援。</translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7589,6 +7597,10 @@ Use 72 dpi for Images intended for the Screen</source>
         <source>Exclusion</source>
         <translation>排除</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">關閉 (&amp;C)</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -7639,6 +7651,10 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Colorspace:</source>
         <translation>顔色模式:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">版本:</translation>
     </message>
 </context>
 <context>
@@ -10912,7 +10928,7 @@ Corners:</source>
     <name>PicStatus</name>
     <message>
         <source>Goto</source>
-        <translation>跳到</translation>
+        <translation type="obsolete">跳到</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -10976,6 +10992,10 @@ Corners:</source>
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11910,11 +11930,17 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation type="unfinished">這個起源於標準的Python控制臺，所以它有一些局限性，特別是在空白空格的時候。更多資訊請參考Scribus手冊。</translation>
+        <translation type="obsolete">這個起源於標準的Python控制臺，所以它有一些局限性，特別是在空白空格的時候。更多資訊請參考Scribus手冊。</translation>
     </message>
     <message>
         <source>Open Python Script File</source>
         <translation>打開 Python Script 檔案</translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16458,11 +16484,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished">Distance within which an object will snap to your placed guides</translation>
+        <translation type="obsolete">Distance within which an object will snap to your placed guides</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished">Radius of the area where Scribus will allow you to grab an objects handles</translation>
+        <translation type="obsolete">Radius of the area where Scribus will allow you to grab an objects handles</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -16515,6 +16541,14 @@ Vertical shift: %3</source>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
         <translation>頁面頂端到第一條基線的距離</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

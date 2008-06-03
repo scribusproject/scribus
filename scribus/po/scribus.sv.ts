@@ -2038,7 +2038,7 @@ Avsaknad av stöd är markerat med *</translation>
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>Utsändningslista</translation>
+        <translation type="obsolete">Utsändningslista</translation>
     </message>
     <message>
         <source>Official Translations and Translators:</source>
@@ -2118,6 +2118,14 @@ Avsaknad av stöd är markerat med *</translation>
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7744,6 +7752,10 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
         <source>Paths</source>
         <translation>Sökvägar</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Stäng</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -7794,6 +7806,10 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     <message>
         <source>Grayscale</source>
         <translation>Gråskala</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Version:</translation>
     </message>
 </context>
 <context>
@@ -13320,7 +13336,7 @@ vektorgrafik vid förhandsvisning på bekostnad av långsammare visning</transla
     </message>
     <message>
         <source>Goto</source>
-        <translation>Gå till</translation>
+        <translation type="obsolete">Gå till</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -13368,6 +13384,10 @@ vektorgrafik vid förhandsvisning på bekostnad av långsammare visning</transla
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14994,7 +15014,7 @@ Vill du föra över dem till den nya versionen av Scribus?</translation>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation>Denna är hämtad från Pythons standardkonsol med några begränsningar, framförallt med avseende på mellanrum. Konsultera Scribus handbok förmer information.</translation>
+        <translation type="obsolete">Denna är hämtad från Pythons standardkonsol med några begränsningar, framförallt med avseende på mellanrum. Konsultera Scribus handbok förmer information.</translation>
     </message>
     <message>
         <source>Script Console</source>
@@ -15031,6 +15051,12 @@ Vill du föra över dem till den nya versionen av Scribus?</translation>
     <message>
         <source>Open Python Script File</source>
         <translation>Öppna Python skriptfil</translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21743,11 +21769,11 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation>Avstånd inom vilket ett objekt låses till dina utplacerade stödlinjer</translation>
+        <translation type="obsolete">Avstånd inom vilket ett objekt låses till dina utplacerade stödlinjer</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>Radien för det område som Scribus tillåter att du markerar handtagen på ett objekt</translation>
+        <translation type="obsolete">Radien för det område som Scribus tillåter att du markerar handtagen på ett objekt</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -21807,6 +21833,14 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

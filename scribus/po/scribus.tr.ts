@@ -2755,7 +2755,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>Mailing List</translation>
+        <translation type="obsolete">Mailing List</translation>
     </message>
     <message>
         <source>Official Translations and Translators:</source>
@@ -2828,6 +2828,14 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7713,6 +7721,10 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
         <source>Exclusion</source>
         <translation>Exclusion</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -7763,6 +7775,10 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
     <message>
         <source>Colorspace:</source>
         <translation type="unfinished">Colourspace:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Sürüm:</translation>
     </message>
 </context>
 <context>
@@ -11037,7 +11053,7 @@ Corners:</translation>
     <name>PicStatus</name>
     <message>
         <source>Goto</source>
-        <translation>Git</translation>
+        <translation type="obsolete">Git</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -11101,6 +11117,10 @@ Corners:</translation>
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12035,11 +12055,17 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</translation>
+        <translation type="obsolete">This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</translation>
     </message>
     <message>
         <source>Open Python Script File</source>
         <translation>Open Python Script File</translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16569,11 +16595,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished">Distance within which an object will snap to your placed guides</translation>
+        <translation type="obsolete">Distance within which an object will snap to your placed guides</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished">Radius of the area where Scribus will allow you to grab an objects handles</translation>
+        <translation type="obsolete">Radius of the area where Scribus will allow you to grab an objects handles</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -16626,6 +16652,14 @@ Vertical shift: %3</source>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
         <translation type="unfinished">Distance from the top of the page for the first baseline</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

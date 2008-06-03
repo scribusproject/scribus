@@ -3267,7 +3267,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>Llista de correu</translation>
+        <translation type="obsolete">Llista de correu</translation>
     </message>
     <message>
         <source>&amp;Online</source>
@@ -3414,6 +3414,14 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9187,6 +9195,10 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <source>Paths</source>
         <translation>Camins</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Tanca</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -9237,6 +9249,10 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     <message>
         <source>Colorspace:</source>
         <translation>Espai de color:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Versió:</translation>
     </message>
 </context>
 <context>
@@ -14852,7 +14868,7 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
     </message>
     <message>
         <source>Goto</source>
-        <translation>Anar a</translation>
+        <translation type="obsolete">Anar a</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -14900,6 +14916,10 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16586,7 +16606,7 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation>Aquesta està derivada de la cònsola Python però té algunes limitacions especialment amb els espais en blanc. Consulta el manual per tenir més informació.</translation>
+        <translation type="obsolete">Aquesta està derivada de la cònsola Python però té algunes limitacions especialment amb els espais en blanc. Consulta el manual per tenir més informació.</translation>
     </message>
     <message>
         <source>Script Console</source>
@@ -16627,6 +16647,12 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
     <message>
         <source>Open Python Script File</source>
         <translation>Obrir un fitxer de seqüència Python</translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23803,11 +23829,11 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation>Distància en la qual un objecte des desplaçarà cap a les guies</translation>
+        <translation type="obsolete">Distància en la qual un objecte des desplaçarà cap a les guies</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>Radi de l&apos;àrea on Scribus pemetrà capturar objectes</translation>
+        <translation type="obsolete">Radi de l&apos;àrea on Scribus pemetrà capturar objectes</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -23852,6 +23878,14 @@ després d&apos;importar-lo.</translation>
     <message>
         <source>Turns the margins on or off</source>
         <translation>Activa i desactiva els marges</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

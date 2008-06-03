@@ -1822,7 +1822,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Mailing List</source>
-        <translation>Poslys</translation>
+        <translation type="obsolete">Poslys</translation>
     </message>
     <message>
         <source>About Scribus %1</source>
@@ -1911,6 +1911,14 @@ Indien &apos;n biblioteek nie daar is nie, verskyn &apos;n *</translation>
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Blog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing Lists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7347,6 +7355,10 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <source>Paths</source>
         <translation type="unfinished">Paaie</translation>
     </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -7396,6 +7408,10 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
     </message>
     <message>
         <source>Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12558,7 +12574,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Goto</source>
-        <translation>Ga na</translation>
+        <translation type="obsolete">Ga na</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -12606,6 +12622,10 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Manage Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14180,10 +14200,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Script Console</source>
         <translation type="unfinished">Scriptkonsole</translation>
     </message>
@@ -14217,6 +14233,12 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Open Python Script File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a standard Python console with some 
+known limitations. Please consult the Scribus 
+Scripter documentation for futher information. </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20674,11 +20696,11 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished">Afstand waarvandaan &apos;n objek na jou geplaasde hulplyne sal spring</translation>
+        <translation type="obsolete">Afstand waarvandaan &apos;n objek na jou geplaasde hulplyne sal spring</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished">Gee die straal aan van die gebied waar Scribus u toelaat om &apos;n object se muisvatsels te gryp</translation>
+        <translation type="obsolete">Gee die straal aan van die gebied waar Scribus u toelaat om &apos;n object se muisvatsels te gryp</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -20738,6 +20760,14 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
     </message>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
