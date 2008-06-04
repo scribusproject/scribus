@@ -104,8 +104,8 @@ public:
 	void updateFromItem();
 
 public slots:
-	void InhaltButton();
-	void InnenButton();
+	void editLineColorSelectorButton();
+	void editFillColorSelectorButton();
 	void SetColors(ColorList newColorList);
 	void updateCList();
 	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
@@ -188,8 +188,8 @@ protected:
 	QGridLayout* groupScaleLayout;
 	QHBoxLayout* groupRotationLayout;
 
-	QToolButton *Inhalt;
-	QToolButton *Innen;
+	QToolButton *editLineColorSelector;
+	QToolButton *editFillColorSelector;
 	QSpinBox *PM1;
 	QComboBox* gradientQCombo;
 	GradientEditor* gradEdit;

@@ -156,15 +156,15 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 4 );
 	Layout1->setMargin( 1 );
-	Inhalt = new QToolButton(this);
-	Inhalt->setIcon(QIcon(loadIcon("16/color-stroke.png")));
-	Inhalt->setCheckable(true);
-	Layout1->addWidget(Inhalt);
-	Innen = new QToolButton(this);
-	Innen->setIcon(QIcon(loadIcon("16/color-fill.png")));
-	Innen->setCheckable(true);
-	Innen->setChecked(true);
-	Layout1->addWidget(Innen);
+	editLineColorSelector = new QToolButton(this);
+	editLineColorSelector->setIcon(QIcon(loadIcon("16/color-stroke.png")));
+	editLineColorSelector->setCheckable(true);
+	Layout1->addWidget(editLineColorSelector);
+	editFillColorSelector = new QToolButton(this);
+	editFillColorSelector->setIcon(QIcon(loadIcon("16/color-fill.png")));
+	editFillColorSelector->setCheckable(true);
+	editFillColorSelector->setChecked(true);
+	Layout1->addWidget(editFillColorSelector);
 	selectorQSpacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( selectorQSpacer );
 	Mode = 2;
@@ -313,8 +313,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	Layout1t->addWidget( blendMode, 1, 1 );
 	Form1Layout->addWidget(TransGroup);
 
-	Inhalt->setChecked(true);
-	InnenButton();
+	editLineColorSelector->setChecked(true);
+	editFillColorSelectorButton();
 	GradientMode = false;
 	
 	setFocusPolicy(Qt::NoFocus);
@@ -323,8 +323,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	Mode = 2;
 	setActGradient(0);
 
-	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
-	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
+	connect(editLineColorSelector, SIGNAL(clicked()), this, SLOT(editLineColorSelectorButton()));
+	connect(editFillColorSelector, SIGNAL(clicked()), this, SLOT(editFillColorSelectorButton()));
 	connect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 	connect(displayAllColors, SIGNAL(clicked()), this, SLOT(ToggleColorDisplay()));
 	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
@@ -410,12 +410,12 @@ void Cpalette::updateFromItem()
 	repaint();
 }
 
-void Cpalette::InhaltButton()
+void Cpalette::editLineColorSelectorButton()
 {
-	if (Inhalt->isChecked())
+	if (editLineColorSelector->isChecked())
 	{
 		Mode = 1;
-		Innen->setChecked(false);
+		editFillColorSelector->setChecked(false);
 		gradEditButton->hide();
 		gradEditButton->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		gradientQCombo->hide();
@@ -442,12 +442,12 @@ void Cpalette::InhaltButton()
 	emit modeChanged();
 }
 
-void Cpalette::InnenButton()
+void Cpalette::editFillColorSelectorButton()
 {
-	if (Innen->isChecked())
+	if (editFillColorSelector->isChecked())
 	{
 		Mode = 2;
-		Inhalt->setChecked(false);
+		editLineColorSelector->setChecked(false);
 		gradientQCombo->show();
 		gradientQCombo->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 		GradientMode = gradientQCombo->currentIndex() != 0 ? true : false;
@@ -1031,10 +1031,11 @@ void Cpalette::languageChange()
 	blendMode->addItem( tr("Luminosity"));
 	displayAllColors->setText( tr( "Display only used Colors" ));
 
-	Inhalt->setToolTip( tr( "Edit Line Color Properties" ) );
-	Innen->setToolTip( tr( "Edit Fill Color Properties" ) );
+	editLineColorSelector->setToolTip( tr( "Edit Line Color Properties" ) );
+	editFillColorSelector->setToolTip( tr( "Edit Fill Color Properties" ) );
 	PM1->setToolTip( tr( "Saturation of color" ) );
 	gradientQCombo->setToolTip( tr( "Normal or gradient fill method" ) );
 	TransSpin->setToolTip( tr( "Set the transparency for the color selected" ) );
 	gradEditButton->setToolTip( "<qt>" + tr( "Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed" ) + "</qt>");
+	displayAllColors->setToolTip( "<qt>" + tr( "Display all colors from the document color list, or only the already used colors" ) + "</qt>");
 }

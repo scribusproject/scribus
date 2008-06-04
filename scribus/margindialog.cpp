@@ -170,6 +170,13 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 	
+	//tooltips
+	sizeQComboBox->setToolTip( tr( "Size of the inserted pages, either a standard or custom size." ) );
+	orientationQComboBox->setToolTip( tr( "Orientation of the page(s) to be inserted" ) );
+	widthSpinBox->setToolTip( tr( "Width of the page(s) to be inserted" ) );
+	heightSpinBox->setToolTip( tr( "Height of the page(s) to be inserted" ) );
+	moveObjects->setToolTip( tr( "When inserting a new page between others, move objects with their current pages. This is the default action." ) );
+	
 	setPageSize();
 	setMinimumSize(minimumSizeHint());
 	setMaximumSize(minimumSizeHint());

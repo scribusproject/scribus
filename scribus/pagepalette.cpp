@@ -570,9 +570,6 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	connect(pageView, SIGNAL(NewPage(int, QString)), m_scMW, SLOT(slotNewPageP(int, QString)));
 	connect(Trash, SIGNAL(DelPage(int)), m_scMW, SLOT(DeletePage2(int)));
 	connect(this, SIGNAL(gotoPage(int)), m_scMW, SLOT(selectPagesFromOutlines(int)));
-
-	Trash->setToolTip( "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
-	masterPageList->setToolTip( "<qt>" + tr("Here are all your master pages. To create a new page, drag a master page to the page view below") + "</qt>");
 }
 
 void PagePalette::deleteMasterPage(QString tmp)
@@ -882,6 +879,10 @@ void PagePalette::languageChange()
 	setWindowTitle( tr( "Arrange Pages" ) );
 	TextLabel1->setText( tr( "Available Master Pages:" ) );
 	TextLabel2->setText( tr( "Document Pages:" ) );
+	
+	masterPageList->setToolTip( "<qt>" + tr( "List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or ont empty space to create new pages." ) + "</qt>");
+	pageView->setToolTip( "<qt>" + tr( "List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.")  + "</qt>");
+	Trash->setToolTip( "<qt>" + tr("Drag pages or master pages onto the trash to delete them") + "</qt>");
 }
 
 //CB Whats this variable returned for.. its always true... ?

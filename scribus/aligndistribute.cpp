@@ -100,7 +100,9 @@ void AlignDistributePalette::languageChange()
 	alignRelativeToCombo->addItem( tr( "Guide" ) );		
 	alignRelativeToCombo->addItem( tr( "Selection" ) );
 	alignRelativeToCombo->setCurrentIndex(alignComboValue);
+	alignRelativeToCombo->setToolTip( tr( "<qt>Align relative to the:<ul><li>First selected item</li><li>Second Selected Item</li><li>The current page</li><li>The margins of the current page</li><li>A Guide</li><li>The selection</ul></qt>" ) );
 	alignToChanged(alignComboValue);
+	alignGuideLineEdit->setToolTip( tr( "The location of the selected guide to align to" ) );
 	alignLeftOutToolButton->setText( QString::null );
 	alignLeftOutToolButton->setToolTip( tr( "Align right sides of items to left side of anchor" ) );
 	alignRightOutToolButton->setText( QString::null );

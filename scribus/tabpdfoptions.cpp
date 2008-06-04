@@ -951,6 +951,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	connect(UseLPI, SIGNAL(clicked()), this, SLOT(EnableLPI2()));
 	connect(LPIcolor, SIGNAL(activated(int)), this, SLOT(SelLPIcol(int)));
 	//tooltips
+	RotateDeg->setToolTip( "<qt>" + tr( "Automatically rotate the exported pages" ) + "</qt>" );
 	AllPages->setToolTip( "<qt>" + tr( "Export all pages to PDF" ) + "</qt>" );
 	OnlySome->setToolTip( "<qt>" + tr( "Export a range of pages to PDF" ) );
 	PageNr->setToolTip( "<qt>" + tr( "Insert a comma separated list of tokens where "

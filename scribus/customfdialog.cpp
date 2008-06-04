@@ -272,6 +272,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 	hboxLayout1->setContentsMargins(9, 0, 0, 0);
 	showPreview = new QCheckBox(this);
 	showPreview->setText( tr("Show Preview"));
+	showPreview->setToolTip( tr("Show a preview and information for the selected file"));
 	showPreview->setChecked(true);
 	previewIsShown = true;
 	hboxLayout1->addWidget(showPreview);
@@ -284,6 +285,9 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 	CancelB->setAutoDefault( false );
 	hboxLayout1->addWidget( CancelB );
 	vboxLayout->addLayout(hboxLayout1);
+	SaveZip=NULL;
+	WithFonts=NULL;
+	WithProfiles=NULL;
 	if (flags & fdDirectoriesOnly)
 	{
 		Layout = new QFrame(this);
@@ -333,6 +337,14 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 			if (flags & fdCompressFile)
 				vboxLayout->addWidget(Layout);
 		}
+		
+		if (SaveZip!=NULL)
+			SaveZip->setToolTip( "<qt>" + tr( "Compress the Scribus document on save" ) + "</qt>");
+		if (WithFonts!=NULL)
+			WithFonts->setToolTip( "<qt>" + tr( "Include fonts when collecting files for the document. Be sure to know and understand licensing information for any fonts you collect and possibly redistribute." ) + "</qt>");
+		if (WithProfiles!=NULL)
+			WithProfiles->setToolTip( "<qt>" + tr( "Include color profiles when collecting files for the document" ) + "</qt>");
+		
 		if (flags & fdShowCodecs)
 		{
 			LayoutC = new QFrame(this);

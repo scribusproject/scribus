@@ -207,6 +207,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( okButton_clicked() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( cancelButton_clicked() ) );
 	connect( loremList, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(okButton_clicked()));
+	
 }
 
 LoremManager::~LoremManager()
@@ -233,6 +234,8 @@ void LoremManager::languageChange()
 	cancelButton->setText( CommonStrings::tr_Cancel );
 	cancelButton->setShortcut( QKeySequence( tr( "Alt+C" ) ) );
 	standardloremtext = tr("Standard Lorem Ipsum");
+	paraBox->setToolTip( tr( "Number of paragraphs of selected sample text to insert" ) );
+	loremList->setToolTip( tr( "List of languages available to insert sample text in" ) );
 }
 
 void LoremManager::okButton_clicked()

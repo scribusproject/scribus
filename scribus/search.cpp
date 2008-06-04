@@ -288,6 +288,13 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	connect( RFillS, SIGNAL( clicked() ), this, SLOT( enableFillSReplace() ) );
 	connect( RStrokeS, SIGNAL( clicked() ), this, SLOT( enableStrokeSReplace() ) );
 	connect(clearButton, SIGNAL(clicked()), this, SLOT(clear()));
+	
+	//tooltips
+	DoSearch->setToolTip( tr( "Search for text or formatting in the current text" ) );
+	DoReplace->setToolTip( tr( "Replace the searched for formatting with the replacement values" ) );
+	AllReplace->setToolTip( tr( "Replace all found instances" ) );
+	clearButton->setToolTip( tr( "Clear all search and replace options" ) );
+	Leave->setToolTip( tr( "Close search and replace" ) );
 
  // tab order
 	setTabOrder( SText, SStyle );

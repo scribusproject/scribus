@@ -309,6 +309,10 @@ void UndoPalette::languageChange()
 	objectBox->setText( tr("Show selected object only"));
 	undoButton->setText( tr("&Undo"));
 	redoButton->setText( tr("&Redo"));
+	
+	objectBox->setToolTip( "<qt>" + tr( "Show the action history for the selected item only. This changes the effect of the undo/redo buttons to act on the object or document." ) + "</qt>" );
+	undoButton->setToolTip( "<qt>" + tr( "Undo the last action for either the current object or the document" ) + "</qt>");
+	redoButton->setToolTip( "<qt>" + tr( "Redo the last action for either the current object or the document" ) + "</qt>");
 }
 
 void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
