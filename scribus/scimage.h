@@ -126,12 +126,8 @@ private:
 	void doGraduate(FPointArray curve, bool cmyk, bool linear);
 	void swapRGBA();
 	bool convolveImage(QImage *dest, const unsigned int order, const double *kernel);
-	int getOptimalKernelWidth(double radius, double sigma);
-	void applyCurve(bool cmyk);
-	char* iccbuf;
-	uint icclen;
-	QVector<int> curveTable;
-	QList<unsigned int> colorTable;
+	int  getOptimalKernelWidth(double radius, double sigma);
+	void applyCurve(const QVector<int>& curveTable, bool cmyk);
 };
 
 #endif

@@ -134,7 +134,6 @@ void ScImage::initialize()
 
 ScImage::~ScImage()
 {
-	curveTable.resize(0);
 }
 
 void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& colors, bool cmyk)
@@ -394,13 +393,13 @@ void ScImage::liberateMemory(void **memory)
 */
 void ScImage::solarize(double factor, bool cmyk)
 {
-	curveTable.resize(256);
+	QVector<int> curveTable(256);
 	int fk = qRound(255 / factor);
 	for (int i = 0; i < 256; ++i)
 	{
 		curveTable[i] = qMin(255, static_cast<int>(i / fk) * fk);
 	}
-	applyCurve(cmyk);
+	applyCurve(curveTable, cmyk);
 }
 
 // Stack Blur Algorithm by Mario Klingemann <mario@quasimondo.com>
@@ -778,7 +777,7 @@ void ScImage::sharpen(double radius, double sigma)
 
 void ScImage::contrast(int contrastValue, bool cmyk)
 {
-	curveTable.resize(256);
+	QVector<int> curveTable(256);
 	QPoint p1(0,0 - contrastValue);
 	QPoint p2(256, 256 + contrastValue);
 	double mc = (p1.y() - p2.y()) / (double)(p1.x() - p2.x());
@@ -786,12 +785,12 @@ void ScImage::contrast(int contrastValue, bool cmyk)
 	{
 		curveTable[i] = qMin(255, qMax(0, int(i * mc) + p1.y()));
 	}
-	applyCurve(cmyk);
+	applyCurve(curveTable, cmyk);
 }
 
 void ScImage::brightness(int brightnessValue, bool cmyk)
 {
-	curveTable.resize(256);
+	QVector<int> curveTable(256);
 	QPoint p1(0,0 + brightnessValue);
 	QPoint p2(256, 256 + brightnessValue);
 	double mc = (p1.y() - p2.y()) / (double)(p1.x() - p2.x());
@@ -799,20 +798,20 @@ void ScImage::brightness(int brightnessValue, bool cmyk)
 	{
 		curveTable[i] = qMin(255, qMax(0, int(i * mc) + p1.y()));
 	}
-	applyCurve(cmyk);
+	applyCurve(curveTable, cmyk);
 }
 
 void ScImage::doGraduate(FPointArray curve, bool cmyk, bool linear)
 {
-	curveTable.resize(256);
+	QVector<int> curveTable(256);
 	for (int x = 0 ; x < 256 ; x++)
 	{
 		curveTable[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve, x / 255.0, linear) * 255)));
 	}
-	applyCurve(cmyk);
+	applyCurve(curveTable, cmyk);
 }
 
-void ScImage::applyCurve(bool cmyk)
+void ScImage::applyCurve(const QVector<int>& curveTable, bool cmyk)
 {
 	int h = height();
 	int w = width();
