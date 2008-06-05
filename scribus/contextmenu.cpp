@@ -233,18 +233,21 @@ void ContextMenu::createMenuItems_Selection()
 	}
 	//-->
 	//<-- Item PDF Options
-	QAction *act = addMenu(menuPDF);
-	act->setText( ScribusView::tr("&PDF Options"));
-	menuPDF->addAction(m_AP->scrActions["itemPDFIsAnnotation"]);
-	if (!m_doc->masterPageMode())
-		menuPDF->addAction(m_AP->scrActions["itemPDFIsBookmark"]);
-	if (selectedItemCount == 1)
+	if (currItem->itemType() == PageItem::TextFrame)
 	{
-		menuPDF->addSeparator();
-		if (m_actionList.contains("itemPDFAnnotationProps"))
-			menuPDF->addAction(m_AP->scrActions["itemPDFAnnotationProps"]);
-		if (m_actionList.contains("itemPDFFieldProps"))
-			menuPDF->addAction(m_AP->scrActions["itemPDFFieldProps"]);
+		QAction *act = addMenu(menuPDF);
+		act->setText( ScribusView::tr("&PDF Options"));
+		menuPDF->addAction(m_AP->scrActions["itemPDFIsAnnotation"]);
+		if (!m_doc->masterPageMode())
+			menuPDF->addAction(m_AP->scrActions["itemPDFIsBookmark"]);
+		if (selectedItemCount == 1)
+		{
+			menuPDF->addSeparator();
+			if (m_actionList.contains("itemPDFAnnotationProps"))
+				menuPDF->addAction(m_AP->scrActions["itemPDFAnnotationProps"]);
+			if (m_actionList.contains("itemPDFFieldProps"))
+				menuPDF->addAction(m_AP->scrActions["itemPDFFieldProps"]);
+		}
 	}
 	//-->
 	
