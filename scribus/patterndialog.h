@@ -52,8 +52,11 @@ class SCRIBUS_API PatternDialog : public QDialog, Ui::PatternDialog
 		ScribusDoc *m_doc;
 		ScribusMainWindow *mainWin;
 		QMap<QString, ScPattern> dialogPatterns;
+		QMap<QString,QString> replaceMap;
+		QMap<QString,QString> origNames;
 		QStringList origPatterns;
 	public slots:
+		void renamePattern();
 		void loadPatternDir();
 		void loadPattern();
 		void patternSelected(QListWidgetItem* it);

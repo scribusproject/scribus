@@ -966,6 +966,11 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 					}
 					else
 						p->setFillMode(ScPainter::None);
+					if ((!patternVal.isEmpty()) && (!m_Doc->docPatterns.contains(patternVal)))
+					{
+						GrType = 0;
+						patternVal = "";
+					}
 				}
 				else
 				{

@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
+#include "query.h"
 #include "util.h"
 #include "stencilreader.h"
 #include "scconfig.h"
@@ -56,17 +57,51 @@ PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatte
 	for (QMap<QString, ScPattern>::Iterator it = docPatterns->begin(); it != docPatterns->end(); ++it)
 	{
 		dialogPatterns.insert(it.key(), it.value());
+		origNames.insert(it.key(), it.key());
 	}
 	origPatterns = docPatterns->keys();
 	updatePatternList();
+	replaceMap.clear();
 	buttonRemove->setEnabled(false);
+	buttonRename->setEnabled(false);
 	connect(buttonOK, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(buttonCancel, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(buttonLoad, SIGNAL(clicked()), this, SLOT(loadPattern()));
 	connect(buttonLoadDir, SIGNAL(clicked()), this, SLOT(loadPatternDir()));
 	connect(buttonRemove, SIGNAL(clicked()), this, SLOT(removePattern()));
+	connect(buttonRename, SIGNAL(clicked()), this, SLOT(renamePattern()));
 	connect(buttonRemoveAll, SIGNAL(clicked()), this, SLOT(removeAllPatterns()));
 	connect(patternView, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(patternSelected(QListWidgetItem*)));
+}
+
+void PatternDialog::renamePattern()
+{
+	QListWidgetItem *it = patternView->currentItem();
+	if (it)
+	{
+		QString patternName = origNames[it->text()];
+		QString newName = "";
+		Query dia(this, "tt", 1, 0, tr("&Name:"), tr("Rename Entry"));
+		dia.setEditText(it->text(), true);
+		if (dia.exec())
+		{
+			newName = dia.getEditText();
+			while (dialogPatterns.contains(newName))
+			{
+				if (!dia.exec())
+					return;
+				newName = dia.getEditText();
+			}
+			ScPattern pat = dialogPatterns.take(it->text());
+			dialogPatterns.insert(newName, pat);
+			replaceMap.insert(patternName, newName);
+			origNames.remove(it->text());
+			origNames.insert(newName, patternName);
+			it->setText(newName);
+		}
+		else
+			return;
+	}
 }
 
 void PatternDialog::updatePatternList()
@@ -349,10 +384,14 @@ void PatternDialog::loadVectors(QString data)
 void PatternDialog::patternSelected(QListWidgetItem* it)
 {
 	if (it)
+	{
 		buttonRemove->setEnabled(true);
+		buttonRename->setEnabled(true);
+	}
 	else
 	{
 		buttonRemove->setEnabled(false);
+		buttonRename->setEnabled(false);
 		patternView->clearSelection();
 	}
 }

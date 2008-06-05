@@ -2600,12 +2600,12 @@ bool ScribusDoc::addPattern(QString &name, ScPattern& pattern)
 void ScribusDoc::setPatterns(QMap<QString, ScPattern> &patterns)
 {
 	docPatterns.clear();
-	docPatterns=patterns;
+	docPatterns = patterns;
 // 	for (QMap<QString, ScPattern>::Iterator it = patterns.begin(); it != patterns.end(); ++it)
 // 	{
 // 		docPatterns.insert(it.key(), it.data());
 // 	}
-	for (int c=0; c<DocItems.count(); ++c)
+/*	for (int c=0; c<DocItems.count(); ++c)
 	{
 		PageItem *ite = DocItems.at(c);
 		if ((!docPatterns.contains(ite->pattern())) && (ite->GrType == 8))
@@ -2631,7 +2631,7 @@ void ScribusDoc::setPatterns(QMap<QString, ScPattern> &patterns)
 			ite->setPattern("");
 			ite->GrType = 0;
 		}
-	}
+	} */
 }
 
 

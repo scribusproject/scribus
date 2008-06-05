@@ -9777,9 +9777,14 @@ void ScribusMainWindow::managePatterns()
 		if (dia->exec())
 		{
 			doc->setPatterns(dia->dialogPatterns);
+			if (!dia->replaceMap.isEmpty())
+			{
+				ResourceCollection colorrsc;
+				colorrsc.mapPatterns(dia->replaceMap);
+				doc->replaceNamedResources(colorrsc);
+			}
 			propertiesPalette->updateColorList();
 			view->DrawNew();
-//			undoManager->setUndoEnabled(true);
 		}
 		delete dia;
 		undoManager->setUndoEnabled(true);
