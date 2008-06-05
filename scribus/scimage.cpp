@@ -1245,10 +1245,10 @@ bool ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
 			QRgb* rgba = (QRgb*)scanLine(cinfo.next_scanline);
 			for (int i=0; i<w; ++i)
 			{
-				*row++ = 255-qRed(*rgba);
-				*row++ = 255-qGreen(*rgba);
-				*row++ = 255-qBlue(*rgba);
-				*row++ = 255-qAlpha(*rgba);
+				*row++ = qRed(*rgba);
+				*row++ = qGreen(*rgba);
+				*row++ = qBlue(*rgba);
+				*row++ = qAlpha(*rgba);
 				++rgba;
 			}
 		}
@@ -1582,7 +1582,7 @@ void ScImage::scaleImage(int nwidth, int nheight)
 	else
 	{
 		int fac = 4096;
-		while (cols * fac > 4096)
+		while ((cols * fac) > 4096)
 		{
 			fac /= 2;
 		}
