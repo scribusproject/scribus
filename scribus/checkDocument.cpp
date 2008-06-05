@@ -871,8 +871,8 @@ void CheckDocument::languageChange()
 	reScan->setText( tr("Check again"));
 	
 	textLabel1->setToolTip( "<qt>"+ tr( "Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences") + "</qt>");
-	ignoreErrors->setText( "<qt>"+ tr( "Ignore found errors and continue to export or print. Be sure to understand the errors you are ignoring before continuing.") + "</qt>");
-	reScan->setText( "<qt>"+ tr( "Rerun the document scan to check corrections you may have made" ) + "</qt>");
+	ignoreErrors->setToolTip( "<qt>"+ tr( "Ignore found errors and continue to export or print. Be sure to understand the errors you are ignoring before continuing.") + "</qt>");
+	reScan->setToolTip( "<qt>"+ tr( "Rerun the document scan to check corrections you may have made" ) + "</qt>");
 	
 	missingGlyph = tr("Glyphs missing");
 	textOverflow = tr("Text overflow");
