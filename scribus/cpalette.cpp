@@ -288,7 +288,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	groupRotationLayout->setAlignment( Qt::AlignTop );
 	textLabel7 = new QLabel( groupRotation );
 	groupRotationLayout->addWidget( textLabel7 );
-	spinAngle = new ScrSpinBox( -180, 180, groupRotation, 0 );
+	spinAngle = new ScrSpinBox( -180, 180, groupRotation, 6 );
 	groupRotationLayout->addWidget( spinAngle );
 	frame3Layout->addWidget( groupRotation );
 	Form1Layout->addWidget(patternFrame);
