@@ -6776,8 +6776,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				PutDoc("/Filter /DCTDecode\n");
 			else if (cm != PDFOptions::Compression_None)
 				PutDoc("/Filter /FlateDecode\n");
-			if (exportToCMYK && (cm == PDFOptions::Compression_JPEG))
-				PutDoc("/Decode [1 0 1 0 1 0 1 0]\n");
+//			if (exportToCMYK && (cm == PDFOptions::Compression_JPEG))
+//				PutDoc("/Decode [1 0 1 0 1 0 1 0]\n");
 			if (alphaM)
 			{
 				if (Options.Version >= 14)
