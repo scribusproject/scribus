@@ -4212,6 +4212,10 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				hl2.glyph.xoffset = hl->glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
 				hl2.glyph.scaleH = hl->glyph.scaleH;
 				hl2.glyph.scaleV = hl->glyph.scaleV;
+				hl2.PtransX = hl->PtransX;
+				hl2.PtransY = hl->PtransY;
+				hl2.PRot = hl->PRot;
+				hl2.PDx = hl->PDx;
 				setTextCh(ite, PNr, 0, 0, d, tmp, tmp2, &hl2, pstyle, pag);
 			}
 			setTextCh(ite, PNr, 0, 0, d, tmp, tmp2, hl, pstyle, pag);
