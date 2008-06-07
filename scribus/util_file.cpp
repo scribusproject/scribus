@@ -10,12 +10,37 @@ for which a new license (GPL+exception) is in place.
 #include <QDataStream>
 #include <QFile>
 #include <QString>
+#include <QTemporaryFile>
+
 #include "scstreamfilter.h"
+
+bool copyData(QIODevice& src, QIODevice& dest)
+{
+	bool success = false;
+	if ((src.openMode() & QIODevice::ReadOnly) == 0)
+		return false;
+	if ((dest.openMode() & QIODevice::WriteOnly) == 0)
+		return false;
+	QByteArray bb( 65536, ' ' );
+	if (bb.size() > 0) // Check for memory allocation failure
+	{
+		qint64 byteswritten;
+		qint64 bytesread = src.read( bb.data(), bb.size() );
+		success = (bytesread > 0);
+		while (bytesread > 0)
+		{
+			byteswritten = dest.write( bb.data(), bytesread );
+			success  &= (bytesread == byteswritten);
+			bytesread = src.read( bb.data(), bb.size() );
+		}
+	}
+	return success;
+}
 
 bool copyFile(const QString& source, const QString& target)
 {
-	int bytesread, error = -1;
-	if ((source.isNull()) || (target.isNull()))
+	bool success = true;
+	if ((source.isEmpty()) || (target.isEmpty()))
 		return false;
 	if (source == target)
 		return false;
@@ -23,26 +48,51 @@ bool copyFile(const QString& source, const QString& target)
 	if (!s.exists())
 		return false;
 	QFile t(target);
-	QByteArray bb( 65536, ' ' );
-	if (bb.size() <= 0) // Check for memory allocation failure
-		return false;
 	if (s.open(QIODevice::ReadOnly))
 	{
 		if (t.open(QIODevice::WriteOnly))
 		{
-			bytesread = s.read( bb.data(), bb.size() );
-			while( bytesread > 0 )
-			{
-				t.write( bb.data(), bytesread );
-				bytesread = s.read( bb.data(), bb.size() );
-			}
-			if (s.error() == QFile::NoError && t.error() == QFile::NoError)
-				error = 0;
+			success  = copyData(s, t);
+			success &= (s.error() == QFile::NoError && t.error() == QFile::NoError);
 			t.close();
 		}
 		s.close();
 	}
-	return (error == 0);
+	return success;
+}
+
+bool copyFileAtomic(const QString& source, const QString& target)
+{
+	bool success = false;
+	if ((source.isEmpty()) || (target.isEmpty()))
+		return false;
+	if (source == target)
+		return false;
+	QFile srcFile(source);
+	QString tempFileName;
+	QTemporaryFile tempFile(target + "_XXXXXX");
+	if (srcFile.open(QIODevice::ReadOnly))
+	{
+		QString tmpFileName;
+		if (tempFile.open())
+		{
+			success  = copyData(srcFile, tempFile);
+			success &= (srcFile.error() == QFile::NoError && tempFile.error() == QFile::NoError);
+			tempFile.close();
+		}
+		srcFile.close();
+	}
+	if (success)
+	{
+		if (QFile::exists(target))
+			success = QFile::remove(target);
+		if (success)
+		{
+			success = QFile::rename(tempFileName, target);
+			tempFile.setAutoRemove(success);
+		}
+	}
+	return success;
 }
 
 bool copyFileToFilter(const QString& source, ScStreamFilter& target)

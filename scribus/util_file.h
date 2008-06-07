@@ -25,6 +25,17 @@ class ScStreamFilter;
 **/
 bool SCRIBUS_API copyFile(const QString& source, const QString& target);
 /**
+* @brief Copy a source file to a target using atomic operations
+   * 
+   * This function copy a file to a destination using atomic operations. 
+   * If destination exists, the target file is overwritten.
+   *
+   * @param  source the source file
+   * @param  target the target file
+   * @return true on success, false on failure.
+**/
+bool SCRIBUS_API copyFileAtomic(const QString& source, const QString& target);
+/**
 * @brief Copy a source file to a stream filter
    * 
    * This function copy a file to a stream filter. The target filter has

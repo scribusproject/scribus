@@ -245,7 +245,7 @@ bool CollectForOutput::collectFonts()
 	for (it3 = m_Doc->UsedFonts.begin(); it3 != it3end; ++it3)
 	{
 		QFileInfo itf = QFileInfo(prefsManager->appPrefs.AvailFonts[it3.key()].fontFilePath());
-		copyFile(prefsManager->appPrefs.AvailFonts[it3.key()].fontFilePath(), outputDirectory + itf.fileName());
+		copyFileAtomic(prefsManager->appPrefs.AvailFonts[it3.key()].fontFilePath(), outputDirectory + itf.fileName());
 		if (prefsManager->appPrefs.AvailFonts[it3.key()].type() == ScFace::TYPE1)
 		{
 			QStringList metrics;
@@ -268,7 +268,7 @@ bool CollectForOutput::collectFonts()
 			{
 				QString origAFM = metrics[a];
 				QFileInfo fi(origAFM);
-				copyFile(origAFM, outputDirectory + fi.fileName());
+				copyFileAtomic(origAFM, outputDirectory + fi.fileName());
 			}
 		}
 	}
@@ -324,7 +324,7 @@ bool CollectForOutput::collectProfiles()
 	{
 		QString profileName(it.key());
 		QString profilePath(it.value());
-		copyFile(profilePath, outputDirectory + QFileInfo(profilePath).fileName());
+		copyFileAtomic(profilePath, outputDirectory + QFileInfo(profilePath).fileName());
 	}
 	return true;
 }
@@ -348,7 +348,7 @@ QString CollectForOutput::collectFile(QString oldFile, QString newFile)
 		++cnt;
 	}
 	if (copy)
-		copyFile(oldFile, outputDirectory + newFile);
+		copyFileAtomic(oldFile, outputDirectory + newFile);
 	collectedFiles[newFile] = oldFile;
 	return outputDirectory + newFile;
 }
