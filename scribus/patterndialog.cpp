@@ -190,6 +190,7 @@ void PatternDialog::loadPatternDir()
 						pat.setDoc(m_doc);
 						pat.setPattern(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 						dialogPatterns.insert(patNam, pat);
+						origNames.insert(patNam, patNam);
 					}
 				}
 				else
@@ -208,6 +209,34 @@ void PatternDialog::loadPatternDir()
 void PatternDialog::loadPattern()
 {
 	QString fileName;
+	QString formats = "";
+	QString allFormats = tr("All Supported Formats")+" (";
+	int fmtCode = FORMATID_ODGIMPORT;
+	const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
+	while (fmt != 0)
+	{
+		if (fmt->load)
+		{
+			formats += fmt->filter + ";;";
+			int an = fmt->filter.indexOf("(");
+			int en = fmt->filter.indexOf(")");
+			while (an != -1)
+			{
+				allFormats += fmt->filter.mid(an+1, en-an-1)+" ";
+				an = fmt->filter.indexOf("(", en);
+				en = fmt->filter.indexOf(")", an);
+			}
+		}
+		fmtCode++;
+		fmt = LoadSavePlugin::getFormatById(fmtCode);
+	}
+	allFormats += "*.sce *.SCE ";
+	allFormats += "*.shape *.SHAPE ";
+	allFormats += "*.sml *.SML ";
+	formats += "Scribus Objects (*.sce *.SCE);;";
+	formats += "Dia Shapes (*.shape *.SHAPE);;";
+	formats += "Kivio Stencils (*.sml *.SML)";
+/*
 	QString formats = "Scribus Objects (*.sce *.SCE);;";
 	formats += "Dia Shapes (*.shape *.SHAPE);;";
 	formats += "Kivio Stencils (*.sml *.SML);;";
@@ -221,14 +250,12 @@ void PatternDialog::loadPattern()
 		if (fmtCode == FORMATID_PSIMPORT)
 			fmtCode++;
 		fmt = LoadSavePlugin::getFormatById(fmtCode);
-	}
-	formats += "EPS (*.eps *.EPS);;";
-	formats += "EPSI (*.epsi *.EPSI);;";
-	formats += "PDF (*.pdf *.PDF);;";
+	} */
 	QString form1 = "";
 	QString form2 = "";
 	QStringList imgFormats;
 	bool jpgFound = false;
+	bool tiffFound = false;
 	for (int i = 0; i < QImageReader::supportedImageFormats().count(); ++i )
 	{
 		form1 = QString(QImageReader::supportedImageFormats().at(i)).toLower();
@@ -236,6 +263,7 @@ void PatternDialog::loadPattern()
 		if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
 		{
 			formats += form2 + " (*."+form1+" *."+form2+");;";
+			allFormats += "*."+form1+" *."+form2+" ";
 			imgFormats.append(form1);
 		}
 		else if ((form1 == "jpg") || (form1 == "jpeg"))
@@ -245,18 +273,44 @@ void PatternDialog::loadPattern()
 			if (!jpgFound)
 			{
 				formats += "JPEG (*.jpg *.jpeg *.JPG *.JPEG);;";
+				allFormats += "*.jpg *.jpeg *.JPG *.JPEG ";
 				imgFormats.append("jpeg");
 				imgFormats.append("jpg");
 				jpgFound = true;
 			}
 		}
-		else
+		else if ((form1 == "tif") || (form1 == "tiff"))
+		{
+			if (!tiffFound)
+			{
+				formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
+				allFormats += "*.tif *.tiff *.TIF *.TIFF ";
+				imgFormats.append("tif");
+				imgFormats.append("tiff");
+				tiffFound = true;
+			}
+		}
+		else if (form1 != "svg")
+		{
 			imgFormats.append(form1);
+			allFormats += "*."+form1+" *."+form2+" ";
+		}
 	}
-	formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
+	if (!tiffFound)
+	{
+		formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
+		allFormats += "*.tif *.tiff *.TIF *.TIFF ";
+	}
+	if (!jpgFound)
+	{
+		formats += "JPEG (*.jpg *.jpeg *.JPG *.JPEG);;";
+		allFormats += "*.jpg *.jpeg *.JPG *.JPEG ";
+	}
 	formats += "PSD (*.psd *.PSD);;";
 	formats += "Gimp Patterns (*.pat *.PAT);;";
 	formats += tr("All Files (*)");
+	allFormats += "*.psd *.PSD ";
+	allFormats += "*.pat *.PAT);;";
 	imgFormats.append("tif");
 	imgFormats.append("tiff");
 	imgFormats.append("pat");
@@ -265,9 +319,10 @@ void PatternDialog::loadPattern()
 	imgFormats.append("eps");
 	imgFormats.append("epsi");
 	imgFormats.append("ps");
+	allFormats += formats;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("patterns", ".");
-	CustomFDialog dia(this, wdir, tr("Open"), formats, fdExistingFiles);
+	CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdExistingFiles);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -290,6 +345,7 @@ void PatternDialog::loadPattern()
 			if (!dialogPatterns.contains(patNam))
 			{
 				dialogPatterns.insert(patNam, pat);
+				origNames.insert(patNam, patNam);
 				updatePatternList();
 			}
 		}
@@ -369,11 +425,15 @@ void PatternDialog::loadVectors(QString data)
 		if (!dialogPatterns.contains(patNam))
 		{
 			dialogPatterns.insert(patNam, pat);
+			origNames.insert(patNam, patNam);
 		}
 		for (QMap<QString, ScPattern>::Iterator it = m_doc->docPatterns.begin(); it != m_doc->docPatterns.end(); ++it)
 		{
 			if (!origPatterns.contains(it.key()))
+			{
 				dialogPatterns.insert(it.key(), it.value());
+				origNames.insert(it.key(), it.key());
+			}
 		}
 	}
 	m_doc->setLoading(false);
