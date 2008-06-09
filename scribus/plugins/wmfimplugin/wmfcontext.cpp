@@ -16,10 +16,10 @@ WMFGraphicsState::WMFGraphicsState(void)
 				  viewportOrg(0.0, 0.0),
 				  viewportExt(1.0, 1.0),
 				  position (0.0, 0.0),
+				  backgroundMode(Qt::TransparentMode),
 				  textAlign(0),
 				  textCharset(1), //DEFAULT_CHARSET
 				  textRotation(0),
-				  backgroundMode(Qt::TransparentMode),
 				  windingFill(false)
 {
 
