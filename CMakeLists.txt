@@ -38,7 +38,7 @@ PROJECT(scribus)
 SET (VERSION_MAJOR "1")
 SET (VERSION_MINOR "3")
 SET (VERSION_PATCH "3.12")
-SET (VERSION_SUFFIX "svn")
+SET (VERSION_SUFFIX "")
 SET (VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}${VERSION_SUFFIX})
 MESSAGE(STATUS "Scribus ${VERSION} will be built to install into ${CMAKE_INSTALL_PREFIX}")
 
@@ -73,6 +73,26 @@ IF (_machine_ppc)
     MESSAGE(STATUS "Found target PPC")
     SET(ARCH_PPC 1)
 ENDIF (_machine_ppc)
+
+STRING(REGEX MATCH "(sparc-*)" _machine_sparc "${MACHINE}")
+IF (_machine_sparc)
+    MESSAGE(STATUS "Found target Sparc")
+    SET(ARCH_SPARC 1)
+ENDIF (_machine_sparc)
+
+STRING(REGEX MATCH "(sparcv9-*)" _machine_sparcv9 "${MACHINE}")
+IF (_machine_sparcv9)
+    MESSAGE(STATUS "Found target Sparc v9")
+    SET(ARCH_SPARCV9 1)
+ENDIF (_machine_sparcv9)
+
+STRING(REGEX MATCH "(sparc64-*)" _machine_sparc64 "${MACHINE}")
+IF (_machine_sparc64)
+    MESSAGE(STATUS "Found target Sparc64")
+    SET(ARCH_SPARC64 1)
+    SET(ARCH64BIT 1)
+ENDIF (_machine_sparc64)
+
 
 #convert any 64 bit build into generic 64 tag for below
 IF (ARCH_X86_64) 
@@ -484,6 +504,6 @@ IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
   SET(CPACK_SOURCE_PACKAGE_FILE_NAME "scribus-${VERSION}")
   SET(CPACK_SOURCE_GENERATOR TBZ2)
 ## I'll make this prettier later - ignore any tarballs in the root
-  SET(CPACK_SOURCE_IGNORE_FILES CMakeCache.txt scribus-1.3.3.11svn.tar.bz2 scribus-1.3.3.11svn.tar.Z scribus-1.3.3.11svn.tar.gz "~$" "\\\\.cvsignore$" "^${PROJECT_SOURCE_DIR}.*/CVS/" "^${PROJECT_SOURCE_DIR}/debian/" "^${PROJECT_SOURCE_DIR}/old/" "^${PROJECT_SOURCE_DIR}.*/CVSROOT/" "^${PROJECT_SOURCE_DIR}.*/autom4te.cache/")
+  SET(CPACK_SOURCE_IGNORE_FILES CMakeCache.txt scribus-1.3.3.12.tar.bz2 scribus-1.3.3.12.tar.Z scribus-1.3.3.12.tar.gz "~$" "\\\\.cvsignore$" "^${PROJECT_SOURCE_DIR}.*/CVS/" "^${PROJECT_SOURCE_DIR}/debian/" "^${PROJECT_SOURCE_DIR}/old/" "^${PROJECT_SOURCE_DIR}.*/CVSROOT/" "^${PROJECT_SOURCE_DIR}.*/autom4te.cache/")
   INCLUDE(CPack)
 ENDIF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
