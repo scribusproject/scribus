@@ -2797,7 +2797,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Mailing Lists</source>
-        <translation type="unfinished"></translation>
+        <translation>Listas de correo</translation>
     </message>
 </context>
 <context>
@@ -3573,11 +3573,11 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Frame Break</source>
-        <translation type="unfinished"></translation>
+        <translation>Salto de marco</translation>
     </message>
     <message>
         <source>Column Break</source>
-        <translation type="unfinished"></translation>
+        <translation>Salto de columna</translation>
     </message>
     <message>
         <source>Copyright</source>
@@ -3589,35 +3589,35 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Trademark</source>
-        <translation>Registrado</translation>
+        <translation>Marca comercial</translation>
     </message>
     <message>
         <source>Solidus</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra</translation>
     </message>
     <message>
         <source>Bullet</source>
-        <translation type="unfinished"></translation>
+        <translation>Viñeta</translation>
     </message>
     <message>
         <source>Middle Dot</source>
-        <translation type="unfinished"></translation>
+        <translation>Punto medio</translation>
     </message>
     <message>
         <source>Em Dash</source>
-        <translation>Guión largo</translation>
+        <translation>Raya</translation>
     </message>
     <message>
         <source>En Dash</source>
-        <translation>Guión corto</translation>
+        <translation>Semirraya</translation>
     </message>
     <message>
         <source>Figure Dash</source>
-        <translation>Guión numérico</translation>
+        <translation>Raya gráfica</translation>
     </message>
     <message>
         <source>Quotation Dash</source>
-        <translation>Comillado</translation>
+        <translation>Raya introductoria</translation>
     </message>
     <message>
         <source>Apostrophe</source>
@@ -3625,71 +3625,72 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Straight Double</source>
-        <translation type="unfinished"></translation>
+        <translation>Dobles rectas</translation>
     </message>
     <message>
         <source>Single Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Simples de apertura</translation>
     </message>
     <message>
         <source>Single Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Simples de cierre</translation>
     </message>
     <message>
         <source>Double Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Dobles de apertura</translation>
     </message>
     <message>
         <source>Double Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Dobles de cierre</translation>
     </message>
     <message>
         <source>Single Reversed</source>
-        <translation type="unfinished"></translation>
+        <translation>Simples invertidas</translation>
     </message>
     <message>
         <source>Double Reversed</source>
-        <translation type="unfinished"></translation>
+        <translation>Dobles invertidas</translation>
     </message>
     <message>
         <source>Single Left Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation>Españolas simples de apertura</translation>
     </message>
     <message>
         <source>Single Right Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation>Españolas simples de cierre</translation>
     </message>
     <message>
         <source>Double Left Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation>Españolas de apertura</translation>
     </message>
     <message>
         <source>Double Right Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation>Españolas de cierre</translation>
     </message>
     <message>
         <source>Low Single Comma</source>
-        <translation type="unfinished"></translation>
+        <translation>Coma baja simple
+</translation>
     </message>
     <message>
         <source>Low Double Comma</source>
-        <translation type="unfinished"></translation>
+        <translation>Coma baja doble</translation>
     </message>
     <message>
         <source>CJK Single Left</source>
-        <translation type="unfinished"></translation>
+        <translation>CJK simples de apertura</translation>
     </message>
     <message>
         <source>CJK Single Right</source>
-        <translation type="unfinished"></translation>
+        <translation>CJK simples de cierre</translation>
     </message>
     <message>
         <source>CJK Double Left</source>
-        <translation type="unfinished"></translation>
+        <translation>CJK dobles de apertura</translation>
     </message>
     <message>
         <source>CJK Double Right</source>
-        <translation type="unfinished"></translation>
+        <translation>CJK dobles de cierre</translation>
     </message>
     <message>
         <source>En Space</source>
@@ -5354,7 +5355,7 @@ Por favor, provéalo de uno</translation>
     </message>
     <message>
         <source>Letterlike Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Símbolos tipo carta</translation>
     </message>
     <message>
         <source>Number Forms</source>
@@ -5390,7 +5391,7 @@ Por favor, provéalo de uno</translation>
     </message>
     <message>
         <source>Small Form Variants</source>
-        <translation type="unfinished"></translation>
+        <translation>Variantes pequeñas</translation>
     </message>
     <message>
         <source>Ligatures</source>
@@ -5681,11 +5682,11 @@ Por favor, provéalo de uno</translation>
     </message>
     <message>
         <source>Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>Triádico</translation>
     </message>
     <message>
         <source>Tetradic (Double Complementary)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tetrádico (Complementario doble)</translation>
     </message>
     <message>
         <source>Base Color</source>
@@ -7559,7 +7560,7 @@ El nombre del archivo exportado será &apos;nombredeldocumento-númerodepágina.
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Cerrar</translation>
+        <translation>&amp;Cerrar</translation>
     </message>
 </context>
 <context>
