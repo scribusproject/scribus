@@ -5554,7 +5554,8 @@ void ScribusMainWindow::slotOnlineHelp()
 
 void ScribusMainWindow::slotOnlineHelpClosed()
 {
-	delete helpBrowser;
+	if (helpBrowser)
+		helpBrowser->deleteLater();
 }
 
 void ScribusMainWindow::ToggleTips()
