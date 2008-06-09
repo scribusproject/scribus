@@ -255,7 +255,7 @@ int copyFile(QString source, QString target)
 			while( bytesread > 0 )
 			{
 				t.writeBlock( bb.data(), bytesread );
-				bytesread = s.readBlock( bb.data(), bb.size() );
+				bytesread = s.atEnd() ? 0 : s.readBlock( bb.data(), bb.size() );
 			}
 			if (s.status() == IO_Ok && t.status() == IO_Ok)
 				error = 0;
@@ -263,6 +263,67 @@ int copyFile(QString source, QString target)
 		}
 		s.close();
 	}
+	return error;
+}
+
+int SCRIBUS_API copyFileAtomic(QString source, QString target)
+{
+	int bytesread, error = -1;
+	if ((source.isNull()) || (target.isNull()))
+		return -1;
+	if (source == target)
+		return -1;
+	if (!QFile::exists(source))
+		return -1;
+
+	// Create a random temporary file name
+	srand(time(NULL)); // initialize random sequence each time
+	long     randt = 0, randn = 1 + (int) (((double) rand() / ((double) RAND_MAX + 1)) * 10000);
+	QString  tmpFileName  = QString("%1.%2").arg(target).arg(randn);
+	while (QFile::exists(tmpFileName) && (randt < 100))
+	{
+		randn = 1 + (int) (((double)rand() / ((double) RAND_MAX + 1)) * 10000);
+		tmpFileName = QString("%1.%2").arg(target).arg(randn);
+		++randt;
+	}
+	if (QFile::exists(tmpFileName))
+		return -1;
+
+	QFile s(source);
+	QFile t(tmpFileName);
+	QByteArray bb( 65536 );
+	if (bb.size() <= 0) // Check for memory allocation failure
+		return -1;
+	if (s.open(IO_ReadOnly))
+	{
+		if (t.open(IO_WriteOnly))
+		{
+			bytesread = s.readBlock( bb.data(), bb.size() );
+			while( bytesread > 0 )
+			{
+				t.writeBlock( bb.data(), bytesread );
+				bytesread = s.atEnd() ? 0 : s.readBlock( bb.data(), bb.size() );
+			}
+			if (s.status() == IO_Ok && t.status() == IO_Ok)
+				error = 0;
+			t.close();
+		}
+		s.close();
+	}
+	bool deleteTmpFile = true;
+	if (error == 0)
+	{
+		if (QFile::exists(target))
+			error = QFile::remove(target) ? 0 : -1;
+		if (error == 0)
+		{
+			QDir fnDir;
+			error = fnDir.rename(tmpFileName, target) ? 0 : -1;
+			deleteTmpFile = (error == 0); 
+		}
+	}
+	if (deleteTmpFile)
+		QFile::remove(tmpFileName);
 	return error;
 }
 

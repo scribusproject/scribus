@@ -233,7 +233,7 @@ bool CollectForOutput::collectFonts()
 	for (it3 = ScMW->doc->UsedFonts.begin(); it3 != it3end; ++it3)
 	{
 		QFileInfo itf = QFileInfo(prefsManager->appPrefs.AvailFonts[it3.key()]->fontFilePath());
-		copyFile(prefsManager->appPrefs.AvailFonts[it3.key()]->fontFilePath(), outputDirectory + itf.fileName());
+		copyFileAtomic(prefsManager->appPrefs.AvailFonts[it3.key()]->fontFilePath(), outputDirectory + itf.fileName());
 		if (prefsManager->appPrefs.AvailFonts[it3.key()]->typeCode == Foi::TYPE1)
 		{
 			QStringList metrics;
@@ -256,7 +256,7 @@ bool CollectForOutput::collectFonts()
 			{
 				QString origAFM = metrics[a];
 				QFileInfo fi(origAFM);
-				copyFile(origAFM, outputDirectory + fi.fileName());
+				copyFileAtomic(origAFM, outputDirectory + fi.fileName());
 			}
 		}
 	}
@@ -322,7 +322,7 @@ QString CollectForOutput::collectFile(QString oldFile, QString newFile)
 		++cnt;
 	}
 	if (copy)
-		copyFile(oldFile, outputDirectory + newFile);
+		copyFileAtomic(oldFile, outputDirectory + newFile);
 	collectedFiles[newFile] = oldFile;
 	return outputDirectory + newFile;
 }

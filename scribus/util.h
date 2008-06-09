@@ -121,6 +121,7 @@ QImage SCRIBUS_API ProofImage(QImage *Im);
 */
 int SCRIBUS_API System(const QStringList & args, const QString fileStdErr = "", const QString fileStdOut = "", bool* cancel = NULL);
 int SCRIBUS_API copyFile(QString source, QString target);
+int SCRIBUS_API copyFileAtomic(QString source, QString target);
 int SCRIBUS_API moveFile(QString source, QString target);
 /*!
  \fn QString checkFileExtension(const QString &currName, const QString &extension)
