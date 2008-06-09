@@ -98,7 +98,7 @@ bool copyFileAtomic(const QString& source, const QString& target)
 bool copyFileToFilter(const QString& source, ScStreamFilter& target)
 {
 	bool copySucceed = true;
-	int  bytesread, error = -1;
+	int  bytesread = -1;
 	if (source.isEmpty())
 		return false;
 	if (!QFile::exists(source))
