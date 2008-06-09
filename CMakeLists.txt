@@ -321,8 +321,8 @@ IF(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
   SET(CMAKE_CXX_FLAGS_RELEASE)
   SET(CMAKE_C_FLAGS_RELEASE)
 ELSE(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
-  SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall")
-  SET(CMAKE_C_FLAGS_RELEASE "-O2 -Wall")
+  SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall -fPIC")
+  SET(CMAKE_C_FLAGS_RELEASE "-O2 -Wall -fPIC")
 ENDIF(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
 
 IF(WIN32)
@@ -420,16 +420,31 @@ ENDIF(PYTHON_LIBRARY)
 #>> JPEG, TIFF, PYTHON
 
 #<< FreeType2
-SET(FREETYPE_DIR ${CMAKE_MODULE_PATH})
-FIND_PACKAGE(FREETYPE REQUIRED)
-IF (FREETYPE_FOUND)
-  MESSAGE("FreeType2 Library Found OK")
-  INCLUDE(CheckLibraryExists)
-  CHECK_LIBRARY_EXISTS(libfreetype.so FT_Get_First_Char "" HAVE_FREETYPE_FIRST)
-  CHECK_LIBRARY_EXISTS(libfreetype.so FT_Get_Next_Char "" HAVE_FREETYPE_NEXT)
-ENDIF(FREETYPE_FOUND)
-#FIXME: if cflags empty add, otherwise replace as now
-SET(CFLAGS "${LIBFREETYPE_CFLAGS}")
+IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.6)
+  SET(FREETYPE_DIR ${CMAKE_MODULE_PATH})
+  FIND_PACKAGE(FREETYPE REQUIRED)
+  IF (FREETYPE_FOUND)
+    MESSAGE("FreeType2 Library Found OK")
+    INCLUDE(CheckLibraryExists)
+    CHECK_LIBRARY_EXISTS(libfreetype.so FT_Get_First_Char "" HAVE_FREETYPE_FIRST)
+    CHECK_LIBRARY_EXISTS(libfreetype.so FT_Get_Next_Char "" HAVE_FREETYPE_NEXT)
+  ENDIF(FREETYPE_FOUND)
+  SET(CFLAGS "${CFLAGS}"."${LIBFREETYPE_CFLAGS}")
+ELSE(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.6)
+  FIND_PACKAGE(Freetype REQUIRED)
+  IF (FREETYPE_FOUND)
+    MESSAGE(STATUS "FreeType2 Library Found OK")
+    INCLUDE(CheckLibraryExists)
+    CHECK_LIBRARY_EXISTS(libfreetype.so FT_Get_First_Char "" HAVE_FREETYPE_FIRST)
+    CHECK_LIBRARY_EXISTS(libfreetype.so FT_Get_Next_Char "" HAVE_FREETYPE_NEXT)
+    # here we have an alternative
+    # a) Setup CFLAGS with the FREETYPE_INCLUDE_DIR_freetype2 provided by cmake
+    # b) Insert ${FREETYPE_INCLUDE_DIRS} in include sections of CMakeLists that need it
+    # I prefer (b) and at some point & from my opinion it should  be just needed in scribus/fonts/CmakeLists.txt - pm
+  ELSE (FREETYPE_FOUND)
+    MESSAGE(FATAL_ERROR "No Freetype Found")
+  ENDIF(FREETYPE_FOUND)
+ENDIF(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.6)
 #>> FreeType2
 
 #<<Render Library
