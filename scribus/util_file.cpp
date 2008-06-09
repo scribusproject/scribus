@@ -73,9 +73,9 @@ bool copyFileAtomic(const QString& source, const QString& target)
 	QTemporaryFile tempFile(target + "_XXXXXX");
 	if (srcFile.open(QIODevice::ReadOnly))
 	{
-		QString tmpFileName;
 		if (tempFile.open())
 		{
+			tempFileName = tempFile.fileName();
 			success  = copyData(srcFile, tempFile);
 			success &= (srcFile.error() == QFile::NoError && tempFile.error() == QFile::NoError);
 			tempFile.close();
