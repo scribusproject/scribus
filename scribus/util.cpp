@@ -319,7 +319,9 @@ int SCRIBUS_API copyFileAtomic(QString source, QString target)
 		{
 			QDir fnDir;
 			error = fnDir.rename(tmpFileName, target) ? 0 : -1;
-			deleteTmpFile = (error == 0); 
+			// if rename succeed tmpFileName does not exists anymore
+			// if rename failed tmpFileName should not be deleted
+			deleteTmpFile = false; 
 		}
 	}
 	if (deleteTmpFile)
