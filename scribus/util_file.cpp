@@ -89,7 +89,9 @@ bool copyFileAtomic(const QString& source, const QString& target)
 		if (success)
 		{
 			success = QFile::rename(tempFileName, target);
-			tempFile.setAutoRemove(success);
+			// if rename succeed tempFileName does not exists anymore
+			// if rename failed tempFileName should not be removed
+			tempFile.setAutoRemove(false);
 		}
 	}
 	return success;
