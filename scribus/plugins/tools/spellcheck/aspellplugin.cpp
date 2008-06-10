@@ -28,7 +28,7 @@ void AspellPlugin::languageChange()
 	// Action name
 	m_actionInfo.name = "AspellPlugin";
 	// Action text for menu, including &accel
-	m_actionInfo.text = tr("Spell-Checker");
+	m_actionInfo.text = tr("Spell Checker");
 	// Menu
 	m_actionInfo.menu = "Item";
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
@@ -47,7 +47,7 @@ void AspellPlugin::languageChange()
 	m_actionInfo.keySequence = "F7";
 	// Should the menu item be enabled when the app starts
 	// (even without a document open) ?
-	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.enabledOnStartup = false;
 }
 
 const QString AspellPlugin::fullTrName() const
