@@ -259,6 +259,8 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 		{
 			if (GetItem(&currItem))
 			{
+				/* CB: old code, removing this as shift-alt select on an unselected table selects a cell now.
+				//#6789 is closed by sorting this.
 				if (currItem->isTableItem)
 				{
 					m_view->Deselect(false);
@@ -268,7 +270,7 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 					if (!m_doc->m_Selection->primarySelectionIs(currItem))
 						currItem->emitAllToGUI();
 					m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-				}
+				}*/
 			}
 			return;
 		}
