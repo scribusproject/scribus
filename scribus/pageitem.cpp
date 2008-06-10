@@ -731,13 +731,19 @@ void PageItem::unlink()
 	{
 		// make sure lastInFrame is valid
 		layout();
+		/*
+		//<< CB #6332: Stop the StoryText cut and break and act like other publishing apps
 		// move following text to new StoryText
 		itemText.select(lastInFrame()+1, itemText.length()-lastInFrame()-1);
+		*/
 		StoryText follow(m_Doc);
+		/*
 		follow.setDefaultStyle(itemText.defaultStyle());
 		follow.insert(0, itemText, true);
 		// remove following text from this chain
 		itemText.removeSelection();
+		//>> 
+		*/
 		// update auto pointers
 		if (isAutoText)
 		{
