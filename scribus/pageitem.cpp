@@ -178,6 +178,7 @@ PageItem::PageItem(const PageItem & other)
 
 	// protected
 	undoManager(other.undoManager),
+	m_ItemType(other.m_ItemType),
 	AnName(other.AnName),
 	patternVal(other.patternVal),
 	patternScaleX(other.patternScaleX),

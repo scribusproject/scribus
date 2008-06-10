@@ -252,6 +252,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				currDoc->m_Selection->clear();
 			}
 			currDoc->changed();
+			currDoc->view()->DrawNew();
 		}
 		delete dia;
 	}
