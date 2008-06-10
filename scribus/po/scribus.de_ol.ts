@@ -2599,7 +2599,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
 Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.</translation>
     </message>
     <message>
         <source>getLineTransparency([&quot;name&quot;]) -&gt; float
@@ -2607,7 +2610,10 @@ is not given the currently selected Item is used.
 Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.</translation>
     </message>
     <message>
         <source>setFillTransparency(transparency, [&quot;name&quot;])
@@ -2615,7 +2621,10 @@ is not given the currently selected Item is used.
 Sets the fill transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.</translation>
     </message>
     <message>
         <source>setLineTransparency(transparency, [&quot;name&quot;])
@@ -2623,7 +2632,10 @@ If &quot;name&quot; is not given the currently selected item is used.
 Sets the line transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.</translation>
     </message>
 </context>
 <context>
@@ -2805,11 +2817,11 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Developer Blog</source>
-        <translation type="unfinished"></translation>
+        <translation>Entwickler-Blog</translation>
     </message>
     <message>
         <source>Mailing Lists</source>
-        <translation type="unfinished"></translation>
+        <translation>Mailinglisten</translation>
     </message>
 </context>
 <context>
@@ -3845,7 +3857,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bilder verwalten</translation>
     </message>
 </context>
 <context>
@@ -5512,11 +5524,11 @@ daß dies sehr genaue Geräteprofile erfordert.</translation>
     </message>
     <message>
         <source>&amp;RGB Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;RGB-Bilder:</translation>
     </message>
     <message>
         <source>&amp;CMYK Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;CMYK-Bilder:</translation>
     </message>
 </context>
 <context>
@@ -5652,7 +5664,8 @@ It is a reserved name for transparent color</source>
     <message>
         <source>You cannot create a color without a name
 Please give it a name</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie können keine Farbe ohne Namen erzeugen.
+Bitte vergeben Sie einen Namen</translation>
     </message>
 </context>
 <context>
@@ -8295,7 +8308,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">Sch&amp;ließen</translation>
+        <translation>Sch&amp;ließen</translation>
     </message>
 </context>
 <context>
@@ -8350,7 +8363,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">Version:</translation>
+        <translation>Version:</translation>
     </message>
 </context>
 <context>
@@ -12349,11 +12362,11 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder verwalten</translation>
     </message>
     <message>
         <source>Go to</source>
-        <translation type="unfinished"></translation>
+        <translation>Gehe zu</translation>
     </message>
 </context>
 <context>
@@ -13245,11 +13258,11 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder anzeigen</translation>
     </message>
     <message>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Schaltet die Anzeige von Bildern an oder ab</translation>
     </message>
 </context>
 <context>
@@ -13531,7 +13544,10 @@ Der ausschlaggebende Wert ist der Bundsteg.</translation>
         <source>This is a standard Python console with some 
 known limitations. Please consult the Scribus 
 Scripter documentation for futher information. </source>
-        <translation type="unfinished"></translation>
+        <translation>Dies ist eine normale Python-Konsole mit einigen
+bekannten Einschränkungen. Bitte lesen Sie die
+Scribus-Scripter-Dokumentation, um weitere Informationen
+zu erhalten.</translation>
     </message>
 </context>
 <context>
@@ -15642,12 +15658,12 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</translation>
     </message>
     <message>
         <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</translation>
     </message>
 </context>
 <context>
@@ -16038,11 +16054,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Show Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder anzeigen</translation>
     </message>
     <message>
         <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Schaltet die Anzeige von Bildern an oder ab</translation>
     </message>
 </context>
 <context>
@@ -17978,7 +17994,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation type="unfinished">Bild</translation>
+        <translation>Bild</translation>
     </message>
 </context>
 <context>
@@ -19224,11 +19240,11 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Abstand, innerhalb dessen ein Objekt an Hilfslinien ausgerichtet wird. Nachdem Sie diese Einstellung vorgenommen haben, müssen Sie Scribus neu starten, damit sie wirksam wird.</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Radius innerhalb dessen Scribus es ermöglicht, die Anfasser von Objekten mit der Maus zu greifen. Nachdem Sie diese Einstellung vorgenommen haben, müssen Sie Scribus neu starten, damit sie wirksam wird.</translation>
     </message>
 </context>
 <context>
@@ -20226,7 +20242,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>&amp;Apply Effect to all Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Effekt auf &amp;alle Seiten anwenden</translation>
     </message>
 </context>
 <context>
@@ -20546,27 +20562,27 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>&amp;Scale Image to Frame Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild an Rahmen anpa&amp;ssen</translation>
     </message>
     <message>
         <source>Image Frame Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschaften des Bildrahmens</translation>
     </message>
     <message>
         <source>Image frames allow images to scale to any size</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder in Bildrahmen können beliebig skaliert werden</translation>
     </message>
     <message>
         <source>Images in image frames are scaled to the size of the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder in Bildrahmen werden an die Rahmengröße angepaßt</translation>
     </message>
     <message>
         <source>Automatically scaled images keep their original proportions</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisch angepaßte Bilder behalten ihre ursprünglichen Proportionen</translation>
     </message>
     <message>
         <source>Fill color of image frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Füllfarbe von Bildrahmen</translation>
     </message>
 </context>
 <context>

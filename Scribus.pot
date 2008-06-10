@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-12 22:37+0100\n"
+"POT-Creation-Date: 2008-06-03 00:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -607,7 +607,7 @@ msgstr ""
 msgid "Top-left to Bottom-Right"
 msgstr ""
 
-msgid "&Apply Effect on all Pages"
+msgid "&Apply Effect to all Pages"
 msgstr ""
 
 msgid "E&xtras"
@@ -1037,7 +1037,7 @@ msgstr ""
 msgid "Selected Fields"
 msgstr ""
 
-msgid "Manage Pictures"
+msgid "Manage Images"
 msgstr ""
 
 msgid "Name"
@@ -1064,7 +1064,7 @@ msgstr ""
 msgid "Cancel Search"
 msgstr ""
 
-msgid "Goto"
+msgid "Go to"
 msgstr ""
 
 msgid "Select a base directory for search"
@@ -1469,7 +1469,7 @@ msgstr ""
 msgid "Move Here"
 msgstr ""
 
-msgid "Picture"
+msgid "Image"
 msgstr ""
 
 msgid "File: "
@@ -1899,7 +1899,7 @@ msgstr ""
 msgid "Alt+U"
 msgstr ""
 
-msgid "Show Pictures"
+msgid "Show Images"
 msgstr ""
 
 msgid "Show Text Chains"
@@ -1981,7 +1981,7 @@ msgstr ""
 msgid "Turns the display of frames on or off"
 msgstr ""
 
-msgid "Turns the display of pictures on or off"
+msgid "Turns the display of images on or off"
 msgstr ""
 
 msgid "Color for paper"
@@ -2892,7 +2892,7 @@ msgstr ""
 msgid "Insert Freehand Line"
 msgstr ""
 
-msgid "&Manage Pictures"
+msgid "&Manage Images"
 msgstr ""
 
 msgid "&Hyphenate Text"
@@ -4873,11 +4873,14 @@ msgstr ""
 msgid "Distance between the major grid lines"
 msgstr ""
 
-msgid "Distance within which an object will snap to your placed guides"
+msgid ""
+"Distance within which an object will snap to your placed guides. After "
+"setting this you will need to restart Scribus to set this setting."
 msgstr ""
 
 msgid ""
-"Radius of the area where Scribus will allow you to grab an objects handles"
+"Radius of the area where Scribus will allow you to grab an objects handles."
+"After setting this you will need to restart Scribus to set this setting."
 msgstr ""
 
 msgid "Color of the minor grid lines"
@@ -6268,10 +6271,10 @@ msgstr ""
 msgid "System Profiles"
 msgstr ""
 
-msgid "&RGB Pictures:"
+msgid "&RGB Images:"
 msgstr ""
 
-msgid "&CMYK Pictures:"
+msgid "&CMYK Images:"
 msgstr ""
 
 msgid "&Solid Colors:"
@@ -6412,6 +6415,11 @@ msgid "G:"
 msgstr ""
 
 msgid "B:"
+msgstr ""
+
+msgid ""
+"You cannot create a color without a name\n"
+"Please give it a name"
 msgstr ""
 
 msgid ""
@@ -6655,7 +6663,7 @@ msgstr ""
 msgid "&Vertical Scaling:"
 msgstr ""
 
-msgid "&Scale Picture to Frame Size"
+msgid "&Scale Image to Frame Size"
 msgstr ""
 
 msgid "Keep Aspect &Ratio"
@@ -6691,7 +6699,7 @@ msgstr ""
 msgid "Text Frame Properties"
 msgstr ""
 
-msgid "Picture Frame Properties"
+msgid "Image Frame Properties"
 msgstr ""
 
 msgid "Shape Drawing Properties"
@@ -6724,7 +6732,7 @@ msgstr ""
 msgid "Sample of your font"
 msgstr ""
 
-msgid "Picture frames allow pictures to scale to any size"
+msgid "Image frames allow images to scale to any size"
 msgstr ""
 
 msgid "Horizontal scaling of images"
@@ -6736,13 +6744,13 @@ msgstr ""
 msgid "Keep horizontal and vertical scaling the same"
 msgstr ""
 
-msgid "Pictures in picture frames are scaled to the size of the frame"
+msgid "Images in image frames are scaled to the size of the frame"
 msgstr ""
 
-msgid "Automatically scaled pictures keep their original proportions"
+msgid "Automatically scaled images keep their original proportions"
 msgstr ""
 
-msgid "Fill color of picture frames"
+msgid "Fill color of image frames"
 msgstr ""
 
 msgid "Saturation of color of fill"
@@ -7152,9 +7160,6 @@ msgid ""
 "will be cancelled"
 msgstr ""
 
-msgid "Image"
-msgstr ""
-
 msgid "PathText"
 msgstr ""
 
@@ -7284,7 +7289,10 @@ msgstr ""
 msgid "Bugs and Feature Requests"
 msgstr ""
 
-msgid "Mailing List"
+msgid "Developer Blog"
+msgstr ""
+
+msgid "Mailing Lists"
 msgstr ""
 
 msgid "&Online"
@@ -7467,10 +7475,10 @@ msgid ""
 "correct them"
 msgstr ""
 
-msgid "&Ignore"
+msgid "&Abort"
 msgstr ""
 
-msgid "&Abort"
+msgid "&Ignore"
 msgstr ""
 
 msgid "Printing failed!"
@@ -8937,9 +8945,9 @@ msgid "Scribus Python Console"
 msgstr ""
 
 msgid ""
-"This is derived from standard Python console so it contains some limitations "
-"esp. in the case of whitespaces. Please consult Scribus manual for more "
-"informations."
+"This is a standard Python console with some \n"
+"known limitations. Please consult the Scribus \n"
+"Scripter documentation for futher information. "
 msgstr ""
 
 msgid "Script Console"
@@ -8987,13 +8995,19 @@ msgstr ""
 msgid "Types matched, but setting property failed."
 msgstr ""
 
-msgid "Line width out of bounds, must be 0 <= line_width <= 12."
+msgid "Fill shade out of bounds, must be 0 <= shade <= 100."
+msgstr ""
+
+msgid "Fill opacity out of bounds, must be 0.0 <= opacity <= 1.0"
+msgstr ""
+
+msgid "Transparency out of bounds, must be 0 <= transparency <= 1."
 msgstr ""
 
 msgid "Line shade out of bounds, must be 0 <= shade <= 100."
 msgstr ""
 
-msgid "Fill shade out of bounds, must be 0 <= shade <= 100."
+msgid "Line width out of bounds, must be 0 <= line_width <= 12."
 msgstr ""
 
 msgid "Corner radius must be a positive number."
