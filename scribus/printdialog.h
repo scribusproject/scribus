@@ -11,28 +11,13 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 
 #include <QDialog>
-
-class QHBoxLayout;
-class QVBoxLayout;
-class QGridLayout;
-class QLabel;
-class QGroupBox;
-class QComboBox;
-class QPushButton;
-class QRadioButton;
-class QLineEdit;
-class QCheckBox;
-class QTabWidget;
-class QSpinBox;
-class QWidget;
-class QToolButton;
+#include "ui_printdialogbase.h"
 
 class PrefsContext;
 class ScribusDoc;
 class CupsOptions;
-class ScrSpinBox;
 
-class SCRIBUS_API PrintDialog : public QDialog
+class SCRIBUS_API PrintDialog : public QDialog, Ui::PrintDialogBase
 {
 	Q_OBJECT
 
@@ -41,21 +26,6 @@ public:
 	~PrintDialog();
 	QString printerName();
 	QString outputFileName();
-	QCheckBox* OtherCom;
-	QLabel* OthText;
-	QLineEdit* Command;
-	QRadioButton* RadioButton1;
-	QRadioButton* CurrentPage;
-	QLineEdit* pageNr;
-	QCheckBox* cropMarks;
-	QCheckBox* bleedMarks;
-	QCheckBox* registrationMarks;
-	QCheckBox* colorMarks;
-	ScrSpinBox* markOffset;
-	ScrSpinBox* BleedBottom;
-	ScrSpinBox* BleedLeft;
-	ScrSpinBox* BleedRight;
-	ScrSpinBox* BleedTop;
 	bool outputToFile();
 	int numCopies();
 	bool outputSeparations();
@@ -72,6 +42,9 @@ public:
 	bool doSpot();
 	bool doOverprint();
 	bool ICCinUse();
+	bool doPrintAll();
+	bool doPrintCurrentPage();
+	QString getPageString();
 	QByteArray DevMode;
 
 public slots:
@@ -94,63 +67,6 @@ protected slots:
 	void previewButtonClicked();
 
 protected:
-	QVBoxLayout* PrintDialogLayout;
-	QGridLayout* PrintDialogLayout2;
-	QHBoxLayout* Layout1x;
-	QHBoxLayout* Layout1;
-	QGridLayout* rangeGroupLayout;
-	QHBoxLayout* Layout2;
-	QHBoxLayout* LayoutCC;
-	QGridLayout* tabLayout;
-	QHBoxLayout* tabLayout_2;
-	QVBoxLayout* pageOptsLayout;
-	QVBoxLayout* colorOptsLayout;
-	QHBoxLayout *pageNumberSelectorLayout;
-	QGroupBox* PrintDialogGroup;
-	QComboBox* PrintDest;
-	QLabel* DateiT;
-	QLineEdit* LineEdit1;
-	QToolButton* ToolButton1;
-	QGroupBox* rangeGroup;
-	QRadioButton* RadioButton2;
-	QLabel* TextLabel3;
-	QSpinBox* Copies;
-	QTabWidget* printOptions;
-	QWidget* tab;
-	QComboBox* PrintSep;
-	QComboBox* colorType;
-	QComboBox* SepArt;
-	QComboBox* printEngines;
-	QWidget* tab_2;
-	QGroupBox* pageOpts;
-	QCheckBox* MirrorHor;
-	QCheckBox* MirrorVert;
-	QCheckBox* devPar;
-	QGroupBox* colorOpts;
-	QCheckBox* ClipMarg;
-	QCheckBox* GcR;
-	QCheckBox* spotColors;
-	QCheckBox* overprintMode;
-	QCheckBox* UseICC;
-	QWidget* tab_3;
-	QGridLayout* tabLayout_3;
-	QGroupBox* MarkGroup;
-	QGridLayout* MarkGroupLayout;
-	QLabel* MarkTxt1;
-	QWidget* tab_4;
-	QGridLayout* tabLayout_4;
-	QGroupBox* BleedGroup;
-	QGridLayout* BleedGroupLayout;
-	QLabel* BleedTxt1;
-	QLabel* BleedTxt2;
-	QLabel* BleedTxt3;
-	QLabel* BleedTxt4;
-	QCheckBox *docBleeds;
-	QPushButton* OKButton_2;
-	QPushButton* OKButton;
-	QPushButton* previewButton;
-	QPushButton* OptButton;
-	QPushButton* pageNrButton;
 	ScribusDoc*  m_doc;
 	PrintEngineMap printEngineMap;
 	PrefsContext* prefs;

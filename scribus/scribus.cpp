@@ -4687,14 +4687,14 @@ void ScribusMainWindow::slotReallyPrint()
 		ReOrderText(doc, view);
 		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 		doc->Print_Options.pageNumbers.clear();
-		if (printer->CurrentPage->isChecked())
+		if (printer->doPrintCurrentPage())
 			doc->Print_Options.pageNumbers.push_back(doc->currentPage()->pageNr()+1);
 		else
 		{
-			if (printer->RadioButton1->isChecked())
+			if (printer->doPrintAll())
 				parsePagesString("*", &doc->Print_Options.pageNumbers, doc->DocPages.count());
 			else
-				parsePagesString(printer->pageNr->text(), &doc->Print_Options.pageNumbers, doc->DocPages.count());
+				parsePagesString(printer->getPageString(), &doc->Print_Options.pageNumbers, doc->DocPages.count());
 		}
 		PrinterUsed = true;
 		done = doPrint(doc->Print_Options, printError);

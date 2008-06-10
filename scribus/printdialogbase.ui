@@ -1,0 +1,714 @@
+<ui version="4.0" >
+ <class>PrintDialogBase</class>
+ <widget class="QDialog" name="PrintDialogBase" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>503</width>
+    <height>518</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Setup Printer</string>
+  </property>
+  <property name="sizeGripEnabled" >
+   <bool>false</bool>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QGroupBox" name="PrintDialogGroup" >
+     <property name="title" >
+      <string>Print Destination</string>
+     </property>
+     <layout class="QVBoxLayout" >
+      <property name="spacing" >
+       <number>5</number>
+      </property>
+      <property name="leftMargin" >
+       <number>10</number>
+      </property>
+      <property name="topMargin" >
+       <number>10</number>
+      </property>
+      <property name="rightMargin" >
+       <number>10</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>10</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
+         <number>5</number>
+        </property>
+        <item>
+         <widget class="QComboBox" name="PrintDest" >
+          <property name="minimumSize" >
+           <size>
+            <width>250</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="OptButton" >
+          <property name="text" >
+           <string>&amp;Options...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>101</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
+         <number>5</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="DateiT" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text" >
+           <string>&amp;File:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>LineEdit1</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="LineEdit1" />
+        </item>
+        <item>
+         <widget class="QToolButton" name="ToolButton1" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
+          <property name="text" >
+           <string>C&amp;hange...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="OtherCom" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip" >
+         <string>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</string>
+        </property>
+        <property name="text" >
+         <string>A&amp;lternative Printer Command</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="QLabel" name="OthText" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text" >
+           <string>Co&amp;mmand:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>Command</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="Command" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="rangeGroup" >
+     <property name="title" >
+      <string>Range</string>
+     </property>
+     <layout class="QGridLayout" >
+      <property name="leftMargin" >
+       <number>10</number>
+      </property>
+      <property name="topMargin" >
+       <number>10</number>
+      </property>
+      <property name="rightMargin" >
+       <number>10</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>10</number>
+      </property>
+      <property name="horizontalSpacing" >
+       <number>5</number>
+      </property>
+      <property name="verticalSpacing" >
+       <number>5</number>
+      </property>
+      <item row="0" column="0" >
+       <widget class="QRadioButton" name="RadioButton1" >
+        <property name="text" >
+         <string>Print &amp;All</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="3" colspan="2" >
+       <widget class="QLabel" name="TextLabel3" >
+        <property name="text" >
+         <string>N&amp;umber of Copies:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>Copies</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5" >
+       <widget class="QSpinBox" name="Copies" >
+        <property name="minimum" >
+         <number>1</number>
+        </property>
+        <property name="maximum" >
+         <number>1000</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2" >
+       <widget class="QRadioButton" name="CurrentPage" >
+        <property name="text" >
+         <string>Print Current Pa&amp;ge</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QRadioButton" name="RadioButton2" >
+        <property name="text" >
+         <string>Print &amp;Range</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="2" >
+       <widget class="QLineEdit" name="pageNr" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <property name="toolTip" >
+         <string>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3" >
+       <widget class="QPushButton" name="pageNrButton" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <property name="minimumSize" >
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="printOptions" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab" >
+      <attribute name="title" >
+       <string>Options</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <widget class="QComboBox" name="PrintSep" >
+         <item>
+          <property name="text" >
+           <string>Print Normal</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Print Separations</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QComboBox" name="colorType" >
+         <item>
+          <property name="text" >
+           <string>Print in Color if Available</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Print in Grayscale</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QComboBox" name="SepArt" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QComboBox" name="printEngines" >
+         <property name="toolTip" >
+          <string>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2" >
+      <attribute name="title" >
+       <string>Advanced Options</string>
+      </attribute>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="QGroupBox" name="pageOpts" >
+         <property name="title" >
+          <string>Page</string>
+         </property>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QCheckBox" name="MirrorHor" >
+            <property name="text" >
+             <string>Mirror Page(s) Horizontal</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="MirrorVert" >
+            <property name="text" >
+             <string>Mirror Page(s) Vertical</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="devPar" >
+            <property name="toolTip" >
+             <string>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</string>
+            </property>
+            <property name="text" >
+             <string>Set Media Size</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="ClipMarg" >
+            <property name="text" >
+             <string>Clip to Page Margins</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="colorOpts" >
+         <property name="title" >
+          <string>Color</string>
+         </property>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QCheckBox" name="GcR" >
+            <property name="toolTip" >
+             <string>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</string>
+            </property>
+            <property name="text" >
+             <string>Apply Under Color Removal</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="spotColors" >
+            <property name="toolTip" >
+             <string>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</string>
+            </property>
+            <property name="text" >
+             <string>Convert Spot Colors to Process Colors</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="overprintMode" >
+            <property name="toolTip" >
+             <string>Enables global Overprint Mode for this document, overrides object settings</string>
+            </property>
+            <property name="text" >
+             <string>Force Overprint Mode</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="UseICC" >
+            <property name="toolTip" >
+             <string>Allows you to embed color profiles in the print stream when color management is enabled</string>
+            </property>
+            <property name="text" >
+             <string>Apply Color Profiles</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_3" >
+      <attribute name="title" >
+       <string>Marks</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <widget class="QCheckBox" name="cropMarks" >
+         <property name="toolTip" >
+          <string>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</string>
+         </property>
+         <property name="text" >
+          <string>Crop Marks</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QCheckBox" name="registrationMarks" >
+         <property name="toolTip" >
+          <string>Add registration marks which are added to each separation</string>
+         </property>
+         <property name="text" >
+          <string>Registration Marks</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QCheckBox" name="bleedMarks" >
+         <property name="toolTip" >
+          <string>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</string>
+         </property>
+         <property name="text" >
+          <string>Bleed Marks</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QCheckBox" name="colorMarks" >
+         <property name="toolTip" >
+          <string>Add color calibration bars</string>
+         </property>
+         <property name="text" >
+          <string>Color Bars</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" >
+        <layout class="QHBoxLayout" >
+         <item>
+          <widget class="QLabel" name="MarkTxt1" >
+           <property name="text" >
+            <string>Offset:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ScrSpinBox" name="markOffset" >
+           <property name="toolTip" >
+            <string>Indicate the distance offset for the registration marks</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="1" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_4" >
+      <attribute name="title" >
+       <string>Bleeds</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <widget class="QLabel" name="BleedTxt1" >
+         <property name="text" >
+          <string>Top:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="ScrSpinBox" name="BleedTop" >
+         <property name="toolTip" >
+          <string>Distance for bleed from the top of the physical page</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2" >
+        <widget class="QLabel" name="BleedTxt3" >
+         <property name="text" >
+          <string>Left:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3" >
+        <widget class="ScrSpinBox" name="BleedRight" >
+         <property name="toolTip" >
+          <string>Distance for bleed from the right of the physical page</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QLabel" name="BleedTxt2" >
+         <property name="text" >
+          <string>Bottom:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="ScrSpinBox" name="BleedBottom" >
+         <property name="toolTip" >
+          <string>Distance for bleed from the bottom of the physical page</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2" >
+        <widget class="QLabel" name="BleedTxt4" >
+         <property name="text" >
+          <string>Right:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3" >
+        <widget class="ScrSpinBox" name="BleedLeft" >
+         <property name="toolTip" >
+          <string>Distance for bleed from the left of the physical page</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="4" >
+        <widget class="QCheckBox" name="docBleeds" >
+         <property name="toolTip" >
+          <string>Use the existing bleed settings from the document preferences</string>
+         </property>
+         <property name="text" >
+          <string>Use Document Bleeds</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="previewButton" >
+       <property name="text" >
+        <string>Preview...</string>
+       </property>
+       <property name="autoDefault" >
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="OKButton" >
+       <property name="text" >
+        <string>&amp;Print</string>
+       </property>
+       <property name="default" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="OKButton_2" >
+       <property name="text" >
+        <string>Cancel</string>
+       </property>
+       <property name="autoDefault" >
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>scrspinbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>OtherCom</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>OthText</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>99</x>
+     <y>109</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>62</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>OtherCom</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Command</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>168</x>
+     <y>119</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>175</x>
+     <y>135</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>RadioButton2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pageNr</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>64</x>
+     <y>263</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>133</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>RadioButton2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pageNrButton</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>71</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>222</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

@@ -6,25 +6,9 @@ for which a new license (GPL+exception) is in place.
 */
 #include "printdialog.h"
 
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QGridLayout>
-#include <QLabel>
-#include <QGroupBox>
-#include <QComboBox>
-#include <QPushButton>
-#include <QRadioButton>
-#include <QLineEdit>
-#include <QCheckBox>
-#include <QTabWidget>
-#include <QWidget>
-#include <QSpinBox>
-#include <QToolButton>
 #include <QDir>
 #include <QMap>
 #include <QStringList>
-#include <QToolTip>
-#include <QSpacerItem>
 #include <QByteArray>
 
 #include "scconfig.h"
@@ -55,6 +39,7 @@ extern bool previewDinUse;
 PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots)
 		: QDialog( parent )
 {
+	setupUi(this);
 	setModal(true);
 	cdia = 0;
 	m_doc = doc;
@@ -63,255 +48,27 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QStr
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 	DevMode = PSettings;
 	PrinterOpts = "";
-	setWindowTitle( tr( "Setup Printer" ) );
 	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
-	PrintDialogLayout = new QVBoxLayout( this );
-	PrintDialogLayout->setSpacing( 5 );
-	PrintDialogLayout->setMargin( 10 );
-
-	PrintDialogGroup = new QGroupBox( this );
-	PrintDialogGroup->setTitle( tr( "Print Destination" ) );
-	PrintDialogLayout2 = new QGridLayout( PrintDialogGroup );
-	PrintDialogLayout2->setAlignment( Qt::AlignTop );
-	PrintDialogLayout2->setSpacing( 5 );
-	PrintDialogLayout2->setMargin( 10 );
-
-	Layout1x = new QHBoxLayout;
-	Layout1x->setSpacing( 5 );
-	Layout1x->setMargin( 0 );
-	PrintDest = new QComboBox(PrintDialogGroup);
-	PrintDest->setMinimumSize( QSize( 250, 22 ) );
-	PrintDest->setMaximumSize( QSize( 260, 30 ) );
-	PrintDest->setEditable(false);
-	Layout1x->addWidget( PrintDest );
-
-	OptButton = new QPushButton( tr( "&Options..." ), PrintDialogGroup );
-	Layout1x->addWidget( OptButton );
-	QSpacerItem* spacerDR = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1x->addItem( spacerDR );
-	PrintDialogLayout2->addLayout( Layout1x, 0, 0);
-	Layout1 = new QHBoxLayout;
-	Layout1->setSpacing( 5 );
-	Layout1->setMargin( 0 );
-	LineEdit1 = new QLineEdit( QDir::convertSeparators(PDatei), PrintDialogGroup );
-	LineEdit1->setMinimumSize( QSize( 240, 22 ) );
-	LineEdit1->setEnabled(false);
-	DateiT = new QLabel( tr( "&File:" ), PrintDialogGroup );
-	DateiT->setBuddy(LineEdit1);
-	DateiT->setEnabled( false );
-	Layout1->addWidget( DateiT );
-	Layout1->addWidget( LineEdit1 );
-	ToolButton1 = new QToolButton( PrintDialogGroup );
-	ToolButton1->setText( tr( "C&hange..." ) );
-	ToolButton1->setMinimumSize( QSize( 80, 22 ) );
-	ToolButton1->setEnabled(false);
-	ToolButton1->setFocusPolicy( Qt::TabFocus );
-	Layout1->addWidget( ToolButton1 );
-	PrintDialogLayout2->addLayout( Layout1, 1, 0 );
-
-	OtherCom = new QCheckBox( tr("A&lternative Printer Command"), PrintDialogGroup);
-	OtherCom->setChecked(false);
-	PrintDialogLayout2->addWidget( OtherCom, 2, 0, Qt::AlignLeft);
-	LayoutCC = new QHBoxLayout;
-	LayoutCC->setSpacing( 5 );
-	LayoutCC->setMargin( 0 );
-	Command = new QLineEdit( PCom, PrintDialogGroup );
-	Command->setMinimumSize( QSize( 240, 22 ) );
-	Command->setEnabled(false);
-	OthText = new QLabel( tr( "Co&mmand:" ), PrintDialogGroup );
-	OthText->setBuddy(Command);
-	OthText->setEnabled( false );
-	LayoutCC->addWidget( OthText );
-	LayoutCC->addWidget( Command );
-	PrintDialogLayout2->addLayout( LayoutCC, 3, 0 );
-	PrintDialogLayout->addWidget( PrintDialogGroup );
-
-	rangeGroup = new QGroupBox( tr( "Range" ), this );
-	rangeGroupLayout = new QGridLayout( rangeGroup );
-	rangeGroupLayout->setSpacing( 5 );
-	rangeGroupLayout->setMargin( 10 );
-	rangeGroupLayout->setAlignment( Qt::AlignTop );
-	RadioButton1 = new QRadioButton( tr( "Print &All" ), rangeGroup );
-	rangeGroupLayout->addWidget( RadioButton1, 0, 0, 1, 2 );
-	CurrentPage = new QRadioButton( tr( "Print Current Pa&ge" ), rangeGroup );
-	rangeGroupLayout->addWidget( CurrentPage, 1, 0, 1, 2 );
-	RadioButton2 = new QRadioButton( tr( "Print &Range" ), rangeGroup );
-	rangeGroupLayout->addWidget( RadioButton2, 2, 0 );
-	pageNumberSelectorLayout = new QHBoxLayout;
-	pageNumberSelectorLayout->setSpacing( 5 );
-	pageNumberSelectorLayout->setMargin( 0 );
-	pageNr = new QLineEdit( rangeGroup );
- 	pageNumberSelectorLayout->addWidget( pageNr );
- 	pageNrButton = new QPushButton(rangeGroup);
  	pageNrButton->setIcon(QIcon(loadIcon("ellipsis.png")));
- 	pageNumberSelectorLayout->addWidget( pageNrButton );
-	rangeGroupLayout->addLayout( pageNumberSelectorLayout, 2, 1 );
-	pageNr->setEnabled(false);
-	pageNrButton->setEnabled(false);
-	Copies = new QSpinBox( rangeGroup );
-	Copies->setEnabled( true );
-	Copies->setMinimumSize( QSize( 70, 22 ) );
-	Copies->setMinimum( 1 );
-	Copies->setMaximum(1000);
-	Copies->setValue(1);
-	rangeGroupLayout->addWidget( Copies, 0, 3 );
-	TextLabel3 = new QLabel( tr( "N&umber of Copies:" ), rangeGroup );
-	TextLabel3->setBuddy(Copies);
-	rangeGroupLayout->addWidget( TextLabel3, 0, 2 );
-	PrintDialogLayout->addWidget( rangeGroup );
-
-	printOptions = new QTabWidget( this );
-	tab = new QWidget( printOptions );
-	tabLayout = new QGridLayout( tab );
-	tabLayout->setSpacing( 5 );
-	tabLayout->setMargin( 10 );
-	PrintSep = new QComboBox( tab );
-	PrintSep->setEditable(false);
-	PrintSep->addItem( tr( "Print Normal" ) );
-	PrintSep->addItem( tr( "Print Separations" ) );
-	tabLayout->addWidget( PrintSep, 0, 0 );
-	colorType = new QComboBox(tab);
-	colorType->setEditable(false);
-	colorType->addItem( tr( "Print in Color if Available" ) );
-	colorType->addItem( tr( "Print in Grayscale" ) );
-	colorType->setCurrentIndex(0);
-	tabLayout->addWidget( colorType, 0, 1 );
-	SepArt = new QComboBox(tab);
-	SepArt->setEnabled( false );
-	SepArt->setEditable( false );
-	tabLayout->addWidget( SepArt, 1, 0 );
-	printEngines = new QComboBox(tab);
 	printEngines->addItem( CommonStrings::trPostScript1 );
 	printEngines->addItem( CommonStrings::trPostScript2 );
 	printEngines->addItem( CommonStrings::trPostScript3 );
-	printEngines->setEditable( false );
-	tabLayout->addWidget( printEngines, 1, 1 );
-	printOptions->addTab( tab, tr( "Options" ) );
-	tab_2 = new QWidget( printOptions );
-	tabLayout_2 = new QHBoxLayout(tab_2);
-	tabLayout_2->setSpacing( 5 );
-	tabLayout_2->setMargin( 10 );
-	pageOpts = new QGroupBox( tab_2 );
-	pageOpts->setTitle( tr( "Page" ) );
-	pageOptsLayout = new QVBoxLayout( pageOpts );
-	pageOptsLayout->setSpacing( 5 );
-	pageOptsLayout->setMargin( 10 );
-	pageOptsLayout->setAlignment( Qt::AlignTop );
-	MirrorHor = new QCheckBox( pageOpts );
-	MirrorHor->setText( tr( "Mirror Page(s) Horizontal" ) );
-	pageOptsLayout->addWidget( MirrorHor );
-	MirrorVert = new QCheckBox( pageOpts );
-	MirrorVert->setText( tr( "Mirror Page(s) Vertical" ) );
-	pageOptsLayout->addWidget( MirrorVert );
-	devPar = new QCheckBox( pageOpts );
-	devPar->setText( tr( "Set Media Size" ) );
-	pageOptsLayout->addWidget( devPar );
-	ClipMarg = new QCheckBox( tr( "Clip to Page Margins" ), pageOpts );
-	pageOptsLayout->addWidget( ClipMarg );
-	tabLayout_2->addWidget( pageOpts );
-	colorOpts = new QGroupBox( tab_2 );
-	colorOpts->setTitle( tr( "Color" ) );
-	colorOptsLayout = new QVBoxLayout( colorOpts );
-	colorOptsLayout->setSpacing( 5 );
-	colorOptsLayout->setMargin( 10 );
-	colorOptsLayout->setAlignment( Qt::AlignTop );
-	GcR = new QCheckBox( colorOpts );
-	GcR->setText( tr( "Apply Under Color Removal" ) );
-	colorOptsLayout->addWidget( GcR );
-	spotColors = new QCheckBox( colorOpts );
-	spotColors->setText( tr( "Convert Spot Colors to Process Colors" ) );
-	colorOptsLayout->addWidget( spotColors );
-	overprintMode = new QCheckBox( colorOpts );
-	overprintMode->setText( tr( "Force Overprint Mode" ) );
-	colorOptsLayout->addWidget( overprintMode );
-	UseICC = new QCheckBox( colorOpts );
-	UseICC->setText( tr( "Apply Color Profiles" ) );
-	colorOptsLayout->addWidget( UseICC );
-	tabLayout_2->addWidget( colorOpts );
-	printOptions->addTab( tab_2, tr( "Advanced Options" ) );
-
-	tab_3 = new QWidget( printOptions );
-	tabLayout_3 = new QGridLayout( tab_3 );
-	tabLayout_3->setSpacing( 5 );
-	tabLayout_3->setMargin( 10 );
-	MarkGroup = new QGroupBox( tab_3 );
-	MarkGroup->setTitle( tr( "Printer Marks" ) );
-	MarkGroupLayout = new QGridLayout( MarkGroup );
-	MarkGroupLayout->setSpacing( 5 );
-	MarkGroupLayout->setMargin( 10 );
-	MarkGroupLayout->setAlignment( Qt::AlignTop );
-	cropMarks = new QCheckBox( tr( "Crop Marks" ), MarkGroup );
-	MarkGroupLayout->addWidget( cropMarks, 0, 0 );
-	bleedMarks = new QCheckBox( tr( "Bleed Marks" ), MarkGroup );
-	MarkGroupLayout->addWidget( bleedMarks, 1, 0 );
-	registrationMarks = new QCheckBox( tr( "Registration Marks" ), MarkGroup );
-	MarkGroupLayout->addWidget( registrationMarks, 2, 0 );
-	colorMarks = new QCheckBox( tr( "Color Bars" ), MarkGroup );
-	MarkGroupLayout->addWidget( colorMarks, 0, 1, 1, 2 );
-	MarkTxt1 = new QLabel( MarkGroup );
-	MarkTxt1->setText( tr( "Offset:" ) );
-	MarkGroupLayout->addWidget( MarkTxt1, 1, 1 );
-	markOffset = new ScrSpinBox( 0, 3000*unitRatio, MarkGroup, unit );
-	MarkGroupLayout->addWidget( markOffset, 1, 2 );
-	tabLayout_3->addWidget( MarkGroup, 0, 0 );
-	printOptions->addTab( tab_3, tr( "Marks" ) );
-
-	tab_4 = new QWidget( printOptions );
-	tabLayout_4 = new QGridLayout( tab_4 );
-	tabLayout_4->setSpacing( 5 );
-	tabLayout_4->setMargin( 10 );
-	BleedGroup = new QGroupBox( tab_4 );
-	BleedGroup->setTitle( tr( "Bleed Settings" ) );
-	BleedGroupLayout = new QGridLayout( BleedGroup );
-	BleedGroupLayout->setSpacing( 5 );
-	BleedGroupLayout->setMargin( 10 );
-	BleedGroupLayout->setAlignment( Qt::AlignTop );
-	BleedTxt1 = new QLabel( BleedGroup );
-	BleedTxt1->setText( tr( "Top:" ) );
-	BleedGroupLayout->addWidget( BleedTxt1, 0, 0 );
-	BleedTop = new ScrSpinBox( 0, 3000*unitRatio, BleedGroup, unit );
-	BleedGroupLayout->addWidget( BleedTop, 0, 1 );
-	BleedTxt2 = new QLabel( BleedGroup );
-	BleedTxt2->setText( tr( "Bottom:" ) );
-	BleedGroupLayout->addWidget( BleedTxt2, 1, 0 );
-	BleedBottom = new ScrSpinBox( 0, 3000*unitRatio, BleedGroup, unit );
-	BleedGroupLayout->addWidget( BleedBottom, 1, 1 );
-	BleedTxt3 = new QLabel( BleedGroup );
-	BleedTxt3->setText( tr( "Left:" ) );
-	BleedGroupLayout->addWidget( BleedTxt3, 0, 2 );
-	BleedRight = new ScrSpinBox( 0, 3000*unitRatio, BleedGroup, unit );
-	BleedGroupLayout->addWidget( BleedRight, 0, 3 );
-	BleedTxt4 = new QLabel( BleedGroup );
-	BleedTxt4->setText( tr( "Right:" ) );
-	BleedGroupLayout->addWidget( BleedTxt4, 1, 2 );
-	BleedLeft = new ScrSpinBox( 0, 3000*unitRatio, BleedGroup, unit );
-	BleedGroupLayout->addWidget( BleedLeft, 1, 3 );
-	docBleeds = new QCheckBox( tr( "Use Document Bleeds" ), BleedGroup );
-	docBleeds->setChecked(false);
-	BleedGroupLayout->addWidget( docBleeds, 2, 0, 1, 4 );
-	tabLayout_4->addWidget( BleedGroup, 0, 0 );
-	printOptions->addTab( tab_4, tr( "Bleeds" ) );
-	PrintDialogLayout->addWidget( printOptions );
-
-	Layout2 = new QHBoxLayout;
-	Layout2->setSpacing( 5 );
-	Layout2->setMargin( 0 );
-	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout2->addItem( spacer );
-	
-	previewButton = new QPushButton( tr( "Preview..." ), this );
-	previewButton->setDefault( false );
+	markOffset->setNewUnit(unit);
+	markOffset->setMinimum(0);
+	markOffset->setMaximum(3000*unitRatio);
+	BleedBottom->setNewUnit(unit);
+	BleedBottom->setMinimum(0);
+	BleedBottom->setMaximum(3000*unitRatio);
+	BleedLeft->setNewUnit(unit);
+	BleedLeft->setMinimum(0);
+	BleedLeft->setMaximum(3000*unitRatio);
+	BleedRight->setNewUnit(unit);
+	BleedRight->setMinimum(0);
+	BleedRight->setMaximum(3000*unitRatio);
+	BleedTop->setNewUnit(unit);
+	BleedTop->setMinimum(0);
+	BleedTop->setMaximum(3000*unitRatio);
 	previewButton->setEnabled(!previewDinUse);
-	Layout2->addWidget( previewButton );
-
-	OKButton = new QPushButton( tr( "&Print" ), this );
-	OKButton->setDefault( true );
-	Layout2->addWidget( OKButton );
-	OKButton_2 = new QPushButton( CommonStrings::tr_Cancel, this );
-	OKButton_2->setDefault( false );
-	Layout2->addWidget( OKButton_2 );
-	PrintDialogLayout->addLayout( Layout2 );
-
 	// Fill printer list
 	QString Pcap;
 	QString printerName;
@@ -358,32 +115,6 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QStr
 
 	setMaximumSize(sizeHint());
 	PrintDest->setFocus();
-	BleedTop->setToolTip( "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
-	BleedBottom->setToolTip( "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
-	BleedLeft->setToolTip( "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
-	BleedRight->setToolTip( "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
-	ClipMarg->setToolTip( "<qt>" + tr( "Do not show objects outside the margins on the printed page" ) + "</qt>" );
-	pageNr->setToolTip( tr( "Insert a comma separated list of tokens where\n"
-		                           "a token can be * for all the pages, 1-5 for\n"
-		                           "a range of pages or a single page number.") );
-	OtherCom->setToolTip("<qt>" + tr( "Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options") + "</qt>" );
-	printEngines->setToolTip("<qt>" +  tr( "Sets the PostScript Level.\n Setting to Level 1 or 2 can create huge files" ) + "</qt>" );
-	GcR->setToolTip( "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>");
-	spotColors->setToolTip("<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
-	overprintMode->setToolTip( "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
-	UseICC->setToolTip("<qt>" + tr( "Allows you to embed color profiles in the print stream when color management is enabled" ) + "</qt>");
-	devPar->setToolTip( "<qt>" + tr( "This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer." ) + "</qt>");
-	cropMarks->setToolTip( "<qt>" + tr( "This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing" ) + "</qt>" );
-	bleedMarks->setToolTip( "<qt>" + tr( "This creates bleed marks which are indicated by  _ . _ and show the bleed limit" ) + "</qt>" );
-	registrationMarks->setToolTip( "<qt>" + tr( "Add registration marks which are added to each separation" ) + "</qt>" );
-	colorMarks->setToolTip( "<qt>" + tr( "Add color calibration bars" ) + "</qt>" );
-	markOffset->setToolTip( "<qt>" + tr( "Indicate the distance offset for the registration marks" ) + "</qt>" );
-	BleedTop->setToolTip( "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
-	BleedBottom->setToolTip( "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
-	BleedLeft->setToolTip( "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
-	BleedRight->setToolTip( "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
-	docBleeds->setToolTip( "<qt>" + tr( "Use the existing bleed settings from the document preferences" ) + "</qt>" );
-
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( okButtonClicked() ) );
 	connect( OKButton_2, SIGNAL( clicked() ), this, SLOT( reject() ) );
@@ -621,7 +352,7 @@ void PrintDialog::SelFile()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("printdir", ".");
-	CustomFDialog dia(this, wdir, tr("Save as"), tr("PostScript Files (*.ps);;All Files (*)"), fdNone);
+	CustomFDialog dia(this, wdir, tr("Save as"), tr("PostScript Files (*.ps);;All Files (*)"), fdNone | fdHidePreviewCheckBox);
 	if (!LineEdit1->text().isEmpty())
 		dia.setSelection(LineEdit1->text());
 	if (dia.exec() == QDialog::Accepted)
@@ -904,6 +635,21 @@ bool PrintDialog::doOverprint()
 bool PrintDialog::ICCinUse()
 {
 	return (m_doc->HasCMS && UseICC->isChecked());
+}
+
+bool PrintDialog::doPrintAll()
+{
+	return RadioButton1->isChecked();
+}
+
+bool PrintDialog::doPrintCurrentPage()
+{
+	return CurrentPage->isChecked();
+}
+
+QString PrintDialog::getPageString()
+{
+	return pageNr->text();
 }
 
 void PrintDialog::doDocBleeds()
