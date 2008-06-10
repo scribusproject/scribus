@@ -236,21 +236,6 @@ void PatternDialog::loadPattern()
 	formats += "Scribus Objects (*.sce *.SCE);;";
 	formats += "Dia Shapes (*.shape *.SHAPE);;";
 	formats += "Kivio Stencils (*.sml *.SML)";
-/*
-	QString formats = "Scribus Objects (*.sce *.SCE);;";
-	formats += "Dia Shapes (*.shape *.SHAPE);;";
-	formats += "Kivio Stencils (*.sml *.SML);;";
-	int fmtCode = FORMATID_ODGIMPORT;
-	const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
-	while (fmt != 0)
-	{
-		if (fmt->load)
-			formats += fmt->filter + ";;";
-		fmtCode++;
-		if (fmtCode == FORMATID_PSIMPORT)
-			fmtCode++;
-		fmt = LoadSavePlugin::getFormatById(fmtCode);
-	} */
 	QString form1 = "";
 	QString form2 = "";
 	QStringList imgFormats;
@@ -322,7 +307,7 @@ void PatternDialog::loadPattern()
 	allFormats += formats;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("patterns", ".");
-	CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdExistingFiles);
+	CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdHidePreviewCheckBox | fdExistingFiles);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else

@@ -31,8 +31,6 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QDialog>
 #include <QListWidgetItem>
-#include <QPushButton>
-#include <QLayout>
 #include "ui_patterndialog.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
