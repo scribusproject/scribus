@@ -187,9 +187,9 @@ SVGPlug::SVGPlug( QString fName, int flags ) :
 	unsupported = false;
 	Conversion = 0.8;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	QString f = "";
+	QCString f;
 	bool isCompressed = false;
-	QByteArray bb(3);
+	QByteArray bb(3), fa;
 	QFile fi(fName);
 	if (fi.open(IO_ReadOnly))
 	{
@@ -215,11 +215,14 @@ SVGPlug::SVGPlug( QString fName, int flags ) :
 		gzclose(gzDoc);
 	}
 	else
-		loadText(fName, &f);
+		loadRawText(fName, f);
 #else
-	loadText(fName, &f);
+	loadRawText(fName, f);
 #endif
-	if(!inpdoc.setContent(f))
+	fa.setRawData(f.data(), f.length());
+	bool svgLoadSucceed = inpdoc.setContent(fa);
+	fa.resetRawData(f.data(), f.length());
+	if (!svgLoadSucceed)
 		return;
 	m_gc.setAutoDelete( true );
 	QString CurDirP = QDir::currentDirPath();
