@@ -1,4 +1,4 @@
-This is Scribus Version 1.3.3.11, the fourteenth release of the 1.3.x development
+This is Scribus Version 1.3.3.12, the fifteenth release of the 1.3.x development
 series. We have stablized 1.3.3.x and now consider his our stable release. 
 Scribus 1.2.x is deprecated.
 
@@ -20,10 +20,6 @@ Important notes on the differences between 1.2.x and 1.3.x:
    startup may take longer than anticipated. 
 
 
-4) You *can* install both versions in parallel and run them at the same time.
-   The only caveat is to install them using different prefix/ directories e.g
-   1.2 in /usr/local and 1.3 in /opt or $home/bin. You can use the --prefix
-   argument to configure to set where Scribus should be installed.
 
 Additionally, Scribus uses a different way to find fonts from Scribus 1.1.1.
 To convert older( =< 1.1.1) documents follow the procedure below:
@@ -37,7 +33,7 @@ To convert older( =< 1.1.1) documents follow the procedure below:
 When you now open old documents Scribus will convert all font names
 automatically.
 
-Scribus 1.3.3.8 includes support for building via CMake, a replacement
+Scribus 1.3.3.8+ includes support for building via CMake, a replacement
 for traditional autotools. 
 Please see:http://docs.scribus.net/index.php?lang=en&page=install4 for details.
 
@@ -178,16 +174,13 @@ SuSE 9.x/10.0
   SuSE 9.x RPM's available on the Scribus.net site. We also recommend using the 
   latest version of lcms. 
 
-2)If you are using Qt 3.3.x, please ensure you are using the latest Qt 3.3.2-2+
-  rpms. The -2+ versions have an important fix for drag and drop in Scribus. 
+2)If you are using Qt 3.3.x, please ensure you are using the latest Qt 3.3.x
+  rpms. 
 
 3)To enable direct CUPS support which recommended, make sure both cups-devel
   and openssl-devel are installed. Suse enables ssl support in CUPS. The
   current Scribus config checks do not test for this. See the BUILDING file
   for details.
-4)There is an issue with certain dialogs in Scribus with Suse 9.3 and 10.0
- and Yes, No order. This is adressed in: 
- https://bugzilla.novell.com/show_bug.cgi?id=119090
  
 
 Red Hat / Fedora
@@ -199,9 +192,8 @@ quality and have been created with close cooperation from Fedora maintainers
 and the Scribus Team. We recommend them for most users as they will ensure
 correct integration with the menuing system and mime types.
 
-There are no packages for LittleCMS or a recent Ghostscript in Fedora Core ,
-though LittleCMS (lcms) is in Fedora Extras. Please see the included help files
-and http://docs.scribus.net for details.
+Please see the included help files and http://docs.scribus.net for details.
+
 Grey scale icc profiles in images are not supported in this release..
 
 There is a separate file, PACKAGING for detailed hints and notes on building
@@ -244,4 +236,4 @@ the Scribus community so special.
 For the Scribus Team,
 Craig Ringer
 Peter Linnell
-in February 2007
+in June 8 2008
