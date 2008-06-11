@@ -431,144 +431,117 @@ void PrintDialog::previewButtonClicked()
 	emit doPreview();
 }
 
+void PrintDialog::getDefaultPrintOptions(PrintOptions& options, bool gcr)
+{
+	QStringList spots;
+	options.firstUse = true;
+	options.printer  = prefs->getInt("PrintDest", 0);
+	options.useAltPrintCommand = prefs->getBool("OtherCom", false);
+	options.printerCommand = prefs->get("Command", "");
+	options.outputSeparations = prefs->getInt("Separations", 0);
+	options.useColor = (prefs->getInt("PrintColor", 0) == 0);
+	spots << tr("All") << tr("Cyan") << tr("Magenta") << tr("Yellow") << tr("Black");
+	int selectedSep  = prefs->getInt("SepArt", 0);
+	if ((selectedSep < 0) || (selectedSep > 4))
+		selectedSep = 0;
+	options.separationName = spots.at(selectedSep);
+	options.prnEngine = (PrintEngine) prefs->getInt("PSLevel", PostScript3);
+	options.mirrorH = prefs->getBool("MirrorH", false);
+	options.mirrorV = prefs->getBool("MirrorV", false);
+	options.setDevParam = prefs->getBool("doDev", false);
+	options.doGCR   = prefs->getBool("DoGCR", gcr);
+	options.doClip  = prefs->getBool("Clip", false);
+	options.useSpotColors = prefs->getBool("doSpot", true);
+	options.doOverprint = prefs->getBool("doOverprint", false);
+	options.useICC  = m_doc->HasCMS ? prefs->getBool("ICCinUse", false) : false;
+	options.useDocBleeds  = true;
+	options.bleeds.Top    = m_doc->bleeds.Top;
+	options.bleeds.Bottom = m_doc->bleeds.Bottom;
+	options.bleeds.Right  = m_doc->bleeds.Right;
+	options.bleeds.Left   = m_doc->bleeds.Left;
+	options.markOffset = prefs->getDouble("markOffset",0.0);
+	options.cropMarks  = prefs->getBool("cropMarks", false);
+	options.bleedMarks = prefs->getBool("bleedMarks", false);
+	options.registrationMarks = prefs->getBool("registrationMarks", false);
+	options.colorMarks = prefs->getBool("colorMarks", false);
+}
+
 void PrintDialog::setStoredValues(bool gcr)
 {
 	if (m_doc->Print_Options.firstUse)
+		getDefaultPrintOptions(m_doc->Print_Options, gcr);
+	
+	int selectedDest = PrintDest->findText(m_doc->Print_Options.printer);
+	if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
 	{
-		int selectedDest = prefs->getInt("PrintDest", 0);
-		if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
-		{
-			PrintDest->setCurrentIndex(selectedDest);
-			prefs->set("CurrentPrn", PrintDest->currentText());
-			SelPrinter(PrintDest->currentText());
-		}
-		OtherCom->setChecked(prefs->getBool("OtherCom", false));
-		if (OtherCom->isChecked())
-		{
-			SelComm();
-			Command->setText(prefs->get("Command", ""));
-		}
-		RadioButton1->setChecked(prefs->getBool("PrintAll", true));
-		CurrentPage->setChecked(prefs->getBool("CurrentPage", false));
-		bool printRangeChecked=prefs->getBool("PrintRange", false);
-		RadioButton2->setChecked(printRangeChecked);
-		pageNr->setEnabled(printRangeChecked);
-		pageNr->setText(prefs->get("PageNr", "1-1"));
-		Copies->setValue(prefs->getInt("Copies", 1));
-		PrintSep->setCurrentIndex(prefs->getInt("Separations", 0));
-		colorType->setCurrentIndex(prefs->getInt("PrintColor", 0));
-		int selectedSep = prefs->getInt("SepArt", 0);
-		if ((selectedSep > -1) && (selectedSep < 5))
-			SepArt->setCurrentIndex(selectedSep);
-		if (PrintSep->currentIndex() == 1)
-			SepArt->setEnabled(true);
-		setPrintEngine((PrintEngine) prefs->getInt("PSLevel", PostScript3));
-		MirrorHor->setChecked(prefs->getBool("MirrorH", false));
-		MirrorVert->setChecked(prefs->getBool("MirrorV", false));
-		devPar->setChecked(prefs->getBool("doDev", false));
-		GcR->setChecked(prefs->getBool("DoGCR", gcr));
-		ClipMarg->setChecked(prefs->getBool("Clip", false));
-		spotColors->setChecked(!prefs->getBool("doSpot", true));
-		overprintMode->setChecked(prefs->getBool("doOverprint", false));
-		bool iccInUse  = m_doc->HasCMS ? prefs->getBool("ICCinUse", false) : false;
-		bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || outputToFile();
-		UseICC->setChecked( psPrinter ? iccInUse : false );
-		UseICC->setEnabled( psPrinter );
-		docBleeds->setChecked(prefs->getBool("UseDocBleeds", true));
-		if (docBleeds->isChecked())
-		{
-			BleedTop->setValue(m_doc->bleeds.Top*unitRatio);
-			BleedBottom->setValue(m_doc->bleeds.Bottom*unitRatio);
-			BleedRight->setValue(m_doc->bleeds.Right*unitRatio);
-			BleedLeft->setValue(m_doc->bleeds.Left*unitRatio);
-		}
-		else
-		{
-			BleedTop->setValue(prefs->getDouble("BleedTop",0.0)*unitRatio);
-			BleedBottom->setValue(prefs->getDouble("BleedBottom",0.0)*unitRatio);
-			BleedRight->setValue(prefs->getDouble("BleedRight",0.0)*unitRatio);
-			BleedLeft->setValue(prefs->getDouble("BleedLeft",0.0)*unitRatio);
-		}
-		markOffset->setValue(prefs->getDouble("markOffset",0.0)*unitRatio);
-		cropMarks->setChecked(prefs->getBool("cropMarks", false));
-		bleedMarks->setChecked(prefs->getBool("bleedMarks", false));
-		registrationMarks->setChecked(prefs->getBool("registrationMarks", false));
-		colorMarks->setChecked(prefs->getBool("colorMarks", false));
+		PrintDest->setCurrentIndex(selectedDest);
+		prefs->set("CurrentPrn", PrintDest->currentText());
+		SelPrinter(PrintDest->currentText());
+	}
+	OtherCom->setChecked(m_doc->Print_Options.useAltPrintCommand);
+	if (OtherCom->isChecked())
+	{
+		SelComm();
+		Command->setText(m_doc->Print_Options.printerCommand);
+	}
+	RadioButton1->setChecked(prefs->getBool("PrintAll", true));
+	CurrentPage->setChecked(prefs->getBool("CurrentPage", false));
+	bool printRangeChecked=prefs->getBool("PrintRange", false);
+	RadioButton2->setChecked(printRangeChecked);
+	pageNr->setEnabled(printRangeChecked);
+	pageNr->setText(prefs->get("PageNr", "1-1"));
+	Copies->setValue(1);
+	PrintSep->setCurrentIndex(m_doc->Print_Options.outputSeparations);
+	colorType->setCurrentIndex(m_doc->Print_Options.useColor ? 0 : 1);
+	ColorList usedSpots;
+	m_doc->getUsedColors(usedSpots, true);
+	QStringList spots = usedSpots.keys();
+	spots.prepend( tr("Black"));
+	spots.prepend( tr("Yellow"));
+	spots.prepend( tr("Magenta"));
+	spots.prepend( tr("Cyan"));
+	spots.prepend( tr("All"));
+	int selectedSep = spots.indexOf(m_doc->Print_Options.separationName);
+	if ((selectedSep > -1) && (selectedSep < SepArt->count()))
+		SepArt->setCurrentIndex(selectedSep);
+	if (PrintSep->currentIndex() == 1)
+		SepArt->setEnabled(true);
+	setPrintEngine(m_doc->Print_Options.prnEngine);
+	MirrorHor->setChecked(m_doc->Print_Options.mirrorH);
+	MirrorVert->setChecked(m_doc->Print_Options.mirrorV);
+	devPar->setChecked(m_doc->Print_Options.setDevParam);
+	GcR->setChecked(m_doc->Print_Options.doGCR);
+	ClipMarg->setChecked(m_doc->Print_Options.doClip);
+	spotColors->setChecked(!m_doc->Print_Options.useSpotColors);
+	overprintMode->setChecked(m_doc->Print_Options.doOverprint);
+	bool iccInUse  = m_doc->HasCMS ? m_doc->Print_Options.useICC : false;
+	bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || outputToFile();
+	UseICC->setChecked( psPrinter ? iccInUse : false );
+	UseICC->setEnabled( psPrinter );
+	docBleeds->setChecked(m_doc->Print_Options.useDocBleeds);
+	if (docBleeds->isChecked())
+	{
+		BleedTop->setValue(m_doc->bleeds.Top*unitRatio);
+		BleedBottom->setValue(m_doc->bleeds.Bottom*unitRatio);
+		BleedRight->setValue(m_doc->bleeds.Right*unitRatio);
+		BleedLeft->setValue(m_doc->bleeds.Left*unitRatio);
 	}
 	else
 	{
-		int selectedDest = PrintDest->findText(m_doc->Print_Options.printer);
-		if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
-		{
-			PrintDest->setCurrentIndex(selectedDest);
-			prefs->set("CurrentPrn", PrintDest->currentText());
-			SelPrinter(PrintDest->currentText());
-		}
-		OtherCom->setChecked(m_doc->Print_Options.useAltPrintCommand);
-		if (OtherCom->isChecked())
-		{
-			SelComm();
-			Command->setText(m_doc->Print_Options.printerCommand);
-		}
-		RadioButton1->setChecked(prefs->getBool("PrintAll", true));
-		CurrentPage->setChecked(prefs->getBool("CurrentPage", false));
-		bool printRangeChecked=prefs->getBool("PrintRange", false);
-		RadioButton2->setChecked(printRangeChecked);
-		pageNr->setEnabled(printRangeChecked);
-		pageNr->setText(prefs->get("PageNr", "1-1"));
-		Copies->setValue(1);
-		PrintSep->setCurrentIndex(m_doc->Print_Options.outputSeparations);
-		colorType->setCurrentIndex(m_doc->Print_Options.useColor? 0 : 1);
-		ColorList usedSpots;
-		m_doc->getUsedColors(usedSpots, true);
-		QStringList spots = usedSpots.keys();
-		spots.prepend( tr("Black"));
-		spots.prepend( tr("Yellow"));
-		spots.prepend( tr("Magenta"));
-		spots.prepend( tr("Cyan"));
-		spots.prepend( tr("All"));
-		int selectedSep = spots.indexOf(m_doc->Print_Options.separationName);
-		if ((selectedSep > -1) && (selectedSep < SepArt->count()))
-			SepArt->setCurrentIndex(selectedSep);
-		if (PrintSep->currentIndex() == 1)
-			SepArt->setEnabled(true);
-		setPrintEngine(m_doc->Print_Options.prnEngine);
-		MirrorHor->setChecked(m_doc->Print_Options.mirrorH);
-		MirrorVert->setChecked(m_doc->Print_Options.mirrorV);
-		devPar->setChecked(m_doc->Print_Options.setDevParam);
-		GcR->setChecked(m_doc->Print_Options.doGCR);
-		ClipMarg->setChecked(m_doc->Print_Options.doClip);
-		spotColors->setChecked(!m_doc->Print_Options.useSpotColors);
-		overprintMode->setChecked(m_doc->Print_Options.doOverprint);
-		bool iccInUse  = m_doc->HasCMS ? m_doc->Print_Options.useICC : false;
-		bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || outputToFile();
-		UseICC->setChecked( psPrinter ? iccInUse : false );
-		UseICC->setEnabled( psPrinter );
-		docBleeds->setChecked(m_doc->Print_Options.useDocBleeds);
-		if (docBleeds->isChecked())
-		{
-			BleedTop->setValue(m_doc->bleeds.Top*unitRatio);
-			BleedBottom->setValue(m_doc->bleeds.Bottom*unitRatio);
-			BleedRight->setValue(m_doc->bleeds.Right*unitRatio);
-			BleedLeft->setValue(m_doc->bleeds.Left*unitRatio);
-		}
-		else
-		{
-			BleedTop->setValue(m_doc->Print_Options.bleeds.Top*unitRatio);
-			BleedBottom->setValue(m_doc->Print_Options.bleeds.Bottom*unitRatio);
-			BleedRight->setValue(m_doc->Print_Options.bleeds.Right*unitRatio);
-			BleedLeft->setValue(m_doc->Print_Options.bleeds.Left*unitRatio);
-		}
-		markOffset->setValue(m_doc->Print_Options.markOffset*unitRatio);
-		cropMarks->setChecked(m_doc->Print_Options.cropMarks);
-		bleedMarks->setChecked(m_doc->Print_Options.bleedMarks);
-		registrationMarks->setChecked(m_doc->Print_Options.registrationMarks);
-		colorMarks->setChecked(m_doc->Print_Options.colorMarks);
+		BleedTop->setValue(m_doc->Print_Options.bleeds.Top*unitRatio);
+		BleedBottom->setValue(m_doc->Print_Options.bleeds.Bottom*unitRatio);
+		BleedRight->setValue(m_doc->Print_Options.bleeds.Right*unitRatio);
+		BleedLeft->setValue(m_doc->Print_Options.bleeds.Left*unitRatio);
 	}
 	BleedTop->setEnabled(!docBleeds->isChecked());
 	BleedBottom->setEnabled(!docBleeds->isChecked());
 	BleedRight->setEnabled(!docBleeds->isChecked());
 	BleedLeft->setEnabled(!docBleeds->isChecked());
+	markOffset->setValue(m_doc->Print_Options.markOffset*unitRatio);
+	cropMarks->setChecked(m_doc->Print_Options.cropMarks);
+	bleedMarks->setChecked(m_doc->Print_Options.bleedMarks);
+	registrationMarks->setChecked(m_doc->Print_Options.registrationMarks);
+	colorMarks->setChecked(m_doc->Print_Options.colorMarks);
 }
 
 QString PrintDialog::printerName()

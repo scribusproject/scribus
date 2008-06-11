@@ -17,6 +17,8 @@ class PrefsContext;
 class ScribusDoc;
 class CupsOptions;
 
+struct PrintOptions;
+
 class SCRIBUS_API PrintDialog : public QDialog, Ui::PrintDialogBase
 {
 	Q_OBJECT
@@ -75,6 +77,7 @@ protected:
 	int    unit;
 	double unitRatio;
 	void   getOptions();
+	void   getDefaultPrintOptions(PrintOptions& options, bool gcr);
 	void   storeValues();
 	void   refreshPrintEngineBox();
 	void   setPrintEngine(PrintEngine engine);
