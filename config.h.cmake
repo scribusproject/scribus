@@ -9,7 +9,7 @@
 #error "Include <scconfig.h> rather than using <config.h> directly"
 #endif
 
-#cmakedefine VERSION "1.3.3.12"
+#cmakedefine VERSION "1.3.3.13svn"
 
 #cmakedefine BUILD_MAC_BUNDLE
 #cmakedefine HAVE_CMS 1
