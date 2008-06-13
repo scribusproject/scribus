@@ -120,13 +120,17 @@ bool ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int /*page*/, i
 		m_imageInfoRecord.valid = true;
 		if (header.color_mode == CM_CMYK)
 		{
-			if ( maxChannels == 4)
+			if ( maxChannels < 5)
 				m_imageInfoRecord.valid = hasAlpha = false;
+			else
+				m_imageInfoRecord.valid = hasAlpha = true;
 		}
 		else
 		{
-			if ( maxChannels == 3)
+			if ( maxChannels < 4)
 				m_imageInfoRecord.valid = hasAlpha = false;
+			else
+				m_imageInfoRecord.valid = hasAlpha = true;
 		}
 		return true;
 	}
