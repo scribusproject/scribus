@@ -1136,7 +1136,7 @@ QPtrList<PageItem> SVGPlug::parseSwitch(const QDomElement &e)
 QPtrList<PageItem> SVGPlug::parseSymbol(const QDomElement &e)
 {
 	QPtrList<PageItem> SElements;
-	QString id = e.attribute(id);
+	QString id = e.attribute("id");
 	if( !id.isEmpty() )
 		m_nodeMap.insert(id, e);
 	return SElements;
