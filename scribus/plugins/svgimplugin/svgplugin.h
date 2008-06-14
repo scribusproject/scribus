@@ -218,7 +218,6 @@ public:
 	QList<PageItem*> parseSymbol(const QDomElement &e);
 	QList<PageItem*> parseUse(const QDomElement &e);
 	QFont       getFontFromStyle(SvgStyle& style);
-	QDomElement getNodeFromUseElement(const QDomElement &e);
 	QDomElement getReferencedNode(const QDomElement &e);
 	double fromPercentage(const QString &s );
 	double parseFontSize(const QString& fsize);

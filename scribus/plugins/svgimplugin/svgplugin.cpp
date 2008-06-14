@@ -1442,7 +1442,7 @@ QList<PageItem*> SVGPlug::parseSwitch(const QDomElement &e)
 QList<PageItem*> SVGPlug::parseSymbol(const QDomElement &e)
 {
 	QList<PageItem*> SElements;
-	QString id = e.attribute(id);
+	QString id = e.attribute("id");
 	if( !id.isEmpty() )
 		m_nodeMap.insert(id, e);
 	return SElements;
@@ -1451,9 +1451,26 @@ QList<PageItem*> SVGPlug::parseSymbol(const QDomElement &e)
 QList<PageItem*> SVGPlug::parseUse(const QDomElement &e)
 {
 	QList<PageItem*> UElements;
-	QDomElement ue = getNodeFromUseElement(e);
-	if (!ue.isNull())
-		UElements = parseElement(ue);
+	setupNode(e);
+	if( e.hasAttribute("x") || e.hasAttribute("y") )
+	{
+		QMatrix matrix;
+		double  xAtt = e.attribute("x", "0.0").toDouble();
+		double  yAtt = e.attribute("y", "0.0").toDouble();
+		SvgStyle *gc = m_gc.top();
+		gc->matrix   = QMatrix(1.0, 0.0, 0.0, 1.0, xAtt, yAtt) * gc->matrix;
+	}
+	QString href = e.attribute("xlink:href").mid(1);
+	QMap<QString, QDomElement>::Iterator it = m_nodeMap.find(href);
+	if (it != m_nodeMap.end())
+	{
+		QDomElement elem = it.value().toElement();
+		if( elem.tagName() == "symbol" )
+			UElements = parseGroup(elem);
+		else
+			UElements = parseElement(elem);
+	}
+	delete (m_gc.pop());
 	return UElements;
 }
 
@@ -1532,39 +1549,6 @@ QFont SVGPlug::getFontFromStyle(SvgStyle& style)
 	}
 	font.setPointSize(style.FontSize / 10);
 	return font;
-}
-
-QDomElement SVGPlug::getNodeFromUseElement(const QDomElement &e)
-{
-	QDomElement ret;
-	QMap<QString, QDomElement>::Iterator it;
-	QString href = e.attribute("xlink:href").mid(1);
-	it = m_nodeMap.find(href);
-	if (it != m_nodeMap.end())
-	{
-		// Transform use element to group
-		ret = e.cloneNode().toElement();
-		ret.setTagName("g");
-		if( ret.hasAttribute("x") || ret.hasAttribute("y") )
-		{
-			QString xAtt  = ret.attribute("x", "0.0");
-			QString yAtt  = ret.attribute("y", "0.0");
-			QString trans = ret.attribute("transform", "");
-			trans += QString(" translate(%1, %2)").arg(xAtt).arg(yAtt);
-			ret.setAttribute("transform", trans);
-		}
-		ret.removeAttribute("x");
-		ret.removeAttribute("y");
-		ret.removeAttribute("width");
-		ret.removeAttribute("height");
-		ret.removeAttribute("xlink:href");
-		QDomNode clone = it.value().cloneNode();
-		QDomElement cloneElm = clone.toElement();
-		if( cloneElm.tagName() == "symbol" )
-			cloneElm.setTagName("g"); // later fix to be svg
-		ret.appendChild(cloneElm);
-	}
-	return ret;
 }
 
 QDomElement SVGPlug::getReferencedNode(const QDomElement &e)
