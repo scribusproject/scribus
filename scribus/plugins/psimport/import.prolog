@@ -254,75 +254,77 @@ currentpagedevice /HWResolution get aload pop
 	exch pop
 } bind def
 
-/makepattern { % dict matrix  makepattern patterndict
-%/makepattern =
-	% we will do some real painting here:
-	/i_shortcut true store
-	% params:
-	/i_m exch def
-	/i_dict exch def
-	% define export filename	
-	/i_basename (.png) i_exportfilename (.png) concatenate def
-	i_dict /BBox get
-		dup 0 get /i_x exch def
-		dup 1 get /i_y exch def
-		dup 2 get i_x sub /i_w exch def
-		3 get i_y sub /i_h exch def
-	% we want those in devspace:
-		i_x i_y i_m itransform matrix currentmatrix transform
-			i_vscale div /i_y exch def i_hscale div /i_x exch def
-		i_w i_h i_m idtransform matrix currentmatrix dtransform
-			i_vscale div /i_h exch def i_hscale div /i_w exch def
-		% i_h < 0 ?
-		i_h 0 le
-		{
-			/i_y i_h i_y add def
-			/i_h i_h neg def
-		} if
-		% i_w < 0 ?
-		i_w 0 le
-		{
-			/i_x i_w i_x add def
-			/i_w i_w neg def
-		} if
-	% now we can use the current matrix as pattern matrix, but with (0,0) origin
-	i_m ==
-	i_x i_y matrix currentmatrix translate /i_m exch def
-	i_m ==
-	i_dict /BBox [ 0 0 i_w i_h ] put 
-	(w x h =) = i_w = i_h =
-	% paint pattern to png file
-	gsave
-	currentcolor currentcolorspace
-	<< 
-		/OutputFile i_basename
-		/OutputDevice (pngalpha)
-		/TextAlphaBits 4
-		/GraphicsAlphaBits 4
-%		/BackgroundColor 16777215
-%		/BackgroundColor 0
-		/PageUsesTransparency true
-		/HWResolution [ 72 72 ]
-		/ProcessColorModel /DeviceRGB
-		/PageSize [i_w i_h]
-	/pngalpha finddevice putdeviceprops setdevice 
-	setcolorspace setcolor
-%	matrix currentmatrix ==
-%	0 0 transform exch = =
-%	1 1 transform exch = =
-	i_dict i_w i_h matrix identmatrix scale 
-			%matrix identmatrix 
-			//makepattern setpattern
-	0 0 i_w i_h rectfill
-	showpage
-	grestore
-	% create pattern with our extensions:
-	i_dict dup /ExportFile i_basename put
-	dup /Origin [ 0 0 transform ] put
-	i_m //makepattern
-	/i_shortcut false store
-%/makepatternE =
-} i_shortcutOverload
+% Code for reading patters is currently commented out, as it
+% doesn't seem to work correctly.
+% /makepattern { % dict matrix  makepattern patterndict
+% %/makepattern =
+% 	% we will do some real painting here:
+% 	/i_shortcut true store
+% 	% params:
+% 	/i_m exch def
+% 	/i_dict exch def
+% 	% define export filename	
+% 	/i_basename (.png) i_exportfilename (.png) concatenate def
+% 	i_dict /BBox get
+% 		dup 0 get /i_x exch def
+% 		dup 1 get /i_y exch def
+% 		dup 2 get i_x sub /i_w exch def
+% 		3 get i_y sub /i_h exch def
+% 	% we want those in devspace:
+% 		i_x i_y i_m itransform matrix currentmatrix transform
+% 			i_vscale div /i_y exch def i_hscale div /i_x exch def
+% 		i_w i_h i_m idtransform matrix currentmatrix dtransform
+% 			i_vscale div /i_h exch def i_hscale div /i_w exch def
+% 		% i_h < 0 ?
+% 		i_h 0 le
+% 		{
+% 			/i_y i_h i_y add def
+% 			/i_h i_h neg def
+% 		} if
+% 		% i_w < 0 ?
+% 		i_w 0 le
+% 		{
+% 			/i_x i_w i_x add def
+% 			/i_w i_w neg def
+% 		} if
+% 	% now we can use the current matrix as pattern matrix, but with (0,0) origin
+% 	i_m ==
+% 	i_x i_y matrix currentmatrix translate /i_m exch def
+% 	i_m ==
+% 	i_dict /BBox [ 0 0 i_w i_h ] put 
+% 	(w x h =) = i_w = i_h =
+% 	% paint pattern to png file
+% 	gsave
+% 	currentcolor currentcolorspace
+% 	<< 
+% 		/OutputFile i_basename
+% 		/OutputDevice (pngalpha)
+% 		/TextAlphaBits 4
+% 		/GraphicsAlphaBits 4
+% %		/BackgroundColor 16777215
+% %		/BackgroundColor 0
+% 		/PageUsesTransparency true
+% 		/HWResolution [ 72 72 ]
+% 		/ProcessColorModel /DeviceRGB
+% 		/PageSize [i_w i_h]
+% 	/pngalpha finddevice putdeviceprops setdevice 
+% 	setcolorspace setcolor
+% %	matrix currentmatrix ==
+% %	0 0 transform exch = =
+% %	1 1 transform exch = =
+% 	i_dict i_w i_h matrix identmatrix scale 
+% 			%matrix identmatrix 
+% 			//makepattern setpattern
+% 	0 0 i_w i_h rectfill
+% 	showpage
+% 	grestore
+% 	% create pattern with our extensions:
+% 	i_dict dup /ExportFile i_basename put
+% 	dup /Origin [ 0 0 transform ] put
+% 	i_m //makepattern
+% 	/i_shortcut false store
+% %/makepatternE =
+% } i_shortcutOverload
 
 /writecurrentpattern
 {
