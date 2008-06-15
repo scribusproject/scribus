@@ -221,6 +221,7 @@ PageItem::PageItem(const PageItem & other)
 	TExtra(other.TExtra),
 	BExtra(other.BExtra),
 	RExtra(other.RExtra),
+	firstLineOffsetP(other.firstLineOffsetP),
 	RadRect(other.RadRect),
 	oldXpos(other.oldXpos),
 	oldYpos(other.oldYpos),
@@ -451,6 +452,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			}
 		}
 	}
+	firstLineOffsetP = FLOPRealGlyphHeight;
 	Cols = m_Doc->toolSettings.dCols;
 	ColGap = m_Doc->toolSettings.dGap;
 	LeftLink = 0;
@@ -3829,6 +3831,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->TExtra = TExtra;
 	Buffer->BExtra = BExtra;
 	Buffer->RExtra = RExtra;
+	Buffer->firstLineOffsetP = firstLineOffsetP;
 	Buffer->Pfile = Pfile;
 	Buffer->Pfile2 = Pfile2;
 	Buffer->Pfile3 = Pfile3;
@@ -4971,4 +4974,17 @@ QString PageItem::infoDescription()
 		htmlText.append(ScribusView::tr("Disabled"));
 	htmlText.append("<br/>");
 	return htmlText;
+}
+
+FirstLineOffsetPolicy PageItem::firstLineOffset() const
+{
+	return firstLineOffsetP;
+}
+
+void PageItem::setFirstLineOffset(FirstLineOffsetPolicy flop)
+{
+	if(firstLineOffsetP != flop)
+	{
+		firstLineOffsetP = flop;
+	}
 }
