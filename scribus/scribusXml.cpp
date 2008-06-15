@@ -262,6 +262,7 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 	OB->TExtra   = attrAsDbl(attrs, "TEXTRA", 1.0);
 	OB->BExtra   = attrAsDbl(attrs, "BEXTRA", 1.0);
 	OB->RExtra   = attrAsDbl(attrs, "REXTRA", 1.0);
+	OB->firstLineOffsetP = static_cast<FirstLineOffsetPolicy>(attrAsInt(attrs, "FLOP", 0));
 	OB->PoShow   = attrAsInt(attrs, "PLTSHOW", 0);
 	OB->BaseOffs = attrAsDbl(attrs, "BASEOF", 0.0);
 	OB->textPathType    = attrAsInt (attrs, "textPathType", 0);
@@ -716,6 +717,7 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	writer.writeAttribute("TEXTRA"   , item->textToFrameDistTop());
 	writer.writeAttribute("BEXTRA"   , item->textToFrameDistBottom());
 	writer.writeAttribute("REXTRA"   , item->textToFrameDistRight());
+	writer.writeAttribute("FLOP"	,item->firstLineOffset());
 	if (((item->asImageFrame() && !item->asLatexFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
 		writer.writeAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
 	if (!item->Pfile2.isEmpty())

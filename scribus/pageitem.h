@@ -109,6 +109,8 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO, pu
 	Q_PROPERTY(double textToFrameDistBottom READ textToFrameDistBottom WRITE setTextToFrameDistBottom DESIGNABLE false)
 	Q_PROPERTY(double ColGap READ columnGap WRITE setColumnGap DESIGNABLE false)
 	Q_PROPERTY(int Cols READ columns WRITE setColumns DESIGNABLE false)
+	Q_ENUMS(FirstLineOffsetPolicy)
+	Q_PROPERTY(FirstLineOffsetPolicy firstLineOffset READ firstLineOffset WRITE setFirstLineOffset DESIGNABLE false)
 	// FIXME: QMetaProperty can't translate these to/from enumerator names, probably because the
 	// properties aren't moc'd in the Qt sources. They work fine in their
 	// current state as plain integer properties.
@@ -185,7 +187,6 @@ public:
 		Round		= 2,
 		Other		= 3
 	};
-
 
 protected:
 	PageItem(const PageItem & other);
@@ -607,6 +608,8 @@ public:
 	void setColumnGap(double);
 	void setGridOffset(double);
 	void setGridDistance(double);
+	FirstLineOffsetPolicy firstLineOffset()const;
+	void setFirstLineOffset(FirstLineOffsetPolicy);
 	/**
 	 * \brief Set the text to frame distances all at once
 	 * @param newLeft left distance
@@ -1205,6 +1208,8 @@ protected:
 	double TExtra;
 	double BExtra;
 	double RExtra;
+	
+	FirstLineOffsetPolicy firstLineOffsetP;
 	
 public:
 	/** Radius of rounded corners */

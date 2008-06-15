@@ -139,5 +139,19 @@ public:
 };
 #endif
 
+
+/** @brief First Line Offset Policy
+ * Set wether the first line offset is based on max glyph height
+ * or some of predefined height.
+ * I put a prefix because it could easily conflict 
+ */
+enum FirstLineOffsetPolicy
+{
+    FLOPRealGlyphHeight = 0, // Historical
+    FLOPFontAscent	= 1,
+    FLOPLineSpacing	= 2
+};
+
+
 #endif // SCTEXTSTRUCT_H
 

@@ -515,6 +515,21 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	TabsButton->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 	DistanceLayout->addWidget( TabsButton, 6, 0, 1, 2 );
 	pageLayout_2a->addWidget(Distance);
+	
+	flopBox = new QGroupBox(tr("First Line Offset"), page_2a);
+	flopLayout = new QGridLayout(flopBox);
+	flopGroup = new QButtonGroup(flopBox);
+	flopRealHeight = new QRadioButton(tr("Maximum Ascent"), flopBox);
+	flopFontAsent = new QRadioButton(tr("Font Ascent"), flopBox);
+	flopLineSpacing = new QRadioButton(tr("Line Spacing"),flopBox); 
+	flopGroup->addButton(flopRealHeight, 0);
+	flopGroup->addButton(flopFontAsent, 1);
+	flopGroup->addButton(flopLineSpacing, 2);
+	flopLayout->addWidget(flopRealHeight);
+	flopLayout->addWidget(flopFontAsent);
+	flopLayout->addWidget(flopLineSpacing);
+	flopRealHeight->setChecked(true);
+	pageLayout_2a->addWidget(flopBox);
 	TabStack2->addWidget( page_2a );
 
 	page_2b = new QWidget( TabStack2 );
@@ -1182,6 +1197,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(DLeft, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
 	connect(DRight, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
 	connect(DBottom, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
+	connect(flopGroup, SIGNAL(buttonClicked( int )), this, SLOT(flop(int)));
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 	connect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 	connect(Fonts, SIGNAL(fontSelected(QString )), this, SLOT(NewTFont(QString)));
@@ -1562,6 +1578,10 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		DTop->setValue(i2->textToFrameDistTop()*m_unitRatio);
 		DBottom->setValue(i2->textToFrameDistBottom()*m_unitRatio);
 		DRight->setValue(i2->textToFrameDistRight()*m_unitRatio);
+		// I put it here because it’s visually grouped with these elements
+		// but it’s a PageItem prop. and as such should be set without considering
+		// the frame type.
+		setFlop(CurItem->firstLineOffset());
 	}
 	if (CurItem->asImageFrame())
 	{
@@ -1838,6 +1858,7 @@ void PropertiesPalette::NewSel(int nr)
 		FlipV->setCheckable( false );
 		FlipH->setChecked(false);
 		FlipV->setChecked(false);
+		flopRealHeight->setChecked(true);
 	}
 	else
 	{
@@ -2511,6 +2532,16 @@ void PropertiesPalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJo
 		break;
 	}
 	HaveItem = tmp;
+}
+
+void PropertiesPalette::setFlop( FirstLineOffsetPolicy f )
+{
+	if(f == FLOPFontAscent)
+		flopFontAsent->setChecked(true);
+	else if(f == FLOPLineSpacing)
+		flopLineSpacing->setChecked(true);
+	else
+		flopRealHeight->setChecked(true); //It’s historical behaviour.
 }
 
 
@@ -4991,3 +5022,19 @@ void PropertiesPalette::endEdit2()
 		tmpSelection->clear();
 	}
 }
+
+void PropertiesPalette::flop(int radioFlop)
+{
+	if (!m_ScMW || m_ScMW->ScriptRunning || !HaveDoc || !HaveItem)
+		return;
+// 	qDebug(QString("rF %1").arg(radioFlop).toAscii());
+	if( radioFlop == 0)
+		CurItem->setFirstLineOffset(FLOPRealGlyphHeight);
+	else if( radioFlop == 1)
+		CurItem->setFirstLineOffset(FLOPFontAscent);
+	else if( radioFlop == 2)
+		CurItem->setFirstLineOffset(FLOPLineSpacing);
+	CurItem->update();
+	emit DocChanged();
+}
+

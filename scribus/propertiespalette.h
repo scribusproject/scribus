@@ -201,6 +201,7 @@ public slots:
 	void setLvalue(double scx, double scy, double x, double y);
 	void setSvalue(double s);
 	void setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj);
+	void setFlop(FirstLineOffsetPolicy);
 	/// update TB values:
 	void updateStyle(const ParagraphStyle& newCurrent);
 	void setStil(int s);
@@ -312,6 +313,7 @@ private slots:
 	void setGroupBlending(int blend);
 	void doGrouping();
 	void dashChange();
+	void flop(int);
 
 protected slots:
 	//virtual void reject();
@@ -377,6 +379,7 @@ protected:
 	QGridLayout* Layout1t;
 	QHBoxLayout* wordTrackingHLayout;
 	QHBoxLayout* glyphExtensionHLayout;
+	QGridLayout* flopLayout;
 	
 	NameWidget* NameEdit;
 	
@@ -497,6 +500,7 @@ protected:
 	QGroupBox* TLines;
 	QGroupBox* GroupBox3a;
 	QGroupBox* TransGroup;
+	QGroupBox* flopBox;
 
 	QToolButton* textFlowDisabled;
 	QToolButton* textFlowUsesFrameShape;
@@ -570,6 +574,11 @@ protected:
 	QRadioButton* NonZero;
 	QRadioButton* KnockOut;
 	QRadioButton* Overprint;
+	QRadioButton* flopRealHeight;
+	QRadioButton* flopFontAsent;
+	QRadioButton* flopLineSpacing;
+	
+	QButtonGroup* flopGroup;
 
 //	QFrame* Line1;
 //	QFrame* Line2;

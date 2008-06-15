@@ -121,6 +121,7 @@ struct CopyPasteBuffer
 	double TExtra;
 	double BExtra;
 	double RExtra;
+	FirstLineOffsetPolicy firstLineOffsetP;
 	QString Pfile;
 	QString Pfile2;
 	QString Pfile3;

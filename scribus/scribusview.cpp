@@ -3545,6 +3545,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 //	currItem->Language = m_ScMW->GetLang(Buffer->Language);
 	currItem->Cols = Buffer->Cols;
 	currItem->ColGap = Buffer->ColGap;
+	currItem->setFirstLineOffset(Buffer->firstLineOffsetP);
 	if (Buffer->LayerNr != -1)
 		currItem->LayerNr = Buffer->LayerNr;
 	currItem->PoLine = Buffer->PoLine.copy();

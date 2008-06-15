@@ -21,14 +21,16 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <QPolygon>
+#include <QDebug>
 #include <QList>
 #include <QMatrix>
-#include <QPoint>
-#include <QRegion>
 #include <QPalette>
-#include <cmath>
+#include <QPoint>
+#include <QPolygon>
+#include <QRegion>
 #include <cassert>
+#include <cmath>
+
 
 #include "canvas.h"
 #include "commonstrings.h"
@@ -743,7 +745,6 @@ static double opticalRightMargin(const StoryText& itemText, const LineSpec& line
 
 void PageItem_TextFrame::layout() 
 {
-	
 	if (BackBox != NULL && BackBox->invalid) {
 //		qDebug("textframe: len=%d, going back", itemText.length());
 		invalid = false;
@@ -1856,13 +1857,28 @@ void PageItem_TextFrame::layout()
 				
 
 				// calc. needed vertical space
+				// Let’s try to change into "calc. _wanted_ vertical space" - pm
 				if (current.itemsInLine != 0)
 				{
 					if ((!AbsHasDrop) && (current.startOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing))
 					{
 						//FIXME: use glyphs, not chars
 						double firstasce = itemText.charStyle(current.line.firstItem).font().ascent(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
-						double currasce = current.getLineAscent(itemText);
+						double adj (0.0);
+						double currasce (current.getLineAscent(itemText));
+						if( firstLineOffset() == FLOPRealGlyphHeight )
+						{
+							adj = firstasce - currasce;
+						}
+						else if( firstLineOffset() == FLOPFontAscent )
+						{
+							adj = 0.0;
+						}
+						else if( firstLineOffset() == FLOPLineSpacing )
+						{
+							adj = firstasce - style.lineSpacing();
+						}
+// 						qDebug(QString("firstLineOffsetP ADJ FASC CASC %1 %2 %3 %4").arg(firstLineOffsetP).arg(adj).arg(firstasce).arg(currasce).toAscii());
 							/*0;
 						if ((itemText.text(current.line.firstItem) == SpecialChars::PARSEP) || (itemText.text(current.line.firstItem) == SpecialChars::LINEBREAK))
 							currasce = itemText.charStyle(current.line.firstItem).font().ascent(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
@@ -1889,7 +1905,6 @@ void PageItem_TextFrame::layout()
 //							qDebug(QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(currasce));
 						currasce = qMax(currasce, asce);
 						}*/
-						double adj = firstasce - currasce;
 //						qDebug(QString("move1 line %1.. down by %2").arg(current.line.firstItem).arg(-adj));
 						current.line.ascent = currasce;
 						current.line.y -= adj;
@@ -2055,7 +2070,20 @@ void PageItem_TextFrame::layout()
 			if ((!AbsHasDrop) && (current.startOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing))
 			{
 				double firstasce = itemText.charStyle(current.line.firstItem).font().ascent(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
-				double currasce = current.getLineAscent(itemText);
+				double adj (0.0);
+				double currasce (current.getLineAscent(itemText));
+				if( firstLineOffset() == FLOPRealGlyphHeight )
+				{
+					adj = firstasce - currasce;
+				}
+				else if( firstLineOffset() == FLOPFontAscent )
+				{
+					adj = 0.0;
+				}
+				else if( firstLineOffset() == FLOPLineSpacing )
+				{
+					adj = firstasce - style.lineSpacing();
+				}
 				/*0;
 				double asce;
 				if ((itemText.text(current.line.firstItem) == SpecialChars::PARSEP) || (itemText.text(current.line.firstItem) == SpecialChars::LINEBREAK))
@@ -2084,7 +2112,6 @@ void PageItem_TextFrame::layout()
 					currasce = qMax(currasce, asce);
 				}
 				*/
-				double adj = firstasce - currasce;
 //				qDebug(QString("move3 line %1.. down by %2 current ascender=%3").arg(current.line.firstItem).arg(-adj).arg(currasce));
 
 				current.line.ascent = currasce;

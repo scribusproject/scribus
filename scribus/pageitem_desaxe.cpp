@@ -102,6 +102,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	result.insert("top-distance", toXMLString(item->textToFrameDistTop()));
 	result.insert("bottom-distance", toXMLString(item->textToFrameDistBottom()));
 	result.insert("right-distance", toXMLString(item->textToFrameDistRight()));
+	result.insert("first-line-offset", toXMLString(item->firstLineOffset()));
 
 	result.insert("text-autoframes", toXMLString(item->isAutoFrame()));
 	result.insert("text-columns", toXMLString(item->columns()));
@@ -590,6 +591,8 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setTextToFrameDistTop, "top-distance", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setTextToFrameDistBottom, "bottom-distance", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setTextToFrameDistRight, "right-distance", &parseDouble ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,FirstLineOffsetPolicy>( & PageItem::setFirstLineOffset, "first-line-offset", &parseEnum ));
+
 	
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setIsAutoFrame, "text-autoframe", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setColumns, "text-columns", &parseInt ));
