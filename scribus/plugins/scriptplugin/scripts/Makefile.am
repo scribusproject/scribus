@@ -9,6 +9,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/BleedAndPrintMarks.py $(prefix)/share/scribus/scripts/BleedAndPrintMarks.py
 	$(INSTALL_DATA) $(srcdir)/CalendarWizard.py $(prefix)/share/scribus/scripts/CalendarWizard.py
 	$(INSTALL_DATA) $(srcdir)/DirectImageImport.py $(prefix)/share/scribus/scripts/DirectImageImport.py
+	$(INSTALL_DATA) $(srcdir)/DrawGrid.py $(prefix)/share/scribus/scripts/DrawGrid.py
 	$(INSTALL_DATA) $(srcdir)/ExtractText.py $(prefix)/share/scribus/scripts/ExtractText.py
 	$(INSTALL_DATA) $(srcdir)/FontSample.py $(prefix)/share/scribus/scripts/FontSample.py
 	$(INSTALL_DATA) $(srcdir)/ImageWizard.py $(prefix)/share/scribus/scripts/ImageWizard.py
@@ -25,6 +26,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/scripts/BleedAndPrintMarks.py
 	-rm -f $(prefix)/share/scribus/scripts/CalendarWizard.py
 	-rm -f $(prefix)/share/scribus/scripts/DirectImageImport.py
+	-rm -f $(prefix)/share/scribus/scripts/DrawGrid.py
 	-rm -f $(prefix)/share/scribus/scripts/ExtractText.py
 	-rm -f $(prefix)/share/scribus/scripts/FontSample.py
 	-rm -f $(prefix)/share/scribus/scripts/ImageWizard.py
