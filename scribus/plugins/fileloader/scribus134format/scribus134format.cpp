@@ -2272,6 +2272,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 								obj->attribute("REXTRA", "1").toDouble(),
 								obj->attribute("TEXTRA", "1").toDouble(),
 								obj->attribute("BEXTRA", "1").toDouble());
+	currItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(obj->attribute("FLOP").toInt()));
 
 	currItem->PLineArt = Qt::PenStyle(obj->attribute("PLINEART").toInt());
 	currItem->PLineEnd = Qt::PenCapStyle(obj->attribute("PLINEEND", "0").toInt());
