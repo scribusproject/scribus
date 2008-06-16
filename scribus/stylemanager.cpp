@@ -1059,7 +1059,7 @@ void StyleManager::slotSetupWidget()
 {
 	QPair<QString, QStringList> selection = namesFromSelection();
 	QString typeName = selection.first;
-
+// 	qDebug()<<"slotSetupWidget"<<selection.first<<selection.second.join("|");
 	if (typeName.isNull() && m_widget)
 		m_widget->setEnabled(false); // nothing selected or two or more different types
 	else if (!m_item || m_item->typeName() != typeName || m_widget != m_item->widget())
@@ -1182,16 +1182,13 @@ QPair<QString, QStringList> StyleManager::namesFromSelection()
 {
 	QString typeName(QString::null);
 	QStringList styleNames;
-
 	if (m_rcStyle.isNull())
 	{
-		QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::Selected);
-		while (*it)
+		foreach(QTreeWidgetItem * it, styleView->selectedItems())
 		{
-			StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
+			StyleViewItem *item = dynamic_cast<StyleViewItem*>(it);
 			if (!item)
 			{
-				++it;
 				continue;
 			}
 			else if (typeName.isNull())
@@ -1204,8 +1201,6 @@ QPair<QString, QStringList> StyleManager::namesFromSelection()
 	
 			if (!item->isRoot())
 				styleNames << item->text(NAME_COL);
-	
-			++it;
 		}
 	}
 	else // right click selection which doesn't show in the gui
