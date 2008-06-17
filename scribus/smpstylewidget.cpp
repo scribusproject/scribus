@@ -384,12 +384,17 @@ void SMPStyleWidget::showDropCap(QList<ParagraphStyle*> &pstyles, int unitIndex)
 
 void SMPStyleWidget::showAlignment(QList<ParagraphStyle*> &pstyles)
 {
+	if(pstyles.isEmpty())
+	{
+		qDebug()<<"Warning showAlignment called with an empty list of styles";
+		return;
+	}
 	ParagraphStyle::AlignmentType a = pstyles[0]->alignment();
 	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (a != pstyles[i]->alignment())
 		{
-			if (alignement_->selectedId() > -1)
+			if (alignement_->selectedId() > -1 && alignement_->selectedId() < 5)
 			{
 				alignement_->buttonGroup->setExclusive(false);
 				alignement_->buttonGroup->button(alignement_->selectedId())->toggle();
