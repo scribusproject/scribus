@@ -28,6 +28,7 @@ class QLabel;
 class QPushButton;
 class QSpacerItem;
 class QSpinBox;
+class QCheckBox;
 class QString;
 class QStringList;
 class QTreeWidget;
@@ -62,7 +63,7 @@ public:
 
 	/*! Construct a LI
 	\param parCount count of the paragraphs */
-	QString createLorem(uint parCount);
+	QString createLorem(uint parCount, bool random = true);
 };
 
 /*! \brief This module provides simple interface to the various Lorem Ipsum variants.
@@ -98,7 +99,7 @@ public:
 	\param name filename of the selected LI
 	\param paraCount count of the paragraphs
 	*/
-	void insertLoremIpsum(QString name, int paraCount);
+	void insertLoremIpsum(QString name, int paraCount, bool random = true);
 
 public slots:
 	virtual void okButton_clicked();
@@ -109,6 +110,7 @@ protected:
 	QTreeWidget* loremList;
 	QLabel* paraLabel;
 	QSpinBox* paraBox;
+	QCheckBox* randomCheckBox;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QGridLayout* LoremManagerLayout;

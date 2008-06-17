@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QSpacerItem>
 #include <QSpinBox>
+#include <QCheckBox>
 #include <QString>
 #include <QStringList>
 #include <QTreeWidget>
@@ -93,18 +94,38 @@ LoremParser::LoremParser(QString fname)
 		correct = true;
 }
 
-QString LoremParser::createLorem(uint parCount)
+QString LoremParser::createLorem(uint parCount, bool random)
 {
 	if (parCount < 1)
 		return QString::null;
 	// first paragraph is always the same
-	QString lorem(loremIpsum[0]);
+	QString lorem = "";
+	if (!loremIpsum.isEmpty())
+		lorem = loremIpsum[0];
 	if (parCount > 1)
 	{
 		if (!loremIpsum.isEmpty())
 		{
-			for (uint i = 1; i < parCount; ++i)
-				lorem += SpecialChars::PARSEP + loremIpsum[rand()%loremIpsum.count()];
+			if (random)
+			{
+				for (uint i = 1; i < parCount; ++i)
+					lorem += SpecialChars::PARSEP + loremIpsum[rand()%loremIpsum.count()];
+			}
+			else
+			{
+				int maxParagraph = loremIpsum.count()-1;
+				int currentParagraph = 1;
+				if (maxParagraph != 0)
+				{
+					for (uint i = 1; i < parCount; ++i)
+					{
+						lorem += SpecialChars::PARSEP + loremIpsum[currentParagraph];
+						currentParagraph++;
+						if (currentParagraph > maxParagraph)
+							currentParagraph = 0;
+					}
+				}
+			}
 		}
 	}
 	return lorem.trimmed();
@@ -145,6 +166,9 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	paraBox->setMinimum( 1 );
 	paraBox->setValue(PrefsManager::instance()->appPrefs.paragraphsLI);
 	layout2->addWidget( paraBox );
+	randomCheckBox = new QCheckBox(this);
+	randomCheckBox->setChecked(true);
+	layout2->addWidget( randomCheckBox );
 	paraSpacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout2->addItem( paraSpacer );
 	layout3->addLayout( layout2 );
@@ -203,6 +227,16 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	loremList->sortItems(0, Qt::AscendingOrder);
 	loremList->setSortingEnabled(false);
 	resize( QSize(320, 340).expandedTo(minimumSizeHint()) );
+	QList<QTreeWidgetItem *> defItem;
+	defItem.clear();
+	defItem = loremList->findItems(m_Doc->Language, Qt::MatchExactly);
+	if (defItem.count() == 0)
+		defItem = loremList->findItems(standardloremtext, Qt::MatchExactly);
+	if (defItem.count() != 0)
+	{
+		loremList->setCurrentItem(defItem[0]);
+		defItem[0]->setSelected(true);
+	}
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( okButton_clicked() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( cancelButton_clicked() ) );
@@ -229,6 +263,7 @@ void LoremManager::languageChange()
 {
 	setWindowTitle( tr( "Lorem Ipsum" ) );
 	paraLabel->setText( tr( "Paragraphs:" ) );
+	randomCheckBox->setText( tr("Random Paragraphs"));
 	okButton->setText( CommonStrings::tr_OK );
 	okButton->setShortcut( QKeySequence( tr( "Alt+O" ) ) );
 	cancelButton->setText( CommonStrings::tr_Cancel );
@@ -252,7 +287,7 @@ void LoremManager::okButton_clicked()
 	else
 		name=langmgr->getAbbrevFromLang(li->text(0), true, false);
 		
-	insertLoremIpsum(availableLorems[name], paraBox->value());
+	insertLoremIpsum(availableLorems[name], paraBox->value(), randomCheckBox->isChecked());
 	accept();
 }
 
@@ -261,7 +296,7 @@ void LoremManager::cancelButton_clicked()
 	reject();
 }
 
-void LoremManager::insertLoremIpsum(QString name, int paraCount)
+void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 {
 	//CB: Avox please make insertText for text frame to nuke all this
 	// is it really applied?
@@ -307,7 +342,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 #endif
 		
 		// K.I.S.S.:
-		currItem->itemText.insertChars(0, lp->createLorem(paraCount));
+		currItem->itemText.insertChars(0, lp->createLorem(paraCount, random));
 		delete lp;
 
 		//if (ScMW->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)
