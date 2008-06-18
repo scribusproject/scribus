@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "styleselect.h"
 #include "util.h"
 #include "util_icon.h"
+#include "util_text.h"
 #include "text/nlsconfig.h"
 
 SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, bool mode )

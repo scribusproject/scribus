@@ -66,6 +66,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_formats.h"
 #include "util_math.h"
+#include "util_text.h"
 #ifdef HAVE_CAIRO
 	#include <cairo.h>
 #endif

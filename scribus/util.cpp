@@ -782,7 +782,7 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 	} while (!tmp.isEmpty());
 }
 
-
+/*
 int findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle)
 {
 	bool named = !parStyle.name().isEmpty();
@@ -814,7 +814,7 @@ int findParagraphStyle(ScribusDoc* doc, const QString &name)
 	assert(false);
 	return -1;
 }
-
+*/
 
 void tDebug(QString message)
 {

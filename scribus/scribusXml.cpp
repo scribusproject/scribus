@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <zlib.h>
 #include "util.h"
+#include "util_text.h"
 #include "util_math.h"
 #include "util_color.h"
 #include "scpattern.h"

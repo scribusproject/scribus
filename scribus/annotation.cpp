@@ -3,6 +3,7 @@
 
 #include "annotation.h"
 #include "util.h"
+#include "util_text.h"
 #include "util_math.h"
 
 void Annotation::saxx(SaxHandler& handler, const Xml_string& elemtag) const

@@ -592,6 +592,7 @@ SET(SCRIBUS_SOURCES
   util_icon.cpp
   util_math.cpp
   util_printer.cpp
+  util_text.cpp
   vgradient.cpp
   vgradientex.cpp
   vruler.cpp
