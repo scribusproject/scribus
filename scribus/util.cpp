@@ -782,40 +782,6 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 	} while (!tmp.isEmpty());
 }
 
-/*
-int findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle)
-{
-	bool named = !parStyle.name().isEmpty();
-//qDebug(QString("looking up %1/ %2").arg(parStyle.name()).arg(parStyle.alignment())); 
-	if (named) {
-		for (int i=0; i < doc->paragraphStyles().count(); ++i)
-		{
-//qDebug(QString("%1 %2").arg(i).arg(doc->paragraphStyles()[i].name()));
-			if (parStyle.name() == doc->paragraphStyles()[i].name()) {
-				return i;
-			}
-		}
-		assert(false);
-		return -1;
-	}
-	else {
-		return -1;
-	}
-}
-
-int findParagraphStyle(ScribusDoc* doc, const QString &name)
-{
-	for (int i=0; i < doc->paragraphStyles().count(); ++i)
-	{
-		if (name == doc->paragraphStyles()[i].name()) {
-			return i;
-		}
-	}
-	assert(false);
-	return -1;
-}
-*/
-
 void tDebug(QString message)
 {
 	QDateTime debugTime;

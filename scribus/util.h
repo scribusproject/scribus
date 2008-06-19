@@ -130,12 +130,7 @@ const QString SCRIBUS_API getStringFromSequence(DocumentSectionType type, uint p
 const QString SCRIBUS_API arabicToRoman(uint i);
 const QString SCRIBUS_API numberToLetterSequence(uint i);
 void SCRIBUS_API parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
-/*
-#ifndef NLS_CONFORMANCE
-int SCRIBUS_API findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle);
-int SCRIBUS_API findParagraphStyle(ScribusDoc* doc, const QString &name);
-#endif
-*/
+
 /*! \brief performance measurements.
 It prints given message with it current timestamp.
 Useful for duration holes finding.
