@@ -13,8 +13,7 @@
 *                                                                         *
 ***************************************************************************/
 
-
-
+#include "commonstrings.h"
 #include "styles/style.h"
 #include "paragraphstyle.h"
 #include "resourcecollection.h"
@@ -32,6 +31,8 @@ ParagraphStyle::ParagraphStyle() : Style(), cstyleContext(NULL), cstyleContextIs
 	inh_##attr_NAME = true;
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
+	
+	m_isDefaultStyle=false;
 }
 
 
@@ -60,6 +61,8 @@ ParagraphStyle::~ParagraphStyle()
 
 QString ParagraphStyle::displayName() const
 {
+	if ( isDefaultStyle() )
+		return CommonStrings::trDefaultParagraphStyle;
 	if ( hasName() || !hasParent() || !m_context)
 		return name();
 	//	else if ( inheritsAll() )

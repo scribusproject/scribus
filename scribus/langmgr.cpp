@@ -184,6 +184,18 @@ const QString LanguageManager::getAbbrevFromLang(QString lang, bool getFromTrans
 	return "";
 }
 
+const QString LanguageManager::getTransLangFromLang(QString lang)
+{
+	QMap<QString, langPair>::Iterator it;
+	if (lang == "English" || lang == QObject::tr( "English"))
+	for (it=langList.begin();it!=langList.end();++it)
+	{
+		if (it.value().first==lang)
+			return it.value().second;
+	}
+	return "";
+}
+
 void LanguageManager::fillInstalledStringList(QStringList *stringListToFill, bool addDefaults) 
 {
 	if (stringListToFill)

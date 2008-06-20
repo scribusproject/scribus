@@ -37,6 +37,7 @@
  */
 class SCRIBUS_API Style : public SaxIO {
 protected:
+	bool m_isDefaultStyle;
 	QString m_name;
 	const StyleContext* m_context;
 	int m_contextversion;
@@ -45,13 +46,14 @@ protected:
 public:
 //	static const short NOVALUE = -16000;
 
-	Style(): m_name(""), m_context(NULL), m_contextversion(-1), m_parent(""), m_shortcut() {}
+	Style(): m_isDefaultStyle(false), m_name(""), m_context(NULL), m_contextversion(-1), m_parent(""), m_shortcut() {}
 
-    Style(StyleContext* b, QString n): m_name(n), m_context(b), m_contextversion(-1), m_parent(""), m_shortcut() {}
+	Style(StyleContext* b, QString n): m_isDefaultStyle(false), m_name(n), m_context(b), m_contextversion(-1), m_parent(""), m_shortcut() {}
 	
 	Style& operator=(const Style& o) 
 	{ //assert(typeinfo() == o.typeinfo()); 
-		m_name = o.m_name; 
+		m_isDefaultStyle = o.m_isDefaultStyle;
+		m_name = o.m_name;
 //		m_context = o.m_context; 
 		m_contextversion = -1; 
 		m_parent = o.m_parent;
@@ -59,7 +61,7 @@ public:
 		return *this;
 	}
 	
-	Style(const Style& o) : SaxIO(), m_name(o.m_name), 
+	Style(const Style& o) : SaxIO(), m_isDefaultStyle(o.m_isDefaultStyle),m_name(o.m_name), 
 		m_context(o.m_context), m_contextversion(o.m_contextversion), m_parent(o.m_parent), m_shortcut(o.m_shortcut) {} 
 	
 	virtual ~Style()                 {}
@@ -74,19 +76,21 @@ public:
 	//virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;
 	//virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
 	
+	void setDefaultStyle(bool ids)       { m_isDefaultStyle = ids; }
+	bool isDefaultStyle() const      { return m_isDefaultStyle; }
 	
 	QString name() const             { return m_name; }
 	void setName(const QString& n)   { m_name = n.isEmpty() ? "" : n; }
 	bool hasName() const             { return ! m_name.isEmpty(); }
 
-	virtual QString displayName() const { 	
+	virtual QString displayName() const = 0;/*{ 	
 		if ( hasName() || !hasParent() || !m_context)
 			return name();
 		//	else if ( inheritsAll() )
 		//		return parent()->displayName();
 		else 
 			return parentStyle()->displayName();
-	}
+	}*/
 	
 	QString parent() const           { return m_parent; }
 	void setParent(const QString& p) { if (m_parent != p) m_contextversion = -1; m_parent = p.isEmpty()? "" : p; }

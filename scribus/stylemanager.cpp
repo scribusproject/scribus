@@ -204,7 +204,7 @@ void StyleManager::setDoc(ScribusDoc *doc)
 	m_styleActions.clear();
 	for (int i = 0; i < m_items.count(); ++i)
 	{
-		m_items.at(i)->currentDoc(doc);
+		m_items.at(i)->setCurrentDoc(doc);
 		addNewType(m_items.at(i)); // forces a reload
 		if (m_doc)
 			m_items.at(i)->unitChange();
@@ -216,7 +216,7 @@ void StyleManager::updateColorList()
 {
 	for (int i = 0; i < m_items.count(); ++i)
 	{
-		m_items.at(i)->currentDoc(m_doc);
+		m_items.at(i)->setCurrentDoc(m_doc);
 		m_items.at(i)->reload();
 	}
 }
@@ -419,8 +419,8 @@ void StyleManager::slotImport()
 		}
 		delete dia2;
 // Start hack part 2
-		pstyle->currentDoc(m_doc);
-		cstyle->currentDoc(m_doc);
+		pstyle->setCurrentDoc(m_doc);
+		cstyle->setCurrentDoc(m_doc);
 // end hack part 2
 		reloadStyleView(false);
 		setSelection(selected);
@@ -655,8 +655,10 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 		return;
 	loadType(typeName); // get the right style class
 	Q_ASSERT(m_item);
+	
 	QString newName = fromParent.isNull() ?
 			m_item->newStyle() : m_item->newStyle(fromParent);
+// 	qDebug() << "created new style:" << newName << " : " << m_item->isDefaultStyle(newName);
 	if (newName.isNull())
 		return;
 	StyleViewItem *root = 0;
@@ -1082,7 +1084,8 @@ void StyleManager::slotSetupWidget()
 		else
 		{
 			nameEdit->setText(selection.second[0]);
-			nameEdit->setEnabled(true);
+// 			qDebug() << selection.second[0] << m_item->isDefaultStyle(selection.second[0]);
+			nameEdit->setEnabled(! (m_item->isDefaultStyle(selection.second[0])));
 			m_shortcutWidget->setEnabled(true);
 			m_shortcutWidget->setShortcut(m_item->shortcut(selection.second[0]));
 		}
@@ -1132,7 +1135,7 @@ void StyleManager::slotDocSelectionChanged()
 	if (m_isEditMode)
 		return; // don't track changes when in edit mode
 
-	qDebug() << "Style Manager : doc selection changed";
+// 	qDebug() << "Style Manager : doc selection changed";
 
 	disconnect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
 	           this, SLOT(slotApplyStyle(QTreeWidgetItem*, QTreeWidgetItem*)));

@@ -432,6 +432,8 @@ void Scribus134Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 		docu.writeAttribute("NAME", style.name());
 	if ( ! style.parent().isEmpty())
 		docu.writeAttribute("PARENT", style.parent());
+	if ( style.isDefaultStyle())
+		docu.writeAttribute("DefaultStyle", style.isDefaultStyle());
 	
 	if ( ! style.isInhAlignment())
 		docu.writeAttribute("ALIGN", style.alignment());
@@ -532,6 +534,8 @@ void Scribus134Format::putCStyle(ScXmlStreamWriter & docu, const CharStyle & sty
 		docu.writeAttribute("CNAME", style.name());
 	if ( ! style.parent().isEmpty() )
 		docu.writeAttribute("CPARENT", style.parent());
+	if ( style.isDefaultStyle())
+		docu.writeAttribute("DefaultStyle", style.isDefaultStyle());	
 	if ( ! style.isInhFont())	
 		docu.writeAttribute("FONT", style.font().scName());
 	if ( ! style.isInhFontSize())

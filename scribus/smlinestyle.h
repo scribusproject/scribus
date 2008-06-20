@@ -29,7 +29,7 @@ public:
 	QTabWidget* widget();
 	QString typeNamePlural();
 	QString typeNameSingular();
-	void currentDoc(ScribusDoc *doc);
+	void setCurrentDoc(ScribusDoc *doc);
 	QList<StyleName> styles(bool reloadFromDoc = true);
 	void reload();
 	void selected(const QStringList &styleNames);
@@ -38,6 +38,8 @@ public:
 	QString newStyle();
 	QString newStyle(const QString &fromStyle);
 	void apply();
+	bool isDefaultStyle(const QString &stylename) const;
+	void setDefaultStyle(bool ids);
 	QString shortcut(const QString &stylename) const;
 	void setShortcut(const QString &shortcut);
 	void deleteStyles(const QList<RemoveItem> &removeList);

@@ -40,6 +40,7 @@ public:
 	void init(bool generateInstalledList = true);
 	const QString getLangFromAbbrev(QString, bool getTranslated=true);
 	const QString getAbbrevFromLang(QString, bool getFromTranslated=true, bool useInstalled=true);
+	const QString getTransLangFromLang(QString lang);
 	void fillInstalledStringList(QStringList *stringListToFill, bool addDefaults);
 	void printInstalledList();
 	QString numericSequence(QString seq);

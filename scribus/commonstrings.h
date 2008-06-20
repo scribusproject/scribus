@@ -165,6 +165,14 @@ public:
 	static QString trPenStyle_DashDotLine;
 	static QString trPenStyle_DashDotDotLine;
 	
+	//Default Styles
+	static QString DefaultParagraphStyle;
+	static QString DefaultCharacterStyle;
+	static QString DefaultLineStyle;
+	static QString trDefaultParagraphStyle;
+	static QString trDefaultCharacterStyle;
+	static QString trDefaultLineStyle;
+	
 	//Days and Months
 	static QString monday; 
 	static QString tuesday;

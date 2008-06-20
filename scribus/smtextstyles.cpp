@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QEvent>
+#include <QTabWidget>
 
 #include "alignselect.h"
 #include "colorcombo.h"
@@ -36,8 +37,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 
-#include <QTabWidget>
-
 SMParagraphStyle::SMParagraphStyle(StyleSet<CharStyle> *cstyles) : StyleItem(),
 pwidget_(0), doc_(0), selectionIsDirty_(false), unitRatio_(1.0), cstyles_(cstyles)
 {
@@ -61,7 +60,7 @@ QString SMParagraphStyle::typeNameSingular()
 	return tr("Paragraph Style");
 }
 
-void SMParagraphStyle::currentDoc(ScribusDoc *doc)
+void SMParagraphStyle::setCurrentDoc(ScribusDoc *doc)
 {
 	doc_ = doc;
 	if (doc_)
@@ -106,7 +105,7 @@ QList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 	{
 		if (tmpStyles_[i].hasName())
 		{
-			QString styleName(tmpStyles_[i].name());
+			QString styleName(tmpStyles_[i].displayName());
 			QString parentName(QString::null);
 
 			if (tmpStyles_[i].hasParent() )
@@ -208,6 +207,7 @@ QString SMParagraphStyle::newStyle()
 
 	QString s(getUniqueName( tr("New Style")));
 	ParagraphStyle p;
+	p.setDefaultStyle(false);
 	p.setName(s);
 	tmpStyles_.create(p);
 	return s;
@@ -221,6 +221,7 @@ QString SMParagraphStyle::newStyle(const QString &fromStyle)
 
 	QString s(getUniqueName( tr("Clone of %1").arg(fromStyle)));
 	ParagraphStyle p(tmpStyles_.get(fromStyle));
+	p.setDefaultStyle(false);
 	p.setName(s);
 	p.setShortcut(QString::null); // do not clone the sc
 	tmpStyles_.create(p);
@@ -281,6 +282,39 @@ void SMParagraphStyle::editMode(bool isOn)
 {
 	if (isOn)
 		reloadTmpStyles();
+}
+
+bool SMParagraphStyle::isDefaultStyle(const QString &stylename) const
+{
+	int index = tmpStyles_.find(stylename);
+	bool b=false;
+	if (index > -1)
+		b = tmpStyles_[index].isDefaultStyle();
+	else
+	{
+		if (CommonStrings::trDefaultParagraphStyle==stylename)
+		{
+			index = tmpStyles_.find(CommonStrings::DefaultParagraphStyle);
+			if (index > -1)
+				b = tmpStyles_[index].isDefaultStyle();
+		}
+	}
+	return b;
+}
+
+void SMParagraphStyle::setDefaultStyle(bool ids)
+{
+	Q_ASSERT(selection_.count() == 1);
+	if (selection_.count() != 1)
+		return;
+
+	selection_[0]->setDefaultStyle(ids);
+	
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
 }
 
 QString SMParagraphStyle::shortcut(const QString &stylename) const
@@ -1202,7 +1236,7 @@ QString SMCharacterStyle::typeNameSingular()
 	return tr("Character Style");
 }
 
-void SMCharacterStyle::currentDoc(ScribusDoc *doc)
+void SMCharacterStyle::setCurrentDoc(ScribusDoc *doc)
 {
 	doc_ = doc;
 	if (doc_)
@@ -1242,7 +1276,7 @@ QList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
 	{
 		if (tmpStyles_[i].hasName())
 		{
-			QString styleName(tmpStyles_[i].name());
+			QString styleName(tmpStyles_[i].displayName());
 			QString parentName(QString::null);
 
 			if (tmpStyles_[i].hasParent())
@@ -1324,6 +1358,7 @@ QString SMCharacterStyle::newStyle()
 
 	QString s = getUniqueName( tr("New Style"));
 	CharStyle c;
+	c.setDefaultStyle(false);
 	c.setName(s);
 	tmpStyles_.create(c);
 	return s;
@@ -1337,6 +1372,7 @@ QString SMCharacterStyle::newStyle(const QString &fromStyle)
 
 	QString s = getUniqueName( tr("Clone of %1").arg(fromStyle));
 	CharStyle c(tmpStyles_.get(fromStyle));
+	c.setDefaultStyle(false);
 	c.setName(s);
 	c.setShortcut(QString::null);
 	tmpStyles_.create(c);
@@ -1396,6 +1432,39 @@ void SMCharacterStyle::editMode(bool isOn)
 {
 	if (isOn)
 		reloadTmpStyles();
+}
+
+bool SMCharacterStyle::isDefaultStyle(const QString &stylename) const
+{
+	int index = tmpStyles_.find(stylename);
+	bool b=false;
+	if (index > -1)
+		b = tmpStyles_[index].isDefaultStyle();
+	else
+	{
+		if (CommonStrings::trDefaultCharacterStyle==stylename)
+		{
+			index = tmpStyles_.find(CommonStrings::DefaultCharacterStyle);
+			if (index > -1)
+				b = tmpStyles_[index].isDefaultStyle();
+		}
+	}
+	return b;
+}
+
+void SMCharacterStyle::setDefaultStyle(bool ids)
+{
+	Q_ASSERT(selection_.count() == 1);
+	if (selection_.count() != 1)
+		return;
+
+	selection_[0]->setDefaultStyle(ids);
+	
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
 }
 
 QString SMCharacterStyle::shortcut(const QString &stylename) const
@@ -1961,5 +2030,4 @@ SMCharacterStyle::~SMCharacterStyle()
 	page_ = 0;
 	widget_ = 0;
 }
-
 

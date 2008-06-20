@@ -61,7 +61,7 @@ public:
 	 * @brief Whenever style manager is shown attached StyleItems get the current doc
 	 * @brief passed to them with this function.
 	 */
-	virtual void currentDoc(ScribusDoc *doc) = 0;
+	virtual void setCurrentDoc(ScribusDoc *doc) = 0;
 
 	/**
 	 * @brief existing styles in this category
@@ -147,6 +147,12 @@ public:
 	 */
 	virtual void editMode(bool isOn) {};
 
+	/** @brief returns if the style is a default style */
+	virtual bool isDefaultStyle(const QString &stylename) const = 0;
+
+	/** @brief set if the style is a default style */
+	virtual void setDefaultStyle(bool ids) = 0;
+	
 	/** @brief returns the key combination for the style's shortcut */
 	virtual QString shortcut(const QString &stylename) const = 0;
 

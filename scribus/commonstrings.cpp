@@ -99,6 +99,14 @@ QString CommonStrings::trPenStyle_DashDotLine    = "";
 QString CommonStrings::trPenStyle_DashDotDotLine = "";
 
 
+QString CommonStrings::DefaultParagraphStyle     ="";
+QString CommonStrings::DefaultCharacterStyle     ="";
+QString CommonStrings::DefaultLineStyle          ="";
+QString CommonStrings::trDefaultParagraphStyle   ="";
+QString CommonStrings::trDefaultCharacterStyle   ="";
+QString CommonStrings::trDefaultLineStyle        ="";
+
+
 QString CommonStrings::monday="", CommonStrings::tuesday="", CommonStrings::wednesday="";
 QString CommonStrings::thursday="", CommonStrings::friday="", CommonStrings::saturday="", CommonStrings::sunday="";
 QString CommonStrings::january="", CommonStrings::february="", CommonStrings::march="";
@@ -310,6 +318,14 @@ void CommonStrings::languageChange()
 	CommonStrings::trPenStyle_DottedLine     = tr("Dotted Line");
 	CommonStrings::trPenStyle_DashDotLine    = tr("Dash Dot Line");
 	CommonStrings::trPenStyle_DashDotDotLine = tr("Dash Dot Dot Line");
+	
+	CommonStrings::DefaultParagraphStyle     = "Default Paragraph Style";
+	CommonStrings::DefaultCharacterStyle     = "Default Character Style";
+	CommonStrings::DefaultLineStyle          = "Default Line Style";
+	CommonStrings::trDefaultParagraphStyle   = tr("Default Paragraph Style");
+	CommonStrings::trDefaultCharacterStyle   = tr("Default Character Style");
+	CommonStrings::trDefaultLineStyle        = tr("Default Line Style");
+
 	
 	CommonStrings::monday    = tr("Monday");
 	CommonStrings::tuesday   = tr("Tuesday");

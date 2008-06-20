@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "styleitem.h"
-//#include "styleitem.moc"
 
 StyleItem::StyleItem() : QObject()
 {}

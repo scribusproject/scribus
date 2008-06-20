@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QEvent>
 
+#include "langmgr.h"
 #include "smcstylewidget.h"
 #include "util_icon.h"
 #include "util.h"
@@ -238,6 +239,9 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 		                              defLang : parent->language();
 
 	int ci = -1, pi = -1, di = -1;
+	LanguageManager langmgr;
+	langmgr.init(true);
+	QString tl;
 	for (int i = 0; i < language_->count(); ++i)
 	{
 		if (language_->itemText(i) == langMap_[clang])
@@ -245,9 +249,13 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 		
 		if (hasParent && language_->itemText(i) == langMap_[plang])
 			pi = i;
-
-		if (language_->itemText(i) == defLang || language_->itemText(i) == langMap_[defLang])
+		tl=langmgr.getTransLangFromLang(defLang);
+// 		qDebug() << i << language_->itemText(i) << defLang << langMap_[defLang] << tl;
+		if (language_->itemText(i) == defLang || language_->itemText(i) == langMap_[defLang] || language_->itemText(i) == tl)
+// 		{
 			di = i;
+// 			qDebug() << "match on:" << di;
+// 		}
 	}
 
 //	qDebug(QString("SMCStyleWidget::show(): deflan='%1'->'%2'").arg(defLang).arg(langMap_[defLang]));

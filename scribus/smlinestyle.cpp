@@ -47,7 +47,7 @@ QString SMLineStyle::typeNameSingular()
 	return tr("Line Style");
 }
 
-void SMLineStyle::currentDoc(ScribusDoc *doc)
+void SMLineStyle::setCurrentDoc(ScribusDoc *doc)
 {
 	doc_ = doc;
 	if (doc_)
@@ -264,6 +264,32 @@ void SMLineStyle::apply()
 	// Better not call DrawNew() here, as this will cause several unnecessary calls
 	// doc_->view()->DrawNew();
 	selectionIsDirty_ = false;
+}
+
+bool SMLineStyle::isDefaultStyle(const QString &stylename) const
+{
+	return false;//we have no default line styles yet
+// 	Q_ASSERT(tmpLines.contains(stylename));
+// 	return tmpLines[stylename].isDefaultStyle();
+}
+
+void SMLineStyle::setDefaultStyle(bool ids)
+{
+	/* we dont have default line styles yet
+	Q_ASSERT(selection_.count() == 1);
+	if (selection_.count() != 1)
+		return;
+
+	QMap<QString, multiLine*>::iterator it;
+	for (it = selection_.begin(); it != selection_.end(); ++it)
+		(*it)->setDefaultStyle(ids);
+	
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+	*/
 }
 
 QString SMLineStyle::shortcut(const QString &stylename) const
@@ -786,3 +812,4 @@ SMLineStyle::~SMLineStyle()
 	widget_ = 0;
 	twidget_ = 0;
 }
+

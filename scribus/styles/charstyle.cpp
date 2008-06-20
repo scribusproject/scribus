@@ -7,6 +7,9 @@
 
 
 #include <QObject>
+#include <QDebug>
+
+#include "commonstrings.h"
 #include "sctextstruct.h"
 #include "scfonts.h"
 #include "resourcecollection.h"
@@ -143,6 +146,8 @@ bool CharStyle::equiv(const Style & other) const
 
 QString CharStyle::displayName() const
 {
+	if ( isDefaultStyle() )
+		return CommonStrings::trDefaultCharacterStyle;
 	if ( hasName() || !hasParent() || ! m_context)
 		return name();
 //	else if ( inheritsAll() )
