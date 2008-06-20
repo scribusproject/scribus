@@ -5058,7 +5058,7 @@ void ScribusMainWindow::slotEditPaste()
 	if (HaveDoc)
 	{
 		UndoTransaction* activeTransaction = NULL;
-		if (Buffer2.isNull())
+		if (Buffer2.isEmpty())
 			return;
 		if (UndoManager::undoEnabled())
 			activeTransaction = new UndoTransaction(undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste));
@@ -5253,7 +5253,9 @@ void ScribusMainWindow::slotEditPaste()
 			else
 			{
 				// K.I.S.S.:
-				currItem->itemText.insertChars(currItem->CPos, Buffer2, true);
+				QString text = Buffer2.replace("\r\n", SpecialChars::PARSEP);
+				text = text.replace('\n', SpecialChars::PARSEP);
+				currItem->itemText.insertChars(currItem->CPos, text, true);
 			}
 			currItem->update();
 		}
@@ -5484,15 +5486,7 @@ void ScribusMainWindow::deselectAll()
 
 void ScribusMainWindow::ClipChange()
 {
-	QString cc;
-#if QT_VERSION  >= 0x030100
-//	cc = ClipB->text(QClipboard::Selection);
-//	if (cc.isNull())
-	cc = ClipB->text(QClipboard::Clipboard);
-#else
-	cc = ClipB->text();
-#endif
-
+	QString cc = ClipB->text(QClipboard::Clipboard);
 	if (!cc.isNull())
 	{
 		if (!BuFromApp)
