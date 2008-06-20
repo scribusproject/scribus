@@ -1,4 +1,4 @@
-EXTRA_DIST = ReadMe FontSample.py ChangeLog NEWS TODO CalendarWizard.py CMakeLists.txt
+EXTRA_DIST = ReadMe FontSample.py ChangeLog NEWS TODO CalendarWizard.py CMakeLists.txt BleedAndPrintMarks.py DirectImageImport.py DrawGrid.py ExtractText.py InfoBox.py UnflipContent.py
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/scripts/
@@ -12,7 +12,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/DrawGrid.py $(prefix)/share/scribus/scripts/DrawGrid.py
 	$(INSTALL_DATA) $(srcdir)/ExtractText.py $(prefix)/share/scribus/scripts/ExtractText.py
 	$(INSTALL_DATA) $(srcdir)/FontSample.py $(prefix)/share/scribus/scripts/FontSample.py
-	$(INSTALL_DATA) $(srcdir)/ImageWizard.py $(prefix)/share/scribus/scripts/ImageWizard.py
 	$(INSTALL_DATA) $(srcdir)/InfoBox.py $(prefix)/share/scribus/scripts/InfoBox.py
 	$(INSTALL_DATA) $(srcdir)/UnflipContent.py $(prefix)/share/scribus/scripts/UnflipContent.py
 	
@@ -29,6 +28,5 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/scripts/DrawGrid.py
 	-rm -f $(prefix)/share/scribus/scripts/ExtractText.py
 	-rm -f $(prefix)/share/scribus/scripts/FontSample.py
-	-rm -f $(prefix)/share/scribus/scripts/ImageWizard.py
 	-rm -f $(prefix)/share/scribus/scripts/InfoBox.py
 	-rm -f $(prefix)/share/scribus/scripts/UnflipContent.py
