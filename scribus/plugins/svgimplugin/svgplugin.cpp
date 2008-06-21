@@ -1558,7 +1558,7 @@ QDomElement SVGPlug::getReferencedNode(const QDomElement &e)
 	QString href = e.attribute("xlink:href").mid(1);
 	it = m_nodeMap.find(href);
 	if (it != m_nodeMap.end())
-		ret = it.value().cloneNode().toElement();
+		ret = it.value().toElement();
 	return ret;
 }
 
