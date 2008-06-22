@@ -78,6 +78,7 @@ for which a new license (GPL+exception) is in place.
 #include "stylemanager.h"
 #include "styleselect.h"
 #include "text/nlsconfig.h"
+#include "units.h"
 #include "util.h"
 #include "util_icon.h"
 
@@ -256,7 +257,7 @@ void SEditor::inputMethodEvent(QInputMethodEvent *event)
 void SEditor::keyPressEvent(QKeyEvent *k)
 {
 	emit SideBarUp(false);
-	int pos = textCursor().position();
+// 	int pos = textCursor().position();
 	int keyMod=0;
 	if (k->modifiers() & Qt::ShiftModifier)
 		keyMod |= Qt::SHIFT;
@@ -1139,9 +1140,9 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 	trackingLabel->setPixmap(loadIcon("textkern.png"));
 	trackingLabelAction=addWidget(trackingLabel);
 	trackingLabelAction->setVisible(true);
-	Extra = new ScrSpinBox( this, 1 );
+	Extra = new ScrSpinBox( this, SC_PERCENT );
 	Extra->setValues( -300, 300, 2, 0);
-	Extra->setSuffix( tr( " %" ) );
+	Extra->setSuffix( unitGetSuffixFromIndex(SC_PERCENT) );
 	extraAction=addWidget(Extra);
 	extraAction->setVisible(true);
 
@@ -1312,10 +1313,9 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	Fonts->setMaximumSize(190, 30);
 	fontsAction=addWidget(Fonts);
 	fontsAction->setVisible(true);
-	Size = new ScrSpinBox( 0.5, 2048, this, 1 );
+	Size = new ScrSpinBox( 0.5, 2048, this, SC_POINTS );
 	PrefsManager* prefsManager = PrefsManager::instance();
-	Size->setPrefix( "" );
-	Size->setSuffix( tr( " pt" ) );
+	Size->setSuffix( unitGetSuffixFromIndex(SC_POINTS) );
 	Size->setValue(prefsManager->appPrefs.toolSettings.defSize / 10.0);
 	sizeAction=addWidget(Size);
 	sizeAction->setVisible(true);
@@ -1323,18 +1323,18 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
 	scaleTxtAction=addWidget(ScaleTxt);
 	scaleTxtAction->setVisible(true);
-	ChScale = new ScrSpinBox( 10, 400,  this, 1 );
+	ChScale = new ScrSpinBox( 10, 400,  this, SC_PERCENT );
 	ChScale->setValue( 100 );
-	ChScale->setSuffix( tr( " %" ) );
+	ChScale->setSuffix( unitGetSuffixFromIndex(SC_PERCENT) );
 	chScaleAction=addWidget(ChScale);
 	chScaleAction->setVisible(true);
 	ScaleTxtV = new QLabel("", this);
 	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
 	scaleTxtVAction=addWidget(ScaleTxtV);
 	scaleTxtVAction->setVisible(true);
-	ChScaleV = new ScrSpinBox( 10, 400, this, 1 );
+	ChScaleV = new ScrSpinBox( 10, 400, this, SC_PERCENT );
 	ChScaleV->setValue( 100 );
-	ChScaleV->setSuffix( tr( " %" ) );
+	ChScaleV->setSuffix( unitGetSuffixFromIndex(SC_PERCENT) );
 	chScaleVAction=addWidget(ChScaleV);
 	chScaleVAction->setVisible(true);
 
