@@ -465,7 +465,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	TabStack2 = new QStackedWidget( page_2 );
 
 	page_2a = new QWidget( TabStack2 );
-	pageLayout_2a = new QVBoxLayout( page_2a );
+/*	pageLayout_2a = new QVBoxLayout( page_2a );
 	pageLayout_2a->setSpacing( 5 );
 	pageLayout_2a->setMargin( 0 );
 	Distance = new QGroupBox( page_2a );
@@ -515,7 +515,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	TabsButton->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 	DistanceLayout->addWidget( TabsButton, 6, 0, 1, 2 );
 	pageLayout_2a->addWidget(Distance);
-	
+
 	flopBox = new QGroupBox(tr("First Line Offset"), page_2a);
 	flopLayout = new QGridLayout(flopBox);
 	flopGroup = new QButtonGroup(flopBox);
@@ -529,10 +529,10 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	flopLayout->addWidget(flopFontAsent);
 	flopLayout->addWidget(flopLineSpacing);
 	flopRealHeight->setChecked(true);
-	pageLayout_2a->addWidget(flopBox);
+	pageLayout_2a->addWidget(flopBox); */
 	TabStack2->addWidget( page_2a );
 
-	page_2b = new QWidget( TabStack2 );
+/*	page_2b = new QWidget( TabStack2 );
 	pageLayout_2b = new QVBoxLayout( page_2b );
 	pageLayout_2b->setSpacing( 5 );
 	pageLayout_2b->setMargin( 0 );
@@ -569,7 +569,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 
 	pageLayout_2b->addWidget(Distance2);
 	TabStack2->addWidget( page_2b );
-
+*/
 	page_2c = new QWidget( TabStack2 );
 	pageLayout_2c = new QVBoxLayout( page_2c );
 	pageLayout_2c->setSpacing( 5 );
@@ -694,6 +694,309 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	pageLayout_3->setMargin( 0 );
 	pageLayout_3->setAlignment( Qt::AlignLeft );
 
+	TextTree = new ScTreeWidget(page_3);
+
+	layout41 = new QGridLayout();
+	layout41->setSpacing( 3 );
+	layout41->setMargin( 3 );
+	layout41->setAlignment( Qt::AlignLeft );
+	Fonts = new FontComboH(page_3);
+	layout41->addWidget( Fonts, 0, 0, 1, 4 );
+	Size = new ScrSpinBox( 0.5, 2048, page_3, 0 );
+	Size->setPrefix( "" );
+	fontsizeLabel = new QLabel( "", page_3 );
+	fontsizeLabel->setPixmap(loadIcon("Zeichen.xpm"));
+	layout41->addWidget( fontsizeLabel, 1, 0 );
+	layout41->addWidget( Size, 1, 1 );
+	LineSp = new ScrSpinBox( page_3, 0 );
+	layout41->addWidget( LineSp, 1, 3 );
+	lineSpacingPop = new QMenu();
+	lineSpacingPop->addAction( tr("Fixed Linespacing"))->setCheckable(true);
+	lineSpacingPop->addAction( tr("Automatic Linespacing"))->setCheckable(true);
+	lineSpacingPop->addAction( tr("Align to Baseline Grid"))->setCheckable(true);
+	linespacingButton = new QToolButton(page_3 );
+	linespacingButton->setText("");
+	linespacingButton->setIcon(loadIcon("linespacing.png"));
+	linespacingButton->setMenu(lineSpacingPop);
+	linespacingButton->setPopupMode(QToolButton::DelayedPopup);
+	linespacingButton->setAutoRaise(true);
+	layout41->addWidget( linespacingButton, 1, 2 );
+	Layout1AL = new QHBoxLayout;
+	Layout1AL->setSpacing( 0 );
+	Layout1AL->setMargin( 0 );
+	Layout1AL->setAlignment( Qt::AlignLeft );
+	GroupAlign = new AlignSelect(page_3);
+	Layout1AL->addWidget(GroupAlign);
+	QSpacerItem* spacer7AL = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout1AL->addItem( spacer7AL );
+	layout41->addLayout( Layout1AL, 2, 0, 1, 4 );
+	pageLayout_3->addLayout( layout41 );
+
+	colorWidgets = new QFrame();
+	colorWidgets->setFrameStyle(QFrame::Box | QFrame::Plain);
+	colorWidgets->setLineWidth(1);
+	layout41c = new QGridLayout(colorWidgets);
+	layout41c->setSpacing( 3 );
+	layout41c->setMargin( 3 );
+	layout41c->setAlignment( Qt::AlignLeft );
+	layout23 = new QHBoxLayout;
+	layout23->setSpacing( 3 );
+	layout23->setMargin( 0 );
+	layout23->setAlignment( Qt::AlignLeft );
+	StrokeIcon = new QLabel( "", colorWidgets );
+	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
+	StrokeIcon->setScaledContents( false );
+	layout23->addWidget( StrokeIcon );
+	TxStroke = new ColorCombo( false, colorWidgets);
+	layout23->addWidget( TxStroke );
+	ShadeTxt1 = new QLabel( "", colorWidgets );
+	ShadeTxt1->setPixmap(loadIcon("shade.png"));
+	layout23->addWidget( ShadeTxt1 );
+	PM1 = new ShadeButton(colorWidgets);
+	layout23->addWidget( PM1 );
+	QSpacerItem* spacer7s = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout23->addItem( spacer7s );
+	layout41c->addLayout( layout23, 0, 0, 1, 4 );
+	layout24 = new QHBoxLayout;
+	layout24->setSpacing( 3 );
+	layout24->setMargin( 0 );
+	layout24->setAlignment( Qt::AlignLeft );
+	FillIcon = new QLabel( "", colorWidgets );
+	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
+	layout24->addWidget( FillIcon );
+	TxFill = new ColorCombo( false, colorWidgets);
+	layout24->addWidget( TxFill );
+	ShadeTxt2 = new QLabel("", colorWidgets );
+	ShadeTxt2->setPixmap(loadIcon("shade.png"));
+	layout24->addWidget( ShadeTxt2 );
+	PM2 = new ShadeButton(colorWidgets);
+	layout24->addWidget( PM2 );
+	QSpacerItem* spacer7f = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout24->addItem( spacer7f );
+	layout41c->addLayout( layout24, 1, 0, 1, 4 );
+	Layout1 = new QHBoxLayout;
+	Layout1->setSpacing( 0 );
+	Layout1->setMargin( 0 );
+	Layout1->setAlignment( Qt::AlignLeft );
+	SeStyle = new StyleSelect(colorWidgets);
+	Layout1->addWidget(SeStyle);
+	Revert = new QToolButton( colorWidgets );
+	Revert->setMaximumSize( QSize( 22, 22 ) );
+	Revert->setText("");
+	Revert->setIcon(loadIcon("Revers.png"));
+	Revert->setCheckable( true );
+	Layout1->addWidget( Revert );
+	QSpacerItem* spacer7 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout1->addItem( spacer7 );
+	layout41c->addLayout( Layout1, 2, 0, 1, 4 );
+	colorWidgetsItem = TextTree->addWidget( tr("Color & Effects"), colorWidgets);
+
+	advancedWidgets = new QFrame();
+	advancedWidgets->setFrameStyle(QFrame::Box | QFrame::Plain);
+	advancedWidgets->setLineWidth(1);
+	layout41a = new QGridLayout(advancedWidgets);
+	layout41a->setSpacing( 3 );
+	layout41a->setMargin( 3 );
+	layout41a->setAlignment( Qt::AlignLeft );
+	ChBase = new ScrSpinBox( -100, 100, advancedWidgets, 0 );
+	ChBase->setValue( 0 );
+	ChBaseTxt = new QLabel("", advancedWidgets );
+	ChBaseTxt->setPixmap(loadIcon("textbase.png"));
+	layout41a->addWidget( ChBaseTxt, 0, 0 );
+	layout41a->addWidget( ChBase, 0, 1 );
+	Extra = new ScrSpinBox( advancedWidgets, 0 );
+	layout41a->addWidget( Extra, 0, 3 );
+	trackingLabel = new QLabel( "", advancedWidgets );
+	trackingLabel->setText("");
+	trackingLabel->setPixmap(loadIcon("textkern.png"));
+	layout41a->addWidget( trackingLabel, 0, 2 );
+	ChScale = new ScrSpinBox( 10, 400, advancedWidgets, 0 );
+	ChScale->setValue( 100 );
+	ScaleTxt = new QLabel("", advancedWidgets );
+	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
+	layout41a->addWidget( ScaleTxt, 1, 0 );
+	layout41a->addWidget( ChScale, 1 , 1 );
+	ChScaleV = new ScrSpinBox( 10, 400, advancedWidgets, 0 );
+	ChScaleV->setValue( 100 );
+	ScaleTxtV = new QLabel("", advancedWidgets );
+	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
+	layout41a->addWidget( ScaleTxtV, 1, 2 );
+	layout41a->addWidget( ChScaleV, 1, 3 );
+	advancedWidgetsItem = TextTree->addWidget( tr("Advanced Settings"), advancedWidgets);
+
+	styleWidgets = new QFrame();
+	styleWidgets->setFrameStyle(QFrame::Box | QFrame::Plain);
+	styleWidgets->setLineWidth(1);
+	GroupBox3aLayout = new QGridLayout(styleWidgets);
+	GroupBox3aLayout->setSpacing( 3 );
+	GroupBox3aLayout->setMargin( 3 );
+	GroupBox3aLayout->setAlignment( Qt::AlignLeft );
+	paraStyleCombo = new ParaStyleComboBox(styleWidgets);
+	paraStyleLabel = new QLabel( "Paragraph St&yle:", styleWidgets );
+	paraStyleLabel->setBuddy(paraStyleCombo);
+	paraStyleClear = new QToolButton( styleWidgets );
+	paraStyleClear->setMaximumSize( QSize( 22, 22 ) );
+	paraStyleClear->setText("");
+	paraStyleClear->setIcon(loadIcon("16/edit-clear.png"));
+	GroupBox3aLayout->addWidget( paraStyleLabel, 0, 0 );
+	GroupBox3aLayout->addWidget( paraStyleCombo, 0, 1 );
+	GroupBox3aLayout->addWidget( paraStyleClear, 0, 2 );
+	charStyleCombo = new CharStyleComboBox(styleWidgets);
+	charStyleLabel = new QLabel( "Character St&yle:", styleWidgets );
+	charStyleLabel->setBuddy(charStyleCombo);
+	charStyleClear = new QToolButton( styleWidgets );
+	charStyleClear->setMaximumSize( QSize( 22, 22 ) );
+	charStyleClear->setText("");
+	charStyleClear->setIcon(loadIcon("16/edit-clear.png"));
+	GroupBox3aLayout->addWidget( charStyleLabel, 1, 0 );
+	GroupBox3aLayout->addWidget( charStyleCombo, 1, 1 );
+	GroupBox3aLayout->addWidget( charStyleClear, 1, 2 );
+	optMarginCombo = new QComboBox(page_3);
+	optMarginLabel = new QLabel( "Optical Margins:", styleWidgets );
+	optMarginLabel->setBuddy(optMarginCombo);
+	GroupBox3aLayout->addWidget( optMarginLabel, 2, 0 );
+	GroupBox3aLayout->addWidget( optMarginCombo, 2, 1 );
+	
+	wordTrackingLabel = new QLabel( "Word Spacing", styleWidgets );
+	GroupBox3aLayout->addWidget( wordTrackingLabel, 3, 0, 1, 3 );
+	wordTrackingHLayout = new QHBoxLayout;
+	wordTrackingHLayout->setSpacing( 3 );
+	wordTrackingHLayout->setMargin( 0 );
+	wordTrackingHLayout->setAlignment(Qt::AlignLeft);
+	minWordTrackingSpinBox = new ScrSpinBox( 1, 200, styleWidgets, 0 );
+	minWordTrackingLabel = new QLabel( "Min:", styleWidgets );
+	minWordTrackingLabel->setBuddy(minWordTrackingSpinBox);
+	wordTrackingHLayout->addWidget(minWordTrackingLabel);
+	wordTrackingHLayout->addWidget(minWordTrackingSpinBox);
+	normWordTrackingSpinBox = new ScrSpinBox( 1, 200, styleWidgets, 0 );
+	normWordTrackingLabel = new QLabel( "Norm:", styleWidgets );
+	normWordTrackingLabel->setBuddy(normWordTrackingSpinBox);
+	wordTrackingHLayout->addWidget(normWordTrackingLabel);
+	wordTrackingHLayout->addWidget(normWordTrackingSpinBox);
+	GroupBox3aLayout->addLayout(wordTrackingHLayout, 4, 0, 1, 3);
+	
+	glyphExtensionLabel = new QLabel( "Glyph Extension", styleWidgets );
+	GroupBox3aLayout->addWidget( glyphExtensionLabel, 5, 0, 1, 3 );
+	glyphExtensionHLayout = new QHBoxLayout;
+	glyphExtensionHLayout->setSpacing( 3 );
+	glyphExtensionHLayout->setMargin( 0 );
+	glyphExtensionHLayout->setAlignment(Qt::AlignLeft);
+	minGlyphExtSpinBox = new ScrSpinBox( 90, 110, styleWidgets, 0 );
+	minGlyphExtensionLabel = new QLabel( "Min:", styleWidgets );
+	minGlyphExtensionLabel->setBuddy(minGlyphExtSpinBox);
+	glyphExtensionHLayout->addWidget(minGlyphExtensionLabel);
+	glyphExtensionHLayout->addWidget(minGlyphExtSpinBox);
+	maxGlyphExtSpinBox = new ScrSpinBox( 90, 110, styleWidgets, 0 );
+	maxGlyphExtensionLabel = new QLabel( "Max:", styleWidgets );
+	maxGlyphExtensionLabel->setBuddy(maxGlyphExtSpinBox);
+	glyphExtensionHLayout->addWidget(maxGlyphExtensionLabel);
+	glyphExtensionHLayout->addWidget(maxGlyphExtSpinBox);
+	GroupBox3aLayout->addLayout(glyphExtensionHLayout, 6, 0, 1, 3);
+	styleWidgetsItem = TextTree->addWidget( tr("Style Settings"), styleWidgets);
+
+	flopBox = new QFrame();
+	flopBox->setFrameStyle(QFrame::Box | QFrame::Plain);
+	flopBox->setLineWidth(1);
+	flopLayout = new QGridLayout(flopBox);
+	flopGroup = new QButtonGroup(flopBox);
+	flopRealHeight = new QRadioButton(tr("Maximum Ascent"), flopBox);
+	flopFontAsent = new QRadioButton(tr("Font Ascent"), flopBox);
+	flopLineSpacing = new QRadioButton(tr("Line Spacing"),flopBox);
+	flopGroup->addButton(flopRealHeight, 0);
+	flopGroup->addButton(flopFontAsent, 1);
+	flopGroup->addButton(flopLineSpacing, 2);
+	flopLayout->addWidget(flopRealHeight);
+	flopLayout->addWidget(flopFontAsent);
+	flopLayout->addWidget(flopLineSpacing);
+	flopRealHeight->setChecked(true);
+	flopItem = TextTree->addWidget( tr("First Line Offset"), flopBox);
+
+	Distance = new QFrame();
+	Distance->setFrameStyle(QFrame::Box | QFrame::Plain);
+	Distance->setLineWidth(1);
+	DistanceLayout = new QGridLayout( Distance );
+	DistanceLayout->setSpacing( 2 );
+	DistanceLayout->setMargin( 5 );
+	DistanceLayout->setAlignment( Qt::AlignTop );
+
+	DCol = new QSpinBox(Distance );
+	DCol->setMaximum( 3000 );
+	DCol->setMinimum( 1 );
+	columnsLabel = new QLabel( "Colu&mns:", Distance );
+	columnsLabel->setBuddy(DCol);
+	DistanceLayout->addWidget( columnsLabel, 0, 0 );
+	DistanceLayout->addWidget( DCol, 0, 1 );
+
+	dGap = new ScrSpinBox( 0, 300, Distance, 0 );
+	colgapLabel = new ScComboBox( Distance );
+	DistanceLayout->addWidget( colgapLabel, 1, 0); //, Qt::AlignLeft );
+	DistanceLayout->addWidget( dGap, 1, 1 );
+
+	DTop = new ScrSpinBox( 0, 300, Distance, 0 );
+	topLabel = new QLabel( "To&p:", Distance );
+	topLabel->setBuddy(DTop);
+	DistanceLayout->addWidget( topLabel, 2, 0 );
+	DistanceLayout->addWidget( DTop, 2, 1 );
+
+	DBottom = new ScrSpinBox( 0, 300, Distance, 0 );
+	bottomLabel = new QLabel( "&Bottom:", Distance );
+	bottomLabel->setBuddy(DBottom);
+	DistanceLayout->addWidget( bottomLabel, 3, 0 );
+	DistanceLayout->addWidget( DBottom, 3, 1 );
+
+	DLeft = new ScrSpinBox( 0, 300, Distance, 0 );
+	leftLabel = new QLabel( "&Left:", Distance );
+	leftLabel->setBuddy(DLeft);
+	DistanceLayout->addWidget( leftLabel, 4, 0 );
+	DistanceLayout->addWidget( DLeft, 4, 1 );
+
+	DRight = new ScrSpinBox( 0, 300, Distance, 0 );
+	rightLabel = new QLabel( "&Right:", Distance );
+	rightLabel->setBuddy(DRight);
+	DistanceLayout->addWidget( rightLabel, 5, 0 );
+	DistanceLayout->addWidget( DRight, 5, 1 );
+
+	TabsButton = new QToolButton( Distance );
+	TabsButton->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+	DistanceLayout->addWidget( TabsButton, 6, 0, 1, 2 );
+	DistanceItem = TextTree->addWidget( tr("Distance of Text"), Distance);
+
+	Distance2 = new QFrame();
+	Distance2->setFrameStyle(QFrame::Box | QFrame::Plain);
+	Distance2->setLineWidth(1);
+	DistanceLayout2 = new QGridLayout( Distance2 );
+	DistanceLayout2->setSpacing( 2 );
+	DistanceLayout2->setMargin( 5 );
+	DistanceLayout2->setAlignment( Qt::AlignTop );
+
+	pathTextType = new ScComboBox( Distance2 );
+	DistanceLayout2->addWidget( pathTextType, 0, 1);
+	pathTextTypeLabel = new QLabel( "Type:", Distance2 );
+	DistanceLayout2->addWidget( pathTextTypeLabel, 0, 0);
+	
+	startoffsetLabel = new QLabel( "Start Offset:", Distance2 );
+	DistanceLayout2->addWidget( startoffsetLabel, 1, 0);
+	Dist = new ScrSpinBox( 0, 30000, Distance2, 0 );
+	Dist->setSingleStep(10);
+	DistanceLayout2->addWidget( Dist, 1, 1);
+
+	distfromcurveLabel = new QLabel( "Distance from Curve:", Distance2 );
+	DistanceLayout2->addWidget( distfromcurveLabel, 2, 0);
+	LineW = new ScrSpinBox( -300, 300, Distance2, 0 );
+	LineW->setSingleStep(10);
+	DistanceLayout2->addWidget( LineW, 2, 1);
+
+	flippedPathText = new QCheckBox( Distance2 );
+	flippedPathText->setText( "Flip Text" );
+	DistanceLayout2->addWidget( flippedPathText, 3, 0, 1, 2 );
+
+	showcurveCheckBox = new QCheckBox( Distance2 );
+	showcurveCheckBox->setText( "Show Curve" );
+	DistanceLayout2->addWidget( showcurveCheckBox, 4, 0, 1, 2 );
+	Distance2Item = TextTree->addWidget( tr("Path Text Properties"), Distance2);
+
+	pageLayout_3->addWidget(TextTree);
+/*
 	layout47 = new QHBoxLayout;
 	layout47->setSpacing( 5 );
 	layout47->setMargin( 0 );
@@ -708,7 +1011,6 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	layout41->setAlignment( Qt::AlignLeft );
 
 	Fonts = new FontComboH(page_3);
-//	Fonts->setMaximumSize(200, 80);
 	layout41->addWidget( Fonts, 0, 0, 1, 4 );
 
 	Size = new ScrSpinBox( 0.5, 2048, page_3, 0 );
@@ -817,7 +1119,6 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	Layout1AL->addItem( spacer7AL );
 	pageLayout_3->addLayout( Layout1AL );
 
-	GroupBox3aLayout = new QGridLayout;
 	GroupBox3aLayout->setSpacing( 5 );
 	GroupBox3aLayout->setMargin( 0 );
 	GroupBox3aLayout->setAlignment( Qt::AlignLeft );
@@ -882,15 +1183,15 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	glyphExtensionHLayout->addWidget(maxGlyphExtensionLabel);
 	glyphExtensionHLayout->addWidget(maxGlyphExtSpinBox);
 	GroupBox3aLayout->addLayout(glyphExtensionHLayout, 6, 0, 1, 2);
-	
+	*/
 /*	langCombo = new ScComboBox( page_3 );
 	langLabel = new QLabel( langCombo, "Lan&guage:", page_3, "langLabel" );
 	GroupBox3aLayout->addWidget( langLabel, 1, 0 );
 	GroupBox3aLayout->addWidget( langCombo, 1, 1 ); */
-	pageLayout_3->addLayout(GroupBox3aLayout);
+//	pageLayout_3->addLayout(GroupBox3aLayout);
 
-	QSpacerItem* spacer8 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	pageLayout_3->addItem( spacer8 );
+//	QSpacerItem* spacer8 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+//	pageLayout_3->addItem( spacer8 );
 	idTextItem=TabStack->addItem( page_3, "&Text" );
 
 	page_4 = new QWidget( TabStack );
@@ -1683,26 +1984,35 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	*/
 	if (CurItem->asPathText())
 	{
-		TabStack2->setCurrentIndex(1);
+		TabStack2->setCurrentIndex(0);
 		pathTextType->setCurrentIndex(CurItem->textPathType);
 		flippedPathText->setChecked(CurItem->textPathFlipped);
 		showcurveCheckBox->setChecked(CurItem->PoShow);
 		LineW->setValue(CurItem->BaseOffs * -1);
 		Dist->setValue(CurItem->textToFrameDistLeft());
+		flopItem->setHidden(true);
+		DistanceItem->setHidden(true);
+		Distance2Item->setHidden(false);
 	}
 	else if (CurItem->asTextFrame())
 	{
 		TabStack2->setCurrentIndex(0);
 		NonZero->setChecked(!CurItem->fillRule);
 		EvenOdd->setChecked(CurItem->fillRule);
+		flopItem->setHidden(false);
+		DistanceItem->setHidden(false);
+		Distance2Item->setHidden(true);
 	}
 	else
 	{
-		TabStack2->setCurrentIndex(2);
+		TabStack2->setCurrentIndex(1);
 		if (i->itemType() == PageItem::ImageFrame)
 			Distance3->hide();
 		else
 			Distance3->show();
+		flopItem->setHidden(false);
+		DistanceItem->setHidden(false);
+		Distance2Item->setHidden(true);
 	}
 	// Frame type 3 is obsolete: CR 2005-02-06
 	//if (((i->itemType() == PageItem::TextFrame) || (i->itemType() == PageItem::ImageFrame) || (i->itemType() == 3)) &&  (!i->ClipEdited))
@@ -1879,7 +2189,7 @@ void PropertiesPalette::NewSel(int nr)
 		NameEdit->setEnabled(true);
 // 		ShapeGroup->setEnabled(false);
 // 		RoundRect->setEnabled(false);
-		Distance->setEnabled(false);
+//		Distance->setEnabled(false);
 		LineMode->setEnabled(false);
 		RotationGroup->setEnabled(true);
 /*		TopLeft->setEnabled(true);
@@ -1963,7 +2273,7 @@ void PropertiesPalette::NewSel(int nr)
 				RoundRect->setEnabled(!i->locked());
 			else
 				RoundRect->setEnabled(false);
-			Distance->setEnabled(true);
+//			Distance->setEnabled(true);
 // 			if (visID == 3)
 // 				TabStack->setCurrentIndex(0);
 			break;
@@ -4457,7 +4767,7 @@ void PropertiesPalette::languageChange()
 	blendMode->addItem( tr("Saturation"));
 	blendMode->addItem( tr("Color"));
 	rndcornersLabel->setText( tr("R&ound\nCorners:"));
-	Distance->setTitle( tr("Distance of Text"));
+//	Distance->setTitle( tr("Distance of Text"));
 	columnsLabel->setText( tr("Colu&mns:"));
 	int oldcolgapLabel = colgapLabel->currentIndex();
 	colgapLabel->clear();
@@ -4470,7 +4780,7 @@ void PropertiesPalette::languageChange()
 	leftLabel->setText( tr("&Left:"));
 	rightLabel->setText( tr("&Right:"));
 	TabsButton->setText( tr("T&abulators..."));
-	Distance2->setTitle( tr("Path Text Properties"));
+//	Distance2->setTitle( tr("Path Text Properties"));
 	pathTextType->clear();
 	pathTextType->addItem( tr("Default"));
 	pathTextType->addItem( tr("Stair Step"));
@@ -4514,6 +4824,12 @@ void PropertiesPalette::languageChange()
 	glyphExtensionLabel->setText( tr("Glyph Extension"));
 	minGlyphExtensionLabel->setText( tr("Min:"));
 	maxGlyphExtensionLabel->setText( tr("Max:"));
+	colorWidgetsItem->setText(0, tr("Color & Effects"));
+	advancedWidgetsItem->setText(0, tr("Advanced Settings"));
+	styleWidgetsItem->setText(0, tr("Style Settings"));
+	flopItem->setText(0, tr("First Line Offset"));
+	DistanceItem->setText(0, tr("Distance of Text"));
+	Distance2Item->setText(0, tr("Path Text Properties"));
 	FreeScale->setText( tr("&Free Scaling"));
 	imgDPIXLabel->setText( tr("Actual X-DPI:"));
 	imgDPIYLabel->setText( tr("Actual Y-DPI:"));

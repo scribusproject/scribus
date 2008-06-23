@@ -47,6 +47,7 @@ class QWidget;
 #include "shadebutton.h"
 #include "sclistboxpixmap.h"
 #include "scguardedptr.h"
+#include "sctreewidget.h"
 
 class StyleSelect;
 class ScribusDoc;
@@ -336,8 +337,8 @@ protected:
 	QVBoxLayout* MpalLayout;
 	QVBoxLayout* pageLayout;
 	QVBoxLayout* pageLayout_2;
-	QVBoxLayout* pageLayout_2a;
-	QVBoxLayout* pageLayout_2b;
+//	QVBoxLayout* pageLayout_2a;
+//	QVBoxLayout* pageLayout_2b;
 	QVBoxLayout* pageLayout_2c;
 	QVBoxLayout* pageLayout_3;
 	QVBoxLayout* pageLayout_4;
@@ -354,6 +355,8 @@ protected:
 	QHBoxLayout* layout47;
 	QVBoxLayout* layout46;
 	QGridLayout* layout41;
+	QGridLayout* layout41a;
+	QGridLayout* layout41c;
 	QHBoxLayout* Layout1;
 	QHBoxLayout* Layout1AL;
 	QGridLayout* layout43;
@@ -386,7 +389,7 @@ protected:
 	QWidget* page;
 	QWidget* page_2;
 	QWidget* page_2a;
-	QWidget* page_2b;
+//	QWidget* page_2b;
 	QWidget* page_2c;
 	QWidget* page_3;
 	QWidget* page_4;
@@ -494,13 +497,10 @@ protected:
 	QGroupBox* NameGroup;
 	QGroupBox* GeoGroup;
 	QGroupBox* LayerGroup;
-	QGroupBox* Distance;
-	QGroupBox* Distance2;
 	QFrame* GroupBoxCM;
 	QGroupBox* TLines;
 	QGroupBox* GroupBox3a;
 	QGroupBox* TransGroup;
-	QGroupBox* flopBox;
 
 	QToolButton* textFlowDisabled;
 	QToolButton* textFlowUsesFrameShape;
@@ -604,7 +604,20 @@ protected:
 	QToolButton* EditEffects;
 	QToolButton* EditPSDProps;
 
-	
+	ScTreeWidget* TextTree;
+	QFrame* colorWidgets;
+	QTreeWidgetItem* colorWidgetsItem;
+	QFrame* advancedWidgets;
+	QTreeWidgetItem* advancedWidgetsItem;
+	QFrame* styleWidgets;
+	QTreeWidgetItem* styleWidgetsItem;
+	QFrame* flopBox;
+	QTreeWidgetItem* flopItem;
+	QFrame* Distance;
+	QTreeWidgetItem* DistanceItem;
+	QFrame* Distance2;
+	QTreeWidgetItem* Distance2Item;
+
 	bool _userActionOn;
 	UserActionSniffer *userActionSniffer;
 	void installSniffer(ScrSpinBox *spinBox);

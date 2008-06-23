@@ -219,6 +219,7 @@ SET(SCRIBUS_MOC_CLASSES
   sctablewidget.h
   sctextbrowser.h
   sctoolbar.h
+  sctreewidget.h
   search.h
   selection.h
   selectobjects.h
@@ -514,6 +515,7 @@ SET(SCRIBUS_SOURCES
   sctextbrowser.cpp
   sctextstruct.cpp
   sctoolbar.cpp
+  sctreewidget.cpp
   search.cpp
   selection.cpp
   selectobjects.cpp
