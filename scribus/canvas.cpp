@@ -1451,13 +1451,15 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 		painter->setPen(Qt::black, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		if (((m_doc->bleeds.Bottom != 0.0) || (m_doc->bleeds.Top != 0.0) || (m_doc->bleeds.Left != 0.0) || (m_doc->bleeds.Right != 0.0)) && (m_doc->guidesSettings.showBleed))
 		{
-			painter->drawRect(m_doc->scratch.Left - bleedLeft+5 / m_viewMode.scale, m_doc->scratch.Top - bleedTop+5 / m_viewMode.scale, m_doc->currentPage()->width() + bleedLeft + bleedRight, m_doc->currentPage()->height() + bleedBottom + bleedTop);
+//			painter->drawRect(m_doc->scratch.Left - bleedLeft+5 / m_viewMode.scale, m_doc->scratch.Top - bleedTop+5 / m_viewMode.scale, m_doc->currentPage()->width() + bleedLeft + bleedRight, m_doc->currentPage()->height() + bleedBottom + bleedTop);
+			painter->drawRect(m_doc->scratch.Left - bleedLeft+5, m_doc->scratch.Top - bleedTop+5, m_doc->currentPage()->width() + bleedLeft + bleedRight, m_doc->currentPage()->height() + bleedBottom + bleedTop);
 			painter->setBrush(m_doc->papColor);
 			painter->drawRect(m_doc->scratch.Left - bleedLeft, m_doc->scratch.Top - bleedTop, m_doc->currentPage()->width() + bleedLeft + bleedRight, m_doc->currentPage()->height() + bleedBottom + bleedTop);
 		}
 		else
 		{
-			painter->drawRect(m_doc->scratch.Left+5 / m_viewMode.scale, m_doc->scratch.Top+5 / m_viewMode.scale, m_doc->currentPage()->width(), m_doc->currentPage()->height());
+//			painter->drawRect(m_doc->scratch.Left+5 / m_viewMode.scale, m_doc->scratch.Top+5 / m_viewMode.scale, m_doc->currentPage()->width(), m_doc->currentPage()->height());
+			painter->drawRect(m_doc->scratch.Left+5, m_doc->scratch.Top+5, m_doc->currentPage()->width(), m_doc->currentPage()->height());
 			painter->setBrush(m_doc->papColor);
 			painter->drawRect(m_doc->scratch.Left, m_doc->scratch.Top, m_doc->currentPage()->width(), m_doc->currentPage()->height());
 		}
@@ -1512,12 +1514,13 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 					blw2 += bleedLeft + bleedRight;
 					blh2 += bleedBottom + bleedTop;
 				}
-				painter->drawRect(blx2 + 5 / m_viewMode.scale, bly2 + 5 / m_viewMode.scale, blw2, blh2);
+//				painter->drawRect(blx2 + 5 /* m_viewMode.scale */, bly2 + 5 /* m_viewMode.scale */, blw2, blh2);
+				painter->drawRect(blx2 + 5, bly2 + 5, blw2, blh2);
 				if (((m_doc->bleeds.Bottom != 0.0) || (m_doc->bleeds.Top != 0.0) || (m_doc->bleeds.Left != 0.0) || (m_doc->bleeds.Right != 0.0)) && (m_doc->guidesSettings.showBleed))
 				{
 					painter->setFillMode(ScPainter::None);
 					painter->setPen(Qt::black, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-					painter->drawRect(blx2, bly2 - 1 / m_viewMode.scale, blw2 + 1 / m_viewMode.scale, blh2 + 2 / m_viewMode.scale);
+					painter->drawRect(blx2 - 1 / m_viewMode.scale, bly2 - 1 / m_viewMode.scale, blw2 + 2 / m_viewMode.scale, blh2 + 2 / m_viewMode.scale);
 				}
 			}
 		}
