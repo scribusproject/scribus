@@ -5678,7 +5678,7 @@ Por favor, provéalo de uno</translation>
     </message>
     <message>
         <source>Split Complementary</source>
-        <translation>Separar complementario</translation>
+        <translation>Complementario dividido</translation>
     </message>
     <message>
         <source>Triadic</source>
@@ -5686,7 +5686,7 @@ Por favor, provéalo de uno</translation>
     </message>
     <message>
         <source>Tetradic (Double Complementary)</source>
-        <translation>Tetrádico (Complementario doble)</translation>
+        <translation>Tetrádico (dobles complementarios)</translation>
     </message>
     <message>
         <source>Base Color</source>
@@ -5702,47 +5702,47 @@ Por favor, provéalo de uno</translation>
     </message>
     <message>
         <source>1st. Analogous</source>
-        <translation>1er. análogo</translation>
+        <translation>1er análogo</translation>
     </message>
     <message>
         <source>2nd. Analogous</source>
-        <translation>2do. análogo</translation>
+        <translation>2º análogo</translation>
     </message>
     <message>
         <source>1st. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>1ª división</translation>
     </message>
     <message>
         <source>2nd. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>2ª división</translation>
     </message>
     <message>
         <source>3rd. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>3ª división</translation>
     </message>
     <message>
         <source>4th. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>4ª división</translation>
     </message>
     <message>
         <source>1st. Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>1er triádico</translation>
     </message>
     <message>
         <source>2nd. Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>2º triádico</translation>
     </message>
     <message>
         <source>1st. Tetradic (base opposite)</source>
-        <translation type="unfinished"></translation>
+        <translation>1er tetrádico (complementario al base)</translation>
     </message>
     <message>
         <source>2nd. Tetradic (angle)</source>
-        <translation type="unfinished"></translation>
+        <translation>2º tetrádico (angulado)</translation>
     </message>
     <message>
         <source>3rd. Tetradic (angle opposite)</source>
-        <translation type="unfinished"></translation>
+        <translation>3er tetrádico (complementario al angulado)</translation>
     </message>
 </context>
 <context>
@@ -9298,15 +9298,15 @@ red&amp;ondeadas:</translation>
     </message>
     <message>
         <source>Fill Rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Regla de relleno</translation>
     </message>
     <message>
         <source>Even-Odd</source>
-        <translation>Pares-Impares</translation>
+        <translation>Par-impar</translation>
     </message>
     <message>
         <source>Non Zero</source>
-        <translation>No cero</translation>
+        <translation>Distinta de cero</translation>
     </message>
     <message>
         <source>Text &amp;Flows Around Frame</source>
@@ -10614,11 +10614,11 @@ red&amp;ondeadas:</translation>
     <name>PageSize</name>
     <message>
         <source>Quarto</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuarto</translation>
     </message>
     <message>
         <source>Foolscap</source>
-        <translation type="unfinished"></translation>
+        <translation>Folio</translation>
     </message>
     <message>
         <source>Letter</source>
@@ -10626,11 +10626,11 @@ red&amp;ondeadas:</translation>
     </message>
     <message>
         <source>Government Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Carta gubernamental</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation>Legal</translation>
+        <translation>Oficio</translation>
     </message>
     <message>
         <source>Ledger</source>
@@ -10642,43 +10642,43 @@ red&amp;ondeadas:</translation>
     </message>
     <message>
         <source>Post</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Crown</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Large Post</source>
-        <translation type="unfinished"></translation>
+        <translation>Post grande</translation>
     </message>
     <message>
         <source>Demy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished">Media</translation>
+        <translation>Media</translation>
     </message>
     <message>
         <source>Royal</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Elephant</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Double Demy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Quad Demy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>STMT</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>A</source>
@@ -11162,7 +11162,7 @@ red&amp;ondeadas:</translation>
     </message>
     <message>
         <source>Scratch Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Área de trabajo</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
@@ -11322,7 +11322,7 @@ red&amp;ondeadas:</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
-        <translation type="unfinished">Directorio de scripts de Scripter por defecto</translation>
+        <translation>Directorio de scripts de Scripter por defecto</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
@@ -13304,7 +13304,7 @@ Compruebe la ruta y el nombre dle archivo.</translation>
     </message>
     <message>
         <source>Scripter</source>
-        <translation type="unfinished">Scripter</translation>
+        <translation>Scripter</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -13521,11 +13521,11 @@ Enlaces externos</translation>
     </message>
     <message>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
-        <translation type="unfinished">La tipografía %1 tiene daños en la medidas en el archivo %2, ignorando medidas</translation>
+        <translation type="unfinished">La tipografía %1 tiene daños en las medidas en el archivo %2, ignorando medidas</translation>
     </message>
     <message>
         <source>Valid metrics were found for font %1, using metrics in file %2</source>
-        <translation type="unfinished">Se han encontrado medidas válidad en la tipografía %1, utilizando medidas en archivo %2</translation>
+        <translation type="unfinished">Se han encontrado medidas válidas en la tipografía %1, utilizando medidas en archivo %2</translation>
     </message>
     <message>
         <source>Insufficient memory for this image size.</source>
@@ -13767,7 +13767,7 @@ Enlaces externos</translation>
     </message>
     <message>
         <source>Minimum Scratch Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Área de trabajo mínima</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
@@ -14245,7 +14245,7 @@ actual, convirtiendo los datos vectoriales en objetos Scribus.</translation>
     </message>
     <message>
         <source>Allow Docking To...</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir acoplar a...</translation>
     </message>
     <message>
         <source>Horizontal</source>
@@ -14257,7 +14257,7 @@ actual, convirtiendo los datos vectoriales en objetos Scribus.</translation>
     </message>
     <message>
         <source>Floating Orientation...</source>
-        <translation type="unfinished"></translation>
+        <translation>Orientación al flotar...</translation>
     </message>
 </context>
 <context>
@@ -14883,7 +14883,7 @@ Considere utilizar la verificación previa para corregirlos</translation>
     </message>
     <message>
         <source>Issues</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Show location ICC profile information on console while starting</source>
@@ -15064,7 +15064,7 @@ Considere utilizar la verificación previa para corregirlos</translation>
     </message>
     <message>
         <source>Scripter</source>
-        <translation type="unfinished">Scripter</translation>
+        <translation>Scripter</translation>
     </message>
 </context>
 <context>
@@ -15103,7 +15103,7 @@ Considere utilizar la verificación previa para corregirlos</translation>
     </message>
     <message>
         <source> doesn&apos;t contain any docstring!</source>
-        <translation type="unfinished"> no contiene ninguna docstring!</translation>
+        <translation> no contiene ninguna docstring!</translation>
     </message>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
@@ -15126,7 +15126,7 @@ Considere utilizar la verificación previa para corregirlos</translation>
     </message>
     <message>
         <source>Scripter Preferences</source>
-        <translation type="unfinished">Preferencias de Scripter</translation>
+        <translation>Preferencias de Scripter</translation>
     </message>
     <message>
         <source>Enable Extension Scripts</source>
@@ -16084,11 +16084,11 @@ Considere utilizar la verificación previa para corregirlos</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia dentro de la cual un objeto se unirá a las guías creadas. Si modifica este valor deberá reiniciar Scribus para poder emplearlo.</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio del área donde Scribus permitirá seleccionar un objeto. Si modifica este valor deberá reiniciar Scribus para poder emplearlo.</translation>
     </message>
 </context>
 <context>
@@ -17707,7 +17707,7 @@ a %2</translation>
     </message>
     <message>
         <source>Scratch space</source>
-        <translation type="unfinished"></translation>
+        <translation>Área de trabajo</translation>
     </message>
     <message>
         <source>Text flows around the frame</source>
