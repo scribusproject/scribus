@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStyle>
 #include <QPainter>
 #include <QHeaderView>
+#include <QLayout>
 
 #include <sctreewidget.h>
 
@@ -91,11 +92,13 @@ QSize ScTreeWidgetDelegate::sizeHint(const QStyleOptionViewItem &opt, const QMod
 
 ScTreeWidget::ScTreeWidget(QWidget* pa) : QTreeWidget(pa)
 {
+	setFocusPolicy(Qt::NoFocus);
 	setColumnCount(1);
 	setItemDelegate(new ScTreeWidgetDelegate(this, this));
 	setRootIsDecorated(false);
 	setIndentation(0);
 	header()->hide();
+	header()->setResizeMode(QHeaderView::Stretch);
 	viewport()->setBackgroundRole(QPalette::Window);
     connect(this, SIGNAL(itemPressed(QTreeWidgetItem*,int)), this, SLOT(handleMousePress(QTreeWidgetItem*)));
 }
@@ -107,6 +110,10 @@ QTreeWidgetItem* ScTreeWidget::addWidget(QString title, QWidget* widget)
 	item1->setFlags(Qt::ItemIsEnabled);
 	QTreeWidgetItem *item2 = new QTreeWidgetItem(item1);
 	item2->setFlags(Qt::ItemIsEnabled);
+// hack to work around a bug in Qt-4.3.4
+	widget->layout()->activate();
+	widget->setMinimumSize(widget->layout()->minimumSize());
+// end hack
 	setItemWidget(item2, 0, widget);
 	return item1;
 }
