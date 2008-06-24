@@ -501,6 +501,53 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 			}
 			PutStream("} exec\n");
 		}
+		for (int em = 0; em < pa.items.count(); ++em)
+		{
+			int h, s, v, k;
+			PageItem* item = pa.items.at(em);
+			if (!item->isTableItem)
+				continue;
+			if ((item->lineColor() == CommonStrings::None) || (item->lineWidth() == 0.0))
+				continue;
+			PutStream("{\n");
+			PS_save();
+			PS_translate(item->gXpos, pa.height - item->gYpos);
+			PS_rotate(item->rotation());
+			if (item->lineColor() != CommonStrings::None)
+			{
+				SetColor(item->lineColor(), item->lineShade(), &h, &s, &v, &k, gcr);
+				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+			}
+			PS_setlinewidth(item->lineWidth());
+			PS_setcapjoin(Qt::SquareCap, item->PLineJoin);
+			PS_setdash(item->PLineArt, item->DashOffset, item->DashValues);
+			if ((item->TopLine) || (item->RightLine) || (item->BottomLine) || (item->LeftLine))
+			{
+				if (item->TopLine)
+				{
+					PS_moveto(0, 0);
+					PS_lineto(item->width(), 0);
+				}
+				if (item->RightLine)
+				{
+					PS_moveto(item->width(), 0);
+					PS_lineto(item->width(), -item->height());
+				}
+				if (item->BottomLine)
+				{
+					PS_moveto(0, -item->height());
+					PS_lineto(item->width(), -item->height());
+				}
+				if (item->LeftLine)
+				{
+					PS_moveto(0, 0);
+					PS_lineto(0, -item->height());
+				}
+				putColor(item->lineColor(), item->lineShade(), false);
+			}
+			PS_restore();
+			PutStream("} exec\n");
+		}
 		spoolStream.setDevice(spStream);
 		PutStream(buf);
 		PutStream("} def\n");
@@ -2027,7 +2074,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 						PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
 						if (!ite->isTableItem)
 							continue;
-						if ((ite->lineColor() != CommonStrings::None) || (ite->lineWidth() == 0.0))
+						if ((ite->lineColor() == CommonStrings::None) || (ite->lineWidth() == 0.0))
 							continue;
 						if (ite->printEnabled())
 						{
@@ -2897,7 +2944,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				continue;
 			if (!c->isTableItem)
 				continue;
-			if ((c->lineColor() != CommonStrings::None) || (c->lineWidth() == 0.0))
+			if ((c->lineColor() == CommonStrings::None) || (c->lineWidth() == 0.0))
 				continue;
 			if ((!a->pageName().isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
 				continue;

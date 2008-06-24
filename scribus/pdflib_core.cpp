@@ -4932,6 +4932,95 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 				}
 			}
 		}
+		for (int em = 0; em < pat->items.count(); ++em)
+		{
+			PageItem* item = pat->items.at(em);
+			if (!item->isTableItem)
+				continue;
+			if ((item->lineColor() == CommonStrings::None) || (item->lineWidth() == 0.0))
+				continue;
+			tmp2 += "q\n";
+			if ((item->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
+			{
+				QString ShName = ResNam+QString::number(ResCount);
+				ResCount++;
+				Transpar[ShName] = writeGState("/OP true\n"
+											"/op true\n"
+											"/OPM 1\n");
+				tmp2 += "/"+ShName+" gs\n";
+			}
+			if (((item->lineTransparency() != 0) || (item->lineBlendmode() != 0)) && (Options.Version >= 14))
+				tmp2 += PDF_TransparenzStroke(item);
+			if (item->lineColor() != CommonStrings::None)
+				tmp2 += putColor(item->lineColor(), item->lineShade(), false);
+			tmp2 += FToStr(fabs(item->lineWidth()))+" w\n";
+			if (item->DashValues.count() != 0)
+			{
+				tmp2 += "[ ";
+				QVector<double>::iterator it;
+				for ( it = item->DashValues.begin(); it != item->DashValues.end(); ++it )
+				{
+					int da = static_cast<int>(*it);
+					if (da != 0)
+						tmp2 += QString::number(da)+" ";
+				}
+				tmp2 += "] "+QString::number(static_cast<int>(item->DashOffset))+" d\n";
+			}
+			else
+				tmp2 += "["+getDashString(item->PLineArt, item->lineWidth())+"] 0 d\n";
+			tmp2 += "2 J\n";
+			switch (item->PLineJoin)
+			{
+				case Qt::MiterJoin:
+					tmp2 += "0 j\n";
+					break;
+				case Qt::BevelJoin:
+					tmp2 += "2 j\n";
+					break;
+				case Qt::RoundJoin:
+					tmp2 += "1 j\n";
+					break;
+				default:
+					tmp2 += "0 j\n";
+					break;
+			}
+			tmp2 +=  "1 0 0 1 "+FToStr(item->gXpos)+" "+FToStr(-(item->gYpos - pat->height))+" cm\n";
+			if (item->rotation() != 0)
+			{
+				double sr = sin(-item->rotation()* M_PI / 180.0);
+				double cr = cos(-item->rotation()* M_PI / 180.0);
+				if ((cr * cr) < 0.000001)
+					cr = 0;
+				if ((sr * sr) < 0.000001)
+					sr = 0;
+				tmp2 += FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+ " 0 0 cm\n";
+			}
+			if ((item->TopLine) || (item->RightLine) || (item->BottomLine) || (item->LeftLine))
+			{
+				if (item->TopLine)
+				{
+					tmp2 += "0 0 m\n";
+					tmp2 += FToStr(item->width())+" 0 l\n";
+				}
+				if (item->RightLine)
+				{
+					tmp2 += FToStr(item->width())+" 0 m\n";
+					tmp2 += FToStr(item->width())+" "+FToStr(-item->height())+" l\n";
+				}
+				if (item->BottomLine)
+				{
+					tmp2 += "0 "+FToStr(-item->height())+" m\n";
+					tmp2 += FToStr(item->width())+" "+FToStr(-item->height())+" l\n";
+				}
+				if (item->LeftLine)
+				{
+					tmp2 += "0 0 m\n";
+					tmp2 += "0 "+FToStr(-item->height())+" l\n";
+				}
+				tmp2 += "S\n";
+			}
+			tmp2 += "Q\n";
+		}
 		if (Options.Compress)
 			tmp2 = CompressStr(&tmp2);
 		uint patObject = newObject();

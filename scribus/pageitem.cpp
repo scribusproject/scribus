@@ -1316,6 +1316,45 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 		}
 		embedded->m_lineWidth = pws;
 	}
+	for (int em = 0; em < emG.count(); ++em)
+	{
+		PageItem* embedded = emG.at(em);
+		p->save();
+		embedded->Xpos = Xpos + embedded->gXpos;
+		embedded->Ypos = Ypos - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos;
+		p->translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
+		if (style.baselineOffset() != 0)
+		{
+			p->translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
+			embedded->Ypos -= embedded->gHeight * (style.baselineOffset() / 1000.0);
+		}
+		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+		if (!embedded->isTableItem)
+			continue;
+		p->translate(embedded->xPos(), embedded->yPos());
+		p->rotate(embedded->rotation());
+		double pws = embedded->m_lineWidth;
+		embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+		if ((embedded->lineColor() != CommonStrings::None) && (embedded->lineWidth() != 0.0))
+		{
+			QColor tmp;
+			embedded->SetQColor(&tmp, embedded->lineColor(), embedded->lineShade());
+			if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
+			{
+				p->setPen(tmp, embedded->lineWidth(), embedded->PLineArt, Qt::SquareCap, embedded->PLineJoin);
+				if (embedded->TopLine)
+					p->drawLine(FPoint(0.0, 0.0), FPoint(embedded->width(), 0.0));
+				if (embedded->RightLine)
+					p->drawLine(FPoint(embedded->width(), 0.0), FPoint(embedded->width(), embedded->height()));
+				if (embedded->BottomLine)
+					p->drawLine(FPoint(embedded->width(), embedded->height()), FPoint(0.0, embedded->height()));
+				if (embedded->LeftLine)
+					p->drawLine(FPoint(0.0, embedded->height()), FPoint(0.0, 0.0));
+			}
+		}
+		embedded->m_lineWidth = pws;
+		p->restore();
+	}
 }
 
 
@@ -1585,6 +1624,42 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 					break;
 			}
 		}
+	}
+	for (int em = 0; em < emG.count(); ++em)
+	{
+		PageItem* embedded = emG.at(em);
+		if (!embedded->isTableItem)
+			continue;
+		painter->save();
+		double x = embedded->xPos();
+		double y = embedded->yPos();
+		embedded->Xpos = embedded->gXpos;
+		embedded->Ypos = embedded->gYpos;
+		painter->translate(embedded->gXpos, embedded->gYpos);
+		painter->rotate(embedded->rotation());
+		embedded->isEmbedded = true;
+		embedded->invalid = true;
+		if ((embedded->lineColor() != CommonStrings::None) && (embedded->lineWidth() != 0.0))
+		{
+			QColor tmp;
+			embedded->SetQColor(&tmp, embedded->lineColor(), embedded->lineShade());
+			if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
+			{
+				painter->setPen(tmp, embedded->lineWidth(), embedded->PLineArt, Qt::SquareCap, embedded->PLineJoin);
+				if (embedded->TopLine)
+					painter->drawLine(FPoint(0.0, 0.0), FPoint(embedded->width(), 0.0));
+				if (embedded->RightLine)
+					painter->drawLine(FPoint(embedded->width(), 0.0), FPoint(embedded->width(), embedded->height()));
+				if (embedded->BottomLine)
+					painter->drawLine(FPoint(embedded->width(), embedded->height()), FPoint(0.0, embedded->height()));
+				if (embedded->LeftLine)
+					painter->drawLine(FPoint(0.0, embedded->height()), FPoint(0.0, 0.0));
+			}
+		}
+		embedded->isEmbedded = false;
+		embedded->Xpos = x;
+		embedded->Ypos = y;
+		painter->restore();
 	}
 	painter->end();
 	delete painter;
