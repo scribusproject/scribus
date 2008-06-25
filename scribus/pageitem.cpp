@@ -1233,6 +1233,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 		return;
 	QList<PageItem*> emG;
 	QStack<PageItem*> groupStack;
+	groupStack.clear();
 	emG.clear();
 	emG.append(cembedded);
 	if (cembedded->Groups.count() != 0)
@@ -1255,9 +1256,25 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
+		if (embedded->isGroupControl)
+		{
+			p->save();
+			FPointArray cl = embedded->PoLine.copy();
+			QMatrix mm;
+			mm.translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
+			if (style.baselineOffset() != 0)
+				mm.translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
+			mm.scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+			cl.map( mm );
+			p->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
+			groupStack.push(embedded->groupsLastItem);
+			continue;
+		}
 		p->save();
-		embedded->Xpos = Xpos + embedded->gXpos;
-		embedded->Ypos = Ypos - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos;
+		double x = embedded->xPos();
+		double y = embedded->yPos();
+		embedded->Xpos = embedded->gXpos;
+		embedded->Ypos = (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos;
 		p->translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
 		if (style.baselineOffset() != 0)
 		{
@@ -1265,19 +1282,6 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 			embedded->Ypos -= embedded->gHeight * (style.baselineOffset() / 1000.0);
 		}
 		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-		if (embedded->isGroupControl)
-		{
-			p->restore();
-			p->save();
-			FPointArray cl = embedded->PoLine.copy();
-			QMatrix mm;
-			mm.translate(embedded->Xpos-Xpos, embedded->Ypos-Ypos);
-			mm.rotate(embedded->rotation());
-			cl.map( mm );
-			p->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
-			groupStack.push(embedded->groupsLastItem);
-			continue;
-		}
 		embedded->Dirty = Dirty;
 		embedded->invalid = invalid;
 		double sc;
@@ -1302,6 +1306,8 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 		}
 		embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 		embedded->DrawObj_Post(p);
+		embedded->Xpos = x;
+		embedded->Ypos = y;
 		p->restore();
 		if (groupStack.count() != 0)
 		{
@@ -1319,9 +1325,13 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
+		if (!embedded->isTableItem)
+			continue;
 		p->save();
-		embedded->Xpos = Xpos + embedded->gXpos;
-		embedded->Ypos = Ypos - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos;
+		double x = embedded->xPos();
+		double y = embedded->yPos();
+		embedded->Xpos = embedded->gXpos;
+		embedded->Ypos = (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos;
 		p->translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
 		if (style.baselineOffset() != 0)
 		{
@@ -1329,9 +1339,6 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 			embedded->Ypos -= embedded->gHeight * (style.baselineOffset() / 1000.0);
 		}
 		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-		if (!embedded->isTableItem)
-			continue;
-		p->translate(embedded->xPos(), embedded->yPos());
 		p->rotate(embedded->rotation());
 		double pws = embedded->m_lineWidth;
 		embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
@@ -1353,6 +1360,8 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 			}
 		}
 		embedded->m_lineWidth = pws;
+		embedded->Xpos = x;
+		embedded->Ypos = y;
 		p->restore();
 	}
 }
@@ -1493,33 +1502,6 @@ QImage PageItem::DrawObj_toImage()
 						miny = qMin(miny, y1);
 						maxx = qMax(maxx, x2);
 						maxy = qMax(maxy, y2);
-/*
-						double lw = 0.0;
-						if (lineColor() != CommonStrings::None)
-							lw = lineWidth() / 2.0;
-						if (currItem->rotation() != 0)
-						{
-							FPointArray pb(4);
-							pb.setPoint(0, FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
-							pb.setPoint(1, FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-							pb.setPoint(2, FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-							pb.setPoint(3, FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-							for (uint pc = 0; pc < 4; ++pc)
-							{
-								minx = qMin(minx, pb.point(pc).x());
-								miny = qMin(miny, pb.point(pc).y());
-								maxx = qMax(maxx, pb.point(pc).x());
-								maxy = qMax(maxy, pb.point(pc).y());
-							}
-						}
-						else
-						{
-							minx = qMin(minx, currItem->xPos()-lw);
-							miny = qMin(miny, currItem->yPos()-lw);
-							maxx = qMax(maxx, currItem->xPos()-lw + currItem->width());
-							maxy = qMax(maxy, currItem->yPos()-lw + currItem->height());
-						}
-*/
 					}
 				}
 			}

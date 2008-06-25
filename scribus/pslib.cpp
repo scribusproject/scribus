@@ -3716,6 +3716,56 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				}
 			}
 		}
+		for (int em = 0; em < emG.count(); ++em)
+		{
+			int h, s, v, k;
+			PageItem* item = emG.at(em);
+			if (!item->isTableItem)
+				continue;
+			if ((item->lineColor() == CommonStrings::None) || (item->lineWidth() == 0.0))
+				continue;
+			PS_save();
+			PS_translate(x + hl->glyph.xoffset + item->gXpos * (cstyle.scaleH() / 1000.0), (y + hl->glyph.yoffset - (item->gHeight * (cstyle.scaleV() / 1000.0)) + item->gYpos * (cstyle.scaleV() / 1000.0)) * -1);
+			if (cstyle.baselineOffset() != 0)
+				PS_translate(0, -item->gHeight * (cstyle.baselineOffset() / 1000.0));
+			PS_scale(cstyle.scaleH() / 1000.0, cstyle.scaleV() / 1000.0);
+			PS_rotate(item->rotation());
+			double pws = item->m_lineWidth;
+			if (item->lineColor() != CommonStrings::None)
+			{
+				SetColor(item->lineColor(), item->lineShade(), &h, &s, &v, &k, gcr);
+				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+			}
+			PS_setlinewidth(item->lineWidth());
+			PS_setcapjoin(Qt::SquareCap, item->PLineJoin);
+			PS_setdash(item->PLineArt, item->DashOffset, item->DashValues);
+			if ((item->TopLine) || (item->RightLine) || (item->BottomLine) || (item->LeftLine))
+			{
+				if (item->TopLine)
+				{
+					PS_moveto(0, 0);
+					PS_lineto(item->width(), 0);
+				}
+				if (item->RightLine)
+				{
+					PS_moveto(item->width(), 0);
+					PS_lineto(item->width(), -item->height());
+				}
+				if (item->BottomLine)
+				{
+					PS_moveto(0, -item->height());
+					PS_lineto(item->width(), -item->height());
+				}
+				if (item->LeftLine)
+				{
+					PS_moveto(0, 0);
+					PS_lineto(0, -item->height());
+				}
+				putColor(item->lineColor(), item->lineShade(), false);
+			}
+			PS_restore();
+			item->m_lineWidth = pws;
+		}
 		return;
 	}
 

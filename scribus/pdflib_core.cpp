@@ -4346,6 +4346,89 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				}
 			}
 		}
+		for (int em = 0; em < emG.count(); ++em)
+		{
+			PageItem* embedded = emG.at(em);
+			if (!embedded->isTableItem)
+				continue;
+			if ((embedded->lineColor() == CommonStrings::None) || (embedded->lineWidth() == 0.0))
+				continue;
+			tmp2 += "q\n";
+			if (ite->asPathText())
+				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
+			else
+				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
+
+			if ((embedded->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
+			{
+				QString ShName = ResNam+QString::number(ResCount);
+				ResCount++;
+				Transpar[ShName] = writeGState("/OP true\n"
+											"/op true\n"
+											"/OPM 1\n");
+				tmp2 += "/"+ShName+" gs\n";
+			}
+			if (((embedded->lineTransparency() != 0) || (embedded->lineBlendmode() != 0)) && (Options.Version >= 14))
+				tmp2 += PDF_TransparenzStroke(embedded);
+			if (embedded->lineColor() != CommonStrings::None)
+				tmp2 += putColor(embedded->lineColor(), embedded->lineShade(), false);
+			tmp2 += FToStr(fabs(embedded->lineWidth()))+" w\n";
+			if (embedded->DashValues.count() != 0)
+			{
+				tmp2 += "[ ";
+				QVector<double>::iterator it;
+				for ( it = embedded->DashValues.begin(); it != embedded->DashValues.end(); ++it )
+				{
+					int da = static_cast<int>(*it);
+					if (da != 0)
+						tmp2 += QString::number(da)+" ";
+				}
+				tmp2 += "] "+QString::number(static_cast<int>(embedded->DashOffset))+" d\n";
+			}
+			else
+				tmp2 += "["+getDashString(embedded->PLineArt, embedded->lineWidth())+"] 0 d\n";
+			tmp2 += "2 J\n";
+			switch (embedded->PLineJoin)
+			{
+				case Qt::MiterJoin:
+					tmp2 += "0 j\n";
+					break;
+				case Qt::BevelJoin:
+					tmp2 += "2 j\n";
+					break;
+				case Qt::RoundJoin:
+					tmp2 += "1 j\n";
+					break;
+				default:
+					tmp2 += "0 j\n";
+					break;
+			}
+			if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
+			{
+				if (embedded->TopLine)
+				{
+					tmp2 += "0 0 m\n";
+					tmp2 += FToStr(embedded->width())+" 0 l\n";
+				}
+				if (embedded->RightLine)
+				{
+					tmp2 += FToStr(embedded->width())+" 0 m\n";
+					tmp2 += FToStr(embedded->width())+" "+FToStr(-embedded->height())+" l\n";
+				}
+				if (embedded->BottomLine)
+				{
+					tmp2 += "0 "+FToStr(-embedded->height())+" m\n";
+					tmp2 += FToStr(embedded->width())+" "+FToStr(-embedded->height())+" l\n";
+				}
+				if (embedded->LeftLine)
+				{
+					tmp2 += "0 0 m\n";
+					tmp2 += "0 "+FToStr(-embedded->height())+" l\n";
+				}
+				tmp2 += "S\n";
+			}
+			tmp2 += "Q\n";
+		}
 		tmp += tmp2+"\n";
 		tmp2 = "";
 		if (ite->asPathText())
