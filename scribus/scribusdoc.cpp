@@ -605,12 +605,12 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	stdProofRGB = scCmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
 	                              DocOutputProf, TYPE_RGB_16,
 	                              DocPrinterProf, IntentPrinter,
-	                              INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
+	                              INTENT_ABSOLUTE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
 	// Proof document RGB colorspace to monitor + gamut ckeck
 	stdProofRGBGC = scCmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
 	                              DocOutputProf, TYPE_RGB_16,
 	                              DocPrinterProf, IntentPrinter,
-	                              INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
+	                              INTENT_ABSOLUTE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
 	// Document RGB to monitor colorspace image transform
 	stdTransImg = scCmsCreateTransform(DocInputProf, TYPE_RGBA_8,
 	                                DocOutputProf, TYPE_RGBA_8,
@@ -619,7 +619,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	stdProofImg = scCmsCreateProofingTransform(DocInputProf, TYPE_RGBA_8,
 									DocOutputProf, TYPE_RGBA_8,
 									DocPrinterProf, IntentPrinter,
-									INTENT_RELATIVE_COLORIMETRIC, dcmsFlagsImg | cmsFLAGS_SOFTPROOFING);
+									INTENT_ABSOLUTE_COLORIMETRIC, dcmsFlagsImg | cmsFLAGS_SOFTPROOFING);
 	
 	if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmykData)
 	{

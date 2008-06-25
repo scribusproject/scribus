@@ -587,6 +587,26 @@ void ScColor::RecalcRGB()
 			{
 				C = M = Y = 0;
 				K = 255 - R;
+				if (CMSuse && !Spot && SoftProofing)
+				{
+					inC[0] = C * 257;
+					inC[1] = M * 257;
+					inC[2] = Y * 257;
+					inC[3] = K * 257;
+					if ((M == 0) && (K == 0) && (C == 255) && (Y == 255))
+						alert = false;
+					if ((M == 0) && (C == 0) && (Y == 0))
+						alert = false;
+					if ((M == C) && (C == Y) && (Y == K))
+						alert = false;
+					cmsDoTransform(Gamut? stdProofCMYKGCG : stdProofCMYKG, inC, outC, 1);
+					int Ro = outC[0] / 257;
+					int Go = outC[1] / 257;
+					int Bo = outC[2] / 257;
+					if ((alert) && (Ro == 0) && (Bo == 0) && (Go == 255))
+						outOfGamutFlag = true;
+					RGB = QColor(Ro, Go, Bo);
+				}
 			}
 			else
 			{

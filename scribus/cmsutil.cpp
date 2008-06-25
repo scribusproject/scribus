@@ -39,7 +39,7 @@ cmsHTRANSFORM scCmsCreateProofingTransform(cmsHPROFILE Input, DWORD InputFormat,
 	if ( desc1 != desc3 )
 	{
 		if( desc2 == desc3 )
-			ProofingIntent = INTENT_RELATIVE_COLORIMETRIC;
+			ProofingIntent = INTENT_ABSOLUTE_COLORIMETRIC;
 		hTransform = cmsCreateProofingTransform(Input, InputFormat, Output, OutputFormat, Proofing, Intent, 
 												ProofingIntent, dwFlags);
 	}

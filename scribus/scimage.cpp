@@ -4446,7 +4446,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				{
 					xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
 					                       screenProf, TYPE_BGRA_8, printerProf,
-					                       IntentPrinter, rend, cmsFlags | cmsProofFlags);
+					                       IntentPrinter, INTENT_ABSOLUTE_COLORIMETRIC, cmsFlags | cmsProofFlags);
 				}
 				else
 					xform = scCmsCreateTransform(inputProf, inputProfFormat,
