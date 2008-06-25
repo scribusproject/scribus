@@ -155,8 +155,8 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, const Q
 						currItem->OwnPage = savedOwnPage;
 						if (!currItem->ChangedMasterItem)
 						{
-							currItem->setXPos(OldX);
-							currItem->setYPos(OldY);
+							currItem->setXPos(OldX, true);
+							currItem->setYPos(OldY, true);
 							currItem->BoundingX = OldBX;
 							currItem->BoundingY = OldBY;
 						}
@@ -194,8 +194,8 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, const Q
 						double OldBY = currItem->BoundingY;
 						if (!currItem->ChangedMasterItem)
 						{
-							currItem->setXPos(OldX - Mp->xOffset() + page->xOffset());
-							currItem->setYPos(OldY - Mp->yOffset() + page->yOffset());
+							currItem->setXPos(OldX - Mp->xOffset() + page->xOffset(), true);
+							currItem->setYPos(OldY - Mp->yOffset() + page->yOffset(), true);
 							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 						}
@@ -225,8 +225,8 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, Page *page, const Q
 						}
 						if (!currItem->ChangedMasterItem)
 						{
-							currItem->setXPos(OldX);
-							currItem->setYPos(OldY);
+							currItem->setXPos(OldX, true);
+							currItem->setYPos(OldY, true);
 							currItem->BoundingX = OldBX;
 							currItem->BoundingY = OldBY;
 						}
@@ -670,7 +670,6 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 		return;
 	QList<PageItem*> emG;
 	QStack<PageItem*> groupStack;
-	emG.clear();
 	emG.append(cembedded);
 	if (cembedded->Groups.count() != 0)
 	{
@@ -692,9 +691,24 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
+		if (embedded->isGroupControl)
+		{
+			p->save();
+			FPointArray cl = embedded->PoLine.copy();
+			QMatrix mm;
+			mm.translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
+			if (style.baselineOffset() != 0)
+				mm.translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
+			mm.scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+			cl.map( mm );
+			groupStack.push(embedded->groupsLastItem);
+			continue;
+		}
 		p->save();
-		embedded->setXPos( item->xPos() + embedded->gXpos );
-		embedded->setYPos( item->yPos() - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos );
+		double x = embedded->xPos();
+		double y = embedded->yPos();
+		embedded->setXPos( embedded->gXpos, true );
+		embedded->setYPos((embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos, true );
 		p->translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
 		if (style.baselineOffset() != 0)
 		{
@@ -702,18 +716,6 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 			embedded->setYPos( embedded->yPos() - embedded->gHeight * (style.baselineOffset() / 1000.0) );
 		}
 		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-		if (embedded->isGroupControl)
-		{
-			p->restore();
-			p->save();
-			FPointArray cl = embedded->PoLine.copy();
-			QMatrix mm;
-			mm.translate(embedded->xPos() - item->xPos(), embedded->yPos() - item->yPos());
-			mm.rotate(embedded->rotation());
-			cl.map( mm );
-			groupStack.push(embedded->groupsLastItem);
-			continue;
-		}
 		double pws = embedded->m_lineWidth;
 		drawItem_Pre(embedded, p);
 		switch(embedded->itemType())
@@ -735,6 +737,8 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 		}
 		embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 		drawItem_Post(embedded, p);
+		embedded->setXPos(x, true);
+		embedded->setYPos(y, true);
 		p->restore();
 		if (groupStack.count() != 0)
 		{
@@ -747,6 +751,47 @@ void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 			}
 		}
 		embedded->m_lineWidth = pws;
+	}
+	for (int em = 0; em < emG.count(); ++em)
+	{
+		PageItem* embedded = emG.at(em);
+		if (!embedded->isTableItem)
+			continue;
+		p->save();
+		double x = embedded->xPos();
+		double y = embedded->yPos();
+		embedded->setXPos(embedded->gXpos, true);
+		embedded->setYPos ((embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos, true);
+		p->translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
+		if (style.baselineOffset() != 0)
+		{
+			p->translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
+			embedded->setYPos(embedded->yPos() - embedded->gHeight * (style.baselineOffset() / 1000.0));
+		}
+		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+		p->rotate(embedded->rotation());
+		double pws = embedded->m_lineWidth;
+		embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+		if ((embedded->lineColor() != CommonStrings::None) && (embedded->lineWidth() != 0.0))
+		{
+			ScColorShade colorShade(m_doc->PageColors[embedded->lineColor()], embedded->lineShade());
+			if ((embedded->TopLine) || (embedded->RightLine) || (embedded->BottomLine) || (embedded->LeftLine))
+			{
+				p->setPen(colorShade, embedded->lineWidth(), embedded->PLineArt, Qt::SquareCap, embedded->PLineJoin);
+				if (embedded->TopLine)
+					p->drawLine(FPoint(0.0, 0.0), FPoint(embedded->width(), 0.0));
+				if (embedded->RightLine)
+					p->drawLine(FPoint(embedded->width(), 0.0), FPoint(embedded->width(), embedded->height()));
+				if (embedded->BottomLine)
+					p->drawLine(FPoint(embedded->width(), embedded->height()), FPoint(0.0, embedded->height()));
+				if (embedded->LeftLine)
+					p->drawLine(FPoint(0.0, embedded->height()), FPoint(0.0, 0.0));
+			}
+		}
+		embedded->m_lineWidth = pws;
+		embedded->setXPos(x, true);
+		embedded->setYPos(y, true);
+		p->restore();
 	}
 }
 
