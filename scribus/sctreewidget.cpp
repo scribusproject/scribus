@@ -113,6 +113,7 @@ QTreeWidgetItem* ScTreeWidget::addWidget(QString title, QWidget* widget)
 // hack to work around a bug in Qt-4.3.4
 	widget->layout()->activate();
 	widget->setMinimumSize(widget->layout()->minimumSize());
+	item2->setSizeHint(0, widget->layout()->minimumSize());
 // end hack
 	setItemWidget(item2, 0, widget);
 	return item1;
