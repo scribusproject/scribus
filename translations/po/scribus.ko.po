@@ -1,7 +1,7 @@
 # Korean translation of scribus. 
 # Copyright (C) 2004 THE scribus'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the scribus package.
-# Kitae Kim <neeum@yahoo.com>, 2004. and J.H. Jeong <김프사랑@eduhope.net> 2008.6
+# Kitae Kim <neeum@yahoo.com>, 2004. and JinHwan Jeong <yongcant@eduhope.net> 2008.6
 # , fuzzy
 #
 #
@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: scribus 1.3.4 dev\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-13 23:26+0200\n"
-"PO-Revision-Date: 2008-06-03 11:15+0900\n"
-"Last-Translator: 김프사랑 <김프사랑@eduhope.net>\n"
+"PO-Revision-Date: 2008-06-19 05:42+0900\n"
+"Last-Translator: J.H. Jeong <김프사랑@eduhope.net>\n"
 "Language-Team: Korean\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -83,13 +83,13 @@ msgid "Layers && Paths..."
 msgstr "레이어와 경로..."
 
 msgid "Image Visible"
-msgstr "이미지 보이기"
+msgstr "이미지 보기"
 
 msgid "Image Effects..."
 msgstr "이미지 효과..."
 
 msgid "Edit Image..."
-msgstr "이미지 수정..."
+msgstr "이미지 편집..."
 
 msgid "Print Image"
 msgstr "이미지 출력"
@@ -119,10 +119,10 @@ msgid "In case of a name clash"
 msgstr "이름이 충돌한 경우"
 
 msgid "Rename imported style"
-msgstr "삽입된 스타일 이름 바꾸기"
+msgstr "읽은 스타일을 다른 이름으로"
 
 msgid "Replace existing style"
-msgstr "기존 스타일로 치환"
+msgstr "기존 스타일을 치환"
 
 msgid "No Style"
 msgstr "스타일 없음"
@@ -131,7 +131,7 @@ msgid "Edit Styles..."
 msgstr "스타일 편집..."
 
 msgid "Fill Color Settings"
-msgstr "색상 채움 설정"
+msgstr "채움 색상 설정"
 
 msgid "Color of text fill"
 msgstr "텍스트 채움 색상"
@@ -140,13 +140,13 @@ msgid "Saturation of color of text fill"
 msgstr "텍스트 채움 색상의 채도"
 
 msgid "Stroke Color Settings"
-msgstr "스트로크 색상 설정"
+msgstr "외곽선 색상 설정"
 
 msgid "Color of text stroke"
-msgstr "텍스트 스트로크 색상"
+msgstr "텍스트 외곽선 색상"
 
 msgid "Saturation of color of text stroke"
-msgstr "텍스트 스트로크 색상의 채도"
+msgstr "텍스트 외곽선 색상 채도"
 
 msgid "Character Settings"
 msgstr "문자 설정"
@@ -155,13 +155,13 @@ msgid " %"
 msgstr "%"
 
 msgid "Manual Tracking"
-msgstr "메뉴얼 찾기"
+msgstr "글자 사이 간격"
 
 msgid "Style Settings"
 msgstr "스타일 설정"
 
 msgid "Style of current paragraph"
-msgstr "현 문단의 스타일"
+msgstr "현 문단 스타일"
 
 msgid "Font Settings"
 msgstr "글꼴 설정"
@@ -170,7 +170,7 @@ msgid " pt"
 msgstr "포인트"
 
 msgid "Font of selected text"
-msgstr "선택한 텍스트 글꼴"
+msgstr "선택 텍스트 글꼴"
 
 msgid "Font Size"
 msgstr "글꼴 크기"
@@ -197,7 +197,7 @@ msgid "Quote"
 msgstr "인용"
 
 msgid "Spaces && Breaks"
-msgstr "공백 및 Breaks"
+msgstr "공백 및 단락"
 
 msgid "Ligature"
 msgstr "연결"
@@ -212,7 +212,7 @@ msgid "&New"
 msgstr "새 파일(&N)"
 
 msgid "Clear All Text"
-msgstr "모든 텍스트 삭제"
+msgstr "전체 텍스트 삭제"
 
 msgid "&Reload Text from Frame"
 msgstr "프레임에서 텍스트 다시 읽기"
@@ -257,7 +257,7 @@ msgid "&Fonts Preview..."
 msgstr "글꼴 미리보기...(&F)"
 
 msgid "&Update Text Frame"
-msgstr "프레임 업데이트하기(&U)"
+msgstr "텍스트 프레임 업데이트하기(&U)"
 
 msgid "Space"
 msgstr "공백"
@@ -269,7 +269,7 @@ msgid "&Background..."
 msgstr "배경...(&B)"
 
 msgid "&Display Font..."
-msgstr "글꼴 보이기...(&D)"
+msgstr "글꼴 보기...(&D)"
 
 msgid "&Smart text selection"
 msgstr "빠른 텍스트 선택(&S)"
@@ -299,16 +299,16 @@ msgid "Do you want to save your changes?"
 msgstr "변경된 사항을 저장하시겠습니까?"
 
 msgid "Do you really want to lose all your changes?"
-msgstr "모든 변경된 사항을 무시하시겠습니까?"
+msgstr "전체 변경 사항을 무시하시겠습니까?"
 
 msgid "Do you really want to clear all your text?"
-msgstr "모든 텍스트를 삭제하시겠습니까?"
+msgstr "전체 텍스트를 삭제하시겠습니까?"
 
 msgid "Open"
 msgstr "열기"
 
 msgid "Text Files (*.txt);;All Files(*)"
-msgstr "텍스트 파일 (*.txt);; 모든 파일(*)"
+msgstr "텍스트 파일 (*.txt);; 전체 파일(*)"
 
 msgid "Save as"
 msgstr "다른 이름으로 저장"
@@ -374,7 +374,7 @@ msgid "to:"
 msgstr "로:"
 
 msgid "Relates To"
-msgstr "연관"
+msgstr "상관"
 
 msgid "Is Parent Of"
 msgstr "부모 상속"
@@ -410,13 +410,13 @@ msgid "Date / Time:"
 msgstr "날짜 / 시간:"
 
 msgid "Has Embedded Profile:"
-msgstr "프로파일 넣음:"
+msgstr "입력된 프로파일 있음:"
 
 msgid "Profile Name:"
 msgstr "프로파일 이름:"
 
 msgid "Has Embedded Paths:"
-msgstr "경로 넣음:"
+msgstr "입력 경로 있음:"
 
 msgid "Has Layers:"
 msgstr "레이어 있음:"
@@ -464,7 +464,7 @@ msgid "Picture"
 msgstr "그림"
 
 msgid "File: "
-msgstr "파일:"
+msgstr "파일: "
 
 msgid "Original PPI: "
 msgstr "초기 PPI:"
@@ -530,7 +530,7 @@ msgid "Conve&rt to"
 msgstr "변환(&r)"
 
 msgid "Rename"
-msgstr "이름 바꾸기"
+msgstr "다른 이름으로"
 
 msgid "&Delete"
 msgstr "삭제(&D)"
@@ -551,13 +551,13 @@ msgid "Free Objects"
 msgstr "자유 객체"
 
 msgid "Outline"
-msgstr "윤곽선"
+msgstr "문서 정보"
 
 msgid "Element"
 msgstr "요소"
 
 msgid "Ignore all errors"
-msgstr "모든 에러 무시"
+msgstr "전체 오류 무시"
 
 msgid "Automatic check before printing or exporting"
 msgstr "출력이나 내보내기 전 자동체크"
@@ -608,13 +608,13 @@ msgid "Remove Profile"
 msgstr "프로파일 삭제"
 
 msgid "Add a page numbering section to the document. The new section will be added after the currently selected section."
-msgstr "페이지 번호 부분에 문서에 더합니다. 현재 선택된  부분 뒤에 새로운 부분을 더함."
+msgstr "문서에 페이지 번호 부분을 더합니다. 현재 선택된  부분 뒤에 새로운 선택 부분이 더하여 집니다."
 
 msgid "Delete the currently selected section."
 msgstr "현재 선택된 부분 삭제"
 
 msgid "<b>Name:</b> Optional name f or section eg. Index<br/><b>Shown:</b> Select to show the page numbers in this section if there is one or more text frames setup to do so.<br/><b>From:</b> The page index for this section to start at.<br/><b>To:</b> The page index for this section to stop at.<br/><b>Style:</b> Select the page number style to be used.<br/><b>Start:</b> The index within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window."
-msgstr "<b>이름:</b> 부분에 대한 옵션 이름  즉 인덱스<br/><b> 보임:</b> 그렇게 하기 위해 하나 이상의 텍스트 프레임을 가졌다면 이 부분에서 페이지 번호가 나타나는 것을 선택합니다.<br/><b>부터:</b> 부분을 시작하기 위한 페이지 인덱스.<br/><b>까지:</b> 이 부분을 정지하기 위한 페이지 인덱스.<br/><b>스타일:</b> 사용되는 페이지 번호 스타일을 선택합니다.<br/><b>시작:</b> 범위 내에서 시작하기 위한 인덱스. 즉 시작=2 그리고 스타일=a,b,c, ...라면 번호들은 b에서 시작합니다. 새로운 파일 창에서 문서의 첫째 부분에서 이것이 오래된 첫째 페이지 번호를 대체한다."
+msgstr "<b>이름:</b> 인덱스와 같은 섹션 설정 이름<br/><b> 나타내기:</b> 하나 이상의 텍스트 프레임이 있다면 이 섹션에서 페이지 번호가 나타나도록 선택.<br/><b>부터:</b> 시작 페이지 인덱스.<br/><b>까지:</b> 끝내기 위한 페이지 인덱스.<br/><b>스타일:</b> 사용되는 페이지 번호 스타일 선택.<br/><b>시작:</b> 범위 내에서 시작하기 위한 인덱스. 즉 시작=2 그리고 스타일=a,b,c, ...라면 숫자는 b에서 시작합니다. 새로운 파일 창에서 문서의 첫째 부분에서 이것이 오래된 첫째 페이지 번호를 대체한다."
 
 msgid "1, 2, 3, ..."
 msgstr "1, 2, 3, ..."
@@ -641,7 +641,7 @@ msgid "Export Range"
 msgstr "내보내기 범위"
 
 msgid "&All Pages"
-msgstr "모든 페이지(&A)"
+msgstr "전체 페이지(&A)"
 
 msgid "C&hoose Pages"
 msgstr "페이지 선택(&h)"
@@ -737,10 +737,10 @@ msgid "&Embed all"
 msgstr "전체 입력(&E)"
 
 msgid "Fonts to outline:"
-msgstr "윤곽선 글꼴:"
+msgstr "외곽선 글꼴:"
 
 msgid "&Outline all"
-msgstr "전체 윤곽선(&O)"
+msgstr "전체 외곽선(&O)"
 
 msgid "&Fonts"
 msgstr "글꼴(&F)"
@@ -755,7 +755,7 @@ msgid "Effects"
 msgstr "효과"
 
 msgid "&Display Duration:"
-msgstr "지속시간 보이기(&D):"
+msgstr "지속시간 보기(&D):"
 
 msgid "Effec&t Duration:"
 msgstr "효과 & 지속시간(&t):"
@@ -833,10 +833,10 @@ msgid "Display Settings"
 msgstr "설정 보기"
 
 msgid "Document Layout"
-msgstr "문서 배치"
+msgstr "문서 페이지 배열"
 
 msgid "Single Page"
-msgstr "한면"
+msgstr "1쪽 배열"
 
 msgid "Continuous"
 msgstr "연속"
@@ -851,7 +851,7 @@ msgid "Visual Appearance"
 msgstr "외형"
 
 msgid "Use Viewers Defaults"
-msgstr "기본 뷰어 사용"
+msgstr "뷰어 기본값 사용"
 
 msgid "Use Full Screen Mode"
 msgstr "전체 화면 모드 사용"
@@ -900,7 +900,7 @@ msgid "&User:"
 msgstr "사용자(&U):"
 
 msgid "&Owner:"
-msgstr "소유자(&O):"
+msgstr "관리자(&O):"
 
 msgid "Settings"
 msgstr "설정"
@@ -924,7 +924,7 @@ msgid "General"
 msgstr "일반"
 
 msgid "Output &Intended For:"
-msgstr "지정 출력(&I):"
+msgstr "출력 지정(&I):"
 
 msgid "Screen / Web"
 msgstr "화면 / 웹"
@@ -933,7 +933,7 @@ msgid "Printer"
 msgstr "프린터"
 
 msgid "Convert Spot Colors to Process Colors"
-msgstr "Spot color를 Process color로 변환"
+msgstr "점 색상을 진행 색상으로 변환"
 
 msgid "Force Overprint Mode"
 msgstr "오버프린트 모드 강제지정"
@@ -1008,7 +1008,7 @@ msgid "Bleed Marks"
 msgstr "물림재단 마크"
 
 msgid "Registration Marks"
-msgstr "마크 등록"
+msgstr "등록 마크"
 
 msgid "Color Bars"
 msgstr "색상 바"
@@ -1017,7 +1017,7 @@ msgid "Page Information"
 msgstr "페이지 정보"
 
 msgid "Offset:"
-msgstr "오프셋:"
+msgstr "옵셋:"
 
 msgid "Bleed Settings"
 msgstr "물림재단 설정"
@@ -1050,22 +1050,22 @@ msgid "Pre-Press"
 msgstr "사전 출력"
 
 msgid "Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document."
-msgstr "글꼴를 PDF에 삽입하면 삽입된 글꼴는 문서 배치와 형태를 유지한다."
+msgstr "글꼴를 PDF에 삽입하면 삽입된 글꼴는 문서 배치와 형태 유지합니다."
 
 msgid "Enables presentation effects when using Adobe&#174; Reader&#174; and other PDF viewers which support this in full screen mode."
-msgstr "전체 화면 모드를 지원하는 PDF 뷰어, Adobe&#174, Reader&#174를 사용시 프리젠테이션 효과를 사용할 수 있다."
+msgstr "전체 화면 모드를 지원하는 PDF 뷰어, Adobe&#174, Reader&#174를 사용시 프리젠테이션 효과를 사용할 수 있습니다."
 
 msgid "Show page previews of each page listed above."
-msgstr "위에 열거된 페이지 미리보기를 보여주기."
+msgstr "위에 열거된 페이지 미리보기를 보여줍니다."
 
 msgid "Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition."
-msgstr "선택된 페이지상 프리젠테이션을 시작하기 전, 페이지가 보여지는 시간. 0값 은 자동으로 페이지 전환을 할 수 없도록 함."
+msgstr "선택된 페이지상 프리젠테이션을 시작하기 전, 페이지가 보여지는 시간. 0값 은 자동으로 페이지 전환을 할 수 없도록 합니다."
 
 msgid "Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down."
 msgstr "효과가 실행될 때의 시간 길이. 짧은 시간은 효과를 빠르게 처리할 수 있고, 긴 시간은 느리게 처리됨."
 
 msgid "Type of the display effect."
-msgstr "보기 효과의 형식"
+msgstr "보기 효과 형식"
 
 msgid "Direction of the effect of moving lines for the split and blind effects."
 msgstr "나누기 또는 Blind효과를 위해서 선을 이동시키는 효과의 방향"
@@ -1077,22 +1077,22 @@ msgid "Direction of the glitter or wipe effects."
 msgstr "반짝임 또는 지우기 효과의 방향"
 
 msgid "Apply the selected effect to all pages."
-msgstr "모든 페이지에 선택된 효과 적용"
+msgstr "전체 페이지에 선택 효과 적용"
 
 msgid "Convert all glyphs in the document to outlines."
-msgstr "문서의 모든 사용자 문자표를 윤곽선으로 변환"
+msgstr "문서의 전체 사용자 문자표를 외곽선으로 변환"
 
 msgid "Show the document in single page mode"
-msgstr "단일 페이지 모드에서 문서 보이기"
+msgstr "단일 페이지 모드에서 문서 보기"
 
 msgid "Show the document in single page mode with the pages displayed continuously end to end like a scroll"
 msgstr "스크롤동작과 같이 연속적으로  끝과 끝이 이어져 있는 페이지들에서 싱글 페이지 모드에서 문서를 보여주기"
 
 msgid "Show the document with facing pages, starting with the first page displayed on the left"
-msgstr "보여지는 페이지, 왼쪽에 보이는 페이지로 시작하는 문서를 보이기"
+msgstr "보여지는 페이지, 왼쪽에 보이는 페이지로 시작하는 문서를 보기"
 
 msgid "Show the document with facing pages, starting with the first page displayed on the right"
-msgstr "보여지는 페이지, 오른쪽에 보이는 페이지로 시작하는 문서를 보이기"
+msgstr "보여지는 페이지, 오른쪽에 보이는 페이지로 시작하는 문서를 보기"
 
 msgid "Use the viewer's defaults or the user's preferences if set differently from the viewer defaults"
 msgstr "뷰어 기본과 다르게 설정되었을 경우 뷰어 기본값 또는 사용자 기본설정을 사용"
@@ -1107,7 +1107,7 @@ msgid "Display the page thumbnails upon opening"
 msgstr "페이지 썸네일을 열도록 나타내기"
 
 msgid "Forces the displaying of layers. Useful only for PDF 1.5+."
-msgstr "레이어 보이기를 수행함. 단지 PDF 1.5+에만 유용."
+msgstr "레이어 보기를 수행함. 단지 PDF 1.5+에만 유용."
 
 msgid "Hides the Tool Bar which has selection and other editing capabilities"
 msgstr "선택과 편집기능을 가진 툴바 숨기기"
@@ -1119,55 +1119,55 @@ msgid "Fit the document page or pages to the available space in the viewer windo
 msgstr "뷰어 창에서 문서 페이지가 이용할 수 있는 저장공간에 맞도록 함."
 
 msgid "Export all pages to PDF"
-msgstr "전 페이지를 PDF로 내보내기"
+msgstr "전체 페이지를 PDF로 출력"
 
 msgid "Export a range of pages to PDF"
-msgstr "번위 내의 페이지를 PDF로 내보내기"
+msgstr "범위 내 페이지를 PDF로 출력"
 
 msgid "Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number."
-msgstr "모든 페이지, 일정 범위내의 페이지 또는 단일 페이지 번호에 토큰을 *로 표시되는 곳에서 토큰의 분리된 리스트에 코마를 삽입한다."
+msgstr "전체 페이지는 *로, 1페이지와 4-6페이지를 동시에 출력할 경우 1,4-6과 같이 콤마로 분리하여 표현"
 
 msgid "Determines the PDF compatibility.<br/>The default is <b>PDF 1.3</b> which gives the widest compatibility.<br/>Choose <b>PDF 1.4</b> if your file uses features such as transparency or you require 128 bit encryption.<br/><b>PDF 1.5</b> is necessary when you wish to preserve objects in separate layers within the PDF.<br/><b>PDF/X-3</b> is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer."
-msgstr " PDF 호환을 결정한다.<br/>기본값은 <b>PDF 1.3이며</b> 가장 호환성이 좋다.<br/>선택하라 <b>PDF 1.4</b> 투명도와 같은 특징을 이용하거나 또는 128bit 암호화가 필요한 파일이라면 말이다<br/><b>PDF 1.5</b>  PDF내에서  분리된 레이어에서 오브젝트 정보를 보관하려할 때 필요하다.<br/><b>PDF/X-3</b> PDF를 내보내기 위한 것이다. 상업적 출력을 위하여 RGB로 조정된 색상을 원하거나 색상관리를 활성화시킬 때 선택할 수 있다. 프린터에 대하여 조언을 받거나 4 digit color  레이저 프린터로 출력하는 경우에만 이용할 수 있다."
+msgstr " PDF 호환 설정.<br/>기본값은 <b>PDF 1.3이며</b> 가장 호환성이 좋다.<br/> 투명도와 같은 특징을 이용하거나 또는 128bit 암호화가 필요한 파일이라면 <b>PDF 1.4를</b>선택하라<br/><b>PDF 1.5</b>  PDF내에서  분리된 레이어에서 오브젝트 정보를 보관하려할 때 필요.<br/><b>PDF/X-3</b> PDF를 내보내기 위한 것이다. 상업적 출력을 위하여 RGB로 조정된 색상을 원하거나 색상관리를 활성화시킬 때 선택할 수 있다. 프린터에 대하여 조언을 받거나 4 digit color  레이저 프린터로 출력하는 경우에만 이용가능."
 
 msgid "Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left."
-msgstr "PDF에서 페이지 제본을 결정한다.  변경할 필요성을 느끼지 못하면 기본 선택인 Left로 두세요."
+msgstr "PDF에서 페이지 제본 결정. 특별한 경우가 아니라면 기본 선택인 왼쪽여백으로 설정."
 
 msgid "Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation."
-msgstr "PDF에서 각페이지의 썸네일을 생성한다. 사용자가 이동하기 위하여 썸네일을 사용할 수 있다."
+msgstr "PDF에서 각페이지의 썸네일을 생성한다. 사용자가 이동하기 위하여 썸네일을 사용."
 
 msgid "Generate PDF Articles, which is useful for navigating linked articles in a PDF."
 msgstr "PDF 문단을 생성한다. 이것은 PDF에서 링크된 문단을 이동할 때 유용하다."
 
 msgid "Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen."
-msgstr "PDF 1.5를 선택하면 문서 레이어를 유일하게 이용가능한  PDF로 내보내기 할 수 있다."
+msgstr "PDF 1.5를 선택한다면 레이어들을 이용가능한  PDF로 출력 가능."
 
 msgid "Embed the bookmarks you created in your document. These are useful for navigating long PDF documents."
 msgstr "문서에서 생성된 북마크를 포함시킴. 이는 PDF 문서를 이동할 때 유용함."
 
 msgid "Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos."
-msgstr "텍스트와 벡터 그래픽의 해상도 내보내기. 이것은 사진과 같은 비트맴 이미지의 해상도에는 영향을 주지 않는다."
+msgstr "텍스트와 벡터 그래픽의 출력 해상도. 사진과 같은 비트맴 이미지의 해상도에는 영향을 주지 않음."
 
 msgid "Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size."
 msgstr "텍스트와 그래픽의 무손실 압축을 하도록 한다. 특별한 일이 없는 한 체크된 대로 두어야 하며 이 작업은 PDF 파일 크기를 줄인다."
 
 msgid "Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options."
-msgstr "이미지 처리위한 압축방법. 자동으로 Scribus는 최적방법을 사용한다. ZIP은 무손실이고 Solid color를 가진 이미지에 적합하다. JPEG는 많은 사진자료가 있는 PDF을 작게 생성하는데 좋으나 이미지 질은 약간 손실될 수 있다. 특별히 압축옵션이 필요하지 않는 한 자동적으로 선택된 대로 두도록 한다. "
+msgstr "이미지 압축 처리 방법. 자동은 압축 최적방법을 사용. ZIP은 무손실이고 Solid color를 가진 이미지에 적합. JPEG는 많은 사진자료가 있는 PDF를 작은 파일을 생성하는데 좋으나 이미지 품질은 약간 떨어질 수 있다. 특별히 이유가 없으면 자동으로 두도록 함. "
 
 msgid "Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg."
-msgstr "손실압축방법을 위한 압축의 질 레벨 : 최소(25%), 낮음(50%), 중간(75%), 높음(85%),최대(95%).  압축의 질 레벌은 출력이미지 크기를 결정하는 것은 아니다. 이미지 크기와 질의 손실은 어떤 정해진 질 레벌에서 다양하다. 최대를 선택할 때조차 JPEG에서 약간의 질의 손실이 있게된다."
+msgstr "손실 압축방법을 위한 압축 품질 레벨 : 최소(25%), 낮음(50%), 중간(75%), 높음(85%),최대(95%).  압축 질 레벌은 출력 이미지 크기를 직접적으로 결정하는 것은 아니다. 이미지 크기와 품질의 손실은 정해지는 품질 레벌에서 다양하다. 최대 조차 JPEG에서 약간 품질의 손실이 있다."
 
 msgid "Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export."
-msgstr "비트맵 이미지 해상도를 선택된 DPI로 제한한다. 저해상도의 이미지는 건드리지 않고 그대로 둔다. 체크하지 않은 상태로 두는 것은 원 해상도로 이미지를 렌더를 할 것이다. 이 작업은 메모리 이용을 증가시키고 내보내기를 늦게 처리할 것이다."
+msgstr "비트맵 이미지 해상도를 선택 DPI로 제한. 저해상도 이미지는 변경하지 말고 그대로 둔다. 체크하지 않으면 원 해상도로 이미지 렌더를 한다. 이 작업은 메모리 이용을 증가시키고 출력 지연이 있다."
 
 msgid "DPI (Dots Per Inch) for image export."
-msgstr "이미지 내보내기 위한 DPI"
+msgstr "이미지 출력 DPI(Dots/Inch)."
 
 msgid "Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations."
-msgstr "내보낸 PDF에서 안전 특성의 이용 가능. PDF 1.3을 선택한  PDF는 40비트 암호로  PDF 1.4를 선택하면 128비트 암호로 저장된다.  부인: PDF 암호는 GPG나 PGP 암호처럼 믿을 수 있는 것은 아니며 한계가 있다."
+msgstr "출력 PDF에서 보안 설정 가능. PDF 1.3을 선택한  PDF는 40비트 PDF 1.4를 선택하면 128비트 암호로 저장.  경고: PDF 암호는 GPG나 PGP 암호처럼 믿을 수 있는 것은 아니며 한계가 있음."
 
 msgid "Choose a master password which enables or disables all the security features in your exported PDF"
-msgstr "내보내는 PDF에서 모든 안전 특성을 가능 또는 불가로 할 수 있는 마스터 암호를 선택한다."
+msgstr "내보내는 PDF에서 전체 보안 특성을 가능 또는 불가로 할 수 있는 마스터 암호를 선택한다."
 
 msgid "Choose a password for users to be able to read your PDF."
 msgstr "사용자가 PDF를 읽을 수 있도록 암호를 선택한다."
@@ -1179,7 +1179,7 @@ msgid "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented
 msgstr "PDF수정을 허용. 체크가 되지 않았다면 PDF수정이 안됨"
 
 msgid "Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied."
-msgstr "PDF로부터 텍스트나 그림의 복사를 허용. 체크가 되지 않으면 텍스트나 그림복사가 안됨."
+msgstr "PDF에서 텍스트나 그림의 복사를 허용. 체크가 되지 않으면 텍스트나 그림복사가 안됨."
 
 msgid "Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented."
 msgstr "주석이나 필드를 PDF로 더해주기 허용. 미체크시 주석과 필드 수정이 안됨."
@@ -1224,7 +1224,7 @@ msgid "Enables Spot Colors to be converted to composite colors. Unless you are p
 msgstr "Spot Color를 composite color로 변환 가능, spot color출력을 하지 않는다면 가능한 한 그대로 두기."
 
 msgid "Do not show objects outside the margins in the exported file"
-msgstr "내보내기 파일에서 객체 밖의 여백을 보이지 않게 하기"
+msgstr "출력 파일에 객체 밖의 여백을 보이지 않게"
 
 msgid "This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing."
 msgstr "PDF에서 출력 후 페이퍼가 잘려질 수 있는 분분 잘림 마크를 생성"
@@ -1245,16 +1245,16 @@ msgid "Indicate the distance offset for the registration marks"
 msgstr "등록마크를 위한 거리옵셋을 나타낸다."
 
 msgid "Distance for bleed from the top of the physical page"
-msgstr "물지적 페이지 상단으로 부터 물림재단 거리"
+msgstr "페이지 위부터 물림재단 거리"
 
 msgid "Distance for bleed from the bottom of the physical page"
-msgstr "물리적 페이지의 아래로 부터 물림재단 거리"
+msgstr "페이지 아래부터 물림재단 거리"
 
 msgid "Distance for bleed from the left of the physical page"
-msgstr "물리적 페이지의 왼쪽으로부터 물림재단 거리"
+msgstr "페이지 왼쪽부터 물림재단 거리"
 
 msgid "Distance for bleed from the right of the physical page"
-msgstr "물리적 페이지의 오른쪽으로부터 물림재단 거리"
+msgstr "페이지 오른쪽부터 물림재단 거리"
 
 msgid "Use the existing bleed settings from the document preferences"
 msgstr "문서 선택사항으로부터 기존 물림재단 설정을 사용"
@@ -1269,10 +1269,10 @@ msgid "Page"
 msgstr "페이지"
 
 msgid "Inside:"
-msgstr "안쪽"
+msgstr "왼쪽:"
 
 msgid "Outside:"
-msgstr "바깥:"
+msgstr "오른쪽:"
 
 msgid "TabDisplayBase"
 msgstr "탭보기 기준"
@@ -1284,31 +1284,31 @@ msgid "Show Pictures"
 msgstr "그림 보기"
 
 msgid "Show Text Control Characters"
-msgstr "텍스트 제어 문자 보이기"
+msgstr "텍스트 제어 문자 보기"
 
 msgid "Rulers Relative to Page"
-msgstr "페이지에 비례하는 자"
+msgstr "상대적인 페이지 눈금자"
 
 msgid "Show Text Chains"
-msgstr "텍스트 체인 보이기"
+msgstr "링크된 프레임 보기"
 
 msgid "Show Frames"
-msgstr "프레임 보이기"
+msgstr "프레임 보기"
 
 msgid "Show Layer Indicators"
-msgstr "레이어 지시자 보이기"
+msgstr "레이어 지시자 보기"
 
 msgid "Display &Unprintable Area in Margin Color"
-msgstr "여유 색상의 출력이 안되는 구역 보이기(&U)"
+msgstr "여백 색상의 비출력 부분 보기(&U)"
 
 msgid "Alt+U"
 msgstr "Alt+U"
 
 msgid "Show Bleed Area"
-msgstr "물림재단 구역 보이기"
+msgstr "물림재단 구역 보기"
 
 msgid "Scratch Space"
-msgstr "공백 제거"
+msgstr "스크래치 공백 "
 
 msgid "&Left:"
 msgstr "왼쪽(&L):"
@@ -1344,10 +1344,10 @@ msgid "Pages:"
 msgstr "페이지:"
 
 msgid "Fill Color:"
-msgstr "색상 채움:"
+msgstr "채움 색상:"
 
 msgid "Selected Page Border:"
-msgstr "선택된 페이지 경계:"
+msgstr "선택 페이지 경계:"
 
 msgid "Frames"
 msgstr "프레임"
@@ -1356,7 +1356,7 @@ msgid "Locked:"
 msgstr "잠김:"
 
 msgid "Normal:"
-msgstr "보통"
+msgstr "일반:"
 
 msgid "Selected:"
 msgstr "선택:"
@@ -1389,7 +1389,7 @@ msgid "&>>"
 msgstr "&>>"
 
 msgid "&<<"
-msgstr "&>>"
+msgstr "&<<"
 
 msgid "Selected Fields"
 msgstr "선택 항목"
@@ -1431,7 +1431,7 @@ msgid "Cannot find plugin"
 msgstr "플러그인 찾을 수 없음"
 
 msgid "unknown error"
-msgstr "미지의 에러"
+msgstr "불명확한 오류"
 
 msgid "Cannot find symbol (%1)"
 msgstr "심볼 (%1)을 찾을 수 없음"
@@ -1632,7 +1632,7 @@ msgid "&Vertical Gap:"
 msgstr "수직 간격(&V)"
 
 msgid "First Page is:"
-msgstr "첫 페이지 :"
+msgstr "첫 페이지 시작 위치:"
 
 msgid "Name"
 msgstr "이름"
@@ -1650,7 +1650,7 @@ msgid "Relationship"
 msgstr "관계"
 
 msgid "Relationship To"
-msgstr "연관"
+msgstr "상관"
 
 msgid "Auto Add To"
 msgstr "자동 더하기"
@@ -1680,10 +1680,10 @@ msgid "Enable &Antialiasing"
 msgstr "부드러움 사용(&A)"
 
 msgid "Display Trans&parency"
-msgstr "투명도 보이기(&p)"
+msgstr "투명도 보기(&p)"
 
 msgid "&Display CMYK"
-msgstr "CMYK 보이기(&D)"
+msgstr "CMYK 보기(&D)"
 
 msgid "&C"
 msgstr "&C"
@@ -1728,7 +1728,7 @@ msgid "&Under Color Removal"
 msgstr "색상 제거 상태(&U)"
 
 msgid "Convert Spot Colors"
-msgstr "스폿 색상 변환"
+msgstr "점 색상 변환"
 
 msgid "Apply ICC Profiles"
 msgstr "ICC 프로파일 적용"
@@ -1779,7 +1779,7 @@ msgid "Enable/disable the K (Black) ink plate"
 msgstr "검은 잉크판 사용 가능/불능"
 
 msgid "All"
-msgstr "전부"
+msgstr "전체 서식"
 
 msgid "Move Bookmark"
 msgstr "북마크 이동"
@@ -1809,13 +1809,13 @@ msgid "This enables copied items to be kept permanently in the scrapbook."
 msgstr "스크랩북에서 복사 항목이 계속 유지되도록 함."
 
 msgid "Number of Copied Items to Keep in Scrapbook:"
-msgstr "스크랩북에서 유지된  복사 항목의 수"
+msgstr "스크랩북에서 유지된  복사 항목 수"
 
 msgid "The minimum number is 1; the maximum us 100."
 msgstr "최소 숫자 1; 최대 100."
 
 msgid "Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus"
-msgstr "실행하기 위해 Scribus 기본 언어를 선택한다. 환경변수에 근거하여 선택하기 위한 공백을 둔다. Scribus가 시작될 때 명령어 라인 설정을 건너뜀으로서 무시할 수 있다."
+msgstr "Scribus 기본 언어 선택. 환경변수에 근거하여 선택하기 위한 공백을 둔다. Scribus가 시작될 때 명령어 라인 설정을 건너뜀으로서 이를 무시할 수 있다."
 
 msgid "Number of recently edited documents to show in the File menu"
 msgstr "파일메뉴에서 나타나는 최근 편집된 문서의 수"
@@ -1824,13 +1824,13 @@ msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
 msgstr "Scribus에서 마우스휠 이동시 스크롤링하는 라인 수"
 
 msgid "Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins."
-msgstr "기본 윈도우 외양을 선택한다. KDE 플러그인을 찾기위해 Qt가 선택되었다면 Scribus는 kDE나 Qt 테마등을 상속받는다."
+msgstr "기본 윈도우 스킨을 선택. KDE 플러그인을 찾기위해 Qt를 설정하였다면, Scribus는 이용 가능한 kDE나 Qt 스킨테마등을 상속받는다."
 
 msgid "Default font size for the menus and windows"
-msgstr "메뉴나 창의 기본 글꼴 크기"
+msgstr "메뉴나 창 기본 글꼴 크기"
 
 msgid "Default font size for the tool windows"
-msgstr "도구창의 기본 글꼴 크기"
+msgstr "도구창 기본 글꼴 크기"
 
 msgid "Default documents directory"
 msgstr "기본 문서 폴더"
@@ -1893,10 +1893,10 @@ msgid "De&lete All"
 msgstr "전체 삭제(&l)"
 
 msgid "Book&marks"
-msgstr "북마크(&m)"
+msgstr "책갈피(&m)"
 
 msgid "&Print..."
-msgstr "프린트...(&P)"
+msgstr "프린터 설정...(&P)"
 
 msgid "E&xit"
 msgstr "나가기(&x)"
@@ -1911,13 +1911,13 @@ msgid "Find &Previous"
 msgstr "이전 찾기(&P)"
 
 msgid "&Add Bookmark"
-msgstr "북마크 더하기(&A)"
+msgstr "책갈피 더하기(&A)"
 
 msgid "D&elete All"
 msgstr "전체 삭제(&e)"
 
 msgid "&Bookmarks"
-msgstr "북마크(&B)"
+msgstr "책갈피(&B)"
 
 msgid "Scribus Online Help"
 msgstr "Scribus  온라인 도움말"
@@ -1939,10 +1939,10 @@ msgid "Search Term:"
 msgstr "용어 찾음:"
 
 msgid "New Bookmark"
-msgstr "새로운 북마크"
+msgstr "새로운 책갈피"
 
 msgid "New Bookmark's Title:"
-msgstr "새로운 북마크 표지:"
+msgstr "새로운 책갈피 표지:"
 
 msgid "Switches Color Management on or off"
 msgstr "색상관리 켜기/ 끄기 스위치"
@@ -1994,7 +1994,7 @@ msgid "Cannot Convert In-Use Item"
 msgstr "사용 항목 변환 불가"
 
 msgid "The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped"
-msgstr "항목 %1을 스토리 편집기에 의해 편집하고 있는 중. 이 항목에서 윤곽선 기능에 대한 변환을 생략될 것임."
+msgstr "항목 %1을 스토리 편집기에 의해 편집하고 있는 중. 이 항목에서 외곽선 기능에 대한 변환을 생략될 것임."
 
 msgid "Font Substitution"
 msgstr "글꼴 치환"
@@ -2042,7 +2042,7 @@ msgid "License:"
 msgstr "허가:"
 
 msgid "Color for paper"
-msgstr "페이퍼 색상"
+msgstr "문서 색상"
 
 msgid "Mask the area outside the margins in the margin color"
 msgstr "여백 색상에서 여백 밖의 부분을 마스킹"
@@ -2054,22 +2054,22 @@ msgid "Display non-printing characters such as paragraph markers in text frames"
 msgstr "텍스트 프레임에서 문단 마커처럼 출력할 수 없는 문자를 보임"
 
 msgid "Turns the display of frames on or off"
-msgstr "프레임 보기 on/off"
+msgstr "프레임 보기 ON/OFF"
 
 msgid "Turns the display of layer indicators on or off"
-msgstr "레이어지시자 보기 on/off"
+msgstr "레이어 지시자 보기 ON/OFF"
 
 msgid "Turns the display of pictures on or off"
-msgstr "그림보기 on/off"
+msgstr "그림보기 ON/OFF"
 
 msgid "Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page"
-msgstr "요소를 생성과 수정하기 또는 활성 페이지로 끌어오기 위한 붙여넣기보드로서 이용가능한 문서 캔버스 왼쪽 여백을 정함"
+msgstr "객체의 생성과 수정 또는 객체를 활성 페이지로 끌어오기 위한 작업공간인 문서 캔버스 왼쪽 여백을 정함"
 
 msgid "Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page"
-msgstr "요소를 생성과 수정하기 또는 활성 페이지로 끌어오기 위한 붙여넣기보드로서 이용가능한 문서 캔버스 오른쪽 여백을 정함"
+msgstr "객체의 생성과 수정 또는 객체를 활성 페이지로 끌어오기 위한 작업공간인 문서 캔버스 오른쪽 여백을 정함"
 
 msgid "Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page"
-msgstr "요소를 생성과 수정하기 또는 활성 페이지로 끌어오기 위한 붙여넣기보드로서 이용가능한 문서 캔버스 위쪽 여백을 정함"
+msgstr "객체의 생성과 수정 또는 객체를 활성 페이지로 끌어오기 위한 작업공간인 문서 캔버스 위쪽 여백을 정함"
 
 msgid "Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page"
 msgstr "요소를 생성과 수정하기 또는 활성 페이지로 끌어오기 위한 붙여넣기보드로서 이용가능한 문서 캔버스 아래쪽 여백을 정함"
@@ -2087,10 +2087,10 @@ msgid "Based On:"
 msgstr "기본:"
 
 msgid "Basic Formatting"
-msgstr "기본 포멧"
+msgstr "기본 형식"
 
 msgid "Advanced Formatting"
-msgstr "고급 포멧"
+msgstr "고급 형식"
 
 msgid "Image Effects"
 msgstr "이미지 효과"
@@ -2205,13 +2205,13 @@ msgid "Postscript"
 msgstr "포스트스크립트"
 
 msgid "Error Writing Preferences"
-msgstr "기본설정 쓰기 에러"
+msgstr "기본설정 쓰기 오류"
 
 msgid "Scribus was not able to save its preferences:<br>%1<br>Please check file and directory permissions and available disk space."
 msgstr "Scribus는 기본설정을 저장할 수 없음::<br>%1<br>파일과 폴더 속성 및 이용가능한 디스크 공간을 체크하시오."
 
 msgid "Error Loading Preferences"
-msgstr "기본설정 읽기 에러"
+msgstr "기본설정 읽기 오류"
 
 msgid "Scribus was not able to load its preferences:<br>%1<br>Default settings will be loaded."
 msgstr " Scribus가 기본설정을 읽을 수 없습니다 : :<br>%1<br> 기본 설정을 읽어들입니다."
@@ -2220,7 +2220,7 @@ msgid "Annotation Properties"
 msgstr "주석 속성"
 
 msgid "Text"
-msgstr "본문"
+msgstr "텍스트 특성"
 
 msgid "External Link"
 msgstr "외부 링크"
@@ -2241,13 +2241,13 @@ msgid "&Page:"
 msgstr "페이지(&P):"
 
 msgid "&X-Pos:"
-msgstr "X-좌표(&X):"
+msgstr "X위치(&X):"
 
 msgid "&Y-Pos:"
 msgstr "Y위치(&Y):"
 
 msgid "PDF-Documents (*.pdf);;All Files (*)"
-msgstr "PDF문서(*.pdf);;모든 파일(*)"
+msgstr "PDF문서(*.pdf);;전체 파일(*)"
 
 msgid "Could not open output file %1"
 msgstr "출력파일 %1을 열 수 없음."
@@ -2256,7 +2256,7 @@ msgid "Output stream not writeable"
 msgstr "출력 스트림을 쓸 수 없음"
 
 msgid "Verification of settings failed: %1"
-msgstr "실패한 설정의 검증: %1"
+msgstr "실패한 설정 검증: %1"
 
 msgid "Could not open input file %1"
 msgstr "입력 파일 %1을 열 수 없음"
@@ -2277,13 +2277,13 @@ msgid "<pdfVersion> invalid"
 msgstr "<PDF 버전> 맞지 않음"
 
 msgid "found %1 <%2> nodes, need 1."
-msgstr "<%2> 노드에서 %1을 발견할 수 있음 1이 필요합니다."
+msgstr "<%2> 객체 조절점에서 %1을 발견할 수 있음 1이 필요합니다."
 
 msgid "unexpected null <%2> node"
 msgstr "예상치 않은 널 <%2> 노드"
 
 msgid "node <%1> not an element"
-msgstr "노드 <%1> 이 요소가 아님"
+msgstr "객체 조절점 <%1> 이 요소가 아님"
 
 msgid "element <%1> lacks `value' attribute"
 msgstr "요소 <%1> 값 속성이 결여."
@@ -2313,7 +2313,7 @@ msgid "From:"
 msgstr "부터:"
 
 msgid "To:"
-msgstr "에게:"
+msgstr "로:"
 
 msgid "Comma Separated List"
 msgstr "분리된 목록 콤마"
@@ -2394,16 +2394,16 @@ msgid "Font Effects"
 msgstr "글꼴 효과"
 
 msgid "Fill Color"
-msgstr "색상 채움"
+msgstr "채움 색상"
 
 msgid "Fill Shade"
 msgstr "음영 채움"
 
 msgid "Stroke Color"
-msgstr "스트로크 색상"
+msgstr "외곽선 색상"
 
 msgid "Stroke Shade"
-msgstr "스트로크 음영"
+msgstr "외곽선 음영"
 
 msgid "Left"
 msgstr "왼쪽"
@@ -2457,7 +2457,7 @@ msgid "Display"
 msgstr "보기"
 
 msgid "Typography"
-msgstr "인쇄"
+msgstr "활자 형식"
 
 msgid "Tools"
 msgstr "도구"
@@ -2553,10 +2553,10 @@ msgid "Usage: scribus [option ... ] [file]"
 msgstr "사용법: Scribus [설정...] [파일]"
 
 msgid "Show information on the console when fonts are being loaded"
-msgstr "글꼴가 읽히는 동안 콘솔에 정보 보이기"
+msgstr "글꼴가 읽히는 동안 콘솔에 정보 보기"
 
 msgid "Print help (this message) and exit"
-msgstr "도움말 출력 후 빠져나오기"
+msgstr "도움말 출력 후 나오기"
 
 msgid "Uses xx as shortcut for a language, eg `en' or `de'"
 msgstr "언어 즉 'en' 또는 'ko'등의 약어로서 xx를 사용"
@@ -2568,7 +2568,7 @@ msgid "Do not show the splashscreen on startup"
 msgstr "시작 창을 보여주지 않습니다."
 
 msgid "Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus."
-msgstr "시작창 보이기 중지.  .neversplash 라 불리는 파일을 ~/.scribus폴더에 씀."
+msgstr "시작창 보기 중지.  .neversplash 라 불리는 파일을 ~/.scribus폴더에 씀."
 
 msgid "filename"
 msgstr "파일 이름"
@@ -2589,7 +2589,7 @@ msgid "Output version information and exit"
 msgstr "버전 정보 출력 후 빠저나오기"
 
 msgid "Display a console window"
-msgstr "콘솔 창 보이기"
+msgstr "콘솔 창 보기"
 
 msgid "Installed interface languages for Scribus are as follows:"
 msgstr "Scribus를 위한 설치된 언어는 다음과 같습니다:"
@@ -2766,7 +2766,7 @@ msgid "Start Search"
 msgstr "찾기 시작"
 
 msgid "Select a base directory for search"
-msgstr "찾는 기본 폴더 선택"
+msgstr "찾기 기본 폴더 선택"
 
 msgid "The search failed: %1"
 msgstr "찾기 실패: %1"
@@ -2800,7 +2800,7 @@ msgid "Exporting Page:"
 msgstr "페이지 내보내기:"
 
 msgid "Exporting Items on Current Page:"
-msgstr "현재 페이지의 항목을 내보내기"
+msgstr "현재 페이지 항목을 내보내기:"
 
 msgid "Page:"
 msgstr "페이지:"
@@ -2830,7 +2830,7 @@ msgid "Copy of %1"
 msgstr "%1 복사"
 
 msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
-msgstr "문서 (*.sla *.sla.gz *.scd *.scd.gz);;모든 파일 (*)"
+msgstr "문서 (*.sla *.sla.gz *.scd *.scd.gz);;전체 파일 (*)"
 
 msgid "Printer Options"
 msgstr "프린터 설정"
@@ -2962,10 +2962,10 @@ msgid "Marks && Bleeds"
 msgstr "마크 && 물림재단"
 
 msgid "&Hyphenation Suggestions"
-msgstr "연결 나타내기(&H)"
+msgstr "하이픈 연결 나타내기(&H)"
 
 msgid "Hyphenate Text Automatically &During Typing"
-msgstr "타이핑하는 동안 자동적으로 텍스트를 연결시킵니다."
+msgstr "입력시 자동으로 텍스트 하이픈 연결(&D)"
 
 msgid "&Language:"
 msgstr "언어(&L):"
@@ -2974,23 +2974,23 @@ msgid "&Smallest Word:"
 msgstr "가장 작은 단어(&S):"
 
 msgid "Consecutive Hyphenations &Allowed:"
-msgstr "연속적인 하이픈 허용(&A):"
+msgstr "허용되는 연속적인 하이픈 연결(&A):"
 
 msgid "A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option."
-msgstr "각 단어의 모든 하이픈을 나타내는 대화상자 박스가 Extra와 Hyphenate 텍스트 옵션을 사용할 때 나타납니다."
+msgstr "각 단어의 전체 가능한 하이픈이 보이는 대화상자 박스가 부가기능(Extras)와 하이픈 연결 텍스트 설정을 사용할 때 나타남."
 
 msgid "Enables automatic hyphenation of your text while typing."
-msgstr "타이핑하는 동안 자동으로 텍스트의 연결이 가능하게 합니다."
+msgstr "입력시 자동 텍스트 하이픈 연결이 가능."
 
 msgid "Length of the smallest word to be hyphenated."
-msgstr "연결시킬 수 있는 가장 작은 단어 길이"
+msgstr "하이픈 연결되는 가장 작은 단어 길이"
 
 msgid ""
 "Maximum number of Hyphenations following each other.\n"
 "A value of 0 means unlimited hyphenations."
 msgstr ""
-"연결되는 하이픈의 최대 갯수.\n"
-" 0 값은 무제한 하이픈을 의미한다."
+"허용되는 하이픈연결 최대 갯수.\n"
+" 0은 무제한 하이픈연결 의미."
 
 msgid "Insert Page"
 msgstr "페이지 삽입"
@@ -3065,10 +3065,10 @@ msgid " ms"
 msgstr "밀리초"
 
 msgid "Time before a Move or Resize starts:"
-msgstr "이동이나 크기 변경하기 전 시간"
+msgstr "이동 또는 크기 변경 시간"
 
 msgid "Font Size (&Palettes):"
-msgstr "글꼴 크기(팔레트)(&P):"
+msgstr "글꼴 크기(도구창)(&P):"
 
 msgid "&Font Size (Menus):"
 msgstr "글꼴 크기(메뉴)(&F):"
@@ -3080,10 +3080,10 @@ msgid "&Recent Documents:"
 msgstr "최근 문서(&R):"
 
 msgid "Show Startup Dialog"
-msgstr "시작창 대화상자 보여주기"
+msgstr "새 문서 대화상자 보기"
 
 msgid "Show Splashscreen on Startup"
-msgstr "시작시 작업창 보이기"
+msgstr "초기화 설정과정 보기"
 
 msgid "Ch&ange..."
 msgstr "변경...(&h)"
@@ -3131,7 +3131,7 @@ msgid "Append &Text..."
 msgstr "텍스트 추가...(&T)"
 
 msgid "Get Image..."
-msgstr "이미지를 얻음..."
+msgstr "이미지 불러오기..."
 
 msgid "Save &Text..."
 msgstr "텍스트 저장...(&T)"
@@ -3161,7 +3161,7 @@ msgid "&Redo"
 msgstr "재실행(&R)"
 
 msgid "&Item Action Mode"
-msgstr "항목 액션 모드(&I)"
+msgstr "항목 동작 모드(&I)"
 
 msgid "Paste (&Absolute)"
 msgstr "붙여넣기(절대값)(&A)"
@@ -3233,7 +3233,7 @@ msgid "Su&bscript"
 msgstr "아래 첨자(&b)"
 
 msgid "&Outline"
-msgstr "윤곽선(&O)"
+msgstr "문서 정보(&O)"
 
 msgid "S&hadow"
 msgstr "그림자(&h)"
@@ -3248,7 +3248,7 @@ msgid "&Multiple Duplicate"
 msgstr "다수 복제(&M)"
 
 msgid "&Group"
-msgstr "그룹(&G)"
+msgstr "그룹묶기(&G)"
 
 msgid "&Ungroup"
 msgstr "그룹풀기(&U)"
@@ -3269,10 +3269,10 @@ msgid "&Flip Vertically"
 msgstr "수직으로 뒤집기(&F)"
 
 msgid "Lower to &Bottom"
-msgstr "아래쪽으로(&B)"
+msgstr "끝으로(&B)"
 
 msgid "Raise to &Top"
-msgstr "위쪽으로(&T)"
+msgstr "처음으로(&T)"
 
 msgid "&Lower"
 msgstr "아래(&L)"
@@ -3284,7 +3284,7 @@ msgid "Send to S&crapbook"
 msgstr "스크랩북으로 보내기(&c)"
 
 msgid "Send to Patterns"
-msgstr "색상표로 보내기"
+msgstr "색상표에 저장"
 
 msgid "&Attributes..."
 msgstr "객체 속성...(&A)"
@@ -3293,7 +3293,7 @@ msgid "More Info..."
 msgstr "더 많은 정보..."
 
 msgid "I&mage Visible"
-msgstr "이미지 보이기(&m)"
+msgstr "이미지 보기(&m)"
 
 msgid "&Update Image"
 msgstr "이미지 업데이트(&U)"
@@ -3323,7 +3323,7 @@ msgid "Field P&roperties"
 msgstr "필드 특성(&r)"
 
 msgid "&Edit Shape..."
-msgstr "모양 편집...(&E)"
+msgstr "객체 모양 편집...(&E)"
 
 msgid "&Attach Text to Path"
 msgstr "텍스트를 경로에 붙임"
@@ -3344,7 +3344,7 @@ msgid "&Image Frame"
 msgstr "이미지 프레임(&I)"
 
 msgid "&Outlines"
-msgstr "윤곽선(&O)"
+msgstr "외곽선(&O)"
 
 msgid "&Polygon"
 msgstr "다각형(&P)"
@@ -3353,7 +3353,7 @@ msgid "&Text Frame"
 msgstr "텍스트 프레임(&T)"
 
 msgid "&Frame..."
-msgstr "프레임...(&F)"
+msgstr "새로운 프레임...(&F)"
 
 msgid "&Glyph..."
 msgstr "사용자 문자표...(&G)"
@@ -3410,46 +3410,46 @@ msgid "&Thumbnails"
 msgstr "썸네일"
 
 msgid "Show &Margins"
-msgstr "여백 보이기(&M)"
+msgstr "여백 보기(&M)"
 
 msgid "Show Bleeds"
-msgstr "물림재단 보이기"
+msgstr "물림재단 보기"
 
 msgid "Show &Frames"
-msgstr "프레임 보이기(&S)"
+msgstr "프레임 보기(&S)"
 
 msgid "Show &Images"
-msgstr "이미지 보이기(&I)"
+msgstr "이미지 보기(&I)"
 
 msgid "Show &Grid"
-msgstr "모눈선 보이기(&G)"
+msgstr "모눈선 보기(&G)"
 
 msgid "Show G&uides"
-msgstr "안내선 보이기(&u)"
+msgstr "안내선 보기(&u)"
 
 msgid "Show Text Frame Columns"
-msgstr "텍스트 프레임 열 보이기"
+msgstr "텍스트 프레임 열 보기"
 
 msgid "Show &Baseline Grid"
-msgstr "기준선 모눈 보이기(&B)"
+msgstr "기준선 모눈 보기(&B)"
 
 msgid "Show &Text Chain"
-msgstr "텍스트 체인을 보이기(&T)"
+msgstr "링크된 프레임 보기(&T)"
 
 msgid "Show Control Characters"
-msgstr "제어문자 보이기"
+msgstr "제어문자 보기"
 
 msgid "Show Rulers"
-msgstr "눈금자 보이기"
+msgstr "눈금자 보기"
 
 msgid "Rulers relative to Page"
 msgstr "페이지에 관련있는 눈금자"
 
 msgid "Sn&ap to Grid"
-msgstr "모눈선에 붙이기(&a)"
+msgstr "모눈선에 붙기(&a)"
 
 msgid "Sna&p to Guides"
-msgstr "안내선에 붙이기(&p)"
+msgstr "안내선에 붙기(&p)"
 
 msgid "&Properties"
 msgstr "속성(&P)"
@@ -3617,37 +3617,37 @@ msgid "Smart &Hyphen"
 msgstr "하이픈 능동적용"
 
 msgid "Non Breaking Dash"
-msgstr "Non Breaking 대시"
+msgstr "연결부호(-)"
 
 msgid "Non Breaking &Space"
-msgstr "Non Breaking 공백(&S)"
+msgstr "연결공백(&S)"
 
 msgid "Page &Number"
 msgstr "페이지 번호(&N)"
 
 msgid "New Line"
-msgstr "새로운 선"
+msgstr "새로운 문단으로"
 
 msgid "Frame Break"
-msgstr "프레임 Break"
+msgstr "이 후 프레임 내용 무시"
 
 msgid "Column Break"
-msgstr "열 Break"
+msgstr "프레임에 영향주지 않는 공백 삽입"
 
 msgid "&Zero Width Space"
-msgstr "너비 여백 0 (&Z)"
+msgstr "0 너비 공백 (&Z)"
 
 msgid "Zero Width NB Space"
-msgstr "NB 공백 너비 0"
+msgstr "0 너비 NB 공백"
 
 msgid "Copyright"
-msgstr "저작권"
+msgstr "저작권(C)"
 
 msgid "Registered Trademark"
-msgstr "등록상표"
+msgstr "등록상표(R)"
 
 msgid "Trademark"
-msgstr "등록상표"
+msgstr "등록상표(T)"
 
 msgid "Solidus"
 msgstr "사선"
@@ -3725,10 +3725,10 @@ msgid "CJK Double Right"
 msgstr "CJK 이중 오른쪽"
 
 msgid "En Space"
-msgstr "N자 정도 공백"
+msgstr "N자 크기 공백"
 
 msgid "Em Space"
-msgstr "M자 정도 공백"
+msgstr "M자 크기 공백"
 
 msgid "Thin Space"
 msgstr "좁은 공백"
@@ -3746,10 +3746,10 @@ msgid "Insert Smart Hyphen"
 msgstr "하이픈 능동적용 삽입"
 
 msgid "Insert Non Breaking Dash"
-msgstr "Non Breaking 대시 삽입"
+msgstr "연결부호 삽입"
 
 msgid "Insert Non Breaking Space"
-msgstr "Non Breaking 공백 삽입"
+msgstr "연결 공백 삽입"
 
 msgid "Insert Page Number"
 msgstr "페이지 번호 삽입"
@@ -3785,13 +3785,13 @@ msgid "Action History"
 msgstr "작업 기록"
 
 msgid "Show selected object only"
-msgstr "선택된 객체만 보여주기"
+msgstr "선택 객체만 보여주기"
 
 msgid "&Relative to:"
-msgstr "관련(&R):"
+msgstr "관계(&R):"
 
 msgid "First Selected"
-msgstr "선택된 첫째"
+msgstr "선택된 첫번째"
 
 msgid "Last Selected"
 msgstr "선택된 마지막"
@@ -3905,10 +3905,10 @@ msgid "Linewidth"
 msgstr "선 너비"
 
 msgid "X-Offset"
-msgstr "X-옵셋"
+msgstr "X-위치"
 
 msgid "Y-Offset"
-msgstr "Y-옵셋"
+msgstr "Y-위치"
 
 msgid "Underline Text. Hold down the button momentarily to set line width and displacement options."
 msgstr "텍스트에 밑줄. 선 두께 및 변위 옵션을 설정하기 위하여 계속 마우스 버튼을 누르고 있어야 합니다."
@@ -3932,10 +3932,10 @@ msgid "Strike Out. Hold down the button momentarily to set line width and displa
 msgstr "취소선. 선 두께 및 위치 옵션을 설정하기 위하여 계속 마우스 버튼을 누르고 있어야 합니다."
 
 msgid "Outline. Hold down the button momentarily to change the outline stroke width."
-msgstr "윤곽선. 윤곽선 스트로크 너비를 지정하기 위하여 계속 마우스 버튼을 누르고 있어야 합니다."
+msgstr "외곽선. 외곽선 너비를 지정하기 위하여 계속 마우스 버튼을 누르고 있어야 합니다."
 
 msgid "Shadowed Text. Hold down the button momentarily to enable the offset spacing."
-msgstr "음영. X,Y 옵셋값을 지정하도록 계속 마우스 버튼을 누르고 있어야 합니다."
+msgstr "음영. X,Y 위치를 지정하도록 계속 마우스 버튼을 누르고 있어야 합니다."
 
 msgid "Other..."
 msgstr "기타..."
@@ -3968,7 +3968,7 @@ msgid "Transparency Settings"
 msgstr "투명도 설정"
 
 msgid "Fixed Linespacing"
-msgstr "고정된 선여백"
+msgstr "고정된 줄 간격"
 
 msgid "Automatic Linespacing"
 msgstr "자동 선 여백"
@@ -3992,10 +3992,10 @@ msgid "&X-Pos"
 msgstr "X위치(&X):"
 
 msgid "Distance between columns"
-msgstr "열 사이 거리"
+msgstr "단과 단 사이 공백"
 
 msgid "Column width"
-msgstr "열 너비"
+msgstr "단 너비"
 
 msgid "X, Y, &Z"
 msgstr "X, Y, Z(&Z)"
@@ -4019,32 +4019,32 @@ msgid "Level"
 msgstr "레벨"
 
 msgid "Shape:"
-msgstr "형태"
+msgstr "형태:"
 
 msgid ""
 "R&ound\n"
 "Corners:"
 msgstr ""
-"곡선(&o)\n"
+"둥근(&o)\n"
 "모서리:"
 
 msgid "Distance of Text"
-msgstr "텍스트 거리"
+msgstr "다단 설정"
 
 msgid "Colu&mns:"
-msgstr "열의 수(&m):"
+msgstr "단 개수 설정(&m):"
 
 msgid "Gap:"
-msgstr "간격:"
+msgstr "단 간격:"
 
 msgid "Width:"
-msgstr "너비:"
+msgstr "단 너비:"
 
 msgid "To&p:"
-msgstr "상부(&p):"
+msgstr "위(&p):"
 
 msgid "T&abulators..."
-msgstr "도표작성자...(&a)"
+msgstr "탭 설정...(&a)"
 
 msgid "Path Text Properties"
 msgstr "텍스트 속성 경로"
@@ -4074,13 +4074,13 @@ msgid "Distance from Curve:"
 msgstr "곡선의 거리"
 
 msgid "Fill Rule"
-msgstr "쾌선 채움"
+msgstr "채움 규칙"
 
 msgid "Even-Odd"
-msgstr "짝수-홀수"
+msgstr "반반(구멍 뚫린 도형만)"
 
 msgid "Non Zero"
-msgstr "0이 아님"
+msgstr "전체"
 
 msgid "Text &Flow Around Frame"
 msgstr "텍스트 흐름(&F)"
@@ -4092,7 +4092,7 @@ msgid "Use &Bounding Box"
 msgstr "바운딩 상자 이용(&B)"
 
 msgid "&Use Contour Line"
-msgstr "윤곽선 사용(&U)"
+msgstr "외곽선 사용(&U)"
 
 msgid "Use Image Clip Path"
 msgstr "이미지 자르기 경로 사용"
@@ -4104,7 +4104,7 @@ msgid "Character St&yle:"
 msgstr "문자 스타일(&y):"
 
 msgid "Optical Margins:"
-msgstr "보이는 여백:"
+msgstr "시각상 여백:"
 
 msgid "Word Tracking"
 msgstr "단어 흔적(트랙킹)"
@@ -4116,7 +4116,7 @@ msgid "Norm:"
 msgstr "보통:"
 
 msgid "Glyph Extension"
-msgstr "사용자 문자표 확장"
+msgstr "문자 확장"
 
 msgid "Max:"
 msgstr "최대:"
@@ -4128,7 +4128,7 @@ msgid "Actual X-DPI:"
 msgstr "실제 X-DPI:"
 
 msgid "Actual Y-DPI:"
-msgstr "실제l Y-DPI:"
+msgstr "실제 Y-DPI:"
 
 msgid "X-Sc&ale:"
 msgstr "X-비율(&a):"
@@ -4221,22 +4221,22 @@ msgid "Point from which measurements or rotation angles are referenced"
 msgstr "측정 및 회전각을 참조할 수 있는 점"
 
 msgid "Select top left for basepoint"
-msgstr "기준점에서 왼쪽 위를 선택"
+msgstr "기준점의 왼쪽 위 선택"
 
 msgid "Select top right for basepoint"
-msgstr "기준선에서 오른쪽 위를 선택"
+msgstr "기준선의 오른쪽 위 선택"
 
 msgid "Select bottom left for basepoint"
-msgstr "기준선에서 왼쪽 아래를 선택"
+msgstr "기준선의 왼쪽 아래 선택"
 
 msgid "Select bottom right for basepoint"
-msgstr "기준선에서 오른쪽 아래를 선택"
+msgstr "기준선의 오른쪽 아래 선택"
 
 msgid "Select center for basepoint"
-msgstr "기준점을 위한 가운데를 선택"
+msgstr "기준점의 가운데 선택"
 
 msgid "Group the selected objects"
-msgstr "선택된 객체 그룹화."
+msgstr "선택된 객체 그룹화"
 
 msgid "Destroys the selected group"
 msgstr "선택된 그룹 해제"
@@ -4260,7 +4260,7 @@ msgid "Move to back"
 msgstr "뒤로 이동"
 
 msgid "Indicates the level the object is on, 0 means the object is at the bottom"
-msgstr "객체가 위치한 레벨을 나타낸다. 0은 객체가 바닥에 있다."
+msgstr "표시된 숫자는 객체의 위치 레벨 표시, 0은 객체가 바닥"
 
 msgid "Lock or unlock the object"
 msgstr "객체 잠금/해제"
@@ -4275,13 +4275,13 @@ msgid "Disable text flow from lower frames around object"
 msgstr "객체 주위 아래쪽 프레임에서 텍스트 플로우가 불가능"
 
 msgid "Use the frame shape for text flow of text frames below the object."
-msgstr "객체 아래 텍스트 프레임의 플로우를 위한 프레임 형태 사용."
+msgstr "객체 아래 텍스트 프레임의 흐름을 위한 프레임 형태 사용."
 
 msgid "Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. "
-msgstr "객체 아래 텍스트 프레임의 텍스트 흐름을 위한 프레임의 형태 대신 직사각형의 바운딩 박스를 사용한다."
+msgstr "객체 아래 텍스트 프레임의 흐름을 위한 프레임의 형태 대신 직사각형의 바운딩 박스를 사용."
 
 msgid "When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object."
-msgstr "선택될 때 윤곽선은 위의 팔레트 상의 편집 형태 도구로 편집할 수 있다. 모양 팔레트에 대하여 편집할 때 이것은 객체 아래 텍스트 프레임의 텍스트 흐름을 위한 프레임 모양에 기초한 2번째 분리선이 된다"
+msgstr "선택될 때 외곽선은 위의 팔레트 상의 편집 형태 도구로 편집할 수 있다. 모양 팔레트에 대하여 편집할 때 이것은 객체 아래 텍스트 프레임의 텍스트 흐름을 위한 프레임 모양에 기초한 2번째 분리선이 된다"
 
 msgid "Use the clipping path of the image"
 msgstr "이미지 자르기 경로를 사용"
@@ -4290,19 +4290,19 @@ msgid "Font of selected text or object"
 msgstr "선택된 텍스트나 객체 글꼴"
 
 msgid "Offset to baseline of characters"
-msgstr "문자의 기준선 옵셋"
+msgstr "문자가 위 아래로 위치 이동"
 
 msgid "Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color."
-msgstr "선택에 의한 텍스트 스트로크 또는 방울 음영 색상. 양쪽이 선택되면 같은 색상을 공유한다."
+msgstr "선택에 의한 텍스트 외곽선 또는 방울 음영 색상. 양쪽이 선택되면 같은 색상을 공유."
 
 msgid "Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color."
-msgstr "선택된 텍스트 색상.  윤곽선 텍스트 효과가 가능하다면 이 색상은 색상 채움이 될 것입니다. Drop 음영 텍스트가 가능하다면 이것은 상위 대부분 색상이 될 것임."
+msgstr "선택된 텍스트 색상.  외곽선 텍스트 효과가 가능하다면 이 색상은 채움 색상이 될 것입니다. 물방울 음영 텍스트가 가능하다면 이것은 상위 대부분 색상이 될 것임."
 
 msgid "Right to Left Writing"
 msgstr "오른쪽에서 왼쪽으로 쓰기"
 
 msgid "Line Spacing"
-msgstr "선 여백"
+msgstr "줄 간격"
 
 msgid "Click and hold down to select the line spacing mode."
 msgstr "선 여백 모드를 선택하기 위하여 클릭하고 누르고 계세요."
@@ -4456,7 +4456,7 @@ msgid "Append"
 msgstr "더하기"
 
 msgid "Show options"
-msgstr "설정 보이기"
+msgstr "설정 보기"
 
 msgid "Edit Line Styles"
 msgstr "선 스타일 편집"
@@ -4474,7 +4474,7 @@ msgid "&From Document:"
 msgstr "문서(&F):"
 
 msgid "Chan&ge..."
-msgstr "변환...(&g)"
+msgstr "변경...(&g)"
 
 msgid "&Import Page(s):"
 msgstr "페이지 읽기(&I):"
@@ -4483,7 +4483,7 @@ msgid "&Import Master Page"
 msgstr "마스터 페이지 읽기"
 
 msgid "Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number."
-msgstr "모든 페이지 토큰은 *, 페이지의 일정 범위로 표시할 때는 1-5, 또는 단일 페이지 번호 1 로 표시되는 분리된 토큰 목록에 콤마를 삽입합니다. "
+msgstr "전체 페이지는 *, 페이지의 일정 범위로 표시할 때는 1-5, 또는 단일 페이지 번호 1 로 표시하기 위하여 분리된 콤마를 삽입합니다."
 
 msgid " from 0"
 msgstr "0 부터"
@@ -4516,7 +4516,7 @@ msgid "&Get Field Names"
 msgstr "필드명 가져오기(&G)"
 
 msgid "JavaScripts (*.js);;All Files (*)"
-msgstr "자바 스크립트 (*.js);;모든 파일 (*)"
+msgstr "자바 스크립트 (*.js);;전체 파일 (*)"
 
 msgid "Scribus Crash"
 msgstr "Scribus 충돌"
@@ -4546,7 +4546,7 @@ msgid "Shortcut"
 msgstr "단축키"
 
 msgid "Apply all changes and exit edit mode"
-msgstr "모든 변경을 적용하고 편집모드 나가기"
+msgstr "전체 변경을 적용하고 편집모드 나가기"
 
 msgid "Edit styles"
 msgstr "스타일 편집"
@@ -4555,10 +4555,10 @@ msgid "Name of the selected style"
 msgstr "선택된 스타일 이름"
 
 msgid "Reset all changes"
-msgstr "모든 변경 초기화"
+msgstr "전체 변경 초기화"
 
 msgid "Apply all changes"
-msgstr "모든 변경 적용"
+msgstr "전체 변경 적용"
 
 msgid "Create a new style"
 msgstr "새 스타일 생성"
@@ -4603,7 +4603,7 @@ msgid "Delete"
 msgstr "삭제"
 
 msgid "documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
-msgstr "문서 (*.sla *.sla.gz *.scd *.scd.gz);; 모든 파일 (*)"
+msgstr "문서(*.sla *.sla.gz *.scd *.scd.gz);; 전체 파일 (*)"
 
 msgid "New %1"
 msgstr "새로운 %1"
@@ -4666,7 +4666,7 @@ msgid ""
 "Cannot collect all files for output for file:\n"
 "%1"
 msgstr ""
-"파일 출력을 위하여 모든 파일을 모을 수 없음:\n"
+"파일 출력을 위하여 전체 파일을 모을 수 없음:\n"
 "%1"
 
 msgid ""
@@ -4777,13 +4777,13 @@ msgid "&Lock Guides"
 msgstr "안내선 잠금(&L)"
 
 msgid "Appl&y to All Pages"
-msgstr "모든 페이지에 적용(&y)"
+msgstr "전체 페이지에 적용(&y)"
 
 msgid "Alt+Y"
 msgstr "Alt+Y"
 
 msgid "&Single"
-msgstr "단일(&S)"
+msgstr "개별 설정(&S)"
 
 msgid "&Number:"
 msgstr "숫자(&N):"
@@ -4819,16 +4819,16 @@ msgid "Delete Guides from Current &Page"
 msgstr "현재 페이지에서 안내선 삭제"
 
 msgid "Delete all guides from the current page"
-msgstr "현재 페이지로부터 모든 안내선을 제거"
+msgstr "현재 페이지에서 전체 안내선 제거"
 
 msgid "Delete Guides from &All Pages"
-msgstr "모든 페이지로부터 안내선을 제거(&A)"
+msgstr "전체 페이지에서 안내선 제거(&A)"
 
 msgid "Delete all guides from the current document"
-msgstr "현재 문서에서 모든 안내선 삭제"
+msgstr "현재 문서에서 전체 안내선 삭제"
 
 msgid "&Misc"
-msgstr "기타(&M)"
+msgstr "안내선 삭제(&M)"
 
 msgid "Page Item Attributes"
 msgstr "페이지 항목 속성"
@@ -4900,10 +4900,10 @@ msgid "Edit Line Color Properties"
 msgstr "선 색상 속성 편집"
 
 msgid "Edit Fill Color Properties"
-msgstr "색상 채움 속성 편집"
+msgstr "채움 색상 속성 편집"
 
 msgid "Saturation of color"
-msgstr "채도"
+msgstr "색상 채도"
 
 msgid "Normal or gradient fill method"
 msgstr "일반 또는 그라디언트 채움 방법"
@@ -5073,13 +5073,13 @@ msgid "Items involved"
 msgstr "항목 포함"
 
 msgid "Set fill color"
-msgstr "색상 채움 설정"
+msgstr "채움 색상 설정"
 
 msgid "Color1: %1, Color2: %2"
 msgstr "색상1: %1, 색상2: %2"
 
 msgid "Set fill color shade"
-msgstr "색상 채움 음영 설정"
+msgstr "채움 색상 음영 설정"
 
 msgid "Set line color"
 msgstr "선 색상 설정"
@@ -5131,7 +5131,7 @@ msgid "Cut"
 msgstr "잘라내기"
 
 msgid "Set fill color transparency"
-msgstr "색상 채움 투명도 설정"
+msgstr "채움 색상 투명도 설정"
 
 msgid "Set line color transparency"
 msgstr "선 색상 투명도 설정"
@@ -5185,22 +5185,22 @@ msgid "Set font height"
 msgstr "글꼴 높이 설정"
 
 msgid "Set font fill color"
-msgstr "글꼴 색상 채움 설정"
+msgstr "글꼴 채움 색상 설정"
 
 msgid "Set font stroke color"
-msgstr "글꼴 stroke color 설정"
+msgstr "글꼴 외곽선 색상 설정"
 
 msgid "Set font fill color shade"
-msgstr "글꼴 색상 채움 음영 설정"
+msgstr "글꼴 채움 색상 음영 설정"
 
 msgid "Set font stroke color shade"
-msgstr "글꼴 stroke color 음영 설정"
+msgstr "글꼴 외곽선 색상 음영 설정"
 
 msgid "Set kerning"
 msgstr "돌출 설정"
 
 msgid "Set line spacing"
-msgstr "선 여백 설정"
+msgstr "줄 공백 설정"
 
 msgid "Set paragraph style"
 msgstr "문단 스타일 설정 "
@@ -5242,7 +5242,7 @@ msgid "Import OpenOffice.org Draw image"
 msgstr "오픈오피스 Draw 이미지 읽기"
 
 msgid "Scratch space"
-msgstr "스크래치 여백"
+msgstr "문서 캔버스 작업위치 지정"
 
 msgid "Text flows around the frame"
 msgstr "프레임상 텍스트 흐름"
@@ -5251,7 +5251,7 @@ msgid "Text flows around bounding box"
 msgstr "바운딩 박스상 텍스트 흐름"
 
 msgid "Text flows around contour line"
-msgstr "윤곽선상 텍스트 흐름"
+msgstr "외곽선상 텍스트 흐름"
 
 msgid "Text flows around image clipping path"
 msgstr "이미지 자르기 경로상 텍스트 흐름"
@@ -5266,7 +5266,7 @@ msgid "No bounding box"
 msgstr "바운딩 박스 없음"
 
 msgid "No contour line"
-msgstr "윤곽선 없음"
+msgstr "외곽선 없음"
 
 msgid "Page %1"
 msgstr "페이지 %1"
@@ -5287,13 +5287,13 @@ msgid "Break aspect ratio"
 msgstr "종횡비 유지안함"
 
 msgid "Edit contour line"
-msgstr "윤곽선 편집"
+msgstr "외곽선 편집"
 
 msgid "Edit shape"
 msgstr "모양 편집"
 
 msgid "Reset contour line"
-msgstr "윤곽선 초기화"
+msgstr "외곽선 초기화"
 
 msgid "Add page"
 msgstr "페이지 더하기"
@@ -5350,10 +5350,10 @@ msgid "&Redo: %1"
 msgstr "재실행(&R): %1"
 
 msgid "Reset control point"
-msgstr "제어점 초기화"
+msgstr "객체 조절점 초기화"
 
 msgid "Reset control points"
-msgstr "제어점 초기와"
+msgstr "객체 조절점 초기화"
 
 msgid "Apply image effects"
 msgstr "이미지 효과 적용"
@@ -5389,10 +5389,10 @@ msgid "Remember Values"
 msgstr "값 기억"
 
 msgid "The frame the table of contents will be placed into"
-msgstr "프레임의 내용 도표를 위치"
+msgstr "내용 도표를 위치시킬 프레임"
 
 msgid "Page Numbers Placed:"
-msgstr "위치한 페이지 번호 :"
+msgstr "위치한 페이지 번호:"
 
 msgid "Item Attribute Name:"
 msgstr "항목 속성 이름:"
@@ -5401,10 +5401,10 @@ msgid "The Item Attribute that will be set on frames used as a basis for creatio
 msgstr "프레임에서 설정할 항목 속성을 엔트리 생성을 위한 기본으로 사용."
 
 msgid "Place page numbers of the entries at the beginning or the end of the line, or not at all"
-msgstr "선의 처음 또는 끝에 엔트리의 페이지 수를 위치시킨다. 아니면 전혀 시키지 않는다."
+msgstr "줄의 처음 또는 끝에 엔트리 페이지 번호를 지정. 아니면 없음 선택."
 
 msgid "List Non-Printing Entries"
-msgstr "비출력 엔트리의 리스트"
+msgstr "비출력 엔트리 리스트"
 
 msgid "Include frames that are set to not print as well"
 msgstr "출력하지 않는 프레임을 포함"
@@ -5446,7 +5446,7 @@ msgid "Distances and Alignment"
 msgstr "거리 및 배열"
 
 msgid "Drop Caps"
-msgstr "문단의 첫 자를 확대"
+msgstr "문단 첫 글자"
 
 msgid "Parent's Drop Cap Status"
 msgstr "부모 상속의 문단의 첮 자를 확대한 상태"
@@ -5473,13 +5473,13 @@ msgid "Custom"
 msgstr "개인 설정"
 
 msgid "Double Sided"
-msgstr "2-접음"
+msgstr "2쪽 배열"
 
 msgid "3-Fold"
-msgstr "3-접음"
+msgstr "3쪽 배열"
 
 msgid "4-Fold"
-msgstr "4-접음"
+msgstr "4쪽 배열"
 
 msgid "Left Page"
 msgstr "왼쪽 페이지"
@@ -5578,7 +5578,7 @@ msgid "Full Color Blindness"
 msgstr "전 색상 색맹"
 
 msgid "Custom: "
-msgstr "개인설정:"
+msgstr "임의 지정: "
 
 msgid "Left Protruding"
 msgstr "왼쪽 돌출"
@@ -5611,7 +5611,7 @@ msgid "Common Settings"
 msgstr "일반 설정"
 
 msgid "Placing in Documents"
-msgstr "문서에 위치"
+msgstr "위치"
 
 msgid "In the Background"
 msgstr "배경"
@@ -5629,13 +5629,13 @@ msgid "Grab Radius:"
 msgstr "붙임 반경:"
 
 msgid "Show Guides"
-msgstr "안내선 보이기"
+msgstr "안내선 보기"
 
 msgid "Show Margins"
-msgstr "여백 보이기"
+msgstr "여백 보기"
 
 msgid "Show Page Grid"
-msgstr "페이지 모눈선 보이기"
+msgstr "모눈선 보기"
 
 msgid "Major Grid"
 msgstr "주 모눈선"
@@ -5647,7 +5647,7 @@ msgid "Minor Grid"
 msgstr "작은 모눈선"
 
 msgid "Show Baseline Grid"
-msgstr "기본선 모눈 보이기"
+msgstr "기본선 모눈 보기"
 
 msgid "Baseline Settings"
 msgstr "기본선 설정"
@@ -5659,22 +5659,22 @@ msgid "Baseline &Offset:"
 msgstr "기본선 옵셋(&O):"
 
 msgid "Guides are not visible through objects on the page"
-msgstr "페이지상 객체를 통해서는 안내선을 볼 수 없음"
+msgstr "객체를 통해서 안내선 볼 수 없음"
 
 msgid "Guides are visible above all objects on the page"
-msgstr "페이지상 모든 객체 위에서는 안내선 볼 수 있음"
+msgstr "전체 객체 위에서 안내선 볼 수 있음"
 
 msgid "Distance between the minor grid lines"
-msgstr "작은 모눈선 사이의 거리"
+msgstr "작은 모눈선 간격"
 
 msgid "Distance between the major grid lines"
-msgstr "주 모눈선 사이의 거리"
+msgstr "주 모눈선 간격"
 
 msgid "Distance within which an object will snap to your placed guides"
-msgstr "객체가 지정된 안내선에 잡힐 수 있는 거리"
+msgstr "객체가 고정된 안내선에 잡힐 수 있는 거리"
 
 msgid "Radius of the area where Scribus will allow you to grab an objects handles"
-msgstr "Scribus가 객체 핸들을 잡을 있도록 허용하는 범위의 반경"
+msgstr "객체 핸들을 붙잡을 수 있는 허용 반경"
 
 msgid "Color of the minor grid lines"
 msgstr "작은 모눈선의 색상"
@@ -5689,25 +5689,25 @@ msgid "Color for the margin lines"
 msgstr "여백선의 색상"
 
 msgid "Color for the baseline grid"
-msgstr "기초선 모눈의 색상"
+msgstr "기본선 모눈 색상"
 
 msgid "Turns the basegrid on or off"
-msgstr "기본 모눈의 on/off 바꿈"
+msgstr "기본선 모눈 ON/OFF"
 
 msgid "Distance between the lines of the baseline grid"
-msgstr "기초선 모눈의 선 사이의 거리"
+msgstr "기본선 모눈의 줄 간격"
 
 msgid "Distance from the top of the page for the first baseline"
-msgstr "페이지 상단에서부터 처음 기초선까지의 거리"
+msgstr "페이지 위부터 최초 기본선까지 거리"
 
 msgid "Turns the gridlines on or off"
-msgstr "모눈선 on/off"
+msgstr "모눈선 ON/OFF"
 
 msgid "Turns the guides on or off"
-msgstr "안내선 on/off"
+msgstr "안내선 ON/OFF"
 
 msgid "Turns the margins on or off"
-msgstr "여백 on/off"
+msgstr "여백 ON/OFF"
 
 msgid "px"
 msgstr "화소"
@@ -5764,46 +5764,46 @@ msgid "Skip"
 msgstr "건너뛰기"
 
 msgid "Nodes"
-msgstr "마디점"
+msgstr "객체 조절점"
 
 msgid "&Absolute Coordinates"
 msgstr "절대좌표(&A)"
 
 msgid "Edit &Contour Line"
-msgstr "윤곽선 수정(&C)"
+msgstr "외곽선 수정(&C)"
 
 msgid "&Reset Contour Line"
-msgstr "윤곽선 초기화(&R)"
+msgstr "외곽선 초기화(&R)"
 
 msgid "Set Contour to Image Clip"
-msgstr "윤곽을 이미지 자르기로 설정"
+msgstr "외곽선을 이미지 자르기로 설정"
 
 msgid "&End Editing"
 msgstr "편집 완료(&E)"
 
 msgid "Move Nodes"
-msgstr "마디점 이동"
+msgstr "객체 조절점 이동"
 
 msgid "Move Control Points"
-msgstr "제어점의 이동"
+msgstr "객체 조절점 이동"
 
 msgid "Add Nodes"
-msgstr "마디점 더하기"
+msgstr "객체 조절점 더하기"
 
 msgid "Delete Nodes"
-msgstr "마디점 지우기"
+msgstr "객체 조절점 지우기"
 
 msgid "Move Control Points Independently"
-msgstr "독립적 제어점 이동"
+msgstr "독립적으로 객체 조절점 이동"
 
 msgid "Move Control Points Symmetrical"
-msgstr "제어점 대칭 이동"
+msgstr "객체 조절점 대칭 이동"
 
 msgid "Reset Control Points"
-msgstr "제어점 초기화"
+msgstr "객체 조절점 초기화"
 
 msgid "Reset this Control Point"
-msgstr "제어점 초기화"
+msgstr "객체 조절점 초기화"
 
 msgid "Open a Polygon or Cuts a Bezier Curve"
 msgstr "다각형을 열거나 베지어 곡선을 자름"
@@ -5858,13 +5858,13 @@ msgid "Value to Enlarge or Shrink By"
 msgstr " 확대/축소 값"
 
 msgid "Activate Contour Line Editing Mode"
-msgstr "윤곽선 편집 모드 활성화"
+msgstr "외곽선 편집 모드 활성화"
 
 msgid "Reset the Contour Line to the Original Shape of the Frame"
-msgstr "윤곽선을 프레임 원래 모양으로 초기화"
+msgstr "외곽선을 프레임 원래 모양으로 초기화"
 
 msgid "Reset the Contour Line to the Clipping Path of the Image"
-msgstr "윤곽선을 이미지 자르기 경로로 초기화"
+msgstr "외곽선을 이미지 자르기 경로로 초기화"
 
 msgid "When checked use coordinates relative to the page, otherwise coordinates are relative to the Object."
 msgstr "체크되면 페이지와 연관된 좌표를 사용한다. 그렇지 않으면  좌표는 객체와 연관이 있다."
@@ -5885,7 +5885,7 @@ msgid "Shape"
 msgstr "모양"
 
 msgid "T&ype"
-msgstr "타입(&y)"
+msgstr "형태(&y)"
 
 msgid "Page Placement"
 msgstr "페이지 위치"
@@ -6017,7 +6017,7 @@ msgid "Spacing below the paragraph"
 msgstr "문단 아래 여백"
 
 msgid "Click to select the line spacing mode"
-msgstr "선 공백모드를 선택하기 위하여 클릭"
+msgstr "줄간격 모드를 선택하기 위하여 클릭"
 
 msgid "Toggles sample text of this paragraph style"
 msgstr "문단 스타일의 예제 텍스트 전환"
@@ -6074,7 +6074,7 @@ msgid "Choose a Name"
 msgstr "이름 선택"
 
 msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"
-msgstr "문서 (*.sla *.sla.gz *.scd *.scd.gz);; 다른 파일 (*.eps *.epsi *.ps *.ai);;모든 파일 (*)"
+msgstr "문서 (*.sla *.sla.gz *.scd *.scd.gz);; 기타 파일 (*.eps *.epsi *.ps *.ai);;전체 파일 (*)"
 
 msgid ""
 "The file %1 does not contain colors which can be imported.\n"
@@ -6085,7 +6085,7 @@ msgid ""
 msgstr ""
 "파일 %1은 읽을 색상이 포함되지 않았습니다.\n"
 "파일이 PostScript 라면 파일로 읽기를 시도합니다. -&gt; 읽기. \n"
-"모든 파일이 색상 설명이 있는 DSC conformant 주석을 가진 것은 아닙니다.\n"
+"전체 파일이 색상 설명이 있는 DSC conformant 주석을 가진 것은 아닙니다.\n"
 " 이것은 파일로 부터 색상읽기를 하지 않도록 합니다.\n"
 "더 자세한 사항은 문서의 색상 부분 편집을 참조하세요."
 
@@ -6123,7 +6123,7 @@ msgid "Name of &Executable:"
 msgstr "실행 이름(&E):"
 
 msgid "<qt>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend 'gimp-remote', as it allows you to edit the image in an already running instance of gimp.</qt>"
-msgstr "<qt>그래픽 편집을 위한 파일 시스템 위치. 김프를 이용한다면 'gimp-remote'를 사용하세요. 이 작업을 통하여 김프를 실행하여 이미지를 편집할 수 있습니다.</qt>"
+msgstr "<qt>그래픽 편집을 위한 파일 시스템 위치. 김프를 이용한다면 'gimp-remote'를 사용. 이 작업을 통하여 김프를 실행하여 이미지를 편집 가능.</qt>"
 
 msgid "Web Browser"
 msgstr "웹브라우저"
@@ -6132,7 +6132,7 @@ msgid "Web Browser to launch with links from the Help system"
 msgstr "도움말 시스템에서 링크를 실행하기 위한 웹브라우저"
 
 msgid "<qt>File system location for your web browser. This is used for external links from the Help system.</qt>"
-msgstr "<qt>파일 시스템이 웹 브라우저에 위치합니다. 도움말 시스템으로부터 외부링크를 사용합니다.</qt>"
+msgstr "<qt>파일 시스템이 웹 브라우저에 위치. 도움말 시스템으로부터 외부링크를 사용.</qt>"
 
 msgid "&Rescan"
 msgstr "재검사(&R)"
@@ -6192,7 +6192,7 @@ msgid "Inset"
 msgstr "삽입"
 
 msgid "Other"
-msgstr "다른것"
+msgstr "기타"
 
 msgid "Read Only"
 msgstr "읽기만"
@@ -6246,7 +6246,7 @@ msgid "Highlight"
 msgstr "강조"
 
 msgid "Outlined"
-msgstr "윤곽선"
+msgstr "외곽선"
 
 msgid "Push"
 msgstr "밀기"
@@ -6315,22 +6315,22 @@ msgid "Event:"
 msgstr "이벤트:"
 
 msgid "Mouse Up"
-msgstr "마우서 위로"
+msgstr "마우스 Up"
 
 msgid "Mouse Down"
-msgstr "마우스 아래로"
+msgstr "마우스 Down"
 
 msgid "Mouse Enter"
-msgstr "마우스 엔터"
+msgstr "마우스 Enter"
 
 msgid "Mouse Exit"
-msgstr "마우스 마침"
+msgstr "마우스 나갈 때"
 
 msgid "On Focus"
-msgstr "Focus"
+msgstr "마우스 Focus"
 
 msgid "On Blur"
-msgstr "블러"
+msgstr "마우스 Blur"
 
 msgid "Script:"
 msgstr "스크립트:"
@@ -6351,7 +6351,7 @@ msgid "To File:"
 msgstr "파일:"
 
 msgid "Change..."
-msgstr "변환..."
+msgstr "변경..."
 
 msgid "X-Pos:"
 msgstr "X-좌표:"
@@ -6405,7 +6405,7 @@ msgid "Custom Scripts"
 msgstr "사용자 설정 스크립트"
 
 msgid "Keystroke:"
-msgstr "키스트로크:"
+msgstr "키외곽선:"
 
 msgid "Format"
 msgstr "형식"
@@ -6468,7 +6468,7 @@ msgid "You need at least the Icon for Normal to use Icons for Buttons"
 msgstr "버튼 아이콘을 사용하기 위하여 기본 아이콘이 최소한 필요함"
 
 msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)"
-msgstr "이미지 (*.tif *.png *.jpg *.xpm);;포스트스크립 (*.eps *.epsi);;모든 파일 (*)"
+msgstr "이미지 (*.tif *.png *.jpg *.xpm);;포스트스크립 (*.eps *.epsi);;전체 파일 (*)"
 
 msgid "Example:"
 msgstr "예제:"
@@ -6477,7 +6477,7 @@ msgid "Selection Change"
 msgstr "선택 변경"
 
 msgid "PDF Files (*.pdf);;All Files (*)"
-msgstr "PDF 파일 (*.pdf);;모든 파일 (*)"
+msgstr "PDF 파일 (*.pdf);;전체 파일 (*)"
 
 msgid "Export..."
 msgstr "내보내기..."
@@ -6486,10 +6486,10 @@ msgid "&Defaults"
 msgstr "초기값(&D)"
 
 msgid "All preferences can be reset here"
-msgstr "모든 기본설정을 초기화 가능"
+msgstr "전체 기본설정 초기화"
 
 msgid "Apply all changes without closing the dialog"
-msgstr "대화상자를 닫지 않고 모든 변경을 적용"
+msgstr "대화상자 닫지 않고 변경사항 적용"
 
 msgid "Export current preferences into file"
 msgstr "현재 기본설정을 파일로 내보냄"
@@ -6504,16 +6504,16 @@ msgid "Font %1 is broken, discarding it"
 msgstr "글꼴 %1이 깨짐. 이것을 무시"
 
 msgid "Failed to load font %1 - font type unknown"
-msgstr "글꼴 %1을 읽기 실패 - 글꼴 형식이 없습니다."
+msgstr "글꼴 %1을 읽기 실패 - 글꼴 형식이 없음"
 
 msgid "New Font found, checking..."
 msgstr "새로운 글꼴을 찾았습니다. 체크 중..."
 
 msgid "Font %1 has broken glyph %2 (charcode %3)"
-msgstr "글꼴 %1은 사용자 문자표 %2로 깨졌습니다.(문자코드 %3)"
+msgstr "글꼴 %1은 사용자 문자표 %2로 깨짐(문자코드 %3)"
 
 msgid "Modified Font found, checking..."
-msgstr "편집된 글꼴을 찾았습니다. 체크 중..."
+msgstr "편집된 글꼴을 찾음, 체크 중..."
 
 msgid "Font %1 loaded from %2(%3)"
 msgstr "%2(%3)로 부터 읽은 글꼴 %1"
@@ -6525,7 +6525,7 @@ msgid "Loading font %1 (found using fontconfig)"
 msgstr "글꼴 %1을 읽는 중( 이용한 글꼴 설정을 찾았습니다.)"
 
 msgid "Failed to load a font - freetype2 couldn't find the font file"
-msgstr "글꼴 읽기 실패 - 프리타입2가 글꼴 파일에서 찾을 수 없습니다."
+msgstr "글꼴 읽기 실패 - 프리타입2가 글꼴 파일에서 찾을 수 없음"
 
 msgid "Reading Font Cache"
 msgstr "글꼴 캐시에서 읽는 중"
@@ -6573,25 +6573,25 @@ msgid "Alt+W"
 msgstr "Alt+W"
 
 msgid "Apply the selected master page to even, odd or all pages within the following range"
-msgstr "범위내에서 선택된 마스테페이지를 홀수 또는 짝수 또는 모든 페이지에 적용합니다."
+msgstr "범위내에서 선택된 마스테페이지를 홀수 또는 짝수 또는 전체 페이지에 적용합니다."
 
 msgid "to"
 msgstr "로"
 
 msgid "Save as PDF"
-msgstr "PDF로 저장"
+msgstr "PDF 저장"
 
 msgid "O&utput to File:"
 msgstr "파일 출력(&u):"
 
 msgid "Output one file for eac&h page"
-msgstr "각 페이지를 한 개의 파일로 출력"
+msgstr "각 페이지를 한 개의 파일로 출력(&h)"
 
 msgid "This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing."
-msgstr "이것은 문서에서  PDF파일을 개별적으로 내보낼 수 있습니다. 페이지번호를 자동적으로 더합니다. 이것은 상업적 출판에 PDF 정판에 가장 유용합니다."
+msgstr "이것은 문서에서  PDF파일을 개별적으로 내보낼 수 있습니다. 페이지번호를 자동적으로 더합니다. 이것은 상업적 출판에서 PDF 정판에 가장 유용."
 
 msgid "The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab."
-msgstr "PDF/X-3내보내기를 시도하거나 the PDF/X-3 탭에서 정보 문자가 빠졌을 경우에는 저장 버튼은 사용할 수 없습니다."
+msgstr "PDF/X-3내보내기를 시도하거나 the PDF/X-3 탭에서 정보 문자가 빠졌을 경우에는 저장 버튼은 사용할 수 없음."
 
 msgid "%1 does not exists and will be created, continue?"
 msgstr "%1이 없습니다만 생성시킬 수 있습니다. 계속 하시겠습니까?"
@@ -6607,7 +6607,7 @@ msgid "Delete Layer"
 msgstr "레이어 삭제"
 
 msgid "Do you want to delete all objects on this layer too?"
-msgstr "이 레이어에서 모든 객체를 지우겠습니까?"
+msgstr "이 레이어에서 전체 객체를 지우겠습니까?"
 
 msgid "Add a new layer"
 msgstr "새로운 레이어 더하기"
@@ -6631,7 +6631,7 @@ msgid "Text flows around objects in lower Layers - Enabling this forces text fra
 msgstr "아래 레이어에서 객체 주변의 텍스트 흐름 - 비록 레이어들 아래에서 조차 이것은 텍스트 프레임이 다른 객체 주변에 흐름을 만들 수 있습니다. "
 
 msgid "Outline Mode - Toggles the 'wireframe' display of objects to speed the display of very complex objects."
-msgstr "윤곽선 모드 - 아주 복잡한 객체를 빨리 보이기 위하여 객체의 wireframe 보기를 토글시킵니다."
+msgstr "외곽선 모드 - 아주 복잡한 객체를 빨리 보기 위하여 객체의 wireframe 보기를 토글시킵니다."
 
 msgid "Name of the Layer - Double clicking on the name of a layer enabled editing"
 msgstr "레이어 이름 - 편집 가능한 레어어의 이름을 더블 클릭합니다."
@@ -6685,7 +6685,7 @@ msgid "Delete all Tabulators"
 msgstr "전체 탭키 설정 삭제"
 
 msgid "<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ toolkit for multiplatform GUI &amp; application development.</p><p>Qt provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;X, Linux, and all major commercial Unix variants.<br>Qt is also available for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www.trolltech.com/qt/</tt> for more information.</p>"
-msgstr "<h3>Qt에 대하여</h3><p> 이 프로그램은 Qt 버전 %1을 사용합니다.</p><p>Qt 다양한 OS의 C++ 툴킷입니다 &amp; 응용 프로그램 개발.</p><p>Qt는 MS를 능가하는 단일소스 이식가능성을 제공합니다.&nbsp;윈도우, Mac&nbsp;OS&nbsp;X, 리눅스, 그리고 모든 주요 상업적 유닉스 변종.<br>Qt는 임베딩 장치에도 이용할 수 있습니다.</p><p>Qt 는 Trolltech 제품입니다. 더 자세한 정보는 <tt>http://www.trolltech.com/qt/</tt> 를 참고하십시오.</p>"
+msgstr "<h3>Qt에 대하여</h3><p> 이 프로그램은 Qt 버전 %1을 사용합니다.</p><p>Qt 다양한 OS의 C++ 툴킷입니다 &amp; 응용 프로그램 개발.</p><p>Qt는 MS를 능가하는 단일소스 이식가능성을 제공합니다.&nbsp;윈도우, Mac&nbsp;OS&nbsp;X, 리눅스, 그리고 전체 주요 상업적 유닉스 변종.<br>Qt는 임베딩 장치에도 이용할 수 있습니다.</p><p>Qt 는 Trolltech 제품입니다. 더 자세한 정보는 <tt>http://www.trolltech.com/qt/</tt> 를 참고하십시오.</p>"
 
 msgid "Copy or Move a File"
 msgstr "파일의 복사 또는 이동"
@@ -6784,7 +6784,7 @@ msgid "Sort"
 msgstr "정렬"
 
 msgid "Show &hidden files"
-msgstr "숨겨진 파일 보이기"
+msgstr "숨겨진 파일 보기"
 
 msgid "the file"
 msgstr "파일"
@@ -6820,7 +6820,7 @@ msgid "Save"
 msgstr "저장"
 
 msgid "Error"
-msgstr "에러"
+msgstr "오류"
 
 msgid ""
 "%1\n"
@@ -6832,7 +6832,7 @@ msgstr ""
 "경로 및 파일 이름을 체크하십시오."
 
 msgid "All Files (*.*)"
-msgstr "모든 파일 (*.*)"
+msgstr "전체 파일 (*.*)"
 
 msgid "Select a Directory"
 msgstr "폴더 선택"
@@ -6970,7 +6970,7 @@ msgid "P&ublisher:"
 msgstr "제작자(&u):"
 
 msgid "&Contributors:"
-msgstr "기고자(&C):"
+msgstr "기여자(&C):"
 
 msgid "Dat&e:"
 msgstr "날짜(&e):"
@@ -6994,7 +6994,7 @@ msgid "Co&verage:"
 msgstr "범위(&v):"
 
 msgid "Ri&ghts:"
-msgstr "오른쪽(&g):"
+msgstr "권리(&g):"
 
 msgid "Documen&t"
 msgstr "문서(&t)"
@@ -7003,25 +7003,25 @@ msgid "Further &Information"
 msgstr "자세한 정보(&I)"
 
 msgid "The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF"
-msgstr "개인이나 조직이 주로 문서를 생성시키는 책임이 있습니다. 참고로 이 필드를 PDF 메타 자료 뿐만 아니라 Scribus 문서에 써 넣을 수 있습니다. "
+msgstr "개인이나 조직이 첫째로 문서 제작 책임이 있음. 이 항목은 PDF 메타 자료 뿐만 아니라  Scribus 문서에서 참조로 기입 가능"
 
 msgid "A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF"
-msgstr "문서에 주어진 이름. 참고로 이 필드를 PDF 메타 자료 뿐만 아니라 Scribus 문서에 써 넣을 수 있습니다."
+msgstr "문서에 주어진 이름. 참고로 이 항목은 PDF 메타 자료 뿐만 아니라  Scribus 문서에서 참조로 기입 가능"
 
 msgid "An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export"
-msgstr "문서 내용에 대한 설명. 이 필드는 간략한 설명 또는 문서의 요약입니다. 출력되는 PDF에서 더하여집니다."
+msgstr "문서 내용 설명. 이 항목은 간략한 설명 또는 문서의 요약. 출력되는 PDF에서 더하여 짐"
 
 msgid "The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files"
-msgstr "문서 내요의 주제. 이 필드는 문서에서 PDF에서 끼워넣기 , 찾기와 PDF파일의 인덱싱을 도와주는 핵심어입니다."
+msgstr "문서 내용의 주제. 이 항목은 문서에서 PDF에서 끼워넣기 , 찾기와 PDF파일 인덱싱을 도와주는 핵심어"
 
 msgid "A person or organisation responsible for making the document available"
-msgstr "여러분 또는 조직이 문서를 유용하게 만들 책임이 있습니다."
+msgstr "여러분 또는 조직이 문서를 유용하게 만들 책임이 있음"
 
 msgid "A person or organisation responsible for making contributions to the content of the document"
-msgstr "여러분 또는 조직이 문서내용에 대한 기여하는 것에 대한 책임이 있습니다."
+msgstr "여러분 또는 조직이 문서내용에 대한 기여하는 것에 대한 책임이 있음"
 
 msgid "A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601"
-msgstr "ISO 8601에 따라 YYYY-MM-DD 형식 내의 그 문서의 사용 기간 중 이벤트와 연관된 날짜"
+msgstr "ISO 8601에 따라 YYYY-MM-DD 형식 내 문서의 사용 기간 중 이벤트와 연관된 날짜"
 
 msgid "The nature or genre of the content of the document, eg. categories, functions, genres, etc"
 msgstr "문서 내용의 요소 또는 장르, 즉 카테고리, 함수, 장르등"
@@ -7033,7 +7033,7 @@ msgid "An unambiguous reference to the document within a given context such as I
 msgstr "ISBN 또는 URI와 같은 주어진 내용내의 문서에 대한 정확한 참고 자료"
 
 msgid "A reference to a document from which the present document is derived, eg. ISBN or URI"
-msgstr "ISBN 또는 URI와 같은 현재 문서가 파생되어진 문서의 참조자료"
+msgstr "ISBN 또는 URI와 같은 현재 문서가 파생된 참조자료"
 
 msgid "The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH"
 msgstr " 문서내용이 쓰여진 언어, 예를 들면  en-GB, fr-CH와 같이 하이픈과 ISO-3166 국가코드가 선택적으로 끝에 붙여지는 ISO-639 언어코드"
@@ -7042,7 +7042,7 @@ msgid "A reference to a related document, possibly using a formal identifier suc
 msgstr "관계된 문서 참조, ISBN 또는 URI과 같이 형식적인 지시자를 사용하는 것이 가능함."
 
 msgid "The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges"
-msgstr "문서의 내용의 한계 또는 범위; 아마도 위치와 시간 그리고 영향 범위를 포함"
+msgstr "문서 내용의 한계 또는 범위; 아마도 위치와 시간 그리고 영향 범위를 포함"
 
 msgid "Information about rights held in and over the document, eg. copyright, patent or trademark"
 msgstr "문서 권리에 대한 정보, 예를 들어 저작권, 특허권, 상표권이 이에 해당함."
@@ -7099,7 +7099,7 @@ msgid "Initializing..."
 msgstr "초기화 중...."
 
 msgid "There are no fonts found on your system."
-msgstr "시스템에서 글꼴를 찾을 수 없습니다."
+msgstr "시스템에서 글꼴를 찾을 수 없음."
 
 msgid "Exiting now."
 msgstr "지금 종료 중입니다"
@@ -7117,7 +7117,7 @@ msgid "At the end"
 msgstr "끝"
 
 msgid "Not Shown"
-msgstr "보이지 않음"
+msgstr "없음"
 
 msgid "Table of Contents %1"
 msgstr "내용 %1 표"
@@ -7147,7 +7147,7 @@ msgid "PathText"
 msgstr "경로 텍스트"
 
 msgid "Corn&ers:"
-msgstr "모서리(&e):"
+msgstr "모서리 갯수(&e):"
 
 msgid "Apply &Factor"
 msgstr "모서리 굴곡 적용(&F)"
@@ -7162,19 +7162,19 @@ msgid "Degrees of rotation for polygons"
 msgstr "다각형 회전각"
 
 msgid "Apply Convex/Concave Factor to change shape of Polygons"
-msgstr "다각형 모서리 굴곡 비율을 적용시키면 다각형 모서리 모양이 변하게 됩니다."
+msgstr "굴곡 비율을 변경하면 다각형의 모서리가 오목/볼록으로 변함"
 
 msgid "Sample Polygon"
 msgstr "예제 다각형"
 
 msgid "A negative value will make the polygon concave (or star shaped), a positive value will make it convex"
-msgstr "음수값은 다각형을 오목하게 만들며(또는 별 모양을 만들거나), 양수값은 볼록하게 만듧니다."
+msgstr "음수값은 다각형을 오목 또는 별 모양, 양수값은 볼록 모양"
 
 msgid "Parent Style"
 msgstr "부모 종속 스타일"
 
 msgid "Line Spacing Mode"
-msgstr "선 공백 모드"
+msgstr "줄 간격 모드"
 
 msgid "Space Above"
 msgstr "위 여백"
@@ -7183,16 +7183,16 @@ msgid "Space Below"
 msgstr "아래 여백"
 
 msgid "Drop Cap Lines"
-msgstr "문단 첫 글자의 크기 선"
+msgstr "문단 첫 글자 줄 수"
 
 msgid "Drop Cap Offset"
-msgstr "문단 첫 글자의 크기 옵셋"
+msgstr "본문과의 간격"
 
 msgid "Alignment"
 msgstr "배열"
 
 msgid "First Line Indent"
-msgstr "처음 선 들여넣기"
+msgstr "첫째 줄 들여넣기"
 
 msgid "Left Indent"
 msgstr "왼쪽 들여넣기"
@@ -7210,10 +7210,10 @@ msgid "Font size"
 msgstr "글꼴 크기"
 
 msgid "Tracking"
-msgstr "찾는 중"
+msgstr "자간 거리"
 
 msgid "Baseline offset"
-msgstr "기준선 옵셋"
+msgstr "글자 위치"
 
 msgid "Horizontal scaling"
 msgstr "수평 비율"
@@ -7225,10 +7225,10 @@ msgid "Language"
 msgstr "언어"
 
 msgid "Fill color"
-msgstr "색상 채움"
+msgstr "채움 색상"
 
 msgid "Fill shade"
-msgstr "음영 채움"
+msgstr "채움 음영"
 
 msgid "Stroke color"
 msgstr "외곽선 색상"
@@ -7258,7 +7258,7 @@ msgid "Search:"
 msgstr "찾기:"
 
 msgid "Shortcut for Selected Action"
-msgstr "선택된 작업을 위한 단축키"
+msgstr "선택 작업 단축키 설정"
 
 msgid "Alt+K"
 msgstr "Alt+K"
@@ -7330,7 +7330,7 @@ msgid "Sim&ulate Printer on the Screen"
 msgstr "화면상 프린터 출력(&u)"
 
 msgid "Convert all colors to printer space"
-msgstr "모든 색상을 프린터 공백으로 변환"
+msgstr "전체 색상을 프린터 공백으로 변환"
 
 msgid "Mark Colors out of &Gamut"
 msgstr "전체 색상으로 만들기(&G)"
@@ -7390,7 +7390,7 @@ msgid ""
 "all colors, rgb or cmyk, are converted to printer color space."
 msgstr ""
 "환경설정된 전 색상을 모의수행합니다 :\n"
-"모든 색상 RGB 또는 CMYK 를 프린터 색상 공간으로 변환시킵니다."
+"전체 색상 RGB 또는 CMYK 를 프린터 색상 공간으로 변환시킵니다."
 
 msgid ""
 "Method of showing colors on the screen which may not print properly.\n"
@@ -7437,13 +7437,13 @@ msgid "K:"
 msgstr "K:"
 
 msgid "Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself."
-msgstr "이것을 선택하는 것은 모든 플레이스상에서 출력이 가능할 것입니다. 잘림 마크나 등록마크 그리고 기타등등과 같이 등록 색상이 프린터 마크에 이용됩니다. 전형적으로 배치 자체에서 이용되지 않습니다."
+msgstr "이것을 선택하는 것은 전체 플레이트에서 출력이 가능할 것입니다. 잘림 마크나 등록마크 그리고 기타등등과 같이 등록 색상이 프린터 마크에 이용됩니다. 전형적으로 배치 자체에서 이용되지 않음."
 
 msgid "Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks."
-msgstr " 이것을 선택하는 것은 이 색상을 spot 색상으로 만들며, 평판이나 분리를 생성시킬 때 다른 spot을 생성시킨다. 이것은 로고 또는 다른 색상을 정확하게 나타낼 때 자주 사용되며, 즉 CMYK 잉크로 복사될 수 없습니다. 메탈릭 또는 형광 잉크는 CMYK 잉크로 쉽게 복사할 수 없는 좋은 예입니다."
+msgstr " 이것을 선택하는 것은 이 색상을 spot 색상으로 만들며, 평판이나 분리를 생성시킬 때 다른 spot을 생성시킨다. 이것은 로고 또는 다른 색상을 정확하게 나타낼 때 자주 사용되며, 즉 CMYK 잉크로 복사될 수 없습니다. 메탈릭 또는 형광 잉크는 CMYK 잉크로 쉽게 복사할 수 없는 좋은 예이."
 
 msgid "Dynamic Color Bars"
-msgstr "동적인 색상 막대"
+msgstr "동적 색상 막대"
 
 msgid "Static Color Bars"
 msgstr "고정 색상 막대"
@@ -7520,7 +7520,7 @@ msgid "Marks"
 msgstr "마크"
 
 msgid "Bleeds"
-msgstr "물림재단"
+msgstr "물림재단(페이지 밖 여백)"
 
 msgid "Preview..."
 msgstr "미리보기..."
@@ -7534,14 +7534,14 @@ msgid ""
 "a range of pages or a single page number."
 msgstr ""
 "전체 페이지인 경우 *\n"
-"한 폐이지나 일부분 페이지인 경우 1, 1-5로,\n"
-"콤마를 분리 목록 사이에 삽입."
+"1페이지와 4-5페이지를 출력할 경우 1, 4-5로,\n"
+"콤마를 삽입하여 출력할 페이지 표시."
 
 msgid "Failed to retrieve printer settings"
 msgstr " 프린터 설정 복구 실패"
 
 msgid "PostScript Files (*.ps);;All Files (*)"
-msgstr "포스트스크립트 파일 (*.ps);;모든 파일 (*)"
+msgstr "포스트스크립트 파일 (*.ps);;전체 파일 (*)"
 
 msgid "Shown"
 msgstr "보임"
@@ -7550,7 +7550,7 @@ msgid "From"
 msgstr "부터"
 
 msgid "To"
-msgstr "로"
+msgstr "까지"
 
 msgid "Style"
 msgstr "스타일"
@@ -7574,34 +7574,34 @@ msgid "Open Recent &Document"
 msgstr "최근 문서 열기(&D)"
 
 msgid "Do not show this dialog again"
-msgstr "새문서 대화상자를 보이지 않게 합니다."
+msgstr "현재 창을 숨기기"
 
 msgid "Document page size, either a standard size or a custom size"
-msgstr "문서 페이지 크기, 표준 크기 또는 사용자 크기"
+msgstr "문서 페이지 크기 또는 사용자 크기"
 
 msgid "Orientation of the document's pages"
 msgstr "문서 페이지 방향"
 
 msgid "Width of the document's pages, editable if you have chosen a custom page size"
-msgstr "사용자 페이지 크기를 선택할 수 있을 때 문서 페이지 너비"
+msgstr "문서 페이지 너비"
 
 msgid "Height of the document's pages, editable if you have chosen a custom page size"
-msgstr "사용자 페이지 크기를 선택할 수 있을 때 문서 페이지 높이"
+msgstr "문서 페이지 높이"
 
 msgid "Initial number of pages of the document"
-msgstr "문서 페이지 초기 갯수"
+msgstr "문서의 기본 페이지 갯수"
 
 msgid "Default unit of measurement for document editing"
-msgstr "문서 편집을 위한 기본 측정단위"
+msgstr "문서편집 기본단위"
 
 msgid "Create text frames automatically when new pages are added"
-msgstr "새 페이지를 더할 때 자동으로 프레임을 생성."
+msgstr "새 페이지를 더할 때 자동 텍스트 프레임 생성."
 
 msgid "Number of columns to create in automatically created text frames"
-msgstr "자동으로 생성된 텍스트 프레임을 생성시킬 때 열 수"
+msgstr "자동 생성된 텍스트 프레임에서 생성될 열 수"
 
 msgid "Distance between automatically created columns"
-msgstr "자동으로 생성된 열 사이 거리"
+msgstr "자동 생성된 단과 단 사이 공백"
 
 msgid "N&umber of Pages:"
 msgstr "페이지 수(&u):"
@@ -7613,10 +7613,10 @@ msgid "&Automatic Text Frames"
 msgstr "자동 텍스트 프레임(&A)"
 
 msgid "&Gap:"
-msgstr "여백(&G):"
+msgstr "단 사이 공백(&G):"
 
 msgid "Show Document Settings After Creation"
-msgstr "생성 후 문서 설정 보이기"
+msgstr "생성 후 문서 설정 보기"
 
 msgid "Font:"
 msgstr "글꼴:"
@@ -7625,7 +7625,7 @@ msgid "Text Color:"
 msgstr "텍스트 색상:"
 
 msgid "Shading:"
-msgstr "그림자:"
+msgstr "음영:"
 
 msgid "Text Stroke:"
 msgstr "텍스트 외곽선:"
@@ -7640,22 +7640,22 @@ msgid "Tab Width:"
 msgstr "탭 너비:"
 
 msgid "Woven silk pyjamas exchanged for blue quartz"
-msgstr "짠 실크 파자마를 청보석으로 바꿈"
+msgstr "쫄망 엄마 옆에 있는 것만으로도 감사하며 항상 건강해지길 기도할께"
 
 msgid "Shapes"
-msgstr "형태"
+msgstr "모양 형태"
 
 msgid "&Line Color:"
 msgstr "선 색상(&L):"
 
 msgid "&Shading:"
-msgstr "그림자(&S):"
+msgstr "선 색상 음영(&S):"
 
 msgid "&Fill Color:"
-msgstr "색상 채움(&F):"
+msgstr "채움 색상(&F):"
 
 msgid "S&hading:"
-msgstr "그림자(&h):"
+msgstr "채움 색상 음영(&h):"
 
 msgid "Line Style:"
 msgstr "선 형태:"
@@ -7664,7 +7664,7 @@ msgid "Lines"
 msgstr "선"
 
 msgid "Line S&tyle:"
-msgstr "선 스타일(&t):"
+msgstr "선 형태(&t):"
 
 msgid "Arrows:"
 msgstr "화살표:"
@@ -7685,13 +7685,13 @@ msgid "&Vertical Scaling:"
 msgstr "수직 비율(&V):"
 
 msgid "&Scale Picture to Frame Size"
-msgstr "그림을 프레임 크기 비율로(&S)"
+msgstr "이미지를 프레임 크기로(&S)"
 
 msgid "Keep Aspect &Ratio"
 msgstr "종횡비 유지(&R)"
 
 msgid "F&ill Color:"
-msgstr "색상 채움(&i):"
+msgstr "채움 색상(&i):"
 
 msgid "Use embedded Clipping Path"
 msgstr "포함된 자르기 경로 사용"
@@ -7700,13 +7700,13 @@ msgid "On Screen Preview"
 msgstr "화면상 미리보기"
 
 msgid "Full Resolution Preview"
-msgstr "최고 해상도로 미리보기"
+msgstr "최고 해상도 미리보기"
 
 msgid "Normal Resolution Preview"
-msgstr "보통 해상도로 미리보기"
+msgstr "보통 해상도 미리보기"
 
 msgid "Low Resolution Preview"
-msgstr "낮은 해상도로 미리보기"
+msgstr "낮은 해상도 미리보기"
 
 msgid "Regular Polygons"
 msgstr "표준 다각형"
@@ -7724,7 +7724,7 @@ msgid "&Stepping:"
 msgstr "단계(&S):"
 
 msgid "Miscellaneous Settings"
-msgstr "다양한 설정"
+msgstr "기타 설정"
 
 msgid "Item Duplicate"
 msgstr "항목 복제"
@@ -7763,64 +7763,64 @@ msgid "Polygon Drawing Properties"
 msgstr "다각형 그리기 속성"
 
 msgid "Other Properties"
-msgstr "기타 속성"
+msgstr "기타 설정"
 
 msgid "Font for new text frames"
-msgstr "새 텍스트 프레임을 위한 글꼴"
+msgstr "텍스트 프레임 글꼴"
 
 msgid "Size of font for new text frames"
-msgstr "새 텍스트 프레임을 위한 글자 크기"
+msgstr "텍스트 프레임 글자 크기"
 
 msgid "Color of font"
 msgstr "글꼴 색상"
 
 msgid "Number of columns in a text frame"
-msgstr "텍스트 프레임에서 열의 수"
+msgstr "텍스트 프레임 단 개수"
 
 msgid "Gap between text frame columns"
-msgstr "텍스트 프레임 사이에서 여백"
+msgstr "텍스트 프레임 단 간격"
 
 msgid "Sample of your font"
 msgstr "글꼴 예"
 
 msgid "Picture frames allow pictures to scale to any size"
-msgstr "그림 프레임이 그림을 임의 크기가 되도록 허용합니다."
+msgstr "그림 프레임에서 그림의 임의 크기 허용"
 
 msgid "Horizontal scaling of images"
-msgstr "이미지의 수평비율"
+msgstr "이미지 수평비율"
 
 msgid "Vertical scaling of images"
-msgstr "이미지의 수직비율"
+msgstr "이미지 수직비율"
 
 msgid "Keep horizontal and vertical scaling the same"
-msgstr "수평과 수직비율을 같게 설정"
+msgstr "수평과 수직비율 같게"
 
 msgid "Pictures in picture frames are scaled to the size of the frame"
-msgstr "그림 프레임의 그림을 프레임 크기와 같게 정함"
+msgstr "그림 프레임 그림을 프레임 크기와 같게"
 
 msgid "Automatically scaled pictures keep their original proportions"
-msgstr "자동으로 변경된 그림이 원래의 비율을 유지합니다."
+msgstr "자동 변경된 그림이 원래 비율을 유지"
 
 msgid "Fill color of picture frames"
-msgstr "그림 프레임의 색상 채움"
+msgstr "그림 프레임 채움 색상"
 
 msgid "Saturation of color of fill"
-msgstr "채우기 색상의 채도"
+msgstr "채움 색상 채도"
 
 msgid "Line color of shapes"
-msgstr "모양의 선 색상"
+msgstr "선 색상"
 
 msgid "Saturation of color of lines"
-msgstr "선 색상의 채도"
+msgstr "색상 채도"
 
 msgid "Fill color of shapes"
-msgstr "모양의 색상 채움"
+msgstr "채움 색상"
 
 msgid "Line style of shapes"
-msgstr "모양의 선 스타일"
+msgstr "선 형태"
 
 msgid "Line width of shapes"
-msgstr "모양의 선 너비"
+msgstr "선 너비"
 
 msgid "Minimum magnification allowed"
 msgstr "최소 허용된 확대치"
@@ -7829,7 +7829,7 @@ msgid "Maximum magnification allowed"
 msgstr "최대 허용된 확대치"
 
 msgid "Change in magnification for each zoom operation"
-msgstr "확대기능을 위한 확대를 변경합니다."
+msgstr "확대 단계 비율 설정"
 
 msgid "Color of lines"
 msgstr "선 색상"
@@ -7850,7 +7850,7 @@ msgid "Constrain value for the rotation tool when the Control key is pressed"
 msgstr "제어키를 누를 때 회전도구를 위한 축소값"
 
 msgid "Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths."
-msgstr "그들을 읽을 때 이미지에서 삽입된 잘림 경로를 사용합니다. JPEG, PSD 그리고 TIFF는 잘림 경로를 입력할 수 있는 이미지 형식입니다."
+msgstr "이미지를 읽을 때 이미지에서 삽입된 경로를 사용합니다. JPEG, PSD 그리고 TIFF는 입력될 수 있는 이미지 형식."
 
 msgid "Cancelled by user"
 msgstr "사용자가 취소"
@@ -7880,19 +7880,19 @@ msgid "Sc&aling:"
 msgstr "비율(&a):"
 
 msgid "Automatic &Line Spacing"
-msgstr "자동 선 공백(&L)"
+msgstr "자동 줄 간격(&L)"
 
 msgid "Line Spacing:"
-msgstr "선 공백:"
+msgstr "줄 간격:"
 
 msgid "Displacement above the baseline of the font on a line"
-msgstr "선에서 글꼴 기준선상의 변위"
+msgstr "선에서 글꼴 기준선 위에서 변위"
 
 msgid "Relative size of the superscript compared to the normal font"
 msgstr "보통 글꼴과 비교한 윗첨자의 상대적 크기"
 
 msgid "Displacement below the baseline of the normal font on a line"
-msgstr "선에서 보통 글꼴의 기준선 아래의 변위"
+msgstr "보통 글꼴 기준선 아래의 변위"
 
 msgid "Relative size of the subscript compared to the normal font"
 msgstr "보통 글꼴과 비교한 아래첨자의 상대적 크기"
@@ -7901,16 +7901,16 @@ msgid "Relative size of the small caps font compared to the normal font"
 msgstr "보통 글꼴과 비교한 소문자 글꼴의 상대적 크기"
 
 msgid "Percentage increase over the font size for the line spacing"
-msgstr "선 여백을 위한 글꼴 크기에서 백분율을 증가시킵니다."
+msgstr "줄 간격 지정하기 위한 글꼴 크기 비율"
 
 msgid "Displacement below the baseline of the normal font expressed as a percentage of the fonts descender"
-msgstr "하행글꼴의 백분율로 표현되는 일반 글꼴의 기준선 아래 변위"
+msgstr "하행글꼴의 백분율로 나타내는 일반 글꼴의 기준선 아래 변위"
 
 msgid "Line width expressed as a percentage of the font size"
-msgstr "글꼴 크기의 백분율로 표현되는 선 너비"
+msgstr "글꼴 크기 백분율로 나타내는 줄 너비"
 
 msgid "Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender"
-msgstr "상행글꼴의 백분율로 표현되는 일반 글꼴의 기준선 아래 변위"
+msgstr "상행글꼴의 백분율로 표현되는 일반 글꼴의 기준선 위 변위"
 
 msgid "DX:"
 msgstr "DX:"
@@ -7919,7 +7919,7 @@ msgid "DY:"
 msgstr "DY:"
 
 msgid "Curve Files (*.scu);;All Files (*)"
-msgstr "곡선 파일 (*.scu);;모든 파일 (*)"
+msgstr "곡선 파일 (*.scu);;전체 파일 (*)"
 
 msgid ""
 "Cannot write the file: \n"
@@ -7947,7 +7947,7 @@ msgid "Character Palette"
 msgstr "문자 팔레트"
 
 msgid "Scribus Char Palette (*.ucp);;All Files (*)"
-msgstr "Scribus 문자 팔레트 (*.ucp);;모든 파일 (*)"
+msgstr "Scribus 문자 팔레트 (*.ucp);;전체 파일 (*)"
 
 msgid "Enhanced Palette"
 msgstr "사용자 문자표"
@@ -8061,13 +8061,13 @@ msgid "Clean the Palette?"
 msgstr "팔레트를 지울까요?"
 
 msgid "You will clean all characters from this palette. Are you sure?"
-msgstr "팔레트에서 모든 문자를 삭제합니다. 이 작업을 할까요?"
+msgstr "팔레트에서 전체 문자를 삭제할까요?"
 
 msgid "No Problems found"
 msgstr "이상이 없음"
 
 msgid "Transparency used"
-msgstr "사용된 투명도"
+msgstr "사용 투명도"
 
 msgid "Blendmode used"
 msgstr "사용된 혼합모드"
@@ -8079,7 +8079,7 @@ msgid "Problems found"
 msgstr "문제가 발생"
 
 msgid "&Ignore Errors"
-msgstr "에러 무시(&I)"
+msgstr "오류 무시(&I)"
 
 msgid "Items"
 msgstr "항목"
@@ -8175,13 +8175,13 @@ msgid "Preset Layouts:"
 msgstr "배치 사전 조정:"
 
 msgid "Apply settings to:"
-msgstr "설정을 적용:"
+msgstr "설정 적용: "
 
 msgid "All Document Pages"
-msgstr "모든 문서 페이지"
+msgstr "전체 문서 페이지"
 
 msgid "All Master Pages"
-msgstr "모든 마스터 페이지"
+msgstr "전체 마스터 페이지"
 
 msgid "Apply the margin changes to all existing pages in the document"
 msgstr "문서에서 전 페이지에 여백 변경을 적용합니다"
@@ -8193,7 +8193,7 @@ msgid "Printer Margins..."
 msgstr "프린터 여백..."
 
 msgid "Import the margins for the selected page size from the available printers."
-msgstr "이용가능한 프린터로부터 선택된 페이지 여백을 읽습니다."
+msgstr "사용할 프린터에서 선택된 페이지 여백 읽기."
 
 msgid "Distance between the top margin guide and the edge of the page"
 msgstr "위 여백 안내선과 페이지 가장자리 사이의 거리"
@@ -8202,16 +8202,16 @@ msgid "Distance between the bottom margin guide and the edge of the page"
 msgstr "아래 여백 안내선과 페이지 가장자리 사이의 거리"
 
 msgid "Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding"
-msgstr "왼쪽 여백 안내선과 페이지 모서리 사이의 거리. 양면이라면 3 또는 4면 접힘 배치를 선택합니다. 이 여백 공간은 제본하기 위한 정확한 여백을 만들기 위하여 사용합니다."
+msgstr "왼쪽 여백 안내선과 페이지 모서리 사이의 거리. 2-접힘,3-접힘,4-접힘을 선택할 경우 이 여백 공간은 제본하기 위한 정확한 여백을 만들기 위하여 사용."
 
 msgid "Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding"
-msgstr "오른쪽 여백 안내선과 페이지 모서리 사이의 거리. 양면이라면 3 또는 4면 접힘 배치를 선택합니다. 이 여백 공간은 제본하기 위한 정확한 여백을 만들기 위하여 사용합니다."
+msgstr "오른쪽 여백 안내선과 페이지 모서리 사이의 거리. 2-접힘,3-접힘,4-접힘을 선택할 경우 이 여백 공간은 제본하기 위한 정확한 여백을 만들기 위하여 사용."
 
 msgid "&Inside:"
-msgstr "안쪽(&I)"
+msgstr "왼쪽(&I)"
 
 msgid "O&utside:"
-msgstr "바깥쪽(&u):"
+msgstr "오른쪽(&u):"
 
 msgid "Gutenberg"
 msgstr "구텐베르크"
@@ -8229,7 +8229,7 @@ msgid "Nine Parts"
 msgstr "나인 파트"
 
 msgid "You can select a predefined page layout here. 'None' leave margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value."
-msgstr "미리 정의된 페이지 배치를 선택할 수 있습니다. 없음은 여백을 그데로 두며, 구텐베르그는 여백을 고전적으로 설정합니다. 매거진은 모든 여백을 동일 한 값으로 설정합니다. 리딩은 왼쪽/안쪽 값입니다."
+msgstr "미리 정의된 페이지 배치를 선택. 없음은 여백을 그대로 두며, 구텐베르그는 여백을 고전적으로 설정. 매거진은 전체 여백을 동일 한 값으로 설정. 리딩은 왼쪽/안쪽 값임."
 
 msgid "Units:"
 msgstr "단위:"
@@ -8250,31 +8250,31 @@ msgid "Action history length"
 msgstr "작업내역 길이"
 
 msgid "Width of document pages, editable if you have chosen a custom page size"
-msgstr "문서 페이지의 너비, 사용자 페이지 크기를 선택한다면 편집가능함.."
+msgstr "페이지 너비, 사용자 페이지를 선택하면 편집가능"
 
 msgid "Height of document pages, editable if you have chosen a custom page size"
-msgstr "사용자 페이지 크기를 선택할 수 있을 때 문서 페이지 높이"
+msgstr "페이지 높이, 사용자 페이지를 선택하면 편집가능"
 
 msgid "Default page size, either a standard size or a custom size"
-msgstr "기본 페이지 크기, 표준이나 사용자 크기임"
+msgstr "기본 페이지 크기, 표준크기 또는 사용자 크기 선택"
 
 msgid "Default orientation of document pages"
-msgstr "문서 페이지의 기본 방향"
+msgstr "페이지 기본 방향"
 
 msgid "When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses"
-msgstr "가능할 때 Scribus는 반복적으로 일정한 시간이 지나면 .bak확장자를 가진 복사 파일을 저장합니다"
+msgstr "Scribus가 반복적으로 일정한 시간 경과 후 .bak파일 저장"
 
 msgid "Time period between saving automatically"
-msgstr "자동으로 저장되는 시간 간격"
+msgstr "자동저장 시간 간격"
 
 msgid "Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored."
-msgstr "작업내역 저장 길이를 설정합니다. 0이라면 무제한 저장됨니다."
+msgstr "저장될 작업내역 갯수 설정. 0은 무제한 저장."
 
 msgid "Apply the page size changes to all existing pages in the document"
-msgstr "문서에서 모든 페이지에 페이지 크기 변경을 적용한다."
+msgstr "문서에서 전체 페이지에 페이지 크기 변경을 적용한다."
 
 msgid "Apply the page size changes to all existing master pages in the document"
-msgstr "문서에서 모든 마스터 페이지에 페이지 크기 변경을 적용한다."
+msgstr "문서에서 전체 마스터 페이지에 페이지 크기 변경을 적용한다."
 
 msgid "%1 may be corrupted : missing or wrong resolution tags"
 msgstr "%1이 충돌이 일어남 : 없거나 잘못된 해상도 태그"
@@ -8316,7 +8316,7 @@ msgid "Timed out when attempting to get update file."
 msgstr "업데이트 파일을 얻으려시도할 때 타임아웃됨"
 
 msgid "Error when attempting to get update file: %1"
-msgstr "업데이트 파일 %1을 얻으려고 시도할 때 에러가 발생"
+msgstr "업데이트 파일 %1을 얻으려고 시도할 때 오류가 발생"
 
 msgid "File not found on server"
 msgstr "서버에서 파일을 찾을 수 없음"
@@ -8326,13 +8326,13 @@ msgid ""
 "Error:%2 at line: %3, row: %4"
 msgstr ""
 "버전 파일을 열 수가 없습니다: %1\n"
-"에러: %2    행: %3,  열: %4"
+"오류: %2    행: %3,  열: %4"
 
 msgid "An error occurred while looking for updates for Scribus, please check your internet connection."
-msgstr "Scribus를 업데이트를 찾는 동안 발생한 에러, 인터넷 연결을 체크하여 주세요."
+msgstr "Scribus를 업데이트를 찾는 동안 발생한 오류, 인터넷 연결을 체크하여 주세요."
 
 msgid "No updates are available for your version of Scribus %1"
-msgstr "Scribus %1 버전에 사용되는 업데이트가 없습니다."
+msgstr "Scribus %1 버전을 업데이트 할 수 없습니다."
 
 msgid "One or more updates for your version of Scribus (%1) are available:"
 msgstr "Scribus (%1) 버전의 하나 이상의  업데이트를 이용할 수 있습니다."
@@ -8350,7 +8350,7 @@ msgid "Load"
 msgstr "불러오기"
 
 msgid "Load Set"
-msgstr "설정을 읽기"
+msgstr "설정 읽기"
 
 msgid "Remove All"
 msgstr "전체 삭제"
@@ -8365,7 +8365,7 @@ msgid "Default Character Style"
 msgstr "기본 문자 스타일"
 
 msgid "An error occurred while opening ICC profiles, color management is not enabled."
-msgstr "ICC 프로파일을 여는 동안 에러가 발생하여 색상관리를 사용할 수 없습니다."
+msgstr "ICC 프로파일을 여는 동안 오류가 발생하여 색상관리를 사용할 수 없습니다."
 
 msgid "New Layer"
 msgstr "새 레이어"
@@ -8383,13 +8383,13 @@ msgid "The item %1 is currently being edited by Story Editor. The delete operati
 msgstr "항목 %1은 현재 스토리 편집기에 의해 편집 중입니다. 삭제 기능이 취소될 것입니다."
 
 msgid "Some objects are locked."
-msgstr "객체를 잠금"
+msgstr "객체 잠금"
 
 msgid "&Unlock All"
 msgstr "전체 잠금 해제(&U)"
 
 msgid "&Skip locked objects"
-msgstr "잠긴 객체 넘김(&S)"
+msgstr "잠긴 객체 생략(&S)"
 
 msgid ""
 "Number of copies: %1\n"
@@ -8750,7 +8750,7 @@ msgid "File %1 is not in an acceptable format"
 msgstr "파일 %1이 허용된 형식이 아닙니다."
 
 msgid "Loading..."
-msgstr "불어오는 중..."
+msgstr "읽어오는 중..."
 
 msgid "Some ICC profiles used by this document are not installed:"
 msgstr "이 문서에 이용된 몇몇 ICC 프로파일이 설치되지 않았습니다."
@@ -8765,13 +8765,13 @@ msgid "The changes to your document have not been saved and you have requested t
 msgstr "현재 편집 내용이 저장되지 않고 직전에 저장되었던 현재 파일 읽기를 합니다. 계속 하시겠습니까?"
 
 msgid "Documents (*.sla *.sla.gz);;All Files (*)"
-msgstr "문서 (*.sla *.sla.gz);;모든 파일 (*)"
+msgstr "문서 (*.sla *.sla.gz);;전체 파일 (*)"
 
 msgid "Saving..."
 msgstr "저장 중..."
 
 msgid "Scribus has detected some errors. Consider using the Preflight Verifier to correct them"
-msgstr "Scribus가 에러를 발견되었습니다. 정확하게 하기 위하여 문서 검증하는 것을 고려하십시요."
+msgstr "Scribus에서 오류가 발견되었습니다. 정확하게 하기 위하여 문서 검증하십시요."
 
 msgid "&Ignore"
 msgstr "무시(&I)"
@@ -8815,7 +8815,7 @@ msgid ""
 msgstr "정확하게 하기 위하여 검증자의 준비를 사용하는 것을 고려합니다."
 
 msgid "EPS Files (*.eps);;All Files (*)"
-msgstr "EPS 파일 (*.eps);;모든 파일 (*)"
+msgstr "EPS 파일 (*.eps);;전체 파일 (*)"
 
 msgid ""
 "Detected some errors.\n"
@@ -8951,10 +8951,10 @@ msgid "-underline "
 msgstr "-밑줄"
 
 msgid "+strikeout "
-msgstr "+스트라이크아웃"
+msgstr "+취소선"
 
 msgid "-strikeout "
-msgstr "-스트라이크아웃"
+msgstr "-취소선"
 
 msgid "+shadow "
 msgstr "+음영"
@@ -8963,10 +8963,10 @@ msgid "-shadow "
 msgstr "-음영"
 
 msgid "+outline "
-msgstr "-윤곽선"
+msgstr "-외곽선"
 
 msgid "-outline "
-msgstr "-윤곽선"
+msgstr "-외곽선"
 
 msgid "+tracking %1 "
 msgstr "+추적 %1"
@@ -9026,7 +9026,7 @@ msgid "New From Template"
 msgstr "서식에서 불러오기"
 
 msgid "Load documents with predefined layout"
-msgstr "정의된 배치로 문서 불러오기"
+msgstr "사전 정의된 배치로 문서 불러오기"
 
 msgid "Start a document from a template made by other users or yourself (f.e. for documents you have a constant style)."
 msgstr "사용자에 의해 만들어진 서식으로 부터 문서를 시작하세요."
@@ -9168,7 +9168,7 @@ msgid "Scalable Vector Graphics"
 msgstr "크기를 조정할 수 있는 벡터 그래픽"
 
 msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
-msgstr "SVG-이미지 (*.svg *.svgz);;모든 파일 (*)"
+msgstr "SVG-이미지 (*.svg *.svgz);;전체 파일 (*)"
 
 msgid "The file could not be imported"
 msgstr "파일을 불러올 수 없습니다."
@@ -9207,7 +9207,7 @@ msgid "OpenOffice.org 1.x Draw"
 msgstr "OpenOffice.org 1.x Draw"
 
 msgid "OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"
-msgstr "OpenOffice.org Draw (*.sxd *.odg);;모든 파일 (*)"
+msgstr "OpenOffice.org Draw (*.sxd *.odg);;전체 파일 (*)"
 
 msgid "This file contains some unsupported features"
 msgstr "이 파일에 지원하지 특성을 포함하고 있습니다."
@@ -9433,7 +9433,7 @@ msgstr ""
 "벡터 데이타를 Scribus 객체로 변환."
 
 msgid "All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;"
-msgstr "모든 지원 형식 (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;"
+msgstr "전체 지원 형식 (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;"
 
 msgid "12 or 13 digits"
 msgstr "12 또는 13 디지트"
@@ -9478,7 +9478,7 @@ msgid "Variable number of hexadecimal characters"
 msgstr "16진수의 변수"
 
 msgid "Error opening file: %1"
-msgstr "%1 파일 열기 에러"
+msgstr "%1 파일 열기 오류"
 
 msgid "Barcode incomplete"
 msgstr "바코드 부정확"
@@ -9514,7 +9514,7 @@ msgid "&Include text in barcode"
 msgstr "바코드에 텍스트를 넣음(&I)"
 
 msgid "If checked, there will be numbers in the barcode too"
-msgstr "체크가 되었다면 바코드에서 숫자들이 있을 것입니다.??????"
+msgstr "체크가 되었다면 바코드에서 숫자들이 있음."
 
 msgid "&Guard whitespace"
 msgstr "whitespace 보기(&G)"
@@ -9547,10 +9547,10 @@ msgid "&Lines"
 msgstr "선(&L)"
 
 msgid "Color of the lines in barcode"
-msgstr "바코드의 선 색상"
+msgstr "바코드 선 색상"
 
 msgid "Color of the text and numbers"
-msgstr "텍스트와 숫자의 색상"
+msgstr "텍스트와 숫자 색상"
 
 msgid "Hints and help is shown here"
 msgstr "힌트와 도움말이 여기 보임"
@@ -9559,7 +9559,7 @@ msgid "Preview of the result. 72dpi sample."
 msgstr "72dpi샘플로 결과물 미리보기"
 
 msgid "OpenDocument Text Documents"
-msgstr "오픈문서 텍스트 문서 열기"
+msgstr "OpenDocument 텍스트 문서"
 
 msgid "OpenDocument Importer Options"
 msgstr "OpenDocument 읽기 설정"
@@ -9580,7 +9580,7 @@ msgid "Use document name as a prefix for paragraph styles"
 msgstr "문단 스타일에 접두어로 문서이름을 사용합니다."
 
 msgid "Prepend the document name to the paragraph style name in Scribus."
-msgstr "Scribus에서 문서 이름을 문단 스타일 이름으로 둡니다.???"
+msgstr "Scribus에서 문서 이름을 문단 스타일 이름으로 설정"
 
 msgid "Do not ask again"
 msgstr "다시 질문하지 않음"
@@ -9601,7 +9601,7 @@ msgid "Could not open file %1"
 msgstr "%1 파일을 열 수 없음"
 
 msgid "This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one."
-msgstr "파일이 PDB 문서로 인식을 할 수 없습니다. 발견된 에러를 보고하여 주세요.."
+msgstr "파일이 PDB 문서로 인식을 할 수 없습니다. 발견된 오류를 보고하여 주세요.."
 
 msgid "HTML Files"
 msgstr "HTML 파일"
@@ -9648,28 +9648,28 @@ msgid "First row is a header"
 msgstr "첫행이 헤더"
 
 msgid "Comma Separated Value Files"
-msgstr "콤마로 불리된 파일"
+msgstr "콤마로 분리된 파일"
 
 msgid "CSV_data"
-msgstr "CSV_데이타"
+msgstr "CSV_자료"
 
 msgid "CSV_header"
 msgstr "CSV_헤더"
 
 msgid "OpenOffice.org Writer Importer Options"
-msgstr "OpenOffice.org Writer 읽기 설정"
+msgstr "OpenOffice Writer 읽기 설정"
 
 msgid "Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document."
 msgstr "이들 설정을 기본값으로 만들고 OpenOffice.org 1.x 문서를 읽을 때 나타나지 않게 합니다."
 
 msgid "OpenOffice.org Writer Documents"
-msgstr "OpenOffice.org Writer 문서"
+msgstr "OpenOffice Writer 문서"
 
 msgid "Create filter"
 msgstr "필터 생성"
 
 msgid "Choose a previously saved filter"
-msgstr "전에 저장된 필터를 선택"
+msgstr "이전 저장된 필터를 선택"
 
 msgid "Give a name to this filter for saving"
 msgstr "저장하기 위한 필터 이름 부여"
@@ -9717,22 +9717,22 @@ msgid "all instances of"
 msgstr "모든 경우"
 
 msgid "all paragraphs"
-msgstr "모든 문단"
+msgstr "전체 문단"
 
 msgid "paragraphs starting with"
-msgstr "문단이 시작 중"
+msgstr "문단 시작 중"
 
 msgid "paragraphs with less than"
 msgstr "보다 적은 문단"
 
 msgid "paragraphs with more than"
-msgstr "보다 많은 문다"
+msgstr "보다 많은 문단"
 
 msgid "Short Words"
 msgstr "반단어"
 
 msgid "Apply unbreakable space on:"
-msgstr "unbreakable space 적용:"
+msgstr "연결공백 적용:"
 
 msgid "&Selected frames"
 msgstr "선택된 프레임 (&S)"
@@ -9741,7 +9741,7 @@ msgid "Active &page"
 msgstr "활성화 페이지(&p)"
 
 msgid "&All items"
-msgstr "모든 항목(&A)"
+msgstr "전체 항목(&A)"
 
 msgid "Only selected frames processed."
 msgstr "선택된 프레임만 처리됨."
@@ -9750,19 +9750,19 @@ msgid "Only actual page processed."
 msgstr "실제 페이지만 처리됨."
 
 msgid "All items in document processed."
-msgstr "문서의 모든 항목이 처리됨."
+msgstr "문서에서 처리된 전체 항목."
 
 msgid "Custom (optional) configuration: "
 msgstr "사용자(옵션) 설정"
 
 msgid "Standard configuration: "
-msgstr "표준 설정"
+msgstr "표준 설정: "
 
 msgid "Short &Words..."
 msgstr "반단어...(&W)"
 
 msgid "Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: "
-msgstr "반단어 앞 또는 뒤에 non-breaking space를 더하기 위한 특별한 플러그인. 다음과 같은 언어에서 이용할 수 있습니다."
+msgstr "반단어 앞 또는 뒤에 연결 공백을 더하기 위한 특별한 플러그인. 다음과 같은 언어에서 이용할 수 있습니다."
 
 msgid "Short Words processing. Wait please..."
 msgstr "반단어 처리 중. 잠시 기다리세요..."
@@ -9832,7 +9832,7 @@ msgid "Save as Image"
 msgstr "이미지로 저장"
 
 msgid "Error writing the output file(s)."
-msgstr "출력파일로 쓰기 에러"
+msgstr "출력파일로 쓰기 오류"
 
 msgid "Export successful"
 msgstr "내보내기 성공"
@@ -9847,13 +9847,13 @@ msgid "Choose a Export Directory"
 msgstr "내보낼 폴더를 선택하세요"
 
 msgid "Export as Image(s)"
-msgstr "이미지로서 내보내기"
+msgstr "이미지로 내보내기"
 
 msgid "&Export to Directory:"
-msgstr "폴더로 내보내기:(&E)"
+msgstr "폴더로 내보내기(&E):"
 
 msgid "Image &Type:"
-msgstr "이미지 형식:(&T)"
+msgstr "이미지 형식(&T):"
 
 msgid "&Quality:"
 msgstr "품질(&Q):"
@@ -9871,10 +9871,10 @@ msgid "Image size in Pixels"
 msgstr "이미지 화소 크기"
 
 msgid "Export a range of pages"
-msgstr "범위내의 페이지를 내보내기"
+msgstr "범위내 페이지를 내보내기"
 
 msgid "Export all pages"
-msgstr "모든 페이지 내보내기"
+msgstr "전체 페이지 내보내기"
 
 msgid "Export only the current page"
 msgstr "현재 페이지만 내보내기"
@@ -9902,7 +9902,7 @@ msgid ""
 "Name of the export file will be 'documentname-pagenumber.filetype'"
 msgstr ""
 "이미지 저장할 폴더\n"
-"출력 파일명은 문서명-페이지수.파일형태로 만든다."
+"출력 파일명은 문서명-페이지수.파일형태로 생성."
 
 msgid "Change the output directory"
 msgstr "출력 폴더를 변경"
@@ -9914,13 +9914,13 @@ msgid "Leave preview"
 msgstr "미리보기 나오기"
 
 msgid "Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name."
-msgstr "글꼴 이름에서 텍스트의 타이핑은 빠른 찾기를 제공하며 찾기는 대소문자를 무시한다. 문구에서 와일드키를 제공할 수있다.(*, ?, [...]) 예: t*는 t나 T로 시작하는 모든 글꼴을 나타내어 준다. *bold*는 이름에서 bold, bolder등의 모든 글꼴을 나타내어 준다. "
+msgstr "글꼴 이름에서 텍스트의 입력은 빠른 찾기를 제공하며 찾기는 대소문자를 무시한다. 문구에서 와일드키를 제공할 수있다.(*, ?, [...]) 예: t*는 t나 T로 시작하는 전체 글꼴을 나타내어 준다. *bold*는 이름에서 bold, bolder등의 전체 글꼴을 나타내어 준다. "
 
 msgid "Start searching"
 msgstr "찾기 시작"
 
 msgid "Size of the selected font"
-msgstr "선택된 글꼴 크기"
+msgstr "선택 글꼴 크기"
 
 msgid "Sample will be shown after key release"
 msgstr "키가 해제된 후 예제가 보여짐"
@@ -9959,7 +9959,7 @@ msgid "&Font Size:"
 msgstr "글꼴 크기(&F):"
 
 msgid "Sample text to display"
-msgstr "보이기 위한 샘플 텍스트"
+msgstr "보기 위한 샘플 텍스트"
 
 msgid "Se&t"
 msgstr "조정(&t)"
@@ -9980,7 +9980,7 @@ msgid "Save a document as a template"
 msgstr "문서를 서석으로 저장"
 
 msgid "Save a document as a template. Good way to ease the initial work for documents with a constant look"
-msgstr "문서를 서식으로 저장. 문서의 초기 작업을 쉽게 할 수있는 방법임."
+msgstr "문서를 서식으로 저장. 문서 초기 작업을 쉽게 할 수 있게 합니다."
 
 msgid "Save as Template"
 msgstr "서식으로 저장"
@@ -10037,7 +10037,7 @@ msgid "Cannot get column count of non-text frame."
 msgstr "비 텍스트 프렘의 열수를 얻을 수 없습니다."
 
 msgid "Cannot get line space of non-text frame."
-msgstr "비 텍스트 프렘임의 선 공백을 얻을 수 없습니다."
+msgstr "비 텍스트 프렘임의 줄 간격을 얻을 수 없습니다."
 
 msgid "Cannot get column gap of non-text frame."
 msgstr "비 텍스트 프렘임의 열의 여백을 얻을 수 없습니다."
@@ -10073,10 +10073,10 @@ msgid "Font not found."
 msgstr "글꼴을 찾을 수 없습니다."
 
 msgid "Line space out of bounds, must be >= 0.1."
-msgstr "선 공백이 범위밖입니다. 반드시 >=0.1 이어야 합니다."
+msgstr "줄 간격이 범위밖입니다. 반드시 >=0.1 이어야 합니다."
 
 msgid "Cannot set line spacing on a non-text frame."
-msgstr "비텍스트 프레임상에서 선 공백을 설정할 수없습니다."
+msgstr "비텍스트 프레임상에서 줄 간격을 설정할 수 없음."
 
 msgid "Column gap out of bounds, must be positive."
 msgstr "열 여백이 범위밖입니다. 반드시 양의 값이어야 합니다."
@@ -10103,7 +10103,7 @@ msgid "Cannot set text fill on a non-text frame."
 msgstr "비 텍스트 프레임에서 텍스트 채우기를 설정할 수 없습니다."
 
 msgid "Cannot set text stroke on a non-text frame."
-msgstr "비 텍스트 프레임에서 텍스트 스트로크를 설정할 수 없습니다."
+msgstr "비 텍스트 프레임에서 텍스트 외곽선을 설정할 수 없습니다."
 
 msgid "Cannot set text shade on a non-text frame."
 msgstr "비텍스트 프레임상에서 텍스트 음영을 설정할 수 없습니다."
@@ -10127,7 +10127,7 @@ msgid "Object is not a linked text frame, can't unlink."
 msgstr "객체가 링크된 텍스트 프레임이 아닙니다. 해제할 수 없습니다."
 
 msgid "Cannot convert a non-text frame to outlines."
-msgstr "비 텍스트 프레임을 윤곽선으로 변환시킬 수 없습니다."
+msgstr "비 텍스트 프레임을 외곽선으로 변환시킬 수 없습니다."
 
 msgid "Only text frames can be checked for overflowing"
 msgstr "단지 텍스트 프레임의 오버플로우를 체크할 수 있습니다."
@@ -10142,7 +10142,7 @@ msgid "&Execute Script..."
 msgstr "스크립트 실행...(&E)"
 
 msgid "Show &Console"
-msgstr "콘솔 보이기(&C)"
+msgstr "콘솔 보기(&C)"
 
 msgid "&About Script..."
 msgstr "스크립트 검사...(&A)"
@@ -10157,7 +10157,7 @@ msgid "&Recent Scripts"
 msgstr "최근 스크립트(&R)"
 
 msgid "Script error"
-msgstr "스크립트 에러"
+msgstr "스크립트 오류"
 
 msgid "If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please."
 msgstr "공식 스크립트를 실행중이라면 <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> 에 보고하세요."
@@ -10166,13 +10166,13 @@ msgid "This message is in your clipboard too. Use Ctrl+V to paste it into bug tr
 msgstr "이 메세지는 클립보드에 있습니다. Ctrl+V를 눌러 버그 편집기에 붙여넣기 하세요."
 
 msgid "There was an internal error while trying the command you entered. Details were printed to stderr. "
-msgstr "입력한 명령어를 실행하는 동안 내부 에러가 발생하였습니다. 자세한 사항은 stderr로 출력됩니다."
+msgstr "입력한 명령어를 실행하는 동안 내부 오류가 발생하였습니다. 자세한 사항은 stderr로 출력됩니다."
 
 msgid "Examine Script"
 msgstr "스크립트 검사"
 
 msgid "Python Scripts (*.py *.PY);;All Files (*)"
-msgstr "파이썬 스크립트(*.py *.PY);; 모든 파일 (*)"
+msgstr "파이썬 스크립트(*.py *.PY);; 전체 파일 (*)"
 
 msgid "Documentation for:"
 msgstr "문서:"
@@ -10187,7 +10187,7 @@ msgid "About Script"
 msgstr "스크립트에 대하여"
 
 msgid "Setting up the Python plugin failed. Error details were printed to stderr. "
-msgstr "실패한 파이썬 플러그인을 설정. 자세한 에러사항은 stderr에 출력됩니다."
+msgstr "실패한 파이썬 플러그인을 설정. 자세한 오류사항은 stderr에 출력됩니다."
 
 msgid "Extensions"
 msgstr "확장"
@@ -10205,7 +10205,7 @@ msgid "Startup Script:"
 msgstr "시동 스크립트"
 
 msgid "Errors:"
-msgstr "에러:"
+msgstr "오류:"
 
 msgid "Comments:"
 msgstr "주석:"
@@ -10244,7 +10244,7 @@ msgid "The image type must be a string."
 msgstr "이미지 형식이 문자열이어야 합니다."
 
 msgid "'allTypes' attribute is READ-ONLY"
-msgstr "모든 형식 속성은 READ-ONLY"
+msgstr "전체 형식 속성은 READ-ONLY"
 
 msgid "Failed to export image"
 msgstr "이미지 내보내기 실패"
@@ -10292,13 +10292,13 @@ msgid "Cannot scale by 0%."
 msgstr "%0에 의하여 비율을 정할 수 없습니다."
 
 msgid "Python Scripts (*.py *.PY);; All Files (*)"
-msgstr "파이썬 스크립트 (*.py *.PY);; 모든 파일 (*)"
+msgstr "파이썬 스크립트 (*.py *.PY);; 전체 파일 (*)"
 
 msgid "Run as Extension Script"
 msgstr "확장 스크립트로 실행"
 
 msgid "firstPageOrder is bigger than allowed."
-msgstr "첫째 페이지 오더가 허용치보다 큼."
+msgstr "첫째 페이지 순서가 허용치보다 큼."
 
 msgid "Failed to open document."
 msgstr "문서 열기 실패"
@@ -10424,7 +10424,7 @@ msgid "Cannot set style on a non-text frame."
 msgstr "비텍스트 프레임에서 스타일을 설정할 수 없음"
 
 msgid "Color not found - python error"
-msgstr "색상을 발견할 수 없음 - 파이썬 에러"
+msgstr "색상을 발견할 수 없음 - 파이썬 오류"
 
 msgid "Page number out of range."
 msgstr "범위 밖의 페이지 수"
@@ -10514,7 +10514,7 @@ msgstr ""
 " NoDocOpenError 가 나타납니다.프레임 이름을 필요한 함수에 넣지 않으면 함수는 현재 선택된 프렘임을 사용할 것입니다.\n"
 " 그렇지 않으면 작동시킬 프레임을 찾지 못하면  NoValidObjectError를 나타냅니다.많은 함수는 이해할 수없는 프레임 형태를 이용하고자\n"
 " 하면 WrongFrameTypeError 가 나타납니다.예를 들어 그래픽 프레임상의 텍스트 색상을 설정하는 것을\n"
-" 이해하지 못하면 예외가 나타날 것입니다. 파이썬 API에 놓여있는 호출 결과로 나타나는 에러를 항상 통과시킬 것입니다.\n"
+" 이해하지 못하면 예외가 나타날 것입니다. 파이썬 API에 놓여있는 호출 결과로 나타나는 오류를 항상 통과시킬 것입니다.\n"
 "제공된 함수와 문서 문자열에서 나타나는 에외목록은 불완전합니다.\n"
 "대부분의 파이썬 코드를 가진 이 목록이 함수호출에 의한 예외 때문에 없어지지는 \n"
 "않을 지라도 각 함수의 예외가 나타나는 자세한 사항은 함수 문서에서 제공을 할 것입니다.\n"
