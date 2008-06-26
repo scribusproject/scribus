@@ -822,6 +822,43 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
 	layout41a->addWidget( ScaleTxtV, 1, 2 );
 	layout41a->addWidget( ChScaleV, 1, 3 );
+
+	wordTrackingLabel = new QLabel( "Word Spacing", advancedWidgets );
+	layout41a->addWidget( wordTrackingLabel, 2, 0, 1, 4 );
+	wordTrackingHLayout = new QHBoxLayout;
+	wordTrackingHLayout->setSpacing( 3 );
+	wordTrackingHLayout->setMargin( 0 );
+	wordTrackingHLayout->setAlignment(Qt::AlignLeft);
+	minWordTrackingSpinBox = new ScrSpinBox( 1, 200, advancedWidgets, 0 );
+	minWordTrackingLabel = new QLabel( "Min:", advancedWidgets );
+	minWordTrackingLabel->setBuddy(minWordTrackingSpinBox);
+	wordTrackingHLayout->addWidget(minWordTrackingLabel);
+	wordTrackingHLayout->addWidget(minWordTrackingSpinBox);
+	normWordTrackingSpinBox = new ScrSpinBox( 1, 200, advancedWidgets, 0 );
+	normWordTrackingLabel = new QLabel( "Norm:", advancedWidgets );
+	normWordTrackingLabel->setBuddy(normWordTrackingSpinBox);
+	wordTrackingHLayout->addWidget(normWordTrackingLabel);
+	wordTrackingHLayout->addWidget(normWordTrackingSpinBox);
+	layout41a->addLayout(wordTrackingHLayout, 3, 0, 1, 4);
+	
+	glyphExtensionLabel = new QLabel( "Glyph Extension", advancedWidgets );
+	layout41a->addWidget( glyphExtensionLabel, 4, 0, 1, 4 );
+	glyphExtensionHLayout = new QHBoxLayout;
+	glyphExtensionHLayout->setSpacing( 3 );
+	glyphExtensionHLayout->setMargin( 0 );
+	glyphExtensionHLayout->setAlignment(Qt::AlignLeft);
+	minGlyphExtSpinBox = new ScrSpinBox( 90, 110, advancedWidgets, 0 );
+	minGlyphExtensionLabel = new QLabel( "Min:", advancedWidgets );
+	minGlyphExtensionLabel->setBuddy(minGlyphExtSpinBox);
+	glyphExtensionHLayout->addWidget(minGlyphExtensionLabel);
+	glyphExtensionHLayout->addWidget(minGlyphExtSpinBox);
+	maxGlyphExtSpinBox = new ScrSpinBox( 90, 110, advancedWidgets, 0 );
+	maxGlyphExtensionLabel = new QLabel( "Max:", advancedWidgets );
+	maxGlyphExtensionLabel->setBuddy(maxGlyphExtSpinBox);
+	glyphExtensionHLayout->addWidget(maxGlyphExtensionLabel);
+	glyphExtensionHLayout->addWidget(maxGlyphExtSpinBox);
+	layout41a->addLayout(glyphExtensionHLayout, 5, 0, 1, 4);
+
 	advancedWidgetsItem = TextTree->addWidget( tr("Advanced Settings"), advancedWidgets);
 
 	styleWidgets = new QFrame();
@@ -830,7 +867,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	GroupBox3aLayout = new QGridLayout(styleWidgets);
 	GroupBox3aLayout->setSpacing( 3 );
 	GroupBox3aLayout->setMargin( 3 );
-	GroupBox3aLayout->setAlignment( Qt::AlignLeft );
+//	GroupBox3aLayout->setAlignment( Qt::AlignLeft );
 	paraStyleCombo = new ParaStyleComboBox(styleWidgets);
 	paraStyleLabel = new QLabel( "Paragraph St&yle:", styleWidgets );
 	paraStyleLabel->setBuddy(paraStyleCombo);
@@ -838,9 +875,9 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	paraStyleClear->setMaximumSize( QSize( 22, 22 ) );
 	paraStyleClear->setText("");
 	paraStyleClear->setIcon(loadIcon("16/edit-clear.png"));
-	GroupBox3aLayout->addWidget( paraStyleLabel, 0, 0 );
-	GroupBox3aLayout->addWidget( paraStyleCombo, 0, 1 );
-	GroupBox3aLayout->addWidget( paraStyleClear, 0, 2 );
+	GroupBox3aLayout->addWidget( paraStyleLabel, 0, 0, 1, 2 );
+	GroupBox3aLayout->addWidget( paraStyleCombo, 1, 0 );
+	GroupBox3aLayout->addWidget( paraStyleClear, 1, 1 );
 	charStyleCombo = new CharStyleComboBox(styleWidgets);
 	charStyleLabel = new QLabel( "Character St&yle:", styleWidgets );
 	charStyleLabel->setBuddy(charStyleCombo);
@@ -848,50 +885,10 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	charStyleClear->setMaximumSize( QSize( 22, 22 ) );
 	charStyleClear->setText("");
 	charStyleClear->setIcon(loadIcon("16/edit-clear.png"));
-	GroupBox3aLayout->addWidget( charStyleLabel, 1, 0 );
-	GroupBox3aLayout->addWidget( charStyleCombo, 1, 1 );
-	GroupBox3aLayout->addWidget( charStyleClear, 1, 2 );
-	optMarginCombo = new QComboBox(page_3);
-	optMarginLabel = new QLabel( "Optical Margins:", styleWidgets );
-	optMarginLabel->setBuddy(optMarginCombo);
-	GroupBox3aLayout->addWidget( optMarginLabel, 2, 0 );
-	GroupBox3aLayout->addWidget( optMarginCombo, 2, 1 );
+	GroupBox3aLayout->addWidget( charStyleLabel, 2, 0, 1, 2 );
+	GroupBox3aLayout->addWidget( charStyleCombo, 3, 0 );
+	GroupBox3aLayout->addWidget( charStyleClear, 3, 1 );
 	
-	wordTrackingLabel = new QLabel( "Word Spacing", styleWidgets );
-	GroupBox3aLayout->addWidget( wordTrackingLabel, 3, 0, 1, 3 );
-	wordTrackingHLayout = new QHBoxLayout;
-	wordTrackingHLayout->setSpacing( 3 );
-	wordTrackingHLayout->setMargin( 0 );
-	wordTrackingHLayout->setAlignment(Qt::AlignLeft);
-	minWordTrackingSpinBox = new ScrSpinBox( 1, 200, styleWidgets, 0 );
-	minWordTrackingLabel = new QLabel( "Min:", styleWidgets );
-	minWordTrackingLabel->setBuddy(minWordTrackingSpinBox);
-	wordTrackingHLayout->addWidget(minWordTrackingLabel);
-	wordTrackingHLayout->addWidget(minWordTrackingSpinBox);
-	normWordTrackingSpinBox = new ScrSpinBox( 1, 200, styleWidgets, 0 );
-	normWordTrackingLabel = new QLabel( "Norm:", styleWidgets );
-	normWordTrackingLabel->setBuddy(normWordTrackingSpinBox);
-	wordTrackingHLayout->addWidget(normWordTrackingLabel);
-	wordTrackingHLayout->addWidget(normWordTrackingSpinBox);
-	GroupBox3aLayout->addLayout(wordTrackingHLayout, 4, 0, 1, 3);
-	
-	glyphExtensionLabel = new QLabel( "Glyph Extension", styleWidgets );
-	GroupBox3aLayout->addWidget( glyphExtensionLabel, 5, 0, 1, 3 );
-	glyphExtensionHLayout = new QHBoxLayout;
-	glyphExtensionHLayout->setSpacing( 3 );
-	glyphExtensionHLayout->setMargin( 0 );
-	glyphExtensionHLayout->setAlignment(Qt::AlignLeft);
-	minGlyphExtSpinBox = new ScrSpinBox( 90, 110, styleWidgets, 0 );
-	minGlyphExtensionLabel = new QLabel( "Min:", styleWidgets );
-	minGlyphExtensionLabel->setBuddy(minGlyphExtSpinBox);
-	glyphExtensionHLayout->addWidget(minGlyphExtensionLabel);
-	glyphExtensionHLayout->addWidget(minGlyphExtSpinBox);
-	maxGlyphExtSpinBox = new ScrSpinBox( 90, 110, styleWidgets, 0 );
-	maxGlyphExtensionLabel = new QLabel( "Max:", styleWidgets );
-	maxGlyphExtensionLabel->setBuddy(maxGlyphExtSpinBox);
-	glyphExtensionHLayout->addWidget(maxGlyphExtensionLabel);
-	glyphExtensionHLayout->addWidget(maxGlyphExtSpinBox);
-	GroupBox3aLayout->addLayout(glyphExtensionHLayout, 6, 0, 1, 3);
 	styleWidgetsItem = TextTree->addWidget( tr("Style Settings"), styleWidgets);
 
 	flopBox = new QFrame();
@@ -956,9 +953,15 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	DistanceLayout->addWidget( rightLabel, 5, 0 );
 	DistanceLayout->addWidget( DRight, 5, 1 );
 
+	optMarginCombo = new QComboBox(Distance);
+	optMarginLabel = new QLabel( "Optical Margins:", Distance );
+	optMarginLabel->setBuddy(optMarginCombo);
+	DistanceLayout->addWidget( optMarginLabel, 6, 0 );
+	DistanceLayout->addWidget( optMarginCombo, 6, 1 );
+
 	TabsButton = new QToolButton( Distance );
 	TabsButton->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
-	DistanceLayout->addWidget( TabsButton, 6, 0, 1, 2 );
+	DistanceLayout->addWidget( TabsButton, 7, 0, 1, 2 );
 	DistanceItem = TextTree->addWidget( tr("Distance of Text"), Distance);
 
 	Distance2 = new QFrame();
@@ -2749,6 +2752,17 @@ void PropertiesPalette::setLvalue(double scx, double scy, double x, double y)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
+	disconnect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
+	disconnect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
+	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
+	disconnect(keepImageWHRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKette()));
+	disconnect(keepImageDPIRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKetteD()));
+	if (scx != scy)
+	{
+		keepImageWHRatioButton->setChecked(false);
+		keepImageDPIRatioButton->setChecked(false);
+	}
 	if (tmp)
 	{
 		imageXOffsetSpinBox->setValue(x * m_unitRatio * CurItem->imageXScale());
@@ -2767,6 +2781,12 @@ void PropertiesPalette::setLvalue(double scx, double scy, double x, double y)
 		imgDpiX->setValue(72);
 		imgDpiY->setValue(72);
 	}
+	connect(keepImageWHRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKette()));
+	connect(keepImageDPIRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKetteD()));
+	connect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
+	connect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
+	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	HaveItem = tmp;
 }
 
