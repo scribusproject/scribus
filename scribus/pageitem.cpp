@@ -1283,7 +1283,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 		}
 		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 		embedded->Dirty = Dirty;
-		embedded->invalid = invalid;
+		embedded->invalid = true;
 		double sc;
 		double pws = embedded->m_lineWidth;
 		embedded->DrawObj_Pre(p, sc);
@@ -4565,6 +4565,39 @@ void PageItem::AdjustPictScale()
 		imageClip.map(cl);
 	}
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY );
+}
+
+void PageItem::setExternalFile(QString val)
+{
+	Pfile = val;
+	if (!Pfile.isEmpty())
+	{
+		QString test = QDir::cleanPath(QDir::convertSeparators(QDir::homePath()+"/"+Pfile));
+		QFileInfo pfi2(test);
+		Pfile = pfi2.absoluteFilePath();
+	}
+}
+
+void PageItem::setFileIconPressed(QString val)
+{
+	Pfile2 = val;
+	if (!Pfile2.isEmpty())
+	{
+		QString test = QDir::cleanPath(QDir::convertSeparators(QDir::homePath()+"/"+Pfile2));
+		QFileInfo pfi2(test);
+		Pfile2 = pfi2.absoluteFilePath();
+	}
+}
+
+void PageItem::setFileIconRollover(QString val)
+{
+	Pfile3 = val;
+	if (!Pfile3.isEmpty())
+	{
+		QString test = QDir::cleanPath(QDir::convertSeparators(QDir::homePath()+"/"+Pfile3));
+		QFileInfo pfi2(test);
+		Pfile3 = pfi2.absoluteFilePath();
+	}
 }
 
 QRect PageItem::getRedrawBounding(const double viewScale)

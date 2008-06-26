@@ -396,13 +396,13 @@ public:
 	QString Pfile2;
 	QString Pfile3;
 	QString externalFile() const { return Pfile; }
-	void setExternalFile(QString val) { Pfile = val; }
+	void setExternalFile(QString val);
 	
 	//FIXME: maybe these should go into annotation?
 	QString fileIconPressed() const { return Pfile2; }
-	void setFileIconPressed(QString val) { Pfile2 = val; }
+	void setFileIconPressed(QString val);
 	QString fileIconRollover() const { return Pfile3; }
-	void setFileIconRollover(QString val) { Pfile3 = val; }
+	void setFileIconRollover(QString val);
 	
 	QString IProfile;
 	bool UseEmbedded;

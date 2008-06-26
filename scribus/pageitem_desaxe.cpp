@@ -167,11 +167,11 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 		latexframe = dynamic_cast<const PageItem_LatexFrame*>(item);
 	
 	if ((item->itemType()==PageItem::ImageFrame || item->itemType()==PageItem::TextFrame) && (!item->externalFile().isEmpty()) && !latexframe)
-		result.insert("image-file", Path2Relative(item->externalFile()));
+		result.insert("image-file", Path2Relative(item->externalFile(), QDir::homePath()));
 	if (!item->fileIconPressed().isEmpty())
-		result.insert("icon-pressed-file", Path2Relative(item->fileIconPressed()));
+		result.insert("icon-pressed-file", Path2Relative(item->fileIconPressed(), QDir::homePath()));
 	if (!item->fileIconRollover().isEmpty())
-		result.insert("icon-rollover-file", Path2Relative(item->fileIconRollover()));	
+		result.insert("icon-rollover-file", Path2Relative(item->fileIconRollover(), QDir::homePath()));
 	if (latexframe) {
 		result.insert("latex-dpi", toXMLString(latexframe->dpi()));
 		result.insert("latex-configfile", latexframe->configFile());

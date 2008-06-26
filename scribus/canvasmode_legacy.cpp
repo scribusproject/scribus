@@ -145,7 +145,8 @@ void LegacyMode::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
 			  || (textframe->CPos >= textframe->itemText.length() && textframe->itemText.text(textframe->itemText.length()-1) != SpecialChars::PARSEP) )
 	{
 		FRect bbox = textframe->itemText.boundingBox(qMax(0,qMin(textframe->lastInFrame(), textframe->itemText.length()-1)));
-		x = static_cast<int>(bbox.x() + textframe->itemText.item(qMax(0,qMin(textframe->lastInFrame(), textframe->itemText.length()-1)))->glyph.wide());
+		x = static_cast<int>(bbox.x() + bbox.width());
+//		x = static_cast<int>(bbox.x() + textframe->itemText.item(qMax(0,qMin(textframe->lastInFrame(), textframe->itemText.length()-1)))->glyph.wide());
 		y = static_cast<int>(bbox.y());
 		if (bbox.height() <= 2)
 			y1 = static_cast<int>(bbox.y() + textframe->itemText.defaultStyle().charStyle().fontSize() / 30);

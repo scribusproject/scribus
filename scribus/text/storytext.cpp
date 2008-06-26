@@ -1246,8 +1246,18 @@ FRect StoryText::boundingBox(int pos, uint len) const
 			{
 				double xpos = ls.x;
 				for (int j = ls.firstItem; j < pos; ++j)
-					xpos += item(j)->glyph.wide();
-				result.setRect(xpos, ls.y - ls.ascent, pos < length()? item(pos)->glyph.wide() : 1, ls.ascent + ls.descent);
+				{
+					if (item(j)->ch == SpecialChars::OBJECT)
+						xpos += (object(j)->gWidth + object(j)->lineWidth());
+					else
+						xpos += item(j)->glyph.wide();
+				}
+				double finalw = 1;
+				if (item(pos)->ch == SpecialChars::OBJECT)
+					finalw = (object(pos)->gWidth + object(pos)->lineWidth());
+				else
+					finalw = item(pos)->glyph.wide();
+				result.setRect(xpos, ls.y - ls.ascent, pos < length()? finalw : 1, ls.ascent + ls.descent);
 			}
 			return result;
 		}
