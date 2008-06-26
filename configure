@@ -1,0 +1,62 @@
+#!/bin/sh
+# CB: Based on http://websvn.kde.org/trunk/KDE/kdelibs/configure
+# Scribus rev 0.1 - remove all but the prefix echoing for now
+
+# Internal variables.
+alnum=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
+CMAKEFLAGS=
+srcdir="."
+
+# Get command line options. We use getopt to "break them down into nice, digestible particles".
+set -- `getopt -l "srcdir:,prefix:,eprefix:,bindir:,sbindir:,libexecdir:,sysconfdir:,libdir:,includedir:,oldincludedir:,datarootdir:,datadir:,infodir:,localedir:,mandir:,docdir:,htmldir:,dvidir:,pdfdir:,psdir:,quiet,silent,version,help,run" hVqn "$@"`
+test $# -lt 1  && exit 1
+while test $# -gt 0 
+do
+  case "$1" in
+    -h|--help) echo "$help"; exit;;
+    -V|--version) cmake --version; exit;;
+       --srcdir) srcdir="$2"; shift;;
+       --prefix) prefix="$2"; shift;;
+       --bindir) bindir="$2"; shift;;
+       --libdir) libdir="$2"; shift;;
+       --includedir) includedir="$2"; shift;;
+    --) shift; break;;
+  esac
+  shift
+done
+
+# Set up CMake flags.
+
+# Set prefix
+if test -n "$prefix"; then
+  CMAKEFLAGS="$CMAKEFLAGS -DCMAKE_INSTALL_PREFIX:PATH=$prefix"
+fi
+# Set bindir.
+# if test -n "$bindir"; then
+#   CMAKEFLAGS="$CMAKEFLAGS -DBIN_INSTALL_DIR:PATH=$bindir"
+# fi
+# Set libdir.
+# if test -n "$libdir"; then
+#   CMAKEFLAGS="$CMAKEFLAGS -DLIB_INSTALL_DIR:PATH=$libdir"
+# fi
+# Set includedir.
+# if test -n "$includedir"; then
+#   CMAKEFLAGS="$CMAKEFLAGS -DINCLUDE_INSTALL_DIR:PATH=$includedir"
+# fi
+
+# print info.
+echo ""
+echo "Scribus uses the CMake (http://www.cmake.org) buildsystem instead of configure."
+echo "CMake uses different options than configure, but some have direct equivalents:"
+echo "   <srcdir>           : the source directory"
+echo "   --prefix=<dir>     : -DCMAKE_INSTALL_PREFIX:PATH=<dir>"
+# echo "   --bindir=<dir>     : -DBIN_INSTALL_DIR:PATH=<dir>"
+# echo "   --includedir=<dir> : -DINCLUDE_INSTALL_DIR:PATH=<dir>"
+# echo "   --libdir=<dir>     : -DLIB_INSTALL_DIR:PATH=<dir>"
+echo "Once CMake has run successfully, you can use \"make edit_cache\" to view and modify all settings."
+# echo "For more information visit \"http://techbase.kde.org/Development/Tutorials/CMake#Run_CMake\""
+echo ""
+echo "Your current configure options translate more or less to:"
+echo "   cmake$CMAKEFLAGS $srcdir ; make ; make install"
+echo ""
+
