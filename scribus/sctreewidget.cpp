@@ -100,7 +100,7 @@ ScTreeWidget::ScTreeWidget(QWidget* pa) : QTreeWidget(pa)
 	header()->hide();
 	header()->setResizeMode(QHeaderView::Stretch);
 	viewport()->setBackgroundRole(QPalette::Window);
-    connect(this, SIGNAL(itemPressed(QTreeWidgetItem*,int)), this, SLOT(handleMousePress(QTreeWidgetItem*)));
+    connect(this, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(handleMousePress(QTreeWidgetItem*)));
 }
 
 QTreeWidgetItem* ScTreeWidget::addWidget(QString title, QWidget* widget)
