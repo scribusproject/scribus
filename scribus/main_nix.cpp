@@ -65,8 +65,14 @@ int main(int argc, char *argv[])
 int mainApp(int argc, char **argv)
 {
 	emergencyActivated=false;
+
 	ScribusQApp app(argc, argv);
 	initCrashHandler();
+/* possible fix for the Qt-4.4.0 locale problem */
+#ifdef Q_OS_UNIX
+	setlocale(LC_ALL, "C");                // use correct char set mapping
+	setlocale(LC_NUMERIC, "C");        // make sprintf()/scanf() work
+#endif
 	app.parseCommandLine();
 	if (app.useGUI)
 	{
