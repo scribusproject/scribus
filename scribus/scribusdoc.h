@@ -485,6 +485,11 @@ public:
 
 	bool AddFont(QString name, int fsize = 10);
 	/*!
+	 * @brief TODO: Reorganise the fonts.. how? Moved from scribus.cpp
+	 * CB: almost the same as getUsedFonts???
+	 */
+	void reorganiseFonts();
+	/*!
 	 * @brief Returns a qmap of the fonts and  their glyphs used within the document
 	 */
 	void getUsedFonts(QMap<QString,QMap<uint, FPointArray> > &Really);
@@ -513,10 +518,6 @@ public:
 	QStringList getUsedPatterns();
 	QStringList getUsedPatternsSelection();
 	QStringList getUsedPatternsHelper(QString pattern, QStringList &results);
-	/*!
-	 * @brief TODO: Reorganise the fonts.. how? Moved from scribus.cpp
-	 */
-	void reorganiseFonts();
 	/**
 	 * @brief Set and get the document's unit index
 	 */

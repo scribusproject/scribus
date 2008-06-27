@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QEventLoop>
 #include <QFile>
 #include <QList>
+#include <QTime>
 #include <QPainter>
 #include <QPixmap>
 #include <QProgressBar>
@@ -2718,6 +2719,71 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 	return pats;
 }
 
+void ScribusDoc::reorganiseFonts()
+{
+	QTime t;
+	t.start();
+	QMap<QString,int> Really;
+	//QMap<QString,QFont> DocF;
+	//DocF = UsedFonts;
+	uint counter = 0;
+	for (uint lc = 0; lc < 3; ++lc)
+	{
+		switch (lc)
+		{
+			case 0:
+				counter = MasterItems.count();
+				break;
+			case 1:
+				counter = DocItems.count();
+				break;
+			case 2:
+				counter = FrameItems.count();
+				break;
+		}
+		PageItem* it = NULL;
+		for (uint d = 0; d < counter; ++d)
+		{
+			switch (lc)
+			{
+				case 0:
+					it = MasterItems.at(d);
+					break;
+				case 1:
+					it = DocItems.at(d);
+					break;
+				case 2:
+					it = FrameItems.at(d);
+					break;
+			}
+			QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());
+			Really.insert(fontName, UsedFonts[fontName]);
+			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+			{
+				uint itemTextCount=it->itemText.length();
+				for (uint e = 0; e < itemTextCount; ++e)
+				{
+					Really.insert(it->itemText.charStyle(e).font().replacementName(), UsedFonts[it->itemText.charStyle(e).font().replacementName()]);
+				}
+			}
+		}
+	}
+	QMap<QString,int>::Iterator itfo, itnext;
+	for (itfo = UsedFonts.begin(); itfo != UsedFonts.end(); itfo = itnext)
+	{
+		itnext = itfo;
+		++itnext;
+		if (!Really.contains(itfo.key()))
+		{
+			(*AllFonts)[itfo.key()].decreaseUsage();
+			UsedFonts.erase(itfo);
+		}
+	}
+	PrefsManager* prefsManager=PrefsManager::instance();
+	AddFont(prefsManager->appPrefs.toolSettings.defFont);//, prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.toolSettings.defFont]->Font);
+	AddFont(toolSettings.defFont);//, prefsManager->appPrefs.AvailFonts[toolSettings.defFont]->Font);
+	qDebug( "Time elapsed: %d ms", t.elapsed() );
+}
 
 void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 {
@@ -2978,70 +3044,6 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 		else if (ScCore->PrinterProfiles.contains(*pIter))
 			usedProfiles[*pIter] = ScCore->PrinterProfiles[*pIter];
 	}
-}
-
-
-void ScribusDoc::reorganiseFonts()
-{
-	QMap<QString,int> Really;
-	//QMap<QString,QFont> DocF;
-	//DocF = UsedFonts;
-	uint counter = 0;
-	for (uint lc = 0; lc < 3; ++lc)
-	{
-		switch (lc)
-		{
-			case 0:
-				counter = MasterItems.count();
-				break;
-			case 1:
-				counter = DocItems.count();
-				break;
-			case 2:
-				counter = FrameItems.count();
-				break;
-		}
-		PageItem* it = NULL;
-		for (uint d = 0; d < counter; ++d)
-		{
-			switch (lc)
-			{
-				case 0:
-					it = MasterItems.at(d);
-					break;
-				case 1:
-					it = DocItems.at(d);
-					break;
-				case 2:
-					it = FrameItems.at(d);
-					break;
-			}
-			QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());
-			Really.insert(fontName, UsedFonts[fontName]);
-			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
-			{
-				uint itemTextCount=it->itemText.length();
-				for (uint e = 0; e < itemTextCount; ++e)
-				{
-					Really.insert(it->itemText.charStyle(e).font().replacementName(), UsedFonts[it->itemText.charStyle(e).font().replacementName()]);
-				}
-			}
-		}
-	}
-	QMap<QString,int>::Iterator itfo, itnext;
-	for (itfo = UsedFonts.begin(); itfo != UsedFonts.end(); itfo = itnext)
-	{
-		itnext = itfo;
-		++itnext;
-		if (!Really.contains(itfo.key()))
-		{
-			(*AllFonts)[itfo.key()].decreaseUsage();
-			UsedFonts.erase(itfo);
-		}
-	}
-	PrefsManager* prefsManager=PrefsManager::instance();
-	AddFont(prefsManager->appPrefs.toolSettings.defFont);//, prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.toolSettings.defFont]->Font);
-	AddFont(toolSettings.defFont);//, prefsManager->appPrefs.AvailFonts[toolSettings.defFont]->Font);
 }
 
 
