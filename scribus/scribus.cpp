@@ -3889,7 +3889,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		{
 			view->close();
 			delete fileLoader;
-			delete view;
+// 			delete view;
 			delete doc;
 			delete w;
 			view=NULL;
@@ -4435,6 +4435,7 @@ bool ScribusMainWindow::DoFileClose()
 	actionManager->disconnectNewDocActions();
 	actionManager->disconnectNewViewActions();
 	disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+	/*CB currently unused
 	if (doc->viewCount > 1)
 	{
 		--doc->viewCount;
@@ -4448,7 +4449,7 @@ bool ScribusMainWindow::DoFileClose()
 		doc = NULL;
 		ActWin = NULL;
 		return true;
-	}
+	}*/
 	undoManager->removeStack(doc->DocName);
 	closeActiveWindowMasterPageEditor();
 	slotSelect();
@@ -4592,7 +4593,9 @@ bool ScribusMainWindow::DoFileClose()
 	}
 	QString fName(view->Doc->DocName);
 	view->close();
-	delete view;
+// 	delete view;
+	//CB Yes, we are setting it to NULL without deleting it. ActWin(ScribusWin) owns the view
+	//due to it being the central widget and will delete it at the correct moment from its own pointer.
 	view = NULL;
 	doc->setLoading(true);
 	guidePalette->setDoc(0);
@@ -8090,6 +8093,7 @@ void ScribusMainWindow::doSaveAsPDF()
 	}
 /*	if (bookmarkPalette->BView->childCount() == 0)
 		doc->PDF_Options.Bookmarks = false; */
+	doc->reorganiseFonts();
 	QMap<QString, int> ReallyUsed = doc->UsedFonts;
 	if (doc->PDF_Options.EmbedList.count() != 0)
 	{

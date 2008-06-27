@@ -169,6 +169,9 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["fileExportAsEPS"], SIGNAL(triggered()), mainWindow, SLOT(SaveAsEps()) );
 	connect( (*scrActions)["fileExportAsPDF"], SIGNAL(triggered()), mainWindow, SLOT(SaveAsPDF()) );
 	//The rest are plugins
+	
+	
+	(*scrActions)["fileClose"]->setShortcutContext(Qt::WidgetShortcut);
 }
 
 void ActionManager::initEditMenuActions()
