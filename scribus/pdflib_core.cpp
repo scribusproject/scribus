@@ -4132,7 +4132,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				if (hl->ch == SpecialChars::OBJECT)
 				{
 					InlineFrame& embedded(const_cast<InlineFrame&>(hl->embedded));
-					CurX += (embedded.getItem()->gWidth + embedded.getItem()->lineWidth());
+					CurX += (embedded.getItem()->gWidth + embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
 				}
 				else
 					CurX += hl->glyph.wide();

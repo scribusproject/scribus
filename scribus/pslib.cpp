@@ -3283,7 +3283,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 			if (hl->ch == SpecialChars::OBJECT)
 			{
 				InlineFrame& embedded(const_cast<InlineFrame&>(hl->embedded));
-				CurX += (embedded.getItem()->gWidth + embedded.getItem()->lineWidth());
+				CurX += (embedded.getItem()->gWidth + embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
 			}
 			else
 				CurX += hl->glyph.wide();

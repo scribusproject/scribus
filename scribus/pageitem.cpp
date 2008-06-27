@@ -1265,6 +1265,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 			if (style.baselineOffset() != 0)
 				mm.translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
 			mm.scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+			mm.rotate(embedded->rotation());
 			cl.map( mm );
 			p->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
 			groupStack.push(embedded->groupsLastItem);

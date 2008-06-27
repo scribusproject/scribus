@@ -2422,7 +2422,16 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 //							wide = CurX + hl->glyph.xoffset - xcoZli + hl->glyph.xadvance;
 //						}
 						if (!m_Doc->RePos)
-							p->drawRect(xcoZli, ls.y + hl->glyph.yoffset - asce * hl->glyph.scaleV, wide+1, (asce+desc) * (hl->glyph.scaleV));
+						{
+							if (hl->ch == SpecialChars::OBJECT)
+							{
+								double ww = (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
+								double hh = (hl->embedded.getItem()->gHeight + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleV;
+								p->drawRect(xcoZli, ls.y - hh, ww+1, hh);
+							}
+							else
+								p->drawRect(xcoZli, ls.y + hl->glyph.yoffset - asce * hl->glyph.scaleV, wide+1, (asce+desc) * (hl->glyph.scaleV));
+						}
 						p->setBrush(qApp->palette().color(QPalette::Active, QPalette::HighlightedText));
 					}
 					// FIXME temporary solution to have at least something like a cursor
@@ -2459,7 +2468,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 						p->restore();
 					}
 					if (hl->ch == SpecialChars::OBJECT)
-						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
+						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
 					else
 						CurX += hl->glyph.wide();
 				}
