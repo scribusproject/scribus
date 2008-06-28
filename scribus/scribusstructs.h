@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QAction>
 #include <QByteArray>
+#include <QDebug>
 #include <QKeySequence>
 #include <QList>
 #include <QPolygon>
@@ -198,6 +199,8 @@ class MarginStruct
 		MarginStruct(double top, double left, double bottom, double right) :
 			Top(top), Left(left), Bottom(bottom), Right(right) {}
 		MarginStruct(const MarginStruct& rhs) {Top=rhs.Top;Bottom=rhs.Bottom;Left=rhs.Left;Right=rhs.Right;}
+		void set(double top, double left, double bottom, double right) {Top=top;Bottom=bottom;Left=left;Right=right;}
+		void print() {qDebug() << Top << Left << Bottom << Right;}
 		double Top;
 		double Left;
 		double Bottom;
