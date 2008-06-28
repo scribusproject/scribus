@@ -202,6 +202,8 @@ protected:
 	bool facingPages;
 	bool useBleeds;
 	int pageType;
+	MarginStruct savedMargins;
+	int savedPresetItem;
 };
 
 #endif

@@ -26,10 +26,10 @@ pageType(0)
 	RandB = margs->Bottom;
 	RandR = margs->Right;
 	RandL = margs->Left;
+	savedMargins=*margs;
+	savedPresetItem=PresetLayout::none;//we dont recheck if we are using a layout but always start at none
 	facingPages = false;
 	useBleeds = showBleeds;
-
-
 	marginPage = new QWidget(this);
 
 	presetCombo = new PresetLayout(marginPage);
@@ -317,26 +317,37 @@ void MarginWidget::setPreset()
 	disconnect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	disconnect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
+	if (savedPresetItem==PresetLayout::none)
+		savedMargins.set(RandT, RandL, RandB, RandR);
 	int item = presetCombo->currentIndex();
-	MarginStruct marg = presetCombo->getMargins(item, pageWidth * m_unitRatio, pageHeight * m_unitRatio, leftR->value());
+
+// 	MarginStruct marg = presetCombo->getMargins(item, pageWidth * m_unitRatio, pageHeight * m_unitRatio, leftR->value());
+	MarginStruct marg = presetCombo->getMargins(item, pageWidth, pageHeight, leftR->value() / m_unitRatio);
 	facingPages ? presetCombo->setEnabled(true) : presetCombo->setEnabled(false);
-	if (presetCombo->needUpdate() && facingPages)
+	bool restoringValues=false;
+	if (item==PresetLayout::none && savedPresetItem!=PresetLayout::none)
 	{
-		leftR->setValue(qMax(0.0, marg.Left));
-		rightR->setValue(qMax(0.0, marg.Right));
-		topR->setValue(qMax(0.0, marg.Top));
-		bottomR->setValue(qMax(0.0, marg.Bottom));
-		RandT = topR->value() / m_unitRatio;
-		RandB = bottomR->value() / m_unitRatio;
-		RandL = leftR->value() / m_unitRatio;
-		RandR = rightR->value() / m_unitRatio;
+		marg=savedMargins;
+		restoringValues=true;
+	}
+	if (restoringValues || (presetCombo->needUpdate() && facingPages))
+	{
+		RandT = qMax(0.0, marg.Top);
+		RandB = qMax(0.0, marg.Bottom);
+		RandL = qMax(0.0, marg.Left);
+		RandR = qMax(0.0, marg.Right);
+		leftR->setValue(marg.Left * m_unitRatio);
+		rightR->setValue(marg.Right * m_unitRatio);
+		topR->setValue(marg.Top * m_unitRatio);
+		bottomR->setValue(marg.Bottom * m_unitRatio);
+		
 		bottomR->setMaximum(qMax(0.0, pageHeight * m_unitRatio - topR->value()));
 		topR->setMaximum(qMax(0.0, pageHeight * m_unitRatio - bottomR->value()));
 		rightR->setMaximum(qMax(0.0, pageWidth * m_unitRatio - leftR->value()));
 		leftR->setMaximum(qMax(0.0, pageWidth * m_unitRatio - rightR->value()));
-		rightR->setEnabled(false);
-		topR->setEnabled(false);
-		bottomR->setEnabled(false);
+		rightR->setEnabled(restoringValues);
+		topR->setEnabled(restoringValues);
+		bottomR->setEnabled(restoringValues);
 	}
 	else
 	{
@@ -351,6 +362,7 @@ void MarginWidget::setPreset()
 	connect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
 	connect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
+	savedPresetItem=item;
 }
 
 void MarginWidget::setPageSize(const QString& pageSize)
@@ -487,7 +499,7 @@ PresetLayout::PresetLayout(QWidget *parent) : QComboBox(parent)
 	addItem( tr("Nine Parts"), PresetLayout::nineparts);
 	setCurrentIndex(PresetLayout::none);
 
-	this->setToolTip( "<qt>" + tr("You can select a predefined page layout here. 'None' leave margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value.") + "</qt>");
+	this->setToolTip( "<qt>" + tr("You can select a predefined page layout here. 'None' leaves margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins to the same value. Leading is Left/Inside value.") + "</qt>");
 }
 
 MarginStruct PresetLayout::getMargins(int index, double pageWidth, double pageHeight, double leftMargin)
