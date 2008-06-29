@@ -189,7 +189,6 @@ public:
 	struct CopyPasteBuffer Buffer;
 	struct CopyContentsBuffer contentsBuffer;
 	QString Buffer2;
-	QString Buffer3;
 	bool BuFromApp;
 	bool internalCopy;
 	int HaveDoc;
