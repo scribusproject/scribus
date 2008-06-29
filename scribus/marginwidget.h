@@ -54,7 +54,7 @@ public:
 	};
 
 	/*! \brief returns updateMargins value */
-	bool needUpdate();
+	bool needUpdate() const;
 
 private:
 	/*! \brief Flag if is needed to recompute values and disable widgets */
@@ -92,18 +92,21 @@ public:
 	/*! \brief Set the page size for margin getting from cups */
 	void setPageSize(const QString& pageSize);
 	
+	/*! \brief Margins
+	\retval MarginStruct data */
+	const MarginStruct& margins() const;
 	/*! \brief Top Margin
 	\retval double margin size */
-	double top();
+	double top() const;
 	/*! \brief Bottom Margin
 	\retval double margin size */
-	double bottom();
+	double bottom() const;
 	/*! \brief Left Margin
 	\retval double margin size */
-	double left();
+	double left() const;
 	/*! \brief Right Margin
 	\retval double margin size */
-	double right();
+	double right() const;
 
 	/*! \brief set new margin values for the dialog
 	It calls overridden setTop(), setBottom() etc. slots itself
@@ -114,16 +117,16 @@ public:
 	
 	/*! \brief Top Bleed
 	\retval double bleed size */
-	double topBleed();
+	double topBleed() const;
 	/*! \brief Bottom Bleed
 	\retval double bleed size */
-	double bottomBleed();
+	double bottomBleed() const;
 	/*! \brief Left Bleed
 	\retval double bleed size */
-	double leftBleed();
+	double leftBleed() const;
 	/*! \brief Right Bleed
 	\retval double bleed size */
-	double rightBleed();
+	double rightBleed() const;
 
 	/*! \brief set new bleed values for the dialog
 	\param b MarginStruct
@@ -132,8 +135,8 @@ public:
 	
 	/*! \brief Return marginsForAllPages property
 	\retval bool true to apply for all pages */
-	bool getMarginsForAllPages();
-	bool getMarginsForAllMasterPages();
+	bool getMarginsForAllPages() const;
+	bool getMarginsForAllMasterPages() const;
 
 private:
 	/*! Tabs */
@@ -164,14 +167,18 @@ private:
 	QCheckBox* marginsForAllMasterPages;
 	QPushButton* usePrinterMarginsButton;
 	LinkButton* linkBleeds;
-	/*! \brief Top margin value converted by unitRatio */
+	/*! \brief Margin values converted by unitRatio */
+	MarginStruct marginData;
+	/*
+	//! \brief Top margin value converted by unitRatio
 	double RandT;
-	/*! \brief Bottom margin value converted by unitRatio */
+	//! \brief Bottom margin value converted by unitRatio
 	double RandB;
-	/*! \brief Left margin value converted by unitRatio */
+	//! \brief Left margin value converted by unitRatio
 	double RandL;
-	/*! \brief Right margin value converted by unitRatio */
+	//! \brief Right margin value converted by unitRatio
 	double RandR;
+	*/
 	/*! \brief Internally used page width */
 	double pageWidth;
 	/*! \brief Internally used page height */

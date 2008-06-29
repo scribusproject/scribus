@@ -219,11 +219,7 @@ const bool ReformDoc::imageResolutionChanged()
 
 void ReformDoc::updateDocumentSettings()
 {
-	double tpr2, lr2, rr2, br2;
-	tpr2 = tabPage->marginGroup->top();
-	br2 = tabPage->marginGroup->bottom();
-	lr2 = tabPage->marginGroup->left();
-	rr2 = tabPage->marginGroup->right();
+	MarginStruct updatedMargins(tabPage->marginGroup->margins());
 	int fp = tabPage->choosenLayout;
 	currDoc->pageSets[fp].FirstPage = tabPage->docLayout->firstPage->currentIndex();
 //	currDoc->pageSets[fp].GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
@@ -231,7 +227,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
 //	currDoc->pageSets[fp].GapBelow = tabView->gapVertical->value() / currDoc->unitRatio();
 	//currDoc->FirstPnum = pageNumber->value();
-	currDoc->resetPage(tpr2, lr2, rr2, br2, fp);
+	currDoc->resetPage(updatedMargins, fp);
 	currDoc->PageOri = tabPage->pageOrientationComboBox->currentIndex();
 	currDoc->m_pageSize = tabPage->prefsPageSizeName;
 	currDoc->pageWidth = tabPage->pageW;
@@ -260,10 +256,7 @@ void ReformDoc::updateDocumentSettings()
 		}
 		if (tabPage->marginGroup->getMarginsForAllPages())
 		{
-			pp->initialMargins.Left = lr2;
-			pp->initialMargins.Right = rr2;
-			pp->initialMargins.Top = tpr2;
-			pp->initialMargins.Bottom = br2;
+			pp->initialMargins=updatedMargins;
 		}
 		else
 		if (tabPage->marginGroup->getMarginsForAllMasterPages())
@@ -278,10 +271,7 @@ void ReformDoc::updateDocumentSettings()
 				pp->initialMargins.Top == mp->initialMargins.Top &&
 				pp->initialMargins.Bottom == mp->initialMargins.Bottom)
 			{
-				pp->initialMargins.Left = lr2;
-				pp->initialMargins.Right = rr2;
-				pp->initialMargins.Top = tpr2;
-				pp->initialMargins.Bottom = br2;
+				pp->initialMargins=updatedMargins;
 			}
 		}
 	}
@@ -299,10 +289,7 @@ void ReformDoc::updateDocumentSettings()
 		}
 		if (tabPage->marginGroup->getMarginsForAllMasterPages())
 		{
-			pp->initialMargins.Left = lr2;
-			pp->initialMargins.Right = rr2;
-			pp->initialMargins.Top = tpr2;
-			pp->initialMargins.Bottom = br2;
+			pp->initialMargins=updatedMargins;
 		}
 		pp->setXOffset(currDoc->scratch.Left);
 		pp->setYOffset(currDoc->scratch.Top);

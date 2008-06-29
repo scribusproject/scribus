@@ -1336,13 +1336,9 @@ void ScribusDoc::setPage(double b, double h, double t, double l, double r, doubl
 //	PDF_Options.BleedBottom = pageMargins.Bottom;
 }
 
-
-void ScribusDoc::resetPage(double t, double l, double r, double bo, int fp)
+void ScribusDoc::resetPage(MarginStruct& newMargins, int fp)
 {
-	pageMargins.Top = t;
-	pageMargins.Left = l;
-	pageMargins.Right = r;
-	pageMargins.Bottom = bo;
+	pageMargins = newMargins;
 	currentPageLayout = fp;
 }
 

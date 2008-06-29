@@ -125,7 +125,7 @@ public:
 	bool isModified() const;
 /** Setzt die Seitenattribute */
 	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, int fp);
-	void resetPage(double t, double l, double r, double bo, int fp);
+	void resetPage(MarginStruct& newMargins, int fp);
 
 	/**
 	 * @brief Return the view associated with the document

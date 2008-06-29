@@ -22,10 +22,7 @@ for which a new license (GPL+exception) is in place.
 MarginWidget::MarginWidget( QWidget* parent, QString /*title*/, const MarginStruct* margs, int unitIndex, bool showChangeAll, bool showBleeds) : QTabWidget(parent),
 pageType(0)
 {
-	RandT = margs->Top;
-	RandB = margs->Bottom;
-	RandR = margs->Right;
-	RandL = margs->Left;
+	marginData=*margs;
 	savedMargins=*margs;
 	savedPresetItem=PresetLayout::none;//we dont recheck if we are using a layout but always start at none
 	facingPages = false;
@@ -38,13 +35,13 @@ pageType(0)
 	m_unitIndex=unitIndex;
 	m_unitRatio=unitGetRatioFromIndex(unitIndex);
 	leftR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
-	leftR->setValue(RandL * m_unitRatio);
+	leftR->setValue(marginData.Left * m_unitRatio);
 	rightR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
-	rightR->setValue(RandR * m_unitRatio);
+	rightR->setValue(marginData.Right * m_unitRatio);
 	topR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
-	topR->setValue(RandT * m_unitRatio);
+	topR->setValue(marginData.Top * m_unitRatio);
 	bottomR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
-	bottomR->setValue(RandB * m_unitRatio);
+	bottomR->setValue(marginData.Bottom * m_unitRatio);
 
 	bText = new QLabel( tr( "&Bottom:" ), marginPage);
 	bText->setBuddy(bottomR);
@@ -251,28 +248,28 @@ void MarginWidget::setPageHeight(double height)
 
 void MarginWidget::setTop()
 {
-	RandT = topR->value() / m_unitRatio;
+	marginData.Top = topR->value() / m_unitRatio;
 	bottomR->setMaximum(qMax(0.0, pageHeight * m_unitRatio - topR->value()));
 	setPreset();
 }
 
 void MarginWidget::setBottom()
 {
-	RandB = bottomR->value() / m_unitRatio;
+	marginData.Bottom = bottomR->value() / m_unitRatio;
 	topR->setMaximum(qMax(0.0, pageHeight * m_unitRatio - bottomR->value()));
 	setPreset();
 }
 
 void MarginWidget::setLeft()
 {
-	RandL = leftR->value() / m_unitRatio;
+	marginData.Left = leftR->value() / m_unitRatio;
 	rightR->setMaximum(qMax(0.0, pageWidth * m_unitRatio - leftR->value()));
 	setPreset();
 }
 
 void MarginWidget::setRight()
 {
-	RandR = rightR->value() / m_unitRatio;
+	marginData.Right = rightR->value() / m_unitRatio;
 	leftR->setMaximum(qMax(0.0, pageWidth * m_unitRatio - rightR->value()));
 	setPreset();
 }
@@ -318,10 +315,9 @@ void MarginWidget::setPreset()
 	disconnect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
 	if (savedPresetItem==PresetLayout::none)
-		savedMargins.set(RandT, RandL, RandB, RandR);
+		savedMargins=marginData;
 	int item = presetCombo->currentIndex();
 
-// 	MarginStruct marg = presetCombo->getMargins(item, pageWidth * m_unitRatio, pageHeight * m_unitRatio, leftR->value());
 	MarginStruct marg = presetCombo->getMargins(item, pageWidth, pageHeight, leftR->value() / m_unitRatio);
 	facingPages ? presetCombo->setEnabled(true) : presetCombo->setEnabled(false);
 	bool restoringValues=false;
@@ -332,10 +328,7 @@ void MarginWidget::setPreset()
 	}
 	if (restoringValues || (presetCombo->needUpdate() && facingPages))
 	{
-		RandT = qMax(0.0, marg.Top);
-		RandB = qMax(0.0, marg.Bottom);
-		RandL = qMax(0.0, marg.Left);
-		RandR = qMax(0.0, marg.Right);
+		marginData.set(qMax(0.0, marg.Top), qMax(0.0, marg.Left), qMax(0.0, marg.Bottom), qMax(0.0, marg.Right));
 		leftR->setValue(marg.Left * m_unitRatio);
 		rightR->setValue(marg.Right * m_unitRatio);
 		topR->setValue(marg.Top * m_unitRatio);
@@ -383,10 +376,10 @@ void MarginWidget::setMarginsToPrinterMargins()
 		leftR->setValue(l * m_unitRatio);
 		rightR->setValue(r * m_unitRatio);
 
-		RandT = t;
-		RandB = b;
-		RandL = l;
-		RandR = r;
+		marginData.Top = t;
+		marginData.Bottom = b;
+		marginData.Left = l;
+		marginData.Right = r;
 
 		bottomR->setMaximum((qMax(0.0, pageHeight - t) * m_unitRatio));
 		topR->setMaximum((qMax(0.0, pageHeight - b) * m_unitRatio));
@@ -399,24 +392,24 @@ void MarginWidget::setMarginsToPrinterMargins()
 	}
 }
 
-double MarginWidget::top()
+double MarginWidget::top() const
 {
-	return RandT;
+	return marginData.Top;
 }
 
-double MarginWidget::bottom()
+double MarginWidget::bottom() const
 {
-	return RandB;
+	return marginData.Bottom;
 }
 
-double MarginWidget::left()
+double MarginWidget::left() const
 {
-	return RandL;
+	return marginData.Left;
 }
 
-double MarginWidget::right()
+double MarginWidget::right() const
 {
-	return RandR;
+	return marginData.Right;
 }
 
 void MarginWidget::setNewMargins(MarginStruct &m)
@@ -425,26 +418,23 @@ void MarginWidget::setNewMargins(MarginStruct &m)
 	disconnect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	disconnect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
+	marginData=m;
 	topR->setValue(m.Top * m_unitRatio);
-	RandT = m.Top;
 	bottomR->setValue(m.Bottom * m_unitRatio);
-	RandB = m.Bottom;
 	leftR->setValue(m.Left * m_unitRatio);
-	RandL = m.Left;
 	rightR->setValue(m.Right * m_unitRatio);
-	RandR = m.Right;
 	connect(topR, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
 	connect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
 }
 
-bool MarginWidget::getMarginsForAllPages()
+bool MarginWidget::getMarginsForAllPages() const
 {
 	return marginsForAllPages->isChecked();
 }
 
-bool MarginWidget::getMarginsForAllMasterPages()
+bool MarginWidget::getMarginsForAllMasterPages() const
 {
 	return marginsForAllMasterPages->isChecked();
 }
@@ -465,22 +455,22 @@ void MarginWidget::setNewBleeds(MarginStruct& b)
 	connect(BleedBottom, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 }
 
-double MarginWidget::topBleed()
+double MarginWidget::topBleed() const
 {
 	return BleedTop->value() / m_unitRatio;
 }
 
-double MarginWidget::bottomBleed()
+double MarginWidget::bottomBleed() const
 {
 	return BleedBottom->value() / m_unitRatio;
 }
 
-double MarginWidget::leftBleed()
+double MarginWidget::leftBleed() const
 {
 	return BleedLeft->value() / m_unitRatio;
 }
 
-double MarginWidget::rightBleed()
+double MarginWidget::rightBleed() const
 {
 	return BleedRight->value() / m_unitRatio;
 }
@@ -547,7 +537,12 @@ MarginStruct PresetLayout::getMargins(int index, double pageWidth, double pageHe
 	return ret;
 }
 
-bool PresetLayout::needUpdate()
+bool PresetLayout::needUpdate() const
 {
 	return updateMargins;
+}
+
+const MarginStruct & MarginWidget::margins() const
+{
+	return marginData;
 }
