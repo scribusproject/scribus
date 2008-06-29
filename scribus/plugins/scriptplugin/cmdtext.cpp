@@ -137,6 +137,28 @@ PyObject *scribus_getlinespace(PyObject* /* self */, PyObject* args)
 	return PyFloat_FromDouble(static_cast<double>(i->currentStyle().lineSpacing()));
 }
 
+PyObject *scribus_gettextdistances(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	if (!i->asTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text distances of non-text frame.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	return Py_BuildValue("(dddd)",
+            PointToValue(i->textToFrameDistLeft()),
+            PointToValue(i->textToFrameDistRight()),
+            PointToValue(i->textToFrameDistTop()),
+            PointToValue(i->textToFrameDistBottom()));
+}
+
 PyObject *scribus_getcolumngap(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -425,6 +447,32 @@ PyObject *scribus_setlinespace(PyObject* /* self */, PyObject* args)
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;
+}
+
+PyObject *scribus_settextdistances(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	double l,r,t,b;
+	if (!PyArg_ParseTuple(args, "dddd|es", &l, &r, &t, &b, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (l < 0.0 || r < 0.0 || t < 0.0 || b < 0.0)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Text distances out of bounds, must be positive.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	if (!i->asTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text distances on a non-text frame.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	i->setTextToFrameDist(ValueToPoint(l), ValueToPoint(r), ValueToPoint(t), ValueToPoint(b));
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 PyObject *scribus_setcolumngap(PyObject* /* self */, PyObject* args)

@@ -91,6 +91,17 @@ points. If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_getlinespace(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_gettextdistances__doc__,
+QT_TR_NOOP("getTextDistances([\"name\"]) -> tuple\n\
+\n\
+Returns the text distances of the text frame \"name\" expressed in points. The\n\
+distances are returned as a tuple like (left, right, top, bottom). If \"name\"\n\
+is not given the currently selected item is used.\n\
+"));
+/*! Get text distances */
+PyObject *scribus_gettextdistances(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getcolumngap__doc__,
 QT_TR_NOOP("getColumnGap([\"name\"]) -> float\n\
 \n\
@@ -175,6 +186,19 @@ May throw ValueError if the line spacing is out of bounds.\n\
 "));
 /*! Set line space */
 PyObject *scribus_setlinespace(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_settextdistances__doc__,
+QT_TR_NOOP("setTextDistances(left, right, top, bottom, [\"name\"])\n\
+\n\
+Sets the text distances of the text frame \"name\" to the values \"left\"\n\
+\"right\", \"top\" and \"bottom\". If \"name\" is not given the currently\n\
+selected item is used.\n\
+\n\
+May throw ValueError if any of the distances are out of bounds (must be positive).\n\
+"));
+/*! Set text distances */
+PyObject *scribus_settextdistances(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setcolumngap__doc__,
