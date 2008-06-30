@@ -6304,11 +6304,12 @@ void ScribusDoc::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
 	}
 	// try to limit expansion of canvas to reasonable area:
 	
-	
+	int columns = pageSets[currentPageLayout].Columns;
+	int rows = 1 + DocPages.count() / columns;
 	newMinX = qMax(newMinX, -pageWidth);
 	newMinY = qMax(newMinY, -pageHeight);
-	newMaxX = qMin(newMaxX, pageMargins.Left + pageWidth + pageMargins.Right + pageWidth);
-	newMaxY = qMin(newMaxY, (pageMargins.Top + pageHeight + pageMargins.Bottom) * DocPages.count() + pageHeight);
+	newMaxX = qMin(newMaxX, (pageMargins.Left + pageWidth + pageMargins.Right) * columns + pageWidth);
+	newMaxY = qMin(newMaxY, (pageMargins.Top + pageHeight + pageMargins.Bottom) * rows + pageHeight);
 	if ((newMaxX != maxCanvasCoordinate.x()) || (newMaxY != maxCanvasCoordinate.y())
 	|| (newMinX != minCanvasCoordinate.x()) || (newMinY != minCanvasCoordinate.y()))
 	{
