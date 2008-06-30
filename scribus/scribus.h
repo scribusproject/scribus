@@ -141,8 +141,8 @@ public:
 	void setDefaultPrinter(const QString&, const QString&, const QString&);
 	void getDefaultPrinter(QString& name, QString& file, QString& command);
 
-	ScribusDoc *doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true);
-	ScribusDoc *newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true);
+	ScribusDoc *doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
+	ScribusDoc *newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
 	bool DoFileSave(const QString& fileName, QString* savedFileName = NULL);
 	void changeEvent(QEvent *e);
 	void closeEvent(QCloseEvent *ce);

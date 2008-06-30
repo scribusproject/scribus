@@ -231,6 +231,7 @@ void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
 	marginGroup->setNewMargins(prefsData->margins);
 	marginGroup->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
 	marginGroup->setNewBleeds(prefsData->bleeds);
+	marginGroup->setMarginPreset(prefsData->marginPreset);
 	GroupAS->setChecked( prefsData->AutoSave );
 	ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
 	connect(pageWidth, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
@@ -267,6 +268,7 @@ void TabDocument::restoreDefaults(ScribusDoc *prefsData)
 	marginGroup->setNewBleeds(prefsData->bleeds);
 	marginGroup->setNewMargins(prefsData->pageMargins);
 	marginGroup->setPageWidthHeight(prefsData->pageWidth, prefsData->pageHeight);
+	marginGroup->setMarginPreset(prefsData->marginPreset);
 	GroupAS->setChecked( prefsData->AutoSave );
 	ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
 	connect(pageWidth, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));

@@ -109,6 +109,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	GroupRand = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage()->initialMargins, doc->unitIndex(), false, false);
 	GroupRand->setPageWidthHeight(doc->currentPage()->width(), doc->currentPage()->height());
 	GroupRand->setFacingPages(!(doc->currentPageLayout == singlePage), doc->locationOfPage(doc->currentPage()->pageNr()));
+	GroupRand->setMarginPreset(doc->currentPage()->marginPreset);
 	dialogLayout->addWidget( GroupRand );
 
 	groupMaster = new QGroupBox( this );
@@ -323,4 +324,9 @@ double MarginDialog::right()
 QString MarginDialog::masterPage()
 {
 	return masterPageComboBox->currentText();
+}
+
+int MarginDialog::getMarginPreset()
+{
+	return GroupRand->getMarginPreset();
 }

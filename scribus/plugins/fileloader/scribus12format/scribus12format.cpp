@@ -254,6 +254,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->pageMargins.Right=qMax(0.0, dc.attribute("BORDERRIGHT").toDouble());
 		m_Doc->pageMargins.Top=qMax(0.0, dc.attribute("BORDERTOP").toDouble());
 		m_Doc->pageMargins.Bottom=qMax(0.0, dc.attribute("BORDERBOTTOM").toDouble());
+		m_Doc->marginPreset = dc.attribute("PRESET", "0").toInt();
 		m_Doc->PageOri = dc.attribute("ORIENTATION", "0").toInt();
 		m_Doc->m_pageSize = dc.attribute("PAGESIZE");
 		m_Doc->FirstPnum = dc.attribute("FIRSTNUM", "1").toInt();
@@ -432,6 +433,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_View->addPage(a);
 				//emit NewPage(a);
 				m_Doc->Pages->at(a)->LeftPg=pg.attribute("LEFT", "0").toInt();
+				m_Doc->Pages->at(a)->marginPreset = pg.attribute("PRESET", "0").toInt();
 
 				// guides reading
 				tmp = "";
@@ -1276,6 +1278,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						m_Doc->Pages->at(a),
 						GuideManagerCore::Standard,
 						pg.hasAttribute("NumHGuides"));
+				m_Doc->Pages->at(a)->marginPreset = pg.attribute("PRESET", "0").toInt();
 
 				QDomNode OBJ=PAGE.firstChild();
 				counter = m_Doc->Items->count();

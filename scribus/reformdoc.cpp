@@ -232,6 +232,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->m_pageSize = tabPage->prefsPageSizeName;
 	currDoc->pageWidth = tabPage->pageW;
 	currDoc->pageHeight = tabPage->pageH;
+	currDoc->marginPreset = tabPage->marginGroup->getMarginPreset();
 	double TopD = tabView->topScratch->value() / currDoc->unitRatio() - currDoc->scratch.Top;
 	double LeftD = tabView->leftScratch->value() / currDoc->unitRatio() - currDoc->scratch.Left;
 	currDoc->scratch.Bottom = tabView->bottomScratch->value() / currDoc->unitRatio();

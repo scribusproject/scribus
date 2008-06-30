@@ -69,6 +69,7 @@ public:
 	/*! \brief Master Page
 	\retval QString Master Page Name */
 	QString masterPage();
+	int getMarginPreset();
 
 public slots:
 	//! \brief as setOrien for orientationQComboBox current item

@@ -271,6 +271,7 @@ void NewDoc::createNewDocPage()
 	setSize(prefsManager->appPrefs.pageSize);
 	setOrien(prefsManager->appPrefs.pageOrientation);
 	marginGroup->setNewBleeds(prefsManager->appPrefs.bleeds);
+	marginGroup->setMarginPreset(prefsManager->appPrefs.marginPreset);
 
 	optionsGroupBox = new QGroupBox( newDocFrame );
 	optionsGroupBox->setTitle( tr( "Options" ) );

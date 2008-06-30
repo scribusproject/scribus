@@ -207,6 +207,7 @@ struct ApplicationPrefs
 	double PageWidth;
 	double PageHeight;
 	MarginStruct margins;
+	int marginPreset;
 	int FacingPages;
 	int MinWordLen;
 	int HyCount;

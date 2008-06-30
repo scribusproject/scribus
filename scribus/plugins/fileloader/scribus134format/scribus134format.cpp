@@ -313,6 +313,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->pageMargins.Right=qMax(0.0, dc.attribute("BORDERRIGHT").toDouble());
 		m_Doc->pageMargins.Top=qMax(0.0, dc.attribute("BORDERTOP").toDouble());
 		m_Doc->pageMargins.Bottom=qMax(0.0, dc.attribute("BORDERBOTTOM").toDouble());
+		m_Doc->marginPreset = dc.attribute("PRESET", "0").toInt();
 		m_Doc->bleeds.Top = dc.attribute("BleedTop", "0").toDouble();
 		m_Doc->bleeds.Left = dc.attribute("BleedLeft", "0").toDouble();
 		m_Doc->bleeds.Right = dc.attribute("BleedRight", "0").toDouble();
@@ -909,6 +910,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				Apage->initialMargins.Bottom = qMax(0.0, pg.attribute("BORDERBOTTOM").toDouble());
 				Apage->initialMargins.Left = qMax(0.0, pg.attribute("BORDERLEFT").toDouble());
 				Apage->initialMargins.Right = qMax(0.0, pg.attribute("BORDERRIGHT").toDouble());
+				Apage->marginPreset = pg.attribute("PRESET", "0").toInt();
 				Apage->Margins.Top = Apage->initialMargins.Top;
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
 				m_Doc->setMasterPageMode(false);
@@ -2768,6 +2770,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				Apage->initialMargins.Bottom = qMax(0.0, pg.attribute("BORDERBOTTOM").toDouble());
 				Apage->initialMargins.Left = qMax(0.0, pg.attribute("BORDERLEFT").toDouble());
 				Apage->initialMargins.Right = qMax(0.0, pg.attribute("BORDERRIGHT").toDouble());
+				Apage->marginPreset = pg.attribute("PRESET", "0").toInt();
 				Apage->Margins.Top = Apage->initialMargins.Top;
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
 				pageX = pg.attribute("PAGEXPOS").toDouble();

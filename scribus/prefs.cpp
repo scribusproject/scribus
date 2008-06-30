@@ -402,6 +402,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.margins.Bottom = tabDocument->marginGroup->bottom();
 	prefsManager->appPrefs.margins.Left = tabDocument->marginGroup->left();
 	prefsManager->appPrefs.margins.Right = tabDocument->marginGroup->right();
+	prefsManager->appPrefs.marginPreset = tabDocument->marginGroup->getMarginPreset();
 	prefsManager->appPrefs.FacingPages  = tabDocument->choosenLayout;
 	prefsManager->appPrefs.bleeds.Bottom = tabDocument->marginGroup->bottomBleed();
 	prefsManager->appPrefs.bleeds.Top = tabDocument->marginGroup->topBleed();

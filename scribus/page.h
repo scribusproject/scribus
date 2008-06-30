@@ -70,6 +70,7 @@ public:
 
 	QString m_pageSize;
 	int PageOri;
+	int marginPreset;
 	ScribusDoc* doc() const { return m_Doc; }
 	void setDocument(ScribusDoc* doc);
 	int pageNr() const { return m_pageNr; }

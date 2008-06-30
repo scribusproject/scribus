@@ -311,6 +311,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->pageMargins.Right=qMax(0.0, dc.attribute("BORDERRIGHT").toDouble());
 		m_Doc->pageMargins.Top=qMax(0.0, dc.attribute("BORDERTOP").toDouble());
 		m_Doc->pageMargins.Bottom=qMax(0.0, dc.attribute("BORDERBOTTOM").toDouble());
+		m_Doc->marginPreset = dc.attribute("PRESET", "0").toInt();
 		m_Doc->Automatic = static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt());
 		m_Doc->AutoCheck = static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt());
 		m_Doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
@@ -815,6 +816,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				Apage->initialMargins.Bottom = qMax(0.0, pg.attribute("BORDERBOTTOM").toDouble());
 				Apage->initialMargins.Left = qMax(0.0, pg.attribute("BORDERLEFT").toDouble());
 				Apage->initialMargins.Right = qMax(0.0, pg.attribute("BORDERRIGHT").toDouble());
+				Apage->marginPreset = pg.attribute("PRESET", "0").toInt();
 				Apage->Margins.Top = Apage->initialMargins.Top;
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
 				m_Doc->setMasterPageMode(false);
@@ -1140,6 +1142,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.setAttribute("BORDERRIGHT",m_Doc->pageMargins.Right);
 	dc.setAttribute("BORDERTOP",m_Doc->pageMargins.Top);
 	dc.setAttribute("BORDERBOTTOM",m_Doc->pageMargins.Bottom);
+	dc.setAttribute("PRESET",m_Doc->marginPreset);
 	dc.setAttribute("ORIENTATION",m_Doc->PageOri);
 	dc.setAttribute("PAGESIZE",m_Doc->m_pageSize);
 	dc.setAttribute("FIRSTNUM",m_Doc->FirstPnum);
@@ -2661,6 +2664,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				Apage->initialMargins.Bottom = qMax(0.0, pg.attribute("BORDERBOTTOM").toDouble());
 				Apage->initialMargins.Left = qMax(0.0, pg.attribute("BORDERLEFT").toDouble());
 				Apage->initialMargins.Right = qMax(0.0, pg.attribute("BORDERRIGHT").toDouble());
+				Apage->marginPreset = pg.attribute("PRESET", "0").toInt();
 				Apage->Margins.Top = Apage->initialMargins.Top;
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
 				pageX = pg.attribute("PAGEXPOS").toDouble();
@@ -3188,6 +3192,7 @@ void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElemen
 		pg.setAttribute("Size", page->m_pageSize);
 		pg.setAttribute("Orientation", page->PageOri);
 		pg.setAttribute("LEFT", page->LeftPg);
+		pg.setAttribute("PRESET", page->marginPreset);
 		pg.setAttribute("VerticalGuides", GuideManagerIO::writeVerticalGuides(
 													page, GuideManagerCore::Standard));
 		pg.setAttribute("HorizontalGuides", GuideManagerIO::writeHorizontalGuides(

@@ -2003,7 +2003,7 @@ void ScribusMainWindow::startUpDialog()
 				PageSize ps2(dia->pageSizeComboBox->currentText());
 				pagesize = ps2.name();
 			}
-			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount);
+			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount, true, dia->marginGroup->getMarginPreset());
 			doc->pageSets[facingPages].FirstPage = firstPage;
 			doc->bleeds.Bottom = dia->bleedBottom;
 			doc->bleeds.Top = dia->bleedTop;
@@ -2073,7 +2073,7 @@ bool ScribusMainWindow::slotFileNew()
 			PageSize ps2(dia->pageSizeComboBox->currentText());
 			pagesize = ps2.name();
 		}
-		if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount))
+		if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount, true, dia->marginGroup->getMarginPreset()))
 		{
 			doc->pageSets[facingPages].FirstPage = firstPage;
 			doc->bleeds.Bottom = dia->bleedBottom;
@@ -2097,9 +2097,9 @@ bool ScribusMainWindow::slotFileNew()
 }
 
 //TODO move to core, assign doc to doc list, optionally create gui for it
-ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount, bool showView)
+ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount, bool showView, int marginPreset)
 {
-	return doFileNew(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement, unitIndex, firstPageLocation, orientation, firstPageNumber, defaultPageSize, requiresGUI, pageCount, showView);
+	return doFileNew(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement, unitIndex, firstPageLocation, orientation, firstPageNumber, defaultPageSize, requiresGUI, pageCount, showView, marginPreset);
 	/* TODO CB finish later this week.
 	if (HaveDoc)
 		doc->OpenNodes = outlinePalette->buildReopenVals();
@@ -2178,7 +2178,7 @@ ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMar
 	*/
 }
 
-ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount, bool showView)
+ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount, bool showView, int marginPreset)
 {
 	if (HaveDoc)
 		outlinePalette->buildReopenVals();
@@ -2202,6 +2202,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		recalcColors();
 	//CB NOTE should be all done now
 	tempDoc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnCount, columnDistance, autoTextFrames, pageArrangement);
+	tempDoc->marginPreset = marginPreset;
 	tempDoc->setMasterPageMode(false);
 	tempDoc->createDefaultMasterPages();
 	tempDoc->createNewDocPages(pageCount);
@@ -6998,6 +6999,7 @@ void ScribusMainWindow::changePageMargins()
 			if (dia->masterPage() != Nam)
 				Apply_MasterPage(dia->masterPage(), doc->currentPage()->pageNr());
 		}
+		doc->currentPage()->marginPreset = dia->getMarginPreset();
 		view->reformPages(dia->getMoveObjects());
 		view->DrawNew();
 	}

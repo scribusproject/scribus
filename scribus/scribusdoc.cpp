@@ -258,6 +258,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	m_Selection(new Selection(this, true)),
 	pageWidth(pagesize.width()), pageHeight(pagesize.height()),
 	pageMargins(margins),
+	marginPreset(prefsData.marginPreset),
 	pageSets(prefsData.pageSets),
 	PageSp(pagesSetup.columnCount), PageSpa(pagesSetup.columnDistance),
 	currentPageLayout(pagesSetup.pageArrangement),
@@ -1525,6 +1526,7 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	addedPage->setPageNr(pageIndex);
 	addedPage->m_pageSize = m_pageSize;
 	addedPage->PageOri = PageOri;
+	addedPage->marginPreset = marginPreset;
 	DocPages.insert(pageIndex, addedPage);
 	assert(DocPages.at(pageIndex)!=NULL);
 	setCurrentPage(addedPage);
@@ -1557,6 +1559,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	addedPage->initialMargins.Right = pageMargins.Right;
 	addedPage->m_pageSize = m_pageSize;
 	addedPage->PageOri = PageOri;
+	addedPage->marginPreset = marginPreset;
 	addedPage->MPageNam = "";
 	addedPage->setPageName(pageName);
 	addedPage->setPageNr(pageNumber);

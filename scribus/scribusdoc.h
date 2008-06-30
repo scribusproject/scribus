@@ -923,6 +923,7 @@ public: // Public attributes
 	// int pageCount; Disabled CR no longer required
 	/** \brief Margins */
 	MarginStruct pageMargins;
+	int marginPreset;
 	QList<PageSet> pageSets;
 	MarginStruct bleeds;
 // 	double BleedTop;

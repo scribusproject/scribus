@@ -115,6 +115,10 @@ public:
 	*/
 	void setNewMargins(MarginStruct& m);
 	
+	/*! \brief Setup the presetCombo without changing the margin values, only used by tabdocument */
+	void setMarginPreset(int p);
+	int getMarginPreset();
+	
 	/*! \brief Top Bleed
 	\retval double bleed size */
 	double topBleed() const;

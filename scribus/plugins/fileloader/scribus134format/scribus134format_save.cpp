@@ -83,6 +83,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("BORDERRIGHT" , m_Doc->pageMargins.Right);
 	docu.writeAttribute("BORDERTOP"   , m_Doc->pageMargins.Top);
 	docu.writeAttribute("BORDERBOTTOM", m_Doc->pageMargins.Bottom);
+	docu.writeAttribute("PRESET"      ,m_Doc->marginPreset);
 	docu.writeAttribute("BleedTop"    , m_Doc->bleeds.Top);
 	docu.writeAttribute("BleedLeft"   , m_Doc->bleeds.Left);
 	docu.writeAttribute("BleedRight"  , m_Doc->bleeds.Right);
@@ -912,6 +913,7 @@ void Scribus134Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QPro
 		docu.writeAttribute("Size", page->m_pageSize);
 		docu.writeAttribute("Orientation", page->PageOri);
 		docu.writeAttribute("LEFT", page->LeftPg);
+		docu.writeAttribute("PRESET", page->marginPreset);
 		docu.writeAttribute("VerticalGuides", GuideManagerIO::writeVerticalGuides(
 													page, GuideManagerCore::Standard));
 		docu.writeAttribute("HorizontalGuides", GuideManagerIO::writeHorizontalGuides(

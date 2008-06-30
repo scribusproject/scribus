@@ -429,6 +429,43 @@ void MarginWidget::setNewMargins(MarginStruct &m)
 	connect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
 }
 
+void MarginWidget::setMarginPreset(int p)
+{
+	disconnect(presetCombo, SIGNAL(activated(int)), this, SLOT(setPreset()));
+	savedPresetItem = p;
+	presetCombo->setCurrentIndex(p);
+	if (savedPresetItem==PresetLayout::none)
+		savedMargins=marginData;
+	int item = presetCombo->currentIndex();
+	facingPages ? presetCombo->setEnabled(true) : presetCombo->setEnabled(false);
+	bool restoringValues=false;
+	if (item==PresetLayout::none && savedPresetItem!=PresetLayout::none)
+	{
+		restoringValues=true;
+	}
+	if (restoringValues || (presetCombo->needUpdate() && facingPages))
+	{
+		rightR->setEnabled(restoringValues);
+		topR->setEnabled(restoringValues);
+		bottomR->setEnabled(restoringValues);
+	}
+	else
+	{
+		rightR->setEnabled(true);
+		topR->setEnabled(true);
+		bottomR->setEnabled(true);
+	}
+	if (pageType == 1)
+		rightR->setEnabled(false);
+	leftR->setEnabled(item != PresetLayout::nineparts);
+	connect(presetCombo, SIGNAL(activated(int)), this, SLOT(setPreset()));
+}
+
+int MarginWidget::getMarginPreset()
+{
+	return presetCombo->currentIndex();
+}
+
 bool MarginWidget::getMarginsForAllPages() const
 {
 	return marginsForAllPages->isChecked();

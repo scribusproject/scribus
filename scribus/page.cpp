@@ -52,6 +52,7 @@ Page::Page(const double x, const double y, const double b, const double h) :
 	m_Doc(NULL)
 {
 	guides.setPage(this);
+	marginPreset = 0;
 }
 
 Page::~Page()

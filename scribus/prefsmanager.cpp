@@ -301,6 +301,7 @@ void PrefsManager::initDefaults()
 	appPrefs.margins.Bottom = 40;
 	appPrefs.margins.Left = 40;
 	appPrefs.margins.Right = 40;
+	appPrefs.marginPreset = 0;
 	appPrefs.bleeds.Top = 0;
 	appPrefs.bleeds.Left = 0;
 	appPrefs.bleeds.Right = 0;
@@ -1368,6 +1369,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc76.setAttribute("RANDU",appPrefs.margins.Bottom);
 	dc76.setAttribute("RANDL",appPrefs.margins.Left);
 	dc76.setAttribute("RANDR",appPrefs.margins.Right);
+	dc76.setAttribute("PRESET",appPrefs.marginPreset);
 	dc76.setAttribute("DOPPEL", appPrefs.FacingPages);
 	dc76.setAttribute("AutoSave", static_cast<int>(appPrefs.AutoSave));
 	dc76.setAttribute("AutoSaveTime", appPrefs.AutoSaveTime);
@@ -1936,6 +1938,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.margins.Bottom = dc.attribute("RANDU", "40").toDouble();
 			appPrefs.margins.Left = dc.attribute("RANDL", "9").toDouble();
 			appPrefs.margins.Right = dc.attribute("RANDR", "9").toDouble();
+			appPrefs.marginPreset = dc.attribute("PRESET", "0").toInt();
 			appPrefs.FacingPages = dc.attribute("DOPPEL", "0").toInt();
 			appPrefs.AutoSave = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
 			appPrefs.AutoSaveTime = dc.attribute("AutoSaveTime", "600000").toInt();
