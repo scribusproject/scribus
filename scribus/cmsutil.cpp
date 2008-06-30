@@ -33,13 +33,14 @@ cmsHTRANSFORM scCmsCreateProofingTransform(cmsHPROFILE Input, DWORD InputFormat,
 	cmsHTRANSFORM hTransform = NULL;
 	if ( Input == NULL || Output == NULL || Proofing == NULL)
 		return NULL;
+	dwFlags &= (~cmsFLAGS_BLACKPOINTCOMPENSATION);
 	QString desc1 = cmsTakeProductDesc(Input);
 	QString desc2 = cmsTakeProductDesc(Output);
 	QString desc3 = cmsTakeProductDesc(Proofing);
 	if ( desc1 != desc3 )
 	{
 		if( desc2 == desc3 )
-			ProofingIntent = INTENT_ABSOLUTE_COLORIMETRIC;
+			ProofingIntent = INTENT_RELATIVE_COLORIMETRIC;
 		hTransform = cmsCreateProofingTransform(Input, InputFormat, Output, OutputFormat, Proofing, Intent, 
 												ProofingIntent, dwFlags);
 	}
