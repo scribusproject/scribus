@@ -3543,6 +3543,10 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 	Page* oldCurrentPage = currentPage();
 	int z=-2;
 	PageItem *prevItem=0; //Previous item for text frame linking
+	if (iafData.linkToExistingFrame && iafData.linkToExistingFramePtr!=NULL && 
+		   iafData.linkToExistingFramePtr->itemType()==PageItem::TextFrame &&
+		   DocItems.contains(iafData.linkToExistingFramePtr))
+		prevItem=iafData.linkToExistingFramePtr;
 	UndoTransaction transaction(undoManager->beginTransaction(iafData.frameType==PageItem::TextFrame ? Um::TextFrame : Um::ImageFrame,
 															  iafData.frameType==PageItem::TextFrame ? Um::ITextFrame : Um::IImageFrame,
 															  Um::InsertFrame, "", Um::ICreate));
@@ -3568,13 +3572,12 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			x1=targetPage->xOffset()-bleeds.Left;
 			y1=targetPage->yOffset()-bleeds.Top;
 		}
-		else if (iafData.positionType==99) // Frame starts at custom position
+		else if (iafData.positionType==3) // Frame starts at custom position
 		{
-			x1=targetPage->xOffset()+iafData.x/docUnitRatio;
-			y1=targetPage->yOffset()+iafData.y/docUnitRatio;
+			x1=targetPage->xOffset()+iafData.x;
+			y1=targetPage->yOffset()+iafData.y;
 		}
 		
-
 		if (iafData.sizeType==0) // Frame is size of page margins
 		{
 			w1=targetPage->width()-targetPage->Margins.Right-targetPage->Margins.Left;
@@ -3595,10 +3598,10 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 		{
 			w1=h1=1;
 		}
-		else if (iafData.sizeType==99) // Frame is custom size
+		else if (iafData.sizeType==4) // Frame is custom size
 		{
-			w1=iafData.width/docUnitRatio;
-			h1=iafData.height/docUnitRatio;
+			w1=iafData.width;
+			h1=iafData.height;
 		}
 		z=itemAdd(iafData.frameType, PageItem::Unspecified, x1, y1, w1, h1, toolSettings.dWidth, CommonStrings::None, toolSettings.dPenText, true);
 		if (z!=-1)
@@ -3634,7 +3637,11 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			{
 				currItem->setColumns(iafData.columnCount);
 				currItem->setColumnGap(iafData.columnGap/docUnitRatio);
-				if (iafData.linkTextFrames && prevItem != NULL )
+				if (i==0 && iafData.linkToExistingFrame && prevItem != NULL)
+				{
+					prevItem->link(currItem);
+				}
+				if (i!=0 && iafData.linkTextFrames && prevItem != NULL)
 				{
 					prevItem->link(currItem);
 				}
@@ -10495,4 +10502,16 @@ void ScribusDoc::itemSelection_SetRenderIntent(int intentIndex, Selection * cust
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+}
+
+QMap<PageItem*, QString> ScribusDoc::getDocItemNames(PageItem::ItemType itemType)
+{
+	QMap<PageItem*, QString> namesMap;
+	uint docItemsCount=DocItems.count();
+	for (uint i = 0; i < docItemsCount; ++i)
+	{
+		if (DocItems.at(i)->itemType() == itemType && DocItems.at(i)->nextInChain()==NULL && !DocItems.at(i)->isAutoFrame())
+			namesMap.insert(DocItems.at(i), DocItems.at(i)->itemName());
+	}
+	return namesMap;
 }

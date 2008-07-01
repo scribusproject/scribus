@@ -13,11 +13,11 @@
    <string>Insert A Frame</string>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>9</number>
-   </property>
    <property name="spacing" >
     <number>6</number>
+   </property>
+   <property name="margin" >
+    <number>9</number>
    </property>
    <item>
     <widget class="QTabWidget" name="tabWidget" >
@@ -25,23 +25,31 @@
       <number>0</number>
      </property>
      <widget class="QWidget" name="typeTab" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>445</width>
+        <height>286</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>T&amp;ype</string>
       </attribute>
       <layout class="QHBoxLayout" >
-       <property name="margin" >
-        <number>9</number>
-       </property>
        <property name="spacing" >
         <number>6</number>
        </property>
+       <property name="margin" >
+        <number>9</number>
+       </property>
        <item>
         <layout class="QVBoxLayout" >
-         <property name="margin" >
-          <number>0</number>
-         </property>
          <property name="spacing" >
           <number>6</number>
+         </property>
+         <property name="margin" >
+          <number>0</number>
          </property>
          <item>
           <widget class="QGroupBox" name="typeGroupBox" >
@@ -49,11 +57,11 @@
             <string/>
            </property>
            <layout class="QVBoxLayout" >
-            <property name="margin" >
-             <number>9</number>
-            </property>
             <property name="spacing" >
              <number>6</number>
+            </property>
+            <property name="margin" >
+             <number>9</number>
             </property>
             <item>
              <widget class="QRadioButton" name="radioButtonTextFrame" >
@@ -77,7 +85,7 @@
            <property name="orientation" >
             <enum>Qt::Vertical</enum>
            </property>
-           <property name="sizeHint" >
+           <property name="sizeHint" stdset="0" >
             <size>
              <width>20</width>
              <height>40</height>
@@ -93,15 +101,23 @@
       </layout>
      </widget>
      <widget class="QWidget" name="locationTab" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>445</width>
+        <height>286</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>&amp;Location</string>
       </attribute>
       <layout class="QHBoxLayout" >
-       <property name="margin" >
-        <number>9</number>
-       </property>
        <property name="spacing" >
         <number>6</number>
+       </property>
+       <property name="margin" >
+        <number>9</number>
        </property>
        <item>
         <widget class="QGroupBox" name="pagePlacementGroupBox" >
@@ -109,11 +125,11 @@
           <string>Page Placement</string>
          </property>
          <layout class="QVBoxLayout" >
-          <property name="margin" >
-           <number>9</number>
-          </property>
           <property name="spacing" >
            <number>6</number>
+          </property>
+          <property name="margin" >
+           <number>9</number>
           </property>
           <item>
            <widget class="QRadioButton" name="radioButtonCurrentPage" >
@@ -138,11 +154,11 @@
           </item>
           <item>
            <layout class="QHBoxLayout" >
-            <property name="margin" >
-             <number>0</number>
-            </property>
             <property name="spacing" >
              <number>6</number>
+            </property>
+            <property name="margin" >
+             <number>0</number>
             </property>
             <item>
              <widget class="QLineEdit" name="placementPagesLineEdit" />
@@ -161,7 +177,7 @@
             <property name="orientation" >
              <enum>Qt::Vertical</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>20</width>
               <height>40</height>
@@ -178,11 +194,11 @@
           <string>Position of Frame</string>
          </property>
          <layout class="QVBoxLayout" >
-          <property name="margin" >
-           <number>9</number>
-          </property>
           <property name="spacing" >
            <number>6</number>
+          </property>
+          <property name="margin" >
+           <number>9</number>
           </property>
           <item>
            <widget class="QRadioButton" name="radioButtonTopLeftOfMargins" >
@@ -214,11 +230,11 @@
           </item>
           <item>
            <layout class="QHBoxLayout" >
-            <property name="margin" >
-             <number>0</number>
-            </property>
             <property name="spacing" >
              <number>6</number>
+            </property>
+            <property name="margin" >
+             <number>0</number>
             </property>
             <item>
              <spacer>
@@ -228,7 +244,7 @@
               <property name="sizeType" >
                <enum>QSizePolicy::Fixed</enum>
               </property>
-              <property name="sizeHint" >
+              <property name="sizeHint" stdset="0" >
                <size>
                 <width>30</width>
                 <height>20</height>
@@ -271,7 +287,7 @@
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeHint" >
+              <property name="sizeHint" stdset="0" >
                <size>
                 <width>40</width>
                 <height>20</height>
@@ -286,7 +302,7 @@
             <property name="orientation" >
              <enum>Qt::Vertical</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>20</width>
               <height>31</height>
@@ -300,15 +316,23 @@
       </layout>
      </widget>
      <widget class="QWidget" name="sizeTab" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>445</width>
+        <height>286</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>&amp;Size</string>
       </attribute>
       <layout class="QHBoxLayout" >
-       <property name="margin" >
-        <number>9</number>
-       </property>
        <property name="spacing" >
         <number>6</number>
+       </property>
+       <property name="margin" >
+        <number>9</number>
        </property>
        <item>
         <widget class="QGroupBox" name="sizeGroupBox" >
@@ -316,11 +340,11 @@
           <string/>
          </property>
          <layout class="QVBoxLayout" >
-          <property name="margin" >
-           <number>9</number>
-          </property>
           <property name="spacing" >
            <number>6</number>
+          </property>
+          <property name="margin" >
+           <number>9</number>
           </property>
           <item>
            <widget class="QRadioButton" name="radioButtonPageMarginSize" >
@@ -359,11 +383,11 @@
           </item>
           <item>
            <layout class="QHBoxLayout" >
-            <property name="margin" >
-             <number>0</number>
-            </property>
             <property name="spacing" >
              <number>6</number>
+            </property>
+            <property name="margin" >
+             <number>0</number>
             </property>
             <item>
              <spacer>
@@ -373,7 +397,7 @@
               <property name="sizeType" >
                <enum>QSizePolicy::Fixed</enum>
               </property>
-              <property name="sizeHint" >
+              <property name="sizeHint" stdset="0" >
                <size>
                 <width>30</width>
                 <height>20</height>
@@ -416,7 +440,7 @@
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeHint" >
+              <property name="sizeHint" stdset="0" >
                <size>
                 <width>40</width>
                 <height>20</height>
@@ -431,7 +455,7 @@
             <property name="orientation" >
              <enum>Qt::Vertical</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>20</width>
               <height>40</height>
@@ -445,15 +469,23 @@
       </layout>
      </widget>
      <widget class="QWidget" name="optionsTab" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>445</width>
+        <height>286</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>&amp;Options</string>
       </attribute>
       <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>9</number>
-       </property>
        <property name="spacing" >
         <number>6</number>
+       </property>
+       <property name="margin" >
+        <number>9</number>
        </property>
        <item>
         <widget class="QStackedWidget" name="optionsStackedWidget" >
@@ -461,20 +493,22 @@
           <number>0</number>
          </property>
          <widget class="QWidget" name="page" >
-          <layout class="QVBoxLayout" >
-           <property name="margin" >
-            <number>9</number>
-           </property>
-           <property name="spacing" >
-            <number>6</number>
-           </property>
+          <property name="geometry" >
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>427</width>
+            <height>268</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout" >
            <item>
             <layout class="QHBoxLayout" >
-             <property name="margin" >
-              <number>0</number>
-             </property>
              <property name="spacing" >
               <number>6</number>
+             </property>
+             <property name="margin" >
+              <number>0</number>
              </property>
              <item>
               <layout class="QGridLayout" >
@@ -515,7 +549,7 @@
                <property name="orientation" >
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0" >
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -533,12 +567,36 @@
             </widget>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout" >
+             <item>
+              <widget class="QCheckBox" name="checkBoxLinkToExistingFrame" >
+               <property name="text" >
+                <string>Link to Existing Frame</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBoxLinkToExistingFrameName" >
+               <property name="enabled" >
+                <bool>false</bool>
+               </property>
+               <property name="sizePolicy" >
+                <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <layout class="QHBoxLayout" >
-             <property name="margin" >
-              <number>0</number>
-             </property>
              <property name="spacing" >
               <number>6</number>
+             </property>
+             <property name="margin" >
+              <number>0</number>
              </property>
              <item>
               <widget class="QLabel" name="sourceDocLabel" >
@@ -564,7 +622,7 @@
              <property name="orientation" >
               <enum>Qt::Vertical</enum>
              </property>
-             <property name="sizeHint" >
+             <property name="sizeHint" stdset="0" >
               <size>
                <width>20</width>
                <height>40</height>
@@ -575,20 +633,28 @@
           </layout>
          </widget>
          <widget class="QWidget" name="page_2" >
+          <property name="geometry" >
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>100</width>
+            <height>30</height>
+           </rect>
+          </property>
           <layout class="QVBoxLayout" >
-           <property name="margin" >
-            <number>9</number>
-           </property>
            <property name="spacing" >
             <number>6</number>
            </property>
+           <property name="margin" >
+            <number>9</number>
+           </property>
            <item>
             <layout class="QHBoxLayout" >
-             <property name="margin" >
-              <number>0</number>
-             </property>
              <property name="spacing" >
               <number>6</number>
+             </property>
+             <property name="margin" >
+              <number>0</number>
              </property>
              <item>
               <widget class="QLabel" name="sourceImageLabel" >
@@ -614,7 +680,7 @@
              <property name="orientation" >
               <enum>Qt::Vertical</enum>
              </property>
-             <property name="sizeHint" >
+             <property name="sizeHint" stdset="0" >
               <size>
                <width>20</width>
                <height>40</height>
@@ -625,12 +691,20 @@
           </layout>
          </widget>
          <widget class="QWidget" name="page_3" >
+          <property name="geometry" >
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>100</width>
+            <height>30</height>
+           </rect>
+          </property>
           <layout class="QVBoxLayout" >
-           <property name="margin" >
-            <number>9</number>
-           </property>
            <property name="spacing" >
             <number>6</number>
+           </property>
+           <property name="margin" >
+            <number>9</number>
            </property>
            <item>
             <widget class="QLabel" name="label_9" >
@@ -656,7 +730,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>

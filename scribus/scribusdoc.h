@@ -861,6 +861,8 @@ public:
 	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);
 	void rotateGroup(double angle, FPoint RCenter);
 	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0);
+	//! \brief Get a list of frames of certain type
+	QMap<PageItem*, QString> getDocItemNames(PageItem::ItemType itemType);
 	
 protected:
 	void addSymbols();

@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/createrange.h"
 #include "customfdialog.h"
 #include "scrspinbox.h"
+#include "pageitem.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scribusdoc.h"
@@ -26,12 +27,14 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "scpaths.h"
 
+#include <QCheckBox>
 #include <QGroupBox>
 #include <QIcon>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QRadioButton>
 #include <QSpinBox>
+#include <QStringList>
 #include <QTextEdit>
 #include <QStackedWidget>
 
@@ -84,6 +87,11 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	int docUnitIndex = m_Doc->unitIndex();
 	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
 	QString unitSuffix(unitGetSuffixFromIndex(docUnitIndex));
+	
+	xPosScrSpinBox->setNewUnit(docUnitIndex);
+	yPosScrSpinBox->setNewUnit(docUnitIndex);
+	widthScrSpinBox->setNewUnit(docUnitIndex);
+	heightScrSpinBox->setNewUnit(docUnitIndex);
 	xPosScrSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
 	yPosScrSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
 	widthScrSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
@@ -96,13 +104,23 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	textColumnGapScrSpinBox->setSuffix(unitSuffix);
 
 	sourceDocLineEdit->setText("");
- 	connect(typeButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectType(int)));
- 	connect(pagePlacementButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectPagePlacement(int)));
+	
+	if (m_Doc!=0)
+	{
+		pageItemMap=m_Doc->getDocItemNames(PageItem::TextFrame);
+		comboBoxLinkToExistingFrameName->addItems(pageItemMap.values());
+	}
+	if (comboBoxLinkToExistingFrameName->count()==0)
+		checkBoxLinkToExistingFrame->setEnabled(false);
+	
+	connect(typeButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectType(int)));
+	connect(pagePlacementButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectPagePlacement(int)));
 	connect(placementPagesRangeButton, SIGNAL(clicked()), this, SLOT(slotCreatePageNumberRange()));
- 	connect(framePositionButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectPosition(int)));
- 	connect(sizeButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectSize(int)));
- 	connect(selectImageFileButton, SIGNAL(clicked()), this, SLOT(locateImageFile()));
- 	connect(selectDocFileButton, SIGNAL(clicked()), this, SLOT(locateDocFile()));
+	connect(framePositionButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectPosition(int)));
+	connect(sizeButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectSize(int)));
+	connect(selectImageFileButton, SIGNAL(clicked()), this, SLOT(locateImageFile()));
+	connect(selectDocFileButton, SIGNAL(clicked()), this, SLOT(locateDocFile()));
+	connect(checkBoxLinkToExistingFrame, SIGNAL(stateChanged(int)), this, SLOT(slotLinkToExistingFrame(int)));
 }
 
 void InsertAFrame::slotSelectType( int id )
@@ -180,14 +198,28 @@ void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 	iafData.pageList=placementPagesLineEdit->text();
 	iafData.positionType=framePositionButtonGroup->checkedId();
 	iafData.sizeType=sizeButtonGroup->checkedId();
-	iafData.x=xPosScrSpinBox->value();
-	iafData.y=yPosScrSpinBox->value();
-	iafData.width=widthScrSpinBox->value();
-	iafData.height=heightScrSpinBox->value();
+	int docUnitIndex = m_Doc->unitIndex();
+	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
+	iafData.x=xPosScrSpinBox->value() / unitRatio;
+	iafData.y=yPosScrSpinBox->value() / unitRatio;
+	iafData.width=widthScrSpinBox->value() / unitRatio;
+	iafData.height=heightScrSpinBox->value() / unitRatio;
 	iafData.impsetup=m_ImportSetup;
 	iafData.columnCount=textColumnCountSpinBox->value();
 	iafData.columnGap=textColumnGapScrSpinBox->value();
 	iafData.linkTextFrames=checkBoxLinkCreatedTextFrames->isChecked();
+	iafData.linkToExistingFrame=checkBoxLinkToExistingFrame->isChecked();
+	iafData.linkToExistingFramePtr=NULL;
+	if (comboBoxLinkToExistingFrameName->count()!=0)
+	{
+		QMapIterator<PageItem*, QString> i(pageItemMap);
+		while (i.hasNext())
+		{
+			i.next();
+			if (i.value()==comboBoxLinkToExistingFrameName->currentText())
+				iafData.linkToExistingFramePtr=i.key();
+		}
+	}
 }
 
 void InsertAFrame::locateImageFile()
@@ -233,4 +265,11 @@ void InsertAFrame::slotCreatePageNumberRange( )
 		}
 	}
 	placementPagesLineEdit->setText(QString::null);
+}
+
+void InsertAFrame::slotLinkToExistingFrame(int state)
+{
+	comboBoxLinkToExistingFrameName->setEnabled(state==Qt::Checked);
+	sourceDocLineEdit->setEnabled(state==Qt::Unchecked);
+	selectDocFileButton->setEnabled(state==Qt::Unchecked);
 }

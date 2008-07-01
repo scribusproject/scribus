@@ -28,6 +28,8 @@ struct InsertAFrameData
 	int columnCount;
 	double columnGap;
 	bool linkTextFrames;
+	bool linkToExistingFrame;
+	PageItem* linkToExistingFramePtr;
 };
 
 struct ItemMultipleDuplicateData

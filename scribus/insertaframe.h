@@ -21,8 +21,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 
 #include <QButtonGroup>
+#include <QMap>
 #include <QString>
 
+
+class PageItem;
 class ScribusDoc;
 struct InsertAFrameData;
 
@@ -42,6 +45,7 @@ protected:
 	QButtonGroup *pagePlacementButtonGroup;
 	QButtonGroup *framePositionButtonGroup;
 	QButtonGroup *sizeButtonGroup;
+	QMap<PageItem*, QString> pageItemMap;
 	
 protected slots:
 	void slotSelectType(int id);
@@ -49,6 +53,7 @@ protected slots:
 	void slotCreatePageNumberRange();
 	void slotSelectPosition(int id);
 	void slotSelectSize(int id);
+	void slotLinkToExistingFrame(int state);
 	void locateImageFile();
 	void locateDocFile();
 };
