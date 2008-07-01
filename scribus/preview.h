@@ -77,7 +77,6 @@ public:
 	QCheckBox* EnableCMYK_Y;
 	QCheckBox* EnableCMYK_K;
 	QCheckBox* EnableGCR;
-	QCheckBox* EnableOverprint;
 	QCheckBox* MirrorHor;
 	QCheckBox* MirrorVert;
 	QCheckBox* ClipMarg;
@@ -106,7 +105,6 @@ public:
 	bool GsAl;
 	bool Trans;
 	bool GMode;
-	bool OMode;
 	bool mHor;
 	bool mVer;
 	bool fClip;

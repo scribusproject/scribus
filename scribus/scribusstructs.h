@@ -341,7 +341,6 @@ struct PrintOptions
 	bool doGCR;
 	bool doClip;
 	bool setDevParam;
-	bool doOverprint;
 	bool useDocBleeds;
 	bool cropMarks;
 	bool bleedMarks;

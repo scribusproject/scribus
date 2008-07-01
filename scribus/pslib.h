@@ -80,7 +80,7 @@ class SCRIBUS_API PSLib : public QObject
 
 		virtual bool PS_set_file(QString fn);
 		virtual void PS_set_Info(QString art, QString was);
-		virtual bool PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool farb, bool ic, bool gcr, bool over = false);
+		virtual bool PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool farb, bool ic, bool gcr);
 		virtual void PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping);
 		virtual void PS_end_page();
 		virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);
@@ -185,7 +185,6 @@ class SCRIBUS_API PSLib : public QObject
 		bool DoSep;
 		bool useSpotColors;
 		bool fillRule;
-		bool doOverprint;
 		bool applyICC;
 		cmsHTRANSFORM solidTransform;
 		QString currentSpot;

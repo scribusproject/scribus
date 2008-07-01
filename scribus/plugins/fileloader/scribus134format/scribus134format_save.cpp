@@ -614,7 +614,6 @@ void Scribus134Format::writePrintOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("doGCR", static_cast<int>(m_Doc->Print_Options.doGCR));
 	docu.writeAttribute("doClip", static_cast<int>(m_Doc->Print_Options.doClip));
 	docu.writeAttribute("setDevParam", static_cast<int>(m_Doc->Print_Options.setDevParam));
-	docu.writeAttribute("doOverprint", static_cast<int>(m_Doc->Print_Options.doOverprint));
 	docu.writeAttribute("useDocBleeds", static_cast<int>(m_Doc->Print_Options.useDocBleeds));
 	docu.writeAttribute("cropMarks", static_cast<int>(m_Doc->Print_Options.cropMarks));
 	docu.writeAttribute("bleedMarks", static_cast<int>(m_Doc->Print_Options.bleedMarks));

@@ -42,7 +42,6 @@ public:
 	PrintEngine printEngine();
 	bool doDev();
 	bool doSpot();
-	bool doOverprint();
 	bool ICCinUse();
 	bool doPrintAll();
 	bool doPrintCurrentPage();

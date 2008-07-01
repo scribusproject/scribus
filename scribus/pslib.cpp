@@ -401,7 +401,7 @@ bool PSLib::PS_set_file(QString fn)
 	return ret;
 }
 
-bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool farb, bool ic, bool gcr, bool over)
+bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool farb, bool ic, bool gcr)
 {
 	m_Doc = doc;
 	PutStream(Header);
@@ -433,11 +433,6 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 	PutStream(Fonts);
 	if (GraySc)
 		PutStream(GrayCalc);
-	if (over)
-	{
-		PutStream("true setoverprint\n");
-		PutStream("true setoverprintmode\n");
-	}
 	QStringList patterns = m_Doc->getUsedPatterns();
 	for (int c = 0; c < patterns.count(); ++c)
 	{
@@ -1712,11 +1707,9 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	bool gcr = options.doGCR;
 	bool doDev = options.setDevParam;
 	bool doClip = options.doClip;
-	bool over = options.doOverprint;
 	QStack<PageItem*> groupStack;
 	int sepac;
 	int pagemult;
-	doOverprint = over;
 	if ((sep) && (SepNam == QObject::tr("All")))
 		pagemult = spots.count();
 	else
@@ -1807,7 +1800,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		int pgNum = pageNs[0]-1;
 		gx -= Doc->Pages->at(pgNum)->xOffset();
 		gy -= Doc->Pages->at(pgNum)->yOffset();
-		errorOccured = !PS_begin_doc(Doc, gx, Doc->pageHeight - (gy+gh), gx + gw, Doc->pageHeight - gy, 1*pagemult, false, sep, farb, Ic, gcr, over);
+		errorOccured = !PS_begin_doc(Doc, gx, Doc->pageHeight - (gy+gh), gx + gw, Doc->pageHeight - gy, 1*pagemult, false, sep, farb, Ic, gcr);
 	}
 	else
 	{
@@ -1820,7 +1813,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			maxWidth = qMax(Doc->Pages->at(a)->width(), maxWidth);
 			maxHeight = qMax(Doc->Pages->at(a)->height(), maxHeight);
 		}
-		errorOccured = !PS_begin_doc(Doc, 0.0, 0.0, maxWidth, maxHeight, pageNs.size()*pagemult, doDev, sep, farb, Ic, gcr, over);
+		errorOccured = !PS_begin_doc(Doc, 0.0, 0.0, maxWidth, maxHeight, pageNs.size()*pagemult, doDev, sep, farb, Ic, gcr);
 	}
 	int ap=0;
 	for (; ap < Doc->MasterPages.count() && !abortExport && !errorOccured; ++ap)
@@ -1987,13 +1980,10 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							else if (ite->asTextFrame())
 							{
 								PS_save();
-								if (!doOverprint)
+								if (ite->doOverprint)
 								{
-									if (ite->doOverprint)
-									{
-										PutStream("true setoverprint\n");
-										PutStream("true setoverprintmode\n");
-									}
+									PutStream("true setoverprint\n");
+									PutStream("true setoverprintmode\n");
 								}
 								if (ite->fillColor() != CommonStrings::None)
 								{
@@ -2079,13 +2069,10 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 						if (ite->printEnabled())
 						{
 							PS_save();
-							if (!doOverprint)
+							if (ite->doOverprint)
 							{
-								if (ite->doOverprint)
-								{
-									PutStream("true setoverprint\n");
-									PutStream("true setoverprintmode\n");
-								}
+								PutStream("true setoverprint\n");
+								PutStream("true setoverprintmode\n");
 							}
 							if (ite->lineColor() != CommonStrings::None)
 							{
@@ -2177,13 +2164,10 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	{
 		fillRule = true;
 		PS_save();
-		if (!doOverprint)
+		if (c->doOverprint)
 		{
-			if (c->doOverprint)
-			{
-				PutStream("true setoverprint\n");
-				PutStream("true setoverprintmode\n");
-			}
+			PutStream("true setoverprint\n");
+			PutStream("true setoverprintmode\n");
 		}
 		if (c->fillColor() != CommonStrings::None)
 		{
@@ -2951,13 +2935,10 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 			if (c->printEnabled())
 			{
 				PS_save();
-				if (!doOverprint)
+				if (c->doOverprint)
 				{
-					if (c->doOverprint)
-					{
-						PutStream("true setoverprint\n");
-						PutStream("true setoverprintmode\n");
-					}
+					PutStream("true setoverprint\n");
+					PutStream("true setoverprintmode\n");
 				}
 				if (c->lineColor() != CommonStrings::None)
 				{

@@ -603,7 +603,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->Print_Options.doGCR = static_cast<bool>(pg.attribute("doGCR").toInt());
 				m_Doc->Print_Options.doClip = static_cast<bool>(pg.attribute("doClip").toInt());
 				m_Doc->Print_Options.setDevParam = static_cast<bool>(pg.attribute("setDevParam").toInt());
-				m_Doc->Print_Options.doOverprint = static_cast<bool>(pg.attribute("doOverprint").toInt());
 				m_Doc->Print_Options.useDocBleeds = static_cast<bool>(pg.attribute("useDocBleeds").toInt());
 				m_Doc->Print_Options.cropMarks = static_cast<bool>(pg.attribute("cropMarks").toInt());
 				m_Doc->Print_Options.bleedMarks = static_cast<bool>(pg.attribute("bleedMarks").toInt());

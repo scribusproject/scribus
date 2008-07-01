@@ -411,16 +411,6 @@ a range of pages or a single page number.</string>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="overprintMode" >
-            <property name="toolTip" >
-             <string>Enables global Overprint Mode for this document, overrides object settings</string>
-            </property>
-            <property name="text" >
-             <string>Force Overprint Mode</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QCheckBox" name="UseICC" >
             <property name="toolTip" >
              <string>Allows you to embed color profiles in the print stream when color management is enabled</string>
@@ -429,6 +419,22 @@ a range of pages or a single page number.</string>
              <string>Apply Color Profiles</string>
             </property>
            </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType" >
+             <enum>QSizePolicy::MinimumExpanding</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>20</width>
+              <height>19</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </widget>

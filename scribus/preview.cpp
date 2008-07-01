@@ -95,7 +95,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	GsAl = false;
 	Trans = false;
 	GMode = true;
-	OMode = false;
 	mHor = false;
 	mVer = false;
 	fClip = false;
@@ -249,9 +248,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	EnableGCR = new QCheckBox( tr("&Under Color Removal"), jobTitle);
 	Layout1->addWidget(EnableGCR);
 
-	EnableOverprint = new QCheckBox( tr("Force Overprint Mode"), jobTitle);
-	Layout1->addWidget(EnableOverprint);
-
 	spotColors = new QCheckBox( tr( "Convert Spot Colors" ), jobTitle );
 	Layout1->addWidget( spotColors );
 
@@ -332,7 +328,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	EnableGCR->setToolTip( "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>" );
 	scaleBox->setToolTip( "<qt>" + tr("Resize the scale of the page.") + "</qt>");
 	spotColors->setToolTip("<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
-	EnableOverprint->setToolTip( "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
 	UseICC->setToolTip("<qt>" + tr( "Allows you to embed color profiles in the print stream when color management is enabled" ) + "</qt>");
 
 	//signals and slots
@@ -340,7 +335,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	connect(AliasTr, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(EnableCMYK, SIGNAL(clicked()), this, SLOT(ToggleCMYK()));
 	connect(EnableGCR, SIGNAL(clicked()), this, SLOT(redisplay()));
-	connect(EnableOverprint, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(MirrorHor, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(MirrorVert, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(ClipMarg, SIGNAL(clicked()), this, SLOT(redisplay()));
@@ -370,8 +364,6 @@ void PPreview::setValues()
 	{
 		EnableGCR->setChecked( postscriptPreview ? doc->Print_Options.doGCR : false);
 		EnableGCR->setEnabled( postscriptPreview );
-		EnableOverprint->setChecked( postscriptPreview ? doc->Print_Options.doOverprint : false);
-		EnableOverprint->setEnabled( postscriptPreview );
 		MirrorHor->setChecked(doc->Print_Options.mirrorH);
 		MirrorVert->setChecked(doc->Print_Options.mirrorV);
 		ClipMarg->setChecked(doc->Print_Options.doClip);
@@ -388,8 +380,6 @@ void PPreview::setValues()
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 		EnableGCR->setChecked( postscriptPreview ? prefs->getBool("DoGCR", false) : false);
 		EnableGCR->setEnabled( postscriptPreview );
-		EnableOverprint->setChecked( postscriptPreview ? prefs->getBool("doOverprint", false) : false);
-		EnableOverprint->setEnabled( postscriptPreview );
 		MirrorHor->setChecked(prefs->getBool("MirrorH", false));
 		MirrorVert->setChecked(prefs->getBool("MirrorV", false));
 		ClipMarg->setChecked(prefs->getBool("Clip", false));
@@ -504,7 +494,6 @@ int PPreview::RenderPreview(int Seite, int Res)
 		options.useColor = !useGray->isChecked();
 		options.useICC = false;
 		options.useSpotColors = false;
-		options.doOverprint = false;
 		bool done = winPrint.gdiPrintPreview(doc, page, &image, options, Res / 72.0);
 		if ( done )
 			image.save( ScPaths::getTempFileDir() + "/sc.png", "PNG" );
@@ -512,9 +501,9 @@ int PPreview::RenderPreview(int Seite, int Res)
 	}
 #endif
 	// Recreate Postscript-File only when the actual Page has changed
-	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode)  || (EnableOverprint->isChecked() != OMode)
-		|| (useGray->isChecked() != fGray) || (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer)
-		|| (ClipMarg->isChecked() != fClip) || (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
+	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode)  || (useGray->isChecked() != fGray)
+		|| (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip)
+		|| (UseICC->isChecked() != fICC)    || (spotColors->isChecked() != fSpot))
 	{
 		ReallyUsed.clear();
 		doc->getUsedFonts(ReallyUsed);
@@ -533,7 +522,6 @@ int PPreview::RenderPreview(int Seite, int Res)
 		options.doGCR = EnableGCR->isChecked();
 		options.setDevParam = false;
 		options.doClip = ClipMarg->isChecked();
-		options.doOverprint = EnableOverprint->isChecked();
 		options.cropMarks = false;
 		options.bleedMarks = false;
 		options.registrationMarks = false;
@@ -616,9 +604,9 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	QStringList args, args1, args2, args3;
 	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
 	// Recreate Postscript-File only when the actual Page has changed
-	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode)  || (EnableOverprint->isChecked() != OMode)
-		|| (useGray->isChecked() != fGray) || (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer)
-		|| (ClipMarg->isChecked() != fClip) || (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
+	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode) || (useGray->isChecked() != fGray)
+		|| (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip)
+		|| (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
 	{
 		ReallyUsed.clear();
 		doc->getUsedFonts(ReallyUsed);
@@ -637,7 +625,6 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		options.doGCR = EnableGCR->isChecked();
 		options.setDevParam = false;
 		options.doClip = ClipMarg->isChecked();
-		options.doOverprint = EnableOverprint->isChecked();
 		options.cropMarks = false;
 		options.bleedMarks = false;
 		options.registrationMarks = false;
@@ -800,7 +787,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
 	        || (AntiAlias->isChecked() != GsAl) || ((AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode)
-			|| (EnableOverprint->isChecked() != OMode) && (!EnableCMYK->isChecked()))
+			&& (!EnableCMYK->isChecked()))
 			 || (useGray->isChecked() != fGray) || (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer)
 			 || (ClipMarg->isChecked() != fClip) || (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
 	{
@@ -824,8 +811,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		{
 			if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
 	       	 || (AntiAlias->isChecked() != GsAl) || (AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode)
-	       	 || (EnableOverprint->isChecked() != OMode) || (useGray->isChecked() != fGray) || (MirrorHor->isChecked() != mHor)
-	       	 || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip) || (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
+	       	 || (useGray->isChecked() != fGray)  || (MirrorHor->isChecked() != mHor)|| (MirrorVert->isChecked() != mVer)
+	       	 || (ClipMarg->isChecked() != fClip) || (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
 			{
 				ret = RenderPreviewSep(Seite, Res);
 				if (ret > 0)
@@ -1138,7 +1125,6 @@ void PPreview::getUserSelection(int page)
 	Trans = AliasTr->isChecked();
 	GMode = EnableGCR->isChecked();
 	SMode = scaleBox->currentIndex();
-	OMode = EnableOverprint->isChecked();
 	mHor = MirrorHor->isChecked();
 	mVer = MirrorVert->isChecked();
 	fClip = ClipMarg->isChecked();

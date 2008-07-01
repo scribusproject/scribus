@@ -467,7 +467,6 @@ static PyObject *Printer_print(Printer *self)
 		{
 			options.setDevParam = false;
 			options.doClip = false;
-			options.doOverprint = false;
 			dd->CreatePS(ScCore->primaryMainWindow()->doc, options);
 			if (options.prnEngine == PostScript1 || options.prnEngine == PostScript2)
 			{

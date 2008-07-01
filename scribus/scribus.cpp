@@ -7926,7 +7926,6 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn, QString& error)
 	options.doGCR = prefsManager->appPrefs.GCRMode;
 	options.setDevParam = false;
 	options.doClip = true;
-	options.doOverprint = false;
 	options.cropMarks = false;
 	options.bleedMarks = false;
 	options.registrationMarks = false;

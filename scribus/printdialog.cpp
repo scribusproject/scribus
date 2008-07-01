@@ -393,7 +393,6 @@ void PrintDialog::storeValues()
 	m_doc->Print_Options.doGCR    = doGCR();
 	m_doc->Print_Options.prnEngine= printEngine();
 	m_doc->Print_Options.setDevParam = doDev();
-	m_doc->Print_Options.doOverprint = doOverprint();
 	m_doc->Print_Options.useDocBleeds  = docBleeds->isChecked();
 	m_doc->Print_Options.bleeds.Top    = BleedTop->value() / m_doc->unitRatio();
 	m_doc->Print_Options.bleeds.Left   = BleedLeft->value() / m_doc->unitRatio();
@@ -452,7 +451,6 @@ void PrintDialog::getDefaultPrintOptions(PrintOptions& options, bool gcr)
 	options.doGCR   = prefs->getBool("DoGCR", gcr);
 	options.doClip  = prefs->getBool("Clip", false);
 	options.useSpotColors = prefs->getBool("doSpot", true);
-	options.doOverprint = prefs->getBool("doOverprint", false);
 	options.useICC  = m_doc->HasCMS ? prefs->getBool("ICCinUse", false) : false;
 	options.useDocBleeds  = true;
 	options.bleeds.Top    = m_doc->bleeds.Top;
@@ -513,7 +511,6 @@ void PrintDialog::setStoredValues(bool gcr)
 	GcR->setChecked(m_doc->Print_Options.doGCR);
 	ClipMarg->setChecked(m_doc->Print_Options.doClip);
 	spotColors->setChecked(!m_doc->Print_Options.useSpotColors);
-	overprintMode->setChecked(m_doc->Print_Options.doOverprint);
 	bool iccInUse  = m_doc->HasCMS ? m_doc->Print_Options.useICC : false;
 	bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || outputToFile();
 	UseICC->setChecked( psPrinter ? iccInUse : false );
@@ -625,11 +622,6 @@ bool PrintDialog::doDev()
 bool PrintDialog::doSpot()
 {
 	return !spotColors->isChecked();
-}
-
-bool PrintDialog::doOverprint()
-{
-	return overprintMode->isChecked();
 }
 
 bool PrintDialog::ICCinUse()
