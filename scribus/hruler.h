@@ -101,7 +101,7 @@ signals:
 
 private:
 	double iter, iter2;
-	int cor;
+	double cor;
 	int whereToDraw;
 	bool drawMark;
 	PrefsManager *prefsManager;

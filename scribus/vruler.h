@@ -66,7 +66,7 @@ public slots: // Public slots
 
 private:
 	double iter, iter2;
-	int cor;
+	double cor;
 	bool drawMark;
 	int whereToDraw;
 	PrefsManager *prefsManager;

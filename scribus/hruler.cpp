@@ -880,6 +880,12 @@ void Hruler::unitChange()
 				iter /= cor;
 				iter2 /= cor;
 			}
+			if (sc < 0.25)
+			{
+				cor = 0.5;
+				iter = 72.0*16.0;
+				iter2 = 72.0*2.0;
+			}
 			break;
 		case 3:
 			iter = unitRulerGetIter1FromIndex(docUnitIndex);
