@@ -890,7 +890,8 @@ void Hruler::unitChange()
 		case SC_P:
 			iter = unitRulerGetIter1FromIndex(docUnitIndex);
 			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
-			if (sc > 1 && sc <= 4)
+			qDebug() << sc;
+			if (sc >= 1 && sc <= 4)
 			{
 				cor = 1;
 				iter = 12.0;
@@ -901,6 +902,19 @@ void Hruler::unitChange()
 				cor = 2;
 				iter = 6.0;
 				iter2 = 12.0;
+			}
+			if (sc < 0.3)
+			{
+				cor = 0.25;
+				iter = 12.0*4;
+				iter2 = 60.0*4;
+			}
+			else
+			if (sc < 1)
+			{
+				cor = 1;
+				iter = 12.0;
+				iter2 = 60.0;
 			}
 			break;
 		case SC_CM:
