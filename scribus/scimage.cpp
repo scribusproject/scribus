@@ -3772,7 +3772,11 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			uint32 *bits = 0;
 			if (photometric == PHOTOMETRIC_SEPARATED)
 			{
-				if (samplesperpixel > 4)  // we can't handle CMYKA yet
+#ifdef TIFF_CMYKA_SUPPORT
+				if ( samplesperpixel > 4 && TIFFIsTiled(tif) ) // we try to handle CMYKA
+#else
+				if ( samplesperpixel > 4 )  // we can't handle CMYKA yet
+#endif
 				{
 					bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
 					if(bits)
@@ -3828,13 +3832,45 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					{
 						tsize_t bytesperrow = TIFFScanlineSize(tif);
 						bits = (uint32 *) _TIFFmalloc(bytesperrow);
-						if (bits)
+#ifdef TIFF_CMYKA_SUPPORT
+						unsigned int bytesPerSample((int)bitspersample / 8 );
+						qDebug(QString("bpr %1 : width %2 : spp %3 : bps %4 : Bps %5")
+								.arg((int)bytesperrow)
+								.arg((int)widtht)
+								.arg((int)samplesperpixel)
+								.arg((int)bitspersample)
+								.arg(bytesPerSample)
+						      );
+						
+						if(bytesPerSample > 1)
+						{
+							QFileInfo qfi(fn);
+							message += message.isEmpty() ? "" : "\n";
+							message += QObject::tr("%1 has more than 8 bits per channel, Scribus will not preserve less significant bits").arg(qfi.fileName());
+						}
+#endif
+						if ( bits )
 						{
 							for (unsigned int y = 0; y < heightt; y++)
 							{
 								if (TIFFReadScanline(tif, bits, y, 0))
 								{
+#ifdef TIFF_CMYKA_SUPPORT
+									unsigned char *targetLine = scanLine(y);
+									unsigned char *cbits = reinterpret_cast<unsigned char*>(bits);
+									
+									for(unsigned int stripCursor(0); stripCursor < bytesperrow ; stripCursor += (samplesperpixel*bytesPerSample))
+									{
+// 										debugStr += ( cbits[stripCursor] < 126 ) ? "." : "0" ;
+										targetLine[0] = cbits[stripCursor + bytesPerSample - 1];
+										targetLine[1] = cbits[stripCursor + (1*bytesPerSample) + bytesPerSample - 1];
+										targetLine[2] = cbits[stripCursor + (2*bytesPerSample) + bytesPerSample - 1];
+										targetLine[3] = cbits[stripCursor + (3*bytesPerSample) + bytesPerSample - 1];
+										targetLine += 4;
+									}
+#else
 									memcpy(scanLine(y), bits, widtht * 4);
+#endif
 								}
 							}
 							_TIFFfree(bits);
