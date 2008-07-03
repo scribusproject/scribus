@@ -464,10 +464,10 @@ void Hruler::paintEvent(QPaintEvent *e)
 		p.drawLine(qRound(firstMark * sc), topline, qRound(firstMark * sc), 16);
 		switch (currDoc->unitIndex())
 		{
-			case 1:
+			case SC_MM:
 				tx = QString::number(markC * iter2 / (iter2 / 100) / cor);
 				break;
-			case 2:
+			case SC_IN:
 				xl = (markC * iter2 / iter2) / cor;
 				tx = QString::number(static_cast<int>(xl));
 				frac = fabs(xl - static_cast<int>(xl));
@@ -481,11 +481,11 @@ void Hruler::paintEvent(QPaintEvent *e)
 					tx += QChar(0xBE);
 				tx = tx;
 				break;
-			case 3:
-			case 5:
+			case SC_P:
+			case SC_C:
 				tx = QString::number(markC * iter2 / (iter2 / 5) / cor);
 				break;
-			case 4:
+			case SC_CM:
 				tx = QString::number(markC * iter2 / iter2 / cor);
 				break;
 			default:
@@ -524,7 +524,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 				p.drawLine(qRound(xl*sc), topline, qRound(xl*sc), 16);
 				switch (currDoc->unitIndex())
 				{
-					case 2:
+					case SC_IN:
 					{
 						QString tx = "";
 						int num1 = static_cast<int>((xl-Pos) / iter2 / cor);
@@ -551,7 +551,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 							//p.drawText(qRound((xl+2/sc) * sc), 9, tx);
 						break;
 					}
-					case 3:
+					case SC_P:
 						if (Revers)
 						{
 							p.save();
@@ -565,7 +565,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 							drawNumber(QString::number((xl-Pos) / iter / cor), qRound((xl+2/sc) * sc), 9, p);
 							//p.drawText(qRound((xl+2/sc) * sc), 9, QString::number((xl-Pos) / iter / cor));
 						break;
-					case 4:
+					case SC_CM:
 						if (Revers)
 						{
 							p.save();
@@ -579,7 +579,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 							drawNumber(QString::number((xl-Pos) / iter / 10 / cor), qRound((xl+2/sc) * sc), 9, p);
 							//p.drawText(qRound((xl+2/sc) * sc), 9, QString::number((xl-Pos) / iter / 10 / cor));
 						break;
-					case 5:
+					case SC_C:
 						if (Revers)
 						{
 							p.save();
@@ -838,7 +838,7 @@ void Hruler::unitChange()
 	int docUnitIndex=currDoc->unitIndex();
 	switch (docUnitIndex)
 	{
-		case 0:
+		case SC_PT:
 			if (sc > 1 && sc <= 4)
 				cor = 2;
 			if (sc > 4)
@@ -859,13 +859,13 @@ void Hruler::unitChange()
 	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
 	  		}
 			break;
-		case 1:
+		case SC_MM:
 			if (sc > 1)
 				cor = 10;
 			iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
   			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
 			break;
-		case 2:
+		case SC_IN:
 			iter = unitRulerGetIter1FromIndex(docUnitIndex);
 			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc > 1 && sc <= 4)
@@ -887,7 +887,7 @@ void Hruler::unitChange()
 				iter2 = 72.0*2.0;
 			}
 			break;
-		case 3:
+		case SC_P:
 			iter = unitRulerGetIter1FromIndex(docUnitIndex);
 			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc > 1 && sc <= 4)
@@ -903,7 +903,7 @@ void Hruler::unitChange()
 				iter2 = 12.0;
 			}
 			break;
-		case 4:
+		case SC_CM:
 			if (sc > 1 && sc <= 4)
 				cor = 1;
 			if (sc > 4)
@@ -924,7 +924,7 @@ void Hruler::unitChange()
 	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
 	  		}
 			break;
-		case 5:
+		case SC_C:
 			iter = unitRulerGetIter1FromIndex(docUnitIndex);
 			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc > 1 && sc <= 4)

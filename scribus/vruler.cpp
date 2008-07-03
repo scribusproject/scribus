@@ -125,10 +125,10 @@ void Vruler::paintEvent(QPaintEvent *e)
 		int textY = qRound(firstMark * sc)+10;
 		switch (currDoc->unitIndex())
 		{
-			case 1:
+			case SC_MM:
 				tx = QString::number(markC * iter2 / (iter2 / 100) / cor);
 				break;
-			case 2:
+			case SC_IN:
 				xl = (markC * iter2 / iter2) / cor;
 				tx = QString::number(static_cast<int>(xl));
 				frac = fabs(xl - static_cast<int>(xl));
@@ -142,11 +142,11 @@ void Vruler::paintEvent(QPaintEvent *e)
 					tx += QChar(0xBE);
 				tx = tx;
 				break;
-			case 3:
-			case 5:
+			case SC_P:
+			case SC_C:
 				tx = QString::number(markC * iter2 / (iter2 /5) / cor);
 				break;
-			case 4:
+			case SC_CM:
 				tx = QString::number(markC * iter2 / iter2 / cor);
 				break;
 			default:
@@ -265,7 +265,7 @@ void Vruler::unitChange()
 	int docUnitIndex=currDoc->unitIndex();
 	switch (docUnitIndex)
 	{
-		case 0:
+		case SC_PT:
 			if (sc > 1 && sc <= 4)
 				cor = 2;
 			if (sc > 4)
@@ -286,13 +286,13 @@ void Vruler::unitChange()
 	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
 	  		}
 			break;
-		case 1:
+		case SC_MM:
 			if (sc > 1)
 				cor = 10;
 			iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
   			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
 			break;
-		case 2:
+		case SC_IN:
 			iter = unitRulerGetIter1FromIndex(docUnitIndex);
 			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc > 1 && sc <= 4)
@@ -314,7 +314,7 @@ void Vruler::unitChange()
 				iter2 = 72.0*2.0;
 			}
 			break;
-		case 3:
+		case SC_P:
 			iter = unitRulerGetIter1FromIndex(docUnitIndex);
 			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc > 1 && sc <= 4)
@@ -330,7 +330,7 @@ void Vruler::unitChange()
 				iter2 = 12.0;
 			}
 			break;
-		case 4:
+		case SC_CM:
 			if (sc > 1 && sc <= 4)
 				cor = 1;
 			if (sc > 4)
@@ -351,7 +351,7 @@ void Vruler::unitChange()
 	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
 	  		}
 			break;
-		case 5:
+		case SC_C:
 			iter = unitRulerGetIter1FromIndex(docUnitIndex);
 			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc > 1 && sc <= 4)
