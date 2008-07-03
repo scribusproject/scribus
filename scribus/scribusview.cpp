@@ -9872,6 +9872,8 @@ void ScribusView::TextToPath()
 						continue;
 				}
 				int chs = hl->csize;
+				if (hl->cstyle & 32)
+					chx = chx.upper();
 				if (hl->cstyle & 64)
 				{
 					if (chx.upper() != chx)
