@@ -3884,6 +3884,8 @@ void ScribusView::TextToPath()
 							chstr = chstr.toUpper();
 						}
 					}
+					else if (hl->effects() & ScStyle_AllCaps)
+						chstr = chstr.toUpper();
 //					double csi = static_cast<double>(chs) / 100.0;
 					uint chr = chstr[0].unicode();
 					QMatrix chma, chma2, chma3, chma4, chma6;
@@ -3993,6 +3995,8 @@ void ScribusView::TextToPath()
 								chstr = chstr.toUpper();
 							}
 						}
+						else if (hl->effects() & ScStyle_AllCaps)
+							chstr = chstr.toUpper();
 						double csi = static_cast<double>(chs) / 100.0;
 						uint chr = chstr[0].unicode();
 						QMatrix chma, chma2, chma3, chma4, chma6;
@@ -4109,7 +4113,7 @@ void ScribusView::TextToPath()
 						double textX = CurX + hl->glyph.xoffset;
 						double textY = ls.y;  // + hl->glyph.yoffset;
 						if (charStyle.effects() & ScStyle_Subscript)
-							textY -= hl->glyph.yoffset;
+							textY += hl->glyph.yoffset;
 						if (charStyle.effects() & ScStyle_Superscript)
 							textY += hl->glyph.yoffset;
 						chma6 = QMatrix();
