@@ -348,15 +348,11 @@ void Vruler::unitChange()
 				cor = 1;
 			if (sc > 4)
 				cor = 10;
-			if (sc < 0.3)
+			if (sc < 0.6)
 			{
-				iter = unitRulerGetIter1FromIndex(docUnitIndex) * 4;
-	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 4;
-			}
-			else if (sc < 0.6)
-			{
-				iter = unitRulerGetIter1FromIndex(docUnitIndex) * 3;
-	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 3;
+				cor=0.1;
+				iter = 720.0/25.4;
+				iter2 = 7200.0/25.4;
 			}
 			else
 			{
