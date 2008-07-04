@@ -35,6 +35,7 @@ cmsHTRANSFORM scCmsCreateProofingTransform(cmsHPROFILE Input, DWORD InputFormat,
 	QString desc1 = cmsTakeProductDesc(Input);
 	QString desc2 = cmsTakeProductDesc(Output);
 	QString desc3 = cmsTakeProductDesc(Proofing);
+	dwFlags &= ~cmsFLAGS_BLACKPOINTCOMPENSATION;
 	if ( desc1 != desc3 )
 	{
 		if( desc2 == desc3 )

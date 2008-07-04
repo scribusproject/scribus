@@ -307,8 +307,15 @@ QColor ScColorEngine::getShadeColorProof(const ScColor& color, const ScribusDoc*
 		// Match 133x behavior for rgb grey until we are able to make rgb profiled output
 		// (RGB greys map to cmyk greys)
 		if ( rgb.r == rgb.g && rgb.g == rgb.b )
+		{
 			doGC = false;
-		tmp = getColorProof(rgb, doc, color.isSpotColor(), doGC);
+			CMYKColor cmyk;
+			cmyk.c = cmyk.m = cmyk.y = 0;
+			cmyk.k = 255 - rgb.g;
+			tmp = getColorProof(cmyk, doc, color.isSpotColor(), doGC);
+		}
+		else
+			tmp = getColorProof(rgb, doc, color.isSpotColor(), doGC);
 	}
 	else
 	{
