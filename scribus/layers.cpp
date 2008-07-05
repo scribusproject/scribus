@@ -69,10 +69,12 @@ LayerPalette::LayerPalette(QWidget* parent) : ScrPaletteBase( parent, "Layers", 
 	Table->setHorizontalHeaderItem(4, new QTableWidgetItem(QIcon(loadIcon("16/layer-flow-around.png")), ""));
 	Table->setHorizontalHeaderItem(5, new QTableWidgetItem(QIcon(loadIcon("layer-outline.png")), ""));
 	Table->setHorizontalHeaderItem(6, new QTableWidgetItem( tr("Name")));
+
 	QHeaderView *header = Table->horizontalHeader();
 	header->setStretchLastSection(true);
 	header->setMovable(false);
 	header->setClickable(true);
+	header->setHighlightSections(false);
 	header->setResizeMode(QHeaderView::Fixed);
 
 	Table->setColumnWidth(0, 24);
