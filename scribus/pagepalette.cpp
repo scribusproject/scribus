@@ -6,26 +6,27 @@ for which a new license (GPL+exception) is in place.
 */
 
 
-//QPixmap doesnt seem to include this for its mask() code
+#include <QApplication>
 #include <QBitmap>
 #include <QCursor>
+#include <QDrag>
 #include <QEvent>
-#include <QList>
+#include <QHeaderView>
 #include <QLabel>
+#include <QList>
 #include <QMenu>
 #include <QMimeData>
-#include <QDrag>
-#include <QHeaderView>
-#include <QApplication>
+
 
 #include "commonstrings.h"
 #include "page.h"
 #include "pagelayout.h"
+#include "pagepalette.h"
 #include "sccombobox.h"
 #include "scribus.h"
 #include "scribusview.h"
-#include "pagepalette.h"
 #include "util_icon.h"
+
 
 /* IconItems Code */
 SeItem::SeItem(QString text, uint nr, const QPixmap& Pix) : QTableWidgetItem(QIcon(Pix), "", 1002)
@@ -104,6 +105,25 @@ void SeList::mouseMoveEvent(QMouseEvent* e)
 	}
 }
 
+void SeList::keyPressEvent(QKeyEvent * e)
+{
+	int k = e->key();
+	if (k == Qt::Key_Delete)
+	{
+		if (currentItem())
+		{
+			e->accept();
+			if (!QMessageBox::question(this, tr("Delete Master Page?"),
+				"<qt>" + tr("Are you sure you want to delete this master page?") + "</qt>",
+				CommonStrings::trYesKey, CommonStrings::trNoKey, QString::null, 0, 1 ))
+			{
+				emit DelMaster(currentItem()->text());
+			}
+		}
+	}
+}
+
+
 /* QTable Subclass */
 SeView::SeView(QWidget* parent) : QTableWidget(parent)
 {
@@ -115,7 +135,7 @@ SeView::SeView(QWidget* parent) : QTableWidget(parent)
 	setWordWrap(true);
 	Mpressed = false;
 	Namen = true;
-	setFocusPolicy(Qt::NoFocus);
+// 	setFocusPolicy(Qt::NoFocus);
 }
 
 void SeView::mousePressEvent(QMouseEvent* e)
@@ -353,6 +373,23 @@ void SeView::dragMoveEvent(QDragMoveEvent *e)
 	}
 }
 
+void SeView::keyPressEvent(QKeyEvent * e)
+{
+	int k = e->key();
+	if (k == Qt::Key_Delete)
+	{
+		e->accept();
+		if (!QMessageBox::question(this, tr("Delete Page?"),
+			 "<qt>" + tr("Are you sure you want to delete this page?") + "</qt>",
+						 CommonStrings::trYesKey, CommonStrings::trNoKey, QString::null, 0, 1 ))
+		{
+			bool dummy;
+			int pageToDelete=GetPage(currentRow(), currentColumn(), &dummy);
+			emit DelPage(pageToDelete);
+		}
+	}
+}
+
 void SeView::ClearPix()
 {
 	int counter = 0;
@@ -560,6 +597,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	languageChange();
 	connect(masterPageList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(selMasterPage()));
 	connect(masterPageList, SIGNAL(thumbnailChanged()), this, SLOT(rebuildMasters()));
+	connect(masterPageList, SIGNAL(DelMaster(QString)), this, SLOT(deleteMasterPage(QString)));
 	connect(pageView, SIGNAL(Click(int, int, int)), this, SLOT(pageView_gotoPage(int, int, int)));
 	connect(pageView, SIGNAL(movePage(int, int)), this, SLOT(pageView_movePage(int, int)));
 	connect(Trash, SIGNAL(DelMaster(QString)), this, SLOT(deleteMasterPage(QString)));
@@ -569,6 +607,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	connect(pageView, SIGNAL(UseTemp(QString, int)), m_scMW, SLOT(Apply_MasterPage(QString, int)));
 	connect(pageView, SIGNAL(NewPage(int, QString)), m_scMW, SLOT(slotNewPageP(int, QString)));
 	connect(Trash, SIGNAL(DelPage(int)), m_scMW, SLOT(DeletePage2(int)));
+	connect(pageView, SIGNAL(DelPage(int)), m_scMW, SLOT(DeletePage2(int)));
 	connect(this, SIGNAL(gotoPage(int)), m_scMW, SLOT(selectPagesFromOutlines(int)));
 }
 
@@ -894,3 +933,4 @@ const bool PagePalette::getThumb()
 {
 	return masterPageList->Thumb;
 }
+

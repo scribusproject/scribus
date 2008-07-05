@@ -7,9 +7,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef SEITENPAL_H
 #define SEITENPAL_H
 
-#include <QListWidget>
-#include <QTableWidgetItem>
-#include <QTableWidget>
 #include <QCheckBox>
 #include <QDialog>
 #include <QDragEnterEvent>
@@ -18,14 +15,19 @@ for which a new license (GPL+exception) is in place.
 #include <QDropEvent>
 #include <QHBoxLayout>
 #include <QImage>
+#include <QKeyEvent>
 #include <QLabel>
 #include <QLayout>
+#include <QListWidget>
 #include <QMouseEvent>
 #include <QPixmap>
 #include <QPushButton>
 #include <QSplitter>
+#include <QTableWidget>
+#include <QTableWidgetItem>
 #include <QToolTip>
 #include <QVBoxLayout>
+
 
 class QEvent;
 
@@ -71,11 +73,13 @@ private slots:
 signals:
 	//! Emitted when user requests/disables the thumbnais for master pages.
 	void thumbnailChanged();
+	void DelMaster(QString);
 
 protected:
 	void mouseReleaseEvent(QMouseEvent *m);
 	void mousePressEvent(QMouseEvent* e);
 	void mouseMoveEvent(QMouseEvent* e);
+	virtual void keyPressEvent(QKeyEvent* e);	
 	
 	QPoint Mpos;
 	QListWidgetItem *CurItem;
@@ -104,6 +108,7 @@ signals:
 	void NewPage(int, QString);
 	void movePage(int, int);
 	void Click(int, int, int);
+	void DelPage(int);
 
 protected:
 	virtual void dropEvent(QDropEvent * e);
@@ -113,6 +118,7 @@ protected:
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	virtual void mousePressEvent(QMouseEvent* e);
 	virtual void mouseMoveEvent(QMouseEvent* e);
+	virtual void keyPressEvent(QKeyEvent* e);
 	
 	QPoint Mpos;
 	bool Mpressed;
