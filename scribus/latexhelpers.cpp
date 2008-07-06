@@ -70,7 +70,6 @@ void LatexHighlighter::highlightBlock(const QString &text)
 	int len = text.length();
 	int start = 0;
 	int pos = 0;
-	//qDebug() << "Block:" << text;
 	while (pos < len) {
 		switch (state) {
 			case NormalState:
@@ -105,7 +104,6 @@ void LatexHighlighter::highlightBlock(const QString &text)
 								start = pos;
 								while (pos < len && text.at(pos++) != '}') /*Do nothing */;
 								pos--;
-								//qDebug() << "Start:" << start << "Stop:" << (pos - start) << text.at(pos-1);
 								setFormat(start, pos - start, m_formats[BlockName]);
 							} else {
 								pos = saved_pos;
@@ -117,7 +115,6 @@ void LatexHighlighter::highlightBlock(const QString &text)
 								if (!(((ch >= 'A') && (ch <= 'Z')) ||
 									((ch >= 'a') && (ch <= 'z')) || (ch == '@'))) break;
 							}
-							//qDebug() << "Len: " << (pos - start);
 							if ((pos - start) == 2) {
 								//Special char
 								setFormat(start, pos - start, m_formats[ScribusSpecial]);
@@ -244,7 +241,7 @@ void LatexConfigParser::formatError(QString message)
 {
 	QString new_error = QString::number(xml.lineNumber()) + ":" + 
 			QString::number(xml.columnNumber()) + ":" + message;
-	qDebug() << m_filename << new_error;
+	qWarning() << m_filename << new_error;
 	m_error += new_error + "\n";
 }
 
@@ -276,7 +273,6 @@ void LatexConfigParser::parseTab()
 			QString value = xml.attributes().value("value").toString();
 			QString img = xml.attributes().value("image").toString();
 			text = xml.readI18nText();
-			//qDebug() << "For future use: <item>" << value << img << text;
 		} else if (xml.name() == "comment" || xml.name() == "font" 
 						 || xml.name() == "spinbox" || xml.name() == "color" 
 								 || xml.name() == "text" || xml.name() == "list") {
@@ -296,7 +292,7 @@ void LatexConfigParser::parseTab()
 									 properties.insert(name, default_value);
 								 }
 							 }
-							 qDebug() << "For future use:" << tagname << name << text << default_value;
+							 //TODO: qDebug() << "For future use:" << tagname << name << text << default_value;
 								 } else {
 									 formatError("Unexpected element in <tab>: " + xml.name().toString());
 								 }
@@ -424,7 +420,6 @@ LatexConfigParser* LatexConfigCache::parser(QString filename, bool warnOnError)
 
 void LatexConfigCache::createParser(QString filename, bool warnOnError)
 {
-	qDebug() << "Creating new parser" << filename;
 	LatexConfigParser *parser = new LatexConfigParser();
 	bool hasError = !parser->parseConfigFile(filename);
 	parsers[filename] = parser;

@@ -107,7 +107,7 @@ PageItem_LatexFrame::~PageItem_LatexFrame()
 	
 	QDir dir;
 	if (!editorFile.isEmpty() && !dir.remove(editorFile)) {
-		qDebug() << "RENDER FRAME: Failed to remove editorfile" << qPrintable(editorFile);
+		qCritical() << "RENDER FRAME: Failed to remove editorfile" << qPrintable(editorFile);
 	}
 	
 	
@@ -189,7 +189,7 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 				+ "</qt>", 1, 0, 0);
 			firstWarning = false;
 		}
-		qDebug() << "RENDER FRAME: updateImage():" << tr("Running the external application failed!");
+		qCritical() << "RENDER FRAME: updateImage():" << tr("Running the external application failed!");
 		killed = false;
 		update(); //Show error marker
 		return;
@@ -255,7 +255,7 @@ void PageItem_LatexFrame::runApplication()
 								  + "</qt>", 1, 0, 0);
 			firstWarningTmpfile = false;
 		}
-		qDebug() << "RENDER FRAME:" << tr("Could not create a temporary file to run the application!");
+		qCritical() << "RENDER FRAME:" << tr("Could not create a temporary file to run the application!");
 		//Don't know how to continue as it's impossible to create tempfile
 		return;
 	}
@@ -275,7 +275,7 @@ void PageItem_LatexFrame::runApplication()
 									 "</qt>",1, 0, 0);
 			firstWarningLatexMissing = false;
 		}
-        qDebug() << "RENDER FRAME:" << tr("The config file didn't specify a executable path!");
+        qCritical() << "RENDER FRAME:" << tr("The config file didn't specify a executable path!");
 		return;
 	}
 	else
@@ -355,7 +355,6 @@ void PageItem_LatexFrame::runEditor()
 void PageItem_LatexFrame::rerunApplication(bool updateDisplay)
 {
 	if (latex->state() != QProcess::NotRunning) {
-		qDebug() << "RENDER FRAME: rerunApplication(): Killing running process";
 		killed = true;
 		latex->terminate();
 		latex->waitForFinished(500);
@@ -481,7 +480,7 @@ void PageItem_LatexFrame::editorFinished(int exitCode, QProcess::ExitStatus exit
 	Q_ASSERT(editor);
 	
 	if (exitCode) {
-		qDebug() << "RENDER FRAME: Editor's output was: " << 
+		qCritical() << "RENDER FRAME: Editor failed. Output was: " << 
 			qPrintable(QString(editor->readAllStandardOutput()));
 		QMessageBox::critical(0, tr("Error"), "<qt>" +
 			tr("Running the editor failed with exitcode %d!").arg(exitCode) +
@@ -527,7 +526,7 @@ void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 		}
 		firstWarning = false;
 	}
-	qDebug() << "RENDER FRAME: latexError():" << 
+	qCritical() << "RENDER FRAME: latexError():" << 
 			tr("Running the application \"%1\" failed!").arg(config->executable()) << latex->error();
 }
 
@@ -648,8 +647,6 @@ void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 		actionList << "editClearContents";
 		actionList << "editCopyContents";
 	}
-	//TODO: Type correct?
-	qDebug() << "Buffertype" << doc()->scMW()->contentsBuffer.sourceType;
 	if (doc()->scMW()->contentsBuffer.sourceType==PageItem::LatexFrame)
 	{
 		actionList << "editPasteContents";

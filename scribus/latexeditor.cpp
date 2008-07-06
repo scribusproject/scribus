@@ -238,7 +238,7 @@ void LatexEditor::updateConfigFile()
 	}
 }
 
-#define xmlError() qDebug() << "XML-ERROR:" << xml->lineNumber() \
+#define xmlError() qWarning() << "XML-ERROR:" << xml->lineNumber() \
 	<< ":" << xml->columnNumber() << ":"
 
 void LatexEditor::loadSettings()
@@ -250,7 +250,6 @@ void LatexEditor::loadSettings()
 	}
 	widgetMap.clear();
 	
-	qDebug() << "Loading editor GUI from " << frame->configFile();
 	QFile f(frame->configFile());
 	f.open(QIODevice::ReadOnly);
 	I18nXmlStreamReader xml(&f);
@@ -263,14 +262,14 @@ void LatexEditor::loadSettings()
 			} else if (xml.attributes().value("type") == "items") {
 				createNewItemsTab(&xml);
 			} else {
-				qDebug() << "XML-ERROR: " << xml.lineNumber() << ":" 
+				qWarning() << "XML-ERROR: " << xml.lineNumber() << ":" 
 						<< xml.columnNumber() << ":" << "Unknow tab type"
 						<< xml.attributes().value("type").toString();
 			}
 		}
 	}
 	if (xml.hasError()) {
-		qDebug() << "XML-ERROR: " << xml.lineNumber() << ":" 
+		qWarning() << "XML-ERROR: " << xml.lineNumber() << ":" 
 				<< xml.columnNumber() << ":" << xml.errorString();
 	}
 	f.close();
@@ -278,7 +277,6 @@ void LatexEditor::loadSettings()
 
 void LatexEditor::createNewSettingsTab(I18nXmlStreamReader *xml)
 {
-	qDebug() << "Creating new tab";
 	QStringRef tagname;
 	QFrame *newTab = new QFrame();
 	newTab->setFrameShape(QFrame::NoFrame);
@@ -665,7 +663,6 @@ void IconBuffer::loadFile(QString filename)
 {
 	if (loadedFiles.contains(filename)) return;
 	loadedFiles << filename;
-	qDebug() << "Loading icon file: " << filename;
 	file = new QFile(filename);
 	file->open(QIODevice::ReadOnly);
 	basePos = 0;
@@ -687,7 +684,7 @@ QIcon *IconBuffer::icon(QString filename, QString name)
 	if (icons.contains(cname)) {
 		return &(icons[cname]);
 	} else {
-		qDebug() << "Icon" << cname << "not found!";
+		qWarning() << "Icon" << cname << "not found!";
 		return 0;
 	}
 }
