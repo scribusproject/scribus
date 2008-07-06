@@ -67,6 +67,8 @@ below.png
 beziertool.png
 beziertool16.png
 blend.png
+chain-closed.png
+chain-open.png
 checkdoc.png
 clear_right.png
 cmsOff.png
