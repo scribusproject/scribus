@@ -915,7 +915,7 @@ void PagePalette::languageChange()
 	TextLabel1->setText( tr( "Available Master Pages:" ) );
 	TextLabel2->setText( tr( "Document Pages:" ) );
 	
-	masterPageList->setToolTip( "<qt>" + tr( "List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or ont empty space to create new pages." ) + "</qt>");
+	masterPageList->setToolTip( "<qt>" + tr( "List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages." ) + "</qt>");
 	pageView->setToolTip( "<qt>" + tr( "List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.")  + "</qt>");
 	Trash->setToolTip( "<qt>" + tr("Drag pages or master pages onto the trash to delete them") + "</qt>");
 }
