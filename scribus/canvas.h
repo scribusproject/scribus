@@ -207,7 +207,7 @@ private:
 	CanvasViewMode m_viewMode;
 	
 	RenderMode m_renderMode;
-	QPixmap m_buffer;
+	QImage m_buffer;
 	QRect m_bufferRect;
 	QPixmap m_selectionBuffer;
 	QRect m_selectionRect;

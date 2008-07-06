@@ -57,16 +57,21 @@ void CanvasViewMode::init()
 	forceRedraw = false;
 }
 	
+
 Canvas::Canvas(ScribusDoc* doc, ScribusView* parent) : QWidget(parent), m_doc(doc), m_view(parent)
 {
 	setAutoFillBackground(true);
 	setAttribute(Qt::WA_OpaquePaintEvent, true);
 	setAttribute(Qt::WA_NoSystemBackground, true);
-	m_buffer = QPixmap();
+	m_buffer = QImage();
 	m_bufferRect = QRect();
 	m_viewMode.init();
 	m_renderMode = RENDER_NORMAL;
 }
+
+
+// ______________________________
+// Coordinate Conversion Routines:
 
 
 FPoint Canvas::localToCanvas(QPoint p) const
@@ -74,6 +79,8 @@ FPoint Canvas::localToCanvas(QPoint p) const
 	return FPoint(p.x() / m_viewMode.scale + m_doc->minCanvasCoordinate.x() , 
 				  p.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y());	
 }
+
+
 /*
 FPoint Canvas::localToCanvas(QPointF p) const
 {
@@ -81,17 +88,21 @@ FPoint Canvas::localToCanvas(QPointF p) const
 				  p.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y());	
 }
 */
+
+
 QPoint Canvas::canvasToLocal(FPoint p) const
 {
 	return 	QPoint(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
 				   qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
 }
 
+
 QPoint Canvas::canvasToLocal(QPointF p) const
 {
 	return 	QPoint(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
 				   qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
 }
+
 
 QRect Canvas::canvasToLocal(QRectF p) const
 {
@@ -101,15 +112,18 @@ QRect Canvas::canvasToLocal(QRectF p) const
 				  qRound(p.height() * m_viewMode.scale));
 }
 
+
 QPoint Canvas::canvasToGlobal(FPoint p) const
 {
 	return mapToGlobal(QPoint(0,0)) + canvasToLocal(p);
 }
 
+
 QPoint Canvas::canvasToGlobal(QPointF p) const
 {
 	return mapToGlobal(QPoint(0,0)) + canvasToLocal(p);
 }
+
 
 QRect Canvas::canvasToGlobal(QRectF p) const
 {
@@ -117,21 +131,28 @@ QRect Canvas::canvasToGlobal(QRectF p) const
 				 QSize(qRound(p.width() * m_viewMode.scale), qRound(p.height() * m_viewMode.scale)));
 }
 
+
 FPoint Canvas::globalToCanvas(QPoint p) const
 {
 	return localToCanvas(p - mapToGlobal(QPoint(0,0)));
 }
+
+
 /*
 FPoint Canvas::globalToCanvas(QPointF p) const
 {
 	return localToCanvas(p - mapToGlobal(QPoint(0, 0)));
 }
 */
+
+
 QRectF Canvas::globalToCanvas(QRect p) const
 {
 	FPoint org = globalToCanvas(p.topLeft());
 	return QRectF(org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale);
 }
+
+
 /*
 QRectF Canvas::globalToCanvas(QRectF p) const
 {
@@ -139,6 +160,12 @@ QRectF Canvas::globalToCanvas(QRectF p) const
 	return QRectF(org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale);
 }
 */
+
+
+// ________________________
+// Tests for Finding Things:
+
+
 bool Canvas::hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const
 {
 	QPoint localPoint1 = globalPoint - mapToGlobal(QPoint(0,0));
@@ -147,6 +174,7 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const
 	return qAbs(localPoint1.x() - localPoint2.x()) < radius
 		&& qAbs(localPoint1.y() - localPoint2.y()) < radius;
 }
+
 
 bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
 {
@@ -174,10 +202,13 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, PageItem* item) co
 }
 
 
+/// Little helper to calculate |p|^2
+
 static double length2(const QPointF& p)
 {
 	return p.x()*p.x() + p.y()*p.y();
 }
+
 
 Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, QRectF frame) const
 {
@@ -382,6 +413,9 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 }
 
 
+// __________________
+// Buffered rendering:
+
 /*
  Rendermodes:
  
@@ -399,6 +433,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 
 void Canvas::setRenderMode(RenderMode mode)
 {
+//	qDebug() << "setRenderMode" << m_renderMode << "-->" << mode;
 	if ( (mode < RENDER_SELECTION_SEPARATE) != (m_renderMode < RENDER_SELECTION_SEPARATE) )
 	{
 		clearBuffers();
@@ -409,7 +444,7 @@ void Canvas::setRenderMode(RenderMode mode)
 
 void Canvas::clearBuffers()
 {
-	m_buffer = QPixmap();
+	m_buffer = QImage();
 	m_bufferRect = QRect();
 	m_selectionBuffer = QPixmap();
 	m_selectionRect = QRect();
@@ -432,8 +467,9 @@ bool Canvas::adjustBuffer()
 #endif
 	if (!m_bufferRect.isValid())
 	{
+//		qDebug() << "adjust buffer: invalid buffer, viewport" << viewport;
 		m_bufferRect = viewport;
-		m_buffer = QPixmap(m_bufferRect.width(), m_bufferRect.height());
+		m_buffer = QImage(m_bufferRect.width(), m_bufferRect.height(), QImage::Format_ARGB32);
 		fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);
 		ret = true;
 #if DRAW_DEBUG_LINES
@@ -455,7 +491,8 @@ bool Canvas::adjustBuffer()
 			newRect.translate(0, viewport.top() - m_bufferRect.top());
 		if (m_bufferRect.bottom() < viewport.bottom())
 			newRect.translate(0, viewport.bottom() - m_bufferRect.bottom());
-
+//		qDebug() << "adjust buffer: " << m_bufferRect << "outside viewport" << viewport << " new rect:" << newRect;
+		
 /*
 		// enlarge buffer by half a screenwidth:
 		QRect newRect(m_bufferRect);
@@ -481,9 +518,9 @@ bool Canvas::adjustBuffer()
 */
 		if (!m_bufferRect.intersects(newRect))
 		{
-//			qDebug() << "fresh buffer" << newRect << "was" << m_bufferRect;
+//			qDebug() << "adjust buffer: fresh buffer" << m_bufferRect << "-->" << newRect;
 			m_bufferRect = newRect;
-			m_buffer = QPixmap(m_bufferRect.width(), m_bufferRect.height());
+			m_buffer = QImage(m_bufferRect.width(), m_bufferRect.height(), QImage::Format_ARGB32);
 			fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);
 			ret = true;
 #if DRAW_DEBUG_LINES
@@ -497,7 +534,7 @@ bool Canvas::adjustBuffer()
 		else
 		{
 			// copy buffer:
-			QPixmap newBuffer(newRect.width(), newRect.height());
+			QImage newBuffer(newRect.width(), newRect.height(), QImage::Format_ARGB32);
 			QPainter p(&newBuffer);
 			int xpos = m_bufferRect.x() - newRect.x();
 			int ypos = m_bufferRect.y() - newRect.y();
@@ -525,7 +562,7 @@ bool Canvas::adjustBuffer()
 			{
 				height = newRect.height() - ypos;
 			}
-			p.drawPixmap(xpos, ypos, m_buffer, x, y,  width + 1, height + 1);
+			p.drawImage(xpos, ypos, m_buffer, x, y,  width + 1, height + 1); // FIXME: == params drawPixmap?
 #if DRAW_DEBUG_LINES
 			p.setPen(Qt::blue);
 			p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos);
@@ -565,6 +602,8 @@ bool Canvas::adjustBuffer()
 #endif
 		}
 	}
+//	else
+//		qDebug() << "adjustBuffer: reusing" << m_bufferRect;
 	return ret;
 }
 
@@ -601,14 +640,17 @@ void Canvas::paintEvent ( QPaintEvent * p )
 //			qDebug() << "update Buffer:" << m_bufferRect << p->rect() << m_viewMode.forceRedraw;
 #endif
 			if ((m_viewMode.forceRedraw) && (!bufferFilled))
+			{
+				qDebug() << "Canvas::paintEvent: forceRedraw=" << m_viewMode.forceRedraw << "bufferFilled=" << bufferFilled;
 				fillBuffer(&m_buffer, m_bufferRect.topLeft(), p->rect());
+			}
 			int xV = p->rect().x() - m_bufferRect.x();
 			int yV = p->rect().y() - m_bufferRect.y();
 			int wV = p->rect().width();
 			int hV = p->rect().height();
 			if (hV > 0 && wV > 0)
 			{
-				qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
+				qp.drawImage(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
 #if DRAW_DEBUG_LINES
 //				qDebug() << "normal rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
 				qp.setPen(Qt::blue);
@@ -644,7 +686,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 				}
 				if (hV > 0 && wV > 0)
 				{
-					qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
+					qp.drawImage(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
 	#if DRAW_DEBUG_LINES
 //					qDebug() << "buffered rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
 					qp.setPen(Qt::green);
@@ -678,8 +720,9 @@ void Canvas::paintEvent ( QPaintEvent * p )
 
 void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cliph)
 {
-//	QTime tim;
-//	tim.start();
+	int Tsetup, Tbackground, Tcontents;
+	QTime tim;
+	tim.start();
 //	qDebug() << "drawContents" << clipx << clipy << clipw << cliph;
 	uint docPagesCount=m_doc->Pages->count();
 	ScPainter *painter=0;
@@ -698,6 +741,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	painter->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	painter->setLineWidth(1);
 	painter->setFillMode(ScPainter::Solid);
+	Tsetup = tim.elapsed();
 	if (!m_doc->masterPageMode())
 	{
 		drawBackgroundPageOutlines(painter, clipx, clipy, clipw, cliph);
@@ -715,12 +759,14 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 		{
 			drawGuides(painter, clipx, clipy, clipw, cliph);
 		}
+		Tbackground = tim.elapsed();
 		for (uint a = 0; a < docPagesCount; ++a)
 		{
 			DrawMasterItems(painter, m_doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 		}
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		painter->endLayer();
+		Tcontents = tim.elapsed();
 		if ((!m_doc->guidesSettings.before) && (!m_viewMode.viewAsPreview))
 		{
 			drawGuides(painter, clipx, clipy, clipw, cliph);
@@ -730,9 +776,11 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	{			
 		drawBackgroundMasterpage(painter, clipx, clipy, clipw, cliph);
 		
+		Tbackground = tim.elapsed();
 		painter->beginLayer(1.0, 0);
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		painter->endLayer();
+		Tcontents = tim.elapsed();
 		
 		double x = m_doc->scratch.Left * m_viewMode.scale;
 		double y = m_doc->scratch.Top * m_viewMode.scale;
@@ -751,7 +799,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	psx->drawImage(clipx, clipy, img);
 	delete painter;
 	painter=NULL;
-//	qDebug( "Time elapsed: %d ms", tim.elapsed() );
+//	qDebug( "Time elapsed: %d ms, setup=%d, background=%d, contents=%d, rest=%d", tim.elapsed(), Tsetup, Tbackground-Tsetup, Tcontents-Tbackground, tim.elapsed() - Tcontents );
 }
 
 void Canvas::drawControls(QPainter *psx)
