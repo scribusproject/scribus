@@ -171,6 +171,7 @@ private:
 	QCheckBox* marginsForAllMasterPages;
 	QPushButton* usePrinterMarginsButton;
 	LinkButton* linkBleeds;
+	LinkButton* linkMargins;
 	/*! \brief Margin values converted by unitRatio */
 	MarginStruct marginData;
 	/*
@@ -196,13 +197,15 @@ public slots:
 	void setRight();
 	/*! \brief Recompute margins in PresetLayout combobox and disable/enable widgets. */
 	void setPreset();
-	void ToggleKette();
+	void slotLinkBleeds();
+	void slotLinkMargins();
 	void changeBleeds();
 	
 protected slots:	
 	virtual void setMarginsToPrinterMargins();
 
 protected:
+	void updateMarginSpinValues();
 	QGridLayout* GroupLayout;
 	QHBoxLayout* marginsForPagesLayout;
 	QGridLayout* BleedGroupLayout;

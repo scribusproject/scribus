@@ -35,13 +35,10 @@ pageType(0)
 	m_unitIndex=unitIndex;
 	m_unitRatio=unitGetRatioFromIndex(unitIndex);
 	leftR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
-	leftR->setValue(marginData.Left * m_unitRatio);
 	rightR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
-	rightR->setValue(marginData.Right * m_unitRatio);
 	topR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
-	topR->setValue(marginData.Top * m_unitRatio);
 	bottomR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
-	bottomR->setValue(marginData.Bottom * m_unitRatio);
+	updateMarginSpinValues();
 
 	bText = new QLabel( tr( "&Bottom:" ), marginPage);
 	bText->setBuddy(bottomR);
@@ -51,6 +48,12 @@ pageType(0)
 	rText->setBuddy(rightR);
 	lText = new QLabel( tr( "&Left:" ), marginPage);
 	lText->setBuddy(leftR);
+
+	linkMargins = new LinkButton( marginPage );
+	linkMargins->setCheckable( true );
+	linkMargins->setChecked(true);
+	linkMargins->setAutoRaise( true );
+	linkMargins->setMaximumSize( QSize( 15, 32767 ) );
 
 	// layout
 	GroupLayout = new QGridLayout( marginPage );
@@ -66,6 +69,7 @@ pageType(0)
 	GroupLayout->addWidget( rText, 2, 0 );
 	GroupLayout->addWidget( tText, 3, 0 );
 	GroupLayout->addWidget( bText, 4, 0 );
+	GroupLayout->addWidget( linkMargins, 1, 2, 4, 1 );
 	if (showChangeAll)
 	{
 		marginsForPagesLayout = new QHBoxLayout;
@@ -138,7 +142,7 @@ pageType(0)
 		BleedBottom->setToolTip( "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
 		BleedLeft->setToolTip( "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
 		BleedRight->setToolTip( "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
-		connect(linkBleeds, SIGNAL(clicked()), this, SLOT(ToggleKette()));
+		connect(linkBleeds, SIGNAL(clicked()), this, SLOT(slotLinkBleeds()));
 		connect(BleedLeft, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 		connect(BleedRight, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 		connect(BleedTop, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
@@ -158,9 +162,10 @@ pageType(0)
 	connect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
 	connect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
 	connect(presetCombo, SIGNAL(activated(int)), this, SLOT(setPreset()));
+	connect(linkMargins, SIGNAL(clicked()), this, SLOT(slotLinkMargins()));
 }
 
-void MarginWidget::ToggleKette()
+void MarginWidget::slotLinkBleeds()
 {
 	disconnect(BleedLeft, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 	disconnect(BleedRight, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
@@ -248,29 +253,57 @@ void MarginWidget::setPageHeight(double height)
 
 void MarginWidget::setTop()
 {
-	marginData.Top = topR->value() / m_unitRatio;
+	double newVal=topR->value() / m_unitRatio;
 	bottomR->setMaximum(qMax(0.0, pageHeight * m_unitRatio - topR->value()));
+	if (linkMargins->isChecked() && savedPresetItem==PresetLayout::none)
+	{
+		marginData.set(newVal, newVal, newVal, newVal);
+		updateMarginSpinValues();
+	}
+	else
+		marginData.Top = newVal;
 	setPreset();
 }
 
 void MarginWidget::setBottom()
 {
-	marginData.Bottom = bottomR->value() / m_unitRatio;
+	double newVal = bottomR->value() / m_unitRatio;
 	topR->setMaximum(qMax(0.0, pageHeight * m_unitRatio - bottomR->value()));
+	if (linkMargins->isChecked() && savedPresetItem==PresetLayout::none)
+	{
+		marginData.set(newVal, newVal, newVal, newVal);
+		updateMarginSpinValues();
+	}
+	else
+		marginData.Bottom = newVal;
 	setPreset();
 }
 
 void MarginWidget::setLeft()
 {
-	marginData.Left = leftR->value() / m_unitRatio;
+	double newVal = leftR->value() / m_unitRatio;
 	rightR->setMaximum(qMax(0.0, pageWidth * m_unitRatio - leftR->value()));
+	if (linkMargins->isChecked() && savedPresetItem==PresetLayout::none)
+	{
+		marginData.set(newVal, newVal, newVal, newVal);
+		updateMarginSpinValues();
+	}
+	else
+		marginData.Left = newVal;
 	setPreset();
 }
 
 void MarginWidget::setRight()
 {
-	marginData.Right = rightR->value() / m_unitRatio;
+	double newVal = rightR->value() / m_unitRatio;
 	leftR->setMaximum(qMax(0.0, pageWidth * m_unitRatio - rightR->value()));
+	if (linkMargins->isChecked() && savedPresetItem==PresetLayout::none)
+	{
+		marginData.set(newVal, newVal, newVal, newVal);
+		updateMarginSpinValues();
+	}
+	else
+		marginData.Right = newVal;
 	setPreset();
 }
 
@@ -329,10 +362,7 @@ void MarginWidget::setPreset()
 	if (restoringValues || (presetCombo->needUpdate() && facingPages))
 	{
 		marginData.set(qMax(0.0, marg.Top), qMax(0.0, marg.Left), qMax(0.0, marg.Bottom), qMax(0.0, marg.Right));
-		leftR->setValue(marg.Left * m_unitRatio);
-		rightR->setValue(marg.Right * m_unitRatio);
-		topR->setValue(marg.Top * m_unitRatio);
-		bottomR->setValue(marg.Bottom * m_unitRatio);
+		updateMarginSpinValues();
 		
 		bottomR->setMaximum(qMax(0.0, pageHeight * m_unitRatio - topR->value()));
 		topR->setMaximum(qMax(0.0, pageHeight * m_unitRatio - bottomR->value()));
@@ -351,6 +381,9 @@ void MarginWidget::setPreset()
 	if (pageType == 1)
 		rightR->setEnabled(false);
 	leftR->setEnabled(item != PresetLayout::nineparts);
+	if (item!=PresetLayout::none)
+		linkMargins->setChecked(false);
+	linkMargins->setEnabled(item==PresetLayout::none);
 	connect(topR, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
@@ -371,15 +404,12 @@ void MarginWidget::setMarginsToPrinterMargins()
 		double t,b,l,r;
 		upm.getNewPrinterMargins(t,b,l,r);
 		presetCombo->setCurrentIndex(PresetLayout::none);
-		topR->setValue(t * m_unitRatio);
-		bottomR->setValue(b * m_unitRatio);
-		leftR->setValue(l * m_unitRatio);
-		rightR->setValue(r * m_unitRatio);
-
+		
 		marginData.Top = t;
 		marginData.Bottom = b;
 		marginData.Left = l;
 		marginData.Right = r;
+		updateMarginSpinValues();
 
 		bottomR->setMaximum((qMax(0.0, pageHeight - t) * m_unitRatio));
 		topR->setMaximum((qMax(0.0, pageHeight - b) * m_unitRatio));
@@ -419,10 +449,7 @@ void MarginWidget::setNewMargins(MarginStruct &m)
 	disconnect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
 	marginData=m;
-	topR->setValue(m.Top * m_unitRatio);
-	bottomR->setValue(m.Bottom * m_unitRatio);
-	leftR->setValue(m.Left * m_unitRatio);
-	rightR->setValue(m.Right * m_unitRatio);
+	updateMarginSpinValues();
 	connect(topR, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
@@ -458,6 +485,9 @@ void MarginWidget::setMarginPreset(int p)
 	if (pageType == 1)
 		rightR->setEnabled(false);
 	leftR->setEnabled(item != PresetLayout::nineparts);
+	if (item!=PresetLayout::none)
+		linkMargins->setChecked(false);
+	linkMargins->setEnabled(item==PresetLayout::none);
 	connect(presetCombo, SIGNAL(activated(int)), this, SLOT(setPreset()));
 }
 
@@ -582,4 +612,33 @@ bool PresetLayout::needUpdate() const
 const MarginStruct & MarginWidget::margins() const
 {
 	return marginData;
+}
+
+void MarginWidget::slotLinkMargins()
+{
+	disconnect(topR, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
+	disconnect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
+	disconnect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
+	disconnect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
+	if (linkMargins->isChecked())
+	{
+		bottomR->setValue(leftR->value());
+		topR->setValue(leftR->value());
+		rightR->setValue(leftR->value());
+		double newVal=leftR->value() / m_unitRatio;
+		marginData.set(newVal, newVal, newVal, newVal);
+	}	
+	connect(topR, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
+	connect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
+	connect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
+	connect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
+	
+}
+
+void MarginWidget::updateMarginSpinValues()
+{
+	topR->setValue(marginData.Top * m_unitRatio);
+	rightR->setValue(marginData.Right * m_unitRatio);
+	bottomR->setValue(marginData.Bottom * m_unitRatio);
+	leftR->setValue(marginData.Left * m_unitRatio);
 }
