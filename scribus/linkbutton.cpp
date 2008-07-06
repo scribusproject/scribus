@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "linkbutton.h"
-#include "icons6.h"
+#include "util_icon.h"
 #include <QIcon>
 #include <QPixmap>
 
@@ -30,11 +30,12 @@ for which a new license (GPL+exception) is in place.
 LinkButton::LinkButton(QWidget *pa) : QToolButton(pa)
 {
 	setBackgroundRole(QPalette::Window);
-	QIcon a = QIcon();
-	a.addPixmap(QPixmap(ChainC), QIcon::Normal, QIcon::On);
-	a.addPixmap(QPixmap(ChainO), QIcon::Normal, QIcon::Off);
+	QIcon a=QIcon();
+	QPixmap closedPixmap(loadIcon("chain-closed.png"));
+	a.addPixmap(closedPixmap, QIcon::Normal, QIcon::On);
+	a.addPixmap(loadIcon("chain-open.png"), QIcon::Normal, QIcon::Off);
 	setIcon(a);
-	setIconSize(QPixmap(ChainC).size());
+	setIconSize(closedPixmap.size());
 }
 
 QSize LinkButton::sizeHint() const
