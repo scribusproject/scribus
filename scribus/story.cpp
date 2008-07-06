@@ -412,7 +412,7 @@ void SEditor::handleContentsChange(int position, int charsRemoved, int charsAdde
 			QString addedChars = cursor.selectedText();
 			if (addedChars.length() > 0)
 				StyledText.insertChars(position, addedChars, true);
-			qDebug("handleContentsChange : - %01d, + %01d, len %01d", charsRemoved, charsAdded, addedChars.length());
+			//qDebug("handleContentsChange : - %01d, + %01d, len %01d", charsRemoved, charsAdded, addedChars.length());
 		}	
 	}
 }
