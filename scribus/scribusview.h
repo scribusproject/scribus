@@ -304,12 +304,15 @@ public slots: // Public slots
 	void PasteToPage();
 //	void PasteRecentToPage(int id);
 	void TextToPath();
+	void adjustCMS();
 //	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
 	
 private: // Private attributes
 	int m_previousMode;
 	QMenu *pmen3;
 	QMenu *pmenResolution;
+	QMenu *cmsAdjustMenu;
+	QAction *idCmsAdjustMenu;
 	QPoint m_pressLocation;
 	QTime m_moveTimer;
 	QTimer *m_dragTimer;

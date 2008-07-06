@@ -76,6 +76,7 @@ for which a new license (GPL+exception) is in place.
 #include "canvasgesture.h"
 #include "canvasmode.h"
 #include "actionmanager.h"
+#include "adjustcmsdialog.h"
 #include "commonstrings.h"
 #include "extimageprops.h"
 #include "filewatcher.h"
@@ -253,6 +254,12 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	previewToolbarButton->setFlat(OPTION_FLAT_BUTTON);
 	previewToolbarButton->setPixmap(loadIcon("previewOn.png"));
 #endif
+	cmsAdjustMenu = new QMenu();
+	idCmsAdjustMenu = cmsAdjustMenu->addAction( "Configure CMS...", this, SLOT(adjustCMS()));
+	cmsToolbarButton->setMenu(cmsAdjustMenu);
+#if OPTION_USE_QTOOLBUTTON
+	cmsToolbarButton->setPopupMode(QToolButton::DelayedPopup);
+#endif
 	//zoomDefaultToolbarButton->setText("1:1");
 	zoomDefaultToolbarButton->setIcon(QIcon(loadIcon("16/zoom-original.png")));
 	zoomOutToolbarButton->setIcon(QIcon(loadIcon("16/zoom-out.png")));
@@ -351,6 +358,7 @@ void ScribusView::languageChange()
 	unitSwitcher->setToolTip("Select the current unit");
 	visualMenu->setToolTip("");
 	cmsToolbarButton->setToolTip( tr("Enable/disable Color Management"));
+	idCmsAdjustMenu->setText( tr("Configure CMS..."));
 	previewToolbarButton->setToolTip( tr("Enable/disable the Preview Mode"));
 	visualMenu->setToolTip( tr("Select the visual appearance of the display. You can choose between normal and several color blindness forms"));
 	disconnect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
@@ -367,8 +375,25 @@ void ScribusView::languageChange()
 void ScribusView::toggleCMS()
 {
 	Doc->enableCMS(!Doc->HasCMS);
-//	repaintContents(QRect());
+	m_ScMW->propertiesPalette->ShowCMS();
 	DrawNew();
+}
+
+void ScribusView::adjustCMS()
+{
+	AdjustCmsDialog* dia = new AdjustCmsDialog(this, Doc);
+	if (dia->exec())
+	{
+		dia->tabColorManagement->updateDocSettings(Doc);
+		if (dia->tabColorManagement->changed)
+		{
+			Doc->enableCMS(Doc->CMSSettings.CMSinUse);
+			cmsToolbarButton->setChecked(Doc->HasCMS);
+			m_ScMW->propertiesPalette->ShowCMS();
+			DrawNew();
+		}
+	}
+	delete dia;
 }
 
 void ScribusView::switchPreviewVisual(int vis)
@@ -376,7 +401,6 @@ void ScribusView::switchPreviewVisual(int vis)
 	m_canvas->setPreviewVisual(vis);
 	Doc->recalculateColors();
 	Doc->recalcPicturesRes();
-//	repaintContents(QRect());
 	DrawNew();
 }
 

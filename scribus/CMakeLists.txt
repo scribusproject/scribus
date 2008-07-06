@@ -71,6 +71,7 @@ SET(SCRIBUS_MOC_CLASSES
   about.h
   aboutplugins.h
   actionmanager.h
+  adjustcmsdialog.h
   aligndistribute.h
   alignselect.h
   annot.h
@@ -285,6 +286,7 @@ SET(SCRIBUS_SOURCES
   about.cpp
   aboutplugins.cpp
   actionmanager.cpp
+  adjustcmsdialog.cpp
   aligndistribute.cpp
   alignselect.cpp
   annot.cpp
