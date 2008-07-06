@@ -401,7 +401,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				strokeDA = "stroke-dasharray:";
 				if (Item->DashValues.count() != 0)
 				{
-					QList<double>::iterator it;
+					QVector<double>::iterator it;
 					for ( it = Item->DashValues.begin(); it != Item->DashValues.end(); ++it )
 					{
 						strokeDA += IToStr(static_cast<int>(*it))+" ";
@@ -483,7 +483,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 						gr.appendChild(ob);
 						ScImage img;
 						CMSettings cms(m_Doc, Item->IProfile, Item->IRender);
-						img.LoadPicture(Item->Pfile, cms, Item->UseEmbedded, true, ScImage::RGBProof, 72);
+						img.LoadPicture(Item->Pfile, Item->pixm.imgInfo.actualPageNumber, cms, Item->UseEmbedded, true, ScImage::RGBProof, 72);
 						img.applyEffect(Item->effectsInUse, m_Doc->PageColors, true);
 						QFileInfo fi = QFileInfo(Item->Pfile);
 						img.qImage().save(fi.baseName()+".png", "PNG");
