@@ -4051,7 +4051,7 @@ void ScribusView::TextToPath()
 							bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
 							double textX = CurX;
 							double textY = ls.y - st;  // + hl->glyph.yoffset;
-							if (charStyle.effects() & ScStyle_Subscript)
+							if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
 								textY += hl->glyph.yoffset;
 							if (charStyle.baselineOffset() != 0)
 								textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
@@ -4112,10 +4112,12 @@ void ScribusView::TextToPath()
 						bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
 						double textX = CurX + hl->glyph.xoffset;
 						double textY = ls.y;  // + hl->glyph.yoffset;
-						if (charStyle.effects() & ScStyle_Subscript)
+						if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
+						{
 							textY += hl->glyph.yoffset;
-						if (charStyle.effects() & ScStyle_Superscript)
-							textY += hl->glyph.yoffset;
+							x *= hl->glyph.scaleH;
+							y *= hl->glyph.scaleV;
+						}
 						chma6 = QMatrix();
 						if (charStyle.baselineOffset() != 0)
 							textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
