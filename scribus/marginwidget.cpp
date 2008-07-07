@@ -51,8 +51,9 @@ pageType(0)
 
 	linkMargins = new LinkButton( marginPage );
 	linkMargins->setCheckable( true );
-	linkMargins->setChecked(true);
+	linkMargins->setChecked(false);
 	linkMargins->setAutoRaise( true );
+	linkMargins->setMinimumSize( QSize( 15, 0 ) );
 	linkMargins->setMaximumSize( QSize( 15, 32767 ) );
 
 	// layout
@@ -136,6 +137,7 @@ pageType(0)
 		linkBleeds->setCheckable( true );
 		linkBleeds->setChecked(true);
 		linkBleeds->setAutoRaise( true );
+		linkBleeds->setMinimumSize( QSize( 15, 0 ) );
 		linkBleeds->setMaximumSize( QSize( 15, 32767 ) );
 		BleedGroupLayout->addWidget( linkBleeds, 0, 2, 4, 1 );
 		BleedTop->setToolTip( "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
