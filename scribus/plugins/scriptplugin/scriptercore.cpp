@@ -570,10 +570,10 @@ bool ScripterCore::setupMainInterpreter()
 		"# -*- coding: utf-8 -*-\n"
 		"import scribus\n"
 		"import sys\n"
+		"import code\n"
 		"sys.path[0] = \"%1\"\n"
 		"import cStringIO\n"
 		"sys.stdin = cStringIO.StringIO()\n"
-		"import code\n"
 		"scribus._ia = code.InteractiveConsole(globals())\n"
 		).arg(ScPaths::instance().scriptDir());
 	if (m_importAllNames)
