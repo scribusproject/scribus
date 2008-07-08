@@ -54,8 +54,8 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "12";
-	QString BUILD_MONTH = CommonStrings::june;
+	QString BUILD_DAY = "09";
+	QString BUILD_MONTH = CommonStrings::july;
 	QString BUILD_YEAR = "2008";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
@@ -152,8 +152,8 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Andreas Vox</td><td>avox@arcor.de</td></tr>" +
 											"<tr><td>Jean Ghali</td><td>jghali@libertysurf.fr</td></tr>" +
 											"<tr><td>Oleksandr Moskalenko</td><td>malex@tagancha.org</td></tr>" +
-											"<tr><td>Christoph Schäfer</td><td>christoph-schaefer@gmx.de</td></tr>" +
-											"<tr><td>Hermann Krause</td><td>hermann@physiklaborant.de@gmx.de</td></tr>" + 
+											"<tr><td>Christoph Schäfer</td><td>christoph@scribus.info</td></tr>" +
+											"<tr><td>Hermann Krause</td><td>herm@scribus.info</td></tr>" + 
 											"<tr><td> </td><td> </td></tr>" +
 
 											"<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
