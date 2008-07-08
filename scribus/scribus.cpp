@@ -4241,6 +4241,7 @@ void ScribusMainWindow::slotGetContent()
 			}
 			view->DrawNew();
 			slotDocCh();
+			styleManager->setDoc(doc);
 		}
 	}
 }
