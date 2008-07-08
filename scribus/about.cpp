@@ -156,7 +156,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 			"<tr><td>Andreas Vox</td><td>avox@arcor.de</td></tr>" +
 			"<tr><td>Jean Ghali</td><td>jghali@libertysurf.fr</td></tr>" +
 			"<tr><td>Oleksandr Moskalenko</td><td>malex@tagancha.org</td></tr>" +
-			"<tr><td>Christoph Schäfer</td><td>christoph-schaefer@gmx.de</td></tr>" +
+			"<tr><td>Christoph Schäfer</td><td>christoph@scribus.info</td></tr>" +
 			"<tr><td>Hermann Kraus</td><td>herm@scribus.info</td></tr>" + 
 			"<tr><td> </td><td> </td></tr>" +
 
