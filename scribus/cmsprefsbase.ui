@@ -1,0 +1,434 @@
+<ui version="4.0" >
+ <class>CMSPrefsBase</class>
+ <widget class="QWidget" name="CMSPrefsBase" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>327</width>
+    <height>421</height>
+   </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="spacing" >
+    <number>5</number>
+   </property>
+   <property name="leftMargin" >
+    <number>0</number>
+   </property>
+   <property name="topMargin" >
+    <number>0</number>
+   </property>
+   <property name="rightMargin" >
+    <number>0</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QCheckBox" name="checkBox1" >
+     <property name="text" >
+      <string>&amp;Activate Color Management</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="sysProfiles" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
+     <property name="title" >
+      <string>System Profiles</string>
+     </property>
+     <layout class="QGridLayout" >
+      <property name="leftMargin" >
+       <number>10</number>
+      </property>
+      <property name="topMargin" >
+       <number>10</number>
+      </property>
+      <property name="rightMargin" >
+       <number>10</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>10</number>
+      </property>
+      <property name="horizontalSpacing" >
+       <number>5</number>
+      </property>
+      <property name="verticalSpacing" >
+       <number>5</number>
+      </property>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="text1" >
+        <property name="text" >
+         <string>&amp;RGB Images:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>inputPRGBIm</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QComboBox" name="inputPRGBIm" >
+        <property name="minimumSize" >
+         <size>
+          <width>190</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="toolTip" >
+         <string>Default color profile for imported RGB images</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="text1CMYK" >
+        <property name="text" >
+         <string>&amp;CMYK Images:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>inputPCMYKIm</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QComboBox" name="inputPCMYKIm" >
+        <property name="minimumSize" >
+         <size>
+          <width>190</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="toolTip" >
+         <string>Default color profile for imported CMYK images</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QLabel" name="text4" >
+        <property name="text" >
+         <string>&amp;RGB Solid Colors:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>inputPRGB</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QComboBox" name="inputPRGB" >
+        <property name="minimumSize" >
+         <size>
+          <width>190</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="toolTip" >
+         <string>Default color profile for solid RGB colors on the page</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" >
+       <widget class="QLabel" name="text5" >
+        <property name="text" >
+         <string>&amp;CMYK Solid Colors:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>inputPCMYK</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" >
+       <widget class="QComboBox" name="inputPCMYK" >
+        <property name="minimumSize" >
+         <size>
+          <width>190</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="toolTip" >
+         <string>Default color profile for solid CMYK colors on the page</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" >
+       <widget class="QLabel" name="text2" >
+        <property name="text" >
+         <string>&amp;Monitor:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>monitorP</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1" >
+       <widget class="QComboBox" name="monitorP" >
+        <property name="minimumSize" >
+         <size>
+          <width>190</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="toolTip" >
+         <string>Color profile that you have generated or received from the manufacturer.
+This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" >
+       <widget class="QLabel" name="text3" >
+        <property name="text" >
+         <string>P&amp;rinter:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>printerP</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1" >
+       <widget class="QComboBox" name="printerP" >
+        <property name="minimumSize" >
+         <size>
+          <width>190</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="toolTip" >
+         <string>Color profile for your printer model from the manufacturer.
+This profile should be specific to your printer and not a generic profile (i.e. sRGB).</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="renderInt" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
+     <property name="title" >
+      <string>Rendering Intents</string>
+     </property>
+     <layout class="QGridLayout" >
+      <property name="leftMargin" >
+       <number>10</number>
+      </property>
+      <property name="topMargin" >
+       <number>10</number>
+      </property>
+      <property name="rightMargin" >
+       <number>10</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>10</number>
+      </property>
+      <property name="horizontalSpacing" >
+       <number>5</number>
+      </property>
+      <property name="verticalSpacing" >
+       <number>5</number>
+      </property>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="text21" >
+        <property name="text" >
+         <string>Images:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>imagesI</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QComboBox" name="imagesI" >
+        <property name="minimumSize" >
+         <size>
+          <width>190</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="toolTip" >
+         <string>Default rendering intent for images. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="text22" >
+        <property name="text" >
+         <string>Sol&amp;id Colors:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>colorsI</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QComboBox" name="colorsI" >
+        <property name="minimumSize" >
+         <size>
+          <width>190</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="toolTip" >
+         <string>Default rendering intent for solid colors. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="simulate" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
+     <property name="toolTip" >
+      <string>Enable 'soft proofing' of how your document colors will print,
+based on the chosen printer profile.</string>
+     </property>
+     <property name="title" >
+      <string>Sim&amp;ulate Printer on the Screen</string>
+     </property>
+     <property name="checkable" >
+      <bool>true</bool>
+     </property>
+     <property name="checked" >
+      <bool>false</bool>
+     </property>
+     <layout class="QVBoxLayout" >
+      <property name="spacing" >
+       <number>5</number>
+      </property>
+      <property name="leftMargin" >
+       <number>10</number>
+      </property>
+      <property name="topMargin" >
+       <number>10</number>
+      </property>
+      <property name="rightMargin" >
+       <number>10</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>10</number>
+      </property>
+      <item>
+       <widget class="QCheckBox" name="convertAll" >
+        <property name="toolTip" >
+         <string>Simulate a full color managed environment :
+all colors, rgb or cmyk, are converted to printer color space.</string>
+        </property>
+        <property name="text" >
+         <string>Convert all colors to printer space</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="gamutC" >
+        <property name="toolTip" >
+         <string>Method of showing colors on the screen which may not print properly.
+This requires very accurate profiles and serves only as a warning.</string>
+        </property>
+        <property name="text" >
+         <string>Mark Colors out of &amp;Gamut</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="blackP" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
+     <property name="toolTip" >
+      <string>Black Point Compensation is a method of improving contrast in photos.
+It is recommended that you enable this if you have photos in your document.</string>
+     </property>
+     <property name="text" >
+      <string>Use &amp;Blackpoint Compensation</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>checkBox1</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>sysProfiles</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>162</x>
+     <y>17</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>161</x>
+     <y>42</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox1</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>renderInt</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>114</x>
+     <y>28</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>99</x>
+     <y>253</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox1</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>simulate</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>220</x>
+     <y>24</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>196</x>
+     <y>346</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox1</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>blackP</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>248</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>450</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

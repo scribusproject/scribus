@@ -26,6 +26,7 @@ SET(SCRIBUS_UI_SRC
   aboutplugins.ui
   aligndistribute.ui
   charselect.ui
+  cmsprefsbase.ui
   docitemattrprefs.ui
   docsections.ui
   gtfiledialog.ui
