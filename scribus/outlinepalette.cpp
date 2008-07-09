@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QVariant>
 #include <QWidgetAction>
+#include <QShortcut>
 
 #include "actionmanager.h"
 #include "canvasmode.h"
@@ -131,14 +132,20 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 
 OutlinePalette::OutlinePalette( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 {
-	resize( 220, 240 );
+//	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
 	setMaximumSize( QSize( 800, 600 ) );
+ 
+	filterEdit = new QLineEdit;
+	filterEdit->setToolTip( tr("Enter a keyword or regular expression to filter the outline.") );
+	QShortcut* filterShortcut = new QShortcut( QKeySequence( tr( "Ctrl+f", "Filter the Outline using a keyword" ) ), this );
+	filterLabel = new QLabel( tr("Filter:") );
+	filterLabel->setBuddy( filterEdit );
 
 	reportDisplay = new OutlineWidget( this );
 
-	reportDisplay->setGeometry( QRect( 0, 0, 220, 240 ) );
-	reportDisplay->setMinimumSize( QSize( 220, 240 ) );
+//	reportDisplay->setGeometry( QRect( 0, 0, 220, 240 ) );
+//	reportDisplay->setMinimumSize( QSize( 220, 240 ) );
 	reportDisplay->setRootIsDecorated( true );
 	reportDisplay->setColumnCount(1);
 	reportDisplay->setHeaderLabel( tr("Element"));
@@ -147,6 +154,14 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScrPaletteBase( parent, "Tree
 	reportDisplay->setSortingEnabled(false);
 	reportDisplay->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	reportDisplay->setContextMenuPolicy(Qt::CustomContextMenu);
+
+	QGridLayout* layout = new QGridLayout;
+	layout->addWidget( filterLabel, 0, 0 );
+	layout->addWidget( filterEdit, 0, 1 );
+	layout->addWidget( reportDisplay, 1, 0, 1, 2 );
+	layout->setContentsMargins( 3, 3, 3, 3);
+	setLayout( layout );
+
 	unsetDoc();
 	imageIcon = loadIcon("22/insert-image.png");
 	latexIcon = loadIcon("22/insert-latex.png");
@@ -172,6 +187,8 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScrPaletteBase( parent, "Tree
 	connect(reportDisplay, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick(QPoint)));
 	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
+	connect(filterEdit, SIGNAL(textChanged(const QString&)), this, SLOT(filterTree(const QString&)));
+	connect(filterShortcut, SIGNAL(activated()), filterEdit, SLOT(setFocus()));
 }
 
 void OutlinePalette::setMainWindow(ScribusMainWindow *mw)
@@ -280,6 +297,7 @@ void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 				}
 			}
 		}
+		filterTree();
 	}
 	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 }
@@ -602,12 +620,12 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 	}
 	selectionTriggered = false;
 }
-
+/*
 void OutlinePalette::resizeEvent(QResizeEvent *r)
 {
 	reportDisplay->resize(r->size());
 }
-
+*/
 void OutlinePalette::BuildTree(bool storeVals)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
@@ -792,9 +810,39 @@ void OutlinePalette::BuildTree(bool storeVals)
 	setUpdatesEnabled(true);
 	if (currDoc->m_Selection->count() > 0)
 		slotShowSelect(0, -1);
+	filterTree();
 	repaint();
 	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
+}
+
+void OutlinePalette::filterTree(const QString& keyword)
+{
+	OutlineTreeItem *item = NULL;
+	QTreeWidgetItemIterator it( reportDisplay );
+	while ( (*it) )
+	{
+		item = dynamic_cast<OutlineTreeItem*>(*it);
+		if (item != NULL)
+		{
+			if ((item->type == 1) || (item->type == 3) || (item->type == 4))
+			{
+				if (item->PageItemObject->itemName().contains(QRegExp(keyword)))
+					item->setHidden(false);
+				else
+					item->setHidden(true);
+			}
+			else
+				item->setHidden(false);
+		}
+		++it;
+	}
+}
+
+void OutlinePalette::filterTree()
+{
+	if ( !filterEdit->text().isEmpty() )
+		filterTree( filterEdit->text() );
 }
 
 void OutlinePalette::parseSubGroup(int level, OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType)
@@ -858,6 +906,7 @@ void OutlinePalette::languageChange()
 {
 	setWindowTitle( tr("Outline"));
 	reportDisplay->setHeaderLabel( tr("Element"));
+	filterLabel->setText( tr("Filter:") );
 }
 
 void OutlinePalette::clearPalette()

@@ -10,8 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
-#include <QResizeEvent>
+#include <QLineEdit>
 #include <QList>
+#include <QLabel>
 
 class QEvent;
 
@@ -52,7 +53,7 @@ public:
 	
 	virtual void changeEvent(QEvent *e);
 	
-	void resizeEvent(QResizeEvent *r);
+//	void resizeEvent(QResizeEvent *r);
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
@@ -64,6 +65,7 @@ public:
 
 public slots:
 	void BuildTree(bool storeVals = true);
+	void filterTree(const QString& keyword);
 	void languageChange();
 	void slotShowSelect(uint SNr, int Nr);
 	void setPaletteShown(bool);
@@ -81,12 +83,15 @@ protected slots:
 	void slotMultiSelect();
 	void slotSelect(QTreeWidgetItem* ite, int col);
 protected:
+	void filterTree();
 	void clearPalette();
 	void createContextMenu(PageItem *currItem, double mx, double my);
 	OutlineWidget* reportDisplay;
 	QTreeWidgetItem* freeObjects;
 	QTreeWidgetItem* rootObject;
 	QTreeWidgetItem* currentObject;
+	QLabel* filterLabel;
+	QLineEdit* filterEdit;
 	ScribusMainWindow* m_MainWindow;
 	QPixmap imageIcon;
 	QPixmap latexIcon;
