@@ -2646,38 +2646,6 @@ creates a Duplicate of the selected Object (or Selection Group).
 </source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
-
-Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
-
-Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setFillTransparency(transparency, [&quot;name&quot;])
-
-Sets the fill transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLineTransparency(transparency, [&quot;name&quot;])
-
-Sets the line transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>About</name>
@@ -2697,7 +2665,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Contributions from:</source>
-        <translation type="unfinished">Contributions from:</translation>
+        <translation>สนับสนุนจาก:</translation>
     </message>
     <message>
         <source>Windows port:</source>
@@ -2795,35 +2763,43 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;About</translation>
+        <translation type="unfinished">เกี่ยวกับ
+</translation>
     </message>
     <message>
         <source>A&amp;uthors</source>
-        <translation type="unfinished">A&amp;uthors</translation>
+        <translation type="unfinished">ผู้เขียน
+</translation>
     </message>
     <message>
         <source>&amp;Translations</source>
-        <translation type="unfinished">&amp;Translations</translation>
+        <translation type="unfinished">การแปล
+</translation>
     </message>
     <message>
         <source>&amp;Online</source>
-        <translation type="unfinished">&amp;Online</translation>
+        <translation type="unfinished">ใช้งาน
+</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Close</translation>
+        <translation type="unfinished">ปิด
+</translation>
     </message>
     <message>
         <source>Development Team:</source>
-        <translation type="unfinished">Development Team:</translation>
+        <translation>ทีมพัฒนา
+:</translation>
     </message>
     <message>
         <source>Official Documentation:</source>
-        <translation type="unfinished">Official Documentation:</translation>
+        <translation>เอกสารราชการ
+:</translation>
     </message>
     <message>
         <source>Other Documentation:</source>
-        <translation type="unfinished">Other Documentation:</translation>
+        <translation>เอกสารอื่นๆ
+:</translation>
     </message>
     <message>
         <source>English (British):</source>
@@ -2835,23 +2811,26 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>Homepage</source>
-        <translation type="unfinished">Homepage</translation>
+        <translation>หน้าแรก
+</translation>
     </message>
     <message>
         <source>Online Reference</source>
-        <translation type="unfinished">Online Reference</translation>
+        <translation>ลงทะเบียนงาน
+</translation>
     </message>
     <message>
         <source>Bugs and Feature Requests</source>
-        <translation type="unfinished">Bugs and Feature Requests</translation>
+        <translation></translation>
     </message>
     <message>
         <source>Mailing List</source>
-        <translation type="obsolete">Mailing List</translation>
+        <translation>รายการข้อความ
+</translation>
     </message>
     <message>
         <source>Official Translations and Translators:</source>
-        <translation type="unfinished">Official Translations and Translators:</translation>
+        <translation>ออฟฟิตแปลเอกสารและผู้แปล:</translation>
     </message>
     <message>
         <source>Esperanto:</source>
@@ -2879,7 +2858,7 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation type="unfinished">About Scribus %1</translation>
+        <translation>เกี่ยวกับ Scribus %1</translation>
     </message>
     <message>
         <source>%1 %2 %3</source>
@@ -2891,11 +2870,13 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>Using Ghostscript version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>กำลังใช้ โกสต์สคริป รุ่นที่ %1
+</translation>
     </message>
     <message>
         <source>No Ghostscript version available</source>
-        <translation type="unfinished"></translation>
+        <translation>ไม่สามารถใช้ โกสต์สคริปได้
+</translation>
     </message>
     <message>
         <source>&lt;b&gt;Scribus Version %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</source>
@@ -2903,15 +2884,17 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>Build ID:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สร้างรหัส:</translation>
     </message>
     <message>
         <source>Wiki</source>
-        <translation type="unfinished"></translation>
+        <translation>วิกิ
+</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation type="unfinished"></translation>
+        <translation>แสดงแถบเครื่องมือของรุ่น กำหนดเวลาและรวมรวมไว้ในไลบรารี่ เพื่อสนับสนุนโปรแกรมสไครบัส.
+</translation>
     </message>
     <message>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
@@ -2923,73 +2906,73 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>Tango Project Icons:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Developer Blog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mailing Lists</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โปรเจคสัญลักษณ์แทงโก้
+</translation>
     </message>
 </context>
 <context>
     <name>AboutPlugins</name>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Yes</translation>
+        <translation type="unfinished">ใช่
+</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">No</translation>
+        <translation>ไม่
+</translation>
     </message>
     <message>
         <source>Filename:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อเอกสาร
+</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รุ่น
+</translation>
     </message>
     <message>
         <source>Enabled:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สามารถ
+</translation>
     </message>
     <message>
         <source>Release Date:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วันที่ปล่อย</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลักษณะ
+</translation>
     </message>
     <message>
         <source>Author(s):</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ผู้เขียน
+</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลิขสิทธ์
+</translation>
     </message>
     <message>
         <source>License:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อนุญาติ
+</translation>
     </message>
 </context>
 <context>
     <name>AboutPluginsBase</name>
     <message>
         <source>Scribus: About Plug-ins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สไครบัส:เกี่ยวกับตัวเสริม
+</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Close</translation>
+        <translation type="unfinished">ปิด
+</translation>
     </message>
     <message>
         <source>Alt+C</source>
@@ -3000,95 +2983,102 @@ Missing library support is indicated by a *</translation>
     <name>ActionManager</name>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;New</translation>
+        <translation type="unfinished">ใหม่
+</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation type="unfinished">&amp;Open...</translation>
+        <translation type="unfinished">เปิด...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Close</translation>
+        <translation type="unfinished">ปิด
+</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Save</translation>
+        <translation type="unfinished">บันทึก
+</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished">Save &amp;As...</translation>
+        <translation type="unfinished">บันทึกเป็น...</translation>
     </message>
     <message>
         <source>Re&amp;vert to Saved</source>
-        <translation type="unfinished">Re&amp;vert to Saved</translation>
+        <translation type="unfinished">กลับไปบันทึก</translation>
     </message>
     <message>
         <source>Collect for O&amp;utput...</source>
-        <translation type="unfinished">Collect for O&amp;utput...</translation>
+        <translation type="unfinished">รวมเอกสารส่งออก...</translation>
     </message>
     <message>
         <source>Get Text...</source>
-        <translation type="unfinished">Get Text...</translation>
+        <translation type="unfinished">ดึงข้อความ...</translation>
     </message>
     <message>
         <source>Append &amp;Text...</source>
-        <translation type="unfinished">Append &amp;Text...</translation>
+        <translation type="unfinished">เพิ่มข้อความ...</translation>
     </message>
     <message>
         <source>Get Image...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดึงรูป...</translation>
     </message>
     <message>
         <source>Save &amp;Text...</source>
-        <translation type="unfinished">Save &amp;Text...</translation>
+        <translation type="unfinished">บันทึกข้อความ...</translation>
     </message>
     <message>
         <source>Save Page as &amp;EPS...</source>
-        <translation type="unfinished">Save Page as &amp;EPS...</translation>
+        <translation type="unfinished">บันทึกเป็นอีพีเอส...</translation>
     </message>
     <message>
         <source>Save as P&amp;DF...</source>
-        <translation type="unfinished">Save as P&amp;DF...</translation>
+        <translation type="unfinished">บันทึกเป็นพีดีเอฟ...</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
-        <translation type="unfinished">Document &amp;Setup...</translation>
+        <translation type="unfinished">ตั้งค่าเอกสาร...</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation type="unfinished">&amp;Print...</translation>
+        <translation type="unfinished">พิมพ์...
+</translation>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
-        <translation type="unfinished">Print Previe&amp;w</translation>
+        <translation type="unfinished">ตัวอย่างก่อนพิมพ์
+</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation type="unfinished">&amp;Quit</translation>
+        <translation type="unfinished">ออกจากโปรแกรม</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;Undo</translation>
+        <translation type="unfinished">แก้ไขกลับคืน</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ทำซ้ำ</translation>
     </message>
     <message>
         <source>&amp;Item Action Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โหมดแสดงรายการ
+</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished">Cu&amp;t</translation>
+        <translation type="unfinished">ตัด</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Copy</translation>
+        <translation type="unfinished">คัดลอก
+</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Paste</translation>
+        <translation type="unfinished">วาง</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
@@ -3096,71 +3086,73 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
-        <translation type="unfinished">Select &amp;All</translation>
+        <translation type="unfinished">เลือกทั้งหมด</translation>
     </message>
     <message>
         <source>&amp;Deselect All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่เลือกทั้งหมด
+</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation type="unfinished">&amp;Search/Replace...</translation>
+        <translation type="unfinished">ค้นหา/แทนที่
+...</translation>
     </message>
     <message>
         <source>Edit Image...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แก้ไขรูปภาพ</translation>
     </message>
     <message>
         <source>C&amp;olors...</source>
-        <translation type="unfinished">C&amp;olours...</translation>
+        <translation type="unfinished">สี...</translation>
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation type="unfinished">&amp;Paragraph Styles...</translation>
+        <translation type="unfinished">รูปแบบย่อหน้า...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation type="unfinished">&amp;Line Styles...</translation>
+        <translation type="unfinished">รูปแบบบรรทัด...</translation>
     </message>
     <message>
         <source>&amp;Master Pages...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าต้นแบบ...</translation>
     </message>
     <message>
         <source>&amp;JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จาวาสคริป...</translation>
     </message>
     <message>
         <source>P&amp;references...</source>
-        <translation type="unfinished">P&amp;references...</translation>
+        <translation type="unfinished">ตั้งค่าโปรแกรม...</translation>
     </message>
     <message>
         <source>%1 pt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 พ้อยต์</translation>
     </message>
     <message>
         <source>&amp;Other...</source>
-        <translation type="unfinished">&amp;Other...</translation>
+        <translation type="unfinished">อื่นๆ...</translation>
     </message>
     <message>
         <source>&amp;Left</source>
-        <translation type="unfinished">&amp;Left</translation>
+        <translation type="unfinished">ซ้าย</translation>
     </message>
     <message>
         <source>&amp;Center</source>
-        <translation type="unfinished">&amp;Centre</translation>
+        <translation type="unfinished">กลาง</translation>
     </message>
     <message>
         <source>&amp;Right</source>
-        <translation type="unfinished">&amp;Right</translation>
+        <translation type="unfinished">ขวา</translation>
     </message>
     <message>
         <source>&amp;Block</source>
-        <translation type="unfinished">&amp;Block</translation>
+        <translation type="unfinished">บล็อก</translation>
     </message>
     <message>
         <source>&amp;Forced</source>
-        <translation type="unfinished">&amp;Forced</translation>
+        <translation type="unfinished">บังคับ</translation>
     </message>
     <message>
         <source>&amp;%1 %</source>
@@ -3168,35 +3160,36 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>&amp;Normal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปกติ</translation>
     </message>
     <message>
         <source>&amp;Underline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขีดเส้นใต้</translation>
     </message>
     <message>
         <source>Underline &amp;Words</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขีดเส้นใต้ข้อความ</translation>
     </message>
     <message>
         <source>&amp;Strike Through</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขีดเส้นทับข้อความ</translation>
     </message>
     <message>
         <source>&amp;All Caps</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวพิมพ์ใหญ่</translation>
     </message>
     <message>
         <source>Small &amp;Caps</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวพิมพ์เล็ก</translation>
     </message>
     <message>
         <source>Su&amp;perscript</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวยก</translation>
     </message>
     <message>
         <source>Su&amp;bscript</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ต้นห้อย
+</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
@@ -3204,135 +3197,138 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>S&amp;hadow</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เงา</translation>
     </message>
     <message>
         <source>&amp;Image Effects</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลูกเล่นรูปภาพ
+</translation>
     </message>
     <message>
         <source>&amp;Tabulators...</source>
-        <translation type="unfinished">&amp;Tabulators...</translation>
+        <translation type="unfinished">เครื่องมือสร้างตาราง...</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation type="unfinished">D&amp;uplicate</translation>
+        <translation type="unfinished">ทำซ้ำ</translation>
     </message>
     <message>
         <source>&amp;Multiple Duplicate</source>
-        <translation type="unfinished">&amp;Multiple Duplicate</translation>
+        <translation type="unfinished">ทำซ้ำต่อเนื่อง</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation type="unfinished">&amp;Group</translation>
+        <translation type="unfinished">รวมกลุ่ม</translation>
     </message>
     <message>
         <source>&amp;Ungroup</source>
-        <translation type="unfinished">&amp;Ungroup</translation>
+        <translation type="unfinished">แตกกลุ่ม</translation>
     </message>
     <message>
         <source>Is &amp;Locked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ล็อก</translation>
     </message>
     <message>
         <source>Si&amp;ze is Locked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ล็อกขนาด</translation>
     </message>
     <message>
         <source>Lower to &amp;Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลดตำ่ลงล่าง</translation>
     </message>
     <message>
         <source>Raise to &amp;Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ยกขึ้นบน</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
-        <translation type="unfinished">&amp;Lower</translation>
+        <translation type="unfinished">ลดต่ำลง
+</translation>
     </message>
     <message>
         <source>&amp;Raise</source>
-        <translation type="unfinished">&amp;Raise</translation>
+        <translation type="unfinished">ยกขึ้น
+</translation>
     </message>
     <message>
         <source>Send to S&amp;crapbook</source>
-        <translation type="unfinished">Send to S&amp;crapbook</translation>
+        <translation type="unfinished">ส่งไปยังสมุดภาพ</translation>
     </message>
     <message>
         <source>&amp;Attributes...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อ้างว่า</translation>
     </message>
     <message>
         <source>More Info...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อมูลเพิ่ม...</translation>
     </message>
     <message>
         <source>I&amp;mage Visible</source>
-        <translation type="unfinished">I&amp;mage Visible</translation>
+        <translation type="unfinished">แสดงรูปภาพ</translation>
     </message>
     <message>
         <source>&amp;Update Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปรับปรุงรูปภาพ</translation>
     </message>
     <message>
         <source>Adjust Frame to Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปรับกรอบให้เข้ากับรูปภาพ</translation>
     </message>
     <message>
         <source>Extended Image Properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขยายคุณสมบัติของรูปภาพ</translation>
     </message>
     <message>
         <source>&amp;Low Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ความละเอียดต่ำ</translation>
     </message>
     <message>
         <source>&amp;Normal Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ความละเอียดปกติ</translation>
     </message>
     <message>
         <source>&amp;Full Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ความละเอียดสูง</translation>
     </message>
     <message>
         <source>Is PDF &amp;Bookmark</source>
-        <translation type="unfinished">Is PDF &amp;Bookmark</translation>
+        <translation type="unfinished">Is PDF ที่คั่นหนังสือ</translation>
     </message>
     <message>
         <source>Is PDF A&amp;nnotation</source>
-        <translation type="unfinished">Is PDF A&amp;nnotation</translation>
+        <translation type="unfinished">Is PDF คำอธิบายประกอบ</translation>
     </message>
     <message>
         <source>Annotation P&amp;roperties</source>
-        <translation type="unfinished">Annotation P&amp;roperties</translation>
+        <translation type="unfinished">คำอธิบายประกอบ คุณสมบัติ</translation>
     </message>
     <message>
         <source>Field P&amp;roperties</source>
-        <translation type="unfinished">Field P&amp;roperties</translation>
+        <translation type="unfinished">คุณสมบัติเขตข้อมูล</translation>
     </message>
     <message>
         <source>&amp;Edit Shape...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แก้ไขรูปร่าง</translation>
     </message>
     <message>
         <source>&amp;Attach Text to Path</source>
-        <translation type="unfinished">&amp;Attach Text to Path</translation>
+        <translation type="unfinished">แนบข้อความเข้ากับเส้นทาง</translation>
     </message>
     <message>
         <source>&amp;Detach Text from Path</source>
-        <translation type="unfinished">&amp;Detach Text from Path</translation>
+        <translation type="unfinished">ยกเลิกการแนบข้อความเข้ากับเส้นทาง</translation>
     </message>
     <message>
         <source>&amp;Combine Polygons</source>
-        <translation type="unfinished">&amp;Combine Polygons</translation>
+        <translation type="unfinished">รวมโพลิกอน</translation>
     </message>
     <message>
         <source>Split &amp;Polygons</source>
-        <translation type="unfinished">Split &amp;Polygons</translation>
+        <translation type="unfinished">แยกโพลิกอน</translation>
     </message>
     <message>
         <source>&amp;Bezier Curve</source>
@@ -3340,7 +3336,7 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>&amp;Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เฟรมรูปภาพ</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
@@ -3348,55 +3344,55 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โพลิกอน</translation>
     </message>
     <message>
         <source>&amp;Text Frame</source>
-        <translation type="unfinished">&amp;Text Frame</translation>
+        <translation type="unfinished">เฟรมข้อความ</translation>
     </message>
     <message>
         <source>&amp;Glyph...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวอักษร...</translation>
     </message>
     <message>
         <source>Sample Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวอย่างข้อความ</translation>
     </message>
     <message>
         <source>&amp;Insert...</source>
-        <translation type="unfinished">&amp;Insert...</translation>
+        <translation type="unfinished">แทรก...</translation>
     </message>
     <message>
         <source>Im&amp;port...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">นำเข้า...</translation>
     </message>
     <message>
         <source>&amp;Delete...</source>
-        <translation type="unfinished">&amp;Delete...</translation>
+        <translation type="unfinished">ลบ...</translation>
     </message>
     <message>
         <source>&amp;Copy...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คัดลอก...</translation>
     </message>
     <message>
         <source>&amp;Move...</source>
-        <translation type="unfinished">&amp;Move...</translation>
+        <translation type="unfinished">ย้าย...</translation>
     </message>
     <message>
         <source>&amp;Apply Master Page...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ประยุกต์ใช้ต้นแบบเอกสาร...</translation>
     </message>
     <message>
         <source>Convert to Master Page...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แปลงไปเป็นต้นแบบเอกสาร...</translation>
     </message>
     <message>
         <source>Manage &amp;Guides...</source>
-        <translation type="unfinished">Manage &amp;Guides...</translation>
+        <translation type="unfinished">จัดการไกด์...</translation>
     </message>
     <message>
         <source>Manage Page Properties...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จัดการคุณสมบัติหน้ากระดาษ...</translation>
     </message>
     <message>
         <source>&amp;Fit in window</source>
@@ -3404,91 +3400,91 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>&amp;50%</source>
-        <translation type="unfinished">&amp;50%</translation>
+        <translation type="unfinished">50%</translation>
     </message>
     <message>
         <source>&amp;75%</source>
-        <translation type="unfinished">&amp;75%</translation>
+        <translation type="unfinished">75%</translation>
     </message>
     <message>
         <source>&amp;100%</source>
-        <translation type="unfinished">&amp;100%</translation>
+        <translation type="unfinished">100%</translation>
     </message>
     <message>
         <source>&amp;200%</source>
-        <translation type="unfinished">&amp;200%</translation>
+        <translation type="unfinished">200%</translation>
     </message>
     <message>
         <source>&amp;Thumbnails</source>
-        <translation type="unfinished">&amp;Thumbnails</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show &amp;Margins</source>
-        <translation type="unfinished">Show &amp;Margins</translation>
+        <translation type="unfinished">แสดงระยะขอบ</translation>
     </message>
     <message>
         <source>Show &amp;Frames</source>
-        <translation type="unfinished">Show &amp;Frames</translation>
+        <translation type="unfinished">แสดงเฟรม</translation>
     </message>
     <message>
         <source>Show &amp;Images</source>
-        <translation type="unfinished">Show &amp;Images</translation>
+        <translation type="unfinished">แสดงรูปภาพ</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation type="unfinished">Show &amp;Grid</translation>
+        <translation type="unfinished">แสดงกริก</translation>
     </message>
     <message>
         <source>Show G&amp;uides</source>
-        <translation type="unfinished">Show G&amp;uides</translation>
+        <translation type="unfinished">แสดงไกด์</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation type="unfinished">Show &amp;Baseline Grid</translation>
+        <translation type="unfinished">แสดงกริกหลัก</translation>
     </message>
     <message>
         <source>Show &amp;Text Chain</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงตัวเชื่อมข้อความ</translation>
     </message>
     <message>
         <source>Show Control Characters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงตัวควบคุมตัวอักษร</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม้บรรทัดสัมพัทธ์กับหน้า</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
-        <translation type="unfinished">Sn&amp;ap to Grid</translation>
+        <translation type="unfinished">จัดแนบกริก</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation type="unfinished">Sna&amp;p to Guides</translation>
+        <translation type="unfinished">จัดแนบไกด์</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation type="unfinished">&amp;Properties</translation>
+        <translation type="unfinished">คุณสมบัติ</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
-        <translation type="unfinished">&amp;Scrapbook</translation>
+        <translation type="unfinished">สมุดตัดแปะรูป</translation>
     </message>
     <message>
         <source>&amp;Layers</source>
-        <translation type="unfinished">&amp;Layers</translation>
+        <translation type="unfinished">ชั้น</translation>
     </message>
     <message>
         <source>&amp;Arrange Pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จัดเรียงหน้ากระดาษ</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Bookmarks</translation>
+        <translation type="unfinished">ที่คั่นหนังสือ</translation>
     </message>
     <message>
         <source>&amp;Measurements</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัววัด</translation>
     </message>
     <message>
         <source>Action &amp;History</source>
@@ -3504,63 +3500,63 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation type="unfinished">&amp;Tools</translation>
+        <translation type="unfinished">เครื่องมือ</translation>
     </message>
     <message>
         <source>P&amp;DF Tools</source>
-        <translation type="unfinished">P&amp;DF Tools</translation>
+        <translation type="unfinished">เครื่องมือพีดีเอฟ</translation>
     </message>
     <message>
         <source>Select Item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือกรายการ</translation>
     </message>
     <message>
         <source>T&amp;able</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตาราง</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation type="unfinished">&amp;Shape</translation>
+        <translation type="unfinished">รูปร่าง</translation>
     </message>
     <message>
         <source>&amp;Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้น</translation>
     </message>
     <message>
         <source>&amp;Freehand Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้นอิสระ</translation>
     </message>
     <message>
         <source>Rotate Item</source>
-        <translation type="unfinished">Rotate Item</translation>
+        <translation type="unfinished">หมุนข้อความ</translation>
     </message>
     <message>
         <source>Zoom in or out</source>
-        <translation type="unfinished">Zoom in or out</translation>
+        <translation type="unfinished">ขยายเข้า หรือ ออก</translation>
     </message>
     <message>
         <source>Zoom in</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขยายเข้า</translation>
     </message>
     <message>
         <source>Zoom out</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขยายออก</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
-        <translation type="unfinished">Edit Contents of Frame</translation>
+        <translation type="unfinished">แก้ไขภายในเฟรม</translation>
     </message>
     <message>
         <source>Edit Text...</source>
-        <translation type="unfinished">Edit Text...</translation>
+        <translation type="unfinished">แก้ไขข้อความ...</translation>
     </message>
     <message>
         <source>Link Text Frames</source>
-        <translation type="unfinished">Link Text Frames</translation>
+        <translation type="unfinished">เชื่อมกรอบข้อความ</translation>
     </message>
     <message>
         <source>Unlink Text Frames</source>
-        <translation type="unfinished">Unlink Text Frames</translation>
+        <translation type="unfinished">ยกเลิกการเชื่อมกรอบข้อความ</translation>
     </message>
     <message>
         <source>&amp;Eye Dropper</source>
@@ -3568,87 +3564,87 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>Copy Item Properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คัดลอกรายละเอียดของ</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
-        <translation type="unfinished">Edit the text with the Story Editor</translation>
+        <translation type="unfinished">แก้ไขข้อความด้วยตัวแก้ไขเนื้อหา</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>
-        <translation type="unfinished">Insert Text Frame</translation>
+        <translation type="unfinished">แทรกกรอบข้อความ</translation>
     </message>
     <message>
         <source>Insert Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทรกเฟรมรูปภาพ</translation>
     </message>
     <message>
         <source>Insert Table</source>
-        <translation type="unfinished">Insert Table</translation>
+        <translation type="unfinished">แทรกตาราง</translation>
     </message>
     <message>
         <source>Insert Shape</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทรกรูปร่าง</translation>
     </message>
     <message>
         <source>Insert Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทรกโพลิกอน</translation>
     </message>
     <message>
         <source>Insert Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทรกบรรทัด</translation>
     </message>
     <message>
         <source>Insert Bezier Curve</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Insert Bezier Curve</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation type="unfinished">Insert Freehand Line</translation>
+        <translation type="unfinished">แทรกลายเส้นอิสระ</translation>
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation type="obsolete">&amp;Manage Pictures</translation>
+        <translation type="unfinished">จัดการรูปภาพ</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
-        <translation type="unfinished">&amp;Hyphenate Text</translation>
+        <translation type="unfinished">Hyphenate Text</translation>
     </message>
     <message>
         <source>Dehyphenate Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dehyphenate Text</translation>
     </message>
     <message>
         <source>&amp;Generate Table Of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตารางสารบัญทั่วไป</translation>
     </message>
     <message>
         <source>&amp;Cascade</source>
-        <translation type="unfinished">&amp;Cascade</translation>
+        <translation type="unfinished">ไม่ขนาน</translation>
     </message>
     <message>
         <source>&amp;Tile</source>
-        <translation type="unfinished">&amp;Tile</translation>
+        <translation type="unfinished">ชิ้น</translation>
     </message>
     <message>
         <source>&amp;About Scribus</source>
-        <translation type="unfinished">&amp;About Scribus</translation>
+        <translation type="unfinished">เกี่ยวกับ สไครบัส</translation>
     </message>
     <message>
         <source>&amp;About Plug-ins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เกี่ยวกับปลั๊กอิน</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished">About &amp;Qt</translation>
+        <translation type="unfinished">เกี่ยวกับ คิวที</translation>
     </message>
     <message>
         <source>Toolti&amp;ps</source>
-        <translation type="unfinished">Toolti&amp;ps</translation>
+        <translation type="unfinished">ตัวแนะนำ</translation>
     </message>
     <message>
         <source>Scribus &amp;Manual...</source>
-        <translation type="unfinished">Scribus &amp;Manual...</translation>
+        <translation type="unfinished">คู่มือ สไครบัส...</translation>
     </message>
     <message>
         <source>Smart &amp;Hyphen</source>
@@ -3664,35 +3660,35 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>Page &amp;Number</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หมายเลขหน้า</translation>
     </message>
     <message>
         <source>New Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บรรทัดใหม่</translation>
     </message>
     <message>
         <source>Frame Break</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวแบ่งเฟรม</translation>
     </message>
     <message>
         <source>Column Break</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวแบ่งคอลัมน์</translation>
     </message>
     <message>
         <source>Copyright</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลิขสิทธิ์</translation>
     </message>
     <message>
         <source>Registered Trademark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เครื่องหมายการค้าลงทะเบียน</translation>
     </message>
     <message>
         <source>Trademark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เครื่องหมายการค้า</translation>
     </message>
     <message>
         <source>Bullet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รายการลำดับ</translation>
     </message>
     <message>
         <source>Em Dash</source>
@@ -3792,24 +3788,24 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>&amp;Printing Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สามารถพืมพ์</translation>
     </message>
     <message>
         <source>&amp;Flip Horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กลับในแนวนอน</translation>
     </message>
     <message>
         <source>&amp;Flip Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กลับแนวตั้ง</translation>
     </message>
     <message>
         <source>Show Rulers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงแถบไม้บรรทัด</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
-        <translation type="unfinished">&amp;Outline</translation>
+        <translation type="unfinished">เค้าโครง</translation>
     </message>
     <message>
         <source>Solidus</source>
@@ -3817,7 +3813,7 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>Middle Dot</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จุดกึ่งกลาง</translation>
     </message>
     <message>
         <source>En Space</source>
@@ -3857,7 +3853,7 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>Insert Page Number</source>
-        <translation type="unfinished">Insert Page Number</translation>
+        <translation type="unfinished">แทรกหมายเลขหน้า</translation>
     </message>
     <message>
         <source>ff</source>
@@ -3889,37 +3885,29 @@ Missing library support is indicated by a *</translation>
     </message>
     <message>
         <source>S&amp;tyles...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปแบบ...</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
-        <translation type="unfinished">&amp;Outline</translation>
+        <translation type="unfinished">เค้าโครง</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
-        <translation type="unfinished">&amp;Outlines</translation>
+        <translation type="unfinished">เค้าโครง</translation>
     </message>
     <message>
         <source>Paste (&amp;Absolute)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วาง</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">C&amp;lear</translation>
+        <translation type="unfinished">เคลียร์</translation>
     </message>
     <message>
         <source>Show Text Frame Columns</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;400%</source>
-        <translation type="unfinished">&amp;400%</translation>
-    </message>
-    <message>
-        <source>&amp;Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงกรอบข้อความคอลัมน์</translation>
     </message>
 </context>
 <context>
@@ -4106,91 +4094,91 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้นตรง และ กระจาย</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="unfinished">Align</translation>
+        <translation type="unfinished">เส้นตรง</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อ้างถึง</translation>
     </message>
     <message>
         <source>First Selected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือกอันดับแรก</translation>
     </message>
     <message>
         <source>Last Selected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือกอันดับสุท้าย</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">Page</translation>
+        <translation type="unfinished">หน้า</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขอบ</translation>
     </message>
     <message>
         <source>Guide</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คำแนะนำ</translation>
     </message>
     <message>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือก</translation>
     </message>
     <message>
         <source>Align right sides of objects to left side of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชิดขวาไปยังซ้าย</translation>
     </message>
     <message>
         <source>Align left sides of objects to right side of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชิดซ้ายไปยังขวา</translation>
     </message>
     <message>
         <source>Align bottoms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชิดขอบล่าง</translation>
     </message>
     <message>
         <source>Align right sides</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชิดขอบขวา</translation>
     </message>
     <message>
         <source>Align tops of objects to bottom of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชิดขอบบนไปยังขอบล่าง</translation>
     </message>
     <message>
         <source>Center on vertical axis</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จุดกึ่งกลางแนวตั้ง</translation>
     </message>
     <message>
         <source>Align left sides</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชิดขอบซ้าย</translation>
     </message>
     <message>
         <source>Center on horizontal axis</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จุดกึ่งกลางแนวขวาง</translation>
     </message>
     <message>
         <source>Align bottoms of objects to top of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชิดขอบล่างไปยังด้านบน</translation>
     </message>
     <message>
         <source>Align tops</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชิดขอบบน</translation>
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือกคำแนะนำ</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กระจาย</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ทำแนวขวางแก๊ประหว่างวัตถุให้เท่ากัน</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal to the value specified</source>
@@ -4230,7 +4218,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>&amp;Distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ระยะ</translation>
     </message>
     <message>
         <source>Distribute the items with the distance specified</source>
@@ -4238,15 +4226,15 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>None Selected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่เลือก</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วัตถุประสงค์บางอย่างถูกล็อค</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่ล๊อคทั้งหมด</translation>
     </message>
     <message>
         <source>Y: %1%2</source>
@@ -4261,19 +4249,19 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     <name>AlignSelect</name>
     <message>
         <source>Align Text Left</source>
-        <translation type="unfinished">Align Text Left</translation>
+        <translation type="unfinished">จัดข้อความชิดซ้าย</translation>
     </message>
     <message>
         <source>Align Text Right</source>
-        <translation type="unfinished">Align Text Right</translation>
+        <translation type="unfinished">จัดข้อความชิดขวา</translation>
     </message>
     <message>
         <source>Align Text Center</source>
-        <translation type="unfinished">Align Text Centre</translation>
+        <translation type="unfinished">จัดข้อความตรงกลาง</translation>
     </message>
     <message>
         <source>Align Text Justified</source>
-        <translation type="unfinished">Align Text Justified</translation>
+        <translation type="unfinished">จัดข้อความชิดขอบ</translation>
     </message>
     <message>
         <source>Align Text Forced Justified</source>
@@ -4284,95 +4272,95 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     <name>Annot</name>
     <message>
         <source>Field Properties</source>
-        <translation type="unfinished">Field Properties</translation>
+        <translation type="unfinished">ขอบเขตคุณสมบัติ</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation type="unfinished">Type:</translation>
+        <translation type="unfinished">ชนิด:</translation>
     </message>
     <message>
         <source>Button</source>
-        <translation type="unfinished">Button</translation>
+        <translation type="unfinished">กด</translation>
     </message>
     <message>
         <source>Text Field</source>
-        <translation type="unfinished">Text Field</translation>
+        <translation type="unfinished">ขอบเขตข้อความ</translation>
     </message>
     <message>
         <source>Check Box</source>
-        <translation type="unfinished">Check Box</translation>
+        <translation type="unfinished">ตรวจกล่อง</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation type="unfinished">Combo Box</translation>
+        <translation type="unfinished">กล่องผสม</translation>
     </message>
     <message>
         <source>List Box</source>
-        <translation type="unfinished">List Box</translation>
+        <translation type="unfinished">รายการ</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished">Properties</translation>
+        <translation type="unfinished">คุณสมบัติ</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished">Name:</translation>
+        <translation type="unfinished">ชื่อ:</translation>
     </message>
     <message>
         <source>Tool-Tip:</source>
-        <translation type="unfinished">Tool-Tip:</translation>
+        <translation type="unfinished">เครื่องมือ-พิเศษ:</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished">Text</translation>
+        <translation type="unfinished">ข้อความ</translation>
     </message>
     <message>
         <source>Border</source>
-        <translation type="unfinished">Border</translation>
+        <translation type="unfinished">ตัวหนา</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished">Colour:</translation>
+        <translation type="unfinished">สี:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">None</translation>
+        <translation type="unfinished">ไม่มีชื่อ</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation type="unfinished">Width:</translation>
+        <translation type="unfinished">ตัวเอียง:</translation>
     </message>
     <message>
         <source>Thin</source>
-        <translation type="unfinished">Thin</translation>
+        <translation type="unfinished">ตัวบาง</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation type="unfinished">ธรรมดา</translation>
     </message>
     <message>
         <source>Wide</source>
-        <translation type="unfinished">Wide</translation>
+        <translation type="unfinished">กว้าง</translation>
     </message>
     <message>
         <source>Style:</source>
-        <translation type="unfinished">Style:</translation>
+        <translation type="unfinished">ลักษณะ:</translation>
     </message>
     <message>
         <source>Solid</source>
-        <translation type="unfinished">Solid</translation>
+        <translation type="unfinished">ความหนา</translation>
     </message>
     <message>
         <source>Dashed</source>
-        <translation type="unfinished">Dashed</translation>
+        <translation type="unfinished">เส้นขีด</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation type="unfinished">Underline</translation>
+        <translation type="unfinished">เส้นใต้</translation>
     </message>
     <message>
         <source>Beveled</source>
-        <translation type="unfinished">Beveled</translation>
+        <translation type="unfinished">มุม</translation>
     </message>
     <message>
         <source>Inset</source>
@@ -4380,15 +4368,15 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Other</source>
-        <translation type="unfinished">Other</translation>
+        <translation type="unfinished">อื่นๆ</translation>
     </message>
     <message>
         <source>Read Only</source>
-        <translation type="unfinished">Read Only</translation>
+        <translation type="unfinished">อ่านอย่างเดียว</translation>
     </message>
     <message>
         <source>Required</source>
-        <translation type="unfinished">Required</translation>
+        <translation type="unfinished">ต้องการ</translation>
     </message>
     <message>
         <source>Don&apos;t Export Value</source>
@@ -4396,31 +4384,31 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Visibility:</source>
-        <translation type="unfinished">Visibility:</translation>
+        <translation type="unfinished">ความกระจ่าง:</translation>
     </message>
     <message>
         <source>Visible</source>
-        <translation type="unfinished">Visible</translation>
+        <translation type="unfinished">ชัด</translation>
     </message>
     <message>
         <source>Hidden</source>
-        <translation type="unfinished">Hidden</translation>
+        <translation type="unfinished">ซ่อน</translation>
     </message>
     <message>
         <source>No Print</source>
-        <translation type="unfinished">No Print</translation>
+        <translation type="unfinished">ไม่พิมพ์</translation>
     </message>
     <message>
         <source>No View</source>
-        <translation type="unfinished">No View</translation>
+        <translation type="unfinished">ไม่แสดงภาพ</translation>
     </message>
     <message>
         <source>Appearance</source>
-        <translation type="unfinished">Appearance</translation>
+        <translation type="unfinished">ปรากฏ</translation>
     </message>
     <message>
         <source>Text for Button Down</source>
-        <translation type="unfinished">Text for Button Down</translation>
+        <translation type="unfinished">ข้อความสำหรับข้างล่างสุด</translation>
     </message>
     <message>
         <source>Text for Roll Over</source>
@@ -4428,19 +4416,19 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Icons</source>
-        <translation type="unfinished">Icons</translation>
+        <translation>สัญลักษณ์</translation>
     </message>
     <message>
         <source>Use Icons</source>
-        <translation type="unfinished">Use Icons</translation>
+        <translation type="unfinished">ใช่สัญลักษณ์</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Remove</translation>
+        <translation type="unfinished">ย้าย</translation>
     </message>
     <message>
         <source>Pressed</source>
-        <translation type="unfinished">Pressed</translation>
+        <translation type="unfinished">กด</translation>
     </message>
     <message>
         <source>Roll Over</source>
@@ -4452,15 +4440,15 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Highlight</source>
-        <translation type="unfinished">Highlight</translation>
+        <translation type="unfinished">เน้นข้อความ</translation>
     </message>
     <message>
         <source>Invert</source>
-        <translation type="unfinished">Invert</translation>
+        <translation type="unfinished">กลับ</translation>
     </message>
     <message>
         <source>Outlined</source>
-        <translation type="unfinished">Outlined</translation>
+        <translation type="unfinished">เค้าโครงร่าง</translation>
     </message>
     <message>
         <source>Push</source>
@@ -4472,63 +4460,63 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Password</translation>
+        <translation type="unfinished">รหัส</translation>
     </message>
     <message>
         <source>Limit of</source>
-        <translation type="unfinished">Limit of</translation>
+        <translation type="unfinished">จำกัด</translation>
     </message>
     <message>
         <source>Characters</source>
-        <translation type="unfinished">Characters</translation>
+        <translation type="unfinished">ตัวอักษร</translation>
     </message>
     <message>
         <source>Do Not Scroll</source>
-        <translation type="unfinished">Do Not Scroll</translation>
+        <translation type="unfinished">ไม่ใข้สกอร์</translation>
     </message>
     <message>
         <source>Do Not Spell Check</source>
-        <translation type="unfinished">Do Not Spell Check</translation>
+        <translation type="unfinished">ไม่เอาตัวสะกด</translation>
     </message>
     <message>
         <source>Check Style:</source>
-        <translation type="unfinished">Check Style:</translation>
+        <translation type="unfinished">ตรวจสอบลักษณะ:</translation>
     </message>
     <message>
         <source>Check</source>
-        <translation type="unfinished">Check</translation>
+        <translation type="unfinished">ตรวจสอบ</translation>
     </message>
     <message>
         <source>Cross</source>
-        <translation type="unfinished">Cross</translation>
+        <translation type="unfinished">กากบาท</translation>
     </message>
     <message>
         <source>Diamond</source>
-        <translation type="unfinished">Diamond</translation>
+        <translation type="unfinished">รูปสี่เหลี่ยมขนมเปียกปูน</translation>
     </message>
     <message>
         <source>Circle</source>
-        <translation type="unfinished">Circle</translation>
+        <translation type="unfinished">วงกลม</translation>
     </message>
     <message>
         <source>Star</source>
-        <translation type="unfinished">Star</translation>
+        <translation type="unfinished">รูปดาว</translation>
     </message>
     <message>
         <source>Square</source>
-        <translation type="unfinished">Square</translation>
+        <translation type="unfinished">สี่เหลี่ยม</translation>
     </message>
     <message>
         <source>Default is Checked</source>
-        <translation type="unfinished">Default is Checked</translation>
+        <translation type="unfinished">การตรวจสอบผิดพลาด</translation>
     </message>
     <message>
         <source>Editable</source>
-        <translation type="unfinished">Editable</translation>
+        <translation type="unfinished">แก้ไขตาราง</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Options</translation>
+        <translation type="unfinished">ทางเลือก</translation>
     </message>
     <message>
         <source>Java Script</source>
@@ -4536,23 +4524,23 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Go To</source>
-        <translation type="unfinished">Go To</translation>
+        <translation type="unfinished">ไปยัง</translation>
     </message>
     <message>
         <source>Submit Form</source>
-        <translation type="unfinished">Submit Form</translation>
+        <translation type="unfinished">ยอมรับ</translation>
     </message>
     <message>
         <source>Reset Form</source>
-        <translation type="unfinished">Reset Form</translation>
+        <translation type="unfinished">ตั้งค่าอีกครั้ง</translation>
     </message>
     <message>
         <source>Import Data</source>
-        <translation type="unfinished">Import Data</translation>
+        <translation type="unfinished">ข้อมูลนำเข้า</translation>
     </message>
     <message>
         <source>Event:</source>
-        <translation type="unfinished">Event:</translation>
+        <translation type="unfinished">กรณี:</translation>
     </message>
     <message>
         <source>Mouse Up</source>
@@ -4572,7 +4560,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>On Focus</source>
-        <translation type="unfinished">On Focus</translation>
+        <translation type="unfinished">จุดโฟกัส</translation>
     </message>
     <message>
         <source>On Blur</source>
@@ -4580,39 +4568,39 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Script:</source>
-        <translation type="unfinished">Script:</translation>
+        <translation type="unfinished">ต้นฉบับ:</translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation type="unfinished">Edit...</translation>
+        <translation type="unfinished">แก้ไข...</translation>
     </message>
     <message>
         <source>Submit to URL:</source>
-        <translation type="unfinished">Submit to URL:</translation>
+        <translation type="unfinished">ยัมรับ ไปยัง URL:</translation>
     </message>
     <message>
         <source>Submit Data as HTML</source>
-        <translation type="unfinished">Submit Data as HTML</translation>
+        <translation type="unfinished">ยอมรับข้อมูล HTML</translation>
     </message>
     <message>
         <source>Import Data from:</source>
-        <translation type="unfinished">Import Data from:</translation>
+        <translation type="unfinished">ข้อมูลนำเข้าจาก:</translation>
     </message>
     <message>
         <source>Destination</source>
-        <translation type="unfinished">Destination</translation>
+        <translation type="unfinished">ปลายทาง</translation>
     </message>
     <message>
         <source>To File:</source>
-        <translation type="unfinished">To File:</translation>
+        <translation type="unfinished">ไปยังแฟ้ม:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation type="unfinished">Change...</translation>
+        <translation type="unfinished">เปลี่ยน...</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation type="unfinished">Page:</translation>
+        <translation type="unfinished">หน้า:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
@@ -4636,23 +4624,23 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Plain</source>
-        <translation type="unfinished">Plain</translation>
+        <translation type="unfinished">ปกติ</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished">Number</translation>
+        <translation type="unfinished">ตัวเลข</translation>
     </message>
     <message>
         <source>Percentage</source>
-        <translation type="unfinished">Percentage</translation>
+        <translation type="unfinished">เปอร์เซ็นต์</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished">Date</translation>
+        <translation type="unfinished">วันที่</translation>
     </message>
     <message>
         <source>Time</source>
-        <translation type="unfinished">Time</translation>
+        <translation type="unfinished">เวลา</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -4660,15 +4648,15 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Number Format</source>
-        <translation type="unfinished">Number Format</translation>
+        <translation type="unfinished">รูปแบบตัวเลข</translation>
     </message>
     <message>
         <source>Decimals:</source>
-        <translation type="unfinished">Decimals:</translation>
+        <translation type="unfinished">ทศนิยม:</translation>
     </message>
     <message>
         <source>Use Currency Symbol</source>
-        <translation type="unfinished">Use Currency Symbol</translation>
+        <translation type="unfinished">ใช้สัญลักษณ์</translation>
     </message>
     <message>
         <source>Prepend Currency Symbol</source>
@@ -4676,19 +4664,19 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Formatting</source>
-        <translation type="unfinished">Formatting</translation>
+        <translation type="unfinished">รูปแบบ</translation>
     </message>
     <message>
         <source>Percent Format</source>
-        <translation type="unfinished">Percent Format</translation>
+        <translation type="unfinished">รูปแบบเปร์เซ็นต์</translation>
     </message>
     <message>
         <source>Date Format</source>
-        <translation type="unfinished">Date Format</translation>
+        <translation type="unfinished">รูปแบบวันที่</translation>
     </message>
     <message>
         <source>Time Format</source>
-        <translation type="unfinished">Time Format</translation>
+        <translation type="unfinished">รูปแบบเวลา</translation>
     </message>
     <message>
         <source>Custom Scripts</source>
@@ -4696,7 +4684,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Format:</source>
-        <translation type="unfinished">Format:</translation>
+        <translation type="unfinished">รูปแบบ:</translation>
     </message>
     <message>
         <source>Keystroke:</source>
@@ -4704,7 +4692,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Format</source>
-        <translation type="unfinished">Format</translation>
+        <translation type="unfinished">รูปแบบ</translation>
     </message>
     <message>
         <source>Value is not validated</source>
@@ -4724,7 +4712,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Validate</source>
-        <translation type="unfinished">Validate</translation>
+        <translation type="unfinished">ใช้ได้</translation>
     </message>
     <message>
         <source>Value is not calculated</source>
@@ -4736,23 +4724,23 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>sum</source>
-        <translation type="unfinished">sum</translation>
+        <translation type="unfinished">ยอดรวม</translation>
     </message>
     <message>
         <source>product</source>
-        <translation type="unfinished">product</translation>
+        <translation type="unfinished">ผลคูณ</translation>
     </message>
     <message>
         <source>average</source>
-        <translation type="unfinished">average</translation>
+        <translation type="unfinished">ค่าเฉลี่ย</translation>
     </message>
     <message>
         <source>minimum</source>
-        <translation type="unfinished">minimum</translation>
+        <translation type="unfinished">ค่าน้อยที่สุด</translation>
     </message>
     <message>
         <source>maximum</source>
-        <translation type="unfinished">maximum</translation>
+        <translation type="unfinished">ค่ามากที่สุด</translation>
     </message>
     <message>
         <source>of the following fields:</source>
@@ -4760,7 +4748,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Pick...</source>
-        <translation type="unfinished">Pick...</translation>
+        <translation type="unfinished">เลือก...</translation>
     </message>
     <message>
         <source>Custom calculation script:</source>
@@ -4768,15 +4756,15 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Calculate</source>
-        <translation type="unfinished">Calculate</translation>
+        <translation type="unfinished">เครื่องคิดเลข</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
     <message>
         <source>Enter a comma separated list of fields here</source>
@@ -4788,7 +4776,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation>เปิด</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
@@ -4796,15 +4784,15 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Example:</source>
-        <translation type="unfinished">Example:</translation>
+        <translation type="unfinished">ตัวอย่าง:</translation>
     </message>
     <message>
         <source>Selection Change</source>
-        <translation type="unfinished">Selection Change</translation>
+        <translation type="unfinished">เลือก เปลี่ยนe</translation>
     </message>
     <message>
         <source>Font for use with PDF 1.3:</source>
-        <translation type="unfinished">Font for use with PDF 1.3:</translation>
+        <translation type="unfinished">ตัวพิมใช้กับ PDF 1.3:</translation>
     </message>
     <message>
         <source>Flag is ignored for PDF 1.3</source>
@@ -4837,27 +4825,27 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     <name>Annota</name>
     <message>
         <source>Annotation Properties</source>
-        <translation type="unfinished">Annotation Properties</translation>
+        <translation type="unfinished">คำอธิบายคุณสมบัติ</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished">Text</translation>
+        <translation type="unfinished">ข้อความ</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished">Link</translation>
+        <translation type="unfinished">เชื่อมต่อ</translation>
     </message>
     <message>
         <source>External Link</source>
-        <translation type="unfinished">External Link</translation>
+        <translation type="unfinished">เชื่อมต่อภายนอก</translation>
     </message>
     <message>
         <source>External Web-Link</source>
-        <translation type="unfinished">External Web-Link</translation>
+        <translation type="unfinished">เชื่อมต่อ เวป</translation>
     </message>
     <message>
         <source>Destination</source>
-        <translation type="unfinished">Destination</translation>
+        <translation type="unfinished">จุดมุ่งหมาย</translation>
     </message>
     <message>
         <source> pt</source>
@@ -4865,23 +4853,23 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation type="unfinished">เปิด</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
-        <translation type="unfinished">PDF-Documents (*.pdf);;All Files (*)</translation>
+        <translation type="unfinished">เอกสาร-PDF (*.pdf);;All Files (*)</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation type="unfinished">&amp;Type:</translation>
+        <translation type="unfinished">ชนิด:</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished">C&amp;hange...</translation>
+        <translation type="unfinished">เปลี่ยน...</translation>
     </message>
     <message>
         <source>&amp;Page:</source>
-        <translation type="unfinished">&amp;Page:</translation>
+        <translation type="unfinished">หน้า:</translation>
     </message>
     <message>
         <source>&amp;X-Pos</source>
@@ -4904,7 +4892,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     <name>ApplyMasterPageDialog</name>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation type="unfinished">ปกติ</translation>
     </message>
     <message>
         <source>Apply Master Page</source>
@@ -4916,11 +4904,11 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Apply To</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สมัครถึง</translation>
     </message>
     <message>
         <source>Current &amp;page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าปัจจุบัน</translation>
     </message>
     <message>
         <source>Alt+P</source>
@@ -4944,7 +4932,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>&amp;All pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าทั้งหมด</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -4952,7 +4940,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>&amp;Within range</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ภายในขอบเขต</translation>
     </message>
     <message>
         <source>Alt+W</source>
@@ -4960,7 +4948,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>to</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ถึง</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -5022,7 +5010,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     <name>ArrowChooser</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">None</translation>
+        <translation type="unfinished">ไม่มี</translation>
     </message>
 </context>
 <context>
@@ -5033,42 +5021,46 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อักษรสครปบัสสำหรับผู้เขียนต้นฉบับบาร์โค๊ด</translation>
     </message>
 </context>
 <context>
     <name>BarcodeGenerator</name>
     <message>
         <source>Error opening file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปิดแฟ้มผิดพลาด%1</translation>
     </message>
     <message>
         <source>12 or 13 digits</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">12 หรือ13 หลัก</translation>
     </message>
     <message>
         <source>8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">8 หลัก</translation>
     </message>
     <message>
         <source>11 or 12 digits</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">11หรือ12 หลัก</translation>
     </message>
     <message>
         <source>7 or 8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">7 หรือ8หลัก</translation>
     </message>
     <message>
         <source>5 digits</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">5 หลัก</translation>
     </message>
     <message>
         <source>2 digits</source>
+        <translation type="unfinished">2 หลัก</translation>
+    </message>
+    <message>
+        <source>9 or 10 digits separated appropriately with dashes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลักษณะค่าของตัวเลข, หลัก และสัญลักษณ์ต่างๆ</translation>
     </message>
     <message>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
@@ -5076,7 +5068,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลักษณะค่าของตัวเลข, หลัก และสัญลักษณ์ต่างๆ +เอบีซีดี</translation>
     </message>
     <message>
         <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
@@ -5096,11 +5088,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Barcode incomplete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รหัส ไม่สมบูรณ์</translation>
     </message>
 </context>
 <context>
@@ -5115,7 +5103,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชนิด</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
@@ -5127,11 +5115,11 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Reset the barcode samples</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าตัวอย่างบารโค๊ด</translation>
     </message>
     <message>
         <source>&amp;Include text in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รวมข้อความในบารโค๊ต</translation>
     </message>
     <message>
         <source>Alt+I</source>
@@ -5155,11 +5143,11 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Colours</translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>&amp;Background</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พื้นหลัง</translation>
     </message>
     <message>
         <source>Alt+B</source>
@@ -5167,11 +5155,11 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Background color - under the code lines</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สีพิ้นหลัง-ใต้เส้น</translation>
     </message>
     <message>
         <source>&amp;Lines</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้น</translation>
     </message>
     <message>
         <source>Alt+L</source>
@@ -5179,11 +5167,11 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Color of the lines in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สีเส้นรหัส</translation>
     </message>
     <message>
         <source>&amp;Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อความ</translation>
     </message>
     <message>
         <source>Alt+T</source>
@@ -5191,23 +5179,23 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Color of the text and numbers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขอความสีและตัวเลข</translation>
     </message>
     <message>
         <source>Hints and help is shown here</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวช่วยและวิธีใช้ แสดงตรงนี้</translation>
     </message>
     <message>
         <source>Preview of the result. 72dpi sample.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงผลรวม ตัวอย่าง72ดีพีไอ</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รหัส</translation>
     </message>
     <message>
         <source>I&amp;nclude checksum</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตรวจผลรวม</translation>
     </message>
     <message>
         <source>Alt+N</source>
@@ -5242,19 +5230,19 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>Object</source>
-        <translation type="unfinished">Object</translation>
+        <translation type="unfinished">วัตถุ</translation>
     </message>
     <message>
         <source>New Entry</source>
-        <translation type="unfinished">New Entry</translation>
+        <translation type="unfinished">เข้ามาใหม่</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished">Rename</translation>
+        <translation type="unfinished">ตั้งชื่อใหม่</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -5272,11 +5260,11 @@ Please choose another.</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;New</translation>
+        <translation type="unfinished">ใหม่</translation>
     </message>
     <message>
         <source>&amp;Load...</source>
-        <translation type="unfinished">&amp;Load...</translation>
+        <translation type="unfinished">โหลด...</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -5284,11 +5272,11 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished">Save &amp;As...</translation>
+        <translation type="unfinished">บันทึกเป็น...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Close</translation>
+        <translation type="unfinished">ปิด</translation>
     </message>
     <message>
         <source>&amp;Small</source>
@@ -5304,20 +5292,20 @@ Please choose another.</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;File</translation>
+        <translation type="unfinished">แฟ้ม</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation type="unfinished">&amp;Preview</translation>
+        <translation type="unfinished">ตัวอย่างก่อน</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished">&amp;Name:</translation>
+        <translation type="unfinished">ชื่อ:</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อ %1 ไม่ได้มีอยู่หันเดียว โปรดเลือกชื่อใหม่</translation>
     </message>
     <message>
         <source>Choose a Scrapbook Directory</source>
@@ -5325,7 +5313,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Choose a Directory</translation>
+        <translation type="unfinished">เลือกคำสั่ง</translation>
     </message>
     <message>
         <source>Scrapbook (*.scs)</source>
@@ -5341,33 +5329,33 @@ Please choose another.</source>
     </message>
     <message>
         <source>Main</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หลัก</translation>
     </message>
 </context>
 <context>
     <name>BookMView</name>
     <message>
         <source>Bookmarks</source>
-        <translation type="unfinished">Bookmarks</translation>
+        <translation type="unfinished">หมายเหตุ</translation>
     </message>
     <message>
         <source>Move Bookmark</source>
-        <translation type="unfinished">Move Bookmark</translation>
+        <translation type="unfinished">ย้าย หมายเหตุ</translation>
     </message>
     <message>
         <source>Insert Bookmark</source>
-        <translation type="unfinished">Insert Bookmark</translation>
+        <translation type="unfinished">แทรกหมายเหตุ</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
 </context>
 <context>
     <name>BookPalette</name>
     <message>
         <source>Bookmarks</source>
-        <translation type="unfinished">Bookmarks</translation>
+        <translation type="unfinished">หมายเหตุ</translation>
     </message>
 </context>
 <context>
@@ -5378,43 +5366,43 @@ Please choose another.</source>
     </message>
     <message>
         <source>Layout:</source>
-        <translation type="unfinished">Layout:</translation>
+        <translation type="unfinished">ถาดออก:</translation>
     </message>
     <message>
         <source>Caption only</source>
-        <translation type="unfinished">Caption only</translation>
+        <translation type="unfinished">คำอธิบายเท่านั้น</translation>
     </message>
     <message>
         <source>Icon only</source>
-        <translation type="unfinished">Icon only</translation>
+        <translation type="unfinished">สัญลักษณ์เท่านั้น</translation>
     </message>
     <message>
         <source>Caption below Icon</source>
-        <translation type="unfinished">Caption below Icon</translation>
+        <translation type="unfinished">คำอธิบายข้างล่างสัญลักษณ์</translation>
     </message>
     <message>
         <source>Caption above Icon</source>
-        <translation type="unfinished">Caption above Icon</translation>
+        <translation type="unfinished">คำอธิบายเหนือสัญลักษณ์</translation>
     </message>
     <message>
         <source>Caption right to Icon</source>
-        <translation type="unfinished">Caption right to Icon</translation>
+        <translation type="unfinished">คำอธิบายด้านขวามือของสัญลักษณ์</translation>
     </message>
     <message>
         <source>Caption left to Icon</source>
-        <translation type="unfinished">Caption left to Icon</translation>
+        <translation type="unfinished">คำอธิบายด้านซ้ายมือของสัญลักษณ์</translation>
     </message>
     <message>
         <source>Caption overlays Icon</source>
-        <translation type="unfinished">Caption overlays Icon</translation>
+        <translation type="unfinished">คำอธิบายพื้นหลังสัญลักษณ์</translation>
     </message>
     <message>
         <source>Scale:</source>
-        <translation type="unfinished">Scale:</translation>
+        <translation type="unfinished">สามเหลี่ยม:</translation>
     </message>
     <message>
         <source>Always</source>
-        <translation type="unfinished">Always</translation>
+        <translation type="unfinished">ตลอด</translation>
     </message>
     <message>
         <source>When Icon is too big</source>
@@ -5422,7 +5410,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Never</source>
-        <translation type="unfinished">Never</translation>
+        <translation type="unfinished">ไม่เคย</translation>
     </message>
     <message>
         <source>Scale How:</source>
@@ -5430,31 +5418,31 @@ Please choose another.</source>
     </message>
     <message>
         <source>Proportional</source>
-        <translation type="unfinished">Proportional</translation>
+        <translation type="unfinished">สัดส่วน</translation>
     </message>
     <message>
         <source>Non Proportional</source>
-        <translation type="unfinished">Non Proportional</translation>
+        <translation type="unfinished">ไม่ตรงตามสัดส่วน</translation>
     </message>
     <message>
         <source>Icon</source>
-        <translation type="unfinished">Icon</translation>
+        <translation type="unfinished">สัญลักษณ์</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation type="unfinished">Reset</translation>
+        <translation>ตั้งค่าใหม่</translation>
     </message>
     <message>
         <source>When Icon is too small</source>
-        <translation type="unfinished">When Icon is too small</translation>
+        <translation type="unfinished">เมื่อสัญลักษณ์เล็กมาก</translation>
     </message>
 </context>
 <context>
@@ -5465,11 +5453,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>System Profiles</source>
-        <translation type="unfinished">System Profiles</translation>
+        <translation type="unfinished">ระบบข้อมูล</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation type="unfinished">Rendering Intents</translation>
+        <translation type="unfinished">ตอบใจความ</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -5547,31 +5535,31 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
-        <translation type="unfinished">&amp;Solid Colours:</translation>
+        <translation type="unfinished">รวมสี:</translation>
     </message>
     <message>
         <source>&amp;Monitor:</source>
-        <translation type="unfinished">&amp;Monitor:</translation>
+        <translation type="unfinished">จอ:</translation>
     </message>
     <message>
         <source>P&amp;rinter:</source>
-        <translation type="unfinished">P&amp;rinter:</translation>
+        <translation type="unfinished">ปริ้นเตอร์:</translation>
     </message>
     <message>
         <source>M&amp;onitor:</source>
-        <translation type="unfinished">M&amp;onitor:</translation>
+        <translation type="unfinished">จอ:</translation>
     </message>
     <message>
         <source>Pr&amp;inter:</source>
-        <translation type="unfinished">Pr&amp;inter:</translation>
+        <translation type="unfinished">พริ้นเตอร์:</translation>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
-        <translation type="unfinished">Sim&amp;ulate Printer on the Screen</translation>
+        <translation type="unfinished">เปลี่ยนสี พริ้นเตอร์บนฉาก</translation>
     </message>
     <message>
         <source>Mark Colors out of &amp;Gamut</source>
-        <translation type="unfinished">Mark Colours out of &amp;Gamut</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use &amp;Blackpoint Compensation</source>
@@ -5586,6 +5574,14 @@ This requires very accurate profiles and serves only as a warning.</translation>
         <translation type="obsolete">&amp;Cancel</translation>
     </message>
     <message>
+        <source>&amp;RGB Pictures:</source>
+        <translation type="unfinished">รูป อาร์จีบี </translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Pictures:</source>
+        <translation type="unfinished">รูป ซีเอ็มวายเค</translation>
+    </message>
+    <message>
         <source>Default color profile for imported CMYK images</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5593,20 +5589,12 @@ This requires very accurate profiles and serves only as a warning.</translation>
         <source>Default color profile for imported RGB images</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>&amp;RGB Images:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;CMYK Images:</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>CMYKChoose</name>
     <message>
         <source>Edit Color</source>
-        <translation type="unfinished">Edit Colour</translation>
+        <translation type="unfinished">แก้ไขสี</translation>
     </message>
     <message>
         <source>CMYK</source>
@@ -5618,15 +5606,15 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>Web Safe RGB</source>
-        <translation type="unfinished">Web Safe RGB</translation>
+        <translation type="unfinished">ป้องกัน เวป RGB</translation>
     </message>
     <message>
         <source>New</source>
-        <translation type="unfinished">New</translation>
+        <translation type="unfinished">ใหม่</translation>
     </message>
     <message>
         <source>Old</source>
-        <translation type="unfinished">Old</translation>
+        <translation type="unfinished">เก่า</translation>
     </message>
     <message>
         <source>OK</source>
@@ -5686,11 +5674,11 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished">&amp;Name:</translation>
+        <translation type="unfinished">&amp;ชื่อ:</translation>
     </message>
     <message>
         <source>Color &amp;Model</source>
-        <translation type="unfinished">Colour &amp;Model</translation>
+        <translation type="unfinished">สี &amp;หุ่น</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -5712,20 +5700,20 @@ It&apos;s a reserved name for transparent colour</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จุดสี</translation>
     </message>
     <message>
         <source>Is Registration Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลงทะเบียนสี</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
 It is a reserved name for transparent color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คุณไม่สามารถจัดการสีที่ชื่อ %1 มันเป็นชื่อสำรองที่ไม่มีสี</translation>
     </message>
     <message>
         <source>Name of the color is not unique</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อมีสี ไม่ได้มีชื่อเดียว</translation>
     </message>
     <message>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
@@ -5733,11 +5721,6 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You cannot create a color without a name
-Please give it a name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5752,35 +5735,35 @@ Please give it a name</source>
     <name>CharSelect</name>
     <message>
         <source>Select Character:</source>
-        <translation type="unfinished">Select Character:</translation>
+        <translation type="unfinished">เลือกอักขระ:</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation type="unfinished">Font:</translation>
+        <translation type="unfinished">แบบอักษร:</translation>
     </message>
     <message>
         <source>Character Class:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลักษณะชั้น</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation type="unfinished">&amp;Insert</translation>
+        <translation type="unfinished">แทรก</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">C&amp;lear</translation>
+        <translation type="unfinished">ล้าง</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Close</translation>
+        <translation type="unfinished">ปิด</translation>
     </message>
     <message>
         <source>Insert the characters at the cursor in the text</source>
-        <translation type="unfinished">Insert the characters at the cursor in the text</translation>
+        <translation type="unfinished">แทรกอักขระ ณ ตำแหน่งเคอร์เซอร์</translation>
     </message>
     <message>
         <source>Delete the current selection(s).</source>
-        <translation type="unfinished">Delete the current selection(s).</translation>
+        <translation type="unfinished">ลบข้อมูลที่เลือก.</translation>
     </message>
     <message>
         <source>Close this dialog and return to text editing.</source>
@@ -5788,11 +5771,11 @@ Please give it a name</source>
     </message>
     <message>
         <source>Full Character Set</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชุดเต็มอักขระ</translation>
     </message>
     <message>
         <source>Basic Latin</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลาตินพื้นฐาน</translation>
     </message>
     <message>
         <source>Latin-1 Supplement</source>
@@ -5816,19 +5799,19 @@ Please give it a name</source>
     </message>
     <message>
         <source>Currency Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สัญลักษณ์ปัจจุบัน</translation>
     </message>
     <message>
         <source>Letterlike Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สัญลักษณ์ตัวอักษร</translation>
     </message>
     <message>
         <source>Number Forms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปแบบตัวเลข</translation>
     </message>
     <message>
         <source>Arrows</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หัวลูกศร</translation>
     </message>
     <message>
         <source>Mathematical Operators</source>
@@ -5836,7 +5819,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>Box Drawing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กล่องภาพวาด</translation>
     </message>
     <message>
         <source>Block Elements</source>
@@ -5860,15 +5843,15 @@ Please give it a name</source>
     </message>
     <message>
         <source>Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อีกษรควบ</translation>
     </message>
     <message>
         <source>Specials</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พิเศษ</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished">Greek</translation>
+        <translation type="unfinished">กรีก</translation>
     </message>
     <message>
         <source>Greek Extended</source>
@@ -5884,7 +5867,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>Arabic</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อาราบิค</translation>
     </message>
     <message>
         <source>Arabic Extended A</source>
@@ -5900,11 +5883,11 @@ Please give it a name</source>
     </message>
     <message>
         <source>&amp;Insert Code:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทรกรหัส</translation>
     </message>
     <message>
         <source>Close this dialog and return to text editing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปิดการสนทนา และกลับไปยังข้อความที่ต้องแก้ไข</translation>
     </message>
     <message>
         <source>Type in a four digit unicode value directly here</source>
@@ -5919,15 +5902,15 @@ Please give it a name</source>
     </message>
     <message>
         <source>Text overflow</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อความล้น</translation>
     </message>
     <message>
         <source>Object is not on a Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วัตถุไม่อยู่บนหน้ากระดาษ</translation>
     </message>
     <message>
         <source>Missing Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่มีรูป</translation>
     </message>
     <message>
         <source>Image has a DPI-Value less than %1 DPI</source>
@@ -5947,15 +5930,15 @@ Please give it a name</source>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished">Document</translation>
+        <translation type="unfinished">เอกสาร</translation>
     </message>
     <message>
         <source>No Problems found</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่พบปัญหา</translation>
     </message>
     <message>
         <source>Page </source>
-        <translation type="unfinished">Page </translation>
+        <translation type="unfinished">หน้า</translation>
     </message>
     <message>
         <source>Free Objects</source>
@@ -5963,7 +5946,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>Problems found</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พบปัญหา</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
@@ -5971,45 +5954,41 @@ Please give it a name</source>
     </message>
     <message>
         <source>Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไอเท็ม</translation>
     </message>
     <message>
         <source>Problems</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปัญหา</translation>
     </message>
     <message>
         <source>Current Profile:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โปรไฟล์ปัจจุบัน</translation>
     </message>
     <message>
         <source>&amp;Ignore Errors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Annotation uses a non TrueType font</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ละทิ้งข้อผิดพลาด</translation>
     </message>
 </context>
 <context>
     <name>ChooseStyles</name>
     <message>
         <source>Choose Styles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือกลักษณะ</translation>
     </message>
     <message>
         <source>Available Styles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลักษณะที่ใช้ได้</translation>
     </message>
 </context>
 <context>
     <name>CollectForOutput</name>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Choose a Directory</translation>
+        <translation type="unfinished">เลือกไดเรกทอรี่</translation>
     </message>
     <message>
         <source>Collecting...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รวม</translation>
     </message>
     <message>
         <source>Cannot collect the file: 
@@ -6018,7 +5997,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Warning</translation>
+        <translation type="unfinished">เตือน</translation>
     </message>
     <message>
         <source>Cannot collect all files for output for file:
@@ -6030,107 +6009,107 @@ Please give it a name</source>
     <name>ColorManager</name>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Colours</translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Import</translation>
+        <translation type="unfinished">นำเข้า</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;New</translation>
+        <translation type="unfinished">ใหม่</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Edit</translation>
+        <translation type="unfinished">แก้ไข</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation type="unfinished">D&amp;uplicate</translation>
+        <translation type="unfinished">ฉบับคู่</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>&amp;Remove Unused</source>
-        <translation type="unfinished">&amp;Remove Unused</translation>
+        <translation type="unfinished">ที่ีไม่ได้ใช้เอาออก</translation>
     </message>
     <message>
         <source>Color Sets</source>
-        <translation type="unfinished">Colour Sets</translation>
+        <translation type="unfinished">ตั้งค่าสี</translation>
     </message>
     <message>
         <source>Current Color Set:</source>
-        <translation type="unfinished">Current Colour Set:</translation>
+        <translation type="unfinished">ตั้งค่าสีปัจจุบัน:</translation>
     </message>
     <message>
         <source>&amp;Save Color Set</source>
-        <translation type="unfinished">&amp;Save Colour Set</translation>
+        <translation type="unfinished">บันทึกการตั้งค่าสี</translation>
     </message>
     <message>
         <source>Choose a color set to load</source>
-        <translation type="unfinished">Choose a colour set to load</translation>
+        <translation type="unfinished">เลือกสีที่ตั้งค่าไปโหลด</translation>
     </message>
     <message>
         <source>Save the current color set</source>
-        <translation type="unfinished">Save the current colour set</translation>
+        <translation type="unfinished">บันทึกการตั้งค่าสีปัจจุบัน</translation>
     </message>
     <message>
         <source>Remove unused colors from current document&apos;s color set</source>
-        <translation type="unfinished">Remove unused colours from current document&apos;s colour set</translation>
+        <translation type="unfinished">เอาสีที่ไม่ได้ใช้ออก จาก การตั้งค่าสีเอกสารปัจจุบัน</translation>
     </message>
     <message>
         <source>Import colors to the current set from an existing document</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าสีนำเข้าล่าสุดจากเอกสารที่ยังอยู่</translation>
     </message>
     <message>
         <source>Create a new color within the current set</source>
-        <translation type="unfinished">Create a new colour within the current set</translation>
+        <translation type="unfinished">สร้างสีใหม่ภายในการตั้งค่าปัจจุบัน</translation>
     </message>
     <message>
         <source>Edit the currently selected color</source>
-        <translation type="unfinished">Edit the currently selected colour</translation>
+        <translation type="unfinished">แก้ไขสีที่เลือกล่าสุด</translation>
     </message>
     <message>
         <source>Make a copy of the currently selected color</source>
-        <translation type="unfinished">Make a copy of the currently selected colour</translation>
+        <translation type="unfinished">ทำการคัดลอกสีที่เลือกปัจจขุบัน</translation>
     </message>
     <message>
         <source>Delete the currently selected color</source>
-        <translation type="unfinished">Delete the currently selected colour</translation>
+        <translation type="unfinished">ลบสีที่เลือกปัจจุบัน</translation>
     </message>
     <message>
         <source>Make the current colorset the default color set</source>
-        <translation type="unfinished">Make the current colourset the default colour set</translation>
+        <translation type="unfinished">สร้างการตั้งค่าสีปัจจุบันผิดพลาด</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished">&amp;Name:</translation>
+        <translation type="unfinished">ชื่อ:</translation>
     </message>
     <message>
         <source>Choose a Name</source>
-        <translation type="unfinished">Choose a Name</translation>
+        <translation type="unfinished">เลือกชื่อ</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation>เปิด</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation type="unfinished">Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
+        <translation type="unfinished">เอกสาร (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation type="unfinished">Documents (*.sla *.scd);;All Files (*)</translation>
+        <translation type="unfinished">เอกสาร (*.sla *.scd);;แฟ้มทั้งหมด (*)</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation type="unfinished">Copy of %1</translation>
+        <translation type="unfinished">คัดลอก %1</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation type="unfinished">New Colour</translation>
+        <translation type="unfinished">สีใหม่</translation>
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
@@ -6141,23 +6120,23 @@ Please give it a name</source>
     <name>ColorWheel</name>
     <message>
         <source>Monochromatic</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โมโนโครเมติค</translation>
     </message>
     <message>
         <source>Analogous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อนาล๊อค</translation>
     </message>
     <message>
         <source>Complementary</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">องค์ประกอบ</translation>
     </message>
     <message>
         <source>Split Complementary</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แยกองค์ประกอบ</translation>
     </message>
     <message>
         <source>Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สามเหลี่ยม</translation>
     </message>
     <message>
         <source>Tetradic (Double Complementary)</source>
@@ -6165,15 +6144,15 @@ Please give it a name</source>
     </message>
     <message>
         <source>Base Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สีหลัก</translation>
     </message>
     <message>
         <source>Monochromatic Light</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โมโนโครมิค ไลท์</translation>
     </message>
     <message>
         <source>Monochromatic Dark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โมโนโ๕รมิค ดาร์ค</translation>
     </message>
     <message>
         <source>1st. Analogous</source>
@@ -6185,19 +6164,19 @@ Please give it a name</source>
     </message>
     <message>
         <source>1st. Split</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แยก1</translation>
     </message>
     <message>
         <source>2nd. Split</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แยก2</translation>
     </message>
     <message>
         <source>3rd. Split</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แยก3</translation>
     </message>
     <message>
         <source>4th. Split</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แยก4</translation>
     </message>
     <message>
         <source>1st. Triadic</source>
@@ -6213,22 +6192,22 @@ Please give it a name</source>
     </message>
     <message>
         <source>2nd. Tetradic (angle)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">มุมสามเหลี่ยม</translation>
     </message>
     <message>
         <source>3rd. Tetradic (angle opposite)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">มุมตรงข้างสามเหลี่ยม</translation>
     </message>
 </context>
 <context>
     <name>ColorWheelDialog</name>
     <message>
         <source>Cr&amp;eate color...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ออกแบบสี</translation>
     </message>
     <message>
         <source>C&amp;olor Components...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ส่วนประกอบของสี</translation>
     </message>
     <message>
         <source>&amp;Import existing color...</source>
@@ -6236,23 +6215,23 @@ Please give it a name</source>
     </message>
     <message>
         <source>&amp;Merge colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ผสมสี</translation>
     </message>
     <message>
         <source>&amp;Replace colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สีแทนที่</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ออก</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation type="unfinished">C&amp;olour</translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>Normal Vision</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปกติ</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
@@ -6268,7 +6247,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>Full Color Blindness</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่เติมสี</translation>
     </message>
     <message>
         <source>Vision Defect:</source>
@@ -6280,11 +6259,11 @@ Please give it a name</source>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished">Colour</translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>ชื่อ</translation>
     </message>
     <message>
         <source>C</source>
@@ -6304,7 +6283,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>Select Method:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือกเมโทรด</translation>
     </message>
     <message>
         <source>Angle (0 - 90 degrees):</source>
@@ -6312,19 +6291,19 @@ Please give it a name</source>
     </message>
     <message>
         <source>&amp;Merge Colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สีผสม</translation>
     </message>
     <message>
         <source>&amp;Replace Colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทนที่สี</translation>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ออกแบบสีผสมไปยังเอกสารสี</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ออกแบบสีแทนที่ไปยังเอกสารสี</translation>
     </message>
     <message>
         <source>Leave colors untouched</source>
@@ -6340,7 +6319,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>Sample color scheme</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวอย่างสี</translation>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
@@ -6360,7 +6339,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>Error: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ผิดพลาด</translation>
     </message>
     <message>
         <source>Color %1 exists already!</source>
@@ -6376,15 +6355,15 @@ Please give it a name</source>
     </message>
     <message>
         <source>Color Merging</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สีผสม</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation type="unfinished">New Colour</translation>
+        <translation type="unfinished">สีใหม่</translation>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถหาสีที่ต้องการได้.คุณน่าจะเลือกสีดำ เทา หรือขาว.สีไม่สามารถดำเนินการต่อไปได้</translation>
     </message>
 </context>
 <context>
@@ -6395,7 +6374,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>Color setting helper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวช่วยตั้งค่าสี</translation>
     </message>
     <message>
         <source>Color selector with color theory included.</source>
@@ -6406,11 +6385,11 @@ Please give it a name</source>
     <name>CommonStrings</name>
     <message>
         <source>&amp;Apply</source>
-        <translation type="unfinished">&amp;Apply</translation>
+        <translation type="unfinished">สมัคร</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
     <message>
         <source>None</source>
@@ -6418,164 +6397,160 @@ Please give it a name</source>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Save</translation>
+        <translation type="unfinished">บันทึก</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Warning</translation>
+        <translation type="unfinished">คำเตือน</translation>
     </message>
     <message>
         <source>None</source>
         <comment>color name</comment>
-        <translation type="unfinished">None</translation>
+        <translation type="unfinished">ไม่มี</translation>
     </message>
     <message>
         <source>Custom</source>
         <comment>CommonStrings, custom page size</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กำหนด</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าเดียว</translation>
     </message>
     <message>
         <source>Double Sided</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สองหน้า</translation>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">3 พับ</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">4 พับ</translation>
     </message>
     <message>
         <source>Left Page</source>
-        <translation type="unfinished">Left Page</translation>
+        <translation type="unfinished">หน้าซ้าย</translation>
     </message>
     <message>
         <source>Middle</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กลาง</translation>
     </message>
     <message>
         <source>Middle Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กลางซ้าย</translation>
     </message>
     <message>
         <source>Middle Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กลางขวา</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation type="unfinished">Right Page</translation>
+        <translation type="unfinished">หน้าขวา</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation type="unfinished">ปกติ</translation>
     </message>
     <message>
         <source>Normal Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปกติซ้าย</translation>
     </message>
     <message>
         <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปกติกลาง</translation>
     </message>
     <message>
         <source>Normal Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปกติขวา</translation>
     </message>
     <message>
         <source>Monday</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จันทร์</translation>
     </message>
     <message>
         <source>Tuesday</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อังคาร</translation>
     </message>
     <message>
         <source>Wednesday</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พุธ</translation>
     </message>
     <message>
         <source>Thursday</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พฤหัสบดี</translation>
     </message>
     <message>
         <source>Friday</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ศุกร์</translation>
     </message>
     <message>
         <source>Saturday</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เสาร์</translation>
     </message>
     <message>
         <source>Sunday</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อาทิตย์</translation>
     </message>
     <message>
         <source>January</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">มกราคม</translation>
     </message>
     <message>
         <source>February</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กุมภาพันธ์</translation>
     </message>
     <message>
         <source>March</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">มีนาคม</translation>
     </message>
     <message>
         <source>April</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เมษายน</translation>
     </message>
     <message>
         <source>May</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พฤษภาคม</translation>
     </message>
     <message>
         <source>June</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">มิถุนายน</translation>
     </message>
     <message>
         <source>July</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กรกฎาคม</translation>
     </message>
     <message>
         <source>August</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สิงหาคม</translation>
     </message>
     <message>
         <source>September</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กันยายน</translation>
     </message>
     <message>
         <source>October</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตุลาคม</translation>
     </message>
     <message>
         <source>November</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พฤศจิกายน</translation>
     </message>
     <message>
         <source>December</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ธันวาคม</translation>
     </message>
 </context>
 <context>
     <name>Cpalette</name>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation type="unfinished">ปกติ</translation>
     </message>
     <message>
         <source>Horizontal Gradient</source>
@@ -6599,11 +6574,11 @@ Please give it a name</source>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished">Opacity:</translation>
+        <translation type="unfinished">ทึบ:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation type="unfinished">เปอร์เซ็นต์</translation>
     </message>
     <message>
         <source>None</source>
@@ -6611,19 +6586,19 @@ Please give it a name</source>
     </message>
     <message>
         <source>Shade:</source>
-        <translation type="unfinished">Shade:</translation>
+        <translation type="unfinished">ดำ:</translation>
     </message>
     <message>
         <source>Edit Line Color Properties</source>
-        <translation type="unfinished">Edit Line Colour Properties</translation>
+        <translation type="unfinished">แก้ไขคุณสมบัติเส้นสี</translation>
     </message>
     <message>
         <source>Edit Fill Color Properties</source>
-        <translation type="unfinished">Edit Fill Colour Properties</translation>
+        <translation type="unfinished">แก้ไขคุณสมบัติสีทั้งหมด</translation>
     </message>
     <message>
         <source>Saturation of color</source>
-        <translation type="unfinished">Saturation of colour</translation>
+        <translation type="unfinished">สีน้ำ</translation>
     </message>
     <message>
         <source>Normal or gradient fill method</source>
@@ -6655,7 +6630,7 @@ Please give it a name</source>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source>X2:</source>
@@ -6679,7 +6654,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>Move Vector</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ย้ายเส้นแสดงระยะ</translation>
     </message>
     <message>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
@@ -6690,7 +6665,7 @@ Please give it a name</source>
     <name>CsvDialog</name>
     <message>
         <source>CSV Importer Options</source>
-        <translation type="unfinished">CSV Importer Options</translation>
+        <translation type="unfinished">CSV นำเข้าตัวเลือก</translation>
     </message>
     <message>
         <source>Field delimiter:</source>
@@ -6702,7 +6677,7 @@ Please give it a name</source>
     </message>
     <message>
         <source>Value delimiter:</source>
-        <translation type="unfinished">Value delimiter:</translation>
+        <translation type="unfinished">กำหนดค่า:</translation>
     </message>
     <message>
         <source>First row is a header</source>
@@ -6710,11 +6685,11 @@ Please give it a name</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
     <message>
         <source>None</source>
@@ -6723,62 +6698,62 @@ Please give it a name</source>
     <message>
         <source>None</source>
         <comment>delimiter</comment>
-        <translation type="unfinished">None</translation>
+        <translation type="unfinished">ไม่มี</translation>
     </message>
 </context>
 <context>
     <name>CupsOptions</name>
     <message>
         <source>Printer Options</source>
-        <translation type="unfinished">Printer Options</translation>
+        <translation type="unfinished">ตัวเลือกเครื่องพิมพ์</translation>
     </message>
     <message>
         <source>Option</source>
-        <translation type="unfinished">Option</translation>
+        <translation type="unfinished">ตัวเลือก</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation type="unfinished">Value</translation>
+        <translation type="unfinished">ค่า</translation>
     </message>
     <message>
         <source>Page Set</source>
-        <translation type="unfinished">Page Set</translation>
+        <translation type="unfinished">ตั้งหน้า</translation>
     </message>
     <message>
         <source>All Pages</source>
-        <translation type="unfinished">All Pages</translation>
+        <translation type="unfinished">ทุกหน้า</translation>
     </message>
     <message>
         <source>Even Pages only</source>
-        <translation type="unfinished">Even Pages only</translation>
+        <translation type="unfinished">หน้าคู่เท่านั้น</translation>
     </message>
     <message>
         <source>Odd Pages only</source>
-        <translation type="unfinished">Odd Pages only</translation>
+        <translation type="unfinished">หน้าคี่เท่านั้น</translation>
     </message>
     <message>
         <source>Mirror</source>
-        <translation type="unfinished">Mirror</translation>
+        <translation type="unfinished">กระจก</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">No</translation>
+        <translation type="unfinished">ไม่</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Yes</translation>
+        <translation type="unfinished">ใช่</translation>
     </message>
     <message>
         <source>Orientation</source>
-        <translation type="unfinished">Orientation</translation>
+        <translation type="unfinished">การวางแนว</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">Portrait</translation>
+        <translation type="unfinished">แนวตั้ง</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Landscape</translation>
+        <translation type="unfinished">แนวนอน</translation>
     </message>
     <message>
         <source>N-Up Printing</source>
@@ -6826,101 +6801,100 @@ Missing library support is indicated by a *</translation>
     <message>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
-        <translation type="unfinished">Moves to your Document Directory.
-This can be set in the Preferences.</translation>
+        <translation type="unfinished">ย้ายไปยังเอกสารไดเร็คทอรี่ของคุณ.สามารถตั้งค่าการนำเสนอได้</translation>
     </message>
     <message>
         <source>&amp;Compress File</source>
-        <translation type="unfinished">&amp;Compress File</translation>
+        <translation type="unfinished">ย่อแฟ้ม</translation>
     </message>
     <message>
         <source>&amp;Include Fonts</source>
-        <translation type="unfinished">&amp;Include Fonts</translation>
+        <translation type="unfinished">รวมตัวอักษร</translation>
     </message>
 </context>
 <context>
     <name>CwSetColor</name>
     <message>
         <source>Set Color Components</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าส่วนประกอบสี</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ซีเอ็มวายเค</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อาร์จีบี</translation>
     </message>
     <message>
         <source>HSV</source>
-        <translation type="unfinished"></translation>
+        <translation>เฮขเอสวี</translation>
     </message>
     <message>
         <source>H:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เฮช</translation>
     </message>
     <message>
         <source>S:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอส</translation>
     </message>
     <message>
         <source>V:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วี</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อาร์</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จี</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บี</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ซี</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอ็ม</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation type="unfinished">วาย:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เค</translation>
     </message>
     <message>
         <source>Set &amp;RGB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่า อาร์จีบี</translation>
     </message>
     <message>
         <source>Set C&amp;MYK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่า ซีเอ็มวายเค</translation>
     </message>
     <message>
         <source>Set &amp;HSV</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่า เฮชเอสวี</translation>
     </message>
 </context>
 <context>
     <name>DeferredTask</name>
     <message>
         <source>Cancelled by user</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ยกเลิกโดยผู้ใช้</translation>
     </message>
 </context>
 <context>
     <name>DelColor</name>
     <message>
         <source>Delete Color</source>
-        <translation type="unfinished">Delete Colour</translation>
+        <translation type="unfinished">ลบสี</translation>
     </message>
     <message>
         <source>?</source>
@@ -6948,18 +6922,18 @@ This can be set in the Preferences.</translation>
     </message>
     <message>
         <source>Delete Color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลบสี</translation>
     </message>
     <message>
         <source>Replace With:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทนที่</translation>
     </message>
 </context>
 <context>
     <name>DelPages</name>
     <message>
         <source>Delete Pages</source>
-        <translation type="unfinished">Delete Pages</translation>
+        <translation type="unfinished">ลบหน้ากระดาษ</translation>
     </message>
     <message>
         <source>Delete from:</source>
@@ -6967,7 +6941,7 @@ This can be set in the Preferences.</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation type="unfinished">to:</translation>
+        <translation>ถึง:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -6979,26 +6953,26 @@ This can be set in the Preferences.</translation>
     </message>
     <message>
         <source>Delete From:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลบจาก</translation>
     </message>
 </context>
 <context>
     <name>DelStyle</name>
     <message>
         <source>Delete Style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลบลักษณะ</translation>
     </message>
     <message>
         <source>Delete Style:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลบลักษณะ</translation>
     </message>
     <message>
         <source>Replace With:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทนที่กับ</translation>
     </message>
     <message>
         <source>No Style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่มีลักษณะ</translation>
     </message>
 </context>
 <context>
@@ -7028,79 +7002,79 @@ This can be set in the Preferences.</translation>
     <name>DocIm</name>
     <message>
         <source>Importing failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อมูลเข้าล้มเหลว</translation>
     </message>
     <message>
         <source>Importing Word document failed 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อมูลเอกสารเข้าล้มเหลว 1เปอร์เซ็นต์</translation>
     </message>
 </context>
 <context>
     <name>DocInfos</name>
     <message>
         <source>Document Information</source>
-        <translation type="unfinished">Document Information</translation>
+        <translation type="unfinished">เอกสารแนะนำ</translation>
     </message>
     <message>
         <source>&amp;Title:</source>
-        <translation type="unfinished">&amp;Title:</translation>
+        <translation type="unfinished">ชื่อเรื่อง:</translation>
     </message>
     <message>
         <source>&amp;Author:</source>
-        <translation type="unfinished">&amp;Author:</translation>
+        <translation type="unfinished">ผู้เขียน:</translation>
     </message>
     <message>
         <source>&amp;Keywords:</source>
-        <translation type="unfinished">&amp;Keywords:</translation>
+        <translation type="unfinished">คำสำคัญ:</translation>
     </message>
     <message>
         <source>Descri&amp;ption:</source>
-        <translation type="unfinished">Descri&amp;ption:</translation>
+        <translation type="unfinished">ลักษณะ:</translation>
     </message>
     <message>
         <source>P&amp;ublisher:</source>
-        <translation type="unfinished">P&amp;ublisher:</translation>
+        <translation type="unfinished">ผู้โฆษณา:</translation>
     </message>
     <message>
         <source>&amp;Contributors:</source>
-        <translation type="unfinished">&amp;Contributors:</translation>
+        <translation type="unfinished">ผู้เขียน:</translation>
     </message>
     <message>
         <source>Dat&amp;e:</source>
-        <translation type="unfinished">Dat&amp;e:</translation>
+        <translation type="unfinished">วัน:</translation>
     </message>
     <message>
         <source>T&amp;ype:</source>
-        <translation type="unfinished">T&amp;ype:</translation>
+        <translation type="unfinished">ชนิด:</translation>
     </message>
     <message>
         <source>F&amp;ormat:</source>
-        <translation type="unfinished">F&amp;ormat:</translation>
+        <translation type="unfinished">ตั้งรูปใหม่:</translation>
     </message>
     <message>
         <source>Identi&amp;fier:</source>
-        <translation type="unfinished">Identi&amp;fier:</translation>
+        <translation type="unfinished">Identifier:</translation>
     </message>
     <message>
         <source>&amp;Source:</source>
-        <translation type="unfinished">&amp;Source:</translation>
+        <translation type="unfinished">ที่มา:</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
-        <translation type="unfinished">&amp;Language:</translation>
+        <translation type="unfinished">ภาษา:</translation>
     </message>
     <message>
         <source>&amp;Relation:</source>
-        <translation type="unfinished">&amp;Relation:</translation>
+        <translation type="unfinished">สัมพันธ์:</translation>
     </message>
     <message>
         <source>Co&amp;verage:</source>
-        <translation type="unfinished">Co&amp;verage:</translation>
+        <translation type="unfinished">ครอบคลุม:</translation>
     </message>
     <message>
         <source>Ri&amp;ghts:</source>
-        <translation type="unfinished">Ri&amp;ghts:</translation>
+        <translation type="unfinished">ถูก:</translation>
     </message>
     <message>
         <source>&amp;Document</source>
@@ -7192,7 +7166,7 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>Documen&amp;t</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอกสาร</translation>
     </message>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
@@ -7223,11 +7197,11 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     <name>DocSections</name>
     <message>
         <source>Add a page numbering section to the document. The new section will be added after the currently selected section.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่มหมายเลขหน้ากระดาษที่เอกสาร.หัวข้อใหม่จะเพิ่มหลังจากที่เลือกหัวข้อปัจจุบัน</translation>
     </message>
     <message>
         <source>Delete the currently selected section.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลบหัวข้อที่เลือกล่าสุด</translation>
     </message>
     <message>
         <source>1, 2, 3, ...</source>
@@ -7259,42 +7233,42 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คำแนะนำเกี่ยวกับความถูกต้องยึดถือตามเอกสาร อีจี ลิขสิทธิ์ จดทะเบียน เครื่องหมายการค้า</translation>
     </message>
 </context>
 <context>
     <name>DocSectionsBase</name>
     <message>
         <source>Document Sections</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอกสารแต่ล่ะส่วน</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>Shown</source>
-        <translation type="unfinished"></translation>
+        <translation>แสดง</translation>
     </message>
     <message>
         <source>From</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จาก</translation>
     </message>
     <message>
         <source>To</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ถึง</translation>
     </message>
     <message>
         <source>Style</source>
-        <translation type="unfinished">Style</translation>
+        <translation type="unfinished">ลักษณะ</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เริ่ม</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่ม</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -7302,7 +7276,7 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>Alt+D</source>
@@ -7317,7 +7291,7 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>Relates To</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อ้างถึง</translation>
     </message>
     <message>
         <source>Is Parent Of</source>
@@ -7329,11 +7303,11 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กรอบข้อความ</translation>
     </message>
     <message>
         <source>Image Frames</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กรอบรูป</translation>
     </message>
     <message>
         <source>Boolean</source>
@@ -7341,30 +7315,30 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>Integer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จำนวนเต็ม</translation>
     </message>
     <message>
         <source>String</source>
-        <translation type="unfinished"></translation>
+        <translation>แถว</translation>
     </message>
     <message>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="unfinished">None</translation>
+        <translation type="unfinished">ไม่มี</translation>
     </message>
     <message>
         <source>None</source>
         <comment>auto add</comment>
-        <translation type="unfinished">None</translation>
+        <translation type="unfinished">ไม่มี</translation>
     </message>
     <message>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">None</translation>
+        <translation type="unfinished">ไม่มี</translation>
     </message>
     <message>
         <source>Real Number</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวเลจจริง</translation>
     </message>
 </context>
 <context>
@@ -7375,11 +7349,11 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation type="unfinished">ชนิด</translation>
     </message>
     <message>
         <source>Value</source>
@@ -7395,15 +7369,15 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>Relationship To</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อ้างถึง</translation>
     </message>
     <message>
         <source>Auto Add To</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่มอัตโนมัติ</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่ม</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -7411,7 +7385,7 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Copy</translation>
+        <translation type="unfinished">คัดลอก</translation>
     </message>
     <message>
         <source>Alt+C</source>
@@ -7419,7 +7393,7 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>Alt+D</source>
@@ -7427,7 +7401,7 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">C&amp;lear</translation>
+        <translation type="unfinished">เคลียร์</translation>
     </message>
     <message>
         <source>Alt+L</source>
@@ -7438,23 +7412,23 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     <name>Druck</name>
     <message>
         <source>Setup Printer</source>
-        <translation type="unfinished">Setup Printer</translation>
+        <translation type="unfinished">ตั้งค่าเครื่องพิมพ์</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">File</translation>
+        <translation type="unfinished">แฟ้ม</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Options</translation>
+        <translation type="unfinished">ตัวเลือก</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">All</translation>
+        <translation type="unfinished">ทั้งหมด</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Save as</translation>
+        <translation type="unfinished">บันทึกเป็น</translation>
     </message>
     <message>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
@@ -7462,19 +7436,19 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>Cyan</source>
-        <translation type="unfinished">Cyan</translation>
+        <translation type="unfinished">ฟ้า</translation>
     </message>
     <message>
         <source>Magenta</source>
-        <translation type="unfinished">Magenta</translation>
+        <translation type="unfinished">ม่วง</translation>
     </message>
     <message>
         <source>Yellow</source>
-        <translation type="unfinished">Yellow</translation>
+        <translation>เหลือง</translation>
     </message>
     <message>
         <source>Black</source>
-        <translation type="unfinished">Black</translation>
+        <translation type="unfinished">ดำ</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
@@ -7490,15 +7464,15 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>&amp;Options...</source>
-        <translation type="unfinished">&amp;Options...</translation>
+        <translation type="unfinished">ตัวเลือก...</translation>
     </message>
     <message>
         <source>&amp;File:</source>
-        <translation type="unfinished">&amp;File:</translation>
+        <translation type="unfinished">แฟ้ม:</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished">C&amp;hange...</translation>
+        <translation type="unfinished">เปลี่ยน...</translation>
     </message>
     <message>
         <source>A&amp;lternative Printer Command</source>
@@ -7506,27 +7480,27 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>Co&amp;mmand:</source>
-        <translation type="unfinished">Co&amp;mmand:</translation>
+        <translation type="unfinished">คำสั่ง:</translation>
     </message>
     <message>
         <source>Range</source>
-        <translation type="unfinished">Range</translation>
+        <translation type="unfinished">ช่วง</translation>
     </message>
     <message>
         <source>Print &amp;All</source>
-        <translation type="unfinished">Print &amp;All</translation>
+        <translation type="unfinished">พิมพ์ ทั้งหมด</translation>
     </message>
     <message>
         <source>Print Current Pa&amp;ge</source>
-        <translation type="unfinished">Print Current Pa&amp;ge</translation>
+        <translation type="unfinished">หน้าที่เลือก</translation>
     </message>
     <message>
         <source>Print &amp;Range</source>
-        <translation type="unfinished">Print &amp;Range</translation>
+        <translation type="unfinished">ช่วงการพิมพ์</translation>
     </message>
     <message>
         <source>N&amp;umber of Copies:</source>
-        <translation type="unfinished">N&amp;umber of Copies:</translation>
+        <translation type="unfinished">จำนวนสำเนา:</translation>
     </message>
     <message>
         <source>Print &amp;Normal</source>
@@ -7550,7 +7524,7 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>&amp;Print</source>
-        <translation type="unfinished">&amp;Print</translation>
+        <translation type="unfinished">พิมพ์</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -7564,7 +7538,7 @@ to utilise additional printing options</translation>
     </message>
     <message>
         <source>Print Normal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พิมพ์ปกติ</translation>
     </message>
     <message>
         <source>Print Separations</source>
@@ -7572,11 +7546,11 @@ to utilise additional printing options</translation>
     </message>
     <message>
         <source>Print in Color if Available</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พิมพ์สี</translation>
     </message>
     <message>
         <source>Print in Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พิมพ์ขาวดำ</translation>
     </message>
     <message>
         <source>PostScript Level 1</source>
@@ -7592,7 +7566,7 @@ to utilise additional printing options</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">Page</translation>
+        <translation type="unfinished">หน้า</translation>
     </message>
     <message>
         <source>Mirror Page(s) Horizontal</source>
@@ -7604,11 +7578,11 @@ to utilise additional printing options</translation>
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งขนาดสื่อ</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished">Colour</translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>Apply Under Color Removal</source>
@@ -7624,20 +7598,21 @@ to utilise additional printing options</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation type="unfinished">Advanced Options</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Preview...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวอย่าง...</translation>
     </message>
     <message>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ใช้ทางเลือกจัดการพิมพ์ เช่น เครื่องพริ้นเตอร์ หรือ จีทีเคแอลพี ไปยังตัวเลือกเพื่อเพิ่มในการพิมพ์</translation>
     </message>
     <message>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั่งค่าระดับของ ปล.
+ตั้งค่าถึงระดับ 1 หรือ 2 สามารถสร้างแฟ้มเก็บข้อมูลขนาดใหญ่ได้</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -7657,11 +7632,11 @@ to utilise additional printing options</translation>
     </message>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แแฟ้ม ปล. แฟ้มทั้งหมด</translation>
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คลิปหน้ากระดาษไปยังริมสุด</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -7669,11 +7644,11 @@ to utilise additional printing options</translation>
     </message>
     <message>
         <source>Failed to retrieve printer settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าพริ้นเตอร์ล้มเหลว</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่แสดงวัตถุด้านนอกริมสุดบนหน้ากระดาษพิมพ์</translation>
     </message>
 </context>
 <context>
@@ -7682,25 +7657,25 @@ to utilise additional printing options</translation>
         <source>Importing File:
 %1
 failed!</source>
-        <translation type="unfinished">Importing File:
+        <translation type="unfinished">แฟ้มรับล้มเหลว:
 %1
-failed!</translation>
+</translation>
     </message>
     <message>
         <source>Fatal Error</source>
-        <translation type="unfinished">Fatal Error</translation>
+        <translation type="unfinished">ข้อผิดพลาดอันตราย</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>ผิดพลาด</translation>
     </message>
     <message>
         <source>Importing PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปล.</translation>
     </message>
     <message>
         <source>Analyzing PostScript:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แยก ปล.</translation>
     </message>
     <message>
         <source>Generating Items</source>
@@ -7708,22 +7683,22 @@ failed!</translation>
     </message>
     <message>
         <source>Converting of %1 images failed!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แปลงรูปภาพล้มเหลง%1</translation>
     </message>
 </context>
 <context>
     <name>EditStyle</name>
     <message>
         <source>Edit Style</source>
-        <translation type="unfinished">Edit Style</translation>
+        <translation type="unfinished">แก้ไขรูปแบบ</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished">Character</translation>
+        <translation type="unfinished">อักขระ</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source>Effect:</source>
@@ -7739,7 +7714,7 @@ failed!</translation>
     </message>
     <message>
         <source>Line Spacing</source>
-        <translation type="unfinished">Line Spacing</translation>
+        <translation type="unfinished">ระยะห่างบรรทัด</translation>
     </message>
     <message>
         <source>OK</source>
@@ -7755,23 +7730,23 @@ failed!</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
-        <translation type="unfinished">Name of your paragraph style</translation>
+        <translation type="unfinished">ชื่อลักษณะย่อหน้าของคุณ</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
-        <translation type="unfinished">Font of selected text or object</translation>
+        <translation type="unfinished">แบบอักษรข้อความหรือวัตถุ</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation type="unfinished">Font Size</translation>
+        <translation type="unfinished">ขนาดอักษร</translation>
     </message>
     <message>
         <source>Color of text fill</source>
-        <translation type="unfinished">Colour of text fill</translation>
+        <translation type="unfinished">สีพื้นอักษร</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
-        <translation type="unfinished">Colour of text stroke</translation>
+        <translation type="unfinished">สีขอบอักษร</translation>
     </message>
     <message>
         <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
@@ -7787,11 +7762,11 @@ failed!</translation>
     </message>
     <message>
         <source>Spacing above the paragraph</source>
-        <translation type="unfinished">Spacing above the paragraph</translation>
+        <translation type="unfinished">เว้นช่องด้านบนพารากราฟ</translation>
     </message>
     <message>
         <source>Spacing below the paragraph</source>
-        <translation type="unfinished">Spacing below the paragraph</translation>
+        <translation type="unfinished">เว้นช่องด้านล่างพารากราฟ</translation>
     </message>
     <message>
         <source> mm</source>
@@ -7807,11 +7782,11 @@ failed!</translation>
     </message>
     <message>
         <source>Tabulators and Indentation</source>
-        <translation type="unfinished">Tabulators and Indentation</translation>
+        <translation type="unfinished">ตารางทำสถิติและย่อหน้า</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished">&amp;Name:</translation>
+        <translation type="unfinished">ชื่อ:</translation>
     </message>
     <message>
         <source>&amp;Font:</source>
@@ -7831,7 +7806,7 @@ failed!</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
-        <translation type="unfinished">&amp;Lines:</translation>
+        <translation type="unfinished">เส้น:</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
@@ -7867,11 +7842,11 @@ failed!</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation type="unfinished">เปอร์เซ็นต์</translation>
     </message>
     <message>
         <source>Distances</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ระยะ</translation>
     </message>
     <message>
         <source>Fixed Linespacing</source>
@@ -7879,7 +7854,7 @@ failed!</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้นว่างอัตโนมัติ</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
@@ -7891,15 +7866,15 @@ failed!</translation>
     </message>
     <message>
         <source>Distance from Text:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ระยะจากข้อความ</translation>
     </message>
     <message>
         <source>Preview of the Paragraph Style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลักษณะเค้าโ๕รงของพารากราฟ</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พื้นหลัง</translation>
     </message>
     <message>
         <source>Determines the gap between the DropCaps and the Text</source>
@@ -7911,15 +7886,15 @@ failed!</translation>
     </message>
     <message>
         <source>Name of the style is not unique</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลักษณธของชื่อไม่ได้มีอย่างเดียว</translation>
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือกอ่านอย่างง่าย ตัวอักษรสีที่มีลักษณะสว่าง</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คู้มือนำทาง</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
@@ -7931,14 +7906,15 @@ failed!</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อัตโนมัติ</translation>
     </message>
 </context>
 <context>
     <name>Editor</name>
     <message>
         <source>Editor</source>
-        <translation type="unfinished">Editor</translation>
+        <translation>ตัวแก้ไข
+</translation>
     </message>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
@@ -7946,63 +7922,73 @@ failed!</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;New</translation>
+        <translation type="unfinished">ใหม่
+</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation type="unfinished">&amp;Open...</translation>
+        <translation type="unfinished">เปิด...</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished">Save &amp;As...</translation>
+        <translation type="unfinished">บันทึกเป็น...</translation>
     </message>
     <message>
         <source>&amp;Save and Exit</source>
-        <translation type="unfinished">&amp;Save and Exit</translation>
+        <translation type="unfinished">บันทึกและออก</translation>
     </message>
     <message>
         <source>&amp;Exit without Saving</source>
-        <translation type="unfinished">&amp;Exit without Saving</translation>
+        <translation type="unfinished">ออกโดยไม่บันทึก
+</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;Undo</translation>
+        <translation type="unfinished">แก้ไขกลับคืน
+</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation type="unfinished">&amp;Redo</translation>
+        <translation type="unfinished">ทำซ้ำ
+</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished">Cu&amp;t</translation>
+        <translation type="unfinished">ตัด
+</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Copy</translation>
+        <translation type="unfinished">คัดลอก
+</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Paste</translation>
+        <translation type="unfinished">วาง
+</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">C&amp;lear</translation>
+        <translation type="unfinished">เคลียร์
+</translation>
     </message>
     <message>
         <source>&amp;Get Field Names</source>
-        <translation type="unfinished">&amp;Get Field Names</translation>
+        <translation type="unfinished">ดึงชื่อฟิลด์</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;File</translation>
+        <translation type="unfinished">แฟ้ม
+</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Edit</translation>
+        <translation type="unfinished">แก้ไข
+</translation>
     </message>
     <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จาวาสคริป(*.js);;แฟ้มทั้งหมด(*)</translation>
     </message>
 </context>
 <context>
@@ -8013,23 +7999,23 @@ failed!</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวเลือก</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>Shade:</source>
-        <translation type="unfinished">Shade:</translation>
+        <translation type="unfinished">แรเงา:</translation>
     </message>
     <message>
         <source>Brightness:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สว่าง</translation>
     </message>
     <message>
         <source>Contrast:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สีตัดกัน</translation>
     </message>
     <message>
         <source>Radius:</source>
@@ -8053,15 +8039,15 @@ failed!</translation>
     </message>
     <message>
         <source>Brightness</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สว่าง</translation>
     </message>
     <message>
         <source>Colorize</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>Contrast</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สีตัดกัน</translation>
     </message>
     <message>
         <source>Grayscale</source>
@@ -8069,7 +8055,7 @@ failed!</translation>
     </message>
     <message>
         <source>Invert</source>
-        <translation type="unfinished">Invert</translation>
+        <translation type="unfinished">กลับ</translation>
     </message>
     <message>
         <source>Posterize</source>
@@ -8077,7 +8063,7 @@ failed!</translation>
     </message>
     <message>
         <source>Sharpen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชัดขึ้น</translation>
     </message>
     <message>
         <source>&gt;&gt;</source>
@@ -8089,22 +8075,22 @@ failed!</translation>
     </message>
     <message>
         <source>Effects in use</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ผลในการใช้</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
 </context>
 <context>
     <name>ExportForm</name>
     <message>
         <source>&amp;All pages</source>
-        <translation type="unfinished">&amp;All pages</translation>
+        <translation type="unfinished">หน้าทั้งหมด</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -8116,7 +8102,7 @@ failed!</translation>
     </message>
     <message>
         <source>Change the output directory</source>
-        <translation type="unfinished">Change the output directory</translation>
+        <translation type="unfinished">เปลี่ยนคำแนะนำที่มีผลต่อเอกสาร</translation>
     </message>
     <message>
         <source>The output directory - the place to store your images.
@@ -8138,31 +8124,31 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</tr
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished">C&amp;hange...</translation>
+        <translation type="unfinished">เปลี่ยน...</translation>
     </message>
     <message>
         <source>&amp;Export to Directory:</source>
-        <translation type="unfinished">&amp;Export to Directory:</translation>
+        <translation type="unfinished">ส่งออกข้อความแนะนำ:</translation>
     </message>
     <message>
         <source>Image &amp;Type:</source>
-        <translation type="unfinished">Image &amp;Type:</translation>
+        <translation type="unfinished">รูปชนิด:</translation>
     </message>
     <message>
         <source>&amp;Quality:</source>
-        <translation type="unfinished">&amp;Quality:</translation>
+        <translation type="unfinished">คุณสมบัติ:</translation>
     </message>
     <message>
         <source>Export as Image(s)</source>
-        <translation type="unfinished">Export as Image(s)</translation>
+        <translation type="unfinished">ส่งรูปออก</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Options</translation>
+        <translation type="unfinished">ตัวเลือก</translation>
     </message>
     <message>
         <source>&amp;Resolution:</source>
-        <translation type="unfinished">&amp;Resolution:</translation>
+        <translation type="unfinished">ตกลง:</translation>
     </message>
     <message>
         <source> %</source>
@@ -8170,23 +8156,23 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</tr
     </message>
     <message>
         <source> dpi</source>
-        <translation type="unfinished"> dpi</translation>
+        <translation type="unfinished">ดีพีไอ</translation>
     </message>
     <message>
         <source>Range</source>
-        <translation type="unfinished">Range</translation>
+        <translation type="unfinished">ระยะ</translation>
     </message>
     <message>
         <source>&amp;Current page</source>
-        <translation type="unfinished">&amp;Current page</translation>
+        <translation type="unfinished">หน้าปัจจุบัน</translation>
     </message>
     <message>
         <source>&amp;Range</source>
-        <translation type="unfinished">&amp;Range</translation>
+        <translation type="unfinished">ระยะ</translation>
     </message>
     <message>
         <source>C</source>
-        <translation type="unfinished">C</translation>
+        <translation type="unfinished">ซี</translation>
     </message>
     <message>
         <source>Export a range of pages</source>
@@ -8202,48 +8188,48 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>Export all pages</source>
-        <translation type="unfinished">Export all pages</translation>
+        <translation type="unfinished">ส่งหน้ากระดาษทั้งหมด</translation>
     </message>
     <message>
         <source>Resolution of the Images
 Use 72 dpi for Images intended for the Screen</source>
-        <translation type="unfinished">Resolution of the Images
-Use 72 dpi for Images intended for the Screen</translation>
+        <translation type="unfinished">จัดรูป
+ใช้ 72 ดีพีไอ สำหรับรูปภาพที่ต้องการไปเป็นฉาก</translation>
     </message>
     <message>
         <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
-        <translation type="unfinished">The quality of your images - 100% is the best, 1% the lowest quality</translation>
+        <translation type="unfinished">คุณสมบัติของรูปคุณ - 100% ดีมาก, 1% ต่ำกว่ามาตรฐาน</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Size:</translation>
+        <translation type="unfinished">ขนาด:</translation>
     </message>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation type="unfinished">Size of the images. 100% for no changes, 200% for two times larger etc.</translation>
+        <translation type="unfinished">ขนาดของรูป. 100% เปลี่ยนไม่ได้, 200% ใช้ได้สองครั้ง อื่นๆ.</translation>
     </message>
 </context>
 <context>
     <name>ExtImageProps</name>
     <message>
         <source>Extended Image Properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คุณสมบัติความกว้างของภาพ</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation type="unfinished">ปกติ</translation>
     </message>
     <message>
         <source>Darken</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ทึบ</translation>
     </message>
     <message>
         <source>Lighten</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สว่าง</translation>
     </message>
     <message>
         <source>Hue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -8251,27 +8237,27 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished">Colour</translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>Luminosity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สว่าง</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คูร</translation>
     </message>
     <message>
         <source>Screen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ฉาก</translation>
     </message>
     <message>
         <source>Dissolve</source>
-        <translation type="unfinished">Dissolve</translation>
+        <translation type="unfinished">เลือน</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Hard Light</source>
@@ -8283,11 +8269,11 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Difference</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แตกต่าง</translation>
     </message>
     <message>
         <source>Exclusion</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จำกัด</translation>
     </message>
     <message>
         <source>Color Dodge</source>
@@ -8303,66 +8289,62 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วิธีผสม</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ทึบแสง</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation type="unfinished">เปอร์เซ็นต์</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พื้นหลัง</translation>
     </message>
     <message>
         <source>Layers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชั้น</translation>
     </message>
     <message>
         <source>Don&apos;t use any Path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ห้ามใช้ทุกพาธ</translation>
     </message>
     <message>
         <source>Paths</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Close</translation>
+        <translation type="unfinished">พาธ</translation>
     </message>
 </context>
 <context>
     <name>FDialogPreview</name>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Size:</translation>
+        <translation type="unfinished">ขนาด:</translation>
     </message>
     <message>
         <source>Title:</source>
-        <translation type="unfinished">Title:</translation>
+        <translation type="unfinished">ชื่อเรื่อง:</translation>
     </message>
     <message>
         <source>No Title</source>
-        <translation type="unfinished">No Title</translation>
+        <translation type="unfinished">ไม่มีชื่อเรื่อง</translation>
     </message>
     <message>
         <source>Author:</source>
-        <translation type="unfinished">Author:</translation>
+        <translation type="unfinished">ผู้เขียน:</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Unknown</translation>
+        <translation>ไม่รู้</translation>
     </message>
     <message>
         <source>Scribus Document</source>
-        <translation type="unfinished">Scribus Document</translation>
+        <translation type="unfinished">เอกสารสไครบัส</translation>
     </message>
     <message>
         <source>Resolution:</source>
@@ -8370,15 +8352,16 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>DPI</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดีพีไอ
+</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อาร์จีบี</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ซีเอ็มวายเค</translation>
     </message>
     <message>
         <source>Grayscale</source>
@@ -8386,10 +8369,6 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Colorspace:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Version:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8520,11 +8499,11 @@ Use 72 dpi for Images intended for the Screen</translation>
     <name>FileLoader</name>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวอักษรบางตัวใช้ได้กับเอกสารที่ต้องการแทนที่</translation>
     </message>
     <message>
         <source> was replaced by: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทนที่โดย</translation>
     </message>
 </context>
 <context>
@@ -8535,15 +8514,15 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Available Fonts</source>
-        <translation type="unfinished">Available Fonts</translation>
+        <translation type="unfinished">ตัวอักษรที่หาได้</translation>
     </message>
     <message>
         <source>Font Substitutions</source>
-        <translation type="unfinished">Font Substitutions</translation>
+        <translation type="unfinished">แบบอักษรแทนที่</translation>
     </message>
     <message>
         <source>Additional Paths</source>
-        <translation type="unfinished">Additional Paths</translation>
+        <translation type="unfinished">พาธ ต่อเติม</translation>
     </message>
     <message>
         <source>Postscript</source>
@@ -8555,7 +8534,7 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Font Name</source>
-        <translation type="unfinished">Font Name</translation>
+        <translation type="unfinished">ชื่อแบบอักษร</translation>
     </message>
     <message>
         <source>Use Font</source>
@@ -8579,11 +8558,11 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Replacement</source>
-        <translation type="unfinished">Replacement</translation>
+        <translation type="unfinished">แทนที่</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Choose a Directory</translation>
+        <translation type="unfinished">เลือกไดเรกทอรี่</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
@@ -8591,27 +8570,27 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Font &amp;Substitutions</source>
-        <translation type="unfinished">Font &amp;Substitutions</translation>
+        <translation type="unfinished">ตัวอักษร แทนที่</translation>
     </message>
     <message>
         <source>Additional &amp;Paths</source>
-        <translation type="unfinished">Additional &amp;Paths</translation>
+        <translation type="unfinished">เพิ่มเติม พาธ</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished">C&amp;hange...</translation>
+        <translation type="unfinished">เปลี่ยน...</translation>
     </message>
     <message>
         <source>A&amp;dd...</source>
-        <translation type="unfinished">A&amp;dd...</translation>
+        <translation type="unfinished">เพิ่ม...</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Remove</translation>
+        <translation type="unfinished">ถอด</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -8624,12 +8603,12 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อแบบอักษร</translation>
     </message>
     <message>
         <source>Use Font</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Use Font</translation>
+        <translation type="unfinished">แบบอักษรที่ใช้</translation>
     </message>
     <message>
         <source>Embed in:</source>
@@ -8644,10 +8623,14 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>Path to Font File</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Path to Font File</translation>
+        <translation type="unfinished">พาธถึงอักษรแฟ้ม</translation>
     </message>
     <message>
-        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
+        <source>PostScript</source>
+        <translation type="unfinished">ปล.</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8727,34 +8710,34 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>Append selected font into Style, Font menu</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Append selected font into Style, Font menu</translation>
+        <translation type="unfinished">เลือกอักษรแนบท้าย, เมนู ตัวอักษร</translation>
     </message>
     <message>
         <source>Leave preview</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Leave preview</translation>
+        <translation type="unfinished">เค้าโครงละทิ้ง</translation>
     </message>
     <message>
         <source>Start searching</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เริ่มค้นหา</translation>
     </message>
     <message>
         <source>Size of the selected font</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือกขนาดตัวอักษร</translation>
     </message>
     <message>
         <source>User</source>
         <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ผู้ใช้</translation>
     </message>
     <message>
         <source>System</source>
         <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ระบบ</translation>
     </message>
     <message>
         <source>Sample will be shown after key release</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงตัวอย่างหลังจากที่ปลดกุญแจ</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
@@ -8765,15 +8748,15 @@ Use 72 dpi for Images intended for the Screen</translation>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation type="obsolete">Fonts Preview</translation>
+        <translation type="unfinished">เค้าโครงตัวอักษร</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ค้นหาทางลัด</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ค้นหา</translation>
     </message>
     <message>
         <source>Alt+S</source>
@@ -8781,15 +8764,15 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Font Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อักษรชื่อ</translation>
     </message>
     <message>
         <source>Doc</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอกสาร</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation type="unfinished">ชนิด</translation>
     </message>
     <message>
         <source>Subset</source>
@@ -8801,19 +8784,19 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
-        <translation type="unfinished">&amp;Font Size:</translation>
+        <translation type="unfinished">ขนาดอักษร:</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished">Text</translation>
+        <translation type="unfinished">ข้อความ</translation>
     </message>
     <message>
         <source>Sample text to display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงตัวอย่างข้อความบนดิสเพล</translation>
     </message>
     <message>
         <source>Se&amp;t</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่า</translation>
     </message>
     <message>
         <source>Alt+T</source>
@@ -8821,7 +8804,7 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Reset the text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าข้อความใหม่</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -8833,26 +8816,22 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Close</translation>
+        <translation type="unfinished">ปิด</translation>
     </message>
     <message>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+C</translation>
-    </message>
-    <message>
-        <source>Font Preview</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>FontPreviewPlugin</name>
     <message>
         <source>&amp;Font Preview...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เค้าโครงตัวอักษร</translation>
     </message>
     <message>
         <source>Font Preview dialog</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เค้าโครงตัวอักษรไดอาล๊อค</translation>
     </message>
     <message>
         <source>Sorting, searching and browsing available fonts.</source>
@@ -8863,27 +8842,27 @@ Use 72 dpi for Images intended for the Screen</translation>
     <name>FontReplaceDialog</name>
     <message>
         <source>Font Substitution</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทนตัวอักษร</translation>
     </message>
     <message>
         <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอกสารบรรจุไปด้วยตัวอักษรบางส่วนที่ไม่สามารถติดตั้งบนระบบของคุณได้ กรุณาเลือกคำร้องเพื่อแทนที่. ยกเลิกเพื่อจะหยุดเอกสารจากการโหลด</translation>
     </message>
     <message>
         <source>Original Font</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวอักษรดั้งเดิม</translation>
     </message>
     <message>
         <source>Substitution Font</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทนตัวอักษร</translation>
     </message>
     <message>
         <source>Make these substitutions permanent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สร้างเพิ่อแทนที่อย่างถาวร</translation>
     </message>
     <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ยกเลิกตัวอักษรแทนที่ และหยุดการโหลดลงเอกสาร</translation>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
@@ -8891,14 +8870,14 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ถ้าคุณเลือก ตกลง หลังจากบันทึก ข้อความที่ถูกสร้างขึ้นจะแทนที่ทันทีในเอกสาร </translation>
     </message>
 </context>
 <context>
     <name>GradientEditor</name>
     <message>
         <source>Position:</source>
-        <translation type="unfinished">Position:</translation>
+        <translation type="unfinished">ตำแหน่ง:</translation>
     </message>
     <message>
         <source> %</source>
@@ -8910,22 +8889,22 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Add, change or remove color stops here</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่ม,เปลี่ยน หรือย้ายกลับ สีที่หยุดตอนนี้</translation>
     </message>
 </context>
 <context>
     <name>GuideManager</name>
     <message>
         <source>Manage Guides</source>
-        <translation type="unfinished">Manage Guides</translation>
+        <translation type="unfinished">จัดการแนะนำ</translation>
     </message>
     <message>
         <source>Horizontal Guides</source>
-        <translation type="unfinished">Horizontal Guides</translation>
+        <translation type="unfinished">แนะนำแนวขวาง</translation>
     </message>
     <message>
         <source>Vertical Guides</source>
-        <translation type="unfinished">Vertical Guides</translation>
+        <translation type="unfinished">แนะนำเส้นตั้งตรง</translation>
     </message>
     <message>
         <source> pt</source>
@@ -8949,11 +8928,11 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Add</translation>
+        <translation type="unfinished">&amp;เพิ่ม</translation>
     </message>
     <message>
         <source>D&amp;elete</source>
-        <translation type="unfinished">D&amp;elete</translation>
+        <translation type="unfinished">ล&amp;บ</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
@@ -8961,15 +8940,15 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>A&amp;dd</source>
-        <translation type="unfinished">A&amp;dd</translation>
+        <translation type="unfinished">เ&amp;พิ่ม</translation>
     </message>
     <message>
         <source>De&amp;lete</source>
-        <translation type="unfinished">De&amp;lete</translation>
+        <translation type="unfinished">ล&amp;บ</translation>
     </message>
     <message>
         <source>&amp;Lock Guides</source>
-        <translation type="unfinished">&amp;Lock Guides</translation>
+        <translation type="unfinished">&amp;ล๊อค คำแนะนำ</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -8985,43 +8964,43 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Unit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน่วย</translation>
     </message>
     <message>
         <source>Rows and Columns - Automatic Guides</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แถว และคอลัมน์ - Automatic Guides</translation>
     </message>
     <message>
         <source>&amp;Rows:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แถว</translation>
     </message>
     <message>
         <source>C&amp;olumns:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คอลัมน์:</translation>
     </message>
     <message>
         <source>Row &amp;Gap</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แถว&amp;ช่อง</translation>
     </message>
     <message>
         <source>Colum&amp;n Gap</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ระยะห่างคอลัมน์</translation>
     </message>
     <message>
         <source>Refer to:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อ้างถึง</translation>
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation type="unfinished">&amp;Page</translation>
+        <translation type="unfinished">&amp;หน้า</translation>
     </message>
     <message>
         <source>&amp;Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ริมกระดาษ</translation>
     </message>
     <message>
         <source>&amp;Selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือก</translation>
     </message>
     <message>
         <source>&amp;Apply to All Pages</source>
@@ -9029,20 +9008,20 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Close</translation>
+        <translation type="unfinished">&amp;ปิด</translation>
     </message>
     <message>
         <source>&amp;Update</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อัพเดต</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation type="unfinished">Preview</translation>
+        <translation type="unfinished">เค้าโครง</translation>
     </message>
     <message>
         <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
         <comment>guide manager</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าคำแนะนำในเอกสาร.จัดการคำแนะนำทั้งที่ยังเปิดเอกสารอยู่ แต่เปลี่ยนเป็นเพอร์ซิสเท้นท์</translation>
     </message>
     <message>
         <source>There is empty (0.0) guide already</source>
@@ -9059,83 +9038,83 @@ and www.scribus.net for downloads.</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished">Contents</translation>
+        <translation type="unfinished">สารบัญ</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished">Link</translation>
+        <translation type="unfinished">เชื่อมต่อ</translation>
     </message>
     <message>
         <source>Scribus Online Help</source>
-        <translation type="unfinished">Scribus Online Help</translation>
+        <translation type="unfinished">ตัวช่วยสริปบัส</translation>
     </message>
     <message>
         <source>&amp;Contents</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สารบัญ</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ค้นหา</translation>
     </message>
     <message>
         <source>Se&amp;arch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ค้นหา</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;New</translation>
+        <translation type="unfinished">ใหม่</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>De&amp;lete All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลบทั้งหมด</translation>
     </message>
     <message>
         <source>Book&amp;marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หมายเหตุ</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation type="unfinished">&amp;Print...</translation>
+        <translation type="unfinished">พิมพ์...</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ออก</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;File</translation>
+        <translation type="unfinished">แฟ้ม</translation>
     </message>
     <message>
         <source>&amp;Find...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หา</translation>
     </message>
     <message>
         <source>Find &amp;Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หาต่อไป</translation>
     </message>
     <message>
         <source>Find &amp;Previous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หา ก่อนหน้า</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Edit</translation>
+        <translation type="unfinished">แก้ไข</translation>
     </message>
     <message>
         <source>&amp;Add Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่่มหมายเหตุ</translation>
     </message>
     <message>
         <source>D&amp;elete All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลบทั้งหมด</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Bookmarks</translation>
+        <translation type="unfinished">หมายเหตุ</translation>
     </message>
     <message>
         <source>Searching is case unsensitive</source>
@@ -9143,19 +9122,19 @@ and www.scribus.net for downloads.</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หา</translation>
     </message>
     <message>
         <source>Search Term:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กำหนดการค้นหา</translation>
     </message>
     <message>
         <source>New Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หมายเหตุใหม่</translation>
     </message>
     <message>
         <source>New Bookmark&apos;s Title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หมายเหตุชื่อเรื่ง</translation>
     </message>
     <message>
         <source>Relevance</source>
@@ -9170,15 +9149,15 @@ and www.scribus.net for downloads.</translation>
     </message>
     <message>
         <source>Accept</source>
-        <translation type="unfinished">Accept</translation>
+        <translation type="unfinished">ยอมรับ</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished">Skip</translation>
+        <translation type="unfinished">ข้าม</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
 </context>
 <context>
@@ -9199,7 +9178,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
-        <translation type="unfinished">&amp;Language:</translation>
+        <translation type="unfinished">ภาษา:</translation>
     </message>
     <message>
         <source>&amp;Smallest Word:</source>
@@ -9215,11 +9194,11 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation type="unfinished">&amp;Hyphenation Suggestions</translation>
+        <translation type="unfinished">คำแนะนำ เครื่องหมายยติภังค์</translation>
     </message>
     <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation type="unfinished">Hyphenate Text Automatically &amp;During Typing</translation>
+        <translation type="unfinished">ข้อความ(-)อัตโนมัติระหว่างพิมพ์</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
@@ -9227,7 +9206,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation type="unfinished">Enables automatic hyphenation of your text while typing.</translation>
+        <translation type="unfinished">สามารถหาเครื่องหมาย(-) ของข้อความของคุณในขณะที่กำลังพิมพ์.</translation>
     </message>
     <message>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
@@ -9238,15 +9217,15 @@ A value of 0 means unlimited hyphenations.</translation>
     <name>ImageInfoDialog</name>
     <message>
         <source>Image Info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูป</translation>
     </message>
     <message>
         <source>General Info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ทั่วไป</translation>
     </message>
     <message>
         <source>Date / Time:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วัน/เวลา</translation>
     </message>
     <message>
         <source>Has Embedded Profile:</source>
@@ -9254,15 +9233,15 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Yes</translation>
+        <translation type="unfinished">ใช่</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">No</translation>
+        <translation>ไม่</translation>
     </message>
     <message>
         <source>Profile Name:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อแฟ้ม</translation>
     </message>
     <message>
         <source>Has Embedded Paths:</source>
@@ -9270,58 +9249,58 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Has Layers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">มีชั้น</translation>
     </message>
     <message>
         <source>EXIF Info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อีเอ็กซ์ไอเอฟ</translation>
     </message>
     <message>
         <source>Artist:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อาร์ติสท์</translation>
     </message>
     <message>
         <source>Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อวิจารณ์</translation>
     </message>
     <message>
         <source>User Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ผู้วิจารณ์</translation>
     </message>
     <message>
         <source>Camera Model:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปแบบกล้อง</translation>
     </message>
     <message>
         <source>Camera Manufacturer:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จัดกล้อง</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลักษณะ</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลิขสิทธิ์</translation>
     </message>
     <message>
         <source>Scanner Model:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสกนรูปแบบ</translation>
     </message>
     <message>
         <source>Scanner Manufacturer:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ทำการแสกน</translation>
     </message>
 </context>
 <context>
     <name>ImportPSPlugin</name>
     <message>
         <source>Import &amp;EPS/PS...</source>
-        <translation type="unfinished">Import &amp;EPS/PS...</translation>
+        <translation type="unfinished">นำเข้า อีพีเอส/พีเอส...</translation>
     </message>
     <message>
         <source>Imports EPS Files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">นำเข้าแฟ้ม อีพีเอส</translation>
     </message>
     <message>
         <source>Imports most EPS files into the current document,
@@ -9329,15 +9308,19 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>PostScript</source>
+        <translation type="unfinished">ปล.</translation>
+    </message>
+    <message>
         <source>PDF</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พีดีเอฟ</translation>
     </message>
 </context>
 <context>
     <name>InsPage</name>
     <message>
         <source>Insert Page</source>
-        <translation type="unfinished">Insert Page</translation>
+        <translation type="unfinished">แทรกหน้า</translation>
     </message>
     <message>
         <source>Inserting</source>
@@ -9345,19 +9328,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>before Page</source>
-        <translation type="unfinished">before Page</translation>
+        <translation type="unfinished">หน้าก่อนหน้า</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation type="unfinished">after Page</translation>
+        <translation type="unfinished">หน้าถัดไป</translation>
     </message>
     <message>
         <source>at End</source>
-        <translation type="unfinished">at End</translation>
+        <translation type="unfinished">สิ้นสุด</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation type="unfinished">ปกติ</translation>
     </message>
     <message>
         <source>Template (Right Page):</source>
@@ -9369,7 +9352,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Page(s)</source>
-        <translation type="unfinished">Page(s)</translation>
+        <translation type="unfinished">หน้า</translation>
     </message>
     <message>
         <source>&amp;Template (Left Page):</source>
@@ -9389,47 +9372,47 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation type="unfinished">&amp;Insert</translation>
+        <translation type="unfinished">แทรก</translation>
     </message>
     <message>
         <source>Master Pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าต้นแบบ</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าต้นแบบ:</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขนาดหน้า</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Size:</translation>
+        <translation type="unfinished">ขนาด:</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Custom</translation>
+        <translation type="unfinished">กำหนดเอง</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">การวางแนว:</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แนวตั้ง</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แนวนอน</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ความกว้าง:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ความสูง:</translation>
     </message>
     <message>
         <source>Move Objects with their Page</source>
@@ -9440,7 +9423,7 @@ converting their vector data into Scribus objects.</source>
     <name>InsertTable</name>
     <message>
         <source>Insert Table</source>
-        <translation type="unfinished">Insert Table</translation>
+        <translation type="unfinished">แทรกตาราง</translation>
     </message>
     <message>
         <source>Number of Rows:</source>
@@ -9460,22 +9443,22 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Number of rows:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จำนวนแถว:</translation>
     </message>
     <message>
         <source>Number of columns:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จำนวนคอลัมน์:</translation>
     </message>
 </context>
 <context>
     <name>JavaDocs</name>
     <message>
         <source>New Script</source>
-        <translation type="unfinished">New Script</translation>
+        <translation type="unfinished">ต้นฉบับใหม่</translation>
     </message>
     <message>
         <source>Edit JavaScripts</source>
-        <translation type="unfinished">Edit JavaScripts</translation>
+        <translation type="unfinished">แก้ไขต้นฉบับจาวา</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -9483,31 +9466,31 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">&amp;Edit...</translation>
+        <translation type="unfinished">แก้ไข...</translation>
     </message>
     <message>
         <source>&amp;Add...</source>
-        <translation type="unfinished">&amp;Add...</translation>
+        <translation type="unfinished">เพิ่ม...</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Close</translation>
+        <translation type="unfinished">ปิด</translation>
     </message>
     <message>
         <source>&amp;New Script:</source>
-        <translation type="unfinished">&amp;New Script:</translation>
+        <translation type="unfinished">ต้นฉบับใหม่:</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished">&amp;No</translation>
+        <translation type="unfinished">ไม่</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Yes</translation>
+        <translation type="unfinished">ใช่</translation>
     </message>
     <message>
         <source>Do you really want to delete this Script?</source>
@@ -9519,7 +9502,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you really want to delete this script?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คุณต้องการลบต้นฉบับ?</translation>
     </message>
 </context>
 <context>
@@ -9530,15 +9513,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Action</source>
-        <translation type="unfinished">Action</translation>
+        <translation type="unfinished">กระทำ</translation>
     </message>
     <message>
         <source>Current Key</source>
-        <translation type="unfinished">Current Key</translation>
+        <translation type="unfinished">ปุ่มกดปัจจุบัน</translation>
     </message>
     <message>
         <source>Select a Key for this Action</source>
-        <translation type="unfinished">Select a Key for this Action</translation>
+        <translation type="unfinished">เลือกปุ่มกด เพื่อลงมือกระมำ</translation>
     </message>
     <message>
         <source>ALT+SHIFT+T</source>
@@ -9554,7 +9537,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Shift</source>
-        <translation type="unfinished">Shift</translation>
+        <translation type="unfinished">ชิพ</translation>
     </message>
     <message>
         <source>Shift+</source>
@@ -9574,15 +9557,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;No Key</source>
-        <translation type="unfinished">&amp;No Key</translation>
+        <translation type="unfinished">ไม่มีปุ่มกด</translation>
     </message>
     <message>
         <source>&amp;User Defined Key</source>
-        <translation type="unfinished">&amp;User Defined Key</translation>
+        <translation type="unfinished">ผู้ใช้กำหนดปุ่มกด</translation>
     </message>
     <message>
         <source>Set &amp;Key</source>
-        <translation type="unfinished">Set &amp;Key</translation>
+        <translation type="unfinished">ตั้งค่า &amp;ปุ่มกด</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -9602,27 +9585,27 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Load</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โหลด</translation>
     </message>
     <message>
         <source>&amp;Import...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">นำเข้า</translation>
     </message>
     <message>
         <source>&amp;Export...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ส่งออก</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าใหม่</translation>
     </message>
     <message>
         <source>Keyboard shortcut sets available to load</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าทางลัดในการใช้แฟ้นพิมพ์ เท่ามี่จะหาโหลดได้</translation>
     </message>
     <message>
         <source>Load the selected shortcut set</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าเลือกโหลดทางลัด</translation>
     </message>
     <message>
         <source>Import a shortcut set into the current configuration</source>
@@ -9657,7 +9640,7 @@ converting their vector data into Scribus objects.</source>
     <name>LayerPalette</name>
     <message>
         <source>Layers</source>
-        <translation type="unfinished">Layers</translation>
+        <translation type="unfinished">ชั้น</translation>
     </message>
     <message>
         <source>Add a new Layer</source>
@@ -9665,7 +9648,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Delete Layer</source>
-        <translation type="unfinished">Delete Layer</translation>
+        <translation type="unfinished">ลบชั้น</translation>
     </message>
     <message>
         <source>Raise Layer</source>
@@ -9685,42 +9668,42 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you want to delete all objects on this layer too?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คุณต้องการที่จะลบวัตถุที่อยู่บนชั้นทั้งหมดหรือไม่?</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อ </translation>
     </message>
     <message>
         <source>Add a new layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่มชั้นใหม่</translation>
     </message>
     <message>
         <source>Delete layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลบชั้น</translation>
     </message>
     <message>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปิดชั้น</translation>
     </message>
     <message>
         <source>Lower layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชั้นล่าง</translation>
     </message>
 </context>
 <context>
     <name>LineFormate</name>
     <message>
         <source>Edit Line Styles</source>
-        <translation type="unfinished">Edit Line Styles</translation>
+        <translation type="unfinished">แก้ไขแบบเส้น</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation type="unfinished">Copy of %1</translation>
+        <translation>คัดลอก%1</translation>
     </message>
     <message>
         <source>New Style</source>
-        <translation type="unfinished">New Style</translation>
+        <translation type="unfinished">แบบใหม่</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -9728,15 +9711,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation type="unfinished">เปิด</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation type="unfinished">Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
+        <translation type="unfinished">เอกสาร (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation type="unfinished">Documents (*.sla *.scd);;All Files (*)</translation>
+        <translation type="unfinished">เอกสาร(*.sla *.scd);;All Files (*)</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -9744,23 +9727,23 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;New</translation>
+        <translation type="unfinished">ใหม่</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Edit</translation>
+        <translation type="unfinished">แก้ไข</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation type="unfinished">D&amp;uplicate</translation>
+        <translation type="unfinished">คู่ฉบับ</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Save</translation>
+        <translation type="unfinished">บันทึก</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -9772,11 +9755,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished">&amp;No</translation>
+        <translation type="unfinished">ไม่</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Yes</translation>
+        <translation type="unfinished">ใช่</translation>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
@@ -9784,11 +9767,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Import</translation>
+        <translation type="unfinished">นำเข้า</translation>
     </message>
     <message>
         <source>Do you really want to delete this style?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คุณต้องการที่จะลบแบบ?</translation>
     </message>
 </context>
 <context>
@@ -9799,26 +9782,26 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ความกว้างของเส้น</translation>
     </message>
 </context>
 <context>
     <name>LineStyleWidget</name>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แบน แค๊ป</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สี่เหลี่ยมจัตุรัส</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วงกลม</translation>
     </message>
     <message>
         <source>Miter Join</source>
@@ -9834,15 +9817,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปทรงเส้น</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้นหวัด</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้นปะ</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
@@ -9857,7 +9840,7 @@ converting their vector data into Scribus objects.</source>
     <name>LoadSavePlugin</name>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">All Files (*)</translation>
+        <translation type="unfinished">แฟ้มทั้งหมด (*)</translation>
     </message>
 </context>
 <context>
@@ -9868,23 +9851,23 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Author:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ผู้เขียน</translation>
     </message>
     <message>
         <source>Get More:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รับมากกว่า</translation>
     </message>
     <message>
         <source>XML File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แฟ้ม เอ็กซ์เอ็มแอล </translation>
     </message>
     <message>
         <source>Lorem Ipsum</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Paragraphs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พารากราฟ</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -9934,39 +9917,39 @@ converting their vector data into Scribus objects.</source>
     <name>MarginDialog</name>
     <message>
         <source>Manage Page Properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จัดการคุณสมบัติหน้าเอกสาร</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขนาดหน้า</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Size:</translation>
+        <translation type="unfinished">&amp;ขนาด:</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Custom</translation>
+        <translation type="unfinished">กำหนด</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">การวางแนว</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แนวตั้ง</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แนวนอน</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ความกว้าง</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ความสูง</translation>
     </message>
     <message>
         <source>Move Objects with their Page</source>
@@ -9974,34 +9957,34 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Type:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชนิด:</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ระยะขอบ</translation>
     </message>
 </context>
 <context>
     <name>MarginWidget</name>
     <message>
         <source>Preset Layouts:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">การจัดวางปัจจุบัน</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;Bottom:</translation>
+        <translation type="unfinished">ล่าง:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished">&amp;Top:</translation>
+        <translation type="unfinished">บน:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation type="unfinished">&amp;Right:</translation>
+        <translation type="unfinished">ขวา:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;Left:</translation>
+        <translation type="unfinished">ซ้าย:</translation>
     </message>
     <message>
         <source>Apply margin settings to all pages</source>
@@ -10029,15 +10012,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Inside:</source>
-        <translation type="unfinished">&amp;Inside:</translation>
+        <translation type="unfinished">ข้างใน:</translation>
     </message>
     <message>
         <source>O&amp;utside:</source>
-        <translation type="unfinished">O&amp;utside:</translation>
+        <translation type="unfinished">ข้างนอก:</translation>
     </message>
     <message>
         <source>Printer Margins...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พิมพ์ริมขอบกระดาษ</translation>
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers.</source>
@@ -10048,7 +10031,7 @@ converting their vector data into Scribus objects.</source>
     <name>MasterPagesPalette</name>
     <message>
         <source>Edit Master Pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แก้ไขต้นฉบับ</translation>
     </message>
     <message>
         <source>Duplicate the selected master page</source>
@@ -10056,11 +10039,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Delete the selected master page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือกลบต้นฉบับ</translation>
     </message>
     <message>
         <source>Add a new master page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่มต้นฉบับ</translation>
     </message>
     <message>
         <source>Import master pages from another document</source>
@@ -10068,39 +10051,39 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you really want to delete this master page?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คุณต้องการลบต้นฉบับ?</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Yes</translation>
+        <translation type="unfinished">&amp;ใช่</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished">&amp;No</translation>
+        <translation type="unfinished">ไม่</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished">&amp;Name:</translation>
+        <translation type="unfinished">ชื่อ:</translation>
     </message>
     <message>
         <source>New Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ต้นฉบับใหม่</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation type="unfinished">Copy of %1</translation>
+        <translation type="unfinished">คัดลอก %1</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished">Name:</translation>
+        <translation type="unfinished">ชื่อ:</translation>
     </message>
     <message>
         <source>New MasterPage</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ต้นฉบับใหม่</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ต้นฉบับใหม่1เปอร์เซ็นต์</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
@@ -10108,30 +10091,30 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation type="unfinished">ปกติ</translation>
     </message>
     <message>
         <source>Unable to Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>ไม่สามารถตั้งชื่อต้นฉบับได้</translation>
     </message>
     <message>
         <source>The Normal page is not allowed to be renamed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าปกติไม่อนุญาตให้ตั้งชื่อใหม่</translation>
     </message>
     <message>
         <source>Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งชื่อต้นฉบับใหม่</translation>
     </message>
     <message>
         <source>New Name:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อใหม่</translation>
     </message>
 </context>
 <context>
     <name>Mdup</name>
     <message>
         <source>Multiple Duplicate</source>
-        <translation type="unfinished">Multiple Duplicate</translation>
+        <translation type="unfinished">ฉบับคู่ มัลติเพิล</translation>
     </message>
     <message>
         <source> pt</source>
@@ -10151,7 +10134,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Number of Copies:</source>
-        <translation type="unfinished">&amp;Number of Copies:</translation>
+        <translation type="unfinished">คัดลอกหมายเลข:</translation>
     </message>
     <message>
         <source>&amp;Horizontal Shift:</source>
@@ -10174,7 +10157,7 @@ converting their vector data into Scribus objects.</source>
     <name>Measurements</name>
     <message>
         <source>Distances</source>
-        <translation type="unfinished">Distances</translation>
+        <translation type="unfinished">ระยะ</translation>
     </message>
     <message>
         <source>X1:</source>
@@ -10202,11 +10185,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Angle:</source>
-        <translation type="unfinished">Angle:</translation>
+        <translation type="unfinished">มุม:</translation>
     </message>
     <message>
         <source>Length:</source>
-        <translation type="unfinished">Length:</translation>
+        <translation type="unfinished">ความยาว:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -10268,15 +10251,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation type="unfinished">เปิด</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation type="unfinished">Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
+        <translation type="unfinished">เอกสาร (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation type="unfinished">Documents (*.sla *.scd);;All Files (*)</translation>
+        <translation type="unfinished">เอกสาร (*.sla *.scd);;All Files (*)</translation>
     </message>
     <message>
         <source>Import Template</source>
@@ -10284,7 +10267,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Import Page(s)</source>
-        <translation type="unfinished">Import Page(s)</translation>
+        <translation type="unfinished">นำเข้าหน้า(s)</translation>
     </message>
     <message>
         <source>From Document:</source>
@@ -10304,11 +10287,11 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source> from 0</source>
-        <translation type="unfinished"> from 0</translation>
+        <translation type="unfinished">จาก 0</translation>
     </message>
     <message>
         <source>Create Page(s)</source>
-        <translation type="unfinished">Create Page(s)</translation>
+        <translation type="unfinished">สร้างหน้ากระดาษ(s)</translation>
     </message>
     <message>
         <source>before Page</source>
@@ -10324,27 +10307,27 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source> from %1</source>
-        <translation type="unfinished"> from %1</translation>
+        <translation type="unfinished">จาก %1</translation>
     </message>
     <message>
         <source>Import Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">นำเข้าหน้าหลัก</translation>
     </message>
     <message>
         <source>&amp;From Document:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จากเอกสาร</translation>
     </message>
     <message>
         <source>Chan&amp;ge...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปลี่ยน</translation>
     </message>
     <message>
         <source>&amp;Import Page(s):</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">นำเข้าหน้า</translation>
     </message>
     <message>
         <source>&amp;Import Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">นำเข้าต้นฉบับ</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
@@ -10352,53 +10335,53 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>Before Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าก่อน</translation>
     </message>
     <message>
         <source>After Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หลังจากหน้านี้</translation>
     </message>
     <message>
         <source>At End</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จบ</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Import</translation>
+        <translation type="unfinished">นำเข้า</translation>
     </message>
 </context>
 <context>
     <name>MissingFont</name>
     <message>
         <source>Missing Font</source>
-        <translation type="unfinished">Missing Font</translation>
+        <translation type="unfinished">ตัวอักษรผิดพลาด</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
-        <translation type="unfinished">The Font %1 is not installed.</translation>
+        <translation type="unfinished">ตัวอักษร %1 ติดตั้งไม่ได้.</translation>
     </message>
     <message>
         <source>Use</source>
-        <translation type="unfinished">Use</translation>
+        <translation type="unfinished">ใช้</translation>
     </message>
     <message>
         <source>instead</source>
-        <translation type="unfinished">instead</translation>
+        <translation type="unfinished">แทนที่</translation>
     </message>
 </context>
 <context>
     <name>MovePages</name>
     <message>
         <source>Move Pages</source>
-        <translation type="unfinished">Move Pages</translation>
+        <translation type="unfinished">ย้ายหน้า</translation>
     </message>
     <message>
         <source>Copy Page</source>
-        <translation type="unfinished">Copy Page</translation>
+        <translation type="unfinished">สำเนาหน้า</translation>
     </message>
     <message>
         <source>Move Page(s):</source>
-        <translation type="unfinished">Move Page(s):</translation>
+        <translation type="unfinished">ย้ายหน้า(s):</translation>
     </message>
     <message>
         <source>to:</source>
@@ -10430,34 +10413,34 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>To:</source>
-        <translation type="unfinished">To:</translation>
+        <translation type="unfinished">ไป:</translation>
     </message>
     <message>
         <source>Number of copies:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จำนวนสำเนา</translation>
     </message>
     <message>
         <source>Before Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าก่อนหน้า</translation>
     </message>
     <message>
         <source>After Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าถัดไป</translation>
     </message>
     <message>
         <source>At End</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จุดสิ้นสุด</translation>
     </message>
 </context>
 <context>
     <name>Mpalette</name>
     <message>
         <source>Properties</source>
-        <translation type="unfinished">Properties</translation>
+        <translation type="unfinished">คุณสมบัติ</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>Geometry</source>
@@ -10465,7 +10448,7 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source>Basepoint:</source>
@@ -10473,19 +10456,19 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation type="unfinished">Level</translation>
+        <translation type="unfinished">ลำดับ</translation>
     </message>
     <message>
         <source>Shape:</source>
-        <translation type="unfinished">Shape:</translation>
+        <translation type="unfinished">แรเงา:</translation>
     </message>
     <message>
         <source>Distance of Text</source>
-        <translation type="unfinished">Distance of Text</translation>
+        <translation type="unfinished">ระยะของข้อความ</translation>
     </message>
     <message>
         <source>Show Curve</source>
-        <translation type="unfinished">Show Curve</translation>
+        <translation>แสดงเส้นโค้ง</translation>
     </message>
     <message>
         <source>Start Offset:</source>
@@ -10493,7 +10476,7 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>Distance from Curve:</source>
-        <translation type="unfinished">Distance from Curve:</translation>
+        <translation type="unfinished">ระยะจากเส้นโค้ง:</translation>
     </message>
     <message>
         <source> %</source>
@@ -10505,7 +10488,7 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>Input Profile:</source>
-        <translation type="unfinished">Input Profile:</translation>
+        <translation type="unfinished">เส้นรอบนอก:</translation>
     </message>
     <message>
         <source>Rendering Intent:</source>
@@ -10561,11 +10544,11 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>No Style</source>
-        <translation type="unfinished">No Style</translation>
+        <translation type="unfinished">ไม่มีแบบ</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation type="unfinished">Font Size</translation>
+        <translation type="unfinished">ขนาดตัวหนังสือ</translation>
     </message>
     <message>
         <source>Line Spacing</source>
@@ -10599,7 +10582,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Name of selected object</source>
-        <translation type="unfinished">Name of selected object</translation>
+        <translation type="unfinished">เลือกชื่อวัตถุ</translation>
     </message>
     <message>
         <source>Horizontal position of current basepoint</source>
@@ -10611,11 +10594,11 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Width</source>
-        <translation type="unfinished">Width</translation>
+        <translation type="unfinished">ความกว้าง</translation>
     </message>
     <message>
         <source>Height</source>
-        <translation type="unfinished">Height</translation>
+        <translation type="unfinished">ความสูง</translation>
     </message>
     <message>
         <source>Rotation of object at current basepoint</source>
@@ -10627,23 +10610,23 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Select top left for basepoint</source>
-        <translation type="unfinished">Select top left for basepoint</translation>
+        <translation type="unfinished">เลือกจุดสำคัญบนสุดด้านซ้าย</translation>
     </message>
     <message>
         <source>Select top right for basepoint</source>
-        <translation type="unfinished">Select top right for basepoint</translation>
+        <translation type="unfinished">เลือกจุสำคัญบนสุดด้านขวา</translation>
     </message>
     <message>
         <source>Select bottom left for basepoint</source>
-        <translation type="unfinished">Select bottom left for basepoint</translation>
+        <translation type="unfinished">เลือกจุดสำคัญท้ายสุดด้านซ้าย</translation>
     </message>
     <message>
         <source>Select bottom right for basepoint</source>
-        <translation type="unfinished">Select bottom right for basepoint</translation>
+        <translation type="unfinished">เลือกจุดสำคัญท้ายสุดด้านขวา</translation>
     </message>
     <message>
         <source>Select center for basepoint</source>
-        <translation type="unfinished">Select centre for basepoint</translation>
+        <translation type="unfinished">เลือกจุดสำคัญตรงกลาง</translation>
     </message>
     <message>
         <source>Flip Horizontal</source>
@@ -10655,35 +10638,35 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Move one level up</source>
-        <translation type="unfinished">Move one level up</translation>
+        <translation type="unfinished">เลื่อนขึ้นไปอีกหนึ่งระดับ</translation>
     </message>
     <message>
         <source>Move one level down</source>
-        <translation type="unfinished">Move one level down</translation>
+        <translation type="unfinished">ย้ายระดับลงมาอีกหนึ่ง</translation>
     </message>
     <message>
         <source>Move to front</source>
-        <translation type="unfinished">Move to front</translation>
+        <translation type="unfinished">ย้ายไปข้างหน้า</translation>
     </message>
     <message>
         <source>Move to back</source>
-        <translation type="unfinished">Move to back</translation>
+        <translation type="unfinished">ย้ายกลับ</translation>
     </message>
     <message>
         <source>Lock or unlock the object</source>
-        <translation type="unfinished">Lock or unlock the object</translation>
+        <translation type="unfinished">ล๊อค หรือไม่ล๊อควัตถุ</translation>
     </message>
     <message>
         <source>Lock or unlock the size of the object</source>
-        <translation type="unfinished">Lock or unlock the size of the object</translation>
+        <translation type="unfinished">ล๊อค หรือไม่ล๊อค ขนาดของวัตถุ</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation type="obsolete">Enable or disable printing of the object</translation>
+        <translation type="unfinished">สามารถ หรือไม่สามารถ พิมพ์วัตถุ</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
-        <translation type="unfinished">Font of selected text or object</translation>
+        <translation type="unfinished">เลือกข้อความตัวอักษร หรือวัตถุ</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
@@ -10707,39 +10690,39 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
-        <translation type="unfinished">Style of current paragraph</translation>
+        <translation type="unfinished">แบบพารากราฟปัจจุบัน</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
-        <translation type="unfinished">Change settings for left or end points</translation>
+        <translation type="unfinished">เปลี่ยนการตั้งค่าไปยังด้สนซ้าย หรือ จบ</translation>
     </message>
     <message>
         <source>Pattern of line</source>
-        <translation type="unfinished">Pattern of line</translation>
+        <translation type="unfinished">แบบลายเส้น</translation>
     </message>
     <message>
         <source>Thickness of line</source>
-        <translation type="unfinished">Thickness of line</translation>
+        <translation type="unfinished">เส้นหนา</translation>
     </message>
     <message>
         <source>Type of line joins</source>
-        <translation type="unfinished">Type of line joins</translation>
+        <translation type="unfinished">ชนิดของลายเส้น</translation>
     </message>
     <message>
         <source>Type of line end</source>
-        <translation type="unfinished">Type of line end</translation>
+        <translation type="unfinished">ชนิดลายเส้นตอนจบ</translation>
     </message>
     <message>
         <source>Line style of current object</source>
-        <translation type="unfinished">Line style of current object</translation>
+        <translation type="unfinished">แบบลายเส้นของวัตถุปัจจุบัน</translation>
     </message>
     <message>
         <source>Choose the shape of frame...</source>
-        <translation type="unfinished">Choose the shape of frame...</translation>
+        <translation type="unfinished">เลือกรูปของเฟลม...</translation>
     </message>
     <message>
         <source>Edit shape of the frame...</source>
-        <translation type="unfinished">Edit shape of the frame...</translation>
+        <translation type="unfinished">แก้ไขรูปเฟลม...</translation>
     </message>
     <message>
         <source>Set radius of corner rounding</source>
@@ -10747,35 +10730,35 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Number of columns in text frame</source>
-        <translation type="unfinished">Number of columns in text frame</translation>
+        <translation type="unfinished">จำนวนคอลัมน์ในเฟลมข้อความ</translation>
     </message>
     <message>
         <source>Distance between columns</source>
-        <translation type="unfinished">Distance between columns</translation>
+        <translation type="unfinished">ระยะห่างระหว่างคอลัมน์</translation>
     </message>
     <message>
         <source>Distance of text from top of frame</source>
-        <translation type="unfinished">Distance of text from top of frame</translation>
+        <translation>ระยะข้อความจากข้างบนสุดไปยังเฟลม</translation>
     </message>
     <message>
         <source>Distance of text from bottom of frame</source>
-        <translation type="unfinished">Distance of text from bottom of frame</translation>
+        <translation type="unfinished">ระยะข้อความจากข้างล่างไปยังเฟลม</translation>
     </message>
     <message>
         <source>Distance of text from left of frame</source>
-        <translation type="unfinished">Distance of text from left of frame</translation>
+        <translation type="unfinished">ระยะข้อความจากด้สนซ้ายไปยังเฟลม</translation>
     </message>
     <message>
         <source>Distance of text from right of frame</source>
-        <translation type="unfinished">Distance of text from right of frame</translation>
+        <translation type="unfinished">ระยะข้อความจากด้านขวาไปยังเฟลม</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
-        <translation type="unfinished">Edit tab settings of text frame...</translation>
+        <translation type="unfinished">ตั้งค่า แก้ไข แทป ของข้อความเฟลม...</translation>
     </message>
     <message>
         <source>Allow the image to be a different size to the frame</source>
-        <translation type="unfinished">Allow the image to be a different size to the frame</translation>
+        <translation type="unfinished">ยอมรับรูปที่มีความแตกต่างด้านขนาด เฟลม</translation>
     </message>
     <message>
         <source>Horizontal offset of image within frame</source>
@@ -10795,35 +10778,35 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Keep the X and Y scaling the same</source>
-        <translation type="unfinished">Keep the X and Y scaling the same</translation>
+        <translation type="unfinished">เก็บแกนเอ็กซื และแกนวายให้เหมือนกัน</translation>
     </message>
     <message>
         <source>Make the image fit within the size of the frame</source>
-        <translation type="unfinished">Make the image fit within the size of the frame</translation>
+        <translation type="unfinished">ทำรูปให้เหมาะสมกับขนาดของเฟลม</translation>
     </message>
     <message>
         <source>Use image proportions rather than those of the frame</source>
-        <translation type="unfinished">Use image proportions rather than those of the frame</translation>
+        <translation type="unfinished">ใช้รูปภาพสัดส่วนที่น้อยกว่าเฟลม</translation>
     </message>
     <message>
         <source>Cell Lines</source>
-        <translation type="unfinished">Cell Lines</translation>
+        <translation type="unfinished">เส้น เซลล์</translation>
     </message>
     <message>
         <source>Line at Top</source>
-        <translation type="unfinished">Line at Top</translation>
+        <translation type="unfinished">ลายเส้นบนสุด</translation>
     </message>
     <message>
         <source>Line at the Left</source>
-        <translation type="unfinished">Line at the Left</translation>
+        <translation type="unfinished">ลายเส้นด้านซ้าย</translation>
     </message>
     <message>
         <source>Line at the Right </source>
-        <translation type="unfinished">Line at the Right </translation>
+        <translation type="unfinished">ลายเส้นด้านขวา</translation>
     </message>
     <message>
         <source>Line at Bottom</source>
-        <translation type="unfinished">Line at Bottom</translation>
+        <translation type="unfinished">ลายเส้นด้านล่าง</translation>
     </message>
     <message>
         <source> mm</source>
@@ -10839,11 +10822,11 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Keep the aspect ratio</source>
-        <translation type="unfinished">Keep the aspect ratio</translation>
+        <translation type="unfinished">รักษาเกณฑ์อัตราส่วน</translation>
     </message>
     <message>
         <source>Source profile of the image</source>
-        <translation type="unfinished">Source profile of the image</translation>
+        <translation type="unfinished">แหล่งที่มาโปรไฟล์ของรูปภาพ</translation>
     </message>
     <message>
         <source>Rendering intent for the image</source>
@@ -10851,7 +10834,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Path Text Properties</source>
-        <translation type="unfinished">Path Text Properties</translation>
+        <translation type="unfinished">คุณสมบัติข้อความพาธ</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
@@ -10863,11 +10846,11 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
-        <translation type="unfinished">Switches between Gap or Column width</translation>
+        <translation type="unfinished">สลับระหว่าง ระยะห่าง หรือ ความกว้างคอลัมน์</translation>
     </message>
     <message>
         <source>Column width</source>
-        <translation type="unfinished">Column width</translation>
+        <translation type="unfinished">ความกว้างของคอลัมน์</translation>
     </message>
     <message>
         <source>X, Y, &amp;Z</source>
@@ -10875,23 +10858,23 @@ Please choose another.</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation type="unfinished">&amp;Shape</translation>
+        <translation type="unfinished">รูปร่าง</translation>
     </message>
     <message>
         <source>&amp;Text</source>
-        <translation type="unfinished">&amp;Text</translation>
+        <translation type="unfinished">ข้อความ</translation>
     </message>
     <message>
         <source>&amp;Image</source>
-        <translation type="unfinished">&amp;Image</translation>
+        <translation type="unfinished">รูปภาพ</translation>
     </message>
     <message>
         <source>&amp;Line</source>
-        <translation type="unfinished">&amp;Line</translation>
+        <translation type="unfinished">เส้น</translation>
     </message>
     <message>
         <source>&amp;Colors</source>
-        <translation type="unfinished">&amp;Colours</translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
@@ -10903,29 +10886,28 @@ Please choose another.</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Width:</translation>
+        <translation type="unfinished">กว้าง:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Height:</translation>
+        <translation type="unfinished">สูง:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Rotation:</translation>
+        <translation type="unfinished">หมุน:</translation>
     </message>
     <message>
         <source>&amp;Edit Shape...</source>
-        <translation type="unfinished">&amp;Edit Shape...</translation>
+        <translation type="unfinished">แก้ไขรูป...</translation>
     </message>
     <message>
         <source>R&amp;ound
 Corners:</source>
-        <translation type="unfinished">R&amp;ound
-Corners:</translation>
+        <translation type="unfinished">มุม:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation type="unfinished">Colu&amp;mns:</translation>
+        <translation type="unfinished">คอลัมน์:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
@@ -10933,27 +10915,27 @@ Corners:</translation>
     </message>
     <message>
         <source>To&amp;p:</source>
-        <translation type="unfinished">To&amp;p:</translation>
+        <translation type="unfinished">สูงสุด:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;Bottom:</translation>
+        <translation type="unfinished">ท้ายสุด</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;Left:</translation>
+        <translation type="unfinished">ซ้าย</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation type="unfinished">&amp;Right:</translation>
+        <translation type="unfinished">ขวา</translation>
     </message>
     <message>
         <source>T&amp;abulators...</source>
-        <translation type="unfinished">T&amp;abulators...</translation>
+        <translation type="unfinished">ตาราง</translation>
     </message>
     <message>
         <source>Text &amp;Flows Around Frame</source>
-        <translation type="unfinished">Text &amp;Flows Around Frame</translation>
+        <translation type="unfinished">ข้อความ โค้งตามเฟลม</translation>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
@@ -10961,7 +10943,7 @@ Corners:</translation>
     </message>
     <message>
         <source>&amp;Use Contour Line</source>
-        <translation type="unfinished">&amp;Use Contour Line</translation>
+        <translation type="unfinished">ใช้ลายเส้นสี</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
@@ -10977,15 +10959,15 @@ Corners:</translation>
     </message>
     <message>
         <source>St&amp;yle:</source>
-        <translation type="unfinished">St&amp;yle:</translation>
+        <translation type="unfinished">แบบ</translation>
     </message>
     <message>
         <source>Lan&amp;guage:</source>
-        <translation type="unfinished">Lan&amp;guage:</translation>
+        <translation type="unfinished">ภาษา:</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation type="unfinished">&amp;Free Scaling</translation>
+        <translation type="unfinished">ฟรี สเกลล์</translation>
     </message>
     <message>
         <source>X-Sc&amp;ale:</source>
@@ -10997,11 +10979,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Scale &amp;To Frame Size</source>
-        <translation type="unfinished">Scale &amp;To Frame Size</translation>
+        <translation type="unfinished">สเกลล์ขนาดเฟลม</translation>
     </message>
     <message>
         <source>P&amp;roportional</source>
-        <translation type="unfinished">P&amp;roportional</translation>
+        <translation type="unfinished">สัดส่วน</translation>
     </message>
     <message>
         <source>&amp;Basepoint:</source>
@@ -11009,15 +10991,15 @@ Corners:</translation>
     </message>
     <message>
         <source>T&amp;ype of Line:</source>
-        <translation type="unfinished">T&amp;ype of Line:</translation>
+        <translation type="unfinished">ชนิดของลายเส้น</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation type="unfinished">Line &amp;Width:</translation>
+        <translation type="unfinished">ความกว้างของเส้น</translation>
     </message>
     <message>
         <source>Ed&amp;ges:</source>
-        <translation type="unfinished">Ed&amp;ges:</translation>
+        <translation type="unfinished">ขอบ</translation>
     </message>
     <message>
         <source>&amp;Endings:</source>
@@ -11049,11 +11031,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
-        <translation type="unfinished">Hyphenation language of frame</translation>
+        <translation type="unfinished">ภาษา (-)ของเฟลม</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
-        <translation type="unfinished">Right to Left Writing</translation>
+        <translation type="unfinished">เขียนจากขวาไปซ้าย</translation>
     </message>
     <message>
         <source>Fixed Linespacing</source>
@@ -11061,7 +11043,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลายเส้นอัตโนมัติ</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
@@ -11081,11 +11063,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Start Arrow:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เริ่มต้นหัวลูกศร</translation>
     </message>
     <message>
         <source>End Arrow:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จบหัวลูกศร</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
@@ -11097,11 +11079,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คู่มือแนวทาง</translation>
     </message>
     <message>
         <source>Fill Rule</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่มแบบ</translation>
     </message>
     <message>
         <source>Even-Odd</source>
@@ -11133,14 +11115,10 @@ Corners:</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อัตโนมัติ</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11148,15 +11126,15 @@ Corners:</translation>
     <name>MultiLine</name>
     <message>
         <source>Edit Style</source>
-        <translation type="unfinished">Edit Style</translation>
+        <translation type="unfinished">แก้ไขแบบ</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation type="unfinished">Flat Cap</translation>
+        <translation type="unfinished">แบน แค๊ป</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation type="unfinished">Square Cap</translation>
+        <translation type="unfinished">สี่เหลี่ยมแค๊ป</translation>
     </message>
     <message>
         <source>Round Cap</source>
@@ -11176,7 +11154,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation type="unfinished">Line Width:</translation>
+        <translation type="unfinished">ความกว้างของเส้น</translation>
     </message>
     <message>
         <source> pt</source>
@@ -11188,23 +11166,23 @@ Corners:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation type="obsolete"> pt </translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation type="unfinished">Solid Line</translation>
+        <translation type="unfinished">เส้นหนา</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation type="unfinished">Dashed Line</translation>
+        <translation type="unfinished">เส้นขีดยาว</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation type="unfinished">Dotted Line</translation>
+        <translation type="unfinished">เส้นปะ</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
@@ -11234,18 +11212,14 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation type="unfinished">ชื่อ%1 ไม่ได้มีอันเดียว กรุณาเลือกชื่ออื่น</translation>
     </message>
 </context>
 <context>
     <name>MultiProgressDialogBase</name>
     <message>
         <source>Progress</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดำเนินการต่อ</translation>
     </message>
     <message>
         <source>Overall Progress:</source>
@@ -11253,7 +11227,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
 </context>
 <context>
@@ -11334,42 +11308,42 @@ Please choose another.</translation>
     <name>MyPluginImpl</name>
     <message>
         <source>Scribus - My Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สไครบัส- ปลั๊กอิน</translation>
     </message>
     <message>
         <source>The plugin worked!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปลั๊กอิน ทำงาน</translation>
     </message>
 </context>
 <context>
     <name>NewDoc</name>
     <message>
         <source>New Document</source>
-        <translation type="unfinished">New Document</translation>
+        <translation type="unfinished">เอกสารใหม่</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Page Size</translation>
+        <translation type="unfinished">ขนาดหน้า</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Custom</translation>
+        <translation type="unfinished">ปรับแต่ง</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">Portrait</translation>
+        <translation type="unfinished">แนวตั้ง</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Landscape</translation>
+        <translation type="unfinished">แนวนอน</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation type="unfinished">Margin Guides</translation>
+        <translation type="unfinished">เส้นนำขอบหน้า</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Options</translation>
+        <translation type="unfinished">ตัวเลือก</translation>
     </message>
     <message>
         <source>Points (pts)</source>
@@ -11409,11 +11383,11 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
-        <translation type="unfinished">Document page size, either a standard size or a custom size</translation>
+        <translation type="unfinished">ขนาดหน้าเอกสาร, ขนาดมาตรฐานหรือปรับแต่งเอง</translation>
     </message>
     <message>
         <source>Orientation of the document&apos;s pages</source>
-        <translation type="unfinished">Orientation of the document&apos;s pages</translation>
+        <translation type="unfinished">รูปแบบการจัดหน้าเอกสาร</translation>
     </message>
     <message>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
@@ -11457,19 +11431,19 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
-        <translation type="unfinished">Default unit of measurement for document editing</translation>
+        <translation type="unfinished">หน่วยวัดมาตรฐานที่ใช้การแก้ไข</translation>
     </message>
     <message>
         <source>Create text frames automatically when new pages are added</source>
-        <translation type="unfinished">Create text frames automatically when new pages are added</translation>
+        <translation type="unfinished">สร้างเท็กซ์เฟรมอัตโนมัติเมื่อเพิ่มหน้าเอกสารใหม่</translation>
     </message>
     <message>
         <source>Distance between automatically created columns</source>
-        <translation type="unfinished">Distance between automatically created columns</translation>
+        <translation type="unfinished">ระยะห่างเมื่อสร้างคอลัมน์</translation>
     </message>
     <message>
         <source>Number of columns to create in automatically created text frames</source>
-        <translation type="unfinished">Number of columns to create in automatically created text frames</translation>
+        <translation type="unfinished">จำนวนคอลัมน์เมื่อสร้างเท็กซ์เฟรม</translation>
     </message>
     <message>
         <source>Legal</source>
@@ -11485,19 +11459,19 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Size:</translation>
+        <translation type="unfinished">ขนาด:</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">Orie&amp;ntation:</translation>
+        <translation type="unfinished">แนวกระดาษ:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Width:</translation>
+        <translation type="unfinished">กว้าง:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Height:</translation>
+        <translation type="unfinished">สูง:</translation>
     </message>
     <message>
         <source>&amp;Facing Pages</source>
@@ -11529,19 +11503,19 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Default Unit:</source>
-        <translation type="unfinished">&amp;Default Unit:</translation>
+        <translation type="unfinished">หน่วยมาตรฐาน:</translation>
     </message>
     <message>
         <source>&amp;Automatic Text Frames</source>
-        <translation type="unfinished">&amp;Automatic Text Frames</translation>
+        <translation type="unfinished">เท็กซ์เฟรมอัตโนมัติ</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation type="unfinished">&amp;Gap:</translation>
+        <translation type="unfinished">ระยะห่าง:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation type="unfinished">Colu&amp;mns:</translation>
+        <translation type="unfinished">คอลัมน์:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -11573,19 +11547,19 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;New Document</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอกสารใหม่</translation>
     </message>
     <message>
         <source>Open &amp;Existing Document</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปิดเอกสารเดิม</translation>
     </message>
     <message>
         <source>Open Recent &amp;Document</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปิดเอกสารล่าสุด</translation>
     </message>
     <message>
         <source>Do not show this dialog again</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่แสดงหน้านี้อีกต่อไป</translation>
     </message>
     <message>
         <source>Initial number of pages of the document</source>
@@ -11593,26 +11567,26 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>N&amp;umber of Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จำนวนหน้า</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation type="unfinished">เปิด</translation>
     </message>
 </context>
 <context>
     <name>NewFromTemplatePlugin</name>
     <message>
         <source>New &amp;from Template...</source>
-        <translation type="unfinished">New &amp;from Template...</translation>
+        <translation type="unfinished">สร้างแบบใหม่</translation>
     </message>
     <message>
         <source>Load documents with predefined layout</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โหลดเอกสารกับแบบคำศัพท์ล่วงหน้า</translation>
     </message>
     <message>
         <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เริ่มต้นทำเอกสารใหม่โดยผู้ใช้คนอื่นหรือตัวคุณเอง</translation>
     </message>
 </context>
 <context>
@@ -11638,31 +11612,31 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <name>NodePalette</name>
     <message>
         <source>Nodes</source>
-        <translation type="unfinished">Nodes</translation>
+        <translation type="unfinished">ปุ่ม</translation>
     </message>
     <message>
         <source>Move Nodes</source>
-        <translation type="unfinished">Move Nodes</translation>
+        <translation type="unfinished">ย้ายปุ่ม</translation>
     </message>
     <message>
         <source>Move Control Points</source>
-        <translation type="unfinished">Move Control Points</translation>
+        <translation type="unfinished">ย้ายการบังคับ</translation>
     </message>
     <message>
         <source>Add Nodes</source>
-        <translation type="unfinished">Add Nodes</translation>
+        <translation type="unfinished">เพิ่มปุ่ม</translation>
     </message>
     <message>
         <source>Delete Nodes</source>
-        <translation type="unfinished">Delete Nodes</translation>
+        <translation type="unfinished">ลบปุ่ม</translation>
     </message>
     <message>
         <source>Reset Control Points</source>
-        <translation type="unfinished">Reset Control Points</translation>
+        <translation type="unfinished">ตั้งค่าบังคับย้อยท์</translation>
     </message>
     <message>
         <source>Reset this Control Point</source>
-        <translation type="unfinished">Reset this Control Point</translation>
+        <translation type="unfinished">ตั้งค่าบังคับพ้อยท์อีกครั้ง</translation>
     </message>
     <message>
         <source>When checked use Coordinates relative to the Page,
@@ -11672,7 +11646,7 @@ otherwise Coordinates are relative to the Object.</translation>
     </message>
     <message>
         <source>&amp;Absolute Coordinates</source>
-        <translation type="unfinished">&amp;Absolute Coordinates</translation>
+        <translation type="unfinished">ประสาน</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
@@ -11684,31 +11658,32 @@ otherwise Coordinates are relative to the Object.</translation>
     </message>
     <message>
         <source>Edit &amp;Contour Line</source>
-        <translation type="unfinished">Edit &amp;Contour Line</translation>
+        <translation type="unfinished">แก้ไข เส้นแสดงรูปร่าง</translation>
     </message>
     <message>
         <source>&amp;Reset Contour Line</source>
-        <translation type="unfinished">&amp;Reset Contour Line</translation>
+        <translation type="unfinished">ตั้งค่าเส้นแสดงรูปร่าง</translation>
     </message>
     <message>
         <source>&amp;End Editing</source>
-        <translation type="unfinished">&amp;End Editing</translation>
+        <translation type="unfinished">แก้ไขเสร็จสิ้น</translation>
     </message>
     <message>
         <source>Move Control Points Independently</source>
-        <translation type="unfinished">Move Control Points Independently</translation>
+        <translation type="unfinished">ยา้ยจุดบังคับอิสระ
+</translation>
     </message>
     <message>
         <source>Move Control Points Symmetrical</source>
-        <translation type="unfinished">Move Control Points Symmetrical</translation>
+        <translation type="unfinished">ย้ายจุดบังคับสัดส่วย</translation>
     </message>
     <message>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
-        <translation type="unfinished">Open a Polygon or Cuts a Bezier Curve</translation>
+        <translation type="unfinished">เปิดด้านเหลี่ยน หรือ ตัด เส้นโค้ง</translation>
     </message>
     <message>
         <source>Close this Bezier Curve</source>
-        <translation type="unfinished">Close this Bezier Curve</translation>
+        <translation type="unfinished">ปิดเส้นโค้ง</translation>
     </message>
     <message>
         <source>Mirror the Path Horizontally</source>
@@ -11724,19 +11699,19 @@ otherwise Coordinates are relative to the Object.</translation>
     </message>
     <message>
         <source>Shear the Path Vertically Up</source>
-        <translation type="unfinished">Shear the Path Vertically Up</translation>
+        <translation type="unfinished">ตัด พาธเส้นตั้งตรงขึ้นไป</translation>
     </message>
     <message>
         <source>Shear the Path Vertically Down</source>
-        <translation type="unfinished">Shear the Path Vertically Down</translation>
+        <translation type="unfinished">ตัดพาธเส้นตรงลงมา</translation>
     </message>
     <message>
         <source>Rotate the Path Counter-Clockwise</source>
-        <translation type="unfinished">Rotate the Path Counter-Clockwise</translation>
+        <translation type="unfinished">หมุนจากขวาไปซ้าย</translation>
     </message>
     <message>
         <source>Rotate the Path Clockwise</source>
-        <translation type="unfinished">Rotate the Path Clockwise</translation>
+        <translation type="unfinished">หมุนจากซ้ายไปขวา</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by shown %</source>
@@ -11744,11 +11719,11 @@ otherwise Coordinates are relative to the Object.</translation>
     </message>
     <message>
         <source>Enlarge the Size of the Path by shown %</source>
-        <translation type="unfinished">Enlarge the Size of the Path by shown %</translation>
+        <translation type="unfinished">แสดงภาพขยายของพาธ %</translation>
     </message>
     <message>
         <source>Angle of Rotation</source>
-        <translation type="unfinished">Angle of Rotation</translation>
+        <translation type="unfinished">หมุนมุม</translation>
     </message>
     <message>
         <source>% to Enlarge or Reduce By</source>
@@ -11756,7 +11731,7 @@ otherwise Coordinates are relative to the Object.</translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
-        <translation type="unfinished">Activate Contour Line Editing Mode</translation>
+        <translation type="unfinished">ลงมือแก้ไขเส้นแบบแสดงรูปร่าง</translation>
     </message>
     <message>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
@@ -11776,49 +11751,41 @@ otherwise Coordinates are relative to the Object.</translation>
     </message>
     <message>
         <source>Shrink the Size of the Path by shown %</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ย่อขนาดภาพโดยแสดงเป็นเปอร์เซ็ฯต์</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by the shown value</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ย่อขนาดชองพาธโดยแสดงค่า</translation>
     </message>
     <message>
         <source>Enlarge the Size of the Path by the shown value</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขนาดภาพขยายของพาธ โดยแสดงค่า</translation>
     </message>
     <message>
         <source>% to Enlarge or Shrink By</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ภาพขยาย หรือ หดภาพ</translation>
     </message>
     <message>
         <source>Value to Enlarge or Shrink By</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>to Canvas</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>to Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงค่าของภาพขาย หรือ ย่อขนาดภาพโดย</translation>
     </message>
 </context>
 <context>
     <name>OODPlug</name>
     <message>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอกสารนี้ไม่เหมือน กับเปิดออฟฟิต ดรอ ไฟล์</translation>
     </message>
 </context>
 <context>
     <name>OODrawImportPlugin</name>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="unfinished">Import &amp;OpenOffice.org Draw...</translation>
+        <translation type="unfinished">นำเข้า &amp;เปิดเอกสารแสดง.org วาดภาพ...</translation>
     </message>
     <message>
         <source>Imports OpenOffice.org Draw Files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปิดอ๊อฟฟิตนำเข้า.โออาร์จี แฟ้มวาดภาพ</translation>
     </message>
     <message>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
@@ -11827,35 +11794,31 @@ otherwise Coordinates are relative to the Object.</translation>
     <message>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปิดเอกสารวาดภาพ 1.0</translation>
     </message>
     <message>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This file contains some unsupported features</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปิดออฟฟิต.โออาร์จี วาดภาพ 1.x</translation>
     </message>
 </context>
 <context>
     <name>OdtDialog</name>
     <message>
         <source>OpenDocument Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปิดเอกสารตัวเลือกนำเข้า</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โอเว่อร์ไรท์แบบพารากราฟ</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอกสารสริปบัสฉบับนี้ไม่สามารถเขียนแบบได้</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปแบบพารากราฟแบบผสม</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
@@ -11863,49 +11826,49 @@ otherwise Coordinates are relative to the Object.</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ใช้ชื่อนำหน้าเอกสารสำหรับรูปแบบของพารากราฟ</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เตรียมชื่อเอกสารไปยังแบบพารากราฟ ชื่อในสริปบัส</translation>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ห้ามถามอีก</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่มีการตั้งค่า และไม่มีการทำในทันที เมื่อมีการเปิดเอกสารนำเข้าโอเอซิส</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
 </context>
 <context>
     <name>OldScribusFormat</name>
     <message>
         <source>Scribus Document</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอกสารสริปบัส</translation>
     </message>
     <message>
         <source>Scribus 1.2.x Document</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอกสารสริปบัส1.2.x</translation>
     </message>
 </context>
 <context>
     <name>OutlineValues</name>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation type="unfinished">เปอร์เซ็นต์</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ความกว้างของเส้น</translation>
     </message>
 </context>
 <context>
@@ -11919,31 +11882,31 @@ otherwise Coordinates are relative to the Object.</translation>
     <name>PDFExportDialog</name>
     <message>
         <source>Save as PDF</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บันทึกเป็น พีดีเอฟ</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
-        <translation type="unfinished">O&amp;utput to File:</translation>
+        <translation type="unfinished">จำนวนแฟ้มส่งออก:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation type="unfinished">Cha&amp;nge...</translation>
+        <translation type="unfinished">เปลี่ยน...</translation>
     </message>
     <message>
         <source>Output one file for eac&amp;h page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จำนวนแฟ้มส่งออกจำนวนหนึ่งต่อหน้า</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Save</translation>
+        <translation type="unfinished">บันทึก</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Save as</translation>
+        <translation type="unfinished">บันทึกเป็น</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation type="unfinished">PDF Files (*.pdf);;All Files (*)</translation>
+        <translation type="unfinished">แฟ้มพีดีเอฟ (*.pdf);;All Files (*)</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
@@ -12675,30 +12638,30 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
     <name>PDFlib</name>
     <message>
         <source>Saving PDF</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บันทึก พีดีเอฟ</translation>
     </message>
     <message>
         <source>Exporting Master Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ส่งออกต้นฉบับ</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ส่งออกหน้ากระดาษ</translation>
     </message>
     <message>
         <source>Exporting Items on Current Page:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ส่งออกจำนวนหนึ่งบนหน้ากระดาษ</translation>
     </message>
 </context>
 <context>
     <name>PPreview</name>
     <message>
         <source>Print Preview</source>
-        <translation type="unfinished">Print Preview</translation>
+        <translation type="unfinished">รูปแบบก่อนการพิมพ์</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">All</translation>
+        <translation type="unfinished">ทั้งหมด</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense
@@ -12716,19 +12679,19 @@ of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
     </message>
     <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
-        <translation type="unfinished">Enable/disable the C (Cyan) ink plate</translation>
+        <translation type="unfinished">สามารถ/ไม่สามารถ ซี (Cyan) หมึกแม่พิมพ์</translation>
     </message>
     <message>
         <source>Enable/disable the M (Magenta) ink plate</source>
-        <translation type="unfinished">Enable/disable the M (Magenta) ink plate</translation>
+        <translation type="unfinished">สามารถ/ไม่สามารถ เอ็ม (Magenta) หมึกแม่พิมพ์</translation>
     </message>
     <message>
         <source>Enable/disable the Y (Yellow) ink plate</source>
-        <translation type="unfinished">Enable/disable the Y (Yellow) ink plate</translation>
+        <translation type="unfinished">สามารถ/ไม่สามารถ วาย (Yellow) หมึกแม่พิมพ์</translation>
     </message>
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
-        <translation type="unfinished">Enable/disable the K (Black) ink plate</translation>
+        <translation type="unfinished">สามารถ/ไม่สามารถ เค (Black) หมึกแม่พิมพ์</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
@@ -12740,31 +12703,31 @@ of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
-        <translation type="unfinished">Display Trans&amp;parency</translation>
+        <translation type="unfinished">แสดง ให้เห็น&amp;ตลอด</translation>
     </message>
     <message>
         <source>&amp;Display CMYK</source>
-        <translation type="unfinished">&amp;Display CMYK</translation>
+        <translation type="unfinished">แสดง ซีเอ็มวายเค</translation>
     </message>
     <message>
         <source>&amp;C</source>
-        <translation type="unfinished">&amp;C</translation>
+        <translation type="unfinished">ซี</translation>
     </message>
     <message>
         <source>&amp;M</source>
-        <translation type="unfinished">&amp;M</translation>
+        <translation type="unfinished">เอ็ม</translation>
     </message>
     <message>
         <source>&amp;Y</source>
-        <translation type="unfinished">&amp;Y</translation>
+        <translation type="unfinished">วาย</translation>
     </message>
     <message>
         <source>&amp;K</source>
-        <translation type="unfinished">&amp;K</translation>
+        <translation type="unfinished">เค</translation>
     </message>
     <message>
         <source>&amp;Under Color Removal</source>
-        <translation type="unfinished">&amp;Under Colour Removal</translation>
+        <translation type="unfinished">ย้ายสีข้างล่าง</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -12788,35 +12751,35 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Separation Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แยกชื่อ</translation>
     </message>
     <message>
         <source>Cyan</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไซแอน</translation>
     </message>
     <message>
         <source>Magenta</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">มาเจนตา</translation>
     </message>
     <message>
         <source>Yellow</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สีเหลือง</translation>
     </message>
     <message>
         <source>Black</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สีดำ</translation>
     </message>
     <message>
         <source>Scaling:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้นปะ</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Close</translation>
+        <translation type="unfinished">ปิด</translation>
     </message>
     <message>
         <source>Print...</source>
-        <translation type="unfinished">Print...</translation>
+        <translation type="unfinished">พิมพ์...</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -12824,15 +12787,15 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Resize the scale of the page.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รีไซด์สเกลของหน้ากระดาษ</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">File</translation>
+        <translation type="unfinished">แฟ้ม</translation>
     </message>
     <message>
         <source>Enable &amp;Antialiasing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สามารถแอนทิอะไลซิ่ง</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
@@ -12847,7 +12810,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กระดาษออก</translation>
     </message>
 </context>
 <context>
@@ -13145,15 +13108,15 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <name>PageItem</name>
     <message>
         <source>Image</source>
-        <translation type="unfinished">Image</translation>
+        <translation type="unfinished">รูปภาพ</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished">Text</translation>
+        <translation type="unfinished">ข้อความ</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation type="unfinished">Line</translation>
+        <translation type="unfinished">เส้น</translation>
     </message>
     <message>
         <source>Polygon</source>
@@ -13169,7 +13132,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Copy of</source>
-        <translation type="unfinished">Copy of</translation>
+        <translation type="unfinished">สำเนาของ</translation>
     </message>
 </context>
 <context>
@@ -13180,11 +13143,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Relates To</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เกี่ยวกับ</translation>
     </message>
     <message>
         <source>Is Parent Of</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Is Child Of</source>
@@ -13193,22 +13156,22 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="unfinished">None</translation>
+        <translation type="unfinished">ไม่มี</translation>
     </message>
 </context>
 <context>
     <name>PageItemAttributesBase</name>
     <message>
         <source>Page Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ค่าตัวแปรหน้า</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation type="unfinished">ตัวพิมพ์</translation>
     </message>
     <message>
         <source>Value</source>
@@ -13216,7 +13179,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>พารามิเตอร์</translation>
     </message>
     <message>
         <source>Relationship</source>
@@ -13224,11 +13187,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Relationship To</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อ้างถึง</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่ม</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -13236,7 +13199,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Copy</translation>
+        <translation type="unfinished">คัดลอก</translation>
     </message>
     <message>
         <source>Alt+C</source>
@@ -13244,7 +13207,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>Alt+D</source>
@@ -13252,7 +13215,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">C&amp;lear</translation>
+        <translation type="unfinished">ชัดเจน</translation>
     </message>
     <message>
         <source>Alt+L</source>
@@ -13260,22 +13223,22 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
 </context>
 <context>
     <name>PageLayouts</name>
     <message>
-        <source>First Page is:</source>
-        <translation type="unfinished"></translation>
+        <source>Page Layout</source>
+        <translation type="unfinished">การจัดวางหน้า</translation>
     </message>
     <message>
-        <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <source>First Page is:</source>
+        <translation type="unfinished">หน้าแรก</translation>
     </message>
 </context>
 <context>
@@ -13286,11 +13249,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Middle Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กลางขวา</translation>
     </message>
     <message>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลื่อนหน้ากะรดาษ หรือ ต้นฉบับไปยังกล่องขยะเพื่อลบทั้งหมด</translation>
     </message>
     <message>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
@@ -13298,11 +13261,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation type="unfinished">ปกติ</translation>
     </message>
     <message>
         <source>Arrange Pages</source>
-        <translation type="unfinished">Arrange Pages</translation>
+        <translation type="unfinished">จัดการหน้ากระดาษ</translation>
     </message>
     <message>
         <source>Available Master Pages:</source>
@@ -13310,7 +13273,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Document Pages:</source>
-        <translation type="unfinished">Document Pages:</translation>
+        <translation type="unfinished">หน้าเอกสาร:</translation>
     </message>
 </context>
 <context>
@@ -13336,19 +13299,19 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <name>PageSize</name>
     <message>
         <source>Quarto</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แปดหน้า</translation>
     </message>
     <message>
         <source>Foolscap</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พับสอง</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation type="unfinished">จดหมาย</translation>
     </message>
     <message>
         <source>Government Letter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จดหมายราชการ</translation>
     </message>
     <message>
         <source>Legal</source>
@@ -13356,19 +13319,19 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished">Ledger</translation>
+        <translation type="unfinished">บัญชีแยกประเภท</translation>
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished">Executive</translation>
+        <translation type="unfinished">บริหาร</translation>
     </message>
     <message>
         <source>Post</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไปรษณ๊ย์</translation>
     </message>
     <message>
         <source>Crown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คำลงท้าย</translation>
     </message>
     <message>
         <source>Large Post</source>
@@ -13376,11 +13339,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Demy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขนาดกระดาษ</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished">Medium</translation>
+        <translation type="unfinished">กลาง</translation>
     </message>
     <message>
         <source>Royal</source>
@@ -13400,50 +13363,50 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>STMT</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอสทีเอ็มที</translation>
     </message>
     <message>
         <source>A</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอ</translation>
     </message>
     <message>
         <source>B</source>
-        <translation type="unfinished"></translation>
+        <translation>บี</translation>
     </message>
     <message>
         <source>C</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ซี</translation>
     </message>
     <message>
         <source>D</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดี</translation>
     </message>
     <message>
         <source>E</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อี</translation>
     </message>
 </context>
 <context>
     <name>PicSearch</name>
     <message>
         <source>Result</source>
-        <translation type="unfinished">Result</translation>
+        <translation type="unfinished">ผลสรุป</translation>
     </message>
     <message>
         <source>Search Results for: </source>
-        <translation type="unfinished">Search Results for: </translation>
+        <translation type="unfinished">ค้นหาผลเพื่อ: </translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation type="unfinished">Preview</translation>
+        <translation type="unfinished">เค้าโครง</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished">Select</translation>
+        <translation type="unfinished">เลือก</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
 </context>
 <context>
@@ -13454,43 +13417,43 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Goto</source>
-        <translation type="obsolete">Goto</translation>
+        <translation type="unfinished">ไปยัง</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Yes</translation>
+        <translation type="unfinished">ใช่</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Missing</source>
-        <translation type="unfinished">Missing</translation>
+        <translation type="unfinished">พลาด</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Search</translation>
+        <translation type="unfinished">ค้นหา</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation type="unfinished">Path</translation>
+        <translation type="unfinished">พาธ</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">Page</translation>
+        <translation>หน้า</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation type="unfinished">Print</translation>
+        <translation type="unfinished">พิมพ์</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation type="unfinished">Status</translation>
+        <translation>สถานะ</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -13498,11 +13461,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation type="obsolete">Manage Pictures</translation>
+        <translation type="unfinished">จัดการรูป</translation>
     </message>
     <message>
         <source>Cancel Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ยกเลิกการค้นหา</translation>
     </message>
     <message>
         <source>Select a base directory for search</source>
@@ -13510,34 +13473,26 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Scribus - Image Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สคิปบัส-ค้นหารูปภาพ</translation>
     </message>
     <message>
         <source>The search failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ค้นหาล้มเหลว</translation>
     </message>
     <message>
         <source>No images named &quot;%1&quot; were found.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Manage Images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Go to</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่มีรูปชื่อนี้ 1เปอร์เซ็ฯต์ ล้มเหลว</translation>
     </message>
 </context>
 <context>
     <name>PixmapExportPlugin</name>
     <message>
         <source>Save as &amp;Image...</source>
-        <translation type="unfinished">Save as &amp;Image...</translation>
+        <translation type="unfinished">บันทึกเป็น&amp;รูปภาพ...</translation>
     </message>
     <message>
         <source>Export As Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ส่งรูปภาพออก</translation>
     </message>
     <message>
         <source>Exports selected pages as bitmap images.</source>
@@ -13549,22 +13504,22 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถหา ปลั๊กอินได้</translation>
     </message>
     <message>
         <source>unknown error</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่รู้ ผิดพลาด</translation>
     </message>
     <message>
         <source>Cannot find symbol (%1)</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถหาสัญลักษณ์(1เปอร์เซ็นต์)</translation>
     </message>
     <message>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปลั๊กอิน โหลด 1เปอร์เซ็นต์</translation>
     </message>
     <message>
         <source>init failed</source>
@@ -13574,12 +13529,12 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่รู้ชนิดของปลั๊กอิน</translation>
     </message>
     <message>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปลั๊กอิน โหลด1เปอร์เซ็นต์</translation>
     </message>
     <message>
         <source>Plugin: %1 failed to load: %2</source>
@@ -13591,50 +13546,50 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <name>PluginManagerPrefsGui</name>
     <message>
         <source>Plugin Manager</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จัดการปลั๊กอิน</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปลั๊กอิน</translation>
     </message>
     <message>
         <source>How to run</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดำเนินการอย่างไร</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation type="unfinished">ชนิด</translation>
     </message>
     <message>
         <source>Load it?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โหลด?</translation>
     </message>
     <message>
         <source>Plugin ID</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปลั๊กอิน ไอดี</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">File</translation>
+        <translation type="unfinished">แฟ้ม</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Yes</translation>
+        <translation type="unfinished">ใช่</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">No</translation>
+        <translation type="unfinished">ไม่</translation>
     </message>
     <message>
         <source>You need to restart the application to apply the changes.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คุณจำเป็นต้องเริ่มต้นใหม่เพื่อรับการเปลี่ยนแปลง</translation>
     </message>
 </context>
 <context>
     <name>PolygonProps</name>
     <message>
         <source>Polygon Properties</source>
-        <translation type="unfinished">Polygon Properties</translation>
+        <translation type="unfinished">คุณสมบัติ โพลีกอน</translation>
     </message>
     <message>
         <source> %</source>
@@ -13691,11 +13646,11 @@ a positive value will make it convex</translation>
     <name>PolygonWidget</name>
     <message>
         <source>Corn&amp;ers:</source>
-        <translation type="unfinished">Corn&amp;ers:</translation>
+        <translation type="unfinished">มุม:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Rotation:</translation>
+        <translation type="unfinished">หมุน:</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
@@ -13707,23 +13662,23 @@ a positive value will make it convex</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation type="unfinished">&amp;Factor:</translation>
+        <translation type="unfinished">&amp;ปัจจัย:</translation>
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation type="unfinished">Number of corners for polygons</translation>
+        <translation>หมายเลขตรงมุมสำหรับโพลีกอน</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation type="unfinished">Degrees of rotation for polygons</translation>
+        <translation type="unfinished">ระดับในการหมุนของโพลีกอน</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished">Apply Convex/Concave Factor to change shape of Polygons</translation>
+        <translation>Apply Convex/Concave Factor to change shape of Polygons</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation type="unfinished">Sample Polygon</translation>
+        <translation type="unfinished">ตัวอย่างโพลีกอน</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
@@ -13734,19 +13689,19 @@ a positive value will make it convex</translation>
     <name>Preferences</name>
     <message>
         <source>Preferences</source>
-        <translation type="unfinished">Preferences</translation>
+        <translation type="unfinished">ตั้งค่าโปรแกรม</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="unfinished">General</translation>
+        <translation type="unfinished">ทั่วไป</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished">Document</translation>
+        <translation type="unfinished">เอกสาร</translation>
     </message>
     <message>
         <source>Guides</source>
-        <translation type="unfinished">Guides</translation>
+        <translation>แนะนำ</translation>
     </message>
     <message>
         <source>Typography</source>
@@ -13754,7 +13709,7 @@ a positive value will make it convex</translation>
     </message>
     <message>
         <source>Tools</source>
-        <translation type="unfinished">Tools</translation>
+        <translation type="unfinished">เครื่องมือ</translation>
     </message>
     <message>
         <source>Scrapbook</source>
@@ -13762,7 +13717,7 @@ a positive value will make it convex</translation>
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished">Display</translation>
+        <translation type="unfinished">แสดง</translation>
     </message>
     <message>
         <source>GUI</source>
@@ -13794,11 +13749,11 @@ a positive value will make it convex</translation>
     </message>
     <message>
         <source>Paths</source>
-        <translation type="unfinished">Paths</translation>
+        <translation type="unfinished">พาธ</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Page Size</translation>
+        <translation type="unfinished">ขนาดกระดาษ</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -13806,23 +13761,23 @@ a positive value will make it convex</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">Portrait</translation>
+        <translation type="unfinished">รูปคน</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Landscape</translation>
+        <translation type="unfinished">ภูมิประเทศ</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation type="unfinished">Margin Guides</translation>
+        <translation type="unfinished">แนะนำขอบกระดาษ</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation type="unfinished">Autosave</translation>
+        <translation type="unfinished">บันทึกอัตโนมัติ</translation>
     </message>
     <message>
         <source>min</source>
-        <translation type="unfinished">min</translation>
+        <translation type="unfinished">น้อย</translation>
     </message>
     <message>
         <source>Grid Layout</source>
@@ -13858,7 +13813,7 @@ a positive value will make it convex</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
@@ -13890,7 +13845,7 @@ a positive value will make it convex</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Choose a Directory</translation>
+        <translation type="unfinished">เลือกไดเรคทอรี่</translation>
     </message>
     <message>
         <source> mm</source>
@@ -13906,7 +13861,7 @@ a positive value will make it convex</translation>
     </message>
     <message>
         <source>External Tools</source>
-        <translation type="unfinished">External Tools</translation>
+        <translation type="unfinished">เครื่องมือภายนอก</translation>
     </message>
     <message>
         <source>Misc.</source>
@@ -13918,7 +13873,7 @@ a positive value will make it convex</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
-        <translation type="unfinished">Image Processing Tool</translation>
+        <translation type="unfinished">รูปแบบแนวทางเครื่องมือ</translation>
     </message>
     <message>
         <source>Printing</source>
@@ -13932,7 +13887,7 @@ Scribus inherits any available KDE or Qt themes</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
-        <translation type="unfinished">Default font size for the menus and windows</translation>
+        <translation type="unfinished">ขนาดตัวอักษรสำหรับรายการและหน้าต่าง</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
@@ -13948,7 +13903,7 @@ Scribus inherits any available KDE or Qt themes</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation type="unfinished">Number of recently edited documents to show in the File menu</translation>
+        <translation type="unfinished">แก้ไขเอกสารตัวเลขล่าสุด ไปแสดงในรายการแฟ้ม</translation>
     </message>
     <message>
         <source>Default documents directory</source>
@@ -13964,19 +13919,19 @@ Scribus inherits any available KDE or Qt themes</translation>
     </message>
     <message>
         <source>Default page size, either a standard size or a custom size</source>
-        <translation type="unfinished">Default page size, either a standard size or a custom size</translation>
+        <translation type="unfinished">ขนาดหน้าผิด, อก้ไขเป็นขนาดมาตรฐานหรือขนาดตามที่ต้องการ</translation>
     </message>
     <message>
         <source>Default orientation of document pages</source>
-        <translation type="unfinished">Default orientation of document pages</translation>
+        <translation>พลิกหน้าเอกสารผิด</translation>
     </message>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished">Width of document pages, editable if you have chosen a custom page size</translation>
+        <translation type="unfinished">ความกว้างของหน้าเอกสาร, แก้ไขได้ ถ้า คุณเลือกขนาดหน้าตามต้องการ</translation>
     </message>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished">Height of document pages, editable if you have chosen a custom page size</translation>
+        <translation type="unfinished">ความสูงของหน้า, แก้ไขได้ถัาคุณเลือกขนาดหน้าที่ต้องการ</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -14014,7 +13969,7 @@ each time the time period elapses</translation>
     </message>
     <message>
         <source>Time period between saving automatically</source>
-        <translation type="unfinished">Time period between saving automatically</translation>
+        <translation type="unfinished">ระยะเวลาระหว่างการบันทึกอัตโนมัติ</translation>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
@@ -14222,7 +14177,7 @@ each time the time period elapses</translation>
     </message>
     <message>
         <source>Color for paper</source>
-        <translation type="unfinished">Colour for paper</translation>
+        <translation type="unfinished">สีสำหรับหน้า</translation>
     </message>
     <message>
         <source>Color for the margin lines</source>
@@ -14238,7 +14193,7 @@ each time the time period elapses</translation>
     </message>
     <message>
         <source>Set the default zoom level</source>
-        <translation type="unfinished">Set the default zoom level</translation>
+        <translation type="unfinished">ตั้งค่าระดับการขยายผิด</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
@@ -14282,7 +14237,7 @@ each time the time period elapses</translation>
     </message>
     <message>
         <source>&amp;Theme:</source>
-        <translation type="unfinished">&amp;Theme:</translation>
+        <translation type="unfinished">ธีม:</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
@@ -14302,47 +14257,47 @@ each time the time period elapses</translation>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
-        <translation type="unfinished">&amp;Recent Documents:</translation>
+        <translation type="unfinished">เอกสารล่สุด:</translation>
     </message>
     <message>
         <source>&amp;Documents:</source>
-        <translation type="unfinished">&amp;Documents:</translation>
+        <translation type="unfinished">เอกสาร:</translation>
     </message>
     <message>
         <source>&amp;Change...</source>
-        <translation type="unfinished">&amp;Change...</translation>
+        <translation type="unfinished">เปลี่ยน...</translation>
     </message>
     <message>
         <source>&amp;ICC Profiles:</source>
-        <translation type="unfinished">&amp;ICC Profiles:</translation>
+        <translation type="unfinished">โปรไฟล์ ไอซีซี:</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished">C&amp;hange...</translation>
+        <translation type="unfinished">เปลี่ยน...</translation>
     </message>
     <message>
         <source>&amp;Scripts:</source>
-        <translation type="unfinished">&amp;Scripts:</translation>
+        <translation type="unfinished">ต้นฉบับ:</translation>
     </message>
     <message>
         <source>Ch&amp;ange...</source>
-        <translation type="unfinished">Ch&amp;ange...</translation>
+        <translation type="unfinished">เปลี่ยน...</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Size:</translation>
+        <translation type="unfinished">ขนาด:</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">Orie&amp;ntation:</translation>
+        <translation type="unfinished">พลิก:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Width:</translation>
+        <translation type="unfinished">กว้าง:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Height:</translation>
+        <translation type="unfinished">สูง:</translation>
     </message>
     <message>
         <source>&amp;Facing Pages</source>
@@ -14354,19 +14309,19 @@ each time the time period elapses</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;Bottom:</translation>
+        <translation type="unfinished">ข้างล่าง:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished">&amp;Top:</translation>
+        <translation type="unfinished">บนสุด:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation type="unfinished">&amp;Right:</translation>
+        <translation type="unfinished">ขวา:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;Left:</translation>
+        <translation type="unfinished">ซ้าย:</translation>
     </message>
     <message>
         <source>&amp;Enabled</source>
@@ -14374,7 +14329,7 @@ each time the time period elapses</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation type="unfinished">&amp;Interval:</translation>
+        <translation type="unfinished">ระยะห่่าง:</translation>
     </message>
     <message>
         <source>M&amp;inor Grid Spacing:</source>
@@ -14626,7 +14581,7 @@ each time the time period elapses</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation type="unfinished">Cha&amp;nge...</translation>
+        <translation type="unfinished">เปลี่ยน...</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
@@ -14686,15 +14641,15 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ภาษา</translation>
     </message>
     <message>
         <source>&amp;Font Size (Menus):</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขนาดตัวอักษร(เมนู)</translation>
     </message>
     <message>
         <source>Font Size (&amp;Palettes):</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขนาดตัวอักษร</translation>
     </message>
     <message>
         <source>Document T&amp;emplates:</source>
@@ -14702,11 +14657,11 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Units:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บท</translation>
     </message>
     <message>
         <source>Undo/Redo</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่ทำ/ทำอีกรอบ</translation>
     </message>
     <message>
         <source>Action history length</source>
@@ -14714,11 +14669,11 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Hyphenator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">-</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวอักษร</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
@@ -14726,47 +14681,51 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Color Management</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จัดการสี</translation>
     </message>
     <message>
         <source>PDF Export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ส่งออกพีดีเอฟ</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ค่าตัวแปรเอกสาร</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตารางสารบัญและสถิติ</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ทางลัดแป้นพิมพ์</translation>
     </message>
     <message>
         <source>Page Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงหน้า</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>Alt+U</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Show Pictures</source>
+        <translation type="unfinished">แสดงรูปภาพ</translation>
+    </message>
+    <message>
         <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงข้อความ</translation>
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงลักษณะการบังคับข้อความ</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงเฟลม</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
@@ -14778,15 +14737,15 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Gaps between Pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แก๊ป ระหว่างหน้า</translation>
     </message>
     <message>
         <source>Horizontal:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แนวขวาง</translation>
     </message>
     <message>
         <source>Vertical:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แนวตั้ง</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the slider.</source>
@@ -14798,11 +14757,11 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>dpi</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดีพีไอ</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กำหนด</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
@@ -14810,7 +14769,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เค้าโครงรูปแบบพารากราฟปัจจุบันเมื่อแก้ไขรูปแบบ</translation>
     </message>
     <message>
         <source>Show Startup Dialog</source>
@@ -14826,7 +14785,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Count of the Paragraphs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">นับพาราการฟ</translation>
     </message>
     <message>
         <source>Miscellaneous</source>
@@ -14834,19 +14793,23 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปลั๊กอิน</translation>
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สามารถหรือไม่สามารถ แสดงการเชื่อมต่อของเฟลม</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงลักษณะที่พิมพ์ไม่ได้ เช่นทำเครื่องหมายพารากราฟในข้อความเฟลม</translation>
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กลับไปแสดง เฟลม เปิดหรือปิด</translation>
+    </message>
+    <message>
+        <source>Turns the display of pictures on or off</source>
+        <translation type="unfinished">กลับไปแสดงรูปภาพเปิดหรือปิด</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
@@ -14858,7 +14821,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Default font size for the tool windows</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขนาดตัวอักษรผิดสำหรับเครื่องมือหน้าต่าง</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
@@ -14902,22 +14865,14 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Locate Ghostscript</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ที่ตั้งโกสต์สคริป</translation>
     </message>
     <message>
         <source>Locate your image editor</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ที่ตั้งรูปภาพแก้ไข</translation>
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of images on or off</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14925,15 +14880,15 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     <name>PrefsDialogBase</name>
     <message>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บันทึก...</translation>
     </message>
     <message>
         <source>&amp;Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ค่าบริยาย</translation>
     </message>
     <message>
         <source>Save Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าโปรแกรม</translation>
     </message>
 </context>
 <context>
@@ -14948,7 +14903,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปล.</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
@@ -14961,7 +14916,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถเปิดแฟ้มข้อเสนอ%1 สำหรับเขียน %2</translation>
     </message>
     <message>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
@@ -14977,11 +14932,23 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Postscript</source>
-        <translation type="unfinished">Postscript</translation>
+        <translation type="unfinished">ปล.</translation>
+    </message>
+    <message>
+        <source>PDF 1.3</source>
+        <translation type="unfinished">พีดีเอฟ 1.3</translation>
+    </message>
+    <message>
+        <source>PDF 1.4</source>
+        <translation type="unfinished">พีดีเอฟ 1.4</translation>
+    </message>
+    <message>
+        <source>PDF/X-3</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เขียนข้อสเนอฟิดพลาด</translation>
     </message>
     <message>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
@@ -14990,7 +14957,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Error Loading Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โหลดข้อมูลที่อ้างถึงผิดพลาด</translation>
     </message>
     <message>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
@@ -15030,34 +14997,34 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>None</source>
         <comment>layout type</comment>
-        <translation type="unfinished">None</translation>
+        <translation type="unfinished">ไม่มี</translation>
     </message>
 </context>
 <context>
     <name>PythonConsole</name>
     <message>
         <source>&amp;Open...</source>
-        <translation type="unfinished">&amp;Open...</translation>
+        <translation type="unfinished">เปิด...</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Save</translation>
+        <translation type="unfinished">บันทึก</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished">Save &amp;As...</translation>
+        <translation type="unfinished">บันทึกเป็น...</translation>
     </message>
     <message>
         <source>&amp;Exit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ออก</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;File</translation>
+        <translation type="unfinished">แฟ้ม</translation>
     </message>
     <message>
         <source>&amp;Run</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดำเนินการ</translation>
     </message>
     <message>
         <source>Run As &amp;Console</source>
@@ -15065,14 +15032,18 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>&amp;Save Output...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บันทึกข้อมูลส่งออก...</translation>
     </message>
     <message>
         <source>&amp;Script</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สคริป</translation>
     </message>
     <message>
         <source>Scribus Python Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -15085,7 +15056,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Output of your script</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ต้นฉบับของคุณส่งออก</translation>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
@@ -15093,29 +15064,23 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Open Python Script File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปิดแฟ้มต้นฉบับไพตอน</translation>
     </message>
     <message>
         <source>Save the Python Commands in File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บันทึกชุดคำสั่งของไพท่อนลงในแฟ้ม</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Warning</translation>
+        <translation type="unfinished">เตือน</translation>
     </message>
     <message>
         <source>Text Files (*.txt)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แฟ้มข้อความ</translation>
     </message>
     <message>
         <source>Save Current Output</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This is a standard Python console with some 
-known limitations. Please consult the Scribus 
-Scripter documentation for futher information. </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บันทึกส่งออกปัจจุบัน</translation>
     </message>
 </context>
 <context>
@@ -15134,23 +15099,23 @@ Scripter documentation for futher information. </source>
     </message>
     <message>
         <source>&amp;Red:</source>
-        <translation type="unfinished">&amp;Red:</translation>
+        <translation type="unfinished">แดง:</translation>
     </message>
     <message>
         <source>&amp;Green:</source>
-        <translation type="unfinished">&amp;Green:</translation>
+        <translation type="unfinished">เขียว:</translation>
     </message>
     <message>
         <source>Bl&amp;ue:</source>
-        <translation type="unfinished">Bl&amp;ue:</translation>
+        <translation type="unfinished">ฟ้า</translation>
     </message>
     <message>
         <source>A&amp;lpha channel:</source>
-        <translation type="unfinished">A&amp;lpha channel:</translation>
+        <translation type="unfinished">ช่อง อัลฟ่า:</translation>
     </message>
     <message>
         <source>&amp;Basic colors</source>
-        <translation type="unfinished">&amp;Basic colours</translation>
+        <translation type="unfinished">สีพื้นฐาน</translation>
     </message>
     <message>
         <source>&amp;Custom colors</source>
@@ -15162,42 +15127,42 @@ Scripter documentation for futher information. </source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
     <message>
         <source>&amp;Add to Custom Colors</source>
-        <translation type="unfinished">&amp;Add to Custom Colours</translation>
+        <translation type="unfinished">เพิ่มรายชื่อสี</translation>
     </message>
     <message>
         <source>Select color</source>
-        <translation type="unfinished">Select colour</translation>
+        <translation type="unfinished">เลือกสี</translation>
     </message>
 </context>
 <context>
     <name>QFileDialog</name>
     <message>
         <source>Copy or Move a File</source>
-        <translation type="unfinished">Copy or Move a File</translation>
+        <translation type="unfinished">คัดลอก หรือย้ายแฟ้ม</translation>
     </message>
     <message>
         <source>Read: %1</source>
-        <translation type="unfinished">Read: %1</translation>
+        <translation type="unfinished">อ่าน: %1</translation>
     </message>
     <message>
         <source>Write: %1</source>
-        <translation type="unfinished">Write: %1</translation>
+        <translation type="unfinished">เขียน: %1</translation>
     </message>
     <message>
         <source>File &amp;name:</source>
-        <translation type="unfinished">File &amp;name:</translation>
+        <translation type="unfinished">แฟ้ม ชื่อ:</translation>
     </message>
     <message>
         <source>File &amp;type:</source>
-        <translation type="unfinished">File &amp;type:</translation>
+        <translation type="unfinished">แฟ้มชนิด:</translation>
     </message>
     <message>
         <source>One directory up</source>
@@ -15205,27 +15170,27 @@ Scripter documentation for futher information. </source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">All Files (*)</translation>
+        <translation type="unfinished">แฟ้มทั้งหมด (*)</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished">Size</translation>
+        <translation type="unfinished">ขนาด</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>ชนิด</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished">Date</translation>
+        <translation type="unfinished">วัน</translation>
     </message>
     <message>
         <source>Attributes</source>
@@ -15233,55 +15198,55 @@ Scripter documentation for futher information. </source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Look &amp;in:</source>
-        <translation type="unfinished">Look &amp;in:</translation>
+        <translation type="unfinished">มอง&amp;ใน:</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished">Back</translation>
+        <translation>กลับ</translation>
     </message>
     <message>
         <source>Create New Folder</source>
-        <translation type="unfinished">Create New Folder</translation>
+        <translation type="unfinished">สร้างกล่องข้อความใหม่</translation>
     </message>
     <message>
         <source>List View</source>
-        <translation type="unfinished">List View</translation>
+        <translation type="unfinished">หน้าต่างรายการ</translation>
     </message>
     <message>
         <source>Detail View</source>
-        <translation type="unfinished">Detail View</translation>
+        <translation type="unfinished">หน้าต่างรายละเอียด</translation>
     </message>
     <message>
         <source>Preview File Info</source>
-        <translation type="unfinished">Preview File Info</translation>
+        <translation type="unfinished">เค้าโครงแฟ้ม อินโฟ</translation>
     </message>
     <message>
         <source>Preview File Contents</source>
-        <translation type="unfinished">Preview File Contents</translation>
+        <translation type="unfinished">เค้าโครงแฟ้มสารบัญ</translation>
     </message>
     <message>
         <source>Read-write</source>
-        <translation type="unfinished">Read-write</translation>
+        <translation type="unfinished">อ่าน-เขียน</translation>
     </message>
     <message>
         <source>Read-only</source>
-        <translation type="unfinished">Read-only</translation>
+        <translation type="unfinished">อ่าน-อย่างเดียว</translation>
     </message>
     <message>
         <source>Write-only</source>
-        <translation type="unfinished">Write-only</translation>
+        <translation>เขียน-อย่างเดียว</translation>
     </message>
     <message>
         <source>Inaccessible</source>
-        <translation type="unfinished">Inaccessible</translation>
+        <translation type="unfinished">เข้าไม่ถึง</translation>
     </message>
     <message>
         <source>Symlink to File</source>
-        <translation type="unfinished">Symlink to File</translation>
+        <translation type="unfinished">แฟ้มข้อมูลเกี่ยวข้อง</translation>
     </message>
     <message>
         <source>Symlink to Directory</source>
@@ -15293,7 +15258,7 @@ Scripter documentation for futher information. </source>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">File</translation>
+        <translation type="unfinished">แฟ้ม</translation>
     </message>
     <message>
         <source>Dir</source>
@@ -15301,63 +15266,63 @@ Scripter documentation for futher information. </source>
     </message>
     <message>
         <source>Special</source>
-        <translation type="unfinished">Special</translation>
+        <translation type="unfinished">พิเศษ</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation type="unfinished">เปิด</translation>
     </message>
     <message>
         <source>Save As</source>
-        <translation type="unfinished">Save As</translation>
+        <translation type="unfinished">บันทึกเป็น</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation type="unfinished">&amp;Open</translation>
+        <translation type="unfinished">เปิด</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Save</translation>
+        <translation type="unfinished">บันทึก</translation>
     </message>
     <message>
         <source>&amp;Rename</source>
-        <translation type="unfinished">&amp;Rename</translation>
+        <translation type="unfinished">ตั้งชื่อใหม่</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>R&amp;eload</source>
-        <translation type="unfinished">R&amp;eload</translation>
+        <translation type="unfinished">โหลดอีกครั้ง</translation>
     </message>
     <message>
         <source>Sort by &amp;Name</source>
-        <translation type="unfinished">Sort by &amp;Name</translation>
+        <translation type="unfinished">หาโดย ชื่อ</translation>
     </message>
     <message>
         <source>Sort by &amp;Size</source>
-        <translation type="unfinished">Sort by &amp;Size</translation>
+        <translation type="unfinished">หาโดย&amp;ขนาด</translation>
     </message>
     <message>
         <source>Sort by &amp;Date</source>
-        <translation type="unfinished">Sort by &amp;Date</translation>
+        <translation type="unfinished">หาโดย วัน</translation>
     </message>
     <message>
         <source>&amp;Unsorted</source>
-        <translation type="unfinished">&amp;Unsorted</translation>
+        <translation type="unfinished">ไม่หา</translation>
     </message>
     <message>
         <source>Sort</source>
-        <translation type="unfinished">Sort</translation>
+        <translation type="unfinished">หา</translation>
     </message>
     <message>
         <source>Show &amp;hidden files</source>
-        <translation type="unfinished">Show &amp;hidden files</translation>
+        <translation type="unfinished">แสดง แฟ้มที่ซ่อนไว้</translation>
     </message>
     <message>
         <source>the file</source>
-        <translation type="unfinished">the file</translation>
+        <translation type="unfinished">แฟ้ม</translation>
     </message>
     <message>
         <source>the directory</source>
@@ -15365,90 +15330,90 @@ Scripter documentation for futher information. </source>
     </message>
     <message>
         <source>the symlink</source>
-        <translation type="unfinished">the symlink</translation>
+        <translation type="unfinished">ซิมลิงค์</translation>
     </message>
     <message>
         <source>Delete %1</source>
-        <translation type="unfinished">Delete %1</translation>
+        <translation type="unfinished">ลบ%1</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
-        <translation type="unfinished">&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
+        <translation type="unfinished">&lt;qt&gt;คุณแน่ใจที่จะลบ %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Yes</translation>
+        <translation type="unfinished">ใช่</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished">&amp;No</translation>
+        <translation type="unfinished">ไม่</translation>
     </message>
     <message>
         <source>New Folder 1</source>
-        <translation type="unfinished">New Folder 1</translation>
+        <translation type="unfinished">กล่องใหม่ 1</translation>
     </message>
     <message>
         <source>New Folder</source>
-        <translation type="unfinished">New Folder</translation>
+        <translation type="unfinished">กล่องใหม่</translation>
     </message>
     <message>
         <source>New Folder %1</source>
-        <translation type="unfinished">New Folder %1</translation>
+        <translation type="unfinished">กล่องใหม่ %1</translation>
     </message>
     <message>
         <source>Find Directory</source>
-        <translation type="unfinished">Find Directory</translation>
+        <translation type="unfinished">หาไดเรคทอรี่</translation>
     </message>
     <message>
         <source>Directories</source>
-        <translation type="unfinished">Directories</translation>
+        <translation type="unfinished">ไดเรกทอรี่</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Save</translation>
+        <translation type="unfinished">บันทึก</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation type="unfinished">ผิดพลาด</translation>
     </message>
     <message>
         <source>%1
 File not found.
 Check path and filename.</source>
         <translation type="unfinished">%1
-File not found.
-Check path and filename.</translation>
+หาแฟ้มไม่เจอ.
+ตรวจพาธและชื่อของแฟ้ม.</translation>
     </message>
     <message>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">All Files (*.*)</translation>
+        <translation type="unfinished">แฟ้มทั้งหมด(*.*)</translation>
     </message>
     <message>
         <source>Select a Directory</source>
-        <translation type="unfinished">Select a Directory</translation>
+        <translation type="unfinished">เลือกไดเรคทอรี่</translation>
     </message>
     <message>
         <source>Directory:</source>
-        <translation type="unfinished">Directory:</translation>
+        <translation type="unfinished">ไดเรคทอรี่:</translation>
     </message>
 </context>
 <context>
     <name>QFontDialog</name>
     <message>
         <source>&amp;Font</source>
-        <translation type="unfinished">&amp;Font</translation>
+        <translation type="unfinished">ตัวอักษร</translation>
     </message>
     <message>
         <source>Font st&amp;yle</source>
-        <translation type="unfinished">Font st&amp;yle</translation>
+        <translation type="unfinished">ตัวอักษร รูปแบบ</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished">&amp;Size</translation>
+        <translation type="unfinished">ขนาด</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation type="unfinished">Effects</translation>
+        <translation type="unfinished">ผล</translation>
     </message>
     <message>
         <source>Stri&amp;keout</source>
@@ -15456,77 +15421,77 @@ Check path and filename.</translation>
     </message>
     <message>
         <source>&amp;Underline</source>
-        <translation type="unfinished">&amp;Underline</translation>
+        <translation type="unfinished">เส้นใต้</translation>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation type="unfinished">&amp;Colour</translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>Sample</source>
-        <translation type="unfinished">Sample</translation>
+        <translation type="unfinished">ตัวอย่าง</translation>
     </message>
     <message>
         <source>Scr&amp;ipt</source>
-        <translation type="unfinished">Scr&amp;ipt</translation>
+        <translation type="unfinished">ต้นฉบับ</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished">Apply</translation>
+        <translation type="unfinished">สมัคร</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Close</translation>
+        <translation type="unfinished">ปิด</translation>
     </message>
     <message>
         <source>Select Font</source>
-        <translation type="unfinished">Select Font</translation>
+        <translation type="unfinished">เลือกตัวอักษร</translation>
     </message>
 </context>
 <context>
     <name>QLineEdit</name>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Clear</translation>
+        <translation type="unfinished">ล้าง</translation>
     </message>
     <message>
         <source>Select All</source>
-        <translation type="unfinished">Select All</translation>
+        <translation type="unfinished">เลือกทั้งหมด</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;Undo</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation type="unfinished">&amp;Redo</translation>
+        <translation type="unfinished">ทำใหม่</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished">Cu&amp;t</translation>
+        <translation type="unfinished">ตัด</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Copy</translation>
+        <translation type="unfinished">คัดลอก</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Paste</translation>
+        <translation type="unfinished">วาง</translation>
     </message>
 </context>
 <context>
     <name>QMainWindow</name>
     <message>
         <source>Line up</source>
-        <translation type="unfinished">Line up</translation>
+        <translation type="unfinished">แนวตั้ง</translation>
     </message>
     <message>
         <source>Customize...</source>
@@ -15552,11 +15517,11 @@ Check path and filename.</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished">Background</translation>
+        <translation type="unfinished">พื้นหลัง</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Warning</translation>
+        <translation>เตือน</translation>
     </message>
     <message>
         <source>Do you really want to overwrite the File:
@@ -15570,7 +15535,7 @@ Check path and filename.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation type="unfinished">เปิด</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
@@ -15578,23 +15543,23 @@ Check path and filename.</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Save as</translation>
+        <translation type="unfinished">บันทึกเป็น</translation>
     </message>
     <message>
         <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
-        <translation type="unfinished">SVG-Images (*.svg *.svgz);;All Files (*)</translation>
+        <translation type="unfinished">เอสวีจี-รูป (*.svg *.svgz);;แฟ้มทั้งหมด (*)</translation>
     </message>
     <message>
         <source>SVG-Images (*.svg);;All Files (*)</source>
-        <translation type="unfinished">SVG-Images (*.svg);;All Files (*)</translation>
+        <translation type="unfinished">เอสวีจี-รูป (*.svg);;แฟ้มทั้งหมด (*)</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Yes</translation>
+        <translation type="unfinished">ใช่</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">No</translation>
+        <translation type="unfinished">ไม่</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
@@ -15602,7 +15567,7 @@ Check path and filename.</translation>
     </message>
     <message>
         <source>Save as Image</source>
-        <translation type="unfinished">Save as Image</translation>
+        <translation type="unfinished">บันทึกเป็นรุปภาพ</translation>
     </message>
     <message>
         <source>Error writting the output file(s).</source>
@@ -15610,15 +15575,15 @@ Check path and filename.</translation>
     </message>
     <message>
         <source>Error writing the output file(s).</source>
-        <translation type="unfinished">Error writing the output file(s).</translation>
+        <translation type="unfinished">เขียนแฟ้มส่งออกผิดพลาด.</translation>
     </message>
     <message>
         <source>Export successful.</source>
-        <translation type="unfinished">Export successful.</translation>
+        <translation type="unfinished">นำออกสำเร็จ.</translation>
     </message>
     <message>
         <source>File exists. Overwrite?</source>
-        <translation type="unfinished">File exists. Overwrite?</translation>
+        <translation type="unfinished">แฟ้มออก. Overwrite?</translation>
     </message>
     <message>
         <source>exists already. Overwrite?</source>
@@ -15626,15 +15591,15 @@ Check path and filename.</translation>
     </message>
     <message>
         <source>Yes all</source>
-        <translation type="unfinished">Yes all</translation>
+        <translation type="unfinished">ใช่ทั้งหมด</translation>
     </message>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="unfinished">All Supported Formats (*.eps *.EPS *.ps *.PS);;</translation>
+        <translation type="unfinished">สนับสนุนการทำใหม่ทั้งหมด (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">All Files (*)</translation>
+        <translation type="unfinished">แฟ้มทั้งหมด (*)</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
@@ -15650,87 +15615,87 @@ Check path and filename.</translation>
     </message>
     <message>
         <source>Newsletters</source>
-        <translation type="unfinished">Newsletters</translation>
+        <translation type="unfinished">จดหมายใหม่</translation>
     </message>
     <message>
         <source>Brochures</source>
-        <translation type="unfinished">Brochures</translation>
+        <translation type="unfinished">หนังสือ</translation>
     </message>
     <message>
         <source>Catalogs</source>
-        <translation type="unfinished">Catalogues</translation>
+        <translation type="unfinished">แคทตาล๊อค</translation>
     </message>
     <message>
         <source>Flyers</source>
-        <translation type="unfinished">Flyers</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Signs</source>
-        <translation type="unfinished">Signs</translation>
+        <translation type="unfinished">เครื่องหมาย</translation>
     </message>
     <message>
         <source>Cards</source>
-        <translation type="unfinished">Cards</translation>
+        <translation type="unfinished">การ์ด</translation>
     </message>
     <message>
         <source>Letterheads</source>
-        <translation type="unfinished">Letterheads</translation>
+        <translation type="unfinished">หัวจดหมาย</translation>
     </message>
     <message>
         <source>Envelopes</source>
-        <translation type="unfinished">Envelopes</translation>
+        <translation>ซองจดหมาย</translation>
     </message>
     <message>
         <source>Business Cards</source>
-        <translation type="unfinished">Business Cards</translation>
+        <translation type="unfinished">นามบัตร</translation>
     </message>
     <message>
         <source>Calendars</source>
-        <translation type="unfinished">Calendars</translation>
+        <translation type="unfinished">ปฏิทิน</translation>
     </message>
     <message>
         <source>Advertisements</source>
-        <translation type="unfinished">Advertisements</translation>
+        <translation type="unfinished">โฆษณา</translation>
     </message>
     <message>
         <source>Labels</source>
-        <translation type="unfinished">Labels</translation>
+        <translation type="unfinished">ตรหน้า</translation>
     </message>
     <message>
         <source>Menus</source>
-        <translation type="unfinished">Menus</translation>
+        <translation type="unfinished">รายการ</translation>
     </message>
     <message>
         <source>Programs</source>
-        <translation type="unfinished">Programs</translation>
+        <translation type="unfinished">โปรแกรม</translation>
     </message>
     <message>
         <source>PDF Forms</source>
-        <translation type="unfinished">PDF Forms</translation>
+        <translation type="unfinished">รูปแบบ พีดีเอฟ</translation>
     </message>
     <message>
         <source>PDF Presentations</source>
-        <translation type="unfinished">PDF Presentations</translation>
+        <translation type="unfinished">แสดงพีดีเอฟ</translation>
     </message>
     <message>
         <source>Magazines</source>
-        <translation type="unfinished">Magazines</translation>
+        <translation>แมกกาซีน</translation>
     </message>
     <message>
         <source>Posters</source>
-        <translation type="unfinished">Posters</translation>
+        <translation type="unfinished">โปสเตอร์</translation>
     </message>
     <message>
         <source>Announcements</source>
-        <translation type="unfinished">Announcements</translation>
+        <translation type="unfinished">ประกาศ</translation>
     </message>
     <message>
         <source>Text Documents</source>
-        <translation type="unfinished">Text Documents</translation>
+        <translation>ข้อความเอกสาร</translation>
     </message>
     <message>
         <source>Folds</source>
-        <translation type="unfinished">Folds</translation>
+        <translation type="unfinished">ใบปลิว</translation>
     </message>
     <message>
         <source>Own Templates</source>
@@ -15758,19 +15723,19 @@ Check path and filename.</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished">&amp;Scribus Scripts</translation>
+        <translation type="unfinished">สคิลป์สใครบัส</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation type="unfinished">&amp;Execute Script...</translation>
+        <translation type="unfinished">จัดการต้นฉบับ...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation type="unfinished">&amp;Recent Scripts</translation>
+        <translation type="unfinished">ต้นฉบับล่าสุด</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished">Show &amp;Console</translation>
+        <translation type="unfinished">แสดง Console</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -15786,23 +15751,23 @@ Check path and filename.</translation>
     </message>
     <message>
         <source>Importing text</source>
-        <translation type="unfinished">Importing text</translation>
+        <translation type="unfinished">ข้อความนำเข้า</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
-        <translation type="unfinished">All Supported Formats</translation>
+        <translation type="unfinished">สนับสนุนการแก้ไขทั้งหมด</translation>
     </message>
     <message>
         <source>HTML Files</source>
-        <translation type="unfinished">HTML Files</translation>
+        <translation type="unfinished">แฟ้ม เฮชทีเอ็มแอล</translation>
     </message>
     <message>
         <source>html</source>
-        <translation type="unfinished">html</translation>
+        <translation>เฮชทีเอ็มแอล</translation>
     </message>
     <message>
         <source>Text Files</source>
-        <translation type="unfinished">Text Files</translation>
+        <translation type="unfinished">แฟ้มข้อความ</translation>
     </message>
     <message>
         <source>Comma Separated Value Files</source>
@@ -15810,15 +15775,15 @@ Check path and filename.</translation>
     </message>
     <message>
         <source>CSV_data</source>
-        <translation type="unfinished">CSV_data</translation>
+        <translation type="unfinished">ซีเอสวี_ดาต้า</translation>
     </message>
     <message>
         <source>CSV_header</source>
-        <translation type="unfinished">CSV_header</translation>
+        <translation type="unfinished">ซีเอสวี_เฮดเดอร์</translation>
     </message>
     <message>
         <source>Font %1 is broken, discarding it</source>
-        <translation type="unfinished">Font %1 is broken, discarding it</translation>
+        <translation type="unfinished">ตัวอักษร %1 ชำรุด, ยกเลิกการใข้งาน</translation>
     </message>
     <message>
         <source>Template: </source>
@@ -15828,28 +15793,27 @@ Check path and filename.</translation>
         <source>
 External Links
 </source>
-        <translation type="unfinished">
-External Links</translation>
+        <translation type="unfinished">เชื่อมต่อภายนอก</translation>
     </message>
     <message>
         <source>Text Filters</source>
-        <translation type="unfinished">Text Filters</translation>
+        <translation type="unfinished">กรองข้อความ</translation>
     </message>
     <message>
         <source>Media Cases</source>
-        <translation type="unfinished">Media Cases</translation>
+        <translation type="unfinished">เครื่องมือตัวอย่าง</translation>
     </message>
     <message>
         <source>Albanian</source>
-        <translation type="unfinished">Albanian</translation>
+        <translation type="unfinished">แอลแบเนียน</translation>
     </message>
     <message>
         <source>Basque</source>
-        <translation type="unfinished">Basque</translation>
+        <translation type="unfinished">แบ๊ซค</translation>
     </message>
     <message>
         <source>Bulgarian</source>
-        <translation type="unfinished">Bulgarian</translation>
+        <translation type="unfinished">บัลแกเรียล</translation>
     </message>
     <message>
         <source>Brazilian</source>
@@ -15857,79 +15821,79 @@ External Links</translation>
     </message>
     <message>
         <source>Catalan</source>
-        <translation type="unfinished">Catalan</translation>
+        <translation type="unfinished">แคตอะแลน</translation>
     </message>
     <message>
         <source>Chinese</source>
-        <translation type="unfinished">Chinese</translation>
+        <translation type="unfinished">ไชนีส</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="unfinished">Czech</translation>
+        <translation type="unfinished">กรีซ</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation type="unfinished">Danish</translation>
+        <translation type="unfinished">เดนิส</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished">Dutch</translation>
+        <translation type="unfinished">ดีชซ์</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="unfinished">English</translation>
+        <translation type="unfinished">อังกฤษ</translation>
     </message>
     <message>
         <source>English (British)</source>
-        <translation type="unfinished">English (British)</translation>
+        <translation type="unfinished">อังกฤษ (อังกฤษ)</translation>
     </message>
     <message>
         <source>Esperanto</source>
-        <translation type="unfinished">Esperanto</translation>
+        <translation type="unfinished">สเปน</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="unfinished">German</translation>
+        <translation type="unfinished">เยอรมัน</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished">Finnish</translation>
+        <translation type="unfinished">ฟินนิช</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished">French</translation>
+        <translation type="unfinished">ฟเร็นด์</translation>
     </message>
     <message>
         <source>Galician</source>
-        <translation type="unfinished">Galician</translation>
+        <translation type="unfinished">กาลิเซียน</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished">Greek</translation>
+        <translation type="unfinished">กรีก</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="unfinished">Hungarian</translation>
+        <translation type="unfinished">ฮังกาเรียน</translation>
     </message>
     <message>
         <source>Indonesian</source>
-        <translation type="unfinished">Indonesian</translation>
+        <translation type="unfinished">อินโดนีเซียน</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="unfinished">Italian</translation>
+        <translation type="unfinished">อิตาเลียน</translation>
     </message>
     <message>
         <source>Korean</source>
-        <translation type="unfinished">Korean</translation>
+        <translation type="unfinished">โคเลียน</translation>
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation type="unfinished">Lithuanian</translation>
+        <translation type="unfinished">ลิโทเนียน</translation>
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation type="unfinished">Norwegian (Bokmaal)</translation>
+        <translation type="unfinished">นอร์เวย์เจี้ยน (Bokmaal)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
@@ -15937,39 +15901,39 @@ External Links</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished">Norwegian</translation>
+        <translation type="unfinished">นอร์เวย์เจียน</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished">Polish</translation>
+        <translation type="unfinished">โพลิช</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished">Russian</translation>
+        <translation type="unfinished">รัชเชียน</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished">Swedish</translation>
+        <translation type="unfinished">สวีดิช</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished">Spanish</translation>
+        <translation type="unfinished">สเปนิช</translation>
     </message>
     <message>
         <source>Spanish (Latin)</source>
-        <translation type="unfinished">Spanish (Latin)</translation>
+        <translation type="unfinished">สเปนิช (ลาติน)</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished">Slovak</translation>
+        <translation type="unfinished">สโลวัค</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished">Slovenian</translation>
+        <translation type="unfinished">สโลวีเนียน</translation>
     </message>
     <message>
         <source>Serbian</source>
-        <translation type="unfinished">Serbian</translation>
+        <translation type="unfinished">เซอร์เบียน</translation>
     </message>
     <message>
         <source>Tried to set progress &gt; maximum progress</source>
@@ -15977,56 +15941,56 @@ External Links</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished">&amp;About Script...</translation>
+        <translation type="unfinished">เกี่ยวกับต้นฉบับ...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished">About Script</translation>
+        <translation type="unfinished">เกี่ยวกัยต้นฉบับ</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot get font size of non-text frame.</translation>
+        <translation type="unfinished">ไม่สามารถรับขนาดตัวอักษร ของเฟลมที่ไม่มีข้อความ</translation>
     </message>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot get font of non-text frame.</translation>
+        <translation type="unfinished">ไม่สามารถรับขนาดตัวอักษร ของเฟลมที่ไม่มีข้อความ</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot get text size of non-text frame.</translation>
+        <translation type="unfinished">ไม่สามารถรับขนาดข้อความ ของเฟลมที่ไม่มีข้อความ</translation>
     </message>
     <message>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot get column count of non-text frame.</translation>
+        <translation type="unfinished">พลิกหน้าเอกสารผิดพลิกหน้าเอกสารผิดไม่สามารถรับคอลัมน์ของเฟลมที่ไม่มีข้อความ</translation>
     </message>
     <message>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot get line space of non-text frame.</translation>
+        <translation type="unfinished">ไม่สามารถรับเส้นระยะ ของเฟลมที่ไม่มีข้อความ</translation>
     </message>
     <message>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot get column gap of non-text frame.</translation>
+        <translation type="unfinished">ไม่สามารถรับระยะห่างคอลัมน์ ของเฟลมที่ไม่มีข้อความ</translation>
     </message>
     <message>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot get text of non-text frame.</translation>
+        <translation type="unfinished">ไม่สามารถรับข้อความ ของเฟลมที่ไม่มีข้อความ</translation>
     </message>
     <message>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot set text of non-text frame.</translation>
+        <translation type="unfinished">ไม่สามารถตั้งค่าข้อความ ของเฟลมที่ไม่มีข้อความ</translation>
     </message>
     <message>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot insert text into non-text frame.</translation>
+        <translation type="unfinished">ไม่สามารถแทรกข้อความไปยังเฟลมที่ไม่มีข้อความ</translation>
     </message>
     <message>
         <source>Insert index out of bounds</source>
@@ -16096,7 +16060,7 @@ External Links</translation>
     <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
-        <translation type="unfinished">Selection index out of bounds</translation>
+        <translation type="unfinished">เลือกสารบาญออกจากปกหนังสือ</translation>
     </message>
     <message>
         <source>Can&apos;t select text in a non-text frame</source>
@@ -16156,12 +16120,12 @@ External Links</translation>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Object is not a linked text frame, can&apos;t unlink.</translation>
+        <translation type="unfinished">วัตถุไม่เชื่อมต่อกับข้อความเฟลม ไม่สามารถเชื่อมต่อกัน</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</translation>
+        <translation type="unfinished">วัตถุเฟลมอันล่าสุดในเนื้อเรื่อง ไม่สามารถเชื่อมต่อได้.ไม่เชื่อมแทนที่เฟลมก่อนหน้านี่</translation>
     </message>
     <message>
         <source>Can&apos;t convert a non-text frame to outlines</source>
@@ -16186,7 +16150,7 @@ External Links</translation>
     <message>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Target is not an image frame.</translation>
+        <translation type="unfinished">จุดหมายไม่ใช่เฟลมรูป</translation>
     </message>
     <message>
         <source>Can&apos;t scale by 0%</source>
@@ -16306,7 +16270,7 @@ External Links</translation>
     <message>
         <source>Corner radius must be a positive number.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Corner radius must be a positive number.</translation>
+        <translation type="unfinished">รัศมีของมุมต้องเป็นตัวเลขที่แน่นอน</translation>
     </message>
     <message>
         <source>Line style not found</source>
@@ -16316,7 +16280,7 @@ External Links</translation>
     <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot get a colour with an empty name.</translation>
+        <translation type="unfinished">ไม่สามารถรับสีกับชื่อที่ยังไม่ได้ตั้ง</translation>
     </message>
     <message>
         <source>Color not found</source>
@@ -16326,7 +16290,7 @@ External Links</translation>
     <message>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot change a colour with an empty name.</translation>
+        <translation type="unfinished">ไม่สามารถเปลี่ยนสี กับชื่อที่ยังไม่ได้ตั้ง</translation>
     </message>
     <message>
         <source>Color not found in document</source>
@@ -16341,17 +16305,17 @@ External Links</translation>
     <message>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot create a colour with an empty name.</translation>
+        <translation type="unfinished">ไม่สามารถสร้างสีกับชื่อที่ยังไม่ได้ตั้ง</translation>
     </message>
     <message>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot delete a colour with an empty name.</translation>
+        <translation type="unfinished">ไม่สามารถลบสีกับชื่อที่ยังไม่ได้ตั้ง.</translation>
     </message>
     <message>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Cannot replace a colour with an empty name.</translation>
+        <translation type="unfinished">ไม่สามารถแทนที่สีกับชื่อที่ยังไม่ได้ตั้ง</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -16421,55 +16385,55 @@ function&apos;s documentation.
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation type="unfinished">Copy #%1 of </translation>
+        <translation type="unfinished">คัดลอก #%1 of </translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished">Afrikaans</translation>
+        <translation type="unfinished">แอฟริกา</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โครเอเชีย</translation>
     </message>
     <message>
         <source>German (Trad.)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เยอรมัน</translation>
     </message>
     <message>
         <source>Portuguese</source>
-        <translation type="unfinished">Portuguese</translation>
+        <translation type="unfinished">โปรตุเกส</translation>
     </message>
     <message>
         <source>Portuguese (BR)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โปรตุเกส</translation>
     </message>
     <message>
         <source>Thai</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไทย</translation>
     </message>
     <message>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตุรกี</translation>
     </message>
     <message>
         <source>Ukranian</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ยูคาเนี่ยน</translation>
     </message>
     <message>
         <source>Welsh</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เวลล์</translation>
     </message>
     <message>
         <source>Scribus Crash</source>
-        <translation type="unfinished">Scribus Crash</translation>
+        <translation type="unfinished">เกิดปัญหาในโปรแกรมสไครบัส</translation>
     </message>
     <message>
         <source>Scribus crashes due to Signal #%1</source>
-        <translation type="unfinished">Scribus crashes due to Signal #%1</translation>
+        <translation>Scribus crashes due to Signal #%1</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Scribus crashes due to the following exception : %1</source>
@@ -16481,11 +16445,11 @@ function&apos;s documentation.
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">Page</translation>
+        <translation type="unfinished">หน้า</translation>
     </message>
     <message>
         <source>Master Page </source>
-        <translation type="unfinished"></translation>
+        <translation>ต้นฉบับ</translation>
     </message>
     <message>
         <source>4A0</source>
@@ -16501,36 +16465,38 @@ function&apos;s documentation.
     </message>
     <message>
         <source>DLE</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดีแอลอี</translation>
     </message>
     <message>
         <source>Could not open output file %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถเปิดแฟ้มส่งออก %1</translation>
     </message>
     <message>
         <source>Output stream not writeable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่ได้เขียนหัวข้อความส่งออก</translation>
     </message>
     <message>
         <source>Verification of settings failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตรวจสอบการตั้งค่าล้มเหลว: %1</translation>
     </message>
     <message>
         <source>Could not open input file %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถเปิดแฟ้มที่ได้รับ %1</translation>
     </message>
     <message>
         <source>Unable to read settings XML:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถอ่านตั้งค่า เอ็กซ์เอ็มแอล</translation>
     </message>
     <message>
         <source>%1 (line %2 col %3)</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 (บรรทัด %2 คอลัมน์ %3)
+
+โหลด ค่าพีดีเอฟ</translation>
     </message>
     <message>
         <source>Unable to read settings XML: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถอ่านตั้งค่า เอ็กซืเอ็มแอล: %1</translation>
     </message>
     <message>
         <source>null root node</source>
@@ -16565,7 +16531,7 @@ function&apos;s documentation.
     <message>
         <source>element &lt;%1&gt; value must be `true&apos; or `false&apos;</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ค่าองค์ประกอบ &lt;%1&gt; จะต้องเป็น ถูกต้อง หรือ ผิด</translation>
     </message>
     <message>
         <source>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</source>
@@ -16574,31 +16540,31 @@ function&apos;s documentation.
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">All</translation>
+        <translation type="unfinished">ทั้งหมด</translation>
     </message>
     <message>
         <source>Exporting PostScript File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แฟ้มส่งออกต้นฉบับ</translation>
     </message>
     <message>
         <source>Printing File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แฟ้มพิมพ์</translation>
     </message>
     <message>
         <source>Black</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดำ</translation>
     </message>
     <message>
         <source>Cyan</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ฟ้า</translation>
     </message>
     <message>
         <source>Magenta</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ม่วง</translation>
     </message>
     <message>
         <source>Yellow</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เหลือง</translation>
     </message>
     <message>
         <source>Freetype2 library not available</source>
@@ -16606,27 +16572,27 @@ function&apos;s documentation.
     </message>
     <message>
         <source>Font %1 is broken, no embedding</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ฟอนต์ %1 ไม่สามารถใช้ได้ </translation>
     </message>
     <message>
         <source>Font %1 is broken (read stream), no embedding</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ฟอนต์ %1 ไม่สามารถใช้ได้, ไม่</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType2), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ฟอนต์ %1 ไม่สามารถใช้ได้  (FreeType2) ยกเลิกการใช้งาน</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ฟอนต์ %1 ไม่สามารถใช้ได้  (No Face) ยกเลิกการใช้งาน</translation>
     </message>
     <message>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ฟอนต์ %1 เกิดผิดพลาดที่ตัวอักษร %2 (รหัสตัวอักษร %3)</translation>
     </message>
     <message>
         <source>Font %1 is broken and will be discarded</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ฟอนต์ %1 ไม่สามารถใช้ได้ และละทึ้ง</translation>
     </message>
     <message>
         <source>Font %1 cannot be read, no embedding</source>
@@ -16634,51 +16600,52 @@ function&apos;s documentation.
     </message>
     <message>
         <source>Creating Font Cache</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สร้างตัวอักษรที่ซ่อน</translation>
     </message>
     <message>
         <source>Failed to load font %1 - font type unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โหลดตัวอักษรล้มเหลว 1เปอร์เซ็นต์-ไม่รู้ชื่อตัวอักษร</translation>
     </message>
     <message>
         <source>New Font found, checking...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หาอักษรใหม่ ,ตรวจสอบ</translation>
     </message>
     <message>
         <source>Modified Font found, checking...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปลี่ยนแปลงอักษร, ตรวจสอบ</translation>
     </message>
     <message>
         <source>Font %1 loaded from %2(%3)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวอักษร 1เปอร์เซ็นต์ โหลดจาก 2 (3)</translation>
     </message>
     <message>
         <source>Font %1(%2) is duplicate of %3</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวอักษร 1เปอร์เซ็นต์(2) ฉบับคู่ของ(3)</translation>
     </message>
     <message>
         <source>Loading font %1 (found using fontconfig)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โหลด ตัวอักษร 1เปอร์เซ็นต์</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวอักษรที่โหลดล้มเหลว-มีอยู่2ชนิด ไมาสามารถหาตัวอักษรจากแฟ้ม</translation>
     </message>
     <message>
         <source>Reading Font Cache</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อ่านอักษรแครช</translation>
     </message>
     <message>
         <source>Writing updated Font Cache</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เขียนตัวอักษรแครชครั้งล่าสุด</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation type="unfinished">Searching for Fonts</translation>
+        <translation type="unfinished">ค้นหาตัวอักษร</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ฟอนต์ %1  ไม่สามารถใช้ได้ (FreeType), ละทิ้ง
+</translation>
     </message>
     <message>
         <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
@@ -16686,7 +16653,7 @@ function&apos;s documentation.
     </message>
     <message>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ถอดหน้า1 เปอร์เซ็ฯต์จากตัวอักษร 2เปอร์เซ็นต์</translation>
     </message>
     <message>
         <source>memcpy header: %1 %2 %3</source>
@@ -16706,7 +16673,7 @@ function&apos;s documentation.
     </message>
     <message>
         <source>Scribus Development Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พัฒนารุ่นสไครบัส</translation>
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
@@ -16718,39 +16685,39 @@ function&apos;s documentation.
     </message>
     <message>
         <source>C&amp;reate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สร้าง</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Import</translation>
+        <translation type="unfinished">นำเข้า</translation>
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">การแก้ไขเอกสารของคุณยังไม่ได้ถูกบันทึก และคุณต้องย้อนกลับไปยังจุดเริ่มต้น. คุณต้องการที่จะดำเนินการต่อหรือไม่?</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="unfinished"></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">p</translation>
     </message>
     <message>
         <source> cm</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">cm</translation>
     </message>
     <message>
         <source> c</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">c</translation>
     </message>
     <message>
         <source>pt</source>
@@ -16770,52 +16737,52 @@ function&apos;s documentation.
     </message>
     <message>
         <source>cm</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">cm</translation>
     </message>
     <message>
         <source>c</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">c</translation>
     </message>
     <message>
         <source>Points (pt)</source>
-        <translation type="unfinished">Points (pt)</translation>
+        <translation type="unfinished">พ้อนต์ (pt)</translation>
     </message>
     <message>
         <source>Millimeters (mm)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">มิลลิเมตร (mm)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation type="unfinished">Inches (in)</translation>
+        <translation type="unfinished">นิ้ว (in)</translation>
     </message>
     <message>
         <source>Picas (p)</source>
-        <translation type="unfinished">Picas (p)</translation>
+        <translation type="unfinished">พิคา (p)</translation>
     </message>
     <message>
         <source>Centimeters (cm)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เซนติเมตร (cm)</translation>
     </message>
     <message>
         <source>Cicero (c)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ซีเซโร่ (c)</translation>
     </message>
     <message>
         <source>File exists</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ออกจากแฟ้ม</translation>
     </message>
     <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แฟ้มชื่อ %1 มีอยู่ก่อนแล้ว คุณต้องการที่จะบันทึกแทนที่มันด้วยแฟ้มปัจจุบันนี้?</translation>
     </message>
     <message>
         <source>&amp;Replace</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทนที่</translation>
     </message>
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้า</translation>
     </message>
     <message>
         <source>Color Wheel</source>
@@ -16823,7 +16790,7 @@ function&apos;s documentation.
     </message>
     <message>
         <source>Font Preview</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เค้าโครงตัวอักษร</translation>
     </message>
     <message>
         <source>My Plugin</source>
@@ -16839,7 +16806,7 @@ function&apos;s documentation.
     </message>
     <message>
         <source>Export As Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ส่งรูปออก</translation>
     </message>
     <message>
         <source>PS/EPS Importer</source>
@@ -16852,17 +16819,17 @@ function&apos;s documentation.
     <message>
         <source>Color not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่กำหนดสี</translation>
     </message>
     <message>
         <source>Color not found in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่กำหนดสีในเอกสาร</translation>
     </message>
     <message>
         <source>Color not found in default colors.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่กำหนดสีในสีที่ผิด</translation>
     </message>
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
@@ -16872,17 +16839,18 @@ function&apos;s documentation.
     <message>
         <source>Failed to open document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปิดเอกสารล้มเหลว</translation>
     </message>
     <message>
         <source>Failed to save document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถบันทึกเอกสารได้
+เกิดความผิดพลาดที่ไพท่อน</translation>
     </message>
     <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่กำหนดสี-ไพตอนผิดพลาด</translation>
     </message>
     <message>
         <source>Argument must be page item name, or PyCObject instance</source>
@@ -16890,7 +16858,7 @@ function&apos;s documentation.
     </message>
     <message>
         <source>Property not found</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่กำหนดคุณสมบัติ</translation>
     </message>
     <message>
         <source>Child not found</source>
@@ -16898,59 +16866,61 @@ function&apos;s documentation.
     </message>
     <message>
         <source>Couldn&apos;t convert result type &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถแปลงชนิดของผลลัพท์ %1</translation>
     </message>
     <message>
         <source>Property type &apos;%1&apos; not supported</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชนิดคุณสมบัติ %1 ไม่สนับสนุน</translation>
     </message>
     <message>
         <source>Couldn&apos;t convert &apos;%1&apos; to property type &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถแปลง%1 ถึงชนิดของคุณสมบัติ%2</translation>
     </message>
     <message>
         <source>Types matched, but setting property failed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชนิดแมช แต่การตั้งค่าคุณสมบัติล้มเหลว</translation>
     </message>
     <message>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วัตถุที่เลือกไม่ใช้เฟรมรูปภาพ</translation>
     </message>
     <message>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถรวมวัตถุน้อยกว่าสองชึ้น</translation>
     </message>
     <message>
         <source>Can&apos;t group less than two items</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถรวมวัตถุน้อยกว่าสองชึ้น</translation>
     </message>
     <message>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จำเป็นเลือก หรือ พิสูจน์รายการ ของไอเท็มกลุ่ม</translation>
     </message>
     <message>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถสเกล 0%</translation>
     </message>
     <message>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กำหนดตัวอักษรไม่ได้</translation>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถแปลจากตัวอย่างที่ว่างเปล่า</translation>
     </message>
     <message>
         <source>Unable to save pixmap</source>
         <comment>scripter error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถบันทึก pixmap
+
+ชุดคำสั่งผิดพลาด</translation>
     </message>
     <message>
         <source>Cannot have an empty layer name.</source>
@@ -16960,17 +16930,17 @@ function&apos;s documentation.
     <message>
         <source>Layer not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กำหนอชั้นไม่ได้</translation>
     </message>
     <message>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถเคลื่อนย้ายชั้นล่าสุด</translation>
     </message>
     <message>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถสร้างชื่อชั้นโดยปราศจากชื่อ</translation>
     </message>
     <message>
         <source>An object with the requested name already exists.</source>
@@ -17005,27 +16975,29 @@ function&apos;s documentation.
     <message>
         <source>Object not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กำหนดวัตถุไม่ได้</translation>
     </message>
     <message>
         <source>Style not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กำหนดรูปแบบไม่ได้</translation>
     </message>
     <message>
         <source>Cannot set style on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถตั้งค่ารูปแบบบนเฟลมที่ไม่มีข้อความได้</translation>
     </message>
     <message>
         <source>Failed to save EPS.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถบันทึกเป็นอีพีเอส
+
+เกิดความผิดพลาดที่ไพท่อน</translation>
     </message>
     <message>
         <source>Page number out of range.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่การเรียงหมายเลขหน้ากระดาษ</translation>
     </message>
     <message>
         <source>argument is not list: must be list of float values.</source>
@@ -17060,7 +17032,7 @@ function&apos;s documentation.
     <message>
         <source>Line style not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กำหนดรูปแบบลานเส้นไม่ได้</translation>
     </message>
     <message>
         <source>Insert index out of bounds.</source>
@@ -17070,7 +17042,7 @@ function&apos;s documentation.
     <message>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถตั้งค่าลายเส้นแนวตรงบนเฟลมที่ไม่มีข้อความได้</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
@@ -17080,12 +17052,12 @@ function&apos;s documentation.
     <message>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถตั้งค่าขนาดตัวอักษรบนเฟลมที่ไม่มีข้อความได้</translation>
     </message>
     <message>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถตั้งค่าตัวอักษรบนเฟลมที่ไม่ข้อความได้</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
@@ -17095,7 +17067,7 @@ function&apos;s documentation.
     <message>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถตั้งค่าช่องว่างของเส้นบนเฟลมที่ไม่มีข้อความได้</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive.</source>
@@ -17105,7 +17077,7 @@ function&apos;s documentation.
     <message>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถตั้งค่าระยะห่างคอลัมน์บนเฟลมที่ไม่มีข้อความได้</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1.</source>
@@ -17115,22 +17087,22 @@ function&apos;s documentation.
     <message>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถตั้งค่าจำนวนคอลัมน์บนเฟลมที่ไม่ใช้เฟรมข้อความได้</translation>
     </message>
     <message>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถเลือกข้อความในเฟลมที่ไม่มีข้อความได้</translation>
     </message>
     <message>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถลบข้อความจากเฟลมที่ไม่มีข้อความได้</translation>
     </message>
     <message>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถตั้งค่าเติมข้อความบนเฟลมที่ไม่มีข้อความได้</translation>
     </message>
     <message>
         <source>Cannot set text stroke on a non-text frame.</source>
@@ -17140,77 +17112,77 @@ function&apos;s documentation.
     <message>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถตั้งค่าการแรเงาของข้อความบนเฟลมที่ไม่มีข้อความได้</translation>
     </message>
     <message>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สามารถเชื่อมต่อเฟลมข้อความได้อย่างเดียว</translation>
     </message>
     <message>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เป้าหมายเฟลมต้องว่าง</translation>
     </message>
     <message>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">การเชื่อมต่อเป้าหมายเฟลมไปยังอีกเฟลมหนึ่ง</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">การเชื่อมต่อเป้าหมายเฟลมไปถึงอีกเฟลมอื่นๆ</translation>
     </message>
     <message>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ค้นหา และกำหนดเป้าหมายคล้ายวัตถุ</translation>
     </message>
     <message>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถเชื่อมต่อเฟลมที่ไม่มีข้อความได้</translation>
     </message>
     <message>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถแปลงเฟลมที่ไม่มีข้อความไปยัง เค้าร่าง</translation>
     </message>
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เฟลมข้อความเท่านั้นที่สามารถตรวจ สำหรับโอเว่อร์โฟรวิ่ง</translation>
     </message>
     <message>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถตั้งค่าหมายเหตุบนเฟลมที่ไม่ข้อความได้</translation>
     </message>
     <message>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถรับอินโฟรจากเฟลมที่ไม่มีข้อความได้</translation>
     </message>
     <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แฟ้มชื่อต้องมีลายเส้น</translation>
     </message>
     <message>
         <source>The filename should not be empty string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แฟ้มชื่อไม่ควรใช้ลายเส้นที่ว่าง</translation>
     </message>
     <message>
         <source>Cannot delete image type settings.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถลบการตั้งค่าชนิดรูปภาพได้</translation>
     </message>
     <message>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชนิดของรูปภาพต้องมีลายเส้น</translation>
     </message>
     <message>
         <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
@@ -17220,11 +17192,11 @@ function&apos;s documentation.
     <message>
         <source>Failed to export image</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปภาพส่งออกล้มเหลว</translation>
     </message>
     <message>
         <source>&amp;Script</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ต้นฉบับ</translation>
     </message>
     <message>
         <source>Scripter</source>
@@ -17272,29 +17244,29 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">มาตรฐานของรูปร่าง</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ย่อคำ</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กำลังดำเนินการย่อคำ.กรุณารอสักครู่</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">การดำเนินการย่อคำ.สำเร็จ</translation>
     </message>
     <message>
         <source>SVG Export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอสวีจีส่งออก</translation>
     </message>
     <message>
         <source>SVG Import</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอสวีจีนำเข้า</translation>
     </message>
     <message>
         <source>Old .sla format support</source>
@@ -17306,7 +17278,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปิดเอกสาร ข้อความเอกสาร</translation>
     </message>
     <message>
         <source>Barcode Generator</source>
@@ -17318,27 +17290,27 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Word Documents</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คำศัพย์เอกสาร</translation>
     </message>
     <message>
         <source>Palm PDB Documents</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปาร์ม เอกสาร พีดีบี</translation>
     </message>
     <message>
         <source>PDB_data</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พีดีบี ดาต้า</translation>
     </message>
     <message>
         <source>PDB Import</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">นำเข้า พีดีบี</translation>
     </message>
     <message>
         <source>Could not open file %1</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถเปิกแฟ้มได้%1</translation>
     </message>
     <message>
         <source>Luxembourgish</source>
@@ -17346,15 +17318,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Arabic</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อาราบิค</translation>
     </message>
     <message>
         <source>Estonian</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอสโทเนีย</translation>
     </message>
     <message>
         <source>Japanese</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เจแปนนิส</translation>
     </message>
     <message>
         <source>Given master page name does not match any existing.</source>
@@ -17363,7 +17335,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไอซแลนด์ดิ๊ก</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing resolution tags</source>
@@ -17376,48 +17348,18 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Breton</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บรีตัน</translation>
     </message>
     <message>
         <source>English (American)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อังกฤษ (อเมริกา)</translation>
     </message>
     <message>
         <source>English (Australian)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อังกฤษ (ออสเตรเลีย)</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>German (Swiss)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chinese (Trad.)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valid metrics were found for font %1, using metrics in file %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insufficient memory for this image size.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
-        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17425,109 +17367,109 @@ is not exhaustive due to exceptions from called functions.
     <name>QTextEdit</name>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Clear</translation>
+        <translation type="unfinished">ล้าง</translation>
     </message>
     <message>
         <source>Select All</source>
-        <translation type="unfinished">Select All</translation>
+        <translation type="unfinished">เลือกทั้งหมด</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;Undo</translation>
+        <translation type="unfinished">แก้ไข</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation type="unfinished">&amp;Redo</translation>
+        <translation type="unfinished">ทำใหม่</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished">Cu&amp;t</translation>
+        <translation type="unfinished">ตัด</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Copy</translation>
+        <translation type="unfinished">ค้ดลอก</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Paste</translation>
+        <translation type="unfinished">วาง</translation>
     </message>
 </context>
 <context>
     <name>QTitleBar</name>
     <message>
         <source>System Menu</source>
-        <translation type="unfinished">System Menu</translation>
+        <translation type="unfinished">รายการระบบ</translation>
     </message>
     <message>
         <source>Shade</source>
-        <translation type="unfinished">Shade</translation>
+        <translation type="unfinished">ระบายเงา</translation>
     </message>
     <message>
         <source>Unshade</source>
-        <translation type="unfinished">Unshade</translation>
+        <translation>ไม่ระบายเงา</translation>
     </message>
     <message>
         <source>Normalize</source>
-        <translation type="unfinished">Normalise</translation>
+        <translation type="unfinished">ปกติ</translation>
     </message>
     <message>
         <source>Minimize</source>
-        <translation type="unfinished">Minimise</translation>
+        <translation type="unfinished">น้อยที่สุด</translation>
     </message>
     <message>
         <source>Maximize</source>
-        <translation type="unfinished">Maximise</translation>
+        <translation type="unfinished">มากที่สุด</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Close</translation>
+        <translation type="unfinished">ปิด</translation>
     </message>
 </context>
 <context>
     <name>QWorkspace</name>
     <message>
         <source>&amp;Restore</source>
-        <translation type="unfinished">&amp;Restore</translation>
+        <translation type="unfinished">กลับเหมือนเดิม</translation>
     </message>
     <message>
         <source>&amp;Move</source>
-        <translation type="unfinished">&amp;Move</translation>
+        <translation type="unfinished">ย้าย</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished">&amp;Size</translation>
+        <translation type="unfinished">ขนาด</translation>
     </message>
     <message>
         <source>Mi&amp;nimize</source>
-        <translation type="unfinished">Mi&amp;nimise</translation>
+        <translation type="unfinished">น้อยที่สุด</translation>
     </message>
     <message>
         <source>Ma&amp;ximize</source>
-        <translation type="unfinished">Ma&amp;ximise</translation>
+        <translation type="unfinished">มากที่สุด</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Close</translation>
+        <translation type="unfinished">ปิด</translation>
     </message>
     <message>
         <source>Stay on &amp;Top</source>
-        <translation type="unfinished">Stay on &amp;Top</translation>
+        <translation type="unfinished">อยู่ ด้าน บนสุด</translation>
     </message>
     <message>
         <source>Minimize</source>
-        <translation type="unfinished">Minimise</translation>
+        <translation type="unfinished">น้อยที่สุด</translation>
     </message>
     <message>
         <source>Restore Down</source>
-        <translation type="unfinished">Restore Down</translation>
+        <translation type="unfinished">กลับลงไปข้างล่างเหมือนเดิม</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Close</translation>
+        <translation type="unfinished">ปิด</translation>
     </message>
     <message>
         <source>Sh&amp;ade</source>
-        <translation type="unfinished">Sh&amp;ade</translation>
+        <translation type="unfinished">แรเงา</translation>
     </message>
     <message>
         <source>%1 - [%2]</source>
@@ -17535,7 +17477,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>&amp;Unshade</source>
-        <translation type="unfinished">&amp;Unshade</translation>
+        <translation type="unfinished">ไม่แรเงา</translation>
     </message>
 </context>
 <context>
@@ -17553,7 +17495,7 @@ is not exhaustive due to exceptions from called functions.
     <name>ReformDoc</name>
     <message>
         <source>Document Setup</source>
-        <translation type="unfinished">Document Setup</translation>
+        <translation type="unfinished">ตั้งค่าเอกสาร</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -17605,19 +17547,19 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished">&amp;Top:</translation>
+        <translation type="unfinished">บน:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;Left:</translation>
+        <translation type="unfinished">ซ้าย:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;Bottom:</translation>
+        <translation type="unfinished">ข้างล่าง:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation type="unfinished">&amp;Right:</translation>
+        <translation type="unfinished">ขวา:</translation>
     </message>
     <message>
         <source>&amp;Facing Pages</source>
@@ -17645,7 +17587,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Page Size</translation>
+        <translation type="unfinished">ขนาดกระดาษ</translation>
     </message>
     <message>
         <source>Size:</source>
@@ -17665,7 +17607,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Landscape</translation>
+        <translation type="unfinished">ภูมิประเทศ</translation>
     </message>
     <message>
         <source>Width:</source>
@@ -17681,31 +17623,31 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Size:</translation>
+        <translation type="unfinished">ขนาด:</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พลิก</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กว้าง</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สูง</translation>
     </message>
     <message>
         <source>&amp;Unit:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน่วย</translation>
     </message>
     <message>
         <source>Apply size settings to all pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สมัครการตั้งค่าขนาดกระดาษทั้งหมด</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บันทึกอัตโนมัติ</translation>
     </message>
     <message>
         <source>min</source>
@@ -17713,27 +17655,27 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ระยะ</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished">Document</translation>
+        <translation type="unfinished">เอกสาร</translation>
     </message>
     <message>
         <source>Document Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอกสารแนะนำ</translation>
     </message>
     <message>
         <source>Guides</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แนะนำ</translation>
     </message>
     <message>
         <source>Page Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงหน้า</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
@@ -17744,20 +17686,24 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Show Pictures</source>
+        <translation type="unfinished">แสดงรูปภาพ</translation>
+    </message>
+    <message>
         <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงแนวข้อความ</translation>
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงการบังคับลักษณะข้อความ</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงเฟลม</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม้บรรทัดบนหน้ากระดาษ</translation>
     </message>
     <message>
         <source>Minimum Scratch Space</source>
@@ -17765,19 +17711,19 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Gaps between Pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แก๊ป ระหว่างหน้ากระดาษ</translation>
     </message>
     <message>
         <source>Horizontal:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แนวขวาง</translation>
     </message>
     <message>
         <source>Vertical:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้นตั้งตรง</translation>
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดง</translation>
     </message>
     <message>
         <source>Typography</source>
@@ -17785,7 +17731,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Tools</source>
-        <translation type="unfinished">Tools</translation>
+        <translation type="unfinished">เครื่องมือ</translation>
     </message>
     <message>
         <source>Hyphenator</source>
@@ -17793,15 +17739,15 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>ตัวอักษร</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตรวจสอบก่อน</translation>
     </message>
     <message>
         <source>PDF Export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พีดีเอฟส่งออก</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
@@ -17813,74 +17759,70 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Sections</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แผนก</translation>
     </message>
     <message>
         <source>Color Management</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">การจัดการสี</translation>
     </message>
     <message>
         <source>Enable or disable the display of linked text frames.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สามารถ หรือ ไม่สามารถแสดงการเชื่อมต่อข้อความเฟลม</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงลักษระการพิมพ์ เช่นเครื่องหมายพารากราฟในข้อความเฟลม</translation>
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กลับไปแสดงเฟลม เปิด หรือ ปิด</translation>
+    </message>
+    <message>
+        <source>Turns the display of pictures on or off</source>
+        <translation type="unfinished">กลับไปแสดงรูปภาพเปิดหรือปิด</translation>
     </message>
     <message>
         <source>Color for paper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สีสำหรับกระดาษ</translation>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ครอบคลุมขอบข้างด้านนอก ในสีเส้นขอบ</translation>
     </message>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สมัครการเปลี่ยนขนาดหน้าไปยังหน้าที่อยู่ทั้งหมดในเอกสาร</translation>
     </message>
     <message>
         <source>Adjusting Colors</source>
-        <translation type="unfinished">Adjusting Colours</translation>
-    </message>
-    <message>
-        <source>Show Images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of images on or off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปรับสี</translation>
     </message>
 </context>
 <context>
     <name>RunScriptDialog</name>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">Python Scripts (*.py);; All Files (*)</translation>
+        <translation type="unfinished">ต้นฉบับไพตอน (*.py);; แฟ้มทั้งหมด (*)</translation>
     </message>
     <message>
         <source>Run as Extension Script</source>
         <comment>run script dialog</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดำเนินตามขอบเขตต้นฉบับ</translation>
     </message>
 </context>
 <context>
     <name>SMBase</name>
     <message>
         <source>Style Manager</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แบบการจัดการ</translation>
     </message>
     <message>
         <source>Column 1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คอลัมน์ 1</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่ม</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -17896,7 +17838,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>Alt+D</source>
@@ -17904,11 +17846,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished">Name:</translation>
+        <translation type="unfinished">ชื่อ:</translation>
     </message>
     <message>
         <source>O&amp;K</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Alt+K</source>
@@ -17916,7 +17858,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>A&amp;pply</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สมัคร</translation>
     </message>
     <message>
         <source>Alt+P</source>
@@ -17924,7 +17866,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Ca&amp;ncel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
     <message>
         <source>Alt+N</source>
@@ -17935,22 +17877,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <name>SMLineStyle</name>
     <message>
         <source>Properties</source>
-        <translation type="unfinished">Properties</translation>
+        <translation type="unfinished">คุณสมบัติ</translation>
     </message>
     <message>
         <source>Lines</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้น</translation>
     </message>
 </context>
 <context>
     <name>SToolBAlign</name>
     <message>
         <source>Style of current paragraph</source>
-        <translation type="unfinished">Style of current paragraph</translation>
+        <translation type="unfinished">รูปแบบของพารากราฟล่าสุด</translation>
     </message>
     <message>
         <source>Style Settings</source>
-        <translation type="unfinished">Style Settings</translation>
+        <translation type="unfinished">ตั้งค่ารูปแบบ</translation>
     </message>
 </context>
 <context>
@@ -17961,7 +17903,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Color of text fill</source>
-        <translation type="unfinished">Colour of text fill</translation>
+        <translation type="unfinished">เติมสีข้อความ</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
@@ -17969,7 +17911,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Fill Color Settings</source>
-        <translation type="unfinished">Fill Colour Settings</translation>
+        <translation type="unfinished">ตั้งค่าเติมสี</translation>
     </message>
 </context>
 <context>
@@ -17980,7 +17922,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Color of text stroke</source>
-        <translation type="unfinished">Colour of text stroke</translation>
+        <translation type="unfinished">สีของเส้นข้อความ</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
@@ -17988,14 +17930,14 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Stroke Color Settings</source>
-        <translation type="unfinished">Stroke Colour Settings</translation>
+        <translation type="unfinished">ตั้งค่าสีเส้นตัวหนังสือ</translation>
     </message>
 </context>
 <context>
     <name>SToolBFont</name>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source> %</source>
@@ -18003,23 +17945,23 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Font of selected text</source>
-        <translation type="unfinished">Font of selected text</translation>
+        <translation type="unfinished">รูปแบบอักษรของข้อความที่เลือก</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation type="unfinished">Font Size</translation>
+        <translation type="unfinished">ขนาดตัวอักษร</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation type="unfinished">Scaling width of characters</translation>
+        <translation type="unfinished">สเกลความกว้างของตัวอักษร</translation>
     </message>
     <message>
         <source>Font Settings</source>
-        <translation type="unfinished">Font Settings</translation>
+        <translation type="unfinished">ตั้งค่าตัวอักษร</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สเกลความสูงของตัวอักษร</translation>
     </message>
 </context>
 <context>
@@ -18038,41 +17980,41 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Character Settings</source>
-        <translation type="unfinished">Character Settings</translation>
+        <translation type="unfinished">ตั้งค่าตัวอักษร</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation type="unfinished">%</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">การติดตามการทำงานแบบแมนนวล</translation>
     </message>
 </context>
 <context>
     <name>SVGExportPlugin</name>
     <message>
         <source>Save Page as &amp;SVG...</source>
-        <translation type="unfinished">Save Page as &amp;SVG...</translation>
+        <translation type="unfinished">บันทึกเอกสารเป็นเอสวีจี...</translation>
     </message>
     <message>
         <source>Exports SVG Files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ส่งออกแฟ้ม เอสวีจี</translation>
     </message>
     <message>
         <source>Exports the current page into an SVG file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ส่งออกหน้าปัจจุบันไปยังแฟ้มเอสวีจี</translation>
     </message>
 </context>
 <context>
     <name>SVGImportPlugin</name>
     <message>
         <source>Import &amp;SVG...</source>
-        <translation type="unfinished">Import &amp;SVG...</translation>
+        <translation type="unfinished">นำเข้า เอสวีจี...</translation>
     </message>
     <message>
         <source>Imports SVG Files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">นำเข้าแฟ้มเอสวีจี</translation>
     </message>
     <message>
         <source>Imports most SVG files into the current document,
@@ -18093,7 +18035,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คำสั้น</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
@@ -18103,67 +18045,67 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือกเฟลม</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แอคทีฟ หน้า</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ทุกไอเท็ม</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดำเนินการเลือกเฟลมเท่านั้น</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดำเนินการหน้าปัจจุบันเท่านั้น</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดำเนินการข้อในเอกสารทั้งหมด</translation>
     </message>
 </context>
 <context>
     <name>SWPrefsGui</name>
     <message>
         <source>User settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าผู้ใช้</translation>
     </message>
     <message>
         <source>System wide configuration</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ระบบความกว้างรูปร่างภายนอก</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Save</translation>
+        <translation type="unfinished">บันทึก</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าใหม่</translation>
     </message>
     <message>
         <source>Save user configuration</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บันทึกการตั้งค่าของผู้ใช้</translation>
     </message>
     <message>
         <source>Reload system wide configuration and remove user defined one</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โหลดระบบความกว้างรูปร่างภายและกำหนดย้ายผู้ใช้เพียงหนึ่งเดียว</translation>
     </message>
     <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แก้ไขการตั้งค่า. ถ้าคุณทำการบันทึก. มันจะถูกเรียกใช้โดยระบบหลัก</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คำสั้น</translation>
     </message>
     <message>
         <source>User configuration exists elready. Do you really want to overwrite it?</source>
@@ -18171,26 +18113,26 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Cannot write file %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถเขียนแฟ้มได้ %1</translation>
     </message>
     <message>
         <source>User settings saved</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บันทึกการตั้งค่าของผู้ใช้</translation>
     </message>
     <message>
         <source>System wide configuration reloaded</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ระบบความกว้างรูปร่าง โหลดอีกครั้ง</translation>
     </message>
     <message>
         <source>Cannot open file %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถเปิดแฟ้ม %1</translation>
     </message>
 </context>
 <context>
     <name>SaveAsTemplatePlugin</name>
     <message>
         <source>Save as &amp;Template...</source>
-        <translation type="unfinished">Save as &amp;Template...</translation>
+        <translation type="unfinished">บันทึกเป็นแม่แบบ...</translation>
     </message>
     <message>
         <source>Save a document as a template</source>
@@ -18205,7 +18147,7 @@ converting their vector data into Scribus objects.</source>
     <name>ScPlugin</name>
     <message>
         <source>Load/Save/Import/Export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โหลด/บันทึก/นำเข้า/ส่งออก</translation>
     </message>
     <message>
         <source>Persistent</source>
@@ -18215,64 +18157,64 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Action</source>
         <comment>plugin manager plugin type</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลักษณะท่าทาง</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่รู้ชื่อ</translation>
     </message>
 </context>
 <context>
     <name>ScToolBar</name>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บน</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขวา</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ล่าง</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ซ้าย</translation>
     </message>
     <message>
         <source>Allow Docking To...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อนุญาติให้แนบที่...</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished">Horizontal</translation>
+        <translation type="unfinished">แนวนอน</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished">Vertical</translation>
+        <translation type="unfinished">แนวตั้ง</translation>
     </message>
     <message>
         <source>Floating Orientation...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Floating Orientation...</translation>
     </message>
 </context>
 <context>
     <name>ScWinPrint</name>
     <message>
         <source>Printing...</source>
-        <translation type="unfinished">Printing...</translation>
+        <translation type="unfinished">พิมพ์...</translation>
     </message>
 </context>
 <context>
     <name>ScriXmlDoc</name>
     <message>
         <source>Copy #%1 of </source>
-        <translation type="unfinished">Copy #%1 of </translation>
+        <translation type="unfinished">คัดลอก #%1 of </translation>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished">Background</translation>
+        <translation type="unfinished">พื้นหลัง</translation>
     </message>
 </context>
 <context>
@@ -19472,34 +19414,34 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Document Colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สีเอกสาร</translation>
     </message>
 </context>
 <context>
     <name>ScribusDoc</name>
     <message>
         <source>Document</source>
-        <translation type="unfinished">Document</translation>
+        <translation type="unfinished">เอกสาร</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation>พื้นหลัง</translation>
     </message>
     <message>
         <source>New Layer</source>
-        <translation type="unfinished">New Layer</translation>
+        <translation type="unfinished">ชั้นใหม่</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation type="unfinished">ปกติ</translation>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คุณต้องการที่จะล้างข้อความของคุณทั้งหมดหรือไม่?</translation>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถลบ ผู้ใช้ไอเท็ม</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
@@ -19507,7 +19449,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อผิดพลาดเกิดขึ้น ขณะที่กำลังเปิด โปรไฟล์ ไอซีซี,ไม่สามารถจัดการกับสีได้</translation>
     </message>
 </context>
 <context>
@@ -19518,23 +19460,23 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Initializing Plugins</source>
-        <translation type="unfinished">Initialising Plugins</translation>
+        <translation type="unfinished">เตรียมค่าปลั๊กอิน</translation>
     </message>
     <message>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เตรียมค่าทางลัดแป้นพิมพ์</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation type="unfinished">Reading Preferences</translation>
+        <translation type="unfinished">อ่านข้อมูลอ้างอิง</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เตรียมค่าเริ่มต้น Story Editor</translation>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อ่านโปรไฟล์ ไอซีซ๊</translation>
     </message>
     <message>
         <source>Initializing Hyphenator</source>
@@ -19546,187 +19488,191 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Setting up Shortcuts</source>
-        <translation type="unfinished">Setting up Shortcuts</translation>
+        <translation type="unfinished">ตั้งค่าทางลัด</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">File</translation>
+        <translation type="unfinished">แฟ้ม</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>แก้ไข</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation type="unfinished">Searching for Fonts</translation>
+        <translation type="unfinished">ค้นหาตัวอักษร</translation>
     </message>
     <message>
         <source>There are no fonts found on your system.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่มีอักษรที่กำหนดบนระบบของคุณ</translation>
     </message>
     <message>
         <source>Exiting now.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ออกตอนนี้</translation>
     </message>
     <message>
         <source>Fatal Error</source>
-        <translation type="unfinished">Fatal Error</translation>
+        <translation type="unfinished">ผิดพลาดร้ายแรง</translation>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation type="unfinished">Font System Initialised</translation>
+        <translation type="unfinished">ริเริ่มระบบตัวอักษร</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;File</translation>
+        <translation type="unfinished">แฟ้ม</translation>
     </message>
     <message>
         <source>Open &amp;Recent</source>
-        <translation type="unfinished">Open &amp;Recent</translation>
+        <translation type="unfinished">เอกสารปัจจุบัน</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Import</translation>
+        <translation type="unfinished">นำเข้า</translation>
     </message>
     <message>
         <source>&amp;Export</source>
-        <translation type="unfinished">&amp;Export</translation>
+        <translation type="unfinished">ส่งออก</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Edit</translation>
+        <translation type="unfinished">แก้ไข</translation>
     </message>
     <message>
         <source>St&amp;yle</source>
-        <translation type="unfinished">St&amp;yle</translation>
+        <translation type="unfinished">รูปแบบ</translation>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation type="unfinished">&amp;Colour</translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished">&amp;Size</translation>
+        <translation type="unfinished">ขนาด</translation>
     </message>
     <message>
         <source>&amp;Shade</source>
-        <translation type="unfinished">&amp;Shade</translation>
+        <translation type="unfinished">ไล่ระดับสี</translation>
     </message>
     <message>
         <source>&amp;Font</source>
-        <translation type="unfinished">&amp;Font</translation>
+        <translation type="unfinished">อักษระ</translation>
     </message>
     <message>
         <source>&amp;Effects</source>
-        <translation type="unfinished">&amp;Effects</translation>
+        <translation type="unfinished">ตกแต่ง</translation>
     </message>
     <message>
         <source>&amp;Item</source>
-        <translation type="unfinished">&amp;Item</translation>
+        <translation type="unfinished">ไอเท็ม</translation>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าเค้าโครง</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ระดับ</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation type="unfinished">Send to La&amp;yer</translation>
+        <translation type="unfinished">ส่งออกไปที่ชั้น</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation type="unfinished">&amp;PDF Options</translation>
+        <translation type="unfinished">ตัวเลือก พีดีเอฟ</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation type="unfinished">&amp;Shape</translation>
+        <translation type="unfinished">รูปร่าง</translation>
     </message>
     <message>
         <source>C&amp;onvert To</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กลับไปยัง</translation>
     </message>
     <message>
         <source>I&amp;nsert</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทรก</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวอักษร</translation>
     </message>
     <message>
         <source>Quote</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อ้าง</translation>
     </message>
     <message>
         <source>Space</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ช่องว่าง</translation>
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation type="unfinished">&amp;Page</translation>
+        <translation type="unfinished">หน้า</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation type="unfinished">&amp;View</translation>
+        <translation type="unfinished">มุมมอง</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation type="unfinished">E&amp;xtras</translation>
+        <translation type="unfinished">พิเศษ</translation>
     </message>
     <message>
         <source>&amp;Windows</source>
-        <translation type="unfinished">&amp;Windows</translation>
+        <translation type="unfinished">หน้าต่าง</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation type="unfinished">&amp;Help</translation>
+        <translation type="unfinished">ช่วยเหลือ</translation>
     </message>
     <message>
         <source>&amp;Alignment</source>
-        <translation type="unfinished">&amp;Alignment</translation>
+        <translation type="unfinished">เส้นตรง</translation>
     </message>
     <message>
         <source>Ready</source>
-        <translation type="unfinished">Ready</translation>
+        <translation type="unfinished">พร้อม</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation type="unfinished">เปิด</translation>
     </message>
     <message>
         <source>Importing Pages...</source>
-        <translation type="unfinished">Importing Pages...</translation>
+        <translation type="unfinished">นำเข้าหน้า...</translation>
     </message>
     <message>
         <source>Import Page(s)</source>
-        <translation type="unfinished">Import Page(s)</translation>
+        <translation type="unfinished">นำเข้าหน้า(s)</translation>
     </message>
     <message>
         <source>Import done</source>
-        <translation type="unfinished">Import done</translation>
+        <translation type="unfinished">นำเข้าเสร็จสิ้น</translation>
     </message>
     <message>
         <source>Found nothing to import</source>
-        <translation type="unfinished">Found nothing to import</translation>
+        <translation type="unfinished">ไม่พบสิ่งที่ต้องการนำเข้า</translation>
     </message>
     <message>
         <source>File %1 is not in an acceptable format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แฟ้ม%1 ไม่สามารถรองรับการรูปแบบ</translation>
     </message>
     <message>
         <source>Loading...</source>
-        <translation type="unfinished">Loading...</translation>
+        <translation type="unfinished">โหลด...</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บางโปรไฟล์ ไอซีซี ผู้ใช้เอกสารติดตั้งไม่ได้</translation>
     </message>
     <message>
         <source> was replaced by: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทนที่โดย</translation>
     </message>
     <message>
         <source>(converted)</source>
@@ -19734,116 +19680,116 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>All Supported Formats</source>
-        <translation type="unfinished">All Supported Formats</translation>
+        <translation type="unfinished">สนับสนุนการฟอร์แมต ทั้งหมด</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">All Files (*)</translation>
+        <translation type="unfinished">แฟ้มทั้งหมด(*)</translation>
     </message>
     <message>
         <source>Cannot write the file: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถเขียนแฟ้ม %1</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation type="unfinished">Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</translation>
+        <translation type="unfinished">เอกสาร (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation type="unfinished">Documents (*.sla *.scd);;All Files (*)</translation>
+        <translation type="unfinished">เอกสาร (*.sla *.scd);;All Files (*)</translation>
     </message>
     <message>
         <source>Save As</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บันทึกเป็น</translation>
     </message>
     <message>
         <source>Saving...</source>
-        <translation type="unfinished">Saving...</translation>
+        <translation type="unfinished">บันทึก..</translation>
     </message>
     <message>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">การตรวจสอบสไครบัสบางอย่างผิดพลาด พิจารณาใช้ข้อพิสูจน์ที่ถูกต้อง</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ละทิ้ง</translation>
     </message>
     <message>
         <source>&amp;Abort</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
     <message>
         <source>Printing...</source>
-        <translation type="unfinished">Printing...</translation>
+        <translation type="unfinished">พิมพ์...</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished">Document</translation>
+        <translation type="unfinished">เอกสาร</translation>
     </message>
     <message>
         <source>Printing failed!</source>
-        <translation type="unfinished">Printing failed!</translation>
+        <translation type="unfinished">พิมพ์ล้มเหลว!</translation>
     </message>
     <message>
         <source>Cannot Cut In-Use Item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถตัดสิ่งที่ถูกเรียกใช้งานอยู่</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไอเท็ม %1 กำลังแก้ไขด้วย Story Editor การดำเนินการตัดจะถูกยกเลิก</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation type="unfinished">About Qt</translation>
+        <translation type="unfinished">เกี่ยวกับ คิวที</translation>
     </message>
     <message>
         <source>Scribus Manual</source>
-        <translation type="unfinished">Scribus Manual</translation>
+        <translation type="unfinished">คู่มือสคไครบัส</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Save as</translation>
+        <translation type="unfinished">บันทึกเป็น</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation type="unfinished">Text Files (*.txt);;All Files(*)</translation>
+        <translation type="unfinished">แฟ้มข้อความ (*.txt);;แฟ้มทั้งหมด(*)</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation type="unfinished">ปกติ</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished">Name:</translation>
+        <translation type="unfinished">ชื่อ:</translation>
     </message>
     <message>
         <source>Convert Page to Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กลับไปยังหน้าหลัก</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Size:</translation>
+        <translation type="unfinished">ขนาด:</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished">Size</translation>
+        <translation type="unfinished">ขนาด</translation>
     </message>
     <message>
         <source>&amp;Shade:</source>
-        <translation type="unfinished">&amp;Shade:</translation>
+        <translation type="unfinished">ไล่ระดับสี:</translation>
     </message>
     <message>
         <source>Shade</source>
-        <translation type="unfinished">Shade</translation>
+        <translation type="unfinished">ไล่ระดับสี</translation>
     </message>
     <message>
         <source>No Style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่มีรูปแบบ</translation>
     </message>
     <message>
         <source>The following programs are missing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โปรแกรมดังต่อไปนี้ไม่มีในระบบ:</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
@@ -19851,7 +19797,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">All</translation>
+        <translation type="unfinished">ทั้งหมด</translation>
     </message>
     <message>
         <source>Scribus detected some errors.
@@ -19860,7 +19806,7 @@ Consider using the Preflight Verifier  to correct them.</source>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แฟ้ม อีพีเอส ,แฟ้มทั้งหมด</translation>
     </message>
     <message>
         <source>Detected some errors.
@@ -19869,31 +19815,31 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>-Page%1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">-หน้า%1</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">บางวัตถุโดนล๊อค</translation>
     </message>
     <message>
         <source>&amp;Lock All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ล็อคทั้งหมด</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่ล๊อคทั้งหมด</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation type="unfinished">คำแนะนำ</translation>
     </message>
     <message>
         <source>The program %1 is already running!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โปรแกรม %1 ถูกเรียกใช้งานอยู่ก่อนแล้ว</translation>
     </message>
     <message>
         <source>The program %1 is missing!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โปรแกรม %1 ไม่มีอยู่ในระบบ</translation>
     </message>
     <message>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
@@ -19901,7 +19847,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Color Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่พบสี</translation>
     </message>
     <message>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
@@ -19909,19 +19855,19 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>&amp;Level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ระดับ</translation>
     </message>
     <message>
         <source>Send to Layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ส่งออกไปที่ชั้น</translation>
     </message>
     <message>
         <source>Previe&amp;w Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าเค้าโครง</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation type="unfinished">&amp;Tools</translation>
+        <translation type="unfinished">เครื่องมือ</translation>
     </message>
     <message>
         <source>X-Pos:</source>
@@ -19933,15 +19879,15 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Spaces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ช่องว่าง &amp;&amp; แบ่ง</translation>
     </message>
     <message>
         <source>Ligature</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อักษรควบ</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าหลักใหม่ %1</translation>
     </message>
     <message>
         <source>Number of copies: %1
@@ -19951,28 +19897,23 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โกสต์สคริป คุณไม่สามารถใช้ รูปอีพีเอส หรือ พิมพ์เค้าโครงปล.</translation>
     </message>
     <message>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โกสต์สคริป ผิดพลาด เค้าโครงพิมพ์ ปล.ไม่สามารถหาได้</translation>
     </message>
     <message>
         <source>Do you really want to replace your existing image?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คุณต้องการแทนที่ รูปเดิมที่มีอยู่ไหม?</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สารบัญ</translation>
     </message>
     <message>
         <source>Liga&amp;ture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Your document was saved to a temporary file and could not be moved: 
-%1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อักษรควบ</translation>
     </message>
 </context>
 <context>
@@ -19991,7 +19932,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวเลือก</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
@@ -19999,15 +19940,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ใช้ เอ๊กซ์เอ๊กซ์ ทางลัด สำหรับภาษา, อีจี อีเอ็น หรือ ดีอี</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รายการติดตั้งภาษา</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงคำแนะนำบน คอนโซล ขณะที่โหลดตัวอีกษร</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
@@ -20015,7 +19956,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รุ่นคำแนะนำที่ส่งออก</translation>
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
@@ -20023,11 +19964,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>filename</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชื่อแฟ้ม</translation>
     </message>
     <message>
         <source>Use filename as path for user given preferences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ใช้ชื่อแฟ้มพาธสำหรับใช้เป็นชื่ออ้างอิง</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
@@ -20043,34 +19984,30 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Scribus Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รุ่นสไครบัส</translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สไครบัส, เปิดประกาศแหล่งที่มาหน้าจอ</translation>
     </message>
     <message>
         <source>Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าแรก</translation>
     </message>
     <message>
         <source>Documentation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอกสาร</translation>
     </message>
     <message>
         <source>Wiki</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วิกี้</translation>
     </message>
     <message>
         <source>Issues</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ฉบับ</translation>
     </message>
     <message>
         <source>Display a console window</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show location ICC profile information on console while starting</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20082,7 +20019,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Layer</source>
-        <translation type="unfinished">Layer</translation>
+        <translation type="unfinished">ชั้น</translation>
     </message>
     <message>
         <source>All</source>
@@ -20106,27 +20043,27 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Copy Here</source>
-        <translation type="unfinished">Copy Here</translation>
+        <translation type="unfinished">คัดลอกที่นี่</translation>
     </message>
     <message>
         <source>Move Here</source>
-        <translation type="unfinished">Move Here</translation>
+        <translation type="unfinished">ย้ายที่นี่</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Paste</translation>
+        <translation type="unfinished">วาง</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation type="obsolete">Picture</translation>
+        <translation type="unfinished">รูปภาพ</translation>
     </message>
     <message>
         <source>File: </source>
-        <translation type="unfinished">File </translation>
+        <translation type="unfinished">แฟ้ม</translation>
     </message>
     <message>
         <source>Original PPI: </source>
@@ -20142,87 +20079,87 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่รู้ชื่อ</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">RGB</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">CMYK</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เทา</translation>
     </message>
     <message>
         <source>Linked Text</source>
-        <translation type="unfinished">Linked Text</translation>
+        <translation type="unfinished">เชื่อมต่อข้อความ</translation>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation type="unfinished">Text Frame</translation>
+        <translation type="unfinished">เฟลมข้อความ</translation>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation type="unfinished">Text on a Path</translation>
+        <translation type="unfinished">ข้อความบนพาธ</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation type="unfinished">Paragraphs: </translation>
+        <translation type="unfinished">ย่อหน้า: </translation>
     </message>
     <message>
         <source>Words: </source>
-        <translation type="unfinished">Words: </translation>
+        <translation type="unfinished">คำ: </translation>
     </message>
     <message>
         <source>Chars: </source>
-        <translation type="unfinished">Chars: </translation>
+        <translation type="unfinished">อักษร: </translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation type="obsolete">Print: </translation>
+        <translation type="unfinished">พิมพ์: </translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished">Enabled</translation>
+        <translation type="unfinished">เลือก</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Disabled</translation>
+        <translation type="unfinished">ไม่เลือก</translation>
     </message>
     <message>
         <source>In&amp;fo</source>
-        <translation type="unfinished">In&amp;fo</translation>
+        <translation type="unfinished">ข้อมูล</translation>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าตัวอย่าง</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation type="unfinished">&amp;PDF Options</translation>
+        <translation type="unfinished">ตัวเลือกพีดีเอฟ</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation type="unfinished">Send to La&amp;yer</translation>
+        <translation type="unfinished">ส่งไปยังชั้น</translation>
     </message>
     <message>
         <source>Le&amp;vel</source>
-        <translation type="unfinished">Le&amp;vel</translation>
+        <translation type="unfinished">ระดับ</translation>
     </message>
     <message>
         <source>Conve&amp;rt to</source>
-        <translation type="unfinished">Conve&amp;rt to</translation>
+        <translation type="unfinished">กลับไป</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>Linking Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เชื่อมต่อเฟรมข้อความ</translation>
     </message>
     <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
@@ -20230,11 +20167,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Page %1 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้า%1 ถึง %2</translation>
     </message>
     <message>
         <source>Cannot Convert In-Use Item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถเปลี่ยนวัตถุที่กำลังเรียกใช้อยู่</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
@@ -20242,15 +20179,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Export: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="unfinished">Image</translation>
+        <translation type="unfinished">สารบัญ</translation>
     </message>
 </context>
 <context>
@@ -20261,11 +20190,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Document:</source>
-        <translation type="unfinished">Document:</translation>
+        <translation type="unfinished">เอกสาร:</translation>
     </message>
     <message>
         <source>has been changed since the last save.</source>
-        <translation type="unfinished">has been changed since the last save.</translation>
+        <translation type="unfinished">การเปลี่ยนแปลงครั้งล่าสุดถูกบันทึก.</translation>
     </message>
     <message>
         <source>&amp;Leave Anyway</source>
@@ -20285,7 +20214,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Discard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ละทิ้ง</translation>
     </message>
 </context>
 <context>
@@ -20296,18 +20225,18 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Scripter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สคริปเตอร์</translation>
     </message>
 </context>
 <context>
     <name>ScripterCore</name>
     <message>
         <source>Script error</source>
-        <translation type="unfinished">Script error</translation>
+        <translation type="unfinished">ต้นฉบับผิดพลาด</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished">If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</translation>
+        <translation type="unfinished">ถ้าคุณกำลังดำเนินการรายงานต้นฉบับอยู่ ที่ &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
@@ -20323,7 +20252,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Python Scripts (*.py);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ต้นฉบับไพตอน แฟ้มทั้งหมด</translation>
     </message>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
@@ -20331,11 +20260,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Documentation for:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เอกสารสำหรับ</translation>
     </message>
     <message>
         <source>Script</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ต้นฉบับ</translation>
     </message>
     <message>
         <source> doesn&apos;t contain any docstring!</source>
@@ -20346,66 +20275,66 @@ Vertical shift: %3</source>
     <name>ScripterPrefsGui</name>
     <message>
         <source>Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวขยาย:</translation>
     </message>
     <message>
         <source>Console</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คอนโซล</translation>
     </message>
     <message>
         <source>Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ต้นฉบับอ้างถึง</translation>
     </message>
     <message>
         <source>Enable Extension Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สามารถขยายต้นฉบับ</translation>
     </message>
     <message>
         <source>Startup Script:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เริ่มต้นสคริบส์</translation>
     </message>
     <message>
         <source>Errors:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ผิดพลาด:</translation>
     </message>
     <message>
         <source>Comments:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อวิจารณ์:</translation>
     </message>
     <message>
         <source>Keywords:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คำสำคัญ:</translation>
     </message>
     <message>
         <source>Signs:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สัญลักษณ์:</translation>
     </message>
     <message>
         <source>Numbers:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตัวเลข:</translation>
     </message>
     <message>
         <source>Strings:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้น</translation>
     </message>
     <message>
         <source>Base Texts:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ฐานข้อความ</translation>
     </message>
     <message>
         <source>Select Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือกสี</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation type="unfinished">Change...</translation>
+        <translation type="unfinished">เปลี่ยน...</translation>
     </message>
     <message>
         <source>Locate Startup Script</source>
@@ -20416,7 +20345,7 @@ Vertical shift: %3</source>
     <name>SeList</name>
     <message>
         <source>Show Page Previews</source>
-        <translation type="unfinished">Show Page Previews</translation>
+        <translation type="unfinished">แสดงเค้าโครงร่างกระดาษ</translation>
     </message>
 </context>
 <context>
@@ -20430,39 +20359,39 @@ Vertical shift: %3</source>
     <name>SearchReplace</name>
     <message>
         <source>Search/Replace</source>
-        <translation type="unfinished">Search/Replace</translation>
+        <translation type="unfinished">ค้นหา/แทนที่</translation>
     </message>
     <message>
         <source>Search for:</source>
-        <translation type="unfinished">Search for:</translation>
+        <translation type="unfinished">ค้นหาสำหรับ:</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished">Text</translation>
+        <translation type="unfinished">ช้อความ</translation>
     </message>
     <message>
         <source>Paragraph Style</source>
-        <translation type="unfinished">Paragraph Style</translation>
+        <translation type="unfinished">รูปแบบย่อหน้า</translation>
     </message>
     <message>
         <source>Font</source>
-        <translation type="unfinished">Font</translation>
+        <translation type="unfinished">ตัวอักษร</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation type="unfinished">Font Size</translation>
+        <translation>ขนาดตัวอักษร</translation>
     </message>
     <message>
         <source>Font Effects</source>
-        <translation type="unfinished">Font Effects</translation>
+        <translation type="unfinished">ตกแต่งตัวอักษร</translation>
     </message>
     <message>
         <source>Fill Color</source>
-        <translation type="unfinished">Fill Colour</translation>
+        <translation type="unfinished">เติมสี</translation>
     </message>
     <message>
         <source>Fill Shade</source>
-        <translation type="unfinished">Fill Shade</translation>
+        <translation type="unfinished">เติมการไล่สี</translation>
     </message>
     <message>
         <source>Stroke Color</source>
@@ -20474,19 +20403,19 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished">Left</translation>
+        <translation type="unfinished">ซ้าย</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished">Centre</translation>
+        <translation type="unfinished">กลาง</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished">Right</translation>
+        <translation type="unfinished">ขวา</translation>
     </message>
     <message>
         <source>Block</source>
-        <translation type="unfinished">Block</translation>
+        <translation type="unfinished">บล็อค</translation>
     </message>
     <message>
         <source>Forced</source>
@@ -20494,7 +20423,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source>None</source>
@@ -20502,11 +20431,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Replace with:</source>
-        <translation type="unfinished">Replace with:</translation>
+        <translation type="unfinished">แทนที่กับ:</translation>
     </message>
     <message>
         <source>Search finished</source>
-        <translation type="unfinished">Search finished</translation>
+        <translation type="unfinished">ค้นหาเสร็จสิ้น</translation>
     </message>
     <message>
         <source>OK</source>
@@ -20514,35 +20443,35 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Whole Word</source>
-        <translation type="unfinished">&amp;Whole Word</translation>
+        <translation type="unfinished">คำศัพย์ทั้งหมด</translation>
     </message>
     <message>
         <source>&amp;Ignore Case</source>
-        <translation type="unfinished">&amp;Ignore Case</translation>
+        <translation type="unfinished">เพิกเฉยกรณ๊</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Search</translation>
+        <translation type="unfinished">ค้นหา</translation>
     </message>
     <message>
         <source>&amp;Replace</source>
-        <translation type="unfinished">&amp;Replace</translation>
+        <translation type="unfinished">แทนที่</translation>
     </message>
     <message>
         <source>Replace &amp;All</source>
-        <translation type="unfinished">Replace &amp;All</translation>
+        <translation type="unfinished">แทนที่ ทั้งหมด</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Close</translation>
+        <translation type="unfinished">ปิด</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">C&amp;lear</translation>
+        <translation type="unfinished">ล้าง</translation>
     </message>
     <message>
         <source>Search finished, found %1 matches</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ค้นหาเสร็จสิ้น,กำหนด%1 แมซ</translation>
     </message>
 </context>
 <context>
@@ -20590,15 +20519,15 @@ drag a Template to the Pageview below.</translation>
     <name>SelectFields</name>
     <message>
         <source>Select Fields</source>
-        <translation type="unfinished">Select Fields</translation>
+        <translation type="unfinished">เลือกฟิลด์</translation>
     </message>
     <message>
         <source>Available Fields</source>
-        <translation type="unfinished">Available Fields</translation>
+        <translation type="unfinished">ฟิลด์ที่เหมาะสม</translation>
     </message>
     <message>
         <source>Selected Fields</source>
-        <translation type="unfinished">Selected Fields</translation>
+        <translation type="unfinished">เลือกฟิลด์</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
@@ -20621,15 +20550,15 @@ drag a Template to the Pageview below.</translation>
     <name>ShadeButton</name>
     <message>
         <source>Other...</source>
-        <translation type="unfinished">Other...</translation>
+        <translation type="unfinished">อื่นๆ..</translation>
     </message>
     <message>
         <source>Shade</source>
-        <translation type="unfinished">Shade</translation>
+        <translation type="unfinished">การไล่สี</translation>
     </message>
     <message>
         <source>&amp;Shade:</source>
-        <translation type="unfinished">&amp;Shade:</translation>
+        <translation type="unfinished">การไล่สี:</translation>
     </message>
 </context>
 <context>
@@ -20652,11 +20581,11 @@ drag a Template to the Pageview below.</translation>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สั้น คำศัพย์</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คำสั้น</translation>
     </message>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
@@ -20667,33 +20596,33 @@ drag a Template to the Pageview below.</translation>
     <name>SideBar</name>
     <message>
         <source>No Style</source>
-        <translation type="unfinished">No Style</translation>
+        <translation type="unfinished">ไม่มีรูปแบบ</translation>
     </message>
     <message>
         <source>Edit Styles...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แกไขรูปแบบ</translation>
     </message>
 </context>
 <context>
     <name>Spalette</name>
     <message>
         <source>No Style</source>
-        <translation type="unfinished">No Style</translation>
+        <translation type="unfinished">ไม่มีรูปแบบ</translation>
     </message>
 </context>
 <context>
     <name>StilFormate</name>
     <message>
         <source>Edit Styles</source>
-        <translation type="unfinished">Edit Styles</translation>
+        <translation type="unfinished">แก้ไขรูปแบบ</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation type="unfinished">Copy of %1</translation>
+        <translation type="unfinished">คัดลอก%1</translation>
     </message>
     <message>
         <source>New Style</source>
-        <translation type="unfinished">New Style</translation>
+        <translation type="unfinished">รูปแบบใหม่</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -20709,15 +20638,15 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation type="unfinished">เปิด</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation type="unfinished">Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
+        <translation type="unfinished">เอกสาร (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation type="unfinished">Documents (*.sla *.scd);;All Files (*)</translation>
+        <translation type="unfinished">เอกสาร (*.sla *.scd);;All Files (*)</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -20725,19 +20654,19 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;New</translation>
+        <translation type="unfinished">&amp;ใหม่</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Edit</translation>
+        <translation type="unfinished">&amp;แก้ไข</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation type="unfinished">D&amp;uplicate</translation>
+        <translation type="unfinished">ฉบับ&amp;คู่</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">&amp;ลบ</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -20757,22 +20686,22 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Import</translation>
+        <translation type="unfinished">&amp;นำเข้า</translation>
     </message>
 </context>
 <context>
     <name>StoryEditor</name>
     <message>
         <source>Story Editor</source>
-        <translation type="unfinished">Story Editor</translation>
+        <translation type="unfinished">แก้ไขเรื่อง</translation>
     </message>
     <message>
         <source>Current Paragraph:</source>
-        <translation type="unfinished">Current Paragraph:</translation>
+        <translation type="unfinished">พารากราฟปัจจุบัน:</translation>
     </message>
     <message>
         <source>Words: </source>
-        <translation type="unfinished">Words: </translation>
+        <translation type="unfinished">คำ: </translation>
     </message>
     <message>
         <source>Chars: </source>
@@ -20780,11 +20709,11 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>Totals:</source>
-        <translation type="unfinished">Totals:</translation>
+        <translation type="unfinished">รวม:</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation type="unfinished">Paragraphs: </translation>
+        <translation type="unfinished">พาราการฟ: </translation>
     </message>
     <message>
         <source>Warning</source>
@@ -20800,91 +20729,91 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation type="unfinished">เปิด</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation type="unfinished">Text Files (*.txt);;All Files(*)</translation>
+        <translation type="unfinished">แฟ้มข้อความ (*.txt);;All Files(*)</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Save as</translation>
+        <translation type="unfinished">บันทึกเป็น</translation>
     </message>
     <message>
         <source>Do you want to save your changes?</source>
-        <translation type="unfinished">Do you want to save your changes?</translation>
+        <translation type="unfinished">คุณต้องการบันทึกการเปลี่ยนแปลงหรือไม่?</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;New</translation>
+        <translation type="unfinished">ใหม่</translation>
     </message>
     <message>
         <source>&amp;Reload Text from Frame</source>
-        <translation type="unfinished">&amp;Reload Text from Frame</translation>
+        <translation type="unfinished">โหลดข้อความจากเฟลมอีกครั้ง</translation>
     </message>
     <message>
         <source>&amp;Save to File...</source>
-        <translation type="unfinished">&amp;Save to File...</translation>
+        <translation type="unfinished">บันทึกเป็นแฟ้ม...</translation>
     </message>
     <message>
         <source>&amp;Load from File...</source>
-        <translation type="unfinished">&amp;Load from File...</translation>
+        <translation type="unfinished">โหลดจากแฟ้ม...</translation>
     </message>
     <message>
         <source>Save &amp;Document</source>
-        <translation type="unfinished">Save &amp;Document</translation>
+        <translation type="unfinished">บันทึกเอกสาร</translation>
     </message>
     <message>
         <source>&amp;Update Text Frame and Exit</source>
-        <translation type="unfinished">&amp;Update Text Frame and Exit</translation>
+        <translation type="unfinished">ข้อความจากเฟลมล่าสุด และ ออก</translation>
     </message>
     <message>
         <source>&amp;Exit Without Updating Text Frame</source>
-        <translation type="unfinished">&amp;Exit Without Updating Text Frame</translation>
+        <translation type="unfinished">ออกโดยปราศจากข้อความเฟลมล่าสุด</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished">Cu&amp;t</translation>
+        <translation type="unfinished">ตัด</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Copy</translation>
+        <translation type="unfinished">คัดลอก</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Paste</translation>
+        <translation type="unfinished">วาง</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">C&amp;lear</translation>
+        <translation type="unfinished">ล้าง</translation>
     </message>
     <message>
         <source>&amp;Insert Special...</source>
-        <translation type="obsolete">&amp;Insert Special...</translation>
+        <translation type="unfinished">แทรกแบบพิเศษ...</translation>
     </message>
     <message>
         <source>&amp;Update Text Frame</source>
-        <translation type="unfinished">&amp;Update Text Frame</translation>
+        <translation type="unfinished">ข้อความเฟลมล่าสุด</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;File</translation>
+        <translation type="unfinished">แฟ้ม</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Edit</translation>
+        <translation type="unfinished">แก้ไข</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
-        <translation type="unfinished">Select &amp;All</translation>
+        <translation type="unfinished">เลือก ทั้งหมด</translation>
     </message>
     <message>
         <source>&amp;Edit Styles...</source>
-        <translation type="unfinished">&amp;Edit Styles...</translation>
+        <translation type="unfinished">แก้ไขรูปแบบ...</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">File</translation>
+        <translation type="unfinished">แฟ้ม</translation>
     </message>
     <message>
         <source>Load Text from File</source>
@@ -20912,23 +20841,23 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation type="unfinished">&amp;Search/Replace...</translation>
+        <translation type="unfinished">ค้นหา/แทนที่...</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>
-        <translation type="unfinished">&amp;Fonts Preview...</translation>
+        <translation type="unfinished">เค้าโครงอักษร...</translation>
     </message>
     <message>
         <source>&amp;Background...</source>
-        <translation type="unfinished">&amp;Background...</translation>
+        <translation type="unfinished">พื้นหลัง...</translation>
     </message>
     <message>
         <source>&amp;Display Font...</source>
-        <translation type="unfinished">&amp;Display Font...</translation>
+        <translation type="unfinished">แสดงตัวอักษร...</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished">&amp;Settings</translation>
+        <translation type="unfinished">ตั้งค่า</translation>
     </message>
     <message>
         <source>Search/Replace</source>
@@ -20940,43 +20869,43 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
-        <translation type="unfinished">&amp;Smart text selection</translation>
+        <translation type="unfinished">เลือกข้อความ สมาร์ท</translation>
     </message>
     <message>
         <source>&amp;Insert Glyph...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทรก</translation>
     </message>
     <message>
         <source>Clear All Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ล้างข้อความ</translation>
     </message>
     <message>
         <source>Story Editor - %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แกไขเนื้อเรื่อง-%1</translation>
     </message>
     <message>
         <source>Do you really want to lose all your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คุณต้องการที่จะยกเลิกสิ่งที่แก้ไขไปใช่ไหม?</translation>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คุณต้องการที่จะล้างข้อความของคุณทั้งหมดใช่ไหม?</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation type="unfinished">&amp;Insert</translation>
+        <translation type="unfinished">แทรก</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลักษณะ</translation>
     </message>
     <message>
         <source>Quote</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อ้าง</translation>
     </message>
     <message>
         <source>Spaces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วรรค พัก</translation>
     </message>
     <message>
         <source>Ligature</source>
@@ -20984,14 +20913,14 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>Space</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ว่าง</translation>
     </message>
 </context>
 <context>
     <name>StrikeValues</name>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อัตโนมัติ</translation>
     </message>
     <message>
         <source> %</source>
@@ -21003,14 +20932,14 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ความกว้างของเส้น</translation>
     </message>
 </context>
 <context>
     <name>StyleManager</name>
     <message>
         <source>More than one item selected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือกข้อความมากกว่าหนึ่ง</translation>
     </message>
 </context>
 <context>
@@ -21025,7 +20954,7 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>Subscript</source>
-        <translation type="unfinished">Subscript</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Superscript</source>
@@ -21081,15 +21010,15 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished">Use document name as a prefix for paragraph styles</translation>
+        <translation type="unfinished">ใช้คำนำหน้าชื่อเอกสารสำหรับรูปแบบพารากราฟ</translation>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished">Do not ask again</translation>
+        <translation type="unfinished">ห้ามถามอีกครั้ง</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Should importer add the name of the document
@@ -21107,7 +21036,7 @@ edited to match the one being imported, or left untouched</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="unfinished">OpenOffice.org Writer Importer Options</translation>
+        <translation type="unfinished">เปิดออฟฟิต.โออาร์จี เขียนตัวเลือกนำเข้า</translation>
     </message>
     <message>
         <source>Should the importer always use currently
@@ -21119,7 +21048,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">โอเว่อร์ไรท์ รูปแบบพารากราฟ</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
@@ -21127,7 +21056,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปแบบผสม พารากราฟ</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
@@ -21135,7 +21064,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เตรียมชื่อเอกสารถึงชื่อรูปแบบพารากราฟในสไครบัส</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
@@ -21143,38 +21072,38 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
 </context>
 <context>
     <name>TOCIndexPrefs</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">None</translation>
+        <translation type="unfinished">ไม่มี</translation>
     </message>
     <message>
         <source>At the beginning</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่งเริ่มต้น</translation>
     </message>
     <message>
         <source>At the end</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จบ</translation>
     </message>
     <message>
         <source>Not Shown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่แสดง</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตารางสารบัญและดัชนี</translation>
     </message>
     <message>
         <source>Table Of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตารางสารบัญ</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่ม</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -21182,7 +21111,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>Alt+D</source>
@@ -21190,11 +21119,11 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตารางเฟลมของสารบัญ</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วางเลขหน้า</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
@@ -21206,11 +21135,11 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วางหมายเลขของการเริ่อมต้น หรือ จบเส้น หรือไม่ทั้งหมด</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รายการ เข้าพิมพ์ไม่ได้</translation>
     </message>
     <message>
         <source>Include frames that are set to not print as well</source>
@@ -21218,34 +21147,30 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปแบบพาราการฟใช้สำหรับลายเส้น</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปแบบพารากราฟ</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Table of Contents %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จุดหมายเฟลม</translation>
     </message>
 </context>
 <context>
     <name>TOCIndexPrefsBase</name>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตารางสารบัญและดัชนี</translation>
     </message>
     <message>
         <source>Table Of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตารางสารบัญ</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่ม</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -21253,7 +21178,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>Alt+D</source>
@@ -21265,7 +21190,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วางหมายเลขหน้า</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
@@ -21277,46 +21202,46 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วางหมายเลขของการเริ่อมต้น หรือ จบเส้น หรือไม่ทั้งหมด</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รายการเข้าพิมพ์ไม่ได้</translation>
     </message>
     <message>
         <source>Include frames that are set to not print as well</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รวมเฟลมที่ตั้งค่าพิมพ์ไม่ได้</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปแบบพารากราฟใช้สำหรับลายเส้น</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปแบบพารากราฟ</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จุดหมายเฟลม</translation>
     </message>
 </context>
 <context>
     <name>TabCheckDoc</name>
     <message>
         <source>Ignore all errors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อมูลผิดพลากทั้งหมด</translation>
     </message>
     <message>
         <source>Automatic check before printing or exporting</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตรวจอัตโฯมัติ ก่อนที่จะพิมพ์ หรือ ส่งออก</translation>
     </message>
     <message>
         <source>Check for missing glyphs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตรวจคำผิดของglyphs</translation>
     </message>
     <message>
         <source>Check for objects not on a page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตรวจวัตถุที่ไม่ได้อยู่บนหน้ากระดาษ</translation>
     </message>
     <message>
         <source>Check for overflow in text frames</source>
@@ -21324,15 +21249,15 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Check for transparencies used</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตรวจการใช้สีโปร่งใส</translation>
     </message>
     <message>
         <source>Check for missing images</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตรวจรูปที่ผิดพลาด</translation>
     </message>
     <message>
         <source>Check image resolution</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตรวจความตั้งใจรูป</translation>
     </message>
     <message>
         <source>Lowest allowed resolution</source>
@@ -21344,7 +21269,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Check for placed PDF Files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตรวจที่วางปฟ้มพีดีเอฟ</translation>
     </message>
     <message>
         <source>Check for PDF Annotations and Fields</source>
@@ -21352,38 +21277,38 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Add Profile</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่มโปรไฟล์</translation>
     </message>
     <message>
         <source>Remove Profile</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ย้านโปรไฟล์</translation>
     </message>
 </context>
 <context>
     <name>TabGuides</name>
     <message>
         <source>Common Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าทั่วไป</translation>
     </message>
     <message>
         <source>Placing in Documents</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วางในเอกสาร</translation>
     </message>
     <message>
         <source>In the Background</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พื้นหลัง</translation>
     </message>
     <message>
         <source>In the Foreground</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พื้นหน้า</translation>
     </message>
     <message>
         <source>Snapping</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ภาพที่ถ่าย</translation>
     </message>
     <message>
         <source>Snap Distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ระยะภาพที่ถ่าย</translation>
     </message>
     <message>
         <source>Grab Radius:</source>
@@ -21395,19 +21320,19 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Show Guides</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงคำแนะนำ</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>Show Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงเส้นขอบ</translation>
     </message>
     <message>
         <source>Show Page Grid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงหน้าตาราง</translation>
     </message>
     <message>
         <source>Major Grid</source>
@@ -21415,7 +21340,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ว่าง</translation>
     </message>
     <message>
         <source>Minor Grid</source>
@@ -21423,19 +21348,19 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation type="unfinished">Show Baseline Grid</translation>
+        <translation type="unfinished">แสดงฐานเส้นตาราง</translation>
     </message>
     <message>
         <source>Baseline Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าฐานลายเส้น</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
-        <translation type="unfinished">Baseline &amp;Grid:</translation>
+        <translation type="unfinished">ฐานลายเส้น &amp;ตาราง:</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation type="unfinished">Baseline &amp;Offset:</translation>
+        <translation type="unfinished">ฐานลายเส้น &amp;ไม่ตั้งค่า:</translation>
     </message>
     <message>
         <source>Guides are not visible through objects on the page</source>
@@ -21455,11 +21380,11 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="obsolete">Distance within which an object will snap to your placed guides</translation>
+        <translation type="unfinished">Distance within which an object will snap to your placed guides</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="obsolete">Radius of the area where Scribus will allow you to grab an objects handles</translation>
+        <translation type="unfinished">Radius of the area where Scribus will allow you to grab an objects handles</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -21505,20 +21430,12 @@ never ask your confirmation again</translation>
         <source>Turns the margins on or off</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
-        <translation type="unfinished">Manage Tabulators</translation>
+        <translation type="unfinished">จัดการตารางสถิติ</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -21533,27 +21450,27 @@ never ask your confirmation again</translation>
     <name>TabPDFOptions</name>
     <message>
         <source>Export Range</source>
-        <translation type="unfinished">Export Range</translation>
+        <translation type="unfinished">ระยะในการส่งออก</translation>
     </message>
     <message>
         <source>&amp;All Pages</source>
-        <translation type="unfinished">&amp;All Pages</translation>
+        <translation type="unfinished">หน้าทั้งหมด</translation>
     </message>
     <message>
         <source>C&amp;hoose Pages</source>
-        <translation type="unfinished">C&amp;hoose Pages</translation>
+        <translation type="unfinished">เลือกหน้า</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Rotation:</translation>
+        <translation type="unfinished">หมุน:</translation>
     </message>
     <message>
         <source>File Options</source>
-        <translation type="unfinished">File Options</translation>
+        <translation type="unfinished">ตัวเลือกแฟ้ม</translation>
     </message>
     <message>
         <source>Compatibilit&amp;y:</source>
-        <translation type="unfinished">Compatibilit&amp;y:</translation>
+        <translation type="unfinished">ตรงกัน:</translation>
     </message>
     <message>
         <source>&amp;Binding:</source>
@@ -21561,11 +21478,11 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Left Margin</source>
-        <translation type="unfinished">Left Margin</translation>
+        <translation type="unfinished">ชิดขอบซ้าย</translation>
     </message>
     <message>
         <source>Right Margin</source>
-        <translation type="unfinished">Right Margin</translation>
+        <translation type="unfinished">ชิดขอบขวา</translation>
     </message>
     <message>
         <source>Generate &amp;Thumbnails</source>
@@ -21573,27 +21490,27 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation type="unfinished">Save &amp;Linked Text Frames as PDF Articles</translation>
+        <translation type="unfinished">Save &amp;Linked Test Frames as PDF Articles</translation>
     </message>
     <message>
         <source>&amp;Include Bookmarks</source>
-        <translation type="unfinished">&amp;Include Bookmarks</translation>
+        <translation type="unfinished">รวมหมายเหตุ</translation>
     </message>
     <message>
         <source>Include La&amp;yers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รวมชั้น</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation type="unfinished"> dpi</translation>
+        <translation type="unfinished">ดีพีไอ</translation>
     </message>
     <message>
         <source>&amp;Resolution for EPS Graphics:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กำหนดเพื่อ กราฟฟิคอีพีเอส</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ย่อข้อความและเวกเตอร์กราฟฟิค</translation>
     </message>
     <message>
         <source>Image Settings</source>
@@ -21601,7 +21518,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Automatic</source>
-        <translation type="unfinished">Automatic</translation>
+        <translation type="unfinished">อัตโนมัติ</translation>
     </message>
     <message>
         <source>JPEG</source>
@@ -21613,51 +21530,51 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">None</translation>
+        <translation type="unfinished">ไม่มี</translation>
     </message>
     <message>
         <source>Compression Metho&amp;d:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ย่อระเบียบ</translation>
     </message>
     <message>
         <source>Maximum</source>
-        <translation type="unfinished">Maximum</translation>
+        <translation type="unfinished">มาก</translation>
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished">High</translation>
+        <translation type="unfinished">สูง</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished">Medium</translation>
+        <translation type="unfinished">กลาง</translation>
     </message>
     <message>
         <source>Low</source>
-        <translation type="unfinished">Low</translation>
+        <translation type="unfinished">ต่ำ</translation>
     </message>
     <message>
         <source>Minimum</source>
-        <translation type="unfinished">Minimum</translation>
+        <translation type="unfinished">น้อย</translation>
     </message>
     <message>
         <source>Compression &amp;Quality:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ย่อ คุณสมบัติ</translation>
     </message>
     <message>
         <source>Resa&amp;mple Images to:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงรูปตัวอย่างอีกครั้ง</translation>
     </message>
     <message>
         <source>&amp;General</source>
-        <translation type="unfinished">&amp;General</translation>
+        <translation type="unfinished">ทั่วไป</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation type="obsolete">&amp;Embed all Fonts</translation>
+        <translation type="unfinished">ฝังตัวอักษรทั้งหมด</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation type="obsolete">&amp;Subset all Fonts</translation>
+        <translation type="unfinished">&amp;ซับเซตตัวอักษรทั้งหมด</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -21665,7 +21582,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
-        <translation type="unfinished">Available Fonts:</translation>
+        <translation type="unfinished">ตัวอักษรที่หาได้:</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
@@ -21677,55 +21594,55 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation type="unfinished">Fonts to embed:</translation>
+        <translation type="unfinished">ตัวอักษร เอ็มเบ้ด:</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="obsolete">Fonts to subset:</translation>
+        <translation type="unfinished">ตัวอักษรซับเซต:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation type="unfinished">&amp;Fonts</translation>
+        <translation type="unfinished">&amp;ตัวอักษร</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สามารถ เสนอผล</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">Page</translation>
+        <translation type="unfinished">หน้า</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
-        <translation type="unfinished">Show Page Pre&amp;views</translation>
+        <translation type="unfinished">แสดงหน้าเค้าโครงร่าง</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation type="unfinished">Effects</translation>
+        <translation type="unfinished">ผล</translation>
     </message>
     <message>
         <source>&amp;Display Duration:</source>
-        <translation type="unfinished">&amp;Display Duration:</translation>
+        <translation type="unfinished">แสดงตลอกเวลา</translation>
     </message>
     <message>
         <source>Effec&amp;t Duration:</source>
-        <translation type="unfinished">Effec&amp;t Duration:</translation>
+        <translation type="unfinished">ผล ตลอดเวลา:</translation>
     </message>
     <message>
         <source>Effect T&amp;ype:</source>
-        <translation type="unfinished">Effect T&amp;ype:</translation>
+        <translation type="unfinished">ผลชนิด:</translation>
     </message>
     <message>
         <source>&amp;Moving Lines:</source>
-        <translation type="unfinished">&amp;Moving Lines:</translation>
+        <translation type="unfinished">ย้ายเส้น:</translation>
     </message>
     <message>
         <source>F&amp;rom the:</source>
-        <translation type="unfinished">F&amp;rom the:</translation>
+        <translation type="unfinished">จาก:</translation>
     </message>
     <message>
         <source>D&amp;irection:</source>
-        <translation type="unfinished">D&amp;irection:</translation>
+        <translation type="unfinished">แนวทาง:</translation>
     </message>
     <message>
         <source> sec</source>
@@ -21733,111 +21650,115 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>No Effect</source>
-        <translation type="unfinished">No Effect</translation>
+        <translation type="unfinished">ไม่มีผล</translation>
     </message>
     <message>
         <source>Blinds</source>
-        <translation type="unfinished">Blinds</translation>
+        <translation type="unfinished">มองไม่เห็น</translation>
     </message>
     <message>
         <source>Box</source>
-        <translation type="unfinished">Box</translation>
+        <translation type="unfinished">กล่อง</translation>
     </message>
     <message>
         <source>Dissolve</source>
-        <translation type="unfinished">Dissolve</translation>
+        <translation type="unfinished">ตัด</translation>
     </message>
     <message>
         <source>Glitter</source>
-        <translation type="unfinished">Glitter</translation>
+        <translation type="unfinished">สว่าง</translation>
     </message>
     <message>
         <source>Split</source>
-        <translation type="unfinished">Split</translation>
+        <translation type="unfinished">ตัด</translation>
     </message>
     <message>
         <source>Wipe</source>
-        <translation type="unfinished">Wipe</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished">Horizontal</translation>
+        <translation type="unfinished">แนวขวาง</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished">Vertical</translation>
+        <translation type="unfinished">แนวตั้ง</translation>
     </message>
     <message>
         <source>Inside</source>
-        <translation type="unfinished">Inside</translation>
+        <translation type="unfinished">ข้างใน</translation>
     </message>
     <message>
         <source>Outside</source>
-        <translation type="unfinished">Outside</translation>
+        <translation>ข้างนอก</translation>
     </message>
     <message>
         <source>Left to Right</source>
-        <translation type="unfinished">Left to Right</translation>
+        <translation type="unfinished">ซ้ายไปขวา</translation>
     </message>
     <message>
         <source>Top to Bottom</source>
-        <translation type="unfinished">Top to Bottom</translation>
+        <translation type="unfinished">บนลงล่าง</translation>
     </message>
     <message>
         <source>Bottom to Top</source>
-        <translation type="unfinished">Bottom to Top</translation>
+        <translation type="unfinished">ล่างขึ้นบน</translation>
     </message>
     <message>
         <source>Right to Left</source>
-        <translation type="unfinished">Right to Left</translation>
+        <translation type="unfinished">ขวาไปซ้าย</translation>
     </message>
     <message>
         <source>Top-left to Bottom-Right</source>
-        <translation type="unfinished">Top-left to Bottom-Right</translation>
+        <translation type="unfinished">บนซ้ายไปล่างขวา</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation type="obsolete">&amp;Apply Effect on all Pages</translation>
+        <translation type="unfinished">ใจความบนกระดาษทั้งหมด</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation type="unfinished">E&amp;xtras</translation>
+        <translation type="unfinished">พิเศษ</translation>
     </message>
     <message>
         <source>Display Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าแสดง</translation>
+    </message>
+    <message>
+        <source>Page Layout</source>
+        <translation type="unfinished">หน้าเลย์เอ้าท์</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าเดียว</translation>
     </message>
     <message>
         <source>Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ดำเนินการต่อ</translation>
     </message>
     <message>
         <source>Double Page Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าคู่ซ้าย</translation>
     </message>
     <message>
         <source>Double Page Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้าคู่ขวา</translation>
     </message>
     <message>
         <source>Visual Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ปรากฏภาพ</translation>
     </message>
     <message>
         <source>Use Viewers Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ใช้ภาพผิด</translation>
     </message>
     <message>
         <source>Use Full Screen Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ใช้โหมดเต็มหน้าจอ</translation>
     </message>
     <message>
         <source>Display Bookmarks Tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงหมายเหตุ</translation>
     </message>
     <message>
         <source>Display Thumbnails</source>
@@ -21849,83 +21770,83 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Hide Viewers Toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">มุมมองเครื่องมือ</translation>
     </message>
     <message>
         <source>Hide Viewers Menubar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">มุมมองรายการสูง</translation>
     </message>
     <message>
         <source>Zoom Pages to fit Viewer Window</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขยายหน้าไปยังมุมมองหน้าต่าง</translation>
     </message>
     <message>
         <source>Special Actions</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลักษณะพิเศษ</translation>
     </message>
     <message>
         <source>No Script</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่มีต้นฉบับ</translation>
     </message>
     <message>
         <source>Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">มุมมอง</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
-        <translation type="unfinished">&amp;Use Encryption</translation>
+        <translation type="unfinished">ใช้ เอ็นคริปชั่น</translation>
     </message>
     <message>
         <source>Passwords</source>
-        <translation type="unfinished">Passwords</translation>
+        <translation type="unfinished">รหัส</translation>
     </message>
     <message>
         <source>&amp;User:</source>
-        <translation type="unfinished">&amp;User:</translation>
+        <translation type="unfinished">ผู้ใช้:</translation>
     </message>
     <message>
         <source>&amp;Owner:</source>
-        <translation type="unfinished">&amp;Owner:</translation>
+        <translation type="unfinished">เจ้าของ:</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Settings</translation>
+        <translation type="unfinished">ตั้งค่า</translation>
     </message>
     <message>
         <source>Allow &amp;Printing the Document</source>
-        <translation type="unfinished">Allow &amp;Printing the Document</translation>
+        <translation type="unfinished">อนุญาติให้พิมพ์เอกสาร</translation>
     </message>
     <message>
         <source>Allow &amp;Changing the Document</source>
-        <translation type="unfinished">Allow &amp;Changing the Document</translation>
+        <translation type="unfinished">อนุญาติให้เปลี่ยนเอกสาร</translation>
     </message>
     <message>
         <source>Allow Cop&amp;ying Text and Graphics</source>
-        <translation type="unfinished">Allow Cop&amp;ying Text and Graphics</translation>
+        <translation type="unfinished">อนุญาติให้คัดลอกข้อความและ กราฟฟิค</translation>
     </message>
     <message>
         <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation type="unfinished">Allow Adding &amp;Annotations and Fields</translation>
+        <translation type="unfinished">อนุญาติให้เพิ่ม คำอธิบายและฟิลล์</translation>
     </message>
     <message>
         <source>S&amp;ecurity</source>
-        <translation type="unfinished">S&amp;ecurity</translation>
+        <translation type="unfinished">ปลอดภัย</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="unfinished">General</translation>
+        <translation type="unfinished">ทั่วไป</translation>
     </message>
     <message>
         <source>Output &amp;Intended For:</source>
-        <translation type="unfinished">Output &amp;Intended For:</translation>
+        <translation type="unfinished">ส่งออกไปยัง:</translation>
     </message>
     <message>
         <source>Screen / Web</source>
-        <translation type="unfinished">Screen / Web</translation>
+        <translation type="unfinished">สกรีน / เวป</translation>
     </message>
     <message>
         <source>Printer</source>
-        <translation type="unfinished">Printer</translation>
+        <translation type="unfinished">ปริ้นเตอร์</translation>
     </message>
     <message>
         <source>Grayscale</source>
@@ -21937,55 +21858,55 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation type="unfinished">&amp;Use Custom Rendering Settings</translation>
+        <translation type="unfinished">ใช้การตั้งค่าการแปล</translation>
     </message>
     <message>
         <source>Rendering Settings</source>
-        <translation type="unfinished">Rendering Settings</translation>
+        <translation type="unfinished">ตั้งค่าคำแปล</translation>
     </message>
     <message>
         <source>Fre&amp;quency:</source>
-        <translation type="unfinished">Fre&amp;quency:</translation>
+        <translation type="unfinished">บ่อย:</translation>
     </message>
     <message>
         <source>&amp;Angle:</source>
-        <translation type="unfinished">&amp;Angle:</translation>
+        <translation type="unfinished">มุม:</translation>
     </message>
     <message>
         <source>S&amp;pot Function:</source>
-        <translation type="unfinished">S&amp;pot Function:</translation>
+        <translation type="unfinished">โครงสร้างจุด:</translation>
     </message>
     <message>
         <source>Simple Dot</source>
-        <translation type="unfinished">Simple Dot</translation>
+        <translation type="unfinished">ตัวอย่าง ด๊อดจ์</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation type="unfinished">Line</translation>
+        <translation type="unfinished">ลายเส้ย</translation>
     </message>
     <message>
         <source>Round</source>
-        <translation type="unfinished">Round</translation>
+        <translation type="unfinished">วงกลม</translation>
     </message>
     <message>
         <source>Ellipse</source>
-        <translation type="unfinished">Ellipse</translation>
+        <translation type="unfinished">วงรี</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
-        <translation type="unfinished">Solid Colours:</translation>
+        <translation type="unfinished">สีพิ้นฐาน:</translation>
     </message>
     <message>
         <source>Use ICC Profile</source>
-        <translation type="unfinished">Use ICC Profile</translation>
+        <translation type="unfinished">ใช้โปรไฟล์ ไอซีซี</translation>
     </message>
     <message>
         <source>Profile:</source>
-        <translation type="unfinished">Profile:</translation>
+        <translation type="unfinished">โปรไฟล์</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation type="unfinished">Rendering-Intent:</translation>
+        <translation type="unfinished">คำแปล-ไปยัง:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -22005,7 +21926,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Images:</source>
-        <translation type="unfinished">Images:</translation>
+        <translation type="unfinished">รูป</translation>
     </message>
     <message>
         <source>Don&apos;t use embedded ICC profiles</source>
@@ -22013,31 +21934,35 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation type="unfinished">C&amp;olour</translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished">PDF/X-3 Output Intent</translation>
+        <translation type="unfinished">พีดีเอฟ/เอ๊กซ์ ส่งออกไปยัง</translation>
     </message>
     <message>
         <source>&amp;Info String:</source>
-        <translation type="unfinished">&amp;Info String:</translation>
+        <translation type="unfinished">อินโฟ แถว:</translation>
     </message>
     <message>
         <source>Output &amp;Profile:</source>
-        <translation type="unfinished">Output &amp;Profile:</translation>
+        <translation type="unfinished">ส่งออก โปรไฟล์:</translation>
     </message>
     <message>
         <source>Trim Box</source>
-        <translation type="unfinished">Trim Box</translation>
+        <translation type="unfinished">ตกแต่งกล่อง</translation>
     </message>
     <message>
         <source>PDF/X-&amp;3</source>
         <translation type="unfinished">PDF/X-&amp;3</translation>
     </message>
     <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Show page previews of each page listed above.</source>
-        <translation type="unfinished">Show page previews of each page listed above.</translation>
+        <translation type="unfinished">แสดงเค้าโครงหน้ากระดาษของหน้าบางส่วนในรายการด้านบน</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
@@ -22049,19 +21974,19 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation type="unfinished">Type of the display effect.</translation>
+        <translation type="unfinished">ชนิดของการแสดงผล</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished">Direction of the effect of moving lines for the split and blind effects.</translation>
+        <translation type="unfinished">ทิศทางของผลในการย้ายลายเส้น ทำให้เกิดลายแตกและมองไม่เห็น</translation>
     </message>
     <message>
         <source>Starting position for the box and split effects.</source>
-        <translation type="unfinished">Starting position for the box and split effects.</translation>
+        <translation type="unfinished">ตำแหน่งเริ่มต้นสำหรับผลของกล่องที่แตก</translation>
     </message>
     <message>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation type="unfinished">Direction of the glitter or wipe effects.</translation>
+        <translation type="unfinished">ทิศทางของแสง สว่าง หรือ ผลของการลบ.</translation>
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
@@ -22069,11 +21994,11 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Export all pages to PDF</source>
-        <translation type="unfinished">Export all pages to PDF</translation>
+        <translation type="unfinished">ส่งออกหน้าทั้งหมดไปยังพีดีเอฟ</translation>
     </message>
     <message>
         <source>Export a range of pages to PDF</source>
-        <translation type="unfinished">Export a range of pages to PDF</translation>
+        <translation type="unfinished">ระยะในการส่งออกของหน้าไปยังพีดีเอฟ</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
@@ -22089,11 +22014,11 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation type="unfinished">Generate PDF Articles, which is useful for navigating linked articles in a PDF.</translation>
+        <translation type="unfinished">บทความทั่วไปของพีดีเอฟ, ซึ่งใช้เป็นประโยชน์เพื่อนำทางการเชื่อมต่อบทความในพีดีเอฟ.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คุณสร้างหมายเหตุลงในเอกสาร.สามารถใช้ประโยชน์จากการนำทางของเอกสารพีดีเอฟ</translation>
     </message>
     <message>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
@@ -22105,7 +22030,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
-        <translation type="unfinished">DPI (Dots Per Inch) for image export.</translation>
+        <translation type="unfinished">ดีพีไอ (Dots Per Inch) สำหรับรูปที่ส่งออก.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
@@ -22113,23 +22038,23 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือกรหัสหลักซึ่งสามารถใช้ หรือใช้ไม่ได้ กับความปลอดภัยในการส่งพัดีเอฟของคุณ</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation type="unfinished">Choose a password for users to be able to read your PDF.</translation>
+        <translation type="unfinished">เลือกรหัสสำหรับผู้ใช้ที่คุณสามารถอ่านพีดีเอฟได้</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation type="unfinished">Allow printing of the PDF. If un-checked, printing is prevented. </translation>
+        <translation type="unfinished">อนุญาติให้พิมพ์ พีดีเอฟ. ถ้า ยังไม่ได้ตรวจสอบ, เพื่อป้องกันการพิมพ์ . </translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation type="unfinished">Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</translation>
+        <translation type="unfinished">อนุญาติเปลี่ยนแปลงค่าพีดีเอฟ. ถ้าไม่ได้ตรวจสอบ, ป้องกันการเปลี่ยนแปลงของพีดีเอฟ .</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อนุญาติคัดลอกข้อความหรือกราฟฟิคจากพีดีเอฟ.ถ้าไม่ได้ตรวจสอบ,ข้อมูลและกราฟฟิคไม่สามารถคัดลอกได้</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
@@ -22145,11 +22070,11 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Color profile for solid colors</source>
-        <translation type="unfinished">Colour profile for solid colours</translation>
+        <translation type="unfinished">โปรไฟล์สำหรับสีที่มีความหนาแน่น</translation>
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
-        <translation type="unfinished">Rendering intent for solid colours</translation>
+        <translation type="unfinished">จุดมุ่งหมายของคำแปลสำหรับสีที่มีความหนาแน่น</translation>
     </message>
     <message>
         <source>Embed a color profile for images</source>
@@ -22157,11 +22082,11 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation type="unfinished">Do not use colour profiles that are embedded in source images</translation>
+        <translation type="unfinished">ห้ามใช้สีโปรไฟล์ ที่ เอ็มเบ๊ดจากแหล่งข้อมูลรูปภาพ</translation>
     </message>
     <message>
         <source>Color profile for images</source>
-        <translation type="unfinished">Colour profile for images</translation>
+        <translation type="unfinished">โปรไฟล์สีสำหรับรูปภาพ</translation>
     </message>
     <message>
         <source>Rendering intent for images</source>
@@ -22169,7 +22094,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation type="unfinished">Output profile for printing. If possible, get some guidance from your printer on profile selection.</translation>
+        <translation type="unfinished">พิมพ์โปร์ไฟล์ส่งออก. ถ้าเป็นไปได้,จะได้รับคำแนะนำบางอย่างจากปริ้นเตอร์ของคุณ บนโปรไฟล์ที่คุณเลือก.</translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
@@ -22177,7 +22102,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished">Distance for bleed from the top of the physical page</translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <source>Distance for bleed from the bottom of the physical page</source>
@@ -22193,11 +22118,11 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="unfinished">Mirror Page(s) horizontally</translation>
+        <translation type="unfinished">หน้ากระดาษ(s) แนวขวาง</translation>
     </message>
     <message>
         <source>Mirror Page(s) vertically</source>
-        <translation type="unfinished">Mirror Page(s) vertically</translation>
+        <translation type="unfinished">หน้ากระดาษ(s) แนวตั้ง</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
@@ -22205,7 +22130,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">คลิป ริมหน้ากระดาษ</translation>
     </message>
     <message>
         <source>Lossy - JPEG</source>
@@ -22234,7 +22159,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชั้นของเอกสารที่ส่งออกไปยังพีดีเอฟอย่างเหมาะสม ถ้าเลือกพีดีเอฟ1.5</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
@@ -22246,7 +22171,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ห้ามแสดงวัตถุด้านนอกขอบกระดาษในแฟ้มที่ส่งออก</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
@@ -22260,56 +22185,28 @@ when PDF document is opened:</source>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>&amp;Embed All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fonts to outline:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Outline &amp;All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Document Layout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Apply Effect to all Pages</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>TabTools</name>
     <message>
         <source>Font:</source>
-        <translation type="unfinished">Font:</translation>
+        <translation type="unfinished">อักษร:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Size:</translation>
+        <translation type="unfinished">ขนาด:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">None</translation>
+        <translation type="unfinished">ไม่มี</translation>
     </message>
     <message>
         <source>Text Color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อความสี</translation>
     </message>
     <message>
         <source> %</source>
@@ -22317,31 +22214,31 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Shading:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แรเงา</translation>
     </message>
     <message>
         <source>Text Stroke:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้นข้อความ</translation>
     </message>
     <message>
         <source>Fill Color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เติมสี</translation>
     </message>
     <message>
         <source>Stroke Color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้นสี</translation>
     </message>
     <message>
         <source>Dot</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จุด</translation>
     </message>
     <message>
         <source>Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">-</translation>
     </message>
     <message>
         <source>Underscore</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">_</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -22349,15 +22246,15 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Tab Fill Character:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เติมลักษณะแถบ</translation>
     </message>
     <message>
         <source>Tab Width:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ความกว้างของแถบ</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation type="unfinished">Colu&amp;mns:</translation>
+        <translation type="unfinished">คอลัมน์</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
@@ -22369,67 +22266,67 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Line Color:</source>
-        <translation type="unfinished">&amp;Line Colour:</translation>
+        <translation type="unfinished">&amp;ลายเส้นสีr:</translation>
     </message>
     <message>
         <source>&amp;Shading:</source>
-        <translation type="unfinished">&amp;Shading:</translation>
+        <translation type="unfinished">แรเงา:</translation>
     </message>
     <message>
         <source>&amp;Fill Color:</source>
-        <translation type="unfinished">&amp;Fill Colour:</translation>
+        <translation type="unfinished">เติมสี:</translation>
     </message>
     <message>
         <source>S&amp;hading:</source>
-        <translation type="unfinished">S&amp;hading:</translation>
+        <translation type="unfinished">แรเงา:</translation>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปแบบเส้น</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation type="unfinished">Line &amp;Width:</translation>
+        <translation type="unfinished">ความกว้างลายเส้น:</translation>
     </message>
     <message>
         <source>Line S&amp;tyle:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปแบบลายเส้น</translation>
     </message>
     <message>
         <source>Arrows:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หัวลูกศร</translation>
     </message>
     <message>
         <source>Start:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เริ่ม</translation>
     </message>
     <message>
         <source>End:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จบ</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation type="unfinished">&amp;Free Scaling</translation>
+        <translation type="unfinished">ฟรีสเกล</translation>
     </message>
     <message>
         <source>&amp;Horizontal Scaling:</source>
-        <translation type="unfinished">&amp;Horizontal Scaling:</translation>
+        <translation type="unfinished">สเกลแนวขวาง:</translation>
     </message>
     <message>
         <source>&amp;Vertical Scaling:</source>
-        <translation type="unfinished">&amp;Vertical Scaling:</translation>
+        <translation type="unfinished">สเกลแนวตั้ง:</translation>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="obsolete">&amp;Scale Picture to Frame Size</translation>
+        <translation type="unfinished">สเกลรูปภาพไปยังขนาดเฟลม</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
-        <translation type="unfinished">Keep Aspect &amp;Ratio</translation>
+        <translation type="unfinished">รักษา รูปร่าง &amp;สัดส่วน</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
-        <translation type="unfinished">F&amp;ill Colour:</translation>
+        <translation type="unfinished">เติมสี:</translation>
     </message>
     <message>
         <source>Use embedded Clipping Path</source>
@@ -22437,11 +22334,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>On Screen Preview</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เค้าโครงบนสกรีน</translation>
     </message>
     <message>
         <source>Full Resolution Preview</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เค้าโครงเต็มของรัโซลูชั่น</translation>
     </message>
     <message>
         <source>Normal Resolution Preview</source>
@@ -22453,27 +22350,27 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Mi&amp;nimum:</source>
-        <translation type="unfinished">Mi&amp;nimum:</translation>
+        <translation type="unfinished">น้อย</translation>
     </message>
     <message>
         <source>Ma&amp;ximum:</source>
-        <translation type="unfinished">Ma&amp;ximum:</translation>
+        <translation type="unfinished">มาก</translation>
     </message>
     <message>
         <source>&amp;Stepping:</source>
-        <translation type="unfinished">&amp;Stepping:</translation>
+        <translation type="unfinished">ระยะ:</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation type="unfinished">Text Frame Properties</translation>
+        <translation type="unfinished">คุณสมบัตข้อความเฟลม</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation type="obsolete">Picture Frame Properties</translation>
+        <translation type="unfinished">คุณสมบัติรูปภาพเฟลม</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
-        <translation type="unfinished">Shape Drawing Properties</translation>
+        <translation type="unfinished">คุณสมบัติรูปร่างภาพวาด</translation>
     </message>
     <message>
         <source>Magnification Level Defaults</source>
@@ -22481,63 +22378,63 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Line Drawing Properties</source>
-        <translation type="unfinished">Line Drawing Properties</translation>
+        <translation type="unfinished">คุณสมบัติลายเส้นวาดภาพ</translation>
     </message>
     <message>
         <source>Polygon Drawing Properties</source>
-        <translation type="unfinished">Polygon Drawing Properties</translation>
+        <translation type="unfinished">คุณสมบัติภาพวาด โพลิกอน</translation>
     </message>
     <message>
         <source>Font for new text frames</source>
-        <translation type="unfinished">Font for new text frames</translation>
+        <translation type="unfinished">อักษรสำหรับข้อความใหม่เฟลม</translation>
     </message>
     <message>
         <source>Size of font for new text frames</source>
-        <translation type="unfinished">Size of font for new text frames</translation>
+        <translation type="unfinished">ขนาดตัวอักษรสำหรับข้อความเฟลมใหม่</translation>
     </message>
     <message>
         <source>Color of font</source>
-        <translation type="unfinished">Colour of font</translation>
+        <translation type="unfinished">สีตัวอักษร</translation>
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation type="unfinished">Number of columns in a text frame</translation>
+        <translation type="unfinished">ตัวเลขคอลัมน์ในเฟลมข้อความ</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
-        <translation type="unfinished">Gap between text frame columns</translation>
+        <translation type="unfinished">ระยะห่างระหว่างคอลัมน์ในเฟลมข้อความ</translation>
     </message>
     <message>
         <source>Sample of your font</source>
-        <translation type="unfinished">Sample of your font</translation>
+        <translation type="unfinished">ตัวอย่างอักษร</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="obsolete">Picture frames allow pictures to scale to any size</translation>
+        <translation type="unfinished">Picture frames allow pictures to scale to any size</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
-        <translation type="unfinished">Horizontal scaling of images</translation>
+        <translation type="unfinished">สเกลแนวขวางสำหรับรูปภาพ</translation>
     </message>
     <message>
         <source>Vertical scaling of images</source>
-        <translation type="unfinished">Vertical scaling of images</translation>
+        <translation type="unfinished">สเกลแนวตั้งสำหรับรูปภาพ</translation>
     </message>
     <message>
         <source>Keep horizontal and vertical scaling the same</source>
-        <translation type="unfinished">Keep horizontal and vertical scaling the same</translation>
+        <translation type="unfinished">รักษา สเกลแนวขวางและแนวตั้งให้เหมือนกัน</translation>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="obsolete">Pictures in picture frames are scaled to the size of the frame</translation>
+        <translation type="unfinished">รูปภาพ ในรูปเฟลมมีสเกลขนาดของเฟลม</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation type="obsolete">Automatically scaled pictures keep their original proportions</translation>
+        <translation type="unfinished">คุณสมบัติแต่แรกรักษาสเกลรูปภาพอัตโนมัติ </translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation type="obsolete">Fill colour of picture frames</translation>
+        <translation type="unfinished">เติมสีของเฟลมรูปภาพ</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -22545,7 +22442,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Line color of shapes</source>
-        <translation type="unfinished">Line colour of shapes</translation>
+        <translation type="unfinished">สูปร่างของเส้นสี</translation>
     </message>
     <message>
         <source>Saturation of color of lines</source>
@@ -22553,15 +22450,15 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Fill color of shapes</source>
-        <translation type="unfinished">Fill colour of shapes</translation>
+        <translation type="unfinished">เติมสีของรูปร่าง</translation>
     </message>
     <message>
         <source>Line style of shapes</source>
-        <translation type="unfinished">Line style of shapes</translation>
+        <translation type="unfinished">รูปแบบเส้นของรูปร่าง</translation>
     </message>
     <message>
         <source>Line width of shapes</source>
-        <translation type="unfinished">Line width of shapes</translation>
+        <translation type="unfinished">ความกว้างของเส้นของรูปร่าง</translation>
     </message>
     <message>
         <source>Minimum magnification allowed</source>
@@ -22577,7 +22474,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Color of lines</source>
-        <translation type="unfinished">Colour of lines</translation>
+        <translation type="unfinished">สีเส้น</translation>
     </message>
     <message>
         <source>Saturation of color</source>
@@ -22585,11 +22482,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Style of lines</source>
-        <translation type="unfinished">Style of lines</translation>
+        <translation type="unfinished">รูปแบบของเส้น</translation>
     </message>
     <message>
         <source>Width of lines</source>
-        <translation type="unfinished">Width of lines</translation>
+        <translation type="unfinished">ความกว้างของเส้น</translation>
     </message>
     <message>
         <source>Custom:</source>
@@ -22599,41 +22496,12 @@ when PDF document is opened:</source>
         <source>Custom: </source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>None</source>
-        <comment>tab fill</comment>
-        <translation type="unfinished">None</translation>
-    </message>
-    <message>
-        <source>&amp;Scale Image to Frame Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Image Frame Properties</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Image frames allow images to scale to any size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Images in image frames are scaled to the size of the frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Automatically scaled images keep their original proportions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fill color of image frames</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
     <message>
         <source>Subscript</source>
-        <translation type="unfinished">Subscript</translation>
+        <translation type="unfinished">ซับสคริป</translation>
     </message>
     <message>
         <source> %</source>
@@ -22641,11 +22509,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Displacement:</source>
-        <translation type="unfinished">&amp;Displacement:</translation>
+        <translation type="unfinished">ไม่แทนที่:</translation>
     </message>
     <message>
         <source>&amp;Scaling:</source>
-        <translation type="unfinished">&amp;Scaling:</translation>
+        <translation type="unfinished">สเกล</translation>
     </message>
     <message>
         <source>Superscript</source>
@@ -22653,31 +22521,31 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>D&amp;isplacement:</source>
-        <translation type="unfinished">D&amp;isplacement:</translation>
+        <translation type="unfinished">ไม่แทนที่:</translation>
     </message>
     <message>
         <source>S&amp;caling:</source>
-        <translation type="unfinished">S&amp;caling:</translation>
+        <translation type="unfinished">สเกล:</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation type="unfinished">Underline</translation>
+        <translation type="unfinished">ขีดเส้นใต้</translation>
     </message>
     <message>
         <source>Displacement:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่แทนที่</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อัตโนมัต</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ความกว้างของเส้น</translation>
     </message>
     <message>
         <source>Strikethru</source>
-        <translation type="unfinished">Strikeout</translation>
+        <translation type="unfinished">ลายเส้น</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -22685,15 +22553,15 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Sc&amp;aling:</source>
-        <translation type="unfinished">Sc&amp;aling:</translation>
+        <translation type="unfinished">สเกล:</translation>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อัตโนมัติ เส้นว่าง</translation>
     </message>
     <message>
         <source>Line Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้นว่าง</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
@@ -22736,39 +22604,39 @@ when PDF document is opened:</source>
     <name>Tabruler</name>
     <message>
         <source>Left</source>
-        <translation type="unfinished">Left</translation>
+        <translation type="unfinished">ซ้าย</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished">Right</translation>
+        <translation type="unfinished">ขวา</translation>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation type="obsolete">Full Stop</translation>
+        <translation type="unfinished">จุด</translation>
     </message>
     <message>
         <source>Comma</source>
-        <translation type="unfinished">Comma</translation>
+        <translation type="unfinished">จุด</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished">Centre</translation>
+        <translation type="unfinished">กลาง</translation>
     </message>
     <message>
         <source>Delete All</source>
-        <translation type="unfinished">Delete All</translation>
+        <translation type="unfinished">ลบทั้งหมด</translation>
     </message>
     <message>
         <source>Indentation for first line of the paragraph</source>
-        <translation type="unfinished">Indentation for first line of the paragraph</translation>
+        <translation type="unfinished">ย่อหน้าบันทัดแรกของพารากราฟ</translation>
     </message>
     <message>
         <source>Indentation from the left for the whole paragraph</source>
-        <translation type="unfinished">Indentation from the left for the whole paragraph</translation>
+        <translation type="unfinished">ย่อหน้าซ้ายของพารากราฟ</translation>
     </message>
     <message>
         <source>Delete all Tabulators</source>
-        <translation type="unfinished">Delete all Tabulators</translation>
+        <translation type="unfinished">ลบตารางสถิติทั้งหมด</translation>
     </message>
     <message>
         <source> pt</source>
@@ -22788,7 +22656,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Position:</source>
-        <translation type="unfinished">&amp;Position:</translation>
+        <translation type="unfinished">คุณสมบัติ:</translation>
     </message>
     <message>
         <source>First &amp;Line:</source>
@@ -22800,19 +22668,19 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="obsolete">None</translation>
+        <translation type="unfinished">ไม่มี</translation>
     </message>
     <message>
         <source>Dot</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จุด</translation>
     </message>
     <message>
         <source>Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">-</translation>
     </message>
     <message>
         <source>Underscore</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">_</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -22820,7 +22688,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Fill Char:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เติมลักษณะ</translation>
     </message>
     <message>
         <source>Custom:</source>
@@ -22830,25 +22698,16 @@ when PDF document is opened:</source>
         <source>Custom: </source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>None</source>
-        <comment>tab fill</comment>
-        <translation type="unfinished">None</translation>
-    </message>
-    <message>
-        <source>Period</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Tree</name>
     <message>
         <source>Outline</source>
-        <translation type="unfinished">Outline</translation>
+        <translation type="unfinished">โครงร่าง</translation>
     </message>
     <message>
         <source>Element</source>
-        <translation type="unfinished">Element</translation>
+        <translation type="unfinished">องค์ประกอบ</translation>
     </message>
     <message>
         <source>Type</source>
@@ -22914,22 +22773,22 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Group </source>
-        <translation type="unfinished">Group </translation>
+        <translation type="unfinished">กลุ่ม</translation>
     </message>
     <message>
         <source>Free Objects</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วัตถุอิสระ</translation>
     </message>
     <message>
         <source>Page </source>
-        <translation type="unfinished">Page </translation>
+        <translation type="unfinished">หน้า</translation>
     </message>
 </context>
 <context>
     <name>UnderlineValues</name>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">อัตโนมัติ</translation>
     </message>
     <message>
         <source> %</source>
@@ -22937,58 +22796,58 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แทนที่</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ความกว้างของเส้น</translation>
     </message>
 </context>
 <context>
     <name>UndoManager</name>
     <message>
         <source>Add vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่มคำแนะนำแนวตั้ง</translation>
     </message>
     <message>
         <source>Add horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่มคำแนะนำแนวขวาง</translation>
     </message>
     <message>
         <source>Remove vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ย้ายคำแนะนำแนวตั้ง</translation>
     </message>
     <message>
         <source>Remove horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ย้ายคำแนะนำแนวขวาง</translation>
     </message>
     <message>
         <source>Move vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ย้ายคำแนะนำแนวตั้งออกไป</translation>
     </message>
     <message>
         <source>Move horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ย้ายคำแนะนำแนวขวางออกไป</translation>
     </message>
     <message>
         <source>Lock guides</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ล๊อคคำแนะนำ</translation>
     </message>
     <message>
         <source>Unlock guides</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่ล๊อคคำแนะนำ</translation>
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ย้าย</translation>
     </message>
     <message>
         <source>Resize</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขนาดใหม่</translation>
     </message>
     <message>
         <source>Rotate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หมุน</translation>
     </message>
     <message>
         <source>X1: %1, Y1: %2, %3
@@ -23002,19 +22861,19 @@ W2: %3, H2: %4</source>
     </message>
     <message>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือก</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished">Group</translation>
+        <translation type="unfinished">กลุ่ม</translation>
     </message>
     <message>
         <source>Selection/Group</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือก/กลุ่ม</translation>
     </message>
     <message>
         <source>Create</source>
-        <translation type="unfinished">Create</translation>
+        <translation type="unfinished">สร้าง</translation>
     </message>
     <message>
         <source>X: %1, Y: %2
@@ -23023,7 +22882,7 @@ W: %3, H: %4</source>
     </message>
     <message>
         <source>Align/Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">วางแนว/แพร่</translation>
     </message>
     <message>
         <source>Items involved</source>
@@ -23031,11 +22890,11 @@ W: %3, H: %4</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
     <message>
         <source>Set fill color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าเติมสี</translation>
     </message>
     <message>
         <source>Color1: %1, Color2: %2</source>
@@ -23043,96 +22902,96 @@ W: %3, H: %4</source>
     </message>
     <message>
         <source>Set fill color shade</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าเติมสีแรเงา</translation>
     </message>
     <message>
         <source>Set line color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าเส้นสี</translation>
     </message>
     <message>
         <source>Set line color shade</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าสีแรเงา</translation>
     </message>
     <message>
         <source>Flip horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ฟลิปแนวนอน</translation>
     </message>
     <message>
         <source>Flip vertically</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ฟลิปแนวตั้ง</translation>
     </message>
     <message>
         <source>Lock</source>
-        <translation type="unfinished">Lock</translation>
+        <translation type="unfinished">ล๊อค</translation>
     </message>
     <message>
         <source>Unlock</source>
-        <translation type="unfinished">Unlock</translation>
+        <translation type="unfinished">ไม่ล๊อค</translation>
     </message>
     <message>
         <source>Lock size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ล๊อคขนาด</translation>
     </message>
     <message>
         <source>Unlock size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่ล๊อคขนาด</translation>
     </message>
     <message>
         <source>Ungroup</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่มีกลุ่ม</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สร้างชื่อใหม่</translation>
     </message>
     <message>
         <source>From %1
 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">จาก%1ถึง%2</translation>
     </message>
     <message>
         <source>Apply Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลงชื่อหน้าหลัก</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation type="unfinished">Paste</translation>
+        <translation type="unfinished">วาง</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation type="unfinished">Cut</translation>
+        <translation type="unfinished">ตัด</translation>
     </message>
     <message>
         <source>Set fill color transparency</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าเติมสีใส</translation>
     </message>
     <message>
         <source>Set line color transparency</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าเติมเส้นสีใส</translation>
     </message>
     <message>
         <source>Set line style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่ารูปแบบเส้น</translation>
     </message>
     <message>
         <source>Set the style of line end</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่ารูปแบบเส้นตอนสุดท้าย</translation>
     </message>
     <message>
         <source>Set the style of line join</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่ารูปแบบเส้นระหว่างพิมพ์</translation>
     </message>
     <message>
         <source>Set line width</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าความกว้างของเส้น</translation>
     </message>
     <message>
         <source>No style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่มีรูปแบบ</translation>
     </message>
     <message>
         <source>Set custom line style</source>
@@ -23144,51 +23003,51 @@ to %2</source>
     </message>
     <message>
         <source>Set start arrow</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าเริ่มต้นลูกศร</translation>
     </message>
     <message>
         <source>Set end arrow</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าสุดท้านลูกศร</translation>
     </message>
     <message>
         <source>Create table</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สร้างตาราง</translation>
     </message>
     <message>
         <source>Rows: %1, Cols: %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แถว:%1, คอลัมน์: %2</translation>
     </message>
     <message>
         <source>Set font</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าตัวอักษร</translation>
     </message>
     <message>
         <source>Set font size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าขนาดตัวอักษร</translation>
     </message>
     <message>
         <source>Set font width</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งคี่าความกว้างตัวอักษร</translation>
     </message>
     <message>
         <source>Set font height</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าความสูงตัวอักษร</translation>
     </message>
     <message>
         <source>Set font fill color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าเติมสีตัวอักษร</translation>
     </message>
     <message>
         <source>Set font stroke color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าลายเส้นตัวอักษร</translation>
     </message>
     <message>
         <source>Set font fill color shade</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าเติมสีแรเงาตัวอักษร</translation>
     </message>
     <message>
         <source>Set font stroke color shade</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าลายเส้นสีแรเงาตัวอักษร</translation>
     </message>
     <message>
         <source>Set kerning</source>
@@ -23196,7 +23055,7 @@ to %2</source>
     </message>
     <message>
         <source>Set line spacing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าช่องว่างของลายเส้น</translation>
     </message>
     <message>
         <source>Set paragraph style</source>
@@ -23204,27 +23063,27 @@ to %2</source>
     </message>
     <message>
         <source>Set language</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่ารูปแบบพารากราฟ</translation>
     </message>
     <message>
         <source>Align text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เส้นข้อความ</translation>
     </message>
     <message>
         <source>Set font effect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าตัวอักษร</translation>
     </message>
     <message>
         <source>Image frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รูปภาพเฟลม</translation>
     </message>
     <message>
         <source>Text frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อความเฟลม</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation type="unfinished">Polygon</translation>
+        <translation type="unfinished">โพลิกอน</translation>
     </message>
     <message>
         <source>Bezier curve</source>
@@ -23236,19 +23095,19 @@ to %2</source>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation type="unfinished">Text on a Path</translation>
+        <translation type="unfinished">ข้อความบนพาธ</translation>
     </message>
     <message>
         <source>Convert to</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แปลงไปยัง</translation>
     </message>
     <message>
         <source>Import SVG image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">นำเข้ารูปภาพเอสวีจี</translation>
     </message>
     <message>
         <source>Import EPS image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">นำเข้ารูปภาพอีพีเอส</translation>
     </message>
     <message>
         <source>Import OpenOffice.org Draw image</source>
@@ -23256,123 +23115,123 @@ to %2</source>
     </message>
     <message>
         <source>Scratch space</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขีดที่ว่าง</translation>
     </message>
     <message>
         <source>Text flows around the frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อความโค้งรอบๆเฟลม</translation>
     </message>
     <message>
         <source>Text flows around bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อความโค้งรอบกล่อง</translation>
     </message>
     <message>
         <source>Text flows around contour line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ข้อความโค้งรอบเค้าเตอร์เส้น</translation>
     </message>
     <message>
         <source>No text flow</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่มีข้อความโค้ง</translation>
     </message>
     <message>
         <source>No bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่ติดกับกล่อง</translation>
     </message>
     <message>
         <source>No contour line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่มีเส้นเคาท์เตอร์</translation>
     </message>
     <message>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หน้า%1</translation>
     </message>
     <message>
         <source>Set image scaling</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่ารูปสเกล</translation>
     </message>
     <message>
         <source>Frame size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขนาดเฟลม</translation>
     </message>
     <message>
         <source>Free scaling</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สเกลเฟลม</translation>
     </message>
     <message>
         <source>Keep aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รักษารูปสัดส่วน</translation>
     </message>
     <message>
         <source>Break aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พักรูปสัดส่วน</translation>
     </message>
     <message>
         <source>Edit contour line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แก้ไขเส้นเคาท์เตอร์</translation>
     </message>
     <message>
         <source>Edit shape</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แก้ไขรูปร่าง</translation>
     </message>
     <message>
         <source>Reset contour line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าเส้นเคาท์เตอร์</translation>
     </message>
     <message>
         <source>Add page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่มหน้า</translation>
     </message>
     <message>
         <source>Add pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่มหน้า</translation>
     </message>
     <message>
         <source>Delete page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลบหน้า</translation>
     </message>
     <message>
         <source>Delete pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลบหน้า</translation>
     </message>
     <message>
         <source>Add layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เพิ่มชั้น</translation>
     </message>
     <message>
         <source>Delete layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ลบชั้น</translation>
     </message>
     <message>
         <source>Rename layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สร้างชื่อชั้น</translation>
     </message>
     <message>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ยกชั้น</translation>
     </message>
     <message>
         <source>Lower layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ชั้นล่าง</translation>
     </message>
     <message>
         <source>Send to layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ส่งไปยังชั้น</translation>
     </message>
     <message>
         <source>Enable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สามารถพิมพ์จากถาด</translation>
     </message>
     <message>
         <source>Disable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ไม่สามารถพิมพ์ออกจากถาดได้</translation>
     </message>
     <message>
         <source>Change name of the layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปลี่ยนชื่อชั้น</translation>
     </message>
     <message>
         <source>Get image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">รับรูป</translation>
     </message>
     <message>
         <source>Enable Item Printing</source>
@@ -23388,11 +23247,11 @@ to %2</source>
     </message>
     <message>
         <source>Change Image Offset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปลี่ยนรูปอ๊อฟเซ๊ต</translation>
     </message>
     <message>
         <source>Change Image Scale</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เปลี่ยนรูปสเกล</translation>
     </message>
     <message>
         <source>X1: %1, Y1: %2
@@ -23406,15 +23265,15 @@ X: %4, Y: %5</source>
     </message>
     <message>
         <source>Reset control point</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าจุดบังคับ</translation>
     </message>
     <message>
         <source>Reset control points</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ตั้งค่าจุบังคับ</translation>
     </message>
     <message>
         <source>Modify image effects</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ผลของการเปลี่ยนรูป</translation>
     </message>
 </context>
 <context>
@@ -23429,15 +23288,15 @@ X: %4, Y: %5</source>
     </message>
     <message>
         <source>Show selected object only</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">แสดงตัวเลือกอย่างเดียว</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;Undo</translation>
+        <translation type="unfinished">ไม่ทำ</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ทำอีกรอบ</translation>
     </message>
 </context>
 <context>
@@ -23452,7 +23311,7 @@ X: %4, Y: %5</source>
     <name>UpgradeChecker</name>
     <message>
         <source>Attempting to get the Scribus version update file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">พยายามรับแฟ้มข้อมูลล่าสุดของสไครบัส</translation>
     </message>
     <message>
         <source>(No data on your computer will be sent to an external location)</source>
@@ -23460,7 +23319,7 @@ X: %4, Y: %5</source>
     </message>
     <message>
         <source>Timed out when attempting to get update file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">หมดเวลาเมื่อพยายามรับข้อมูลใหม่</translation>
     </message>
     <message>
         <source>Error when attempting to get update file: %1</source>
@@ -23468,7 +23327,7 @@ X: %4, Y: %5</source>
     </message>
     <message>
         <source>File not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">สร้างแฟ้มบนเซอร์ฟเวอร์ไม่ได้</translation>
     </message>
     <message>
         <source>Could not open version file: %1
@@ -23493,49 +23352,49 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Please visit www.scribus.net for details.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">กรุณาเข้าไปเยี่ยม www.scribus.net สำหรับรายละเอียดเพิ่ม</translation>
     </message>
 </context>
 <context>
     <name>UsePrinterMarginsDialog</name>
     <message>
         <source>Minimum Margins for Page Size %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขอบริมอย่างน้อยสุดสำหรับกระดาษขนาด%1</translation>
     </message>
 </context>
 <context>
     <name>UsePrinterMarginsDialogBase</name>
     <message>
         <source>Use Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ใช้ขิบกระดาษปริ้นเตอร์</translation>
     </message>
     <message>
         <source>Select &amp;Printer:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">เลือก พิมพ์</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ริม ขอบกระดาษ</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ขวา</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished">&amp;Top:</translation>
+        <translation type="unfinished">บนสุด:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;Bottom:</translation>
+        <translation type="unfinished">ล่างสุด:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;Left:</translation>
+        <translation type="unfinished">ซ้าย:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -23543,7 +23402,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
+        <translation type="unfinished">ยกเลิก</translation>
     </message>
     <message>
         <source>Alt+C</source>
@@ -23554,15 +23413,15 @@ Error:%2 at line: %3, row: %4</source>
     <name>ValueDialog</name>
     <message>
         <source>Insert value</source>
-        <translation type="unfinished">Insert value</translation>
+        <translation type="unfinished">แทรกค่า</translation>
     </message>
     <message>
         <source>Enter a value then press OK.</source>
-        <translation type="unfinished">Enter a value then press OK.</translation>
+        <translation type="unfinished">ผ่านค่าหลังจากที่กดตกลง</translation>
     </message>
     <message>
         <source>Enter a value then press OK</source>
-        <translation type="unfinished">Enter a value then press OK</translation>
+        <translation type="unfinished">ผ่านค่าหลังจากที่กดตกลง</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -23574,14 +23433,14 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Send your value to the script</source>
-        <translation type="unfinished">Send your value to the script</translation>
+        <translation type="unfinished">ส่งค่าของคุณถึงต้นฉบับ</translation>
     </message>
 </context>
 <context>
     <name>WerkToolB</name>
     <message>
         <source>Tools</source>
-        <translation type="unfinished">Tools</translation>
+        <translation type="unfinished">เครื่องมือ</translation>
     </message>
     <message>
         <source>Select Items</source>
@@ -23597,7 +23456,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Properties...</source>
-        <translation type="unfinished">Properties...</translation>
+        <translation type="unfinished">คุณสมบัติ...</translation>
     </message>
     <message>
         <source>Insert Polygons</source>
@@ -23656,43 +23515,43 @@ Error:%2 at line: %3, row: %4</source>
     <name>WerkToolBP</name>
     <message>
         <source>Button</source>
-        <translation type="unfinished">Button</translation>
+        <translation type="unfinished">ปุ่ม</translation>
     </message>
     <message>
         <source>Text Field</source>
-        <translation type="unfinished">Text Field</translation>
+        <translation type="unfinished">ข้อความฟิลด์</translation>
     </message>
     <message>
         <source>Check Box</source>
-        <translation type="unfinished">Check Box</translation>
+        <translation type="unfinished">ตรวจกล่อง</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation type="unfinished">Combo Box</translation>
+        <translation type="unfinished">กล่องผสม</translation>
     </message>
     <message>
         <source>List Box</source>
-        <translation type="unfinished">List Box</translation>
+        <translation type="unfinished">รายการในกล่อง</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished">Text</translation>
+        <translation type="unfinished">ข้อความ</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished">Link</translation>
+        <translation type="unfinished">เชื่อมต่อ</translation>
     </message>
     <message>
         <source>PDF Tools</source>
-        <translation type="unfinished">PDF Tools</translation>
+        <translation type="unfinished">เครื่องมือ พีดีเอฟ</translation>
     </message>
     <message>
         <source>Insert PDF Fields</source>
-        <translation type="unfinished">Insert PDF Fields</translation>
+        <translation type="unfinished">แทรก พีดีเอฟฟิลด์</translation>
     </message>
     <message>
         <source>Insert PDF Annotations</source>
-        <translation type="unfinished">Insert PDF Annotations</translation>
+        <translation type="unfinished">แทรกคำอธิบายประกอบพีดีเอฟ</translation>
     </message>
 </context>
 <context>
@@ -23734,7 +23593,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Automatic</source>
-        <translation type="unfinished">Automatic</translation>
+        <translation type="unfinished">อัตโนมัติ</translation>
     </message>
     <message>
         <source>Get text only</source>
@@ -23742,30 +23601,26 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Import text without any formatting</source>
-        <translation type="unfinished">Import text without any formatting</translation>
+        <translation type="unfinished">ข้อความนำเข้าปราศจากการตั้งค่า</translation>
     </message>
     <message>
         <source>Importer:</source>
-        <translation type="unfinished">Importer:</translation>
+        <translation type="unfinished">นำเข้า</translation>
     </message>
     <message>
         <source>Encoding:</source>
-        <translation type="unfinished">Encoding:</translation>
+        <translation type="unfinished">เข้ารหัส:</translation>
     </message>
     <message>
         <source>Import Text Only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation type="unfinished">นำเข้าข้อความอย่างเดียว</translation>
     </message>
 </context>
 <context>
     <name>gtImporterDialog</name>
     <message>
         <source>Choose the importer to use</source>
-        <translation type="unfinished">Choose the importer to use</translation>
+        <translation type="unfinished">เลือกใช้กล่องนำเข้า</translation>
     </message>
     <message>
         <source></source>
@@ -23773,7 +23628,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Remember association</source>
-        <translation type="unfinished">Remember association</translation>
+        <translation type="unfinished">สมาชิกที่เข้าร่วม</translation>
     </message>
     <message>
         <source>Remember the file extension - importer association
@@ -23796,27 +23651,27 @@ files of this type.</translation>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
-        <translation type="unfinished">New From Template</translation>
+        <translation type="unfinished">สร้างจากต้นแบบ</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">All</translation>
+        <translation type="unfinished">ทั้งหมด</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Page Size</translation>
+        <translation type="unfinished">ขนาดหน้า</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Colours</translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Description</translation>
+        <translation type="unfinished">รายละเอียด</translation>
     </message>
     <message>
         <source>Usage</source>
@@ -23824,19 +23679,19 @@ files of this type.</translation>
     </message>
     <message>
         <source>Created with</source>
-        <translation type="unfinished">Created with</translation>
+        <translation type="unfinished">สร้างจาก</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished">Author</translation>
+        <translation type="unfinished">ผู้แต่ง</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Remove</translation>
+        <translation type="unfinished">ย้ายออก</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation type="unfinished">&amp;Open</translation>
+        <translation type="unfinished">เปิด</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -23892,7 +23747,7 @@ files of this type.</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished">Date</translation>
+        <translation type="unfinished">วันที่</translation>
     </message>
 </context>
 <context>
@@ -23903,67 +23758,67 @@ files of this type.</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation type="unfinished">ชื่อ</translation>
     </message>
     <message>
         <source>Category</source>
-        <translation type="unfinished">Category</translation>
+        <translation type="unfinished">แคตตาล็อค</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Page Size</translation>
+        <translation type="unfinished">ขนาดหน้า</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Colours</translation>
+        <translation type="unfinished">สี</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Description</translation>
+        <translation type="unfinished">รายละเอียด</translation>
     </message>
     <message>
         <source>Usage</source>
-        <translation type="unfinished">Usage</translation>
+        <translation type="unfinished">การใช้</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished">Author</translation>
+        <translation type="unfinished">ผู้เขียน</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation type="unfinished">Email</translation>
+        <translation type="unfinished">อีเมล์</translation>
     </message>
     <message>
         <source>More Details</source>
-        <translation type="unfinished">More Details</translation>
+        <translation type="unfinished">รายละเอียดอื่นๆ</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Less Details</source>
-        <translation type="unfinished">Less Details</translation>
+        <translation type="unfinished">ข้อมูล</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
+        <translation type="unfinished">เท่ากัน</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation type="unfinished">จดหมาย</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished">Tabloid</translation>
+        <translation type="unfinished">พาดหัว</translation>
     </message>
     <message>
         <source>landscape</source>
-        <translation type="unfinished">landscape</translation>
+        <translation type="unfinished">แนวนอน</translation>
     </message>
     <message>
         <source>portrait</source>
-        <translation type="unfinished">portrait</translation>
+        <translation type="unfinished">แนวตั้ง</translation>
     </message>
     <message>
         <source>custom</source>
@@ -23974,27 +23829,27 @@ files of this type.</translation>
     <name>tfDia</name>
     <message>
         <source>Create filter</source>
-        <translation type="unfinished">Create filter</translation>
+        <translation type="unfinished">สร้างตัวกรอง</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">C&amp;lear</translation>
+        <translation type="unfinished">ล้าง</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation type="unfinished">ลบ</translation>
     </message>
     <message>
         <source>Choose a previously saved filter</source>
-        <translation type="unfinished">Choose a previously saved filter</translation>
+        <translation type="unfinished">เลือกฟิลเตอร์ก่อนหน้านี้</translation>
     </message>
     <message>
         <source>Give a name to this filter for saving</source>
-        <translation type="unfinished">Give a name to this filter for saving</translation>
+        <translation type="unfinished">ระบุชื่อฟิลเตอร์เพิ่อบันทึกเก็บ</translation>
     </message>
     <message>
         <source>Give a name for saving</source>
-        <translation type="unfinished">Give a name for saving</translation>
+        <translation type="unfinished">ระบุชื่อสำหรับบันทึก</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -24009,23 +23864,23 @@ files of this type.</translation>
     <name>tfFilter</name>
     <message>
         <source>Disable or enable this filter row</source>
-        <translation type="unfinished">Disable or enable this filter row</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Remove this filter row</source>
-        <translation type="unfinished">Remove this filter row</translation>
+        <translation type="unfinished">ย้ายแถวฟิลเตอร์</translation>
     </message>
     <message>
         <source>Add a new filter row</source>
-        <translation type="unfinished">Add a new filter row</translation>
+        <translation type="unfinished">เพิ่มแถวฟิลเตอร์ใหม่</translation>
     </message>
     <message>
         <source>to</source>
-        <translation type="unfinished">to</translation>
+        <translation type="unfinished">ถึง</translation>
     </message>
     <message>
         <source>and</source>
-        <translation type="unfinished">and</translation>
+        <translation type="unfinished">และ</translation>
     </message>
     <message>
         <source>remove match</source>
@@ -24033,23 +23888,23 @@ files of this type.</translation>
     </message>
     <message>
         <source>do not remove match</source>
-        <translation type="unfinished">do not remove match</translation>
+        <translation type="unfinished">ห้ามย้าย แมช</translation>
     </message>
     <message>
         <source>words</source>
-        <translation type="unfinished">words</translation>
+        <translation type="unfinished">คำ</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Remove</translation>
+        <translation type="unfinished">ย้าย</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation type="unfinished">Replace</translation>
+        <translation type="unfinished">แทนที่</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished">Apply</translation>
+        <translation type="unfinished">ตกลง</translation>
     </message>
     <message>
         <source>Value at the left is a regular expression</source>
@@ -24057,11 +23912,11 @@ files of this type.</translation>
     </message>
     <message>
         <source>with</source>
-        <translation type="unfinished">with</translation>
+        <translation type="unfinished">กับ</translation>
     </message>
     <message>
         <source>paragraph style</source>
-        <translation type="unfinished">paragraph style</translation>
+        <translation type="unfinished">รูปแบบพารากราฟ</translation>
     </message>
     <message>
         <source>all instances of</source>
@@ -24069,19 +23924,19 @@ files of this type.</translation>
     </message>
     <message>
         <source>all paragraphs</source>
-        <translation type="unfinished">all paragraphs</translation>
+        <translation type="unfinished">พารากราฟทั้งหมด</translation>
     </message>
     <message>
         <source>paragraphs starting with</source>
-        <translation type="unfinished">paragraphs starting with</translation>
+        <translation type="unfinished">เริ่มต้นพารากราฟกับ</translation>
     </message>
     <message>
         <source>paragraphs with less than</source>
-        <translation type="unfinished">paragraphs with less than</translation>
+        <translation type="unfinished">พารากราฟน้อยกว่า</translation>
     </message>
     <message>
         <source>paragraphs with more than</source>
-        <translation type="unfinished">paragraphs with more than</translation>
+        <translation type="unfinished">พารากราฟมากกว่า</translation>
     </message>
 </context>
 </TS>
