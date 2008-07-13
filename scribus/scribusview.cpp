@@ -4104,6 +4104,64 @@ void ScribusView::TextToPath()
 						if (currItem->imageFlippedV())
 							chma.scale(1, -1);
 						pts.map(chma);
+						if ((charStyle.effects() & ScStyle_Shadowed) && (charStyle.strokeColor() != CommonStrings::None))
+						{
+							double glxTr = charStyle.shadowXOffset() / 100;
+							double glyTr = -charStyle.shadowYOffset() / 100;
+							uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos() + glxTr, currItem->yPos() + glyTr, currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
+							bb = Doc->Items->at(z);
+							bb->setTextFlowMode(currItem->textFlowMode());
+							bb->setSizeLocked(currItem->sizeLocked());
+							bb->setLocked(currItem->locked());
+							bb->NamedLStyle = currItem->NamedLStyle;
+							bb->setItemName(currItem->itemName()+"+Sh"+ccounter.setNum(a));
+							bb->AutoName = false;
+							bb->PoLine = pts.copy();
+							bb->setRotation(currItem->rotation());
+							bb->setFillColor(hl->strokeColor());
+							bb->setFillShade(hl->strokeShade());
+							if (currItem->itemText.charStyle(a).effects() & ScStyle_Outline)
+							{
+								bb->setLineColor(hl->strokeColor());
+								bb->setLineShade(hl->strokeShade());
+							}
+							else
+							{
+								bb->setLineColor(CommonStrings::None);
+								bb->setLineShade(100);
+							}
+							bb->setLineWidth(chs * hl->outlineWidth() / 10000.0);
+							FPoint tp2(getMinClipF(&bb->PoLine));
+							bb->PoLine.translate(-tp2.x(), -tp2.y());
+							FPoint tp(getMaxClipF(&bb->PoLine));
+							bb->setWidthHeight(tp.x(), tp.y());
+							bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
+							double textX = CurX + hl->glyph.xoffset;
+							double textY = ls.y;  // + hl->glyph.yoffset;
+							if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
+							{
+								textY += hl->glyph.yoffset;
+								x *= hl->glyph.scaleH;
+								y *= hl->glyph.scaleV;
+							}
+							chma6 = QMatrix();
+							if (charStyle.baselineOffset() != 0)
+								textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
+							if (a < currItem->itemText.length()-1)
+								wide = hl->font().charWidth(chstr[0], charStyle.fontSize(), currItem->itemText.text(a+1));
+							else
+								wide = hl->font().charWidth(chstr[0], charStyle.fontSize());
+							if (currItem->imageFlippedH())
+								textX = currItem->width() - textX - wide;
+							if (currItem->imageFlippedV())
+								textY = currItem->height() - textY + y - (bb->height() - y);
+							FPoint npo(textX+x, textY-y, 0.0, 0.0, currItem->rotation(), 1.0, 1.0);
+							bb->moveBy(npo.x(),npo.y());
+							bb->ContourLine = bb->PoLine.copy();
+							bb->ClipEdited = true;
+							Doc->setRedrawBounding(bb);
+							newGroupedItems.append(Doc->Items->takeAt(z));
+						}
 						uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
 						bb = Doc->Items->at(z);
 						//bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
@@ -4241,7 +4299,7 @@ void ScribusView::TextToPath()
 		{
 			for (int ag = 0; ag < newGroupedItems.count(); ++ag)
 			{
-				Doc->Items->insert(currItem->ItemNr+1, newGroupedItems.at(ag));
+				Doc->Items->insert(currItem->ItemNr+1+ag, newGroupedItems.at(ag));
 				tmpSelection.addItem(newGroupedItems.at(ag));
 			}
 			Doc->renumberItemsInListOrder();
