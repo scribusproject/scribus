@@ -3912,9 +3912,30 @@ void ScribusView::TextToPath()
 						chstr = chstr.toUpper();
 //					double csi = static_cast<double>(chs) / 100.0;
 					uint chr = chstr[0].unicode();
+					QPointF tangt = QPointF( cos(hl->PRot), sin(hl->PRot) );
 					QMatrix chma, chma2, chma3, chma4, chma6;
-					QMatrix trafo = QMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
-					trafo *= QMatrix( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, hl->glyph.xoffset, hl->glyph.yoffset);
+					QMatrix trafo = QMatrix( 1, 0, 0, -1, -hl->PDx, 0 );
+					if (currItem->textPathFlipped)
+						trafo *= QMatrix(1, 0, 0, -1, 0, 0);
+					if (currItem->textPathType == 0)
+						trafo *= QMatrix( tangt.x(), tangt.y(), tangt.y(), -tangt.x(), hl->PtransX, hl->PtransY );
+					else if (currItem->textPathType == 1)
+						trafo *= QMatrix(1, 0, 0, -1, hl->PtransX, hl->PtransY );
+					else if (currItem->textPathType == 2)
+					{
+						double a = 1;
+						double b = -1;
+						if (tangt.x() < 0)
+						{
+							a = -1;
+							b = 1;
+						}
+						if (fabs(tangt.x()) > 0.1)
+							trafo *= QMatrix( a, (tangt.y() / tangt.x()) * b, 0, -1, hl->PtransX, hl->PtransY ); // ID's Skew mode
+						else
+							trafo *= QMatrix( a, 6 * b, 0, -1, hl->PtransX, hl->PtransY );
+					}
+					//trafo *= QMatrix( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, hl->glyph.xoffset, hl->glyph.yoffset);
 					if (currItem->rotation() != 0)
 					{
 						QMatrix sca;
