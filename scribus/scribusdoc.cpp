@@ -8668,18 +8668,21 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	else
 	if (mdData.type==1) // Create a grid of duplicated items
 	{
-		m_ScMW->slotEditCopy();
 		int copyCount=mdData.gridRows*mdData.gridCols;
 		double dX=mdData.gridGapH/docUnitRatio + m_Selection->width();
 		double dY=mdData.gridGapV/docUnitRatio + m_Selection->height();
-		//FIXME: stop using m_View
-		m_View->Deselect(true);
+// 		Personnaly I would prefer to first cleanup area but I guess it could mess up things elsewhere - pm
+// 		m_ScMW->slotEditCut();
+		m_ScMW->slotEditCopy();
 		for (int i=0; i<mdData.gridRows; ++i) //skip 0, the item is the one we are copying
 		{
 			for (int j=0; j<mdData.gridCols; ++j) //skip 0, the item is the one we are copying
 			{
+				// We can comment out this conditional jump if we use slotEditCut(), would not be cool? ;-)
 				if (i==0 && j==0)
 					continue;
+				// The true fix would be in slotEdit{Copy,Cut} but now its a reasonnably clean workaround
+				m_View->Deselect(true);
 				m_ScMW->slotEditPaste();
 				for (int b=0; b<m_Selection->count(); ++b)
 				{
