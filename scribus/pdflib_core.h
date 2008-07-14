@@ -78,10 +78,11 @@ private:
 	void PDF_End_Page();
 	bool PDF_TemplatePage(const Page* pag, bool clip = false);
 	bool PDF_ProcessPage(const Page* pag, uint PNr, bool clip = false);
-	void PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
-	void closeAndCleanup();
+	bool PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
+	bool closeAndCleanup();
 
 	void PDF_Error(const QString& errorMsg);
+	void PDF_Error_WriteFailure(void);
 	void PDF_Error_ImageLoadFailure(const QString& fileName);
 	void PDF_Error_ImageWriteFailure(const QString& fileName);
 	void PDF_Error_MaskLoadFailure(const QString& fileName);

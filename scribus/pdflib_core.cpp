@@ -227,9 +227,9 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 		if (!abortExport)
 		{
 			if (doc.PDF_Options.Version == PDFOptions::PDFVersion_X3)
-				PDF_End_Doc(ScCore->PrinterProfiles[doc.PDF_Options.PrintProf], nam, Components);
+				ret = PDF_End_Doc(ScCore->PrinterProfiles[doc.PDF_Options.PrintProf], nam, Components);
 			else
-				PDF_End_Doc();
+				ret = PDF_End_Doc();
 		}
 		else
 			closeAndCleanup();
@@ -7014,7 +7014,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	return true;
 }
 
-void PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Components)
+bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Components)
 {
 	QString tmp;
 	uint StX;
@@ -7438,7 +7438,7 @@ void PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		PutDoc("/Encrypt "+QString::number(Encrypt)+" 0 R\n");
 	PutDoc(">>\nstartxref\n");
 	PutDoc(QString::number(StX)+"\n%%EOF\n");
-	closeAndCleanup();
+	return closeAndCleanup();
 }
 
 void PDFLibCore::PDF_Error(const QString& errorMsg)
@@ -7446,6 +7446,11 @@ void PDFLibCore::PDF_Error(const QString& errorMsg)
 	ErrorMessage = errorMsg;
 	if (!ScCore->usingGUI())
 		qDebug(errorMsg.toLocal8Bit().data());
+}
+
+void PDFLibCore::PDF_Error_WriteFailure(void)
+{
+	PDF_Error( tr("A write error occured, please check available disk space"));
 }
 
 void PDFLibCore::PDF_Error_ImageLoadFailure(const QString& fileName)
@@ -7468,10 +7473,13 @@ void PDFLibCore::PDF_Error_InsufficientMemory(void)
 	PDF_Error( tr("Insufficient memory for processing an image"));
 }
 
-void PDFLibCore::closeAndCleanup()
+bool PDFLibCore::closeAndCleanup()
 {
+	bool writeSucceed = (Spool.error() == QFile::NoError);
+	if (!writeSucceed)
+		PDF_Error_WriteFailure();
 	Spool.close();
-	if (abortExport)
+	if (abortExport || !writeSucceed)
 	{
 		if (Spool.exists())
 			Spool.remove();
@@ -7485,6 +7493,7 @@ void PDFLibCore::closeAndCleanup()
 	Shadings.clear();
 	Transpar.clear();
 	ICCProfiles.clear();
+	return writeSucceed;
 }
 
 void PDFLibCore::cancelRequested()
