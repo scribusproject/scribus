@@ -356,6 +356,7 @@ Selection Serializer::importCollection()
 		QList<PageItem*>* objects = &(coll->items);
 		m_Doc.PageColors = backUpColors;
 		m_Doc.PageColors.addColors(coll->colors, false);
+		int maxG = m_Doc.GroupCounter;
 		for (int i=0; i < objects->count(); ++i)
 		{
 			PageItem* currItem = objects->at(i);
@@ -363,7 +364,19 @@ Selection Serializer::importCollection()
 			currItem->setFillQColor();
 			currItem->setLineQColor();
 			result.addItem(currItem);
+			if (currItem->Groups.count() != 0)
+			{
+				QStack<int> groups;
+				for (int i=0; i < currItem->groups().count(); ++i)
+				{
+					int newGroup = m_Doc.GroupCounter + currItem->groups()[i] - 1;
+					groups.append(newGroup);
+				}
+				currItem->setGroups(groups);
+				maxG = qMax(maxG, currItem->Groups.top()+1);
+			}
 		}
+		m_Doc.GroupCounter = maxG;
 		updateGradientColors(coll->colors);
 		delete coll;
 	}

@@ -467,7 +467,8 @@ class AdjustGroupIds_body : public Action_body
 			ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
 			doc->GroupCounter = maxGroup + 1;
 		}
-		else {
+		else
+		{
 			PageItem* item = this->dig->top<PageItem>();
 			QStack<int> groups;
 			for (int i=0; i < item->groups().count(); ++i)
@@ -665,8 +666,8 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	
 	ruleset.addRule(itemPrefix, LoadPicture());
 	
-	AdjustGroupIds adjustGroupIds;
-	ruleset.addRule("/", adjustGroupIds);
-	ruleset.addRule(PageItem::saxxDefaultElem, adjustGroupIds);
+//	AdjustGroupIds adjustGroupIds;
+//	ruleset.addRule("/", adjustGroupIds);
+//	ruleset.addRule(PageItem::saxxDefaultElem, adjustGroupIds);
 	
 }
