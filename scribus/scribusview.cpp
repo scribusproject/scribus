@@ -9066,9 +9066,86 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 				painter->setPen(Doc->papColor, 1, SolidLine, FlatCap, MiterJoin);
 			painter->setBrush(Doc->papColor);
 			painter->drawRect(clipx, clipy, clipw, cliph);
+
+			QValueList<QPair<PageItem*, int> > changedList;
+			Page* page = Doc->DocPages.at(Nr);
+			PageItem* currItem;
+			if (page->FromMaster.count() != 0)
+			{
+				uint pageFromMasterCount = page->FromMaster.count();
+				for (uint a = 0; a < pageFromMasterCount; ++a)
+				{
+					currItem = page->FromMaster.at(a);
+					if (currItem->asImageFrame())
+					{
+						if (currItem->PicAvail)
+						{
+							if (currItem->pixm.imgInfo.lowResType != 0)
+							{
+								changedList.append(qMakePair(currItem, currItem->pixm.imgInfo.lowResType));
+								currItem->pixm.imgInfo.lowResType = 0;
+								int fho = currItem->imageFlippedH();
+								int fvo = currItem->imageFlippedV();
+								Doc->loadPict(currItem->Pfile, currItem, true);
+								currItem->setImageFlippedH(fho);
+								currItem->setImageFlippedV(fvo);
+								currItem->AdjustPictScale();
+							}
+						}
+					}
+				}
+			}
+			if (Doc->Items->count() != 0)
+			{
+				QRect cullingArea = QRect(clipx, clipy, clipw, cliph);
+				for (uint it = 0; it < Doc->Items->count(); ++it)
+				{
+					currItem = Doc->Items->at(it);
+					QRect oldR(currItem->getRedrawBounding(Scale));
+					if (cullingArea.intersects(oldR))
+					{
+						if (currItem->asImageFrame())
+						{
+							if (currItem->PicAvail)
+							{
+								if (currItem->pixm.imgInfo.lowResType != 0)
+								{
+									changedList.append(qMakePair(currItem, currItem->pixm.imgInfo.lowResType));
+									currItem->pixm.imgInfo.lowResType = 0;
+									int fho = currItem->imageFlippedH();
+									int fvo = currItem->imageFlippedV();
+									Doc->loadPict(currItem->Pfile, currItem, true);
+									currItem->setImageFlippedH(fho);
+									currItem->setImageFlippedV(fvo);
+									currItem->AdjustPictScale();
+								}
+							}
+						}
+					}
+				}
+			}
+
 			DrawMasterItems(painter, Doc->Pages->at(Nr), QRect(clipx, clipy, clipw, cliph));
 			DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 			painter->end();
+
+			if (changedList.count() != 0)
+			{
+				QPair<PageItem*, int> itemPair;
+				for (uint it = 0; it < changedList.count(); it++)
+				{
+					itemPair = changedList[it];
+					currItem = itemPair.first;
+					currItem->pixm.imgInfo.lowResType = itemPair.second;
+					int fho = currItem->imageFlippedH();
+					int fvo = currItem->imageFlippedV();
+					Doc->loadPict(currItem->Pfile, currItem, true);
+					currItem->setImageFlippedH(fho);
+					currItem->setImageFlippedV(fvo);
+					currItem->AdjustPictScale();
+				}
+			}
+
 			Doc->guidesSettings.framesShown = frs;
 			Scale = sca;
 			Doc->currentPage = act;
