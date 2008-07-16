@@ -1154,8 +1154,11 @@ static PyObject *PDFfile_save(PDFfile *self)
 		thumbs.insert(pageNs[ap], pm);
 	}
 	ReOrderText(ScMW->doc, ScMW->view);
-	if (!ScMW->getPDFDriver(fn, nam, Components, pageNs, thumbs)) {
+	QString errorMessage;
+	if (!ScMW->getPDFDriver(fn, nam, Components, pageNs, thumbs, errorMessage)) {
 		fn = "Cannot write the File: " + fn;
+		if (!errorMessage.isEmpty())
+			fn += QString("\n%1").arg(errorMessage);
 		PyErr_SetString(PyExc_SystemError, fn.ascii());
 		return NULL;
 	}

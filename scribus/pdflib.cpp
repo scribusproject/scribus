@@ -201,9 +201,9 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components,
 		if (!abortExport)
 		{
 			if (doc.PDF_Options.Version == PDFOptions::PDFVersion_X3)
-				PDF_End_Doc(ScMW->PrinterProfiles[doc.PDF_Options.PrintProf], nam, Components);
+				ret = PDF_End_Doc(ScMW->PrinterProfiles[doc.PDF_Options.PrintProf], nam, Components);
 			else
-				PDF_End_Doc();
+				ret = PDF_End_Doc();
 		}
 		else
 			closeAndCleanup();
@@ -5682,7 +5682,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		return "";
 }
 
-void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Components)
+bool PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Components)
 {
 	QString tmp;
 	uint StX;
@@ -6066,13 +6066,16 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 		PutDoc("/Encrypt "+QString::number(Encrypt)+" 0 R\n");
 	PutDoc(">>\nstartxref\n");
 	PutDoc(QString::number(StX)+"\n%%EOF\n");
-	closeAndCleanup();
+	return closeAndCleanup();
 }
 
-void PDFlib::closeAndCleanup()
+bool PDFlib::closeAndCleanup()
 {
+	bool writeSucceed = (Spool.status() == IO_Ok);
+	if (!writeSucceed)
+		PDF_Error_WriteFailure();
 	Spool.close();
-	if (abortExport)
+	if (abortExport || !writeSucceed)
 	{
 		if (Spool.exists())
 			Spool.remove();
@@ -6086,7 +6089,19 @@ void PDFlib::closeAndCleanup()
 	Shadings.clear();
 	Transpar.clear();
 	ICCProfiles.clear();
+	return writeSucceed;
+}
 
+void PDFlib::PDF_Error(const QString& errorMsg)
+{
+	ErrorMessage = errorMsg;
+	if (!ScQApp->usingGUI())
+		qDebug(errorMsg.local8Bit().data());
+}
+
+void PDFlib::PDF_Error_WriteFailure(void)
+{
+	PDF_Error( tr("A write error occured, please check available disk space"));
 }
 
 void PDFlib::cancelRequested()

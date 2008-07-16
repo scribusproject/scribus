@@ -57,6 +57,7 @@ public:
 	bool doExport(const QString& fn, const QString& nam, int Components,
 				  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs);
 
+	const QString& errorMessage(void) const { return ErrorMessage; }
 	bool exportCancelled(void) const { return abortExport; }
 
 	// used by ScFonts
@@ -74,8 +75,11 @@ private:
 	void PDF_End_Page();
 	void PDF_TemplatePage(const Page* pag, bool clip = false);
 	void PDF_ProcessPage(const Page* pag, uint PNr, bool clip = false);
-	void PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
-	void closeAndCleanup();
+	bool PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
+	bool closeAndCleanup();
+
+	void PDF_Error(const QString& errorMsg);
+	void PDF_Error_WriteFailure(void);
 
 	QByteArray EncodeUTF16(const QString &in);
 	QString EncStream(const QString & in, int ObjNum);
@@ -122,6 +126,7 @@ private:
 
 	QMap<QString, GListeInd> GlyphsIdxOfFont;
 	QString Inhalt;
+	QString ErrorMessage;
 	ScribusDoc & doc;
 	const Page * ActPageP;
 	const PDFOptions & Options;
