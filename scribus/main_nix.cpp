@@ -70,9 +70,11 @@ int mainApp(int argc, char **argv)
 	initCrashHandler();
 /* possible fix for the Qt-4.4.0 locale problem */
 #ifdef Q_OS_UNIX
-	setlocale(LC_ALL, "C");                // use correct char set mapping
+// 	setlocale(LC_ALL, "C");                // use correct char set mapping
+#if QT_VERSION == 0x040400
 	setlocale(LC_NUMERIC, "C");        // make sprintf()/scanf() work
-#endif
+#endif // QT_VERSION == 0x040400
+#endif // Q_OS_UNIX
 	app.parseCommandLine();
 	if (app.useGUI)
 	{
