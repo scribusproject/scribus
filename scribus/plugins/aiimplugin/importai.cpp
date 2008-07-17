@@ -403,7 +403,7 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 	outf.open(QIODevice::WriteOnly);
 	try
 	{
-#if PODOFO_VERSION == 0 && PODOFO_MINOR == 5 && PODOFO_REVISION == 99
+#if (PODOFO_VERSION == 0 && PODOFO_MINOR == 5 && PODOFO_REVISION == 99) || PODOFO_MINOR > 5
 		PoDoFo::PdfMemDocument doc( infile.toLocal8Bit().data() );
 #else
 		PoDoFo::PdfDocument doc( infile.toLocal8Bit().data() );

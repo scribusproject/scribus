@@ -54,7 +54,7 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int page, int gsRes, bo
 #ifdef HAVE_PODOFO
 	try
 	{
-#if PODOFO_VERSION == 0 && PODOFO_MINOR == 5 && PODOFO_REVISION == 99
+#if (PODOFO_VERSION == 0 && PODOFO_MINOR == 5 && PODOFO_REVISION == 99) || PODOFO_MINOR > 5
 		PoDoFo::PdfMemDocument doc( fn.toLocal8Bit().data() );
 #else
 		PoDoFo::PdfDocument doc( fn.toLocal8Bit().data() );
