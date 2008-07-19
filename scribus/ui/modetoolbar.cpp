@@ -72,7 +72,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsInsertLine"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertBezier"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertFreehandLine"]);
-	this->addAction(m_ScMW->scrActions["toolsInsertLatexFrame"]);
+	this->addAction(m_ScMW->scrActions["toolsInsertRenderFrame"]);
 	this->addAction(m_ScMW->scrActions["toolsRotate"]);
 	this->addAction(m_ScMW->scrActions["toolsZoom"]);
 	this->addAction(m_ScMW->scrActions["toolsEditContents"]);
