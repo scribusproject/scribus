@@ -145,6 +145,9 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 	for (int i = 0; i < styleNames.count(); ++i)
 	{
 		index = tmpStyles_.find(styleNames[i]);
+		//FIXME: #7133: Use .isDefaultStyle() instead here rather than relying on tr text comparison
+		if (index<0 && styleNames[i]==CommonStrings::trDefaultParagraphStyle)
+			index = tmpStyles_.find(CommonStrings::DefaultParagraphStyle);
 		if (index > -1)
 			selection_.append(&tmpStyles_[index]);
 	}
@@ -1309,11 +1312,13 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 	for (int i = 0; i < styleNames.count(); ++i)
 	{
 		int index = tmpStyles_.find(styleNames[i]);
+		//FIXME: #7133: Use .isDefaultStyle() instead here rather than relying on tr text comparison
+		if (index<0 && styleNames[i]==CommonStrings::trDefaultCharacterStyle)
+			index = tmpStyles_.find(CommonStrings::DefaultCharacterStyle);
 		if (index > -1)
 			selection_.append(&tmpStyles_[index]);
 
 	}
-
 	page_->show(selection_, cstyles, PrefsManager::instance()->appPrefs.Language, doc_->unitIndex());
 	setupConnections();
 }
