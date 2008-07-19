@@ -10,7 +10,7 @@
 				\section*{Manual}
 				Your \LaTeX-frames setup is working when you can read this text!\\
 				Placing formulas is very easy:\\
-				Right click $\Rightarrow$ Edit Latex Source\\
+				Right click $\Rightarrow$ Edit Source\\
 				And replace this text with your own. Here is an example:
 				\begin{verbatim}
 					\[J = \int r^2 \mathrm{d}m\]
@@ -22,7 +22,7 @@
 				\section*{Einführung}
 				Wenn Sie diesen Text lesen können funktionieren \LaTeX-Frames bei Ihnen.
 				Eigene Formel einzufügen ist sehr einfach:
-				Mit der rechten Maustaste auf diesen Frame klicken $\Rightarrow$ Latex-Source bearbeiten\\
+				Mit der rechten Maustaste auf diesen Frame klicken $\Rightarrow$ Source bearbeiten\\
 				Danach diesen Text durch ihren eigenen ersetzen:\\
 				Ein Beispiel:
 				Aus 
@@ -36,7 +36,7 @@
 				\section*{Introduction}
 				Votre cadre \LaTeX fonctionne lorsque vous pouvez lire ce texte !\\
 				Placer des formules est très facile :\\
-				Clique droit $\Rightarrow$ Edit Latex Source\\
+				Clique droit $\Rightarrow$ Edit Source\\
 				Et remplacez ce texte par le vôtre. Voici un exemple :
 				\begin{verbatim}
 					\[J = \int r^2 \mathrm{d}m\]

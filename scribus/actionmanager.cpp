@@ -210,7 +210,7 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert(name, new ScrAction(loadIcon("16/edit-find-replace.png"), loadIcon("22/edit-find-replace.png"), "", defaultKey(name), mainWindow));
 	name="editEditWithImageEditor";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	name="editEditWithLatexEditor";
+	name="editEditRenderSource";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="editColors";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
@@ -241,7 +241,7 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editDeselectAll"], SIGNAL(triggered()), mainWindow, SLOT(deselectAll()) );
 	connect( (*scrActions)["editSearchReplace"], SIGNAL(triggered()), mainWindow, SLOT(SearchText()) );
 	connect( (*scrActions)["editEditWithImageEditor"], SIGNAL(triggered()), mainWindow, SLOT(callImageEditor()) );
-	connect( (*scrActions)["editEditWithLatexEditor"], SIGNAL(triggered()), mainWindow, SLOT(callImageEditor()) );
+	connect( (*scrActions)["editEditRenderSource"], SIGNAL(triggered()), mainWindow, SLOT(callImageEditor()) );
 	connect( (*scrActions)["editColors"], SIGNAL(triggered()), mainWindow, SLOT(slotEditColors()) );
 	connect( (*scrActions)["editReplaceColors"], SIGNAL(triggered()), mainWindow, SLOT(slotReplaceColors()) );
 	connect( (*scrActions)["editPatterns"], SIGNAL(triggered()), mainWindow, SLOT(managePatterns()) );
@@ -671,7 +671,7 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-text-frame.png"), loadIcon("22/insert-text-frame.png"), "", defaultKey(name), mainWindow, modeDrawText));
 	name="toolsInsertImageFrame";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-image.png"), loadIcon("22/insert-image.png"), "", defaultKey(name), mainWindow, modeDrawImage));
-	name="toolsInsertLatexFrame";
+	name="toolsInsertRenderFrame";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-latex.png"), loadIcon("22/insert-latex.png"), "", defaultKey(name), mainWindow, modeDrawLatex));
 	name="toolsInsertTableFrame";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-table.png"), loadIcon("22/insert-table.png"), "", defaultKey(name), mainWindow, modeDrawTable));
@@ -748,7 +748,7 @@ void ActionManager::initToolsMenuActions()
 
 	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame";
 	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier";
-	*modeActionNames << "toolsInsertFreehandLine" << "toolsInsertLatexFrame" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
+	*modeActionNames << "toolsInsertFreehandLine" << "toolsInsertRenderFrame" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
 	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame";
 	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
 	*modeActionNames << "toolsPDFPushButton" << "toolsPDFTextField" << "toolsPDFCheckBox" << "toolsPDFComboBox" << "toolsPDFListBox" << "toolsPDFAnnotText" << "toolsPDFAnnotLink";
@@ -1269,7 +1269,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editDeselectAll"]->setTexts( tr("&Deselect All"));
 	(*scrActions)["editSearchReplace"]->setTexts( tr("&Search/Replace..."));
 	(*scrActions)["editEditWithImageEditor"]->setTexts( tr("Edit Image..."));
-	(*scrActions)["editEditWithLatexEditor"]->setTexts( tr("Edit Source..."));
+	(*scrActions)["editEditRenderSource"]->setTexts( tr("Edit Source..."));
 	(*scrActions)["editColors"]->setTexts( tr("C&olors..."));
 	(*scrActions)["editReplaceColors"]->setTexts( tr("Replace Colors..."));
 	(*scrActions)["editPatterns"]->setTexts( tr("Patterns..."));
@@ -1426,7 +1426,7 @@ void ActionManager::languageChange()
 
 	(*scrActions)["toolsInsertTextFrame"]->setText( tr("Insert &Text Frame"));
 	(*scrActions)["toolsInsertImageFrame"]->setText( tr("Insert &Image Frame"));
-	(*scrActions)["toolsInsertLatexFrame"]->setText( tr("Insert &Render Frame"));
+	(*scrActions)["toolsInsertRenderFrame"]->setText( tr("Insert &Render Frame"));
 	(*scrActions)["toolsInsertTableFrame"]->setText( tr("Insert T&able"));
 	(*scrActions)["toolsInsertShape"]->setText( tr("Insert &Shape"));
 	(*scrActions)["toolsInsertPolygon"]->setText( tr("Insert &Polygon"));
@@ -1606,7 +1606,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("toolsInsertLine", Qt::Key_L);
 	defKeys.insert("toolsInsertBezier", Qt::Key_B);
 	defKeys.insert("toolsInsertFreehandLine", Qt::Key_F);
-	defKeys.insert("toolsInsertLatexFrame", Qt::Key_D); //TODO: First free key. Select a meaningful
+	defKeys.insert("toolsInsertRenderFrame", Qt::Key_D); //TODO: First free key. Select a meaningful
 	defKeys.insert("toolsRotate", Qt::Key_R);
 	defKeys.insert("toolsZoom", Qt::Key_Z);
 	defKeys.insert("toolsZoomIn", Qt::CTRL+Qt::Key_Plus);
@@ -1666,7 +1666,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "fileDocSetup" << "filePreferences" << "filePrint" << "PrintPreview" << "fileQuit";
 	++itmenu;
 	//Edit
-	itmenu->second << "editUndoAction" << "editRedoAction" << "editActionMode" << "editCut" << "editCopy" << "editPaste" << "editCopyContents" << "editPasteContents" << "editPasteContentsAbs" << "editClearContents" << "editSelectAll" << "editSelectAllOnLayer" << "editDeselectAll" << "editSearchReplace" << "toolsEditWithStoryEditor" << "editEditWithImageEditor" << "editEditWithLatexEditor" << "editExtendedImageProperties" << "editColors" << "editReplaceColors" << "editPatterns" << "editStyles" << "editMasterPages" << "editJavascripts";
+	itmenu->second << "editUndoAction" << "editRedoAction" << "editActionMode" << "editCut" << "editCopy" << "editPaste" << "editCopyContents" << "editPasteContents" << "editPasteContentsAbs" << "editClearContents" << "editSelectAll" << "editSelectAllOnLayer" << "editDeselectAll" << "editSearchReplace" << "toolsEditWithStoryEditor" << "editEditWithImageEditor" << "editEditRenderSource" << "editExtendedImageProperties" << "editColors" << "editReplaceColors" << "editPatterns" << "editStyles" << "editMasterPages" << "editJavascripts";
 	//Style
 	++itmenu;
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
@@ -1694,7 +1694,7 @@ void ActionManager::createDefaultMenus()
 		<< "toolsInsertLine"
 		<< "toolsInsertBezier"
 		<< "toolsInsertFreehandLine"
-		<< "toolsInsertLatexFrame"
+		<< "toolsInsertRenderFrame"
 		<< "stickyTools"
 		<< "insertGlyph"
 		<< "insertSampleText";

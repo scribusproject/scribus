@@ -152,10 +152,10 @@ void ContextMenu::createMenuItems_Selection()
 	//<-- Item specific actions
 	if (itemsAreSameType)
 	{
-		if (m_actionList.contains("editEditWithLatexEditor"))
+		if (m_actionList.contains("editEditRenderSource"))
 		{
 			addSeparator();
-			addAction(m_AP->scrActions["editEditWithLatexEditor"]);
+			addAction(m_AP->scrActions["editEditRenderSource"]);
 		}
 		if (m_actionList.contains("fileImportText"))
 		{
