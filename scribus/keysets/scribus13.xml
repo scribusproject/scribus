@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shortcutset name="Scribus 1.3.5" >
+    <function shortcut="F7" name="AspellPlugin" />
+    <function shortcut="" name="Barcode Generator" />
+    <function shortcut="" name="ColorWheel" />
     <function shortcut="Ctrl+Shift+E" name="ExportAsImage" />
+    <function shortcut="" name="ExportAsSVG" />
+    <function shortcut="" name="FontPreview" />
+    <function shortcut="" name="LensEffects" />
+    <function shortcut="" name="MeshDistortion" />
     <function shortcut="Ctrl+Alt+N" name="NewFromDocumentTemplate" />
+    <function shortcut="" name="PathAlongPath" />
+    <function shortcut="" name="PathCutter" />
+    <function shortcut="" name="PathFinder" />
+    <function shortcut="" name="PathStroker" />
     <function shortcut="Ctrl+Alt+P" name="PrintPreview" />
     <function shortcut="Ctrl+Alt+S" name="SaveAsDocumentTemplate" />
+    <function shortcut="" name="ShortWords" />
+    <function shortcut="" name="Subdivide" />
+    <function shortcut="" name="TransformEffect" />
     <function shortcut="" name="alignBlock" />
     <function shortcut="" name="alignCenter" />
     <function shortcut="" name="alignForced" />
@@ -16,8 +30,8 @@
     <function shortcut="Ctrl+Shift+C" name="editCopyContents" />
     <function shortcut="Ctrl+X" name="editCut" />
     <function shortcut="Ctrl+Shift+A" name="editDeselectAll" />
+    <function shortcut="" name="editEditRenderSource" />
     <function shortcut="" name="editEditWithImageEditor" />
-    <function shortcut="" name="editEditWithLatexEditor" />
     <function shortcut="" name="editExtendedImageProperties" />
     <function shortcut="" name="editJavascripts" />
     <function shortcut="" name="editMasterPages" />
@@ -26,14 +40,16 @@
     <function shortcut="Ctrl+Alt+Shift+V" name="editPasteContentsAbs" />
     <function shortcut="" name="editPatterns" />
     <function shortcut="Ctrl+Shift+Z" name="editRedoAction" />
+    <function shortcut="" name="editReplaceColors" />
     <function shortcut="Ctrl+F" name="editSearchReplace" />
     <function shortcut="Ctrl+A" name="editSelectAll" />
+    <function shortcut="Ctrl+Alt+A" name="editSelectAllOnLayer" />
     <function shortcut="F3" name="editStyles" />
     <function shortcut="Ctrl+Z" name="editUndoAction" />
     <function shortcut="" name="extrasDeHyphenateText" />
     <function shortcut="" name="extrasGenerateTableOfContents" />
     <function shortcut="" name="extrasHyphenateText" />
-    <function shortcut="" name="extrasManagePictures" />
+    <function shortcut="" name="extrasManageImages" />
     <function shortcut="Ctrl+W" name="fileClose" />
     <function shortcut="" name="fileCollect" />
     <function shortcut="" name="fileDocSetup" />
@@ -44,6 +60,7 @@
     <function shortcut="Ctrl+D" name="fileImportImage" />
     <function shortcut="Ctrl+D" name="fileImportText" />
     <function shortcut="" name="fileImportText2" />
+    <function shortcut="" name="fileImportVector" />
     <function shortcut="Ctrl+N" name="fileNew" />
     <function shortcut="Ctrl+O" name="fileOpen" />
     <function shortcut="" name="filePreferences" />
@@ -139,7 +156,8 @@
     <function shortcut="" name="shade90" />
     <function shortcut="" name="shadeOther" />
     <function shortcut="F11" name="specialToggleAllGuides" />
-    <function shortcut="F10" name="specialToggleAllPalettes" />
+    <function shortcut="F12" name="specialToggleAllPalettes" />
+    <function shortcut="Ctrl+Shift+U" name="specialUnicodeSequenceBegin" />
     <function shortcut="" name="stickyTools" />
     <function shortcut="Ctrl+E" name="styleImageEffects" />
     <function shortcut="" name="styleTabulators" />
@@ -153,9 +171,9 @@
     <function shortcut="B" name="toolsInsertBezier" />
     <function shortcut="F" name="toolsInsertFreehandLine" />
     <function shortcut="I" name="toolsInsertImageFrame" />
-    <function shortcut="D" name="toolsInsertLatexFrame" />
     <function shortcut="L" name="toolsInsertLine" />
     <function shortcut="P" name="toolsInsertPolygon" />
+    <function shortcut="D" name="toolsInsertRenderFrame" />
     <function shortcut="S" name="toolsInsertShape" />
     <function shortcut="A" name="toolsInsertTableFrame" />
     <function shortcut="T" name="toolsInsertTextFrame" />
@@ -211,6 +229,7 @@
     <function shortcut="Shift+Return" name="unicodeNewLine" />
     <function shortcut="Ctrl+Alt+-" name="unicodeNonBreakingHyphen" />
     <function shortcut="Ctrl+Space" name="unicodeNonBreakingSpace" />
+    <function shortcut="" name="unicodePageCount" />
     <function shortcut="Ctrl+Alt+Shift+P" name="unicodePageNumber" />
     <function shortcut="" name="unicodeQuoteApostrophe" />
     <function shortcut="" name="unicodeQuoteCJKDoubleLeft" />
@@ -254,6 +273,7 @@
     <function shortcut="" name="viewShowBaseline" />
     <function shortcut="" name="viewShowBleeds" />
     <function shortcut="" name="viewShowColumnBorders" />
+    <function shortcut="Menu" name="viewShowContextMenu" />
     <function shortcut="" name="viewShowFrames" />
     <function shortcut="" name="viewShowGrid" />
     <function shortcut="" name="viewShowGuides" />
