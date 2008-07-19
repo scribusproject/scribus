@@ -747,7 +747,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	ProfsTxt1->setText( tr( "Profile:" ) );
 	GroupBox9Layout->addWidget( ProfsTxt1, 1, 0 );
 	ProfsTxt2 = new QLabel( GroupBox9 );
-	ProfsTxt2->setText( tr( "Rendering-Intent:" ) );
+	ProfsTxt2->setText( tr( "Rendering Intent:" ) );
 	GroupBox9Layout->addWidget( ProfsTxt2, 1, 1 );
 	SolidPr = new QComboBox(GroupBox9);
 	SolidPr->setEditable(false);
@@ -774,7 +774,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	ProfsTxt3->setText( tr( "Profile:" ) );
 	ProfsGroupLayout->addWidget( ProfsTxt3, 2, 0 );
 	ProfsTxt4 = new QLabel( ProfsGroup );
-	ProfsTxt4->setText( tr( "Rendering-Intent:" ) );
+	ProfsTxt4->setText( tr( "Rendering Intent:" ) );
 	ProfsGroupLayout->addWidget( ProfsTxt4, 2, 1 );
 	ImageP = new QComboBox(ProfsGroup );
 	ImageP->setEditable(false);
