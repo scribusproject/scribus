@@ -78,18 +78,18 @@ void SMCStyleWidget::languageChange()
 // These are for the character style page
 // as in character styles and in paragraph style's character style
 
-	parentCombo->setToolTip(     tr("Parent style"));
-	fontFace_->setToolTip(       tr("Font face"));
-	fontSize_->setToolTip(       tr("Font size"));
+	parentCombo->setToolTip(     tr("Parent Style"));
+	fontFace_->setToolTip(       tr("Font Face"));
+	fontSize_->setToolTip(       tr("Font Size"));
 	tracking_->setToolTip(       tr("Tracking"));
-	baselineOffset_->setToolTip( tr("Baseline offset"));
-	fontHScale_->setToolTip(     tr("Horizontal scaling"));
-	fontVScale_->setToolTip(     tr("Vertical scaling"));
+	baselineOffset_->setToolTip( tr("Baseline Offset"));
+	fontHScale_->setToolTip(     tr("Horizontal Scaling"));
+	fontVScale_->setToolTip(     tr("Vertical Scaling"));
 	language_->setToolTip(       tr("Language"));
-	fillColor_->setToolTip(      tr("Fill color"));
-	fillShade_->setToolTip(      tr("Fill shade"));
-	strokeColor_->setToolTip(    tr("Stroke color"));
-	strokeShade_->setToolTip(    tr("Stroke shade"));
+	fillColor_->setToolTip(      tr("Fill Color"));
+	fillShade_->setToolTip(      tr("Fill Shade"));
+	strokeColor_->setToolTip(    tr("Stroke Color"));
+	strokeShade_->setToolTip(    tr("Stroke hade"));
 
 /***********************************/
 /*        End Tooltips             */
