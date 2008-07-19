@@ -980,11 +980,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 			else */
 //			{
 				
-				GListeInd glyphIndexes;
 				struct GlNamInd glIndexName;
-				GlyphsIdxOfFont.insert(it.key(), glyphIndexes);
+				QMap<uint,uint>      glUniToIndex;
+				QMap<uint, GlNamInd> glIndexToNames;
 				QMap<uint,std::pair<uint,QString> > gl;
-				GlyNames2(AllFonts[it.key()], &gl);
+				GlyMaps(AllFonts[it.key()], &glUniToIndex, &gl);
 				int nglyphs = 0;
 				QMap<uint,std::pair<uint,QString> >::Iterator gli;
 				for (gli = gl.begin(); gli != gl.end(); ++gli)
@@ -1011,7 +1011,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 							PutDoc(QString::number(static_cast<int>(AllFonts[it.key()]->CharWidth[gl[glyph].first] * 1000))+" ");
 							glIndexName.Code = chCount + Fc * 256;
 							glIndexName.Name = "/" + gl[glyph].second;
-							glyphIndexes[gl[glyph].first] = glIndexName;
+							glIndexToNames[glyph] = glIndexName;
 						}
 						else
 							PutDoc("0 ");
@@ -1116,6 +1116,9 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 					Seite.FObjects["Fo"+QString::number(a)+"S"+QString::number(Fc)] = ObjCounter;
 					ObjCounter++;
 				} // for(Fc)
+				GListeInd glyphIndexes;
+				glyphIndexes.uniToIndex   = glUniToIndex;
+				glyphIndexes.indexToNames = glIndexToNames;
 				GlyphsIdxOfFont.insert(it.key(), glyphIndexes);
 				StartObj(ObjCounter);
 				PutDoc("[ 0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 ");
@@ -3440,9 +3443,16 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		chx = out2.mid(d-za2, 1);
 	}
 	uint cc = chx[0].unicode();
-	uint idx = 0;
-	if (GlyphsIdxOfFont[hl->cfont->scName()].contains(cc))
-		idx = GlyphsIdxOfFont[hl->cfont->scName()][cc].Code;
+	uint idx = 0, ind;
+	const GListeInd& listIndexes = GlyphsIdxOfFont[hl->cfont->scName()];
+	QMap<uint, uint>::ConstIterator itl = listIndexes.uniToIndex.find(cc);
+	if (itl != listIndexes.uniToIndex.end())
+	{
+		ind = itl.data();
+		QMap<uint, GlNamInd>::ConstIterator itx = listIndexes.indexToNames.find(ind);
+		if( itx != listIndexes.indexToNames.end())
+			idx = itx.data().Code;
+	}
 	uint idx1 = (idx >> 8) & 0xFF;
 	if (hl->cstyle & 32)
 	{
@@ -3594,10 +3604,16 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	else
 	{
-		cc = chx[0].unicode();
+		cc  = chx[0].unicode();
 		idx = 0;
-		if (GlyphsIdxOfFont[hl->cfont->scName()].contains(cc))
-			idx = GlyphsIdxOfFont[hl->cfont->scName()][cc].Code;
+		itl = listIndexes.uniToIndex.find(cc);
+		if (itl != listIndexes.uniToIndex.end())
+		{
+			ind = itl.data();
+			QMap<uint, GlNamInd>::ConstIterator itx = listIndexes.indexToNames.find(ind);
+			if( itx != listIndexes.indexToNames.end())
+				idx = itx.data().Code;
+		}
 		idx1 = (idx >> 8) & 0xFF;
 		tmp += UsedFontsP[hl->cfont->scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 		if (hl->cstroke != CommonStrings::None)
@@ -3651,10 +3667,16 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 				double wtr = Cwidth(&doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
 				tmp += "1 0 0 1 "+FToStr(hl->xp+wtr)+" "+FToStr(-hl->yp+(hl->csize / 10.0) * (hl->cbase / 1000.0))+" Tm\n";
 				chx = "-";
-				cc = chx[0].unicode();
+				cc  = chx[0].unicode();
 				idx = 0;
-				if (GlyphsIdxOfFont[hl->cfont->scName()].contains(cc))
-					idx = GlyphsIdxOfFont[hl->cfont->scName()][cc].Code;
+				itl = listIndexes.uniToIndex.find(cc);
+				if (itl != listIndexes.uniToIndex.end())
+				{
+					ind = itl.data();
+					QMap<uint, GlNamInd>::ConstIterator itx = listIndexes.indexToNames.find(ind);
+					if( itx != listIndexes.indexToNames.end())
+						idx = itx.data().Code;
+				}
 				idx1 = (idx >> 8) & 0xFF;
 				tmp += UsedFontsP[hl->cfont->scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 				idx2 = idx & 0xFF;

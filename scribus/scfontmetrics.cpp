@@ -340,41 +340,6 @@ bool GlyNames(Foi * fnt, QMap<uint, QString> *GList)
 	return true;
 }
 
-bool GlyNames2(Foi * fnt, QMap<uint, std::pair<uint, QString> > *GListInd)
-{
-	bool error;
-	char buf[50];
-	FT_Library library;
-	FT_Face face;
-	FT_ULong  charcode;
-	FT_UInt   gindex;
-	error = FT_Init_FreeType(&library);
-	error = FT_New_Face(library, fnt->fontFilePath(), fnt->faceIndex(), &face);
-	setBestEncoding(face);
-	gindex = 0;
-	charcode = FT_Get_First_Char(face, &gindex );
-	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
-	if (adobeGlyphNames.empty())
-		readAdobeGlyphNames();
-	while (gindex != 0)
-	{
-		bool notfound = true;
-		if (hasPSNames)
-			notfound = FT_Get_Glyph_Name(face, gindex, &buf, 50);
-
-		// just in case FT gives empty string or ".notdef"
-		// no valid glyphname except ".notdef" starts with '.'		
-		if (notfound || buf[0] == '\0' || buf[0] == '.')
-			GListInd->insert(gindex, std::make_pair(static_cast<uint>(charcode),adobeGlyphName(charcode)), false);
-		else
-			GListInd->insert(gindex, std::make_pair(static_cast<uint>(charcode),QString(reinterpret_cast<char*>(buf))), false);
-			
-		charcode = FT_Get_Next_Char(face, charcode, &gindex );
-	}
-	FT_Done_FreeType( library );
-	return true;
-}
-
 bool GlyIndex(Foi * fnt, QMap<uint, PDFlib::GlNamInd> *GListInd)
 {
 	struct PDFlib::GlNamInd gln;
@@ -416,6 +381,43 @@ bool GlyIndex(Foi * fnt, QMap<uint, PDFlib::GlNamInd> *GListInd)
 			counter1 = 32;
 			counter2 += 0x100;
 		}
+	}
+	FT_Done_FreeType( library );
+	return true;
+}
+
+bool GlyMaps(Foi * fnt, QMap<uint, uint> *GUniToIndex, QMap<uint, std::pair<uint, QString> > *GIndexToNames)
+{
+	bool error;
+	char buf[50];
+	FT_Library library;
+	FT_Face face;
+	FT_ULong  charcode;
+	FT_UInt   gindex;
+	error = FT_Init_FreeType(&library);
+	error = FT_New_Face(library, fnt->fontFilePath(), fnt->faceIndex(), &face);
+	setBestEncoding(face);
+	gindex = 0;
+	charcode = FT_Get_First_Char(face, &gindex );
+	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
+	if (adobeGlyphNames.empty())
+		readAdobeGlyphNames();
+	while (gindex != 0)
+	{
+		bool notfound = true;
+		if (hasPSNames)
+			notfound = FT_Get_Glyph_Name(face, gindex, &buf, 50);
+
+		GUniToIndex->insert(charcode, gindex);
+
+		// just in case FT gives empty string or ".notdef"
+		// no valid glyphname except ".notdef" starts with '.'		
+		if (notfound || buf[0] == '\0' || buf[0] == '.')
+			GIndexToNames->insert(gindex, std::make_pair(static_cast<uint>(charcode),adobeGlyphName(charcode)), false);
+		else
+			GIndexToNames->insert(gindex, std::make_pair(static_cast<uint>(charcode),QString(reinterpret_cast<char*>(buf))), false);
+			
+		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 	}
 	FT_Done_FreeType( library );
 	return true;

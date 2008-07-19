@@ -68,7 +68,10 @@ public:
 	};
 
 private:
-	typedef QMap<uint, GlNamInd> GListeInd;
+	typedef struct {
+		QMap<uint, uint>     uniToIndex;
+		QMap<uint, GlNamInd> indexToNames;
+	} GListeInd;
 
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi);
 	void PDF_Begin_Page(const Page* pag, QPixmap pm = 0);
