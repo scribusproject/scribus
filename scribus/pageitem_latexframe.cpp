@@ -639,7 +639,7 @@ void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 	actionList << "itemPreviewLow";
 	actionList << "itemPreviewNormal";
 	actionList << "itemUpdateImage";
-	actionList << "editEditWithLatexEditor";
+	actionList << "editEditRenderSource";
 	if (PicAvail)
 	{
 		/*if (!isTableItem)
