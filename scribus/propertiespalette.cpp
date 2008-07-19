@@ -5072,7 +5072,7 @@ void PropertiesPalette::languageChange()
 //	BottomRight->setToolTip( tr("Select bottom right for basepoint"));
 //	Center->setToolTip( tr("Select center for basepoint"));
 	DoGroup->setToolTip( tr("Group the selected objects"));
-	DoUnGroup->setToolTip( tr("Destroys the selected group"));
+	DoUnGroup->setToolTip( tr("Ungroup the selected group"));
 	FlipH->setToolTip( tr("Flip Horizontal"));
 	FlipV->setToolTip( tr("Flip Vertical"));
 	Zup->setToolTip( tr("Move one level up"));
