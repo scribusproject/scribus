@@ -241,8 +241,6 @@ void SEditor::imEndEvent(QIMEvent *e)
 void SEditor::keyPressEvent(QKeyEvent *k)
 {
 	emit SideBarUp(false);
-	int p, i;
-	getCursorPosition(&p, &i);
 	int keyMod=0;
 	if (k->state() & ShiftButton)
 		keyMod |= SHIFT;
@@ -363,29 +361,36 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				case Key_Return:
 				case Key_Enter:
 					{
+						int  paraStart, paraTo, indexStart, indexTo;
+						bool hasSelection = hasSelectedText();
 						if (hasSelectedText())
+						{
+							getSelection(&paraStart, &indexStart, &paraTo, &indexTo);
 							deleteSel();
+						}
+						else
+							getCursorPosition(&paraStart, &indexStart);
 						ChList *chars;
 						chars = new ChList;
 						chars->setAutoDelete(true);
 						chars->clear();
 						if (StyledText.count() != 0)
 						{
-							if (p >= static_cast<int>(StyledText.count()))
+							if (paraStart >= static_cast<int>(StyledText.count()))
 							{
 								StyledText.append(chars);
 								ParagStyles.append(currentParaStyle);
 							}
 							else
 							{
-								ChList *chars2 = StyledText.at(p);
+								ChList *chars2 = StyledText.at(paraStart);
 								int a = static_cast<int>(chars2->count());
-								for (int s = i; s < a; ++s)
+								for (int s = indexStart; s < a; ++s)
 								{
-									chars->append(chars2->take(i));
+									chars->append(chars2->take(indexStart));
 								}
-								StyledText.insert(p+1, chars);
-								ParagStyles.insert(ParagStyles.at(p+1), currentParaStyle);
+								StyledText.insert(paraStart+1, chars);
+								ParagStyles.insert(ParagStyles.at(paraStart+1), currentParaStyle);
 							}
 						}
 						else
@@ -407,18 +412,6 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				default:
 					if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont]->CharWidth.contains(uc[0].unicode())))
 					{
-						/*if (hasSelectedText())
-						{
-							int paraStart, paraTo, indexStart, indexTo;
-							getSelection(&paraStart, &indexStart, &paraTo, &indexTo);
-							QTextEdit::keyPressEvent(k); // keyPressEvent() will call removeSelectedText()
-							insChars(k->text(), paraStart, indexStart, false);
-						}
-						else
-						{
-							insChars(k->text());
-							QTextEdit::keyPressEvent(k);
-						}*/
 						int  paraStart, paraTo, indexStart, indexTo;
 						bool hasSelection = hasSelectedText();
 						if (hasSelection)
@@ -3111,7 +3104,15 @@ void StoryEditor::Do_insSp()
 	dia->exec();
 	if (!dia->getCharacters().isEmpty())
 	{
-		Editor->insChars(dia->getCharacters());
+		int  paraStart, paraTo, indexStart, indexTo;
+		if (Editor->hasSelectedText())
+		{
+			Editor->getSelection(&paraStart, &indexStart, &paraTo, &indexTo);
+			Editor->removeSelectedText();
+		}
+		else
+			Editor->getCursorPosition(&paraStart, &indexStart);
+		Editor->insChars(dia->getCharacters(), paraStart, indexStart, false);
 		Editor->insert(dia->getCharacters());
 	}
 	delete dia;
@@ -3818,7 +3819,15 @@ ScribusDoc* StoryEditor::currentDocument() const
 
 void StoryEditor::specialActionKeyEvent(const QString& /*actionName*/, int unicodevalue)
 {
-	Editor->insChars(QString(QChar(unicodevalue)));
+	int  paraStart, paraTo, indexStart, indexTo;
+	if (Editor->hasSelectedText())
+	{
+		Editor->getSelection(&paraStart, &indexStart, &paraTo, &indexTo);
+		Editor->removeSelectedText();
+	}
+	else
+		Editor->getCursorPosition(&paraStart, &indexStart);
+	Editor->insChars(QString(QChar(unicodevalue)), paraStart, indexStart, false);
 	QString guiInsertString=QChar(unicodevalue);
 	bool setColor=false;
 	if (unicodevalue == seActions["unicodePageNumber"]->actionInt())
