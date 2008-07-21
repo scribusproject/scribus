@@ -69,6 +69,8 @@ public:
 	  into the document and returns a (nonGUI) selection to it.
 	 */
 	Selection deserializeObjects(const QFile & xml);
+
+	Selection cloneObjects(const Selection& objects);
 	
 	/** Legacy method to read plain text for a textframe */
 	static bool readWithEncoding(const QString& filename, const QString& encoding, 

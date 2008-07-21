@@ -248,6 +248,17 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 }
 
 
+Selection Serializer::cloneObjects(const Selection& objects)
+{
+	backUpColors = m_Doc.PageColors;
+	store<ScribusDoc>("<scribusdoc>", &m_Doc);
+
+	serializeObjects(objects, *this);
+	
+	return importCollection();
+}
+	
+
 Selection Serializer::deserializeObjects(const QByteArray & xml)
 {
 	backUpColors = m_Doc.PageColors;
