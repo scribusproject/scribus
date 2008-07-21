@@ -69,6 +69,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "scribuswin.h"
 #include "selection.h"
+#include "serializer.h"
 #include "story.h"
 #include "text/nlsconfig.h"
 #include "undomanager.h"
@@ -1779,17 +1780,20 @@ void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
 {
 	if(!setActiveLayer(whereToInsert))
 		return;
-	m_Selection->clear();
-	for (uint ite = 0; ite < Items->count(); ++ite)
+	Selection sourceSelection(this);
+	for (int ite(0); ite < Items->count(); ++ite)
 	{
 		PageItem *itemToCopy = Items->at(ite);
 		if (itemToCopy->LayerNr == layerNumberToCopy)
 		{
-			m_Selection->addItem(itemToCopy);
+			sourceSelection.addItem(itemToCopy);
 		}
 	}
-	m_ScMW->slotEditCopy();
-	m_ScMW->slotEditPaste();
+	Selection targetSelection(Serializer(*this).cloneObjects(sourceSelection));
+	for(int si(0); si < targetSelection.count(); ++si)
+	{
+		targetSelection.itemAt(si)->setLayer(whereToInsert);
+	}
 }
 
 
