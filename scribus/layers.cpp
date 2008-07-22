@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccombobox.h"
 #include "scribus.h"
+#include "undomanager.h"
 #include "util_icon.h"
 
 LayerPalette::LayerPalette(QWidget* parent) : ScrPaletteBase( parent, "Layers", false, 0 ), m_Doc(0)
@@ -262,13 +263,18 @@ void LayerPalette::addLayer()
 
 void LayerPalette::dupLayer()
 {
+	UndoTransaction copyTransaction( UndoManager::instance()->beginTransaction("", Um::ILayerAction, Um::DuplicateLayer.arg(m_Doc->activeLayerName()) , "", Um::ICreate) );
+	
 	int current = m_Doc->activeLayer();
+	
 	m_Doc->addLayer(QString::null, true);
 	rebuildList();
 	markActiveLayer();
 	m_Doc->copyLayer(current, m_Doc->activeLayer());
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 	m_Doc->changed();
+	
+	copyTransaction.commit();
 }
 
 void LayerPalette::removeLayer()

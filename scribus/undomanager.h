@@ -541,6 +541,7 @@ public:
 	static QString DeletePage;
 	static QString DeletePages;
 	static QString AddLayer;
+	static QString DuplicateLayer;
 	static QString DeleteLayer;
 	static QString RenameLayer;
 	static QString RaiseLayer;
