@@ -630,8 +630,11 @@ void Canvas::paintEvent ( QPaintEvent * p )
 	// fill buffer if necessary
 	bool bufferFilled = adjustBuffer();
 
-	QPainter qp(this);
-	
+	// It is ugly, but until we figure out why drawing directly on the 
+	// widget is so slow, it saves us a Cray! - pm
+	QImage tmpImg(p->rect().size(), QImage::Format_ARGB32);
+	QPainter qp(&tmpImg);
+	qp.translate(-p->rect().x(), -p->rect().y());
 	switch (m_renderMode)
 	{
 		case RENDER_NORMAL:
@@ -714,6 +717,8 @@ void Canvas::paintEvent ( QPaintEvent * p )
 	}
 	// does mode specific rendering, currently selection in legacymode and nodes in nodeedit
 	m_view->m_canvasMode->drawControls(&qp);
+	QPainter tp(this);
+	tp.drawImage(p->rect(), tmpImg, tmpImg.rect());
 	m_viewMode.forceRedraw = false;
 }
 
