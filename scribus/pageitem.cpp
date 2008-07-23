@@ -666,7 +666,10 @@ void PageItem::setReversed(bool newReversed)
 bool PageItem::frameOverflows() const
 {
 #ifndef NLS_PROTO
-	return NextBox == NULL && itemText.length() > static_cast<int>(MaxChars);
+	// Fix #6991 : "Text overflow" warning when there is a text underflow in fact
+	/*return NextBox == NULL && itemText.length() > static_cast<int>(MaxChars);*/
+	return (NextBox == NULL) && (static_cast<int>(firstChar) < itemText.length()) && (static_cast<int>(firstChar) < MaxChars)
+		&& (itemText.length() > static_cast<int>(MaxChars));
 #else
 	return false; // FIXME:NLS
 #endif
