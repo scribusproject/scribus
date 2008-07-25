@@ -21,11 +21,7 @@
 
 """
 (C) 2005 by Thomas R. Koll, <tomk32@gmx.de>, http://verlag.tomk32.de
-# Craig Bradney, Scribus Team
-# 10/3/08: Added to Scribus 1.3.3.12svn distribution "as was" from Scribus wiki for bug #6826, script is GPLd
 (c) 2008 modifications, additional features by Gregory Pittman
-# Craig Bradney, Scribus Team
-# 20/3/08: Replaced previous version in Scribus 1.3.3.12svn distribution from Scribus wiki for bug #6869
 
 A simple script for exact placement of a frame (infobox)
 over the current textbox, asking the user for the width
@@ -52,6 +48,11 @@ try:
 except ImportError:
     print "Unable to import the 'scribus' module. This script will only run within"
     print "the Python interpreter embedded in Scribus. Try Script->Execute Script."
+    sys.exit(1)
+try:
+    from PIL import Image
+except ImportError:
+    print "Unable to import the Python Imaging Library module."
     sys.exit(1)
 
 def main(argv):
@@ -111,7 +112,7 @@ def main(argv):
     while (new_height == 0):
         new_height = scribus.valueDialog('Height','Your frame height is '+ str(o_height) +
                                                  unitlabel +'. How tall\n do you want your ' +
-                                                 'infobox to be in '+ unitlabel +'?', str(o_height))
+                                                 'infobox to be in '+ unitlabel +'?\n If you load an image, height will be\n calculated, so the value here does not\n matter.', str(o_height))
     new_top = -1
     while (new_top < 0):
         new_top = scribus.valueDialog('Y-Pos','The top of your infobox is currently\n'+ str(top) +
@@ -128,10 +129,15 @@ def main(argv):
         scribus.setColumns(1, new_textbox)
         scribus.textFlowsAroundFrame(new_textbox, 1)
     else:
-        new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
         if (frametype == 'imageL'):
-            imageload = scribus.fileDialog('Load image','Images(*.jpg *.png *.tif)',haspreview=1)
-            scribus.loadImage(imageload, new_image)
+	    imageload = scribus.fileDialog('Load image','Images(*.jpg *.png *.tif *.JPG *.PNG *.jpeg *.JPEG *.TIF)',haspreview=1)
+            im = Image.open(imageload)
+            xsize, ysize = im.size
+	    new_height = float(ysize)/float(xsize)*new_width
+	    new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
+	    scribus.loadImage(imageload, new_image)
+        else:
+	    new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
         scribus.textFlowsAroundFrame(new_image, 1)
         scribus.setScaleImageToFrame(scaletoframe=1, proportional=1, name=new_image)
 if __name__ == '__main__':
