@@ -142,6 +142,7 @@ void PDFExportDialog::disableSave()
 
 void PDFExportDialog::DoExport()
 {
+	bool createPath = false;
 	QString fn = QDir::fromNativeSeparators(fileNameLineEdit->text());
 	// Checking if the path exists
 	QFileInfo fi(fn);
@@ -155,29 +156,22 @@ void PDFExportDialog::DoExport()
 		{
 			return;
 		}
+		createPath = true;
 	}
+	
 	// NOTE: Qt4 contains QDir::mkpath()
 	QDir d(fn);
-	QStringList dirList = dirPath.split(QDir::separator(), QString::SkipEmptyParts);
-	QString existingPath;
-#ifndef _WIN32
-	existingPath = QDir::separator();
-#endif
-	for (QStringList::Iterator it = dirList.begin(); it != dirList.end(); ++it )
+	if (createPath)
 	{
-		existingPath += (*it) + QDir::separator();
-		if (!d.exists(existingPath))
+		if (!d.mkpath(fi.absolutePath()))
 		{
-			if (!d.mkdir(existingPath))
-			{
-				QMessageBox::warning(this,
-									 CommonStrings::trWarning,
-									 tr("Cannot create directory: \n%1").arg(existingPath),
-									 CommonStrings::tr_OK);
-				return;
-			}
+			QMessageBox::warning(this,
+								 CommonStrings::trWarning,
+								 tr("Cannot create directory: \n%1").arg(dirPath),
+								 CommonStrings::tr_OK);
+			return;
 		}
-	} // end of Qt4 QDir::mkpath() simulation
+	}
 
 	bool doIt = false;
 	if (multiFile->isChecked())
