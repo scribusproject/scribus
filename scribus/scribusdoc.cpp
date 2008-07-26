@@ -3834,18 +3834,15 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 	{
 		Page* Seite;
 		uint docPageCount=Pages->count();
+		MarginStruct pageBleeds;
 		for (uint a = 0; a < docPageCount; ++a)
 		{
-			double bleedTop = 0.0;
-			double bleedBottom = 0.0;
-			double bleedLeft = 0.0;
-			double bleedRight = 0.0;
 			Seite = Pages->at(a);
-			getBleeds(Seite, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
-			minx = qMin(minx, Seite->xOffset() - bleedLeft);
-			miny = qMin(miny, Seite->yOffset() - bleedTop);
-			maxx = qMax(maxx, Seite->xOffset() + Seite->width() + bleedLeft + bleedRight);
-			maxy = qMax(maxy, Seite->yOffset() + Seite->height() + bleedTop + bleedBottom);
+			getBleeds(Seite, pageBleeds);
+			minx = qMin(minx, Seite->xOffset() - pageBleeds.Left);
+			miny = qMin(miny, Seite->yOffset() - pageBleeds.Top);
+			maxx = qMax(maxx, Seite->xOffset() + Seite->width() + pageBleeds.Left + pageBleeds.Right);
+			maxy = qMax(maxy, Seite->yOffset() + Seite->height() + pageBleeds.Top + pageBleeds.Bottom);
 		}
 	}
 	minPoint.setX(minx);
@@ -3870,17 +3867,14 @@ int ScribusDoc::OnPage(double x2, double  y2)
 	else
 	{
 		uint docPageCount = Pages->count();
-		double bleedRight = 0.0;
-		double bleedLeft = 0.0;
-		double bleedBottom = 0.0;
-		double bleedTop = 0.0;
+		MarginStruct pageBleeds;
 		for (uint a = 0; a < docPageCount; ++a)
 		{
-			getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
-			int x = static_cast<int>(Pages->at(a)->xOffset() - bleedLeft);
-			int y = static_cast<int>(Pages->at(a)->yOffset() - bleedTop);
-			int w = static_cast<int>(Pages->at(a)->width() + bleedLeft + bleedRight);
-			int h = static_cast<int>(Pages->at(a)->height() + bleedBottom + bleedTop);
+			getBleeds(a, pageBleeds);
+			int x = static_cast<int>(Pages->at(a)->xOffset() - pageBleeds.Left);
+			int y = static_cast<int>(Pages->at(a)->yOffset() - pageBleeds.Top);
+			int w = static_cast<int>(Pages->at(a)->width() + pageBleeds.Left + pageBleeds.Right);
+			int h = static_cast<int>(Pages->at(a)->height() + pageBleeds.Bottom + pageBleeds.Top);
 			if (QRect(x, y, w, h).contains(qRound(x2), qRound(y2)))
 			{
 				retw = static_cast<int>(a);
@@ -3916,18 +3910,15 @@ int ScribusDoc::OnPage(PageItem *currItem)
 	}
 	else
 	{
-		double bleedRight = 0.0;
-		double bleedLeft = 0.0;
-		double bleedBottom = 0.0;
-		double bleedTop = 0.0;
+		MarginStruct pageBleeds;
 		uint docPageCount = Pages->count();
 		for (uint a = 0; a < docPageCount; ++a)
 		{
-			getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
-			double x = Pages->at(a)->xOffset() - bleedLeft;
-			double y = Pages->at(a)->yOffset() - bleedTop;
-			double w = Pages->at(a)->width() + bleedLeft + bleedRight;
-			double h1 = Pages->at(a)->height() + bleedBottom + bleedTop;
+			getBleeds(a, pageBleeds);
+			double x = Pages->at(a)->xOffset() - pageBleeds.Left;
+			double y = Pages->at(a)->yOffset() - pageBleeds.Top;
+			double w = Pages->at(a)->width() + pageBleeds.Left + pageBleeds.Right;
+			double h1 = Pages->at(a)->height() + pageBleeds.Bottom + pageBleeds.Top;
 			double x2 = currItem->BoundingX;
 			double y2 = currItem->BoundingY;
 			double w2 = currItem->BoundingW;
@@ -4166,8 +4157,13 @@ double ScribusDoc::getYOffsetForPage(const int pageNumber)
 }
 
 
-void ScribusDoc::getBleeds(int pageNumber, double *bleedTop, double *bleedBottom, double *bleedLeft, double *bleedRight)
+void ScribusDoc::getBleeds(int pageNumber, MarginStruct &bleedData)
 {
+	if (pageNumber >= 0 && pageNumber < Pages->size())
+		getBleeds(Pages->at(pageNumber), bleedData);
+	else
+		qCritical() << "Attempting to get bleeds for non-existant page";
+/*
 	*bleedBottom = bleeds.Bottom;
 	*bleedTop = bleeds.Top;
 	if (pageSets[currentPageLayout].Columns == 1)
@@ -4193,34 +4189,35 @@ void ScribusDoc::getBleeds(int pageNumber, double *bleedTop, double *bleedBottom
 			*bleedLeft = bleeds.Left;
 		}
 	}
+*/
 }
 
 
-void ScribusDoc::getBleeds(Page* page, double *bleedTop, double *bleedBottom, double *bleedLeft, double *bleedRight)
+void ScribusDoc::getBleeds(Page* page, MarginStruct& bleedData)
 {
-	*bleedBottom = bleeds.Bottom;
-	*bleedTop = bleeds.Top;
+	bleedData.Bottom = bleeds.Bottom;
+	bleedData.Top = bleeds.Top;
 	if (pageSets[currentPageLayout].Columns == 1)
 	{
-		*bleedRight = bleeds.Right;
-		*bleedLeft = bleeds.Left;
+		bleedData.Right = bleeds.Right;
+		bleedData.Left = bleeds.Left;
 	}
 	else
 	{
 		if (locationOfPage(page->pageNr()) == LeftPage)
 		{
-			*bleedRight = bleeds.Left;
-			*bleedLeft = bleeds.Right;
+			bleedData.Right = bleeds.Left;
+			bleedData.Left = bleeds.Right;
 		}
 		else if (locationOfPage(page->pageNr()) == RightPage)
 		{
-			*bleedRight = bleeds.Right;
-			*bleedLeft = bleeds.Left;
+			bleedData.Right = bleeds.Right;
+			bleedData.Left = bleeds.Left;
 		}
 		else
 		{
-			*bleedRight = bleeds.Left;
-			*bleedLeft = bleeds.Left;
+			bleedData.Right = bleeds.Left;
+			bleedData.Left = bleeds.Left;
 		}
 	}
 }

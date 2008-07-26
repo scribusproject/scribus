@@ -200,6 +200,8 @@ class MarginStruct
 			Top(top), Left(left), Bottom(bottom), Right(right) {}
 		MarginStruct(const MarginStruct& rhs) {Top=rhs.Top;Bottom=rhs.Bottom;Left=rhs.Left;Right=rhs.Right;}
 		void set(double top, double left, double bottom, double right) {Top=top;Bottom=bottom;Left=left;Right=right;}
+		void resetToZero() {Top=0.0;Bottom=0.0;Left=0.0;Right=0.0;}
+		bool hasNonZeroValue() { return Top!=0.0 || Bottom!=0.0 || Left!=0.0 || Right!=0.0;}
 		void print() {qDebug() << Top << Left << Bottom << Right;}
 		double Top;
 		double Left;

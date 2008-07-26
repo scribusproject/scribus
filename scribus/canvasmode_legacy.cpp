@@ -4319,21 +4319,18 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 	{
 		int pgNum = -1;
 		int docPageCount = static_cast<int>(m_doc->Pages->count() - 1);
-		double bleedRight = 0.0;
-		double bleedLeft = 0.0;
-		double bleedBottom = 0.0;
-		double bleedTop = 0.0;
+		MarginStruct pageBleeds;
 		bool drawBleed = false;
-		if (((m_doc->bleeds.Bottom != 0.0) || (m_doc->bleeds.Top != 0.0) || (m_doc->bleeds.Left != 0.0) || (m_doc->bleeds.Right != 0.0)) && (m_doc->guidesSettings.showBleed))
+		if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesSettings.showBleed)
 			drawBleed = true;
 		for (int a = docPageCount; a > -1; a--)
 		{
 			if (drawBleed)
-				m_doc->getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
-			int x = static_cast<int>(m_doc->Pages->at(a)->xOffset() - bleedLeft);
-			int y = static_cast<int>(m_doc->Pages->at(a)->yOffset() - bleedTop);
-			int w = static_cast<int>(m_doc->Pages->at(a)->width() + bleedLeft + bleedRight);
-			int h = static_cast<int>(m_doc->Pages->at(a)->height() + bleedBottom + bleedTop);
+				m_doc->getBleeds(a, pageBleeds);
+			int x = static_cast<int>(m_doc->Pages->at(a)->xOffset() - pageBleeds.Left);
+			int y = static_cast<int>(m_doc->Pages->at(a)->yOffset() - pageBleeds.Top);
+			int w = static_cast<int>(m_doc->Pages->at(a)->width() + pageBleeds.Left + pageBleeds.Right);
+			int h = static_cast<int>(m_doc->Pages->at(a)->height() + pageBleeds.Bottom + pageBleeds.Top);
 			if (QRect(x, y, w, h).contains(MxpS, MypS))
 			{
 				pgNum = static_cast<int>(a);

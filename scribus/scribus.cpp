@@ -5519,16 +5519,14 @@ void ScribusMainWindow::DisableTxEdit()
 
 void ScribusMainWindow::slotHelpAbout()
 {
-	About* dia = new About(this);
-	dia->exec();
-	delete dia;
+	About dia(this);
+	dia.exec();
 }
 
 void ScribusMainWindow::slotHelpAboutPlugins()
 {
-	AboutPlugins* dia = new AboutPlugins(this);
-	dia->exec();
-	delete dia;
+	AboutPlugins dia(this);
+	dia.exec();
 }
 
 void ScribusMainWindow::slotHelpAboutQt()
@@ -5538,9 +5536,8 @@ void ScribusMainWindow::slotHelpAboutQt()
 
 void ScribusMainWindow::slotHelpCheckUpdates()
 {
-	About* dia = new About(this, About::CheckUpdates);
-	dia->exec();
-	delete dia;
+	About dia(this, About::CheckUpdates);
+	dia.exec();
 }
 
 void ScribusMainWindow::slotOnlineHelp()
