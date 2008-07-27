@@ -218,12 +218,19 @@ QString SMParagraphStyle::newStyle()
 
 QString SMParagraphStyle::newStyle(const QString &fromStyle)
 {
-	Q_ASSERT(tmpStyles_.resolve(fromStyle));
-	if (!tmpStyles_.resolve(fromStyle))
+	//#7179, do our name switch yet again to handle this properly for default styles
+	//FIXME: use isDefaultStyle somehow
+	QString copiedStyleName(fromStyle);
+	if (fromStyle==CommonStrings::trDefaultParagraphStyle)
+		copiedStyleName=CommonStrings::DefaultParagraphStyle;
+
+	Q_ASSERT(tmpStyles_.resolve(copiedStyleName));
+	if (!tmpStyles_.resolve(copiedStyleName))
 		return QString::null;
 
+	//Copy the style with the original name
 	QString s(getUniqueName( tr("Clone of %1").arg(fromStyle)));
-	ParagraphStyle p(tmpStyles_.get(fromStyle));
+	ParagraphStyle p(tmpStyles_.get(copiedStyleName));
 	p.setDefaultStyle(false);
 	p.setName(s);
 	p.setShortcut(QString::null); // do not clone the sc
@@ -327,6 +334,16 @@ QString SMParagraphStyle::shortcut(const QString &stylename) const
 	int index = tmpStyles_.find(stylename);
 	if (index > -1)
 		s = tmpStyles_[index].shortcut();
+	else
+	{
+		//FIXME: Use isDefaultStyle somehow
+		if (CommonStrings::trDefaultParagraphStyle==stylename)
+		{
+			index = tmpStyles_.find(CommonStrings::DefaultParagraphStyle);
+			if (index > -1)
+				s = tmpStyles_[index].shortcut();
+		}
+	}
 
 	return s;
 }
@@ -1371,12 +1388,18 @@ QString SMCharacterStyle::newStyle()
 
 QString SMCharacterStyle::newStyle(const QString &fromStyle)
 {
-	Q_ASSERT(tmpStyles_.resolve(fromStyle));
-	if (!tmpStyles_.resolve(fromStyle))
-		return QString::null;
+	//#7179, do our name switch yet again to handle this properly for default styles
+	//FIXME: use isDefaultStyle somehow
+	QString copiedStyleName(fromStyle);
+	if (fromStyle==CommonStrings::trDefaultParagraphStyle)
+		copiedStyleName=CommonStrings::DefaultParagraphStyle;
 
-	QString s = getUniqueName( tr("Clone of %1").arg(fromStyle));
-	CharStyle c(tmpStyles_.get(fromStyle));
+	Q_ASSERT(tmpStyles_.resolve(copiedStyleName));
+	if (!tmpStyles_.resolve(copiedStyleName))
+		return QString::null;
+	//Copy the style with the original name
+	QString s(getUniqueName( tr("Clone of %1").arg(fromStyle)));
+	CharStyle c(tmpStyles_.get(copiedStyleName));
 	c.setDefaultStyle(false);
 	c.setName(s);
 	c.setShortcut(QString::null);
@@ -1474,11 +1497,20 @@ void SMCharacterStyle::setDefaultStyle(bool ids)
 
 QString SMCharacterStyle::shortcut(const QString &stylename) const
 {
-	QString s = QString::null;
+	QString s(QString::null);
 	int index = tmpStyles_.find(stylename);
 	if (index > -1)
 		s = tmpStyles_[index].shortcut();
-
+	else
+	{
+		//FIXME: Use isDefaultStyle somehow
+		if (CommonStrings::trDefaultCharacterStyle==stylename)
+		{
+			index = tmpStyles_.find(CommonStrings::DefaultCharacterStyle);
+			if (index > -1)
+				s = tmpStyles_[index].shortcut();
+		}
+	}
 	return s;
 }
 
