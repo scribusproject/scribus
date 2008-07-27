@@ -1391,8 +1391,8 @@ QString SMCharacterStyle::newStyle(const QString &fromStyle)
 	//#7179, do our name switch yet again to handle this properly for default styles
 	//FIXME: use isDefaultStyle somehow
 	QString copiedStyleName(fromStyle);
-	if (fromStyle==CommonStrings::trDefaultParagraphStyle)
-		copiedStyleName=CommonStrings::DefaultParagraphStyle;
+	if (fromStyle==CommonStrings::trDefaultCharacterStyle)
+		copiedStyleName=CommonStrings::DefaultCharacterStyle;
 
 	Q_ASSERT(tmpStyles_.resolve(copiedStyleName));
 	if (!tmpStyles_.resolve(copiedStyleName))
