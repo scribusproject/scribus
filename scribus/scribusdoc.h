@@ -787,10 +787,10 @@ public:
 	void itemSelection_SetNamedCharStyle(const QString & name, Selection* customSelection=0);
 	void itemSelection_SetNamedLineStyle(const QString & name, Selection* customSelection=0);
 
-	void ChLineWidth(double w);
-	void ChLineArt(Qt::PenStyle w);
-	void ChLineJoin(Qt::PenJoinStyle w);
-	void ChLineEnd(Qt::PenCapStyle w);
+	void itemSelection_SetLineWidth(double w);
+	void itemSelection_SetLineArt(Qt::PenStyle w);
+	void itemSelection_SetLineJoin(Qt::PenJoinStyle w);
+	void itemSelection_SetLineEnd(Qt::PenCapStyle w);
 	void itemSelection_SetAlignment(int w, Selection* customSelection=0);
 	void itemSelection_SetLineSpacing(double w, Selection* customSelection=0);
 	void itemSelection_SetLineSpacingMode(int w, Selection* customSelection=0);
@@ -1153,17 +1153,17 @@ public slots:
 	/**
 	 * Adjust an image frame's size to fit the size of the image in it
 	 */
-	void itemSelection_adjustFrametoImageSize(Selection* customSelection=0);
+	void itemSelection_AdjustFrametoImageSize(Selection* customSelection=0);
 	//! @brief startArrowID or endArrowID of -1 mean not applying a selection at this point.
 	void itemSelection_ApplyArrowHead(int startArrowID=-1, int endArrowID=-1, Selection* customSelection=0);
 
-	void ItemPen(QString farbe);
-	void ItemPenShade(int sha);
-	void ItemBrush(QString farbe);
-	void ItemBrushShade(int sha);
-	void ItemGradFill(int typ);
-	void ItemPatternFill(QString pattern);
-	void ItemPatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
+	void itemSelection_SetItemPen(QString farbe);
+	void itemSelection_SetItemPenShade(int sha);
+	void itemSelection_SetItemBrush(QString farbe);
+	void itemSelection_SetItemBrushShade(int sha);
+	void itemSelection_SetItemGradFill(int typ);
+	void itemSelection_SetItemPatternFill(QString pattern);
+	void itemSelection_SetItemPatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
 
 	void updatePic();
 	void updatePict(QString name);

@@ -1711,13 +1711,13 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	connect(this->Cpal, SIGNAL(NewTransS(double)), doc, SLOT(itemSelection_SetItemLineTransparency(double)));
 	connect(this->Cpal, SIGNAL(NewBlend(int)), doc, SLOT(itemSelection_SetItemFillBlend(int)));
 	connect(this->Cpal, SIGNAL(NewBlendS(int)), doc, SLOT(itemSelection_SetItemLineBlend(int)));
-	connect(this->Cpal, SIGNAL(NewPen(QString)), doc, SLOT(ItemPen(QString)));
-	connect(this->Cpal, SIGNAL(NewBrush(QString)), doc, SLOT(ItemBrush(QString)));
-	connect(this->Cpal, SIGNAL(NewPenShade(int)), doc, SLOT(ItemPenShade(int)));
-	connect(this->Cpal, SIGNAL(NewBrushShade(int)), doc, SLOT(ItemBrushShade(int)));
-	connect(this->Cpal, SIGNAL(NewGradient(int)), doc, SLOT(ItemGradFill(int)));
-	connect(this->Cpal, SIGNAL(NewPattern(QString)), doc, SLOT(ItemPatternFill(QString)));
-	connect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double)), doc, SLOT(ItemPatternProps(double, double, double, double, double)));
+	connect(this->Cpal, SIGNAL(NewPen(QString)), doc, SLOT(itemSelection_SetItemPen(QString)));
+	connect(this->Cpal, SIGNAL(NewBrush(QString)), doc, SLOT(itemSelection_SetItemBrush(QString)));
+	connect(this->Cpal, SIGNAL(NewPenShade(int)), doc, SLOT(itemSelection_SetItemPenShade(int)));
+	connect(this->Cpal, SIGNAL(NewBrushShade(int)), doc, SLOT(itemSelection_SetItemBrushShade(int)));
+	connect(this->Cpal, SIGNAL(NewGradient(int)), doc, SLOT(itemSelection_SetItemGradFill(int)));
+	connect(this->Cpal, SIGNAL(NewPattern(QString)), doc, SLOT(itemSelection_SetItemPatternFill(QString)));
+	connect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double)), doc, SLOT(itemSelection_SetItemPatternProps(double, double, double, double, double)));
 }
 
 void PropertiesPalette::unsetDoc()
@@ -3614,7 +3614,7 @@ void PropertiesPalette::NewLineWidth()
 	if ((HaveDoc) && (HaveItem))
 	{
 		double oldL = CurItem->lineWidth();
-		doc->ChLineWidth(LSize->value() / m_unitRatio);
+		doc->itemSelection_SetLineWidth(LSize->value() / m_unitRatio);
 		if (CurItem->dashes().count() != 0)
 		{
 			if ((oldL != 0.0) && (CurItem->lineWidth() != 0.0))
@@ -3684,7 +3684,7 @@ void PropertiesPalette::NewLineStyle()
 		{
 			CurItem->DashValues.clear();
 			dashEditor->hide();
-			doc->ChLineArt(static_cast<Qt::PenStyle>(LStyle->currentIndex()+1));
+			doc->itemSelection_SetLineArt(static_cast<Qt::PenStyle>(LStyle->currentIndex()+1));
 		}
 	}
 }
@@ -3753,7 +3753,7 @@ void PropertiesPalette::NewLineJoin()
 		break;
 	}
 	if ((HaveDoc) && (HaveItem))
-		doc->ChLineJoin(c);
+		doc->itemSelection_SetLineJoin(c);
 }
 
 void PropertiesPalette::NewLineEnd()
@@ -3774,7 +3774,7 @@ void PropertiesPalette::NewLineEnd()
 		break;
 	}
 	if ((HaveDoc) && (HaveItem))
-		doc->ChLineEnd(c);
+		doc->itemSelection_SetLineEnd(c);
 }
 
 void PropertiesPalette::ToggleKette()

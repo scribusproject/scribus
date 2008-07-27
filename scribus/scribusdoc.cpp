@@ -4971,7 +4971,7 @@ void ScribusDoc::insertColor(QString nam, double c, double m, double y, double k
 	if (!PageColors.contains(nam))
 	{
 		ScColor tmp = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m),
-		                          static_cast<int>(255 * y), static_cast<int>(255 * k));
+		                      static_cast<int>(255 * y), static_cast<int>(255 * k));
 		PageColors.insert(nam, tmp);
 	}
 }
@@ -5036,7 +5036,7 @@ bool ScribusDoc::bringItemSelectionToFront()
 
 
 
-void ScribusDoc::ChLineWidth(double w)
+void ScribusDoc::itemSelection_SetLineWidth(double w)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -5076,7 +5076,7 @@ void ScribusDoc::ChLineWidth(double w)
 
 
 
-void ScribusDoc::ChLineArt(Qt::PenStyle w)
+void ScribusDoc::itemSelection_SetLineArt(Qt::PenStyle w)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -5104,7 +5104,7 @@ void ScribusDoc::ChLineArt(Qt::PenStyle w)
 
 
 
-void ScribusDoc::ChLineJoin(Qt::PenJoinStyle w)
+void ScribusDoc::itemSelection_SetLineJoin(Qt::PenJoinStyle w)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -5132,7 +5132,7 @@ void ScribusDoc::ChLineJoin(Qt::PenJoinStyle w)
 
 
 
-void ScribusDoc::ChLineEnd(Qt::PenCapStyle w)
+void ScribusDoc::itemSelection_SetLineEnd(Qt::PenCapStyle w)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -5221,7 +5221,7 @@ void ScribusDoc::itemSelection_SetNamedLineStyle(const QString &name, Selection*
 }
 
 
-void ScribusDoc::ItemPen(QString farbe)
+void ScribusDoc::itemSelection_SetItemPen(QString farbe)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -5338,7 +5338,7 @@ void ScribusDoc::itemSelection_SetOutlineWidth(int wid, Selection* customSelecti
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
 
-void ScribusDoc::ItemBrush(QString farbe)
+void ScribusDoc::itemSelection_SetItemBrush(QString farbe)
 {
 	if (farbe == CommonStrings::tr_NoneColor)
 		farbe = CommonStrings::None;
@@ -5368,7 +5368,7 @@ void ScribusDoc::ItemBrush(QString farbe)
 	}
 }
 
-void ScribusDoc::ItemBrushShade(int sha)
+void ScribusDoc::itemSelection_SetItemBrushShade(int sha)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -5397,7 +5397,7 @@ void ScribusDoc::ItemBrushShade(int sha)
 	}
 }
 
-void ScribusDoc::ItemPenShade(int sha)
+void ScribusDoc::itemSelection_SetItemPenShade(int sha)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -5425,7 +5425,7 @@ void ScribusDoc::ItemPenShade(int sha)
 	}
 }
 
-void ScribusDoc::ItemGradFill(int typ)
+void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -5512,7 +5512,7 @@ void ScribusDoc::ItemGradFill(int typ)
 	}
 }
 
-void ScribusDoc::ItemPatternFill(QString pattern)
+void ScribusDoc::itemSelection_SetItemPatternFill(QString pattern)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -5530,7 +5530,7 @@ void ScribusDoc::ItemPatternFill(QString pattern)
 	}
 }
 
-void ScribusDoc::ItemPatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
+void ScribusDoc::itemSelection_SetItemPatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -9848,7 +9848,7 @@ void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, 
 //CB-->Doc
 //Fix size/move item calls
 //CB TODO Use the selection loop properly
-void ScribusDoc::itemSelection_adjustFrametoImageSize( Selection *customSelection)
+void ScribusDoc::itemSelection_AdjustFrametoImageSize( Selection *customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);

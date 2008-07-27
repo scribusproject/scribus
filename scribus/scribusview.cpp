@@ -3294,47 +3294,6 @@ void ScribusView::editExtendedImageProperties()
 	}
 }
 
-// //CB-->Doc
-// //Fix size/move item calls
-// void ScribusView::adjustFrametoImageSize()
-// {
-// 	uint docSelectionCount=Doc->m_Selection->count();
-// 	if (docSelectionCount > 0)
-// 	{
-// 		bool toUpdate=false;
-// 		for (uint i = 0; i < docSelectionCount; ++i)
-// 		{
-// 			PageItem *currItem = Doc->m_Selection->itemAt(i);
-// 			if (currItem!=NULL)
-// 			{
-// 				if (currItem->asImageFrame() && currItem->PicAvail && !currItem->isTableItem)
-// 				{
-// 					undoManager->beginTransaction(Doc->m_Selection->count() == 1 ?
-// 					                              currItem->getUName() : Um::SelectionGroup,
-// 					                              Doc->m_Selection->count() == 1 ?
-// 					                              currItem->getUPixmap() : Um::IGroup,
-// 					                              Um::AdjustFrameToImage,"",Um::IResize);
-// 					double w, h, x, y;
-// 					w = currItem->OrigW * currItem->imageXScale();
-// 					h = currItem->OrigH * currItem->imageYScale();
-// 					x = currItem->imageXOffset() * currItem->imageXScale();
-// 					y = currItem->imageYOffset() * currItem->imageYScale();
-// 					Doc->SizeItem(w, h, currItem->ItemNr);
-// 					Doc->MoveItem(x, y, currItem);
-// 					currItem->setImageXYOffset(0.0, 0.0);
-// 					toUpdate=true;
-// 				}
-// 			}
-// 		}
-// 		if (toUpdate)
-// 		{
-// 			updateContents();
-// 			emit DocChanged();
-// 			undoManager->commit();
-// 		}
-// 	}
-// }
-
 //CB Stop using this for putting items on pages apart from pasting
 //IE write a more generic function in the doc
 void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag, bool resize)

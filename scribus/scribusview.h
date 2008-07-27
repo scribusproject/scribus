@@ -281,10 +281,6 @@ public slots: // Public slots
 	void editExtendedImageProperties();
 	//void RefreshItem(PageItem *currItem);
 	void RefreshGradient(PageItem *currItem, double dx = 8, double dy = 8);
-	/**
-	 * Adjust an image frame's size to fit the size of the image in it
-	 */
-// 	void adjustFrametoImageSize();
 	void ToggleBookmark();
 	void ToggleAnnotation();
 // 	void sentToScrap();

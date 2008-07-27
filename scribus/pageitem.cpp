@@ -3192,7 +3192,7 @@ void PageItem::restoreFill(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		fill = state->get("NEW_FILL");
 	select();
-	m_Doc->ItemBrush(fill);
+	m_Doc->itemSelection_SetItemBrush(fill);
 }
 
 void PageItem::restoreShade(SimpleState *state, bool isUndo)
@@ -3201,7 +3201,7 @@ void PageItem::restoreShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	m_Doc->ItemBrushShade(shade);
+	m_Doc->itemSelection_SetItemBrushShade(shade);
 }
 
 void PageItem::restoreLineColor(SimpleState *state, bool isUndo)
@@ -3210,7 +3210,7 @@ void PageItem::restoreLineColor(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		fill = state->get("NEW_COLOR");
 	select();
-	m_Doc->ItemPen(fill);
+	m_Doc->itemSelection_SetItemPen(fill);
 }
 
 void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
@@ -3219,7 +3219,7 @@ void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	m_Doc->ItemPenShade(shade);
+	m_Doc->itemSelection_SetItemPenShade(shade);
 }
 
 void PageItem::restoreFillTP(SimpleState *state, bool isUndo)
@@ -3247,7 +3247,7 @@ void PageItem::restoreLineStyle(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		ps = static_cast<Qt::PenStyle>(state->getInt("NEW_STYLE"));
 	select();
-	m_Doc->ChLineArt(ps);
+	m_Doc->itemSelection_SetLineArt(ps);
 }
 
 void PageItem::restoreLineEnd(SimpleState *state, bool isUndo)
@@ -3256,7 +3256,7 @@ void PageItem::restoreLineEnd(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		pcs = static_cast<Qt::PenCapStyle>(state->getInt("NEW_STYLE"));
 	select();
-	m_Doc->ChLineEnd(pcs);
+	m_Doc->itemSelection_SetLineEnd(pcs);
 }
 
 void PageItem::restoreLineJoin(SimpleState *state, bool isUndo)
@@ -3265,7 +3265,7 @@ void PageItem::restoreLineJoin(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		pjs = static_cast<Qt::PenJoinStyle>(state->getInt("NEW_STYLE"));
 	select();
-	m_Doc->ChLineJoin(pjs);
+	m_Doc->itemSelection_SetLineJoin(pjs);
 }
 
 void PageItem::restoreLineWidth(SimpleState *state, bool isUndo)
@@ -3274,7 +3274,7 @@ void PageItem::restoreLineWidth(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		w = state->getDouble("NEW_WIDTH");
 	select();
-	m_Doc->ChLineWidth(w);
+	m_Doc->itemSelection_SetLineWidth(w);
 }
 
 void PageItem::restoreCustomLineStyle(SimpleState *state, bool isUndo)

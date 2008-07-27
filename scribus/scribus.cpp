@@ -7061,7 +7061,7 @@ void ScribusMainWindow::setItemShade(int id)
 			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 				doc->itemSelection_SetFillShade(c);
 			else
-				doc->ItemBrushShade(c);
+				doc->itemSelection_SetItemBrushShade(c);
 		}
 		else
 		{
@@ -7074,7 +7074,7 @@ void ScribusMainWindow::setItemShade(int id)
 					if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 						doc->itemSelection_SetFillShade(c);
 					else
-						doc->ItemBrushShade(c);
+						doc->itemSelection_SetItemBrushShade(c);
 				}
 			}
 			delete dia;
@@ -9426,9 +9426,9 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 							doc->itemSelection_SetFillColor(colorName); //Text colour
 						else
 						if (m->modifiers() & Qt::AltModifier) //Line colour
-							doc->ItemPen(colorName);
+							doc->itemSelection_SetItemPen(colorName);
 						else
-							doc->ItemBrush(colorName); //Fill colour
+							doc->itemSelection_SetItemBrush(colorName); //Fill colour
 					}
 				}
 			}
