@@ -1691,8 +1691,16 @@ void PageItem_TextFrame::layout()
 					{
 						if (a >= current.line.firstItem)
 						{
-							--a;
-							--current.itemsInLine;
+							if ((hl->effects() & ScStyle_HyphenationPossible) || hl->ch == SpecialChars::SHYPHEN)
+							{
+								current.itemsInLine = 0;
+								a = current.line.firstItem - 1;
+							}
+							else
+							{
+								--a;
+								--current.itemsInLine;
+							}
 						}
 						if (a >= 0)
 						{
