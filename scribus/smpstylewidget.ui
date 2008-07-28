@@ -16,6 +16,14 @@
       <number>0</number>
      </property>
      <widget class="QWidget" name="tab" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>614</width>
+        <height>440</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Properties</string>
       </attribute>
@@ -25,16 +33,7 @@
          <property name="spacing" >
           <number>5</number>
          </property>
-         <property name="leftMargin" >
-          <number>0</number>
-         </property>
-         <property name="topMargin" >
-          <number>0</number>
-         </property>
-         <property name="rightMargin" >
-          <number>0</number>
-         </property>
-         <property name="bottomMargin" >
+         <property name="margin" >
           <number>0</number>
          </property>
          <item>
@@ -74,7 +73,7 @@
           <item>
            <layout class="QHBoxLayout" >
             <item>
-             <widget class="QLabel" name="pixmapLabel0" >
+             <widget class="QLabel" name="lineSpacingLabel" >
               <property name="maximumSize" >
                <size>
                 <width>22</width>
@@ -111,7 +110,7 @@
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeHint" >
+              <property name="sizeHint" stdset="0" >
                <size>
                 <width>40</width>
                 <height>20</height>
@@ -124,7 +123,7 @@
           <item>
            <layout class="QHBoxLayout" >
             <item>
-             <widget class="QLabel" name="pixmapLabel3" >
+             <widget class="QLabel" name="spaceAboveLabel" >
               <property name="maximumSize" >
                <size>
                 <width>22</width>
@@ -148,7 +147,7 @@
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeHint" >
+              <property name="sizeHint" stdset="0" >
                <size>
                 <width>40</width>
                 <height>20</height>
@@ -161,7 +160,7 @@
           <item>
            <layout class="QHBoxLayout" >
             <item>
-             <widget class="QLabel" name="pixmapLabel4" >
+             <widget class="QLabel" name="spaceBelowLabel" >
               <property name="maximumSize" >
                <size>
                 <width>22</width>
@@ -185,7 +184,7 @@
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeHint" >
+              <property name="sizeHint" stdset="0" >
                <size>
                 <width>40</width>
                 <height>20</height>
@@ -212,7 +211,7 @@
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeHint" >
+              <property name="sizeHint" stdset="0" >
                <size>
                 <width>211</width>
                 <height>20</height>
@@ -230,7 +229,7 @@
             <property name="sizeType" >
              <enum>QSizePolicy::MinimumExpanding</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>272</width>
               <height>41</height>
@@ -317,7 +316,7 @@
                 <property name="orientation" >
                  <enum>Qt::Horizontal</enum>
                 </property>
-                <property name="sizeHint" >
+                <property name="sizeHint" stdset="0" >
                  <size>
                   <width>40</width>
                   <height>20</height>
@@ -335,7 +334,7 @@
               <property name="sizeType" >
                <enum>QSizePolicy::Expanding</enum>
               </property>
-              <property name="sizeHint" >
+              <property name="sizeHint" stdset="0" >
                <size>
                 <width>270</width>
                 <height>16</height>
@@ -384,7 +383,7 @@
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeHint" >
+              <property name="sizeHint" stdset="0" >
                <size>
                 <width>40</width>
                 <height>20</height>
@@ -402,7 +401,7 @@
             <property name="sizeType" >
              <enum>QSizePolicy::MinimumExpanding</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>20</width>
               <height>16</height>
@@ -416,6 +415,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="TabPage" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>614</width>
+        <height>440</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Ch&amp;aracter Style</string>
       </attribute>
@@ -423,16 +430,7 @@
        <property name="spacing" >
         <number>5</number>
        </property>
-       <property name="leftMargin" >
-        <number>0</number>
-       </property>
-       <property name="topMargin" >
-        <number>0</number>
-       </property>
-       <property name="rightMargin" >
-        <number>0</number>
-       </property>
-       <property name="bottomMargin" >
+       <property name="margin" >
         <number>0</number>
        </property>
        <item>

@@ -26,9 +26,9 @@ SMPStyleWidget::SMPStyleWidget() : QWidget()
 {
 	setupUi(this);
 
-	pixmapLabel0->setPixmap(loadIcon("linespacing2.png"));
-	pixmapLabel3->setPixmap( loadIcon("above.png") );
-	pixmapLabel4->setPixmap( loadIcon("below.png") );
+	lineSpacingLabel->setPixmap(loadIcon("linespacing2.png"));
+	spaceAboveLabel->setPixmap( loadIcon("above.png") );
+	spaceBelowLabel->setPixmap( loadIcon("below.png") );
 
 	lineSpacingMode_->addItem( tr("Fixed Linespacing"));
 	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
@@ -69,6 +69,9 @@ void SMPStyleWidget::languageChange()
 	lineSpacing_->setToolTip(     tr("Line Spacing"));
 	spaceAbove_->setToolTip(      tr("Space Above"));
 	spaceBelow_->setToolTip(      tr("Space Below"));
+	lineSpacingLabel->setToolTip(lineSpacing_->toolTip());
+	spaceAboveLabel->setToolTip(spaceAbove_->toolTip());
+	spaceBelowLabel->setToolTip(spaceBelow_->toolTip());
 	//CB Unneeded, gets in the way of single widget tooltips
 	//dropCapsBox->setToolTip(      tr("Enable or disable drop cap"));
 	dropCapLines_->setToolTip(    tr("Drop Cap Lines"));

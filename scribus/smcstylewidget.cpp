@@ -89,7 +89,17 @@ void SMCStyleWidget::languageChange()
 	fillColor_->setToolTip(      tr("Fill Color"));
 	fillShade_->setToolTip(      tr("Fill Shade"));
 	strokeColor_->setToolTip(    tr("Stroke Color"));
-	strokeShade_->setToolTip(    tr("Stroke hade"));
+	strokeShade_->setToolTip(    tr("Stroke Shade"));
+
+	fontSizeLabel_->setToolTip(fontSize_->toolTip());
+	trackingLabel_->setToolTip(tracking_->toolTip());
+	baselineOffsetLabel_->setToolTip(baselineOffset_->toolTip());
+	hscaleLabel_->setToolTip(fontHScale_->toolTip());
+	vscaleLabel_->setToolTip(fontVScale_->toolTip());
+	FillIcon->setToolTip(fillColor_->toolTip());
+	fillShadeLabel->setToolTip(fillShade_->toolTip());
+	StrokeIcon->setToolTip(strokeColor_->toolTip());
+	strokeShadeLabel->setToolTip(strokeShade_->toolTip());
 
 /***********************************/
 /*        End Tooltips             */

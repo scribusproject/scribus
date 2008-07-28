@@ -597,6 +597,9 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 		firstLineData->setToolTip( tr( "Indentation for first line of the paragraph" ) );
 		leftIndentData->setToolTip( tr( "Indentation from the left for the whole paragraph" ) );
 		rightIndentData->setToolTip( tr( "Indentation from the right for the whole paragraph" ) );
+		firstLineLabel->setToolTip(firstLineData->toolTip());
+		leftIndentLabel->setToolTip(leftIndentData->toolTip());
+		rightIndentLabel->setToolTip(rightIndentData->toolTip());
 	}
 	clearButton->setToolTip( tr( "Delete all Tabulators" ) );
 	QString ein = unitGetSuffixFromIndex(dEin);
