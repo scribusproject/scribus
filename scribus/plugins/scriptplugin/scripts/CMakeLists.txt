@@ -5,6 +5,7 @@ INCLUDE_DIRECTORIES(
 INSTALL(FILES
 CalendarWizard.py
 FontSample.py
+InfoBox.py
 ChangeLog
 NEWS
 ReadMe
