@@ -1882,7 +1882,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode()))
 		glyph = style.font().char2CMap(QChar('-'));
 	
-	if (glyph >= ScFace::CONTROL_GLYPHS) {
+	if (glyph >= ScFace::CONTROL_GLYPHS || (style.effects() & ScStyle_SuppressSpace)) {
 //		qDebug(QString("drawGlyphs: skipping %1").arg(glyph));
 		// all those are empty
 		if (glyphs.more)
