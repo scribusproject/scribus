@@ -1897,7 +1897,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		FPointArray gly = style.font().glyphOutline(glyph);
 		// Do underlining first so you can get typographically correct
 		// underlines when drawing a white outline
-		if ((style.effects() & ScStyle_Underline) || ((style.effects() & ScStyle_UnderlineWords) && glyph != style.font().char2CMap(QChar(' ')))  && (style.strokeColor() != CommonStrings::None))
+		if (((style.effects() & ScStyle_Underline) || ((style.effects() & ScStyle_UnderlineWords) && glyph != style.font().char2CMap(QChar(' ')))) && (style.strokeColor() != CommonStrings::None))
 		{
 			double st, lw;
 			if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
