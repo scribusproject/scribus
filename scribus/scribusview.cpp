@@ -4398,7 +4398,7 @@ void ScribusView::wheelEvent(QWheelEvent *w)
 {
 	//QScrollArea::contentsWheelEvent(w);
 //	evSpon = true;
-	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (MidButt) || (w->modifiers() == Qt::ControlModifier))
+	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && ((MidButt) || (w->modifiers() == Qt::ControlModifier)))
 	{
 		FPoint mp = m_canvas->globalToCanvas(w->globalPos());
 		w->delta() > 0 ? slotZoomIn(mp.x(), mp.y()) : slotZoomOut(mp.x(), mp.y());
