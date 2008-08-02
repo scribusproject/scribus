@@ -9780,7 +9780,6 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 {
 	PageItem *bb;
 	uint StartInd = 0;
-	uint z;
 	m_Selection->delaySignalsOn();
 	PageItem *currItem = m_Selection->itemAt(0);
 	uint EndInd = currItem->PoLine.size();
@@ -9789,8 +9788,12 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 		if (currItem->PoLine.point(a).x() > 900000)
 		{
 			StartInd = a + 1;
-			z = itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), true);
-			bb = Items->at(z);
+			bb = new PageItem_Polygon(*currItem);
+			Items->append(bb);
+			bb->ItemNr = Items->count()-1;
+			bb->convertTo(PageItem::Polygon);
+			bb->Frame = false;
+			bb->FrameType = 3;
 			bb->PoLine.resize(0);
 			bb->PoLine.putPoints(0, EndInd - StartInd, currItem->PoLine, StartInd);
 			bb->setRotation(currItem->rotation());
