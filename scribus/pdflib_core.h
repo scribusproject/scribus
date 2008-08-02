@@ -131,7 +131,7 @@ private:
 	void       writeXObject(uint objNr, QString dictionary, QByteArray stream);
 	uint       writeObject(QString type, QString dictionary);
 	uint       writeGState(QString dictionary) { return writeObject("/ExtGState", dictionary); }
-	uint       writeActions(const Annotation&);
+	uint       writeActions(const Annotation&, uint annotationObj);
 //	QString    PDFEncode(const QString & in);
 	QByteArray ComputeMD5(const QString& in);
 	QByteArray ComputeRC4Key(int ObjNum);

@@ -770,15 +770,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	{
 		PutDoc("/OpenAction << /S /JavaScript /JS (this."+Options.openAction+"\\(\\)) >>\n");
 	}
-	PutDoc("/ViewerPreferences\n<<\n/PageDirection ");
-	PutDoc( Options.Binding == 0 ? "/L2R\n" : "/R2L\n");
-	if (Options.hideToolBar)
-		PutDoc("/HideToolbar true\n");
-	if (Options.hideMenuBar)
-		PutDoc("/HideMenubar true\n");
-	if (Options.fitWindow)
-		PutDoc("/FitWindow true\n");
-	PutDoc(" >>\n>>\nendobj\n");
+
 	QDate d = QDate::currentDate();
 	Datum = "D:";
 	tmp.sprintf("%4d", d.year());
@@ -793,6 +785,44 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	tmp = QTime::currentTime().toString();
 	tmp.replace(QRegExp(":"), "");
 	Datum += tmp;
+
+/* The following code makes the resulting PDF "Reader enabled" in Acrobat Reader 8
+   but sadly it doesn't work with newer version, because its based on a bug in AR 8
+	PutDoc("/Perms\n");
+	PutDoc("<<\n");
+	PutDoc("/UR3\n");
+	PutDoc("<<\n");
+	PutDoc("/M ("+Datum+")\n");
+	PutDoc("/Name (Scribus "+QString(VERSION)+")\n");
+	PutDoc("/Reference [\n");
+	PutDoc("<<\n");
+	PutDoc("/TransformParams\n");
+	PutDoc("<<\n");
+	PutDoc("/Type /TransformParams\n");
+	PutDoc("/V /2.2\n");
+	PutDoc("/Document [/FullSave]\n");
+	PutDoc("/Annots [/Create/Delete/Modify/Copy/Import/Export]\n");
+	PutDoc("/Form [/Add/Delete/FillIn/Import/Export/SubmitStandalone/SpawnTemplate]\n");
+	PutDoc("/Signature [/Modify]\n");
+	PutDoc(">>\n");
+	PutDoc("/TransformMethod /UR3\n");
+	PutDoc("/Type /SigRef\n");
+	PutDoc(">>\n");
+	PutDoc("]\n");
+	PutDoc("/Type /Sig\n");
+	PutDoc(">>\n");
+	PutDoc(">>\n");
+*/
+
+	PutDoc("/ViewerPreferences\n<<\n/PageDirection ");
+	PutDoc( Options.Binding == 0 ? "/L2R\n" : "/R2L\n");
+	if (Options.hideToolBar)
+		PutDoc("/HideToolbar true\n");
+	if (Options.hideMenuBar)
+		PutDoc("/HideMenubar true\n");
+	if (Options.fitWindow)
+		PutDoc("/FitWindow true\n");
+	PutDoc(" >>\n>>\nendobj\n");
 	QString IDg(Datum);
 	IDg += Options.fileName;
 	IDg += "Scribus "+QString(VERSION);
@@ -5602,7 +5632,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 	uint actionObj = 0;
 	if ((ite->annotation().Type() > 1) && ((ite->annotation().ActionType() == 1) || (ite->annotation().AAact())) && (!ite->annotation().Action().isEmpty()))
 		actionObj = WritePDFString(ite->annotation().Action());
-	uint AActionObj = writeActions(ite->annotation());
+	uint AActionObj = writeActions(ite->annotation(), annotationObj);
 	StartObj(annotationObj);
 	Seite.AObjects.append(annotationObj);
 	PutDoc("<<\n/Type /Annot\n");
@@ -5992,7 +6022,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 	return true;
 }		
 		
-uint PDFLibCore::writeActions(const Annotation&	annot)
+uint PDFLibCore::writeActions(const Annotation&	annot, uint annotationObj)
 {
 	// write actions
 	if ((annot.Type() > 1) && (annot.AAact()))
@@ -6027,7 +6057,7 @@ uint PDFLibCore::writeActions(const Annotation&	annot)
 			if (!annot.C_act().isEmpty())
 			{
 				C = WritePDFString(annot.C_act());
-				CalcFields.append(C);
+				CalcFields.append(annotationObj);
 			}
 		}
 
