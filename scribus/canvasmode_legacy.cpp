@@ -4427,8 +4427,8 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 			//then clear and select the new item
 			if ((m->modifiers() == SELECT_BENEATH) && m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) >= 0)
 				m_doc->m_Selection->clear();
-			
-			m_doc->m_Selection->prependItem(currItem);
+			//CB: #7186: This was prependItem, does not seem to need to be anymore with current select code
+			m_doc->m_Selection->addItem(currItem);
 			if ( (m->modifiers() & SELECT_IN_GROUP) && (!currItem->isGroupControl))
 			{
 				currItem->isSingleSel = true;
