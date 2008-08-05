@@ -2526,11 +2526,11 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
       <source>Figure Dash</source>
-      <translation>figureダッシュ</translation>
+      <translation>フィギュアダッシュ</translation>
     </message>
     <message>
       <source>Quotation Dash</source>
-      <translation>quotationダッシュ</translation>
+      <translation>クォーテーションダッシュ</translation>
     </message>
     <message>
       <source>Apostrophe</source>
@@ -2542,19 +2542,19 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
       <source>Single Left</source>
-      <translation type="unfinished" />
+      <translation>左シングルクォート</translation>
     </message>
     <message>
       <source>Single Right</source>
-      <translation type="unfinished" />
+      <translation>右シングルクォート</translation>
     </message>
     <message>
       <source>Double Left</source>
-      <translation type="unfinished" />
+      <translation>左ダブルクォート</translation>
     </message>
     <message>
       <source>Double Right</source>
-      <translation type="unfinished" />
+      <translation>右ダブルクォート</translation>
     </message>
     <message>
       <source>Single Reversed</source>
@@ -2590,19 +2590,19 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
       <source>CJK Single Left</source>
-      <translation type="unfinished" />
+      <translation>始めかぎ括弧</translation>
     </message>
     <message>
       <source>CJK Single Right</source>
-      <translation type="unfinished" />
+      <translation>終わりかぎ括弧</translation>
     </message>
     <message>
       <source>CJK Double Left</source>
-      <translation type="unfinished" />
+      <translation>始め二重かぎ括弧</translation>
     </message>
     <message>
       <source>CJK Double Right</source>
-      <translation type="unfinished" />
+      <translation>終わり二重かぎ括弧</translation>
     </message>
     <message>
       <source>Toggle Palettes</source>
@@ -3390,7 +3390,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
       <source>Pick...</source>
-      <translation type="unfinished" />
+      <translation>抽出...</translation>
     </message>
     <message>
       <source>Custom calculation script:</source>
@@ -4656,15 +4656,15 @@ Please give it a name</source>
     </message>
     <message>
       <source>Split Complementary</source>
-      <translation>分割補色</translation>
+      <translation>分裂補色</translation>
     </message>
     <message>
       <source>Triadic</source>
-      <translation>三連色</translation>
+      <translation>トライアド配色</translation>
     </message>
     <message>
       <source>Tetradic (Double Complementary)</source>
-      <translation>四連色 (二重補色)</translation>
+      <translation>テトラード配色 (二重補色)</translation>
     </message>
     <message>
       <source>Base Color</source>
@@ -4688,27 +4688,27 @@ Please give it a name</source>
     </message>
     <message>
       <source>1st. Split</source>
-      <translation>第1分割色</translation>
+      <translation>第1分裂色</translation>
     </message>
     <message>
       <source>2nd. Split</source>
-      <translation>第2分割色</translation>
+      <translation>第2分裂色</translation>
     </message>
     <message>
       <source>3rd. Split</source>
-      <translation>第3分割色</translation>
+      <translation>第3分裂色</translation>
     </message>
     <message>
       <source>4th. Split</source>
-      <translation>第4分割色</translation>
+      <translation>第4分裂色</translation>
     </message>
     <message>
       <source>1st. Triadic</source>
-      <translation>第1三連色</translation>
+      <translation>第1トライアド</translation>
     </message>
     <message>
       <source>2nd. Triadic</source>
-      <translation>第2三連色</translation>
+      <translation>第2トライアド</translation>
     </message>
     <message>
       <source>1st. Tetradic (base opposite)</source>
@@ -5807,7 +5807,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
       <source>A&amp;lternative Printer Command</source>
-      <translation>代替となるプリンタコマンド(&amp;L)</translation>
+      <translation>代わりのプリンタコマンド(&amp;L)</translation>
     </message>
     <message>
       <source>Co&amp;mmand:</source>
@@ -6008,11 +6008,11 @@ failed!</source>
     </message>
     <message>
       <source>Generating Items</source>
-      <translation type="unfinished" >アイテムを生成</translation>
+      <translation>アイテムを生成</translation>
     </message>
     <message>
       <source>Converting of %1 images failed!</source>
-      <translation type="unfinished" >%1 画像の変換に失敗しました!</translation>
+      <translation>%1 画像の変換に失敗しました!</translation>
     </message>
     <message>
       <source>Error</source>
@@ -6103,7 +6103,7 @@ failed!</source>
     </message>
     <message>
       <source>Determines the gap between the DropCaps and the Text</source>
-      <translation type="unfinished" >ドロップキャップとテキストの間のギャップを決定します</translation>
+      <translation>ドロップキャップとテキストの間のギャップを決定します</translation>
     </message>
     <message>
       <source>Spacing above the paragraph</source>
@@ -6119,7 +6119,7 @@ failed!</source>
     </message>
     <message>
       <source>Toggles sample text of this paragraph style</source>
-      <translation type="unfinished" >この段落スタイルのサンプルテキストを切替える</translation>
+      <translation>この段落スタイルのサンプルテキストを切替える</translation>
     </message>
     <message>
       <source>Name of the style is not unique</source>
@@ -6127,7 +6127,7 @@ failed!</source>
     </message>
     <message>
       <source>Select for easier reading of light coloured text styles</source>
-      <translation type="unfinished" >読みやすい明るい色のテキストスタイルを選択します</translation>
+      <translation>読みやすい明るい色のテキストスタイルを選択します</translation>
     </message>
     <message>
       <source>Determines the overall height, in line numbers, of the Drop Caps</source>
@@ -6135,15 +6135,15 @@ failed!</source>
     </message>
     <message>
       <source>Manual Tracking</source>
-      <translation type="unfinished" >手動トラッキング</translation>
+      <translation>手動トラッキング</translation>
     </message>
     <message>
       <source>Offset to baseline of characters</source>
-      <translation type="unfinished" >文字のベースラインに対するオフセット</translation>
+      <translation>文字のベースラインに対するオフセット</translation>
     </message>
     <message>
       <source>Click and hold down to select the line spacing mode.</source>
-      <translation type="unfinished" />
+      <translation>クリックして押し下げて、行間隔モードを選択してください。</translation>
     </message>
     <message>
       <source>Auto</source>
@@ -6839,7 +6839,7 @@ Name of the export file will be 'documentname-pagenumber.filetype'</source>
     </message>
     <message>
       <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
-      <translation type="unfinished" />
+      <translation>このドキュメントはシステムにインストールされていないフォントを含んでいるので、適切な代替フォントを選択してください。キャンセルすると、ドキュメントの読み込みを中止します。</translation>
     </message>
     <message>
       <source>Original Font</source>
@@ -6973,28 +6973,29 @@ Name of the export file will be 'documentname-pagenumber.filetype'</source>
     </message>
     <message>
       <source>Preview</source>
-      <translation type="unfinished" >プレビュー</translation>
+      <translation>プレビュー</translation>
     </message>
     <message>
       <source>&amp;Lock Guides</source>
-      <translation type="unfinished" >ガイドをロック(&amp;L)</translation>
+      <translation>ガイドをロック(&amp;L)</translation>
     </message>
     <message>
       <source>&amp;Apply to All Pages</source>
-      <translation type="unfinished" >全てのページに適用(&amp;A)</translation>
+      <translation>全てのページに適用(&amp;A)</translation>
     </message>
     <message>
       <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
       <comment>
 
 
+
 guide manager
 </comment>
-      <translation type="unfinished" >ドキュメントにガイドを設定します。ガイドマネージャは開いたままですが、変更点は適用されます。</translation>
+      <translation>ドキュメントにガイドを設定します。ガイドマネージャは開いたままですが、変更点は適用されます。</translation>
     </message>
     <message>
       <source>There is empty (0.0) guide already</source>
-      <translation type="unfinished" >空の (0.0) ガイドがすでに存在します</translation>
+      <translation>空の (0.0) ガイドがすでに存在します</translation>
     </message>
   </context>
   <context>
@@ -7153,7 +7154,7 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
       <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-      <translation type="unfinished" >拡張 - テキストをハイフンでつなぐ オプションを使用すると、それぞれの単語に対して、利用できる全てのハイフンを提案するダイアログボックスが表示されます。</translation>
+      <translation>拡張 - テキストをハイフンでつなぐ オプションを使用すると、それぞれの単語に対して、利用できる全てのハイフンを提案するダイアログボックスが表示されます。</translation>
     </message>
     <message>
       <source>Enables automatic hyphenation of your text while typing.</source>
@@ -7166,7 +7167,7 @@ and www.scribus.net for downloads.</source>
     <message>
       <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
-      <translation type="unfinished" >後ろに続く単語をお互いにハイフンで結ぶ最小の長さです。
+      <translation>後ろに続く単語をお互いにハイフンで結ぶ最小の長さです。
 値が0であれば、ハイフンの数に制限がないことを意味します。</translation>
     </message>
   </context>
@@ -7262,11 +7263,12 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
       <source>Imports most EPS files into the current document,
 converting their vector data into Scribus objects.</source>
-      <translation type="unfinished" >現在のドキュメントに、ベクトルデータをScribusオブジェクトに変換して、ほとんどのEPSファイルをインポートします。</translation>
+      <translation>現在のドキュメントに、ベクトルデータをScribusオブジェクトに変換して、
+ほとんどのEPSファイルをインポートします。</translation>
     </message>
     <message>
       <source>PDF</source>
-      <translation type="unfinished" >PDF</translation>
+      <translation>PDF</translation>
     </message>
   </context>
   <context>
@@ -7410,103 +7412,103 @@ converting their vector data into Scribus objects.</source>
     <name>KeyManager</name>
     <message>
       <source>Action</source>
-      <translation type="unfinished" >アクション</translation>
+      <translation>アクション</translation>
     </message>
     <message>
       <source>Current Key</source>
-      <translation type="unfinished" >現在のキー</translation>
+      <translation>現在のキー</translation>
     </message>
     <message>
       <source>Select a Key for this Action</source>
-      <translation type="unfinished" >このアクションに対するキーを選択</translation>
+      <translation>このアクションに対するキーを選択</translation>
     </message>
     <message>
       <source>&amp;No Key</source>
-      <translation type="unfinished" >キーなし(&amp;N)</translation>
+      <translation>キーなし(&amp;N)</translation>
     </message>
     <message>
       <source>&amp;User Defined Key</source>
-      <translation type="unfinished" >ユーザ定義キー(&amp;U)</translation>
+      <translation>ユーザ定義キー(&amp;U)</translation>
     </message>
     <message>
       <source>ALT+SHIFT+T</source>
-      <translation type="unfinished" >ALT+SHIFT+T</translation>
+      <translation>ALT+SHIFT+T</translation>
     </message>
     <message>
       <source>Set &amp;Key</source>
-      <translation type="unfinished" >キーを設定(&amp;K)</translation>
+      <translation>キーを設定(&amp;K)</translation>
     </message>
     <message>
       <source>Loadable Shortcut Sets</source>
-      <translation type="unfinished" >読み込み可能なショートカットのセット</translation>
+      <translation>読み込み可能なショートカットのセット</translation>
     </message>
     <message>
       <source>&amp;Load</source>
-      <translation type="unfinished" >読み込み(&amp;L)</translation>
+      <translation>読み込み(&amp;L)</translation>
     </message>
     <message>
       <source>&amp;Import...</source>
-      <translation type="unfinished" >インポート(&amp;I)...</translation>
+      <translation>インポート(&amp;I)...</translation>
     </message>
     <message>
       <source>&amp;Export...</source>
-      <translation type="unfinished" >エクスポート(&amp;E)...</translation>
+      <translation>エクスポート(&amp;E)...</translation>
     </message>
     <message>
       <source>&amp;Reset</source>
-      <translation type="unfinished" >リセット(&amp;R)</translation>
+      <translation>リセット(&amp;R)</translation>
     </message>
     <message>
       <source>Keyboard shortcut sets available to load</source>
-      <translation type="unfinished" >読み込み可能なキーボードショートカットのセットです</translation>
+      <translation>読み込み可能なキーボードショートカットのセットです</translation>
     </message>
     <message>
       <source>Load the selected shortcut set</source>
-      <translation type="unfinished" >選択されたショートカットセットを読み込みます</translation>
+      <translation>選択されたショートカットセットを読み込みます</translation>
     </message>
     <message>
       <source>Import a shortcut set into the current configuration</source>
-      <translation type="unfinished" >ショートカットセットを現在の設定にインポートします</translation>
+      <translation>ショートカットセットを現在の設定にインポートします</translation>
     </message>
     <message>
       <source>Export the current shortcuts into an importable file</source>
-      <translation type="unfinished" >現在のショートカットをインポート可能なファイルにエクスポートします</translation>
+      <translation>現在のショートカットをインポート可能なファイルにエクスポートします</translation>
     </message>
     <message>
       <source>Reload the default Scribus shortcuts</source>
-      <translation type="unfinished" >デフォルトのScribusショートカットを再読み込みします</translation>
+      <translation>デフォルトのScribusショートカットを再読み込みします</translation>
     </message>
     <message>
       <source>Alt</source>
-      <translation type="unfinished" >Alt</translation>
+      <translation>Alt</translation>
     </message>
     <message>
       <source>Ctrl</source>
-      <translation type="unfinished" >Ctrl</translation>
+      <translation>Ctrl</translation>
     </message>
     <message>
       <source>Shift</source>
-      <translation type="unfinished" >Shift</translation>
+      <translation>Shift</translation>
     </message>
     <message>
       <source>Meta</source>
-      <translation type="unfinished" >Meta</translation>
+      <translation>Meta</translation>
     </message>
     <message>
       <source>Meta+</source>
-      <translation type="unfinished" >Meta+</translation>
+      <translation>Meta+</translation>
     </message>
     <message>
       <source>Shift+</source>
-      <translation type="unfinished" >Shift+</translation>
+      <translation>Shift+</translation>
     </message>
     <message>
       <source>Alt+</source>
-      <translation type="unfinished" >Alt+</translation>
+      <translation>Alt+</translation>
     </message>
     <message>
       <source>Ctrl+</source>
-      <translation type="unfinished" >Ctrl+</translation>
+      <translation>Ctrl+</translation>
     </message>
     <message>
       <source>This key sequence is already in use</source>
@@ -8402,7 +8404,7 @@ Corners:</source>
     </message>
     <message>
       <source>Cell Lines</source>
-      <translation type="unfinished" />
+      <translation>セルの線</translation>
     </message>
     <message>
       <source>Line at Top</source>
@@ -8546,7 +8548,7 @@ Corners:</source>
     </message>
     <message>
       <source>Manual Tracking</source>
-      <translation>手動でのトラッキング</translation>
+      <translation>手動トラッキング</translation>
     </message>
     <message>
       <source>Line Spacing</source>
@@ -8674,12 +8676,12 @@ Corners:</source>
     </message>
     <message>
       <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-      <translation type="unfinished" >テキストの輪郭色とドロップシャドウは、どちらを選択するかに依存します。
+      <translation>テキストの輪郭色とドロップシャドウは、どちらを選択するかに依存します。
 両方を選択した場合は、同じ色を共有します。</translation>
     </message>
     <message>
       <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-      <translation type="unfinished" />
+      <translation>選択されたテキストの色。アウトラインテキストの装飾が有効な場合、この色は塗りつぶし色になります。ドロップシャドウテキストが有効な場合、最も上の色になります。</translation>
     </message>
     <message>
       <source>Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. </source>
@@ -8719,7 +8721,7 @@ Corners:</source>
     </message>
     <message>
       <source>Click and hold down to select the line spacing mode.</source>
-      <translation type="unfinished" />
+      <translation>クリックして押し下げて、行間隔モードを選択してください。</translation>
     </message>
     <message>
       <source>Enable or disable exporting of the object</source>
@@ -9269,7 +9271,7 @@ Corners:</source>
     </message>
     <message>
       <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-      <translation type="unfinished" >PDF/X-3タブから、PDF/X-3をエクスポートする際に情報が見つからない場合、保存ボタンが無効になります。</translation>
+      <translation>PDF/X-3タブから、PDF/X-3をエクスポートする際に情報が見つからない場合、保存ボタンが無効になります。</translation>
     </message>
   </context>
   <context>
@@ -9628,63 +9630,63 @@ Corners:</source>
     </message>
     <message>
       <source>Post</source>
-      <translation type="unfinished" >ポスト</translation>
+      <translation>ポスト</translation>
     </message>
     <message>
       <source>Crown</source>
-      <translation type="unfinished" >クラウン</translation>
+      <translation>クラウン</translation>
     </message>
     <message>
       <source>Large Post</source>
-      <translation type="unfinished" >ラージポスト</translation>
+      <translation>ラージポスト</translation>
     </message>
     <message>
       <source>Demy</source>
-      <translation type="unfinished" >ドゥミ</translation>
+      <translation>ドゥミ</translation>
     </message>
     <message>
       <source>Medium</source>
-      <translation type="unfinished" >中</translation>
+      <translation>ミディアム</translation>
     </message>
     <message>
       <source>Royal</source>
-      <translation type="unfinished" >ロイヤル</translation>
+      <translation>ロイヤル</translation>
     </message>
     <message>
       <source>Elephant</source>
-      <translation type="unfinished" >エレファント</translation>
+      <translation>エレファント</translation>
     </message>
     <message>
       <source>Double Demy</source>
-      <translation type="unfinished" >ダブルドゥミ</translation>
+      <translation>ダブルドゥミ</translation>
     </message>
     <message>
       <source>Quad Demy</source>
-      <translation type="unfinished" >クワドドゥミ</translation>
+      <translation>クワドドゥミ</translation>
     </message>
     <message>
       <source>STMT</source>
-      <translation type="unfinished" >STMT</translation>
+      <translation>STMT</translation>
     </message>
     <message>
       <source>A</source>
-      <translation type="unfinished" >A</translation>
+      <translation>A</translation>
     </message>
     <message>
       <source>B</source>
-      <translation type="unfinished" >B</translation>
+      <translation>B</translation>
     </message>
     <message>
       <source>C</source>
-      <translation type="unfinished" >C</translation>
+      <translation>C</translation>
     </message>
     <message>
       <source>D</source>
-      <translation type="unfinished" >D</translation>
+      <translation>D</translation>
     </message>
     <message>
       <source>E</source>
-      <translation type="unfinished" >E</translation>
+      <translation>E</translation>
     </message>
   </context>
   <context>
@@ -9770,11 +9772,11 @@ Corners:</source>
     </message>
     <message>
       <source>Manage Images</source>
-      <translation type="unfinished" >画像を管理</translation>
+      <translation>画像を管理</translation>
     </message>
     <message>
       <source>Go to</source>
-      <translation type="unfinished" >移動</translation>
+      <translation>移動</translation>
     </message>
   </context>
   <context>
@@ -10041,127 +10043,127 @@ Corners:</source>
     </message>
     <message>
       <source>Paths</source>
-      <translation type="unfinished" >パス</translation>
+      <translation>パス</translation>
     </message>
     <message>
       <source>&amp;Documents:</source>
-      <translation type="unfinished" >ドキュメント(&amp;D):</translation>
+      <translation>ドキュメント(&amp;D):</translation>
     </message>
     <message>
       <source>&amp;Change...</source>
-      <translation type="unfinished" >変更(&amp;C)...</translation>
+      <translation>変更(&amp;C)...</translation>
     </message>
     <message>
       <source>&amp;ICC Profiles:</source>
-      <translation type="unfinished" >ICCプロファイル(&amp;I):</translation>
+      <translation>ICCプロファイル(&amp;I):</translation>
     </message>
     <message>
       <source>C&amp;hange...</source>
-      <translation type="unfinished" >変更(&amp;H)...</translation>
+      <translation>変更(&amp;H)...</translation>
     </message>
     <message>
       <source>&amp;Scripts:</source>
-      <translation type="unfinished" >スクリプト(&amp;S):</translation>
+      <translation>スクリプト(&amp;S):</translation>
     </message>
     <message>
       <source>Ch&amp;ange...</source>
-      <translation type="unfinished" >変更(&amp;A)...</translation>
+      <translation>変更(&amp;A)...</translation>
     </message>
     <message>
       <source>Document T&amp;emplates:</source>
-      <translation type="unfinished" >ドキュメントテンプレート(&amp;E):</translation>
+      <translation>ドキュメントテンプレート(&amp;E):</translation>
     </message>
     <message>
       <source>Cha&amp;nge...</source>
-      <translation type="unfinished" >変更(&amp;N)...</translation>
+      <translation>変更(&amp;N)...</translation>
     </message>
     <message>
       <source>Page Size</source>
-      <translation type="unfinished" >ページサイズ</translation>
+      <translation>ページサイズ</translation>
     </message>
     <message>
       <source>&amp;Size:</source>
-      <translation type="unfinished" >サイズ(&amp;S):</translation>
+      <translation>サイズ(&amp;S):</translation>
     </message>
     <message>
       <source>Portrait</source>
-      <translation type="unfinished" >縦方向</translation>
+      <translation>縦方向</translation>
     </message>
     <message>
       <source>Landscape</source>
-      <translation type="unfinished" >横方向</translation>
+      <translation>横方向</translation>
     </message>
     <message>
       <source>Orie&amp;ntation:</source>
-      <translation type="unfinished" >方向(&amp;N):</translation>
+      <translation>方向(&amp;N):</translation>
     </message>
     <message>
       <source>Units:</source>
-      <translation type="unfinished" >単位:</translation>
+      <translation>単位:</translation>
     </message>
     <message>
       <source>&amp;Width:</source>
-      <translation type="unfinished" >幅(&amp;W):</translation>
+      <translation>幅(&amp;W):</translation>
     </message>
     <message>
       <source>&amp;Height:</source>
-      <translation type="unfinished" >高さ(&amp;H):</translation>
+      <translation>高さ(&amp;H):</translation>
     </message>
     <message>
       <source>Margin Guides</source>
-      <translation type="unfinished" >マージンガイド</translation>
+      <translation>マージンガイド</translation>
     </message>
     <message>
       <source>Autosave</source>
-      <translation type="unfinished" >自動保存</translation>
+      <translation>自動保存</translation>
     </message>
     <message>
       <source>min</source>
-      <translation type="unfinished" >分</translation>
+      <translation>分</translation>
     </message>
     <message>
       <source>&amp;Interval:</source>
-      <translation type="unfinished" >間隔(&amp;I):</translation>
+      <translation>間隔(&amp;I):</translation>
     </message>
     <message>
       <source>Undo/Redo</source>
-      <translation type="unfinished" >元に戻す/やり直す</translation>
+      <translation>元に戻す/やり直す</translation>
     </message>
     <message>
       <source>Action history length</source>
-      <translation type="unfinished" >アクション履歴の長さ</translation>
+      <translation>アクション履歴の長さ</translation>
     </message>
     <message>
       <source>Page Display</source>
-      <translation type="unfinished" >ページ表示</translation>
+      <translation>ページ表示</translation>
     </message>
     <message>
       <source>Color:</source>
-      <translation type="unfinished" >色:</translation>
+      <translation>色:</translation>
     </message>
     <message>
       <source>Display &amp;Unprintable Area in Margin Color</source>
-      <translation type="unfinished" >印刷できない範囲をマージンの色で表示(&amp;U)</translation>
+      <translation>印刷できない範囲をマージンの色で表示(&amp;U)</translation>
     </message>
     <message>
       <source>Alt+U</source>
-      <translation type="unfinished" >Alt+U</translation>
+      <translation>Alt+U</translation>
     </message>
     <message>
       <source>Show Text Chains</source>
-      <translation type="unfinished" >テキストチェーンを表示</translation>
+      <translation>テキストチェーンを表示</translation>
     </message>
     <message>
       <source>Show Text Control Characters</source>
-      <translation type="unfinished" >テキストの制御文字を表示</translation>
+      <translation>テキストの制御文字を表示</translation>
     </message>
     <message>
       <source>Show Frames</source>
-      <translation type="unfinished" >フレームを表示</translation>
+      <translation>フレームを表示</translation>
     </message>
     <message>
       <source>Rulers relative to Page</source>
-      <translation type="unfinished" >ページに相対する定規</translation>
+      <translation>ページに相対する定規</translation>
     </message>
     <message>
       <source>Scratch Space</source>
@@ -10169,195 +10171,195 @@ Corners:</source>
     </message>
     <message>
       <source>&amp;Top:</source>
-      <translation type="unfinished" >上(&amp;T):</translation>
+      <translation>上(&amp;T):</translation>
     </message>
     <message>
       <source>&amp;Left:</source>
-      <translation type="unfinished" >左(&amp;L):</translation>
+      <translation>左(&amp;L):</translation>
     </message>
     <message>
       <source>&amp;Bottom:</source>
-      <translation type="unfinished" >下(&amp;B):</translation>
+      <translation>下(&amp;B):</translation>
     </message>
     <message>
       <source>&amp;Right:</source>
-      <translation type="unfinished" >右(&amp;R):</translation>
+      <translation>右(&amp;R):</translation>
     </message>
     <message>
       <source>Gaps between Pages</source>
-      <translation type="unfinished" >ページ間のギャップ</translation>
+      <translation>ページ間のギャップ</translation>
     </message>
     <message>
       <source>Horizontal:</source>
-      <translation type="unfinished" >水平:</translation>
+      <translation>水平:</translation>
     </message>
     <message>
       <source>Vertical:</source>
-      <translation type="unfinished" >垂直:</translation>
+      <translation>垂直:</translation>
     </message>
     <message>
       <source>&amp;Adjust Display Size</source>
-      <translation type="unfinished" >表示サイズを調整(&amp;A)</translation>
+      <translation>表示サイズを調整(&amp;A)</translation>
     </message>
     <message>
       <source>To adjust the display drag the ruler below with the slider.</source>
-      <translation type="unfinished" >表示を調整するには下の定規をスライドバーで動かしてください</translation>
+      <translation>表示を調整するには下の定規をスライドバーで動かしてください</translation>
     </message>
     <message>
       <source>PostScript Interpreter</source>
-      <translation type="unfinished" >Postscriptインタプリタ</translation>
+      <translation>Postscriptインタプリタ</translation>
     </message>
     <message>
       <source>&amp;Name of Executable:</source>
-      <translation type="unfinished" >実行ファイル名(&amp;N):</translation>
+      <translation>実行ファイル名(&amp;N):</translation>
     </message>
     <message>
       <source>Antialias &amp;Text</source>
-      <translation type="unfinished" >テキストのアンチエイリアス(&amp;T)</translation>
+      <translation>テキストのアンチエイリアス(&amp;T)</translation>
     </message>
     <message>
       <source>Antialias &amp;Graphics</source>
-      <translation type="unfinished" >画像のアンチエイリアス(&amp;G)</translation>
+      <translation>画像のアンチエイリアス(&amp;G)</translation>
     </message>
     <message>
       <source>dpi</source>
-      <translation type="unfinished" >dpi</translation>
+      <translation>dpi</translation>
     </message>
     <message>
       <source>Resolution:</source>
-      <translation type="unfinished" >解像度:</translation>
+      <translation>解像度:</translation>
     </message>
     <message>
       <source>Image Processing Tool</source>
-      <translation type="unfinished" >画像処理ツール</translation>
+      <translation>画像処理ツール</translation>
     </message>
     <message>
       <source>Name of &amp;Executable:</source>
-      <translation type="unfinished" >実行ファイル名(&amp;E):</translation>
+      <translation>実行ファイル名(&amp;E):</translation>
     </message>
     <message>
       <source>Always ask before fonts are replaced when loading a document</source>
-      <translation type="unfinished" >ドキュメント読み込み時にフォント置換をする場合は常にたずねる</translation>
+      <translation>ドキュメント読み込み時にフォント置換をする場合は常にたずねる</translation>
     </message>
     <message>
       <source>Preview of current Paragraph Style visible when editing Styles</source>
-      <translation type="unfinished" >スタイル編集中に現在の段落スタイルのプレビューを表示</translation>
+      <translation>スタイル編集中に現在の段落スタイルのプレビューを表示</translation>
     </message>
     <message>
       <source>Show Startup Dialog</source>
-      <translation type="unfinished" >スタートアップダイアログを表示</translation>
+      <translation>スタートアップダイアログを表示</translation>
     </message>
     <message>
       <source>Lorem Ipsum</source>
-      <translation type="unfinished" >Lorem Ipsum</translation>
+      <translation>Lorem Ipsum</translation>
     </message>
     <message>
       <source>Always use standard Lorem Ipsum</source>
-      <translation type="unfinished" >常に標準のLorem Ipsumを使用する</translation>
+      <translation>常に標準のLorem Ipsumを使用する</translation>
     </message>
     <message>
       <source>Count of the Paragraphs:</source>
-      <translation type="unfinished" >段落の数:</translation>
+      <translation>段落の数:</translation>
     </message>
     <message>
       <source>Enable or disable  the display of linked frames.</source>
-      <translation type="unfinished" >リンクされたテキストフレームの表示の有効/無効</translation>
+      <translation>リンクされたテキストフレームの表示の有効/無効</translation>
     </message>
     <message>
       <source>Display non-printing characters such as paragraph markers in text frames</source>
-      <translation type="unfinished" >テキストフレーム中の段落記号のような非印字文字を表示する</translation>
+      <translation>テキストフレーム中の段落記号のような非印字文字を表示する</translation>
     </message>
     <message>
       <source>Turns the display of frames on or off</source>
-      <translation type="unfinished" >フレームの表示をON/OFFする</translation>
+      <translation>フレームの表示をON/OFFする</translation>
     </message>
     <message>
       <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-      <translation type="unfinished" >Scribusを実行する際のデフォルトの言語を選択します。環境変数に基づいて選択するのであれば、ここは空欄のままにしてください。Scribusの起動時に、コマンドラインオプションに渡すことによって、この設定を上書きすることもできます。</translation>
+      <translation>Scribusを実行する際のデフォルトの言語を選択します。環境変数に基づいて選択するのであれば、ここは空欄のままにしてください。Scribusの起動時に、コマンドラインオプションに渡すことによって、この設定を上書きすることもできます。</translation>
     </message>
     <message>
       <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-      <translation type="unfinished" >デフォルトのウィンドウ装飾と見た目を選択してください。QtがKDEプラグインを検索するように設定されていれば、Scribusは、利用可能なKDEやQtテーマを継承します。</translation>
+      <translation>デフォルトのウィンドウ装飾と見た目を選択してください。QtがKDEプラグインを検索するように設定されていれば、Scribusは、利用可能なKDEやQtテーマを継承します。</translation>
     </message>
     <message>
       <source>Default font size for the menus and windows</source>
-      <translation type="unfinished" >メニューやウィンドウの標準フォントサイズ</translation>
+      <translation>メニューやウィンドウの標準フォントサイズ</translation>
     </message>
     <message>
       <source>Default font size for the tool windows</source>
-      <translation type="unfinished" >ツールウィンドウのデフォルトのフォントサイズ</translation>
+      <translation>ツールウィンドウのデフォルトのフォントサイズ</translation>
     </message>
     <message>
       <source>Default unit of measurement for document editing</source>
-      <translation type="unfinished" >ドキュメントを編集する際のデフォルトの計測単位</translation>
+      <translation>ドキュメントを編集する際のデフォルトの計測単位</translation>
     </message>
     <message>
       <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-      <translation type="unfinished" >マウスホイールの動きに応じてスクロールする行数</translation>
+      <translation>マウスホイールの動きに応じてスクロールする行数</translation>
     </message>
     <message>
       <source>Number of recently edited documents to show in the File menu</source>
-      <translation type="unfinished" >ファイルメニューの中に表示される最近編集したドキュメントの数</translation>
+      <translation>ファイルメニューの中に表示される最近編集したドキュメントの数</translation>
     </message>
     <message>
       <source>Default documents directory</source>
-      <translation type="unfinished" >デフォルトのドキュメントディレクトリ</translation>
+      <translation>デフォルトのドキュメントディレクトリ</translation>
     </message>
     <message>
       <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-      <translation type="unfinished" >デフォルトのICCプロファイルディレクトリ。ドキュメントを開いて変更することはできません。デフォルトでは、ScribusはMac OSXやWindowsのシステムディレクトリ以下を検索します。LinuxやUNIXでは、Scribusは $home/.color/iccやusr/share/color/iccや/usr/local/share/color/iccを検索します。</translation>
+      <translation>デフォルトのICCプロファイルディレクトリ。ドキュメントを開いて変更することはできません。デフォルトでは、ScribusはMac OSXやWindowsのシステムディレクトリ以下を検索します。LinuxやUNIXでは、Scribusは $home/.color/iccやusr/share/color/iccや/usr/local/share/color/iccを検索します。</translation>
     </message>
     <message>
       <source>Default Scripter scripts directory</source>
-      <translation type="unfinished" >デフォルトのスクリプタスクリプトのディレクトリ</translation>
+      <translation>デフォルトのスクリプタスクリプトのディレクトリ</translation>
     </message>
     <message>
       <source>Additional directory for document templates</source>
-      <translation type="unfinished" >ドキュメントテンプレートの追加ディレクトリ</translation>
+      <translation>ドキュメントテンプレートの追加ディレクトリ</translation>
     </message>
     <message>
       <source>Default page size, either a standard size or a custom size</source>
-      <translation type="unfinished" >デフォルトの標準サイズとカスタムサイズの両方のページサイズ</translation>
+      <translation>デフォルトの標準サイズとカスタムサイズの両方のページサイズ</translation>
     </message>
     <message>
       <source>Default orientation of document pages</source>
-      <translation type="unfinished" >デフォルトのドキュメントページの方向</translation>
+      <translation>デフォルトのドキュメントページの方向</translation>
     </message>
     <message>
       <source>Width of document pages, editable if you have chosen a custom page size</source>
-      <translation type="unfinished" >ドキュメントのページ幅。カスタムページサイズを選べば編集が可能です</translation>
+      <translation>ドキュメントのページ幅。カスタムページサイズを選べば編集が可能です</translation>
     </message>
     <message>
       <source>Height of document pages, editable if you have chosen a custom page size</source>
-      <translation type="unfinished" >ドキュメントのページの高さ。カスタムページサイズを選べば編集が可能です</translation>
+      <translation>ドキュメントのページの高さ。カスタムページサイズを選べば編集が可能です</translation>
     </message>
     <message>
       <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-      <translation type="unfinished" >有効にすると、Scribusは一定時間たつごとに.bakという拡張子でファイルのバックアップコピーを保存します。</translation>
+      <translation>有効にすると、Scribusは一定時間たつごとに.bakという拡張子でファイルのバックアップコピーを保存します。</translation>
     </message>
     <message>
       <source>Time period between saving automatically</source>
-      <translation type="unfinished" >自動保存の間隔</translation>
+      <translation>自動保存の間隔</translation>
     </message>
     <message>
       <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-      <translation type="unfinished" >ステップ中のアクション履歴の長さを設定します。0に設定すれば、アクションは無限に保存されます。</translation>
+      <translation>ステップ中のアクション履歴の長さを設定します。0に設定すれば、アクションは無限に保存されます。</translation>
     </message>
     <message>
       <source>Color for paper</source>
-      <translation type="unfinished" >紙の色</translation>
+      <translation>紙の色</translation>
     </message>
     <message>
       <source>Mask the area outside the margins in the margin color</source>
-      <translation type="unfinished" >マージンの外側の領域をマージンの色でマスクする</translation>
+      <translation>マージンの外側の領域をマージンの色でマスクする</translation>
     </message>
     <message>
       <source>Set the default zoom level</source>
-      <translation type="unfinished" >標準ズームレベルを設定</translation>
+      <translation>標準ズームレベルを設定</translation>
     </message>
     <message>
       <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-      <translation type="unfinished" >Scribusがページやオブジェクトを正確なサイズで表示できるように、画面に定規をあてて、ズームレベルを設定するためにスライダーを動かしてください。</translation>
+      <translation>Scribusがページやオブジェクトを正確なサイズで表示できるように、画面に定規をあてて、ズームレベルを設定するためにスライダーを動かしてください。</translation>
     </message>
     <message>
       <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
@@ -10365,15 +10367,15 @@ Corners:</source>
     </message>
     <message>
       <source>Antialias text for EPS and PDF onscreen rendering</source>
-      <translation type="unfinished" >EPSとPDFのテキストの画面でのレンダリングをアンチエイリアスにする</translation>
+      <translation>EPSとPDFのテキストの画面でのレンダリングをアンチエイリアスにする</translation>
     </message>
     <message>
       <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-      <translation type="unfinished" >EPSとPDFの画像の画面でのレンダリングをアンチエイリアスにする</translation>
+      <translation>EPSとPDFの画像の画面でのレンダリングをアンチエイリアスにする</translation>
     </message>
     <message>
       <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend 'gimp-remote', as it allows you to edit the image in an already running instance of gimp.</source>
-      <translation type="unfinished" >グラフィックエディタのファイルシステム上の位置です。gimpを使っており、ディストリビューションに含まれているのであれば、すでに実行されているgimpで画像を編集することができる 'gimp-remote' をお薦めします。</translation>
+      <translation>グラフィックエディタのファイルシステム上の位置です。gimpを使っており、ディストリビューションに含まれているのであれば、すでに実行されているgimpで画像を編集することができる 'gimp-remote' をお薦めします。</translation>
     </message>
     <message>
       <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
@@ -10393,23 +10395,23 @@ Corners:</source>
     </message>
     <message>
       <source>Choose a Directory</source>
-      <translation type="unfinished" >ディレクトリを選択</translation>
+      <translation>ディレクトリを選択</translation>
     </message>
     <message>
       <source>Locate Ghostscript</source>
-      <translation type="unfinished" >Ghostscriptの位置</translation>
+      <translation>Ghostscriptの位置</translation>
     </message>
     <message>
       <source>Locate your image editor</source>
-      <translation type="unfinished" >画像エディタの位置</translation>
+      <translation>画像エディタの位置</translation>
     </message>
     <message>
       <source>Show Images</source>
-      <translation type="unfinished" >画像を表示</translation>
+      <translation>画像を表示</translation>
     </message>
     <message>
       <source>Turns the display of images on or off</source>
-      <translation type="unfinished" >画像の表示をON/OFFする</translation>
+      <translation>画像の表示をON/OFFする</translation>
     </message>
   </context>
   <context>
@@ -10424,7 +10426,7 @@ Corners:</source>
     </message>
     <message>
       <source>Save...</source>
-      <translation type="unfinished" >保存...</translation>
+      <translation>保存...</translation>
     </message>
   </context>
   <context>
@@ -10474,7 +10476,7 @@ Do you want to migrate them to the new Scribus version?</source>
 
 scribus app error
 </comment>
-      <translation type="unfinished" >Scribusは設定を保存できませんでした:&lt;br>%1&lt;br>ファイルとディレクトリのパーミッションならびに空きディスク容量をチェックしてください。</translation>
+      <translation>Scribusは設定を保存できませんでした:&lt;br>%1&lt;br>ファイルとディレクトリのパーミッションならびに空きディスク容量をチェックしてください。</translation>
     </message>
     <message>
       <source>Error Loading Preferences</source>
@@ -10482,7 +10484,7 @@ scribus app error
     </message>
     <message>
       <source>Scribus was not able to load its preferences:&lt;br>%1&lt;br>Default settings will be loaded.</source>
-      <translation type="unfinished" >Scribusは設定を読み込めませんでした:&lt;br>%1&lt;br>デフォルト設定を読み込みます。</translation>
+      <translation>Scribusは設定を読み込めませんでした:&lt;br>%1&lt;br>デフォルト設定を読み込みます。</translation>
     </message>
   </context>
   <context>
@@ -10514,7 +10516,7 @@ scribus app error
     </message>
     <message>
       <source>You can select predefined page layout here. 'None' leave margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value.</source>
-      <translation type="unfinished" >あらかじめ定義されたレイアウトを選択できます。'なし'だとマージンはそのままで、グーテンベルクはマージンをクラシカルな設定にし、'雑誌'は全てのマージンを同じ値に設定します。レディングは左/内側の値です。</translation>
+      <translation>あらかじめ定義されたレイアウトを選択できます。'なし'だとマージンはそのままで、グーテンベルクはマージンをクラシカルな設定にし、'雑誌'は全てのマージンを同じ値に設定します。レディングは左/内側の値です。</translation>
     </message>
   </context>
   <context>
@@ -10589,11 +10591,11 @@ scribus app error
     </message>
     <message>
       <source>Python Scripts (*.py)</source>
-      <translation type="unfinished" >Pythonスクリプト (*.py)</translation>
+      <translation>Pythonスクリプト (*.py)</translation>
     </message>
     <message>
       <source>Warning</source>
-      <translation type="unfinished" >警告</translation>
+      <translation>警告</translation>
     </message>
     <message>
       <source>This is a standard Python console with some 
@@ -11290,7 +11292,7 @@ Qtは組込みデバイスでも利用可能です。&lt;/p>&lt;p>QtはTrolltech
 
 Load PDF settings
 </comment>
-      <translation type="unfinished" >nullルートノード</translation>
+      <translation>nullルートノード</translation>
     </message>
     <message>
       <source>&lt;pdfVersion> invalid</source>
@@ -11299,7 +11301,7 @@ Load PDF settings
 
 Load PDF settings
 </comment>
-      <translation type="unfinished" >&lt;pdfVersion> 無効</translation>
+      <translation>&lt;pdfVersion> 無効</translation>
     </message>
     <message>
       <source>found %1 &lt;%2> nodes, need 1.</source>
@@ -11313,7 +11315,7 @@ Load PDF settings
 
 Load PDF settings
 </comment>
-      <translation type="unfinished" >予期せぬ null &lt;%2> ノード</translation>
+      <translation>予期せぬ null &lt;%2> ノード</translation>
     </message>
     <message>
       <source>node &lt;%1> not an element</source>
@@ -11322,7 +11324,7 @@ Load PDF settings
 
 Load PDF settings
 </comment>
-      <translation type="unfinished" >ノード &lt;%1> は要素ではありません</translation>
+      <translation>ノード &lt;%1> は要素ではありません</translation>
     </message>
     <message>
       <source>element &lt;%1> lacks `value' attribute</source>
@@ -11331,7 +11333,7 @@ Load PDF settings
 
 Load PDF settings
 </comment>
-      <translation type="unfinished" >要素 &lt;%1> に `value' 属性が足りません</translation>
+      <translation>要素 &lt;%1> に `value' 属性が足りません</translation>
     </message>
     <message>
       <source>element &lt;%1> value must be `true' or `false'</source>
@@ -11340,7 +11342,7 @@ Load PDF settings
 
 Load PDF settings
 </comment>
-      <translation type="unfinished" >要素 &lt;%1> の値は `true' もしくは `false' である必要があります</translation>
+      <translation>要素 &lt;%1> の値は `true' もしくは `false' である必要があります</translation>
     </message>
     <message>
       <source>element &lt;lpiSettingsEntry> lacks `name' attribute</source>
@@ -11349,7 +11351,7 @@ Load PDF settings
 
 Load PDF settings
 </comment>
-      <translation type="unfinished" >要素 &lt;lpiSettingsEntry> に `name' 属性が足りません</translation>
+      <translation>要素 &lt;lpiSettingsEntry> に `name' 属性が足りません</translation>
     </message>
     <message>
       <source>All</source>
@@ -11421,19 +11423,19 @@ Load PDF settings
     </message>
     <message>
       <source>Font %1 loaded from %2(%3)</source>
-      <translation type="unfinished" >フォント %1 は %2(%3) から読み込まれました</translation>
+      <translation>フォント %1 は %2(%3) から読み込まれました</translation>
     </message>
     <message>
       <source>Font %1(%2) is duplicate of %3</source>
-      <translation type="unfinished" >フォント %1(%2)は %3 のコピーです</translation>
+      <translation>フォント %1(%2)は %3 のコピーです</translation>
     </message>
     <message>
       <source>Loading font %1 (found using fontconfig)</source>
-      <translation type="unfinished" >フォントをロード中 %1 (fontconfigを使用して検索)</translation>
+      <translation>フォントをロード中 %1 (fontconfigを使用して検索)</translation>
     </message>
     <message>
       <source>Failed to load a font - freetype2 couldn't find the font file</source>
-      <translation type="unfinished" >フォントの読み込みに失敗しました - freetype2はフォントファイルを見つけられませんでした</translation>
+      <translation>フォントの読み込みに失敗しました - freetype2はフォントファイルを見つけられませんでした</translation>
     </message>
     <message>
       <source>Reading Font Cache</source>
@@ -11449,23 +11451,23 @@ Load PDF settings
     </message>
     <message>
       <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
-      <translation type="unfinished" >フォント %2 からフェース %1 を抽出しています (offset=%3, nTables=%4)</translation>
+      <translation>フォント %2 からフェース %1 を抽出しています (offset=%3, nTables=%4)</translation>
     </message>
     <message>
       <source>memcpy header: %1 %2 %3</source>
-      <translation type="unfinished" >memcpyヘッダ: %1 %2 %3</translation>
+      <translation>memcpyヘッダ: %1 %2 %3</translation>
     </message>
     <message>
       <source>table '%1'</source>
-      <translation type="unfinished" >テーブル '%1'</translation>
+      <translation>テーブル '%1'</translation>
     </message>
     <message>
       <source>memcpy table: %1 %2 %3</source>
-      <translation type="unfinished" >memcpyテーブル: %1 %2 %3</translation>
+      <translation>memcpyテーブル: %1 %2 %3</translation>
     </message>
     <message>
       <source>memcpy offset: %1 %2 %3</source>
-      <translation type="unfinished" >memcpyオフセット: %1 %2 %3</translation>
+      <translation>memcpyオフセット: %1 %2 %3</translation>
     </message>
     <message>
       <source>Initializing...</source>
@@ -11489,7 +11491,7 @@ Load PDF settings
     </message>
     <message>
       <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-      <translation type="unfinished" >ドキュメントの変更点が保存されておらず、取り消しを求められました。続けますか?</translation>
+      <translation>ドキュメントの変更点が保存されておらず、取り消しを求められました。続けますか?</translation>
     </message>
     <message>
       <source>Save as</source>
@@ -11573,7 +11575,7 @@ Load PDF settings
     </message>
     <message>
       <source>A file named '%1' already exists.&lt;br/>Do you want to replace it with the file you are saving?</source>
-      <translation type="unfinished" >ファイル名 '%1' は既に存在します。&lt;br/>保存しようとしているファイルで置き換えますか?</translation>
+      <translation>ファイル名 '%1' は既に存在します。&lt;br/>保存しようとしているファイルで置き換えますか?</translation>
     </message>
     <message>
       <source>&amp;Replace</source>
@@ -11795,7 +11797,7 @@ Load PDF settings
 
 python error
 </comment>
-      <translation type="unfinished" >firstPageOrderが限度より大きな値です</translation>
+      <translation>firstPageOrderが限度より大きな値です</translation>
     </message>
     <message>
       <source>Failed to open document.</source>
@@ -11819,7 +11821,7 @@ python error
     </message>
     <message>
       <source>Argument must be page item name, or PyCObject instance</source>
-      <translation type="unfinished" >引数はページアイテム名かPyCObjectインスタンスである必要があります。</translation>
+      <translation>引数はページアイテム名かPyCObjectインスタンスである必要があります。</translation>
     </message>
     <message>
       <source>Property not found</source>
@@ -11827,23 +11829,23 @@ python error
     </message>
     <message>
       <source>Child not found</source>
-      <translation type="unfinished" >子が見つかりません</translation>
+      <translation>子が見つかりません</translation>
     </message>
     <message>
       <source>Couldn't convert result type '%1'.</source>
-      <translation type="unfinished" >結果タイプ '%1' は変換できません</translation>
+      <translation>結果タイプ '%1' は変換できません</translation>
     </message>
     <message>
       <source>Property type '%1' not supported</source>
-      <translation type="unfinished" >プロパティタイプ '%1' はサポートされていません</translation>
+      <translation>プロパティタイプ '%1' はサポートされていません</translation>
     </message>
     <message>
       <source>Couldn't convert '%1' to property type '%2'</source>
-      <translation type="unfinished" >'%1' からプロパティタイプ '%2' に変換できません</translation>
+      <translation>'%1' からプロパティタイプ '%2' に変換できません</translation>
     </message>
     <message>
       <source>Types matched, but setting property failed.</source>
-      <translation type="unfinished" >タイプは合っていますが、プロパティの設定に失敗しました。</translation>
+      <translation>タイプは合っていますが、プロパティの設定に失敗しました。</translation>
     </message>
     <message>
       <source>Target is not an image frame.</source>
@@ -11862,7 +11864,7 @@ python error
 
 python error
 </comment>
-      <translation type="unfinished" >アイテムが2個以下ではグループ化できません</translation>
+      <translation>アイテムが2個以下ではグループ化できません</translation>
     </message>
     <message>
       <source>Can't group less than two items</source>
@@ -11871,7 +11873,7 @@ python error
 
 python error
 </comment>
-      <translation type="unfinished" >アイテムが2個以下ではグループ化できません</translation>
+      <translation>アイテムが2個以下ではグループ化できません</translation>
     </message>
     <message>
       <source>Need selection or argument list of items to group</source>
@@ -11880,7 +11882,7 @@ python error
 
 python error
 </comment>
-      <translation type="unfinished" >グループ化するにはアイテムの選択か引数リストが必要です</translation>
+      <translation>グループ化するにはアイテムの選択か引数リストが必要です</translation>
     </message>
     <message>
       <source>Cannot scale by 0%.</source>
@@ -11929,7 +11931,7 @@ python error
 
 python error
 </comment>
-      <translation type="unfinished" >要求された名前のオブジェクトはすでに存在しています。</translation>
+      <translation>要求された名前のオブジェクトはすでに存在しています。</translation>
     </message>
     <message>
       <source>Point list must contain at least two points (four values).</source>
@@ -12208,7 +12210,7 @@ python error
 
 python error
 </comment>
-      <translation type="unfinished" >テキストフレームのみオーバーフローのチェックを行います</translation>
+      <translation>テキストフレームのみオーバーフローのチェックを行います</translation>
     </message>
     <message>
       <source>Can't set bookmark on a non-text frame</source>
@@ -12247,7 +12249,7 @@ python error
 
 python error
 </comment>
-      <translation type="unfinished" >'全てのタイプ'の属性は読み込み専用です</translation>
+      <translation>'全てのタイプ'の属性は読み込み専用です</translation>
     </message>
     <message>
       <source>Failed to export image</source>
@@ -12434,7 +12436,7 @@ External Links
 
 python error
 </comment>
-      <translation type="unfinished" >指定されたマスターページは既存のものにマッチしません</translation>
+      <translation>指定されたマスターページは既存のものにマッチしません</translation>
     </message>
     <message>
       <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
@@ -12442,7 +12444,7 @@ python error
     </message>
     <message>
       <source>Word Documents</source>
-      <translation type="unfinished" >Wordドキュメント</translation>
+      <translation>Wordドキュメント</translation>
     </message>
     <message>
       <source>Palm PDB Documents</source>
@@ -12456,7 +12458,7 @@ python error
 
 PDB Importer
 </comment>
-      <translation type="unfinished" >PDB_data</translation>
+      <translation>PDB_data</translation>
     </message>
     <message>
       <source>PDB Import</source>
@@ -12482,7 +12484,7 @@ PDB Importer
     </message>
     <message>
       <source>%1 may be corrupted : missing resolution tags</source>
-      <translation type="unfinished" >%1 はおそらく破損しています : 不明な解像度タグ</translation>
+      <translation>%1 はおそらく破損しています : 不明な解像度タグ</translation>
     </message>
     <message>
       <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
@@ -12491,43 +12493,43 @@ PDB Importer
     </message>
     <message>
       <source>Breton</source>
-      <translation type="unfinished" >ブリタニー語</translation>
+      <translation>ブリタニー語</translation>
     </message>
     <message>
       <source>English (American)</source>
-      <translation type="unfinished" >英語 (米国)</translation>
+      <translation>英語 (米国)</translation>
     </message>
     <message>
       <source>English (Australian)</source>
-      <translation type="unfinished" >英語 (オーストラリア)</translation>
+      <translation>英語 (オーストラリア)</translation>
     </message>
     <message>
       <source>Norwegian (Bokmaal)</source>
-      <translation type="unfinished" >ノルウェー語 (ブークモール)</translation>
+      <translation>ノルウェー語 (ブークモール)</translation>
     </message>
     <message>
       <source>Font %1 is broken, no embedding</source>
-      <translation type="unfinished" >フォント %1 は破損しているので埋め込まれません</translation>
+      <translation>フォント %1 は破損しているので埋め込まれません</translation>
     </message>
     <message>
       <source>Font %1 is broken (FreeType2), discarding it</source>
-      <translation type="unfinished" >フォント %1 (FreeType2)は破損しているので破棄します</translation>
+      <translation>フォント %1 (FreeType2)は破損しているので破棄します</translation>
     </message>
     <message>
       <source>Font %1 is broken and will be discarded</source>
-      <translation type="unfinished" >フォント %1 は破損しているので破棄します</translation>
+      <translation>フォント %1 は破損しているので破棄します</translation>
     </message>
     <message>
       <source>Font %1 is broken (FreeType), discarding it</source>
-      <translation type="unfinished" >フォント %1 (FreeType)は破損しているので破棄します</translation>
+      <translation>フォント %1 (FreeType)は破損しているので破棄します</translation>
     </message>
     <message>
       <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
-      <translation type="unfinished" >フォント %1 に無効なグリフ %2 があるので(文字コード %3)、破棄します</translation>
+      <translation>フォント %1 に無効なグリフ %2 があるので(文字コード %3)、破棄します</translation>
     </message>
     <message>
       <source>%1 may be corrupted : missing or wrong resolution tags</source>
-      <translation type="unfinished" >%1 はおそらく破損しています : 不明もしくは不正な解像度タグ</translation>
+      <translation>%1 はおそらく破損しています : 不明もしくは不正な解像度タグ</translation>
     </message>
     <message>
       <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File->Save As. Are you sure you wish to proceed with this operation?</source>
@@ -12535,27 +12537,27 @@ PDB Importer
     </message>
     <message>
       <source>Warning</source>
-      <translation type="unfinished" >警告</translation>
+      <translation>警告</translation>
     </message>
     <message>
       <source>German (Swiss)</source>
-      <translation type="unfinished" >ドイツ語 (スイス)</translation>
+      <translation>ドイツ語 (スイス)</translation>
     </message>
     <message>
       <source>Chinese (Trad.)</source>
-      <translation type="unfinished" >中国語 (繁体字)</translation>
+      <translation>中国語 (繁体字)</translation>
     </message>
     <message>
       <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
-      <translation type="unfinished" >ファイル %2 に含まれるフォント %1 はメトリックスが壊れているので、メトリックスを無視します</translation>
+      <translation>ファイル %2 に含まれるフォント %1 はメトリックスが壊れているので、メトリックスを無視します</translation>
     </message>
     <message>
       <source>Valid metrics were found for font %1, using metrics in file %2</source>
-      <translation type="unfinished" >ファイル %2 中で、メトリックスを使用しているフォント %1 に合った有効なメトリックスが見つかりました</translation>
+      <translation>ファイル %2 中で、メトリックスを使用しているフォント %1 に合った有効なメトリックスが見つかりました</translation>
     </message>
     <message>
       <source>Insufficient memory for this image size.</source>
-      <translation type="unfinished" >この画像サイズを扱うにはメモリが不足しています。</translation>
+      <translation>この画像サイズを扱うにはメモリが不足しています。</translation>
     </message>
     <message>
       <source>Fill opacity out of bounds, must be 0.0 &lt;= opacity &lt;= 1.0</source>
@@ -12568,7 +12570,7 @@ PDB Importer
 
 python error
 </comment>
-      <translation type="unfinished" >透明度が範囲を越えています。0 &lt;= 透明度 &lt;= 1である必要があります。</translation>
+      <translation>透明度が範囲を越えています。0 &lt;= 透明度 &lt;= 1である必要があります。</translation>
     </message>
   </context>
   <context>
@@ -12756,91 +12758,91 @@ python error
     </message>
     <message>
       <source>Custom</source>
-      <translation type="unfinished" >カスタム</translation>
+      <translation>カスタム</translation>
     </message>
     <message>
       <source>Page Size</source>
-      <translation type="unfinished" >ページサイズ</translation>
+      <translation>ページサイズ</translation>
     </message>
     <message>
       <source>&amp;Size:</source>
-      <translation type="unfinished" >サイズ(&amp;S):</translation>
+      <translation>サイズ(&amp;S):</translation>
     </message>
     <message>
       <source>Orie&amp;ntation:</source>
-      <translation type="unfinished" >方向(&amp;N):</translation>
+      <translation>方向(&amp;N):</translation>
     </message>
     <message>
       <source>Portrait</source>
-      <translation type="unfinished" >縦方向</translation>
+      <translation>縦方向</translation>
     </message>
     <message>
       <source>Landscape</source>
-      <translation type="unfinished" >横方向</translation>
+      <translation>横方向</translation>
     </message>
     <message>
       <source>&amp;Width:</source>
-      <translation type="unfinished" >幅(&amp;W):</translation>
+      <translation>幅(&amp;W):</translation>
     </message>
     <message>
       <source>&amp;Height:</source>
-      <translation type="unfinished" >高さ(&amp;H):</translation>
+      <translation>高さ(&amp;H):</translation>
     </message>
     <message>
       <source>&amp;Unit:</source>
-      <translation type="unfinished" >単位(&amp;U):</translation>
+      <translation>単位(&amp;U):</translation>
     </message>
     <message>
       <source>Apply size settings to all pages</source>
-      <translation type="unfinished" >サイズ設定を全てのページに適用</translation>
+      <translation>全てのページにサイズ設定を適用</translation>
     </message>
     <message>
       <source>Margin Guides</source>
-      <translation type="unfinished" >マージンガイド</translation>
+      <translation>マージンガイド</translation>
     </message>
     <message>
       <source>Autosave</source>
-      <translation type="unfinished" >自動保存</translation>
+      <translation>自動保存</translation>
     </message>
     <message>
       <source>min</source>
-      <translation type="unfinished" >分</translation>
+      <translation>分</translation>
     </message>
     <message>
       <source>&amp;Interval:</source>
-      <translation type="unfinished" >間隔(&amp;I):</translation>
+      <translation>間隔(&amp;I):</translation>
     </message>
     <message>
       <source>Page Display</source>
-      <translation type="unfinished" >ページ表示</translation>
+      <translation>ページ表示</translation>
     </message>
     <message>
       <source>Color:</source>
-      <translation type="unfinished" >色:</translation>
+      <translation>色:</translation>
     </message>
     <message>
       <source>Display &amp;Unprintable Area in Margin Color</source>
-      <translation type="unfinished" >印刷できない範囲をマージンの色で表示(&amp;U)</translation>
+      <translation>印刷できない範囲をマージンの色で表示(&amp;U)</translation>
     </message>
     <message>
       <source>Alt+U</source>
-      <translation type="unfinished" >Alt+U</translation>
+      <translation>Alt+U</translation>
     </message>
     <message>
       <source>Show Text Chains</source>
-      <translation type="unfinished" >テキストチェーンを表示</translation>
+      <translation>テキストチェーンを表示</translation>
     </message>
     <message>
       <source>Show Text Control Characters</source>
-      <translation type="unfinished" >テキストの制御文字を表示</translation>
+      <translation>テキストの制御文字を表示</translation>
     </message>
     <message>
       <source>Show Frames</source>
-      <translation type="unfinished" >フレームを表示</translation>
+      <translation>フレームを表示</translation>
     </message>
     <message>
       <source>Rulers relative to Page</source>
-      <translation type="unfinished" >ページに相対する定規</translation>
+      <translation>ページに相対する定規</translation>
     </message>
     <message>
       <source>Minimum Scratch Space</source>
@@ -12848,63 +12850,63 @@ python error
     </message>
     <message>
       <source>&amp;Top:</source>
-      <translation type="unfinished" >上(&amp;T):</translation>
+      <translation>上(&amp;T):</translation>
     </message>
     <message>
       <source>&amp;Left:</source>
-      <translation type="unfinished" >左(&amp;L):</translation>
+      <translation>左(&amp;L):</translation>
     </message>
     <message>
       <source>&amp;Bottom:</source>
-      <translation type="unfinished" >下(&amp;B):</translation>
+      <translation>下(&amp;B):</translation>
     </message>
     <message>
       <source>&amp;Right:</source>
-      <translation type="unfinished" >右(&amp;R):</translation>
+      <translation>右(&amp;R):</translation>
     </message>
     <message>
       <source>Gaps between Pages</source>
-      <translation type="unfinished" >ページ間のギャップ</translation>
+      <translation>ページ間のギャップ</translation>
     </message>
     <message>
       <source>Horizontal:</source>
-      <translation type="unfinished" >水平:</translation>
+      <translation>水平:</translation>
     </message>
     <message>
       <source>Vertical:</source>
-      <translation type="unfinished" >垂直:</translation>
+      <translation>垂直:</translation>
     </message>
     <message>
       <source>Enable or disable the display of linked text frames.</source>
-      <translation type="unfinished" >リンクされたテキストフレームの表示を有効/無効にします</translation>
+      <translation>リンクされたテキストフレームの表示を有効/無効にします</translation>
     </message>
     <message>
       <source>Display non-printing characters such as paragraph markers in text frames</source>
-      <translation type="unfinished" >テキストフレーム中の段落記号のような非印字文字を表示する</translation>
+      <translation>テキストフレーム中の段落記号のような非印字文字を表示する</translation>
     </message>
     <message>
       <source>Turns the display of frames on or off</source>
-      <translation type="unfinished" >フレームの表示をON/OFFする</translation>
+      <translation>フレームの表示をON/OFFする</translation>
     </message>
     <message>
       <source>Color for paper</source>
-      <translation type="unfinished" >紙の色</translation>
+      <translation>紙の色</translation>
     </message>
     <message>
       <source>Mask the area outside the margins in the margin color</source>
-      <translation type="unfinished" >マージンの外側の領域をマージンの色でマスクする</translation>
+      <translation>マージンの外側の領域をマージンの色でマスクする</translation>
     </message>
     <message>
       <source>Apply the page size changes to all existing pages in the document</source>
-      <translation type="unfinished" >ドキュメント中の全てのページにページサイズの変更を適用する</translation>
+      <translation>ドキュメント中の全てのページにページサイズの変更を適用する</translation>
     </message>
     <message>
       <source>Show Images</source>
-      <translation type="unfinished" >画像を表示</translation>
+      <translation>画像を表示</translation>
     </message>
     <message>
       <source>Turns the display of images on or off</source>
-      <translation type="unfinished" >画像の表示をON/OFFする</translation>
+      <translation>画像の表示をON/OFFする</translation>
     </message>
   </context>
   <context>
@@ -12916,14 +12918,14 @@ python error
     </message>
     <message>
       <source>Python Scripts (*.py);; All Files (*)</source>
-      <translation type="unfinished" >Pythonスクリプト (*.py);; 全てのファイル (*)</translation>
+      <translation>Pythonスクリプト (*.py);; 全てのファイル (*)</translation>
     </message>
   </context>
   <context>
     <name>SMBase</name>
     <message>
       <source>Style Manager</source>
-      <translation type="unfinished" >スタイルマネージャ</translation>
+      <translation>スタイルマネージャ</translation>
     </message>
     <message>
       <source>Alt+A</source>
@@ -12947,35 +12949,35 @@ python error
     </message>
     <message>
       <source>Column 1</source>
-      <translation type="unfinished" >列1</translation>
+      <translation>列1</translation>
     </message>
     <message>
       <source>&amp;Add</source>
-      <translation type="unfinished" >追加(&amp;A)</translation>
+      <translation>追加(&amp;A)</translation>
     </message>
     <message>
       <source>C&amp;lone</source>
-      <translation type="unfinished" >コピー(&amp;L)</translation>
+      <translation>コピー(&amp;L)</translation>
     </message>
     <message>
       <source>Alt+L</source>
-      <translation type="unfinished" >Alt+L</translation>
+      <translation>Alt+L</translation>
     </message>
     <message>
       <source>O&amp;K</source>
-      <translation type="unfinished" >O&amp;K</translation>
+      <translation>O&amp;K</translation>
     </message>
     <message>
       <source>Alt+K</source>
-      <translation type="unfinished" >Alt+K</translation>
+      <translation>Alt+K</translation>
     </message>
     <message>
       <source>A&amp;pply</source>
-      <translation type="unfinished" >適用(&amp;P)</translation>
+      <translation>適用(&amp;P)</translation>
     </message>
     <message>
       <source>Alt+P</source>
-      <translation type="unfinished" >Alt+P</translation>
+      <translation>Alt+P</translation>
     </message>
     <message>
       <source>Ca&amp;ncel</source>
@@ -13285,7 +13287,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>Floating Orientation...</source>
-      <translation type="unfinished" >切り離す方向...</translation>
+      <translation>切り離す方向...</translation>
     </message>
   </context>
   <context>
@@ -13299,7 +13301,7 @@ converting their vector data into Scribus objects.</source>
     <name>ScriXmlDoc</name>
     <message>
       <source>Copy #%1 of </source>
-      <translation type="unfinished" >#%1のコピー</translation>
+      <translation>#%1のコピー</translation>
     </message>
     <message>
       <source>Background</source>
@@ -13811,7 +13813,7 @@ Vertical shift: %3</source>
     <message>
       <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
-      <translation type="unfinished" />
+      <translation>ドキュメントは一時ファイルに保存されていて移動できません: %1</translation>
     </message>
   </context>
   <context>
@@ -13902,7 +13904,7 @@ Vertical shift: %3</source>
     </message>
     <message>
       <source>Issues</source>
-      <translation type="unfinished" >発行</translation>
+      <translation>発行</translation>
     </message>
     <message>
       <source>Display a console window</source>
@@ -13910,7 +13912,7 @@ Vertical shift: %3</source>
     </message>
     <message>
       <source>Show location ICC profile information on console while starting</source>
-      <translation type="unfinished" >コンソールを開始する間にICCプロファイルの位置を表示</translation>
+      <translation>コンソールを開始する間にICCプロファイルの位置を表示</translation>
     </message>
   </context>
   <context>
@@ -14804,11 +14806,11 @@ Vertical shift: %3</source>
     </message>
     <message>
       <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-      <translation type="unfinished" />
+      <translation>エントリの作成時の基礎として使われるフレームに設定されるアイテム属性</translation>
     </message>
     <message>
       <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-      <translation type="unfinished" />
+      <translation>エントリーのページ番号を、行の最初または最後に配置するか全く行いません</translation>
     </message>
     <message>
       <source>List Non-Printing Entries</source>
@@ -14875,11 +14877,11 @@ Vertical shift: %3</source>
     </message>
     <message>
       <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-      <translation type="unfinished" />
+      <translation>エントリの作成時の基礎として使われるフレームに設定されるアイテム属性</translation>
     </message>
     <message>
       <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-      <translation type="unfinished" />
+      <translation>エントリーのページ番号を、行の最初または最後に配置するか全く行いません</translation>
     </message>
     <message>
       <source>List Non-Printing Entries</source>
@@ -15105,7 +15107,7 @@ Vertical shift: %3</source>
     </message>
     <message>
       <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-      <translation type="unfinished" >オブジェクトを扱う際につかむことのできる範囲の半径。設定を有効にするために、設定後にScribusを再起動する必要があります。</translation>
+      <translation>オブジェクトを扱う際につかむことのできる範囲の半径。設定を有効にするために、設定後にScribusを再起動する必要があります。</translation>
     </message>
   </context>
   <context>
@@ -15691,7 +15693,7 @@ Vertical shift: %3</source>
     </message>
     <message>
       <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-      <translation type="unfinished" />
+      <translation>これはデフォルトでは有効でない詳細設定です。プリンタから特に求められたり、正確な詳細が必要な場合にのみ有効にすべきです。そうでなければ、エクスポートしたPDFが適切に印刷されなかったり、システム間での真の互換性がなくなります。</translation>
     </message>
     <message>
       <source>Embed a color profile for solid colors</source>
@@ -15727,7 +15729,7 @@ Vertical shift: %3</source>
     </message>
     <message>
       <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-      <translation type="unfinished" />
+      <translation>PDF/X-3またはPDFでの強制的な文字列はPDF/X-3の整合性を損ないます。ドキュメントのタイトルを使用することをお薦めします。</translation>
     </message>
     <message>
       <source>Distance for bleed from the top of the physical page</source>
@@ -15808,7 +15810,7 @@ when PDF document is opened:</source>
     </message>
     <message>
       <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-      <translation type="unfinished" />
+      <translation>PDFの互換性を決定します。デフォルトは幅広い互換性を持ったPDF 1.3です。透明機能や128ビット暗号化のような機能をファイルで使用しているのであれば、PDF 1.4を選択してください。PDF 1.5は、PDF中の分割されたレイヤーに、オブジェクトを保持したいのであれば必要になります。PDF/X-3は、商業印刷で色管理RGBを使いたい場合に、PDFを出力するのに向いており、カラーマネージメントを有効にすると選択可能になります。プリンタで推奨されているか、一部の4色デジタルカラーレーザプリンタのときのみ使用してください。</translation>
     </message>
     <message>
       <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
@@ -15824,7 +15826,7 @@ when PDF document is opened:</source>
     </message>
     <message>
       <source>Fonts to outline:</source>
-      <translation>フォントをアウトラインに:</translation>
+      <translation>アウトライン化するフォント:</translation>
     </message>
     <message>
       <source>Outline &amp;All</source>
@@ -15844,7 +15846,7 @@ when PDF document is opened:</source>
     </message>
     <message>
       <source>&amp;Apply Effect to all Pages</source>
-      <translation type="unfinished" >全てのページに効果を適用(&amp;A)</translation>
+      <translation>全てのページにエフェクトを適用(&amp;A)</translation>
     </message>
   </context>
   <context>
@@ -16140,27 +16142,27 @@ when PDF document is opened:</source>
     </message>
     <message>
       <source>&amp;Scale Image to Frame Size</source>
-      <translation type="unfinished" >フレームサイズに合わせて画像を拡大縮小(&amp;S)</translation>
+      <translation>フレームサイズに合わせて画像を拡大縮小(&amp;S)</translation>
     </message>
     <message>
       <source>Image Frame Properties</source>
-      <translation type="unfinished" >画像フレームのプロパティ</translation>
+      <translation>画像フレームのプロパティ</translation>
     </message>
     <message>
       <source>Image frames allow images to scale to any size</source>
-      <translation type="unfinished" />
+      <translation>画像フレームは画像をどのサイズにも拡大縮小できます</translation>
     </message>
     <message>
       <source>Images in image frames are scaled to the size of the frame</source>
-      <translation type="unfinished" />
+      <translation>画像フレーム中の画像はフレームのサイズに合わせて拡大縮小されます</translation>
     </message>
     <message>
       <source>Automatically scaled images keep their original proportions</source>
-      <translation type="unfinished" >自動的に拡大縮小された画像をオリジナルの比率に保ちます</translation>
+      <translation>自動的に拡大縮小された画像をオリジナルの比率に保ちます</translation>
     </message>
     <message>
       <source>Fill color of image frames</source>
-      <translation type="unfinished" >画像フレームの塗りつぶし色</translation>
+      <translation>画像フレームの塗りつぶし色</translation>
     </message>
   </context>
   <context>
@@ -16231,7 +16233,7 @@ when PDF document is opened:</source>
     </message>
     <message>
       <source>Displacement above the baseline of the font on a line</source>
-      <translation type="unfinished" />
+      <translation>同じ高さのフォントのベースラインより上の位置ずれ</translation>
     </message>
     <message>
       <source>Relative size of the superscript compared to the normal font</source>
@@ -16239,7 +16241,7 @@ when PDF document is opened:</source>
     </message>
     <message>
       <source>Displacement below the baseline of the normal font on a line</source>
-      <translation type="unfinished" />
+      <translation>同じ高さの通常フォントのベースラインより下の位置ずれ</translation>
     </message>
     <message>
       <source>Relative size of the subscript compared to the normal font</source>
@@ -16247,7 +16249,7 @@ when PDF document is opened:</source>
     </message>
     <message>
       <source>Relative size of the small caps font compared to the normal font</source>
-      <translation type="unfinished" >通常フォントに対するスモールキャピタルフォントの相対サイズ</translation>
+      <translation>通常フォントに対するスモールキャピタルフォントの相対サイズ</translation>
     </message>
     <message>
       <source>Percentage increase over the font size for the line spacing</source>
@@ -16339,11 +16341,11 @@ when PDF document is opened:</source>
 
 
 tab fill</comment>
-      <translation type="unfinished" >なし</translation>
+      <translation>なし</translation>
     </message>
     <message>
       <source>Period</source>
-      <translation type="unfinished" >ピリオド</translation>
+      <translation>ピリオド</translation>
     </message>
   </context>
   <context>
@@ -16863,7 +16865,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
       <source>Modify image effects</source>
-      <translation type="unfinished" >画像のエフェクトを変更</translation>
+      <translation>画像効果を変更</translation>
     </message>
   </context>
   <context>
@@ -16905,7 +16907,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
       <source>(No data on your computer will be sent to an external location)</source>
-      <translation type="unfinished" >(あなたのコンピュータ上のデータを外部に送信することはありません)</translation>
+      <translation>(あなたのコンピュータ上のデータを外部に送信することはありません)</translation>
     </message>
     <message>
       <source>Timed out when attempting to get update file.</source>
@@ -16917,7 +16919,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
       <source>File not found on server</source>
-      <translation type="unfinished" >ファイルがサーバに見つかりません</translation>
+      <translation>ファイルがサーバに見つかりません</translation>
     </message>
     <message>
       <source>Could not open version file: %1
@@ -17070,7 +17072,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
       <source>Text</source>
-      <translation>リンク</translation>
+      <translation>テキスト</translation>
     </message>
     <message>
       <source>Link</source>
