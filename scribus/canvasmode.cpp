@@ -149,11 +149,15 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 	p->save();
 	p->scale(m_canvas->scale(), m_canvas->scale());
 	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
+	QPen outlinePen = QPen(Qt::black, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+	outlinePen.setCosmetic(true);
+	
 	if (m_doc->m_Selection->count() == 1)
 	{
 		double extraScale = (scalex + scaley) / 2.0;
 		p->setBrush(Qt::NoBrush);
-		p->setPen(QPen(Qt::black, 1.0 / m_canvas->scale() / extraScale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+		//p->setPen(QPen(Qt::black, 1.0 / m_canvas->scale() / extraScale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+		p->setPen(outlinePen);
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		p->translate(currItem->xPos(), currItem->yPos());
 		p->translate(deltax, deltay);
@@ -169,7 +173,8 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 	{
 		double extraScale = (scalex + scaley) / 2.0;
 		p->setBrush(Qt::NoBrush);
-		p->setPen(QPen(Qt::black, 1.0 / m_canvas->scale() / extraScale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+		//p->setPen(QPen(Qt::black, 1.0 / m_canvas->scale() / extraScale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+		p->setPen(outlinePen);
 		p->translate(deltax, deltay);
 		double x, y, w, h;
 		m_doc->m_Selection->setGroupRect();
