@@ -97,10 +97,10 @@
          <number>100</number>
         </property>
         <property name="minimum" >
-         <number>1</number>
+         <number>-1</number>
         </property>
         <property name="value" >
-         <number>100</number>
+         <number>-1</number>
         </property>
        </widget>
       </item>

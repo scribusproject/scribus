@@ -34,6 +34,8 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	}
 	setCurrentComboItem(bitmapType, type.toLower());
 	qualityBox->setValue(quality);
+	qualityBox->setWrapping(true);
+	
 	DPIBox->setValue(size);
 	enlargementBox->setValue(size);
 	onePageRadio->setChecked( true );
@@ -111,7 +113,8 @@ void ExportForm::languageChange()
 	onePageRadio->setToolTip( tr( "Export only the current page" ) );
 	DPIBox->setToolTip( tr( "Resolution of the Images\nUse 72 dpi for Images intended for the Screen" ) );
 	enlargementBox->setToolTip( tr( "Size of the images. 100% for no changes, 200% for two times larger etc." ));
-	qualityBox->setToolTip( tr( "The quality of your images - 100% is the best, 1% the lowest quality" ) );
+	qualityBox->setToolTip( tr( "The compression ratio of your images - 100% is no compression, 0% highest compression. If in doubt, use 'Automatic'" ) );
+	qualityBox->setSpecialValueText(tr("Automatic"));
 	bitmapType->setToolTip( tr( "Available export formats" ) );
 	outputDirectory->setToolTip( tr( "The output directory - the place to store your images.\nName of the export file will be 'documentname-pagenumber.filetype'" ) );
 	outputDirectoryButton->setToolTip( tr( "Change the output directory" ) );
@@ -122,7 +125,7 @@ void ExportForm::readConfig()
 {
 	DPIBox->setValue(prefs->getUInt("DPIBox", 72));
 	enlargementBox->setValue(prefs->getInt("EnlargementBox", 100));
-	qualityBox->setValue(prefs->getUInt("QualityBox", 100));
+	qualityBox->setValue(prefs->getUInt("QualityBox", -1));
 	int b = prefs->getUInt("ButtonGroup1", 0);
 	switch (b)
 	{

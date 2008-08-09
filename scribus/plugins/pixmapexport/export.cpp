@@ -139,7 +139,7 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 ExportBitmap::ExportBitmap()
 {
 	pageDPI = 72;
-	quality = 100;
+	quality = -1;
 	enlargement = 100.0;
 	exportDir = QDir::currentPath();
 	bitmapType = QString("PNG");
