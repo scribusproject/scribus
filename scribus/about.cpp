@@ -442,14 +442,15 @@ tabLayout_2->addWidget( textView2 );
 	licenceLayout->addWidget( textViewLicence );
 	
 	QFile licenceFile(ScPaths::instance().docDir() + "/COPYING");
-	if (!licenceFile.open(QIODevice::ReadOnly | QIODevice::Text))
-		textViewLicence->setText( tr("Unable to open licence file. Please check your install directory or the Scribus website for licencing information.") );
-	else
+	if (licenceFile.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
 		QTextStream inTS(&licenceFile);
 		QString licenceText = inTS.readAll();
 		textViewLicence->setText(licenceText);
-	} 
+		licenceFile.close();
+	}
+	else
+		textViewLicence->setText( tr("Unable to open licence file. Please check your install directory or the Scribus website for licencing information.") );
 	
 	//Add tab widget to about window
 	aboutLayout->addWidget( tabWidget2 );
