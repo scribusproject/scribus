@@ -7,46 +7,30 @@ for which a new license (GPL+exception) is in place.
 #ifndef MEASUREMENTS_H
 #define MEASUREMENTS_H
 
-class QEvent;
-
+#include "ui_measurementsbase.h"
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 
-class QGridLayout;
-class QLabel;
-
-class SCRIBUS_API Measurements : public ScrPaletteBase
+class SCRIBUS_API Measurements : public ScrPaletteBase, Ui::MeasurementsBase
 {
 	Q_OBJECT
 
 public:
 	Measurements( QWidget* parent );
 	~Measurements() {};
-	
-	virtual void changeEvent(QEvent *e);
 
 public slots:
-	void setValues(double x1, double y1, double x2, double y2, double angle, double length, int unitIndex);
-	void languageChange();
-
-protected:
-	QGridLayout* measurementsLayout;
-	QLabel* x1Label;
-	QLabel* y1Label;
-	QLabel* x2Label;
-	QLabel* y2Label;
-	QLabel* dxLabel;
-	QLabel* dyLabel;
-	QLabel* angleLabel;
-	QLabel* lengthLabel;
-	QLabel* x1Data;
-	QLabel* y1Data;
-	QLabel* x2Data;
-	QLabel* y2Data;
-	QLabel* dXData;
-	QLabel* dYData;
-	QLabel* lengthData;
-	QLabel* angleData;
+	void setValues(double x1, double y1, double x2, double y2, double angle, double length);
+	void unitChanged();
+	
+private:
+	double mX1;
+	double mY1;
+	double mX2;
+	double mY2;
+	double mDX;
+	double mDY;
+	double mLength;
 };
 
 #endif // MEASUREMENTS_H

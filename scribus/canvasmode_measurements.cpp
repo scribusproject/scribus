@@ -116,7 +116,6 @@ void MeasurementsMode::showValues()
 {
 	double dx = m_currentDoc.x() - m_startDoc.x();
 	double dy = m_currentDoc.y() - m_startDoc.y();
-	m_palette->setValues(m_startDoc.x(), m_startDoc.y(), m_currentDoc.x(), m_currentDoc.y(), 
-						 -xy2Deg(dx, dy), sqrt(dx*dx + dy*dy), m_doc->unitIndex());
+	m_palette->setValues(m_startDoc.x(), m_startDoc.y(), m_currentDoc.x(), m_currentDoc.y(), -xy2Deg(dx, dy), sqrt(dx*dx + dy*dy));
 	m_canvas->update(QRect(m_start, m_current).normalized());
 }

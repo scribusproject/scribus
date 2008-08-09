@@ -5,12 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "measurements.h"
-
-#include <QEvent>
-#include <QGridLayout>
-#include <QLabel>
-#include <QString>
-
 #include <cmath>
 #include "units.h"
 
@@ -19,36 +13,8 @@ using namespace std;
 
 Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "MeasurementsPalette", false, 0 )
 {
-	measurementsLayout = new QGridLayout( this );
-	measurementsLayout->setMargin(10);
-	measurementsLayout->setSpacing(5);
-	x1Label = new QLabel( this );
-	y1Label = new QLabel( this );
-	x2Label = new QLabel( this );
-	y2Label = new QLabel( this );
-	dxLabel = new QLabel( this );
-	dyLabel = new QLabel( this );
-	angleLabel = new QLabel( this );
-	lengthLabel = new QLabel( this );
-	measurementsLayout->addWidget( x1Label, 0, 0 );
-	measurementsLayout->addWidget( y1Label, 1, 0 );
-	measurementsLayout->addWidget( x2Label, 2, 0 );
-	measurementsLayout->addWidget( y2Label, 3, 0 );
-	measurementsLayout->addWidget( dxLabel, 4, 0 );
-	measurementsLayout->addWidget( dyLabel, 5, 0 );
-	measurementsLayout->addWidget( angleLabel, 6, 0 );
-	measurementsLayout->addWidget( lengthLabel, 7, 0 );
-
-	x1Data = new QLabel( "", this );
-	y1Data = new QLabel( "", this );
-	x2Data = new QLabel( "", this );
-	y2Data = new QLabel( "", this );
-	dXData = new QLabel( "", this );
-	dYData = new QLabel( "", this );
-	angleData = new QLabel( "", this );
-	lengthData = new QLabel( "", this );
-	
-	const QString widthString="10000.0000 " + unitGetStrFromIndex(0);
+	setupUi(this);
+	const QString widthString="10000.0000";
 	int textWidth = fontMetrics().width(widthString);
 	x1Data->setMinimumSize(textWidth, 12);
 	y1Data->setMinimumSize(textWidth, 12);
@@ -58,83 +24,67 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	dYData->setMinimumSize(textWidth, 12);
 	angleData->setMinimumSize(textWidth, 12);
 	lengthData->setMinimumSize(textWidth, 12);
-
-	Qt::Alignment labelAlignment=Qt::AlignVCenter | Qt::AlignRight;
-	x1Data->setAlignment( labelAlignment );
-	y1Data->setAlignment( labelAlignment );
-	x2Data->setAlignment( labelAlignment );
-	y2Data->setAlignment( labelAlignment );
-	dXData->setAlignment( labelAlignment );
-	dYData->setAlignment( labelAlignment );
-	angleData->setAlignment( labelAlignment );
-	lengthData->setAlignment( labelAlignment );
-
-	measurementsLayout->addWidget( x1Data, 0, 1 );
-	measurementsLayout->addWidget( y1Data, 1, 1 );
-	measurementsLayout->addWidget( x2Data, 2, 1 );
-	measurementsLayout->addWidget( y2Data, 3, 1 );
-	measurementsLayout->addWidget( dXData, 4, 1 );
-	measurementsLayout->addWidget( dYData, 5, 1 );
-	measurementsLayout->addWidget( angleData, 6, 1 );
-	measurementsLayout->addWidget( lengthData, 7, 1 );
-
-	languageChange();
-
+	int maxUindex = unitGetMaxIndex() - 2;
+	textWidth = fontMetrics().width("mmm")+12;
+	for (int i = 0; i <= maxUindex; ++i)
+	{
+		unitSwitchX1->addItem(unitGetStrFromIndex(i));
+		unitSwitchY1->addItem(unitGetStrFromIndex(i));
+		unitSwitchX2->addItem(unitGetStrFromIndex(i));
+		unitSwitchY2->addItem(unitGetStrFromIndex(i));
+		unitSwitchLength->addItem(unitGetStrFromIndex(i));
+		unitSwitchDX->addItem(unitGetStrFromIndex(i));
+		unitSwitchDY->addItem(unitGetStrFromIndex(i));
+		unitSwitchX1->setMinimumSize(textWidth, 12);
+		unitSwitchY1->setMinimumSize(textWidth, 12);
+		unitSwitchX2->setMinimumSize(textWidth, 12);
+		unitSwitchY2->setMinimumSize(textWidth, 12);
+		unitSwitchLength->setMinimumSize(textWidth, 12);
+		unitSwitchDX->setMinimumSize(textWidth, 12);
+		unitSwitchDY->setMinimumSize(textWidth, 12);
+	}
+	resize(minimumSizeHint());
+	connect(unitSwitchX1, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
+	connect(unitSwitchY1, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
+	connect(unitSwitchX2, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
+	connect(unitSwitchY1, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
+	connect(unitSwitchDX, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
+	connect(unitSwitchDY, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
+	connect(unitSwitchLength, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
 }
-/*
-void Measurements::closeEvent(QCloseEvent *ce)
+
+void Measurements::setValues(double x1, double y1, double x2, double y2, double angle, double len)
 {
-	emit Schliessen(false);
-	ce->accept();
-}
-*/
-void Measurements::setValues(double x1, double y1, double x2, double y2, double angle, double len, int unitIndex)
-{
+	mX1 = x1;
+	mY1 = y1;
+	mX2 = x2;
+	mY2 = y2;
+	mDX = x2 - x1;
+	mDY = y2 - y1;
+	mLength = len;
 	QString tmp;
-	QString unitSuffix = unitGetSuffixFromIndex(unitIndex);
-	int multiplier = unitGetDecimalsFromIndex(unitIndex);
-	double divisor = static_cast<double>(multiplier);
-	int precision = unitGetPrecisionFromIndex(unitIndex);
-
 	double rr = angle;
 	if (angle < 0)
 		rr = rr + 360;
-
-	double uXm =  unitGetRatioFromIndex(unitIndex) * multiplier;
-
-	x1Data->setText(tmp.setNum(qRound(x1*uXm) / divisor, 'f', precision)+unitSuffix);
-	y1Data->setText(tmp.setNum(qRound(y1*uXm) / divisor, 'f', precision)+unitSuffix);
-	x2Data->setText(tmp.setNum(qRound(x2*uXm) / divisor, 'f', precision)+unitSuffix);
-	y2Data->setText(tmp.setNum(qRound(y2*uXm) / divisor, 'f', precision)+unitSuffix);
-	dXData->setText(tmp.setNum(qRound((x2-x1)*uXm) / divisor, 'f', precision)+unitSuffix);
-	dYData->setText(tmp.setNum(qRound((y2-y1)*uXm) / divisor, 'f', precision)+unitSuffix);
-	angleData->setText(tmp.setNum(fabs(rr), 'f', precision)+ trUtf8(" °"));
-	lengthData->setText(tmp.setNum(qRound(len*uXm) / divisor, 'f', precision)+unitSuffix);
+	angleData->setText(tmp.setNum(fabs(rr), 'f', 2)+ trUtf8(" °"));
+	unitChanged();
 }
 
-void Measurements::changeEvent(QEvent *e)
+void Measurements::unitChanged()
 {
-	if (e->type() == QEvent::LanguageChange)
-	{
-		languageChange();
-	}
-	else
-		QWidget::changeEvent(e);
+	QString tmp;
+	int uInd = unitSwitchX1->currentIndex();
+	x1Data->setText(tmp.setNum(qRound(mX1*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
+	uInd = unitSwitchY1->currentIndex();
+	y1Data->setText(tmp.setNum(qRound(mY1*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
+	uInd = unitSwitchX1->currentIndex();
+	x2Data->setText(tmp.setNum(qRound(mX2*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
+	uInd = unitSwitchY2->currentIndex();
+	y2Data->setText(tmp.setNum(qRound(mY2*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
+	uInd = unitSwitchDX->currentIndex();
+	dXData->setText(tmp.setNum(qRound(mDX*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
+	uInd = unitSwitchDY->currentIndex();
+	dYData->setText(tmp.setNum(qRound(mDX*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
+	uInd = unitSwitchLength->currentIndex();
+	lengthData->setText(tmp.setNum(qRound(mLength*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
 }
-
-void Measurements::languageChange()
-{
-	setWindowTitle( tr( "Distances" ) );
-	
-	x1Label->setText( tr( "X1:" ) );
-	y1Label->setText( tr( "Y1:" ) );
-	x2Label->setText( tr( "X2:" ) );
-	y2Label->setText( tr( "Y2:" ) );
-	dxLabel->setText( tr( "DX:" ) );
-	dyLabel->setText( tr( "DY:" ) );
-	angleLabel->setText( tr( "Angle:" ) );
-	lengthLabel->setText( tr( "Length:" ) );
-
-	resize(minimumSizeHint());
-}
-

@@ -34,6 +34,7 @@ SET(SCRIBUS_UI_SRC
   hysettingsBase.ui
   insertaframe.ui
   latexeditor.ui
+  measurementsbase.ui
   multipleduplicate.ui
   multiprogressdialog.ui
   pageitemattributes.ui
