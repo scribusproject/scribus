@@ -6230,16 +6230,16 @@ void ScribusDoc::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
 		newMinX = qMin(minCanvasCoordinate.x(), minPos.x());
 		newMinY = qMin(minCanvasCoordinate.y(), minPos.y());
 	}
-	/*<< CB: comment out as avox is falling asleep and this is b0rken
 	// try to limit expansion of canvas to reasonable area:
 	
 	int columns = pageSets[currentPageLayout].Columns;
 	int rows = 1 + DocPages.count() / columns;
 	newMinX = qMax(newMinX, -pageWidth);
-	newMinY = qMax(newMinY, -pageHeight);
-	newMaxX = qMin(newMaxX, (bleeds.Left + pageWidth + bleeds.Right) * columns + pageWidth + scratch.Left + scratch.Right + GapHorizontal*(columns-1) );
-	newMaxY = qMin(newMaxY, (bleeds.Top + pageHeight + bleeds.Bottom) * columns + pageHeight + scratch.Top + scratch.Bottom + GapVertical*(rows-1));
-	>>*/
+	newMinY = qMax(newMinY, -pageHeight );
+	// just limit mins for now
+	//newMaxX = qMin(newMaxX, (bleeds.Left + pageWidth + bleeds.Right + GapHorizontal) * columns + pageWidth);
+	//newMaxY = qMin(newMaxY, (bleeds.Top + pageHeight + bleeds.Bottom + GapVertical) * rows + pageHeight);
+
 	if ((newMaxX != maxCanvasCoordinate.x()) || (newMaxY != maxCanvasCoordinate.y())
 	|| (newMinX != minCanvasCoordinate.x()) || (newMinY != minCanvasCoordinate.y()))
 	{
@@ -8955,6 +8955,33 @@ bool ScribusDoc::MoveItem(double newX, double newY, PageItem* currItem, bool fro
 	bool retw = false;
 	double oldx = currItem->xPos();
 	double oldy = currItem->yPos();
+	
+	// try to limit expansion of canvas to reasonable area:
+	if (newX < minCanvasCoordinate.x())
+	{
+		newX = qMax(newX, -pageWidth);
+		minCanvasCoordinate.setX(newX);
+	}
+	if (newY < minCanvasCoordinate.y())
+	{
+		newY = qMax(newY, -pageHeight);
+		minCanvasCoordinate.setY(newY);
+	}
+	// only limit mins for now
+	/*
+	int columns = pageSets[currentPageLayout].Columns;
+	if (newX + currItem->width() > maxCanvasCoordinate.x())
+	{
+		newX = qMin(newX, (bleeds.Left + pageWidth + bleeds.Right + GapHorizontal) * columns + pageWidth);
+		maxCanvasCoordinate.setX(newX);
+	}
+	if (newY > maxCanvasCoordinate.y())
+	{
+		int rows = 1 + DocPages.count() / columns;
+		newY = qMin(newY, (bleeds.Top + pageHeight + bleeds.Bottom + GapVertical) * rows + pageHeight);
+		maxCanvasCoordinate.setY(newY);
+	}
+	*/
 	currItem->moveBy(newX, newY);
 /*	if ((useRaster) && (!m_View->operItemMoving) && (!fromMP) && (static_cast<int>(currentPage()->pageNr()) == currItem->OwnPage))
 	{
