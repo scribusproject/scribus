@@ -1,4 +1,6 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="1.1" language="sk_SK">
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -2733,7 +2735,7 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     <message>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
-        <translation type="unfinished">&amp;Obrys</translation>
+        <translation>&amp;Obrys</translation>
     </message>
     <message>
         <source>Solidus</source>
@@ -2745,11 +2747,11 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     </message>
     <message>
         <source>En Space</source>
-        <translation type="unfinished"></translation>
+        <translation>En medzera</translation>
     </message>
     <message>
         <source>Em Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Em medzera</translation>
     </message>
     <message>
         <source>Thin Space</source>
@@ -3735,31 +3737,31 @@ akcie</translation>
     <name>BarcodeGenerator</name>
     <message>
         <source>Error opening file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Chyba pri otváraní súboru: %1</translation>
     </message>
     <message>
         <source>12 or 13 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>12 alebo 13 číslic</translation>
     </message>
     <message>
         <source>8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>8 číslic</translation>
     </message>
     <message>
         <source>11 or 12 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>11 alebo 12 číslic</translation>
     </message>
     <message>
         <source>7 or 8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>7 alebo 8 číslic</translation>
     </message>
     <message>
         <source>5 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>5 číslic</translation>
     </message>
     <message>
         <source>2 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>2 číslice</translation>
     </message>
     <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
@@ -15834,7 +15836,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Discard</source>
-        <translation>&amp;Zrušiť</translation>
+        <translation>Za&amp;hodiť</translation>
     </message>
 </context>
 <context>
@@ -19354,7 +19356,7 @@ tiež s pomocou tlačidla. </translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Otvoriť</translation>
+        <translation>Otvoriť</translation>
     </message>
 </context>
 <context>
