@@ -378,7 +378,9 @@ void FontPrefs::rebuildDialog()
 	QMap<QString,QString>::Iterator itfsu;
 	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
 	{
-		Table3->setItem(a, 0, new QTableWidgetItem(itfsu.key()));
+		QTableWidgetItem* tWidgetItem = new QTableWidgetItem(itfsu.key());
+		tWidgetItem->setFlags(tWidgetItem->flags() & ~Qt::ItemIsEditable);
+		Table3->setItem(a, 0, tWidgetItem);
 		ScComboBox *item = new ScComboBox(Table3);
 		item->setEditable(false);
 		item->addItems(UsedFonts);
