@@ -4398,10 +4398,21 @@ void ScribusView::wheelEvent(QWheelEvent *w)
 {
 	//QScrollArea::contentsWheelEvent(w);
 //	evSpon = true;
+	
+	// The idea is:
+	// - wheel button is pressed + turned + control keyed = zoom by predefined step
+	// - wheel button is turned + control keyed = zoom "naturally"
+	// - wheel button is turned = translate view
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed && MidButt) || (w->modifiers() == Qt::ControlModifier))
 	{
 		FPoint mp = m_canvas->globalToCanvas(w->globalPos());
 		w->delta() > 0 ? slotZoomIn(mp.x(), mp.y()) : slotZoomOut(mp.x(), mp.y());
+	}
+	else if (w->modifiers() == Qt::ControlModifier)
+	{
+		double newScale = (w->delta() > 0) ? m_canvas->scale() * 1.1 : m_canvas->scale() * 0.9 ;
+		FPoint mp = m_canvas->globalToCanvas(w->globalPos());
+		zoom(mp.x(), mp.y(), newScale, true);
 	}
 	else
 	{
