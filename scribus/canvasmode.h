@@ -20,12 +20,15 @@
 
 #include "scribusapi.h"
 
+#include <QMap>
+
 class QDragEnterEvent;
 class QDragMoveEvent;
 class QDragLeaveEvent;
 class QDropEvent;
 class QEvent;
 class QInputMethodEvent;
+class QImage;
 class QMouseEvent;
 class QKeyEvent;
 class QPainter;
@@ -34,6 +37,7 @@ class  Canvas;
 struct CanvasViewMode;
 class  ScribusDoc;
 class  ScribusView;
+class  PageItem;
 
 /** These aren't real appmodes but open a new window or override behaviour for a short time */
 enum SubMode
@@ -106,6 +110,12 @@ public:
 	void drawSelection(QPainter* psx);
 	/** Draws an outline of selected items */
 	void drawOutline(QPainter* p, double scalex=1.0, double scaley=1.0, double deltax=0.0, double deltay=0.0);
+	// I don’t know why the methods above have been implemented here and left non-virtual.
+	// I need to setup some companion members - pm
+	private:
+	QMap<PageItem*, QImage*> m_pixmapCache;
+	public:
+	void clearPixmapCache();
 	
 	void setModeCursor();
 	

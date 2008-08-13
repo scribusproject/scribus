@@ -93,17 +93,34 @@ void CanvasMode::updateViewMode(CanvasViewMode* viewmode)
 
 void CanvasMode::drawSelection(QPainter* psx)
 {
+	QTime t;
+	t.start();
+	QTime tt;
+	int tg(0);
+	QStringList tu;
+	QString ds;
 	psx->scale(m_canvas->scale(), m_canvas->scale());
-	psx->translate(-m_doc->minCanvasCoordinate.x(),
-				   -m_doc->minCanvasCoordinate.y());
+	psx->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
+	
+	psx->setClipping(true);
+	psx->setClipRegion(QRegion ( m_canvas->exposedRect() ) );
 	
 	if (m_doc->m_Selection->count() != 0)
 	{
+// 		ds = "S" + QString::number(m_doc->m_Selection->count())+" ";
+		const double markWidth = 6 / m_canvas->scale();
+		const double halfMarkWidth = 3 / m_canvas->scale();
+
 		uint docSelectionCount = m_doc->m_Selection->count();
 		PageItem *currItem;
+		
+		// FIXME when more than 1 item is selected, first Rect is drew normally (<10ms here)
+		// but followings are damn long - pm 
 		for (uint a=0; a<docSelectionCount; ++a)
 		{
 			currItem = m_doc->m_Selection->itemAt(a);
+// 			qDebug()<<"It"<<currItem->xPos()<< currItem->yPos();
+			
 			psx->save();
 			psx->translate(currItem->xPos(), currItem->yPos());
 			if (currItem->rotation() != 0)
@@ -111,12 +128,38 @@ void CanvasMode::drawSelection(QPainter* psx)
 				psx->setRenderHint(QPainter::Antialiasing);
 				psx->rotate(currItem->rotation());
 			}
-			currItem->paintObj(psx);
+			double x, y, w, h;
+			x = 0;
+			y = 0;
+			w = currItem->width();
+			h = currItem->height();
+			
+			psx->setPen(QPen(Qt::red, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+			psx->setBrush(Qt::NoBrush);
+			tt.start();
+			psx->drawRect(QRectF(x, y, w, h));
+			psx->setBrush(Qt::red);
+			
+			tu << QString::number(tt.elapsed());
+			psx->setPen(QPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
+			psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
+			psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
+			psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
+			psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
+			psx->drawRect(QRectF(x, y, markWidth, markWidth));
+			psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
+			psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
+			
 			psx->restore();
 		}
+		
 	}
+	
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
+		ds+="[Multi]";
+		psx->save();
 		double x, y, w, h;
 		m_doc->m_Selection->setGroupRect();
 		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
@@ -126,9 +169,14 @@ void CanvasMode::drawSelection(QPainter* psx)
 //		h *= m_canvas->scale();
 		const double markWidth = 6 / m_canvas->scale();
 		const double halfMarkWidth = 3 / m_canvas->scale();
+		
+		psx->translate(x,y);
+		x = 0;
+		y = 0;
 
 		psx->setPen(QPen(Qt::red, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		psx->setBrush(Qt::NoBrush);
+		tt.start();
 		psx->drawRect(QRectF(x, y, w, h));
 		psx->setBrush(Qt::red);
 		psx->setPen(QPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
@@ -140,7 +188,11 @@ void CanvasMode::drawSelection(QPainter* psx)
 		psx->drawRect(QRectF(x, y, markWidth, markWidth));
 		psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
 		psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
+		tg=tt.elapsed();
+		psx->restore();
 	}
+	
+// 	qDebug()<<ds<< t.elapsed() <<"U"<<tu.join(",")<<"G"<<tg;
 }
 
 
@@ -154,28 +206,44 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 	
 	if (m_doc->m_Selection->count() == 1)
 	{
-		double extraScale = (scalex + scaley) / 2.0;
-		p->setBrush(Qt::NoBrush);
-		//p->setPen(QPen(Qt::black, 1.0 / m_canvas->scale() / extraScale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-		p->setPen(outlinePen);
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		p->translate(currItem->xPos(), currItem->yPos());
-		p->translate(deltax, deltay);
-		if (currItem->rotation() != 0)
+				
+		if((scalex != 1.0) || (scaley != 1.0)) // changing size of page item
 		{
-			p->setRenderHint(QPainter::Antialiasing);
-			p->rotate(currItem->rotation());
+			p->setBrush(Qt::NoBrush);
+			p->setPen(outlinePen);
+			p->translate(currItem->xPos(), currItem->yPos());
+			p->translate(deltax, deltay);
+			if (currItem->rotation() != 0)
+			{
+				p->setRenderHint(QPainter::Antialiasing);
+				p->rotate(currItem->rotation());
+			}
+			p->scale(scalex, scaley);
+			currItem->DrawPolyL(p, currItem->Clip);
 		}
-		p->scale(scalex, scaley);
-		currItem->DrawPolyL(p, currItem->Clip);
+		else // moving page item
+		{
+			QImage *pixItem(0);
+			if( m_pixmapCache.contains(currItem) )
+				pixItem = m_pixmapCache.value(currItem);
+			else
+			{
+				pixItem = new QImage( currItem->DrawObj_toImage() );
+				QImage aMask(pixItem->size(), QImage::Format_Indexed8);
+				aMask.fill(128);
+				pixItem->setAlphaChannel(aMask);
+				
+				m_pixmapCache[currItem] = pixItem;
+			}
+			QRectF br(currItem->getBoundingRect());
+			p->translate(br.x(),br.y());
+			p->translate(deltax, deltay);
+			p->drawImage( pixItem->rect(), *pixItem, pixItem->rect() );
+		}	
 	}
 	else if (m_doc->m_Selection->count() > 1)
 	{
-		double extraScale = (scalex + scaley) / 2.0;
-		p->setBrush(Qt::NoBrush);
-		//p->setPen(QPen(Qt::black, 1.0 / m_canvas->scale() / extraScale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-		p->setPen(outlinePen);
-		p->translate(deltax, deltay);
 		double x, y, w, h;
 		m_doc->m_Selection->setGroupRect();
 		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
@@ -184,26 +252,77 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 		{
 			PageItem *currItem;
 			p->translate(x, y);
-			p->scale(scalex, scaley);
 			for (uint a=0; a<docSelectionCount; ++a)
 			{
 				currItem = m_doc->m_Selection->itemAt(a);
-				p->save();
-				p->translate(currItem->xPos() - x, currItem->yPos() - y);
-				if (currItem->rotation() != 0)
+				
+				//Try to detect if the pageitem is a top level item.
+				if( currItem->Groups.count() > 0)
 				{
-					p->setRenderHint(QPainter::Antialiasing);
-					p->rotate(currItem->rotation());
+					if(! currItem->controlsGroup() ) 
+						continue;
+					else
+					{
+						if(currItem->Groups.count() > 1)
+							continue;
+					}
 				}
-				if (docSelectionCount < m_canvas->moveWithFullOutlinesThreshold && currItem->rotation() == 0)
-					currItem->DrawPolyL(p, currItem->Clip);
+				p->save();
+				if (docSelectionCount < m_canvas->moveWithFullOutlinesThreshold /*&& currItem->rotation() == 0*/)
+				{
+					if((scalex != 1.0) || (scaley != 1.0))
+					{
+						p->setBrush(Qt::NoBrush);
+						p->setPen(outlinePen);
+						p->translate(deltax, deltay);
+						p->translate(currItem->xPos() - x, currItem->yPos() - y);
+						p->scale(scalex, scaley);
+						if (currItem->rotation() != 0)
+						{
+							p->setRenderHint(QPainter::Antialiasing);
+							p->rotate(currItem->rotation());
+						}
+						currItem->DrawPolyL(p, currItem->Clip);
+					}
+					else
+					{
+						QImage *pixItem(0);
+						if( m_pixmapCache.contains(currItem) )
+							pixItem = m_pixmapCache.value(currItem);
+						else
+						{
+							pixItem = new QImage( currItem->DrawObj_toImage() );
+							QImage aMask(pixItem->size(), QImage::Format_Indexed8);
+							aMask.fill(128);
+							pixItem->setAlphaChannel(aMask);
+							m_pixmapCache[currItem] = pixItem;
+						}
+						QRectF br(currItem->getBoundingRect());
+						p->translate(br.x() - x, br.y() - y);
+						p->drawImage( pixItem->rect(), *pixItem, pixItem->rect() );
+					}
+				}
 				else
+				{
+					p->setBrush(Qt::NoBrush);
+					p->setPen(outlinePen);
+					p->translate(deltax, deltay);
+					p->translate(currItem->xPos() - x, currItem->yPos() - y);
+					if (currItem->rotation() != 0)
+					{
+						p->setRenderHint(QPainter::Antialiasing);
+						p->rotate(currItem->rotation());
+					}
 					p->drawRect(QRectF(0.0, 0.0, currItem->width()+1.0, currItem->height()+1.0));
+				}
 				p->restore();
 			}
 		}
 		else
 		{
+			p->setBrush(Qt::NoBrush);
+			p->setPen(outlinePen);
+			p->translate(deltax, deltay);
 			p->translate(x, y);
 			p->scale(scalex, scaley);
 			p->drawRect(QRectF(0, 0, w, h));
@@ -269,6 +388,19 @@ void CanvasMode::setModeCursor()
 		default:
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			break;
+	}
+}
+
+void CanvasMode::clearPixmapCache()
+{
+	if(m_pixmapCache.count())
+	{
+		foreach(QImage* ip, m_pixmapCache)
+		{
+			if(ip)
+				delete ip;
+		}
+		m_pixmapCache.clear();
 	}
 }
 

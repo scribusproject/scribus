@@ -2252,6 +2252,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 
 void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 {
+	clearPixmapCache();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
