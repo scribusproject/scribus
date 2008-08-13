@@ -138,6 +138,7 @@ public:
 //	QRectF globalToCanvas(QRectF p) const;
 	bool hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const;
 	bool hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const;
+	QRect exposedRect()const;
 	/** Returns the framehandle or INSIDE if the position falls into the frame. */
 	FrameHandle frameHitTest(QPointF canvasPoint, PageItem* frame) const;
 	FrameHandle frameHitTest(QPointF point, QRectF frame) const;
@@ -207,7 +208,7 @@ private:
 	CanvasViewMode m_viewMode;
 	
 	RenderMode m_renderMode;
-	QImage m_buffer;
+	/*QImage*/QPixmap m_buffer;
 	QRect m_bufferRect;
 	QPixmap m_selectionBuffer;
 	QRect m_selectionRect;

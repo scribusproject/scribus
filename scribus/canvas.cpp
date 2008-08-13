@@ -63,7 +63,7 @@ Canvas::Canvas(ScribusDoc* doc, ScribusView* parent) : QWidget(parent), m_doc(do
 	setAutoFillBackground(true);
 	setAttribute(Qt::WA_OpaquePaintEvent, true);
 	setAttribute(Qt::WA_NoSystemBackground, true);
-	m_buffer = QImage();
+	m_buffer = /*QImage()*/QPixmap();
 	m_bufferRect = QRect();
 	m_viewMode.init();
 	m_renderMode = RENDER_NORMAL;
@@ -183,6 +183,16 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
 	int radius = m_doc->guidesSettings.grabRad;
 	return qAbs(localPoint1.x() - localPoint2.x()) < radius
 		&& qAbs(localPoint1.y() - localPoint2.y()) < radius;
+}
+
+QRect Canvas::exposedRect() const
+{
+	int ex ( -(x() / m_viewMode.scale) + m_doc->minCanvasCoordinate.x() );
+	int ey ( -(y() / m_viewMode.scale) + m_doc->minCanvasCoordinate.y() );
+	int ew ( m_view->visibleWidth() / m_viewMode.scale );
+	int eh ( m_view->visibleHeight() / m_viewMode.scale );
+	
+	return QRect( ex, ey, ew, eh );
 }
 
 
@@ -444,7 +454,7 @@ void Canvas::setRenderMode(RenderMode mode)
 
 void Canvas::clearBuffers()
 {
-	m_buffer = QImage();
+	m_buffer = /*QImage()*/QPixmap();
 	m_bufferRect = QRect();
 	m_selectionBuffer = QPixmap();
 	m_selectionRect = QRect();
@@ -469,7 +479,7 @@ bool Canvas::adjustBuffer()
 	{
 //		qDebug() << "adjust buffer: invalid buffer, viewport" << viewport;
 		m_bufferRect = viewport;
-		m_buffer = QImage(m_bufferRect.width(), m_bufferRect.height(), QImage::Format_ARGB32);
+		m_buffer = QPixmap(m_bufferRect.width(), m_bufferRect.height());
 		fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);
 		ret = true;
 #if DRAW_DEBUG_LINES
@@ -520,7 +530,8 @@ bool Canvas::adjustBuffer()
 		{
 //			qDebug() << "adjust buffer: fresh buffer" << m_bufferRect << "-->" << newRect;
 			m_bufferRect = newRect;
-			m_buffer = QImage(m_bufferRect.width(), m_bufferRect.height(), QImage::Format_ARGB32);
+// 			m_buffer = QImage(m_bufferRect.width(), m_bufferRect.height(), QImage::Format_ARGB32);
+			m_buffer = QPixmap(m_bufferRect.width(), m_bufferRect.height());
 			fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);
 			ret = true;
 #if DRAW_DEBUG_LINES
@@ -534,7 +545,8 @@ bool Canvas::adjustBuffer()
 		else
 		{
 			// copy buffer:
-			QImage newBuffer(newRect.width(), newRect.height(), QImage::Format_ARGB32);
+// 			QImage newBuffer(newRect.width(), newRect.height(), QImage::Format_ARGB32);
+			QPixmap newBuffer(newRect.width(), newRect.height());
 			QPainter p(&newBuffer);
 			int xpos = m_bufferRect.x() - newRect.x();
 			int ypos = m_bufferRect.y() - newRect.y();
@@ -562,7 +574,8 @@ bool Canvas::adjustBuffer()
 			{
 				height = newRect.height() - ypos;
 			}
-			p.drawImage(xpos, ypos, m_buffer, x, y,  width + 1, height + 1); // FIXME: == params drawPixmap?
+// 			p.drawImage(xpos, ypos, m_buffer, x, y,  width + 1, height + 1); // FIXME: == params drawPixmap?
+			p.drawPixmap(xpos, ypos, m_buffer, x, y,  width + 1, height + 1);
 #if DRAW_DEBUG_LINES
 			p.setPen(Qt::blue);
 			p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos);
@@ -609,10 +622,13 @@ bool Canvas::adjustBuffer()
 
 void Canvas::fillBuffer(QPaintDevice* buffer, QPoint bufferOrigin, QRect clipRect)
 {
+	QTime t;
+	t.start();
 	QPainter painter(buffer);
 	painter.translate(-bufferOrigin.x(), -bufferOrigin.y());
 	drawContents(&painter, clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
 	painter.end();
+	qDebug()<<"FILL_BUFFER"<<t.elapsed();
 }
 
 /**
@@ -624,15 +640,21 @@ void Canvas::fillBuffer(QPaintDevice* buffer, QPoint bufferOrigin, QRect clipRec
 */
 void Canvas::paintEvent ( QPaintEvent * p )
 {
+	QTime t;
 	if (m_doc->isLoading())
 		return;
-
+// #define SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
+#ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
+	QString dmode("");
+	int t1,t2,t3,t4,t5,t6;
+	t1 = t2=t3=t4=t5 =t6= 0;
+	t.start();
+#endif
 	// fill buffer if necessary
 	bool bufferFilled = adjustBuffer();
-
 	// It is ugly, but until we figure out why drawing directly on the 
 	// widget is so slow, it saves us a Cray! - pm
-	QImage tmpImg(p->rect().size(), QImage::Format_ARGB32);
+	QPixmap tmpImg(p->rect().size());
 	QPainter qp(&tmpImg);
 	qp.translate(-p->rect().x(), -p->rect().y());
 	switch (m_renderMode)
@@ -642,18 +664,28 @@ void Canvas::paintEvent ( QPaintEvent * p )
 #if DRAW_DEBUG_LINES
 //			qDebug() << "update Buffer:" << m_bufferRect << p->rect() << m_viewMode.forceRedraw;
 #endif
+#ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
+			dmode = "NORMAL";
+			t1 = t.elapsed();
+			t.start();
+#endif
 			if ((m_viewMode.forceRedraw) && (!bufferFilled))
 			{
 				qDebug() << "Canvas::paintEvent: forceRedraw=" << m_viewMode.forceRedraw << "bufferFilled=" << bufferFilled;
 				fillBuffer(&m_buffer, m_bufferRect.topLeft(), p->rect());
 			}
+#ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
+			t2 = t.elapsed();
+			t.start();
+#endif
 			int xV = p->rect().x() - m_bufferRect.x();
 			int yV = p->rect().y() - m_bufferRect.y();
 			int wV = p->rect().width();
 			int hV = p->rect().height();
 			if (hV > 0 && wV > 0)
 			{
-				qp.drawImage(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
+// 				qp.drawImage(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
+				qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
 #if DRAW_DEBUG_LINES
 //				qDebug() << "normal rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
 				qp.setPen(Qt::blue);
@@ -662,6 +694,10 @@ void Canvas::paintEvent ( QPaintEvent * p )
 #endif
 			}
 		}
+#ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
+			t3 = t.elapsed();
+			t.start();
+#endif
 			if (m_doc->appMode != modeNormal)
 			{
 				qp.save();
@@ -669,10 +705,19 @@ void Canvas::paintEvent ( QPaintEvent * p )
 				qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 				drawControls( &qp );
 				qp.restore();
-			}				
+			}	
+#ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
+			t4 = t.elapsed();
+			t.start();
+#endif			
 			break;
 		case RENDER_BUFFERED:
-			{
+		{
+#ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
+			dmode = "BUFFER";
+			t1 = t.elapsed();
+			t.start();
+#endif
 				int xV = p->rect().x() - m_bufferRect.x();
 				int yV = p->rect().y() - m_bufferRect.y();
 				int wV = p->rect().width();
@@ -687,9 +732,15 @@ void Canvas::paintEvent ( QPaintEvent * p )
 					hV += yV;
 					yV = 0;
 				}
+#ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
+				t2 = t.elapsed();
+				t.start();
+#endif
 				if (hV > 0 && wV > 0)
 				{
-					qp.drawImage(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
+// 					qp.drawImage(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
+					
+					qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
 	#if DRAW_DEBUG_LINES
 //					qDebug() << "buffered rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
 					qp.setPen(Qt::green);
@@ -697,6 +748,10 @@ void Canvas::paintEvent ( QPaintEvent * p )
 					qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
 	#endif
 				}
+#ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
+				t3 = t.elapsed();
+				t.start();
+#endif
 				if (m_doc->appMode != modeNormal)
 				{
 					qp.save();
@@ -705,6 +760,10 @@ void Canvas::paintEvent ( QPaintEvent * p )
 					drawControls( &qp );
 					qp.restore();
 				}
+#ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
+				t4 = t.elapsed();
+				t.start();
+#endif
 			}
 			break;
 		case RENDER_SELECTION_SEPARATE:
@@ -715,10 +774,19 @@ void Canvas::paintEvent ( QPaintEvent * p )
 		default:
 			assert (false);
 	}
+	
+#ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
+	t5 = t.elapsed();
+	t.start();
+#endif
 	// does mode specific rendering, currently selection in legacymode and nodes in nodeedit
 	m_view->m_canvasMode->drawControls(&qp);
 	QPainter tp(this);
-	tp.drawImage(p->rect(), tmpImg, tmpImg.rect());
+	tp.drawPixmap(p->rect(), tmpImg, tmpImg.rect());
+#ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
+	t6 = t.elapsed();
+	qDebug()<<dmode<<t1<<t2<<t3<<t4<<t5<<t6<<"-" <<t1+t2+t3+t4+t5+t6;
+#endif
 	m_viewMode.forceRedraw = false;
 }
 
@@ -804,7 +872,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	psx->drawImage(clipx, clipy, img);
 	delete painter;
 	painter=NULL;
-//	qDebug( "Time elapsed: %d ms, setup=%d, background=%d, contents=%d, rest=%d", tim.elapsed(), Tsetup, Tbackground-Tsetup, Tcontents-Tbackground, tim.elapsed() - Tcontents );
+// 	qDebug( "Time elapsed: %d ms, setup=%d, background=%d, contents=%d, rest=%d", tim.elapsed(), Tsetup, Tbackground-Tsetup, Tcontents-Tbackground, tim.elapsed() - Tcontents );
 }
 
 void Canvas::drawControls(QPainter *psx)
@@ -2014,6 +2082,7 @@ void Canvas::calculateFrameLinkPoints(PageItem *pi1, PageItem *pi2, FPoint & sta
 	end.setXY(a2-pi2->xPos(), b2-pi2->yPos());
 	end.transform(pi2->xPos(), pi2->yPos(), pi2->rotation(), 1, 1, false);
 }
+
 
 
 
