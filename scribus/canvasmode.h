@@ -21,6 +21,8 @@
 #include "scribusapi.h"
 
 #include <QMap>
+#include <QPen>
+#include <QBrush>
 
 class QDragEnterEvent;
 class QDragMoveEvent;
@@ -129,6 +131,11 @@ protected:
 	ScribusView * const m_view;	
 	Canvas * const m_canvas;
 	ScribusDoc * const m_doc;
+	
+	private:
+		QMap<QString,QPen> m_pen;
+		QMap<QString,QBrush> m_brush;
+		
 };
 
 

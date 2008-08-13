@@ -2550,9 +2550,9 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		double scpInv = 1.0 / (qMax(view->scale(), 1.0));
 		if ((Frame) && (m_Doc->guidesSettings.framesShown))
 		{
-			p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if ((isBookmark) || (m_isAnnotation))
-				p->setPen(PrefsManager::instance()->appPrefs.DFrameAnnotationColor, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DFrameAnnotationColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if ((BackBox != 0) || (NextBox != 0))
 				p->setPen(PrefsManager::instance()->appPrefs.DFrameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if (m_Locked)
@@ -2573,7 +2573,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		}
 		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
-			p->setPen(Qt::lightGray, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(Qt::lightGray, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 // Ugly Hack to fix rendering problems with cairo-1.5.10 and up follows
 #ifdef HAVE_CAIRO
 	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)

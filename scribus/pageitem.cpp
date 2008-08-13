@@ -1151,9 +1151,9 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		{
 			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == PathText)))
 			{
-				p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((isBookmark) || (m_isAnnotation))
-					p->setPen(PrefsManager::instance()->appPrefs.DFrameAnnotationColor, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setPen(PrefsManager::instance()->appPrefs.DFrameAnnotationColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((BackBox != 0) || (NextBox != 0))
 					p->setPen(PrefsManager::instance()->appPrefs.DFrameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if (m_Locked)
@@ -1392,7 +1392,7 @@ void PageItem::paintObj(QPainter *p)
 				if (m_Locked)
 					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameLockColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				else
-					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1.0 / sc, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				p->setBrush(Qt::NoBrush);
 				double lw2 = 1.0 / sc;
 				double lw = 1.0 / sc;
@@ -1451,7 +1451,7 @@ void PageItem::paintObj(QPainter *p)
 			}
 			else
 			{
-				p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1.0 / sc, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				p->setBrush(Qt::NoBrush);
 				p->drawRect(QRectF(0.0, 0.0, Width, Height));
 				if (m_Doc->m_Selection->count() == 1)

@@ -35,6 +35,18 @@ CanvasMode::CanvasMode (ScribusView* view) :
 	m_canvas(view->m_canvas),
 	m_doc(view->Doc)
 {
+	m_pen["outline"]	= QPen(Qt::gray, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["outline"].setCosmetic(true);
+	m_pen["selection"]	= QPen(Qt::red, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection"].setCosmetic(true);
+	m_pen["selection-group"] = Qt::NoPen;
+	m_pen["handle"]		= QPen(Qt::red, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["handle"].setCosmetic(true);
+	
+	m_brush["outline"]	= Qt::NoBrush;
+	m_brush["selection"]	= Qt::NoBrush;
+	m_brush["selection-group"] = QColor(255,0,0,32);
+	m_brush["handle"]	= Qt::red;
 }
 
 
@@ -104,8 +116,41 @@ void CanvasMode::drawSelection(QPainter* psx)
 	
 	psx->setClipping(true);
 	psx->setClipRegion(QRegion ( m_canvas->exposedRect() ) );
-	
-	if (m_doc->m_Selection->count() != 0)
+	if (m_doc->m_Selection->isMultipleSelection())
+	{
+		psx->save();
+		double x, y, w, h;
+		m_doc->m_Selection->setGroupRect();
+		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+//		x *= m_canvas->scale();
+//		y *= m_canvas->scale();
+//		w *= m_canvas->scale();
+//		h *= m_canvas->scale();
+		const double markWidth = 6 / m_canvas->scale();
+		const double halfMarkWidth = 3 / m_canvas->scale();
+		
+		psx->translate(x,y);
+		x = 0;
+		y = 0;
+
+		psx->setPen(m_pen["selection-group"]);
+		psx->setBrush(m_brush["selection-group"]);
+		tt.start();
+		psx->drawRect(QRectF(x, y, w, h));
+		psx->setBrush(m_brush["handle"]);
+		psx->setPen(m_pen["handle"]);
+		psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
+		psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
+		psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
+		psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
+		psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
+		psx->drawRect(QRectF(x, y, markWidth, markWidth));
+		psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
+		psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
+		tg=tt.elapsed();
+		psx->restore();
+	}
+	else if (m_doc->m_Selection->count() != 0)
 	{
 // 		ds = "S" + QString::number(m_doc->m_Selection->count())+" ";
 		const double markWidth = 6 / m_canvas->scale();
@@ -134,14 +179,14 @@ void CanvasMode::drawSelection(QPainter* psx)
 			w = currItem->width();
 			h = currItem->height();
 			
-			psx->setPen(QPen(Qt::red, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-			psx->setBrush(Qt::NoBrush);
+			psx->setPen(m_pen["selection"]);
+			psx->setBrush(m_brush["selection"]);
 			tt.start();
 			psx->drawRect(QRectF(x, y, w, h));
-			psx->setBrush(Qt::red);
+			psx->setBrush(m_brush["handle"]);
 			
 			tu << QString::number(tt.elapsed());
-			psx->setPen(QPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			psx->setPen(m_pen["handle"]);
 			psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
 			psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
 			psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
@@ -156,42 +201,7 @@ void CanvasMode::drawSelection(QPainter* psx)
 		
 	}
 	
-	if (m_doc->m_Selection->isMultipleSelection())
-	{
-		ds+="[Multi]";
-		psx->save();
-		double x, y, w, h;
-		m_doc->m_Selection->setGroupRect();
-		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-//		x *= m_canvas->scale();
-//		y *= m_canvas->scale();
-//		w *= m_canvas->scale();
-//		h *= m_canvas->scale();
-		const double markWidth = 6 / m_canvas->scale();
-		const double halfMarkWidth = 3 / m_canvas->scale();
-		
-		psx->translate(x,y);
-		x = 0;
-		y = 0;
 
-		psx->setPen(QPen(Qt::red, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-		psx->setBrush(Qt::NoBrush);
-		tt.start();
-		psx->drawRect(QRectF(x, y, w, h));
-		psx->setBrush(Qt::red);
-		psx->setPen(QPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
-		psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
-		psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
-		psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
-		psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
-		psx->drawRect(QRectF(x, y, markWidth, markWidth));
-		psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
-		psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
-		tg=tt.elapsed();
-		psx->restore();
-	}
-	
 // 	qDebug()<<ds<< t.elapsed() <<"U"<<tu.join(",")<<"G"<<tg;
 }
 
@@ -201,17 +211,17 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 	p->save();
 	p->scale(m_canvas->scale(), m_canvas->scale());
 	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
-	QPen outlinePen = QPen(Qt::black, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
-	outlinePen.setCosmetic(true);
 	
+	bool wantOutline(m_doc->guidesSettings.framesShown);
+			
 	if (m_doc->m_Selection->count() == 1)
 	{
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 				
 		if((scalex != 1.0) || (scaley != 1.0)) // changing size of page item
 		{
-			p->setBrush(Qt::NoBrush);
-			p->setPen(outlinePen);
+			p->setBrush(m_brush["outline"]);
+			p->setPen(m_pen["outline"]);
 			p->translate(currItem->xPos(), currItem->yPos());
 			p->translate(deltax, deltay);
 			if (currItem->rotation() != 0)
@@ -224,6 +234,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 		}
 		else // moving page item
 		{
+
 			QImage *pixItem(0);
 			if( m_pixmapCache.contains(currItem) )
 				pixItem = m_pixmapCache.value(currItem);
@@ -237,9 +248,28 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 				m_pixmapCache[currItem] = pixItem;
 			}
 			QRectF br(currItem->getBoundingRect());
-			p->translate(br.x(),br.y());
-			p->translate(deltax, deltay);
-			p->drawImage( pixItem->rect(), *pixItem, pixItem->rect() );
+			{
+				p->save();
+				p->translate(br.x(),br.y());
+				p->translate(deltax, deltay);
+				p->drawImage( pixItem->rect(), *pixItem, pixItem->rect() );
+				p->restore();
+			}
+			{
+				p->save();
+				p->setBrush(m_brush["outline"]);
+				p->setPen(m_pen["outline"]);
+				p->translate(currItem->xPos(), currItem->yPos());
+				p->translate(deltax, deltay);
+				if (currItem->rotation() != 0)
+				{
+					p->setRenderHint(QPainter::Antialiasing);
+					p->rotate(currItem->rotation());
+				}
+				p->scale(scalex, scaley);
+				currItem->DrawPolyL(p, currItem->Clip);
+				p->restore();
+			}
 		}	
 	}
 	else if (m_doc->m_Selection->count() > 1)
@@ -251,7 +281,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 		if (docSelectionCount < m_canvas->moveWithBoxesOnlyThreshold)
 		{
 			PageItem *currItem;
-			p->translate(x, y);
+// 			p->translate(x, y);
 			for (uint a=0; a<docSelectionCount; ++a)
 			{
 				currItem = m_doc->m_Selection->itemAt(a);
@@ -272,10 +302,10 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 				{
 					if((scalex != 1.0) || (scaley != 1.0))
 					{
-						p->setBrush(Qt::NoBrush);
-						p->setPen(outlinePen);
+						p->setBrush(m_brush["outline"]);
+						p->setPen(m_pen["outline"]);
 						p->translate(deltax, deltay);
-						p->translate(currItem->xPos() - x, currItem->yPos() - y);
+						p->translate(currItem->xPos() /*- x*/, currItem->yPos() /*- y*/);
 						p->scale(scalex, scaley);
 						if (currItem->rotation() != 0)
 						{
@@ -298,14 +328,33 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 							m_pixmapCache[currItem] = pixItem;
 						}
 						QRectF br(currItem->getBoundingRect());
-						p->translate(br.x() - x, br.y() - y);
-						p->drawImage( pixItem->rect(), *pixItem, pixItem->rect() );
+						{
+							p->save();
+							p->translate(br.x() /*- x*/, br.y() /*- y*/);
+							p->drawImage( pixItem->rect(), *pixItem, pixItem->rect() );
+							p->restore();
+						}
+						{
+							p->save();
+							p->setBrush(m_brush["outline"]);
+							p->setPen(m_pen["outline"]);
+							p->translate(currItem->xPos(), currItem->yPos());
+							p->translate(deltax, deltay);
+							if (currItem->rotation() != 0)
+							{
+								p->setRenderHint(QPainter::Antialiasing);
+								p->rotate(currItem->rotation());
+							}
+							p->scale(scalex, scaley);
+							currItem->DrawPolyL(p, currItem->Clip);
+							p->restore();
+						}
 					}
 				}
 				else
 				{
-					p->setBrush(Qt::NoBrush);
-					p->setPen(outlinePen);
+					p->setBrush(m_brush["outline"]);
+					p->setPen(m_pen["outline"]);
 					p->translate(deltax, deltay);
 					p->translate(currItem->xPos() - x, currItem->yPos() - y);
 					if (currItem->rotation() != 0)
@@ -320,8 +369,8 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 		}
 		else
 		{
-			p->setBrush(Qt::NoBrush);
-			p->setPen(outlinePen);
+			p->setBrush(m_brush["outline"]);
+			p->setPen(m_pen["outline"]);
 			p->translate(deltax, deltay);
 			p->translate(x, y);
 			p->scale(scalex, scaley);
