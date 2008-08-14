@@ -45,7 +45,7 @@ CanvasMode::CanvasMode (ScribusView* view) :
 	
 	m_brush["outline"]	= Qt::NoBrush;
 	m_brush["selection"]	= Qt::NoBrush;
-	m_brush["selection-group"] = QColor(255,0,0,32);
+	m_brush["selection-group"] = QColor(255,0,0,22);
 	m_brush["handle"]	= Qt::red;
 }
 
@@ -118,6 +118,13 @@ void CanvasMode::drawSelection(QPainter* psx)
 	psx->setClipRegion(QRegion ( m_canvas->exposedRect() ) );
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
+		bool drawHandles(true);
+		for(uint a=0; a<m_doc->m_Selection->count(); ++a)
+		{
+			if(m_doc->m_Selection->itemAt(a)->locked())
+				drawHandles = false;
+		}
+		
 		psx->save();
 		double x, y, w, h;
 		m_doc->m_Selection->setGroupRect();
@@ -137,16 +144,19 @@ void CanvasMode::drawSelection(QPainter* psx)
 		psx->setBrush(m_brush["selection-group"]);
 		tt.start();
 		psx->drawRect(QRectF(x, y, w, h));
-		psx->setBrush(m_brush["handle"]);
-		psx->setPen(m_pen["handle"]);
-		psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
-		psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
-		psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
-		psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
-		psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
-		psx->drawRect(QRectF(x, y, markWidth, markWidth));
-		psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
-		psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
+		if(drawHandles)
+		{
+			psx->setBrush(m_brush["handle"]);
+			psx->setPen(m_pen["handle"]);
+			psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
+			psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
+			psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
+			psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
+			psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
+			psx->drawRect(QRectF(x, y, markWidth, markWidth));
+			psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
+			psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
+		}
 		tg=tt.elapsed();
 		psx->restore();
 	}
@@ -183,18 +193,20 @@ void CanvasMode::drawSelection(QPainter* psx)
 			psx->setBrush(m_brush["selection"]);
 			tt.start();
 			psx->drawRect(QRectF(x, y, w, h));
-			psx->setBrush(m_brush["handle"]);
-			
 			tu << QString::number(tt.elapsed());
-			psx->setPen(m_pen["handle"]);
-			psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
-			psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
-			psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
-			psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
-			psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
-			psx->drawRect(QRectF(x, y, markWidth, markWidth));
-			psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
-			psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
+			if(!currItem->locked())
+			{
+				psx->setBrush(m_brush["handle"]);
+				psx->setPen(m_pen["handle"]);
+				psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
+				psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
+				psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
+				psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
+				psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
+				psx->drawRect(QRectF(x, y, markWidth, markWidth));
+				psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
+				psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
+			}
 			
 			psx->restore();
 		}
@@ -212,7 +224,6 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 	p->scale(m_canvas->scale(), m_canvas->scale());
 	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	
-	bool wantOutline(m_doc->guidesSettings.framesShown);
 			
 	if (m_doc->m_Selection->count() == 1)
 	{
