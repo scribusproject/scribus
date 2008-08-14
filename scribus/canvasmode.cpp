@@ -39,7 +39,8 @@ CanvasMode::CanvasMode (ScribusView* view) :
 	m_pen["outline"].setCosmetic(true);
 	m_pen["selection"]	= QPen(Qt::red, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection"].setCosmetic(true);
-	m_pen["selection-group"] = Qt::NoPen;
+	m_pen["selection-group"] = QPen(Qt::red, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection-group"].setCosmetic(true);
 	m_pen["handle"]		= QPen(Qt::red, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["handle"].setCosmetic(true);
 	
@@ -119,7 +120,7 @@ void CanvasMode::drawSelection(QPainter* psx)
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		bool drawHandles(true);
-		for(uint a=0; a<m_doc->m_Selection->count(); ++a)
+		for(int a=0; a<m_doc->m_Selection->count(); ++a)
 		{
 			if(m_doc->m_Selection->itemAt(a)->locked())
 				drawHandles = false;
@@ -133,8 +134,8 @@ void CanvasMode::drawSelection(QPainter* psx)
 //		y *= m_canvas->scale();
 //		w *= m_canvas->scale();
 //		h *= m_canvas->scale();
-		const double markWidth = 6 / m_canvas->scale();
-		const double halfMarkWidth = 3 / m_canvas->scale();
+		const double markWidth = 4 / m_canvas->scale();
+		const double halfMarkWidth = 2 / m_canvas->scale();
 		
 		psx->translate(x,y);
 		x = 0;
@@ -163,8 +164,8 @@ void CanvasMode::drawSelection(QPainter* psx)
 	else if (m_doc->m_Selection->count() != 0)
 	{
 // 		ds = "S" + QString::number(m_doc->m_Selection->count())+" ";
-		const double markWidth = 6 / m_canvas->scale();
-		const double halfMarkWidth = 3 / m_canvas->scale();
+		const double markWidth = 4 / m_canvas->scale();
+		const double halfMarkWidth = 2 / m_canvas->scale();
 
 		uint docSelectionCount = m_doc->m_Selection->count();
 		PageItem *currItem;
