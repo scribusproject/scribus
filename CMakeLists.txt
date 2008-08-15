@@ -201,6 +201,23 @@ ENDIF (WANT_VERSIONING AND NOT CACHED_VERSIONING)
 ##############################################################################################################
 ########## Install/Directory Setup                                                                  ##########
 
+IF (APPLEBUNDLE)
+  IF ("${CMAKE_INSTALL_PREFIX}" MATCHES "[.]app/Contents/?$")
+    # all ok
+  ELSE ("${CMAKE_INSTALL_PREFIX}" MATCHES "[.]app/Contents/?$")
+    IF ("${CMAKE_INSTALL_PREFIX}" MATCHES "[.]app/?$")
+      # add "/Contents" subpath
+      SET(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/Contents")
+    ELSE ("${CMAKE_INSTALL_PREFIX}" MATCHES "[.]app/?$")
+      # no bundle name spcified, use appname and version
+      SET(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/Scribus${VERSION}.app/Contents")
+    ENDIF ("${CMAKE_INSTALL_PREFIX}" MATCHES "[.]app/?$")
+  ENDIF ("${CMAKE_INSTALL_PREFIX}" MATCHES "[.]app/Contents/?$")
+
+  MESSAGE(STATUS "APPLEBUNDLE install prefix: ${CMAKE_INSTALL_PREFIX}")
+ENDIF (APPLEBUNDLE)
+
+
 #Setp all the directories we will use
 #MAN
 SET(MANDIR "share/man/")
