@@ -22,52 +22,9 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "util_math.h"
-#include <QBitmap>
-#include <QFile>
-#include <QFileInfo>
-#include <QDir>
-#include <QCheckBox>
-#include <QWidget>
-#include <QPixmap>
-#include <QList>
-#include <QByteArray>
-#include <QPolygon>
-#include <QImageReader>
-
-#include <algorithm>
 #include "scconfig.h"
-
-#include "commonstrings.h"
-#include <QProcess>
-#include "scmessagebox.h"
-#include "scpixmapcache.h"
-#include "scpaths.h"
-
-extern "C"
-{
-#define XMD_H           // shut JPEGlib up
-#if defined(Q_OS_UNIXWARE)
-#  define HAVE_BOOLEAN  // libjpeg under Unixware seems to need this
-#endif
-#include <jpeglib.h>
-#include <jerror.h>
-#undef HAVE_STDLIB_H
-#ifdef const
-#  undef const          // remove crazy C hackery in jconfig.h
-#endif
-}
-
-#include "pageitem.h"
-#include "scribus.h"
-#include "scribusdoc.h"
-#include "scribusview.h"
-/*#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_OUTLINE_H
-#include FT_GLYPH_H
-*/
-#include <zlib.h>
-
+#include "fpoint.h"
+#include "fpointarray.h"
 
 using namespace std;
 

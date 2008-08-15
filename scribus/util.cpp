@@ -21,68 +21,16 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-
-#include <QBitmap>
-#include <QByteArray>
-#include <QCheckBox>
-#include <QDomElement>
-#include <QFile>
-#include <QFileInfo>
-#include <QImageReader>
-#include <QList>
-#include <QPixmap>
-#include <QWidget>
-#include <QDir>
-#include <QCryptographicHash>
-
-#include <cmath>
-#include <algorithm>
-
 #include "util.h"
-
-
-#include "scconfig.h"
-#include "scpainter.h"
-#include "scstreamfilter.h"
-#include "pageitem_textframe.h"
-
-#if defined(_WIN32)
-#if defined(_MSC_VER)
-#define __STDC__ 1 // hack to get md5_buffer correctly identified
-#endif
-#include <valarray>
-#include <windows.h>
-#endif
-
-// #include "md5.h"
-
-#include "commonstrings.h"
-#include "prefsmanager.h"
+#include <zlib.h>
+#include <QCryptographicHash>
+#include <QDomElement>
 #include <QProcess>
-#include "scmessagebox.h"
-#include "scpixmapcache.h"
-#include "scpaths.h"
-
-extern "C"
-{
-#define XMD_H           // shut JPEGlib up
-#if defined(Q_OS_UNIXWARE)
-#  define HAVE_BOOLEAN  // libjpeg under Unixware seems to need this
-#endif
-#include <jpeglib.h>
-#include <jerror.h>
-#undef HAVE_STDLIB_H
-#ifdef const
-#  undef const          // remove crazy C hackery in jconfig.h
-#endif
-}
-
 #include "pageitem.h"
+#include "scmessagebox.h"
 #include "scribus.h"
 #include "scribusdoc.h"
-#include "scribusview.h"
-#include <zlib.h>
-
+#include "scpainter.h"
 
 using namespace std;
 

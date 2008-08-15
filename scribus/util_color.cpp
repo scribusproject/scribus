@@ -21,43 +21,22 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "util_color.h"
-
-#include <QBitmap>
-#include <QDateTime> 
-#include <QPainter>
-#include <QCheckBox>
-#include <QPixmap>
-#include <QTextStream>
 #include <QDomDocument>
-
+#include <QPainter>
+#include "util_color.h"
 #include "scconfig.h"
-
 #include "scribusdoc.h"
 #include "scpixmapcache.h"
 #include "commonstrings.h"
+#include "sccolorengine.h"
 #include "fileloader.h"
 #include "plugins/formatidlist.h"
-#include "util_icon.h"
 #include "util.h"
 #include "util_formats.h"
-#include "sccolorengine.h"
-
-extern "C"
-{
-#define XMD_H           // shut JPEGlib up
-#if defined(Q_OS_UNIXWARE)
-#  define HAVE_BOOLEAN  // libjpeg under Unixware seems to need this
-#endif
-#include <jpeglib.h>
-#include <jerror.h>
-#undef HAVE_STDLIB_H
-#ifdef const
-#  undef const          // remove crazy C hackery in jconfig.h
-#endif
-}
+#include "util_icon.h"
 
 #include CMS_INC
+
 using namespace std;
 
 void handleOldColorShade(ScribusDoc* doc, QString& colName, int& shade)
