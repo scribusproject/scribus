@@ -4,6 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <vector>
+
 #include "objprinter.h"
 #include "cmdutil.h"
 #include "prefsmanager.h"
@@ -11,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <structmember.h>
 #include <QFileInfo>
 #include <QDir>
-#include <vector>
+
 #include "pslib.h"
 #include "scpaths.h"
 #include "scribuscore.h"
