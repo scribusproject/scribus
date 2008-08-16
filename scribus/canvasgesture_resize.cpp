@@ -42,21 +42,30 @@ void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 	}
 	else if (m_doc->m_Selection->isMultipleSelection())
 	{
+		double ex, ey, eh, ew;
+		m_doc->m_Selection->getGroupRect(&ex, &ey, &ew, &eh);
 		double gx, gy, gh, gw;
-		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 		m_bounds = QRectF(QPointF(gx,gy), QSizeF(gw, gh));
 		m_rotation = 0.0;
+		m_extraX = ex - gx;
+		m_extraY = ey - gy;
+		m_extraWidth = gw - ew;
+		m_extraHeight = gh - eh;
 	}
 	else // we keep m_bounds non-rotated
 	{
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
-		m_bounds = QRectF(currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height());
+		m_bounds = QRectF(currItem->visualXPos(), currItem->visualYPos(), currItem->visualWidth(), currItem->visualHeight());
 		m_rotation = currItem->rotation();
-		currItem->OldB2 = currItem->width();
-		currItem->OldH2 = currItem->height();
+		currItem->OldB2 = currItem->visualWidth();
+		currItem->OldH2 = currItem->visualHeight();
+		m_extraWidth = m_extraHeight = currItem->lineWidth();
+		m_extraX =  m_extraY = m_extraWidth / 2.0;
 	}
 	m_origRatio = m_bounds.width() / m_bounds.height();
 	m_origBounds = m_bounds;
+// 	qDebug()<<"P"<<m_bounds<< "E"<< m_extraX<< m_extraY<<m_extraWidth<<m_extraHeight;
 }
 
 
@@ -89,7 +98,7 @@ void ResizeGesture::deactivate(bool forgesture)
 
 
 void ResizeGesture::drawControls(QPainter* p) 
-{ 
+{
 	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
 	QRect localRect = m_canvas->canvasToLocal(m_bounds);
 	p->save();
@@ -178,8 +187,8 @@ void ResizeGesture::doResize(bool scaleContent)
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		QRectF oldBounds(gx, gy, gw, gh);
-		double scx = oldBounds.width() == 0? 1.0 : newBounds.width() / oldBounds.width();
-		double scy = oldBounds.height() == 0? 1.0 : newBounds.height() / oldBounds.height();
+		double scx = oldBounds.width() == 0? 1.0 : (newBounds.width() - m_extraWidth) / oldBounds.width();
+		double scy = oldBounds.height() == 0? 1.0 : (newBounds.height() - m_extraHeight) / oldBounds.height();
 		//CB #3012 only scale text in a group if alt is pressed
 		if ((currItem->itemType() == PageItem::TextFrame) && scaleContent)
 			m_doc->scaleGroup(scx, scy, true);
@@ -188,7 +197,7 @@ void ResizeGesture::doResize(bool scaleContent)
 		double dx = newBounds.x() - oldBounds.x();
 		double dy = newBounds.y() - oldBounds.y();
 		if (dx != 0 || dy != 0)
-			m_doc->moveGroup(dx, dy);
+			m_doc->moveGroup(dx + m_extraX, dy + m_extraY);
 		m_doc->RotMode = RotModeBack;
 	}
 	else
@@ -197,21 +206,21 @@ void ResizeGesture::doResize(bool scaleContent)
 		{
 			double divX = (currItem->width() != 0) ? currItem->width() : 1.0;
 			double divY = (currItem->height() != 0) ? currItem->height() : 1.0;
-			double imgScX = newBounds.width() / divX * currItem->imageXScale();
-			double imgScY = newBounds.height() / divY * currItem->imageYScale();
+			double imgScX = (newBounds.width() - m_extraWidth) / divX * currItem->imageXScale();
+			double imgScY = (newBounds.height() - m_extraHeight) / divY * currItem->imageYScale();
 			// The aspect ratio has been fixed, so make the modification in the direction of the larger movement.
 			if (currItem->keepAspectRatio() && currItem->fitImageToFrame()) 
 			{
-				if (qAbs(newBounds.width() - currItem->width()) > qAbs(newBounds.height() - currItem->height()))
+				if (qAbs((newBounds.width() - m_extraWidth) - currItem->width()) > qAbs((newBounds.height() - m_extraHeight) - currItem->height()))
 					imgScY = imgScX;
 				else
 					imgScX = imgScY;
 			}
 			currItem->setImageXYScale(imgScX, imgScY);
 		}
-		currItem->setXYPos(newBounds.x(), newBounds.y());
-		currItem->setWidth(newBounds.width());
-		currItem->setHeight(newBounds.height());
+		currItem->setXYPos(newBounds.x() + m_extraX, newBounds.y() + m_extraY);
+		currItem->setWidth(newBounds.width() - m_extraWidth);
+		currItem->setHeight(newBounds.height() - m_extraHeight);
 		// rotation does not change
 	}
 	m_origBounds = m_bounds;
@@ -456,7 +465,7 @@ void ResizeGesture::mousePressEvent(QMouseEvent *m)
 	else if (m_doc->m_Selection->isMultipleSelection())
 	{
 		double gx, gy, gh, gw;
-		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 		m_handle = m_canvas->frameHitTest(QPointF(point.x(), point.y()), QRectF(gx,gy,gw,gh));
 	}
 	else

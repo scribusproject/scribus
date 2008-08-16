@@ -203,7 +203,13 @@ QRect Canvas::exposedRect() const
  */
 Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, PageItem* item) const
 {
-	Canvas::FrameHandle result = frameHitTest(item->getTransform().inverted().map(canvasPoint), QRectF(0, 0, item->width(), item->height()));
+	// As item->getTransform() will translate to Pos, we need to adjust the rect passed
+	// to frameHitTest in order to take line width, which in very *creative* design can
+	// be huge, into account.
+	// ### might be interesting to investigate if it would be painless to just change 
+	// PageItem::getTransform.
+	double extraS(item->lineWidth() / -2.0);
+	Canvas::FrameHandle result = frameHitTest(item->getTransform().inverted().map(canvasPoint), QRectF(extraS, extraS, item->visualWidth(), item->visualHeight()));
 //	qDebug() << "frameHitTest for item" << item->ItemNr 
 //		<< item->getTransform().inverted().map(canvasPoint) 
 //		<< item->getTransform().inverted() 
@@ -622,13 +628,10 @@ bool Canvas::adjustBuffer()
 
 void Canvas::fillBuffer(QPaintDevice* buffer, QPoint bufferOrigin, QRect clipRect)
 {
-	QTime t;
-	t.start();
 	QPainter painter(buffer);
 	painter.translate(-bufferOrigin.x(), -bufferOrigin.y());
 	drawContents(&painter, clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
 	painter.end();
-	qDebug()<<"FILL_BUFFER"<<t.elapsed();
 }
 
 /**
@@ -793,7 +796,8 @@ void Canvas::paintEvent ( QPaintEvent * p )
 
 void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cliph)
 {
-	int Tsetup, Tbackground, Tcontents;
+	int Tsetup, Toutlines , Tbackground, Tcontents;
+	Toutlines=0;
 	QTime tim;
 	tim.start();
 //	qDebug() << "drawContents" << clipx << clipy << clipw << cliph;
@@ -818,7 +822,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	if (!m_doc->masterPageMode())
 	{
 		drawBackgroundPageOutlines(painter, clipx, clipy, clipw, cliph);
-		
+		Toutlines= tim.elapsed();
 		if (m_viewMode.viewAsPreview)
 		{
 			FPointArray PoLine;
@@ -872,7 +876,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	psx->drawImage(clipx, clipy, img);
 	delete painter;
 	painter=NULL;
-// 	qDebug( "Time elapsed: %d ms, setup=%d, background=%d, contents=%d, rest=%d", tim.elapsed(), Tsetup, Tbackground-Tsetup, Tcontents-Tbackground, tim.elapsed() - Tcontents );
+	qDebug( "Time elapsed: %d ms, setup=%d, outlines=%d, background=%d, contents=%d, rest=%d", tim.elapsed(), Tsetup,Toutlines -Tsetup, Tbackground-Toutlines, Tcontents-Tbackground, tim.elapsed() - Tcontents );
 }
 
 void Canvas::drawControls(QPainter *psx)

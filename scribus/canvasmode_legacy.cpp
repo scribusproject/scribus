@@ -730,10 +730,11 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				m_canvas->m_viewMode.operItemMoving = false;
 				if (m_doc->m_Selection->isMultipleSelection())
 				{
+					qDebug()<<"Resizing multiple selection"<<frameResizeHandle;
 //					newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 //					newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 					double gx, gy, gh, gw;
-					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+					m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 					const double sc=1;
 					int ox1 = qRound(gx*sc);
 					int oy1 = qRound(gy*sc);
@@ -787,7 +788,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				}
 				else
 				{
-					//qDebug(QString("frameResizeHandle %1").arg(frameResizeHandle));
+					qDebug()<<"frameResizeHandle"<<frameResizeHandle;
 					for (int a = 0; a < m_doc->m_Selection->count(); ++a)
 					{
 						currItem = m_doc->m_Selection->itemAt(0);
@@ -1117,7 +1118,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				
 				{
 					double gx, gy, gh, gw;
-					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+					m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 					m_doc->adjustCanvas(FPoint(gx,gy), FPoint(gx+gw, gy+gh));
 					QPoint selectionCenter = m_canvas->canvasToLocal(QPointF(gx+gw/2, gy+gh/2));
 					QPoint localMousePos = m_canvas->canvasToLocal(mousePointDoc);
@@ -1145,7 +1146,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 //				QRect mpo = QRect(qRound(m->x()/m_canvas->scale())-m_doc->guidesSettings.grabRad, qRound(m->y()/m_canvas->scale())-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 //				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
 				double gx, gy, gh, gw;
-				m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
 //				if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 				if (how >= 0
@@ -1448,7 +1449,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					m_canvas->PaintSizeRect(QRect());
 					double gx, gy, gh, gw;
 					bool shiftSel = true;
-					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+					m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 					dragConstrainInitPtX = qRound(gx);
 					dragConstrainInitPtY = qRound(gy);
 					frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));

@@ -144,6 +144,7 @@ class SCRIBUS_API Selection : public QObject
 		//set the group rectangle properties
 		void setGroupRect();
 		void getGroupRect(double *x, double *y, double *w, double *h);
+		void getVisualGroupRect(double *x, double *y, double *w, double *h);
 		//!\brief Test to see if all items in the selection are the same typedef
 		bool itemsAreSameType() const;
 
@@ -160,6 +161,11 @@ class SCRIBUS_API Selection : public QObject
 		double groupY;
 		double groupW;
 		double groupH;
+		
+		double visualGX;
+		double visualGY;
+		double visualGW;
+		double visualGH;
 
 		int  m_delaySignals;
 		bool m_sigSelectionChanged;

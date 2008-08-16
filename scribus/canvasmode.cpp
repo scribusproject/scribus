@@ -120,16 +120,32 @@ void CanvasMode::drawSelection(QPainter* psx)
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		bool drawHandles(true);
+		double toppiest(0xfffffffL);
+		double rightiest(0);
+		double bottomiest(0);
+		double leftiest(0xfffffffL);
+		PageItem *curItem(0);
 		for(int a=0; a<m_doc->m_Selection->count(); ++a)
 		{
-			if(m_doc->m_Selection->itemAt(a)->locked())
-				drawHandles = false;
+			curItem = m_doc->m_Selection->itemAt(a);
+			
+			if(drawHandles)
+				drawHandles = !curItem->locked();
+			
+			toppiest = qMin( toppiest, curItem->visualYPos() );
+			rightiest = qMax( rightiest, curItem->visualXPos() +  curItem->visualWidth() );
+			bottomiest = qMax( bottomiest, curItem->visualYPos() + curItem->visualHeight() );
+			leftiest = qMin( leftiest, curItem->visualXPos() );
 		}
 		
 		psx->save();
 		double x, y, w, h;
-		m_doc->m_Selection->setGroupRect();
-		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+		x = leftiest;
+		y = toppiest;
+		w = rightiest - leftiest;
+		h = bottomiest - toppiest;
+// 		m_doc->m_Selection->setGroupRect();
+// 		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 //		x *= m_canvas->scale();
 //		y *= m_canvas->scale();
 //		w *= m_canvas->scale();
@@ -178,7 +194,7 @@ void CanvasMode::drawSelection(QPainter* psx)
 // 			qDebug()<<"It"<<currItem->xPos()<< currItem->yPos();
 			
 			psx->save();
-			psx->translate(currItem->xPos(), currItem->yPos());
+			psx->translate(currItem->visualXPos(), currItem->visualYPos());
 			if (currItem->rotation() != 0)
 			{
 				psx->setRenderHint(QPainter::Antialiasing);
@@ -187,8 +203,8 @@ void CanvasMode::drawSelection(QPainter* psx)
 			double x, y, w, h;
 			x = 0;
 			y = 0;
-			w = currItem->width();
-			h = currItem->height();
+			w = currItem->visualWidth() ;
+			h = currItem->visualHeight() ;
 			
 			psx->setPen(m_pen["selection"]);
 			psx->setBrush(m_brush["selection"]);

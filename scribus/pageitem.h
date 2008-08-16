@@ -522,6 +522,8 @@ public:
 	//Position
 	double xPos() const { return Xpos; }
 	double yPos() const { return Ypos; }
+	double visualXPos() const { return Xpos - (m_lineWidth / 2.0); } 
+	double visualYPos() const { return Ypos - (m_lineWidth / 2.0); } 
 	FPoint xyPos() const { return FPoint(Xpos, Ypos); }
 	void setXPos(const double, bool drawingOnly=false);
 	void setYPos(const double, bool drawingOnly=false);
@@ -530,6 +532,8 @@ public:
 	//Size
 	double width() const { return Width; }
 	double height() const { return Height; }
+	double visualWidth() const { return Width + m_lineWidth; }
+	double visualHeight() const { return Height + m_lineWidth; }
 	void setWidth(const double);
 	void setHeight(const double);
 	void setWidthHeight(const double, const double, bool drawingOnly);

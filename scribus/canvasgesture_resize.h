@@ -78,6 +78,10 @@ private:
 	QRectF m_bounds;
 	QRectF m_origBounds;
 	UndoTransaction* m_transactionStarted;
+	double m_extraWidth;
+	double m_extraHeight;
+	double m_extraX;
+	double m_extraY;
 };
 
 

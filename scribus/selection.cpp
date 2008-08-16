@@ -363,6 +363,11 @@ void Selection::setGroupRect()
 	double miny = 99999.9;
 	double maxx = -99999.9;
 	double maxy = -99999.9;
+	
+	double vminx = 99999.9;
+	double vminy = 99999.9;
+	double vmaxx = -99999.9;
+	double vmaxy = -99999.9;
 	uint selectedItemCount=count();
 	for (uint gc = 0; gc < selectedItemCount; ++gc)
 	{
@@ -381,6 +386,19 @@ void Selection::setGroupRect()
 				maxx = qMax(maxx, pb.point(pc).x());
 				maxy = qMax(maxy, pb.point(pc).y());
 			}
+			
+			// Same for visual
+			pb.setPoint(0, FPoint(currItem->visualXPos(), currItem->visualYPos()));
+			pb.setPoint(1, FPoint(currItem->visualWidth(), 0.0, currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
+			pb.setPoint(2, FPoint(currItem->visualWidth(), currItem->visualHeight(), currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
+			pb.setPoint(3, FPoint(0.0, currItem->visualHeight(), currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
+			for (uint pc = 0; pc < 4; ++pc)
+			{
+				vminx = qMin(vminx, pb.point(pc).x());
+				vminy = qMin(vminy, pb.point(pc).y());
+				vmaxx = qMax(vmaxx, pb.point(pc).x());
+				vmaxy = qMax(vmaxy, pb.point(pc).y());
+			}
 		}
 		else
 		{
@@ -388,12 +406,22 @@ void Selection::setGroupRect()
 			miny = qMin(miny, currItem->yPos());
 			maxx = qMax(maxx, currItem->xPos() + currItem->width());
 			maxy = qMax(maxy, currItem->yPos() + currItem->height());
+			
+			vminx = qMin(vminx, currItem->visualXPos());
+			vminy = qMin(vminy, currItem->visualYPos());
+			vmaxx = qMax(vmaxx, currItem->visualXPos() + currItem->visualWidth());
+			vmaxy = qMax(vmaxy, currItem->visualYPos() + currItem->visualHeight());
 		}
 	}
 	groupX = minx;
 	groupY = miny;
 	groupW = maxx - minx;
 	groupH = maxy - miny;
+	
+	visualGX = vminx;
+	visualGY = vminy;
+	visualGW = vmaxx - vminx;
+	visualGH = vmaxy - vminy;
 }
 
 void Selection::getGroupRect(double *x, double *y, double *w, double *h)
@@ -402,6 +430,14 @@ void Selection::getGroupRect(double *x, double *y, double *w, double *h)
 	*y = groupY;
 	*w = groupW;
 	*h = groupH;
+}
+
+void Selection::getVisualGroupRect(double * x, double * y, double * w, double * h)
+{
+	*x = visualGX;
+	*y = visualGY;
+	*w = visualGW;
+	*h = visualGH;
 }
 
 bool Selection::itemsAreSameType() const
@@ -455,3 +491,4 @@ void Selection::sendSignals(bool guiConnect)
 		m_sigSelectionIsMultiple = false;
 	}
 }
+
