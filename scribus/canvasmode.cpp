@@ -120,10 +120,6 @@ void CanvasMode::drawSelection(QPainter* psx)
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		bool drawHandles(true);
-		double toppiest(0xfffffffL);
-		double rightiest(0);
-		double bottomiest(0);
-		double leftiest(0xfffffffL);
 		PageItem *curItem(0);
 		for(int a=0; a<m_doc->m_Selection->count(); ++a)
 		{
@@ -131,25 +127,12 @@ void CanvasMode::drawSelection(QPainter* psx)
 			
 			if(drawHandles)
 				drawHandles = !curItem->locked();
-			
-			toppiest = qMin( toppiest, curItem->visualYPos() );
-			rightiest = qMax( rightiest, curItem->visualXPos() +  curItem->visualWidth() );
-			bottomiest = qMax( bottomiest, curItem->visualYPos() + curItem->visualHeight() );
-			leftiest = qMin( leftiest, curItem->visualXPos() );
 		}
 		
 		psx->save();
 		double x, y, w, h;
-		x = leftiest;
-		y = toppiest;
-		w = rightiest - leftiest;
-		h = bottomiest - toppiest;
-// 		m_doc->m_Selection->setGroupRect();
-// 		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-//		x *= m_canvas->scale();
-//		y *= m_canvas->scale();
-//		w *= m_canvas->scale();
-//		h *= m_canvas->scale();
+		m_doc->m_Selection->setGroupRect();
+		m_doc->m_Selection->getVisualGroupRect(&x, &y, &w, &h);
 		const double markWidth = 4 / m_canvas->scale();
 		const double halfMarkWidth = 2 / m_canvas->scale();
 		
@@ -194,15 +177,21 @@ void CanvasMode::drawSelection(QPainter* psx)
 // 			qDebug()<<"It"<<currItem->xPos()<< currItem->yPos();
 			
 			psx->save();
-			psx->translate(currItem->visualXPos(), currItem->visualYPos());
+			double x, y, w, h;
 			if (currItem->rotation() != 0)
 			{
 				psx->setRenderHint(QPainter::Antialiasing);
+				psx->translate(currItem->xPos(), currItem->yPos());
 				psx->rotate(currItem->rotation());
+				x = currItem->lineWidth()/-2.0;
+				y = currItem->lineWidth()/-2.0;
 			}
-			double x, y, w, h;
-			x = 0;
-			y = 0;
+			else
+			{
+				psx->translate(currItem->visualXPos(), currItem->visualYPos());
+				x = 0;
+				y = 0;
+			}
 			w = currItem->visualWidth() ;
 			h = currItem->visualHeight() ;
 			
@@ -275,7 +264,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 				
 				m_pixmapCache[currItem] = pixItem;
 			}
-			QRectF br(currItem->getBoundingRect());
+			QRectF br(currItem->getVisualBoundingRect());
 			{
 				p->save();
 				p->translate(br.x(),br.y());
@@ -355,7 +344,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 							pixItem->setAlphaChannel(aMask);
 							m_pixmapCache[currItem] = pixItem;
 						}
-						QRectF br(currItem->getBoundingRect());
+						QRectF br(currItem->getVisualBoundingRect());
 						{
 							p->save();
 							p->translate(br.x() /*- x*/, br.y() /*- y*/);

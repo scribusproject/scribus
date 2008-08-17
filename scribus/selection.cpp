@@ -388,16 +388,17 @@ void Selection::setGroupRect()
 			}
 			
 			// Same for visual
-			pb.setPoint(0, FPoint(currItem->visualXPos(), currItem->visualYPos()));
-			pb.setPoint(1, FPoint(currItem->visualWidth(), 0.0, currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
-			pb.setPoint(2, FPoint(currItem->visualWidth(), currItem->visualHeight(), currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
-			pb.setPoint(3, FPoint(0.0, currItem->visualHeight(), currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
-			for (uint pc = 0; pc < 4; ++pc)
+// 			pb.setPoint(0, FPoint(currItem->visualXPos(), currItem->visualYPos()));
+// 			pb.setPoint(1, FPoint(currItem->visualWidth(), 0.0, currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
+// 			pb.setPoint(2, FPoint(currItem->visualWidth(), currItem->visualHeight(), currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
+// 			pb.setPoint(3, FPoint(0.0, currItem->visualHeight(), currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
+			QRectF itRect(currItem->getVisualBoundingRect());
+// 			for (uint pc = 0; pc < 4; ++pc)
 			{
-				vminx = qMin(vminx, pb.point(pc).x());
-				vminy = qMin(vminy, pb.point(pc).y());
-				vmaxx = qMax(vmaxx, pb.point(pc).x());
-				vmaxy = qMax(vmaxy, pb.point(pc).y());
+				vminx = qMin(vminx, itRect.x());
+				vminy = qMin(vminy, itRect.y());
+				vmaxx = qMax(vmaxx, itRect.right());
+				vmaxy = qMax(vmaxy, itRect.bottom());
 			}
 		}
 		else

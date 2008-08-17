@@ -1501,7 +1501,7 @@ QImage PageItem::DrawObj_toImage()
 						emG.append(m_Doc->Items->at(ga));
 						PageItem *currItem = m_Doc->Items->at(ga);
 						double x1, x2, y1, y2;
-						currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+						currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 						minx = qMin(minx, x1);
 						miny = qMin(miny, y1);
 						maxx = qMax(maxx, x2);
@@ -1513,8 +1513,8 @@ QImage PageItem::DrawObj_toImage()
 		for (int em = 0; em < emG.count(); ++em)
 		{
 			PageItem* currItem = emG.at(em);
-			currItem->gXpos = currItem->xPos() - minx;
-			currItem->gYpos = currItem->yPos() - miny;
+			currItem->gXpos = currItem->visualXPos() - minx;
+			currItem->gYpos = currItem->visualYPos() - miny;
 			currItem->gWidth = maxx - minx;
 			currItem->gHeight = maxy - miny;
 		}
@@ -1522,7 +1522,7 @@ QImage PageItem::DrawObj_toImage()
 	else
 	{
 		double x1, x2, y1, y2;
-		getBoundingRect(&x1, &y1, &x2, &y2);
+		getVisualBoundingRect(&x1, &y1, &x2, &y2);
 		minx = qMin(minx, x1);
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
@@ -4076,6 +4076,12 @@ QRectF PageItem::getBoundingRect() const
 	return QRectF(x,y,x2-x,y2-y);
 }
 
+QRectF PageItem::getVisualBoundingRect() const
+{
+	double x,y,x2,y2;
+	getVisualBoundingRect(&x, &y, &x2, &y2);
+	return QRectF(x,y,x2-x,y2-y);
+}
 
 void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) const
 {
@@ -4179,6 +4185,108 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 	totalRect.getCoords(x1, y1, x2, y2);
 }
 
+void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, double * y2) const
+{
+	double minx = 99999.9;
+	double miny = 99999.9;
+	double maxx = -99999.9;
+	double maxy = -99999.9;
+	double extraSpace = m_lineWidth / 2.0;
+	if (Rot != 0)
+	{
+		FPointArray pb;
+		pb.resize(0);
+		pb.addPoint(FPoint(-extraSpace,			-extraSpace,			xPos(), yPos(), Rot, 1.0, 1.0));
+		pb.addPoint(FPoint(visualWidth()-extraSpace,	-extraSpace,			xPos(), yPos(), Rot, 1.0, 1.0));
+		pb.addPoint(FPoint(visualWidth()-extraSpace,	visualHeight()-extraSpace,	xPos(), yPos(), Rot, 1.0, 1.0));
+		pb.addPoint(FPoint(-extraSpace,			visualHeight()-extraSpace,	xPos(), yPos(), Rot, 1.0, 1.0));
+		for (uint pc = 0; pc < 4; ++pc)
+		{
+			minx = qMin(minx, pb.point(pc).x());
+			miny = qMin(miny, pb.point(pc).y());
+			maxx = qMax(maxx, pb.point(pc).x());
+			maxy = qMax(maxy, pb.point(pc).y());
+		}
+		*x1 = minx;
+		*y1 = miny;
+		*x2 = maxx;
+		*y2 = maxy;
+	}
+	else
+	{
+		*x1 = visualXPos();
+		*y1 = visualYPos();
+		*x2 = *x1 + qMax(visualWidth(), m_lineWidth);
+		*y2 = *y1 + qMax(visualHeight(), m_lineWidth);
+	}
+	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
+	if (m_startArrowIndex != 0)
+	{
+		QMatrix arrowTrans;
+		FPointArray arrow = m_Doc->arrowStyles.at(m_startArrowIndex-1).points.copy();
+		arrowTrans.translate(Xpos, Ypos);
+		arrowTrans.rotate(Rot);
+		if (itemType() == Line)
+		{
+			arrowTrans.translate(0, 0);
+			arrowTrans.scale(m_lineWidth, m_lineWidth);
+			arrowTrans.scale(-1,1);
+			arrow.map(arrowTrans);
+		}
+		else
+		{
+			FPoint Start = PoLine.point(0);
+			for (uint xx = 1; xx < PoLine.size(); xx += 2)
+			{
+				FPoint Vector = PoLine.point(xx);
+				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+				{
+					arrowTrans.translate(Start.x(), Start.y());
+					arrowTrans.rotate(atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI));
+					arrowTrans.scale(m_lineWidth, m_lineWidth);
+					arrow.map(arrowTrans);
+					break;
+				}
+			}
+		}
+		FPoint minAr = getMinClipF(&arrow);
+		FPoint maxAr = getMaxClipF(&arrow);
+		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
+	}
+	if (m_endArrowIndex != 0)
+	{
+		QMatrix arrowTrans;
+		FPointArray arrow = m_Doc->arrowStyles.at(m_endArrowIndex-1).points.copy();
+		arrowTrans.translate(Xpos, Ypos);
+		arrowTrans.rotate(Rot);
+		if (itemType() == Line)
+		{
+			arrowTrans.translate(Width, 0);
+			arrowTrans.scale(m_lineWidth, m_lineWidth);
+			arrow.map(arrowTrans);
+		}
+		else
+		{
+			FPoint End = PoLine.point(PoLine.size()-2);
+			for (uint xx = PoLine.size()-1; xx > 0; xx -= 2)
+			{
+				FPoint Vector = PoLine.point(xx);
+				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+				{
+					arrowTrans.translate(End.x(), End.y());
+					arrowTrans.rotate(atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI));
+					arrowTrans.scale(m_lineWidth, m_lineWidth);
+					arrow.map(arrowTrans);
+					break;
+				}
+			}
+		}
+		FPoint minAr = getMinClipF(&arrow);
+		FPoint maxAr = getMaxClipF(&arrow);
+		totalRect = totalRect.united(QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y())));
+	}
+	totalRect.getCoords(x1, y1, x2, y2);
+}
 
 bool PageItem::pointWithinItem(const int x, const int y) const
 {
@@ -5056,3 +5164,5 @@ void PageItem::setFirstLineOffset(FirstLineOffsetPolicy flop)
 		firstLineOffsetP = flop;
 	}
 }
+
+

@@ -876,7 +876,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	psx->drawImage(clipx, clipy, img);
 	delete painter;
 	painter=NULL;
-	qDebug( "Time elapsed: %d ms, setup=%d, outlines=%d, background=%d, contents=%d, rest=%d", tim.elapsed(), Tsetup,Toutlines -Tsetup, Tbackground-Toutlines, Tcontents-Tbackground, tim.elapsed() - Tcontents );
+// 	qDebug( "Time elapsed: %d ms, setup=%d, outlines=%d, background=%d, contents=%d, rest=%d", tim.elapsed(), Tsetup,Toutlines -Tsetup, Tbackground-Toutlines, Tcontents-Tbackground, tim.elapsed() - Tcontents );
 }
 
 void Canvas::drawControls(QPainter *psx)

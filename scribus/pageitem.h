@@ -273,7 +273,9 @@ public:
 	//QRect getRedrawBounding(const double);
 	//void setRedrawBounding();
 	void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
+	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
 	QRectF getBoundingRect() const;
+	QRectF getVisualBoundingRect() const;
 	void getTransform(QMatrix& mat) const;
 	QMatrix getTransform() const;
 	/**
