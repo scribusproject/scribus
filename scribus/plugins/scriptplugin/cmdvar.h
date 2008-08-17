@@ -7,21 +7,19 @@ for which a new license (GPL+exception) is in place.
 #ifndef CMDVAR_H
 #define CMDVAR_H
 
-#if defined(_XOPEN_SOURCE)
-#undef _XOPEN_SOURCE
-#endif
 
 #include "scconfig.h"
+
+#if defined(_XOPEN_SOURCE)
+#define SCRIBUS_XOPEN_SOURCE
+#undef _XOPEN_SOURCE
+#endif
 
 #if defined(HAVE_BOOST_PYTHON)
 #include <boost/python.hpp>
 #else
 #include <Python.h>
 #endif
-
-#include <QString>
-
-#include "scribus.h"
 
 #ifndef Py_RETURN_NONE
 	#define Py_RETURN_NONE return Py_INCREF(Py_None), Py_None
@@ -30,6 +28,16 @@ for which a new license (GPL+exception) is in place.
 #ifndef Py_RETURN_TRUE
 	#define Py_RETURN_TRUE return Py_INCREF(Py_True), Py_True
 #endif
+
+#if defined(SCRIBUS_XOPEN_SOURCE)
+#define _XOPEN_SOURCE
+#undef SCRIBUS_XOPEN_SOURCE
+#endif
+
+#include <QString>
+
+#include "scribus.h"
+
 
 class ScripterCore;
 

@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 // include the python header first because on OSX that uses the name "slots"
-#include <Python.h>
+#include "cmdvar.h"
 
 #include <QColorDialog>
 #include <QFileDialog>
