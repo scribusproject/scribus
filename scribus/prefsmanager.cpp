@@ -2084,11 +2084,16 @@ bool PrefsManager::ReadPref(QString ho)
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
 			QStringList configs;
 			QDomNodeList configNodes = dc.elementsByTagName("LatexConfig");
-			int i;
-			for (i=0; i < configNodes.size(); i++) {
-				configs.append(configNodes.at(i).toElement().attribute("file", ""));
+			bool validConfFound = false;
+			for (int i=0; i < configNodes.size(); i++) {
+				QString confFile = configNodes.at(i).toElement().attribute("file", "");
+				if (!validConfFound && !confFile.isEmpty())
+				{
+					validConfFound = QFile::exists(confFile); 
+				}
+				configs.append(confFile);
 			}
-			if (!configs.isEmpty()) {
+			if (!configs.isEmpty() && validConfFound) {
 				setLatexConfigs(configs);
 			} else {
 				setLatexConfigs(LatexConfigCache::defaultConfigs());
