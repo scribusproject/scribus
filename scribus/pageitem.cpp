@@ -2234,7 +2234,7 @@ void PageItem::setFillColor(const QString &newColor)
 		}
 	}
 	setFillQColor();
-	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
+//CB unused in 135	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 void PageItem::setFillShade(double newShade)
@@ -2256,7 +2256,7 @@ void PageItem::setFillShade(double newShade)
 	}
 	fillShadeVal = newShade;
 	setFillQColor();
-	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
+//CB unused in 135	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 void PageItem::setFillTransparency(double newTransparency)
@@ -2327,7 +2327,7 @@ void PageItem::setLineColor(const QString &newColor)
 	}
 	lineColorVal = tmp;
 	setLineQColor();
-	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
+//CB unused in 135	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 void PageItem::setLineShade(double newShade)
@@ -2349,7 +2349,7 @@ void PageItem::setLineShade(double newShade)
 	}
 	lineShadeVal = newShade;
 	setLineQColor();
-	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
+//CB unused in 135	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 void PageItem::setLineQColor()
@@ -4845,7 +4845,7 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(printEnabled(bool)), pp, SLOT(setPrintingEnabled(bool)));
 	connect(this, SIGNAL(position(double, double)), pp, SLOT(setXY(double, double)));
 	connect(this, SIGNAL(widthAndHeight(double, double)), pp, SLOT(setBH(double, double)));
-	connect(this, SIGNAL(colors(QString, QString, double, double)), m_Doc->scMW(), SLOT(setCSMenu()));
+//CB unused in 135 connect(this, SIGNAL(colors(QString, QString, double, double)), m_Doc->scMW(), SLOT(setCSMenu()));
 //	connect(this, SIGNAL(colors(QString, QString, double, double)), pp->Cpal, SLOT(setActFarben(QString, QString, int, int)));
 //	connect(this, SIGNAL(gradientType(int)), pp->Cpal, SLOT(setActGradient(int)));
 	connect(this, SIGNAL(patternFill(QString, double, double, double, double, double)), pp->Cpal, SLOT(setActPattern(QString, double, double, double, double, double)));
@@ -4858,12 +4858,12 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(cornerRadius(double)), pp, SLOT(setRR(double)));
 	//	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
 	//Line signals
-	connect(this, SIGNAL(lineWidth(double)), pp, SLOT(setSvalue(double)));
-	connect(this, SIGNAL(imageOffsetScale(double, double, double, double)), pp, SLOT(setLvalue(double, double, double, double)));
+	connect(this, SIGNAL(lineWidth(double)), pp, SLOT(setLineWidth(double)));
+	connect(this, SIGNAL(imageOffsetScale(double, double, double, double)), pp, SLOT(setScaleAndOffset(double, double, double, double)));
 	connect(this, SIGNAL(lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), pp, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
 	//Frame text signals
 	connect(this, SIGNAL(lineSpacing(double)), pp, SLOT(setLsp(double)));
-	connect(this, SIGNAL(textToFrameDistances(double, double, double, double)), pp, SLOT(setDvals(double, double, double, double)));
+	connect(this, SIGNAL(textToFrameDistances(double, double, double, double)), pp, SLOT(setTextToFrameDistances(double, double, double, double)));
 	connect(this, SIGNAL(textKerning(double)), pp, SLOT(setExtra(double)));
 	connect(this, SIGNAL(textStyle(int)), pp, SLOT(setStil(int)));
 	connect(this, SIGNAL(textStyle(int)), m_Doc->scMW(), SLOT(setStilvalue(int)));
@@ -4901,6 +4901,7 @@ void PageItem::emitAllToGUI()
 
 	emit myself(this);
 	emit frameType(m_ItemType);
+/*CB using the emit myself* instead of all of these
 	emit position(Xpos, Ypos);
 	emit widthAndHeight(Width, Height);
 	emit rotation(Rot);
@@ -4912,15 +4913,18 @@ void PageItem::emitAllToGUI()
 	emit lineWidth(m_lineWidth);
 	emit lineStyleCapJoin(PLineArt, PLineEnd, PLineJoin);
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
-	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
+*/
+//CB unused in 135 emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 //	emit gradientType(GrType);
 //	double dur=m_Doc->unitRatio();
 //	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
 //	emit transparency(fillTransparencyVal, lineTransparencyVal);
 //	emit blendmode(fillBlendmodeVal, lineBlendmodeVal);
+/*CB using the emit myself* instead of all of these
 	emit patternFill(patternVal, patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 	emit columns(Cols, ColGap);
+*/
 	if (m_Doc->appMode == modeEdit)
 	{
 /* maybe already done elsewhere? -- av
@@ -4934,6 +4938,7 @@ void PageItem::emitAllToGUI()
 	}
 	else
 	{
+//TODO remove and use the emit myself
 		emit lineSpacing(itemText.defaultStyle().lineSpacing());
 		emit textKerning(itemText.defaultStyle().charStyle().tracking());
 		emit textStyle(itemText.defaultStyle().charStyle().effects());

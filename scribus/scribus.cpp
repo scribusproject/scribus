@@ -2529,7 +2529,7 @@ void ScribusMainWindow::SwitchWin()
 {
 	propertiesPalette->Cpal->ChooseGrad(0);
 	updateActiveWindowCaption(doc->DocName);
-	scrActions["shade100"]->setChecked(true);
+// 	scrActions["shade100"]->setChecked(true);
 	propertiesPalette->setDoc(doc);
 	pagePalette->setView(view);
 	propertiesPalette->Fonts->RebuildList(doc);
@@ -2684,7 +2684,7 @@ void ScribusMainWindow::HaveNewDoc()
 
 	//Update palettes
 	updateActiveWindowCaption(doc->DocName);
-	scrActions["shade100"]->setChecked(true);
+// 	scrActions["shade100"]->setChecked(true);
 	propertiesPalette->setDoc(doc);
 	propertiesPalette->Cpal->ChooseGrad(0);
 //	propertiesPalette->updateColorList();
@@ -2712,8 +2712,8 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(ChBMText(PageItem *)), this, SLOT(BookMarkTxT(PageItem *)));
 	connect(view, SIGNAL(HaveSel(int)), this, SLOT(HaveNewSel(int)));
 	connect(view, SIGNAL(SetAngle(double)), propertiesPalette, SLOT(setR(double)));
-	connect(view, SIGNAL(SetSizeValue(double)), propertiesPalette, SLOT(setSvalue(double)));
-	connect(view, SIGNAL(SetLocalValues(double, double, double, double)), propertiesPalette, SLOT(setLvalue(double, double, double, double)));
+	connect(view, SIGNAL(SetSizeValue(double)), propertiesPalette, SLOT(setLineWidth(double)));
+	connect(view, SIGNAL(SetLocalValues(double, double, double, double)), propertiesPalette, SLOT(setScaleAndOffset(double, double, double, double)));
 	connect(view, SIGNAL(SetLineArt(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), propertiesPalette, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
 //	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), this, SLOT(setCSMenu(QString, QString, int, int)));
 //	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), propertiesPalette->Cpal, SLOT(setActFarben(QString, QString, int, int)));
@@ -2723,7 +2723,7 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(ItemTextAttr(double)), propertiesPalette, SLOT(setLsp(double)));
 	connect(view, SIGNAL(ItemTextUSval(double)), propertiesPalette, SLOT(setExtra(double)));
 //	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
-	connect(view, SIGNAL(SetDistValues(double, double, double, double)), propertiesPalette, SLOT(setDvals(double, double, double, double)));
+	connect(view, SIGNAL(SetDistValues(double, double, double, double)), propertiesPalette, SLOT(setTextToFrameDistances(double, double, double, double)));
 	connect(view, SIGNAL(ItemTextAbs(int)), propertiesPalette, SLOT(setAli(int)));
 	connect(view, SIGNAL(ItemTextFont(const QString&)), propertiesPalette, SLOT(setFontFace(const QString&)));
 	connect(view, SIGNAL(ItemTextSize(double)), propertiesPalette, SLOT(setSize(double)));
@@ -4208,7 +4208,7 @@ void ScribusMainWindow::slotGetContent()
 				//view->AdjustPictScale(currItem, false);
 				//false was ignored anyway
 				currItem->AdjustPictScale();
-				propertiesPalette->setLvalue(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
+				propertiesPalette->setScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				view->DrawNew();
 				propertiesPalette->updateColorList();
@@ -7024,7 +7024,7 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 	doc->itemSelection_SetFont(nf2);
 //	doc->currentStyle.charStyle().setFont((*doc->AllFonts)[nf2]);
 	view->DrawNew();
-	slotDocCh();
+// 	slotDocCh();
 }
 
 void ScribusMainWindow::setItemFSize(int id)
@@ -7045,7 +7045,7 @@ void ScribusMainWindow::setItemFSize(int id)
 		delete dia;
 	}
 	propertiesPalette->setSize(c*10);
-	slotDocCh();
+// 	slotDocCh();
 }
 
 //CB-->Doc partly
@@ -7080,9 +7080,10 @@ void ScribusMainWindow::setItemShade(int id)
 			delete dia;
 		}
 	}
-	slotDocCh();
+// 	slotDocCh();
 }
 
+/* CB: unused in 135 without the colours menu
 void ScribusMainWindow::setCSMenu()
 {
 	QString la = CommonStrings::tr_NoneColor;
@@ -7115,6 +7116,7 @@ void ScribusMainWindow::setCSMenu()
 	if (scrActions[QString("shade%1").arg(lb)])
 		scrActions[QString("shade%1").arg(lb)]->setChecked(true);
 }
+*/
 
 #if 0
 //CB still called from SE

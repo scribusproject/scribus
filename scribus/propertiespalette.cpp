@@ -220,13 +220,13 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	keepFrameWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
 	keepFrameWHRatioButton->setChecked(true);
 	GeoGroupLayout->addWidget( keepFrameWHRatioButton, 2, 2, 2, 1 );
-	Rot = new ScrSpinBox( GeoGroup, 6);
-	Rot->setWrapping( true );
-	installSniffer(Rot);
+	Rotation = new ScrSpinBox( GeoGroup, 6);
+	Rotation->setWrapping( true );
+	installSniffer(Rotation);
 	rotationLabel = new QLabel( "&Rotation:", GeoGroup );
-	rotationLabel->setBuddy(Rot);
+	rotationLabel->setBuddy(Rotation);
 	GeoGroupLayout->addWidget( rotationLabel, 4, 0 );
-	GeoGroupLayout->addWidget( Rot, 4, 1 );
+	GeoGroupLayout->addWidget( Rotation, 4, 1 );
 	basepointLabel = new QLabel( "Basepoint:", GeoGroup );
 	GeoGroupLayout->addWidget( basepointLabel, 5, 0 );
 	RotationGroup = new BasePointWidget(GeoGroup, 0);
@@ -1444,7 +1444,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(Ypos, SIGNAL(valueChanged(double)), this, SLOT(NewY()));
 	connect(Width, SIGNAL(valueChanged(double)), this, SLOT(NewW()));
 	connect(Height, SIGNAL(valueChanged(double)), this, SLOT(NewH()));
-	connect(Rot, SIGNAL(valueChanged(double)), this, SLOT(NewRotation()));
+	connect(Rotation, SIGNAL(valueChanged(double)), this, SLOT(setRotation()));
 	connect(RoundRect, SIGNAL(valueChanged(double)), this, SLOT(NewCornerRadius()));
 	connect(LineSp, SIGNAL(valueChanged(double)), this, SLOT(NewLineSpacing()));
 	connect(Size, SIGNAL(valueChanged(double)), this, SLOT(NewSize()));
@@ -1554,7 +1554,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	Ypos->setValue(0);
 	Width->setValue(0);
 	Height->setValue(0);
-	Rot->setValue(0);
+	Rotation->setValue(0);
 	RoundRect->setValue(0);
 	TabStack3->setCurrentIndex(0);
 	TabStack2->setCurrentIndex(0);
@@ -1601,7 +1601,7 @@ void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 //	connect(this, SIGNAL(ShapeEdit()), m_ScMW, SLOT(ToggleFrameEdit()));
 	connect(this, SIGNAL(NewFont(const QString&)), m_ScMW, SLOT(SetNewFont(const QString&)));
 	connect(this, SIGNAL(UpdtGui(int)), m_ScMW, SLOT(HaveNewSel(int)));
-	connect(this->Cpal, SIGNAL(modeChanged()), m_ScMW, SLOT(setCSMenu()));
+//CB unused in 135 	connect(this->Cpal, SIGNAL(modeChanged()), m_ScMW, SLOT(setCSMenu()));
 	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	connect(this->Cpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	connect(DoUnGroup, SIGNAL(clicked()), m_ScMW, SLOT(UnGroupObj()) );
@@ -1670,7 +1670,7 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	imageXOffsetSpinBox->setValues( -16777215, maxXYWHVal, precision, 0);
 	imageYOffsetSpinBox->setValues( -16777215, maxXYWHVal, precision, 0);
 
-	Rot->setValues( 0, 359.99, 1, 0);
+	Rotation->setValues( 0, 359.99, 1, 0);
 	RoundRect->setValues( -300, 300, 2, 0);
 	Extra->setValues( -300, 300, 2, 0);
 	Size->setValues( 0.5, 2048, 2, 1);
@@ -1751,7 +1751,7 @@ void PropertiesPalette::unsetDoc()
 	Ypos->setValue(0);
 	Width->setValue(0);
 	Height->setValue(0);
-	Rot->setValue(0);
+	Rotation->setValue(0);
 	RoundRect->setValue(0);
 	for (int ws = 1; ws < 7; ++ws)
 		TabStack->setItemEnabled(ws, false);
@@ -1864,6 +1864,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	PageItem_TextFrame *i2=CurItem->asTextFrame();
 	if (i2!=0)
 	{
+		disconnect(dGap, SIGNAL(valueChanged(double)), this, SLOT(NewGap()));
+		disconnect(DCol, SIGNAL(valueChanged(int)), this, SLOT(NewCols()));
 		DCol->setMaximum(qMax(qRound(i2->width() / qMax(i2->ColGap, 10.0)), 1));
 		DCol->setMinimum(1);
 		DCol->setValue(i2->Cols);
@@ -1886,6 +1888,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		// but it’s a PageItem prop. and as such should be set without considering
 		// the frame type.
 		setFlop(CurItem->firstLineOffset());
+		connect(dGap, SIGNAL(valueChanged(double)), this, SLOT(NewGap()));
+		connect(DCol, SIGNAL(valueChanged(int)), this, SLOT(NewCols()));
 	}
 	if (CurItem->asImageFrame())
 	{
@@ -1932,10 +1936,71 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
-	//CB not needed, done from pageitem->emitalltogui or individual emit.
-	//NoPrint->setChecked(!i->printEnabled());
-	//setLocked(i->locked());
-	//setSizeLocked(i->sizeLocked());
+
+//CB replaces old emits from PageItem::emitAllToGUI()
+	disconnect(Xpos, SIGNAL(valueChanged(double)), this, SLOT(NewX()));
+	disconnect(Ypos, SIGNAL(valueChanged(double)), this, SLOT(NewY()));
+	disconnect(Width, SIGNAL(valueChanged(double)), this, SLOT(NewW()));
+	disconnect(Height, SIGNAL(valueChanged(double)), this, SLOT(NewH()));
+	disconnect(Locked, SIGNAL(clicked()), this, SLOT(handleLock()));
+	disconnect(NoPrint, SIGNAL(clicked()), this, SLOT(handlePrint()));
+	disconnect(NoResize, SIGNAL(clicked()), this, SLOT(handleLockSize()));
+	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
+	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
+	disconnect(LSize, SIGNAL(valueChanged(double)), this, SLOT(NewLineWidth()));
+	disconnect(LStyle, SIGNAL(activated(int)), this, SLOT(NewLineStyle()));
+	disconnect(LJoinStyle, SIGNAL(activated(int)), this, SLOT(NewLineJoin()));
+	disconnect(LEndStyle, SIGNAL(activated(int)), this, SLOT(NewLineEnd()));
+	disconnect(Rotation, SIGNAL(valueChanged(double)), this, SLOT(setRotation()));
+	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
+	disconnect(imageXOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+	disconnect(imageYOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+	disconnect(DTop, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
+	disconnect(DLeft, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
+	disconnect(DRight, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
+	disconnect(DBottom, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
+	setXY(i->xPos(), i->yPos());
+	setBH(i->width(), i->height());
+	NoPrint->setChecked(!i->printEnabled());
+	setLocked(i->locked());
+	setSizeLocked(i->sizeLocked());
+	setFlippedH(i->imageFlippedH());
+	setFlippedV(i->imageFlippedV());
+	setLineWidth(i->lineWidth());
+	setLIvalue(i->lineStyle(), i->lineEnd(), i->lineJoin());
+	RoVal = i->rotation();
+	Rotation->setValue(i->rotation());
+	setScaleAndOffset(i->imageXScale(), i->imageYScale(), i->imageXOffset(), i->imageYOffset());
+	setTextToFrameDistances(i->textToFrameDistLeft(),i->textToFrameDistTop(),i->textToFrameDistBottom(),i->textToFrameDistRight());
+	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+	i->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+	Cpal->setActPattern(i->pattern(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+
+//CB TODO reconnect PP signals from here
+	connect(Xpos, SIGNAL(valueChanged(double)), this, SLOT(NewX()));
+	connect(Ypos, SIGNAL(valueChanged(double)), this, SLOT(NewY()));
+	connect(Width, SIGNAL(valueChanged(double)), this, SLOT(NewW()));
+	connect(Height, SIGNAL(valueChanged(double)), this, SLOT(NewH()));
+	connect(Locked, SIGNAL(clicked()), this, SLOT(handleLock()));
+	connect(NoPrint, SIGNAL(clicked()), this, SLOT(handlePrint()));
+	connect(NoResize, SIGNAL(clicked()), this, SLOT(handleLockSize()));
+	connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
+	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
+	connect(LSize, SIGNAL(valueChanged(double)), this, SLOT(NewLineWidth()));
+	connect(LStyle, SIGNAL(activated(int)), this, SLOT(NewLineStyle()));
+	connect(LJoinStyle, SIGNAL(activated(int)), this, SLOT(NewLineJoin()));
+	connect(LEndStyle, SIGNAL(activated(int)), this, SLOT(NewLineEnd()));
+	connect(Rotation, SIGNAL(valueChanged(double)), this, SLOT(setRotation()));
+	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
+	connect(imageXOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+	connect(imageYOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+	connect(DTop, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
+	connect(DLeft, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
+	connect(DRight, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
+	connect(DBottom, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
+
 	if ((CurItem->isTableItem) && (CurItem->isSingleSel))
 	{
 		setter = true;
@@ -1946,7 +2011,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		BottomLine->setChecked(CurItem->BottomLine);
 		Xpos->setEnabled(false);
 		Ypos->setEnabled(false);
-		Rot->setEnabled(false);
+		Rotation->setEnabled(false);
 	}
 	else
 	{
@@ -1983,7 +2048,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	/*
 	Xpos->setReadOnly(setter);
 	Ypos->setReadOnly(setter);
-	Rot->setReadOnly(setter);
+	Rotation->setReadOnly(setter);
 	*/
 	if (CurItem->asPathText())
 	{
@@ -2009,10 +2074,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	else
 	{
 		TabStack2->setCurrentIndex(1);
-		if (i->itemType() == PageItem::ImageFrame)
-			Distance3->hide();
-		else
-			Distance3->show();
+		Distance3->setVisible(i->itemType() != PageItem::ImageFrame);
 		flopItem->setHidden(false);
 		DistanceItem->setHidden(false);
 		Distance2Item->setHidden(true);
@@ -2023,10 +2085,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		RoundRect->setEnabled(true);
 	else
 	{
-		if ((CurItem->asPolygon()) &&  (!CurItem->ClipEdited)  && ((CurItem->FrameType == 0) || (CurItem->FrameType == 2)))
-			RoundRect->setEnabled(true);
-		else
-			RoundRect->setEnabled(false);
+		RoundRect->setEnabled ((CurItem->asPolygon()) &&  (!CurItem->ClipEdited)  && ((CurItem->FrameType == 0) || (CurItem->FrameType == 2)));
 	}
 	KnockOut->setChecked(!CurItem->doOverprint);
 	Overprint->setChecked(CurItem->doOverprint);
@@ -2036,7 +2095,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		widthLabel->setText( tr( "X&2:" ) );
 		yposLabel->setText( tr( "Y&1:" ) );
 		heightLabel->setText( tr( "&Y2:" ) );
-		Rot->setEnabled(false);
+		Rotation->setEnabled(false);
 	}
 	else
 	{
@@ -2044,19 +2103,13 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
 		heightLabel->setText( tr( "&Height:" ) );
-		if ((CurItem->isTableItem) && (CurItem->isSingleSel))
-			Rot->setEnabled(false);
-		else
-			Rot->setEnabled(true);
+		Rotation->setEnabled(!((CurItem->isTableItem) && (CurItem->isSingleSel)));
 	}
 	HaveItem = true;
 	if (CurItem->asLine())
 	{
 		keepFrameWHRatioButton->setEnabled(false);
-		if (LMode && !CurItem->locked())
-			Height->setEnabled(true);
-		else
-			Height->setEnabled(false);
+		Height->setEnabled(LMode && !CurItem->locked());
 	}
 	else
 	{
@@ -2151,14 +2204,14 @@ void PropertiesPalette::NewSel(int nr)
 		Ypos->setValue(0);
 		Width->setValue(0);
 		Height->setValue(0);
-		Rot->setValue(0);
+		Rotation->setValue(0);
 		RoundRect->setValue(0);
 		HaveItem = true;
 		Xpos->setEnabled(true);
 		Ypos->setEnabled(true);
 		Width->setEnabled(true);
 		Height->setEnabled(true);
-		Rot->setEnabled(true);
+		Rotation->setEnabled(true);
 // 		TabStack->setCurrentIndex(0);
 		for (int ws = 1; ws < 7; ++ws)
 			TabStack->setItemEnabled(ws, false);
@@ -2236,7 +2289,7 @@ void PropertiesPalette::NewSel(int nr)
 			widthLabel->setText( tr( "&Width:" ) );
 			yposLabel->setText( tr( "&Y-Pos:" ) );
 			heightLabel->setText( tr( "&Height:" ) );
-			//Rot->setEnabled(true);
+			//Rotation->setEnabled(true);
 			//Height->setEnabled(true);
 			RoundRect->setEnabled(false);
 			HaveItem = false;
@@ -2244,7 +2297,7 @@ void PropertiesPalette::NewSel(int nr)
 			Ypos->setValue(0);
 			Width->setValue(0);
 			Height->setValue(0);
-			Rot->setValue(0);
+			Rotation->setValue(0);
 			RoundRect->setValue(0);
 			for (int ws = 1; ws < 7; ++ws)
 				TabStack->setItemEnabled(ws, false);
@@ -2549,7 +2602,7 @@ void PropertiesPalette::setBH(double x, double y)
 	if ((LMode) && (CurItem->asLine()))
 	{
 		ma.translate(static_cast<double>(Xpos->value()) / m_unitRatio, static_cast<double>(Ypos->value()) / m_unitRatio);
-		ma.rotate(static_cast<double>(Rot->value())*(-1));
+		ma.rotate(static_cast<double>(Rotation->value())*(-1));
 		// Qt4 dp = ma * QPoint(static_cast<int>(x), static_cast<int>(y));
 		dp = QPoint(static_cast<int>(x), static_cast<int>(y)) * ma;
 		Width->setValue(dp.x()*m_unitRatio);
@@ -2574,7 +2627,7 @@ void PropertiesPalette::setR(double r)
 	if (r > 0)
 		rr = 360 - rr;
 	HaveItem = false;
-	Rot->setValue(fabs(rr));
+	Rotation->setValue(fabs(rr));
 	HaveItem = tmp;
 }
 
@@ -2663,7 +2716,7 @@ void PropertiesPalette::setLsp(double r)
 	HaveItem = tmp;
 }
 
-void PropertiesPalette::setDvals(double left, double top, double bottom, double right)
+void PropertiesPalette::setTextToFrameDistances(double left, double top, double bottom, double right)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2746,7 +2799,7 @@ void PropertiesPalette::ChangeScaling()
 	}
 }
 
-void PropertiesPalette::setLvalue(double scx, double scy, double x, double y)
+void PropertiesPalette::setScaleAndOffset(double scx, double scy, double x, double y)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2790,7 +2843,7 @@ void PropertiesPalette::setLvalue(double scx, double scy, double x, double y)
 	HaveItem = tmp;
 }
 
-void PropertiesPalette::setSvalue(double s)
+void PropertiesPalette::setLineWidth(double s)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3431,7 +3484,7 @@ void PropertiesPalette::NewH()
 	}
 }
 
-void PropertiesPalette::NewRotation()
+void PropertiesPalette::setRotation()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3442,7 +3495,7 @@ void PropertiesPalette::NewRotation()
 		{
 			if (!_userActionOn)
 				m_ScMW->view->startGroupTransaction();
-			doc->rotateGroup((Rot->value() - RoVal)*(-1), m_ScMW->view->RCenter);
+			doc->rotateGroup((Rotation->value() - RoVal)*(-1), m_ScMW->view->RCenter);
 			if (!_userActionOn)
 			{
 				m_ScMW->view->endGroupTransaction();
@@ -3451,10 +3504,10 @@ void PropertiesPalette::NewRotation()
 			setXY(gx, gy);
 		}
 		else
-			doc->RotateItem(Rot->value()*(-1), CurItem->ItemNr);
+			doc->RotateItem(Rotation->value()*(-1), CurItem->ItemNr);
 		emit DocChanged();
 		doc->regionsChanged()->update(QRect());
-		RoVal = Rot->value();
+		RoVal = Rotation->value();
 	}
 }
 
@@ -3715,7 +3768,7 @@ void PropertiesPalette::NewLineMode()
 		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
 		heightLabel->setText( tr( "&Height:" ) );
-		Rot->setEnabled(true);
+		Rotation->setEnabled(true);
 		Height->setEnabled(false);
 		LMode = false;
 	}
@@ -3725,7 +3778,7 @@ void PropertiesPalette::NewLineMode()
 		widthLabel->setText( tr( "X&2:" ) );
 		yposLabel->setText( tr( "Y&1:" ) );
 		heightLabel->setText( tr( "&Y2:" ) );
-		Rot->setEnabled(false);
+		Rotation->setEnabled(false);
 		Height->setEnabled(true);
 		LMode = true;
 	}
@@ -4967,13 +5020,13 @@ void PropertiesPalette::languageChange()
 		StyledLine->item(0)->setText( tr("No Style") );
 // 	updateCList();
 // 	updateCmsList();
-
+/* CB: doesnt look like we need to do this on languageChange anymore with qt4
 	NameEdit->setToolTip("");
 	Xpos->setToolTip("");
 	Ypos->setToolTip("");
 	Width->setToolTip("");
 	Height->setToolTip("");
-	Rot->setToolTip("");
+	Rotation->setToolTip("");
 	basepointLabel->setToolTip("");
 //	TopLeft->setToolTip("");
 //	TopRight->setToolTip("");
@@ -5058,13 +5111,13 @@ void PropertiesPalette::languageChange()
 	Aspect->setToolTip("");
 	InputP->setToolTip("");
 	MonitorI->setToolTip("");
-
+*/
 	NameEdit->setToolTip( tr("Name of selected object"));
 	Xpos->setToolTip( tr("Horizontal position of current basepoint"));
 	Ypos->setToolTip( tr("Vertical position of current basepoint"));
 	Width->setToolTip( tr("Width"));
 	Height->setToolTip( tr("Height"));
-	Rot->setToolTip( tr("Rotation of object at current basepoint"));
+	Rotation->setToolTip( tr("Rotation of object at current basepoint"));
 	basepointLabel->setToolTip( tr("Point from which measurements or rotation angles are referenced"));
 //	TopLeft->setToolTip( tr("Select top left for basepoint"));
 //	TopRight->setToolTip( tr("Select top right for basepoint"));
@@ -5221,25 +5274,17 @@ void PropertiesPalette::setLocked(bool isLocked)
 	Ypos->setReadOnly(isLocked);
 	Width->setReadOnly(isLocked);
 	Height->setReadOnly(isLocked);
-	Rot->setReadOnly(isLocked);
+	Rotation->setReadOnly(isLocked);
+	QPalette pal(qApp->palette());
 	if (isLocked)
-	{
-		QPalette pal(qApp->palette());
 		pal.setCurrentColorGroup(QPalette::Disabled);
-		Xpos->setPalette(pal);
-		Ypos->setPalette(pal);
-		Width->setPalette(pal);
-		Height->setPalette(pal);
-		Rot->setPalette(pal);
-	}
-	else
-	{
-		Xpos->setPalette(qApp->palette());
-		Ypos->setPalette(qApp->palette());
-		Width->setPalette(qApp->palette());
-		Height->setPalette(qApp->palette());
-		Rot->setPalette(qApp->palette());
-	}
+
+	Xpos->setPalette(pal);
+	Ypos->setPalette(pal);
+	Width->setPalette(pal);
+	Height->setPalette(pal);
+	Rotation->setPalette(pal);
+
 	EditShape->setEnabled(!isLocked);
 	LayerGroup->setEnabled(!isLocked);
 	Locked->setChecked(isLocked);
@@ -5260,18 +5305,13 @@ void PropertiesPalette::setSizeLocked(bool isSizeLocked)
 		b=true;
 	Width->setReadOnly(b);
 	Height->setReadOnly(b);
+	QPalette pal(qApp->palette());
+	
 	if (b)
-	{
-		QPalette pal(qApp->palette());
 		pal.setCurrentColorGroup(QPalette::Disabled);
-		Width->setPalette(pal);
-		Height->setPalette(pal);
-	}
-	else
-	{
-		Width->setPalette(qApp->palette());
-		Height->setPalette(qApp->palette());
-	}
+
+	Width->setPalette(pal);
+	Height->setPalette(pal);
 	NoResize->setChecked(isSizeLocked);
 }
 

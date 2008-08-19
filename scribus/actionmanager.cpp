@@ -293,6 +293,7 @@ void ActionManager::initStyleMenuActions()
 	connect( (*scrActions)["alignForced"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setNewAlignment(int)));
 
 	//Shade actions
+/*
 	scrActionGroups->insert("shade", new QActionGroup(mainWindow));
 	name="shadeOther";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defaultKey(name), (*scrActionGroups).value("shade"), -1));
@@ -304,6 +305,7 @@ void ActionManager::initStyleMenuActions()
 		(*scrActions)[shadeName]->setToggleAction(true);
 		connect( (*scrActions)[shadeName], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemShade(int)));
 	}
+*/
 
 	//Type Effects actions
 	scrActionGroups->insert("typeEffects", new QActionGroup(mainWindow));
@@ -1291,6 +1293,7 @@ void ActionManager::languageChange()
 	(*scrActions)["alignBlock"]->setTexts( tr("&Block"));
 	(*scrActions)["alignForced"]->setTexts( tr("&Forced"));
 
+/*
 	for (uint i=0; i<=100 ; i+=10)
 	{
 		QString shadeName=QString("shade%1").arg(i);
@@ -1298,6 +1301,7 @@ void ActionManager::languageChange()
 	}
 
 	(*scrActions)["shadeOther"]->setTexts( tr("&Other..."));
+*/
 	(*scrActions)["typeEffectNormal"]->setTexts( tr("&Normal"));
 	(*scrActions)["typeEffectUnderline"]->setTexts( tr("&Underline"));
 	(*scrActions)["typeEffectUnderlineWords"]->setTexts( tr("Underline &Words"));
@@ -1675,9 +1679,9 @@ void ActionManager::createDefaultMenus()
 		itmenu->second << QString("fontSize%1").arg(font_sizes[s]);
 	itmenu->second << "fontSizeOther";
 	itmenu->second << "alignLeft" << "alignCenter" << "alignRight" << "alignBlock" << "alignForced";
-	for (uint i=0; i<=100 ; i+=10)
-		itmenu->second << QString("shade%1").arg(i);
-	itmenu->second << "shadeOther";
+// 	for (uint i=0; i<=100 ; i+=10)
+// 		itmenu->second << QString("shade%1").arg(i);
+// 	itmenu->second << "shadeOther";
 	itmenu->second << "typeEffectNormal" << "typeEffectUnderline" << "typeEffectUnderlineWords" << "typeEffectStrikeThrough" << "typeEffectAllCaps" << "typeEffectSmallCaps" << "typeEffectSuperscript" << "typeEffectSubscript" << "typeEffectOutline" << "typeEffectShadow" << "styleImageEffects" << "styleTabulators";
 	//Item
 	++itmenu;

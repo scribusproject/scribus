@@ -197,10 +197,10 @@ public slots:
 	void setSize(double s);
 	void setFontFace(const QString&);
 	void setExtra(double e);
-	void setDvals(double left, double top, double bottom, double right);
+	void setTextToFrameDistances(double left, double top, double bottom, double right);
 	void ChangeScaling();
-	void setLvalue(double scx, double scy, double x, double y);
-	void setSvalue(double s);
+	void setScaleAndOffset(double scx, double scy, double x, double y);
+	void setLineWidth(double s);
 	void setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj);
 	void setFlop(FirstLineOffsetPolicy);
 	/// update TB values:
@@ -248,7 +248,7 @@ private slots:
 	void NewY();
 	void NewW();
 	void NewH();
-	void NewRotation();
+	void setRotation();
 	void NewCornerRadius();
 	void NewLineSpacing();
 	void HandleGapSwitch();
@@ -538,7 +538,7 @@ protected:
 	ScrSpinBox* Xpos;
 	ScrSpinBox* Ypos;
 	ScrSpinBox* Height;
-	ScrSpinBox* Rot;
+	ScrSpinBox* Rotation;
 	ScrSpinBox* RoundRect;
 	ScrSpinBox* dGap;
 	ScrSpinBox* DTop;

@@ -456,7 +456,7 @@ public slots:
 	// Setzt die Brush-Farbe
 	void setBrushFarbe(QString farbe);
 	*/
-	void setCSMenu();
+	//CB: void setCSMenu();
 	/** Fragt nach den Farben */
 //	void GetBrushPen();
 	/** Erzeugt einen Rahmen */
