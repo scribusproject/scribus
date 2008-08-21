@@ -748,7 +748,8 @@ IF(WIN32)
   # IF your plugin needs more than this, please link them privately
   # in the CMakeLists.txt for your plugin.
   SET(PLUGIN_LIBRARIES
-    ${QT_LIBRARIES}
+#    ${QT_LIBRARIES} part of #7210
+    ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY}
     ${LIBXML2_LIBRARIES}
     ${ZLIB_LIBRARIES}
     ${EXE_NAME}
