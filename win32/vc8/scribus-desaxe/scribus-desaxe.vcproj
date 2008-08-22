@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug-cairo|Win32"
-			OutputDirectory="..\..\..\..\Scribus-builds\scribus-vc8-debug-cairo\scribus"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\build-objs-vc8\$(TargetName)\$(ConfigurationName)"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(TargetName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -81,9 +81,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release-Cairo|Win32"
-			OutputDirectory="..\..\..\..\Scribus-builds\scribus-vc8-release-cairo\scribus"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\build-objs-vc8\$(TargetName)\$(ConfigurationName)"
+			Name="Release-cairo|Win32"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(TargetName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="0"
@@ -107,6 +107,134 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtNetwork&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.5\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;QT3_SUPPORT"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+				DisableSpecificWarnings="4005;4244;4251;4258;4267;4996"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\scribus-desaxe.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug-arthur|Win32"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(TargetName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtNetwork&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.5\include&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+				DisableSpecificWarnings="4005;4244;4251;4258;4267;4996"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\scribus-desaxe.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release-arthur|Win32"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc8-$(ConfigurationName)\scribus"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc8\$(TargetName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="1"
+			WholeProgramOptimization="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtNetwork&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.5\include&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
