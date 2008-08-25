@@ -958,7 +958,7 @@ void PageItem_TextFrame::layout()
 			}
 			else // from 134 on use NBSPACE for this effect
 			{
-				if ( current.itemsInLine == 0 && SpecialChars::isBreakingSpace(hl->ch))
+				if ( current.itemsInLine == 0 && (SpecialChars::isBreakingSpace(hl->ch) || hl->ch.isSpace()))
 				{
 					hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
 					hl->glyph.xadvance = 0;
