@@ -252,6 +252,7 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dispY = 10.0;
 	appPrefs.toolSettings.constrain = 15.0;
 	appPrefs.DpapColor = QColor(Qt::white);
+	appPrefs.showPageShadow = true;
 	appPrefs.DFrameColor = QColor(Qt::red);
 	appPrefs.DFrameNormColor = QColor(Qt::black);
 	appPrefs.DFrameGroupColor = QColor(Qt::darkCyan);
@@ -1192,6 +1193,11 @@ const int& PrefsManager::paletteFontSize() const
 	return appPrefs.PaletteFontSize;
 }
 
+bool PrefsManager::showPageShadow() const
+{
+	return appPrefs.showPageShadow;
+}
+
 bool PrefsManager::WritePref(QString ho)
 {
 	QDomDocument docu("scribusrc");
@@ -1249,6 +1255,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc1.setAttribute("SHOW", static_cast<int>(appPrefs.guidesSettings.gridShown));
 	elem.appendChild(dc1);
 	QDomElement dc1a=docu.createElement("PAGE");
+	dc1a.setAttribute("ShowPageShadow",static_cast<int>(appPrefs.showPageShadow));
 	dc1a.setAttribute("PAGEC",appPrefs.DpapColor.name());
 	dc1a.setAttribute("SELEC",appPrefs.DFrameColor.name());
 	dc1a.setAttribute("DFrameNormColor",appPrefs.DFrameNormColor.name());
@@ -1771,6 +1778,7 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="PAGE")
 		{
+			appPrefs.showPageShadow = static_cast<bool>(dc.attribute("ShowPageShadow", "1").toInt());
 			appPrefs.DpapColor = QColor(dc.attribute("PAGEC"));
 			appPrefs.DFrameColor = QColor(dc.attribute("SELEC","#ff0000"));
 			appPrefs.DFrameNormColor = QColor(dc.attribute("DFrameNormColor","#000000"));

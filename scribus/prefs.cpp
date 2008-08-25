@@ -367,6 +367,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.scratch.Right = tabView->rightScratch->value() / prefsUnitRatio;
 	prefsManager->appPrefs.scratch.Top = tabView->topScratch->value() / prefsUnitRatio;
 	// GUI colors
+	prefsManager->appPrefs.showPageShadow = tabView->checkShowPageShadow->isChecked();
 	prefsManager->appPrefs.DpapColor = tabView->colorPaper;
 	prefsManager->appPrefs.DFrameColor = tabView->colorFrame;
 	prefsManager->appPrefs.DFrameNormColor = tabView->colorFrameNorm;

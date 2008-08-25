@@ -1134,10 +1134,7 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 	bool retVal;
 	if (e->type() == QEvent::ToolTip)
 	{
-		if (prefsManager->appPrefs.showToolTips)
-			return false;
-		else
-			return true;
+		return (!prefsManager->appPrefs.showToolTips);
 	}
 	if ( e->type() == QEvent::KeyPress )
 	{
@@ -7714,6 +7711,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	//reset the appMode so we restore our tools shortcuts
 	QString oldGUILanguage = prefsManager->guiLanguage();
 	QString oldGUIStyle    = prefsManager->guiStyle();
+	bool oldShowPageShadow = prefsManager->showPageShadow();
 	int oldGUIFontSize     = prefsManager->guiFontSize();
 	double oldDisplayScale = prefsManager->displayScale();
 	dia->updatePreferences();
@@ -7747,6 +7745,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	ScCore->recheckGS();
 	prefsManager->applyLoadedShortCuts();
 	QWidgetList windows = wsp->windowList();
+	bool shadowChanged = oldShowPageShadow != prefsManager->showPageShadow();
 	if (!windows.isEmpty())
 	{
 		int windowCount=static_cast<int>(windows.count());
@@ -7755,6 +7754,8 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 			QWidget* w = windows.at(i);
 			ScribusWin* scw = (ScribusWin*) w;
 			scw->view()->zoom((scw->view()->scale() / oldDisplayScale) * prefsManager->displayScale());
+			if (shadowChanged)
+				scw->view()->DrawNew();
 		}
 	}
 }

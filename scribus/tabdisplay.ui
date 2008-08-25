@@ -8,29 +8,17 @@
     <x>0</x>
     <y>0</y>
     <width>623</width>
-    <height>439</height>
+    <height>620</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>TabDisplayBase</string>
   </property>
   <layout class="QGridLayout" >
-   <property name="leftMargin" >
+   <property name="margin" >
     <number>10</number>
    </property>
-   <property name="topMargin" >
-    <number>10</number>
-   </property>
-   <property name="rightMargin" >
-    <number>10</number>
-   </property>
-   <property name="bottomMargin" >
-    <number>10</number>
-   </property>
-   <property name="horizontalSpacing" >
-    <number>5</number>
-   </property>
-   <property name="verticalSpacing" >
+   <property name="spacing" >
     <number>5</number>
    </property>
    <item row="0" column="0" >
@@ -39,6 +27,14 @@
       <number>0</number>
      </property>
      <widget class="QWidget" name="displayGeneral" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>595</width>
+        <height>567</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>General</string>
       </attribute>
@@ -49,22 +45,10 @@
           <string>Page Display</string>
          </property>
          <layout class="QGridLayout" >
-          <property name="leftMargin" >
+          <property name="margin" >
            <number>10</number>
           </property>
-          <property name="topMargin" >
-           <number>10</number>
-          </property>
-          <property name="rightMargin" >
-           <number>10</number>
-          </property>
-          <property name="bottomMargin" >
-           <number>10</number>
-          </property>
-          <property name="horizontalSpacing" >
-           <number>5</number>
-          </property>
-          <property name="verticalSpacing" >
+          <property name="spacing" >
            <number>5</number>
           </property>
           <item row="7" column="0" >
@@ -135,6 +119,16 @@
             </property>
            </widget>
           </item>
+          <item row="8" column="0" >
+           <widget class="QCheckBox" name="checkShowPageShadow" >
+            <property name="toolTip" >
+             <string/>
+            </property>
+            <property name="text" >
+             <string>Show Page Shadow</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -144,22 +138,10 @@
           <string>Scratch Space</string>
          </property>
          <layout class="QGridLayout" >
-          <property name="leftMargin" >
+          <property name="margin" >
            <number>10</number>
           </property>
-          <property name="topMargin" >
-           <number>10</number>
-          </property>
-          <property name="rightMargin" >
-           <number>10</number>
-          </property>
-          <property name="bottomMargin" >
-           <number>10</number>
-          </property>
-          <property name="horizontalSpacing" >
-           <number>5</number>
-          </property>
-          <property name="verticalSpacing" >
+          <property name="spacing" >
            <number>5</number>
           </property>
           <item row="3" column="1" >
@@ -242,22 +224,10 @@
           <string>Gaps Between Pages</string>
          </property>
          <layout class="QGridLayout" >
-          <property name="leftMargin" >
+          <property name="margin" >
            <number>10</number>
           </property>
-          <property name="topMargin" >
-           <number>10</number>
-          </property>
-          <property name="rightMargin" >
-           <number>10</number>
-          </property>
-          <property name="bottomMargin" >
-           <number>10</number>
-          </property>
-          <property name="horizontalSpacing" >
-           <number>5</number>
-          </property>
-          <property name="verticalSpacing" >
+          <property name="spacing" >
            <number>5</number>
           </property>
           <item row="1" column="1" >
@@ -310,16 +280,7 @@
             <property name="spacing" >
              <number>5</number>
             </property>
-            <property name="leftMargin" >
-             <number>0</number>
-            </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
+            <property name="margin" >
              <number>0</number>
             </property>
             <item>
@@ -393,7 +354,7 @@
          <property name="sizeType" >
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>581</width>
            <height>16</height>
@@ -404,26 +365,22 @@
       </layout>
      </widget>
      <widget class="QWidget" name="displayColors" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>840</width>
+        <height>420</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Colors</string>
       </attribute>
       <layout class="QGridLayout" >
-       <property name="leftMargin" >
+       <property name="margin" >
         <number>10</number>
        </property>
-       <property name="topMargin" >
-        <number>10</number>
-       </property>
-       <property name="rightMargin" >
-        <number>10</number>
-       </property>
-       <property name="bottomMargin" >
-        <number>10</number>
-       </property>
-       <property name="horizontalSpacing" >
-        <number>5</number>
-       </property>
-       <property name="verticalSpacing" >
+       <property name="spacing" >
         <number>5</number>
        </property>
        <item row="3" column="0" >
@@ -434,7 +391,7 @@
          <property name="sizeType" >
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>41</width>
            <height>31</height>
@@ -448,22 +405,10 @@
           <string>Pages:</string>
          </property>
          <layout class="QGridLayout" >
-          <property name="leftMargin" >
+          <property name="margin" >
            <number>10</number>
           </property>
-          <property name="topMargin" >
-           <number>10</number>
-          </property>
-          <property name="rightMargin" >
-           <number>10</number>
-          </property>
-          <property name="bottomMargin" >
-           <number>10</number>
-          </property>
-          <property name="horizontalSpacing" >
-           <number>5</number>
-          </property>
-          <property name="verticalSpacing" >
+          <property name="spacing" >
            <number>5</number>
           </property>
           <item row="0" column="2" >
@@ -471,16 +416,7 @@
             <property name="spacing" >
              <number>5</number>
             </property>
-            <property name="leftMargin" >
-             <number>0</number>
-            </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
+            <property name="margin" >
              <number>0</number>
             </property>
             <item>
@@ -522,7 +458,7 @@
             <property name="sizeType" >
              <enum>QSizePolicy::Expanding</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>40</width>
               <height>20</height>
@@ -535,16 +471,7 @@
             <property name="spacing" >
              <number>5</number>
             </property>
-            <property name="leftMargin" >
-             <number>0</number>
-            </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
+            <property name="margin" >
              <number>0</number>
             </property>
             <item>
@@ -587,42 +514,18 @@
           <string>Frames</string>
          </property>
          <layout class="QGridLayout" >
-          <property name="leftMargin" >
+          <property name="margin" >
            <number>10</number>
           </property>
-          <property name="topMargin" >
-           <number>10</number>
-          </property>
-          <property name="rightMargin" >
-           <number>10</number>
-          </property>
-          <property name="bottomMargin" >
-           <number>10</number>
-          </property>
-          <property name="horizontalSpacing" >
-           <number>5</number>
-          </property>
-          <property name="verticalSpacing" >
+          <property name="spacing" >
            <number>5</number>
           </property>
           <item row="0" column="4" >
            <layout class="QGridLayout" >
-            <property name="leftMargin" >
+            <property name="margin" >
              <number>0</number>
             </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
-             <number>0</number>
-            </property>
-            <property name="horizontalSpacing" >
-             <number>5</number>
-            </property>
-            <property name="verticalSpacing" >
+            <property name="spacing" >
              <number>5</number>
             </property>
             <item row="0" column="0" >
@@ -693,7 +596,7 @@
             <property name="sizeType" >
              <enum>QSizePolicy::Expanding</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>16</width>
               <height>20</height>
@@ -703,22 +606,10 @@
           </item>
           <item row="0" column="2" >
            <layout class="QGridLayout" >
-            <property name="leftMargin" >
+            <property name="margin" >
              <number>0</number>
             </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
-             <number>0</number>
-            </property>
-            <property name="horizontalSpacing" >
-             <number>5</number>
-            </property>
-            <property name="verticalSpacing" >
+            <property name="spacing" >
              <number>5</number>
             </property>
             <item row="0" column="1" >
@@ -789,7 +680,7 @@
             <property name="sizeType" >
              <enum>QSizePolicy::Expanding</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>20</width>
               <height>20</height>
@@ -799,22 +690,10 @@
           </item>
           <item row="0" column="0" >
            <layout class="QGridLayout" >
-            <property name="leftMargin" >
+            <property name="margin" >
              <number>0</number>
             </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
-             <number>0</number>
-            </property>
-            <property name="horizontalSpacing" >
-             <number>5</number>
-            </property>
-            <property name="verticalSpacing" >
+            <property name="spacing" >
              <number>5</number>
             </property>
             <item row="1" column="0" >
@@ -886,22 +765,10 @@
           <string>Text:</string>
          </property>
          <layout class="QGridLayout" >
-          <property name="leftMargin" >
+          <property name="margin" >
            <number>10</number>
           </property>
-          <property name="topMargin" >
-           <number>10</number>
-          </property>
-          <property name="rightMargin" >
-           <number>10</number>
-          </property>
-          <property name="bottomMargin" >
-           <number>10</number>
-          </property>
-          <property name="horizontalSpacing" >
-           <number>5</number>
-          </property>
-          <property name="verticalSpacing" >
+          <property name="spacing" >
            <number>5</number>
           </property>
           <item row="0" column="2" >
@@ -912,7 +779,7 @@
             <property name="sizeType" >
              <enum>QSizePolicy::Expanding</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>40</width>
               <height>20</height>

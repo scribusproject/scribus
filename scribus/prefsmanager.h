@@ -154,6 +154,7 @@ public:
 	const int& paletteFontSize() const;
 	void setKeyEntry(const QString&, const QString&, const QKeySequence&, const int&);
 	void setShowStartupDialog(const bool);
+	bool showPageShadow() const;
 	//! \brief Sets the preferences' color set
 	void setColorSet(const ColorList&);
 	//! \brief Sets the preferences' color set name

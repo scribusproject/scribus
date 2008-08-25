@@ -160,6 +160,7 @@ struct ApplicationPrefs
 	int Wheelval;
 	int AppFontSize;
 	int PaletteFontSize;
+	bool showPageShadow;
 	QColor DpapColor;
 	QColor DFrameColor;
 	QColor DFrameNormColor;
