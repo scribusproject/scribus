@@ -98,7 +98,6 @@ void AspellPluginImpl::activateSpellGUI()
 	faddWordBtn->setEnabled( true );
 	ftextLabel1->setEnabled( true );
 	ftextLabel2->setEnabled( true );
-	ftextLabel3->setEnabled( true );
 	ftextLabel4->setEnabled( true );
 	fmisSpelling->setEnabled( true );
 	flistDicts->setEnabled( true );
@@ -117,7 +116,6 @@ void AspellPluginImpl::deactivateSpellGUI()
 	faddWordBtn->setEnabled( false );
 	ftextLabel1->setEnabled( false );
 	ftextLabel2->setEnabled( false );
-	ftextLabel3->setEnabled( false );
 	ftextLabel4->setEnabled( false );
 	fmisSpelling->setEnabled( false );
 	flistDicts->setEnabled( false );
@@ -214,7 +212,8 @@ void AspellPluginImpl::spellCheckDone()
 {
 	// Called once all words in the current text, i.e., in 'fcontent'
 	// have been spell-checked. Pops up an information dialog.
-	QMessageBox::information(fdoc->scMW(), tr("Spell-Checker"), tr("Spell-checking completed."));
+	QString completeMsg(tr("Spelling check complete"));
+	QMessageBox::information(fdoc->scMW(), tr("Spell Checker"), completeMsg);
 	if( fFrame && fFrame->asTextFrame() )
 		fFrame->asTextFrame()->invalidateLayout();
 	if( fnchanges.fntot > 0 )
@@ -225,7 +224,7 @@ void AspellPluginImpl::spellCheckDone()
 	fdoc->view()->DrawNew();
 	QApplication::changeOverrideCursor(Qt::ArrowCursor);
 //	QApplication::restoreOverrideCursor();
-	fdoc->scMW()->setStatusBarInfoText(tr("Spell-checking done." ));
+	fdoc->scMW()->setStatusBarInfoText(completeMsg);
 	fdoc->scMW()->mainWindowProgressBar->reset();
 	close();
 }
