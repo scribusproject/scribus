@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>467</width>
-    <height>362</height>
+    <height>364</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -29,8 +29,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>445</width>
-        <height>286</height>
+        <width>441</width>
+        <height>278</height>
        </rect>
       </property>
       <attribute name="title" >
@@ -53,6 +53,9 @@
          </property>
          <item>
           <widget class="QGroupBox" name="typeGroupBox" >
+           <property name="toolTip" >
+            <string/>
+           </property>
            <property name="title" >
             <string/>
            </property>
@@ -65,6 +68,9 @@
             </property>
             <item>
              <widget class="QRadioButton" name="radioButtonTextFrame" >
+              <property name="toolTip" >
+               <string>Insert one or more text frames</string>
+              </property>
               <property name="text" >
                <string>&amp;Text Frame</string>
               </property>
@@ -72,6 +78,9 @@
             </item>
             <item>
              <widget class="QRadioButton" name="radioButtonImageFrame" >
+              <property name="toolTip" >
+               <string>Insert one or more image frames</string>
+              </property>
               <property name="text" >
                <string>&amp;Image Frame</string>
               </property>
@@ -105,8 +114,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>445</width>
-        <height>286</height>
+        <width>441</width>
+        <height>278</height>
        </rect>
       </property>
       <attribute name="title" >
@@ -121,6 +130,9 @@
        </property>
        <item>
         <widget class="QGroupBox" name="pagePlacementGroupBox" >
+         <property name="toolTip" >
+          <string>Place the new frames on the current page, on all pages or on a selected range</string>
+         </property>
          <property name="title" >
           <string>Page Placement</string>
          </property>
@@ -133,6 +145,9 @@
           </property>
           <item>
            <widget class="QRadioButton" name="radioButtonCurrentPage" >
+            <property name="toolTip" >
+             <string>Insert the frame on the current page only</string>
+            </property>
             <property name="text" >
              <string>Current Page</string>
             </property>
@@ -140,6 +155,9 @@
           </item>
           <item>
            <widget class="QRadioButton" name="radioButtonAllPages" >
+            <property name="toolTip" >
+             <string>Insert one frame for each existing page</string>
+            </property>
             <property name="text" >
              <string>All Pages</string>
             </property>
@@ -147,6 +165,9 @@
           </item>
           <item>
            <widget class="QRadioButton" name="radioButtonRangeOfPages" >
+            <property name="toolTip" >
+             <string>Insert frames on a range of pages</string>
+            </property>
             <property name="text" >
              <string>Range of Pages</string>
             </property>
@@ -161,10 +182,17 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QLineEdit" name="placementPagesLineEdit" />
+             <widget class="QLineEdit" name="placementPagesLineEdit" >
+              <property name="toolTip" >
+               <string>Range of pages to insert frames on</string>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QToolButton" name="placementPagesRangeButton" >
+              <property name="toolTip" >
+               <string/>
+              </property>
               <property name="text" >
                <string>...</string>
               </property>
@@ -190,6 +218,9 @@
        </item>
        <item>
         <widget class="QGroupBox" name="framePositionGroupBox" >
+         <property name="toolTip" >
+          <string>Position the new frame in relation to the page</string>
+         </property>
          <property name="title" >
           <string>Position of Frame</string>
          </property>
@@ -202,6 +233,9 @@
           </property>
           <item>
            <widget class="QRadioButton" name="radioButtonTopLeftOfMargins" >
+            <property name="toolTip" >
+             <string>Insert the frame at the top left of the page margins</string>
+            </property>
             <property name="text" >
              <string>Top Left of Margins</string>
             </property>
@@ -209,6 +243,9 @@
           </item>
           <item>
            <widget class="QRadioButton" name="radioButtonTopLeftOfPage" >
+            <property name="toolTip" >
+             <string>Insert the frame at the top left of the page</string>
+            </property>
             <property name="text" >
              <string>Top Left of Page</string>
             </property>
@@ -216,6 +253,9 @@
           </item>
           <item>
            <widget class="QRadioButton" name="radioButtonTopLeftOfBleed" >
+            <property name="toolTip" >
+             <string>Insert the frame at the top left of the page bleed</string>
+            </property>
             <property name="text" >
              <string>Top Left of Bleed</string>
             </property>
@@ -223,6 +263,9 @@
           </item>
           <item>
            <widget class="QRadioButton" name="radioButtonCustomPosition" >
+            <property name="toolTip" >
+             <string>Insert the frame at a custom position on the page</string>
+            </property>
             <property name="text" >
              <string>Custom Position</string>
             </property>
@@ -275,10 +318,18 @@
                </widget>
               </item>
               <item row="1" column="1" >
-               <widget class="ScrSpinBox" name="yPosScrSpinBox" />
+               <widget class="ScrSpinBox" name="yPosScrSpinBox" >
+                <property name="toolTip" >
+                 <string>Top position of the inserted frame</string>
+                </property>
+               </widget>
               </item>
               <item row="0" column="1" >
-               <widget class="ScrSpinBox" name="xPosScrSpinBox" />
+               <widget class="ScrSpinBox" name="xPosScrSpinBox" >
+                <property name="toolTip" >
+                 <string>Left position of the inserted frame</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -320,8 +371,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>445</width>
-        <height>286</height>
+        <width>441</width>
+        <height>278</height>
        </rect>
       </property>
       <attribute name="title" >
@@ -336,6 +387,9 @@
        </property>
        <item>
         <widget class="QGroupBox" name="sizeGroupBox" >
+         <property name="toolTip" >
+          <string/>
+         </property>
          <property name="title" >
           <string/>
          </property>
@@ -348,6 +402,9 @@
           </property>
           <item>
            <widget class="QRadioButton" name="radioButtonPageMarginSize" >
+            <property name="toolTip" >
+             <string>Insert the new frame with the same dimensions as the page margins</string>
+            </property>
             <property name="text" >
              <string>Same as the Page Margins</string>
             </property>
@@ -355,6 +412,9 @@
           </item>
           <item>
            <widget class="QRadioButton" name="radioButtonPageSize" >
+            <property name="toolTip" >
+             <string>Insert the new frame with the same dimensions as the page</string>
+            </property>
             <property name="text" >
              <string>Same as the Page</string>
             </property>
@@ -362,6 +422,9 @@
           </item>
           <item>
            <widget class="QRadioButton" name="radioButtonBleedSize" >
+            <property name="toolTip" >
+             <string>Insert the new frame with the same dimensions as the bleed area outside the boundary of the page itself</string>
+            </property>
             <property name="text" >
              <string>Same as the Bleed</string>
             </property>
@@ -369,6 +432,9 @@
           </item>
           <item>
            <widget class="QRadioButton" name="radioButtonImageSize" >
+            <property name="toolTip" >
+             <string>Insert the new frame with the same dimensions as the image that will be imported</string>
+            </property>
             <property name="text" >
              <string>Same as the Imported Image</string>
             </property>
@@ -376,6 +442,9 @@
           </item>
           <item>
            <widget class="QRadioButton" name="radioButtonCustomSize" >
+            <property name="toolTip" >
+             <string>Insert the new frame with a custom size</string>
+            </property>
             <property name="text" >
              <string>Custom Size</string>
             </property>
@@ -428,10 +497,18 @@
                </widget>
               </item>
               <item row="0" column="1" >
-               <widget class="ScrSpinBox" name="widthScrSpinBox" />
+               <widget class="ScrSpinBox" name="widthScrSpinBox" >
+                <property name="toolTip" >
+                 <string>Width of the inserted frame</string>
+                </property>
+               </widget>
               </item>
               <item row="1" column="1" >
-               <widget class="ScrSpinBox" name="heightScrSpinBox" />
+               <widget class="ScrSpinBox" name="heightScrSpinBox" >
+                <property name="toolTip" >
+                 <string>Height of the inserted frame</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -473,8 +550,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>445</width>
-        <height>286</height>
+        <width>441</width>
+        <height>278</height>
        </rect>
       </property>
       <attribute name="title" >
@@ -497,8 +574,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>427</width>
-            <height>268</height>
+            <width>423</width>
+            <height>260</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout" >
@@ -520,6 +597,9 @@
                </property>
                <item row="0" column="1" >
                 <widget class="QSpinBox" name="textColumnCountSpinBox" >
+                 <property name="toolTip" >
+                  <string>Number of columns for the inserted text frame</string>
+                 </property>
                  <property name="minimum" >
                   <number>1</number>
                  </property>
@@ -533,7 +613,11 @@
                 </widget>
                </item>
                <item row="1" column="1" >
-                <widget class="ScrSpinBox" name="textColumnGapScrSpinBox" />
+                <widget class="ScrSpinBox" name="textColumnGapScrSpinBox" >
+                 <property name="toolTip" >
+                  <string>Distance between the columns in the text frame</string>
+                 </property>
+                </widget>
                </item>
                <item row="0" column="0" >
                 <widget class="QLabel" name="textColumnCountLabel" >
@@ -561,8 +645,11 @@
            </item>
            <item>
             <widget class="QCheckBox" name="checkBoxLinkCreatedTextFrames" >
+             <property name="toolTip" >
+              <string>Link the inserted text frames together to form a chain of frames</string>
+             </property>
              <property name="text" >
-              <string>Link Created Frames</string>
+              <string>Link Inserted Frames</string>
              </property>
             </widget>
            </item>
@@ -570,6 +657,9 @@
             <layout class="QHBoxLayout" name="horizontalLayout" >
              <item>
               <widget class="QCheckBox" name="checkBoxLinkToExistingFrame" >
+               <property name="toolTip" >
+                <string>Link the first inserted frame to a preexisting text frame</string>
+               </property>
                <property name="text" >
                 <string>Link to Existing Frame</string>
                </property>
@@ -585,6 +675,9 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="toolTip" >
+                <string>Name of existing text frame to link to</string>
                </property>
               </widget>
              </item>
@@ -606,7 +699,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="sourceDocLineEdit" />
+              <widget class="QLineEdit" name="sourceDocLineEdit" >
+               <property name="toolTip" >
+                <string>Source document to load into the text frame</string>
+               </property>
+              </widget>
              </item>
              <item>
               <widget class="QToolButton" name="selectDocFileButton" >
@@ -637,8 +734,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>423</width>
+            <height>260</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" >
@@ -664,7 +761,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="sourceImageLineEdit" />
+              <widget class="QLineEdit" name="sourceImageLineEdit" >
+               <property name="toolTip" >
+                <string>Source image to load into the inserted image frame</string>
+               </property>
+              </widget>
              </item>
              <item>
               <widget class="QToolButton" name="selectImageFileButton" >
@@ -695,8 +796,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>423</width>
+            <height>260</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" >
