@@ -13,22 +13,10 @@
    <string>New From Template</string>
   </property>
   <layout class="QGridLayout" >
-   <property name="leftMargin" >
+   <property name="margin" >
     <number>9</number>
    </property>
-   <property name="topMargin" >
-    <number>9</number>
-   </property>
-   <property name="rightMargin" >
-    <number>9</number>
-   </property>
-   <property name="bottomMargin" >
-    <number>9</number>
-   </property>
-   <property name="horizontalSpacing" >
-    <number>6</number>
-   </property>
-   <property name="verticalSpacing" >
+   <property name="spacing" >
     <number>6</number>
    </property>
    <item row="0" column="1" >
@@ -59,37 +47,25 @@
       </size>
      </property>
      <property name="currentIndex" >
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="aboutPage" >
       <property name="geometry" >
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>112</width>
-        <height>112</height>
+        <width>94</width>
+        <height>78</height>
        </rect>
       </property>
       <attribute name="label" >
        <string>&amp;About</string>
       </attribute>
       <layout class="QGridLayout" >
-       <property name="leftMargin" >
+       <property name="margin" >
         <number>9</number>
        </property>
-       <property name="topMargin" >
-        <number>9</number>
-       </property>
-       <property name="rightMargin" >
-        <number>9</number>
-       </property>
-       <property name="bottomMargin" >
-        <number>9</number>
-       </property>
-       <property name="horizontalSpacing" >
-        <number>6</number>
-       </property>
-       <property name="verticalSpacing" >
+       <property name="spacing" >
         <number>6</number>
        </property>
        <item row="0" column="0" >
@@ -97,35 +73,23 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="imagePage" >
+     <widget class="QWidget" name="previewPage" >
       <property name="geometry" >
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>112</width>
-        <height>112</height>
+        <width>240</width>
+        <height>355</height>
        </rect>
       </property>
       <attribute name="label" >
-       <string>&amp;Image</string>
+       <string>&amp;Preview</string>
       </attribute>
       <layout class="QGridLayout" >
-       <property name="leftMargin" >
+       <property name="margin" >
         <number>9</number>
        </property>
-       <property name="topMargin" >
-        <number>9</number>
-       </property>
-       <property name="rightMargin" >
-        <number>9</number>
-       </property>
-       <property name="bottomMargin" >
-        <number>9</number>
-       </property>
-       <property name="horizontalSpacing" >
-        <number>6</number>
-       </property>
-       <property name="verticalSpacing" >
+       <property name="spacing" >
         <number>6</number>
        </property>
        <item row="0" column="0" >
@@ -142,30 +106,18 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>250</width>
-        <height>368</height>
+        <width>240</width>
+        <height>355</height>
        </rect>
       </property>
       <attribute name="label" >
        <string>&amp;Help</string>
       </attribute>
       <layout class="QGridLayout" >
-       <property name="leftMargin" >
+       <property name="margin" >
         <number>9</number>
        </property>
-       <property name="topMargin" >
-        <number>9</number>
-       </property>
-       <property name="rightMargin" >
-        <number>9</number>
-       </property>
-       <property name="bottomMargin" >
-        <number>9</number>
-       </property>
-       <property name="horizontalSpacing" >
-        <number>6</number>
-       </property>
-       <property name="verticalSpacing" >
+       <property name="spacing" >
         <number>6</number>
        </property>
        <item row="0" column="0" >
@@ -203,7 +155,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
