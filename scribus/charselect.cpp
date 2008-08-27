@@ -622,8 +622,12 @@ void CharSelect::uniSaveButton_clicked()
 {
 	if (m_userTableModel->characters().count() == 0)
 		return;
-	QString f = QFileDialog::getSaveFileName(this, tr("Choose a filename to save under"), QDir::currentPath(), paletteFileMask);
-	if (f.isNull() || !overwrite(this, f))
+	QString f = QFileDialog::getSaveFileName(this, tr("Save Quick Character Palette"), QDir::currentPath(), paletteFileMask);
+	if (f.isNull())
+		return;
+	if (!f.endsWith(".ucp"))
+		f+=".ucp";
+	if (!overwrite(this, f))
 		return;
 	saveUserContent(f);
 }
