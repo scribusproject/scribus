@@ -52,6 +52,9 @@ class SCRIBUS_API SMStyleImport : public QDialog, public Ui::SMStyleImport
 
 		QStringList commonStyles(QTreeWidgetItem * rootItem, int type);
 
+	protected slots:
+		void checkAll(bool allChecked);
+
 };
 
 #endif // SMSTYLEIMPORT_H

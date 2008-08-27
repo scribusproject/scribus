@@ -6,15 +6,21 @@
     <x>0</x>
     <y>0</y>
     <width>304</width>
-    <height>424</height>
+    <height>444</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Choose Styles</string>
   </property>
-  <layout class="QGridLayout" >
-   <item row="0" column="0" >
+  <layout class="QVBoxLayout" name="verticalLayout" >
+   <item>
     <widget class="QTreeWidget" name="styleWidget" >
+     <property name="selectionMode" >
+      <enum>QAbstractItemView::NoSelection</enum>
+     </property>
+     <property name="selectionBehavior" >
+      <enum>QAbstractItemView::SelectItems</enum>
+     </property>
      <column>
       <property name="text" >
        <string>Available Styles</string>
@@ -22,10 +28,17 @@
      </column>
     </widget>
    </item>
-   <item row="1" column="0" >
+   <item>
+    <widget class="QCheckBox" name="importAllCheckBox" >
+     <property name="text" >
+      <string>Select or Unselect All</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="groupBox" >
      <property name="title" >
-      <string>In case of the name clash</string>
+      <string>In case of a name clash</string>
      </property>
      <layout class="QGridLayout" >
       <item row="0" column="0" >
@@ -48,13 +61,13 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0" >
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox" >
      <property name="orientation" >
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
@@ -69,8 +82,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>248</x>
-     <y>254</y>
+     <x>252</x>
+     <y>419</y>
     </hint>
     <hint type="destinationlabel" >
      <x>157</x>
@@ -85,8 +98,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>316</x>
-     <y>260</y>
+     <x>299</x>
+     <y>419</y>
     </hint>
     <hint type="destinationlabel" >
      <x>286</x>

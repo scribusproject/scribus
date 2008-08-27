@@ -53,6 +53,8 @@ SMStyleImport::SMStyleImport(QWidget* parent,
 		styleWidget->setItemWidget(item, 0, box);
 	}
 	styleWidget->expandItem(lstyleItem);
+
+	connect(importAllCheckBox, SIGNAL(clicked(bool)), this, SLOT(checkAll(bool)));
 }
 
 bool SMStyleImport::clashRename()
@@ -85,10 +87,25 @@ QStringList SMStyleImport::commonStyles(QTreeWidgetItem * rootItem, int type)
 		if ((*it)->type() == type)
 		{
 			QCheckBox *w = qobject_cast<QCheckBox*>(styleWidget->itemWidget((*it), 0));
-			if (w->isChecked())
+			if (w && w->isChecked())
 				ret.append(w->text());
 		}
 		++it;
 	}
 	return ret;
 }
+
+void SMStyleImport::checkAll(bool allChecked)
+{
+	QStringList ret;
+	QTreeWidgetItemIterator it(styleWidget);
+
+	while (*it)
+	{
+		QCheckBox *w = qobject_cast<QCheckBox*>(styleWidget->itemWidget((*it), 0));
+		if (w)
+			w->setCheckState(allChecked ? Qt::Checked : Qt::Unchecked);
+		++it;
+	}
+}
+
