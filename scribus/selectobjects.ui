@@ -42,6 +42,9 @@
       </property>
       <item>
        <widget class="QRadioButton" name="buttonCurrentPage" >
+        <property name="toolTip" >
+         <string>Select all items on the current page</string>
+        </property>
         <property name="text" >
          <string>On Current Page</string>
         </property>
@@ -52,6 +55,9 @@
       </item>
       <item>
        <widget class="QRadioButton" name="buttonCurrentLayer" >
+        <property name="toolTip" >
+         <string>Select all items on the current layer on all pages</string>
+        </property>
         <property name="text" >
          <string>On Current Layer</string>
         </property>
@@ -59,6 +65,9 @@
       </item>
       <item>
        <widget class="QRadioButton" name="buttonWorkspace" >
+        <property name="toolTip" >
+         <string>Select all items not on a page</string>
+        </property>
         <property name="text" >
          <string>On the Scratch Space</string>
         </property>
@@ -69,6 +78,9 @@
    </item>
    <item>
     <widget class="QGroupBox" name="attributeGroup" >
+     <property name="toolTip" >
+      <string>Narrow the selection of items based on various item properties</string>
+     </property>
      <property name="title" >
       <string>With the Following Attributes</string>
      </property>
@@ -87,8 +99,11 @@
       </property>
       <item row="0" column="0" >
        <widget class="QCheckBox" name="useItemType" >
+        <property name="toolTip" >
+         <string>Select based on item type</string>
+        </property>
         <property name="text" >
-         <string>Object Type</string>
+         <string>Item Type</string>
         </property>
        </widget>
       </item>
@@ -131,6 +146,9 @@
       </item>
       <item row="1" column="0" >
        <widget class="QCheckBox" name="useFillColor" >
+        <property name="toolTip" >
+         <string>Select based on the color that the item is filled with</string>
+        </property>
         <property name="text" >
          <string>Fill Color</string>
         </property>
@@ -145,6 +163,9 @@
       </item>
       <item row="2" column="0" >
        <widget class="QCheckBox" name="useLineColor" >
+        <property name="toolTip" >
+         <string>Select based on the color of the line or outline</string>
+        </property>
         <property name="text" >
          <string>Line Color</string>
         </property>
@@ -159,6 +180,9 @@
       </item>
       <item row="3" column="0" >
        <widget class="QCheckBox" name="useLineWidth" >
+        <property name="toolTip" >
+         <string>Select based on the width of the line of the item</string>
+        </property>
         <property name="text" >
          <string>Line Width</string>
         </property>
@@ -173,6 +197,9 @@
       </item>
       <item row="4" column="0" >
        <widget class="QCheckBox" name="usePrintState" >
+        <property name="toolTip" >
+         <string>Select items based on whether they will be printed or not</string>
+        </property>
         <property name="text" >
          <string>Printable</string>
         </property>
@@ -197,6 +224,9 @@
       </item>
       <item row="5" column="0" >
        <widget class="QCheckBox" name="useLockedState" >
+        <property name="toolTip" >
+         <string>Select items based on their locked status</string>
+        </property>
         <property name="text" >
          <string>Locked</string>
         </property>
@@ -224,6 +254,9 @@
       </item>
       <item row="6" column="0" >
        <widget class="QCheckBox" name="useResizeState" >
+        <property name="toolTip" >
+         <string>Select items based on whether they have their size locked or not</string>
+        </property>
         <property name="text" >
          <string>Resizeable</string>
         </property>
