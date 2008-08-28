@@ -159,10 +159,12 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	editLineColorSelector = new QToolButton(this);
 	editLineColorSelector->setIcon(QIcon(loadIcon("16/color-stroke.png")));
 	editLineColorSelector->setCheckable(true);
+	editLineColorSelector->setAutoExclusive(true); // #7323
 	Layout1->addWidget(editLineColorSelector);
 	editFillColorSelector = new QToolButton(this);
 	editFillColorSelector->setIcon(QIcon(loadIcon("16/color-fill.png")));
 	editFillColorSelector->setCheckable(true);
+	editFillColorSelector->setAutoExclusive(true); // #7323
 	editFillColorSelector->setChecked(true);
 	Layout1->addWidget(editFillColorSelector);
 	selectorQSpacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -313,7 +315,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	Layout1t->addWidget( blendMode, 1, 1 );
 	Form1Layout->addWidget(TransGroup);
 
-	editLineColorSelector->setChecked(true);
+	editFillColorSelector->setChecked(true);
 	editFillColorSelectorButton();
 	GradientMode = false;
 	
