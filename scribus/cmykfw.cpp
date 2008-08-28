@@ -1,3 +1,4 @@
+
 /*
 For general Scribus (>=1.3.2) copyright and licensing information please refer
 to the COPYING file provided with the program. Following this notice may exist
@@ -192,7 +193,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Frame4Layout->setMargin( 0 );
 
 	Swatches = new ScComboBox( Frame4 );
-	Swatches->addItem( tr( "HSV-Colormap" ) );
+	Swatches->addItem( tr( "HSV Color Map" ) );
 /*
 	Swatches->insertItem("X11 RGB-Set");
 	Swatches->insertItem("X11 Grey-Set");
