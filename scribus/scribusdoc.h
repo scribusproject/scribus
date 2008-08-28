@@ -768,6 +768,12 @@ public:
 	 * @return LeftPage, MiddlePage, RightPage, enum from pagestructs.h
 	 */
 	PageLocation locationOfPage(int pageIndex) const;
+	/**
+	 * \brief Get the column of the page on the canvas, ie, left, middle, or right
+	 * @param pageIndex Index of page to find location for
+	 * @return int of 0,1,2,3
+	 */
+	int columnOfPage(int pageIndex) const;
 	
 	bool sendItemSelectionToBack();
 	bool bringItemSelectionToFront();

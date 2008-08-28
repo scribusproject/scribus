@@ -5763,12 +5763,7 @@ void ScribusMainWindow::duplicateToMasterPage()
 		{
 			locationEntries << CommonStrings::translatePageSetLocString(*pNames);
 		}
-		if (doc->currentPage()->LeftPg == 1)
-			pageLocationIndex=0;
-		else if (doc->currentPage()->LeftPg == 0)
-			pageLocationIndex=locationEntries.count()-1;
-		else
-			pageLocationIndex=doc->currentPage()->LeftPg-1;
+		pageLocationIndex=doc->columnOfPage(doc->currentPageNumber());
 		pageLocationCount=locationEntries.count();
 	}
 

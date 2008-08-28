@@ -4163,33 +4163,6 @@ void ScribusDoc::getBleeds(int pageNumber, MarginStruct &bleedData)
 		getBleeds(Pages->at(pageNumber), bleedData);
 	else
 		qCritical() << "Attempting to get bleeds for non-existant page";
-/*
-	*bleedBottom = bleeds.Bottom;
-	*bleedTop = bleeds.Top;
-	if (pageSets[currentPageLayout].Columns == 1)
-	{
-		*bleedRight = bleeds.Right;
-		*bleedLeft = bleeds.Left;
-	}
-	else
-	{
-		if (locationOfPage(Pages->at(pageNumber)->pageNr()) == LeftPage)
-		{
-			*bleedRight = bleeds.Left;
-			*bleedLeft = bleeds.Right;
-		}
-		else if (locationOfPage(Pages->at(pageNumber)->pageNr()) == RightPage)
-		{
-			*bleedRight = bleeds.Right;
-			*bleedLeft = bleeds.Left;
-		}
-		else
-		{
-			*bleedRight = bleeds.Left;
-			*bleedLeft = bleeds.Left;
-		}
-	}
-*/
 }
 
 
@@ -4570,21 +4543,6 @@ int ScribusDoc::getSectionKeyForPageIndex(const uint pageIndex) const
 const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex) const
 {
 	QString retVal(QString::null);
-	/*
-	bool found=false;
-
-	DocumentSectionMap::ConstIterator it = sections.begin();
-	for (; it!= sections.end(); ++it)
-	{
-		if (pageIndex>=it.data().fromindex && pageIndex<=it.data().toindex)
-		{
-			found=true;
-			break;
-		}
-	}
-	if (!found)
-		return retVal;
-	*/
 	int key=getSectionKeyForPageIndex(pageIndex);
 	if (key==-1)
 		return retVal;
@@ -4879,16 +4837,19 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 
 PageLocation ScribusDoc::locationOfPage(int pageIndex) const
 {
-	int setcol=pageSets[currentPageLayout].Columns;
-	if (setcol==1)
-		return LeftPage;
-	int myCol = ((pageIndex % setcol)+pageSets[currentPageLayout].FirstPage)%setcol;
+	int myCol=columnOfPage(pageIndex);
 	if (myCol==0) //Left hand page
 		return LeftPage;
-	else if (myCol>= setcol-1) // Right hand page
+	else if (myCol>= pageSets[currentPageLayout].Columns-1) // Right hand page
 		return RightPage;
 	else //Middle pages
 		return MiddlePage;
+}
+
+int ScribusDoc::columnOfPage(int pageIndex) const
+{
+	int setcol=pageSets[currentPageLayout].Columns;
+	return ((pageIndex % setcol) + pageSets[currentPageLayout].FirstPage) % setcol;
 }
 
 
