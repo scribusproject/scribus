@@ -827,7 +827,7 @@ void OutlinePalette::filterTree(const QString& keyword)
 		{
 			if ((item->type == 1) || (item->type == 3) || (item->type == 4))
 			{
-				if (item->PageItemObject->itemName().contains(QRegExp(keyword)))
+				if (item->PageItemObject->itemName().contains(QRegExp(keyword, Qt::CaseInsensitive)))
 					item->setHidden(false);
 				else
 					item->setHidden(true);
