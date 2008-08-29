@@ -929,6 +929,14 @@ void CMYKChoose::SelFromSwatch(QListWidgetItem* c)
 
 void CMYKChoose::setValues()
 {
+	CyanSp->blockSignals(true);
+	CyanSL->blockSignals(true);
+	MagentaSp->blockSignals(true);
+	MagentaSL->blockSignals(true);
+	YellowSp->blockSignals(true);
+	YellowSL->blockSignals(true);
+	BlackSp->blockSignals(true);
+	BlackSL->blockSignals(true);
 	if (CMYKmode)
 	{
 		CMYKColor cmyk;
@@ -973,6 +981,14 @@ void CMYKChoose::setValues()
 			YellowP->setPixmap(SliderPix(240));
 		}
 	}
+	CyanSp->blockSignals(false);
+	CyanSL->blockSignals(false);
+	MagentaSp->blockSignals(false);
+	MagentaSL->blockSignals(false);
+	YellowSp->blockSignals(false);
+	YellowSL->blockSignals(false);
+	BlackSp->blockSignals(false);
+	BlackSL->blockSignals(false);
 }
 
 void CMYKChoose::Verlassen()
