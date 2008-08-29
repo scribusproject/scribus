@@ -681,29 +681,29 @@ QString SVGExPlug::SetClipPath(PageItem *ite)
 	FPoint np, np1, np2;
 	bool nPath = true;
 	if (ite->PoLine.size() > 3)
-		{
+	{
 		for (uint poi=0; poi<ite->PoLine.size()-3; poi += 4)
-			{
+		{
 			if (ite->PoLine.point(poi).x() > 900000)
-				{
+			{
 				tmp += "Z ";
 				nPath = true;
 				continue;
-				}
+			}
 			if (nPath)
-				{
+			{
 				np = ite->PoLine.point(poi);
 				tmp += "M"+FToStr(np.x())+" "+FToStr(np.y())+" ";
 				nPath = false;
-				}
+			}
 			np = ite->PoLine.point(poi+1);
 			tmp += "C"+FToStr(np.x())+" "+FToStr(np.y())+" ";
 			np1 = ite->PoLine.point(poi+3);
 			tmp += FToStr(np1.x())+" "+FToStr(np1.y())+" ";
 			np2 = ite->PoLine.point(poi+2);
 			tmp += FToStr(np2.x())+" "+FToStr(np2.y())+" ";
-			}
 		}
+	}
 	return tmp;
 }
 
@@ -713,29 +713,29 @@ QString SVGExPlug::SetClipPathImage(PageItem *ite)
 	FPoint np, np1, np2;
 	bool nPath = true;
 	if (ite->imageClip.size() > 3)
-		{
+	{
 		for (uint poi=0; poi<ite->imageClip.size()-3; poi += 4)
-			{
+		{
 			if (ite->imageClip.point(poi).x() > 900000)
-				{
+			{
 				tmp += "Z ";
 				nPath = true;
 				continue;
-				}
+			}
 			if (nPath)
-				{
+			{
 				np = ite->imageClip.point(poi);
 				tmp += "M"+FToStr(np.x())+" "+FToStr(np.y())+" ";
 				nPath = false;
-				}
+			}
 			np = ite->imageClip.point(poi+1);
 			tmp += "C"+FToStr(np.x())+" "+FToStr(np.y())+" ";
 			np1 = ite->imageClip.point(poi+3);
 			tmp += FToStr(np1.x())+" "+FToStr(np1.y())+" ";
 			np2 = ite->imageClip.point(poi+2);
 			tmp += FToStr(np2.x())+" "+FToStr(np2.y())+" ";
-			}
 		}
+	}
 	return tmp;
 }
 
