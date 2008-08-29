@@ -4,14 +4,6 @@
 /* Are we building win32 native version. */
 #define BUILD_WINDOWS_VERSION 1
 
-/* Are we using GDI for ScPainter::end() */
-#define SC_USE_GDI 1
-
-/* Are we using GDI+ for ScGDIPainter */
-#ifndef SC_SHOULD_NOT_USE_GDIPLUS
-#define SC_USE_GDIPLUS 1
-#endif
-
 /* Are we using native api for dll management */
 #define DLL_USE_NATIVE_API 1
 
