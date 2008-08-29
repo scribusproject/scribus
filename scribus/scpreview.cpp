@@ -51,8 +51,7 @@ QPixmap ScPreview::createPreview(QString data)
 {
 	int a;
 	struct CopyPasteBuffer OB;
-	ScText *hg;
-	ScText *hl;
+	ScText *hg, *hl;
 	QList<ScText*> Ptexti;
 	ScColor lf = ScColor();
 	QFont fo;
@@ -728,6 +727,8 @@ QPixmap ScPreview::createPreview(QString data)
 				pS->drawPolygon();
 				break;
 			case PageItem::PolyLine:
+				if (OB.PoLine.size() < 4)
+					break;
 				if ((OB.Pcolor != CommonStrings::None) || (OB.GrType != 0))
 				{
 					FPointArray cli;
