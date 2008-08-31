@@ -60,6 +60,9 @@
            </property>
            <item>
             <widget class="QPushButton" name="buttonAdd" >
+             <property name="toolTip" >
+              <string>Add a new lens</string>
+             </property>
              <property name="text" >
               <string>Add Lens</string>
              </property>
@@ -67,6 +70,9 @@
            </item>
            <item>
             <widget class="QPushButton" name="buttonRemove" >
+             <property name="toolTip" >
+              <string>Remove selected lens</string>
+             </property>
              <property name="text" >
               <string>Remove Lens</string>
              </property>
@@ -94,6 +100,9 @@
            </item>
            <item>
             <widget class="QToolButton" name="buttonZoomI" >
+             <property name="toolTip" >
+              <string>Zoom in</string>
+             </property>
              <property name="text" >
               <string>+</string>
              </property>
@@ -101,6 +110,9 @@
            </item>
            <item>
             <widget class="QToolButton" name="buttonZoomOut" >
+             <property name="toolTip" >
+              <string>Zoom out</string>
+             </property>
              <property name="text" >
               <string>-</string>
              </property>
@@ -177,6 +189,9 @@
           </item>
           <item row="2" column="0" colspan="2" >
            <widget class="QRadioButton" name="buttonMagnify" >
+            <property name="toolTip" >
+             <string>The selected lens acts like a magnification lens</string>
+            </property>
             <property name="text" >
              <string>Magnification Lens</string>
             </property>
@@ -187,6 +202,9 @@
           </item>
           <item row="3" column="0" colspan="2" >
            <widget class="QRadioButton" name="buttonFishEye" >
+            <property name="toolTip" >
+             <string>The selected lens acts like a fish eye lens</string>
+            </property>
             <property name="text" >
              <string>Fish Eye Lens</string>
             </property>
@@ -201,6 +219,9 @@
           </item>
           <item row="4" column="1" >
            <widget class="QDoubleSpinBox" name="spinRadius" >
+            <property name="toolTip" >
+             <string>Radius of the lens</string>
+            </property>
             <property name="minimum" >
              <double>-30000.000000000000000</double>
             </property>
@@ -218,6 +239,9 @@
           </item>
           <item row="5" column="1" >
            <widget class="QDoubleSpinBox" name="spinStrength" >
+            <property name="toolTip" >
+             <string>Strength of the lens</string>
+            </property>
             <property name="minimum" >
              <double>0.000000000000000</double>
             </property>
