@@ -21,6 +21,9 @@
        <height>300</height>
       </size>
      </property>
+     <property name="toolTip" >
+      <string>Drag the red handles with the mouse to distort the mesh</string>
+     </property>
     </widget>
    </item>
    <item>
@@ -32,6 +35,9 @@
       <layout class="QHBoxLayout" >
        <item>
         <widget class="QToolButton" name="buttonZoomIn" >
+         <property name="toolTip" >
+          <string>Zoom in</string>
+         </property>
          <property name="text" >
           <string>+</string>
          </property>
@@ -39,6 +45,9 @@
        </item>
        <item>
         <widget class="QToolButton" name="buttonZoomOut" >
+         <property name="toolTip" >
+          <string>Zoom out</string>
+         </property>
          <property name="text" >
           <string>-</string>
          </property>
