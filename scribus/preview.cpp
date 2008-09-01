@@ -264,7 +264,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 
 	Layout6 = new QHBoxLayout;
 	Layout6->setSpacing(0);
-	Layout6->setMargin(0);
+	Layout6->setMargin(6);
 	/* scaling */
 	scaleLabel = new QLabel( tr("Scaling:"), this);
 	// NOTE: Be careful when you change scaleBox item order.
