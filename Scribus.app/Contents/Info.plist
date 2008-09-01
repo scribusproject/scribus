@@ -57,7 +57,7 @@
 		</dict>
 	</array>
 	<key>CFBundleGetInfoString</key>
-	<string>Scribus/Aqua (c) 2005 Andreas Vox</string>
+	<string>Scribus/Aqua (c) 2005-2008 The Scribus Team</string>
 	<key>CFBundleIconFile</key>
 	<string>Scribus.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -67,7 +67,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.3cvs</string>
+	<string>1.3.5svn</string>
 	<key>CFBundleSignature</key>
 	<string>OSCR</string>
 </dict>
