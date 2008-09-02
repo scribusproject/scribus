@@ -76,7 +76,7 @@ public:
 	MeshDistortionDialog(QWidget* parent, ScribusDoc *doc);
 	~MeshDistortionDialog() {};
 	void adjustHandles();
-	void updateMesh(uint num, QPointF m, bool gridOnly);
+	void updateMesh(bool gridOnly);
 	void updateAndExit();
 
 	bool isFirst;
@@ -92,11 +92,13 @@ public:
 	QList<NodeItem*> nodeItems;
 	QList< Geom::Piecewise<D2<Geom::SBasis> > > origPath;
 	std::vector<Geom::Point> handles;
+	std::vector<Geom::Point> origHandles;
 	Geom::D2<Geom::SBasis2d> sb2;
 
 private slots:
 	void doZoomIn();
 	void doZoomOut();
+	void doReset();
 
 protected:
 	void showEvent(QShowEvent *e);

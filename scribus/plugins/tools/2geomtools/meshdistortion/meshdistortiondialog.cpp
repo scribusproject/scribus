@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QPainterPath>
 #include <QGraphicsItem>
-
+#include <QDebug>
 #include "commonstrings.h"
 #include "fpointarray.h"
 #include "pageitem.h"
@@ -61,14 +61,14 @@ void NodeItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
 	mouseMoving = true;
 	if ((mouseMoving) && (mousePressed))
-		dialog->updateMesh(handle, mapToScene(rect().center()), true);
+		dialog->updateMesh(true);
 	QGraphicsItem::mouseMoveEvent(event);
 }
 
 void NodeItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 	if ((mouseMoving) && (mousePressed))
-		dialog->updateMesh(handle, mapToScene(rect().center()), false);
+		dialog->updateMesh(false);
 	mouseMoving = false;
 	mousePressed = false;
 	QGraphicsItem::mouseReleaseEvent(event);
@@ -239,6 +239,7 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 		sb2[dim].resize(depth, Linear2d(0));
 	}
 	handles.resize(sb2[0].vs*sb2[0].us*4);
+	origHandles.resize(sb2[0].vs*sb2[0].us*4);
 	unsigned ii = 0;
 	for(unsigned vi = 0; vi < sb2[0].vs; vi++)
 	{
@@ -287,6 +288,7 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 	scene.addItem(pItemG);
 	for(unsigned i = 0; i < handles.size(); i++)
 	{
+		origHandles[i] = handles[i];
 		double x = handles[i][Geom::X];
 		double y = handles[i][Geom::Y];
 		NodeItem* pItemN = new NodeItem(QRectF(x-3, y-3, 6, 6), i, this);
@@ -298,6 +300,7 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 	isFirst = true;
 	connect(buttonZoomIn, SIGNAL(clicked()), this, SLOT(doZoomIn()));
 	connect(buttonZoomOut, SIGNAL(clicked()), this, SLOT(doZoomOut()));
+	connect(resetButton, SIGNAL(clicked()), this, SLOT(doReset()));
 }
 
 void MeshDistortionDialog::showEvent(QShowEvent *e)
@@ -325,6 +328,16 @@ void MeshDistortionDialog::doZoomOut()
 	adjustHandles();
 }
 
+void MeshDistortionDialog::doReset()
+{
+	for(unsigned i = 0; i < handles.size(); i++)
+	{
+		handles[i] = origHandles[i];
+	}
+	adjustHandles();
+	updateMesh(false);
+}
+
 void MeshDistortionDialog::adjustHandles()
 {
 	double sc = previewLabel->matrix().m11();
@@ -332,14 +345,19 @@ void MeshDistortionDialog::adjustHandles()
 	{
 		double x = handles[n][Geom::X];
 		double y = handles[n][Geom::Y];
-		nodeItems.at(n)->setRect(QRectF(x - 3.0 / sc, y - 3.0 / sc, 6.0 / sc, 6.0 / sc));
+		QPointF mm = nodeItems.at(n)->mapFromScene(QPointF(x - 3.0 / sc, y - 3.0 / sc));
+		nodeItems.at(n)->setRect(QRectF(mm.x(), mm.y(), 6.0 / sc, 6.0 / sc));
 	}
 }
 
-void MeshDistortionDialog::updateMesh(uint num, QPointF m, bool gridOnly)
+void MeshDistortionDialog::updateMesh(bool gridOnly)
 {
-	Geom::Point mouse(m.x(), m.y());
-	handles[num] = mouse;
+	for(int n = 0; n < nodeItems.count(); n++)
+	{
+		QPointF mm = nodeItems.at(n)->mapToScene(nodeItems.at(n)->rect().center());
+		Geom::Point mouse(mm.x(), mm.y());
+		handles[n] = mouse;
+	}
 	Geom::Point dir(1,-2);
 	for(unsigned dim = 0; dim < 2; dim++)
 	{
