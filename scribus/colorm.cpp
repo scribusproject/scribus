@@ -454,7 +454,7 @@ void ColorManager::selColor(QListWidgetItem *c)
 {
 	sColor = c->text();
 	ScColor tmpColor = EditColors[sColor];
-	bool enableEdit = (sColor != "Black" && sColor != "White");
+	bool enableEdit = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor());
 	bool enableDel  = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor()) && (EditColors.count() > 1);
 	editColorButton->setEnabled(enableEdit);
 	duplicateColorButton->setEnabled(sColor != "Registration");
@@ -465,7 +465,7 @@ void ColorManager::selEditColor(QListWidgetItem *c)
 {
 	sColor = c->text();
 	ScColor tmpColor = EditColors[sColor];
-	bool enableEdit = (sColor != "Black" && sColor != "White");
+	bool enableEdit = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor());
 	bool enableDel  = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor()) && (EditColors.count() > 1);
 	editColorButton->setEnabled(enableEdit);
 	duplicateColorButton->setEnabled(!tmpColor.isRegistrationColor());
@@ -482,7 +482,7 @@ void ColorManager::updateButtons()
 		QString curCol = currItem->text();
 		ScColor tmpColor = EditColors[curCol];
 		bool enableDel  = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor()) && (EditColors.count() > 1);
-		bool enableEdit = (curCol != "Black" && curCol != "White");
+		bool enableEdit = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor());
 		duplicateColorButton->setEnabled(sColor != "Registration");
 		deleteColorButton->setEnabled(enableDel);
 		editColorButton->setEnabled(enableEdit);
