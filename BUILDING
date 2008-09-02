@@ -27,7 +27,7 @@ exact package names for the distro, are provided below.
 Install the below packages BEFORE running CMake or compiling Scribus:
 
 Requirements:
-	Qt >= 4.3.0 (Scribus has specific code requiring Qt 4.3, not Qt 4.2.x)
+	Qt >= 4.4.0 (Scribus has specific code requiring Qt 4.4, not Qt 4.3.x or before)
 	Freetype >= 2.1.7 (2.3.x strongly recommended)
 	cairo >= 1.4.x 
 	libtiff >= 3.6.0
