@@ -1146,7 +1146,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
-		double scpInv = 1.0 / (qMax(view->scale(), 1.0));
+		double aestheticFactor(5.0);
+		double scpInv = 1.0 / (qMax(view->scale(), 1.0) * aestheticFactor);
 		if (!isGroupControl)
 		{
 			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == PathText)))

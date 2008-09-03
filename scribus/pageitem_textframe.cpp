@@ -2547,7 +2547,9 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
-		double scpInv = 1.0 / (qMax(view->scale(), 1.0));
+		// added to prevent fat frame outline due to antialiasing and considering you can’t pass a cosmetic pen to scpainter - pm
+		double aestheticFactor(5.0);
+		double scpInv = 1.0 / (qMax(view->scale(), 1.0) * aestheticFactor);
 		if ((Frame) && (m_Doc->guidesSettings.framesShown))
 		{
 			p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
