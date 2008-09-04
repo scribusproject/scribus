@@ -687,6 +687,20 @@ void PrefsManager::initArrowStyles()
 	points.map(arrowScaling);
 	arrow.points = points.copy();
 	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "LineL";
+	points.resize(0);
+	points.parseSVG("M 0, -5 L 1, -5 L 1, 5 L 0, 5 z");
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "LineM";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "LineS";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	points.resize(0);
 }
 
 QString PrefsManager::setupPreferencesLocation()
