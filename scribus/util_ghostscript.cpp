@@ -166,6 +166,23 @@ int convertPS2PS(QString in, QString out, const QStringList& opts, int level)
 	return ret;
 }
 
+int convertPS2PDF(QString in, QString out, const QStringList& opts)
+{
+	PrefsManager* prefsManager=PrefsManager::instance();
+	QStringList args;
+	args.append( "-q" );
+	args.append( "-dQUIET" );
+	args.append( "-dNOPAUSE" );
+	args.append( "-dPARANOIDSAFER" );
+	args.append( "-dBATCH" );
+	args.append( "-sDEVICE=pdfwrite" );
+	args += opts;
+	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(out)) );
+	args.append( QDir::convertSeparators(in) );
+	int ret = System( getShortPathName(prefsManager->ghostscriptExecutable()), args );
+	return ret;
+}
+
 bool testGSAvailability( void )
 {
 	QStringList args;

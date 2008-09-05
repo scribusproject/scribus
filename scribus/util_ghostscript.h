@@ -41,6 +41,7 @@ QPixmap SCRIBUS_API LoadPDF(QString fn, int Page, int Size, int *w, int *h);
 int     SCRIBUS_API callGS(const QStringList& args_in, const QString device="");
 int     SCRIBUS_API callGS(const QString& args_in, const QString device="");
 int     SCRIBUS_API convertPS2PS(QString in, QString out, const QStringList& opts, int level);
+int     SCRIBUS_API convertPS2PDF(QString in, QString out, const QStringList& opts);
 bool    SCRIBUS_API testGSAvailability( void );
 bool    SCRIBUS_API testGSAvailability( const QString& gsPath );
 bool    SCRIBUS_API testGSDeviceAvailability( const QString& device );
