@@ -786,7 +786,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
-	        || (AntiAlias->isChecked() != GsAl) || ((AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode)
+	        || (AntiAlias->isChecked() != GsAl) || (((AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode))
 			&& (!EnableCMYK->isChecked()))
 			 || (useGray->isChecked() != fGray) || (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer)
 			 || (ClipMarg->isChecked() != fClip) || (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
