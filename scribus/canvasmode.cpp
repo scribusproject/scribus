@@ -192,11 +192,12 @@ void CanvasMode::drawSelection(QPainter* psx)
 				x = 0;
 				y = 0;
 			}
-			w = currItem->visualWidth() ;
-			h = currItem->visualHeight() ;
-			
 			psx->setPen(m_pen["selection"]);
 			psx->setBrush(m_brush["selection"]);
+			
+			w = currItem->visualWidth() - (psx->pen().width()/m_canvas->scale()) ;
+			h = currItem->visualHeight()- (psx->pen().width()/m_canvas->scale()) ;
+			
 			tt.start();
 			psx->drawRect(QRectF(x, y, w, h));
 			tu << QString::number(tt.elapsed());
