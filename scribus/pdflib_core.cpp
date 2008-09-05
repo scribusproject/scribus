@@ -77,6 +77,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_file.h"
 #include "util_formats.h"
 #include "util_math.h"
+#include "util_ghostscript.h"
 
 using namespace std;
 
@@ -6589,9 +6590,30 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		else */
 		
 		bool imageLoaded = false;
-		if (extensionIndicatesPDF(ext) && c->effectsInUse.count() == 0)
+		if ((extensionIndicatesPDF(ext) || ((extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != ImageType7))) && c->effectsInUse.count() == 0)
 		{
-			imageLoaded = PDF_EmbeddedPDF(c, fn, sx, sy, x, y, fromAN, Profil, Embedded, Intent, ImInfo, output);
+			if (extensionIndicatesEPSorPS(ext))
+			{
+				QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.pdf");
+				QStringList opts;
+				opts.append("-dEPSCrop");
+				if (Options.Version >= 14)
+					opts.append( "-dCompatibilityLevel=1.4" );
+				else
+					opts.append( "-dCompatibilityLevel=1.3" );
+/*				These options don't seem to work
+				if ((Options.UseRGB) || ((doc.HasCMS) && (Options.UseProfiles2)) || (Options.isGrayscale))
+					opts.append( "-sProcessColorModel=/DeviceRGB" );
+				else
+					opts.append( "-sProcessColorModel=/DeviceCMYK" ); */
+				if (convertPS2PDF(fn, tmpFile, opts) == 0)
+				{
+					imageLoaded = PDF_EmbeddedPDF(c, tmpFile, sx, sy, x, y, fromAN, Profil, Embedded, Intent, ImInfo, output);
+					QFile::remove(tmpFile);
+				}
+			}
+			else
+				imageLoaded = PDF_EmbeddedPDF(c, fn, sx, sy, x, y, fromAN, Profil, Embedded, Intent, ImInfo, output);
 		}
 		if(!imageLoaded && extensionIndicatesPDF(ext) && c->effectsInUse.count() == 0 && Options.embedPDF)
 			qDebug()<< "Failed to embed the PDF file";

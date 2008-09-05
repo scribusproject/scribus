@@ -351,7 +351,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	TextLabel2->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 	GroupBox1Layout->addWidget( TextLabel2, 6, 0 );
 	GroupBox1Layout->addWidget( Resolution, 6, 1, Qt::AlignLeft );
-	EmbedPDF = new QCheckBox( tr("Embed PDFs (EXPERIMENTAL)"), GroupBox1 );
+	EmbedPDF = new QCheckBox( tr("Embed PDF && EPS files (EXPERIMENTAL)"), GroupBox1 );
 	GroupBox1Layout->addWidget( EmbedPDF, 7, 0, 1, 3 );
 #ifndef HAVE_PODOFO
 	EmbedPDF->setEnabled(false);
