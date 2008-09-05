@@ -1208,7 +1208,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	imagePageNumber = new QSpinBox( page_4 );
 	imagePageNumber->setMinimum(0);
 	imagePageNumber->setSpecialValueText(tr( "Auto" ));
-	imagePageNumberLabel = new QLabel( "&Pagenumber:", page_4 );
+	imagePageNumberLabel = new QLabel( "&Page Number:", page_4 );
 	imagePageNumberLabel->setBuddy(imagePageNumber);
 	imagePageNumberSelector->addWidget( imagePageNumberLabel, 0, 0 );
 	imagePageNumberSelector->addWidget( imagePageNumber, 0, 1);
