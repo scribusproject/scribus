@@ -340,7 +340,7 @@ unsigned crossing_along(double t, unsigned ix, unsigned jx, bool dir, Crossings 
 void crossing_dual(unsigned &i, unsigned &j, CrossingSet const & crs) {
     Crossing cur = crs[i][j];
     i = cur.getOther(i);
-    std::cout << i << "\n";
+//    std::cout << i << "\n";
     if(crs[i].empty())
         j = 0;
     else
@@ -429,18 +429,18 @@ std::vector<Path> inner_sanitize(std::vector<Path> const & ps) {
                      to = crs[ix][jx];
             if(dir) {
                 // backwards
-                std::cout << "r" << ix << "[" << from.getTime(ix)  << ", " << to.getTime(ix) << "]\n";
+//                std::cout << "r" << ix << "[" << from.getTime(ix)  << ", " << to.getTime(ix) << "]\n";
                 Path p = ps[ix].portion(from.getTime(ix), to.getTime(ix)).reverse();
                 for(unsigned i = 0; i < p.size(); i++)
                     res.append(p[i]);
             } else {
                 // forwards
-                std::cout << "f" << ix << "[" << from.getTime(ix) << ", " << to.getTime(ix) << "]\n";
+//                std::cout << "f" << ix << "[" << from.getTime(ix) << ", " << to.getTime(ix) << "]\n";
                 ps[ix].appendPortionTo(res, from.getTime(ix), to.getTime(ix));
             }
             dir = new_dir;
         } while(!visited[ix][jx]);
-        std::cout << "added " << res.size() << "\n";
+//        std::cout << "added " << res.size() << "\n";
         result_paths.push_back(res);
     }
     for(unsigned i = 0; i < crs.size(); i++) {

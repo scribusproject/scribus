@@ -75,7 +75,7 @@ int winding(Path const &path, Point p) {
                     const double fudge = 0.01;
                     if(cmp(y, next->valueAt(fudge, Y)) == initial_to_ray) {
                         wind += int(c);
-                        std::cout << "!!!!!" << int(c) << " ";
+                      //  std::cout << "!!!!!" << int(c) << " ";
                     }
                     iter = next; // No increment, as the rest of the thing hasn't been counted.
                 } else {
@@ -83,7 +83,7 @@ int winding(Path const &path, Point p) {
                     if(cmp(y, ny) == initial_to_ray) {
                         //Is a continuation through the ray, so counts windingwise
                         wind += int(c);
-                        std::cout << "!!!!!" << int(c) << " ";
+                    //    std::cout << "!!!!!" << int(c) << " ";
                     }
                     iter = ++next;
                 }
@@ -229,7 +229,7 @@ void mono_pair(Path const &A, double Al, double Ah,
                Path const &B, double Bl, double Bh,
                Crossings &ret, double tol, unsigned depth = 0) {
     if( Al >= Ah || Bl >= Bh) return;
-    std::cout << " " << depth << "[" << Al << ", " << Ah << "]" << "[" << Bl << ", " << Bh << "]";
+ //   std::cout << " " << depth << "[" << Al << ", " << Ah << "]" << "[" << Bl << ", " << Bh << "]";
 
     Point A0 = A.pointAt(Al), A1 = A.pointAt(Ah),
           B0 = B.pointAt(Bl), B1 = B.pointAt(Bh);
