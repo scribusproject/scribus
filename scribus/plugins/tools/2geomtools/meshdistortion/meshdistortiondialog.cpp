@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QPainterPath>
 #include <QGraphicsItem>
-#include <QDebug>
+
 #include "commonstrings.h"
 #include "fpointarray.h"
 #include "pageitem.h"
@@ -42,12 +42,29 @@ NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog *parent) : QGraph
 {
 	dialog = parent;
 	handle = num;
-	setPen(QPen(Qt::red));
-	setBrush(Qt::red);
+	setBrush(Qt::NoBrush);
+	setPen(QPen(Qt::red, 2.0));
 	setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 	setZValue(9999999);
+	setAcceptsHoverEvents(true);
 	mouseMoving = false;
 	mousePressed = false;
+}
+
+void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+	Q_UNUSED(widget);
+	if (option->state & QStyle::State_Selected)
+	{
+		painter->setBrush(Qt::red);
+		painter->setPen(QPen(Qt::red, qMax(0.1, 1.0 / option->levelOfDetail)));
+	}
+	else
+	{
+		painter->setBrush(Qt::NoBrush);
+		painter->setPen(QPen(Qt::red, qMax(0.2, 2.0 / option->levelOfDetail)));
+	}
+	painter->drawEllipse(rect());
 }
 
 void NodeItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -72,6 +89,31 @@ void NodeItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 	mouseMoving = false;
 	mousePressed = false;
 	QGraphicsItem::mouseReleaseEvent(event);
+}
+
+void NodeItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+	QPainterPath p;
+	p.addEllipse(rect());
+	if (isSelected())
+		qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+	else
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+}
+
+void NodeItem::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+{
+	QPainterPath p;
+	p.addEllipse(rect());
+	if (isSelected())
+		qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+	else
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+}
+
+void NodeItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *)
+{
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
@@ -291,7 +333,7 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 		origHandles[i] = handles[i];
 		double x = handles[i][Geom::X];
 		double y = handles[i][Geom::Y];
-		NodeItem* pItemN = new NodeItem(QRectF(x-3, y-3, 6, 6), i, this);
+		NodeItem* pItemN = new NodeItem(QRectF(x-4.0, y-4.0, 8.0, 8.0), i, this);
 		scene.addItem(pItemN);
 		nodeItems.append(pItemN);
 	}
@@ -330,9 +372,21 @@ void MeshDistortionDialog::doZoomOut()
 
 void MeshDistortionDialog::doReset()
 {
-	for(unsigned i = 0; i < handles.size(); i++)
+	bool found = false;
+	for(int n = 0; n < nodeItems.count(); n++)
 	{
-		handles[i] = origHandles[i];
+		if (nodeItems.at(n)->isSelected())
+		{
+			found = true;
+			handles[nodeItems.at(n)->handle] = origHandles[nodeItems.at(n)->handle];
+		}
+	}
+	if (!found)
+	{
+		for(unsigned i = 0; i < handles.size(); i++)
+		{
+			handles[i] = origHandles[i];
+		}
 	}
 	adjustHandles();
 	updateMesh(false);
@@ -345,8 +399,8 @@ void MeshDistortionDialog::adjustHandles()
 	{
 		double x = handles[n][Geom::X];
 		double y = handles[n][Geom::Y];
-		QPointF mm = nodeItems.at(n)->mapFromScene(QPointF(x - 3.0 / sc, y - 3.0 / sc));
-		nodeItems.at(n)->setRect(QRectF(mm.x(), mm.y(), 6.0 / sc, 6.0 / sc));
+		QPointF mm = nodeItems.at(n)->mapFromScene(QPointF(x - 4.0 / sc, y - 4.0 / sc));
+		nodeItems.at(n)->setRect(QRectF(mm.x(), mm.y(), 8.0 / sc, 8.0 / sc));
 	}
 }
 

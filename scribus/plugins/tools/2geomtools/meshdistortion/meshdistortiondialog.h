@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QGraphicsEllipseItem>
 #include <QGraphicsPathItem>
 #include <QGraphicsSceneMouseEvent>
+#include <QGraphicsSceneHoverEvent>
 #include "ui_meshdistortiondialog.h"
 #include "pluginapi.h"
 #include "scribusdoc.h"
@@ -57,6 +58,7 @@ class PLUGIN_API NodeItem : public QGraphicsEllipseItem
 public:
 	NodeItem(QRectF geom, uint num, MeshDistortionDialog *parent);
 	~NodeItem() {};
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget);
 	uint handle;
 	bool mouseMoving;
 	bool mousePressed;
@@ -65,6 +67,9 @@ protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent *event);
 	void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+	void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
+	void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
+	void hoverLeaveEvent(QGraphicsSceneHoverEvent *);
 	MeshDistortionDialog *dialog;
 };
 
