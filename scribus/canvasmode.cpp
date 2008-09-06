@@ -130,6 +130,9 @@ void CanvasMode::drawSelection(QPainter* psx)
 		}
 		
 		psx->save();
+		psx->setPen(m_pen["selection-group"]);
+		psx->setBrush(m_brush["selection-group"]);
+		double lineAdjust(psx->pen().width()/m_canvas->scale());
 		double x, y, w, h;
 		m_doc->m_Selection->setGroupRect();
 		m_doc->m_Selection->getVisualGroupRect(&x, &y, &w, &h);
@@ -137,11 +140,9 @@ void CanvasMode::drawSelection(QPainter* psx)
 		const double halfMarkWidth = 2 / m_canvas->scale();
 		
 		psx->translate(x,y);
-		x = 0;
-		y = 0;
+		x = -lineAdjust;
+		y = -lineAdjust;
 
-		psx->setPen(m_pen["selection-group"]);
-		psx->setBrush(m_brush["selection-group"]);
 		tt.start();
 		psx->drawRect(QRectF(x, y, w, h));
 		if(drawHandles)
