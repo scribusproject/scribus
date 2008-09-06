@@ -189,8 +189,8 @@ QRect Canvas::exposedRect() const
 {
 	int ex ( -(x() / m_viewMode.scale) + m_doc->minCanvasCoordinate.x() );
 	int ey ( -(y() / m_viewMode.scale) + m_doc->minCanvasCoordinate.y() );
-	int ew ( m_view->visibleWidth() / m_viewMode.scale );
-	int eh ( m_view->visibleHeight() / m_viewMode.scale );
+	int ew ( (m_view->visibleWidth() * 1.2) / m_viewMode.scale );
+	int eh ( (m_view->visibleHeight() * 1.2) / m_viewMode.scale );
 	
 	return QRect( ex, ey, ew, eh );
 }

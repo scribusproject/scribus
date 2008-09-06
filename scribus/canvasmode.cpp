@@ -177,6 +177,9 @@ void CanvasMode::drawSelection(QPainter* psx)
 // 			qDebug()<<"It"<<currItem->xPos()<< currItem->yPos();
 			
 			psx->save();
+			psx->setPen(m_pen["selection"]);
+			psx->setBrush(m_brush["selection"]);
+			double lineAdjust(psx->pen().width()/m_canvas->scale());
 			double x, y, w, h;
 			if (currItem->rotation() != 0)
 			{
@@ -189,14 +192,11 @@ void CanvasMode::drawSelection(QPainter* psx)
 			else
 			{
 				psx->translate(currItem->visualXPos(), currItem->visualYPos());
-				x = 0;
-				y = 0;
+				x = -lineAdjust;
+				y = -lineAdjust;
 			}
-			psx->setPen(m_pen["selection"]);
-			psx->setBrush(m_brush["selection"]);
-			
-			w = currItem->visualWidth() - (psx->pen().width()/m_canvas->scale()) ;
-			h = currItem->visualHeight()- (psx->pen().width()/m_canvas->scale()) ;
+			w = currItem->visualWidth() ;
+			h = currItem->visualHeight() ;
 			
 			tt.start();
 			psx->drawRect(QRectF(x, y, w, h));
