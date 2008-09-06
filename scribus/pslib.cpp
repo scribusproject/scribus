@@ -1056,7 +1056,7 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 				oneSpot2 = false;
 				twoSpot = true;
 			}
-			if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!useSpotColors) || (GraySc))
+			if (((!oneSpot1) && (!oneSpot2) && (!twoSpot)) || (!useSpotColors) || (GraySc))
 			{
 				if (GraySc)
 					PutStream("/ColorSpace /DeviceGray\n");
@@ -1215,7 +1215,7 @@ void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QString
 				oneSpot2 = false;
 				twoSpot = true;
 			}
-			if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!useSpotColors) || (GraySc))
+			if (((!oneSpot1) && (!oneSpot2) && (!twoSpot)) || (!useSpotColors) || (GraySc))
 			{
 				if (GraySc)
 					PutStream("/ColorSpace /DeviceGray\n");
