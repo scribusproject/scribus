@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Dialog</string>
+   <string>Mesh Distortion</string>
   </property>
   <layout class="QHBoxLayout" >
    <item>
@@ -38,7 +38,7 @@
          <item>
           <widget class="QToolButton" name="buttonZoomIn" >
            <property name="toolTip" >
-            <string>Zoom in</string>
+            <string>Zoom In</string>
            </property>
            <property name="text" >
             <string>+</string>
@@ -48,7 +48,7 @@
          <item>
           <widget class="QToolButton" name="buttonZoomOut" >
            <property name="toolTip" >
-            <string>Zoom out</string>
+            <string>Zoom Out</string>
            </property>
            <property name="text" >
             <string>-</string>
@@ -62,7 +62,7 @@
          <property name="orientation" >
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>20</height>
@@ -79,11 +79,11 @@
      <item>
       <widget class="QPushButton" name="resetButton" >
        <property name="toolTip" >
-        <string>Resets the selected Handles to their initial Position.
-If no Handle is selected all Handles are resetted.</string>
+        <string>Resets the selected handles to their initial position.
+If no handle is selected all handles will be reset.</string>
        </property>
        <property name="text" >
-        <string>Reset</string>
+        <string>&amp;Reset</string>
        </property>
       </widget>
      </item>
@@ -92,7 +92,7 @@ If no Handle is selected all Handles are resetted.</string>
        <property name="orientation" >
         <enum>Qt::Vertical</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>20</width>
          <height>40</height>
@@ -112,7 +112,7 @@ If no Handle is selected all Handles are resetted.</string>
         <enum>Qt::Vertical</enum>
        </property>
        <property name="standardButtons" >
-        <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
        <property name="centerButtons" >
         <bool>true</bool>
