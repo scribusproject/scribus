@@ -65,6 +65,12 @@ protected:
 	bool         m_firstShow;
 	AboutMode    m_mode;
 	virtual void showEvent ( QShowEvent * event ); 
+    QString trAuthorTitle(QString title);
+    QString trTranslationTitle(QString title);
+    QString trLinksTitle(QString title);
+    QString parseAuthorFile(QString fileName);
+    QString parseTranslationFile(QString fileName);
+    QString parseLinksFile(QString fileName);
 
 protected slots:
 	void runUpdateCheck();
