@@ -265,5 +265,10 @@ void PageLayouts::languageChange()
 	}
 	layoutLabel1->setText( tr( "First Page is:" ) );
 
-
+	QString layoutText( tr( "Number of pages to show side-by-side on the canvas\nOften used for allowing items to be placed across page spreads" ) );
+	if (modus)
+		layoutsView->setToolTip(layoutText);
+	else
+		layoutsCombo->setToolTip(layoutText);
+	firstPage->setToolTip( tr( "Location on the canvas where the first page of the document is placed" ) );
 }
