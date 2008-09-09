@@ -34,7 +34,7 @@ AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
 	{
 		// Deactivate GUI elements in spell-checking tab until an
 		// aspell dictionary is chosen.
-		deactivateSpellGUI();
+		activateSpellGUI(false);
 
 		// Create speller, and get list of available aspell
 		// dictionaries.
@@ -65,7 +65,7 @@ AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
 				   "aspell speller." );
 		qWarning( "%s", warn.toUtf8().data() );
 	}
-	activateSpellGUI();
+	activateSpellGUI(true);
 	parseSelection();
 }
 //__________________________________________________________________________
@@ -85,40 +85,22 @@ AspellPluginImpl::~AspellPluginImpl()
 	delete fsuggest;
 }
 //__________________________________________________________________________
-void AspellPluginImpl::activateSpellGUI()
+void AspellPluginImpl::activateSpellGUI(bool active)
 {
 	// Activates spell-checking GUI elements in spell-checking
 	// tab, i.e., everything except combo box at top
-	fcurrWord->setEnabled( true );
-	flistReplacements->setEnabled( true );
-	fchangeBtn->setEnabled( true );
-	fchangeAllBtn->setEnabled( true );
-	fskipAllBtn->setEnabled( true );
-	fskipBtn->setEnabled( true );
-	faddWordBtn->setEnabled( true );
-	ftextLabel1->setEnabled( true );
-	ftextLabel2->setEnabled( true );
-	ftextLabel4->setEnabled( true );
-	fmisSpelling->setEnabled( true );
-	flistDicts->setEnabled( true );
-}
-//__________________________________________________________________________
-void AspellPluginImpl::deactivateSpellGUI()
-{
-	// Deactivates spell-checking GUI elements in spell-checking tab,
-	// i.e., everything except combo box at top
-	fcurrWord->setEnabled( false );
-	flistReplacements->setEnabled( false );
-	fchangeBtn->setEnabled( false );
-	fchangeAllBtn->setEnabled( false );
-	fskipAllBtn->setEnabled( false );
-	fskipBtn->setEnabled( false );
-	faddWordBtn->setEnabled( false );
-	ftextLabel1->setEnabled( false );
-	ftextLabel2->setEnabled( false );
-	ftextLabel4->setEnabled( false );
-	fmisSpelling->setEnabled( false );
-	flistDicts->setEnabled( false );
+	fcurrWord->setEnabled( active );
+	flistReplacements->setEnabled( active );
+	fchangeBtn->setEnabled( active );
+	fchangeAllBtn->setEnabled( active );
+	fskipAllBtn->setEnabled( active );
+	fskipBtn->setEnabled( active );
+	faddWordBtn->setEnabled( active );
+	ftextLabel1->setEnabled( active );
+	ftextLabel2->setEnabled( active );
+	ftextLabel4->setEnabled( active );
+	fmisSpelling->setEnabled( active );
+	flistDicts->setEnabled( active );
 }
 //__________________________________________________________________________
 void AspellPluginImpl::nextWord()

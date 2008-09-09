@@ -126,14 +126,7 @@ protected:
 	  \param None
 	  \retval None
 	*/
-	void activateSpellGUI();
-	/*!
-	  \author Gora Mohanty <gora@srijan.in>
-	  \brief Deactivates spell-checking GUI elements in spell-checking tab, i.e., everything except combo box at top
-	  \param None
-	  \retval None
-	*/
-	void deactivateSpellGUI();
+	void activateSpellGUI(bool active);
 	/*!
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Base method to spell-check text in current frame.
