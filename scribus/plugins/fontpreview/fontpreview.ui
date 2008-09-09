@@ -32,7 +32,7 @@
    <item row="1" column="0" colspan="7" >
     <widget class="QCheckBox" name="extendedCheckBox" >
      <property name="text" >
-      <string>Show Extended Font Informations</string>
+      <string>Show Extended Font Information</string>
      </property>
     </widget>
    </item>
