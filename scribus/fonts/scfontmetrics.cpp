@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <QColor>
+#include <QDebug>
 #include <QMap>
 #include <QMatrix>
 #include <QPainter>
@@ -82,16 +83,21 @@ int setBestEncoding(FT_Face face)
 				countUniCode++;
 				charcode = FT_Get_Next_Char( face, charcode, &gindex );
 			}
+//			qDebug() << "found Unicode enc for" << face->family_name << face->style_name  << "as map" << chmapUniCode << "with" << countUniCode << "glyphs";
+
 		}
 		if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
 		{
 			chmapCustom = u;
 			foundEncoding = true;
 			retVal = 1;
+//			qDebug() << "found Custom enc for" << face->family_name << face->style_name;
 			break;
 		}
 		else if (face->charmaps[u]->encoding == FT_ENCODING_MS_SYMBOL)
 		{
+//			qDebug() << "found Symbol enc for" << face->family_name << face->style_name;
+
 			chmapCustom = u;
 			foundEncoding = true;
 			retVal = 2;
@@ -99,8 +105,10 @@ int setBestEncoding(FT_Face face)
 		}
 	}
 	int mapToSet=defaultchmap;
-	if (chmapUniCode>0 && countUniCode >= face->num_glyphs-1)
+	if (chmapUniCode >= 0 && countUniCode >= face->num_glyphs-1)
 	{
+//		qDebug() << "using Unicode enc for" << face->family_name << face->style_name;
+
 		mapToSet=chmapUniCode;
 		//FT_Set_Charmap(face, face->charmaps[chmapUniCode]);
 		retVal = 0;
@@ -108,11 +116,13 @@ int setBestEncoding(FT_Face face)
 	else
 	if (foundEncoding)
 	{
+//		qDebug() << "using special enc for" << face->family_name << face->style_name;
 		mapToSet=chmapCustom;
 		//FT_Set_Charmap(face, face->charmaps[chmapCustom]);
 	}
 	else
 	{
+//		qDebug() << "using default enc for" << face->family_name << face->style_name;
 		mapToSet=defaultchmap;
 		//FT_Set_Charmap(face, defaultEncoding);
 		retVal = 0;
@@ -136,8 +146,10 @@ int setBestEncoding(FT_Face face)
 		}
 		//If the last Unicode map we found before has more characters,
 		//then set it to be the current map.
+		
 		if (countUniCode>countCurrMap)
 		{
+//			qDebug() << "override with Unicode enc for" << face->family_name << face->style_name << "map" << mapToSet << "has only" << countCurrMap << "glyphs";
 			mapToSet=chmapUniCode;
 			//FT_Set_Charmap(face, face->charmaps[chmapUniCode]);
 			retVal = 0;
@@ -145,6 +157,11 @@ int setBestEncoding(FT_Face face)
 	}
 //	if (face->charmap == NULL || mapToSet!=FT_Get_Charmap_Index(face->charmap))
 		FT_Set_Charmap(face, face->charmaps[mapToSet]);
+//	qDebug() << "set map" << mapToSet << "for" << face->family_name << face->style_name;
+//	qDebug() << "glyphsForNumbers 0-9:" << FT_Get_Char_Index(face, QChar('0').unicode()) 
+//		<< FT_Get_Char_Index(face, QChar('1').unicode()) << FT_Get_Char_Index(face, QChar('2').unicode()) << FT_Get_Char_Index(face, QChar('3').unicode()) 
+//		<< FT_Get_Char_Index(face, QChar('4').unicode()) << FT_Get_Char_Index(face, QChar('5').unicode()) << FT_Get_Char_Index(face, QChar('6').unicode()) 
+//		<< FT_Get_Char_Index(face, QChar('7').unicode()) << FT_Get_Char_Index(face, QChar('8').unicode()) << FT_Get_Char_Index(face, QChar('9').unicode());
 	return retVal;
 }
 
@@ -347,6 +364,7 @@ bool GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList)
 	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
 	if (adobeGlyphNames.empty())
 		readAdobeGlyphNames();
+//	qDebug() << "reading metrics for" << face->family_name << face->style_name;
 	while (gindex != 0)
 	{
 		bool notfound = true;
@@ -355,6 +373,7 @@ bool GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList)
 
 		// just in case FT gives empty string or ".notdef"
 		// no valid glyphname except ".notdef" starts with '.'		
+//		qDebug() << "\t" << gindex << " '" << charcode << "' --> '" << (notfound? "notfound" : buf) << "'";
 		if (notfound || buf[0] == '\0' || buf[0] == '.')
 			GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)),adobeGlyphName(charcode)));
 		else
@@ -362,6 +381,33 @@ bool GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList)
 			
 		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 	}
+	// Let's see if we can find some more...
+	int maxSlot1 = face->num_glyphs;
+	if (hasPSNames)
+		for (int gindex = 1; gindex < maxSlot1; ++gindex)
+		{
+			if (!GList.contains(gindex))
+			{
+				bool found = ! FT_Get_Glyph_Name(face, gindex, &buf, 50);
+				if (found)
+				{
+					QString glyphname(reinterpret_cast<char*>(buf));
+					charcode = 0;
+					QMap<uint,std::pair<QChar,QString> >::Iterator gli;
+					for (gli = GList.begin(); gli != GList.end(); ++gli)
+					{
+						if (glyphname == gli.value().second)
+						{
+							charcode = gli.value().first.unicode();
+							break;
+						}
+					}
+//					qDebug() << "\tmore: " << gindex << " '" << charcode << "' --> '" << buf << "'";
+					GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), glyphname));
+				}
+			}
+		}
+			
 	return true;
 }
 
@@ -428,7 +474,7 @@ void readAdobeGlyphNames()
 	for (uint i=0; table[i]; ++i) {
 		if (pattern.indexIn(table[i]) >= 0) {
 			FT_ULong unicode = pattern.cap(2).toULong(0, 16);
-			qDebug(QString("reading glyph name %1 fo unicode %2(%3)").arg(pattern.cap(1)).arg(unicode).arg(pattern.cap(2)).toLocal8Bit());
+			qDebug(QString("reading glyph name %1 for unicode %2(%3)").arg(pattern.cap(1)).arg(unicode).arg(pattern.cap(2)).toLocal8Bit());
 			adobeGlyphNames.insert(unicode, pattern.cap(1));
 		}
 	}
