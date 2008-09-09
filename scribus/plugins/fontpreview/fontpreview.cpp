@@ -86,7 +86,6 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 
 	connect(displayButton, SIGNAL(clicked()), this, SLOT(displayButton_clicked()));
 	connect(searchEdit, SIGNAL(textChanged(QString)), this, SLOT(searchEdit_textChanged(QString)));
-	connect(searchButton, SIGNAL(clicked()), this, SLOT(searchButton_clicked()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_clicked()));
 	connect(resetDisplayButton, SIGNAL(clicked()), this, SLOT(resetDisplayButton_clicked()));
 	connect(sizeSpin, SIGNAL(valueChanged(int)), this, SLOT(sizeSpin_valueChanged(int)));
@@ -111,7 +110,6 @@ void FontPreview::languageChange()
 {
 	cancelButton->setToolTip(tr("Leave preview", "font preview"));
 	searchEdit->setToolTip("<qt>" + tr("Typing the text here provides quick searching in the font names. Searching is case insensitive. The given text is taken as substring.") + "</qt>");
-	searchButton->setToolTip(tr("Start searching"));
 	sizeSpin->setToolTip(tr("Size of the selected font"));
 }
 
@@ -154,11 +152,6 @@ void FontPreview::paintSample()
 }
 
 void FontPreview::searchEdit_textChanged(const QString &/*s*/)
-{
-	searchButton_clicked();
-}
-
-void FontPreview::searchButton_clicked()
 {
 	fontList->blockSignals(true);
 	QString s(searchEdit->text());

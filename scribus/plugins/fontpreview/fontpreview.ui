@@ -5,14 +5,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>584</width>
+    <width>604</width>
     <height>463</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Fonts Preview</string>
   </property>
-  <layout class="QGridLayout" >
+  <layout class="QGridLayout" name="gridLayout" >
    <item row="0" column="0" colspan="2" >
     <widget class="QLabel" name="searchLabel" >
      <property name="text" >
@@ -26,27 +26,17 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="2" colspan="4" >
+   <item row="0" column="2" colspan="5" >
     <widget class="QLineEdit" name="searchEdit" />
    </item>
-   <item row="0" column="6" colspan="2" >
-    <widget class="QPushButton" name="searchButton" >
-     <property name="text" >
-      <string>&amp;Search</string>
-     </property>
-     <property name="shortcut" >
-      <string>Alt+S</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="8" >
+   <item row="1" column="0" colspan="7" >
     <widget class="QCheckBox" name="extendedCheckBox" >
      <property name="text" >
       <string>Show Extended Font Informations</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="8" >
+   <item row="2" column="0" colspan="7" >
     <widget class="FontListView" name="fontList" >
      <property name="alternatingRowColors" >
       <bool>true</bool>
@@ -62,7 +52,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0" colspan="8" >
+   <item row="3" column="0" colspan="7" >
     <widget class="QLabel" name="fontPreview" >
      <property name="minimumSize" >
       <size>
@@ -124,8 +114,11 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="5" colspan="2" >
+   <item row="4" column="5" >
     <widget class="QPushButton" name="displayButton" >
+     <property name="toolTip" >
+      <string>Set the preview text</string>
+     </property>
      <property name="text" >
       <string>Se&amp;t</string>
      </property>
@@ -134,7 +127,7 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="7" >
+   <item row="4" column="6" >
     <widget class="QPushButton" name="resetDisplayButton" >
      <property name="toolTip" >
       <string>Reset the text</string>
@@ -144,21 +137,12 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0" colspan="8" >
+   <item row="5" column="0" colspan="7" >
     <layout class="QHBoxLayout" >
      <property name="spacing" >
       <number>6</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin" >
       <number>0</number>
      </property>
      <item>
@@ -169,7 +153,7 @@
        <property name="sizeType" >
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>40</width>
          <height>20</height>

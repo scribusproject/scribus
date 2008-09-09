@@ -58,7 +58,7 @@ protected:
 	FontListModel * fontModel;
 
 	/*! \brief A model for searching in the font set.
-	see searchButton_clicked() for more. */
+	see searchEdit_textChanged() for more. */
 	QSortFilterProxyModel * proxyModel;
 
 	/*! \brief Create a pixmap sample with font preview.
@@ -85,9 +85,6 @@ protected slots:
 	It calls paintSample().
 	\param s non-used string*/
 	virtual void searchEdit_textChanged(const QString &s);
-
-	//! \brief The same as searchEdit_textChanged().
-	virtual void searchButton_clicked();
 
 	//! \brief Slot to handle row changes in the table view.
 	void fontList_currentChanged(const QModelIndex &, const QModelIndex &);
