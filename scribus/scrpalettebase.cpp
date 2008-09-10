@@ -51,9 +51,13 @@ visibleOnStartup(false)
 						QToolButton:pressed { padding-top: 2px; padding-left: 2px } \
 						QPushButton { margin: 0px; padding: 0px; font-size: 10px; } \
 						QPushButton:pressed { padding-top: 2px; padding-left: 2px } \
-						QRadioButton, QComboBox, QLineEdit, QListView, QLabel { margin:0px; padding: 0px; font-size: 10px; } \
-						QCheckBox, QSpinBox, QDoubleSpinBox { margin:0px; padding: 0px; font-size: 10px; padding-right: 13px;} \
-						QTabWidget, QTabBar, QTableView, QGroupBox { font-size: 10px ; } \
+						QRadioButton, QComboBox, QLineEdit \
+							QListView, QLabel { margin:0px; padding: 0px; font-size: 10px; } \
+						QCheckBox, QSpinBox, QDoubleSpinBox \
+							{ margin:0px; padding: 0px; font-size: 10px; } \
+						QTabWidget, QTabBar, QTableView, QGroupBox, QTreeView \
+							{ font-size: 10px ; } \
+						QToolBox::tab { font-size: 10px; padding: 0px; margin: 0px; } \
 			  		");
 	}
 	originalParent=parent;
