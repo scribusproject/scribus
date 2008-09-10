@@ -3243,9 +3243,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 
 void Scribus134Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> * tempStyles, ScribusDoc* doc, bool fl)
 {
-	bool fou;
+	bool fou(false);
 	QString tmpf, tmf, tmV;
-	fou = false;
 	const StyleSet<ParagraphStyle> * docParagraphStyles = tempStyles? tempStyles : & doc->paragraphStyles();
 	PrefsManager* prefsManager=PrefsManager::instance();
 	readParagraphStyle(*vg, *pg, prefsManager->appPrefs.AvailFonts, doc);
@@ -3274,11 +3273,11 @@ void Scribus134Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Pa
 	{
 		for (int xx=0; xx< docParagraphStyles->count(); ++xx)
 		{
-			if (vg->equiv((*docParagraphStyles)[xx]))
+			if (vg->equiv((*docParagraphStyles)[xx]) && fl)
 			{
 				vg->setName((*docParagraphStyles)[xx].name());
 				fou = true;
-				if (fl)
+// 				if (fl)
 				{
 					DoVorl[VorlC] = tmV.setNum(xx);
 					VorlC++;
