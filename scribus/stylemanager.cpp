@@ -330,8 +330,8 @@ void StyleManager::slotImport()
 //#7315 		QList<QPair<QString, QString> > selected;
 		if (dia2->exec())
 		{
-			if (!m_isEditMode)
-				slotOk();
+//#7385 			if (!m_isEditMode)
+//#7385 				slotOk();
 			QStringList neededColors;
 			neededColors.clear();
 
