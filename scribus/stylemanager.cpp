@@ -327,7 +327,7 @@ void StyleManager::slotImport()
 		SMStyleImport *dia2 = new SMStyleImport(this, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
 // end hack
 
-		QList<QPair<QString, QString> > selected;
+//#7315 		QList<QPair<QString, QString> > selected;
 		if (dia2->exec())
 		{
 			if (!m_isEditMode)
@@ -350,7 +350,7 @@ void StyleManager::slotImport()
 					else
 						pstyle->tmpStyles()->create(sty);
 				}
-				selected << QPair<QString, QString>(pstyle->typeName(), sty.name());
+//#7315 				selected << QPair<QString, QString>(pstyle->typeName(), sty.name());
 				if ((!m_doc->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
 					neededColors.append(sty.charStyle().strokeColor());
 				if ((!m_doc->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
@@ -372,7 +372,7 @@ void StyleManager::slotImport()
 					else
 						cstyle->tmpStyles()->create(sty);
 				}
-				selected << QPair<QString, QString>(cstyle->typeName(), sty.name());
+//#7315 				selected << QPair<QString, QString>(cstyle->typeName(), sty.name());
 				if ((!m_doc->PageColors.contains(sty.strokeColor())) && (!neededColors.contains(sty.strokeColor())))
 					neededColors.append(sty.strokeColor());
 				if ((!m_doc->PageColors.contains(sty.fillColor())) && (!neededColors.contains(sty.fillColor())))
@@ -388,7 +388,7 @@ void StyleManager::slotImport()
 					styName = lstyle->getUniqueName(aStyle);
 
 				lstyle->tmpLines[styName] = sty;
-				selected << QPair<QString, QString>(lstyle->typeName(), styName);
+//#7315 				selected << QPair<QString, QString>(lstyle->typeName(), styName);
 
 				for (int i = 0; i < sty.count(); ++i)
 				{
@@ -423,9 +423,10 @@ void StyleManager::slotImport()
 		cstyle->setCurrentDoc(m_doc);
 // end hack part 2
 		reloadStyleView(false);
-		setSelection(selected);
+//#7315 		setSelection(selected);
 		slotDirty();
-		slotSetupWidget();
+//#7315		slotSetupWidget();
+		slotApply();//#7315
 	}
 	else
 		return;
