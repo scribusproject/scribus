@@ -1123,37 +1123,15 @@ void ScribusDoc::redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool r
  * - 2004-09-14 Craig Ringer
  */
 // dont like this here. could as well be a static method for reading this stuff into temp., then always use redefineXY() - av
-void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *tempStyles,
-                                                      StyleSet<CharStyle> *tempCharStyles,
-                                                      QMap<QString, multiLine> *tempLineStyles)
+void ScribusDoc::loadStylesFromFile(QString fileName)
 {
-	StyleSet<ParagraphStyle> *wrkStyles     = NULL;
-	StyleSet<CharStyle> *wrkCharStyles      = NULL;
-	QMap<QString, multiLine> *wrkLineStyles = NULL;
-	int oldStyles, oldCharStyles;
-	int oldLineStyles;
-
-	/*
-	 * Use the working styles struct if passed, or work directly
-	 * on the document styles otherwise. 
-	 */
-	if (tempStyles != NULL)
-		wrkStyles = tempStyles;
-	else 
-		wrkStyles = &docParagraphStyles;
-	oldStyles = wrkStyles->count();
+	StyleSet<ParagraphStyle> *wrkStyles     = &docParagraphStyles;
+	StyleSet<CharStyle> *wrkCharStyles      = &docCharStyles;
+	QMap<QString, multiLine> *wrkLineStyles = &MLineStyles;
 	
-	if (tempCharStyles != NULL)
-		wrkCharStyles = tempCharStyles;
-	else
-		wrkCharStyles = &docCharStyles;
-	oldCharStyles = wrkCharStyles->count();
-	
-	if (tempLineStyles != NULL)
-		wrkLineStyles = tempLineStyles;
-	else
-		wrkLineStyles = &MLineStyles;
-	oldLineStyles = wrkLineStyles->count();
+	int oldStyles = wrkStyles->count();
+	int oldCharStyles = wrkCharStyles->count();
+	int oldLineStyles = wrkLineStyles->count();
 	
 	if (!fileName.isEmpty())
 	{
@@ -1177,10 +1155,42 @@ void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *
 			//TODO put in nice user warning
 		}
 		
-		 if ( !isLoading() && (   (wrkStyles == &docParagraphStyles && wrkStyles->count() > oldStyles)
-							   || (wrkCharStyles == &docCharStyles && wrkCharStyles->count() > oldCharStyles)
-							   || (wrkLineStyles == &MLineStyles && wrkLineStyles->count() > oldLineStyles) ) )
-			 changed();
+		if ( !isLoading() && ((wrkStyles->count() > oldStyles)
+				    || (wrkCharStyles->count() > oldCharStyles)
+				    || (wrkLineStyles->count() > oldLineStyles) ) )
+			changed();
+	}
+}
+
+void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *tempStyles,
+                                                      StyleSet<CharStyle> *tempCharStyles,
+                                                      QMap<QString, multiLine> *tempLineStyles)
+{
+	StyleSet<ParagraphStyle> *wrkStyles     = tempStyles;
+	StyleSet<CharStyle> *wrkCharStyles      = tempCharStyles;
+	QMap<QString, multiLine> *wrkLineStyles = tempLineStyles;
+	
+	if (!fileName.isEmpty())
+	{
+		FileLoader fl(fileName);
+		if (fl.TestFile() == -1)
+		//TODO put in nice user warning
+			return;
+
+		if (!fl.ReadStyles(fileName, this, *wrkStyles))
+		{
+			//TODO put in nice user warning
+		}
+
+		if (!fl.ReadCharStyles(fileName, this, *wrkCharStyles))
+		{
+			//TODO put in nice user warning
+		}
+
+		if (!fl.ReadLineStyles(fileName, wrkLineStyles))
+		{
+			//TODO put in nice user warning
+		}
 	}
 }
 

@@ -444,9 +444,23 @@ public:
 	 * @param newNameForOld a map which maps the name of any style to remove to a new stylename
 	 */
 	void replaceStyles(const QMap<QString,QString>& newNameForOld);
-	void loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *tempStyles = NULL,
-	                                          StyleSet<CharStyle> *tempCharStyles = NULL,
-	                                          QMap<QString, multiLine> *tempLineStyles = NULL);
+	/**
+	 * @brief Insert styles from another document in this document.
+	 *        
+	 * @param fileName The path of the document we want to extract its styles
+	 */
+	void loadStylesFromFile(QString fileName);
+	/**
+	 * @brief Gather styles from another document.
+	 *        
+	 * @param fileName The path of the document we want to extract its styles
+	 * @param tempStyles A pointer to a StyleSet which will be filled by paragraph styles
+	 * @param tempCharStyles A pointer to a StyleSet which will be filled by character styles
+	 * @param tempLineStyles A map which will be filled by line styles
+	 */
+	void loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *tempStyles,
+	                                          StyleSet<CharStyle> *tempCharStyles,
+	                                          QMap<QString, multiLine> *tempLineStyles);
 
 	const CharStyle& charStyle(QString name) { return docCharStyles.get(name); }
 	const StyleSet<CharStyle>& charStyles()  { return docCharStyles; }
