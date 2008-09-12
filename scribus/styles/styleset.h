@@ -17,6 +17,8 @@ public:
 		return * styles[index]; 
 	}
 	
+	STYLE& getDefault(){ return *m_default; }		
+	
 	const STYLE& get(const QString& name) const { 
 		return * dynamic_cast<const STYLE*>(resolve(name)); 
 	}
@@ -61,6 +63,7 @@ public:
 		return &style == m_default;
 	}
 	
+	
 	StyleSet() : styles(), m_context(NULL), m_default(NULL) {}
 	
 	~StyleSet() { 
@@ -87,6 +90,7 @@ public:
 		return m_context; 
 	}
 	
+			
 private:
 	StyleSet(const StyleSet&)             { assert(false); }
 	StyleSet& operator= (const StyleSet&) { assert(false); return *this; }
