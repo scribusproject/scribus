@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusapp.h"
 #include "prefspanel.h"
+#include "selection.h"
 
 //=====================================================//
 //                        ScPlugin                     //
@@ -117,6 +118,96 @@ const ScActionPlugin::ActionInfo & ScActionPlugin::actionInfo() const
 {
 	Q_ASSERT(!m_actionInfo.text.isNull());
 	return m_actionInfo;
+}
+
+bool ScActionPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
+{
+	const uint docSelectionCount=doc->m_Selection->count();
+	ActionInfo ai(actionInfo());
+	if (SelectedType != -1)
+	{
+		bool correctAppMode = false;
+		if (ai.forAppMode.count() == 0)
+			correctAppMode = true;
+		else if (ai.forAppMode.contains(doc->appMode))
+			correctAppMode = true;
+		if (correctAppMode)
+		{
+			if (ai.needsNumObjects == -1)
+				return true;
+			else
+			{
+				if (ai.needsNumObjects > 2)
+				{
+					bool setter = true;
+					for (uint bx = 0; bx < docSelectionCount; ++bx)
+					{
+						if (ai.notSuitableFor.contains(doc->m_Selection->itemAt(bx)->itemType()))
+							setter = false;
+					}
+					return setter;
+				}
+				else
+				{
+					if (docSelectionCount == static_cast<uint>(ai.needsNumObjects))
+					{
+						if (ai.needsNumObjects == 2)
+						{
+							int sel1 = doc->m_Selection->itemAt(0)->itemType();
+							int sel2 = doc->m_Selection->itemAt(1)->itemType();
+							if (ai.notSuitableFor.contains(sel1))
+								return false;
+							else if (ai.notSuitableFor.contains(sel2))
+								return false;
+							else
+							{
+								if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() == 0))
+									return true;
+								else if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() != 0))
+								{
+									if ((ai.secondObjectType.contains(sel2)) || (ai.secondObjectType.contains(sel1)))
+										return true;
+								}
+								else if ((ai.firstObjectType.count() != 0) && (ai.secondObjectType.count() == 0))
+								{
+									if ((ai.firstObjectType.contains(sel2)) || (ai.firstObjectType.contains(sel1)))
+										return true;
+								}
+								if (((ai.firstObjectType.contains(sel1)) && (ai.secondObjectType.contains(sel2))) || ((ai.firstObjectType.contains(sel2)) && (ai.secondObjectType.contains(sel1))))
+									return true;
+							}
+						}
+						else if (!ai.notSuitableFor.contains(SelectedType))
+							return true;
+						else
+							return false;
+					}
+					else
+						return false;
+				}
+			}
+		}
+		else
+			return false;
+	}
+	else
+	{
+		bool correctAppMode = false;
+		if (ai.forAppMode.count() == 0)
+			correctAppMode = true;
+		else if (ai.forAppMode.contains(doc->appMode))
+			correctAppMode = true;
+		if (correctAppMode)
+		{
+			if ((ai.needsNumObjects == -1) || (ai.needsNumObjects > 2))
+				return true;
+			else
+				return false;
+		}
+		else
+			return false;
+	}
+	return false;
 }
 
 //=====================================================//

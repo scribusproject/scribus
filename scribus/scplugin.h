@@ -271,6 +271,18 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 
 		// Return an ActionInfo instance to the caller
 		const ActionInfo & actionInfo() const;
+		/**
+		* @brief handle the documents selection.
+		*
+		* This function is dedicated for handling the documents selection
+		* By default this uses the notSuitableFor, forAppMode, needsNumObjects,
+		* firstObjectType and secondObjectType variables.
+		* If you need more control over the selection reimplement this function.
+		*
+		* @returns bool true when the Action should be enabled.
+		*
+		*/
+		virtual bool handleSelection(ScribusDoc* doc, int SelectedType = -1);
 
 	public slots:
 		/**
