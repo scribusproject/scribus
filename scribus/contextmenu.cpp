@@ -178,6 +178,8 @@ void ContextMenu::createMenuItems_Selection()
 			addAction(m_AP->scrActions["itemAdjustFrameToImage"]);
 		if (m_actionList.contains("itemExtendedImageProperties"))
 			addAction(m_AP->scrActions["itemExtendedImageProperties"]);
+		if (m_actionList.contains("itemImageInfo"))
+			addAction(m_AP->scrActions["itemImageInfo"]);
 		if (m_actionList.contains("itemUpdateImage"))
 			addAction(m_AP->scrActions["itemUpdateImage"]);
 		
