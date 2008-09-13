@@ -17,7 +17,7 @@ public:
 		return * styles[index]; 
 	}
 	
-	STYLE& getDefault(){ return *m_default; }		
+	STYLE* getDefault(){ return m_default; }		
 	
 	const STYLE& get(const QString& name) const { 
 		return * dynamic_cast<const STYLE*>(resolve(name)); 
