@@ -911,7 +911,7 @@ void StyleManager::reloadStyleView(bool loadFromDoc)
 		++it2;
 	}
 
-	styleView->resizeColumnToContents(0);
+//#7318 Do not auto resize vertically 	styleView->resizeColumnToContents(0);
 // 	styleView->repaint();
 }
 
