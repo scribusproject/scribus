@@ -38,7 +38,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 	m_shortcutWidget(0), m_currentType(QString::null), m_isEditMode(true), m_doc(0)
 {
 	setupUi(this);
-
+	styleView->hideColumn(SHORTCUT_COL);
 	uniqueLabel->hide();
 	rightFrame->hide();
 
@@ -807,14 +807,15 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 			}
 			
 			sitems[styles[i].first] = sitem;
-			sitem->setText(SHORTCUT_COL, m_item->shortcut(sitem->text(NAME_COL)));
+			QString shortcutValue(m_item->shortcut(sitem->text(NAME_COL)));
+			sitem->setText(SHORTCUT_COL, shortcutValue);
 			
 			QString key = sitem->rootName() + SEPARATOR + sitem->text(NAME_COL);
 			if (m_styleActions.contains(key))
 				continue;
 
 			m_styleActions[key] =
-				new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",	sitem->text(SHORTCUT_COL), m_doc->view(), 0, 0.0, key);
+				new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",	shortcutValue, m_doc->view(), 0, 0.0, key);
 			connect(m_styleActions[key], SIGNAL(triggeredData(QString)),
 					this, SLOT(slotApplyStyle(QString)));
 		}
