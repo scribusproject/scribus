@@ -85,6 +85,10 @@
 			<option value="\usepackage{helvet}">Helvetica</option>
 			<option value="\usepackage{courier}">Courier</option>
 		</list>
+		<comment><i18n>
+			<en>Note: You have to include \sf at the beginning of your text for Helvetica and \tt for Courier!</en>
+			<de>Hinweis: Am Anfang des Textes muss zusätzlich \sf für Helvetica und \tt für Courier stehen!</de>
+		</i18n></comment>
 		<list name="fontsize" default="11pt">
 			<title><i18n>
 					<en>Fontsize:</en>
