@@ -52,6 +52,7 @@
 		\usepackage[left=0cm,top=0cm,right=0cm,bottom=0cm,nohead,nofoot]{geometry}
 		\title{Scribus-Latex-File}
 		$scribus_font$
+		$scribus_additionalheaders$
 		\author{Scribus}
 		\pagestyle{empty}
 		\setlength{\textwidth}{$scribus_realwidth$ pt}
@@ -110,7 +111,7 @@
 				<fr>Couleur de fond</fr>
 			</i18n></color>
 		-->
-		<text name="additionalheaders" type="long" default=""><i18n>
+		<text name="additionalheaders" type="long" default="\usepackage{amsmath}"><i18n>
 			<en>Additional Headers:</en>
 			<de>Zusätzliche Header:</de>
 			<fr>En-tête additionnel :</fr>
@@ -172,6 +173,8 @@
 		<item value="\parallel"  image="parallel.png" />
 		<item value="\subset"  image="subset.png" />
 		<item value="\supset"  image="supset.png" />
+		<item value="\not\subset"  image="notsubset.png" />
+		<item value="\not\supset"  image="notsupset.png" />
 		<item value="\approx"  image="approx.png" />
 		<item value="\bowtie"  image="bowtie.png" />
 		<item value="\subseteq"  image="subseteq.png" />
@@ -198,6 +201,9 @@
 		<item value="\bigsqcup"  image="bigsqcup.png" />
 		<item value="\bigoplus"  image="bigoplus.png" />
 		<item value="\int"  image="int.png" />
+		<item value="\iint"  image="iint.png" />
+		<item value="\iiint"  image="iiint.png" />
+		<item value="\iiiint"  image="iiiint.png" />
 		<item value="\bigvee"  image="bigvee.png" />
 		<item value="\biguplus"  image="biguplus.png" />
 		<item value="\oint"  image="oint.png" />
@@ -442,6 +448,7 @@
 		<item value="\exists"  image="exists.png" />
 		<item value="\imath"  image="imath.png" />
 		<item value="\nabla"  image="nabla.png" />
+        <item value="\Delta" image="d_elta.png">Laplace</item>
 		<item value="\neg"  image="neg.png" />
 		<item value="\jmath"  image="jmath.png" />
 		<item value="\surd"  image="surd.png" />
@@ -486,6 +493,7 @@
 		<item value="\eth"  image="eth.png" />
 		<item value="\diagup"  image="diagup.png" />
 		<item value="\diagdown"  image="diagdown.png" />
+		<item value="\%">%</item>
 	</tab>
 	<tab type="items">
 		<title><i18n>

@@ -296,10 +296,10 @@
 \xrightarrow[xyz]{abc}
 
 #Miscellaneous Symbols - May require package {amssymb,amsmath}
-\ldots
-\cdots
-\vdots
-\ddots
+!\ldots
+!\cdots
+!\vdots
+!\ddots
 \aleph
 \prime
 \forall
@@ -617,3 +617,11 @@ Greek Alphabet
 \tilde{a}
 \acute{a}
 \grave{a}
+
+#Additional symbols as requested by bug #7244
+\not\subset
+\not\supset
+\iint
+\iiint
+\iiiint
+
