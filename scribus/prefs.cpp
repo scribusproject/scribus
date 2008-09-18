@@ -420,7 +420,6 @@ void Preferences::updatePreferences()
 	
 	prefsManager->appPrefs.latexResolution = tabExtTools->newLatexToolResolution();
 	prefsManager->appPrefs.latexForceDpi = tabExtTools->newLatexForceDpi();
-	prefsManager->appPrefs.latexUseEmbeddedEditor = tabExtTools->newLatexUseEmbeddedEditor();
 	prefsManager->appPrefs.latexStartWithEmptyFrames = tabExtTools->newLatexStartWithEmptyFrames();
 	prefsManager->setLatexConfigs(tabExtTools->newLatexConfigs());
 	prefsManager->setLatexEditorExecutable(tabExtTools->newLatexEditor());

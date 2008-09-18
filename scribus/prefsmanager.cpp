@@ -346,7 +346,6 @@ void PrefsManager::initDefaults()
 	appPrefs.latexEditorExecutable = "";
 	appPrefs.latexResolution = 72;
 	appPrefs.latexForceDpi = true;
-	appPrefs.latexUseEmbeddedEditor = true;
 	appPrefs.latexStartWithEmptyFrames = false;
 	appPrefs.gs_AntiAliasGraphics = true;
 	appPrefs.gs_AntiAliasText = true;
@@ -1492,7 +1491,6 @@ bool PrefsManager::WritePref(QString ho)
 	dc8Ex.setAttribute("LatexEditor", latexEditorExecutable());
 	dc8Ex.setAttribute("LatexResolution", latexResolution());
 	dc8Ex.setAttribute("LatexForceDpi", static_cast<int>(appPrefs.latexForceDpi));
-	dc8Ex.setAttribute("LatexUseEmbeddedEditor", static_cast<int>(appPrefs.latexUseEmbeddedEditor));
 	dc8Ex.setAttribute("LatexStartWithEmptyFrames", static_cast<int>(appPrefs.latexStartWithEmptyFrames));
 	QStringList configs = latexConfigs();
 	foreach (QString config, configs) {
@@ -2099,7 +2097,6 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.gs_Resolution = dc.attribute("Resolution", "72").toInt();
 			appPrefs.latexResolution = dc.attribute("LatexResolution", "72").toInt();
 			appPrefs.latexForceDpi = static_cast<bool>(dc.attribute("LatexForceDpi", "1").toInt());
-			appPrefs.latexUseEmbeddedEditor = static_cast<bool>(dc.attribute("LatexUseEmbeddedEditor", "1").toInt());
 			appPrefs.latexStartWithEmptyFrames = static_cast<bool>(dc.attribute("LatexStartWithEmptyFrames", "0").toInt());
 			setImageEditorExecutable(dc.attribute("GIMP", "gimp"));
 			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));

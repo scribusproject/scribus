@@ -263,37 +263,70 @@
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" >
-        <item row="0" column="1" >
+       <widget class="QListWidget" name="latexConfigsListWidget" />
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout" >
+        <item>
          <widget class="QPushButton" name="latexConfigUpButton" >
           <property name="text" >
            <string>Up</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1" >
+        <item>
          <widget class="QPushButton" name="latexConfigDownButton" >
           <property name="text" >
            <string>Down</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1" >
+        <item>
+         <spacer name="horizontalSpacer" >
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0" >
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <widget class="QPushButton" name="latexConfigAddButton" >
           <property name="text" >
-           <string>Add</string>
+           <string>Add...</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1" >
+        <item>
          <widget class="QPushButton" name="latexConfigDeleteButton" >
           <property name="text" >
            <string>Delete</string>
           </property>
          </widget>
         </item>
-        <item rowspan="4" row="0" column="0" >
-         <widget class="QListWidget" name="latexConfigsListWidget" />
+        <item>
+         <spacer name="horizontalSpacer_2" >
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0" >
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="latexChangePathButton" >
+          <property name="text" >
+           <string>Change Path...</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -356,20 +389,6 @@
           </property>
          </spacer>
         </item>
-        <item>
-         <widget class="QCheckBox" name="latexEmbeddedEditorCheckBox" >
-          <property name="enabled" >
-           <bool>true</bool>
-          </property>
-          <property name="text" >
-           <string>Use Embedded Editor</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" >
         <item>
          <widget class="QCheckBox" name="latexForceDpiCheckBox" >
           <property name="toolTip" >
@@ -497,10 +516,10 @@
   <tabstop>latexConfigDownButton</tabstop>
   <tabstop>latexConfigAddButton</tabstop>
   <tabstop>latexConfigDeleteButton</tabstop>
+  <tabstop>latexChangePathButton</tabstop>
   <tabstop>latexEditorLineEdit</tabstop>
   <tabstop>latexEditorChangeButton</tabstop>
   <tabstop>latexEmptyFrameCheckBox</tabstop>
-  <tabstop>latexEmbeddedEditorCheckBox</tabstop>
   <tabstop>latexForceDpiCheckBox</tabstop>
   <tabstop>latexResolutionSpinBox</tabstop>
   <tabstop>rescanButton</tabstop>

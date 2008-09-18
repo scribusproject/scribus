@@ -51,7 +51,6 @@ class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsW
 		int newPSToolResolution() const { return psResolutionSpinBox->value();}
 		int newLatexToolResolution() const { return latexResolutionSpinBox->value();}
 		bool newLatexForceDpi() const { return latexForceDpiCheckBox->checkState() == Qt::Checked;}
-		bool newLatexUseEmbeddedEditor() const { return latexEmbeddedEditorCheckBox->checkState() == Qt::Checked;}
 		bool newLatexStartWithEmptyFrames() const { return latexEmptyFrameCheckBox->checkState() == Qt::Checked;}
 		
 	protected:
@@ -63,12 +62,12 @@ class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsW
 		void changeImageTool();
 		void changeExtBrowserTool();
 		void changeLatexEditor();
-		void changeLatexEmbeddedActive(int);
 		void rescanForTools();
 		void upButtonPressed();
 		void downButtonPressed();
 		void addConfig();
 		void deleteConfig();
+		void changePath();
 };
 
 #endif

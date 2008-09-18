@@ -132,7 +132,6 @@ public:
 	QString extBrowserExecutable() const {return appPrefs.extBrowserExecutable;};
 	QStringList latexConfigs() const {return appPrefs.latexConfigs;}
 	QString latexEditorExecutable() const {return appPrefs.latexEditorExecutable;}
-	bool latexUseEmbeddedEditor() const {return appPrefs.latexUseEmbeddedEditor;}
 	bool latexStartWithEmptyFrames() const {return appPrefs.latexStartWithEmptyFrames;}
 	//! \brief Get the users preferred preview resolution
 	int gsResolution();

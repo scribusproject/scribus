@@ -37,6 +37,7 @@ class QComboBox;
 class QListWidgetItem;
 class QFile;
 class XmlWidget;
+class FileWatcher;
 
 class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 {
@@ -59,7 +60,16 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 		void createNewItemsTab(I18nXmlStreamReader *xml);
 		QMap<QString, XmlWidget *> widgetMap;
 		QString currentConfigFile, currentIconFile;
-		
+		/*External Editor*/
+		QString extEditorFile;
+		void loadExternalEditorFile();
+		void writeExternalEditorFile();
+		QProcess *extEditor;
+		FileWatcher *fileWatcher;
+	protected slots:
+		void extEditorFinished(int exitCode, QProcess::ExitStatus exitStatus);
+		void extEditorFileChanged(QString filename);
+		void extEditorError(QProcess::ProcessError error);
 	public slots:
 		void okClicked();
 		void cancelClicked();
@@ -74,6 +84,7 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 		void newItemSelected(QListWidgetItem *, QListWidgetItem *);
 		void itemDoubleClicked(QListWidgetItem *);
 		void updateConfigFile();
+		void extEditorClicked();
 };
 
 

@@ -37,11 +37,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "undomanager.h"
 #include "undostate.h"
-#include "filewatcher.h"
 #include "latexeditor.h"
 #include "latexhelpers.h"
 #include "util.h"
-
 
 PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
 		: PageItem_ImageFrame(pa, x, y, w, h, w2, fill, outline)
@@ -59,7 +57,6 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	config = 0;
 	setConfigFile(PrefsManager::instance()->latexConfigs()[0]);
 
-	
 	latex = new QProcess();
 	connect(latex, SIGNAL(finished(int, QProcess::ExitStatus)),
 		this, SLOT(updateImage(int, QProcess::ExitStatus)));
@@ -67,49 +64,19 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 		this, SLOT(latexError(QProcess::ProcessError)));
 	latex->setProcessChannelMode(QProcess::MergedChannels);
 	
-	
-	
 	QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_render_XXXXXX");
 	tempfile->open();
 	tempFileBase = getLongPathName(tempfile->fileName());
 	tempfile->close();
 	delete tempfile;
 	Q_ASSERT(!tempFileBase.isEmpty());
-	editor = new QProcess();
-	connect(editor, SIGNAL(finished(int, QProcess::ExitStatus)), 
-		this, SLOT(editorFinished(int, QProcess::ExitStatus)));
-	connect(editor, SIGNAL(error(QProcess::ProcessError)), 
-		this, SLOT(editorError(QProcess::ProcessError)));	
-	editor->setProcessChannelMode(QProcess::MergedChannels);
-	
-	fileWatcher = new FileWatcher(this);
-	fileWatcher->stop();
-	fileWatcher->setTimeOut(1500);
 	
 	m_dpi = 0;
-	pixm.imgInfo.lowResType = m_Doc->toolSettings.lowResType;;
 }
 
 PageItem_LatexFrame::~PageItem_LatexFrame()
 {
 	if (internalEditor) delete internalEditor;
-	
-	//IMPORTANT: Make sure no signals are emitted which
-	// would cause crashes because the handlers access undefined memory.
-	
-	fileWatcher->disconnect();
-	delete fileWatcher;
-	
-	editor->disconnect();
-	//No need to kill the editor
-	delete editor;
-	
-	
-	QDir dir;
-	if (!editorFile.isEmpty() && !dir.remove(editorFile)) {
-		qCritical() << "RENDER FRAME: Failed to remove editorfile" << qPrintable(editorFile);
-	}
-	
 	
 	latex->disconnect();
 	if (latex->state() != QProcess::NotRunning) {
@@ -308,48 +275,10 @@ void PageItem_LatexFrame::runApplication()
 
 void PageItem_LatexFrame::runEditor()
 {
-	if (PrefsManager::instance()->latexUseEmbeddedEditor()) {
-		if (!internalEditor) {
-			internalEditor = new LatexEditor(this);
-		}
-		internalEditor->startEditor();
-		return;
+	if (!internalEditor) {
+		internalEditor = new LatexEditor(this);
 	}
-	
-	if (editor->state() != QProcess::NotRunning) {
-		QMessageBox::information(0, tr("Information"),
-		"<qt>" + tr("An editor for this frame is already running!") +
-		"</qt>", 1, 0, 0);
-		return;
-	}
-	
-	QString full_command = PrefsManager::instance()->latexEditorExecutable();
-	if (full_command.isEmpty()) {
-		QMessageBox::information(0, tr("Information"),
-		"<qt>" + tr("Please specify an editor in the preferences!") +
-		"</qt>",1, 0, 0);
-		return;
-	}
-	
-	writeEditorFile(); //This must be at this position, because it sets editorFile
-	
-	QString editorFilePath = QString("\"%1\"").arg(editorFile);
-	QString tempFilePath   = getLongPathName(QDir::tempPath());
-	if (full_command.contains("%file")) {
-		full_command.replace("%file", QDir::toNativeSeparators(editorFilePath));
-	} else {
-		full_command += " " + QDir::toNativeSeparators(editorFilePath);
-	}
-	full_command.replace("%dir", QDir::toNativeSeparators(tempFilePath));
-	editor->setWorkingDirectory(QDir::tempPath());
-
-/* Comment out as this will prevent editor to open files whose name contains space.
-   That will almost certainly happen, as temporary filenames are located in 
-   the "Document and Settings" directory , and hence have spaces in their names)
-#ifdef _WIN32
-	full_command.replace("\"", "\"\"\""); //Required by QT on windows
-#endif */
-	editor->start(full_command);
+	internalEditor->startEditor();
 }
 
 void PageItem_LatexFrame::rerunApplication(bool updateDisplay)
@@ -410,34 +339,6 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 	tempfile->write(tmp.toUtf8());
 }
 
-void PageItem_LatexFrame::writeEditorFile()
-{
-	fileWatcher->stop();
-	fileWatcher->disconnect(); //Avoid triggering false updates
-	//First create a temp file name
-	if (editorFile.isEmpty()) {
-		QTemporaryFile *editortempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_editor_XXXXXX");
-		if (!editortempfile->open()) {
-			QMessageBox::critical(0, tr("Error"), "<qt>" + 
-				tr("Could not create a temporary file to run the external editor!") 
-				+ "</qt>", 1, 0, 0);
-		}
-		editorFile = getLongPathName(editortempfile->fileName());
-		editortempfile->setAutoRemove(false);
-		editortempfile->close();
-		delete editortempfile;
-		fileWatcher->addFile(editorFile);
-	}
-	QFile f(editorFile);
-	f.open(QIODevice::WriteOnly);
-	f.write(formulaText.toUtf8());
-	f.close();
-	fileWatcher->forceScan();
-	connect(fileWatcher, SIGNAL(fileChanged(QString)),
-		this, SLOT(editorFileChanged(QString)));
-	fileWatcher->start();
-}
-	
 bool PageItem_LatexFrame::setFormula(QString formula, bool undoable)
 {
 	if (formula == formulaText) {
@@ -458,49 +359,6 @@ bool PageItem_LatexFrame::setFormula(QString formula, bool undoable)
 	}
 	formulaText = formula;
 	return true;
-}
-
-
-void PageItem_LatexFrame::loadEditorFile()
-{
-	QString new_formula;
-	QFile f(editorFile);
-	f.open(QIODevice::ReadOnly);
-	new_formula = QString::fromUtf8(f.readAll());
-	f.close();
-	if (!new_formula.isEmpty()) {
-		setFormula(new_formula);
-	}
-	this->update();
-}
-
-
-void PageItem_LatexFrame::editorFinished(int exitCode, QProcess::ExitStatus exitStatus)
-{
-	Q_ASSERT(editor);
-	
-	if (exitCode) {
-		qCritical() << "RENDER FRAME: Editor failed. Output was: " << 
-			qPrintable(QString(editor->readAllStandardOutput()));
-		QMessageBox::critical(0, tr("Error"), "<qt>" +
-			tr("Running the editor failed with exitcode %d!").arg(exitCode) +
-			"</qt>", 1, 0, 0);
-		return;
-	}
-}
-
-void PageItem_LatexFrame::editorFileChanged(QString filename)
-{
-	loadEditorFile();
-	rerunApplication();
-}
-
-void PageItem_LatexFrame::editorError(QProcess::ProcessError error)
-{
-	QMessageBox::critical(0, tr("Error"), "<qt>" +
-		tr("Running the editor \"%1\" failed!").
-		arg(PrefsManager::instance()->latexEditorExecutable()) +
-		"</qt>", 1, 0, 0);
 }
 
 void PageItem_LatexFrame::latexError(QProcess::ProcessError error)

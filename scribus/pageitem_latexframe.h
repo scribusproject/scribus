@@ -32,7 +32,6 @@ copyright            : Scribus Team
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
 
-class FileWatcher;
 class QTemporaryFile;
 class LatexEditor;
 class LatexConfigParser;
@@ -95,22 +94,19 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		double lastWidth, lastHeight;
 		
 		QString formulaText;
-		
-		void writeEditorFile();
+
 		void writeFileContents(QFile *tempfile);
 		void deleteImageFile();
-		void loadEditorFile();
 		/* Last error code */
 		int err;
 		int m_dpi;
 		
-		QString imageFile, editorFile, tempFileBase;
+		QString imageFile, tempFileBase;
 		QString appStdout;
 		QString configFilename;
 		
-		QProcess *latex, *editor;
+		QProcess *latex;
 		LatexEditor *internalEditor;
-		FileWatcher *fileWatcher;
 		LatexConfigParser *config;
 		bool imgValid;
 		bool m_usePreamble;
@@ -122,9 +118,6 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		void applicationChanged();
 	protected slots:
 		void updateImage(int exitCode, QProcess::ExitStatus exitStatus);
-		void editorFinished(int exitCode, QProcess::ExitStatus exitStatus);
-		void editorFileChanged(QString filename);
-		void editorError(QProcess::ProcessError error);
 		void latexError(QProcess::ProcessError error);
 	public slots:
 		void killProcess();

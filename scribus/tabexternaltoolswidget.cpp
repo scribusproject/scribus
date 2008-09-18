@@ -48,30 +48,29 @@ TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsDat
 	connect(latexConfigDownButton, SIGNAL(clicked()), this, SLOT(downButtonPressed()));
 	connect(latexConfigAddButton, SIGNAL(clicked()), this, SLOT(addConfig()));
 	connect(latexConfigDeleteButton, SIGNAL(clicked()), this, SLOT(deleteConfig()));
-	connect(latexEmbeddedEditorCheckBox, SIGNAL(stateChanged(int)), 
-			this, SLOT(changeLatexEmbeddedActive(int)));
+	connect(latexChangePathButton, SIGNAL(clicked()), this, SLOT(changePath()));
 }
 
 TabExternalToolsWidget::~TabExternalToolsWidget()
 {
 }
 
-const QString TabExternalToolsWidget::newPSTool() const 
+const QString TabExternalToolsWidget::newPSTool() const
 { 
-	return QDir::fromNativeSeparators(psToolLineEdit->text()); 
+	return QDir::fromNativeSeparators(psToolLineEdit->text());
 }
 
-const QString TabExternalToolsWidget::newImageTool() const 
+const QString TabExternalToolsWidget::newImageTool() const
 { 
 	return QDir::fromNativeSeparators(imageToolLineEdit->text());
 }
 
-const QString TabExternalToolsWidget::newExtBrowserTool() const 
+const QString TabExternalToolsWidget::newExtBrowserTool() const
 { 
 	return QDir::fromNativeSeparators(extBrowserToolLineEdit->text()); 
 }
 
-const QString TabExternalToolsWidget::newLatexEditor() const 
+const QString TabExternalToolsWidget::newLatexEditor() const
 {
 	return QDir::fromNativeSeparators(latexEditorLineEdit->text());
 }
@@ -98,7 +97,6 @@ void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 	latexResolutionSpinBox->setValue(prefsData->latexResolution);
 	latexEditorLineEdit->setText(prefsData->latexEditorExecutable);
 	latexForceDpiCheckBox->setCheckState(prefsData->latexForceDpi?Qt::Checked:Qt::Unchecked);
-	latexEmbeddedEditorCheckBox->setCheckState(prefsData->latexUseEmbeddedEditor?Qt::Checked:Qt::Unchecked);
 	latexEmptyFrameCheckBox->setCheckState(prefsData->latexStartWithEmptyFrames?Qt::Checked:Qt::Unchecked);
 	latexConfigsListWidget->clear();
 	QStringList configs = prefsData->latexConfigs;
@@ -156,8 +154,8 @@ void TabExternalToolsWidget::insertConfigItem(QString config, int row)
 
 void TabExternalToolsWidget::addConfig()
 {
-	QString s = QFileDialog::getOpenFileName(this, 
-		tr("Locate a Configuration file"), 
+	QString s = QFileDialog::getOpenFileName(this,
+		tr("Locate a Configuration file"),
 		ScPaths::instance().shareDir() + "/editorconfig/",
 		tr("Configuration files")+" (*.xml)");
 	if (!s.isEmpty()) {
@@ -255,9 +253,7 @@ void TabExternalToolsWidget::rescanForTools()
 	}
 }
 
-void TabExternalToolsWidget::changeLatexEmbeddedActive(int state)
+void TabExternalToolsWidget::changePath()
 {
-	bool enable = state == Qt::Unchecked;
-	latexEditorLineEdit->setEnabled(enable);
-	latexEditorChangeButton->setEnabled(enable);
+	//TODO
 }

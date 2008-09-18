@@ -31,7 +31,10 @@ copyright            : Scribus Team
 #include <QPushButton>
 #include <QListWidget>
 #include <QMessageBox>
+#include <QTemporaryFile>
 #include <math.h>
+#include "filewatcher.h"
+#include "util.h"
 
 LatexEditor::LatexEditor(PageItem_LatexFrame *frame):QDialog(), frame(frame)
 {
@@ -61,6 +64,8 @@ LatexEditor::LatexEditor(PageItem_LatexFrame *frame):QDialog(), frame(frame)
 			this, SLOT(revertClicked(bool)));
 	connect(killPushButton, SIGNAL(clicked(bool)), 
 			frame, SLOT(killProcess()));
+	connect(externalEditorPushButton, SIGNAL(clicked(bool)), 
+			this, SLOT(extEditorClicked()));
 	connect(frame, SIGNAL(formulaAutoUpdate(QString, QString)), 
 			this, SLOT(formulaChanged(QString, QString)));
 	connect(frame, SIGNAL(latexFinished()), 
@@ -70,10 +75,36 @@ LatexEditor::LatexEditor(PageItem_LatexFrame *frame):QDialog(), frame(frame)
 	connect(frame, SIGNAL(applicationChanged()),
 			this, SLOT(updateConfigFile()));
 	updateConfigFile();
+	
+	extEditor = new QProcess();
+	connect(extEditor, SIGNAL(finished(int, QProcess::ExitStatus)), 
+		this, SLOT(extEditorFinished(int, QProcess::ExitStatus)));
+	connect(extEditor, SIGNAL(error(QProcess::ProcessError)), 
+		this, SLOT(extEditorError(QProcess::ProcessError)));	
+	extEditor->setProcessChannelMode(QProcess::MergedChannels);
+	
+	fileWatcher = new FileWatcher(this);
+	fileWatcher->stop();
+	fileWatcher->setTimeOut(1500);
 }
 
 LatexEditor::~LatexEditor()
 {
+	//IMPORTANT: Make sure no signals are emitted which
+	// would cause crashes because the handlers access undefined memory.
+	fileWatcher->disconnect();
+	delete fileWatcher;
+
+	extEditor->disconnect();
+	//No need to kill the editor
+	delete extEditor;
+
+	QDir dir;
+	if (!extEditorFile.isEmpty() && !dir.remove(extEditorFile)) {
+		qCritical() << "RENDER FRAME: Failed to remove editorfile" << qPrintable(extEditorFile);
+	}
+	
+	
 	buttonBox->disconnect();
 	exitEditor();
 	delete highlighter;
@@ -84,6 +115,114 @@ void LatexEditor::startEditor()
 	revert();
 	initialize();
 	show();
+}
+
+void LatexEditor::extEditorClicked()
+{
+	if (extEditor->state() != QProcess::NotRunning) {
+		QMessageBox::information(0, tr("Information"),
+		"<qt>" + tr("An editor for this frame is already running!") +
+		"</qt>", 1, 0, 0);
+		return;
+	}
+	externalEditorPushButton->setEnabled(false);
+	externalEditorPushButton->setText(tr("Editor running!"));
+	
+	QString full_command = PrefsManager::instance()->latexEditorExecutable();
+	if (full_command.isEmpty()) {
+		QMessageBox::information(0, tr("Information"),
+		"<qt>" + tr("Please specify an editor in the preferences!") +
+		"</qt>",1, 0, 0);
+		return;
+	}
+	
+	writeExternalEditorFile(); //This command must be at this position, because it sets editorFile
+	
+	QString editorFilePath = QString("\"%1\"").arg(extEditorFile);
+	QString tempFilePath   = getLongPathName(QDir::tempPath());
+	if (full_command.contains("%file")) {
+		full_command.replace("%file", QDir::toNativeSeparators(editorFilePath));
+	} else {
+		full_command += " " + QDir::toNativeSeparators(editorFilePath);
+	}
+	full_command.replace("%dir", QDir::toNativeSeparators(tempFilePath));
+	extEditor->setWorkingDirectory(QDir::tempPath());
+
+	extEditor->start(full_command);
+}
+
+void LatexEditor::writeExternalEditorFile()
+{
+	fileWatcher->stop();
+	fileWatcher->disconnect(); //Avoid triggering false updates
+
+	//First create a temp file name
+	if (extEditorFile.isEmpty()) {
+		QTemporaryFile *editortempfile = new QTemporaryFile(
+			QDir::tempPath() + "/scribus_temp_editor_XXXXXX");
+		if (!editortempfile->open()) {
+			QMessageBox::critical(0, tr("Error"), "<qt>" + 
+				tr("Could not create a temporary file to run the external editor!")
+				+ "</qt>", 1, 0, 0);
+		}
+		extEditorFile = getLongPathName(editortempfile->fileName());
+		editortempfile->setAutoRemove(false);
+		editortempfile->close();
+		delete editortempfile;
+		fileWatcher->addFile(extEditorFile);
+	}
+	QFile f(extEditorFile);
+	f.open(QIODevice::WriteOnly);
+	f.write(frame->formula().toUtf8());
+	f.close();
+	fileWatcher->forceScan();
+	connect(fileWatcher, SIGNAL(fileChanged(QString)),
+		this, SLOT(extEditorFileChanged(QString)));
+	fileWatcher->start();
+}
+
+void LatexEditor::loadExternalEditorFile()
+{
+	QString new_formula;
+	QFile f(extEditorFile);
+	f.open(QIODevice::ReadOnly);
+	new_formula = QString::fromUtf8(f.readAll());
+	f.close();
+	if (!new_formula.isEmpty()) {
+		frame->setFormula(new_formula);
+		sourceTextEdit->setPlainText(new_formula);
+	}
+	this->update();
+}
+
+void LatexEditor::extEditorFinished(int exitCode, QProcess::ExitStatus exitStatus)
+{
+	externalEditorPushButton->setEnabled(true);
+	externalEditorPushButton->setText(tr("Run external editor..."));
+	if (exitCode && extEditor) {
+		qCritical() << "RENDER FRAME: Editor failed. Output was: " << 
+			qPrintable(QString(extEditor->readAllStandardOutput()));
+		QMessageBox::critical(0, tr("Error"), "<qt>" +
+			tr("Running the editor failed with exitcode %d!").arg(exitCode) +
+			"</qt>", 1, 0, 0);
+		return;
+	}
+}
+
+void LatexEditor::extEditorFileChanged(QString filename)
+{
+	loadExternalEditorFile();
+	frame->rerunApplication();
+}
+
+void LatexEditor::extEditorError(QProcess::ProcessError error)
+{
+	externalEditorPushButton->setEnabled(true);
+	externalEditorPushButton->setText(tr("Run external editor..."));
+	QMessageBox::critical(0, tr("Error"), "<qt>" +
+		tr("Running the editor \"%1\" failed!").
+		arg(PrefsManager::instance()->latexEditorExecutable()) +
+		"</qt>", 1, 0, 0);
 }
 
 void LatexEditor::exitEditor()
@@ -133,7 +272,6 @@ void LatexEditor::apply(bool force)
 			frame->editorProperties[key] = value;
 		}
 	}
-	
 	
 	if (changed || force) {
 		frame->rerunApplication(true);
