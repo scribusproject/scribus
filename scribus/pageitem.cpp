@@ -4289,6 +4289,26 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	totalRect.getCoords(x1, y1, x2, y2);
 }
 
+double PageItem::visualXPos() const
+{ 
+	return (lineColor() != CommonStrings::None) ? Xpos - (m_lineWidth / 2.0) : Xpos;
+}
+
+double PageItem::visualYPos() const
+{
+	return (lineColor() != CommonStrings::None) ? Ypos - (m_lineWidth / 2.0) : Ypos;
+}
+
+double PageItem::visualWidth() const
+{
+	return (lineColor() != CommonStrings::None) ? Width + m_lineWidth : Width;
+}
+
+double PageItem::visualHeight() const
+{
+	return (lineColor() != CommonStrings::None) ? Height + m_lineWidth : Height;
+}
+
 bool PageItem::pointWithinItem(const int x, const int y) const
 {
 	const_cast<PageItem*>(this)-> setRedrawBounding();

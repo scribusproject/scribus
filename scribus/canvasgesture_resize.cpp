@@ -58,9 +58,11 @@ void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
 		m_bounds = QRectF(currItem->visualXPos(), currItem->visualYPos(), currItem->visualWidth(), currItem->visualHeight());
 		m_rotation = currItem->rotation();
-		currItem->OldB2 = currItem->visualWidth();
-		currItem->OldH2 = currItem->visualHeight();
-		m_extraWidth = m_extraHeight = currItem->lineWidth();
+//		currItem->OldB2 = currItem->visualWidth();
+//		currItem->OldH2 = currItem->visualHeight();
+		currItem->OldB2 = currItem->width();
+		currItem->OldH2 = currItem->height();
+		m_extraWidth = m_extraHeight = (currItem->lineColor() != CommonStrings::None) ? currItem->lineWidth() : 0.0;
 		m_extraX =  m_extraY = m_extraWidth / 2.0;
 	}
 	m_origRatio = m_bounds.width() / m_bounds.height();

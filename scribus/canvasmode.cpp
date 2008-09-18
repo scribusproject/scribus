@@ -375,7 +375,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 					p->setBrush(m_brush["outline"]);
 					p->setPen(m_pen["outline"]);
 					p->translate(deltax, deltay);
-					p->translate(currItem->xPos() - x, currItem->yPos() - y);
+					p->translate(x, y);
 					if (currItem->rotation() != 0)
 					{
 						p->setRenderHint(QPainter::Antialiasing);

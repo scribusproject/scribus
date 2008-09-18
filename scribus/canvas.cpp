@@ -208,7 +208,9 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, PageItem* item) co
 	// be huge, into account.
 	// ### might be interesting to investigate if it would be painless to just change 
 	// PageItem::getTransform.
-	double extraS(item->lineWidth() / -2.0);
+	double extraS = 0.0;
+	if (item->lineColor() != CommonStrings::None)
+		extraS = (item->lineWidth() / -2.0);
 	Canvas::FrameHandle result = frameHitTest(item->getTransform().inverted().map(canvasPoint), QRectF(extraS, extraS, item->visualWidth(), item->visualHeight()));
 //	qDebug() << "frameHitTest for item" << item->ItemNr 
 //		<< item->getTransform().inverted().map(canvasPoint) 
@@ -990,8 +992,11 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 							Qt::PenCapStyle le = Qt::FlatCap;
 							if (currItem->NamedLStyle.isEmpty())
 							{
-								lw2 = qRound(currItem->lineWidth()  / 2.0);
-								lw = qRound(qMax(currItem->lineWidth(), 1.0));
+								if (currItem->lineColor() != CommonStrings::None)
+								{
+									lw2 = qRound(currItem->lineWidth()  / 2.0);
+									lw = qRound(qMax(currItem->lineWidth(), 1.0));
+								}
 								le = currItem->PLineEnd;
 							}
 							else
