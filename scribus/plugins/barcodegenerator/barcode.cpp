@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "barcode.h"
-//#include "barcode.moc"
 #include "barcodegenerator.h"
 #include "scribusstructs.h"
 
@@ -52,8 +51,10 @@ void Barcode::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool Barcode::run(ScribusDoc*, QString /*target*/ )
+bool Barcode::run(ScribusDoc* doc, QString /*target*/ )
 {
+	if (!doc)
+		return false;
 	BarcodeGenerator *bg = new BarcodeGenerator();
 	Q_CHECK_PTR(bg);
 	bg->exec();
