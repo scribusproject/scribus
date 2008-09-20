@@ -77,7 +77,7 @@ ScActionPlugin::ScActionPlugin() : ScPlugin()
 	m_actionInfo.needsNumObjects = -1;
 	m_actionInfo.firstObjectType.clear();
 	m_actionInfo.secondObjectType.clear();
-	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.enabledOnStartup = false;
 }
 
 ScActionPlugin::~ScActionPlugin()

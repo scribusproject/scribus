@@ -68,7 +68,7 @@ void LensEffectsPlugin::languageChange()
 	m_actionInfo.menu = "ItemPathOps";
 	m_actionInfo.parentMenu = "Item";
 	m_actionInfo.subMenuName = tr("Path Tools");
-	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
 	m_actionInfo.notSuitableFor.append(PageItem::TextFrame);
 	m_actionInfo.notSuitableFor.append(PageItem::ImageFrame);

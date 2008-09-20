@@ -68,7 +68,7 @@ void SubdividePlugin::languageChange()
 	m_actionInfo.menu = "ItemPathOps";
 	m_actionInfo.parentMenu = "Item";
 	m_actionInfo.subMenuName = tr("Path Tools");
-	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
 	m_actionInfo.forAppMode.append(modeEditClip);
 	m_actionInfo.needsNumObjects = 1;

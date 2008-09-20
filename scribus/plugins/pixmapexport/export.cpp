@@ -62,7 +62,7 @@ void PixmapExportPlugin::languageChange()
 	m_actionInfo.keySequence = "CTRL+SHIFT+E";
 	// Menu
 	m_actionInfo.menu = "FileExport";
-	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.needsNumObjects = -1;
 }
 

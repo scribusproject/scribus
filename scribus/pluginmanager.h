@@ -63,6 +63,12 @@ public:
 	 */
 	bool setupPluginActions(ScribusMainWindow*);
 
+	/*! \brief Called when the last doc is closed
+	 */
+	void enableOnlyStartupPluginActions(ScribusMainWindow*);
+	/*! \brief Called when the last doc is closed
+	 */
+	void enablePluginActionsForSelection(ScribusMainWindow*);
 
 	/*! \brief Checks if is the plugin is in the plugin map, is loaded, and is enabled.
 	 *

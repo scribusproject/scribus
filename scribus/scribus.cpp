@@ -4419,6 +4419,8 @@ bool ScribusMainWindow::DoFileClose()
 	//>>
 	if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
 	{
+		PluginManager& pluginManager(PluginManager::instance());
+		pluginManager.enableOnlyStartupPluginActions(this);
 		scrActions["fileDocSetup"]->setEnabled(false);
 		scrActions["filePrint"]->setEnabled(false);
 		scrActions["fileSave"]->setEnabled(false);
@@ -6526,6 +6528,8 @@ void ScribusMainWindow::setAppMode(int mode)
 		if (mode != modeNormal && mode != modeStoryEditor)
 			activateWindow();
 		PluginManager& pluginManager(PluginManager::instance());
+		pluginManager.enablePluginActionsForSelection(this);
+/*
 		QStringList pluginNames(pluginManager.pluginNames(false));
 		ScPlugin* plugin;
 		ScActionPlugin* ixplug;
@@ -6551,6 +6555,7 @@ void ScribusMainWindow::setAppMode(int mode)
 				}
 			}
 		}
+*/
 	}
 	actionManager->connectModeActions();
 }

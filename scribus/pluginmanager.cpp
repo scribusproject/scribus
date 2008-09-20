@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribuscore.h"
 #include "sctoolbar.h"
+#include "selection.h"
 #include "menumanager.h"
 #include "scraction.h"
 #include "splash.h"
@@ -152,7 +153,7 @@ int PluginManager::initPlugin(const QString fileName)
 	pda.plugin = 0;
 	pda.pluginDLL = 0;
 	pda.enabled = false;
-	pda.enableOnStartup = prefs->getBool(pda.pluginName, true);
+	pda.enableOnStartup = prefs->getBool(pda.pluginName, false);
 	ScCore->setSplashStatus( tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
 	if (loadPlugin(pda))
 	{
@@ -348,6 +349,51 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 
 	}
 	return true;
+}
+
+void PluginManager::enableOnlyStartupPluginActions(ScribusMainWindow* mw)
+{
+	Q_CHECK_PTR(mw);
+	ScActionPlugin* plugin = 0;
+	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+	{
+		if (it.value().plugin->inherits("ScActionPlugin"))
+		{
+			plugin = dynamic_cast<ScActionPlugin*>(it.value().plugin);
+			assert(plugin);
+			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
+			if (mw->scrActions.contains(ai.name))
+				mw->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
+		}
+	}
+}
+
+void PluginManager::enablePluginActionsForSelection(ScribusMainWindow* mw)
+{
+	Q_CHECK_PTR(mw);
+	ScribusDoc* doc=mw->doc;
+	if (!doc)
+		return;
+
+	ScActionPlugin* ixplug;
+	ScrAction* pluginAction = 0;
+	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+	{
+		if (it.value().plugin->inherits("ScActionPlugin"))
+		{
+			ixplug = dynamic_cast<ScActionPlugin*>(it.value().plugin);
+			Q_ASSERT(ixplug);
+			ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
+			pluginAction = mw->scrActions[ai.name];
+			if (pluginAction != 0)
+			{
+				if (doc->m_Selection->count() != 0)
+					pluginAction->setEnabled(ixplug->handleSelection(doc, doc->m_Selection->itemAt(0)->itemType()));
+				else
+					pluginAction->setEnabled(ixplug->handleSelection(doc));
+			}
+		}
+	}
 }
 
 bool PluginManager::DLLexists(QString name, bool includeDisabled) const

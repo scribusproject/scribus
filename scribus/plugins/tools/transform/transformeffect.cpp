@@ -67,7 +67,7 @@ void TransformEffectPlugin::languageChange()
 	// Menu
 	m_actionInfo.menu = "Item";
 	m_actionInfo.menuAfterName = "MulDuplicate";
-	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.needsNumObjects = 3;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
 	m_actionInfo.forAppMode.append(modeNormal);

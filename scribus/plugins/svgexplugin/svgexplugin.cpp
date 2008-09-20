@@ -86,7 +86,7 @@ void SVGExportPlugin::languageChange()
 	m_actionInfo.text = tr("Save as &SVG...");
 	// Menu
 	m_actionInfo.menu = "FileExport";
-	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.needsNumObjects = -1;
 }
 
