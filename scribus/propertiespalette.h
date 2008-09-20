@@ -194,6 +194,7 @@ public slots:
 	void setCols(int r, double g);
 	void setLspMode(QAction *);
 	void setLsp(double r);
+	void setupLineSpacingSpinbox(int mode, double value);
 	void setSize(double s);
 	void setFontFace(const QString&);
 	void setExtra(double e);

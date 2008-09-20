@@ -2692,6 +2692,8 @@ void PropertiesPalette::setLsp(double r)
 	const ParagraphStyle& curStyle(tmp && doc->appMode == modeEdit? CurItem->currentStyle() : CurItem->itemText.defaultStyle());
 	if (tmp)
 	{
+		setupLineSpacingSpinbox(curStyle.lineSpacingMode(), r);
+		/*
 		if (curStyle.lineSpacingMode() > 0)
 		{
 			LineSp->setSpecialValueText( tr( "Auto" ) );
@@ -2706,6 +2708,7 @@ void PropertiesPalette::setLsp(double r)
 			LineSp->setMinimum(1);
 			LineSp->setValue(r);
 		}
+		*/
 		QList<QAction*> actList = lineSpacingPop->actions();
 		for (int al = 0; al < actList.count(); ++al)
 		{
@@ -2927,6 +2930,26 @@ void PropertiesPalette::setFlop( FirstLineOffsetPolicy f )
 		flopRealHeight->setChecked(true); //It’s historical behaviour.
 }
 
+void PropertiesPalette::setupLineSpacingSpinbox(int mode, double value)
+{
+	if (mode > 0)
+	{
+		if (mode==1)
+			LineSp->setSpecialValueText( tr( "Auto" ) );
+		if (mode==2)
+			LineSp->setSpecialValueText( tr( "Baseline" ) );
+		LineSp->setMinimum(0);
+		LineSp->setValue(0);
+		LineSp->setEnabled(false);
+	}
+	else
+	{
+		LineSp->setSpecialValueText("");
+		LineSp->setMinimum(1);
+		LineSp->setValue(value);
+		LineSp->setEnabled(true);
+	}
+}
 
 void PropertiesPalette::updateStyle(const ParagraphStyle& newCurrent)
 {
@@ -2934,6 +2957,8 @@ void PropertiesPalette::updateStyle(const ParagraphStyle& newCurrent)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
+	setupLineSpacingSpinbox(newCurrent.lineSpacingMode(), newCurrent.lineSpacing());
+/*
 	if (newCurrent.lineSpacingMode() > 0)
 	{
 		LineSp->setSpecialValueText( tr( "Auto" ) );
@@ -2948,6 +2973,7 @@ void PropertiesPalette::updateStyle(const ParagraphStyle& newCurrent)
 		LineSp->setMinimum(1);
 		LineSp->setValue(newCurrent.lineSpacing());
 	}
+*/
 	QList<QAction*> actList = lineSpacingPop->actions();
 	for (int al = 0; al < actList.count(); ++al)
 	{
