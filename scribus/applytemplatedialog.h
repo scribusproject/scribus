@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #define APPLYMASTERPAGEDIALOG_H
 
 #include <QDialog>
+#include <QString>
 
 #include "scribusapi.h"
 #include "scribusdoc.h"
