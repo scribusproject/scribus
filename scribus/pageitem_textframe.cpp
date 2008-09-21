@@ -1826,17 +1826,18 @@ void PageItem_TextFrame::layout()
 
 							current.yPos += m_Doc->typographicSettings.valueBaseGrid;
 						}
-						else if (a < lastInFrame() && style.lineSpacingMode() != ParagraphStyle::AutomaticLineSpacing)
-						{
-//							qDebug(QString("next line (fixed): y=%1+%2").arg(current.yPos).arg(itemText.paragraphStyle(a+1).lineSpacing()));
-							current.yPos += itemText.paragraphStyle(a+1).lineSpacing();
-						}
 						else
 						{
 //							qDebug(QString("next line (auto): y=%1+%2").arg(current.yPos).arg(style.lineSpacing()));
-							//current.yPos += style.lineSpacing();
 							//#5845 : use next paragraph line spacing for switching to next paragraph instead of current one
-							current.yPos += itemText.paragraphStyle(a+1).lineSpacing();
+							//current.yPos += style.lineSpacing();
+							const  ParagraphStyle& pStyle = itemText.paragraphStyle(a+1);
+							double lineSpacing = pStyle.lineSpacing();
+							if (pStyle.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
+								lineSpacing = pStyle.charStyle().font().height(pStyle.charStyle().fontSize() / 10.0);
+							else if (pStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+								lineSpacing = m_Doc->typographicSettings.valueBaseGrid;
+							current.yPos += lineSpacing;
 						}
 						if (AbsHasDrop)
 						{
