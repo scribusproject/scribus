@@ -1529,7 +1529,8 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					
 					// dont call SeleItem() without need here:
 					frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
-					if (frameResizeHandle < 0 || m->modifiers() != Qt::NoModifier)
+					//#6797
+					if (frameResizeHandle <= 0 || m->modifiers() != Qt::NoModifier)
 					{
 						m_doc->m_Selection->delaySignalsOn();
 						SeleItem(m); //Where we send the mouse press event to select an item
