@@ -13,18 +13,17 @@ for which a new license (GPL+exception) is in place.
 *                                                                         *
 ***************************************************************************/
 #include <iostream> // only for debugging
-#include <signal.h>
-#include <QString>
 
 #include <QFile>
-#include <QPixmap>
-#include <QToolTip>
 #include <QLabel>
-#include <QTabWidget>
-#include <QTextStream>
-#include <QWidget>
+#include <QPixmap>
 #include <QPushButton>
 #include <QShowEvent>
+#include <QString>
+#include <QTabWidget>
+#include <QTextStream>
+#include <QToolTip>
+#include <QWidget>
 
 #include "about.h"
 #include "commonstrings.h"
@@ -179,7 +178,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 		bu += "-Big";
 #endif
 	QString gsver(getGSVersion());
-	if (!gsver.isNull())
+	if (!gsver.isEmpty())
 		gsver = tr("Using Ghostscript version %1").arg(gsver);
 	else
 		gsver = tr("No Ghostscript version available");
@@ -192,10 +191,10 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tabLayout->setMargin( 10 );
 
 
-  /*! AUTHORS tab */
-  // /usr/local/scribus14/share/doc/scribus-1.3.5svn/AUTHORS
+	/*! AUTHORS tab */
+	// /usr/local/scribus14/share/doc/scribus-1.3.5svn/AUTHORS
 	textView1 = new ScTextBrowser( tab_2 );
-  textView1->setText(About::parseAuthorFile(ScPaths::instance().docDir() + "AUTHORS"));
+	textView1->setText(About::parseAuthorFile(ScPaths::instance().docDir() + "AUTHORS"));
 
 	tabLayout->addWidget( textView1 );
 	tabWidget2->addTab( tab_2, tr( "A&uthors" ) );
@@ -207,18 +206,18 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	LanguageManager langmgr;
 	langmgr.init(false);
 
-  /*! TRANSLATION tab */
-  // /usr/local/scribus14/share/doc/scribus-1.3.5svn/TRANSLATION
-  textView2->setText(About::parseTranslationFile(ScPaths::instance().docDir() + "TRANSLATION"));
+	/*! TRANSLATION tab */
+	// /usr/local/scribus14/share/doc/scribus-1.3.5svn/TRANSLATION
+	textView2->setText(About::parseTranslationFile(ScPaths::instance().docDir() + "TRANSLATION"));
 
-  tabLayout_2->addWidget( textView2 );
+	tabLayout_2->addWidget( textView2 );
 	tabWidget2->addTab( tab_3, tr( "&Translations" ) );
 
 	/*! ONLINE tab (03/04/2004 petr vanek) */
-  // /usr/local/scribus14/share/doc/scribus-1.3.5svn/LINKS
+	// /usr/local/scribus14/share/doc/scribus-1.3.5svn/LINKS
 	tab_4 = new QWidget( tabWidget2 );
 	textView4 = new ScTextBrowser( tab_4 );
-  textView4->setText(About::parseLinksFile(ScPaths::instance().docDir() + "LINKS"));
+	textView4->setText(About::parseLinksFile(ScPaths::instance().docDir() + "LINKS"));
 	tabLayout_4 = new QHBoxLayout( tab_4 );
 	tabLayout_4->setSpacing( 6 );
 	tabLayout_4->setMargin( 10 );
@@ -269,8 +268,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	setMaximumSize(sizeHint());
 
 
-//tooltips
-
+	//tooltips
 	buildID->setToolTip( "<qt>" + tr( "This panel shows the version, build date and compiled in library support in Scribus.")+"<br>"
 	+ tr("The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.Last Letter is the renderer C=cairo or Q=Qt")+"<br>"
 	+ tr("Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.")+"<br>"
