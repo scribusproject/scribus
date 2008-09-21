@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include <signal.h>
 #include <QString>
 
-#include "about.h"
 #include <QFile>
 #include <QPixmap>
 #include <QToolTip>
@@ -27,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QShowEvent>
 
+#include "about.h"
 #include "commonstrings.h"
 #include "scconfig.h"
 #include "scpaths.h"
