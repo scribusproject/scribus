@@ -62,7 +62,10 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
-		FPointArray doEffect_pwd2 (Geom::Piecewise<Geom::D2<Geom::SBasis> > & pwd2_in, Geom::Piecewise<Geom::D2<Geom::SBasis> > & pattern, int effect, double offset, double offsetY, double gap, bool rotate);
+		bool handleSelection(ScribusDoc* doc, int SelectedType);
+	private:
+		void setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd2_in, Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern, int effect, double offset, double offsetY, double gap, bool rotate);
+		FPointArray doEffect_pwd2 (Geom::Piecewise<Geom::D2<Geom::SBasis> > & pattern);
 		PageItem *patternItem;
 		PageItem *pathItem;
 		FPointArray originalPath;
@@ -70,7 +73,24 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		double originalYPos;
 		ScribusDoc* currDoc;
 		bool firstUpdate;
-	public slots:
+		Piecewise<D2<SBasis> > uskeleton;
+		double m_scaling;
+		int nbCopies;
+		double pattWidth;
+		double m_offsetX;
+		double m_offsetY;
+		double m_gapval;
+		double m_rotate;
+		Interval pattBnds;
+		Interval pattBndsY;
+		int selOffs;
+		int selCount;
+		QList<FPointArray> originalPathG;
+		QList<double> originalXPosG;
+		QList<double> originalYPosG;
+		QList<PageItem *> patternItemG;
+	private slots:
+		void updateEffectG(int effectType, double offset, double offsetY, double gap, bool rotate);
 		void updateEffect(int effectType, double offset, double offsetY, double gap, bool rotate);
 
 		// Special features (none)

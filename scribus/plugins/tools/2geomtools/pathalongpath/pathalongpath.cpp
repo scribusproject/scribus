@@ -108,48 +108,222 @@ void PathAlongPathPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
+bool PathAlongPathPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
+{
+	bool ret = ScActionPlugin::handleSelection(doc, SelectedType);
+	if (!ret)
+	{
+		if (doc->m_Selection->count() > 1)
+		{
+			bool isGroup = true;
+			int firstElem = -1;
+			PageItem *currItem = doc->m_Selection->itemAt(0);
+			if (currItem->Groups.count() != 0)
+			{
+				firstElem = currItem->Groups.top();
+				for (int bx = 0; bx < doc->m_Selection->count() - 1; ++bx)
+				{
+					PageItem* bxi = doc->m_Selection->itemAt(bx);
+					if (bxi->Groups.count() != 0)
+					{
+						if (bxi->Groups.top() != firstElem)
+							isGroup = false;
+						if (currItem->itemType() == PageItem::Line)
+							isGroup = false;
+					}
+					else
+						isGroup = false;
+				}
+				currItem = doc->m_Selection->itemAt(doc->m_Selection->count() - 1);
+				if (currItem->itemType() != PageItem::PolyLine)
+					ret = false;
+				else
+					ret = isGroup;
+			}
+			else
+			{
+				if (currItem->itemType() != PageItem::PolyLine)
+					ret = false;
+				else
+				{
+					currItem = doc->m_Selection->itemAt(1);
+					if (currItem->Groups.count() != 0)
+					{
+						firstElem = currItem->Groups.top();
+						for (int bx = 1; bx < doc->m_Selection->count(); ++bx)
+						{
+							PageItem* bxi = doc->m_Selection->itemAt(bx);
+							if (bxi->Groups.count() != 0)
+							{
+								if (bxi->Groups.top() != firstElem)
+									isGroup = false;
+								if (currItem->itemType() == PageItem::Line)
+									isGroup = false;
+							}
+							else
+								isGroup = false;
+						}
+						ret = isGroup;
+					}
+				}
+			}
+		}
+	}
+	return ret;
+}
+
 bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 {
 	firstUpdate = true;
 	currDoc = doc;
+	originalPathG.clear();
+	originalXPosG.clear();
+	originalYPosG.clear();
+	patternItemG.clear();
 	if (currDoc == 0)
 		currDoc = ScCore->primaryMainWindow()->doc;
 	if (currDoc->m_Selection->count() > 1)
 	{
-		patternItem = currDoc->m_Selection->itemAt(0);
-		pathItem = currDoc->m_Selection->itemAt(1);
-		if (pathItem->itemType() != PageItem::PolyLine)
+		if ((currDoc->m_Selection->itemAt(0)->Groups.count() != 0) || (currDoc->m_Selection->itemAt(1)->Groups.count() != 0))
 		{
-			patternItem = currDoc->m_Selection->itemAt(1);
-			pathItem = currDoc->m_Selection->itemAt(0);
-		}
-		originalPath = patternItem->PoLine.copy();
-		originalXPos = patternItem->xPos();
-		originalYPos = patternItem->yPos();
-		PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex());
-		connect(dia, SIGNAL(updateValues(int, double, double, double, bool)), this, SLOT(updateEffect(int, double, double, double, bool)));
-		if (dia->exec())
-		{
-			updateEffect(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
-			patternItem->ContourLine = patternItem->PoLine.copy();
-			currDoc->changed();
+			selOffs = 0;
+			selCount = currDoc->m_Selection->count() - 1;
+			if (currDoc->m_Selection->itemAt(0)->Groups.count() == 0)
+			{
+				pathItem = currDoc->m_Selection->itemAt(0);
+				selOffs = 1;
+			}
+			else
+				pathItem = currDoc->m_Selection->itemAt(selCount);
+			for (int bx = 0; bx < selCount; ++bx)
+			{
+				PageItem* bxi = currDoc->m_Selection->itemAt(bx + selOffs);
+				originalPathG.append(bxi->PoLine.copy());
+				originalXPosG.append(bxi->xPos());
+				originalYPosG.append(bxi->yPos());
+				patternItemG.append(bxi);
+			}
+			PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex(), true);
+			connect(dia, SIGNAL(updateValues(int, double, double, double, bool)), this, SLOT(updateEffectG(int, double, double, double, bool)));
+			if (dia->exec())
+			{
+				updateEffectG(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
+				currDoc->changed();
+			}
+			else
+			{
+				updateEffectG(-1, dia->offset, dia->offsetY, dia->gap, dia->rotate);
+				currDoc->view()->DrawNew();
+			}
+			delete dia;
 		}
 		else
 		{
-			patternItem->PoLine = originalPath;
-			patternItem->Frame = false;
-			patternItem->ClipEdited = true;
-			patternItem->FrameType = 3;
-			patternItem->setXYPos(originalXPos, originalYPos);
-			currDoc->AdjustItemSize(patternItem);
-			patternItem->OldB2 = patternItem->width();
-			patternItem->OldH2 = patternItem->height();
-			patternItem->updateClip();
-			currDoc->view()->DrawNew();
+			patternItem = currDoc->m_Selection->itemAt(0);
+			pathItem = currDoc->m_Selection->itemAt(1);
+			if (pathItem->itemType() != PageItem::PolyLine)
+			{
+				patternItem = currDoc->m_Selection->itemAt(1);
+				pathItem = currDoc->m_Selection->itemAt(0);
+			}
+			originalPath = patternItem->PoLine.copy();
+			originalXPos = patternItem->xPos();
+			originalYPos = patternItem->yPos();
+			PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex(), false);
+			connect(dia, SIGNAL(updateValues(int, double, double, double, bool)), this, SLOT(updateEffect(int, double, double, double, bool)));
+			if (dia->exec())
+			{
+				updateEffect(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
+				patternItem->ContourLine = patternItem->PoLine.copy();
+				currDoc->changed();
+			}
+			else
+			{
+				patternItem->PoLine = originalPath;
+				patternItem->Frame = false;
+				patternItem->ClipEdited = true;
+				patternItem->FrameType = 3;
+				patternItem->setXYPos(originalXPos, originalYPos);
+				currDoc->AdjustItemSize(patternItem);
+				patternItem->OldB2 = patternItem->width();
+				patternItem->OldH2 = patternItem->height();
+				patternItem->updateClip();
+				currDoc->view()->DrawNew();
+			}
+			delete dia;
 		}
-		delete dia;
 	}
 	return true;
+}
+
+void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double offsetY, double gap, bool rotate)
+{
+	if (effectType == -1)
+	{
+		for (int bx = 0; bx < patternItemG.count(); ++bx)
+		{
+			PageItem* bxi = patternItemG[bx];
+			bxi->PoLine = originalPathG[bx];
+			bxi->Frame = false;
+			bxi->ClipEdited = true;
+			bxi->FrameType = 3;
+			bxi->setXYPos(originalXPosG[bx], originalYPosG[bx]);
+			currDoc->AdjustItemSize(bxi);
+			bxi->OldB2 = bxi->width();
+			bxi->OldH2 = bxi->height();
+			bxi->updateClip();
+			bxi->ContourLine = bxi->PoLine.copy();
+		}
+		firstUpdate = true;
+	}
+	else
+	{
+		Geom::Piecewise<Geom::D2<Geom::SBasis> > originaldpwd2 = FPointArray2Piecewise(pathItem->PoLine, false);
+		Geom::Piecewise<Geom::D2<Geom::SBasis> > patternpwd2;
+		PageItem* bxi = patternItemG[0];
+		double originX = originalXPosG[0];
+		double originY = originalYPosG[0];
+		if (bxi->itemType() == PageItem::PolyLine)
+			patternpwd2 = FPointArray2Piecewise(originalPathG[0], false);
+		else
+			patternpwd2 = FPointArray2Piecewise(originalPathG[0], true);
+		setUpEffect(originaldpwd2, patternpwd2, effectType, offset / currDoc->unitRatio(), offsetY / currDoc->unitRatio(), gap / currDoc->unitRatio(), rotate);
+		for (int bx = 0; bx < patternItemG.count(); ++bx)
+		{
+			PageItem* bxi = patternItemG[bx];
+			FPointArray pathP = originalPathG[bx].copy();
+			double deltaX = originalXPosG[bx] - originX;
+			double deltaY = originalYPosG[bx] - originY;
+			pathP.translate(deltaX, deltaY);
+			if (bxi->itemType() == PageItem::PolyLine)
+				patternpwd2 = FPointArray2Piecewise(pathP, false);
+			else
+				patternpwd2 = FPointArray2Piecewise(pathP, true);
+			bxi->PoLine = doEffect_pwd2(patternpwd2);
+			bxi->PoLine.translate(-deltaX, -deltaY);
+			bxi->Frame = false;
+			bxi->ClipEdited = true;
+			bxi->FrameType = 3;
+			bxi->setXYPos(pathItem->xPos()+deltaX, pathItem->yPos()+deltaY);
+			currDoc->AdjustItemSize(bxi);
+			bxi->OldB2 = bxi->width();
+			bxi->OldH2 = bxi->height();
+			bxi->updateClip();
+			bxi->ContourLine = bxi->PoLine.copy();
+		}
+	}
+	if (firstUpdate)
+		currDoc->view()->DrawNew();
+	else
+	{
+		double gx, gy, gh, gw;
+		currDoc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		QRectF oldR(pathItem->getBoundingRect());
+		QRectF newR = QRectF(gx, gy, gw, gh);
+		currDoc->regionsChanged()->update(newR.unite(oldR));
+	}
+	if (effectType != -1)
+		firstUpdate = false;
 }
 
 void PathAlongPathPlugin::updateEffect(int effectType, double offset, double offsetY, double gap, bool rotate)
@@ -171,7 +345,8 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 			patternpwd2 = FPointArray2Piecewise(originalPath, false);
 		else
 			patternpwd2 = FPointArray2Piecewise(originalPath, true);
-		patternItem->PoLine = doEffect_pwd2(originaldpwd2, patternpwd2, effectType, offset / currDoc->unitRatio(), offsetY / currDoc->unitRatio(), gap / currDoc->unitRatio(), rotate);
+		setUpEffect(originaldpwd2, patternpwd2, effectType, offset / currDoc->unitRatio(), offsetY / currDoc->unitRatio(), gap / currDoc->unitRatio(), rotate);
+		patternItem->PoLine = doEffect_pwd2(patternpwd2);
 		patternItem->Frame = false;
 		patternItem->ClipEdited = true;
 		patternItem->FrameType = 3;
@@ -193,12 +368,13 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 		firstUpdate = false;
 }
 
-FPointArray
-PathAlongPathPlugin::doEffect_pwd2(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd2_in, Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern, int effect, double offset, double offsetY, double gap, bool rotate)
+void PathAlongPathPlugin::setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd2_in, Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern, int effect, double offset, double offsetY, double gap, bool rotate)
 {
-	double offs = offset;
-	double gapval = gap;
-	Piecewise<D2<SBasis> > uskeleton = arc_length_parametrization(pwd2_in, 2, .1);
+	m_offsetX = offset;
+	m_offsetY = offsetY;
+	m_gapval = gap;
+	m_rotate = rotate;
+	uskeleton = arc_length_parametrization(pwd2_in, 2, .1);
 	uskeleton = remove_short_cuts(uskeleton,.01);
 	Piecewise<D2<SBasis> > n = rot90(derivative(uskeleton));
 	n = force_continuity(remove_short_cuts(n,.1));
@@ -215,42 +391,65 @@ PathAlongPathPlugin::doEffect_pwd2(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd
 		x = Piecewise<SBasis>(patternd2[0]);
 		y = Piecewise<SBasis>(patternd2[1]);
 	}
-	Interval pattBnds = bounds_exact(x);
+	pattBnds = bounds_exact(x);
 	x -= pattBnds.min();
-	Interval pattBndsY = bounds_exact(y);
+	pattBndsY = bounds_exact(y);
 	y -= (pattBndsY.max()+pattBndsY.min()) / 2.0;
 	y -= offsetY;
-	double scaling = 1.0;
-	int nbCopies = int(uskeleton.cuts.back()/pattBnds.extent());
+	m_scaling = 1.0;
+	nbCopies = int(uskeleton.cuts.back()/pattBnds.extent());
 	if (effect == 0)
 	{
 		nbCopies = 1;
-		scaling = 1.0;
+		m_scaling = 1.0;
 	}
 	else if (effect == 1)
 	{
 		nbCopies = 1;
-		scaling = (uskeleton.cuts.back()-offs)/pattBnds.extent();
+		m_scaling = (uskeleton.cuts.back()-m_offsetX)/pattBnds.extent();
 	}
 	else if (effect == 2)
 	{
-		nbCopies = int((uskeleton.cuts.back()-offs)/(pattBnds.extent()+gapval));
-		scaling = 1.0;
+		nbCopies = int((uskeleton.cuts.back()-m_offsetX)/(pattBnds.extent()+m_gapval));
+		m_scaling = 1.0;
 	}
 	else if (effect == 3)
 	{
-		nbCopies = int((uskeleton.cuts.back()-offs)/(pattBnds.extent()+gapval));
-		scaling = (uskeleton.cuts.back()-offs)/((((double)nbCopies)*pattBnds.extent()) + (((double)nbCopies-1)*gapval));
+		nbCopies = int((uskeleton.cuts.back()-m_offsetX)/(pattBnds.extent()+m_gapval));
+		m_scaling = (uskeleton.cuts.back()-m_offsetX)/((((double)nbCopies)*pattBnds.extent()) + (((double)nbCopies-1)*m_gapval));
 	}
-	double pattWidth = pattBnds.extent() * scaling;
-	if (scaling != 1.0)
-		x*=scaling;
+	pattWidth = pattBnds.extent() * m_scaling;
+}
+
+FPointArray PathAlongPathPlugin::doEffect_pwd2(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern)
+{
+	double offs = m_offsetX;
+	Piecewise<D2<SBasis> > n = rot90(derivative(uskeleton));
+	n = force_continuity(remove_short_cuts(n,.1));
+	D2<Piecewise<SBasis> > patternd2 = make_cuts_independant(pattern);
+	Piecewise<SBasis> x;
+	Piecewise<SBasis> y;
+	if (m_rotate)
+	{
+		x = Piecewise<SBasis>(patternd2[1]);
+		y = Piecewise<SBasis>(patternd2[0]);
+	}
+	else
+	{
+		x = Piecewise<SBasis>(patternd2[0]);
+		y = Piecewise<SBasis>(patternd2[1]);
+	}
+	x -= pattBnds.min();
+	y -= (pattBndsY.max()+pattBndsY.min()) / 2.0;
+	y -= m_offsetY;
+	if (m_scaling != 1.0)
+		x*=m_scaling;
 	FPointArray pathP;
 	for (int i=0; i<nbCopies; i++)
 	{
 		Piecewise<D2<SBasis> > output;
 		output.concat(compose(uskeleton,x+offs)+y*compose(n,x+offs));
-		offs+=pattWidth+gapval;
+		offs+=pattWidth+m_gapval;
 		Piecewise2FPointArray(&pathP, output);
 		if (nbCopies > 1)
 			pathP.setMarker();
