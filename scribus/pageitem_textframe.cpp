@@ -3329,6 +3329,8 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 		p->setPen(PrefsManager::instance()->appPrefs.DFrameLinkColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	if (m_Locked)
 		p->setPen(PrefsManager::instance()->appPrefs.DFrameLockColor, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	if (m_Doc->m_Selection->containsItem(this))
+		p->setPen(Qt::red, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);
