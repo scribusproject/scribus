@@ -50,7 +50,7 @@ using namespace std;
 #include "wmfhandle.h"
 #include "metafuncs.h"
 
-#define WMFIMPORT_DEBUG 1
+#define WMFIMPORT_DEBUG 0
 #define MAX_OBJHANDLE   128
 
 #define ANSI_CHARSET			0		// ANSI charset (Windows-1252)
