@@ -633,8 +633,8 @@ bool WMFImport::importWMF(int flags)
 				miny = qMin(miny, y1);
 				maxx = qMax(maxx, x2);
 				maxy = qMax(maxy, y2);
-				double lw = currItem->lineWidth() / 2.0;
-/*				if (currItem->rotation() != 0)
+/*				double lw = currItem->lineWidth() / 2.0;
+				if (currItem->rotation() != 0)
 				{
 					FPointArray pb;
 					pb.resize(0);
@@ -1230,8 +1230,8 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 
     QFontMetrics fm( m_context.font() );
     int width  = fm.width(textString) + fm.descent();  // because fm.width(text) isn't rigth with Italic text
-    int height = fm.height();
-	int ascent = fm.ascent();
+    /*int height = fm.height();
+	int ascent = fm.ascent();*/
 
 	double startX = params[1], startY = params[0];
 	int    textAlign    = m_context.textAlign();
