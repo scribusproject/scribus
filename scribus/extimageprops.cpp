@@ -39,8 +39,8 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	setWindowTitle( tr( "Extended Image Properties" ) );
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	ExtImagePropsLayout = new QVBoxLayout( this );
-	ExtImagePropsLayout->setMargin(1);
-	ExtImagePropsLayout->setSpacing(2);
+	ExtImagePropsLayout->setMargin(6);
+	ExtImagePropsLayout->setSpacing(6);
 	viewWidget = view;
 	currentItem = item;
 	currentLayer = 0;
@@ -89,11 +89,11 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	{
 		tab = new QWidget( propsTab );
 		tabLayout = new QVBoxLayout( tab );
-		tabLayout->setMargin(4);
-		tabLayout->setSpacing(4);
+		tabLayout->setMargin(6);
+		tabLayout->setSpacing(6);
 		layout1 = new QHBoxLayout;
 		layout1->setMargin(0);
-		layout1->setSpacing(4);
+		layout1->setSpacing(6);
 		textLabel1 = new QLabel( tab );
 		textLabel1->setText( tr( "Blend Mode:" ) );
 		layout1->addWidget( textLabel1 );
@@ -210,13 +210,13 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		layerTable->setColumnWidth(1, 24 + col2Width);
 		layerTable->setColumnWidth(0, 24 + col1Width);
 		blendMode->setCurrentIndex(0);
-		headerH->setResizeMode(QHeaderView::Fixed);
+// 		headerH->setResizeMode(QHeaderView::Fixed);
 		propsTab->addTab( tab,  tr( "Layers" ) );
 	}
 	tab_2 = new QWidget( propsTab );
 	tabLayout_2 = new QVBoxLayout( tab_2 );
-	tabLayout_2->setMargin(4);
-	tabLayout_2->setSpacing(4);
+	tabLayout_2->setMargin(6);
+	tabLayout_2->setSpacing(6);
 	pathList = new QListWidget( tab_2 );
 	pathList->clear();
 	pathList->setIconSize(QSize(40, 40));
@@ -271,7 +271,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 
 	layoutBottom = new QHBoxLayout;
 	layoutBottom->setMargin(0);
-	layoutBottom->setSpacing(4);
+	layoutBottom->setSpacing(6);
 	livePreview = new QCheckBox( this );
 	livePreview->setText( tr( "Live Preview" ) );
 	livePreview->setChecked(true);
