@@ -87,6 +87,7 @@ SET(SCRIBUS_MOC_CLASSES
   bookmwin.h
   buttonicon.h
   canvas.h
+  canvasgesture_rulermove.h
   canvasmode_measurements.h
   canvasmode_legacy.h
   charselect.h

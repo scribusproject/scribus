@@ -43,6 +43,7 @@ class ScribusMainWindow;
  */
 class SCRIBUS_API RulerGesture : public CanvasGesture
 {
+	Q_OBJECT
 public:
 	enum Mode { HORIZONTAL, VERTICAL, ORIGIN };
 	RulerGesture (ScribusView* view, Mode mode) : 
@@ -82,6 +83,9 @@ private:
 	QCursor m_cursor;
 	QPoint m_xy;
 	void movePoint(QMouseEvent *m);
+	
+	signals:
+		void guideInfo(int /*direction*/, double /*position*/);
 };
 
 

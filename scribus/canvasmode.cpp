@@ -31,6 +31,7 @@
 
 
 CanvasMode::CanvasMode (ScribusView* view) :
+	QObject(),
 	m_view(view),
 	m_canvas(view->m_canvas),
 	m_doc(view->Doc)

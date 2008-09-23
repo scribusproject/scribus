@@ -29,7 +29,7 @@
 #include <QTimer>
 #include <QWidgetAction>
 
-
+#include "aligndistribute.h"
 #include "canvas.h"
 #include "canvasgesture_linemove.h"
 #include "canvasgesture_resize.h"
@@ -67,7 +67,7 @@
 
 
 
-LegacyMode::LegacyMode(ScribusView* view) : QObject(), CanvasMode(view), m_ScMW(view->m_ScMW) 
+LegacyMode::LegacyMode(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	GxM = GyM = -1;
 	Mxp = Myp = -1;
@@ -1291,7 +1291,11 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) && (!GetItem(&currItem)))
 		{
 			if (!guideMoveGesture)
+			{
 				guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
+				connect(guideMoveGesture,SIGNAL(guideInfo(int, double)),
+					m_ScMW->alignDistributePalette,SLOT(setGuide(int, double)));
+			}
 			if (guideMoveGesture->mouseHitsGuide(mousePointDoc))
 			{
 				switch (guideMoveGesture->getMode())
@@ -4766,7 +4770,11 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 	if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(MxpS, MypS) != -1))
 	{
 		if (!guideMoveGesture)
+		{
 			guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
+			connect(guideMoveGesture,SIGNAL(guideInfo(int, double)),
+				m_ScMW->alignDistributePalette,SLOT(setGuide(int, double)));
+		}
 		if (guideMoveGesture->mouseHitsGuide(mousePointDoc))
 		{
 			m_view->startGesture(guideMoveGesture);

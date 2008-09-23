@@ -407,13 +407,14 @@ void AlignDistributePalette::distributeDistValV()
 
 void AlignDistributePalette::alignToChanged(int newAlignTo)
 {
-	currAlignTo=(ScribusDoc::AlignTo)newAlignTo;
+	currAlignTo = ScribusDoc::AlignTo(newAlignTo);
 	enableGuideButtons();
 }
 
 void AlignDistributePalette::setGuide(int direction, double position)
 {
 	//direction 0=H, 1=V
+// 	qDebug()<<"AlignDistributePalette::setGuide("<<direction<<""<<position<<")";
 	guideDirection=direction;
 	guidePosition=position;
 	enableGuideButtons();

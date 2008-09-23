@@ -36,7 +36,7 @@ class ScribusView;
 
 // This class encapsulate the old code for mouse interaction from scribusview.cpp
 
-class LegacyMode : public QObject, public CanvasMode
+class LegacyMode :  public CanvasMode
 {
 	Q_OBJECT
 	

@@ -89,6 +89,7 @@ void RulerGesture::activate(bool fromGesture)
 			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 			break;
 	}
+	emit guideInfo(m_mode, m_guide);
 }
 
 void RulerGesture::deactivate(bool)
@@ -112,6 +113,7 @@ bool RulerGesture::mouseHitsGuide(FPoint mousePointDoc)
 			m_haveGuide = true;
 			m_guide = m_doc->Pages->at(page)->guides.vertical(index, GuideManagerCore::Standard);
 			m_page = page;
+// 			emit guideInfo(m_mode, m_guide);
 			return true;
 		}
 		index = m_doc->Pages->at(page)->guides.isMouseOnHorizontal(mousePointDoc.y() + grabRadScale, mousePointDoc.y() - grabRadScale, GuideManagerCore::Standard);
@@ -121,6 +123,7 @@ bool RulerGesture::mouseHitsGuide(FPoint mousePointDoc)
 			m_haveGuide = true;
 			m_guide = m_doc->Pages->at(page)->guides.horizontal(index, GuideManagerCore::Standard);
 			m_page = page;
+// 			emit guideInfo(m_mode, m_guide);
 			return true;
 		}
 	}
@@ -219,6 +222,7 @@ void RulerGesture::mouseMoveEvent(QMouseEvent* m)
 {
 	movePoint(m);
 	m->accept();
+	emit guideInfo(m_mode, m_guide);
 }
 
 
@@ -233,6 +237,7 @@ void RulerGesture::mouseReleaseEvent(QMouseEvent* m)
 	m->accept();
 	m_canvas->repaint();
 	m_view->stopGesture();
+	emit guideInfo(m_mode, m_guide);
 }
 
 
@@ -244,4 +249,5 @@ void RulerGesture::mousePressEvent(QMouseEvent* m)
 		m_xy = m->globalPos() - m_canvas->mapToGlobal(QPoint(0,0));
 		m->accept();
 	}
+	emit guideInfo(m_mode, m_guide);
 }

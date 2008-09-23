@@ -59,7 +59,7 @@ enum SubMode
   This class is a superclass for all mode handlers.
   By default, all events are ignored.
  */
-class SCRIBUS_API CanvasMode
+class SCRIBUS_API CanvasMode : public QObject
 {
 protected:
 	CanvasMode (ScribusView* view);

@@ -30,7 +30,7 @@ class ScribusView;
 /**
   shows measurements between mouse press and mouse release point
 */
-class MeasurementsMode : public QObject, public CanvasMode
+class MeasurementsMode : public CanvasMode
 {
 	Q_OBJECT
 	
