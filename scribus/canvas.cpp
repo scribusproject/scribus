@@ -676,7 +676,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 #endif
 			if ((m_viewMode.forceRedraw) && (!bufferFilled))
 			{
-				qDebug() << "Canvas::paintEvent: forceRedraw=" << m_viewMode.forceRedraw << "bufferFilled=" << bufferFilled;
+//				qDebug() << "Canvas::paintEvent: forceRedraw=" << m_viewMode.forceRedraw << "bufferFilled=" << bufferFilled;
 				fillBuffer(&m_buffer, m_bufferRect.topLeft(), p->rect());
 			}
 #ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
@@ -798,10 +798,10 @@ void Canvas::paintEvent ( QPaintEvent * p )
 
 void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cliph)
 {
-	int Tsetup, Toutlines , Tbackground, Tcontents;
-	Toutlines=0;
-	QTime tim;
-	tim.start();
+//	int Tsetup, Toutlines , Tbackground, Tcontents;
+//	Toutlines=0;
+//	QTime tim;
+//	tim.start();
 //	qDebug() << "drawContents" << clipx << clipy << clipw << cliph;
 	uint docPagesCount=m_doc->Pages->count();
 	ScPainter *painter=0;
@@ -820,11 +820,11 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	painter->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	painter->setLineWidth(1);
 	painter->setFillMode(ScPainter::Solid);
-	Tsetup = tim.elapsed();
+//	Tsetup = tim.elapsed();
 	if (!m_doc->masterPageMode())
 	{
 		drawBackgroundPageOutlines(painter, clipx, clipy, clipw, cliph);
-		Toutlines= tim.elapsed();
+//		Toutlines= tim.elapsed();
 		if (m_viewMode.viewAsPreview)
 		{
 			FPointArray PoLine;
@@ -838,14 +838,14 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 		{
 			drawGuides(painter, clipx, clipy, clipw, cliph);
 		}
-		Tbackground = tim.elapsed();
+//		Tbackground = tim.elapsed();
 		for (uint a = 0; a < docPagesCount; ++a)
 		{
 			DrawMasterItems(painter, m_doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 		}
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		painter->endLayer();
-		Tcontents = tim.elapsed();
+//		Tcontents = tim.elapsed();
 		if ((!m_doc->guidesSettings.before) && (!m_viewMode.viewAsPreview))
 		{
 			drawGuides(painter, clipx, clipy, clipw, cliph);
@@ -855,11 +855,11 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	{			
 		drawBackgroundMasterpage(painter, clipx, clipy, clipw, cliph);
 		
-		Tbackground = tim.elapsed();
+//		Tbackground = tim.elapsed();
 		painter->beginLayer(1.0, 0);
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		painter->endLayer();
-		Tcontents = tim.elapsed();
+//		Tcontents = tim.elapsed();
 		
 		double x = m_doc->scratch.Left * m_viewMode.scale;
 		double y = m_doc->scratch.Top * m_viewMode.scale;
