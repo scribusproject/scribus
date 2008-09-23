@@ -1970,7 +1970,10 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	setLineWidth(i->lineWidth());
 	setLIvalue(i->lineStyle(), i->lineEnd(), i->lineJoin());
 	RoVal = i->rotation();
-	Rotation->setValue(i->rotation());
+	double rr = i->rotation();
+	if (i->rotation() > 0)
+		rr = 360 - rr;
+	Rotation->setValue(fabs(rr));
 	setScaleAndOffset(i->imageXScale(), i->imageYScale(), i->imageXOffset(), i->imageYOffset());
 	setTextToFrameDistances(i->textToFrameDistLeft(),i->textToFrameDistTop(),i->textToFrameDistBottom(),i->textToFrameDistRight());
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
