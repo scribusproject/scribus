@@ -131,6 +131,27 @@ bool RulerGesture::mouseHitsGuide(FPoint mousePointDoc)
 	return false;
 }
 
+void RulerGesture::mouseSelectGuide(QMouseEvent *m)
+{
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
+	if ((m_doc->guidesSettings.guidesShown) && page >= 0)
+	{
+		double grabRadScale = m_doc->guidesSettings.grabRad / m_canvas->scale();
+		int index = m_doc->Pages->at(page)->guides.isMouseOnVertical(mousePointDoc.x() + grabRadScale, mousePointDoc.x() - grabRadScale, GuideManagerCore::Standard);
+		if (index >= 0)
+		{
+			emit guideInfo(VERTICAL, m_doc->Pages->at(page)->guides.vertical(index, GuideManagerCore::Standard));
+			return;
+		}
+		index = m_doc->Pages->at(page)->guides.isMouseOnHorizontal(mousePointDoc.y() + grabRadScale, mousePointDoc.y() - grabRadScale, GuideManagerCore::Standard);
+		if (index >= 0)
+		{
+			emit guideInfo(HORIZONTAL, m_doc->Pages->at(page)->guides.horizontal(index, GuideManagerCore::Standard));
+			return;
+		}
+	}
+}
 
 void RulerGesture::movePoint(QMouseEvent* m)
 {
@@ -251,3 +272,4 @@ void RulerGesture::mousePressEvent(QMouseEvent* m)
 	}
 	emit guideInfo(m_mode, m_guide);
 }
+

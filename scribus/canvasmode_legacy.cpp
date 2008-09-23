@@ -4767,7 +4767,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 		}
 	}
  */
-	if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(MxpS, MypS) != -1))
+	if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) /*&& (!m_doc->GuideLock)*/ && (m_doc->OnPage(MxpS, MypS) != -1))
 	{
 		if (!guideMoveGesture)
 		{
@@ -4775,13 +4775,20 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 			connect(guideMoveGesture,SIGNAL(guideInfo(int, double)),
 				m_ScMW->alignDistributePalette,SLOT(setGuide(int, double)));
 		}
-		if (guideMoveGesture->mouseHitsGuide(mousePointDoc))
+		if ( (!m_doc->GuideLock) && (guideMoveGesture->mouseHitsGuide(mousePointDoc)) )
 		{
 			m_view->startGesture(guideMoveGesture);
 			guideMoveGesture->mouseMoveEvent(m);
 			//m_doc->m_Selection->setIsGUISelection(true);
 			m_doc->m_Selection->connectItemToGUI();
 			return true;
+		}
+		else
+		{
+			// If we call startGesture now, a new guide is created each time.
+			// ### could be a weakness to avoid calling it tho.
+// 			m_view->startGesture(guideMoveGesture);
+			guideMoveGesture->mouseSelectGuide(m);
 		}
 /*		GxM = -1;
 		GyM = -1;

@@ -73,6 +73,11 @@ public:
 		It prepares the gesture for moving this guide.
 	 */
 	bool mouseHitsGuide(FPoint mousePointDoc);
+	/**
+	  It tests for a guide near position, that guide being moveable or not.
+	  If the test results in success, emits guideInfo;
+	*/
+	void mouseSelectGuide(QMouseEvent *m);
 private:
 	ScribusMainWindow* m_ScMW;
 	Mode m_mode;
