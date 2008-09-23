@@ -697,8 +697,16 @@ void NodePalette::HaveNode(bool have, bool mov)
 	if (doc==0)
 		return;
 	bool setter = have ? true : false;
-	XSpin->setEnabled(setter);
-	YSpin->setEnabled(setter);
+	if (doc->nodeEdit.SelNode.count() > 1)
+	{
+		XSpin->setEnabled(false);
+		YSpin->setEnabled(false);
+	}
+	else
+	{
+		XSpin->setEnabled(setter);
+		YSpin->setEnabled(setter);
+	}
 	if (setter == true)
 	{
 		if (doc->nodeEdit.EdPoints)
