@@ -424,7 +424,8 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 	PutStream("%%EndComments\n");
 	PutStream(Prolog);
 	PutStream("%%BeginSetup\n");
-	PutStream("/pdfmark where {pop} {userdict /pdfmark /cleartomark load put} ifelse\n");
+	if (isPDF)
+		PutStream("/pdfmark where {pop} {userdict /pdfmark /cleartomark load put} ifelse\n");
 	if (!FontDesc.isEmpty())
 		PutStream(FontDesc);
 	if ((!colorDesc.isEmpty()) && (!sep))
@@ -1639,16 +1640,59 @@ void PSLib::PDF_Bookmark(QString text, uint Seite)
 {
 	PutStream("[/Title ("+text+") /Page "+IToStr(Seite)+" /View [/Fit]\n");
 	PutStream("/OUT pdfmark\n");
-	isPDF = true;
 }
 
-void PSLib::PDF_Annotation(QString text, double x, double y, double b, double h)
+void PSLib::PDF_Annotation(PageItem *item, QString text, double x, double y, double b, double h)
 {
-	PutStream("[ /Rect [ "+ToStr(static_cast<int>(x))+" "+ToStr(static_cast<int>(y))
-			+" "+ToStr(static_cast<int>(b))+" "+ToStr(static_cast<int>(h))+" ]\n");
-	PutStream("  /Contents ("+text+")\n  /Open false\n");
+	PutStream("[\n/Rect [ "+ToStr(x)+" "+ToStr(y) +" "+ToStr(b)+" "+ToStr(h)+" ]\n");
+	switch (item->annotation().Type())
+	{
+		case 0:
+		case 10:
+			PutStream("/Subtype /Text\n");
+			PutStream("/Contents ("+text+")\n/Open false\n");
+			break;
+		case 1:
+		case 11:
+			PutStream("/Subtype /Link\n");
+			if (item->annotation().ActionType() == 2)
+			{
+				PutStream("/Page " + QString::number(item->annotation().Ziel() + 1) + "\n");
+				PutStream("/View [ /XYZ " + item->annotation().Action() + "]\n");
+			}
+			if (item->annotation().ActionType() == 7)
+			{
+				QFileInfo fiBase(Spool.fileName());
+				QString baseDir = fiBase.absolutePath();
+				PutStream("/Action /GoToR\n");
+				PutStream("/File (" + Path2Relative(item->annotation().Extern(), baseDir) + ")\n");
+				PutStream("/Page " + QString::number(item->annotation().Ziel() + 1) + "\n");
+				PutStream("/View [ /XYZ " + item->annotation().Action() + "]\n");
+			}
+			if (item->annotation().ActionType() == 8)
+			{
+			/* The PDFMark docs say that for URI actions should contain an entry /Subtype /URI
+			   but tests with Ghostscript shows that only /S /URI works. Don't know if that is
+			   an error in the docs or a bug in Ghostscript
+				PutStream("/Action << /Subtype /URI /URI (" + item->annotation().Extern() + ") >>\n");
+			*/
+				PutStream("/Action << /S /URI /URI (" + item->annotation().Extern() + ") >>\n");
+			}
+			if (item->annotation().ActionType() == 9)
+			{
+				PutStream("/Action /GoToR\n");
+				PutStream("/File (" + item->annotation().Extern() + ")\n");
+				PutStream("/Page " + QString::number(item->annotation().Ziel() + 1) + "\n");
+				PutStream("/View [ /XYZ " + item->annotation().Action() + "]\n");
+			}
+			break;
+		default:
+			break;
+	}
+	if ((item->annotation().Type() < 2) || (item->annotation().Type() > 9))
+		PutStream("/Border [ 0 0 0 ]\n");
+	PutStream("/Title (" + item->itemName().replace(".", "_" ) + ")\n");
 	PutStream("/ANN pdfmark\n");
-	isPDF = true;
 }
 
 
@@ -2271,6 +2315,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 		case PageItem::TextFrame:
 			if (master)
 				break;
+			if ((c->isBookmark || c->isAnnotation()) && (!isPDF))
+				break;
 			if (c->isBookmark)
 			{
 				QString bm = "";
@@ -2285,13 +2331,16 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			if (c->isAnnotation())
 			{
-				QString bm = "";
-				QString cc;
-				for (int d = 0; d < c->itemText.length(); ++d)
+				if ((c->annotation().Type() == 0) || (c->annotation().Type() == 1) || (c->annotation().Type() == 10) || (c->annotation().Type() == 11))
 				{
-					bm += "\\"+cc.setNum(qMax(c->itemText.text(d).unicode(), (ushort) 32), 8);
+					QString bm = "";
+					QString cc;
+					for (int d = 0; d < c->itemText.length(); ++d)
+					{
+						bm += "\\"+cc.setNum(qMax(c->itemText.text(d).unicode(), (ushort) 32), 8);
+					}
+					PDF_Annotation(c, bm, 0, 0, c->width(), -c->height());
 				}
-				PDF_Annotation(bm, 0, 0, c->width(), -c->height());
 				break;
 			}
 			if ((c->fillColor() != CommonStrings::None) || (c->GrType != 0))

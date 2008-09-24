@@ -1776,7 +1776,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 				if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 					continue;
 				PutPage("q\n");
-				if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
+				if ((ite->doOverprint) && (!Options.UseRGB))
 				{
 					QString ShName = ResNam+QString::number(ResCount);
 					ResCount++;
@@ -3187,7 +3187,7 @@ QString PDFLibCore::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
 		return "";
 	QString tmp("");
 	tmp += "q\n";
-	if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
+	if ((ite->doOverprint) && (!Options.UseRGB))
 	{
 		QString ShName = ResNam+QString::number(ResCount);
 		ResCount++;
@@ -3311,7 +3311,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 	}
 
 	tmp += "q\n";
-	if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
+	if ((ite->doOverprint) && (!Options.UseRGB))
 	{
 		QString ShName = ResNam+QString::number(ResCount);
 		ResCount++;
@@ -4390,7 +4390,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 			else
 				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
 
-			if ((embedded->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
+			if ((embedded->doOverprint) && (!Options.UseRGB))
 			{
 				QString ShName = ResNam+QString::number(ResCount);
 				ResCount++;
@@ -5054,7 +5054,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 			if ((item->lineColor() == CommonStrings::None) || (item->lineWidth() == 0.0))
 				continue;
 			tmp2 += "q\n";
-			if ((item->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
+			if ((item->doOverprint) && (!Options.UseRGB))
 			{
 				QString ShName = ResNam+QString::number(ResCount);
 				ResCount++;

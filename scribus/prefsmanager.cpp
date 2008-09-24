@@ -285,7 +285,6 @@ void PrefsManager::initDefaults()
 //	appPrefs.PSize = 40;
 	appPrefs.ClipMargin = false;
 	appPrefs.GCRMode = false;
-	appPrefs.doOverprint = false;
 	appPrefs.RecentDocs.clear();
 	appPrefs.RecentScrapbooks.clear();
 	appPrefs.RecentDCount = 5;
@@ -466,7 +465,6 @@ void PrefsManager::initDefaults()
 	appPrefs.PDF_Options.UseLPI = false;
 	appPrefs.PDF_Options.LPISettings.clear();
 	appPrefs.PDF_Options.UseSpotColors = true;
-	appPrefs.PDF_Options.doOverprint = false;
 	appPrefs.PDF_Options.doMultiFile = false;
 	appPrefs.PDF_Options.displayBookmarks = false;
 	appPrefs.PDF_Options.displayFullscreen = false;
@@ -1473,7 +1471,6 @@ bool PrefsManager::WritePref(QString ho)
 	QDomElement dc8Pr=docu.createElement("PRINTPREVIEW");
 	dc8Pr.setAttribute("Mode", static_cast<int>(appPrefs.PrPr_Mode));
 	dc8Pr.setAttribute("GcrMode", static_cast<int>(appPrefs.Gcr_Mode));
-	dc8Pr.setAttribute("doOverprint", static_cast<int>(appPrefs.doOverprint));
 	dc8Pr.setAttribute("AntiAliasing", static_cast<int>(appPrefs.PrPr_AntiAliasing));
 	dc8Pr.setAttribute("Transparency", static_cast<int>(appPrefs.PrPr_Transparency));
 	dc8Pr.setAttribute("Cyan", static_cast<int>(appPrefs.PrPr_C));
@@ -1622,7 +1619,6 @@ bool PrefsManager::WritePref(QString ho)
 	pdf.setAttribute("UseLayers", static_cast<int>(appPrefs.PDF_Options.useLayers));
 	pdf.setAttribute("UseLpi", static_cast<int>(appPrefs.PDF_Options.UseLPI));
 	pdf.setAttribute("UseSpotColors", static_cast<int>(appPrefs.PDF_Options.UseSpotColors));
-	pdf.setAttribute("doOverprint", static_cast<int>(appPrefs.PDF_Options.doOverprint));
 	pdf.setAttribute("doMultiFile", static_cast<int>(appPrefs.PDF_Options.doMultiFile));
 	pdf.setAttribute("displayBookmarks", static_cast<int>(appPrefs.PDF_Options.displayBookmarks));
 	pdf.setAttribute("displayFullscreen", static_cast<int>(appPrefs.PDF_Options.displayFullscreen));
@@ -2078,7 +2074,6 @@ bool PrefsManager::ReadPref(QString ho)
 		{
 			appPrefs.PrPr_Mode = static_cast<bool>(dc.attribute("Mode", "0").toInt());
 			appPrefs.Gcr_Mode = static_cast<bool>(dc.attribute("GcrMode", "1").toInt());
-			appPrefs.doOverprint = static_cast<bool>(dc.attribute("doOverprint", "0").toInt());
 			appPrefs.PrPr_AntiAliasing = static_cast<bool>(dc.attribute("AntiAliasing", "0").toInt());
 			appPrefs.PrPr_Transparency = static_cast<bool>(dc.attribute("Transparency", "0").toInt());
 			appPrefs.PrPr_C = static_cast<bool>(dc.attribute("Cyan", "1").toInt());
@@ -2246,7 +2241,6 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.PDF_Options.useLayers = static_cast<bool>(dc.attribute("UseLayers", "0").toInt());
 			appPrefs.PDF_Options.UseLPI = static_cast<bool>(dc.attribute("UseLpi", "0").toInt());
 			appPrefs.PDF_Options.UseSpotColors = static_cast<bool>(dc.attribute("UseSpotColors", "1").toInt());
-			appPrefs.PDF_Options.doOverprint = static_cast<bool>(dc.attribute("doOverprint", "0").toInt());
 			appPrefs.PDF_Options.doMultiFile = static_cast<bool>(dc.attribute("doMultiFile", "0").toInt());
 			appPrefs.PDF_Options.displayBookmarks = static_cast<bool>(dc.attribute("displayBookmarks", "0").toInt());
 			appPrefs.PDF_Options.displayFullscreen = static_cast<bool>(dc.attribute("displayFullscreen", "0").toInt());

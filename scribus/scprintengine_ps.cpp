@@ -23,7 +23,7 @@ bool ScPrintEngine_PS::print(ScribusDoc& doc, PrintOptions& options)
 	doc.getUsedFonts(usedFonts);
 	doc.getUsedColors(usedColors);
 	PrefsManager *prefsManager = PrefsManager::instance();
-	PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.AvailFonts, usedFonts, usedColors, false, options.useSpotColors);
+	PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.AvailFonts, usedFonts, usedColors, options.includePDFMarks, options.useSpotColors);
 	if (dd != NULL)
 	{
 		if (!options.toFile)

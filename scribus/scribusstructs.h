@@ -348,6 +348,7 @@ struct PrintOptions
 	bool bleedMarks;
 	bool registrationMarks;
 	bool colorMarks;
+	bool includePDFMarks;
 	int  copies;
 	PrintEngine prnEngine;
 	double markOffset;

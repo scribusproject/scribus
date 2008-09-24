@@ -281,6 +281,7 @@ void PrintDialog::SelEngine(const QString& eng)
 	{
 		PrintSep->setEnabled( true );
 		UseICC->setEnabled( m_doc->HasCMS );
+		usePDFMarks->setEnabled(true);
 	}
 	else
 	{
@@ -290,6 +291,7 @@ void PrintDialog::SelEngine(const QString& eng)
 		SepArt->setEnabled( false );
 		UseICC->setEnabled( false );
 		UseICC->setChecked( false );
+		usePDFMarks->setEnabled(false);
 	}
 }
 
@@ -324,6 +326,7 @@ void PrintDialog::SelPrinter(const QString& prn)
 		printEngines->setEnabled( true );
 		PrintSep->setEnabled( true );
 		UseICC->setEnabled( m_doc->HasCMS );
+		usePDFMarks->setEnabled(true);
 	}
 	else
 	{
@@ -334,6 +337,7 @@ void PrintDialog::SelPrinter(const QString& prn)
 		SepArt->setEnabled( false );
 		UseICC->setEnabled( false );
 		UseICC->setChecked( false );
+		usePDFMarks->setEnabled(false);
 	}
 }
 
@@ -403,6 +407,7 @@ void PrintDialog::storeValues()
 	m_doc->Print_Options.bleedMarks = bleedMarks->isChecked();
 	m_doc->Print_Options.registrationMarks = registrationMarks->isChecked();
 	m_doc->Print_Options.colorMarks = colorMarks->isChecked();
+	m_doc->Print_Options.includePDFMarks = usePDFMarks->isChecked();
 	if (OtherCom->isChecked())
 	{
 		m_doc->Print_Options.printerCommand = Command->text();
@@ -462,6 +467,7 @@ void PrintDialog::getDefaultPrintOptions(PrintOptions& options, bool gcr)
 	options.bleedMarks = prefs->getBool("bleedMarks", false);
 	options.registrationMarks = prefs->getBool("registrationMarks", false);
 	options.colorMarks = prefs->getBool("colorMarks", false);
+	options.includePDFMarks = prefs->getBool("includePDFMarks", true);
 }
 
 void PrintDialog::setStoredValues(bool gcr)
@@ -539,6 +545,7 @@ void PrintDialog::setStoredValues(bool gcr)
 	bleedMarks->setChecked(m_doc->Print_Options.bleedMarks);
 	registrationMarks->setChecked(m_doc->Print_Options.registrationMarks);
 	colorMarks->setChecked(m_doc->Print_Options.colorMarks);
+	usePDFMarks->setChecked(m_doc->Print_Options.includePDFMarks);
 }
 
 QString PrintDialog::printerName()

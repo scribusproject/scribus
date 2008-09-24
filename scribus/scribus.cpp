@@ -7692,7 +7692,6 @@ void ScribusMainWindow::doPrintPreview()
 			prefsManager->appPrefs.PrPr_K = dia->flagsVisible["Black"]->isChecked();
 		}
 //		prefsManager->appPrefs.Gcr_Mode = dia->EnableGCR->isChecked();
-//		prefsManager->appPrefs.doOverprint = dia->EnableOverprint->isChecked();
 		disconnect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 		previewDinUse = false;
 		delete dia;

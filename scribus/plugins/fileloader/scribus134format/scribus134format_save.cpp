@@ -619,6 +619,7 @@ void Scribus134Format::writePrintOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("bleedMarks", static_cast<int>(m_Doc->Print_Options.bleedMarks));
 	docu.writeAttribute("registrationMarks", static_cast<int>(m_Doc->Print_Options.registrationMarks));
 	docu.writeAttribute("colorMarks", static_cast<int>(m_Doc->Print_Options.colorMarks));
+	docu.writeAttribute("includePDFMarks", static_cast<int>(m_Doc->Print_Options.includePDFMarks));
 	docu.writeAttribute("PSLevel", (m_Doc->Print_Options.prnEngine < WindowsGDI) ? m_Doc->Print_Options.prnEngine : PostScript3);
 	docu.writeAttribute("PDLanguage" , m_Doc->Print_Options.prnEngine);
 	docu.writeAttribute("markOffset" , m_Doc->Print_Options.markOffset);
@@ -687,7 +688,6 @@ void Scribus134Format::writePdfOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("UseLayers", static_cast<int>(m_Doc->PDF_Options.useLayers));
 	docu.writeAttribute("UseLpi", static_cast<int>(m_Doc->PDF_Options.UseLPI));
 	docu.writeAttribute("UseSpotColors", static_cast<int>(m_Doc->PDF_Options.UseSpotColors));
-	docu.writeAttribute("doOverprint", static_cast<int>(m_Doc->PDF_Options.doOverprint));
 	docu.writeAttribute("doMultiFile", static_cast<int>(m_Doc->PDF_Options.doMultiFile));
 	docu.writeAttribute("displayBookmarks", static_cast<int>(m_Doc->PDF_Options.displayBookmarks));
 	docu.writeAttribute("displayFullscreen", static_cast<int>(m_Doc->PDF_Options.displayFullscreen));

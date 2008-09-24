@@ -625,7 +625,6 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->PDF_Options.useLayers = static_cast<bool>(pg.attribute("UseLayers", "0").toInt());
 				m_Doc->PDF_Options.UseLPI = static_cast<bool>(pg.attribute("UseLpi", "0").toInt());
 				m_Doc->PDF_Options.UseSpotColors = static_cast<bool>(pg.attribute("UseSpotColors", "1").toInt());
-				m_Doc->PDF_Options.doOverprint = static_cast<bool>(pg.attribute("doOverprint", "0").toInt());
 				m_Doc->PDF_Options.doMultiFile = static_cast<bool>(pg.attribute("doMultiFile", "0").toInt());
 				m_Doc->PDF_Options.displayBookmarks = static_cast<bool>(pg.attribute("displayBookmarks", "0").toInt());
 				m_Doc->PDF_Options.displayFullscreen = static_cast<bool>(pg.attribute("displayFullscreen", "0").toInt());
@@ -1486,7 +1485,6 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	pdf.setAttribute("UseLayers", static_cast<int>(m_Doc->PDF_Options.useLayers));
 	pdf.setAttribute("UseLpi", static_cast<int>(m_Doc->PDF_Options.UseLPI));
 	pdf.setAttribute("UseSpotColors", static_cast<int>(m_Doc->PDF_Options.UseSpotColors));
-	pdf.setAttribute("doOverprint", static_cast<int>(m_Doc->PDF_Options.doOverprint));
 	pdf.setAttribute("doMultiFile", static_cast<int>(m_Doc->PDF_Options.doMultiFile));
 	pdf.setAttribute("displayBookmarks", static_cast<int>(m_Doc->PDF_Options.displayBookmarks));
 	pdf.setAttribute("displayFullscreen", static_cast<int>(m_Doc->PDF_Options.displayFullscreen));

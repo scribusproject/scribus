@@ -116,7 +116,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_plate(int nr, QString name = "");
 		virtual void PS_setGray();
 		virtual void PDF_Bookmark(QString text, uint Seite);
-		virtual void PDF_Annotation(QString text, double x, double y, double b, double h);
+		virtual void PDF_Annotation(PageItem *item, QString text, double x, double y, double b, double h);
 		virtual void PS_close();
 		virtual void PS_insert(QString i);
 		virtual void PS_TemplateStart(QString Name);

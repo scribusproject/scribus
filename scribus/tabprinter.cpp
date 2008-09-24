@@ -34,8 +34,6 @@ TabPrinter::TabPrinter(QWidget* parent, const char* name)
 	psLevel->setToolTip("<qt>" +  tr( "Sets the PostScript Level.\n Setting to Level 1 or 2 can create huge files" ) + "</qt>" );
 	doGCR->setToolTip( "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>");
 	convertSpots->setToolTip("<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
-	doOverprint->setToolTip( "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
-	doOverprint->hide();
 	useICC->setToolTip("<qt>" + tr( "Allows you to embed color profiles in the print stream when color management is enabled" ) + "</qt>");
 	setMedia->setToolTip( "<qt>" + tr( "This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer." ) + "</qt>");
 	connect(useAltPrintCommand, SIGNAL(clicked()), this, SLOT(selOtherComm()));
@@ -117,7 +115,6 @@ void TabPrinter::restoreDefaults(struct ApplicationPrefs *prefsData)
 	doGCR->setChecked(prefs->getBool("DoGCR", false));
 	setClip->setChecked(prefs->getBool("Clip", false));
 	convertSpots->setChecked(!prefs->getBool("doSpot", true));
-	doOverprint->setChecked(prefs->getBool("doOverprint", false));
 	bleedTop->setValue(prefs->getDouble("BleedTop",0.0)*unitRatio);
 	bleedBottom->setValue(prefs->getDouble("BleedBottom",0.0)*unitRatio);
 	bleedRight->setValue(prefs->getDouble("BleedRight",0.0)*unitRatio);
@@ -127,6 +124,7 @@ void TabPrinter::restoreDefaults(struct ApplicationPrefs *prefsData)
 	bleedMarks->setChecked(prefs->getBool("bleedMarks", false));
 	registrationMarks->setChecked(prefs->getBool("registrationMarks", false));
 	colorMarks->setChecked(prefs->getBool("colorMarks", false));
+	usePDFMarks->setChecked(prefs->getBool("includePDFMarks", true));
 }
 
 void TabPrinter::storeValues()
@@ -150,7 +148,6 @@ void TabPrinter::storeValues()
 	prefs->set("PSLevel", psLevel->currentIndex() + 1);
 	prefs->set("doDev", setMedia->isChecked());
 	prefs->set("doSpot", !convertSpots->isChecked());
-	prefs->set("doOverprint", doOverprint->isChecked());
 	prefs->set("ICCinUse", useICC->isChecked());
 	prefs->set("BleedTop", bleedTop->value() / unitRatio);
 	prefs->set("BleedBottom", bleedBottom->value() / unitRatio);
@@ -161,6 +158,7 @@ void TabPrinter::storeValues()
 	prefs->set("bleedMarks", bleedMarks->isChecked());
 	prefs->set("registrationMarks", registrationMarks->isChecked());
 	prefs->set("colorMarks", colorMarks->isChecked());
+	prefs->set("includePDFMarks", usePDFMarks->isChecked());
 }
 
 void TabPrinter::selOtherComm()

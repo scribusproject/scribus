@@ -608,6 +608,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->Print_Options.bleedMarks = static_cast<bool>(pg.attribute("bleedMarks").toInt());
 				m_Doc->Print_Options.registrationMarks = static_cast<bool>(pg.attribute("registrationMarks").toInt());
 				m_Doc->Print_Options.colorMarks = static_cast<bool>(pg.attribute("colorMarks").toInt());
+				m_Doc->Print_Options.includePDFMarks = static_cast<bool>(pg.attribute("includePDFMarks", "1").toInt());
 				if (pg.hasAttribute("PrintEngine"))
 					m_Doc->Print_Options.prnEngine = (PrintEngine) pg.attribute("PrintEngine", "3").toInt();
 				else
@@ -696,7 +697,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->PDF_Options.useLayers = static_cast<bool>(pg.attribute("UseLayers", "0").toInt());
 				m_Doc->PDF_Options.UseLPI = static_cast<bool>(pg.attribute("UseLpi", "0").toInt());
 				m_Doc->PDF_Options.UseSpotColors = static_cast<bool>(pg.attribute("UseSpotColors", "1").toInt());
-				m_Doc->PDF_Options.doOverprint = static_cast<bool>(pg.attribute("doOverprint", "0").toInt());
 				m_Doc->PDF_Options.doMultiFile = static_cast<bool>(pg.attribute("doMultiFile", "0").toInt());
 				m_Doc->PDF_Options.displayBookmarks = static_cast<bool>(pg.attribute("displayBookmarks", "0").toInt());
 				m_Doc->PDF_Options.displayFullscreen = static_cast<bool>(pg.attribute("displayFullscreen", "0").toInt());

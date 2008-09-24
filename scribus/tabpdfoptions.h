@@ -106,7 +106,6 @@ public:
 	QRadioButton* useLayers2;
 	QCheckBox* UseLPI;
 	QCheckBox* useSpot;
-	QCheckBox* overprintMode;
 	QRadioButton* useThumbnails;
 	QSpinBox* ValC;  // == PicRes
 	// End GUI member pointers

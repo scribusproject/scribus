@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>503</width>
-    <height>518</height>
+    <width>505</width>
+    <height>520</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -25,16 +25,7 @@
       <property name="spacing" >
        <number>5</number>
       </property>
-      <property name="leftMargin" >
-       <number>10</number>
-      </property>
-      <property name="topMargin" >
-       <number>10</number>
-      </property>
-      <property name="rightMargin" >
-       <number>10</number>
-      </property>
-      <property name="bottomMargin" >
+      <property name="margin" >
        <number>10</number>
       </property>
       <item>
@@ -64,7 +55,7 @@
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0" >
            <size>
             <width>101</width>
             <height>20</height>
@@ -168,22 +159,10 @@
       <string>Range</string>
      </property>
      <layout class="QGridLayout" >
-      <property name="leftMargin" >
+      <property name="margin" >
        <number>10</number>
       </property>
-      <property name="topMargin" >
-       <number>10</number>
-      </property>
-      <property name="rightMargin" >
-       <number>10</number>
-      </property>
-      <property name="bottomMargin" >
-       <number>10</number>
-      </property>
-      <property name="horizontalSpacing" >
-       <number>5</number>
-      </property>
-      <property name="verticalSpacing" >
+      <property name="spacing" >
        <number>5</number>
       </property>
       <item row="0" column="0" >
@@ -198,7 +177,7 @@
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>40</width>
           <height>20</height>
@@ -273,7 +252,7 @@ a range of pages or a single page number.</string>
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>40</width>
           <height>20</height>
@@ -293,7 +272,7 @@ a range of pages or a single page number.</string>
       <attribute name="title" >
        <string>Options</string>
       </attribute>
-      <layout class="QGridLayout" >
+      <layout class="QGridLayout" name="gridLayoutOptions" >
        <item row="0" column="0" >
         <widget class="QComboBox" name="PrintSep" >
          <item>
@@ -334,6 +313,17 @@ a range of pages or a single page number.</string>
          <property name="toolTip" >
           <string>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2" >
+        <widget class="QCheckBox" name="usePDFMarks" >
+         <property name="toolTip" >
+          <string>Include PDF Annotations and Links into the output.
+Note: PDF Forms will not be exported.</string>
+         </property>
+         <property name="text" >
+          <string>Include PDF Annotations and Links</string>
          </property>
         </widget>
        </item>
@@ -428,7 +418,7 @@ a range of pages or a single page number.</string>
             <property name="sizeType" >
              <enum>QSizePolicy::MinimumExpanding</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>20</width>
               <height>19</height>
@@ -509,7 +499,7 @@ a range of pages or a single page number.</string>
          <property name="orientation" >
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>40</width>
            <height>20</height>
@@ -601,7 +591,7 @@ a range of pages or a single page number.</string>
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>40</width>
          <height>20</height>

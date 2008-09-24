@@ -648,7 +648,6 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->PDF_Options.useLayers = static_cast<bool>(pg.attribute("UseLayers", "0").toInt());
 				m_Doc->PDF_Options.UseLPI = static_cast<bool>(pg.attribute("UseLpi", "0").toInt());
 				m_Doc->PDF_Options.UseSpotColors = true;
-				m_Doc->PDF_Options.doOverprint = false;
 				m_Doc->PDF_Options.doMultiFile = false;
 				QDomNode PFO = PAGE.firstChild();
 				while(!PFO.isNull())

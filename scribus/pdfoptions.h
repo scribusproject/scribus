@@ -122,7 +122,6 @@ public:
 	bool UseProfiles2;
 	bool UseLPI;
 	bool UseSpotColors;
-	bool doOverprint;
 	bool doMultiFile;
 	QMap<QString,LPIData> LPISettings;
 	QString SolidProf;

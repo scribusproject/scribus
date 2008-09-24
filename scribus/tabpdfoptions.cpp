@@ -104,7 +104,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	useLayers2(0),
 	UseLPI(0),
 	useSpot(0),
-	overprintMode(0),
 	useThumbnails(0),
 	ValC(0),
 	// Protected members other than GUI member pointers
@@ -687,10 +686,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	useSpot = new QCheckBox( tr( "Convert Spot Colors to Process Colors" ), tabColor);
 	tabColorLayout->addWidget( useSpot );
 
-	overprintMode = new QCheckBox( tr( "Force Overprint Mode" ), tabColor);
-	tabColorLayout->addWidget( overprintMode );
-	overprintMode->hide();
-
 	UseLPI = new QCheckBox( tr( "&Use Custom Rendering Settings" ), tabColor);
 	tabColorLayout->addWidget( UseLPI );
 	LPIgroup = new QGroupBox( tr( "Rendering Settings" ), tabColor);
@@ -989,7 +984,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	IntendI->setToolTip( "<qt>" + tr( "Rendering intent for images" ) + "</qt>" );
 	MirrorH->setToolTip( "<qt>" + tr( "Mirror Page(s) horizontally" ) + "</qt>" );
 	MirrorV->setToolTip( "<qt>" + tr( "Mirror Page(s) vertically" ) + "</qt>" );
-	overprintMode->setToolTip( "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
 	useSpot->setToolTip("<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 	ClipMarg->setToolTip( "<qt>" + tr( "Do not show objects outside the margins in the exported file" ) + "</qt>" );
 	//PrePress tab 
@@ -1225,7 +1219,6 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 			OutCombo->setCurrentIndex(1);
 	}
 	useSpot->setChecked(!Opts.UseSpotColors);
-	overprintMode->setChecked(Opts.doOverprint);
 	UseLPI->setChecked(Opts.UseLPI);
 	QMap<QString,LPIData>::Iterator itlp;
 	LPIcolor->clear();
@@ -1635,7 +1628,6 @@ void TabPDFOptions::EnableLPI(int a)
 			ProfsGroup->hide();
 		}
 		useSpot->show();
-//		overprintMode->show();
 		if (doc!=0)
 		{
 			UseLPI->show();
@@ -1648,7 +1640,6 @@ void TabPDFOptions::EnableLPI(int a)
 	else
 	{
 		useSpot->hide();
-		overprintMode->hide();
 		UseLPI->hide();
 		LPIgroup->hide();
 	}
