@@ -668,7 +668,7 @@ bool PageItem::frameOverflows() const
 #ifndef NLS_PROTO
 	// Fix #6991 : "Text overflow" warning when there is a text underflow in fact
 	/*return NextBox == NULL && itemText.length() > static_cast<int>(MaxChars);*/
-	return (NextBox == NULL) && (static_cast<int>(firstChar) < itemText.length()) && (static_cast<int>(firstChar) < MaxChars)
+	return (NextBox == NULL) && (static_cast<int>(firstChar) < itemText.length()) && (firstChar < MaxChars)
 		&& (itemText.length() > static_cast<int>(MaxChars));
 #else
 	return false; // FIXME:NLS
