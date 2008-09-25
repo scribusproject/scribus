@@ -176,6 +176,8 @@ void ContextMenu::createMenuItems_Selection()
 			addAction(m_AP->scrActions["fileImportImage"]);
 		if (m_actionList.contains("itemAdjustFrameToImage"))
 			addAction(m_AP->scrActions["itemAdjustFrameToImage"]);
+		if (m_actionList.contains("itemAdjustImageToFrame"))
+			addAction(m_AP->scrActions["itemAdjustImageToFrame"]);
 		if (m_actionList.contains("itemExtendedImageProperties"))
 			addAction(m_AP->scrActions["itemExtendedImageProperties"]);
 		if (m_actionList.contains("itemImageInfo"))
@@ -211,6 +213,7 @@ void ContextMenu::createMenuItems_Selection()
 			{
 				if (!currItem->isTableItem)
 					m_AP->scrActions["itemAdjustFrameToImage"]->setEnabled(true);
+				m_AP->scrActions["itemAdjustImageToFrame"]->setEnabled(true);
 				if (currItem->pixm.imgInfo.valid)
 					m_AP->scrActions["itemExtendedImageProperties"]->setEnabled(true);
 				if (currItem->pixm.imgInfo.exifDataValid)

@@ -313,6 +313,7 @@ bool PageItem_ImageFrame::createContextMenu(QMenu *menu, int step)
 			{
 				if (!isTableItem)
 					menu->addAction(actions["itemAdjustFrameToImage"]);
+				menu->addAction(actions["itemAdjustImageToFrame"]);
 				if (pixm.imgInfo.valid)
 					menu->addAction(actions["itemExtendedImageProperties"]);
 				menu->addAction(actions["itemUpdateImage"]);
@@ -374,6 +375,7 @@ void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 	{
 		if (!isTableItem)
 			actionList << "itemAdjustFrameToImage";
+		actionList << "itemAdjustImageToFrame";
 		if (pixm.imgInfo.valid)
 			actionList << "itemExtendedImageProperties";
 		if (pixm.imgInfo.exifDataValid)

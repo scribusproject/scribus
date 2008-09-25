@@ -411,6 +411,8 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemAdjustFrameToImage";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name = "itemAdjustImageToFrame";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemExtendedImageProperties";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemPreviewLow";
@@ -1017,6 +1019,7 @@ void ActionManager::connectModeActions()
 void ActionManager::disconnectNewDocActions()
 {
 	disconnect( (*scrActions)["itemAdjustFrameToImage"], 0, 0, 0 );
+	disconnect( (*scrActions)["itemAdjustImageToFrame"], 0, 0, 0 );
 	disconnect( (*scrActions)["itemLock"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLockSize"], 0, 0, 0);
 	disconnect( (*scrActions)["itemPrintingEnabled"], 0, 0, 0);
@@ -1047,6 +1050,7 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 	connect( (*scrActions)["extrasDeHyphenateText"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DoDeHyphenate()) );
 	connect( (*scrActions)["itemDelete"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DeleteItem()) );
 	connect( (*scrActions)["itemAdjustFrameToImage"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustFrametoImageSize()) );
+	connect( (*scrActions)["itemAdjustImageToFrame"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustImagetoFrameSize()) );
 }
 
 void ActionManager::disconnectNewViewActions()
@@ -1338,6 +1342,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemImageIsVisible"]->setTexts( tr("I&mage Visible"));
 	(*scrActions)["itemUpdateImage"]->setTexts( tr("&Update Image"));
 	(*scrActions)["itemAdjustFrameToImage"]->setTexts( tr("Adjust Frame to Image"));
+	(*scrActions)["itemAdjustImageToFrame"]->setTexts( tr("Adjust Image to Frame"));
 	(*scrActions)["itemExtendedImageProperties"]->setTexts( tr("Extended Image Properties"));
 	(*scrActions)["itemPreviewLow"]->setTexts( tr("&Low Resolution"));
 	(*scrActions)["itemPreviewNormal"]->setTexts( tr("&Normal Resolution"));
@@ -1685,7 +1690,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "typeEffectNormal" << "typeEffectUnderline" << "typeEffectUnderlineWords" << "typeEffectStrikeThrough" << "typeEffectAllCaps" << "typeEffectSmallCaps" << "typeEffectSuperscript" << "typeEffectSubscript" << "typeEffectOutline" << "typeEffectShadow" << "styleImageEffects" << "styleTabulators";
 	//Item
 	++itmenu;
-	itmenu->second << "itemDuplicate" << "itemMulDuplicate" << "itemDelete" << "itemGroup" << "itemUngroup" << "itemLock" << "itemLockSize" << "itemImageIsVisible" << "itemUpdateImage" << "itemAdjustFrameToImage" << "itemExtendedImageProperties" << "itemPreviewLow" << "itemPreviewNormal" << "itemPreviewFull" << "itemRaise" << "itemLower" << "itemRaiseToTop" << "itemLowerToBottom" << "itemSendToScrapbook" << "itemSendToPattern" << "itemAttributes" << "itemPDFIsAnnotation" << "itemPDFIsBookmark" << "itemPDFAnnotationProps" << "itemPDFFieldProps" << "itemShapeEdit" << "itemConvertToBezierCurve" << "itemConvertToImageFrame" << "itemConvertToOutlines" << "itemConvertToPolygon" << "itemConvertToTextFrame" << "itemAttachTextToPath" << "itemDetachTextFromPath" << "itemCombinePolygons" << "itemSplitPolygons";
+	itmenu->second << "itemDuplicate" << "itemMulDuplicate" << "itemDelete" << "itemGroup" << "itemUngroup" << "itemLock" << "itemLockSize" << "itemImageIsVisible" << "itemUpdateImage" << "itemAdjustFrameToImage" << "itemAdjustImageToFrame" << "itemExtendedImageProperties" << "itemPreviewLow" << "itemPreviewNormal" << "itemPreviewFull" << "itemRaise" << "itemLower" << "itemRaiseToTop" << "itemLowerToBottom" << "itemSendToScrapbook" << "itemSendToPattern" << "itemAttributes" << "itemPDFIsAnnotation" << "itemPDFIsBookmark" << "itemPDFAnnotationProps" << "itemPDFFieldProps" << "itemShapeEdit" << "itemConvertToBezierCurve" << "itemConvertToImageFrame" << "itemConvertToOutlines" << "itemConvertToPolygon" << "itemConvertToTextFrame" << "itemAttachTextToPath" << "itemDetachTextFromPath" << "itemCombinePolygons" << "itemSplitPolygons";
 	//Insert
 	++itmenu;
 	itmenu->second

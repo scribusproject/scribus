@@ -721,6 +721,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemSendToPattern"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameToImage"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemAdjustImageToFrame"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemExtendedImageProperties"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemUpdateImage"], "Item");
 	scrMenuMgr->createMenu("ItemPreviewSettings", tr("Preview Settings"), "Item");
@@ -2802,6 +2803,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	charPalette->setEnabled(false, 0);
 	scrActions["itemUpdateImage"]->setEnabled(SelectedType==PageItem::ImageFrame && (currItem->PicAvail || currItem->asLatexFrame()));
 	scrActions["itemAdjustFrameToImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail && !currItem->isTableItem);
+	scrActions["itemAdjustImageToFrame"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail);
 	scrActions["itemExtendedImageProperties"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail && currItem->pixm.imgInfo.valid);
 	scrMenuMgr->setMenuEnabled("ItemPreviewSettings", SelectedType==PageItem::ImageFrame);
 	scrActions["itemImageIsVisible"]->setEnabled(SelectedType==PageItem::ImageFrame);

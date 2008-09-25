@@ -9917,6 +9917,30 @@ void ScribusDoc::itemSelection_AdjustFrametoImageSize( Selection *customSelectio
 		}
 	}
 }
+void ScribusDoc::itemSelection_AdjustImagetoFrameSize( Selection *customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	
+	if (selectedItemCount > 0)
+	{
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			PageItem *currItem = itemSelection->itemAt(i);
+			if (currItem!=NULL)
+			{
+				if (currItem->asImageFrame() && currItem->PicAvail && !currItem->isTableItem)
+					currItem->setImageScalingMode(false, true);
+			}
+		}
+		regionsChanged()->update(QRectF());
+		changed();
+		itemSelection->itemAt(0)->emitAllToGUI();
+	}
+}
 
 
 
