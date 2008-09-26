@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDialog>
 #include <QListWidget>
+class QFormLayout;
 class QGridLayout;
 class QHBoxLayout;
 class QVBoxLayout;
@@ -139,7 +140,7 @@ protected:
 	QHBoxLayout* Layout1;
 	QGridLayout* NewDocLayout;
 	QGridLayout* pageSizeGroupBoxLayout;
-	QGridLayout* optionsGroupBoxLayout;
+	QFormLayout* optionsGroupBoxLayout;
 	QVBoxLayout* openDocLayout;
 	QVBoxLayout* recentDocLayout;
 	PrefsManager* prefsManager;
