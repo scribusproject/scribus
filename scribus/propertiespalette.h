@@ -192,7 +192,8 @@ public slots:
 	void setR(double r);
 	void setRR(double r);
 	void setCols(int r, double g);
-	void setLspMode(QAction *);
+// 	void setLspMode(QAction *);
+	void setLineSpacingMode(int id);
 	void setLsp(double r);
 	void setupLineSpacingSpinbox(int mode, double value);
 	void setSize(double s);
@@ -420,6 +421,7 @@ protected:
 	QLabel* rightLabel;
 	QLabel* trackingLabel;
 	QLabel* fontsizeLabel;
+	QLabel* lineSpacingLabel;
 	QLabel* yscaleLabel;
 	QLabel* xscaleLabel;
 	QLabel* xposImgLabel;
@@ -526,6 +528,7 @@ protected:
 	QComboBox* InputP;
 	QComboBox* MonitorI;
 	QComboBox* LineMode;
+	QComboBox* lineSpacingModeCombo;
 	ColorCombo* TxStroke;
 	QComboBox* LJoinStyle;
 	QComboBox* LEndStyle;
@@ -589,7 +592,7 @@ protected:
 
 	QMenu* lineSpacingPop;
 
-	QToolButton* linespacingButton;
+// 	QToolButton* linespacingButton;
 	QToolButton* DoGroup;
 	QToolButton* DoUnGroup;
 	QToolButton* FlipH;

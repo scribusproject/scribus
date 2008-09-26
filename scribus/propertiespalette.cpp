@@ -708,19 +708,21 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	fontsizeLabel->setPixmap(loadIcon("Zeichen.xpm"));
 	layout41->addWidget( fontsizeLabel, 1, 0 );
 	layout41->addWidget( Size, 1, 1 );
+// 	lineSpacingPop = new QMenu();
+// 	lineSpacingPop->addAction( tr("Fixed Linespacing"))->setCheckable(true);
+// 	lineSpacingPop->addAction( tr("Automatic Linespacing"))->setCheckable(true);
+// 	lineSpacingPop->addAction( tr("Align to Baseline Grid"))->setCheckable(true);
+	lineSpacingLabel = new QLabel( "", page_3 );
+// 	lineSpacingLabel->setText("");
+	lineSpacingLabel->setPixmap(loadIcon("linespacing2.png"));
+	lineSpacingModeCombo = new QComboBox( page_3 );
+// 	linespacingButton->setMenu(lineSpacingPop);
+// 	linespacingButton->setPopupMode(QToolButton::DelayedPopup);
+// 	linespacingButton->setAutoRaise(true);
 	LineSp = new ScrSpinBox( page_3, 0 );
-	layout41->addWidget( LineSp, 1, 3 );
-	lineSpacingPop = new QMenu();
-	lineSpacingPop->addAction( tr("Fixed Linespacing"))->setCheckable(true);
-	lineSpacingPop->addAction( tr("Automatic Linespacing"))->setCheckable(true);
-	lineSpacingPop->addAction( tr("Align to Baseline Grid"))->setCheckable(true);
-	linespacingButton = new QToolButton(page_3 );
-	linespacingButton->setText("");
-	linespacingButton->setIcon(loadIcon("linespacing.png"));
-	linespacingButton->setMenu(lineSpacingPop);
-	linespacingButton->setPopupMode(QToolButton::DelayedPopup);
-	linespacingButton->setAutoRaise(true);
-	layout41->addWidget( linespacingButton, 1, 2 );
+	layout41->addWidget( LineSp, 2, 2 );
+	layout41->addWidget( lineSpacingLabel, 2, 0 );
+	layout41->addWidget( lineSpacingModeCombo, 2, 1 );
 	Layout1AL = new QHBoxLayout;
 	Layout1AL->setSpacing( 0 );
 	Layout1AL->setMargin( 0 );
@@ -729,7 +731,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	Layout1AL->addWidget(GroupAlign);
 	QSpacerItem* spacer7AL = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1AL->addItem( spacer7AL );
-	layout41->addLayout( Layout1AL, 2, 0, 1, 4 );
+	layout41->addLayout( Layout1AL, 3, 0, 1, 4 );
 	pageLayout_3->addLayout( layout41 );
 
 	colorWidgets = new QFrame();
@@ -1535,7 +1537,8 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect( Cpal, SIGNAL(editGradient()), this, SLOT(toggleGradientEdit()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
-	connect(lineSpacingPop, SIGNAL(triggered(QAction *)), this, SLOT(setLspMode(QAction *)));
+// 	connect(lineSpacingPop, SIGNAL(triggered(QAction *)), this, SLOT(setLspMode(QAction *)));
+	connect(lineSpacingModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(setLineSpacingMode(int)));
 	connect( EvenOdd, SIGNAL( clicked() ), this, SLOT(handleFillRule() ) );
 	connect( NonZero, SIGNAL( clicked() ), this, SLOT( handleFillRule() ) );
 	connect( KnockOut, SIGNAL( clicked() ), this, SLOT( handleOverprint() ) );
@@ -2676,11 +2679,21 @@ void PropertiesPalette::setCols(int r, double g)
 }
 
 // NewLspMode?
-void PropertiesPalette::setLspMode(QAction *id)
+// void PropertiesPalette::setLspMode(QAction *id)
+// {
+// 	if ((HaveDoc) && (HaveItem))
+// 	{
+// 		doc->itemSelection_SetLineSpacingMode(lineSpacingPop->actions().indexOf(id));
+// 		updateStyle(doc->appMode == modeEdit? CurItem->currentStyle() : CurItem->itemText.defaultStyle());
+// 	}
+// }
+
+// NewLspMode?
+void PropertiesPalette::setLineSpacingMode(int id)
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->itemSelection_SetLineSpacingMode(lineSpacingPop->actions().indexOf(id));
+		doc->itemSelection_SetLineSpacingMode(id);
 		updateStyle(doc->appMode == modeEdit? CurItem->currentStyle() : CurItem->itemText.defaultStyle());
 	}
 }
@@ -2696,28 +2709,15 @@ void PropertiesPalette::setLsp(double r)
 	if (tmp)
 	{
 		setupLineSpacingSpinbox(curStyle.lineSpacingMode(), r);
-		/*
-		if (curStyle.lineSpacingMode() > 0)
-		{
-			LineSp->setSpecialValueText( tr( "Auto" ) );
-			LineSp->setMinimum(0);
-			LineSp->setValue(0);
-			LineSp->setEnabled(false);
-		}
-		else
-		{
-			LineSp->setEnabled(true);
-			LineSp->setSpecialValueText("");
-			LineSp->setMinimum(1);
-			LineSp->setValue(r);
-		}
-		*/
+		lineSpacingModeCombo->setCurrentIndex(curStyle.lineSpacingMode());
+/*
 		QList<QAction*> actList = lineSpacingPop->actions();
 		for (int al = 0; al < actList.count(); ++al)
 		{
 			actList[al]->setChecked(false);
 		}
 		actList[curStyle.lineSpacingMode()]->setChecked(true);
+*/
 	}
 	HaveItem = tmp;
 }
@@ -2961,28 +2961,15 @@ void PropertiesPalette::updateStyle(const ParagraphStyle& newCurrent)
 	bool tmp = HaveItem;
 	HaveItem = false;
 	setupLineSpacingSpinbox(newCurrent.lineSpacingMode(), newCurrent.lineSpacing());
-/*
-	if (newCurrent.lineSpacingMode() > 0)
-	{
-		LineSp->setSpecialValueText( tr( "Auto" ) );
-		LineSp->setMinimum(0);
-		LineSp->setValue(0);
-		LineSp->setEnabled(false);
-	}
-	else
-	{
-		LineSp->setEnabled(true);
-		LineSp->setSpecialValueText("");
-		LineSp->setMinimum(1);
-		LineSp->setValue(newCurrent.lineSpacing());
-	}
-*/
+	lineSpacingModeCombo->setCurrentIndex(newCurrent.lineSpacingMode());
+	/*
 	QList<QAction*> actList = lineSpacingPop->actions();
 	for (int al = 0; al < actList.count(); ++al)
 	{
 		actList[al]->setChecked(false);
 	}
 	actList[newCurrent.lineSpacingMode()]->setChecked(true);
+	*/
 	GroupAlign->setStyle(newCurrent.alignment());
 	minWordTrackingSpinBox->setValue(newCurrent.minWordTracking() * 100.0);
 	normWordTrackingSpinBox->setValue(newCurrent.charStyle().wordTracking() * 100.0);
@@ -4945,10 +4932,13 @@ void PropertiesPalette::languageChange()
 	EditPSDProps->setText( tr("Extended Image Properties"));
 	TextCms1->setText( tr("Input Profile:"));
 	TextCms2->setText( tr("Rendering Intent:"));
-	QList<QAction*> actList = lineSpacingPop->actions();
-	actList[0]->setText( tr("Fixed Linespacing"));
-	actList[1]->setText( tr("Automatic Linespacing"));
-	actList[2]->setText( tr("Align to Baseline Grid"));
+// 	QList<QAction*> actList = lineSpacingPop->actions();
+// 	actList[0]->setText( tr("Fixed Linespacing"));
+// 	actList[1]->setText( tr("Automatic Linespacing"));
+// 	actList[2]->setText( tr("Align to Baseline Grid"));
+	lineSpacingModeCombo->addItem( tr("Fixed Linespacing"));
+	lineSpacingModeCombo->addItem( tr("Automatic Linespacing"));
+	lineSpacingModeCombo->addItem( tr("Align to Baseline Grid"));
 	int oldMonitorI=MonitorI->currentIndex();
 	MonitorI->clear();
 	MonitorI->addItem( tr("Perceptual"));
@@ -5189,7 +5179,8 @@ void PropertiesPalette::languageChange()
 	Revert->setToolTip( tr("Right to Left Writing"));
 	Extra->setToolTip( tr("Manual Tracking"));
 	LineSp->setToolTip( tr("Line Spacing"));
-	linespacingButton->setToolTip( "<qt>" + tr("Click and hold down to select the line spacing mode.") + "</qt>" );
+// 	linespacingButton->setToolTip( "<qt>" + tr("Click and hold down to select the line spacing mode.") + "</qt>" );
+	lineSpacingModeCombo->setToolTip( tr("Select the line spacing mode.") );
 	paraStyleCombo->setToolTip( tr("Paragraph style of currently selected text or paragraph"));
 	charStyleCombo->setToolTip( tr("Character style of currently selected text or paragraph"));
 	paraStyleClear->setToolTip( tr("Remove Direct Paragraph Formatting"));
