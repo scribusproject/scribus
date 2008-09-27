@@ -278,8 +278,13 @@ void PageItem_LatexFrame::runEditor()
 {
 	if (!internalEditor) {
 		internalEditor = new LatexEditor(this);
+		internalEditor->startEditor();
+	} else if (internalEditor->isVisible()) {
+		internalEditor->activateWindow();
+		internalEditor->raise();
+	} else {
+		internalEditor->startEditor();
 	}
-	internalEditor->startEditor();
 }
 
 void PageItem_LatexFrame::rerunApplication(bool updateDisplay)
