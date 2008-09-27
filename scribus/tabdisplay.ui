@@ -32,7 +32,7 @@
         <x>0</x>
         <y>0</y>
         <width>595</width>
-        <height>567</height>
+        <height>568</height>
        </rect>
       </property>
       <attribute name="title" >
@@ -369,8 +369,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>840</width>
-        <height>420</height>
+        <width>595</width>
+        <height>568</height>
        </rect>
       </property>
       <attribute name="title" >
@@ -833,6 +833,36 @@
    <header>scrspinbox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>displayTabWidget</tabstop>
+  <tabstop>checkPictures</tabstop>
+  <tabstop>checkControl</tabstop>
+  <tabstop>checkRuler</tabstop>
+  <tabstop>checkLink</tabstop>
+  <tabstop>checkFrame</tabstop>
+  <tabstop>checkLayerM</tabstop>
+  <tabstop>checkUnprintable</tabstop>
+  <tabstop>checkBleed</tabstop>
+  <tabstop>checkShowPageShadow</tabstop>
+  <tabstop>leftScratch</tabstop>
+  <tabstop>rightScratch</tabstop>
+  <tabstop>topScratch</tabstop>
+  <tabstop>bottomScratch</tabstop>
+  <tabstop>gapHorizontal</tabstop>
+  <tabstop>gapVertical</tabstop>
+  <tabstop>CaliSlider</tabstop>
+  <tabstop>buttonRestoreDPI</tabstop>
+  <tabstop>rulerUnitCombo</tabstop>
+  <tabstop>backColor</tabstop>
+  <tabstop>buttonSelectedPage</tabstop>
+  <tabstop>buttonFrameNormal</tabstop>
+  <tabstop>buttonFrameSelected</tabstop>
+  <tabstop>buttonFrameGrouped</tabstop>
+  <tabstop>buttonFrameLocked</tabstop>
+  <tabstop>buttonFrameLinked</tabstop>
+  <tabstop>buttonFrameAnnotation</tabstop>
+  <tabstop>buttonControlChars</tabstop>
+ </tabstops>
  <includes>
   <include location="local" >scrspinbox.h</include>
   <include location="local" >scrspinbox.h</include>

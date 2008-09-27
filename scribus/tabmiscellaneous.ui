@@ -7,7 +7,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>427</width>
     <height>240</height>
    </rect>
   </property>
@@ -125,6 +125,12 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
+ <tabstops>
+  <tabstop>AskForSubs</tabstop>
+  <tabstop>stylePreview</tabstop>
+  <tabstop>useStandardLI</tabstop>
+  <tabstop>paragraphsLI</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -50,18 +50,6 @@ TabGeneral::TabGeneral(QWidget* parent, const char* name)
 		FileC2->setEnabled(false);
 	}
 
-	QWidget::setTabOrder( GFsize, GTFsize );
-	QWidget::setTabOrder( GTFsize, wheelJumpSpin );
-	QWidget::setTabOrder( wheelJumpSpin, recentDocs );
-	QWidget::setTabOrder( recentDocs, Docs );
-	QWidget::setTabOrder( Docs, FileC );
-	QWidget::setTabOrder( FileC, ProPfad );
-	QWidget::setTabOrder( ProPfad, FileC2  );
-	QWidget::setTabOrder( FileC2, ScriptPfad );
-	QWidget::setTabOrder( ScriptPfad, FileC3 );
-	QWidget::setTabOrder( FileC3, DocumentTemplateDir );
-	QWidget::setTabOrder( DocumentTemplateDir, FileC4 );
-
 	guiLangCombo->setToolTip( "<qt>" + tr( "Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus" )+"</qt>");
 	recentDocs->setToolTip( "<qt>" + tr("Number of recently edited documents to show in the File menu") + "</qt>" );
 	wheelJumpSpin->setToolTip( "<qt>" + tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) + "</qt>");

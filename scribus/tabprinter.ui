@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>684</width>
-    <height>489</height>
+    <height>536</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -41,6 +41,14 @@
       <number>0</number>
      </property>
      <widget class="QWidget" name="tab" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>656</width>
+        <height>331</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Options</string>
       </attribute>
@@ -217,6 +225,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="TabPage" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>656</width>
+        <height>331</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Marks &amp;&amp; Bleeds</string>
       </attribute>
@@ -443,6 +459,29 @@
    <header>scrspinbox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>defaultPrinter</tabstop>
+  <tabstop>useAltPrintCommand</tabstop>
+  <tabstop>printerCommand</tabstop>
+  <tabstop>tabOptions</tabstop>
+  <tabstop>buttonNormal</tabstop>
+  <tabstop>buttonSeparations</tabstop>
+  <tabstop>usePDFMarks</tabstop>
+  <tabstop>psLevel</tabstop>
+  <tabstop>printColor</tabstop>
+  <tabstop>printGray</tabstop>
+  <tabstop>mirrorH</tabstop>
+  <tabstop>mirrorV</tabstop>
+  <tabstop>setMedia</tabstop>
+  <tabstop>setClip</tabstop>
+  <tabstop>doGCR</tabstop>
+  <tabstop>convertSpots</tabstop>
+  <tabstop>useICC</tabstop>
+  <tabstop>cropMarks</tabstop>
+  <tabstop>bleedMarks</tabstop>
+  <tabstop>registrationMarks</tabstop>
+  <tabstop>colorMarks</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
