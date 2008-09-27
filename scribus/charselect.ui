@@ -88,22 +88,10 @@
       <string>Enhanced Palette</string>
      </property>
      <layout class="QGridLayout" >
-      <property name="leftMargin" >
+      <property name="margin" >
        <number>6</number>
       </property>
-      <property name="topMargin" >
-       <number>6</number>
-      </property>
-      <property name="rightMargin" >
-       <number>6</number>
-      </property>
-      <property name="bottomMargin" >
-       <number>6</number>
-      </property>
-      <property name="horizontalSpacing" >
-       <number>3</number>
-      </property>
-      <property name="verticalSpacing" >
+      <property name="spacing" >
        <number>3</number>
       </property>
       <item row="0" column="0" >
@@ -121,7 +109,7 @@
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>40</width>
           <height>20</height>
@@ -144,7 +132,7 @@
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>40</width>
           <height>20</height>
@@ -161,7 +149,8 @@
          </size>
         </property>
         <property name="toolTip" >
-         <string>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</string>
+         <string>You can see a thumbnail if you press and hold down the right mouse button.
+The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</string>
         </property>
         <property name="dragDropOverwriteMode" >
          <bool>false</bool>
@@ -197,7 +186,7 @@
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" >
+          <property name="sizeHint" stdset="0" >
            <size>
             <width>40</width>
             <height>20</height>
