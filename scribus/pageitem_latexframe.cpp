@@ -67,6 +67,7 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_render_XXXXXX");
 	tempfile->open();
 	tempFileBase = getLongPathName(tempfile->fileName());
+	tempfile->setAutoRemove(false);
 	tempfile->close();
 	delete tempfile;
 	Q_ASSERT(!tempFileBase.isEmpty());
