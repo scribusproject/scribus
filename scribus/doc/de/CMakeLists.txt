@@ -1,3 +1,4 @@
+ADD_SUBDIRECTORY(images)
 #ADD_SUBDIRECTORY(tutorials)
 
 
