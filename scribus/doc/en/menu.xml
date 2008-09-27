@@ -73,7 +73,7 @@
 			<submenuitem text="Monitor Profiling" file="moncal.html"/>
 		</submenuitem>
 		<submenuitem text="DTP ToolBox" file="toolbox.html">
-			<submenuitem text="Acrobat Reader" file="toolbox1.html"/>
+			<submenuitem text="Adobe Reader" file="toolbox1.html"/>
 			<submenuitem text="Other PDF Viewers" file="toolbox2.html"/>
 			<submenuitem text="Batik" file="toolbox3.html"/>
 			<submenuitem text="Gimp" file="toolbox4.html"/>
