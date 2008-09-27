@@ -520,13 +520,13 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	flopLayout = new QGridLayout(flopBox);
 	flopGroup = new QButtonGroup(flopBox);
 	flopRealHeight = new QRadioButton(tr("Maximum Ascent"), flopBox);
-	flopFontAsent = new QRadioButton(tr("Font Ascent"), flopBox);
+	flopFontAscent = new QRadioButton(tr("Font Ascent"), flopBox);
 	flopLineSpacing = new QRadioButton(tr("Line Spacing"),flopBox); 
 	flopGroup->addButton(flopRealHeight, 0);
-	flopGroup->addButton(flopFontAsent, 1);
+	flopGroup->addButton(flopFontAscent, 1);
 	flopGroup->addButton(flopLineSpacing, 2);
 	flopLayout->addWidget(flopRealHeight);
-	flopLayout->addWidget(flopFontAsent);
+	flopLayout->addWidget(flopFontAscent);
 	flopLayout->addWidget(flopLineSpacing);
 	flopRealHeight->setChecked(true);
 	pageLayout_2a->addWidget(flopBox); */
@@ -899,13 +899,13 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	flopLayout = new QGridLayout(flopBox);
 	flopGroup = new QButtonGroup(flopBox);
 	flopRealHeight = new QRadioButton(tr("Maximum Ascent"), flopBox);
-	flopFontAsent = new QRadioButton(tr("Font Ascent"), flopBox);
+	flopFontAscent = new QRadioButton(tr("Font Ascent"), flopBox);
 	flopLineSpacing = new QRadioButton(tr("Line Spacing"),flopBox);
 	flopGroup->addButton(flopRealHeight, 0);
-	flopGroup->addButton(flopFontAsent, 1);
+	flopGroup->addButton(flopFontAscent, 1);
 	flopGroup->addButton(flopLineSpacing, 2);
 	flopLayout->addWidget(flopRealHeight);
-	flopLayout->addWidget(flopFontAsent);
+	flopLayout->addWidget(flopFontAscent);
 	flopLayout->addWidget(flopLineSpacing);
 	flopRealHeight->setChecked(true);
 	flopItem = TextTree->addWidget( tr("First Line Offset"), flopBox);
@@ -2927,7 +2927,7 @@ void PropertiesPalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJo
 void PropertiesPalette::setFlop( FirstLineOffsetPolicy f )
 {
 	if(f == FLOPFontAscent)
-		flopFontAsent->setChecked(true);
+		flopFontAscent->setChecked(true);
 	else if(f == FLOPLineSpacing)
 		flopLineSpacing->setChecked(true);
 	else
@@ -5187,6 +5187,10 @@ void PropertiesPalette::languageChange()
 	paraStyleClear->setToolTip( tr("Remove Direct Paragraph Formatting"));
 	charStyleClear->setToolTip( tr("Remove Direct Character Formatting"));
 //	langCombo->setToolTip( tr("Hyphenation language of frame"));
+
+	flopRealHeight->setToolTip( "<qt>" + tr("Set the height of the first line of the text frame to use the tallest height of the included characters") + "</qt>" );
+	flopFontAscent->setToolTip( "<qt>" + tr("Set the height of the first line of text frame to use the full ascent of the font(s) in use") + "</qt>" );
+	flopLineSpacing->setToolTip( "<qt>" + tr("Set the height of the first line of the text frame to the specified line height") + "</qt>" );
 
 	minWordTrackingSpinBox->setToolTip( tr("Minimal width of spaces between words"));
 	normWordTrackingSpinBox->setToolTip( tr("Normal width of spaces between words"));

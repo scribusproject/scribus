@@ -579,7 +579,7 @@ protected:
 	QRadioButton* KnockOut;
 	QRadioButton* Overprint;
 	QRadioButton* flopRealHeight;
-	QRadioButton* flopFontAsent;
+	QRadioButton* flopFontAscent;
 	QRadioButton* flopLineSpacing;
 	
 	QButtonGroup* flopGroup;
