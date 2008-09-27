@@ -10080,7 +10080,6 @@ ItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransaction1
 */
 void NodeEditContext::finishTransaction2(PageItem* currItem, ItemState<QPair<FPointArray, FPointArray> >* state)
 {
-	//ScribusDoc* Doc = currItem->doc();
 	UndoManager* undoManager = UndoManager::instance();
 	
 	state->set("OLD_X", oldItemX);
@@ -10107,15 +10106,12 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, FPoint ip)
 	double yposOrig = currItem->yPos();
 	currItem->ClipEdited = true;
 	FPointArray Clip;
-	//	RefreshItem(currItem);
 	if (isContourLine)
 	{
-		//		MarkClip(currItem, currItem->ContourLine);
 		Clip = currItem->ContourLine.copy();
 	}
 	else
 	{
-		//		MarkClip(currItem, currItem->PoLine);
 		Clip = currItem->PoLine.copy();
 	}
 	currItem->FrameType = 3;
@@ -10203,58 +10199,45 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, FPoint ip)
 			Clip.setPoint(ClRe-1, ap2);
 			Clip.setPoint(ClRe-2, np);
 		}
-		/*
-		 {
-			 qDebug(QString("is a text %1").arg((currItem->asTextFrame()!=0)));
-			 qDebug(QString("is a image %1").arg((currItem->asImageFrame()!=0)));
-			 qDebug(QString("is a line %1").arg((currItem->asLine()!=0)));
-			 qDebug(QString("is a pathtext %1").arg((currItem->asPathText()!=0)));
-			 qDebug(QString("is a polygon %1").arg((currItem->asPolygon()!=0)));
-			 qDebug(QString("is a polyline %1").arg((currItem->asPolyLine()!=0)));
-			 
-			 qDebug(QString("item type is %1").arg(currItem->itemType()));
-		 }
-		 */
 		if (((ClRe == static_cast<int>(StartInd)) || (ClRe == static_cast<int>(EndInd-2))) &&
-			//		        ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame())))
 			((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame)))
+		{
+			if (ClRe == static_cast<int>(StartInd))
 			{
-	if (ClRe == static_cast<int>(StartInd))
-	{
-		FPoint ap(Clip.point(EndInd-2));
-		FPoint ap2(Clip.point(EndInd-1));
-		ap2.setX(ap2.x() - (ap.x() - np.x()));
-		ap2.setY(ap2.y() - (ap.y() - np.y()));
-		Clip.setPoint(EndInd-2, Clip.point(StartInd));
-		Clip.setPoint(EndInd-1, ap2);
-	}
-	else
-	{
-		FPoint ap(Clip.point(StartInd));
-		FPoint ap2(Clip.point(StartInd + 1));
-		ap2.setX(ap2.x() - (ap.x() - np.x()));
-		ap2.setY(ap2.y() - (ap.y() - np.y()));
-		Clip.setPoint(StartInd, Clip.point(EndInd-2));
-		Clip.setPoint(StartInd + 1, ap2);
-	}
+				FPoint ap(Clip.point(EndInd-2));
+				FPoint ap2(Clip.point(EndInd-1));
+				ap2.setX(ap2.x() - (ap.x() - np.x()));
+				ap2.setY(ap2.y() - (ap.y() - np.y()));
+				Clip.setPoint(EndInd-2, Clip.point(StartInd));
+				Clip.setPoint(EndInd-1, ap2);
 			}
+			else
+			{
+				FPoint ap(Clip.point(StartInd));
+				FPoint ap2(Clip.point(StartInd + 1));
+				ap2.setX(ap2.x() - (ap.x() - np.x()));
+				ap2.setY(ap2.y() - (ap.y() - np.y()));
+				Clip.setPoint(StartInd, Clip.point(EndInd-2));
+				Clip.setPoint(StartInd + 1, ap2);
+			}
+		}
 		if (((ClRe == static_cast<int>(StartInd+1)) || (ClRe == static_cast<int>(EndInd-1))) &&
-			//		        ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame())) && (MoveSym))
-			((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame)) && (MoveSym))
-			{
-	uint kon = 0;
-	if (ClRe == static_cast<int>(StartInd+1))
-		kon = EndInd-1;
-	else
-		kon = StartInd + 1;
-	FPoint lxy(Clip.point(ClRe-1));
-	FPoint lk(Clip.point(ClRe));
-	double dx = lxy.x() - lk.x();
-	double dy = lxy.y() - lk.y();
-	lk.setX(lk.x() + dx*2);
-	lk.setY(lk.y() + dy*2);
-	Clip.setPoint(kon, lk);
-			}
+			((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame)) && 
+			(MoveSym))
+		{
+			uint kon = 0;
+			if (ClRe == static_cast<int>(StartInd+1))
+				kon = EndInd-1;
+			else
+				kon = StartInd + 1;
+			FPoint lxy(Clip.point(ClRe-1));
+			FPoint lk(Clip.point(ClRe));
+			double dx = lxy.x() - lk.x();
+			double dy = lxy.y() - lk.y();
+			lk.setX(lk.x() + dx*2);
+			lk.setY(lk.y() + dy*2);
+			Clip.setPoint(kon, lk);
+		}
 		if ((ClRe % 2 != 0) && (MoveSym) && (ClRe != static_cast<int>(StartInd + 1)) && (ClRe != static_cast<int>(EndInd-1)))
 		{
 			uint kon = 0;
@@ -10275,8 +10258,6 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, FPoint ip)
 		else
 			currItem->PoLine = Clip.copy();
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-		//		RefreshItem(currItem);
-		//		MarkClip(currItem, Clip);
 	}
 	if (!isContourLine)
 		currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
@@ -10315,6 +10296,7 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 	{
 		currItem->PoLine.setPoint(Doc->nodeEdit.ClRe, np);
 		Doc->AdjustItemSize(currItem);
+		Doc->regionsChanged()->update(QRectF());
 	}
 	undoManager->setUndoEnabled(true);
 	FPointArray newClip(Doc->nodeEdit.isContourLine ? currItem->ContourLine : currItem->PoLine);
@@ -10382,8 +10364,18 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	currItem->OldH2 = currItem->height();
 	if ((Doc->nodeEdit.ClRe == StartInd) || (Doc->nodeEdit.ClRe == EndInd-2))
 	{
-		Clip.setPoint(StartInd+1, np);
-		Clip.setPoint(EndInd-1, np);
+		if (currItem->asPolyLine())
+		{
+			if (Doc->nodeEdit.ClRe == StartInd)
+				Clip.setPoint(StartInd+1, np);
+			else
+				Clip.setPoint(EndInd-1, np);
+		}
+		else
+		{
+			Clip.setPoint(StartInd+1, np);
+			Clip.setPoint(EndInd-1, np);
+		}
 	}
 	else
 	{
@@ -10394,6 +10386,7 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	{
 		currItem->PoLine = Clip.copy();
 		Doc->AdjustItemSize(currItem);
+		Doc->regionsChanged()->update(QRectF());
 	}
 	else
 	{
