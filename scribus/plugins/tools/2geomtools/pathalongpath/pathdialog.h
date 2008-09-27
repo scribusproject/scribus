@@ -44,11 +44,11 @@ public:
 	double offset;
 	double offsetY;
 	double gap;
-	bool rotate;
+	int rotate;
 signals:
-	void updateValues(int, double, double, double, bool);
+	void updateValues(int, double, double, double, int);
 private slots:
-	void toggleRotate();
+	void toggleRotate(int);
 	void newOffsetY(double val);
 	void newOffset(double val);
 	void newGap(double val);

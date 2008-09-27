@@ -34,7 +34,7 @@ PathDialog::PathDialog(QWidget* parent, int unitIndex, bool group) : QDialog(par
 	gap = 0.0;
 	offset = 0.0;
 	offsetY = 0.0;
-	rotate = false;
+	rotate = 0;
 	offsetXSpin->setNewUnit(unitIndex);
 	offsetYSpin->setNewUnit(unitIndex);
 	offsetYSpin->setMinimum(-1000);
@@ -42,7 +42,6 @@ PathDialog::PathDialog(QWidget* parent, int unitIndex, bool group) : QDialog(par
 	gapSpin->setNewUnit(unitIndex);
 	if (group)
 	{
-//		rotateCheckBox->hide();
 		label_3->hide();
 		gapSpin->hide();
 		typeCombo->removeItem(3);
@@ -54,12 +53,12 @@ PathDialog::PathDialog(QWidget* parent, int unitIndex, bool group) : QDialog(par
 	connect(gapSpin, SIGNAL(valueChanged(double)), this, SLOT(newGap(double)));
 	connect(typeCombo, SIGNAL(activated(int)), this, SLOT(newType(int)));
 	connect(previewCheck, SIGNAL(clicked()), this, SLOT(togglePreview()));
-	connect(rotateCheckBox, SIGNAL(clicked()), this, SLOT(toggleRotate()));
+	connect(rotationCombo, SIGNAL(activated(int)), this, SLOT(toggleRotate(int)));
 }
 
-void PathDialog::toggleRotate()
+void PathDialog::toggleRotate(int rot)
 {
-	rotate = rotateCheckBox->isChecked();
+	rotate = rot;
 	if (previewCheck->isChecked())
 		emit updateValues(effectType, offset, offsetY, gap, rotate);
 }

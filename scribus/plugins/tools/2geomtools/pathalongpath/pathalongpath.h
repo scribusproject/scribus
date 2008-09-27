@@ -64,7 +64,7 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 		bool handleSelection(ScribusDoc* doc, int SelectedType);
 	private:
-		void setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd2_in, Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern, int effect, double offset, double offsetY, double gap, bool rotate);
+		void setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd2_in, Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern, int effect, double offset, double offsetY, double gap, int rotate);
 		FPointArray doEffect_pwd2 (Geom::Piecewise<Geom::D2<Geom::SBasis> > & pattern);
 		PageItem *patternItem;
 		PageItem *pathItem;
@@ -81,7 +81,7 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		double m_offsetX;
 		double m_offsetY;
 		double m_gapval;
-		double m_rotate;
+		int m_rotate;
 		Interval pattBnds;
 		Interval pattBndsY;
 		int selOffs;
@@ -91,8 +91,8 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		QList<double> originalYPosG;
 		QList<PageItem *> patternItemG;
 	private slots:
-		void updateEffectG(int effectType, double offset, double offsetY, double gap, bool rotate);
-		void updateEffect(int effectType, double offset, double offsetY, double gap, bool rotate);
+		void updateEffectG(int effectType, double offset, double offsetY, double gap, int rotate);
+		void updateEffect(int effectType, double offset, double offsetY, double gap, int rotate);
 
 		// Special features (none)
 };

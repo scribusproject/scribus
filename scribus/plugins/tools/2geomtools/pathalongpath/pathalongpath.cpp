@@ -204,7 +204,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 				patternItemG.append(bxi);
 			}
 			PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex(), true);
-			connect(dia, SIGNAL(updateValues(int, double, double, double, bool)), this, SLOT(updateEffectG(int, double, double, double, bool)));
+			connect(dia, SIGNAL(updateValues(int, double, double, double, int)), this, SLOT(updateEffectG(int, double, double, double, int)));
 			if (dia->exec())
 			{
 				updateEffectG(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
@@ -230,7 +230,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 			originalXPos = patternItem->xPos();
 			originalYPos = patternItem->yPos();
 			PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex(), false);
-			connect(dia, SIGNAL(updateValues(int, double, double, double, bool)), this, SLOT(updateEffect(int, double, double, double, bool)));
+			connect(dia, SIGNAL(updateValues(int, double, double, double, int)), this, SLOT(updateEffect(int, double, double, double, int)));
 			if (dia->exec())
 			{
 				updateEffect(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
@@ -256,8 +256,9 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 	return true;
 }
 
-void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double offsetY, double gap, bool rotate)
+void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double offsetY, double gap, int rotate)
 {
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	if (effectType == -1)
 	{
 		for (int bx = 0; bx < patternItemG.count(); ++bx)
@@ -312,6 +313,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			bxi->ContourLine = bxi->PoLine.copy();
 		}
 	}
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	if (firstUpdate)
 		currDoc->view()->DrawNew();
 	else
@@ -326,7 +328,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 		firstUpdate = false;
 }
 
-void PathAlongPathPlugin::updateEffect(int effectType, double offset, double offsetY, double gap, bool rotate)
+void PathAlongPathPlugin::updateEffect(int effectType, double offset, double offsetY, double gap, int rotate)
 {
 	if (effectType == -1)
 	{
@@ -368,7 +370,7 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 		firstUpdate = false;
 }
 
-void PathAlongPathPlugin::setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd2_in, Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern, int effect, double offset, double offsetY, double gap, bool rotate)
+void PathAlongPathPlugin::setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd2_in, Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern, int effect, double offset, double offsetY, double gap, int rotate)
 {
 	m_offsetX = offset;
 	m_offsetY = offsetY;
@@ -379,8 +381,12 @@ void PathAlongPathPlugin::setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &
 	n = rot90(derivative(uskeleton));
 	n = force_continuity(remove_short_cuts(n,.1));
 	D2<Piecewise<SBasis> > patternd2;
-	if (rotate)
+	if (rotate == 1)
 		patternd2 = make_cuts_independant(rot90(pattern));
+	else if (rotate == 2)
+		patternd2 = make_cuts_independant(rot90(rot90(pattern)));
+	else if (rotate == 3)
+		patternd2 = make_cuts_independant(rot90(rot90(rot90(pattern))));
 	else
 		patternd2 = make_cuts_independant(pattern);
 	Piecewise<SBasis> x = Piecewise<SBasis>(patternd2[0]);
@@ -419,8 +425,12 @@ FPointArray PathAlongPathPlugin::doEffect_pwd2(Geom::Piecewise<Geom::D2<Geom::SB
 {
 	double offs = m_offsetX;
 	D2<Piecewise<SBasis> > patternd2;
-	if (m_rotate)
+	if (m_rotate == 1)
 		patternd2 = make_cuts_independant(rot90(pattern));
+	else if (m_rotate == 2)
+		patternd2 = make_cuts_independant(rot90(rot90(pattern)));
+	else if (m_rotate == 3)
+		patternd2 = make_cuts_independant(rot90(rot90(rot90(pattern))));
 	else
 		patternd2 = make_cuts_independant(pattern);
 	Piecewise<SBasis> x = Piecewise<SBasis>(patternd2[0]);
