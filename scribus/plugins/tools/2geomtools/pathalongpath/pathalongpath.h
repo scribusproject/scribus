@@ -74,6 +74,7 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		ScribusDoc* currDoc;
 		bool firstUpdate;
 		Piecewise<D2<SBasis> > uskeleton;
+		Piecewise<D2<SBasis> > n;
 		double m_scaling;
 		int nbCopies;
 		double pattWidth;
