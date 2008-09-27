@@ -1977,7 +1977,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	if (i->rotation() > 0)
 		rr = 360 - rr;
 	Rotation->setValue(fabs(rr));
-	setScaleAndOffset(i->imageXScale(), i->imageYScale(), i->imageXOffset(), i->imageYOffset());
+//	setScaleAndOffset(i->imageXScale(), i->imageYScale(), i->imageXOffset(), i->imageYOffset());
 	setTextToFrameDistances(i->textToFrameDistLeft(),i->textToFrameDistTop(),i->textToFrameDistBottom(),i->textToFrameDistRight());
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
 	i->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
@@ -1998,10 +1998,6 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	connect(LJoinStyle, SIGNAL(activated(int)), this, SLOT(NewLineJoin()));
 	connect(LEndStyle, SIGNAL(activated(int)), this, SLOT(NewLineEnd()));
 	connect(Rotation, SIGNAL(valueChanged(double)), this, SLOT(setRotation()));
-	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
-	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-	connect(imageXOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
-	connect(imageYOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
 	connect(DTop, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
 	connect(DLeft, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
 	connect(DRight, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
@@ -2146,6 +2142,11 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		}
 	}
 	setXY(CurItem->xPos(), CurItem->yPos());
+	setScaleAndOffset(i->imageXScale(), i->imageYScale(), i->imageXOffset(), i->imageYOffset());
+	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
+	connect(imageXOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+	connect(imageYOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
 
 	DoGroup->setEnabled(false);
 	DoUnGroup->setEnabled(false);
