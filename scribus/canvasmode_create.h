@@ -21,9 +21,7 @@
 #include "canvasmode.h"
 #include "fpointarray.h"
 
-class LineMove;
 class PageItem;
-class ResizeGesture;
 class ScribusMainWindow;
 class ScribusView;
 class UndoTransaction;
@@ -53,23 +51,25 @@ protected:
 private:
 	inline bool GetItem(PageItem** pi); 
 	void selectPage(QMouseEvent *m);
-	void SetupDraw(int Nr);
 	void SetupDrawNoResize(int nr);
 
-	int Cp, oldCp;
-	bool inItemCreation, shiftSelItems, FirstPoly;
-	bool m_MouseButtonPressed;
-	int frameResizeHandle;
-	int RotMode;
-	int dragConstrainInitPtX, dragConstrainInitPtY;
-	double Mxp, Myp, Dxp, Dyp;
-	int GxM, GyM;
-	double SeRx, SeRy;
-	bool MoveGX, MoveGY;
-	FPointArray RecordP;
+	PageItem* doCreateNewObject(void);
+	bool      doOneClick(FPoint& startPoint, FPoint& endPoint);
+
+	// We do not use PageItem::ItemType and PageItem::FrameType here
+	// for the pure sake of not including pageitem.h
+	void getFrameItemTypes(int& itemType, int& frameType);
+
+	bool   inItemCreation;
+	bool   m_MouseButtonPressed;
+	FPoint mouseGlobalCoord;
+	FPoint canvasPressCoord;
+	FPoint canvasCurrCoord;
+	FPoint createObjectPos;
+	int    createObjectMode;
+	int    createObjectSubMode;
+	Qt::KeyboardModifiers modifiers;
 	UndoTransaction* m_createTransaction;
-	ResizeGesture* resizeGesture;
-	LineMove* lineMoveGesture;
 };
 
 
