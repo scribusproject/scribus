@@ -775,13 +775,13 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertTextFrame"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertImageFrame"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["toolsInsertRenderFrame"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertTableFrame"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertShape"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertPolygon"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertLine"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertBezier"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertFreehandLine"], "Insert");
-	scrMenuMgr->addMenuItem(scrActions["toolsInsertRenderFrame"], "Insert");
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["stickyTools"], "Insert");
 	scrMenuMgr->addMenuSeparator("Insert");
