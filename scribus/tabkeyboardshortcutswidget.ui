@@ -35,11 +35,11 @@
    </item>
    <item row="0" column="0" >
     <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
      <property name="spacing" >
       <number>6</number>
+     </property>
+     <property name="margin" >
+      <number>0</number>
      </property>
      <item>
       <widget class="QPushButton" name="clearSearchButton" >
@@ -115,7 +115,7 @@
         <property name="sizeType" >
          <enum>QSizePolicy::Expanding</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>40</width>
           <height>20</height>
@@ -179,7 +179,7 @@
         <property name="sizeType" >
          <enum>QSizePolicy::Expanding</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>40</width>
           <height>20</height>
@@ -221,7 +221,7 @@
         <property name="sizeType" >
          <enum>QSizePolicy::Expanding</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>40</width>
           <height>20</height>
@@ -255,6 +255,19 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
+ <tabstops>
+  <tabstop>clearSearchButton</tabstop>
+  <tabstop>searchTextLineEdit</tabstop>
+  <tabstop>keyTable</tabstop>
+  <tabstop>noKey</tabstop>
+  <tabstop>userDef</tabstop>
+  <tabstop>setKeyButton</tabstop>
+  <tabstop>loadableSets</tabstop>
+  <tabstop>loadSetButton</tabstop>
+  <tabstop>importSetButton</tabstop>
+  <tabstop>exportSetButton</tabstop>
+  <tabstop>resetSetButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
