@@ -84,6 +84,7 @@ private:
 	bool m_cursorVisible;
 	QTime m_blinkTime;
 	QTimer* m_blinker;
+	bool m_lastPosWasOverGuide;
 
 public slots:
 	void importToPage();

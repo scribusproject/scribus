@@ -383,6 +383,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 // 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
+	m_lastPosWasOverGuide = false;
 	double newX, newY;
 	double nx, ny;
 	PageItem *currItem;
@@ -523,6 +524,34 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 //		m_view->updateContents(QRect(out.x()+0*contentsX(), out.y()+0*contentsY(), qRound(bRect.width()*m_canvas->scale()), qRound(bRect.height()*m_canvas->scale())).adjusted(-10, -10, 20, 20));
 		m_view->updateContents(bRect);
 		return;
+	}
+	if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) /*&& (!GetItem(&currItem))*/)
+	{
+		if (!guideMoveGesture)
+		{
+			guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
+			connect(guideMoveGesture,SIGNAL(guideInfo(int, double)),
+				m_ScMW->alignDistributePalette,SLOT(setGuide(int, double)));
+		}
+		if (guideMoveGesture->mouseHitsGuide(mousePointDoc))
+		{
+			m_lastPosWasOverGuide = true;
+			switch (guideMoveGesture->getMode())
+			{
+				case RulerGesture::HORIZONTAL:
+					qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
+					break;
+				case RulerGesture::VERTICAL:
+					qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+					break;
+				default:
+					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			}
+			return;
+		}
+// Here removed a bunch of comments which made reading code difficult,
+// there is svn for tracking changes after all. pm
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if ((GetItem(&currItem)) && (!shiftSelItems))
 	{
@@ -1288,73 +1317,9 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			m_view->HaveSelRect = true;
 			return;
 		}
-		if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) && (!GetItem(&currItem)))
-		{
-			if (!guideMoveGesture)
-			{
-				guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
-				connect(guideMoveGesture,SIGNAL(guideInfo(int, double)),
-					m_ScMW->alignDistributePalette,SLOT(setGuide(int, double)));
-			}
-			if (guideMoveGesture->mouseHitsGuide(mousePointDoc))
-			{
-				switch (guideMoveGesture->getMode())
-				{
-					case RulerGesture::HORIZONTAL:
-						qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
-						break;
-					case RulerGesture::VERTICAL:
-						qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
-						break;
-					default:
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				}
-				return;
-			}
-			/*double grabRadScale=m_doc->guidesSettings.grabRad / m_canvas->scale();
-			if (0 <= m_doc->currentPage()->guides.isMouseOnHorizontal(mousePointDoc.y() + grabRadScale, mousePointDoc.y() - grabRadScale, GuideManagerCore::Standard))
-			{
-				if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GyM != -1))
-					MoveGY = true;
-				if (!m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y())) // ((m->x()/sc) < m_doc->currentPage()->xOffset()- 0*m_doc->minCanvasCoordinate.x()) || ((m->x()/sc) >= m_doc->currentPage()->width()-1+m_doc->currentPage()->xOffset()- 0*m_doc->minCanvasCoordinate.x()))
-					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				else
-					qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
-				return;
-			}
-			if (0 <= m_doc->currentPage()->guides.isMouseOnVertical(mousePointDoc.x() + grabRadScale, mousePointDoc.x() - grabRadScale, GuideManagerCore::Standard))
-			{
-				if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GxM != -1))
-					MoveGX = true;
-				if (!m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y())) // ((m->y()/sc) < m_doc->currentPage()->yOffset()- 0*m_doc->minCanvasCoordinate.x()) || ((m->y()/sc) >= m_doc->currentPage()->height()-1+m_doc->currentPage()->yOffset()- 0*m_doc->minCanvasCoordinate.y()))
-					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				else
-					qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
-				return;
-			}*/	
-/*
-				Guides::iterator it;
-			Guides tmpGuides = m_doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
-			for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
-			{
-				if (((*it)+m_doc->currentPage()->yOffset()- 0*m_doc->minCanvasCoordinate.y() < ((m->y()+m_doc->guidesSettings.grabRad) / sc)) &&
-								   ((*it)+m_doc->currentPage()->yOffset()- 0*m_doc->minCanvasCoordinate.y() > ((m->y()-m_doc->guidesSettings.grabRad) / sc)))
-				{
-				}
-			}
-//			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
-			tmpGuides = m_doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
-			for (it = tmpGuides.begin(); it!= tmpGuides.end(); ++it)
-			{
-				if (((*it)+m_doc->currentPage()->xOffset()- 0*m_doc->minCanvasCoordinate.x() < ((m->x()+m_doc->guidesSettings.grabRad) / sc)) &&
-								   ((*it)+m_doc->currentPage()->xOffset()- 0*m_doc->minCanvasCoordinate.x() > ((m->x()-m_doc->guidesSettings.grabRad) / sc)))
-				{
-				}
-			}
-*/
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		}
 	}
+		
+	
 }
 
 void LegacyMode::mousePressEvent(QMouseEvent *m)
@@ -1421,7 +1386,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			SeRy = Myp;
 			Dxp = Mxp;
 			Dyp = Myp;
-			if (GetItem(&currItem))
+			if ((GetItem(&currItem)) && (!m_lastPosWasOverGuide))
 			{
 				if ((currItem->asLine()) && (!m_doc->m_Selection->isMultipleSelection()))
 				{
@@ -4322,6 +4287,33 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 //	mpo.translate(m_doc->minCanvasCoordinate.x() * m_canvas->scale(), m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 	m_doc->nodeEdit.deselect();
 // 	int a;
+	if(!PrefsManager::instance()->appPrefs.guidesSettings.before) // guides are on foreground and want to be processed first
+	{
+		if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) /*&& (!m_doc->GuideLock)*/ && (m_doc->OnPage(MxpS, MypS) != -1))
+		{
+			if (!guideMoveGesture)
+			{
+				guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
+				connect(guideMoveGesture,SIGNAL(guideInfo(int, double)),
+					m_ScMW->alignDistributePalette,SLOT(setGuide(int, double)));
+			}
+			if ( (!m_doc->GuideLock) && (guideMoveGesture->mouseHitsGuide(mousePointDoc)) )
+			{
+				m_view->startGesture(guideMoveGesture);
+				guideMoveGesture->mouseMoveEvent(m);
+			//m_doc->m_Selection->setIsGUISelection(true);
+				m_doc->m_Selection->connectItemToGUI();
+				return true;
+			}
+			else
+			{
+			// If we call startGesture now, a new guide is created each time.
+			// ### could be a weakness to avoid calling it tho.
+// 			m_view->startGesture(guideMoveGesture);
+				guideMoveGesture->mouseSelectGuide(m);
+			}
+		}
+	}
 	if (!m_doc->masterPageMode())
 	{
 		int pgNum = -1;
