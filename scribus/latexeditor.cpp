@@ -198,7 +198,7 @@ void LatexEditor::loadExternalEditorFile()
 void LatexEditor::extEditorFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
 	externalEditorPushButton->setEnabled(true);
-	externalEditorPushButton->setText(tr("Run external editor..."));
+	externalEditorPushButton->setText( tr("Run External Editor...") );
 	if (exitCode && extEditor) {
 		qCritical() << "RENDER FRAME: Editor failed. Output was: " << 
 			qPrintable(QString(extEditor->readAllStandardOutput()));
@@ -218,7 +218,7 @@ void LatexEditor::extEditorFileChanged(QString filename)
 void LatexEditor::extEditorError(QProcess::ProcessError error)
 {
 	externalEditorPushButton->setEnabled(true);
-	externalEditorPushButton->setText(tr("Run external editor..."));
+	externalEditorPushButton->setText( tr("Run External Editor...") );
 	QMessageBox::critical(0, tr("Error"), "<qt>" +
 		tr("Running the editor \"%1\" failed!").
 		arg(PrefsManager::instance()->latexEditorExecutable()) +
@@ -315,16 +315,17 @@ void LatexEditor::stateChanged(QProcess::ProcessState state)
 	if (state == QProcess::Starting) {
 		messagesTextEdit->setPlainText("");
 	}
-	QString text = tr("Status: ");
-	if (state == QProcess::NotRunning) {
-		if (frame->error()) {
+	QString text( tr("Status: ") );
+	if (state == QProcess::NotRunning)
+	{
+		if (frame->error())
 			text += tr("Error");
-		} else {
+		else
 			text += tr("Finished");
-		}
-	} else {
-		text += tr("Running");
 	}
+	else
+		text += tr("Running");
+	
 	statusLabel->setText(text);
 	killPushButton->setEnabled(state != QProcess::NotRunning);
 }
@@ -707,7 +708,7 @@ class SCRIBUS_API XmlColorPicker : public XmlWidget, public QLabel
 {
 	public:
 		XmlColorPicker(I18nXmlStreamReader *xml) :  XmlWidget(xml), 
-			QLabel("Colorpickers are not implemented yet!") 
+			QLabel("Color pickers are not implemented yet!") 
 		{
 			setWordWrap(true);
 			fromString(m_defaultValue);
