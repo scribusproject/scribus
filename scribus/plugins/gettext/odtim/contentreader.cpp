@@ -191,15 +191,20 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 {
 	if ((name == "text:p") || (name == "text:h"))
 	{
+// 		qDebug("TPTH");
 		write("\n");
 		--append;
 		if (inList || inNote || inNoteBody)
-			styleNames.pop_back();
+		{
+			if(static_cast<int>(styleNames.size()) > 0)
+				styleNames.pop_back();
+		}
 		else
 			styleNames.clear();
 	}
 	else if (name == "text:span")
 	{
+// 		qDebug("TS");
 		inSpan = false;
 		currentStyle = pstyle;
 		if (styleNames.size() != 0)
@@ -207,15 +212,28 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 		currentStyle = sreader->getStyle(getName());
 	}
 	else if (name == "text:note")
+	{
+// 		qDebug("TN");
 		inNote = false;
+	}
 	else if (name == "text:note-body")
+	{
+// 		qDebug("TNB");
 		inNoteBody = false;
+	}
 	else if (name == "text:line-break")
+	{
+// 		qDebug("TLB");
 		write(SpecialChars::LINEBREAK);
+	}
 	else if (name == "text:tab")
+	{
+// 		qDebug("TT");
 		write("\t");
+	}
 	else if (name == "text:list")
 	{
+// 		qDebug("TL");
 		--listLevel;
 		styleNames.clear();
 		if (listLevel == 0)
@@ -235,6 +253,7 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 	}
 	else if ((name == "style:style") && (inT))
 	{
+// 		qDebug("SS");
 		inT = false;
 		tName = "";
 	}
