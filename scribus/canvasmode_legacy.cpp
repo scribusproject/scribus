@@ -525,33 +525,36 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		m_view->updateContents(bRect);
 		return;
 	}
-	if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) /*&& (!GetItem(&currItem))*/)
+	if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) )
 	{
-		if (!guideMoveGesture)
+		if( ((m_doc->guidesSettings.before) && (m_canvas->itemUnderCursor(m->globalPos()))) == false )
 		{
-			guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
-			connect(guideMoveGesture,SIGNAL(guideInfo(int, double)),
-				m_ScMW->alignDistributePalette,SLOT(setGuide(int, double)));
-		}
-		if (guideMoveGesture->mouseHitsGuide(mousePointDoc))
-		{
-			m_lastPosWasOverGuide = true;
-			switch (guideMoveGesture->getMode())
+			if (!guideMoveGesture)
 			{
-				case RulerGesture::HORIZONTAL:
-					qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
-					break;
-				case RulerGesture::VERTICAL:
-					qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
-					break;
-				default:
-					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
+				connect(guideMoveGesture,SIGNAL(guideInfo(int, double)),
+					m_ScMW->alignDistributePalette,SLOT(setGuide(int, double)));
 			}
-			return;
+			if (guideMoveGesture->mouseHitsGuide(mousePointDoc))
+			{
+				m_lastPosWasOverGuide = true;
+				switch (guideMoveGesture->getMode())
+				{
+					case RulerGesture::HORIZONTAL:
+						qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
+						break;
+					case RulerGesture::VERTICAL:
+						qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+						break;
+					default:
+						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				}
+				return;
+			}
+	// Here removed a bunch of comments which made reading code difficult,
+	// there is svn for tracking changes after all. pm
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		}
-// Here removed a bunch of comments which made reading code difficult,
-// there is svn for tracking changes after all. pm
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if ((GetItem(&currItem)) && (!shiftSelItems))
 	{
@@ -4287,7 +4290,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 //	mpo.translate(m_doc->minCanvasCoordinate.x() * m_canvas->scale(), m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 	m_doc->nodeEdit.deselect();
 // 	int a;
-	if(!PrefsManager::instance()->appPrefs.guidesSettings.before) // guides are on foreground and want to be processed first
+	if(!m_doc->guidesSettings.before) // guides are on foreground and want to be processed first
 	{
 		if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) /*&& (!m_doc->GuideLock)*/ && (m_doc->OnPage(MxpS, MypS) != -1))
 		{
