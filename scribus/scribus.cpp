@@ -4284,7 +4284,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 	}
 	QString fileSpec=tr("Documents (*.sla *.sla.gz);;All Files (*)");
 // 	bool setter=true;
-	int optionFlags = fdCompressFile;
+	int optionFlags = fdCompressFile | fdHidePreviewCheckBox;
 	QString fn = CFileDialog( wdir, tr("Save As"), fileSpec, fna, optionFlags);
 	if (!fn.isEmpty())
 	{
