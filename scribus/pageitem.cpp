@@ -1922,7 +1922,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			QColor tmpC = p->pen();
 			p->setPen(p->brush());
 			p->setLineWidth(lw);
-			if (style.effects() & (ScStyle_Subscript | ScStyle_Superscript))
+			if (style.effects() & ScStyle_Subscript)
 				p->drawLine(FPoint(glyphs.xoffset, glyphs.yoffset - st), FPoint(glyphs.xoffset + glyphs.xadvance, glyphs.yoffset - st));
 			else
 				p->drawLine(FPoint(glyphs.xoffset, -st), FPoint(glyphs.xoffset + glyphs.xadvance, -st));

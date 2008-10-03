@@ -4135,7 +4135,7 @@ void ScribusView::TextToPath()
 							bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
 							double textX = CurX;
 							double textY = ls.y - st;  // + hl->glyph.yoffset;
-							if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
+							if (charStyle.effects() & ScStyle_Subscript)
 								textY += hl->glyph.yoffset;
 							if (charStyle.baselineOffset() != 0)
 								textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
