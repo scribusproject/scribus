@@ -76,18 +76,18 @@ private:
 	\author Franz Schmid
 	\brief Process a page to export to SVG format
 	\param Seite Page *
-	\param docu QDomDocument *
 	*/
-	void ProcessPage(Page *Seite, QDomDocument *docu);
-	void ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomDocument *docu, QDomElement *parentElem);
-	QDomElement processPolyItem(PageItem *Item, QDomDocument *docu, QString trans, QString fill, QString stroke);
-	QDomElement processLineItem(PageItem *Item, QDomDocument *docu, QString trans, QString stroke);
-	QDomElement processImageItem(PageItem *Item, QDomDocument *docu, QString trans, QString fill, QString stroke);
-	QDomElement processTextItem(PageItem *Item, QDomDocument *docu, QString trans, QString fill, QString stroke);
-	QDomElement processPathTextItem(PageItem *Item, QDomDocument *docu, QString trans, QString stroke);
-	QString handleGlyph(uint chr, ScText *hl, QDomDocument *docu);
-	QDomElement processArrows(PageItem *Item, QDomDocument *docu, QDomElement line, QString trans);
-	QString getFillStyle(PageItem *Item, QDomDocument *docu);
+	void ProcessPage(Page *Seite);
+	void ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomElement *parentElem);
+	QDomElement processPolyItem(PageItem *Item, QString trans, QString fill, QString stroke);
+	QDomElement processLineItem(PageItem *Item, QString trans, QString stroke);
+	QDomElement processImageItem(PageItem *Item, QString trans, QString fill, QString stroke);
+	QDomElement processTextItem(PageItem *Item, QString trans, QString fill, QString stroke);
+	QDomElement processPathTextItem(PageItem *Item, QString trans, QString stroke);
+	QDomElement processInlineItem(double xpos, double ypos, QMatrix &finalMat, ScText *hl, bool pathT, QString trans);
+	QString handleGlyph(uint chr, ScText *hl);
+	QDomElement processArrows(PageItem *Item, QDomElement line, QString trans);
+	QString getFillStyle(PageItem *Item);
 	QString getStrokeStyle(PageItem *Item);
 	/*!
 	\author Franz Schmid
@@ -129,6 +129,7 @@ private:
 	int ClipCount;
 	int PattCount;
 	QString baseDir;
+	QDomDocument docu;
 	QDomElement docElement;
 	QDomElement globalDefs;
 	QList<QString> glyphNames;
