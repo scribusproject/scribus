@@ -12,48 +12,42 @@ for which a new license (GPL+exception) is in place.
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 
-#ifdef HAVE_CAIRO
-	#include <cairo.h>
-//	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
-		#define USECAIRO
-		#include "scpainter.h"
-//	#else
-//		#undef USECAIRO
-//	#endif
-#else
-	#undef USECAIRO
-#endif
-
 class QString;
 class ScribusDoc;
 class ScribusMainWindow;
-class ScribusView;
 class PageItem;
 class Page;
 class ScText;
+
+struct SVGOptions
+{
+	bool inlineImages;
+	bool exportPageBackground;
+	bool compressFile;
+};
 
 class PLUGIN_API SVGExportPlugin : public ScActionPlugin
 {
 	Q_OBJECT
 
-	public:
-		// Standard plugin implementation
-		SVGExportPlugin();
-		virtual ~SVGExportPlugin();
-		/*!
-		\author Franz Schmid
-		\brief Run the SVG export
-		\param filename a file to export to
-		\retval bool true
-		*/
-		virtual bool run(ScribusDoc* doc=0, QString filename = QString::null);
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+public:
+	// Standard plugin implementation
+	SVGExportPlugin();
+	virtual ~SVGExportPlugin();
+	/*!
+	\author Franz Schmid
+	\brief Run the SVG export
+	\param filename a file to export to
+	\retval bool true
+	*/
+	virtual bool run(ScribusDoc* doc=0, QString filename = QString::null);
+	virtual const QString fullTrName() const;
+	virtual const AboutData* getAboutData() const;
+	virtual void deleteAboutData(const AboutData* about) const;
+	virtual void languageChange();
+	virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
-		// Special features (none)
+	// Special features (none)
 };
 
 extern "C" PLUGIN_API int svgexplugin_getPluginAPIVersion();
@@ -73,68 +67,71 @@ public:
 	SVGExPlug( ScribusDoc* doc );
 	~SVGExPlug();
 
-	bool doExport( QString fName ); 
+	bool doExport( QString fName, SVGOptions &Opts );
+	SVGOptions Options;
 
 private:
 	ScribusDoc* m_Doc;
-	ScribusMainWindow* m_ScMW;
-	ScribusView* m_View;
-#ifndef USECAIRO
-
-		/*!
-		\author Franz Schmid
-		\brief Process a page to export to SVG format
-		\param Seite Page *
-		\param docu QDomDocument *
-		\param elem QDomElement *
+	/*!
+	\author Franz Schmid
+	\brief Process a page to export to SVG format
+	\param Seite Page *
+	\param docu QDomDocument *
+	*/
+	void ProcessPage(Page *Seite, QDomDocument *docu);
+	void ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomDocument *docu, QDomElement *parentElem);
+	QDomElement processPolyItem(PageItem *Item, QDomDocument *docu, QString trans, QString fill, QString stroke);
+	QDomElement processLineItem(PageItem *Item, QDomDocument *docu, QString trans, QString stroke);
+	QDomElement processImageItem(PageItem *Item, QDomDocument *docu, QString trans, QString fill, QString stroke);
+	QDomElement processTextItem(PageItem *Item, QDomDocument *docu, QString trans, QString fill, QString stroke);
+	QDomElement processPathTextItem(PageItem *Item, QDomDocument *docu, QString trans, QString stroke);
+	QString handleGlyph(uint chr, ScText *hl, QDomDocument *docu);
+	QDomElement processArrows(PageItem *Item, QDomDocument *docu, QDomElement line, QString trans);
+	QString getFillStyle(PageItem *Item, QDomDocument *docu);
+	QString getStrokeStyle(PageItem *Item);
+	/*!
+	\author Franz Schmid
+	\param ite PageItem *
+	\retval QString Clipping Path
+	*/
+	QString SetClipPath(FPointArray *ite, bool closed);
+	/*!
+	\author Franz Schmid
+	\brief Converts double to string
+	\param c double
+	\retval QString
 		*/
-		void ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem);
-		QString SetClipPathImage(PageItem *ite);
-		/*!
-		\author Franz Schmid
-		\param ite PageItem *
-		\retval QString Clipping Path
-		*/
-		QString SetClipPath(PageItem *ite);
-		/*!
-		\author Franz Schmid
-		\brief Converts double to string
-		\param c double
-		\retval QString
-		 */
-		QString FToStr(double c);
-		/*!
-		\author Franz Schmid
-		\brief Converts integer to QString
-		\param c int
-		\retval QString representation of value
- 		*/
-		QString IToStr(int c);
-		/*!
-		\author Franz Schmid
-		\brief Set text properties
-		\param tp QDomElement *
-		\param hl ScText *
-		*/
-		void SetTextProps(QDomElement *tp, ScText *hl);
-		/*!
-		\author Franz Schmid
-		\param farbe QString color
-		\param shad int
-		\param plug ScribusMainWindow *
-		\retval QString Colour settings
-		*/
-		QString SetColor(QString farbe, int shad);
-		/*!
-		\author Franz Schmid
-		\param sl struct SingleLine *
-		\param Item PageItem *
-		\retval QString Stroke settings
-		*/
-		QString GetMultiStroke(struct SingleLine *sl, PageItem *Item);
-		int GradCount;
-		int ClipCount;
-#endif
+	QString FToStr(double c);
+	/*!
+	\author Franz Schmid
+	\brief Converts integer to QString
+	\param c int
+	\retval QString representation of value
+	*/
+	QString IToStr(int c);
+	/*!
+	\author Franz Schmid
+	\param farbe QString color
+	\param shad int
+	\param plug ScribusMainWindow *
+	\retval QString Colour settings
+	*/
+	QString MatrixToStr(QMatrix &mat);
+	QString SetColor(QString farbe, int shad);
+	/*!
+	\author Franz Schmid
+	\param sl struct SingleLine *
+	\param Item PageItem *
+	\retval QString Stroke settings
+	*/
+	QString GetMultiStroke(struct SingleLine *sl, PageItem *Item);
+	int GradCount;
+	int ClipCount;
+	int PattCount;
+	QString baseDir;
+	QDomElement docElement;
+	QDomElement globalDefs;
+	QList<QString> glyphNames;
 };
 
-#endif // CMSPLUG_H
+#endif
