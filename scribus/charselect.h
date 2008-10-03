@@ -13,9 +13,22 @@ for which a new license (GPL+exception) is in place.
 #include "ui_charselect.h"
 
 class PageItem;
+class CharSelectEnhanced;
 
 
-/*! \brief Character Palette for direct chars inserting. */
+/*! \brief Character Palette for direct glyphs inserting.
+The "classical" one is opened as CharSelectEnhanced instance.
+Both CharSelect/CharSelectEnhanced palettes are split due:
+1) initial and usage performace. The CharSelectEnhanced is too
+slow to load on startup/doc opening etc. The memory footprint
+is much smaller too.
+2) It was one dialog before split. To show/hide "enhanced" part
+caused serious mess with layouts and dialog sizes and positioning.
+Now it's handled in standard way.
+
+\note This palette is used as standard Scribus palette for ScribusDoc mainly.
+\note There is 2nd usage as well - in the StoryEditor. See its docstrings.
+*/
 class SCRIBUS_API CharSelect : public ScrPaletteBase, public Ui::CharSelect
 {
 	Q_OBJECT
@@ -23,100 +36,52 @@ class SCRIBUS_API CharSelect : public ScrPaletteBase, public Ui::CharSelect
 	public:
 		CharSelect(QWidget* parent);
 		~CharSelect();
-	
-		void show();
+
 		void hide();
 		void setDoc(ScribusDoc* doc);
 		void setEnabled(bool state, PageItem* item=0);
-	
-		const QString & fontInUse() const { return m_fontInUse; };
-		void setFontInUse(const QString f) { m_fontInUse = f; };
-	
-		void setCharacterClass(int c) { m_characterClass = c; };
-	
-		const PageItem* item() const {return m_Item;};
-		void setItem(PageItem* newItem) {m_Item=newItem;}
+
 		const QString & getCharacters();
-		void scanFont();
-		void setupRangeCombo();
-		void generatePreview(int charClass);
-	
+
+        //! Used for StoryEditor
 		CharTableModel * userTableModel() { return m_userTableModel; };
-		
+
 		virtual void changeEvent(QEvent *e);
+
+    signals:
+        /*! \brief A signall emittedthis palette tries to insert glyphs.
+        It does not have sense in standard "palette" mode, but it's used
+        in StoryEditor workaround. */
+        void insertSpecialChar();
+        /*! Internal signal for one glyph only */
+        void insertUserSpecialChar(QChar);
+
 
 	private:
 		ScribusDoc* m_doc;
-		//! \brief Current font name
-		QString m_fontInUse;
-		//! \brief Currently selected character category. See usedCharClasses.
-		int m_characterClass;
-	
-		//! \brief m_charTable model
-		CharTableModel * m_charTableModel;
-	
 		//! \brief m_userTable model
 		CharTableModel * m_userTableModel;
-	
-		QList<CharClassDef> allClasses;
-		CharClassDef characters;
-		CharClassDef charactersFull;
-		CharClassDef charactersLatin1;
-		CharClassDef charactersLatin1Supplement;
-		CharClassDef charactersLatinExtendedA;
-		CharClassDef charactersLatinExtendedB;
-		CharClassDef charactersGeneralPunctuation;
-		CharClassDef charactersSuperSubscripts;
-		CharClassDef charactersCurrencySymbols;
-		CharClassDef charactersLetterlikeSymbols;
-		CharClassDef charactersNumberForms;
-		CharClassDef charactersArrows;
-		CharClassDef charactersMathematicalOperators;
-		CharClassDef charactersBoxDrawing;
-		CharClassDef charactersBlockElements;
-		CharClassDef charactersGeometricShapes;
-		CharClassDef charactersMiscellaneousSymbols;
-		CharClassDef charactersDingbats;
-		CharClassDef charactersSmallFormVariants;
-		CharClassDef charactersAlphabeticPresentationForms;
-		CharClassDef charactersSpecial;
-		CharClassDef charactersGreek;
-		CharClassDef charactersGreekExtended;
-		CharClassDef charactersCyrillic;
-		CharClassDef charactersCyrillicSupplement;
-		CharClassDef charactersArabic;
-		CharClassDef charactersArabicPresentationFormsA;
-		CharClassDef charactersArabicPresentationFormsB;
-		CharClassDef charactersHebrew;
-		QMap<int,int> usedCharClasses;
-		QString chToIns;
-	
-	public slots:
-		void newChar(uint i);
-		void userNewChar(uint i);
-		void delChar();
-		void newFont(int font);
-		void newCharClass(int c);
-		void delEdit();
-		void insChar();
 
-	signals:
-		/*! \brief A signall emitted when is the dialog modeless
-		and user press the "Insert" button. */
-		void insertSpecialChar();
-		void insertUserSpecialChar(QChar);
-	
-	protected:
+        CharSelectEnhanced * m_enhanced;
+
+        //! Hold the "glyphs to insert" here.
+		QString chToIns;
+
 		QString paletteFileMask;
-	
+
 		PageItem *m_Item;
-	
+
 		void saveUserContent(QString f);
 		void loadUserContent(QString f);
 
-	protected slots:
+        void openEnhanced();
+        void closeEnhanced();
+
+	private slots:
+        void userNewChar(uint i);
 		void hideButton_toggled(bool);
 		void slot_insertSpecialChar();
+        void slot_insertSpecialChars(const QString & chars);
 		void slot_insertUserSpecialChar(QChar);
 		void uniLoadButton_clicked();
 		void uniSaveButton_clicked();

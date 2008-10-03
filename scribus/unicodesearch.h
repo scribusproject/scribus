@@ -7,18 +7,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef UNICODESEARCH_H
 #define UNICODESEARCH_H
 
-#include <QVariant>
-#include <QDialog>
 #include <QPushButton>
-#include <QHideEvent>
-
-class QEvent;
 
 #include "ui_unicodesearch.h"
 #include "scribusapi.h"
-#include "fonts/scface.h"
 
 class CharZoom;
+
 
 /*! \brief Special "search for unicode character" dialog.
 The search string entered by user is searched in character
@@ -41,8 +36,6 @@ public:
 	It's in separate method to keep the constructor lightweight. This method is
 	called first time user requests the dialog. */
 	void checkForUpdate();
-	//! \brief Set currently used font
-	void setFont(ScFace f) { m_font = f; };
 
 signals:
 	//! \brief Emitted when the dialog gets hidden.
@@ -56,8 +49,6 @@ private:
 
 	//! \brief A reference to the CharZoom dialog shown/closed in unicodeList_mouseButtonPressed() slot.
 	CharZoom * m_zoom;
-	//! \brief Currently used font
-	ScFace m_font;
 
 	//! \brief All items from m_unicodeMap into unicodeList.
 	void query();
@@ -69,14 +60,10 @@ private:
 	void readUnicodeMap();
 	//! \brief Overriden hide event. Just emit the setVisibleState(false) here.
 	void hideEvent(QHideEvent * e);
-	//! \brief filter mouse clicks so we can get our glyph zoom view
-// 	bool eventFilter(QObject *obj, QEvent *event);
 
 private slots:
 	//! \brief Start search with user input.
 	void searchEdit_returnPressed();
-	//! \brief Handle the m_zoom dialog
-	void unicodeList_mouseButtonPressed(QTableWidgetItem* item);
 };
 
 
@@ -95,11 +82,8 @@ public:
 	*/
 	UnicodeChooseButton(QWidget * parent);
 	~UnicodeChooseButton(){};
-	
+
 	virtual void changeEvent(QEvent *e);
-	
-	//! \brief Set currently used font. Passed in the m_searchDialog here only.
-	void setFont(ScFace f) { m_searchDialog->setFont(f); };
 
 signals:
 	//! \brief Signal transfering the chosen character as QString

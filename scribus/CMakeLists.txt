@@ -26,6 +26,7 @@ SET(SCRIBUS_UI_SRC
   aboutplugins.ui
   aligndistribute.ui
   charselect.ui
+  charselectenhanced.ui
   cmsprefsbase.ui
   docitemattrprefs.ui
   docsections.ui
@@ -91,6 +92,7 @@ SET(SCRIBUS_MOC_CLASSES
   canvasmode_measurements.h
   canvasmode_legacy.h
   charselect.h
+  charselectenhanced.h
   chartablemodel.h
   chartableview.h
   charzoom.h
@@ -316,6 +318,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_measurements.cpp
   canvasmode_nodeedit.cpp
   charselect.cpp
+  charselectenhanced.cpp
   chartablemodel.cpp
   chartableview.cpp
   charzoom.cpp

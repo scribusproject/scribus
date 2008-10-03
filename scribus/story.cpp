@@ -1464,19 +1464,27 @@ StoryEditor::~StoryEditor()
 void StoryEditor::showEvent(QShowEvent *)
 {
 	charSelect = new CharSelect(this);
-	charSelect->userTableModel()->setCharacters( ScCore->primaryMainWindow()->charPalette->userTableModel()->characters());
-	connect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
-	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar)), this, SLOT(slot_insertUserSpecialChar(QChar)));
+	charSelect->userTableModel()->setCharacters(
+            ScCore->primaryMainWindow()->charPalette->userTableModel()->characters());
+	connect(charSelect, SIGNAL(insertSpecialChar()),
+             this, SLOT(slot_insertSpecialChar()));
+	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar)),
+             this, SLOT(slot_insertUserSpecialChar(QChar)));
 }
 
 void StoryEditor::hideEvent(QHideEvent *)
 {
 	if (charSelectUsed)
-		ScCore->primaryMainWindow()->charPalette->userTableModel()->setCharacters( charSelect->userTableModel()->characters());
+    {
+		ScCore->primaryMainWindow()->charPalette->userTableModel()->setCharacters(
+                charSelect->userTableModel()->characters());
+    }
 	if (charSelect->isVisible())
 		charSelect->close();
-	disconnect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
-	disconnect(charSelect, SIGNAL(insertUserSpecialChar(QChar)), this, SLOT(slot_insertUserSpecialChar(QChar)));
+	disconnect(charSelect, SIGNAL(insertSpecialChar()),
+                this, SLOT(slot_insertSpecialChar()));
+	disconnect(charSelect, SIGNAL(insertUserSpecialChar(QChar)),
+                this, SLOT(slot_insertUserSpecialChar(QChar)));
 	delete charSelect;
 	charSelect = NULL;
 }

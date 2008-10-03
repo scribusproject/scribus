@@ -1,0 +1,211 @@
+<ui version="4.0" >
+ <class>CharSelectEnhanced</class>
+ <widget class="QDialog" name="CharSelectEnhanced" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>506</width>
+    <height>492</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Enhanced Character Palette</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout" >
+   <item row="0" column="0" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>&amp;Font:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>fontSelector</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="FontCombo" name="fontSelector" />
+   </item>
+   <item row="0" column="2" >
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>38</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="3" >
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>C&amp;haracter Class:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>rangeSelector</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="4" >
+    <widget class="ScComboBox" name="rangeSelector" />
+   </item>
+   <item row="0" column="5" >
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>66</width>
+       <height>28</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="0" colspan="6" >
+    <widget class="CharTableView" name="m_charTable" >
+     <property name="minimumSize" >
+      <size>
+       <width>340</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="toolTip" >
+      <string>You can see a thumbnail if you press and hold down the right mouse button.
+The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</string>
+     </property>
+     <property name="dragDropOverwriteMode" >
+      <bool>false</bool>
+     </property>
+     <property name="dragDropMode" >
+      <enum>QAbstractItemView::DragOnly</enum>
+     </property>
+     <property name="selectionMode" >
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="6" >
+    <layout class="QHBoxLayout" name="horizontalLayout" >
+     <item>
+      <widget class="QLabel" name="label_3" >
+       <property name="text" >
+        <string>Insert &amp;Code:</string>
+       </property>
+       <property name="buddy" >
+        <cstring>hexLineEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="hexLineEdit" >
+       <property name="toolTip" >
+        <string>Type in a four digit unicode value directly here</string>
+       </property>
+       <property name="maxLength" >
+        <number>32767</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0" colspan="6" >
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>Glyphs to Insert</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_1" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="sample" >
+        <property name="minimumSize" >
+         <size>
+          <width>460</width>
+          <height>48</height>
+         </size>
+        </property>
+        <property name="frameShape" >
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="lineWidth" >
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="6" >
+    <layout class="QHBoxLayout" name="_2" >
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="insertButton" >
+       <property name="toolTip" >
+        <string>Insert the characters at the cursor in the text</string>
+       </property>
+       <property name="text" >
+        <string>&amp;Insert</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="deleteButton" >
+       <property name="toolTip" >
+        <string>Delete the current selection(s).</string>
+       </property>
+       <property name="text" >
+        <string>C&amp;lear</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FontCombo</class>
+   <extends>QComboBox</extends>
+   <header>fontcombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ScComboBox</class>
+   <extends>QComboBox</extends>
+   <header>sccombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CharTableView</class>
+   <extends>QTableView</extends>
+   <header>chartableview.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

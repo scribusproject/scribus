@@ -495,6 +495,7 @@ protected:
 	\author Petr Vanek <petr@scribus.info>
 	*/
 	CharSelect *charSelect;
+    //! True when there were some glyphs inserted via charSelect
 	bool charSelectUsed;
 	void showEvent(QShowEvent *);
 	void hideEvent(QHideEvent *);

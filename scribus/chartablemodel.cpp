@@ -85,11 +85,12 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 
 void CharTableModel::setDoc(ScribusDoc *doc)
 {
-	bool repaint = (doc == m_doc) ? false : true;
-
-	m_doc = doc;
-	if (repaint)
+    // repaint only when doc differs
+    if (doc != m_doc)
+    {
+        m_doc = doc;
 		reset();
+    }
 }
 
 ScFace CharTableModel::fontFace()
