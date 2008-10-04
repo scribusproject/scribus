@@ -243,7 +243,7 @@ void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 		doResize(m->modifiers() & Qt::AltModifier);
 	}
 	m->accept();
-	QPoint point = m->globalPos() - m_canvas->mapToGlobal(QPoint(0,0));
+	QPoint point = m->globalPos() - m_canvas->mapToParent(QPoint(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPoint(0, 0));
 	m_view->ensureVisible(point.x(), point.y(), 20, 20);
 	m_canvas->repaint();
 }

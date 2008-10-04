@@ -28,6 +28,7 @@
 #include <QRect>
 #include <QTimer>
 #include <QWidgetAction>
+#include <QDebug>
 
 #include "aligndistribute.h"
 #include "canvas.h"
@@ -1330,7 +1331,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 // 	const double mouseX = m->globalX();
 // 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	
+
 	bool inText;
 	int z;
 	double Rxp = 0;

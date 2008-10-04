@@ -115,26 +115,26 @@ QRect Canvas::canvasToLocal(QRectF p) const
 
 QPoint Canvas::canvasToGlobal(FPoint p) const
 {
-	return mapToGlobal(QPoint(0,0)) + canvasToLocal(p);
+	return mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0)) + canvasToLocal(p);
 }
 
 
 QPoint Canvas::canvasToGlobal(QPointF p) const
 {
-	return mapToGlobal(QPoint(0,0)) + canvasToLocal(p);
+	return mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0)) + canvasToLocal(p);
 }
 
 
 QRect Canvas::canvasToGlobal(QRectF p) const
 {
-	return QRect(mapToGlobal(QPoint(0,0) + canvasToLocal(p.topLeft())), 
+	return QRect(mapToParent(QPoint(0,0) + canvasToLocal(p.topLeft())) + parentWidget()->mapToGlobal(QPoint(0, 0)),
 				 QSize(qRound(p.width() * m_viewMode.scale), qRound(p.height() * m_viewMode.scale)));
 }
 
 
 FPoint Canvas::globalToCanvas(QPoint p) const
 {
-	return localToCanvas(p - mapToGlobal(QPoint(0,0)));
+	return localToCanvas(p - (mapToParent(QPoint(0, 0)) + parentWidget()->mapToGlobal(QPoint(0, 0))));
 }
 
 
@@ -168,7 +168,7 @@ QRectF Canvas::globalToCanvas(QRectF p) const
 
 bool Canvas::hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const
 {
-	QPoint localPoint1 = globalPoint - mapToGlobal(QPoint(0,0));
+	QPoint localPoint1 = globalPoint - mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0));
 	QPoint localPoint2 = canvasToLocal(canvasPoint);
 	int radius = m_doc->guidesSettings.grabRad;
 	return qAbs(localPoint1.x() - localPoint2.x()) < radius
@@ -178,7 +178,7 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const
 
 bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
 {
-	QPoint localPoint1 = globalPoint - mapToGlobal(QPoint(0,0));
+	QPoint localPoint1 = globalPoint - mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0));
 	QPoint localPoint2 = canvasToLocal(canvasPoint);
 	int radius = m_doc->guidesSettings.grabRad;
 	return qAbs(localPoint1.x() - localPoint2.x()) < radius
