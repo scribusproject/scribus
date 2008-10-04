@@ -317,6 +317,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_legacy.cpp
   canvasmode_measurements.cpp
   canvasmode_nodeedit.cpp
+  canvasmode_rotate.cpp
   charselect.cpp
   charselectenhanced.cpp
   chartablemodel.cpp

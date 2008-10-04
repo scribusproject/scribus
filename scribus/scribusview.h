@@ -94,6 +94,7 @@ public:
 	
 	friend class LegacyMode;
 	friend class CanvasMode_NodeEdit;
+	friend class CanvasMode_Rotate;
 	
 	void requestMode(int appMode);
 	void startGesture(CanvasGesture*);
