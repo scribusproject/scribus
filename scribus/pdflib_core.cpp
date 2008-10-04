@@ -4526,15 +4526,31 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 			if (style.fillColor() != CommonStrings::None)
 				tmp2 += putColor(style.fillColor(), style.fillShade(), false);
 			tmp2 += FToStr(Uwid)+" w\n";
-			if (style.effects() & ScStyle_Subscript)
+			if (ite->itemType() == PageItem::PathText)
 			{
-				tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
-				tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
+				if (style.effects() & ScStyle_Subscript)
+				{
+					tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y+Upos)+" m\n";
+					tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y+Upos)+" l\n";
+				}
+				else
+				{
+					tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y+hl->glyph.yoffset+Upos)+" m\n";
+					tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y+hl->glyph.yoffset+Upos)+" l\n";
+				}
 			}
 			else
 			{
-				tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y+Upos)+" m\n";
-				tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y+Upos)+" l\n";
+				if (style.effects() & ScStyle_Subscript)
+				{
+					tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
+					tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
+				}
+				else
+				{
+					tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y+Upos)+" m\n";
+					tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y+Upos)+" l\n";
+				}
 			}
 			tmp2 += "S\n";
 		}
@@ -4704,13 +4720,21 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 			if (style.fillColor() != CommonStrings::None)
 				tmp2 += putColor(style.fillColor(), style.fillShade(), false);
 			tmp2 += FToStr(Uwid)+" w\n";
-			tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
-			tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
+			if (ite->itemType() == PageItem::PathText)
+			{
+				tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y+Upos)+" m\n";
+				tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y+Upos)+" l\n";
+			}
+			else
+			{
+				tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
+				tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
+			}
 			tmp2 += "S\n";
 		}
 		if (ite->asPathText())
 		{
-			tmp += "ET\nQ\n"+tmp2;
+			tmp += "ET\n"+tmp2+"Q\n";
 			tmp2 = "";
 		}
 	}
