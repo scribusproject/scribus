@@ -191,6 +191,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 			}
 		}
 		bool psFound = false;
+		bool isAtend = false;
 		QDataStream ts(&f);
 		ts.device()->seek(startPos);
 		while (!ts.atEnd())
@@ -287,24 +288,29 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				QTextStream ts2(&tmp, QIODevice::ReadOnly);
 				QString tmp2;
 				ts2 >> tmp2;
-				if (!tmp2.isEmpty())
-					FontListe.append(tmp2);
-				while (!ts.atEnd())
+				if (!tmp2.contains("(atend)"))
 				{
-					uint oldPos = ts.device()->pos();
-					tmp = readLinefromDataStream(ts);
-					if (!tmp.startsWith("%%+"))
-					{
-						ts.device()->seek(oldPos);
-						break;
-					}
-					tmp = tmp.remove(0,3);
-					QTextStream ts2(&tmp, QIODevice::ReadOnly);
-					QString tmp2;
-					ts2 >> tmp2;
 					if (!tmp2.isEmpty())
 						FontListe.append(tmp2);
+					while (!ts.atEnd())
+					{
+						uint oldPos = ts.device()->pos();
+						tmp = readLinefromDataStream(ts);
+						if (!tmp.startsWith("%%+"))
+						{
+							ts.device()->seek(oldPos);
+							break;
+						}
+						tmp = tmp.remove(0,3);
+						QTextStream ts2(&tmp, QIODevice::ReadOnly);
+						QString tmp2;
+						ts2 >> tmp2;
+						if (!tmp2.isEmpty())
+							FontListe.append(tmp2);
+					}
 				}
+				else
+					isAtend = true;
 			}
 			if (tmp.startsWith("%%CMYKCustomColor"))
 			{
@@ -426,7 +432,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 						break;
 				}
 			}
-			if (psFound)
+			if ((psFound) && (!isAtend))
 				break;
 		}
 	}
@@ -483,7 +489,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 			}
 			if (missing)
 			{
-				m_message = QObject::tr("The Font(s):\n%1 are not available.\nThey have been replaced by \"Courier\"\nTherefore the image may be not correct").arg(missingF);
+				m_message = QObject::tr("The Font(s):\n%1 are not embedded or available for Scribus.\nThey might be replaced by \"Courier\", depending how your Ghostscript is configured.\nTherefore the image may be not correct").arg(missingF);
 				m_msgType = warningMsg;
 			}
 		}
