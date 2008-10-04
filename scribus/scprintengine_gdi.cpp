@@ -254,7 +254,7 @@ bool ScPrintEngine_GDI::printPages( ScribusDoc* doc, PrintOptions& options, HDC 
 	bool usingGui = ScCore->usingGUI();
 	if ( usingGui )
 	{
-		progress.reset( new MultiProgressDialog( tr("Printing..."), CommonStrings::tr_Cancel, doc->scMW()) );
+		progress.reset( new MultiProgressDialog( QObject::tr("Printing..."), CommonStrings::tr_Cancel, doc->scMW()) );
 		progress->setOverallTotalSteps( options.pageNumbers.size() );
 		progress->setOverallProgress(0);
 		connect(progress.get(), SIGNAL(canceled()), this, SLOT(cancelRequested()));
