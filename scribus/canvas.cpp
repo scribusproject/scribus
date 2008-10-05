@@ -168,7 +168,7 @@ QRectF Canvas::globalToCanvas(QRectF p) const
 
 bool Canvas::hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const
 {
-	QPoint localPoint1 = globalPoint - mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0));
+	QPoint localPoint1 = globalPoint - (mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0)));
 	QPoint localPoint2 = canvasToLocal(canvasPoint);
 	int radius = m_doc->guidesSettings.grabRad;
 	return qAbs(localPoint1.x() - localPoint2.x()) < radius
@@ -178,7 +178,7 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const
 
 bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
 {
-	QPoint localPoint1 = globalPoint - mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0));
+	QPoint localPoint1 = globalPoint - (mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0)));
 	QPoint localPoint2 = canvasToLocal(canvasPoint);
 	int radius = m_doc->guidesSettings.grabRad;
 	return qAbs(localPoint1.x() - localPoint2.x()) < radius
