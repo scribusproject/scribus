@@ -544,7 +544,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
+				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 				m_doc->Items->at(z)->FrameType = 0;
 			}
 			break;
@@ -557,7 +557,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
+				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 				m_doc->Items->at(z)->FrameType = 1;
 			}
 			break;
@@ -572,7 +572,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
+				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 				m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
 				m_doc->setRedrawBounding(m_doc->Items->at(z));
 				m_doc->Items->at(z)->FrameType = createObjectSubMode + 2;
@@ -599,7 +599,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		else
 		{
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
 		}
 		break;
 	case modeDrawImage:
@@ -610,7 +610,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		else
 		{
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
 		}
 		break;
 	case modeDrawText:
@@ -621,7 +621,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		else
 		{
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, true);
+			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, true);
 		}
 		break;
 	case modeDrawRegularPolygon:
@@ -631,7 +631,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
+				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 			}
 			currItem = m_doc->Items->at(z);
 			FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), m_doc->toolSettings.polyC, m_doc->toolSettings.polyS, m_doc->toolSettings.polyF, m_doc->toolSettings.polyR);
@@ -676,7 +676,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 	case modeInsertPDFTextAnnotation:
 	case modeInsertPDFLinkAnnotation:
 		m_doc->ApplyGuides(&Rxp, &Ryp);
-		z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, true);
+		z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, true);
 		currItem = m_doc->Items->at(z);
 		currItem->setIsAnnotation(true);
 		currItem->AutoName = false;
