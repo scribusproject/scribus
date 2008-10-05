@@ -865,7 +865,7 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 		ScText *hl = Item->itemText.item(a);
 		const CharStyle& charStyle(Item->itemText.charStyle(a));
 		chstr = Item->itemText.text(a,1);
-		if ((chstr == QChar(13)) || (chstr == QChar(32)) || (chstr == QChar(29)))
+		if ((chstr == QChar(13)) || (chstr == QChar(29)))
 			continue;
 		if (chstr == QChar(30))
 		{
@@ -943,31 +943,117 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 				sca.translate(Item->xPos(), Item->yPos());
 				finalMat *= sca;
 			}
-			QString glName = handleGlyph(chr, hl);
-			if ((charStyle.effects() & ScStyle_Shadowed) && (charStyle.strokeColor() != CommonStrings::None))
+			QChar chstc = hl->ch;
+			if (((charStyle.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstc))
+				|| ((charStyle.effects() & ScStyle_UnderlineWords) && !chstc.isSpace() && !SpecialChars::isBreak(chstc)))
 			{
-				QMatrix sha = finalMat;
-				QMatrix shad;
-				shad.translate(charStyle.fontSize() * charStyle.shadowXOffset() / 10000.0, -charStyle.fontSize() * charStyle.shadowYOffset() / 10000.0);
-				sha *= shad;
-				QDomElement ob2 = docu.createElement("use");
-				ob2.setAttribute("xlink:href", "#" + glName);
-				ob2.setAttribute("transform", MatrixToStr(sha));
-				ob2.setAttribute("style", "fill:"+SetColor(hl->strokeColor(), hl->strokeShade())+";" + "stroke:none;");
-				ob.appendChild(ob2);
+				QMatrix stro = QMatrix(chma2 * chma3 * chma6 * trafo);
+				double Ulen = hl->glyph.xadvance;
+				double Upos, Uwid, kern;
+				if (hl->effects() & ScStyle_StartOfLine)
+					kern = 0;
+				else
+					kern = charStyle.fontSize() * charStyle.tracking() / 10000.0;
+				if ((charStyle.underlineOffset() != -1) || (charStyle.underlineWidth() != -1))
+				{
+					if (charStyle.underlineOffset() != -1)
+						Upos = (charStyle.underlineOffset() / 1000.0) * (charStyle.font().descent(charStyle.fontSize() / 10.0));
+					else
+						Upos = charStyle.font().underlinePos(charStyle.fontSize() / 10.0);
+					if (charStyle.underlineWidth() != -1)
+						Uwid = (charStyle.underlineWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
+					else
+						Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
+				}
+				else
+				{
+					Upos = charStyle.font().underlinePos(charStyle.fontSize() / 10.0);
+					Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
+				}
+				if (charStyle.baselineOffset() != 0)
+					Upos += (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
+				QDomElement ob8 = docu.createElement("path");
+				ob8.setAttribute("transform", MatrixToStr(stro));
+				if (charStyle.effects() & ScStyle_Subscript)
+					ob8.setAttribute("d", QString("M %1 %2 L%3 %4").arg(hl->glyph.xoffset-kern).arg(-Upos).arg(hl->glyph.xoffset+Ulen).arg(-Upos));
+				else
+					ob8.setAttribute("d", QString("M %1 %2 L%3 %4").arg(hl->glyph.xoffset-kern).arg(-(Upos + hl->glyph.yoffset)).arg(hl->glyph.xoffset+Ulen).arg(-(Upos + hl->glyph.yoffset)));
+				QString sT = "stroke:none;";
+				if (charStyle.fillColor() != CommonStrings::None)
+				{
+					sT = "stroke:"+SetColor(charStyle.fillColor(), charStyle.fillShade())+";";
+					sT += " stroke-width:"+FToStr(Uwid)+";";
+				}
+				ob8.setAttribute("style", "fill:none;" + sT);
+				ob.appendChild(ob8);
 			}
-			QDomElement ob1 = docu.createElement("use");
-			ob1.setAttribute("xlink:href", "#" + glName);
-			ob1.setAttribute("transform", MatrixToStr(finalMat));
-			QString fT = "fill:"+SetColor(hl->fillColor(), hl->fillShade())+";";
-			QString sT = "stroke:none;";
-			if (charStyle.effects() & ScStyle_Outline)
+			if (chstr != QChar(32))
 			{
-				sT = "stroke:"+SetColor(hl->strokeColor(), hl->strokeShade())+";";
-				sT += " stroke-width:"+FToStr(chs * hl->outlineWidth() / 10000.0)+";";
+				QString glName = handleGlyph(chr, hl);
+				if ((charStyle.effects() & ScStyle_Shadowed) && (charStyle.strokeColor() != CommonStrings::None))
+				{
+					QMatrix sha = finalMat;
+					QMatrix shad;
+					shad.translate(charStyle.fontSize() * charStyle.shadowXOffset() / 10000.0, -charStyle.fontSize() * charStyle.shadowYOffset() / 10000.0);
+					sha *= shad;
+					QDomElement ob2 = docu.createElement("use");
+					ob2.setAttribute("xlink:href", "#" + glName);
+					ob2.setAttribute("transform", MatrixToStr(sha));
+					ob2.setAttribute("style", "fill:"+SetColor(hl->strokeColor(), hl->strokeShade())+";" + "stroke:none;");
+					ob.appendChild(ob2);
+				}
+				QDomElement ob1 = docu.createElement("use");
+				ob1.setAttribute("xlink:href", "#" + glName);
+				ob1.setAttribute("transform", MatrixToStr(finalMat));
+				QString fT = "fill:"+SetColor(hl->fillColor(), hl->fillShade())+";";
+				QString sT = "stroke:none;";
+				if (charStyle.effects() & ScStyle_Outline)
+				{
+					sT = "stroke:"+SetColor(hl->strokeColor(), hl->strokeShade())+";";
+					sT += " stroke-width:"+FToStr(chs * hl->outlineWidth() / 10000.0)+";";
+				}
+				ob1.setAttribute("style", fT + sT);
+				ob.appendChild(ob1);
 			}
-			ob1.setAttribute("style", fT + sT);
-			ob.appendChild(ob1);
+			if (charStyle.effects() & ScStyle_Strikethrough)
+			{
+				QMatrix stro = QMatrix(chma2 * chma3 * chma6 * trafo);
+				double Ulen = hl->glyph.xadvance;
+				double Upos, Uwid, kern;
+				if (hl->effects() & ScStyle_StartOfLine)
+					kern = 0;
+				else
+					kern = charStyle.fontSize() * charStyle.tracking() / 10000.0;
+				if ((charStyle.strikethruOffset() != -1) || (charStyle.strikethruWidth() != -1))
+				{
+					if (charStyle.strikethruOffset() != -1)
+						Upos = (charStyle.strikethruOffset() / 1000.0) * (charStyle.font().ascent(charStyle.fontSize() / 10.0));
+					else
+						Upos = charStyle.font().strikeoutPos(charStyle.fontSize() / 10.0);
+					if (charStyle.strikethruWidth() != -1)
+						Uwid = (charStyle.strikethruWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
+					else
+						Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
+				}
+				else
+				{
+					Upos = charStyle.font().strikeoutPos(charStyle.fontSize() / 10.0);
+					Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
+				}
+				if (charStyle.baselineOffset() != 0)
+					Upos += (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
+				QDomElement ob7 = docu.createElement("path");
+				ob7.setAttribute("transform", MatrixToStr(stro));
+				ob7.setAttribute("d", QString("M %1 %2 L%3 %4").arg(hl->glyph.xoffset-kern).arg(-Upos).arg(hl->glyph.xoffset+Ulen).arg(-Upos));
+				QString sT = "stroke:none;";
+				if (charStyle.fillColor() != CommonStrings::None)
+				{
+					sT = "stroke:"+SetColor(charStyle.fillColor(), charStyle.fillShade())+";";
+					sT += " stroke-width:"+FToStr(Uwid)+";";
+				}
+				ob7.setAttribute("style", "fill:none;" + sT);
+				ob.appendChild(ob7);
+			}
 		}
 	}
 	return ob;
