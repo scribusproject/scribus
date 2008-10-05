@@ -2619,7 +2619,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				hl = c->itemText.item(d);
 				const CharStyle & style(c->itemText.charStyle(d));
-				if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(32)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
+				if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 					continue;
 				QPointF tangt = QPointF( cos(hl->PRot), sin(hl->PRot) );
 				tsz = style.fontSize();
@@ -2738,7 +2738,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				{
 //					uint chr = chstr.unicode();
 					uint chr = style.font().char2CMap(chstr);
-					if ((style.font().canRender(chstr)) && (chr != 32))
+					if (style.font().canRender(chstr))
 					{
 						PS_save();
 						if (style.fillColor() != CommonStrings::None)
@@ -2775,41 +2775,131 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 								PS_translate(hl->glyph.xoffset, -hl->glyph.yoffset);
 							if (style.scaleH() != 1000)
 								PS_scale(style.scaleH() / 1000.0, 1);
-							if ((style.effects() & ScStyle_Shadowed) && (style.strokeColor() != CommonStrings::None))
+							if (((style.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstr)) //FIXME && (chstr != QChar(13)))  
+								|| ((style.effects() & ScStyle_UnderlineWords) && !chstr.isSpace() && !SpecialChars::isBreak(chstr)))
 							{
 								PS_save();
-								PS_translate(style.fontSize() * style.shadowXOffset() / 10000.0, style.fontSize() * style.shadowYOffset() / 10000.0);
-								SetColor(style.strokeColor(), style.strokeShade(), &h, &s, &v, &k, gcr);
-								PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								if ((colorsToUse[style.strokeColor()].isSpotColor()) && (!DoSep))
-									PutStream(ToStr(style.strokeShade() / 100.0)+" "+spotMap[style.strokeColor()]);
+								PS_translate(0, -(tsz / 10.0));
+								double Ulen = hl->glyph.xadvance;
+								double Upos, Uwid, kern;
+								if (style.effects() & ScStyle_StartOfLine)
+									kern = 0;
 								else
-									PutStream(FillColor + " cmyk");
-								PS_showSub(chr, style.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+									kern = style.fontSize() * style.tracking() / 10000.0;
+								if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
+								{
+									if (style.underlineOffset() != -1)
+										Upos = (style.underlineOffset() / 1000.0) * (style.font().descent(style.fontSize() / 10.0));
+									else
+										Upos = style.font().underlinePos(style.fontSize() / 10.0);
+									if (style.underlineWidth() != -1)
+										Uwid = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
+									else
+										Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+								}
+								else
+								{
+									Upos = style.font().underlinePos(style.fontSize() / 10.0);
+									Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+								}
+								if (style.baselineOffset() != 0)
+									Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
+								if (style.fillColor() != CommonStrings::None)
+								{
+									SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
+									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+								}
+								PS_setlinewidth(Uwid);
+								if (style.effects() & ScStyle_Subscript)
+								{
+									PS_moveto(hl->glyph.xoffset-kern, Upos);
+									PS_lineto(hl->glyph.xoffset+Ulen, Upos);
+								}
+								else
+								{
+									PS_moveto(hl->glyph.xoffset-kern, hl->glyph.yoffset+Upos);
+									PS_lineto(hl->glyph.xoffset+Ulen, hl->glyph.yoffset+Upos);
+								}
+								putColor(style.fillColor(), style.fillShade(), false);
 								PS_restore();
 							}
-							SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
-							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							if ((colorsToUse[style.fillColor()].isSpotColor()) && (!DoSep))
-								PutStream(ToStr(style.fillShade() / 100.0)+" "+spotMap[style.fillColor()]);
-							else
-								PutStream(FillColor + " cmyk");
-							PS_showSub(chr, style.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
-							if ((style.effects() & ScStyle_Outline))
+							if (chstr != ' ')
 							{
-								if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
+								if ((style.effects() & ScStyle_Shadowed) && (style.strokeColor() != CommonStrings::None))
 								{
 									PS_save();
-									PS_setlinewidth(tsz * style.outlineWidth() / 10000.0);
+									PS_translate(style.fontSize() * style.shadowXOffset() / 10000.0, style.fontSize() * style.shadowYOffset() / 10000.0);
 									SetColor(style.strokeColor(), style.strokeShade(), &h, &s, &v, &k, gcr);
-									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+									PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 									if ((colorsToUse[style.strokeColor()].isSpotColor()) && (!DoSep))
 										PutStream(ToStr(style.strokeShade() / 100.0)+" "+spotMap[style.strokeColor()]);
 									else
-										PutStream(StrokeColor + " cmyk");
-									PS_showSub(chr, style.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, true);
+										PutStream(FillColor + " cmyk");
+									PS_showSub(chr, style.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
 									PS_restore();
 								}
+								SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
+								PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+								if ((colorsToUse[style.fillColor()].isSpotColor()) && (!DoSep))
+									PutStream(ToStr(style.fillShade() / 100.0)+" "+spotMap[style.fillColor()]);
+								else
+									PutStream(FillColor + " cmyk");
+								PS_showSub(chr, style.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+								if ((style.effects() & ScStyle_Outline))
+								{
+									if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
+									{
+										PS_save();
+										PS_setlinewidth(tsz * style.outlineWidth() / 10000.0);
+										SetColor(style.strokeColor(), style.strokeShade(), &h, &s, &v, &k, gcr);
+										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+										if ((colorsToUse[style.strokeColor()].isSpotColor()) && (!DoSep))
+											PutStream(ToStr(style.strokeShade() / 100.0)+" "+spotMap[style.strokeColor()]);
+										else
+											PutStream(StrokeColor + " cmyk");
+										PS_showSub(chr, style.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, true);
+										PS_restore();
+									}
+								}
+							}
+							if ((style.effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
+							{
+								PS_save();
+								PS_translate(0, -(tsz / 10.0));
+								double Ulen = hl->glyph.xadvance;
+								double Upos, Uwid, kern;
+								if (hl->effects() & ScStyle_StartOfLine)
+									kern = 0;
+								else
+									kern = style.fontSize() * style.tracking() / 10000.0;
+								if ((style.strikethruOffset() != -1) || (style.strikethruWidth() != -1))
+								{
+									if (style.strikethruOffset() != -1)
+										Upos = (style.strikethruOffset() / 1000.0) * (style.font().ascent(style.fontSize() / 10.0));
+									else
+										Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
+									if (style.strikethruWidth() != -1)
+										Uwid = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
+									else
+										Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+								}
+								else
+								{
+									Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
+									Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+								}
+								if (style.baselineOffset() != 0)
+									Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
+								if (style.fillColor() != CommonStrings::None)
+								{
+									SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
+									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+								}
+								PS_setlinewidth(Uwid);
+								PS_moveto(hl->glyph.xoffset-kern, Upos);
+								PS_lineto(hl->glyph.xoffset+Ulen, Upos);
+								putColor(style.fillColor(), style.fillShade(), false);
+								PS_restore();
 							}
 						}
 						PS_restore();
@@ -2849,49 +2939,138 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						PS_translate(0, -c->BaseOffs);
 					if (hl->glyph.xoffset !=0 || hl->glyph.yoffset != 0)
 						PS_translate(hl->glyph.xoffset, -hl->glyph.yoffset);
-					if ((style.effects() & ScStyle_Shadowed) && (style.strokeColor() != CommonStrings::None))
+					if (((style.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstr)) //FIXME && (chstr != QChar(13)))  
+						|| ((style.effects() & ScStyle_UnderlineWords) && !chstr.isSpace() && !SpecialChars::isBreak(chstr)))
 					{
 						PS_save();
-						PS_translate(style.fontSize() * style.shadowXOffset() / 10000.0, style.fontSize() * style.shadowYOffset() / 10000.0);
-						SetColor(style.strokeColor(), style.strokeShade(), &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-						if ((colorsToUse[style.strokeColor()].isSpotColor()) && (!DoSep))
+						double Ulen = hl->glyph.xadvance;
+						double Upos, Uwid, kern;
+						if (style.effects() & ScStyle_StartOfLine)
+							kern = 0;
+						else
+							kern = style.fontSize() * style.tracking() / 10000.0;
+						if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
 						{
-							PutStream(ToStr(style.strokeShade() / 100.0)+" "+spotMap[style.strokeColor()]);
+							if (style.underlineOffset() != -1)
+								Upos = (style.underlineOffset() / 1000.0) * (style.font().descent(style.fontSize() / 10.0));
+							else
+								Upos = style.font().underlinePos(style.fontSize() / 10.0);
+							if (style.underlineWidth() != -1)
+								Uwid = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
+							else
+								Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+						}
+						else
+						{
+							Upos = style.font().underlinePos(style.fontSize() / 10.0);
+							Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+						}
+						if (style.baselineOffset() != 0)
+							Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
+						if (style.fillColor() != CommonStrings::None)
+						{
+							SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						}
+						PS_setlinewidth(Uwid);
+						if (style.effects() & ScStyle_Subscript)
+						{
+							PS_moveto(hl->glyph.xoffset-kern, Upos);
+							PS_lineto(hl->glyph.xoffset+Ulen, Upos);
+						}
+						else
+						{
+							PS_moveto(hl->glyph.xoffset-kern, hl->glyph.yoffset+Upos);
+							PS_lineto(hl->glyph.xoffset+Ulen, hl->glyph.yoffset+Upos);
+						}
+						putColor(style.fillColor(), style.fillShade(), false);
+						PS_restore();
+					}
+					if (chstr != ' ')
+					{
+						if ((style.effects() & ScStyle_Shadowed) && (style.strokeColor() != CommonStrings::None))
+						{
+							PS_save();
+							PS_translate(style.fontSize() * style.shadowXOffset() / 10000.0, style.fontSize() * style.shadowYOffset() / 10000.0);
+							SetColor(style.strokeColor(), style.strokeShade(), &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							if ((colorsToUse[style.strokeColor()].isSpotColor()) && (!DoSep))
+							{
+								PutStream(ToStr(style.strokeShade() / 100.0)+" "+spotMap[style.strokeColor()]);
+								PS_show_xyG(style.font().replacementName(), glyph, 0, 0, true);
+							}
+							else
+								PS_show_xyG(style.font().replacementName(), glyph, 0, 0, false);
+							PS_restore();
+						}
+						SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						if ((colorsToUse[style.fillColor()].isSpotColor()) && (!DoSep))
+						{
+							PutStream(ToStr(style.fillShade() / 100.0)+" "+spotMap[style.fillColor()]);
 							PS_show_xyG(style.font().replacementName(), glyph, 0, 0, true);
 						}
 						else
 							PS_show_xyG(style.font().replacementName(), glyph, 0, 0, false);
-						PS_restore();
-					}
-					SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
-					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-					if ((colorsToUse[style.fillColor()].isSpotColor()) && (!DoSep))
-					{
-						PutStream(ToStr(style.fillShade() / 100.0)+" "+spotMap[style.fillColor()]);
-						PS_show_xyG(style.font().replacementName(), glyph, 0, 0, true);
-					}
-					else
-						PS_show_xyG(style.font().replacementName(), glyph, 0, 0, false);
-					if ((style.effects() & ScStyle_Outline))
-					{
-						if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
+						if ((style.effects() & ScStyle_Outline))
 						{
-							uint gl = style.font().char2CMap(chstr);
-							FPointArray gly = style.font().glyphOutline(gl);
-							QMatrix chma;
-							chma.scale(tsz / 100.0, tsz / 100.0);
-							gly.map(chma);
-							PS_save();
-							PS_setlinewidth(tsz * style.outlineWidth() / 10000.0);
-							PS_translate(0,  tsz / 10.0);
-							SetColor(style.strokeColor(), style.strokeShade(), &h, &s, &v, &k, gcr);
-							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							SetClipPath(&gly);
-							PS_closepath();
-							putColor(style.strokeColor(), style.strokeShade(), false);
-							PS_restore();
+							if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
+							{
+								uint gl = style.font().char2CMap(chstr);
+								FPointArray gly = style.font().glyphOutline(gl);
+								QMatrix chma;
+								chma.scale(tsz / 100.0, tsz / 100.0);
+								gly.map(chma);
+								PS_save();
+								PS_setlinewidth(tsz * style.outlineWidth() / 10000.0);
+								PS_translate(0,  tsz / 10.0);
+								SetColor(style.strokeColor(), style.strokeShade(), &h, &s, &v, &k, gcr);
+								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+								SetClipPath(&gly);
+								PS_closepath();
+								putColor(style.strokeColor(), style.strokeShade(), false);
+								PS_restore();
+							}
 						}
+					}
+					if ((style.effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
+					{
+						PS_save();
+						double Ulen = hl->glyph.xadvance;
+						double Upos, Uwid, kern;
+						if (hl->effects() & ScStyle_StartOfLine)
+							kern = 0;
+						else
+							kern = style.fontSize() * style.tracking() / 10000.0;
+						if ((style.strikethruOffset() != -1) || (style.strikethruWidth() != -1))
+						{
+							if (style.strikethruOffset() != -1)
+								Upos = (style.strikethruOffset() / 1000.0) * (style.font().ascent(style.fontSize() / 10.0));
+							else
+								Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
+							if (style.strikethruWidth() != -1)
+								Uwid = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
+							else
+								Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+						}
+						else
+						{
+							Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
+							Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+						}
+						if (style.baselineOffset() != 0)
+							Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
+						if (style.fillColor() != CommonStrings::None)
+						if (style.fillColor() != CommonStrings::None)
+						{
+							SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						}
+						PS_setlinewidth(Uwid);
+						PS_moveto(hl->glyph.xoffset-kern, Upos);
+						PS_lineto(hl->glyph.xoffset+Ulen, Upos);
+						putColor(style.fillColor(), style.fillShade(), false);
+						PS_restore();
 					}
 					PS_restore();
 				}
