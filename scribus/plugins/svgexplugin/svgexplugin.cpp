@@ -948,6 +948,12 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 				|| ((charStyle.effects() & ScStyle_UnderlineWords) && !chstc.isSpace() && !SpecialChars::isBreak(chstc)))
 			{
 				QMatrix stro = QMatrix(chma2 * chma3 * chma6 * trafo);
+				if (Item->rotation() != 0)
+				{
+					QMatrix sca;
+					sca.translate(Item->xPos(), Item->yPos());
+					stro *= sca;
+				}
 				double Ulen = hl->glyph.xadvance;
 				double Upos, Uwid, kern;
 				if (hl->effects() & ScStyle_StartOfLine)
@@ -1018,6 +1024,12 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 			if (charStyle.effects() & ScStyle_Strikethrough)
 			{
 				QMatrix stro = QMatrix(chma2 * chma3 * chma6 * trafo);
+				if (Item->rotation() != 0)
+				{
+					QMatrix sca;
+					sca.translate(Item->xPos(), Item->yPos());
+					stro *= sca;
+				}
 				double Ulen = hl->glyph.xadvance;
 				double Upos, Uwid, kern;
 				if (hl->effects() & ScStyle_StartOfLine)
