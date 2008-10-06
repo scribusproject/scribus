@@ -183,9 +183,9 @@ void ScPainter::endLayer()
 	la = Layers.top();
 	if (la.pushed)
 	{
+#ifdef HAVE_CAIRO
 		if ((m_blendMode != 0) && (Layers.count() != 0))
 		{
-#ifdef HAVE_CAIRO
 			cairo_surface_t *tmp = cairo_get_group_target(m_cr);
 			cairo_surface_t *tmpB = Layers.top().data;
 			if ((tmp != NULL) && (tmpB != NULL))
@@ -366,7 +366,10 @@ void ScPainter::endLayer()
 					cairo_surface_mark_dirty(tmp);
 				}
 			}
+		}
 #else
+		if ((m_blendMode > 0) && (m_blendMode < 12) && (Layers.count() != 0))
+		{
 			int h = m_image->height();
 			int w = m_image->width();
 			uint oldDst = 1;
@@ -394,7 +397,7 @@ void ScPainter::endLayer()
 					{
 						if (((*dst) != oldDst) || ((*src) != oldSrc) || (first))
 						{
-							if (m_blendMode == 1)
+						/*	if (m_blendMode == 1)
 							{
 								src_r = dst_r  < src_r ? dst_r  : src_r;
 								src_g = dst_g < src_g ? dst_g : src_g;
@@ -474,8 +477,8 @@ void ScPainter::endLayer()
 								src_r = static_cast<int>(255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
 								src_g = static_cast<int>(255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
 								src_b = static_cast<int>(255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
-							}
-							else if (m_blendMode == 12)
+							} */
+							if (m_blendMode == 12)
 							{
 								new_r = dst_r;
 								new_g = dst_g;
@@ -532,8 +535,8 @@ void ScPainter::endLayer()
 					dst++;
 				}
 			}
-#endif
 		}
+#endif
 	}
 	la = Layers.pop();
 	if (la.pushed)
@@ -584,8 +587,34 @@ void ScPainter::endLayer()
 			setClipPath();
 		}
 		painter.resetMatrix();
+		if ((m_blendMode > 0) && (m_blendMode < 12))
+		{
+			if (m_blendMode == 1)
+				painter.setCompositionMode(QPainter::CompositionMode_Darken);
+			else if (m_blendMode == 2)
+				painter.setCompositionMode(QPainter::CompositionMode_Lighten);
+			else if (m_blendMode == 3)
+				painter.setCompositionMode(QPainter::CompositionMode_Multiply);
+			else if (m_blendMode == 4)
+				painter.setCompositionMode(QPainter::CompositionMode_Screen);
+			else if (m_blendMode == 5)
+				painter.setCompositionMode(QPainter::CompositionMode_Overlay);
+			else if (m_blendMode == 6)
+				painter.setCompositionMode(QPainter::CompositionMode_HardLight);
+			else if (m_blendMode == 7)
+				painter.setCompositionMode(QPainter::CompositionMode_SoftLight);
+			else if (m_blendMode == 8)
+				painter.setCompositionMode(QPainter::CompositionMode_Difference);
+			else if (m_blendMode == 9)
+				painter.setCompositionMode(QPainter::CompositionMode_Exclusion);
+			else if (m_blendMode == 10)
+				painter.setCompositionMode(QPainter::CompositionMode_ColorDodge);
+			else if (m_blendMode == 11)
+				painter.setCompositionMode(QPainter::CompositionMode_ColorBurn);
+		}
 		painter.setOpacity(m_layerTransparency);
 		painter.drawImage(0, 0, *la.data);
+		painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
 		painter.restore();
 		delete la.data;
 #endif
