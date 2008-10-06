@@ -146,8 +146,11 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 	if ((m->y() < height()) && (m->y() > 43) && (m->x() > 0) && (m->x() < width()) && (ActStop == -1))
 	{
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
-		double newStop = static_cast<double>((m->x() - 10)) / (static_cast<double>(width())-20);
-		fill_gradient.addStop(cstops.at(0)->color, newStop, 0.5, 1.0, cstops.at(0)->name, cstops.at(0)->shade);
+		double  newStop = static_cast<double>((m->x() - 10)) / (static_cast<double>(width())-20);
+		QColor  stopColor = (cstops.count() > 0) ? cstops.at(0)->color : QColor(255, 255, 255);
+		QString stopName  = (cstops.count() > 0) ? cstops.at(0)->name  : QString("White");
+		int     stopShade = (cstops.count() > 0) ? cstops.at(0)->shade : 100;
+		fill_gradient.addStop(stopColor, newStop, 0.5, 1.0, stopName, stopShade);
 		repaint();
 		onlyselect = false;
 		cstops = fill_gradient.colorStops();

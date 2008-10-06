@@ -423,32 +423,43 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	if (fillColorVal != CommonStrings::None)
 	{
 		const ScColor& col = m_Doc->PageColors[fillColorVal];
-		fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 0.0, 0.5, 1.0, fillColorVal, 100);
-		fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 1.0, 0.5, 1.0, fillColorVal, 100);
+		QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
+		fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, fillColorVal, 100);
+		fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, fillColorVal, 100);
 	}
 	else
 	{
 		if (m_Doc->toolSettings.dBrush != CommonStrings::None)
 		{
 			const ScColor& col = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
-			fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
-			fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 1.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
+			QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
+			fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
+			fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
 		}
 		else
 		{
 			if (lineColorVal != CommonStrings::None)
 			{
 				const ScColor& col = m_Doc->PageColors[lineColorVal];
-				fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 0.0, 0.5, 1.0, lineColorVal, 100);
-				fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 1.0, 0.5, 1.0, lineColorVal, 100);
+				QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
+				fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, lineColorVal, 100);
+				fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, lineColorVal, 100);
 			}
 			else
 			{
 				if (m_Doc->toolSettings.dPen != CommonStrings::None)
 				{
 					const ScColor& col = m_Doc->PageColors[m_Doc->toolSettings.dPen];
-					fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 0.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
-					fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+					QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
+					fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+					fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+				}
+				else if (m_Doc->PageColors.contains("Black"))
+				{
+					const ScColor& col = m_Doc->PageColors["Black"];
+					QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
+					fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, "Black", 100);
+					fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, "Black", 100);
 				}
 			}
 		}
