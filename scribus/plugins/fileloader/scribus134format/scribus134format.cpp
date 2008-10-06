@@ -384,7 +384,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->toolSettings.dTextStrokeShade = dc.attribute("TextStrokeShade", "100").toInt();
 		m_Doc->toolSettings.dLineArt = static_cast<Qt::PenStyle>(dc.attribute("STIL").toInt());
 		m_Doc->toolSettings.dLstyleLine = static_cast<Qt::PenStyle>(dc.attribute("STILLINE").toInt());
-		m_Doc->toolSettings.dWidth = dc.attribute("WIDTH", "1").toDouble();
+		m_Doc->toolSettings.dWidth = dc.attribute("WIDTH", "0").toDouble();
 		m_Doc->toolSettings.dWidthLine = dc.attribute("WIDTHLINE", "1").toDouble();
 		m_Doc->toolSettings.dShade2 = dc.attribute("PENSHADE", "100").toInt();
 		m_Doc->toolSettings.dShadeLine = dc.attribute("LINESHADE", "100").toInt();

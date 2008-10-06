@@ -236,7 +236,7 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dShade = 100;
 	appPrefs.toolSettings.dShade2 = 100;
 	appPrefs.toolSettings.dLineArt = Qt::SolidLine;
-	appPrefs.toolSettings.dWidth = 1;
+	appPrefs.toolSettings.dWidth = 0;
 	appPrefs.toolSettings.dPenLine = "Black";
 	appPrefs.toolSettings.dPenText = "Black";
 	appPrefs.toolSettings.dStrokeText = "Black";

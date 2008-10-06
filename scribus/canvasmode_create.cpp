@@ -599,7 +599,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		else
 		{
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
 		}
 		break;
 	case modeDrawImage:
@@ -610,7 +610,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		else
 		{
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
 		}
 		break;
 	case modeDrawText:
