@@ -196,7 +196,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	GroupBox200Layout->addWidget( DocumentTemplateDir, 3, 1 );
 	GroupBox200Layout->addWidget( FileC4, 3, 2 );
 	tabLayout->addWidget( GroupBox200, 1, 0 );
-	addItem( tr("General"), loadIcon("scribusicon.png"), tab);
+	addItem( tr("General"), loadIcon("scribus.png"), tab);
 
 	tab_7 = new QWidget( prefsWidgets, "tab_7" );
 	tabLayout_7 = new QHBoxLayout( tab_7, 0, 5, "tabLayout_7");

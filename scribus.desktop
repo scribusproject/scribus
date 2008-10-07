@@ -1,8 +1,7 @@
 [Desktop Entry]
-Version=1.0
-Encoding=UTF-8
-Name=Scribus
-Comment=Graphic Page Layout and Publication
+Type=Application
+Name=Scribus (Stable)
+Comment=Graphic Page Layout and Publication (Stable)
 Name[ar]=سكريبس
 Name[fa]=اسکریباس
 Name[lo]=ສະຄຣີບັດສ໌
@@ -50,12 +49,11 @@ GenericName[zh_TW]=桌面出版
 GenericName[zu]=Ukushicilelwa kwe-Desktop
 TryExec=scribus
 Exec=scribus %f
-MimeType=application/vnd.scribus
+MimeType=application/vnd.scribus;
 Terminal=false
-Icon=scribusicon
-Type=Application
+Icon=scribus
 X-StandardInstall=false
-Categories=Graphics;Publishing;Qt;
+Categories=Application;Graphics;Publishing;Qt;
 StartupWMClass=scribus
 X-KDE-SubstituteUID=false
 X-KDE-Username=

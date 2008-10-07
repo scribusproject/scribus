@@ -202,7 +202,7 @@ scrap.png
 screen.png
 scribusdoc16.png
 scribusdoc.png
-scribusicon.png
+scribus.png
 scribus_logo.png
 shade.png
 shadow.png
