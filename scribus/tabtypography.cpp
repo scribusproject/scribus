@@ -167,8 +167,8 @@ void TabTypograpy::restoreDefaults(struct typoPrefs *prefsData)
 	superDisplacement->setValue( prefsData->valueSuperScript);
 	superScaling->setValue( prefsData->scalingSuperScript );
 	autoLine->setValue( prefsData->autoLineSpacing );
-	underlinePos->setValue(prefsData->valueUnderlinePos);
-	underlineWidth->setValue(prefsData->valueUnderlineWidth);
-	strikethruPos->setValue(prefsData->valueStrikeThruPos);
-	strikethruWidth->setValue(prefsData->valueStrikeThruWidth);
+	underlinePos->setValue(prefsData->valueUnderlinePos / 10.0);
+	underlineWidth->setValue(prefsData->valueUnderlineWidth / 10.0);
+	strikethruPos->setValue(prefsData->valueStrikeThruPos / 10.0);
+	strikethruWidth->setValue(prefsData->valueStrikeThruWidth / 10.0);
 }
