@@ -4724,6 +4724,10 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		contentsDropEvent(d);
 		return true;
 	}
+	if (obj == widget() && event->type() == QEvent::ToolTip)
+	{
+		return (!PrefsManager::instance()->appPrefs.showToolTips);
+	}
 
 	// rulermover events
 	// hruler events

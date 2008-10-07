@@ -1169,6 +1169,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					}
 					m_view->ensureVisible(selectionCenter.x(), selectionCenter.y(), localwidth/2 + 20, localheight/2 + 20);
 					m_canvas->repaint();
+					m_canvas->displayXYHUD(m->globalPos());
 				}
 			}
 		}

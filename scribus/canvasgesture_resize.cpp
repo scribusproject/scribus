@@ -246,6 +246,8 @@ void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 	QPoint point = m->globalPos() - m_canvas->mapToParent(QPoint(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPoint(0, 0));
 	m_view->ensureVisible(point.x(), point.y(), 20, 20);
 	m_canvas->repaint();
+	QRectF newBounds = m_bounds.normalized();
+	m_canvas->displaySizeHUD(m->globalPos(), newBounds.width() - m_extraWidth, newBounds.height() - m_extraHeight);
 }
 
 

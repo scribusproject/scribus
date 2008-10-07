@@ -15,7 +15,7 @@
 
 
 // #include <QDebug>
-
+#include <QToolTip>
 
 #include "canvas.h"
 #include "canvasmode.h"
@@ -27,6 +27,7 @@
 #include "scribusview.h"
 #include "selection.h"
 #include "util.h"
+#include "units.h"
 
 #define DRAW_DEBUG_LINES 0
 
@@ -2094,6 +2095,68 @@ void Canvas::calculateFrameLinkPoints(PageItem *pi1, PageItem *pi2, FPoint & sta
 	end.transform(pi2->xPos(), pi2->yPos(), pi2->rotation(), 1, 1, false);
 }
 
+QString Canvas::getValueWithUnit(double val)
+{
+	QString suffix = unitGetSuffixFromIndex(m_doc->unitIndex());
+	int multiplier = unitGetDecimalsFromIndex(m_doc->unitIndex());
+	double divisor = static_cast<double>(multiplier);
+	int precision = unitGetPrecisionFromIndex(m_doc->unitIndex());
+	QString tmp;
+	return tmp.setNum(qRound(val * m_doc->unitRatio() * multiplier) / divisor, 'f', precision) + suffix;
+}
 
+void Canvas::displayXYHUD(QPoint m)
+{
+	if (!PrefsManager::instance()->appPrefs.showToolTips)
+		return;
+	double gx, gy, gh, gw, r;
+	QMatrix ma;
+	FPoint n;
+	if (m_doc->m_Selection->isMultipleSelection())
+	{
+		m_doc->m_Selection->setGroupRect();
+		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		r = 0.0;
+	}
+	else
+	{
+		PageItem* currItem = m_doc->m_Selection->itemAt(0);
+		gx = currItem->xPos();
+		gy = currItem->yPos();
+		gw = currItem->width();
+		gh = currItem->height();
+		r = currItem->rotation();
+	}
+	ma.translate(gx, gy);
+	ma.rotate(r);
+	if (m_doc->RotMode == 0)
+		n = FPoint(0.0, 0.0);
+	else if (m_doc->RotMode == 1)
+		n = FPoint(gw, 0.0);
+	else if (m_doc->RotMode == 2)
+		n = FPoint(gw / 2.0, gh / 2.0);
+	else if (m_doc->RotMode == 3)
+		n = FPoint(0.0, gh);
+	else if (m_doc->RotMode == 4)
+		n = FPoint(gw, gh);
+	gx = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+	gy = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+	if (m_doc->guidesSettings.rulerMode)
+	{
+		gx -= m_doc->currentPage()->xOffset();
+		gy -= m_doc->currentPage()->yOffset();
+	}
+	gx -= m_doc->rulerXoffset;
+	gy -= m_doc->rulerYoffset;
+	QToolTip::showText(m + QPoint(5, 5), QString("X: %1\nY: %2").arg(getValueWithUnit(gx)).arg(getValueWithUnit(gy)), this);
+}
 
-
+void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
+{
+	if (!PrefsManager::instance()->appPrefs.showToolTips)
+		return;
+	if (isLine)
+		QToolTip::showText(m + QPoint(5, 5), QString("Length: %1").arg(getValueWithUnit(x)), this);
+	else
+		QToolTip::showText(m + QPoint(5, 5), QString("Width: %1\nHeight: %2").arg(getValueWithUnit(x)).arg(getValueWithUnit(y)), this);
+}

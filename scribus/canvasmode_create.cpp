@@ -270,6 +270,18 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 			QPoint startP = m_canvas->canvasToGlobal(canvasPressCoord);
 			m_view->HaveSelRect = true;
 
+			double wSize = canvasCurrCoord.x() - createObjectPos.x();
+			double hSize = canvasCurrCoord.y() - createObjectPos.y();
+			QRectF createObjectRect(createObjectPos.x(), createObjectPos.y(), wSize, hSize);
+			createObjectRect = createObjectRect.normalized();
+			if (createObjectMode != modeDrawLine)
+				m_canvas->displaySizeHUD(m->globalPos(), createObjectRect.width(), createObjectRect.height(), false);
+			else
+			{
+				double trueLength = sqrt(pow(createObjectRect.width(), 2) + pow(createObjectRect.height(), 2));
+				m_canvas->displaySizeHUD(m->globalPos(), trueLength, 0, true);
+			}
+
 			// Necessary for drawControls to be called
 			m_canvas->repaint();
 		}

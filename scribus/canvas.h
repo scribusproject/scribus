@@ -167,6 +167,8 @@ public:
 	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);
 	void DrawPageItems(ScPainter *painter, QRect clip);
 	virtual void paintEvent ( QPaintEvent * p );
+	void displayXYHUD(QPoint m);
+	void displaySizeHUD(QPoint m, double x, double y, bool isLine = false);
 	
 private:
 	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);
@@ -202,6 +204,7 @@ private:
 	void drawControlsFreehandLine(QPainter* pp);
 	void getClipPathForPages(FPointArray* PoLine);
 	void calculateFrameLinkPoints(PageItem* pi1, PageItem* pi2, FPoint& start, FPoint& end);
+	QString getValueWithUnit(double val);
 		
 private:
 	ScribusDoc* m_doc;
