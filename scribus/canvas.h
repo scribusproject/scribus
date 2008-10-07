@@ -204,7 +204,6 @@ private:
 	void drawControlsFreehandLine(QPainter* pp);
 	void getClipPathForPages(FPointArray* PoLine);
 	void calculateFrameLinkPoints(PageItem* pi1, PageItem* pi2, FPoint& start, FPoint& end);
-	QString getValueWithUnit(double val);
 		
 private:
 	ScribusDoc* m_doc;

@@ -2095,23 +2095,11 @@ void Canvas::calculateFrameLinkPoints(PageItem *pi1, PageItem *pi2, FPoint & sta
 	end.transform(pi2->xPos(), pi2->yPos(), pi2->rotation(), 1, 1, false);
 }
 
-QString Canvas::getValueWithUnit(double val)
-{
-	QString suffix = unitGetSuffixFromIndex(m_doc->unitIndex());
-	int multiplier = unitGetDecimalsFromIndex(m_doc->unitIndex());
-	double divisor = static_cast<double>(multiplier);
-	int precision = unitGetPrecisionFromIndex(m_doc->unitIndex());
-	QString tmp;
-	return tmp.setNum(qRound(val * m_doc->unitRatio() * multiplier) / divisor, 'f', precision) + suffix;
-}
-
 void Canvas::displayXYHUD(QPoint m)
 {
 	if (!PrefsManager::instance()->appPrefs.showToolTips)
 		return;
 	double gx, gy, gh, gw, r;
-	QMatrix ma;
-	FPoint n;
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		m_doc->m_Selection->setGroupRect();
@@ -2127,8 +2115,10 @@ void Canvas::displayXYHUD(QPoint m)
 		gh = currItem->height();
 		r = currItem->rotation();
 	}
+	QMatrix ma;
 	ma.translate(gx, gy);
 	ma.rotate(r);
+	FPoint n;
 	if (m_doc->RotMode == 0)
 		n = FPoint(0.0, 0.0);
 	else if (m_doc->RotMode == 1)
@@ -2148,7 +2138,7 @@ void Canvas::displayXYHUD(QPoint m)
 	}
 	gx -= m_doc->rulerXoffset;
 	gy -= m_doc->rulerYoffset;
-	QToolTip::showText(m + QPoint(5, 5), QString("X: %1\nY: %2").arg(getValueWithUnit(gx)).arg(getValueWithUnit(gy)), this);
+	QToolTip::showText(m + QPoint(5, 5), QString("X: %1\nY: %2").arg(value2String(gx, m_doc->unitIndex(), true, true)).arg(value2String(gy, m_doc->unitIndex(), true, true)), this);
 }
 
 void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
@@ -2156,7 +2146,7 @@ void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
 	if (!PrefsManager::instance()->appPrefs.showToolTips)
 		return;
 	if (isLine)
-		QToolTip::showText(m + QPoint(5, 5), QString("Length: %1").arg(getValueWithUnit(x)), this);
+		QToolTip::showText(m + QPoint(5, 5), QString("Length: %1").arg(value2String(x, m_doc->unitIndex(), true, true)), this);
 	else
-		QToolTip::showText(m + QPoint(5, 5), QString("Width: %1\nHeight: %2").arg(getValueWithUnit(x)).arg(getValueWithUnit(y)), this);
+		QToolTip::showText(m + QPoint(5, 5), QString("Width: %1\nHeight: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, m_doc->unitIndex(), true, true)), this);
 }

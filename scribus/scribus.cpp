@@ -1034,13 +1034,8 @@ void ScribusMainWindow::setStatusBarMousePosition(double xp, double yp)
 	}
 	xn -= doc->rulerXoffset;
 	yn -= doc->rulerYoffset;
-	QString suffix=unitGetSuffixFromIndex(doc->unitIndex());
-	int multiplier=unitGetDecimalsFromIndex(doc->unitIndex());
-	double divisor=static_cast<double>(multiplier);
-	int precision=unitGetPrecisionFromIndex(doc->unitIndex());
-	QString tmp;
-	mainWindowXPosDataLabel->setText(tmp.setNum(qRound(xn*doc->unitRatio() * multiplier) / divisor, 'f', precision) + suffix);
-	mainWindowYPosDataLabel->setText(tmp.setNum(qRound(yn*doc->unitRatio() * multiplier) / divisor, 'f', precision) + suffix);
+	mainWindowXPosDataLabel->setText(value2String(xn, doc->unitIndex(), true, true));
+	mainWindowYPosDataLabel->setText(value2String(yn, doc->unitIndex(), true, true));
 }
 
 

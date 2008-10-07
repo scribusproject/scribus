@@ -361,6 +361,18 @@ double value2value(double unitValue, int primaryUnit, int secondaryUnit)
 	return ret;
 }
 
+QString value2String(double unitValue, int unitIndex, bool round2Precision, bool appendSuffix)
+{
+	QString s;
+	if (round2Precision)
+		s=QString::number(pts2value(unitValue, unitIndex), 'f', unitGetPrecisionFromIndex(unitIndex));
+	else
+		s=QString::number(pts2value(unitValue, unitIndex));
+	if (appendSuffix)
+		s += unitGetStrFromIndex(unitIndex);
+	return s;
+}
+
 /*!
  * @brief Sets up iteration value 1 for vruler, hruler and tabruler
  */
