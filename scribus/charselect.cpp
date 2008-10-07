@@ -21,10 +21,10 @@ for which a new license (GPL+exception) is in place.
 
 
 CharSelect::CharSelect(QWidget* parent)
-	: ScrPaletteBase(parent, "CharSelect"),
-	m_doc(0),
-    m_enhanced(0),
-	m_Item(0)
+		: ScrPaletteBase(parent, "CharSelect"),
+		m_doc(0),
+		m_enhanced(0),
+		m_Item(0)
 {
 	setupUi(this);
 
@@ -35,31 +35,33 @@ CharSelect::CharSelect(QWidget* parent)
 	uniLoadButton->setIcon(loadIcon("22/document-open.png"));
 	uniSaveButton->setIcon(loadIcon("22/document-save.png"));
 	uniClearButton->setIcon(loadIcon("22/document-new.png"));
-	
+
 	m_userTableModel = new CharTableModel(this, 6, m_doc,
-										  PrefsManager::instance()->appPrefs.toolSettings.defFont);
+	                                      PrefsManager::instance()->appPrefs.toolSettings.defFont);
+	loadUserContent(ScPaths::getApplicationDataDir() + "charpalette.ucp");
+
 	m_userTable->setModel(m_userTableModel);
 	m_userTable->setAcceptDrops(true);
 
 	// signals and slots connections
 	connect(m_userTable, SIGNAL(selectChar(uint)),
-             this, SLOT(userNewChar(uint)));
+	        this, SLOT(userNewChar(uint)));
 	connect(m_userTableModel, SIGNAL(selectionChanged(QItemSelectionModel*)),
-			m_userTable, SLOT(modelSelectionChanged(QItemSelectionModel*)));
+	        m_userTable, SLOT(modelSelectionChanged(QItemSelectionModel*)));
+	connect(m_userTableModel, SIGNAL(rowAppended()),
+	        m_userTable, SLOT(resizeLastRow()));
 	connect(unicodeButton, SIGNAL(chosenUnicode(QString)),
-             m_userTableModel, SLOT(appendUnicode(QString)));
+	        m_userTableModel, SLOT(appendUnicode(QString)));
 	connect(hideButton, SIGNAL(toggled(bool)),
-             this, SLOT(hideButton_toggled(bool)));
+	        this, SLOT(hideButton_toggled(bool)));
 	connect(this, SIGNAL(insertUserSpecialChar(QChar)),
-             this, SLOT(slot_insertUserSpecialChar(QChar)));
+	        this, SLOT(slot_insertUserSpecialChar(QChar)));
 	connect(uniLoadButton, SIGNAL(clicked()),
-             this, SLOT(uniLoadButton_clicked()));
+	        this, SLOT(uniLoadButton_clicked()));
 	connect(uniSaveButton, SIGNAL(clicked()),
-             this, SLOT(uniSaveButton_clicked()));
+	        this, SLOT(uniSaveButton_clicked()));
 	connect(uniClearButton, SIGNAL(clicked()),
-             this, SLOT(uniClearButton_clicked()));
-
-	loadUserContent(ScPaths::getApplicationDataDir() + "charpalette.ucp");
+	        this, SLOT(uniClearButton_clicked()));
 }
 
 CharSelect::~CharSelect()
@@ -81,7 +83,7 @@ void CharSelect::setDoc(ScribusDoc* doc)
 		return;
 	}
 
-    m_userTableModel->setFontInUse(m_doc->currentStyle.charStyle().font().scName());
+	m_userTableModel->setFontInUse(m_doc->currentStyle.charStyle().font().scName());
 //     tDebug("setDoc end");
 }
 
@@ -97,13 +99,13 @@ void CharSelect::userNewChar(uint i)
 
 void CharSelect::slot_insertSpecialChars(const QString & chars)
 {
-    chToIns = chars;
-    slot_insertSpecialChar();
+	chToIns = chars;
+	slot_insertSpecialChar();
 }
 
 void CharSelect::slot_insertSpecialChar()
 {
-    emit insertSpecialChar();
+	emit insertSpecialChar();
 
 	if (!m_Item)
 		return;
@@ -152,53 +154,59 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 
 void CharSelect::openEnhanced()
 {
-    if (m_enhanced)
-        return;
+	if (m_enhanced)
+		return;
 
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-    m_enhanced = new CharSelectEnhanced(this);
-    connect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)),
-                this, SLOT(slot_insertSpecialChars(const QString &)));
-    m_enhanced->setDoc(m_doc);
-    m_enhanced->setEnabled(this->isEnabled());
-    m_enhanced->show();
-    QApplication::restoreOverrideCursor();
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	m_enhanced = new CharSelectEnhanced(this);
+	connect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)),
+	        this, SLOT(slot_insertSpecialChars(const QString &)));
+	m_enhanced->setDoc(m_doc);
+	m_enhanced->setEnabled(this->isEnabled());
+	m_enhanced->show();
+	QApplication::restoreOverrideCursor();
 }
 
 void CharSelect::closeEnhanced()
 {
-    if (!m_enhanced)
-        return;
+	if (!m_enhanced)
+		return;
 
-    hideButton->blockSignals(true);
-    hideButton->setChecked(false);
-    hideButton->blockSignals(false);
+	hideButton->blockSignals(true);
+	hideButton->setChecked(false);
+	hideButton->blockSignals(false);
 
-    disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)),
-                this, SLOT(slot_insertSpecialChars(const QString &)));
-    m_enhanced->close();
-    delete m_enhanced;
-    m_enhanced = 0;
+	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)),
+	           this, SLOT(slot_insertSpecialChars(const QString &)));
+	m_enhanced->close();
+	delete m_enhanced;
+	m_enhanced = 0;
 }
 
 void CharSelect::hideButton_toggled(bool state)
 {
 //     tDebug("hideButton_toggled start");
-    if (!m_doc)
-        return;
+	if (!m_doc)
+		return;
 
-    if (m_enhanced && !state)
-        closeEnhanced();
-    else
-        openEnhanced();
+	if (m_enhanced && !state)
+		closeEnhanced();
+	else
+		openEnhanced();
 
 //     tDebug("hideButton_toggled end");
 }
 
 void CharSelect::hide()
 {
-    closeEnhanced();
+	closeEnhanced();
 	ScrPaletteBase::hide();
+}
+
+void CharSelect::show()
+{
+	ScrPaletteBase::show();
+	m_userTable->resize(m_userTable->size());
 }
 
 void CharSelect::setEnabled(bool state, PageItem* item)
@@ -208,16 +216,16 @@ void CharSelect::setEnabled(bool state, PageItem* item)
 	if (state)
 		setDoc(m_doc);
 
-    if (m_enhanced)
-        m_enhanced->setEnabled(state);
+	if (m_enhanced)
+		m_enhanced->setEnabled(state);
 }
 
 void CharSelect::uniLoadButton_clicked()
 {
 	QString f = QFileDialog::getOpenFileName(this,
-                                              tr("Choose a filename to open"),
-                                              QDir::currentPath(),
-                                              paletteFileMask);
+	            tr("Choose a filename to open"),
+	            QDir::currentPath(),
+	            paletteFileMask);
 	if (!f.isNull())
 		loadUserContent(f);
 }
@@ -245,8 +253,8 @@ void CharSelect::loadUserContent(QString f)
 			else
 			{
 				QMessageBox::warning(this, tr("Error"),
-									 "<qt>" + tr("Error reading file %1 - file is corrupted propably.").arg(f) + "</qt>",
-									 QMessageBox::Ok, QMessageBox::NoButton);
+				                     "<qt>" + tr("Error reading file %1 - file is corrupted propably.").arg(f) + "</qt>",
+				                     QMessageBox::Ok, QMessageBox::NoButton);
 				break;
 			}
 		}
@@ -261,9 +269,9 @@ void CharSelect::uniSaveButton_clicked()
 	if (m_userTableModel->characters().count() == 0)
 		return;
 	QString f = QFileDialog::getSaveFileName(this,
-                                              tr("Save Quick Character Palette"),
-                                              QDir::currentPath(),
-                                              paletteFileMask);
+	            tr("Save Quick Character Palette"),
+	            QDir::currentPath(),
+	            paletteFileMask);
 	if (f.isNull())
 		return;
 	if (!f.endsWith(".ucp"))
@@ -287,18 +295,18 @@ void CharSelect::saveUserContent(QString f)
 	}
 	else
 		QMessageBox::warning(this, tr("Error"),
-					 "<qt>" + tr("Cannot write file %1").arg(f) + "</qt>",
-					 QMessageBox::Ok, QMessageBox::NoButton);
+		                     "<qt>" + tr("Cannot write file %1").arg(f) + "</qt>",
+		                     QMessageBox::Ok, QMessageBox::NoButton);
 }
 
 void CharSelect::uniClearButton_clicked()
 {
 	if (m_userTableModel->characters().count() > 0
-		&&
-		!QMessageBox::question(this, tr("Empty the Palette?"),
-					 "<qt>" + tr("You will remove all characters from this palette. Are you sure?") + "</qt>",
-					 CommonStrings::trYesKey, CommonStrings::trNoKey,
-					 QString::null, 0, 1 )
+	        &&
+	        !QMessageBox::question(this, tr("Empty the Palette?"),
+	                               "<qt>" + tr("You will remove all characters from this palette. Are you sure?") + "</qt>",
+	                               CommonStrings::trYesKey, CommonStrings::trNoKey,
+	                               QString::null, 0, 1 )
 	   )
 	{
 		m_userTableModel->setCharacters(CharClassDef());

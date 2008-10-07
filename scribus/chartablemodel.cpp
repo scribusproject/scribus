@@ -13,11 +13,11 @@ for which a new license (GPL+exception) is in place.
 
 
 CharTableModel::CharTableModel(QObject *parent, int cols, ScribusDoc * doc, const QString & font)
-    : QAbstractTableModel(parent),
-	m_doc(doc),
-	m_cols(cols),
-	m_viewWidth(0),
-	m_fontInUse(font)
+		: QAbstractTableModel(parent),
+		m_doc(doc),
+		m_cols(cols),
+		m_viewWidth(200),
+		m_fontInUse(font)
 {
 	m_selectionModel = new QItemSelectionModel(this);
 	m_characters.clear();
@@ -53,7 +53,7 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 	if (role == Qt::DecorationRole)
 	{
 		// m_cols should not become 0. Never.
-		int baseSize = m_viewWidth  / m_cols;
+		int baseSize = m_viewWidth / m_cols;
 		QMatrix chma;
 		chma.scale(baseSize/10, baseSize/10);
 
@@ -85,12 +85,12 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 
 void CharTableModel::setDoc(ScribusDoc *doc)
 {
-    // repaint only when doc differs
-    if (doc != m_doc)
-    {
-        m_doc = doc;
+	// repaint only when doc differs
+	if (doc != m_doc)
+	{
+		m_doc = doc;
 		reset();
-    }
+	}
 }
 
 ScFace CharTableModel::fontFace()
@@ -116,6 +116,7 @@ void CharTableModel::setFontInUse(QString font)
 
 void CharTableModel::appendUnicode(QString s, uint base)
 {
+	int orig = rowCount();
 	bool ok;
 	int val = s.toInt(&ok, base);
 	if (!ok)
@@ -138,6 +139,9 @@ void CharTableModel::appendUnicode(QString s, uint base)
 		m_selectionModel->select(index(ixrow, ixcol, QModelIndex()), QItemSelectionModel::ClearAndSelect);
 		emit selectionChanged(m_selectionModel);
 	}
+
+	if (orig < rowCount())
+		emit rowAppended();
 }
 
 bool CharTableModel::removeCharacter(int index)

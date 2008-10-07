@@ -33,59 +33,62 @@ class SCRIBUS_API CharSelect : public ScrPaletteBase, public Ui::CharSelect
 {
 	Q_OBJECT
 
-	public:
-		CharSelect(QWidget* parent);
-		~CharSelect();
+public:
+	CharSelect(QWidget* parent);
+	~CharSelect();
 
-		void hide();
-		void setDoc(ScribusDoc* doc);
-		void setEnabled(bool state, PageItem* item=0);
+	void hide();
+	void show();
+	void setDoc(ScribusDoc* doc);
+	void setEnabled(bool state, PageItem* item=0);
 
-		const QString & getCharacters();
+	const QString & getCharacters();
 
-        //! Used for StoryEditor
-		CharTableModel * userTableModel() { return m_userTableModel; };
+	//! Used for StoryEditor
+	CharTableModel * userTableModel() {
+		return m_userTableModel;
+	};
 
-		virtual void changeEvent(QEvent *e);
+	virtual void changeEvent(QEvent *e);
 
-    signals:
-        /*! \brief A signall emittedthis palette tries to insert glyphs.
-        It does not have sense in standard "palette" mode, but it's used
-        in StoryEditor workaround. */
-        void insertSpecialChar();
-        /*! Internal signal for one glyph only */
-        void insertUserSpecialChar(QChar);
+signals:
+	/*! \brief A signall emittedthis palette tries to insert glyphs.
+	It does not have sense in standard "palette" mode, but it's used
+	in StoryEditor workaround. */
+	void insertSpecialChar();
+	/*! Internal signal for one glyph only */
+	void insertUserSpecialChar(QChar);
 
 
-	private:
-		ScribusDoc* m_doc;
-		//! \brief m_userTable model
-		CharTableModel * m_userTableModel;
+private:
+	ScribusDoc* m_doc;
+	//! \brief m_userTable model
+	CharTableModel * m_userTableModel;
 
-        CharSelectEnhanced * m_enhanced;
+	CharSelectEnhanced * m_enhanced;
 
-        //! Hold the "glyphs to insert" here.
-		QString chToIns;
+	//! Hold the "glyphs to insert" here.
+	QString chToIns;
 
-		QString paletteFileMask;
+	QString paletteFileMask;
 
-		PageItem *m_Item;
+	PageItem *m_Item;
 
-		void saveUserContent(QString f);
-		void loadUserContent(QString f);
+	void saveUserContent(QString f);
+	void loadUserContent(QString f);
 
-        void openEnhanced();
-        void closeEnhanced();
+	void openEnhanced();
+	void closeEnhanced();
 
-	private slots:
-        void userNewChar(uint i);
-		void hideButton_toggled(bool);
-		void slot_insertSpecialChar();
-        void slot_insertSpecialChars(const QString & chars);
-		void slot_insertUserSpecialChar(QChar);
-		void uniLoadButton_clicked();
-		void uniSaveButton_clicked();
-		void uniClearButton_clicked();
+private slots:
+	void userNewChar(uint i);
+	void hideButton_toggled(bool);
+	void slot_insertSpecialChar();
+	void slot_insertSpecialChars(const QString & chars);
+	void slot_insertUserSpecialChar(QChar);
+	void uniLoadButton_clicked();
+	void uniSaveButton_clicked();
+	void uniClearButton_clicked();
 };
 
 #endif

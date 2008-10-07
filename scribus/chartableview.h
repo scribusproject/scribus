@@ -25,44 +25,47 @@ class CharTableView : public QTableView
 {
 	Q_OBJECT
 
-	public:
-		CharTableView(QWidget * parent = 0);
+public:
+	CharTableView(QWidget * parent = 0);
 
-	signals:
-		void selectChar(uint);
-		//! \brief When user press the DELETE/BACKSPACE key
-		void delChar();
+signals:
+	void selectChar(uint);
+	//! \brief When user press the DELETE/BACKSPACE key
+	void delChar();
 
-	public slots:
-		/*! \brief Handling selection changes from model's internals.
-		There can arrive selection changes unrelated to GUI integration. */
-		void modelSelectionChanged(QItemSelectionModel * model);
+public slots:
+	/*! \brief Handling selection changes from model's internals.
+	There can arrive selection changes unrelated to GUI integration. */
+	void modelSelectionChanged(QItemSelectionModel * model);
 
-	protected:
-		//! \brief Magnify dialog reference
-		CharZoom* zoom;
+	//! \brief Calculate height of the last row to fit image size
+	void resizeLastRow();
 
-		QAction * deleteAct;
-		QMenu * actionMenu;
+protected:
+	//! \brief Magnify dialog reference
+	CharZoom* zoom;
 
-		CharTableModel * model();
-		void hideEvent(QHideEvent *);
-		void keyPressEvent(QKeyEvent *k);
-		void mouseReleaseEvent(QMouseEvent *m);
-		void mousePressEvent(QMouseEvent* e);
-		void mouseMoveEvent(QMouseEvent* e);
+	QAction * deleteAct;
+	QMenu * actionMenu;
 
-		//! \brief Map current QModelIndex into CharClassDef index/position
-		int currenCharactersIndex();
+	CharTableModel * model();
+	void hideEvent(QHideEvent *);
+	void keyPressEvent(QKeyEvent *k);
+	void mouseReleaseEvent(QMouseEvent *m);
+	void mousePressEvent(QMouseEvent* e);
+	void mouseMoveEvent(QMouseEvent* e);
 
-		void hideZoomedChar();
+	//! \brief Map current QModelIndex into CharClassDef index/position
+	int currenCharactersIndex();
 
-		//! \brief Used for computing the items' pixmap size in the model.
-		void resizeEvent(QResizeEvent *e);
+	void hideZoomedChar();
 
-	private slots:
-		void removeCharacter();
-		void viewDoubleClicked(const QModelIndex & index);
+	//! \brief Used for computing the items' pixmap size in the model.
+	void resizeEvent(QResizeEvent *e);
+
+private slots:
+	void removeCharacter();
+	void viewDoubleClicked(const QModelIndex & index);
 };
 
 #endif

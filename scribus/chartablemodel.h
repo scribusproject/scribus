@@ -29,67 +29,73 @@ class SCRIBUS_API CharTableModel : public QAbstractTableModel
 {
 	Q_OBJECT
 
-	public:
-		CharTableModel(QObject *parent = 0, int cols = 4, ScribusDoc * doc = 0, const QString & font = 0);
+public:
+	CharTableModel(QObject *parent = 0, int cols = 4, ScribusDoc * doc = 0, const QString & font = 0);
 
-		int rowCount(const QModelIndex &parent = QModelIndex()) const;
-		int columnCount(const QModelIndex &parent = QModelIndex()) const;
+	int rowCount(const QModelIndex &parent = QModelIndex()) const;
+	int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-		//! \brief Get a graphics representation/pixmap of the glyph
-		QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+	//! \brief Get a graphics representation/pixmap of the glyph
+	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
-		void setFontInUse(QString font);
+	void setFontInUse(QString font);
 
-		//! \brief Font in use. It's used in model's view.
-		ScFace fontFace();
+	//! \brief Font in use. It's used in model's view.
+	ScFace fontFace();
 
-		void setCharacters(CharClassDef ch);
-		CharClassDef characters() { return m_characters; };
+	void setCharacters(CharClassDef ch);
+	CharClassDef characters() {
+		return m_characters;
+	};
 
-		//! \brief called to erase glyph at index from table.
-		bool removeCharacter(int index);
+	//! \brief called to erase glyph at index from table.
+	bool removeCharacter(int index);
 
-		void setDoc(ScribusDoc *doc);
+	void setDoc(ScribusDoc *doc);
 
-		void setViewWidth(int w) { m_viewWidth = w; };
+	void setViewWidth(int w) {
+		m_viewWidth = w;
+	};
 
-	public slots:
-		/*! \brief appends an unicode char into m_characters list.
-		\param s a QString with numerical representation of the character.
-		\param base an optional parameter containing base of the numerical converion. See QString::toInt() documentation.
-		The base parameter is used mainly in normal code - not in slot calls.
-		If user adds an already existing glyph it's rejected and the original
-		one is selected (see selectionChanged()).
-		*/
-		void appendUnicode(QString s, uint base = 16);
+public slots:
+	/*! \brief appends an unicode char into m_characters list.
+	\param s a QString with numerical representation of the character.
+	\param base an optional parameter containing base of the numerical converion. See QString::toInt() documentation.
+	The base parameter is used mainly in normal code - not in slot calls.
+	If user adds an already existing glyph it's rejected and the original
+	one is selected (see selectionChanged()).
+	*/
+	void appendUnicode(QString s, uint base = 16);
 
-	signals:
-		/*! \brief Inform its view about internal selection changes.
-		It's emitted everytime user adds an existing glyph to the
-		CharClassDef list. */
-		void selectionChanged(QItemSelectionModel * model);
+signals:
+	/*! \brief Inform its view about internal selection changes.
+	It's emitted everytime user adds an existing glyph to the
+	CharClassDef list. */
+	void selectionChanged(QItemSelectionModel * model);
+	//! \brief Emitted when there is a new row
+	void rowAppended();
 
-	private:
-		ScribusDoc *m_doc;
-		//! \brief Number of the columns for model
-		int m_cols;
-		//! \brief View's width to compute pixmap sizes.
-		int m_viewWidth;
+private:
+	ScribusDoc *m_doc;
+	//! \brief Number of the columns for model
+	int m_cols;
+	//! \brief View's width to compute pixmap sizes.
+	int m_viewWidth;
 
-		QString m_fontInUse;
-		CharClassDef m_characters;
+	QString m_fontInUse;
+	CharClassDef m_characters;
 
-		//! \brief Internal selection handling. See selectionChanged().
-		QItemSelectionModel * m_selectionModel;
+	//! \brief Internal selection handling. See selectionChanged().
+	QItemSelectionModel * m_selectionModel;
 
-		/*! \brief All drag'n'drop actions are handled in this model only
-		See Qt4 docs "Using Drag and Drop with Item Views" for more info.
-		*/
-		Qt::ItemFlags flags(const QModelIndex &index) const;
-		Qt::DropActions supportedDropActions() const;
-		QStringList mimeTypes() const;
-		QMimeData * mimeData(const QModelIndexList &indexes) const;
-		bool dropMimeData(const QMimeData * data, Qt::DropAction action, int row, int column, const QModelIndex & parent);
+	/*! \brief All drag'n'drop actions are handled in this model only
+	See Qt4 docs "Using Drag and Drop with Item Views" for more info.
+	*/
+	Qt::ItemFlags flags(const QModelIndex &index) const;
+	Qt::DropActions supportedDropActions() const;
+	QStringList mimeTypes() const;
+	QMimeData * mimeData(const QModelIndexList &indexes) const;
+	bool dropMimeData(const QMimeData * data, Qt::DropAction action, int row, int column, const QModelIndex & parent);
 };
 
 #endif

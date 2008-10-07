@@ -16,13 +16,14 @@ for which a new license (GPL+exception) is in place.
 
 
 CharTableView::CharTableView(QWidget * parent)
-	: QTableView(parent),
-	zoom(0)
+		: QTableView(parent),
+		zoom(0)
 {
 	deleteAct = new QAction( tr("Delete"), this);
 	connect(deleteAct, SIGNAL(triggered()), this, SLOT(removeCharacter()));
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)),
-			this, SLOT(viewDoubleClicked(const QModelIndex &)));
+	        this, SLOT(viewDoubleClicked(const QModelIndex &)));
+
 	actionMenu = new QMenu(this);
 	actionMenu->addAction(deleteAct);
 
@@ -48,18 +49,23 @@ void CharTableView::modelSelectionChanged(QItemSelectionModel * model)
 	setSelectionModel(model);
 }
 
+void CharTableView::resizeLastRow()
+{
+	setRowHeight(model()->rowCount()-1, width() / model()->columnCount() + 5);
+}
+
 void CharTableView::keyPressEvent(QKeyEvent *k)
 {
 	switch (k->key())
 	{
-		case Qt::Key_Backspace:
-		case Qt::Key_Delete:
-			emit delChar();
-			break;
-		case Qt::Key_Insert:
-			// safely emit selectChar(model()->characters()[currenCharactersIndex()]);
-			viewDoubleClicked(QModelIndex());
-			break;
+	case Qt::Key_Backspace:
+	case Qt::Key_Delete:
+		emit delChar();
+		break;
+	case Qt::Key_Insert:
+		// safely emit selectChar(model()->characters()[currenCharactersIndex()]);
+		viewDoubleClicked(QModelIndex());
+		break;
 	}
 	QTableView::keyPressEvent(k);
 }
@@ -140,11 +146,12 @@ void CharTableView::resizeEvent(QResizeEvent *e)
 	if (model())
 	{
 		model()->setViewWidth(e->size().width());
-		resizeRowsToContents();
 		// The resizeColumnsToContents() method won't work here.
 		// It doesn't handle cells without any content. And it creates
 		// larger columns than required. Dunno why.
 		for (int i = 0; i < model()->columnCount(); ++i)
 			setColumnWidth(i, e->size().width() / model()->columnCount());
+		for (int i = 0; i < model()->rowCount(); ++i)
+			setRowHeight(i, e->size().width() / model()->columnCount() + 5);
 	}
 }
