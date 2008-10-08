@@ -177,6 +177,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 	firstUpdate = true;
 	currDoc = doc;
 	originalPathG.clear();
+	originalRotG.clear();
 	originalXPosG.clear();
 	originalYPosG.clear();
 	patternItemG.clear();
@@ -201,6 +202,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 				originalPathG.append(bxi->PoLine.copy());
 				originalXPosG.append(bxi->xPos());
 				originalYPosG.append(bxi->yPos());
+				originalRotG.append(bxi->rotation());
 				patternItemG.append(bxi);
 			}
 			PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex(), true);
@@ -229,6 +231,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 			originalPath = patternItem->PoLine.copy();
 			originalXPos = patternItem->xPos();
 			originalYPos = patternItem->yPos();
+			originalRot = patternItem->rotation();
 			PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex(), false);
 			connect(dia, SIGNAL(updateValues(int, double, double, double, int)), this, SLOT(updateEffect(int, double, double, double, int)));
 			if (dia->exec())
@@ -244,6 +247,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 				patternItem->ClipEdited = true;
 				patternItem->FrameType = 3;
 				patternItem->setXYPos(originalXPos, originalYPos);
+				patternItem->setRotation(originalRot);
 				currDoc->AdjustItemSize(patternItem);
 				patternItem->OldB2 = patternItem->width();
 				patternItem->OldH2 = patternItem->height();
@@ -269,6 +273,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			bxi->ClipEdited = true;
 			bxi->FrameType = 3;
 			bxi->setXYPos(originalXPosG[bx], originalYPosG[bx]);
+			bxi->setRotation(originalRotG[bx]);
 			currDoc->AdjustItemSize(bxi);
 			bxi->OldB2 = bxi->width();
 			bxi->OldH2 = bxi->height();
@@ -295,6 +300,9 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			FPointArray pathP = originalPathG[bx].copy();
 			double deltaX = originalXPosG[bx] - originX;
 			double deltaY = originalYPosG[bx] - originY;
+			QMatrix mm;
+			mm.rotate(originalRotG[bx]);
+			pathP.map(mm);
 			pathP.translate(deltaX, deltaY);
 			if (bxi->itemType() == PageItem::PolyLine)
 				patternpwd2 = FPointArray2Piecewise(pathP, false);
@@ -302,6 +310,9 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 				patternpwd2 = FPointArray2Piecewise(pathP, true);
 			bxi->PoLine = doEffect_pwd2(patternpwd2);
 			bxi->PoLine.translate(-deltaX, -deltaY);
+			QMatrix mm2;
+			mm2.rotate(-originalRotG[bx]);
+			bxi->PoLine.map(mm2);
 			bxi->Frame = false;
 			bxi->ClipEdited = true;
 			bxi->FrameType = 3;
@@ -337,6 +348,7 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 		patternItem->ClipEdited = true;
 		patternItem->FrameType = 3;
 		patternItem->setXYPos(originalXPos, originalYPos);
+		patternItem->setRotation(originalRot);
 		firstUpdate = true;
 	}
 	else
@@ -353,6 +365,7 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 		patternItem->ClipEdited = true;
 		patternItem->FrameType = 3;
 		patternItem->setXYPos(pathItem->xPos(), pathItem->yPos());
+		patternItem->setRotation(0);
 	}
 	currDoc->AdjustItemSize(patternItem);
 	patternItem->OldB2 = patternItem->width();

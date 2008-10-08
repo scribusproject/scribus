@@ -69,6 +69,7 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		PageItem *patternItem;
 		PageItem *pathItem;
 		FPointArray originalPath;
+		double originalRot;
 		double originalXPos;
 		double originalYPos;
 		ScribusDoc* currDoc;
@@ -87,6 +88,7 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		int selOffs;
 		int selCount;
 		QList<FPointArray> originalPathG;
+		QList<double> originalRotG;
 		QList<double> originalXPosG;
 		QList<double> originalYPosG;
 		QList<PageItem *> patternItemG;
