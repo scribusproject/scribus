@@ -65,7 +65,7 @@ public slots:
 	If user adds an already existing glyph it's rejected and the original
 	one is selected (see selectionChanged()).
 	*/
-	void appendUnicode(QString s, uint base = 16);
+	void appendUnicode(const QString & s, uint base = 16);
 
 signals:
 	/*! \brief Inform its view about internal selection changes.

@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QFile>
 #include <QHeaderView>
+#include <QSortFilterProxyModel>
  
 #include "unicodesearch.h"
 #include "scpaths.h"
@@ -19,16 +20,12 @@ UnicodeChooseButton::UnicodeChooseButton(QWidget * parent)
 	languageChange();
 	setCheckable(true);
 
-	m_searchDialog = new UnicodeSearch(this);
-	Q_CHECK_PTR(m_searchDialog);
+// 	m_cacheTimer = new QTimer(this);
 
-	connect(this, SIGNAL(toggled(bool)), this, SLOT(self_toggled(bool)));
-	connect(m_searchDialog, SIGNAL(setVisibleState(bool)), this, SLOT(setChecked(bool)));
-	// listview user inputs
-	connect(m_searchDialog->unicodeList, SIGNAL(itemDoubleClicked(QTableWidgetItem *)),
-			this, SLOT(unicodeList_chosen(QTableWidgetItem *)));
-	connect(m_searchDialog->unicodeList, SIGNAL(cellDoubleClicked(int, int)),
-			this, SLOT(unicodeList_chosen(int, int)));
+	connect(this, SIGNAL(toggled(bool)),
+			 this, SLOT(self_toggled(bool)));
+// 	connect(m_cacheTimer, SIGNAL(timeout()),
+// 			 this, SLOT(deleteSearchDialog()));
 }
 
 void UnicodeChooseButton::changeEvent(QEvent *e)
@@ -47,57 +44,53 @@ void UnicodeChooseButton::languageChange()
 }
 
 
-void UnicodeChooseButton::unicodeList_chosen(QTableWidgetItem *item)
+void UnicodeChooseButton::glyphSelected(const QString & hex)
 {
-	int r=item->row();
-	QTableWidgetItem *item2 = m_searchDialog->unicodeList->item(r,0);
-	emit chosenUnicode(item2->text());
+	emit chosenUnicode(hex);
 	emit toggled(false);
-}
-
-void UnicodeChooseButton::unicodeList_chosen(int row, int column)
-{
-	unicodeList_chosen(m_searchDialog->unicodeList->item(row, 0));
 }
 
 void UnicodeChooseButton::self_toggled(bool state)
 {
+	if (!m_searchDialog)
+	{
+		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+		m_searchDialog = new UnicodeSearch();
+		connect(m_searchDialog, SIGNAL(setVisibleState(bool)),
+				 this, SLOT(setChecked(bool)));
+		connect(m_searchDialog, SIGNAL(glyphSelected(const QString &)),
+				 this, SLOT(glyphSelected(const QString &)));
+		QApplication::restoreOverrideCursor();
+	}
+
 	if (state)
 	{
 		m_searchDialog->move(mapToGlobal(rect().bottomLeft()));
 		m_searchDialog->show();
-		m_searchDialog->checkForUpdate();
+// 		m_cacheTimer->stop();
 	}
 	else
-		m_searchDialog->hide();
-}
-
-UnicodeSearch::UnicodeSearch( QWidget* parent)
-	: QDialog( parent),
-	m_zoom(0)
-{
-	setupUi(this);
-
-	unicodeList->horizontalHeader()->hide();
-	unicodeList->verticalHeader()->hide();
-
-	connect(searchEdit, SIGNAL(returnPressed()), this, SLOT(searchEdit_returnPressed()));
-}
-
-void UnicodeSearch::checkForUpdate()
-{
-	if (m_unicodeMap.count()==0)
 	{
-		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-		readUnicodeMap();
-		query();
-		qApp->restoreOverrideCursor();
+		m_searchDialog->hide();
+// 		m_cacheTimer->start(180000); // 3 minutes
 	}
 }
 
-void UnicodeSearch::readUnicodeMap()
+// void UnicodeChooseButton::deleteSearchDialog()
+// {
+// 	m_cacheTimer->stop();
+// 	qDebug("void UnicodeChooseButton::deleteSearchDialog()");
+// 	if (!m_searchDialog)
+// 		return;
+// 	qDebug("void UnicodeChooseButton::deleteSearchDialog() 1");
+// 	delete m_searchDialog;
+// 	m_searchDialog = 0;
+// }
+
+UnicodeSearchModel::UnicodeSearchModel(QObject * /*parent*/)
+	: QAbstractTableModel()
 {
-	m_unicodeMap.clear();
+	setObjectName("UnicodeSearchModel");
 
 	QFile file(ScPaths::instance().shareDir() + "unicodenameslist.txt");
 	if (file.open( QIODevice::ReadOnly ) )
@@ -106,68 +99,124 @@ void UnicodeSearch::readUnicodeMap()
 		file.close();
 
 		QStringList line;
+		UnicodeStruct uni;
 		for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
 		{
 			line = (*it).split(':', QString::SkipEmptyParts);
-			m_unicodeMap[line[0]] = line[1].toLower();
+			uni.description = line[1].toLower();
+			uni.hex = line[0];
+			m_unicode.append(uni);
 		}
 	}
 	else
-		qDebug("UnicodeSearch: error reading unicodes!");
+		qDebug("UnicodeSearchModel: error reading unicodes!");
 }
 
-void UnicodeSearch::query()
+
+UnicodeSearchModel::~UnicodeSearchModel()
 {
-	unicodeList->clear();
-	unicodeList->setColumnCount(2);
-	unicodeList->setRowCount(m_unicodeMap.count());
-	QMap<QString,QString>::Iterator it;
-	int r=0;
-	for (it = m_unicodeMap.begin(); it != m_unicodeMap.end(); ++it)
-	{
-		QTableWidgetItem *item = new QTableWidgetItem(it.key());
-		QTableWidgetItem *item2 = new QTableWidgetItem(it.value());
-		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-		item2->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-		unicodeList->setItem(r,0,item);
-		unicodeList->setItem(r,1,item2);
-		delete unicodeList->takeVerticalHeaderItem(r);
-		++r;
-	}
-	unicodeList->resizeColumnsToContents();
 }
 
-void UnicodeSearch::query(QString filter)
+int UnicodeSearchModel::rowCount(const QModelIndex & /*parent*/) const
 {
-	if (filter.isNull())
-		return;
+	return m_unicode.count();
+}
 
-	unicodeList->clear();
-	unicodeList->setColumnCount(2);
-	unicodeList->setRowCount(m_unicodeMap.count());
-	QMap<QString,QString>::Iterator it;
-	int r=0;
-	for (it = m_unicodeMap.begin(); it != m_unicodeMap.end(); ++it)
+int UnicodeSearchModel::columnCount(const QModelIndex & /*parent*/) const
+{
+	return 2;
+}
+
+QVariant UnicodeSearchModel::data(const QModelIndex & index, int role) const
+{
+	if (!index.isValid())
+		return QVariant();
+	if (role == Qt::DisplayRole)
 	{
-		if (!it.key().contains(filter, Qt::CaseInsensitive) && !it.value().contains(filter, Qt::CaseInsensitive))
-			continue;
-		QTableWidgetItem *item = new QTableWidgetItem(it.key());
-		QTableWidgetItem *item2 = new QTableWidgetItem(it.value());
-		unicodeList->setItem(r,0,item);
-		unicodeList->setItem(r,1,item2);
-		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-		item2->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-		delete unicodeList->takeVerticalHeaderItem(r);
-		++r;
+		if (index.column() == 0)
+			return m_unicode.at(index.row()).hex;
+		else
+			return m_unicode.at(index.row()).description;
 	}
-	unicodeList->resizeColumnsToContents();
+	return QVariant();
+}
+
+QString UnicodeSearchModel::hexData(const QModelIndex & index)
+{
+	return "0x" + m_unicode.at(index.row()).hex;
+}
+
+// QVariant UnicodeSearchModel::headerData(int section, Qt::Orientation orientation, int role) const
+// {
+// 	if (orientation == Qt::Vertical)
+// 		return QVariant(); // no verticals
+// 	if (role != Qt::DisplayRole)
+// 		return QVariant();
+// 
+// 	if (section == 0)
+// 		return "Hex";
+// 	else
+// 		return tr("Description");
+// }
+
+
+
+UnicodeSearch::UnicodeSearch( QWidget* parent)
+	: QDialog( parent)
+{
+	setupUi(this);
+
+	m_model = new UnicodeSearchModel(this);
+
+	m_proxyModel = new QSortFilterProxyModel();
+	m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+	m_proxyModel->setSourceModel(m_model);
+	m_proxyModel->setFilterKeyColumn(-1);
+	m_proxyModel->sort(0);
+
+	tableView->horizontalHeader()->hide();
+	tableView->verticalHeader()->hide();
+	tableView->setModel(m_proxyModel);
+	tableView->resizeColumnsToContents();
+
+	connect(searchEdit, SIGNAL(returnPressed()),
+			this, SLOT(searchEdit_returnPressed()));
+	connect(tableView, SIGNAL(doubleClicked(const QModelIndex &)),
+			 this, SLOT(itemChosen(const QModelIndex &)));
+	connect(tableView, SIGNAL(activated(const QModelIndex &)),
+			 this, SLOT(itemChosen(const QModelIndex &)));
+}
+
+UnicodeSearch::~UnicodeSearch()
+{
+// 	delete m_proxyModel;
+// 	delete m_model;
+}
+
+void UnicodeSearch::itemChosen(const QModelIndex & index)
+{
+	emit glyphSelected(m_model->hexData(m_proxyModel->mapToSource(index)));
 }
 
 void UnicodeSearch::searchEdit_returnPressed()
 {
-	if (searchEdit->text().length() == 0)
-		query();
-	query(searchEdit->text());
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	QString s(searchEdit->text());
+	if (s.isEmpty())
+		m_proxyModel->setFilterRegExp(QRegExp("*",
+											Qt::CaseInsensitive,
+											QRegExp::Wildcard));
+	else
+	{
+		QRegExp regExp(QString("*%1*").arg(s),
+					   Qt::CaseInsensitive,
+					   QRegExp::Wildcard);
+		m_proxyModel->setFilterRegExp(regExp);
+	}
+	tableView->resizeColumnsToContents();
+	tableView->setFocus(Qt::OtherFocusReason);
+	tableView->selectRow(0);
+	QApplication::restoreOverrideCursor();
 }
 
 void UnicodeSearch::hideEvent(QHideEvent * e)

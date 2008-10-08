@@ -50,8 +50,8 @@ CharSelect::CharSelect(QWidget* parent)
 	        m_userTable, SLOT(modelSelectionChanged(QItemSelectionModel*)));
 	connect(m_userTableModel, SIGNAL(rowAppended()),
 	        m_userTable, SLOT(resizeLastRow()));
-	connect(unicodeButton, SIGNAL(chosenUnicode(QString)),
-	        m_userTableModel, SLOT(appendUnicode(QString)));
+	connect(unicodeButton, SIGNAL(chosenUnicode(const QString &)),
+	        m_userTableModel, SLOT(appendUnicode(const QString &)));
 	connect(hideButton, SIGNAL(toggled(bool)),
 	        this, SLOT(hideButton_toggled(bool)));
 	connect(this, SIGNAL(insertUserSpecialChar(QChar)),

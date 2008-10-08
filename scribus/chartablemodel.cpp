@@ -114,25 +114,22 @@ void CharTableModel::setFontInUse(QString font)
 	}
 }
 
-void CharTableModel::appendUnicode(QString s, uint base)
+void CharTableModel::appendUnicode(const QString & s, uint base)
 {
 	int orig = rowCount();
 	bool ok;
 	int val = s.toInt(&ok, base);
 	if (!ok)
-	{
-//		qDebug("void CharTableModel::appendUnicode(QString s, uint base) 'base' conversion error");
-//		qDebug((QString("s: %1 base: %2").arg(s).arg(base).toAscii()));
 		return;
-	}
-	if (ok && !m_characters.contains(val))
+
+	if (!m_characters.contains(val))
 	{
 		m_characters.append(val);
 		reset();
 	}
-	// select already contained glyph
-	if (ok && m_characters.contains(val))
+	else
 	{
+		// select already contained glyph
 		int ix = m_characters.indexOf(val);
 		int ixrow = ix / m_cols;
 		int ixcol = ix % m_cols;

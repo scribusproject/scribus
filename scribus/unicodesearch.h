@@ -8,11 +8,13 @@ for which a new license (GPL+exception) is in place.
 #define UNICODESEARCH_H
 
 #include <QPushButton>
+// #include <QTimer>
 
 #include "ui_unicodesearch.h"
 #include "scribusapi.h"
 
-class CharZoom;
+class UnicodeSearchModel;
+class QSortFilterProxyModel;
 
 
 /*! \brief Special "search for unicode character" dialog.
@@ -30,46 +32,79 @@ public:
 	\param parent standard qt widget
 	*/
 	UnicodeSearch(QWidget* parent = 0);
-	~UnicodeSearch(){};
-	
-	/*! \brief Check if is the m_unicodeMap filled and perform data read if it's empty.
-	It's in separate method to keep the constructor lightweight. This method is
-	called first time user requests the dialog. */
-	void checkForUpdate();
+	~UnicodeSearch();
 
 signals:
 	//! \brief Emitted when the dialog gets hidden.
 	void setVisibleState(bool);
+	/*! \brief Emitted when user choses any value.
+	\param hex a hex value of glyph - see m_keys.
+	*/
+	void glyphSelected(const QString & hex);
 
 private:
-	/*! \brief Internal hex-description mapping.
-	It's filled in constructor only once. All searching re-fills
-	of the unicodeList are performed on this map */
-	QMap<QString,QString> m_unicodeMap;
+	//! Searching wrapper
+	QSortFilterProxyModel * m_proxyModel;
+	//! Data model
+	UnicodeSearchModel * m_model;
 
-	//! \brief A reference to the CharZoom dialog shown/closed in unicodeList_mouseButtonPressed() slot.
-	CharZoom * m_zoom;
-
-	//! \brief All items from m_unicodeMap into unicodeList.
-	void query();
-	/*! \brief Fill unicodeList with all occurences of "filter" substrings.
-	\param filter a mask. Search is perfomed like "*foo*" in descriptions and hex representations too.
-	*/
-	void query(QString filter);
-	//! \brief Open the file with unicode map and fill the m_unicodeMap.
-	void readUnicodeMap();
 	//! \brief Overriden hide event. Just emit the setVisibleState(false) here.
 	void hideEvent(QHideEvent * e);
 
-private slots:
-	//! \brief Start search with user input.
-	void searchEdit_returnPressed();
+	private slots:
+		//! Perform the search and switch the focus to the tableView
+		void searchEdit_returnPressed();
+		//! Handle items from view to promote upstream and close the widget
+		void itemChosen(const QModelIndex & index);
 };
 
+
+/*!\brief Qt4 model for QTableView used in UnicodeSearch dialog.
+It contains only 2 columns with hex-description pairs/rows of
+unicode glyphs (loaded from unicodemap/unicodenameslist.txt.
+Hex and descriptions are stored in QMap description+code/code
+for performance.
+\author Petr Vanek <petr@scribus.info>
+*/
+class UnicodeSearchModel : public QAbstractTableModel
+{
+	Q_OBJECT
+
+	public:
+		UnicodeSearchModel(QObject * parent = 0);
+		~UnicodeSearchModel();
+
+		int rowCount(const QModelIndex & parent = QModelIndex()) const;
+		int columnCount(const QModelIndex & parent = QModelIndex()) const;
+
+		QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+
+		//! \brief Return hex-key for the row of given index. See m_keys.
+		QString hexData(const QModelIndex & index);
+
+	private:
+
+		//! \brief Easier to use QPair-like replacement
+		struct UnicodeStruct
+		{
+			QString hex;
+			QString description;
+		};
+		/*! \brief Internal hex-description mapping.
+		It's filled in constructor only once. All searching re-fills
+		of the unicodeList are performed on this list (used
+		as model's data) */
+		QList<UnicodeStruct> m_unicode;
+
+/*		QVariant headerData(int section,
+							Qt::Orientation orientation,
+							int role = Qt::DisplayRole) const;*/
+};
 
 /*! \brief A special widget to cooperate with UnicodeSearch.
 Construct a toggle push button. When it's toggled, the search dialog
 is shown. It is an "apply" button too.
+Search dialog is constructed on demand only.
 \author Petr Vanek <petr@scribus.info>
 */
 class SCRIBUS_API UnicodeChooseButton : public QPushButton
@@ -87,7 +122,7 @@ public:
 
 signals:
 	//! \brief Signal transfering the chosen character as QString
-	void chosenUnicode(QString);
+	void chosenUnicode(const QString &);
 
 public slots:
     //! \brief Slot for changing language of GUI
@@ -99,13 +134,19 @@ private:
 	is handled by toggled() signal catched in self_toggled() */
 	UnicodeSearch* m_searchDialog;
 
+	/* \brief Hold cache timer.
+	It triggers the m_searchDialog deletion when it's no longer used
+	by user.
+	*/
+// 	QTimer * m_cacheTimer;
+
 private slots:
 	//! \brief Handle toggle state (show/hide) search dialog.
 	void self_toggled(bool);
 	//! \brief Handle various signals - user inputs (clicked, return pressed etc.)
-	void unicodeList_chosen(QTableWidgetItem *);
-	void unicodeList_chosen(int row, int column);
-
+	void glyphSelected(const QString & hex);
+	// \brief Flush the cached m_searchDialog (destroy it).
+// 	void deleteSearchDialog();
 };
 
 #endif
