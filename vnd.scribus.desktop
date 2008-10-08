@@ -1,11 +1,7 @@
 [Desktop Entry]
-Encoding=UTF-8
-Type=Application
-Name=Scribus
-GenericName=Page Layout
-MimeType=application/vnd.scribus;
-Icon=scribusicon
-Exec=scribus %f
+Type=MimeType
+MimeType=application/vnd.scribus
+Icon=scribus
 Comment=Page Layout and Publication (Stable)
 Comment[ar]=سكريبس
 Comment[fa]=اسکریباس

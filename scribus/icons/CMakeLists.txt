@@ -162,7 +162,7 @@ screen.png
 scribus_logo.png
 scribusdoc.png
 scribusdoc16.png
-scribusicon.png
+scribus.png
 shade.png
 shadow.png
 shortwords.png

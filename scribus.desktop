@@ -1,7 +1,6 @@
 [Desktop Entry]
-Version=1.0
-Encoding=UTF-8
-Name=Scribus
+Type=Application
+Name=Scribus (Development)
 Comment=Graphic Page Layout and Publication
 Name[ar]=سكريبس
 Name[fa]=اسکریباس
@@ -53,8 +52,7 @@ TryExec=scribus
 Exec=scribus %f
 MimeType=application/vnd.scribus
 Terminal=false
-Icon=scribusicon
-Type=Application
+Icon=scribus
 X-StandardInstall=false
 StartupWMClass=scribus
 X-KDE-SubstituteUID=false

@@ -72,7 +72,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	setWindowTitle( tr( "Preferences" ) );
 
 	tabGeneral = new TabGeneral( prefsWidgets, "tabGeneral" );
-	addItem( tr("General"), loadIcon("scribusicon.png"), tabGeneral);
+	addItem( tr("General"), loadIcon("scribus.png"), tabGeneral);
 
 	tabDocument = new TabDocument( prefsWidgets, "tabDocument" );
 	addItem( tr("Document"), loadIcon("scribusdoc.png"), tabDocument);
