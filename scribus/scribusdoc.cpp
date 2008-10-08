@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <utility>
 
 #include <QByteArray>
-// #include <QDebug>
+ #include <QDebug>
 #include <QEventLoop>
 #include <QFile>
 #include <QList>
@@ -3596,7 +3596,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 					currItem->UseEmbedded = true;
 					currItem->IProfile = CMSSettings.DefaultImageRGBProfile;
 					currItem->IRender = CMSSettings.DefaultIntentImages;
-					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
+					qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
 					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 					loadPict(iafData.source, currItem, false, true);
 					if (iafData.sizeType==3) //Frame is size of imported image
@@ -3608,7 +3608,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 						currItem->updateClip();
 					}
 					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-					qApp->restoreOverrideCursor();
+					qApp->changeOverrideCursor(Qt::ArrowCursor);
 				}
 			}
 			if (iafData.frameType==PageItem::TextFrame)
@@ -3828,9 +3828,20 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool show
 			ScCore->fileWatcher->removeFile(pageItem->Pfile);
 	}
 	if(!pageItem->loadImage(fn, reload, -1, showMsg))
+	{
+		if (!reload)
+		{
+			QFileInfo fi(pageItem->Pfile);
+			ScCore->fileWatcher->addDir(fi.absolutePath());
+		}
 		return false;
+	}
 	if (!reload)
+	{
+		QFileInfo fi(pageItem->Pfile);
+		ScCore->fileWatcher->addDir(fi.absolutePath());
 		ScCore->fileWatcher->addFile(pageItem->Pfile);
+	}
 	if (!isLoading())
 	{
 		//TODO: Previously commented out.. unsure why, remove later
@@ -6358,6 +6369,114 @@ void ScribusDoc::updatePict(QString name)
 	changed();
 }
 
+void ScribusDoc::updatePictDir(QString name)
+{
+	for (int a = 0; a < DocItems.count(); ++a)
+	{
+		PageItem *currItem = DocItems.at(a);
+		if (currItem->asImageFrame())
+		{
+			if ((!currItem->PicAvail) && (!currItem->Pfile.isEmpty()))
+			{
+				QFileInfo fi(currItem->Pfile);
+				if (fi.absolutePath() == name)
+				{
+					if (fi.exists())
+					{
+						bool fho = currItem->imageFlippedH();
+						bool fvo = currItem->imageFlippedV();
+						loadPict(currItem->Pfile, currItem, true);
+						currItem->setImageFlippedH(fho);
+						currItem->setImageFlippedV(fvo);
+						currItem->AdjustPictScale();
+						ScCore->fileWatcher->addFile(currItem->Pfile);
+					}
+				}
+			}
+		}
+	}
+	for (int a = 0; a < MasterItems.count(); ++a)
+	{
+		PageItem *currItem = MasterItems.at(a);
+		if (currItem->asImageFrame())
+		{
+			if ((!currItem->PicAvail) && (!currItem->Pfile.isEmpty()))
+			{
+				QFileInfo fi(currItem->Pfile);
+				if (fi.absolutePath() == name)
+				{
+					if (fi.exists())
+					{
+						bool fho = currItem->imageFlippedH();
+						bool fvo = currItem->imageFlippedV();
+						loadPict(currItem->Pfile, currItem, true);
+						currItem->setImageFlippedH(fho);
+						currItem->setImageFlippedV(fvo);
+						currItem->AdjustPictScale();
+						ScCore->fileWatcher->addFile(currItem->Pfile);
+					}
+				}
+			}
+		}
+	}
+	for (int a = 0; a <FrameItems.count(); ++a)
+	{
+		PageItem *currItem = FrameItems.at(a);
+		if (currItem->asImageFrame())
+		{
+			if ((!currItem->PicAvail) && (!currItem->Pfile.isEmpty()))
+			{
+				QFileInfo fi(currItem->Pfile);
+				if (fi.absolutePath() == name)
+				{
+					if (fi.exists())
+					{
+						bool fho = currItem->imageFlippedH();
+						bool fvo = currItem->imageFlippedV();
+						loadPict(currItem->Pfile, currItem, true);
+						currItem->setImageFlippedH(fho);
+						currItem->setImageFlippedV(fvo);
+						currItem->AdjustPictScale();
+						ScCore->fileWatcher->addFile(currItem->Pfile);
+					}
+				}
+			}
+		}
+	}
+	QStringList patterns = docPatterns.keys();
+	for (int c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		for (int o = 0; o < pa.items.count(); o++)
+		{
+			PageItem *currItem = pa.items.at(o);
+			if (currItem->asImageFrame())
+			{
+				if ((!currItem->PicAvail) && (!currItem->Pfile.isEmpty()))
+				{
+					QFileInfo fi(currItem->Pfile);
+					if (fi.absolutePath() == name)
+					{
+						if (fi.exists())
+						{
+							bool fho = currItem->imageFlippedH();
+							bool fvo = currItem->imageFlippedV();
+							loadPict(currItem->Pfile, currItem, true);
+							currItem->setImageFlippedH(fho);
+							currItem->setImageFlippedV(fvo);
+							currItem->AdjustPictScale();
+							ScCore->fileWatcher->addFile(currItem->Pfile);
+						}
+					}
+				}
+			}
+		}
+		PageItem *ite = pa.items.at(0);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
+	}
+	regionsChanged()->update(QRectF());
+	changed();
+}
 
 //CB Same as updatePict apart from the name checking, this should be able to be removed
 void ScribusDoc::recalcPicturesRes(bool applyNewRes)

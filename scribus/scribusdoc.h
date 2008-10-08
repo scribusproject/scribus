@@ -1191,6 +1191,7 @@ public slots:
 
 	void updatePic();
 	void updatePict(QString name);
+	void updatePictDir(QString name);
 	void removePict(QString name);
 };
 

@@ -2264,6 +2264,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString)), tempDoc, SLOT(updatePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), tempDoc, SLOT(removePict(QString)));
+		connect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), tempDoc, SLOT(updatePictDir(QString )));
 		//scrActions["fileSave"]->setEnabled(false);
 		tempView->cmsToolbarButton->setChecked(tempDoc->HasCMS);
 		undoManager->switchStack(tempDoc->DocName);
@@ -4057,6 +4058,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
+		connect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), doc, SLOT(updatePictDir(QString )));
 		connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 		doc->connectDocSignals();
 		if (doc->AutoSave)
@@ -4369,23 +4371,39 @@ bool ScribusMainWindow::DoFileClose()
 	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	disconnect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
 	disconnect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
+	disconnect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), doc, SLOT(updatePictDir(QString )));
 	for (int a = 0; a < doc->DocItems.count(); ++a)
 	{
 		PageItem *currItem = doc->DocItems.at(a);
 		if (currItem->PicAvail)
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
+		if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
+		{
+			QFileInfo fi(currItem->Pfile);
+			ScCore->fileWatcher->removeDir(fi.absolutePath());
+		}
 	}
 	for (int a = 0; a < doc->MasterItems.count(); ++a)
 	{
 		PageItem *currItem = doc->MasterItems.at(a);
 		if (currItem->PicAvail)
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
+		if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
+		{
+			QFileInfo fi(currItem->Pfile);
+			ScCore->fileWatcher->removeDir(fi.absolutePath());
+		}
 	}
 	for (int a = 0; a < doc->FrameItems.count(); ++a)
 	{
 		PageItem *currItem = doc->FrameItems.at(a);
 		if (currItem->PicAvail)
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
+		if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
+		{
+			QFileInfo fi(currItem->Pfile);
+			ScCore->fileWatcher->removeDir(fi.absolutePath());
+		}
 	}
 	QStringList patterns = doc->docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
@@ -4396,6 +4414,11 @@ bool ScribusMainWindow::DoFileClose()
 			PageItem *currItem = pa.items.at(o);
 			if (currItem->PicAvail)
 				ScCore->fileWatcher->removeFile(currItem->Pfile);
+			if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
+			{
+				QFileInfo fi(currItem->Pfile);
+				ScCore->fileWatcher->removeDir(fi.absolutePath());
+			}
 		}
 	}
 	if (ScCore->haveCMS())

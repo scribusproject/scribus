@@ -53,6 +53,7 @@ private:
 		QDateTime timeInfo;
 		int pendingCount;
 		bool pending;
+		int refCount;
 	};
 	QMap<QString, fileMod> watchedFiles;
 	QTimer* watchTimer;

@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 
 FileWatcher::FileWatcher( QObject* parent) : QObject(parent)
 {
-	m_timeOut=10000;
+	m_timeOut = 10000;
 	watchedFiles.clear();
 	watchTimer = new QTimer(this);
 	watchTimer->setSingleShot(true);
@@ -65,8 +65,11 @@ void FileWatcher::addFile(QString fileName)
 		fi.timeInfo = fi.info.lastModified();
 		fi.pendingCount = 0;
 		fi.pending = false;
+		fi.refCount = 1;
 		watchedFiles.insert(fileName, fi);
 	}
+	else
+		watchedFiles[fileName].refCount++;
 	if (!stopped)
 		watchTimer->start(m_timeOut);
 }
@@ -75,7 +78,11 @@ void FileWatcher::removeFile(QString fileName)
 {
 	watchTimer->stop();
 	if (watchedFiles.contains(fileName))
-		watchedFiles.remove(fileName);
+	{
+		watchedFiles[fileName].refCount--;
+		if (watchedFiles[fileName].refCount == 0)
+			watchedFiles.remove(fileName);
+	}
 	if (!stopped)
 		watchTimer->start(m_timeOut);
 }
@@ -157,7 +164,9 @@ void FileWatcher::checkFiles()
 						emit fileDeleted(it.key());
 					if (dying)
 						break;
-					toRemove.append(it.key());
+					it.value().refCount--;
+					if (it.value().refCount == 0)
+						toRemove.append(it.key());
 					continue;
 				}
 			}
@@ -170,6 +179,7 @@ void FileWatcher::checkFiles()
 			{
 				if (it.value().info.isDir())
 				{
+					it.value().timeInfo = time;
 					if (!dying)
 						emit dirChanged(it.key());
 				}
