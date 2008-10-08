@@ -18,6 +18,7 @@
 
 #include "scribusapi.h"
 #include "canvasmode.h"
+#include "fpoint.h"
 
 class QDragEnterEvent;
 class QDragMoveEvent;
@@ -28,6 +29,8 @@ class QInputMethodEvent;
 class QMouseEvent;
 class QKeyEvent;
 class QPainter;
+
+class PageItem;
 
 class SCRIBUS_API CanvasMode_Rotate : public CanvasMode
 {
@@ -47,12 +50,23 @@ public:
 
 private:
 	inline bool GetItem(PageItem** pi);
-	void   setResizeCursor(int how);
+	
 	void   createContextMenu(PageItem *currItem, double mx, double my);
+	void   drawItemOutlines(QPainter*);
+	void   getNewItemPosition(PageItem* item, FPoint& pos, double& rotation);
+	void   setResizeCursor(int how);
 
-	int    RotMode;
-	double Mxp, Myp, Dxp, Dyp;;
-	double SeRx, SeRy;
+	bool   m_inItemRotation;
+
+	int    m_oldRotMode;
+	FPoint m_oldRotCenter;
+	FPoint m_canvasPressCoord;
+	FPoint m_canvasCurrCoord;
+	bool   m_angleConstrained;
+
+	int    m_rotMode;
+	FPoint m_rotCenter;
+	double m_startAngle;
 };
 
 #endif
