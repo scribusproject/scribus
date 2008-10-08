@@ -278,13 +278,20 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 				m_canvas->displaySizeHUD(m->globalPos(), createObjectRect.width(), createObjectRect.height(), false);
 			else
 			{
+				double angle = xy2Deg(createObjectRect.width(), createObjectRect.height());
+				if (angle<0.0)
+					angle = -angle;
+				else
+					angle = 360 - angle;
 				double trueLength = sqrt(pow(createObjectRect.width(), 2) + pow(createObjectRect.height(), 2));
-				m_canvas->displaySizeHUD(m->globalPos(), trueLength, 0, true);
+				m_canvas->displaySizeHUD(m->globalPos(), trueLength, angle, true);
 			}
 
 			// Necessary for drawControls to be called
 			m_canvas->repaint();
 		}
+		else
+			m_canvas->displayCorrectedXYHUD(m->globalPos(), mousePointDoc.x(), mousePointDoc.y());
 	}
 }
 

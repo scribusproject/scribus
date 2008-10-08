@@ -167,6 +167,10 @@ void LineMove::mouseMoveEvent(QMouseEvent *m)
 	if (m_haveLineItem)
 	{
 		doResize();
+		double angle = rotation();
+		if (angle > 0)
+			angle = 360 - angle;
+		m_canvas->displaySizeHUD(m->globalPos(), length(), fabs(angle), true);
 	}
 	m->accept();
 	m_canvas->repaint();

@@ -150,6 +150,7 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 	QPainter p;
 	QRect tx;
 	m->accept();
+	m_canvas->displayCorrectedXYHUD(m->globalPos(), mousePointDoc.x(), mousePointDoc.y());
 //	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
 //	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
 //				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
@@ -176,50 +177,50 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 	
 	if (inItemCreation)
 	{
-	if ((GetItem(&currItem)) && (!shiftSelItems))
-	{
-		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-		
-		if (m_doc->DragP)
-			return;
-		
-		if (m_doc->appMode == modeDrawBezierLine)
-		{
-			if ((m_doc->useRaster) && (m_doc->OnPage(currItem) != -1))
-			{
-				newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
-				newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
-			}
-			m_canvas->newRedrawPolygon() << QPoint(qRound(newX - currItem->xPos()), qRound(newY - currItem->yPos()));
-			m_view->updateCanvas();
-			Mxp = newX;
-			Myp = newY;
-		}
-		
-	}
-	else
-	{
-		if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
+		if ((GetItem(&currItem)) && (!shiftSelItems))
 		{
 			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-			SeRx = newX;
-			SeRy = newY;
-			/*
-			if (m_doc->appMode == modeDrawTable)
-				m_view->redrawMarker->setGeometry(QRect(Dxp, Dyp, m->globalPos().x() - Dxp, m->globalPos().y() - Dyp).normalized());
-			else
-				m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
-			*/
-			QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
-			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
-			if (!m_view->redrawMarker->isVisible())
-				m_view->redrawMarker->show();
-			m_view->HaveSelRect = true;
-			return;
+			
+			if (m_doc->DragP)
+				return;
+			
+			if (m_doc->appMode == modeDrawBezierLine)
+			{
+				if ((m_doc->useRaster) && (m_doc->OnPage(currItem) != -1))
+				{
+					newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+					newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+				}
+				m_canvas->newRedrawPolygon() << QPoint(qRound(newX - currItem->xPos()), qRound(newY - currItem->yPos()));
+				m_view->updateCanvas();
+				Mxp = newX;
+				Myp = newY;
+			}
+			
 		}
-	}
+		else
+		{
+			if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
+			{
+				newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
+				newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+				SeRx = newX;
+				SeRy = newY;
+				/*
+				if (m_doc->appMode == modeDrawTable)
+					m_view->redrawMarker->setGeometry(QRect(Dxp, Dyp, m->globalPos().x() - Dxp, m->globalPos().y() - Dyp).normalized());
+				else
+					m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
+				*/
+				QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
+				m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
+				if (!m_view->redrawMarker->isVisible())
+					m_view->redrawMarker->show();
+				m_view->HaveSelRect = true;
+				return;
+			}
+		}
 	}
 }
 

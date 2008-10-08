@@ -723,6 +723,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				currItem->update();
 				Mxp = newX;
 				Myp = newY;
+				m_canvas->displayXYHUD(m->globalPos(), currItem->imageXOffset() * currItem->imageXScale(), currItem->imageYOffset() * currItem->imageYScale());
 			}
 			if (currItem->asTextFrame())
 			{
@@ -1285,7 +1286,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				else
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			}
-			}
+		}
 	}
 	else
 	{

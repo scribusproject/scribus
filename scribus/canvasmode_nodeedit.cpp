@@ -1355,6 +1355,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 					npf = FPoint(nx, ny);
 				npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
 				m_doc->nodeEdit.moveClipPoint(currItem, npf);
+				m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
 			}
 			else
 			{
@@ -1386,6 +1387,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 				npf = FPoint(nx, ny);
 			npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
 			m_doc->nodeEdit.moveClipPoint(currItem, npf);
+			m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
 		}
 		Mxp = newX;
 		Myp = newY;

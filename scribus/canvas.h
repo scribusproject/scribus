@@ -168,6 +168,8 @@ public:
 	void DrawPageItems(ScPainter *painter, QRect clip);
 	virtual void paintEvent ( QPaintEvent * p );
 	void displayXYHUD(QPoint m);
+	void displayCorrectedXYHUD(QPoint m, double x, double y);
+	void displayXYHUD(QPoint m, double x, double y);
 	void displaySizeHUD(QPoint m, double x, double y, bool isLine = false);
 	
 private:
