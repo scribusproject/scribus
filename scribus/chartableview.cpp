@@ -102,7 +102,8 @@ void CharTableView::mouseMoveEvent(QMouseEvent* e)
 {
 	// HACK to prevent strange Qt4 cursor behaviour after dropping. It's examined by Trolltech now - PV.
 	// It's the one and only reason why to include QApplication here.
-	QApplication::restoreOverrideCursor();
+		// Fixed at least in Qt-4.4.2
+//	QApplication::restoreOverrideCursor();
 	hideZoomedChar();
 	QTableView::mouseMoveEvent(e);
 }

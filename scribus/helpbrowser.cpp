@@ -328,9 +328,9 @@ void HelpBrowser::print()
 void HelpBrowser::searchingButton_clicked()
 {
 	// root files
-	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 	searchingInDirectory(finalBaseDir);
-	QApplication::restoreOverrideCursor();
+	QApplication::changeOverrideCursor(Qt::ArrowCursor);
 }
 
 void HelpBrowser::searchingInDirectory(const QString& aDir)

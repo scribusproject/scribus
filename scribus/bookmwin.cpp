@@ -164,7 +164,7 @@ void BookMView::setPageItem(QTreeWidgetItem * /*old*/, QTreeWidgetItem * newItem
 void BookMView::dropEvent(QDropEvent *e)
 {
 	QTreeWidget::dropEvent(e);
-	QApplication::restoreOverrideCursor();
+//	QApplication::restoreOverrideCursor();
 	rebuildTree();
 }
 

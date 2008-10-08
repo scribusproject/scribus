@@ -17,9 +17,9 @@ for which a new license (GPL+exception) is in place.
 
 PyObject *scribus_newdocdia(PyObject* /* self */)
 {
-	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
+	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	bool ret = ScCore->primaryMainWindow()->slotFileNew();
-	QApplication::restoreOverrideCursor();
+	QApplication::changeOverrideCursor(Qt::ArrowCursor);
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 

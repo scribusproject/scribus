@@ -60,7 +60,7 @@ void UnicodeChooseButton::self_toggled(bool state)
 				 this, SLOT(setChecked(bool)));
 		connect(m_searchDialog, SIGNAL(glyphSelected(const QString &)),
 				 this, SLOT(glyphSelected(const QString &)));
-		QApplication::restoreOverrideCursor();
+		QApplication::changeOverrideCursor(Qt::ArrowCursor);
 	}
 
 	if (state)
@@ -200,7 +200,7 @@ void UnicodeSearch::itemChosen(const QModelIndex & index)
 
 void UnicodeSearch::searchEdit_returnPressed()
 {
-	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString s(searchEdit->text());
 	if (s.isEmpty())
 		m_proxyModel->setFilterRegExp(QRegExp("*",
@@ -216,7 +216,7 @@ void UnicodeSearch::searchEdit_returnPressed()
 	tableView->resizeColumnsToContents();
 	tableView->setFocus(Qt::OtherFocusReason);
 	tableView->selectRow(0);
-	QApplication::restoreOverrideCursor();
+	QApplication::changeOverrideCursor(Qt::ArrowCursor);
 }
 
 void UnicodeSearch::hideEvent(QHideEvent * e)

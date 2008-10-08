@@ -92,9 +92,9 @@ bool FontPreviewPlugin::run(QWidget* parent, ScribusDoc* doc, QString target)
 	if (doc==NULL)
 		return false;
 	// I don't know how many fonts user has...
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	FontPreview *dlg = new FontPreview(target, parent, doc);
-	qApp->restoreOverrideCursor();
+	qApp->changeOverrideCursor(Qt::ArrowCursor);
 	// run it and wait for user's reaction
 	if (dlg->exec() == QDialog::Accepted)
 	{

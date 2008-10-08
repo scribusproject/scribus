@@ -221,7 +221,8 @@ void SeView::dropEvent(QDropEvent * e)
 		// HACK to prevent strange Qt4 cursor behaviour after dropping. It's examined by Trolltech now - PV.
 		// It's the one and only reason why to include QApplication here.
 		// But sadly this destroys our normal Cursors
-		QApplication::restoreOverrideCursor();
+		// Fixed at least in Qt-4.4.2
+//		QApplication::restoreOverrideCursor();
 		str = e->mimeData()->text();
 		ClearPix();
 		if (str.startsWith("1"))

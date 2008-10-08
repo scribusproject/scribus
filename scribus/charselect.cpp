@@ -157,14 +157,14 @@ void CharSelect::openEnhanced()
 	if (m_enhanced)
 		return;
 
-	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 	m_enhanced = new CharSelectEnhanced(this);
 	connect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)),
 	        this, SLOT(slot_insertSpecialChars(const QString &)));
 	m_enhanced->setDoc(m_doc);
 	m_enhanced->setEnabled(this->isEnabled());
 	m_enhanced->show();
-	QApplication::restoreOverrideCursor();
+	QApplication::changeOverrideCursor(Qt::ArrowCursor);
 }
 
 void CharSelect::closeEnhanced()
