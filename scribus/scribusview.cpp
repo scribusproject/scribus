@@ -348,14 +348,14 @@ void ScribusView::changeEvent(QEvent *e)
 
 void ScribusView::languageChange()
 {
-	zoomDefaultToolbarButton->setToolTip("Zoom to 100%");
-	zoomOutToolbarButton->setToolTip("Zoom out by the stepping value in Tools preferences");
-	zoomInToolbarButton->setToolTip("Zoom in by the stepping value in Tools preferences");
-	zoomSpinBox->setToolTip("Current zoom level");
+	zoomDefaultToolbarButton->setToolTip( tr("Zoom to 100%"));
+	zoomOutToolbarButton->setToolTip( tr("Zoom out by the stepping value in Tools preferences"));
+	zoomInToolbarButton->setToolTip( tr("Zoom in by the stepping value in Tools preferences"));
+	zoomSpinBox->setToolTip( tr("Current zoom level"));
 	cmsToolbarButton->setToolTip("");
 	previewToolbarButton->setToolTip("");
-	layerMenu->setToolTip("Select the current layer");
-	unitSwitcher->setToolTip("Select the current unit");
+	layerMenu->setToolTip( tr("Select the current layer"));
+	unitSwitcher->setToolTip( tr("Select the current unit"));
 	visualMenu->setToolTip("");
 	cmsToolbarButton->setToolTip( tr("Enable/disable Color Management"));
 	idCmsAdjustMenu->setText( tr("Configure CMS..."));
