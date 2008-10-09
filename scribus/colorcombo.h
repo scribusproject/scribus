@@ -22,14 +22,14 @@ for which a new license (GPL+exception) is in place.
 #include <QMacStyle>
 #endif
 
-
+#include "scribusapi.h"
 #include "colorlistbox.h"
 
 /*!
     \class ColorCombo colorcombo.h
     \brief The ColorCombo widget is a combo box for displaying list of colors.
 */
-class ColorCombo : public QComboBox 
+class SCRIBUS_API ColorCombo : public QComboBox 
 {
 	Q_OBJECT
 
