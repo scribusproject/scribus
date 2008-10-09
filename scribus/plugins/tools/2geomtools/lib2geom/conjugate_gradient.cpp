@@ -46,11 +46,10 @@ matrix_times_vector(valarray<double> const &matrix, /* m * n */
     unsigned n = vec.size();
     unsigned m = result.size();
     assert(m*n == matrix.size());
-    const double* mp = &matrix[0];
     for (unsigned i = 0; i < m; i++) {
         double res = 0;
         for (unsigned j = 0; j < n; j++)
-            res += *mp++ * vec[j];
+            res += matrix[i*m+j] * vec[j];
         result[i] = res;
     }
 }

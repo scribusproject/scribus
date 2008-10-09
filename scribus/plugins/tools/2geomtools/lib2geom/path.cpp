@@ -145,7 +145,7 @@ const double eps = .1;
 
 void Path::append(Curve const &curve) {
   if ( curves_.front() != final_ && !are_near(curve.initialPoint(), (*final_)[0], eps) ) {
-    throwContinuityError();
+    throwContinuityError(0);
   }
   do_append(curve.duplicate());
 }
@@ -154,7 +154,7 @@ void Path::append(D2<SBasis> const &curve) {
   if ( curves_.front() != final_ ) {
     for ( int i = 0 ; i < 2 ; ++i ) {
       if ( !are_near(curve[i][0][0], (*final_)[0][i], eps) ) {
-        throwContinuityError();
+        throwContinuityError(0);
       }
     }
   }
@@ -206,37 +206,37 @@ void Path::check_continuity(Sequence::iterator first_replaced,
   if ( first != last ) {
     if ( first_replaced != curves_.begin() ) {
       if ( !are_near( (*first_replaced)->initialPoint(), (*first)->initialPoint(), eps ) ) {
-        throwContinuityError();
+        throwContinuityError(0);
       }
     }
     if ( last_replaced != (curves_.end()-1) ) {
       if ( !are_near( (*(last_replaced-1))->finalPoint(), (*(last-1))->finalPoint(), eps ) ) {
-        throwContinuityError();
+        throwContinuityError(0);
       }
     }
   } else if ( first_replaced != last_replaced && first_replaced != curves_.begin() && last_replaced != curves_.end()-1) {
     if ( !are_near((*first_replaced)->initialPoint(), (*(last_replaced-1))->finalPoint(), eps ) ) {
-      throwContinuityError();
+      throwContinuityError(0);
     }
   }
 }
 
 Rect SVGEllipticalArc::boundsFast() const {
-    throwNotImplemented();
+    throwNotImplemented(0);
 }
 Rect SVGEllipticalArc::boundsExact() const {
-    throwNotImplemented();
+    throwNotImplemented(0);
 }
 Rect SVGEllipticalArc::boundsLocal(Interval i, unsigned deg) const {
-    throwNotImplemented();
+    throwNotImplemented(0);
 }
 
 std::vector<Point> SVGEllipticalArc::pointAndDerivatives(Coord t, unsigned n) const {
-    throwNotImplemented();
+    throwNotImplemented(0);
 }
 
 std::vector<double> SVGEllipticalArc::roots(double v, Dim2 d) const {
-    throwNotImplemented();
+    throwNotImplemented(0);
 }
 
 D2<SBasis> SVGEllipticalArc::toSBasis() const {

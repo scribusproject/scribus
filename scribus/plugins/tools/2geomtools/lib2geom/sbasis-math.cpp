@@ -38,11 +38,11 @@
 //#define ZERO 1e-3
 
 
+#include <cstdio>
+#include <cmath>
+#include "angle.h"
+
 namespace Geom {
-
-
-#include <stdio.h>
-#include <math.h>
 
 //-|x|-----------------------------------------------------------------------
 Piecewise<SBasis> abs(SBasis const &f){
@@ -112,7 +112,7 @@ static Piecewise<SBasis> sqrt_internal(SBasis const &f,
         sqrtf.resize(order+1, Linear(0,0));
         sqrtf[0] = Linear(std::sqrt(f[0][0]), std::sqrt(f[0][1]));
         SBasis r = f - multiply(sqrtf, sqrtf); // remainder    
-        for(unsigned i = 1; int(i) <= order and i<r.size(); i++) {
+        for(unsigned i = 1; int(i) <= order && i<r.size(); ++i) {
             Linear ci(r[i][0]/(2*sqrtf[0][0]), r[i][1]/(2*sqrtf[0][1]));
             SBasis cisi = shift(ci, i);
             r -= multiply(shift((sqrtf*2 + cisi), i), SBasis(ci));
@@ -159,8 +159,8 @@ Piecewise<SBasis> sqrt(Piecewise<SBasis> const &f, double tol, int order){
 
 //-Yet another sin/cos--------------------------------------------------------------
 
-Piecewise<SBasis> sin(          SBasis  const &f, double tol, int order){return(cos(-f+M_PI/2,tol,order));}
-Piecewise<SBasis> sin(Piecewise<SBasis> const &f, double tol, int order){return(cos(-f+M_PI/2,tol,order));}
+Piecewise<SBasis> sin(          SBasis  const &f, double tol, int order){return cos(-f+M_PI_2,tol,order);}
+Piecewise<SBasis> sin(Piecewise<SBasis> const &f, double tol, int order){return cos(-f+M_PI_2,tol,order);}
 
 Piecewise<SBasis> cos(Piecewise<SBasis> const &f, double tol, int order){
     Piecewise<SBasis> result;
@@ -205,6 +205,7 @@ Piecewise<SBasis> cos(          SBasis  const &f, double tol, int order){
     c0.concat(c1);
     return c0;
 }
+
 
 //--1/x------------------------------------------------------------
 //TODO: this implementation is just wrong. Remove or redo!

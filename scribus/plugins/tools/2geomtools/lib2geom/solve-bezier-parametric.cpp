@@ -30,7 +30,7 @@ compute_x_intercept(Geom::Point const *V, unsigned degree);
 
 const unsigned MAXDEPTH = 64;	/*  Maximum depth for recursion */
 
-const double BEPSILON = ldexp(1.0,-MAXDEPTH-1); /*Flatness control value */
+const double BEPSILON = ldexp(1.0,((signed)-1)-MAXDEPTH); /*Flatness control value */
 
 unsigned total_steps, total_subs;
 
@@ -69,12 +69,12 @@ find_parametric_bezier_roots(Geom::Point const *w, /* The control points  */
     }
 
     /* Otherwise, solve recursively after subdividing control polygon  */
-    Geom::Point Left[degree+1],	/* New left and right  */
-        Right[degree+1];	/* control polygons  */
-    Bezier(w, degree, 0.5, Left, Right);
+	std::vector<Geom::Point>Left(degree+1);	/* New left and right  */
+    std::vector<Geom::Point>Right(degree+1);	/* control polygons  */
+    Bezier(w, degree, 0.5, &Left[0], &Right[0]);
     total_subs ++;
-    find_parametric_bezier_roots(Left,  degree, solutions, depth+1);
-    find_parametric_bezier_roots(Right, degree, solutions, depth+1);
+    find_parametric_bezier_roots(&Left[0],  degree, solutions, depth+1);
+    find_parametric_bezier_roots(&Right[0], degree, solutions, depth+1);
 }
 
 
@@ -123,7 +123,7 @@ control_poly_flat_enough(Geom::Point const *V, /* Control points	*/
 
     const double abSquared = (a * a) + (b * b);
 
-    double distance[degree]; /* Distances from pts to line */
+	std::vector<double> distance(degree); /* Distances from pts to line */
     for (unsigned i = 1; i < degree; i++) {
         /* Compute distance from each of the points to that line */
         double & dist(distance[i-1]);
@@ -191,24 +191,28 @@ Bezier(Geom::Point const *V, /* Control pts	*/
        Geom::Point *Left,	/* RETURN left half ctl pts */
        Geom::Point *Right)	/* RETURN right half ctl pts */
 {
-    Geom::Point Vtemp[degree+1][degree+1];
+const unsigned size=degree+1;
+	std::vector<Geom::Point> vtemp(V,V+size);
+
+    //storing left/right coordinates
+	std::vector<Geom::Point> nodata(size);
+	if(Left  == NULL)Left=&nodata[0];
+	if(Right == NULL)Right=&nodata[0];
 
     /* Copy control points	*/
-    std::copy(V, V+degree+1, Vtemp[0]);
+	Left[0]      = vtemp[0];
+    Right[degree]= vtemp[degree];
 
     /* Triangle computation	*/
-    for (unsigned i = 1; i <= degree; i++) {	
-        for (unsigned j = 0; j <= degree - i; j++) {
-            Vtemp[i][j] = lerp(t, Vtemp[i-1][j], Vtemp[i-1][j+1]);
+    for (unsigned i = 1; i < size; ++i) {
+        for (unsigned j = 0; j < size - i; ++j) {
+            vtemp[j] = lerp(t, vtemp[j], vtemp[j+1]);
         }
+		Left[i]       =vtemp[0];
+		Right[degree-i]=vtemp[degree-i];
     }
-    
-    for (unsigned j = 0; j <= degree; j++)
-        Left[j]  = Vtemp[j][0];
-    for (unsigned j = 0; j <= degree; j++)
-        Right[j] = Vtemp[degree-j][j];
 
-    return (Vtemp[degree][0]);
+    return (vtemp[0]);
 }
 
 };
@@ -224,4 +228,5 @@ Bezier(Geom::Point const *V, /* Control pts	*/
   End:
   vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4 :
 */
+
 

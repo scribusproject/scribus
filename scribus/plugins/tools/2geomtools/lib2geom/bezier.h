@@ -44,31 +44,34 @@
 namespace Geom {
 
 inline Coord subdivideArr(Coord t, Coord const *v, Coord *left, Coord *right, unsigned order) {
-    Coord vtemp[order+1][order+1];
+	const unsigned size=order+1;
+	std::vector<Coord> vtemp(v,v+size);
+
+    //storing left/right coordinates
+    std::vector<Coord> nodata(size);
+	if(left  == NULL)left=&nodata[0];
+	if(right == NULL)right=&nodata[0];
 
     /* Copy control points	*/
-    std::copy(v, v+order+1, vtemp[0]);
+	left[0]     = vtemp[0];
+    right[order]= vtemp[order];
 
     /* Triangle computation	*/
-    for (unsigned i = 1; i <= order; i++) {	
-        for (unsigned j = 0; j <= order - i; j++) {
-            vtemp[i][j] = lerp(t, vtemp[i-1][j], vtemp[i-1][j+1]);
+    for (unsigned i = 1; i < size; ++i) {
+        for (unsigned j = 0; j < size - i; ++j) {
+            vtemp[j] = lerp(t, vtemp[j], vtemp[j+1]);
         }
+		left[i]       =vtemp[0];
+		right[order-i]=vtemp[order-i];
     }
-    if(left != NULL)
-        for (unsigned j = 0; j <= order; j++)
-            left[j]  = vtemp[j][0];
-    if(right != NULL)
-        for (unsigned j = 0; j <= order; j++)
-            right[j] = vtemp[order-j][j];
 
-    return (vtemp[order][0]);
+    return (vtemp[0]);
 }
 
 
 class Bezier {
 private:
-    std::valarray<Coord> c_;
+    std::vector<Coord> c_;
 
     friend Bezier portion(const Bezier & a, Coord from, Coord to);
 
@@ -77,7 +80,7 @@ private:
     friend Bezier derivative(const Bezier & a);
 
 protected:
-    Bezier(Coord const c[], unsigned ord) : c_(c, ord+1){
+    Bezier(Coord const c[], unsigned ord) : c_(c,c+ord+1){
         //std::copy(c, c+order()+1, &c_[0]);
     }
 
@@ -85,7 +88,7 @@ public:
     unsigned int order() const { return c_.size()-1;}
     unsigned int size() const { return c_.size();}
     
-    Bezier() :c_(0., 32) {}
+    Bezier() :c_(32) {}
     Bezier(const Bezier& b) :c_(b.c_) {}
     Bezier &operator=(Bezier const &other) {
         if ( c_.size() != other.c_.size() ) {
@@ -103,26 +106,26 @@ public:
     };
 
     //Construct an arbitrary order bezier
-    Bezier(Order ord) : c_(0., ord.order+1) {
+    Bezier(Order ord) : c_(ord.order+1) {
         assert(ord.order ==  order());
     }
 
-    explicit Bezier(Coord c0) : c_(0., 1) {
+    explicit Bezier(Coord c0) : c_(1) {
         c_[0] = c0;
     }
 
     //Construct an order-1 bezier (linear Bézier)
-    Bezier(Coord c0, Coord c1) : c_(0., 2) {
+    Bezier(Coord c0, Coord c1) : c_(2) {
         c_[0] = c0; c_[1] = c1;
     }
 
     //Construct an order-2 bezier (quadratic Bézier)
-    Bezier(Coord c0, Coord c1, Coord c2) : c_(0., 3) {
+    Bezier(Coord c0, Coord c1, Coord c2) : c_(3) {
         c_[0] = c0; c_[1] = c1; c_[2] = c2;
     }
 
     //Construct an order-3 bezier (cubic Bézier)
-    Bezier(Coord c0, Coord c1, Coord c2, Coord c3) : c_(0., 4) {
+    Bezier(Coord c0, Coord c1, Coord c2, Coord c3) : c_(4) {
         c_[0] = c0; c_[1] = c1; c_[2] = c2; c_[3] = c3;
     }
 
@@ -170,18 +173,20 @@ public:
     
     std::vector<Coord> valueAndDerivatives(Coord t, unsigned n_derivs) const {
         std::vector<Coord> val_n_der;
-        Coord d_[order()+1];
+
         unsigned nn = n_derivs;
         if(nn > order())
             nn = order();
-        for(unsigned i = 0; i < size(); i++)
-            d_[i] = c_[i];
+		val_n_der.reserve(n_derivs);
+
+		std::vector<Coord> d_(c_);
         for(unsigned di = 0; di < nn; di++) {
-            val_n_der.push_back(subdivideArr(t, d_, NULL, NULL, order() - di));
+            val_n_der.push_back(subdivideArr(t, &d_[0], NULL, NULL, order() - di));
             for(unsigned i = 0; i < order() - di; i++) {
                 d_[i] = (order()-di)*(d_[i+1] - d_[i]);
             }
         }
+
         val_n_der.resize(n_derivs);
         return val_n_der;
     }
@@ -237,17 +242,17 @@ inline Bezier reverse(const Bezier & a) {
 
 inline Bezier portion(const Bezier & a, double from, double to) {
     //TODO: implement better?
-    Coord res[a.order()+1];
+	std::vector<Coord> res(a.order()+1);
     if(from == 0) {
         if(to == 1) { return Bezier(a); }
-        subdivideArr(to, &a.c_[0], res, NULL, a.order());
-        return Bezier(res, a.order());
+        subdivideArr(to, &a.c_[0], &res[0], NULL, a.order());
+        return Bezier(&res[0], a.order());
     }
-    subdivideArr(from, &a.c_[0], NULL, res, a.order());
-    if(to == 1) return Bezier(res, a.order());
-    Coord res2[a.order()+1];
-    subdivideArr((to - from)/(1 - from), res, res2, NULL, a.order());
-    return Bezier(res2, a.order());
+    subdivideArr(from, &a.c_[0], NULL, &res[0], a.order());
+    if(to == 1) return Bezier(&res[0], a.order());
+    std::vector<Coord> res2(a.order()+1);
+    subdivideArr((to - from)/(1 - from), &res[0], &res2[0], NULL, a.order());
+    return Bezier(&res2[0], a.order());
 }
 
 // XXX Todo: how to handle differing orders

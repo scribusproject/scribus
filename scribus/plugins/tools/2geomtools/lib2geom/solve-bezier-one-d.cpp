@@ -28,7 +28,7 @@ control_poly_flat_enough(double const *V, unsigned degree,
 
 const unsigned MAXDEPTH = 64;	/*  Maximum depth for recursion */
 
-const double BEPSILON = ldexp(1.0,-MAXDEPTH-1); /*Flatness control value */
+const double BEPSILON = ldexp(1.0,((signed)-1)-MAXDEPTH); /*Flatness control value */
 
 /*
  *  find_bernstein_roots : Given an equation in Bernstein-Bernstein form, find all 
@@ -80,20 +80,20 @@ find_bernstein_roots(double const *w, /* The control points  */
     }
 
     /* Otherwise, solve recursively after subdividing control polygon  */
-    double Left[degree+1],	/* New left and right  */
-           Right[degree+1];	/* control polygons  */
+	std::vector<double> Left(degree+1);	/* New left and right  */
+	std::vector<double> Right(degree+1);/* control polygons  */
     const double split = 0.5;
-    Bernstein(w, degree, split, Left, Right);
+    Bernstein(w, degree, split, &Left[0], &Right[0]);
     
     double mid_t = left_t*(1-split) + right_t*split;
     
-    find_bernstein_roots(Left,  degree, solutions, depth+1, left_t, mid_t);
+    find_bernstein_roots(&Left[0],  degree, solutions, depth+1, left_t, mid_t);
             
     /* Solution is exactly on the subdivision point. */
     if (Right[0] == 0)
         solutions.push_back(mid_t);
         
-    find_bernstein_roots(Right, degree, solutions, depth+1, mid_t, right_t);
+    find_bernstein_roots(&Right[0], degree, solutions, depth+1, mid_t, right_t);
 }
 
 /*
@@ -163,21 +163,21 @@ Bernstein(double const *V, /* Control pts	*/
           double *Left,	/* RETURN left half ctl pts */
           double *Right)	/* RETURN right half ctl pts */
 {
-    double Vtemp[degree+1][degree+1];
+	const unsigned size=degree+1;
+	std::vector<double> vtemp(V,V+size);
 
     /* Copy control points	*/
-    std::copy(V, V+degree+1, Vtemp[0]);
+	Left[0]      = vtemp[0];
+    Right[degree]= vtemp[degree];
 
     /* Triangle computation	*/
     const double omt = (1-t);
-    Left[0] = Vtemp[0][0];
-    Right[degree] = Vtemp[0][degree];
-    for (unsigned i = 1; i <= degree; i++) {
-        for (unsigned j = 0; j <= degree - i; j++) {
-            Vtemp[i][j] = omt*Vtemp[i-1][j] + t*Vtemp[i-1][j+1];
+    for (unsigned i = 1; i < size; ++i) {
+        for (unsigned j = 0; j < size - i; ++j) {
+            vtemp[j] = omt*vtemp[j]+t*vtemp[j+1];
         }
-        Left[i] = Vtemp[i][0];
-        Right[degree-i] = Vtemp[i][degree-i];
+		Left[i]        =vtemp[0];
+		Right[degree-i]=vtemp[degree-i];
     }
 }
 
@@ -194,4 +194,5 @@ Bernstein(double const *V, /* Control pts	*/
   End:
   vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4 :
 */
+
 

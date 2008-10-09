@@ -3,6 +3,8 @@
 #include "coord.h"
 #include "isnan.h" //temporary fix for isnan()
 #include "matrix.h"
+#include <limits>
+
 
 namespace Geom {
 
@@ -19,7 +21,7 @@ void Point::normalize() {
     double len = hypot(_pt[0], _pt[1]);
     if(len == 0) return;
     if(is_nan(len)) return;
-    static double const inf = 1e400;
+	static double const inf = std::numeric_limits<double>::infinity();
     if(len != inf) {
         *this /= len;
     } else {

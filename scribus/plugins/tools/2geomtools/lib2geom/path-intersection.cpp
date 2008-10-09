@@ -290,14 +290,14 @@ std::vector<double> path_mono_splits(Path const &p) {
     append(ret, curve_mono_splits(*deriv));
     delete deriv;
     
-    bool pdx=2, pdy=2;  //Previous derivative direction
+    int pdx=2, pdy=2;  //Previous derivative direction
     for(unsigned i = 0; i <= p.size(); i++) {
         deriv = p[i].derivative();
         std::vector<double> spl = offset_doubles(curve_mono_splits(*deriv), i);
         delete deriv;
-        bool dx = p[i].initialPoint()[X] > (spl.empty()? p[i].finalPoint()[X] :
+        int dx = p[i].initialPoint()[X] > (spl.empty()? p[i].finalPoint()[X] :
                                                          p.valueAt(spl.front(), X));
-        bool dy = p[i].initialPoint()[Y] > (spl.empty()? p[i].finalPoint()[Y] :
+        int dy = p[i].initialPoint()[Y] > (spl.empty()? p[i].finalPoint()[Y] :
                                                          p.valueAt(spl.front(), Y));
         //The direction changed, include the split time
         if(dx != pdx || dy != pdy) {

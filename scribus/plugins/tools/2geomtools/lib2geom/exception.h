@@ -90,7 +90,7 @@ public:
         : LogicalError("Invariants violation", file, line) {}
 };
 #define throwInvariantsViolation(i) throw(InvariantsViolation(__FILE__, __LINE__))
-#define assert_invariants(e)       ((e) ? (void)0 : throwInvariantsViolation())
+#define assert_invariants(e)       ((e) ? (void)0 : throwInvariantsViolation(0))
 
 class NotInvertible : public RangeError {
 public:

@@ -41,6 +41,15 @@
 
 #include <boost/optional/optional.hpp>
 
+//error in miesh_distortion
+#ifdef min
+# undef min
+#endif
+
+#ifdef max
+# undef max
+#endif
+
 namespace Geom {
 
 //

@@ -21,6 +21,7 @@
  */
 
 #include <cmath>
+#include <float.h>
 /* You might try changing the above to <cmath> if you have problems.
  * Whether you use math.h or cmath, you may need to edit the .cpp file
  * and/or other .h files to use the same header file.
@@ -49,6 +50,8 @@
 # define is_finite(_a) (__isfinite(_a))	/* MacOSX/Darwin definition < 10.4 */
 #elif defined(isfinite)
 # define is_finite(_a) (isfinite(_a))
+#elif defined(_MSC_VER)
+# define is_finite(_a) (_finite(_a) && !_isnan(_a))
 #else
 # define is_finite(_a) (std::isfinite(_a))
 #endif

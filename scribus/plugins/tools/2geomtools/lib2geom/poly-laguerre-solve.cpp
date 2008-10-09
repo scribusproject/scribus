@@ -51,7 +51,9 @@ cdouble laguerre_internal_complex(Poly const & p,
         a = n / (a + G);
         //std::cout << "a = " << a << std::endl;
         if(shuffle_counter % shuffle_rate == 0)
-            ;//a *= shuffle[shuffle_counter / shuffle_rate];
+		{
+			//a *= shuffle[shuffle_counter / shuffle_rate];
+		}
         xk -= a;
         shuffle_counter++;
         if(shuffle_counter >= 90)

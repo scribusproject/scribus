@@ -331,7 +331,7 @@ public:
     return ret;
   }
 
-  Curve *derivative() const { throwNotImplemented(); }
+  Curve *derivative() const { throwNotImplemented(0); }
 
   std::vector<Point> pointAndDerivatives(Coord t, unsigned n) const;
 

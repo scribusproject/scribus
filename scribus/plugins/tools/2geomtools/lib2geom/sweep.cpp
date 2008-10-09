@@ -53,7 +53,8 @@ std::vector<std::vector<unsigned> > sweep_bounds(std::vector<Rect> a, std::vecto
 
     std::vector<unsigned> open[2];
     bool n = events[1].front() < events[0].front();
-    for(unsigned i[] = {0,0}; i[n] < events[n].size();) {
+	unsigned i[2] = {0};
+    while( i[n] < events[n].size()) {
         unsigned ix = events[n][i[n]].ix;
         bool closing = events[n][i[n]].closing;
         //std::cout << n << "[" << ix << "] - " << (closing ? "closer" : "opener") << "\n";

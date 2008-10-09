@@ -1,5 +1,11 @@
 #include "basic-intersection.h"
 #include "exception.h"
+#include "angle.h"
+
+#ifndef M_SQRT2
+#define M_SQRT2     1.41421356237309504880
+#endif
+
 
 unsigned intersect_steps = 0;
 
@@ -61,7 +67,7 @@ find_intersections( vector<Geom::Point> const & A,
 
 std::vector<std::pair<double, double> > 
 find_self_intersections(OldBezier const &Sb) {
-    throwNotImplemented();
+    throwNotImplemented(0);
 }
 
 std::vector<std::pair<double, double> > 
@@ -132,24 +138,20 @@ const double INV_EPS = (1L<<14);
  */
 void OldBezier::split(double t, OldBezier &left, OldBezier &right) const {
     const unsigned sz = p.size();
-    Geom::Point Vtemp[sz][sz];
+	std::vector<Geom::Point> Vtemp(p);
 
-    /* Copy control points	*/
-    std::copy(p.begin(), p.end(), Vtemp[0]);
-
+	left.p.resize(sz);
+	right.p.resize(sz);
+	left.p[0]     = Vtemp[0];
+    right.p[sz-1] = Vtemp[sz-1];
     /* Triangle computation	*/
     for (unsigned i = 1; i < sz; i++) {	
         for (unsigned j = 0; j < sz - i; j++) {
-            Vtemp[i][j] = lerp(t, Vtemp[i-1][j], Vtemp[i-1][j+1]);
+            Vtemp[j] = lerp(t, Vtemp[j], Vtemp[j+1]);
         }
+		left.p[i]       = Vtemp[0];
+        right.p[sz-1-i] = Vtemp[sz-1-i];
     }
-    
-    left.p.resize(sz);
-    right.p.resize(sz);
-    for (unsigned j = 0; j < sz; j++)
-        left.p[j]  = Vtemp[j][0];
-    for (unsigned j = 0; j < sz; j++)
-        right.p[j] = Vtemp[sz-1-j][j];
 }
 
     
@@ -181,8 +183,8 @@ bool intersect_BB( OldBezier a, OldBezier b ) {
     b.bounds(minbx, maxbx, minby, maxby);
     // Test bounding box of b against bounding box of a
     // Not >= : need boundary case
-    return not( ( minax > maxbx ) || ( minay > maxby )
-                || ( minbx > maxax ) || ( minby > maxay ) );
+    return !( ( minax > maxbx ) || ( minay > maxby ) ||
+              ( minbx > maxax ) || ( minby > maxay )   );
 }
 	
 /* 
