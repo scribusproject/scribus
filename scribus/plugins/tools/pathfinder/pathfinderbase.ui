@@ -6,13 +6,13 @@
     <x>0</x>
     <y>0</y>
     <width>410</width>
-    <height>301</height>
+    <height>354</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Boolean Path Operations</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout_2" >
    <item>
     <layout class="QHBoxLayout" >
      <property name="spacing" >
@@ -36,6 +36,9 @@
            <width>100</width>
            <height>100</height>
           </size>
+         </property>
+         <property name="toolTip" >
+          <string>First source shape.</string>
          </property>
          <property name="autoFillBackground" >
           <bool>true</bool>
@@ -73,7 +76,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>2</width>
            <height>2</height>
@@ -93,6 +96,9 @@
          <property name="text" >
           <string>+</string>
          </property>
+         <property name="alignment" >
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -100,7 +106,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>2</width>
            <height>2</height>
@@ -128,6 +134,9 @@
            <width>100</width>
            <height>100</height>
           </size>
+         </property>
+         <property name="toolTip" >
+          <string>Second source shape.</string>
          </property>
          <property name="autoFillBackground" >
           <bool>true</bool>
@@ -165,7 +174,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>2</width>
            <height>2</height>
@@ -185,6 +194,9 @@
          <property name="text" >
           <string>=</string>
          </property>
+         <property name="alignment" >
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -192,7 +204,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>2</width>
            <height>2</height>
@@ -218,6 +230,9 @@
            <height>100</height>
           </size>
          </property>
+         <property name="toolTip" >
+          <string>The resulting shape.</string>
+         </property>
          <property name="autoFillBackground" >
           <bool>true</bool>
          </property>
@@ -237,7 +252,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>40</height>
@@ -250,15 +265,9 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
-      <number>5</number>
-     </property>
+    <layout class="QHBoxLayout" name="horizontalLayout" >
      <item>
-      <layout class="QVBoxLayout" >
-       <property name="spacing" >
-        <number>5</number>
-       </property>
+      <layout class="QVBoxLayout" name="verticalLayout" >
        <item>
         <widget class="QGroupBox" name="groupBox" >
          <property name="title" >
@@ -268,20 +277,14 @@
           <property name="spacing" >
            <number>5</number>
           </property>
-          <property name="leftMargin" >
-           <number>10</number>
-          </property>
-          <property name="topMargin" >
-           <number>10</number>
-          </property>
-          <property name="rightMargin" >
-           <number>10</number>
-          </property>
-          <property name="bottomMargin" >
+          <property name="margin" >
            <number>10</number>
           </property>
           <item>
            <widget class="QToolButton" name="opCombine" >
+            <property name="toolTip" >
+             <string>Unites the shapes</string>
+            </property>
             <property name="text" >
              <string>...</string>
             </property>
@@ -298,6 +301,9 @@
           </item>
           <item>
            <widget class="QToolButton" name="opSubtraction" >
+            <property name="toolTip" >
+             <string>Substrats the second shape from the first shape</string>
+            </property>
             <property name="text" >
              <string>...</string>
             </property>
@@ -311,6 +317,9 @@
           </item>
           <item>
            <widget class="QToolButton" name="opIntersection" >
+            <property name="toolTip" >
+             <string>Intersection of the shapes</string>
+            </property>
             <property name="text" >
              <string>...</string>
             </property>
@@ -324,6 +333,9 @@
           </item>
           <item>
            <widget class="QToolButton" name="opExclusion" >
+            <property name="toolTip" >
+             <string>Result is the area where the two shapes do not intersect</string>
+            </property>
             <property name="text" >
              <string>...</string>
             </property>
@@ -337,6 +349,10 @@
           </item>
           <item>
            <widget class="QToolButton" name="opParts" >
+            <property name="toolTip" >
+             <string>Break apart,
+The result is a combination of "Intersection" and "Exclusion"</string>
+            </property>
             <property name="text" >
              <string>...</string>
             </property>
@@ -358,6 +374,9 @@
          </property>
          <item>
           <widget class="QPushButton" name="swapShapes" >
+           <property name="toolTip" >
+            <string>Exchange the source shapes.</string>
+           </property>
            <property name="text" >
             <string>Swap Shapes</string>
            </property>
@@ -368,7 +387,7 @@
            <property name="orientation" >
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" >
+           <property name="sizeHint" stdset="0" >
             <size>
              <width>40</width>
              <height>20</height>
@@ -378,41 +397,32 @@
          </item>
         </layout>
        </item>
+       <item>
+        <spacer name="verticalSpacer" >
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </item>
      <item>
       <widget class="QGroupBox" name="optionGroup" >
        <property name="title" >
-        <string>Options</string>
+        <string>Result gets Color from:</string>
        </property>
-       <layout class="QVBoxLayout" >
-        <property name="spacing" >
-         <number>5</number>
-        </property>
-        <property name="leftMargin" >
-         <number>10</number>
-        </property>
-        <property name="topMargin" >
-         <number>10</number>
-        </property>
-        <property name="rightMargin" >
-         <number>10</number>
-        </property>
-        <property name="bottomMargin" >
-         <number>10</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="label_3" >
-          <property name="text" >
-           <string>Result gets Color of:</string>
-          </property>
-          <property name="wordWrap" >
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
+       <layout class="QGridLayout" name="gridLayout_2" >
+        <item row="0" column="0" >
          <widget class="QRadioButton" name="targetGetsSource1Color" >
+          <property name="toolTip" >
+           <string>The resulting shape gets the color of the first source shape.</string>
+          </property>
           <property name="text" >
            <string>first Shape</string>
           </property>
@@ -421,12 +431,75 @@
           </property>
          </widget>
         </item>
-        <item>
+        <item row="1" column="0" >
          <widget class="QRadioButton" name="targetGetsSource2Color" >
+          <property name="toolTip" >
+           <string>The resulting shape gets the color of the first source shape.</string>
+          </property>
           <property name="text" >
            <string>second Shape</string>
           </property>
          </widget>
+        </item>
+        <item row="2" column="0" >
+         <widget class="QRadioButton" name="targetGetsOtherColor" >
+          <property name="toolTip" >
+           <string>The resulting shape gets the colors listed below.</string>
+          </property>
+          <property name="text" >
+           <string>Custom Colors</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" >
+         <layout class="QGridLayout" name="gridLayout" >
+          <item row="0" column="0" >
+           <widget class="QLabel" name="label_3" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="text" >
+             <string>Stroke:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="ColorCombo" name="otherColorComboLine" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip" >
+             <string>Select stroke color.</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="label_4" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="text" >
+             <string>Fill:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="ColorCombo" name="otherColorComboFill" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="toolTip" >
+             <string>Select fill color.</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -439,13 +512,20 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
  <layoutdefault spacing="5" margin="10" />
+ <customwidgets>
+  <customwidget>
+   <class>ColorCombo</class>
+   <extends>QComboBox</extends>
+   <header>colorcombo.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -455,8 +535,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>248</x>
-     <y>254</y>
+     <x>307</x>
+     <y>344</y>
     </hint>
     <hint type="destinationlabel" >
      <x>157</x>
@@ -471,12 +551,204 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>316</x>
-     <y>260</y>
+     <x>375</x>
+     <y>344</y>
     </hint>
     <hint type="destinationlabel" >
      <x>286</x>
      <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>targetGetsSource1Color</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>otherColorComboLine</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>388</x>
+     <y>192</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>targetGetsSource1Color</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>otherColorComboFill</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>388</x>
+     <y>192</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>294</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>targetGetsSource2Color</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>otherColorComboLine</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>388</x>
+     <y>215</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>targetGetsSource2Color</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>otherColorComboFill</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>388</x>
+     <y>215</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>294</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>targetGetsOtherColor</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>otherColorComboLine</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>388</x>
+     <y>238</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>targetGetsOtherColor</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>otherColorComboFill</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>388</x>
+     <y>238</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>294</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>targetGetsSource1Color</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>label_3</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>262</x>
+     <y>182</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>245</x>
+     <y>257</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>targetGetsSource2Color</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>label_3</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>282</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>260</x>
+     <y>253</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>targetGetsOtherColor</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>label_3</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>273</x>
+     <y>225</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>264</x>
+     <y>259</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>targetGetsSource1Color</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>label_4</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>319</x>
+     <y>185</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>243</x>
+     <y>282</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>targetGetsSource2Color</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>label_4</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>298</x>
+     <y>207</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>259</x>
+     <y>284</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>targetGetsOtherColor</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>label_4</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>257</x>
+     <y>234</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>256</x>
+     <y>286</y>
     </hint>
    </hints>
   </connection>

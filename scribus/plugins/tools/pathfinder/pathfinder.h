@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef PATHFINDER_H
 #define PATHFINDER_H
 
+#include <QColor>
 #include "pluginapi.h"
 #include "scplugin.h"
 #include "selection.h"

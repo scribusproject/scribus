@@ -29,7 +29,11 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_polygon.h"
 #include "pathfinder.h"
 #include "pathfinderdialog.h"
+#include "propertiespalette.h"
 #include "scribuscore.h"
+#include "sccolorengine.h"
+#include "stylemanager.h"
+#include "util_color.h"
 #include "util_math.h"
 #include "util_icon.h"
 
@@ -127,7 +131,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 	{
 		PageItem *Item1 = currDoc->m_Selection->itemAt(0);
 		PageItem *Item2 = currDoc->m_Selection->itemAt(1);
-		PathFinderDialog *dia = new PathFinderDialog(currDoc->scMW(), Item1, Item2);
+		PathFinderDialog *dia = new PathFinderDialog(currDoc->scMW(), currDoc, Item1, Item2);
 		if (dia->exec())
 		{
 			if (dia->keepItem1)
@@ -151,7 +155,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				PageItem *currItem;
 				QPainterPath path;
 				FPointArray points;
-				if (dia->targetColorIsSource1)
+				if (dia->targetColor == 0)
 				{
 					currItem = Item1;
 					if (dia->swapped)
@@ -228,7 +232,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				path = dia->result2;
 				if (!path.isEmpty())
 				{
-					if (dia->targetColorIsSource1)
+					if (dia->targetColor == 0)
 						newItem = new PageItem_Polygon(*Item1);
 					else
 					{
@@ -248,8 +252,20 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 					newItem->OldH2 = newItem->height();
 					newItem->updateClip();
 					newItem->ContourLine = newItem->PoLine.copy();
+					if (dia->targetColor == 2)
+					{
+						QString fill = dia->getOtherFillColor();
+						if (fill == CommonStrings::tr_NoneColor)
+							fill = CommonStrings::None;
+						newItem->setFillColor(fill);
+						QString stroke = dia->getOtherLineColor();
+						if (stroke == CommonStrings::tr_NoneColor)
+							stroke = CommonStrings::None;
+						newItem->setLineColor(stroke);
+					}
 				}
 				currDoc->m_Selection->clear();
+				currDoc->view()->Deselect(true);
 			}
 			currDoc->changed();
 			currDoc->view()->DrawNew();

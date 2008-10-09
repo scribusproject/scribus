@@ -24,13 +24,15 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_icon.h"
 #include "fpointarray.h"
+#include "sccolorengine.h"
 
 #include <QPixmap>
 #include <QPainter>
 #include <QMatrix>
 
-PathFinderDialog::PathFinderDialog(QWidget* parent, PageItem *shape1, PageItem *shape2) : QDialog( parent )
+PathFinderDialog::PathFinderDialog(QWidget* parent, ScribusDoc* doc, PageItem *shape1, PageItem *shape2) : QDialog( parent )
 {
+	currDoc = doc;
 	setupUi(this);
 	setModal(true);
 	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
@@ -44,6 +46,12 @@ PathFinderDialog::PathFinderDialog(QWidget* parent, PageItem *shape1, PageItem *
 	opParts->setIcon(QIcon(loadIcon("pathparts.png")));
 	opSubtraction->setIcon(QIcon(loadIcon("pathsubtraction.png")));
 	opCombine->setIcon(QIcon(loadIcon("pathunite.png")));
+	otherColorComboLine->addItem(CommonStrings::tr_NoneColor);
+	otherColorComboLine->insertItems(currDoc->PageColors, ColorCombo::fancyPixmaps);
+	otherColorComboFill->addItem(CommonStrings::tr_NoneColor);
+	otherColorComboFill->insertItems(currDoc->PageColors, ColorCombo::fancyPixmaps);
+	setCurrentComboItem(otherColorComboLine, shape1->lineColor());
+	setCurrentComboItem(otherColorComboFill, shape1->fillColor());
 	opMode = 0;
 	QMatrix ms;
 	ms.rotate(shape1->rotation());
@@ -63,13 +71,17 @@ PathFinderDialog::PathFinderDialog(QWidget* parent, PageItem *shape1, PageItem *
 	else
 		input2.setFillRule(Qt::WindingFill);
 	result = QPainterPath();
+	source1 = shape1;
+	source2 = shape2;
 	swapped = false;
-	targetColorIsSource1 = true;
+	targetColor = 0;
 	keepItem1 = false;
 	keepItem2 = false;
 	updateAllPreviews();
 	connect(targetGetsSource1Color, SIGNAL(clicked()), this, SLOT(updateResult()));
 	connect(targetGetsSource2Color, SIGNAL(clicked()), this, SLOT(updateResult()));
+	connect(targetGetsOtherColor, SIGNAL(clicked()), this, SLOT(updateResult()));
+	connect(otherColorComboFill, SIGNAL(activated(int)), this, SLOT(updateResult()));
 	connect(keepSource1, SIGNAL(clicked()), this, SLOT(checkKeep()));
 	connect(keepSource2, SIGNAL(clicked()), this, SLOT(checkKeep()));
 	connect(opCombine, SIGNAL(clicked()), this, SLOT(newOpMode()));
@@ -88,7 +100,7 @@ void PathFinderDialog::checkKeep()
 
 void PathFinderDialog::newOpMode()
 {
-	label_3->setText( tr("Result gets Color of:"));
+	optionGroup->setTitle( tr("Result gets Color of:"));
 	if (opCombine->isChecked())
 	{
 		label->setText("+");
@@ -112,7 +124,7 @@ void PathFinderDialog::newOpMode()
 	else if (opParts->isChecked())
 	{
 		label->setText(" ");
-		label_3->setText( tr("Intersection gets Color of:"));
+		optionGroup->setTitle( tr("Intersection gets Color of:"));
 		opMode = 4;
 	}
 	updateResult();
@@ -123,6 +135,9 @@ void PathFinderDialog::swapObjects()
 	QPainterPath tmp = input1;
 	input1 = input2;
 	input2 = tmp;
+	PageItem* item = source1;
+	source1 = source2;
+	source2 = item;
 	swapped = !swapped;
 	updateAllPreviews();
 }
@@ -130,10 +145,11 @@ void PathFinderDialog::swapObjects()
 void PathFinderDialog::updatePreview(QLabel *label, QPainterPath &path, QColor color, double scale)
 {
 	QPixmap pm(100, 100);
-	pm.fill(Qt::white);
 	QPainter p;
 	p.begin(&pm);
 	p.setRenderHint(QPainter::Antialiasing, true);
+	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	p.fillRect(0, 0, pm.width(), pm.height(), b);
 	QRectF bb = input1.boundingRect().united(input2.boundingRect());
 	p.translate(5, 5);
 	p.scale(scale, scale);
@@ -148,18 +164,19 @@ void PathFinderDialog::updatePreview(QLabel *label, QPainterPath &path, QColor c
 void PathFinderDialog::updatePartPreview(QColor color, double scale)
 {
 	QPixmap pm(100, 100);
-	pm.fill(Qt::white);
 	QPainter p;
 	p.begin(&pm);
 	p.setRenderHint(QPainter::Antialiasing, true);
+	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	p.fillRect(0, 0, pm.width(), pm.height(), b);
 	QRectF bb = input1.boundingRect().united(input2.boundingRect());
 	p.translate(5, 5);
 	p.scale(scale, scale);
 	p.translate(-bb.x(), -bb.y());
 	p.setPen(Qt::black);
-	p.setBrush(Qt::blue);
+	p.setBrush(getColorFromItem(source1->fillColor(), Qt::blue));
 	p.drawPath(result);
-	p.setBrush(Qt::red);
+	p.setBrush(getColorFromItem(source2->fillColor(), Qt::red));
 	p.drawPath(result1);
 	p.setBrush(color);
 	p.drawPath(result2);
@@ -173,8 +190,8 @@ void PathFinderDialog::updateAllPreviews()
 	double scaleX = 90.0 / bb.width();
 	double scaleY = 90.0 / bb.height();
 	double scale = qMin(scaleX, scaleY);
-	updatePreview(sourceShape, input1, Qt::blue, scale);
-	updatePreview(sourceShape2, input2, Qt::red, scale);
+	updatePreview(sourceShape, input1, getColorFromItem(source1->fillColor(), Qt::blue), scale);
+	updatePreview(sourceShape2, input2, getColorFromItem(source2->fillColor(), Qt::red), scale);
 	updateResult();
 }
 
@@ -217,10 +234,50 @@ void PathFinderDialog::updateResult()
 	double scale = qMin(scaleX, scaleY);
 	QColor cc = Qt::red;
 	if (targetGetsSource1Color->isChecked())
-		cc = Qt::blue;
+	{
+		cc = getColorFromItem(source1->fillColor(), Qt::blue);
+		targetColor = 0;
+		setCurrentComboItem(otherColorComboLine, source1->lineColor());
+		setCurrentComboItem(otherColorComboFill, source1->fillColor());
+	}
+	else if (targetGetsSource2Color->isChecked())
+	{
+		targetColor = 1;
+		cc = getColorFromItem(source2->fillColor(), Qt::red);
+		setCurrentComboItem(otherColorComboLine, source2->lineColor());
+		setCurrentComboItem(otherColorComboFill, source2->fillColor());
+	}
+	else if (targetGetsOtherColor->isChecked())
+	{
+		cc = getColorFromItem(getOtherFillColor(), Qt::green);
+		targetColor = 2;
+	}
 	if (opMode == 4)
 		updatePartPreview(cc, scale);
 	else
 		updatePreview(resultShape, result, cc, scale);
-	targetColorIsSource1 = targetGetsSource1Color->isChecked();
+}
+
+QColor PathFinderDialog::getColorFromItem(QString color, QColor in)
+{
+	QColor out = in;
+	QString fill = color;
+	if (fill == CommonStrings::tr_NoneColor)
+		fill = CommonStrings::None;
+	if (fill != CommonStrings::None)
+	{
+		ScColor m_color = currDoc->PageColors[fill];
+		out = ScColorEngine::getDisplayColor(m_color, currDoc);
+	}
+	return out;
+}
+
+const QString PathFinderDialog::getOtherFillColor()
+{
+	return otherColorComboFill->currentText();
+}
+
+const QString PathFinderDialog::getOtherLineColor()
+{
+	return otherColorComboLine->currentText();
 }

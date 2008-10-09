@@ -13,19 +13,22 @@ for which a new license (GPL+exception) is in place.
 #include <QColor>
 #include <QList>
 #include "pageitem.h"
+#include "scribusdoc.h"
 
 class PLUGIN_API PathFinderDialog : public QDialog, Ui::PathFinderBase
 { 
 	Q_OBJECT
 
 public:
-	PathFinderDialog(QWidget* parent, PageItem *shape1, PageItem *shape2);
+	PathFinderDialog(QWidget* parent, ScribusDoc* doc, PageItem *shape1, PageItem *shape2);
 	~PathFinderDialog() {};
 	void updatePreview(QLabel *label, QPainterPath &path, QColor color, double scale);
 	void updatePartPreview(QColor color, double scale);
+	const QString getOtherFillColor();
+	const QString getOtherLineColor();
 	int opMode;
 	bool swapped;
-	bool targetColorIsSource1;
+	int targetColor;
 	bool keepItem1;
 	bool keepItem2;
 	QPainterPath input1;
@@ -33,8 +36,11 @@ public:
 	QPainterPath result;
 	QPainterPath result1;
 	QPainterPath result2;
-	QColor inputC1;
-	QColor inputC2;
+private:
+	QColor getColorFromItem(QString color, QColor in);
+	ScribusDoc* currDoc;
+	PageItem* source1;
+	PageItem* source2;
 private slots:
 	void checkKeep();
 	void newOpMode();
