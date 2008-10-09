@@ -7,6 +7,9 @@ for which a new license (GPL+exception) is in place.
 #include <QImageWriter>
 #include <QFileDialog>
 #include <QToolTip>
+#include <QDirModel>
+#include <QCompleter>
+
 #include "dialog.h"
 #include "scribusdoc.h"
 #include "ui/createrange.h"
@@ -25,6 +28,10 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	setupUi(this);
 	setModal(true);
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("pixmapexport");
+
+	QDirModel * dirModel = new QDirModel(this);
+	dirModel->setFilter(QDir::AllDirs);
+	outputDirectory->setCompleter(new QCompleter(dirModel, this));
 	
 	outputDirectory->setText( QDir::convertSeparators(prefs->get("wdir", QDir::currentPath())) );
 	QList<QByteArray> imgs = QImageWriter::supportedImageFormats();
