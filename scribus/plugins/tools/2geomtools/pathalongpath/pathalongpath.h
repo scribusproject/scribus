@@ -69,6 +69,7 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		PageItem *patternItem;
 		PageItem *pathItem;
 		FPointArray originalPath;
+		FPointArray effectPath;
 		double originalRot;
 		double originalXPos;
 		double originalYPos;

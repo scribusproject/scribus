@@ -196,6 +196,10 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 			}
 			else
 				pathItem = currDoc->m_Selection->itemAt(selCount);
+			effectPath = pathItem->PoLine.copy();
+			QMatrix mp;
+			mp.rotate(pathItem->rotation());
+			effectPath.map(mp);
 			for (int bx = 0; bx < selCount; ++bx)
 			{
 				PageItem* bxi = currDoc->m_Selection->itemAt(bx + selOffs);
@@ -228,6 +232,10 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 				patternItem = currDoc->m_Selection->itemAt(1);
 				pathItem = currDoc->m_Selection->itemAt(0);
 			}
+			effectPath = pathItem->PoLine.copy();
+			QMatrix mp;
+			mp.rotate(pathItem->rotation());
+			effectPath.map(mp);
 			originalPath = patternItem->PoLine.copy();
 			originalXPos = patternItem->xPos();
 			originalYPos = patternItem->yPos();
@@ -284,7 +292,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 	}
 	else
 	{
-		Geom::Piecewise<Geom::D2<Geom::SBasis> > originaldpwd2 = FPointArray2Piecewise(pathItem->PoLine, false);
+		Geom::Piecewise<Geom::D2<Geom::SBasis> > originaldpwd2 = FPointArray2Piecewise(effectPath, false);
 		Geom::Piecewise<Geom::D2<Geom::SBasis> > patternpwd2;
 		PageItem* bxi = patternItemG[0];
 		double originX = originalXPosG[0];
@@ -353,7 +361,7 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 	}
 	else
 	{
-		Geom::Piecewise<Geom::D2<Geom::SBasis> > originaldpwd2 = FPointArray2Piecewise(pathItem->PoLine, false);
+		Geom::Piecewise<Geom::D2<Geom::SBasis> > originaldpwd2 = FPointArray2Piecewise(effectPath, false);
 		Geom::Piecewise<Geom::D2<Geom::SBasis> > patternpwd2;
 		if (patternItem->itemType() == PageItem::PolyLine)
 			patternpwd2 = FPointArray2Piecewise(originalPath, false);
