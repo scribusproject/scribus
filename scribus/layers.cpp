@@ -584,11 +584,15 @@ void LayerPalette::languageChange()
 	deleteLayerButton->setToolTip("");
 	raiseLayerButton->setToolTip("");
 	lowerLayerButton->setToolTip("");
+	blendMode->setToolTip("");
+	opacitySpinBox->setToolTip("");
 	newLayerButton->setToolTip( tr( "Add a new layer" ) );
 	duplicateLayerButton->setToolTip( tr( "Duplicates the current layer" ) );
 	deleteLayerButton->setToolTip( tr( "Delete layer" ) );
 	raiseLayerButton->setToolTip( tr( "Raise layer" ) );
 	lowerLayerButton->setToolTip( tr( "Lower layer" ) );
+	blendMode->setToolTip( tr("Selects the Blendmode, works only in PDF-1.4"));
+	opacitySpinBox->setToolTip( tr("Layer Transparency, works only in PDF-1.4 and SVG"));
 	Table->horizontalHeaderItem(0)->setToolTip("<qt>" + tr("Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. ") + "</qt>");
 	Table->horizontalHeaderItem(1)->setToolTip("<qt>" + tr("Make Layer Visible - Uncheck to hide the layer from the display ") + "</qt>" );
 	Table->horizontalHeaderItem(2)->setToolTip("<qt>" + tr("Print Layer - Uncheck to disable printing. ") + "</qt>" );
