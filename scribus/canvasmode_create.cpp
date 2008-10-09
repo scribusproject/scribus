@@ -278,11 +278,9 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 				m_canvas->displaySizeHUD(m->globalPos(), createObjectRect.width(), createObjectRect.height(), false);
 			else
 			{
-				double angle = xy2Deg(createObjectRect.width(), createObjectRect.height());
-				if (angle<0.0)
-					angle = -angle;
-				else
-					angle = 360 - angle;
+				double angle = -xy2Deg(wSize, hSize);
+				if (angle < 0.0)
+					angle = angle + 360;
 				double trueLength = sqrt(pow(createObjectRect.width(), 2) + pow(createObjectRect.height(), 2));
 				m_canvas->displaySizeHUD(m->globalPos(), trueLength, angle, true);
 			}
