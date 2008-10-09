@@ -7125,7 +7125,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 	//if ((Bvie->childCount() != 0) && (Options.Bookmarks) && (BookMinUse))
 	if ((Bvie->topLevelItemCount() != 0) && (Options.Bookmarks) && (BookMinUse))
 	{
-		Basis = ObjCounter - 1;
+		Basis = ObjCounter; // - 1;
 		Outlines.Count = Bvie->topLevelItemCount();
 		ip = (BookMItem*)Bvie->topLevelItem(0);
 		pp = Bvie->topLevelItem(0);
@@ -7177,7 +7177,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 			Inha[ip->ItemNr] = Inhal;
 			++it;
 		}
-		for (int b = 1; b < Bmc+1; ++b)
+		for (int b = 0; b < Bmc; ++b)
 		{
 			XRef.append(bytesWritten());
 			PutDoc(Inha[b]);
