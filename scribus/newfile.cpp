@@ -280,6 +280,8 @@ void NewDoc::createNewDocPage()
 	optionsGroupBoxLayout->setSpacing( 5 );
 	optionsGroupBoxLayout->setMargin( 10 );
 	optionsGroupBoxLayout->setAlignment( Qt::AlignTop );
+	optionsGroupBoxLayout->setFormAlignment(Qt::AlignLeft | Qt::AlignTop);
+	optionsGroupBoxLayout->setLabelAlignment(Qt::AlignLeft);
 	pageCountLabel = new QLabel( tr( "N&umber of Pages:" ), optionsGroupBox );
 
 	pageCountSpinBox = new QSpinBox( optionsGroupBox );
