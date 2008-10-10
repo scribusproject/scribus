@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtNetwork&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;QT3_SUPPORT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -105,8 +105,10 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
+				OmitFramePointers="true"
 				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtNetwork&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;QT3_SUPPORT"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -233,6 +235,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\..\vc8;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;&quot;$(QT4DIR)\include\QtCore&quot;;&quot;$(QT4DIR)\include\QtGui&quot;;&quot;$(QT4DIR)\include\QtNetwork&quot;;&quot;$(QT4DIR)\include\QtXml&quot;;&quot;$(QT4DIR)\include&quot;;&quot;$(QT4DIR)\src\3rdparty\zlib&quot;;&quot;$(LIBRARIES_VC8)\freetype-2.3.7\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT"
 				RuntimeLibrary="2"

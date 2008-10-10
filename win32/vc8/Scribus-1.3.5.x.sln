@@ -164,6 +164,19 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "transform-1.3.5.x", "transf
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-lib2geom-1.3.5.x", "scribus-lib2geom\scribus-lib2geom.vcproj", "{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pathalongpath-1.3.5.x", "pathalongpath\pathalongpath-1.3.x.vcproj", "{CAF6D555-0E2E-4ABB-9585-00860B8B183E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD} = {6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "meshdistortion-1.3.5.x", "meshdistortion\meshdistortion-1.3.x.vcproj", "{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD} = {6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug-arthur|Win32 = Debug-arthur|Win32
@@ -378,8 +391,8 @@ Global
 		{1BBA70B3-12AF-463C-A8E4-E613E4999491}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
 		{1BBA70B3-12AF-463C-A8E4-E613E4999491}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
 		{1BBA70B3-12AF-463C-A8E4-E613E4999491}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
-		{1BBA70B3-12AF-463C-A8E4-E613E4999491}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
-		{1BBA70B3-12AF-463C-A8E4-E613E4999491}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{1BBA70B3-12AF-463C-A8E4-E613E4999491}.Release-cairo|Win32.ActiveCfg = Release-Cairo|Win32
+		{1BBA70B3-12AF-463C-A8E4-E613E4999491}.Release-cairo|Win32.Build.0 = Release-Cairo|Win32
 		{CCA6B7D5-9CC5-4FD0-B64C-A70ECF953DB1}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
 		{CCA6B7D5-9CC5-4FD0-B64C-A70ECF953DB1}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
 		{CCA6B7D5-9CC5-4FD0-B64C-A70ECF953DB1}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
@@ -394,8 +407,8 @@ Global
 		{A00C1154-21EF-4844-9A6A-CA04CD6CB3D7}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
 		{A00C1154-21EF-4844-9A6A-CA04CD6CB3D7}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
 		{A00C1154-21EF-4844-9A6A-CA04CD6CB3D7}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
-		{A00C1154-21EF-4844-9A6A-CA04CD6CB3D7}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
-		{A00C1154-21EF-4844-9A6A-CA04CD6CB3D7}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{A00C1154-21EF-4844-9A6A-CA04CD6CB3D7}.Release-cairo|Win32.ActiveCfg = Release-Cairo|Win32
+		{A00C1154-21EF-4844-9A6A-CA04CD6CB3D7}.Release-cairo|Win32.Build.0 = Release-Cairo|Win32
 		{3D406CF3-7B96-4C50-AE65-4B13F3B1FB3E}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
 		{3D406CF3-7B96-4C50-AE65-4B13F3B1FB3E}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
 		{3D406CF3-7B96-4C50-AE65-4B13F3B1FB3E}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
@@ -418,8 +431,8 @@ Global
 		{EF91BE42-1E12-48D4-B173-BA55544E915A}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
 		{EF91BE42-1E12-48D4-B173-BA55544E915A}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
 		{EF91BE42-1E12-48D4-B173-BA55544E915A}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
-		{EF91BE42-1E12-48D4-B173-BA55544E915A}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
-		{EF91BE42-1E12-48D4-B173-BA55544E915A}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{EF91BE42-1E12-48D4-B173-BA55544E915A}.Release-cairo|Win32.ActiveCfg = Release-Cairo|Win32
+		{EF91BE42-1E12-48D4-B173-BA55544E915A}.Release-cairo|Win32.Build.0 = Release-Cairo|Win32
 		{0DB9ED07-1DF0-404C-AA80-5301090CD892}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
 		{0DB9ED07-1DF0-404C-AA80-5301090CD892}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
 		{0DB9ED07-1DF0-404C-AA80-5301090CD892}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
@@ -444,6 +457,30 @@ Global
 		{1A1453ED-BD0A-4B5C-B58D-F3BE748AD549}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
 		{1A1453ED-BD0A-4B5C-B58D-F3BE748AD549}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{1A1453ED-BD0A-4B5C-B58D-F3BE748AD549}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
+		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
+		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{CAF6D555-0E2E-4ABB-9585-00860B8B183E}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{CAF6D555-0E2E-4ABB-9585-00860B8B183E}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
+		{CAF6D555-0E2E-4ABB-9585-00860B8B183E}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{CAF6D555-0E2E-4ABB-9585-00860B8B183E}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{CAF6D555-0E2E-4ABB-9585-00860B8B183E}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{CAF6D555-0E2E-4ABB-9585-00860B8B183E}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
+		{CAF6D555-0E2E-4ABB-9585-00860B8B183E}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{CAF6D555-0E2E-4ABB-9585-00860B8B183E}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
+		{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
+		{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
