@@ -262,7 +262,7 @@ protected:
 };
 
 // BezierCurve<0> is meaningless; specialize it out
-template<> class BezierCurve<0> : public BezierCurve<1> { public: BezierCurve(); BezierCurve(Bezier x, Bezier y); };
+template<> class BezierCurve<0> : public BezierCurve<1> { public: BezierCurve(); BezierCurve(Bezier x, Bezier y) {}; };
 
 typedef BezierCurve<1> LineSegment;
 typedef BezierCurve<2> QuadraticBezier;
