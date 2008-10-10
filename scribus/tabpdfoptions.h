@@ -46,6 +46,7 @@ public:
 	                int unitIndex, double PageH, double PageB,
 	                ScribusDoc *mdoc = 0, bool exporting = false);
 	~TabPDFOptions() {};
+
 	void restoreDefaults(PDFOptions & Optionen,
 						 const SCFonts &AllFonts,
 						 const ProfilesL & PDFXProfiles,
@@ -53,6 +54,8 @@ public:
 						 const QList<PDFPresentationData> & Eff,
 						 int unitIndex, double PageH, double PageB,
 						 ScribusDoc *mdoc, bool exporting);
+
+	void storeValues(PDFOptions& options);
 
 	void unitChange(QString unit, int docUnitIndex, double invUnitConversion);
 

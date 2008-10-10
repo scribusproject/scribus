@@ -559,90 +559,12 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.GFontSub.clear();
 	for (QMap<QString,QString>::Iterator itfsu = tabFonts->RList.begin(); itfsu != itfsuend; ++itfsu)
 		prefsManager->appPrefs.GFontSub[itfsu.key()] = tabFonts->FlagsRepl.at(a++)->currentText();
-	prefsManager->appPrefs.PDF_Options.Thumbnails = tabPDF->CheckBox1->isChecked();
-	prefsManager->appPrefs.PDF_Options.Compress = tabPDF->Compression->isChecked();
-	prefsManager->appPrefs.PDF_Options.CompressMethod = (PDFOptions::PDFCompression) tabPDF->CMethod->currentIndex();
-	prefsManager->appPrefs.PDF_Options.Quality = tabPDF->CQuality->currentIndex();
-	prefsManager->appPrefs.PDF_Options.Resolution = tabPDF->Resolution->value();
-	prefsManager->appPrefs.PDF_Options.RecalcPic = tabPDF->DSColor->isChecked();
-	prefsManager->appPrefs.PDF_Options.PicRes = tabPDF->ValC->value();
-	prefsManager->appPrefs.PDF_Options.Bookmarks = tabPDF->CheckBM->isChecked();
-	prefsManager->appPrefs.PDF_Options.Binding = tabPDF->ComboBind->currentIndex();
-	prefsManager->appPrefs.PDF_Options.MirrorH = tabPDF->MirrorH->isChecked();
-	prefsManager->appPrefs.PDF_Options.MirrorV = tabPDF->MirrorV->isChecked();
-	prefsManager->appPrefs.PDF_Options.RotateDeg = tabPDF->RotateDeg->currentIndex() * 90;
-	prefsManager->appPrefs.PDF_Options.Articles = tabPDF->Article->isChecked();
-	prefsManager->appPrefs.PDF_Options.Encrypt = tabPDF->Encry->isChecked();
-	prefsManager->appPrefs.PDF_Options.UseLPI = tabPDF->UseLPI->isChecked();
-	prefsManager->appPrefs.PDF_Options.UseSpotColors = !tabPDF->useSpot->isChecked();
-	prefsManager->appPrefs.PDF_Options.doMultiFile = false;
-	prefsManager->appPrefs.PDF_Options.bleeds.Bottom = tabPDF->BleedBottom->value() / prefsUnitRatio;
-	prefsManager->appPrefs.PDF_Options.bleeds.Top = tabPDF->BleedTop->value() / prefsUnitRatio;
-	prefsManager->appPrefs.PDF_Options.bleeds.Left = tabPDF->BleedLeft->value() / prefsUnitRatio;
-	prefsManager->appPrefs.PDF_Options.bleeds.Right = tabPDF->BleedRight->value() / prefsUnitRatio;
-	prefsManager->appPrefs.PDF_Options.doClip = tabPDF->ClipMarg->isChecked();
-	if (tabPDF->Encry->isChecked())
-	{
-		int Perm = -64;
-		if (tabPDF->PDFVersionCombo->currentIndex() == 1)
-			Perm &= ~0x00240000;
-		if (tabPDF->PrintSec->isChecked())
-			Perm += 4;
-		if (tabPDF->ModifySec->isChecked())
-			Perm += 8;
-		if (tabPDF->CopySec->isChecked())
-			Perm += 16;
-		if (tabPDF->AddSec->isChecked())
-			Perm += 32;
-		prefsManager->appPrefs.PDF_Options.Permissions = Perm;
-		prefsManager->appPrefs.PDF_Options.PassOwner = tabPDF->PassOwner->text();
-		prefsManager->appPrefs.PDF_Options.PassUser = tabPDF->PassUser->text();
-	}
-	if (tabPDF->PDFVersionCombo->currentIndex() == 0)
-		prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_13;
-	if (tabPDF->PDFVersionCombo->currentIndex() == 1)
-		prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_14;
-	if (tabPDF->PDFVersionCombo->currentIndex() == 2)
-		prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_15;
-	if (tabPDF->PDFVersionCombo->currentIndex() == 3)
-		prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_X3;
-	if (tabPDF->OutCombo->currentIndex() == 0)
-	{
-		prefsManager->appPrefs.PDF_Options.isGrayscale = false;
-		prefsManager->appPrefs.PDF_Options.UseRGB = true;
-		prefsManager->appPrefs.PDF_Options.UseProfiles = false;
-		prefsManager->appPrefs.PDF_Options.UseProfiles2 = false;
-	}
-	else
-	{
-		if (tabPDF->OutCombo->currentIndex() == 2)
-		{
-			prefsManager->appPrefs.PDF_Options.isGrayscale = true;
-			prefsManager->appPrefs.PDF_Options.UseRGB = false;
-			prefsManager->appPrefs.PDF_Options.UseProfiles = false;
-			prefsManager->appPrefs.PDF_Options.UseProfiles2 = false;
-		}
-		else
-		{
-			prefsManager->appPrefs.PDF_Options.isGrayscale = false;
-			prefsManager->appPrefs.PDF_Options.UseRGB = false;
-			if (/*CMSuse*/ ScCore->haveCMS())
-			{
-				prefsManager->appPrefs.PDF_Options.UseProfiles = tabPDF->EmbedProfs->isChecked();
-				prefsManager->appPrefs.PDF_Options.UseProfiles2 = tabPDF->EmbedProfs2->isChecked();
-				prefsManager->appPrefs.PDF_Options.Intent = tabPDF->IntendS->currentIndex();
-				prefsManager->appPrefs.PDF_Options.Intent2 = tabPDF->IntendI->currentIndex();
-				prefsManager->appPrefs.PDF_Options.EmbeddedI = tabPDF->NoEmbedded->isChecked();
-				prefsManager->appPrefs.PDF_Options.SolidProf = tabPDF->SolidPr->currentText();
-				prefsManager->appPrefs.PDF_Options.ImageProf = tabPDF->ImageP->currentText();
-				prefsManager->appPrefs.PDF_Options.PrintProf = tabPDF->PrintProfC->currentText();
-			}
-		}
-	}
+	
 	prefsManager->appPrefs.defaultItemAttributes = *(tabDefaultItemAttributes->getNewAttributes());
 	prefsManager->appPrefs.defaultToCSetups = *(tabDefaultTOCIndexPrefs->getNewToCs());
 // 	prefsManager->appPrefs.KeyActions = tabKeys->getNewKeyMap();
 	prefsManager->appPrefs.KeyActions = tabKeyboardShortcuts->getNewKeyMap();
+	tabPDF->storeValues(prefsManager->appPrefs.PDF_Options);
 	tabPrinter->storeValues();
 }
 

@@ -1373,6 +1373,97 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	}
 }
 
+void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
+{
+	pdfOptions.Thumbnails = CheckBox1->isChecked();
+	pdfOptions.Compress = Compression->isChecked();
+	pdfOptions.CompressMethod = (PDFOptions::PDFCompression) CMethod->currentIndex();
+	pdfOptions.Quality = CQuality->currentIndex();
+	pdfOptions.Resolution = Resolution->value();
+	pdfOptions.RecalcPic = DSColor->isChecked();
+	pdfOptions.PicRes = ValC->value();
+	pdfOptions.Bookmarks = CheckBM->isChecked();
+	pdfOptions.Binding = ComboBind->currentIndex();
+	pdfOptions.MirrorH = MirrorH->isChecked();
+	pdfOptions.MirrorV = MirrorV->isChecked();
+	pdfOptions.RotateDeg = RotateDeg->currentIndex() * 90;
+	pdfOptions.Articles = Article->isChecked();
+	pdfOptions.Encrypt = Encry->isChecked();
+	pdfOptions.UseLPI = UseLPI->isChecked();
+	pdfOptions.UseSpotColors = !useSpot->isChecked();
+	pdfOptions.doMultiFile = false;
+	pdfOptions.cropMarks  = cropMarks->isChecked();
+	pdfOptions.bleedMarks = bleedMarks->isChecked();
+	pdfOptions.registrationMarks = registrationMarks->isChecked();
+	pdfOptions.colorMarks = colorMarks->isChecked();
+	pdfOptions.docInfoMarks = docInfoMarks->isChecked();
+	pdfOptions.markOffset = markOffset->value() / unitRatio;
+	pdfOptions.useDocBleeds = docBleeds->isChecked();
+	pdfOptions.bleeds.Bottom = BleedBottom->value() / unitRatio;
+	pdfOptions.bleeds.Top = BleedTop->value() / unitRatio;
+	pdfOptions.bleeds.Left = BleedLeft->value() / unitRatio;
+	pdfOptions.bleeds.Right = BleedRight->value() / unitRatio;
+	pdfOptions.doClip = ClipMarg->isChecked();
+	if (Encry->isChecked())
+	{
+		int Perm = -64;
+		if (PDFVersionCombo->currentIndex() == 1)
+			Perm &= ~0x00240000;
+		if (PrintSec->isChecked())
+			Perm += 4;
+		if (ModifySec->isChecked())
+			Perm += 8;
+		if (CopySec->isChecked())
+			Perm += 16;
+		if (AddSec->isChecked())
+			Perm += 32;
+		pdfOptions.Permissions = Perm;
+		pdfOptions.PassOwner = PassOwner->text();
+		pdfOptions.PassUser = PassUser->text();
+	}
+	if (PDFVersionCombo->currentIndex() == 0)
+		pdfOptions.Version = PDFOptions::PDFVersion_13;
+	if (PDFVersionCombo->currentIndex() == 1)
+		pdfOptions.Version = PDFOptions::PDFVersion_14;
+	if (PDFVersionCombo->currentIndex() == 2)
+		pdfOptions.Version = PDFOptions::PDFVersion_15;
+	if (PDFVersionCombo->currentIndex() == 3)
+		pdfOptions.Version = PDFOptions::PDFVersion_X3;
+	if (OutCombo->currentIndex() == 0)
+	{
+		pdfOptions.isGrayscale = false;
+		pdfOptions.UseRGB = true;
+		pdfOptions.UseProfiles = false;
+		pdfOptions.UseProfiles2 = false;
+	}
+	else
+	{
+		if (OutCombo->currentIndex() == 2)
+		{
+			pdfOptions.isGrayscale = true;
+			pdfOptions.UseRGB = false;
+			pdfOptions.UseProfiles = false;
+			pdfOptions.UseProfiles2 = false;
+		}
+		else
+		{
+			pdfOptions.isGrayscale = false;
+			pdfOptions.UseRGB = false;
+			if (/*CMSuse*/ ScCore->haveCMS())
+			{
+				pdfOptions.UseProfiles = EmbedProfs->isChecked();
+				pdfOptions.UseProfiles2 = EmbedProfs2->isChecked();
+				pdfOptions.Intent = IntendS->currentIndex();
+				pdfOptions.Intent2 = IntendI->currentIndex();
+				pdfOptions.EmbeddedI = NoEmbedded->isChecked();
+				pdfOptions.SolidProf = SolidPr->currentText();
+				pdfOptions.ImageProf = ImageP->currentText();
+				pdfOptions.PrintProf = PrintProfC->currentText();
+			}
+		}
+	}
+}
+
 void TabPDFOptions::doDocBleeds()
 {
 	if (docBleeds->isChecked())
