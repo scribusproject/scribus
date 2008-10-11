@@ -39,6 +39,7 @@ protected:
 	void swapRGBA(QImage *img);
 
 	QString getPascalString(QDataStream & s);
+	double decodePSDfloat(uint data);
 	void parseRessourceData( QDataStream & s, const PSDHeader & header, uint size );
 
 public:

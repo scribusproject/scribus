@@ -90,6 +90,23 @@ void ScImgDataLoader::swapRGBA(QImage *img)
 	}
 }
 
+double ScImgDataLoader::decodePSDfloat(uint data)
+{
+	double ret = 0.0;
+	char man = (data & 0xFF000000) >> 24;
+	if (man >= 0)
+	{
+		ret = (data & 0x00FFFFFF) / 16777215.0;
+		ret = (ret + man);
+	}
+	else
+	{
+		ret = (~data & 0x00FFFFFF) / 16777215.0;
+		ret = (ret + ~man) * -1;
+	}
+	return ret;
+}
+
 void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & header, uint size )
 {
 	uint signature, resSize, offset, resBase, vRes, hRes, adj;
@@ -121,11 +138,9 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 		resBase = s.device()->pos();
 		if ( (resID >= 0x07d0) && (resID <= 0x0bb6) )
 		{
-			QString db1, db2;
 			short type;
-			uint data1, data2, data3, data4, data5, data6;
+			uint data;
 			double frac1, frac2, frac3, frac4, frac5, frac6;
-			short man1, man2, man3, man4, man5, man6;
 			uint offset2;
 			offset2 = 0;
 			first = false;
@@ -134,93 +149,57 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 			while (offset2 < resSize)
 			{
 				s >> type;
-				s >> data1;
-				frac1 = (data1 & 0x00FFFFFF) / 16777215.0;
-				man1 = (data1 & 0x0F000000) >> 24;
-				if (man1 > 0)
-					frac1 = (16.0 - (frac1+man1)) * header.height;
-				else
-					frac1 = (frac1 + man1) * header.height;
-				frac1 = qMin(frac1, static_cast<double>(header.height));
-				s >> data2;
-				frac2 = (data2 & 0x00FFFFFF) / 16777215.0;
-				man2 = (data2 & 0x0F000000) >> 24;
-				if (man2 > 0)
-					frac2 = (16.0 - (frac2+man2)) * header.width;
-				else
-					frac2 = (frac2 + man2) * header.width;
-				frac2 = qMin(frac2, static_cast<double>(header.width));
-				s >> data3;
-				frac3 = (data3 & 0x00FFFFFF) / 16777215.0;
-				man3 = (data3 & 0x0F000000) >> 24;
-				if (man3 > 0)
-					frac3 = (16.0 - (frac3+man3)) * header.height;
-				else
-					frac3 = (frac3 + man3) * header.height;
-				frac3 = qMin(frac3, static_cast<double>(header.height));
-				s >> data4;
-				frac4 = (data4 & 0x00FFFFFF) / 16777215.0;
-				man4 = (data4 & 0x0F000000) >> 24;
-				if (man4 > 0)
-					frac4 = (16.0 - (frac4+man4)) * header.width;
-				else
-					frac4 = (frac4 + man4) * header.width;
-				frac4 = qMin(frac4, static_cast<double>(header.width));
-				s >> data5;
-				frac5 = (data5 & 0x00FFFFFF) / 16777215.0;
-				man5 = (data5 & 0x0F000000) >> 24;
-				if (man5 > 0)
-					frac5 = (16.0 - (frac5+man5)) * header.height;
-				else
-					frac5 = (frac5 + man5) * header.height;
-				frac5 = qMin(frac5, static_cast<double>(header.height));
-				s >> data6;
-				frac6 = (data6 & 0x00FFFFFF) / 16777215.0;
-				man6 = (data6 & 0x0F000000) >> 24;
-				if (man6 > 0)
-					frac6 = (16.0 - (frac6+man6)) * header.width;
-				else
-					frac6 = (frac6 + man6) * header.width;
-				frac2 = qMin(frac2, static_cast<double>(header.width));
+				s >> data;
+				frac1 = decodePSDfloat(data) * header.height;
+				s >> data;
+				frac2 = decodePSDfloat(data) * header.width;
+				s >> data;
+				frac3 = decodePSDfloat(data) * header.height;
+				s >> data;
+				frac4 = decodePSDfloat(data) * header.width;
+				s >> data;
+				frac5 = decodePSDfloat(data) * header.height;
+				s >> data;
+				frac6 = decodePSDfloat(data) * header.width;
 				switch (type)
 				{
-				case 0:
-				case 3:
-					if (pathOpen)
-					{
-						clip2.addPoint(firstPoint);
-						clip2.addPoint(firstControl);
-						clip2.setMarker();
-					}
-					pathOpen = false;
-					first = true;
-					break;
-				case 1:
-				case 2:
-				case 4:
-				case 5:
-					if (first)
-					{
-						firstControl = FPoint(frac2, frac1);
-						firstPoint = FPoint(frac4, frac3);
-						clip2.addPoint(FPoint(frac4, frac3));
-						clip2.addPoint(FPoint(frac6, frac5));
-					}
-					else
-					{
-						clip2.addPoint(frac4, frac3);
-						clip2.addPoint(frac2, frac1);
-						clip2.addPoint(frac4, frac3);
-						clip2.addPoint(frac6, frac5);
-					}
-					pathOpen = true;
-					first = false;
-					break;
-				case 6:
-					first = true;
-					break;
-				default:
-					break;
+					case 0:
+					case 3:
+						if (pathOpen)
+						{
+							clip2.addPoint(firstPoint);
+							clip2.addPoint(firstControl);
+							clip2.setMarker();
+						}
+						pathOpen = false;
+						first = true;
+						break;
+					case 1:
+					case 2:
+					case 4:
+					case 5:
+						if (first)
+						{
+							firstControl = FPoint(frac2, frac1);
+							firstPoint = FPoint(frac4, frac3);
+							clip2.addPoint(FPoint(frac4, frac3));
+							clip2.addPoint(FPoint(frac6, frac5));
+						}
+						else
+						{
+							clip2.addPoint(frac4, frac3);
+							clip2.addPoint(frac2, frac1);
+							clip2.addPoint(frac4, frac3);
+							clip2.addPoint(frac6, frac5);
+						}
+						pathOpen = true;
+						first = false;
+						break;
+					case 6:
+						first = true;
+						break;
+					default:
+						break;
 				}
 				offset2 += 26;
 			}
