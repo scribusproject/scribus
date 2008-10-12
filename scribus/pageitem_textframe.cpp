@@ -2724,6 +2724,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			return;
 		}
 	}
+
+		if(reversed())
+	{  //inverting left and rigt keys
+		     if(kk==Qt::Key_Left) kk=Qt::Key_Right;
+		else if(kk==Qt::Key_Right)kk=Qt::Key_Left;
+	}
 	switch (kk)
 	{
 	case Qt::Key_Home:

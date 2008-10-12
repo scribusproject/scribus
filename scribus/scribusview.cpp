@@ -1631,10 +1631,20 @@ bool ScribusView::slotSetCurs(int x, int y)
 		if ((QRegion(p.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
 		        (QRegion(p.map(currItem->Clip)).contains(mpo)))
 		{
-			FPoint point((x + 0*Doc->minCanvasCoordinate.x()) / m_canvas->scale() - currItem->xPos(),
-						 (y + 0*Doc->minCanvasCoordinate.x()) / m_canvas->scale() - currItem->yPos());
-			currItem->CPos = currItem->itemText.length() == 0 ? 0 :
-				currItem->itemText.screenToPosition(point);
+			if(currItem->reversed())
+			{ //handle Right to Left writing
+				FPoint point(currItem->width()-((x + 0*Doc->minCanvasCoordinate.x()) / m_canvas->scale() - currItem->xPos()),
+							 (y + 0*Doc->minCanvasCoordinate.x()) / m_canvas->scale() - currItem->yPos());
+				currItem->CPos = currItem->itemText.length() == 0 ? 0 :
+					currItem->itemText.screenToPosition(point);
+			}
+			else
+			{
+				FPoint point((x + 0*Doc->minCanvasCoordinate.x()) / m_canvas->scale() - currItem->xPos(),
+							 (y + 0*Doc->minCanvasCoordinate.x()) / m_canvas->scale() - currItem->yPos());
+				currItem->CPos = currItem->itemText.length() == 0 ? 0 :
+					currItem->itemText.screenToPosition(point);
+			}
 
 			if (currItem->itemText.length() > 0)
 			{

@@ -164,6 +164,11 @@ void LegacyMode::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
 		else
 			y1 = static_cast<int>(bbox.y() + bbox.height());
 	}
+	//handle Right to Left writing
+	if(textframe->reversed())
+	{
+		x=textframe->width()-x;
+	}
 
 	// avoid displaying the cursor on the frameborder
 	if (x < 1)
