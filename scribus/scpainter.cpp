@@ -243,9 +243,9 @@ void ScPainter::endLayer()
 									}
 									else if (m_blendMode == 4)
 									{
-										src_r = 255 - ((255-src_r) * (255-dst_r) / 128);
-										src_g = 255 - ((255-src_g) * (255-dst_g) / 128);
-										src_b = 255 - ((255-src_b) * (255-dst_b) / 128);
+										src_r = 255 - ((255-src_r) * (255-dst_r) / 255);
+										src_g = 255 - ((255-src_g) * (255-dst_g) / 255);
+										src_b = 255 - ((255-src_b) * (255-dst_b) / 255);
 									}
 									else if (m_blendMode == 5)
 									{
@@ -417,9 +417,9 @@ void ScPainter::endLayer()
 							}
 							else if (m_blendMode == 4)
 							{
-								src_r = 255 - ((255-src_r) * (255-dst_r) / 128);
-								src_g = 255 - ((255-src_g) * (255-dst_g) / 128);
-								src_b = 255 - ((255-src_b) * (255-dst_b) / 128);
+								src_r = 255 - ((255-src_r) * (255-dst_r) / 255);
+								src_g = 255 - ((255-src_g) * (255-dst_g) / 255);
+								src_b = 255 - ((255-src_b) * (255-dst_b) / 255);
 							}
 							else if (m_blendMode == 5)
 							{
