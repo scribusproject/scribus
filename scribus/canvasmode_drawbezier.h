@@ -47,6 +47,8 @@ public:
 		
 private:
 	inline bool GetItem(PageItem** pi); 
+
+	void finalizeItem(PageItem* item);
 	void selectPage(QMouseEvent *m);
 
 	UndoTransaction* m_createTransaction;

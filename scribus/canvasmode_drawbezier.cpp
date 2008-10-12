@@ -86,11 +86,42 @@ inline bool BezierMode::GetItem(PageItem** pi)
 	return (*pi) != NULL; 
 }
 
-
-
+void BezierMode::finalizeItem(PageItem* currItem)
+{
+	currItem->PoLine.resize(currItem->PoLine.size()-2);
+	if (currItem->PoLine.size() < 4)
+	{
+//		emit DelObj(m_doc->currentPage->pageNr(), currItem->ItemNr);
+		m_doc->Items->removeAt(currItem->ItemNr);
+		m_doc->m_Selection->removeFirst();
+		//emit HaveSel(-1);
+	}
+	else
+	{
+		m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
+//		currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1)));
+		m_doc->AdjustItemSize(currItem);
+		currItem->ContourLine = currItem->PoLine.copy();
+	}
+	m_view->resetMousePressed();
+	currItem->checkChanges();
+	if (m_createTransaction)
+	{
+		m_view->resetMousePressed();
+		currItem->checkChanges(true);
+		QString targetName = Um::ScratchSpace;
+		if (currItem->OwnPage > -1)
+			targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
+		m_createTransaction->commit(targetName, currItem->getUPixmap(),
+									Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
+		delete m_createTransaction;
+		m_createTransaction = NULL;
+	}
+	currItem->update();
+	currItem->emitAllToGUI();
+}
 
 // the following code was moved from scribusview.cpp:
-
 
 void BezierMode::enterEvent(QEvent *)
 {
@@ -127,6 +158,28 @@ void BezierMode::activate(bool flag)
 void BezierMode::deactivate(bool flag)
 {
 //	qDebug() << "BezierMode::deactivate" << flag;
+	m_view->stopDragTimer();
+	PageItem* currItem = m_doc->m_Selection->itemAt(0);
+	if (m_createTransaction && currItem)
+	{
+		//FIXME : we should call finalizeItem() here, currently some
+		//related code is executed in ScribusMainWindow::keyPressEvent()
+		m_view->resetMousePressed();
+		currItem->checkChanges(true);
+		QString targetName = Um::ScratchSpace;
+		if (currItem->OwnPage > -1)
+			targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
+		m_createTransaction->commit(targetName, currItem->getUPixmap(),
+									Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
+		delete m_createTransaction;
+		m_createTransaction = NULL;
+	}
+	else if (m_createTransaction)
+	{
+		m_createTransaction->cancel();
+		delete m_createTransaction;
+		m_createTransaction = NULL;
+	}
 	m_view->redrawMarker->hide();
 }
 
@@ -376,37 +429,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 		currItem = m_doc->m_Selection->itemAt(0);
 		if (currItem!=0)
 		{
-			currItem->PoLine.resize(currItem->PoLine.size()-2);
-			if (currItem->PoLine.size() < 4)
-			{
-	//			emit DelObj(m_doc->currentPage->pageNr(), currItem->ItemNr);
-				m_doc->Items->removeAt(currItem->ItemNr);
-				m_doc->m_Selection->removeFirst();
-				//emit HaveSel(-1);
-			}
-			else
-			{
-				m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
-//				currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1)));
-				m_doc->AdjustItemSize(currItem);
-				currItem->ContourLine = currItem->PoLine.copy();
-			}
-			m_view->resetMousePressed();
-			currItem->checkChanges();
-			if (m_createTransaction)
-			{
-				m_view->resetMousePressed();
-				currItem->checkChanges(true);
-				QString targetName = Um::ScratchSpace;
-				if (currItem->OwnPage > -1)
-					targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
-				m_createTransaction->commit(targetName, currItem->getUPixmap(),
-											Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
-				delete m_createTransaction;
-				m_createTransaction = NULL;
-			}
-			currItem->update();
-			currItem->emitAllToGUI();
+			finalizeItem(currItem);
 		}
 		
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
