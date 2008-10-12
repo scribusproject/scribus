@@ -3710,6 +3710,8 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 		newItem->PLineArt = Qt::PenStyle(toolSettings.dLineArt);
 		newItem->setFillShade(toolSettings.dShade);
 		newItem->setLineShade(toolSettings.dShade2);
+		if (itemType == PageItem::Polygon)
+			newItem->ContourLine = newItem->PoLine.copy();
 	}
 }
 

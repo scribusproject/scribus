@@ -6206,14 +6206,18 @@ void ScribusMainWindow::ToggleFrameEdit()
 			{
 				nodePalette->ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 				nodePalette->ResetContClip->show();
+				nodePalette->ResetShape2Clip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+				nodePalette->ResetShape2Clip->show();
 				nodePalette->layout()->activate();
 				nodePalette->resize(QSize(170, 380).expandedTo(nodePalette->minimumSizeHint()));
 			}
 			else
 			{
 				nodePalette->ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(6), static_cast<QSizePolicy::Policy>(6)));
+				nodePalette->ResetShape2Clip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(6), static_cast<QSizePolicy::Policy>(6)));
 				nodePalette->layout()->activate();
 				nodePalette->ResetContClip->hide();
+				nodePalette->ResetShape2Clip->hide();
 				nodePalette->layout()->activate();
 				nodePalette->resize(QSize(170, 380).expandedTo(nodePalette->minimumSizeHint()));
 			}

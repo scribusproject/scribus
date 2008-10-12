@@ -73,6 +73,7 @@ public:
 	ScrSpinBox *scaleDistance;
 	QPushButton* ResetCont;
 	QPushButton* ResetContClip;
+	QPushButton* ResetShape2Clip;
 	QPushButton* editEditButton;
 	void setDoc(ScribusDoc *dc, ScribusView *vi);
 	ScribusDoc* currentDocument() const;
@@ -91,6 +92,7 @@ private slots:
 	void Reset1Control();
 	void ResetContour();
 	void ResetContourToImageClip();
+	void ResetShapeToImageClip();
 	void CloseBezier();
 	void SplitPoly();
 	void MirrorH();

@@ -276,9 +276,15 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	ResetContClip->hide();
 	gridLayout2->addWidget(ResetContClip, 6, 0, 1, 2);
 
+	ResetShape2Clip = new QPushButton(this);
+	ResetShape2Clip->setEnabled(true);
+	ResetShape2Clip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(6), static_cast<QSizePolicy::Policy>(6)));
+	ResetShape2Clip->hide();
+	gridLayout2->addWidget(ResetShape2Clip, 7, 0, 1, 2);
+
 	editEditButton = new QPushButton(this);
 	editEditButton->setDefault(true);
-	gridLayout2->addWidget(editEditButton, 7, 0, 1, 2);
+	gridLayout2->addWidget(editEditButton, 8, 0, 1, 2);
 
 	vboxLayout->addLayout(gridLayout2);
 	resize(QSize(170, 380).expandedTo(minimumSizeHint()));
@@ -320,6 +326,7 @@ void NodePalette::connectSignals()
 	connect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	connect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
 	connect(ResetContClip, SIGNAL(clicked()), this, SLOT(ResetContourToImageClip()));
+	connect(ResetShape2Clip, SIGNAL(clicked()), this, SLOT(ResetShapeToImageClip()));
 }
 
 void NodePalette::disconnectSignals()
@@ -350,10 +357,9 @@ void NodePalette::disconnectSignals()
 	disconnect(Expand, SIGNAL(clicked()), this, SLOT(doExpand()));
 	disconnect(Reduce, SIGNAL(clicked()), this, SLOT(doReduce()));
 	disconnect(Enlarge, SIGNAL(clicked()), this, SLOT(doEnlarge()));
-	//	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
-	//	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
 	disconnect(ResetContClip, SIGNAL(clicked()), this, SLOT(ResetContourToImageClip()));
+	disconnect(ResetShape2Clip, SIGNAL(clicked()), this, SLOT(ResetShapeToImageClip()));
 }
 
 void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
@@ -522,21 +528,17 @@ void NodePalette::ResetContour()
 {
 	if (doc != 0)
 	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
 		if (UndoManager::undoEnabled())
 		{
 			ItemState<FPointArray> *is = new ItemState<FPointArray>(Um::ResetContourLine, "",Um::IBorder);
 			is->set("RESET_CONTOUR", "reset_contour");
-			//is->setItem(view->SelItem.at(0)->ContourLine);
 			is->setItem(doc->m_Selection->itemAt(0)->ContourLine);
-			//UndoManager::instance()->action(view->SelItem.at(0), is);
-			UndoManager::instance()->action(doc->m_Selection->itemAt(0), is);
+			UndoManager::instance()->action(currItem, is);
 		}
-		//view->SelItem.at(0)->ContourLine = view->SelItem.at(0)->PoLine.copy();
 		//FIXME make an internal item copy poline to contourline member
-		doc->m_Selection->itemAt(0)->ContourLine = doc->m_Selection->itemAt(0)->PoLine.copy();
-		//view->SelItem.at(0)->ClipEdited = true;
-		doc->m_Selection->itemAt(0)->ClipEdited = true;
-//		doc->m_Selection->itemAt(0)->update();
+		currItem->ContourLine = currItem->PoLine.copy();
+		currItem->ClipEdited = true;
 		view->DrawNew();
 	}
 }
@@ -545,17 +547,23 @@ void NodePalette::ResetContourToImageClip()
 {
 	if (doc != 0)
 	{
-		/*		if (UndoManager::undoEnabled())
-				{
-					ItemState<FPointArray> *is = new ItemState<FPointArray>(Um::ResetContourLine, "",Um::IBorder);
-					is->set("RESET_CONTOUR", "reset_contour");
-					is->setItem(doc->m_Selection->itemAt(0)->ContourLine);
-					UndoManager::instance()->action(doc->m_Selection->itemAt(0), is);
-				} */
-		doc->m_Selection->itemAt(0)->ContourLine = doc->m_Selection->itemAt(0)->imageClip.copy();
-		doc->m_Selection->itemAt(0)->ClipEdited = true;
-//		doc->m_Selection->itemAt(0)->update();
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		currItem->ContourLine = currItem->imageClip.copy();
+		currItem->ClipEdited = true;
 		view->DrawNew();
+	}
+}
+
+void NodePalette::ResetShapeToImageClip()
+{
+	if (doc != 0)
+	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		currItem->PoLine = currItem->imageClip.copy();
+		currItem->ClipEdited = true;
+		currItem->FrameType = 3;
+		doc->AdjustItemSize(currItem);
+		emit DocChanged();
 	}
 }
 
@@ -565,18 +573,19 @@ void NodePalette::MovePoint()
 		return;
 	if (doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
 	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
 		FPoint zp;
 		FPoint np(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
 		if (AbsMode->isChecked())
 		{
 			if (absToCanvas->isChecked())
-				zp = FPoint(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
+				zp = FPoint(currItem->xPos(), currItem->yPos());
 			else
-				zp = FPoint(doc->m_Selection->itemAt(0)->xPos() - doc->currentPage()->xOffset(), doc->m_Selection->itemAt(0)->yPos() - doc->currentPage()->yOffset());
+				zp = FPoint(currItem->xPos() - doc->currentPage()->xOffset(), currItem->yPos() - doc->currentPage()->yOffset());
 			np -= zp;
 		}
-		doc->nodeEdit.moveClipPoint(doc->m_Selection->itemAt(0), np);
-		doc->AdjustItemSize(doc->m_Selection->itemAt(0));
+		doc->nodeEdit.moveClipPoint(currItem, np);
+		doc->AdjustItemSize(currItem);
 		emit DocChanged();
 	}
 }
@@ -659,7 +668,6 @@ void NodePalette::ToggleConMode()
 	if (doc != 0)
 	{
 		doc->nodeEdit.isContourLine = EditCont->isChecked();
-//		doc->m_Selection->itemAt(0)->update();
 		if (EditCont->isChecked())
 		{
 			BezierClose->setEnabled(false);
@@ -898,6 +906,7 @@ void NodePalette::languageChange()
 	EditCont->setText( tr("Edit &Contour Line"));
 	ResetCont->setText( tr("&Reset Contour Line"));
 	ResetContClip->setText( tr("Set Contour to Image Clip"));
+	ResetShape2Clip->setText( tr("Set Shape to Image Clip"));
 	editEditButton->setText( tr("&End Editing"));
 	MoveNode->setToolTip( tr("Move Nodes"));
 	MoveControl->setToolTip( tr("Move Control Points"));
@@ -927,6 +936,7 @@ void NodePalette::languageChange()
 	EditCont->setToolTip( tr("Activate Contour Line Editing Mode"));
 	ResetCont->setToolTip( tr("Reset the Contour Line to the Original Shape of the Frame"));
 	ResetContClip->setToolTip( tr("Reset the Contour Line to the Clipping Path of the Image"));
+	ResetShape2Clip->setToolTip( tr("Set the Shape to the Clipping Path of the Image"));
 	AbsMode->setToolTip(  "<qt>" + tr("When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.") + "</qt>");
 }
 
