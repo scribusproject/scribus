@@ -305,7 +305,9 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 	if (m_view->moveTimerElapsed() && (GetItem(&currItem)))
 	{
 		m_view->stopDragTimer();
-		if (!m_view->groupTransactionStarted() && m_doc->m_Selection->isMultipleSelection())
+		//Always start group transaction as a rotate action is generally a combination of
+		//a change of rotation + a change of position
+		if (!m_view->groupTransactionStarted() /*&& m_doc->m_Selection->isMultipleSelection()*/)
 		{
 			m_view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
 		}
