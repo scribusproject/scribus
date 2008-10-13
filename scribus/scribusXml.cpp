@@ -745,15 +745,6 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	writer.writeAttribute("LeftLine"   , static_cast<int>(item->LeftLine));
 	writer.writeAttribute("RightLine"  , static_cast<int>(item->RightLine));
 	writer.writeAttribute("BottomLine" , static_cast<int>(item->BottomLine));
-	if (item->asLatexFrame()) {
-		PageItem_LatexFrame *latexitem = item->asLatexFrame();
-		//NOTE: Even though these settings are written they can't be read back
-		// because CopyPasteBuffer does not support them
-		writer.writeAttribute("LatexDpi", latexitem->dpi());
-		writer.writeAttribute("LatexConfig", latexitem->configFile());
-		writer.writeAttribute("LatexUsePreamble",
-			QString::number(static_cast<int>(latexitem->usePreamble())));
-	}
 	if (item->isTableItem)
 	{
 		if (item->TopLink != 0)
@@ -1210,6 +1201,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	QString itemClip;
 	StoryText  storyText;
 	LastStyles lastStyles;
+	int LatexDPI;
+	bool LatexPream;
+	QString LatexConfig;
 	while(!sReader.atEnd() && !sReader.hasError())
 	{
 		sReader.readNext();
@@ -1264,6 +1258,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			else
 				OB.Groups.clear();
 			tmp = "";
+			LatexDPI = attrAsInt (attrs, "LatexDpi", 0);
+			LatexPream = attrAsBool(attrs, "LatexUsePreamble", true);
+			LatexConfig = attrAsString(attrs, "LatexConfig", "");
 		}
 		if (inItem && sReader.isStartElement() && tagName == "ITEXT")
 		{
@@ -1351,6 +1348,13 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			view->PasteItem(&OB, true, true, false);
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
+			if (Neu->asLatexFrame())
+			{
+				PageItem_LatexFrame *latexitem = Neu->asLatexFrame();
+				latexitem->setConfigFile(LatexConfig);
+				latexitem->setDpi(LatexDPI);
+				latexitem->setUsePreamble(LatexPream);
+			}
 			Neu->itemText = storyText;
 			Neu->effectsInUse = imageEffects;
 			Neu->pixm.imgInfo.RequestProps = loadRequests;
@@ -2028,7 +2032,12 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 			// writer.writeAttribute("GRENDY"  , item->GrEndY);
 		}
 	}
-	if (item->asLatexFrame()) {
+	if (item->asLatexFrame())
+	{
+		PageItem_LatexFrame *latexitem = item->asLatexFrame();
+		writer.writeAttribute("LatexDpi", latexitem->dpi());
+		writer.writeAttribute("LatexConfig", latexitem->configFile());
+		writer.writeAttribute("LatexUsePreamble", QString::number(static_cast<int>(latexitem->usePreamble())));
 		writer.writeTextElement("LATEX-SOURCE", item->asLatexFrame()->formula());
 	}
 	QDir::setCurrent(CurDirP);
