@@ -3154,10 +3154,10 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 	double  oh = state->getDouble("OLD_RHEIGHT");
 	double   w = state->getDouble("NEW_RWIDTH");
 	double   h = state->getDouble("NEW_RHEIGHT");
-	double mx = ox - x;
-	double my = oy - y;
 	//CB Commented out test code
 	//QRect oldR(getRedrawBounding(view->scale()));
+	//double mx = ox - x;
+	//double my = oy - y;
 	if (isUndo)
 	{
 		/*Rot=ort;
@@ -3166,14 +3166,13 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 		Width=ow;
 		Height=oh;*/
 		m_Doc->RotateItem(ort, this);
-		m_Doc->MoveItem(mx, my, this, false);
+		m_Doc->MoveItem(ox - Xpos, oy - Ypos, this, false);
 		m_Doc->SizeItem(ow, oh, this, false, true, true);
 	}
 	else
 	{
-		mx = -mx;
+		/*mx = -mx;
 		my = -my;
-		/*
 		Rot=rt;
 		Xpos-=mx;
 		Ypos-=my;
@@ -3181,7 +3180,7 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 		Height=h;
 		*/
 		m_Doc->RotateItem(rt, this);
-		m_Doc->MoveItem(mx, my, this, false);
+		m_Doc->MoveItem(x - Xpos, y - Ypos, this, false);
 		m_Doc->SizeItem(w, h, this, false, true, true);
 	}
 	/*

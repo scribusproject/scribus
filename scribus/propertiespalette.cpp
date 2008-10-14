@@ -3508,20 +3508,22 @@ void PropertiesPalette::setRotation()
 	double gx, gy, gh, gw;
 	if ((HaveDoc) && (HaveItem))
 	{
+		if (!_userActionOn)
+			m_ScMW->view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			if (!_userActionOn)
-				m_ScMW->view->startGroupTransaction();
 			doc->rotateGroup((Rotation->value() - RoVal)*(-1), m_ScMW->view->RCenter);
-			if (!_userActionOn)
-			{
-				m_ScMW->view->endGroupTransaction();
-			}
 			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			setXY(gx, gy);
 		}
 		else
 			doc->RotateItem(Rotation->value()*(-1), CurItem->ItemNr);
+		if (!_userActionOn)
+		{
+			for (int i = 0; i < doc->m_Selection->count(); ++i)
+				doc->m_Selection->itemAt(i)->checkChanges(true);
+			m_ScMW->view->endGroupTransaction();
+		}
 		emit DocChanged();
 		doc->regionsChanged()->update(QRect());
 		RoVal = Rotation->value();
