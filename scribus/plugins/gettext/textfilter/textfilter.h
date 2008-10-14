@@ -29,7 +29,6 @@ private:
 	gtWriter* writer;
 	std::vector<tfFilter*> *filters;
 	void loadText();
-	void toUnicode();
 	void write();
 	void replace(QString* text);
 	void replaceHex(QString* text);

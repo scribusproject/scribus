@@ -51,7 +51,6 @@ TextFilter::TextFilter(const QString& fname, const QString& enc, gtWriter* w)
 	{
 		filters = &(tfdia->filters);
 		loadText();
-		toUnicode();
 		write();
 	}
 	delete tfdia;
@@ -60,31 +59,28 @@ TextFilter::TextFilter(const QString& fname, const QString& enc, gtWriter* w)
 
 void TextFilter::loadText()
 {
+	QByteArray bb;
 	text = "";
 	QFile f(filename);
 	QFileInfo fi(f);
 	if (!fi.exists())
 		return;
-//	bool ret;
-	QByteArray bb(f.size(), ' ');
+	// read file content
 	if (f.open(QIODevice::ReadOnly))
 	{
-		f.read(bb.data(), f.size());
+		bb = f.readAll();
 		f.close();
-		for (int posi = 0; posi < bb.size(); ++posi)
-			text += QChar(bb[posi]);
 	}
-}
-
-void TextFilter::toUnicode()
-{
-	QTextCodec *codec;
-	if (encoding.isEmpty())
-		codec = QTextCodec::codecForLocale();
-	else
-		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
-	QString dec = codec->toUnicode(text.toLocal8Bit());
-	text = dec;
+	// decode file content
+	if (bb.size() > 0)
+	{
+		QTextCodec *codec;
+		if (encoding.isEmpty())
+			codec = QTextCodec::codecForLocale();
+		else
+			codec = QTextCodec::codecForName(encoding.toLocal8Bit());
+		text = codec->toUnicode(bb);
+	}
 }
 
 void TextFilter::write()
