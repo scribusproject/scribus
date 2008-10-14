@@ -113,7 +113,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "09";
+	QString BUILD_DAY = "14";
 	QString BUILD_MONTH = CommonStrings::october;
 	QString BUILD_YEAR = "2008";
 	QString BUILD_TIME = "";

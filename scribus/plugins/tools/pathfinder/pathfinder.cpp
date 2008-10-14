@@ -32,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette.h"
 #include "scribuscore.h"
 #include "sccolorengine.h"
-#include "stylemanager.h"
 #include "util_color.h"
 #include "util_math.h"
 #include "util_icon.h"
