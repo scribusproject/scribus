@@ -3063,7 +3063,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrMenuMgr->setMenuEnabled("Item", true);
 		if (SelectedType == 6) //Polygon
 		{
-			//scrMenuMgr->setMenuEnabled("ItemShapes", true);
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 			scrActions["itemConvertToBezierCurve"]->setEnabled(doc->appMode != modeEdit);
 			scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != modeEdit);
@@ -3071,9 +3070,17 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemConvertToPolygon"]->setEnabled(false);
 			scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
 		}
+		else if (SelectedType == 7) //Polyline
+		{
+			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
+			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
+			scrActions["itemConvertToImageFrame"]->setEnabled(false);
+			scrActions["itemConvertToOutlines"]->setEnabled(false);
+			scrActions["itemConvertToPolygon"]->setEnabled(doc->appMode != modeEdit);
+			scrActions["itemConvertToTextFrame"]->setEnabled(false);
+		}
 		else if (SelectedType == 5) // Line
 		{
-			//scrMenuMgr->setMenuEnabled("ItemShapes", false);
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 			scrActions["itemConvertToBezierCurve"]->setEnabled(true);
 			scrActions["itemConvertToImageFrame"]->setEnabled(false);

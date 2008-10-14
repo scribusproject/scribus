@@ -174,6 +174,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 
 void PageItem_PolyLine::applicableActions(QStringList & actionList)
 {
+	actionList << "itemConvertToPolygon";
 }
 
 QString PageItem_PolyLine::infoDescription()

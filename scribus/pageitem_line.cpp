@@ -117,6 +117,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 
 void PageItem_Line::applicableActions(QStringList & actionList)
 {
+	actionList << "itemConvertToBezierCurve";
 }
 
 QString PageItem_Line::infoDescription()
