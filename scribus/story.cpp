@@ -577,6 +577,7 @@ void SEditor::loadItemText(PageItem *currItem)
 {
 	StyledText.clear();
 	FrameItems.clear();
+	StyledText.setDefaultStyle(currItem->itemText.defaultStyle());
 	StyledText.append(currItem->itemText);
 	updateAll();
 	int npars = currItem->itemText.nrOfParagraphs();
