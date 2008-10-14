@@ -6,8 +6,10 @@ for which a new license (GPL+exception) is in place.
 */
 #include "tfdia.h"
 
-#include <QFrame>
+#include <QApplication>
 #include <QComboBox>
+#include <QDesktopWidget>
+#include <QFrame>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QScrollArea>
@@ -33,10 +35,29 @@ tfDia::tfDia() : QDialog()
 	setWindowTitle( tr("Create filter"));
 	setMinimumWidth(524);
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
-	setGeometry(prefs->getInt("x", 0),
-                prefs->getInt("y", 0),
-                prefs->getInt("width", 400),
-                prefs->getInt("height", 300));
+
+	//Get last window geometry values
+	int vleft   = qMax(0, prefs->getInt("x", 10));
+#if defined(Q_OS_MAC) || defined(_WIN32)
+	int vtop    = qMax(64, prefs->getInt("y", 10));
+#else
+	int vtop    = qMax(0, prefs->getInt("y", 10));
+#endif
+	int vwidth  = qMax(400, prefs->getInt("width", 400));
+	int vheight = qMax(300, prefs->getInt("height", 300));
+	// Check values against current available space
+	QRect scr = QApplication::desktop()->availableGeometry(this);
+	QSize gStrut = QApplication::globalStrut();
+	if ( vleft >= scr.width() )
+		vleft = 0;
+	if ( vtop >= scr.height() )
+		vtop = 64;
+	if ( vwidth >= scr.width() )
+		vwidth = qMax( gStrut.width(), scr.width() - vleft );
+	if ( vheight >= scr.height() )
+		vheight = qMax( gStrut.height(), scr.height() - vtop );
+
+	setGeometry(vleft, vtop, vwidth, vheight);
    	createLayout();
    	resize(width() + 10, height() + 10);
 }
