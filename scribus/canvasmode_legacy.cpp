@@ -2465,8 +2465,9 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				m_canvas->m_viewMode.operItemResizing = false;
 				m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 			}
-			else
-				currItem->emitAllToGUI();
+			// Handled normally automatically by Selection in sendSignals()
+			/*else
+				currItem->emitAllToGUI();*/
 		}
 	}
 	if (m_doc->appMode == modeMagnifier)

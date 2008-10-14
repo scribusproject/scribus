@@ -252,6 +252,12 @@ void StoryText::insertParSep(int pos)
 	if(!it->parstyle) {
 		it->parstyle = new ParagraphStyle(paragraphStyle(pos+1));
 		it->parstyle->setContext( & d->pstyleContext);
+		// #7432 : when inserting a paragraph separator, apply/erase the trailing Style
+		if (pos >= (d->len - 1))
+		{
+			applyStyle(pos, d->trailingStyle);
+			d->trailingStyle.erase();
+		}
 //		it->parstyle->setName("para"); // DONT TRANSLATE
 //		it->parstyle->charStyle().setName("cpara"); // DONT TRANSLATE
 //		it->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext() );
