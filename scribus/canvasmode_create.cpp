@@ -555,7 +555,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		(createObjectMode == modeInsertPDFCombobox) || (createObjectMode == modeInsertPDFListbox) ||
 		(createObjectMode == modeInsertPDFTextAnnotation) || (createObjectMode == modeInsertPDFLinkAnnotation))
 	{
-		skipOneClick = true;
+		skipOneClick = false;
 	}
 	if (!skipOneClick)
 	{
