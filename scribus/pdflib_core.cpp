@@ -7100,8 +7100,19 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		syn = SharedImages[fn].sya * sy / SharedImages[fn].ya;
 		*/
 	}
+	QString embedPre = "";
 	if ((bitmapFromGS) || (isEmbeddedPDF)) // compensate gsResolution setting
 	{
+		if (isEmbeddedPDF)
+		{
+			if (Options.isGrayscale)
+				embedPre = "0 g 0 G";
+			else if (Options.UseRGB)
+				embedPre = "0 0 0 rg 0 0 0 RG";
+			else
+				embedPre = "0 0 0 0 k 0 0 0 0 K";
+			embedPre += " 1 w 0 J 0 j [] 0 d\n"; // add default graphics stack parameters pdftex relies on them
+		}
 		if (c->asLatexFrame())
 		{
 			ImInfo.sxa *= 1.0 / c->imageXScale();
@@ -7114,7 +7125,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		}
 	}
 	if (!fromAN && output)
-		*output = QString(FToStr(ImInfo.Width*ImInfo.sxa)+" 0 0 "+FToStr(ImInfo.Height*ImInfo.sya)+" "+FToStr(x*sx)+" "+FToStr((-ImInfo.Height*ImInfo.sya+y*sy))+" cm\n/"+ResNam+"I"+QString::number(ImInfo.ResNum)+" Do\n");
+		*output = QString(embedPre + FToStr(ImInfo.Width*ImInfo.sxa)+" 0 0 "+FToStr(ImInfo.Height*ImInfo.sya)+" "+FToStr(x*sx)+" "+FToStr((-ImInfo.Height*ImInfo.sya+y*sy))+" cm\n/"+ResNam+"I"+QString::number(ImInfo.ResNum)+" Do\n");
 	else if (output)
 		*output = QString("");
 	return true;
