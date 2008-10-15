@@ -2891,7 +2891,15 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 			   .arg(newStyle.parent())
 			   .arg(newStyle.hasParent()));
 */
-		Editor->StyledText.applyStyle(Editor->StyledText.startOfParagraph(pa), newStyle);
+		int paraStart= Editor->StyledText.startOfParagraph(pa);
+		if (name.isEmpty()) // erase parent style
+		{
+			newStyle = Editor->StyledText.paragraphStyle(paraStart);
+			newStyle.setParent(name);
+			Editor->StyledText.setStyle(paraStart, newStyle);
+		}
+		else
+			Editor->StyledText.applyStyle(paraStart, newStyle);
 
 		Editor->updateFromChars(pa);
 		QTextCursor tCursor = Editor->textCursor();
