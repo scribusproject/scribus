@@ -3650,12 +3650,15 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 	switch( itemType )
 	{
 		case PageItem::ImageFrame:
-			newItem->setFillShade(toolSettings.shadePict);
 			newItem->setImageXYScale(toolSettings.scaleX, toolSettings.scaleY);
 			newItem->ScaleType = toolSettings.scaleType;
 			newItem->AspectRatio = toolSettings.aspectRatio;
 			newItem->IProfile = CMSSettings.DefaultImageRGBProfile;
 			newItem->IRender = CMSSettings.DefaultIntentImages;
+			newItem->setFillShade(toolSettings.shadePict);
+			break;
+		case PageItem::LatexFrame:
+			newItem->setFillShade(toolSettings.shadePict);
 			break;
 		case PageItem::TextFrame:
 //			newItem->setFontFillShade(toolSettings.dTextPenShade);
@@ -3686,7 +3689,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			break;
 	}
 
-	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame)
+	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame || itemType==PageItem::LatexFrame)
 	{
 		newItem->SetRectFrame();
 		//TODO one day hopefully, if(ScCore->usingGUI())
