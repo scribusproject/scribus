@@ -94,8 +94,10 @@ void CanvasMode_Rotate::getNewItemPosition(PageItem* item, FPoint& pos, double& 
 	if (m_angleConstrained)
 	{
 		newAngle = constrainAngle(newAngle, m_doc->toolSettings.constrain);
-		double oldAngle = constrainAngle(m_startAngle, m_doc->toolSettings.constrain);
-		newAngle = m_doc->m_Selection->isMultipleSelection() ? (newAngle - oldAngle) : newAngle;
+		/*double oldAngle = constrainAngle(m_startAngle, m_doc->toolSettings.constrain);
+		newAngle = m_doc->m_Selection->isMultipleSelection() ? (newAngle - oldAngle) : newAngle;*/
+		m_view->oldW = constrainAngle(m_view->oldW, m_doc->toolSettings.constrain);
+		newAngle = m_doc->m_Selection->isMultipleSelection() ? (newAngle - m_view->oldW) : newAngle;
 	}
 	else if (m_doc->m_Selection->isMultipleSelection())
 		newAngle = (newAngle - m_startAngle);
@@ -380,7 +382,8 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	m_canvasCurrCoord = mousePointDoc;
+	m_canvasCurrCoord  = mousePointDoc;
+	m_angleConstrained = false;
 	
 	double newX, newY;
 	PageItem *currItem;
@@ -392,6 +395,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 		newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+		m_angleConstrained = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed)
 		{
 			m_canvas->repaint();
