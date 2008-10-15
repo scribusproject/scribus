@@ -226,6 +226,7 @@ void CreateMode::mouseDoubleClickEvent(QMouseEvent *m)
 void CreateMode::mouseMoveEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	modifiers = m->modifiers();
 	
 	double newX, newY;
 	PageItem *currItem;
@@ -314,6 +315,7 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 void CreateMode::mousePressEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	modifiers = m->modifiers();
 	
 	double Rxp = 0, Ryp = 0;
 	double Rxpd = 0,Rypd = 0;
@@ -372,6 +374,7 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	modifiers = m->modifiers();
 
 	PageItem *currItem;
 	m_MouseButtonPressed = false;
@@ -545,11 +548,15 @@ PageItem* CreateMode::doCreateNewObject(void)
 
 	double wSize = canvasCurrCoord.x() - createObjectPos.x();
 	double hSize = canvasCurrCoord.y() - createObjectPos.y();
-	if ((!m_view->moveTimerElapsed()) || ((fabs(wSize) < 2.0) && (fabs(hSize) < 2.0)))
+	bool   skipOneClip = ((modifiers == Qt::ShiftModifier) && (createObjectMode != modeDrawLine));
+	if (!skipOneClip)
 	{
-		if (!doOneClick(createObjectPos, canvasCurrCoord))
+		if ((!m_view->moveTimerElapsed()) || ((fabs(wSize) < 2.0) && (fabs(hSize) < 2.0)))
 		{
-			return NULL;
+			if (!doOneClick(createObjectPos, canvasCurrCoord))
+			{
+				return NULL;
+			}
 		}
 	}
 
