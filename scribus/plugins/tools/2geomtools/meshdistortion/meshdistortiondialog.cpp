@@ -126,16 +126,9 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 	m_doc = doc;
 	PageItem *currItem;
 	double gx, gy, gh, gw;
+	doc->m_Selection->setGroupRect();
 	doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 	uint selectedItemCount = doc->m_Selection->count();
-	if (selectedItemCount == 1)
-	{
-		currItem = doc->m_Selection->itemAt(0);
-		gx = currItem->xPos();
-		gy = currItem->yPos();
-		gw = currItem->width();
-		gh = currItem->height();
-	}
 	w4 = qMax(gw, gh) / 2.0;
 	w2 = qMax(gw, gh);
 	ww = qMax(gw, gh) * 2.0;
