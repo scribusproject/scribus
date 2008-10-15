@@ -1129,7 +1129,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					p->setLineWidth(0);
 				if (!isTableItem)
 				{
-					if (itemType() == ImageFrame)
+					if ((itemType() == LatexFrame) || (itemType() == ImageFrame))
 						p->setupPolygon(&PoLine);
 					if (NamedLStyle.isEmpty())
 						p->strokePath();
@@ -1161,7 +1161,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		double scpInv = 1.0 / (qMax(view->scale(), 1.0) * aestheticFactor);
 		if (!isGroupControl)
 		{
-			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == PathText)))
+			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == PathText)))
 			{
 				p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((isBookmark) || (m_isAnnotation))
@@ -4367,6 +4367,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	}
 	else
 	{
+		QString ext = fi.suffix().toLower();
 		if (UndoManager::undoEnabled() && !reload)
 		{
 			SimpleState *ss = new SimpleState(Um::GetImage, filename, Um::IGetImage);
@@ -4417,7 +4418,6 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		BBoxH = pixm.imgInfo.BBoxH;
 		OrigW = pixm.width();
 		OrigH = pixm.height();
-		QString ext = fi.suffix().toLower();
 		isRaster = !(extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext));
 		if (!isRaster)
 			effectsInUse.clear();
