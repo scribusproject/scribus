@@ -50,6 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_math.h"
 #include "multiprogressdialog.h"
+#include "pageitem_latexframe.h"
 #include "scribusapp.h"
 #include "scpattern.h"
 #include "sccolorengine.h"
@@ -1486,7 +1487,12 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 		image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 		CMSettings cms(c->doc(), Prof, c->IRender);
-		int resolution = (c->pixm.imgInfo.type == ImageType7) ? 72 : 300;
+		int resolution = 300;
+		if (c->asLatexFrame())
+			resolution = c->asLatexFrame()->realDpi();
+		else if (c->pixm.imgInfo.type == ImageType7)
+			resolution = 72;
+//		int resolution = (c->pixm.imgInfo.type == ImageType7) ? 72 : 300;
 		if ( !image.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, UseEmbedded, UseProf, ScImage::CMYKData, resolution, &dummy) )
 		{
 			PS_Error_ImageLoadFailure(fn);
@@ -1496,7 +1502,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		int w = image.width();
 		int h = image.height();
 		PutStream(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
-		if (extensionIndicatesPDF(ext))
+		if ((extensionIndicatesPDF(ext)) && (!c->asLatexFrame()))
 		{
 			scalex *= PrefsManager::instance()->appPrefs.gs_Resolution / 300.0;
 			scaley *= PrefsManager::instance()->appPrefs.gs_Resolution / 300.0;
@@ -1513,7 +1519,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		img2.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 		if (c->pixm.imgInfo.type != ImageType7)
 		{
-			bool alphaLoaded = img2.getAlpha(fn, c->pixm.imgInfo.actualPageNumber, maskArray, false, true, 300);
+			bool alphaLoaded = img2.getAlpha(fn, c->pixm.imgInfo.actualPageNumber, maskArray, false, true, resolution);
 			if (!alphaLoaded)
 			{
 				PS_Error_MaskLoadFailure(fn);

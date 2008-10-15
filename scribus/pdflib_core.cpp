@@ -6589,6 +6589,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	bool   alphaM = false;
 	bool   realCMYK = false;
 	bool   bitmapFromGS = false;
+	bool   isEmbeddedPDF = false;
 	int    afl = Options.Resolution;
 	double ax, ay, a2, a1;
 	int    origWidth = 1;
@@ -6658,6 +6659,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			}
 			else
 				imageLoaded = PDF_EmbeddedPDF(c, fn, sx, sy, x, y, fromAN, Profil, Embedded, Intent, ImInfo, output);
+			isEmbeddedPDF = true;
 		}
 		if(!imageLoaded && extensionIndicatesPDF(ext) && c->effectsInUse.count() == 0 && Options.embedPDF)
 			qDebug()<< "Failed to embed the PDF file";
@@ -7098,10 +7100,18 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		syn = SharedImages[fn].sya * sy / SharedImages[fn].ya;
 		*/
 	}
-	if (bitmapFromGS)// compensate gsResolution setting
+	if ((bitmapFromGS) || (isEmbeddedPDF)) // compensate gsResolution setting
 	{
-		ImInfo.sxa *= PrefsManager::instance()->appPrefs.gs_Resolution / 72.0;
-		ImInfo.sya *= PrefsManager::instance()->appPrefs.gs_Resolution / 72.0;
+		if (c->asLatexFrame())
+		{
+			ImInfo.sxa *= 1.0 / c->imageXScale();
+			ImInfo.sya *= 1.0 / c->imageYScale();
+		}
+		else
+		{
+			ImInfo.sxa *= PrefsManager::instance()->appPrefs.gs_Resolution / 72.0;
+			ImInfo.sya *= PrefsManager::instance()->appPrefs.gs_Resolution / 72.0;
+		}
 	}
 	if (!fromAN && output)
 		*output = QString(FToStr(ImInfo.Width*ImInfo.sxa)+" 0 0 "+FToStr(ImInfo.Height*ImInfo.sya)+" "+FToStr(x*sx)+" "+FToStr((-ImInfo.Height*ImInfo.sya+y*sy))+" cm\n/"+ResNam+"I"+QString::number(ImInfo.ResNum)+" Do\n");
