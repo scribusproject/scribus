@@ -548,8 +548,16 @@ PageItem* CreateMode::doCreateNewObject(void)
 
 	double wSize = canvasCurrCoord.x() - createObjectPos.x();
 	double hSize = canvasCurrCoord.y() - createObjectPos.y();
-	bool   skipOneClip = ((modifiers == Qt::ShiftModifier) && (createObjectMode != modeDrawLine));
-	if (!skipOneClip)
+	bool   skipOneClick = ((modifiers == Qt::ShiftModifier);
+	if ((createObjectMode == modeDrawLine) || (createObjectMode == modeDrawTable) ||
+		(createObjectMode == modeInsertPDFButton) || (createObjectMode == modeInsertPDFTextfield) ||
+		(createObjectMode == modeInsertPDFTextfield) || (createObjectMode == modeInsertPDFCheckbox) ||
+		(createObjectMode == modeInsertPDFCombobox) || (createObjectMode == modeInsertPDFListbox) ||
+		(createObjectMode == modeInsertPDFTextAnnotation) || (createObjectMode == modeInsertPDFLinkAnnotation))
+	{
+		skipOneClick = true;
+	}
+	if (!skipOneClick)
 	{
 		if ((!m_view->moveTimerElapsed()) || ((fabs(wSize) < 2.0) && (fabs(hSize) < 2.0)))
 		{
