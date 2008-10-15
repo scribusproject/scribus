@@ -6,66 +6,57 @@
 <body>
 <h2>Konfiguration und Voreinstellungen</h2>
 
-<p>Das Konfigurationspanel mit seinen Voreinstellungen ist gewisserma&szlig;en die Schaltzentrale von Scribus. Es hilft Ihnen dabei, die Einstellungen f&uuml;r neue Dokumente und das Programm als solches flexibel an Ihre Vorstellungen anzupassen. Wenn DTP f&uuml;r Sie Neuland ist, geben Ihnen zahlreiche Tooltips wertvolle Hilfestellung zu jeder einzelnen Einstellung, erg&auml;nzend zur vollst&auml;ndigen Dokumentation, die nat&uuml;rlich auch vorhanden ist. </p>
-<p>Die Voreinstellungen f&uuml;r Scribus befinden sich in einem versteckten Verzeichnis namens <code>.scribus</code>. In diesem Verzeichnis liegt die Datei <code>.scribus.rc</code> und eine weitere namens <code>scribusfont.rc</code>, die Ihre Schriftarten-Einstellungen enth&auml;lt. Letztere ist im XML-Format gespeichert, so da&szlig; Sie sie bequem mit einem Texteditor einsehen k&ouml;nnen. Falls Sie das Scripting-Plugin installiert haben, findet sich hier auch die Datei <code>scripter.rc</code>, in der die letztverwendeten Scripte gespeichert sind.</p>
+<p>Der KonfigurationsdiaLog mit seinen Voreinstellungen ist gewisserma&szlig;en die Schaltzentrale von Scribus. Es hilft Ihnen dabei, die Einstellungen f&uuml;r neue Dokumente und das Programm als solches flexibel an Ihre Vorstellungen anzupassen. Wenn DTP f&uuml;r Sie Neuland ist, geben Ihnen zahlreiche Tooltips wertvolle Hilfestellung zu jeder einzelnen Einstellung, erg&auml;nzend zur Dokumentation, die nat&uuml;rlich auch vorhanden ist. </p>
+<p>Die Voreinstellungen f&uuml;r Scribus befinden sich in einem versteckten Verzeichnis namens <code>.scribus</code>. In diesem Verzeichnis liegt die Datei <code>.scribus.rc</code> und eine weitere namens <code>scribusfont.rc</code>, die Ihre Schriftarten-Einstellungen enth&auml;lt. Letztere ist im XML-Format gespeichert, so da&szlig; Sie sie bequem mit einem Texteditor einsehen k&ouml;nnen. Falls Sie das Scripting-Plugin installiert haben, findet sich hier auch die Datei <code>scripter.rc</code>, in der die zuletzt verwendeten Scripte gespeichert sind.</p>
 
-<p>Wenn Sie die Einstellungen &auml;ndern, w&auml;hrend ein Dokument ge&ouml;ffnet ist, so gelten diese Einstellungen f&uuml;r das gerade ge&ouml;ffnete Dokument. Um die Voreinstellungen f&uuml;r Scribus global zu &auml;ndern, m&uuml;ssen alle Dokumente geschlossen sein. Danach &quot;erbt&quot; jedes neu ge&ouml;ffnete Dokument diese Einstellung.</p>
+<p>Um die Einstellungen für das gerade geöffnete Dokument zu ändern, m&uuml;ssen Sie den Dialog <i>Datei > Dokument einrichten</i> verwenden. Wenn Sie <i>Datei > Allgemeine Einstellungen</i> verwenden, werden die Voreinstellungen f&uuml;r Scribus global ver&auml;ndert. Danach &quot;erbt&quot; jedes neue Dokument diese Einstellungen.</p>
 
-<p>Auf den 9 Seiten des Konfigurationspanels k&ouml;nnen Sie viele der Voreinstellungen f&uuml;r Scribus &auml;ndern oder aufheben, entweder durch Men&uuml;auswahl, in der Eigenschaften-Palette oder direkt beim Editieren per Rechtsklick auf ein Objekt.</p>
-
-<h3>Panel-Seite &quot;Allgemein&quot;</h3>
-<p>Hier k&ouml;nnen Sie das Standard-Theme f&uuml;r Scribus w&auml;hlen, wie etwa &quot;Liquid&quot; - oder eines der neuen Themes, die auf KDE-Plugins basieren. Wenn Sie KDE im Einsatz haben, &uuml;bernimmt Scribus dessen Themes und Ausgestaltung. Falls Sie KDE nicht installiert haben, k&ouml;nnen Sie das Aussehen Ihrer Qt-Programme unabh&auml;ngig mit Hilfe des Tools <strong><code>qtconfig</code></strong> anpassen. &Ouml;ffnen Sie dazu einfach ein Konsolenfenster und geben <code>qtconfig</code> ein. Dessen Konfigurationsdialog ist eigentlich selbsterkl&auml;rend, doch sollten Sie besser keine Schriftgr&ouml;&szlig;e &uuml;ber 12 Punkt w&auml;hlen, denn einige Schaltfl&auml;chen in den Scribus-Men&uuml;s wirken damit manchmal etwas seltsam. Im folgenden Beispiel ist der Schrifteintrag in TrueType-Font der Gr&ouml;&szlig;e 12 ge&auml;ndert, und Scribus &uuml;bernimmt das Standard-Theme von KDE. </p>
+<h3>&quot;Allgemein&quot;</h3>
+<p>Hier k&ouml;nnen Sie das Standard-Theme f&uuml;r Scribus w&auml;hlen, wie etwa &quot;Liquid&quot; - oder eines der neuen Themes, die auf KDE-Plugins basieren. Wenn Sie KDE im Einsatz haben, &uuml;bernimmt Scribus dessen Themes und Ausgestaltung. Falls Sie KDE nicht installiert haben, k&ouml;nnen Sie das Aussehen Ihrer Qt-Programme unabh&auml;ngig mit Hilfe des Tools <strong><code>qtconfig</code></strong> anpassen. &Ouml;ffnen Sie dazu einfach ein Konsolenfenster und geben <code>qtconfig</code> ein. Dessen Konfigurationsdialog ist eigentlich selbsterkl&auml;rend, doch sollten Sie besser keine Schriftgr&ouml;&szlig;e &uuml;ber 12 Punkt w&auml;hlen, denn einige Schaltfl&auml;chen in den Scribus-Men&uuml;s wirken damit manchmal etwas seltsam.</p>
 
 <table width="100%"><tr><td align="center"><img src="../en/images/prefs.png" align="center" alt="Edit Style Dialog" title="General Preferences" /></td></tr></table>
 
-<h3>Maus-Einstellungen</h3>
-<p>Wenn Sie eine Maus mit Scrollrad benutzen, kommen Sie direkt in den Genu&szlig; einer netten Voreinstellung und k&ouml;nnen mit Scribus durch Ihre Dokumente scrollen. Der Rad-Vorschub bestimmt, wieviele Zeilen ein einzelner Scroll-Schritt betr&auml;gt. Der <strong>Grab Radius</strong> bestimmt, wie gro&szlig; die Distanz zu einem Objekt sein darf, um es (noch) auszuw&auml;hlen. Je kleiner der Wert, desto genauer - doch manchmal schwieriger beim Selektieren kleiner Objekte.</p>
+<h3>Rad-Vorschub</h3>
+<p>Wenn Sie eine Maus mit Scrollrad benutzen, kommen Sie direkt in den Genu&szlig; einer netten Voreinstellung und k&ouml;nnen mit Scribus durch Ihre Dokumente scrollen. Der Rad-Vorschub bestimmt, wieviele Zeilen ein einzelner Scroll-Schritt betr&auml;gt.</p>
 
 <h3>Pfade</h3>
-<p>Dies sind Pfadnamen, die Sie selbst bestimmen k&ouml;nnen, also f&uuml;r Ihre Dokumente, CC-Farbprofile und Python-Scripte. Sie lassen sich jederzeit &auml;ndern, indem Sie auf ein gew&uuml;nschte Verzeichnis klicken. Anmerkung: Versteckte Verzeichnisse m&uuml;ssen Sie erst sichtbar machen, indem Sie im Dateiauswahlfeld rechtsklicken und dann &quot;Versteckte Dateien anzeigen&quot; w&auml;hlen.</p>
+<p>Dies sind Pfadnamen, die Sie selbst bestimmen k&ouml;nnen, also f&uuml;r Ihre Dokumente, ICC-Farbprofile und Python-Scripte. Sie lassen sich jederzeit &auml;ndern, indem Sie auf ein gew&uuml;nschte Verzeichnis klicken. Anmerkung: Versteckte Verzeichnisse m&uuml;ssen Sie erst sichtbar machen, indem Sie im Dateiauswahlfeld rechtsklicken und dann &quot;Versteckte Dateien anzeigen&quot; w&auml;hlen.</p>
 
-<h3>Panel-Seite &quot;Dokument&quot;</h3>
-<p>Hier legen Sie Ihre Standard-Papiergr&ouml;&szlig;e, die Seitenr&auml;nder und die Option &quot;Autospeichern&quot; fest. Autospeichern bedeutet, da&szlig; Scribus Ihr Dokument in festgelegten Zeitabst&auml;nden mit der Dateiendung <code>.sla.bak</code> sichert.</p>
+<h3>&quot;Dokument&quot;</h3>
+<p>Hier legen Sie Ihre Standard-Papiergr&ouml;&szlig;e, die Seitenr&auml;nder und die Option &quot;Automatisch speichern&quot; fest. Autospeichern bedeutet, da&szlig; Scribus Ihr Dokument in festgelegten Zeitabst&auml;nden mit der Dateiendung <code>.sla.bak</code> sichert.</p>
 
 <table width="100%"><tr><td align="center"><img src="../en/images/prefs2.png" align="center" alt="Default Document Settings" title="Default Document Settings"  /></td></tr></table>
 
-<h3>Panel-Seite &quot;Hilfslinien&quot;</h3>
+<h3>&quot;Hilfslinien&quot;</h3>
 <p>Hier bestimmen Sie die Standard-Abst&auml;nde und Farben der Hilfslinien sowie die Empfindlichkeit des Magnetrasters. <strong>Grundlinienraster</strong> sind eine Anordnung horizontaler Linien, welche bewirkt, da&szlig; mehrspaltiger Text sich horizontal an diesen ausrichtet, wie das folgende Beispiel zeigt. Die Einstellungen f&uuml;r die Abst&auml;nde der Grundlinien befinden sich in Absatzvorlagen; gleiches gilt f&uuml;r die n&auml;chste Panel-Seite <strong>Typografie</strong></p>
+<p>Der Fangradius bestimmt, wie groß die Distanz zu einem Objekt sein darf, um es (noch) auszuwählen. Je kleiner der Wert, desto genauer - doch manchmal schwieriger beim Selektieren kleiner Objekte. </p>
+<p><strong>Grundlinienraster</strong> sind nicht-druckende Raster, die den Text &uuml;ber mehrere Spalten gleichm&auml;&szlig;ig auf der Seite ausrichten. <strong>Grundlinienversatz</strong> ist der Abstand vom Seitenanfang, d.h. wo sich die oberste Grundlinie befindet.</p>
 
 <table width="100%"><tr><td align="center"><img src="../en/images/prefs3.png" alt="Guides and Baseline Grid Settings" align="middle" title="Guides and Baseline Grid Settings" /></td></tr></table>
 
-<h3>Panel-Seite &quot;Typografie&quot;</h3>
-<p>Auf dieser Seite k&ouml;nnen Sie die Optionen typografischer Merkmale wie hochgestellt, tiefgestellt, automatischer Zeilenabstand und die Skalierung von Kapit&auml;lchen &auml;ndern. <strong>Versatz</strong> bedeutet Verschiebung oder Abstand (nach oben/unten) zu  normalem Text. <strong>Grundlinienraster</strong> sind nicht-druckende Raster, die den Text &uuml;ber mehrere Spalten gleichm&auml;&szlig;ig auf der Seite ausrichten. <strong>Grundlinienversatz</strong> ist der Abstand vom Seitenanfang, d.h. wo sich die oberste Grundlinie befindet.</p>
+<h3>&quot;Typografie&quot;</h3>
+<p>Auf dieser Seite k&ouml;nnen Sie die Optionen typografischer Merkmale wie hochgestellt, tiefgestellt, automatischer Zeilenabstand und die Skalierung von Kapit&auml;lchen &auml;ndern. <strong>Versatz</strong> bedeutet Verschiebung oder Abstand (nach oben/unten) zu  normalem Text.</p> 
 
 <table width="100%"><tr><td align="center"><img src="../en/images/prefsblgrid1.png" alt="Baseline Grids"title="Baseline Grids" /></td></tr></table>
 
 <table width="100%"><tr><td align="center"><img src="../en/images/prefs4.png" align="center" alt="Typography Tab Panel" /></td></tr></table>
 
-<h3>Panel-Seite &quot;Tools&quot;</h3>
+<h3>&quot;Werkzeuge&quot;</h3>
 <p>Hier k&ouml;nnen Sie f&uuml;r viele Werkzeuge und allgemeine Aufgaben die Voreinstellungen festlegen. Das gilt f&uuml;r Schriftart, Gr&ouml;&szlig;e und Farbe, Text- und Bildrahmen sowie die Zoom-Einstellung. Fast alle dieser Voreinstellungen lassen sich auch nachtr&auml;glich aufheben oder ver&auml;ndern, entweder per Rechtsklick und Kontextmen&uuml; oder &uuml;ber die Eigenschaften-Palette des ausgew&auml;hlten Objekts.</p>
 
 <table width="100%"><tr><td align="center"><img src="../en/images/prefs5.png" alt="Tools Tab Panel"/></td></tr></table>
 
-<h3>Polygone</h3>
-<p>Mit der intuitiv zu bedienenden Steuerung k&ouml;nnen Sie Sterne, Dreiecke und auch konvexe Vielecke erstellen oder ihnen mittels Eigenschaften-Palette Farbverl&auml;ufe zuweisen. Das obige Bild zeigt einen Stern als Standardfigur.</p>
-
-<h3>Panel-Seite &quot;Bibliothek&quot;</h3>
-<p>In die Bibliothek k&ouml;nnen Sie oft benutzte Objekte per <em>Rechtsklick</em> hineinziehen; das gilt f&uuml;r Bilder, Grafiken und Textdateien, die schnell zur Hand sein sollen. Solche Bibliotheken k&ouml;nnen entweder zusammen mit dem Dokument oder separat gespeichert werden, um sie in auch in verschiedenen anderen Dokumenten nutzen zu k&ouml;nnen. Separate Bibliotheken sind mit <code>.scs</code> gekennzeichnet. Auf dieser Seite wird auch die Vorschaubildgr&ouml;&szlig;e gew&auml;hlt und festgelegt, ob Bibliotheken nach &Auml;nderung automatisch gespeichert werden.</p>
-
-<h3>Panel-Seite &quot;Anzeige&quot;</h3>
-<p>Auf dieser Seite befinden sich die Voreinstellungen und Optionen f&uuml;r die Farbe der R&auml;nder, die Rahmendarstellung und den Seitenhintergrund, mit der M&ouml;glichkeit, nicht druckbare Bereiche in der gew&auml;hlten Randfarbe darzustellen. Hier finden Sie auch die Option &quot;Seiten nebeneinander&quot;, im DTP-Jargon manchmal &quot;Reader Spreads&quot; genannt.</p>
+<h3>&quot;Anzeige&quot;</h3>
+<p>Auf dieser Seite befinden sich die Voreinstellungen und Optionen f&uuml;r die Rahmendarstellung und den Seitenhintergrund, mit der M&ouml;glichkeit, nicht druckbare Bereiche in der gew&auml;hlten Randfarbe darzustellen.</p>
 
 <!--<table width="100%"><tr><td align="center"><img src="../en/images/prefspanel5.png" alt="Setting the Display Preferences for Scribus" title="Setting the Display Preferences for Scribus" /></td></tr></table-->
 
-<p>Au&szlig;erdem k&ouml;nnen Sie auf dieser Seite die Transparenz-Features von PDF 1.4 (ab Acrobat 5.0) aktivieren, die standardm&auml;&szlig;ig abgeschaltet sind. Weitere Informationen zu PDF finden Sie unter <a href="pdfexport1.html">PDF-Export-Optionen</a> und <a href="pdfx3.html">PDF/X-3 und Scribus</a>. Mit &quot;Anzeigegr&ouml;&szlig;e anpassen&quot; k&ouml;nnen Sie die Anzeige so einstellen, da&szlig; 1 Inch auf dem Bildschirm auch tats&auml;chlich 1 Inch entspricht. Legen Sie dazu einfach ein normales Lineal am Bildschirm an, und justieren Sie den Schieberegler, bis das Ma&szlig; &uuml;bereinstimmt.</p>
+<p>Mit &quot;Gr&ouml;&szlig;e des Displays anpassen&quot; k&ouml;nnen Sie die Anzeige so einstellen, da&szlig; 1 Inch auf dem Bildschirm auch tats&auml;chlich 1 Inch entspricht. Legen Sie dazu einfach ein normales Lineal am Bildschirm an, und justieren Sie den Schieberegler, bis das Ma&szlig; &uuml;bereinstimmt.</p>
 
 <table width="100%"><tr><td align="center"><img src="../en/images/gsadv2.png" alt="External Tools Settings" title="External Tools Settings" /></td></tr></table>
 
-<h3>Panel-Seite &quot;Externe Programme&quot;</h3>
-<p>Hier k&ouml;nnen Sie angeben (oder &auml;ndern), wo sich Ihr Ghostscript-Interpreter und Ihr bevorzugtes Bildbearbeitungsprogramm befinden. Das obige Beispiel zeigt Ghostscript 8.14 parallel zu einer &auml;lteren Version in <code>/usr/local/bin/</code> installiert, um den Import von PDF, PS und EPS zu verbessern und eine schnellere Druckvorschau zu erreichen. Lesen Sie dazu auch die Tipps unter <a href="toolbox7.html" title="Advanced Setup of Ghostscript">Erweiterte Ghostscript-Einstellungen</a>. Und noch etwas gibt es zu beachten: Wenn Sie GIMP als Bildbearbeitungsprogramm benutzen, <strong>m&uuml;ssen Sie GIMP vollst&auml;ndig schlie&szlig;en, bevor Scribus wieder die Kontrolle zur&uuml;ck erh&auml;lt.</strong> Dies l&auml;&szlig;t sich umgehen, indem <strong>gimp-remote</strong> benutzt wird. Dadurch wird entweder eine neue Instanz von Gimp gestartet, oder es wird die bereits laufende Programminstanz verwendet. </p>
-<p>Sie k&ouml;nnen auch andere Bildbearbeitungsprogramme einsetzen, wie etwa CinePaint, Krita - und sogar Photoshop mittels Wine. Unter CrossOver Office w&uuml;rden Sie ungef&auml;hr so etwas (mit Hochkommata) in die Dialogzeile eingeben:
-
-<pre>&quot;/opt/cxoffice/bin/wine&quot; --workdir &quot;C://Adobe&quot; --check --cx-app &quot;C:////Adobe////Photoshp.exe&quot;</pre>
- Die genauen Einstellungen k&ouml;nnen Sie aus der Desktop-Verkn&uuml;pfung bzw. dem Men&uuml;-Editor in KDE kopieren.</p>
+<h3>&quot;Externe Tools</h3>
+<p>Hier k&ouml;nnen Sie angeben (oder &auml;ndern), wo sich Ihr Ghostscript-Interpreter und Ihr bevorzugtes Bildbearbeitungsprogramm befinden. Lesen Sie dazu auch die Tipps unter <a href="toolbox7.html" title="Erweiterte Ghostscript-Einstellungen">Erweiterte Ghostscript-Einstellungen</a>. Und noch etwas gibt es zu beachten: Wenn Sie GIMP als Bildbearbeitungsprogramm benutzen, <strong>m&uuml;ssen Sie GIMP vollst&auml;ndig schlie&szlig;en, bevor Scribus wieder die Kontrolle zur&uuml;ck erh&auml;lt.</strong> Dies l&auml;&szlig;t sich umgehen, indem <strong>gimp-remote</strong> benutzt wird. Dadurch wird entweder eine neue Instanz von Gimp gestartet, oder es wird die bereits laufende Programminstanz verwendet. </p>
+<p>Sie k&ouml;nnen auch andere Bildbearbeitungsprogramme einsetzen, wie etwa CinePaint, Krita - und sogar Photoshop.</p>
 </body>
 </html>

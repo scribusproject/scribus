@@ -36,7 +36,7 @@
 			<submenuitem text="Fonts Setup Win32" file="fonts-win32.html"/>
 		</submenuitem>
 		<submenuitem text="Scribus Basics" file="about2.html" >
-			<submenuitem file="docinfo.html" text="Doc. Info" />
+			<submenuitem file="docinfo.html" text="Document Information" />
 			<submenuitem text="Master Pages" file="pagetemplate1.html" />
 			<submenuitem text="Page Numbering" file="pagenumber.html" />
 			<submenuitem text="Short Words Plug-in" file="short-words.html" />
