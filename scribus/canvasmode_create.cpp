@@ -255,19 +255,37 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 		if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
 			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-			if (m_doc->appMode == modeMagnifier)
-				newY = qRound(canvasPressCoord.y() + ((canvasCurrCoord.x() - canvasPressCoord.x()) * m_view->visibleHeight()) / m_view->visibleWidth());
+			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+			if (createObjectMode == modeDrawLine)
+			{
+				if (m_doc->useRaster)
+				{
+					newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+					newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+				}
+				if (m->modifiers() & Qt::ControlModifier)
+				{
+					QRectF bounds(QPoint(createObjectPos.x(), createObjectPos.y()), QPoint(newX, newY));
+					double newRot = xy2Deg(bounds.width(), bounds.height());
+					if (newRot < 0.0)
+						newRot += 360;
+					newRot = constrainAngle(newRot, m_doc->toolSettings.constrain);
+					double len = qMax(0.01, distance(bounds.width(), bounds.height()));
+					bounds.setSize(len * QSizeF(cosd(newRot), sind(newRot)));
+					newX = bounds.right();
+					newY = bounds.bottom();
+				}
+			}
 			else
-				newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-
-			FPoint np2 = m_doc->ApplyGridF(FPoint(newX, newY));
-			double nx = np2.x();
-			double ny = np2.y();
-			m_doc->ApplyGuides(&nx, &ny);
-			newX = qRound(nx);
-			newY = qRound(ny);
+			{
+				FPoint np2 = m_doc->ApplyGridF(FPoint(newX, newY));
+				double nx = np2.x();
+				double ny = np2.y();
+				m_doc->ApplyGuides(&nx, &ny);
+				newX = qRound(nx);
+				newY = qRound(ny);
+			}
 			canvasCurrCoord.setXY(newX, newY);
-			QPoint startP = m_canvas->canvasToGlobal(canvasPressCoord);
 			m_view->HaveSelRect = true;
 
 			double wSize = canvasCurrCoord.x() - createObjectPos.x();
