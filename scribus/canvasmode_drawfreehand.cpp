@@ -324,7 +324,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 		if (RecordP.size() > 1)
 		{
 			UndoTransaction createTransaction(UndoManager::instance()->beginTransaction());
-			uint z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenLine, true);
+			uint z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->toolSettings.dWidthLine, CommonStrings::None, m_doc->toolSettings.dPenLine, true);
 			currItem = m_doc->Items->at(z);
 			currItem->PoLine.resize(0);
 			if (m->modifiers() & Qt::ControlModifier)
