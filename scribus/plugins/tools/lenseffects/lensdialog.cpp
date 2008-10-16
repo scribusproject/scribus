@@ -253,14 +253,9 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 
 	PageItem *currItem;
 	double gx, gy, gh, gw;
+	doc->m_Selection->setGroupRect();
 	doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 	uint selectedItemCount = doc->m_Selection->count();
-	if (selectedItemCount == 1)
-	{
-		currItem = doc->m_Selection->itemAt(0);
-		gx = currItem->xPos();
-		gy = currItem->yPos();
-	}
 	QStack<PageItem*> groupStack;
 	QStack<QGraphicsPathItem*> groupStack2;
 	QStack<PageItem*> groupStack3;
