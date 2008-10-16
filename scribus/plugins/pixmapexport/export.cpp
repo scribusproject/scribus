@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 #include "export.h"
 #include "dialog.h"
-//#include "export.moc"
 #include <QPixmap>
 #include <QString>
 #include <QDir>

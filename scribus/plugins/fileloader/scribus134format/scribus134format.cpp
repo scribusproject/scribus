@@ -68,6 +68,15 @@ const ScActionPlugin::AboutData* Scribus134Format::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	Q_CHECK_PTR(about);
+	about->authors = QString::fromUtf8(
+			"Franz Schmid <franz@scribus.info>, "
+			"The Scribus Team");
+	about->shortDescription = tr("Scribus 1.3.4+ File Format Support");
+	about->description = tr("Allows Scribus to read Scribus 1.3.4 and higher formatted files.");
+	// about->version
+	// about->releaseDate
+	// about->copyright
+	about->license = "GPL";
 	return about;
 }
 
