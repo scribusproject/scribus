@@ -1850,8 +1850,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.toolSettings.dTabWidth = dc.attribute("TabWidth", "36.0").toDouble();
 			appPrefs.toolSettings.dLineArt = dc.attribute("STIL").toInt();
 			appPrefs.toolSettings.dLstyleLine = dc.attribute("STILLINE").toInt();
-			appPrefs.toolSettings.dWidth = dc.attribute("WIDTH").toDouble();
-			appPrefs.toolSettings.dWidthLine = dc.attribute("WIDTHLINE").toDouble();
+			appPrefs.toolSettings.dWidth = dc.attribute("WIDTH", "0.0").toDouble();
+			appPrefs.toolSettings.dWidthLine = dc.attribute("WIDTHLINE", "1.0").toDouble();
 			appPrefs.toolSettings.dShade2 = dc.attribute("PENSHADE").toInt();
 			appPrefs.toolSettings.dShadeLine = dc.attribute("LINESHADE").toInt();
 			appPrefs.toolSettings.dShade = dc.attribute("BRUSHSHADE").toInt();

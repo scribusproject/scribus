@@ -2068,7 +2068,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			if (FirstPoly)
 			{
 				selectPage(m);
-				z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenLine, !m_canvas->m_viewMode.m_MouseButtonPressed);
+				z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidthLine, CommonStrings::None, m_doc->toolSettings.dPenLine, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				currItem = m_doc->Items->at(z);
 				m_doc->m_Selection->clear();
 				m_doc->m_Selection->addItem(currItem);
