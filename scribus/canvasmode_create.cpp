@@ -548,7 +548,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 
 	double wSize = canvasCurrCoord.x() - createObjectPos.x();
 	double hSize = canvasCurrCoord.y() - createObjectPos.y();
-	bool   skipOneClick = ((modifiers == Qt::ShiftModifier);
+	bool   skipOneClick = (modifiers == Qt::ShiftModifier);
 	if ((createObjectMode == modeDrawLine) || (createObjectMode == modeDrawTable) ||
 		(createObjectMode == modeInsertPDFButton) || (createObjectMode == modeInsertPDFTextfield) ||
 		(createObjectMode == modeInsertPDFTextfield) || (createObjectMode == modeInsertPDFCheckbox) ||
