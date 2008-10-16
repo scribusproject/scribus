@@ -48,6 +48,9 @@ PathDialog::PathDialog(QWidget* parent, int unitIndex, bool group) : QDialog(par
 		typeCombo->removeItem(2);
 		resize(minimumSizeHint());
 	}
+	typeCombo->setCurrentIndex(0);
+	label_3->setEnabled(false);
+	gapSpin->setEnabled(false);
 	connect(offsetXSpin, SIGNAL(valueChanged(double)), this, SLOT(newOffset(double)));
 	connect(offsetYSpin, SIGNAL(valueChanged(double)), this, SLOT(newOffsetY(double)));
 	connect(gapSpin, SIGNAL(valueChanged(double)), this, SLOT(newGap(double)));
@@ -86,9 +89,14 @@ void PathDialog::newGap(double val)
 
 void PathDialog::newType(int val)
 {
+	bool setter = true;
 	effectType = val;
 	if (previewCheck->isChecked())
 		emit updateValues(effectType, offset, offsetY, gap, rotate);
+	if (effectType < 2)
+		setter = false;
+	label_3->setEnabled(setter);
+	gapSpin->setEnabled(setter);
 }
 
 void PathDialog::togglePreview()
