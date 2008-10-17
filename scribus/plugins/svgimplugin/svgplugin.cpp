@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QRegExp>
 #include <cmath>
-
+#include <QDebug>
 #include "color.h"
 #include "commonstrings.h"
 #include "customfdialog.h"
@@ -1304,7 +1304,10 @@ QList<PageItem*> SVGPlug::parseText(const QDomElement &e)
 	setupNode(e);
 	QDomNode c = e.firstChild();
 	FPoint currentPos = parseTextPosition(e);
-	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
+	QList<PageItem*> el = parseTextNode(c, currentPos);
+	for (int ec = 0; ec < el.count(); ++ec)
+		GElements.append(el.at(ec));
+/*	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		if (n.isElement() && (n.toElement().tagName() == "tspan"))
 		{
@@ -1325,7 +1328,7 @@ QList<PageItem*> SVGPlug::parseText(const QDomElement &e)
 			for (int ec = 0; ec < el.count(); ++ec)
 				GElements.append(el.at(ec));
 		}
-	}
+	} */
 	delete( m_gc.pop() );
 	return GElements;
 }
@@ -1337,8 +1340,97 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomNode& e, FPoint& currentPos)
 	double BaseX  = m_Doc->currentPage()->xOffset();
 	double BaseY  = m_Doc->currentPage()->yOffset();
 	double StartX = currentPos.x(), StartY = currentPos.y();
-	QString textString;
+	double dx = 0;
+	double dy = 0;
+	QString textString = "";
+	if ( e.isElement() )
+	{
+		QDomElement elem = e.toElement();
+		textString = elem.text().simplified();
+	}
+	SvgStyle *gc   = m_gc.top();
+	QFont textFont = getFontFromStyle(*gc);
+	QFontMetrics fm(textFont);
+	double width2   = fm.width(textString);
+	QList<QDomNode> test;
+	test.append(e);
+	getNodes(e, test);
+	for (int a = 0; a < test.count(); a++)
+	{
+		QDomNode n = test.at(a);
+		if (n.nodeName() == "#text")
+		{
+			textString = n.nodeValue().simplified();
+			if ( textString.isEmpty() )
+				return GElements;
+			QDomElement elem = n.toElement();
+			if( (!elem.attribute("x").isEmpty()) && (!elem.attribute("y").isEmpty()) )
+			{
+				currentPos = parseTextPosition(elem);
+			}
+			StartX = currentPos.x();
+			StartY = currentPos.y();
+			StartX += dx;
+			StartY += dy;
+			SvgStyle *gc   = m_gc.top();
+			QFont textFont = getFontFromStyle(*gc);
+			QFontMetrics fm(textFont);
+			double width   = fm.width(textString);
 
+			if( gc->textAnchor == "middle" )
+				StartX -= width2 / 2.0;
+			else if( gc->textAnchor == "end")
+				StartX -= width2;
+
+			FPointArray textPath;
+			QString textFillColor   = gc->FillCol;
+			QString textStrokeColor = gc->StrokeCol;
+			QPainterPath painterPath;
+			painterPath.addText( StartX, StartY, textFont, textString );
+			textPath.fromQPainterPath(painterPath);
+			if (textPath.size() > 0)
+			{
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, textFillColor, textStrokeColor, true);
+				PageItem* ite = m_Doc->Items->at(z);
+				if( !nodeId.isEmpty() )
+				{
+					ite->setItemName(" "+nodeId);
+					ite->AutoName = false;
+				}
+				ite->PoLine = textPath;
+				finishNode(e, ite);
+				GElements.append(ite);
+			}
+			currentPos.setX( currentPos.x() + width + dx);
+			currentPos.setY( currentPos.y() + dy);
+			dy = 0;
+			dx = 0;
+		}
+		if (n.nodeName() == "tspan")
+		{
+			QDomElement elem = n.toElement();
+			nodeId     = elem.attribute("id", "");
+			if (!elem.attribute("dx").isEmpty())
+				dx = parseUnit( elem.attribute( "dx" ) );
+			if (!elem.attribute("dy").isEmpty())
+				dy = parseUnit( elem.attribute( "dy" ) );
+			SvgStyle *gc = m_gc.top();
+			parseStyle(gc, elem);
+		}
+	}
+	return GElements;
+}
+/*
+QList<PageItem*> SVGPlug::parseTextNode(const QDomNode& e, FPoint& currentPos)
+{
+	QList<PageItem*> GElements;
+	QString nodeId;
+	double BaseX  = m_Doc->currentPage()->xOffset();
+	double BaseY  = m_Doc->currentPage()->yOffset();
+	double StartX = currentPos.x(), StartY = currentPos.y();
+	double dx = 0;
+	double dy = 0;
+	QString textString;
 	if ( e.isElement() )
 	{
 		QDomElement elem = e.toElement();
@@ -1378,7 +1470,6 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomNode& e, FPoint& currentPos)
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
-//		double  lineWidth = 0.0;
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, textFillColor, textStrokeColor, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		if( !nodeId.isEmpty() )
@@ -1392,6 +1483,20 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomNode& e, FPoint& currentPos)
 	}
 	currentPos.setX( currentPos.x() + width );
 	return GElements;
+}
+*/
+void SVGPlug::getNodes(const QDomNode &e, QList<QDomNode> &l)
+{
+	QDomNode n = e.firstChild();
+	while (!n.isNull())
+	{
+		l.append(n);
+		if (n.hasChildNodes())
+			getNodes(n, l);
+//		else
+//			l.append(n);
+		n = n.nextSibling();
+	}
 }
 
 QList<PageItem*> SVGPlug::parseSwitch(const QDomElement &e)
