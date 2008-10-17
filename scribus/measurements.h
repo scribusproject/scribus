@@ -19,9 +19,14 @@ public:
 	Measurements( QWidget* parent );
 	~Measurements() {};
 
+	virtual void changeEvent(QEvent *e);
+
+
 public slots:
 	void setValues(double x1, double y1, double x2, double y2, double angle, double length);
 	void unitChanged();
+	/** @brief Sets GUI strings on language change */
+	void languageChange();
 	
 private:
 	double mX1;

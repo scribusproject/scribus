@@ -88,3 +88,18 @@ void Measurements::unitChanged()
 	uInd = unitSwitchLength->currentIndex();
 	lengthData->setText(tmp.setNum(qRound(mLength*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
 }
+
+void Measurements::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+	else
+		QWidget::changeEvent(e);
+}
+
+void Measurements::languageChange()
+{
+	retranslateUi(this);
+}
