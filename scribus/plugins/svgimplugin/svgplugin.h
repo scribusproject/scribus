@@ -254,7 +254,7 @@ public:
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
 	QStringList importedColors;
-	void getNodes(const QDomNode &e, QList<QDomNode> &l);
+//	void getNodes(const QDomNode &e, QList<QDomNode> &l);
 };
 
 #endif

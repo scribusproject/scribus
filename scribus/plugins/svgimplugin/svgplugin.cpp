@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QRegExp>
 #include <cmath>
-#include <QDebug>
+
 #include "color.h"
 #include "commonstrings.h"
 #include "customfdialog.h"
@@ -1304,10 +1304,10 @@ QList<PageItem*> SVGPlug::parseText(const QDomElement &e)
 	setupNode(e);
 	QDomNode c = e.firstChild();
 	FPoint currentPos = parseTextPosition(e);
-	QList<PageItem*> el = parseTextNode(c, currentPos);
-	for (int ec = 0; ec < el.count(); ++ec)
-		GElements.append(el.at(ec));
-/*	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
+//	QList<PageItem*> el = parseTextNode(c, currentPos);
+//	for (int ec = 0; ec < el.count(); ++ec)
+//		GElements.append(el.at(ec));
+	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		if (n.isElement() && (n.toElement().tagName() == "tspan"))
 		{
@@ -1328,11 +1328,11 @@ QList<PageItem*> SVGPlug::parseText(const QDomElement &e)
 			for (int ec = 0; ec < el.count(); ++ec)
 				GElements.append(el.at(ec));
 		}
-	} */
+	}
 	delete( m_gc.pop() );
 	return GElements;
 }
-
+/*
 QList<PageItem*> SVGPlug::parseTextNode(const QDomNode& e, FPoint& currentPos)
 {
 	QList<PageItem*> GElements;
@@ -1420,7 +1420,7 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomNode& e, FPoint& currentPos)
 	}
 	return GElements;
 }
-/*
+*/
 QList<PageItem*> SVGPlug::parseTextNode(const QDomNode& e, FPoint& currentPos)
 {
 	QList<PageItem*> GElements;
@@ -1428,8 +1428,6 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomNode& e, FPoint& currentPos)
 	double BaseX  = m_Doc->currentPage()->xOffset();
 	double BaseY  = m_Doc->currentPage()->yOffset();
 	double StartX = currentPos.x(), StartY = currentPos.y();
-	double dx = 0;
-	double dy = 0;
 	QString textString;
 	if ( e.isElement() )
 	{
@@ -1484,7 +1482,7 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomNode& e, FPoint& currentPos)
 	currentPos.setX( currentPos.x() + width );
 	return GElements;
 }
-*/
+/*
 void SVGPlug::getNodes(const QDomNode &e, QList<QDomNode> &l)
 {
 	QDomNode n = e.firstChild();
@@ -1498,7 +1496,7 @@ void SVGPlug::getNodes(const QDomNode &e, QList<QDomNode> &l)
 		n = n.nextSibling();
 	}
 }
-
+*/
 QList<PageItem*> SVGPlug::parseSwitch(const QDomElement &e)
 {
 	QString href;
