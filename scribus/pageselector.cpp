@@ -22,38 +22,39 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util.h"
 
-class PageValidator : public QValidator
-{
-public:
-	PageValidator(int min, int max, QObject * parent);
-	void fixup(QString & input) const;
-	State validate(QString & input, int & pos) const;
-private:
-	QRegExp rx;
-	QRegExp rx2;
-	PageSelector * pageSelector;
-};
-
-PageValidator::PageValidator(int /* min */, int /* max */, QObject * parent) : QValidator
-(parent), rx("^([0-9]+).*"), rx2("^[0-9]+$") 
-{
-	pageSelector = static_cast<PageSelector*>(parent);
-}
-
-QValidator::State PageValidator::validate(QString & input, int & /* pos */) const
-{
-	if (rx2.indexIn(input) == 0 && pageSelector->PageCombo->itemText(input.toInt()-1) == input)
-		return Acceptable;
-	else
-		return Intermediate;
-}
-
-void PageValidator::fixup(QString & input) const
-{
-	if (rx.indexIn(input) == 0)
-		input = const_cast<QRegExp &>(rx).cap(1);
-}
-	
+// QIntValidator does it better for us... PV
+// class PageValidator : public QValidator
+// {
+// public:
+// 	PageValidator(int min, int max, QObject * parent);
+// 	void fixup(QString & input) const;
+// 	State validate(QString & input, int & pos) const;
+// private:
+// 	QRegExp rx;
+// 	QRegExp rx2;
+// 	PageSelector * pageSelector;
+// };
+// 
+// PageValidator::PageValidator(int /* min */, int /* max */, QObject * parent) : QValidator
+// (parent), rx("^([0-9]+).*"), rx2("^[0-9]+$") 
+// {
+// 	pageSelector = static_cast<PageSelector*>(parent);
+// }
+// 
+// QValidator::State PageValidator::validate(QString & input, int & /* pos */) const
+// {
+// 	if (rx2.indexIn(input) == 0 && pageSelector->PageCombo->itemText(input.toInt()-1) == input)
+// 		return Acceptable;
+// 	else
+// 		return Intermediate;
+// }
+// 
+// void PageValidator::fixup(QString & input) const
+// {
+// 	if (rx.indexIn(input) == 0)
+// 		input = const_cast<QRegExp &>(rx).cap(1);
+// }
+// 	
 
 PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 {
@@ -99,7 +100,8 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	Back->setAutoRepeat(true);
 	PageSelectorLayout->addWidget( Back );
 
-	v = new PageValidator(1, LastPG, this);
+// 	v = new PageValidator(1, LastPG, this);
+	m_validator = new QIntValidator(1, LastPG, this);
 	PageCombo = new ScComboBox( this );
 	PageCombo->setEditable(true);
 	PageCombo->setDuplicatesEnabled( false );
@@ -109,7 +111,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	{
 		PageCombo->addItem(tmp.setNum(a+1));
 	}
-	PageCombo->setValidator(v);
+	PageCombo->setValidator(m_validator);
 	PageCombo->setMinimumSize(fontMetrics().width( "999 of 999" )+20, 20);
 	PageCombo->setFocusPolicy(Qt::ClickFocus);
 	PageSelectorLayout->addWidget( PageCombo );
@@ -204,6 +206,7 @@ void PageSelector::setMaximum(int a)
 	LastPG = a;
 	QString tmp;
 //	v->setTop(LastPG);
+	m_validator->setRange(1, LastPG);
 	for (int b = 0; b < LastPG; ++b)
 	{
 		PageCombo->addItem(tmp.setNum(b+1));

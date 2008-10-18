@@ -14,7 +14,7 @@ class QHBoxLayout;
 class QLineEdit;
 class QPushButton;
 class QToolButton;
-class QValidator;
+class QIntValidator;
 
 #include "scribusapi.h"
 #include "styleoptions.h"
@@ -47,7 +47,7 @@ public:
 #endif
 	
 	ScComboBox* PageCombo;
-	QValidator *v;
+	QIntValidator *m_validator;
 	int LastPG;
 	int APage;
 
