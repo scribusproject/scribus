@@ -8931,8 +8931,8 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	double viewScale=m_View->scale();
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++yg)
 	{
-		if (((*it)+currentPage()->yOffset()< (yin+guidesSettings.guideRad / viewScale)) && ((*it)+currentPage()->yOffset()> (yin-guidesSettings.guideRad / viewScale)))
-			tmpGuidesSel.insert(fabs(((*it)+currentPage()->yOffset()) - yin), yg);
+		if (fabs((*it) + currentPage()->yOffset() - yin) < (guidesSettings.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs((*it) + currentPage()->yOffset() - yin), yg);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
@@ -8943,8 +8943,8 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	tmpGuides = currentPage()->guides.verticals(GuideManagerCore::Standard);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++xg)
 	{
-		if (((*it)+currentPage()->xOffset()< (xin+guidesSettings.guideRad / viewScale)) && ((*it)+currentPage()->xOffset()> (xin-guidesSettings.guideRad / viewScale)))
-			tmpGuidesSel.insert(fabs(((*it)+currentPage()->xOffset()) - xin), xg);
+		if (fabs((*it) + currentPage()->xOffset() - xin) < (guidesSettings.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs((*it) + currentPage()->xOffset() - xin), xg);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
@@ -8957,8 +8957,8 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	tmpGuides = currentPage()->guides.horizontals(GuideManagerCore::Auto);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++yg)
 	{
-		if (((*it)+currentPage()->yOffset()< (yin+guidesSettings.guideRad / viewScale)) && ((*it)+currentPage()->yOffset()> (yin-guidesSettings.guideRad / viewScale)))
-			tmpGuidesSel.insert(fabs(((*it)+currentPage()->yOffset()) - yin), yg);
+		if (fabs((*it)+currentPage()->yOffset() - yin) < (guidesSettings.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs((*it) + currentPage()->yOffset() - yin), yg);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
@@ -8969,8 +8969,8 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	tmpGuides = currentPage()->guides.verticals(GuideManagerCore::Auto);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++xg)
 	{
-		if (((*it)+currentPage()->xOffset()< (xin+guidesSettings.guideRad / viewScale)) && ((*it)+currentPage()->xOffset()> (xin-guidesSettings.guideRad / viewScale)))
-			tmpGuidesSel.insert(fabs(((*it)+currentPage()->xOffset()) - xin), xg);
+		if (fabs((*it) + currentPage()->xOffset() - xin) < (guidesSettings.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs((*it) + currentPage()->xOffset() - xin), xg);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
@@ -9060,22 +9060,22 @@ bool ScribusDoc::ApplyGuides(double *x, double *y)
 			ret = true;
 		}
 		double invViewScale=1/m_View->scale();
-		if ((page->Margins.Left+page->xOffset() < (*x+guidesSettings.guideRad * invViewScale)) && (page->Margins.Left+page->xOffset() > (*x-guidesSettings.guideRad * invViewScale)))
+		if (fabs(page->Margins.Left + page->xOffset() - *x) < (guidesSettings.guideRad * invViewScale))
 		{
 			*x = page->Margins.Left+page->xOffset();
 			ret = true;
 		}
-		if (((page->width() - page->Margins.Right)+page->xOffset() < (*x+guidesSettings.guideRad * invViewScale)) && ((page->width() - page->Margins.Right)+page->xOffset() > (*x-guidesSettings.guideRad * invViewScale)))
+		if (fabs((page->width() - page->Margins.Right) + page->xOffset() - *x) < (guidesSettings.guideRad * invViewScale))
 		{
 			*x = page->width() - page->Margins.Right+page->xOffset();
 			ret = true;
 		}
-		if ((page->Margins.Top+page->yOffset() < (*y+guidesSettings.guideRad * invViewScale)) && (page->Margins.Top+page->yOffset() > (*y-guidesSettings.guideRad * invViewScale)))
+		if (fabs(page->Margins.Top + page->yOffset() - *y) < (guidesSettings.guideRad * invViewScale))
 		{
 			*y = page->Margins.Top+page->yOffset();
 			ret = true;
 		}
-		if (((page->height() - page->Margins.Bottom)+page->yOffset() < (*y+guidesSettings.guideRad * invViewScale)) && ((page->height() - page->Margins.Bottom)+page->yOffset() > (*y-guidesSettings.guideRad * invViewScale)))
+		if (fabs((page->height() - page->Margins.Bottom)+page->yOffset() - *y) < (guidesSettings.guideRad * invViewScale))
 		{
 			*y = page->height() - page->Margins.Bottom+page->yOffset();
 			ret = true;
