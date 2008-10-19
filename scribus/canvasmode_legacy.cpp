@@ -1050,10 +1050,10 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 							{
 								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
 							}
-							m_doc->m_Selection->setGroupRect();
 							double gx, gy, gh, gw;
-							m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 							m_doc->moveGroup(dX, dY, false);
+							m_doc->m_Selection->setGroupRect();
+							m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 							if (m_doc->SnapGuides)
 							{
 								double nx = gx;
@@ -1096,8 +1096,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					{
 						m_view->startGroupTransaction(Um::Move, "", Um::IMove);
 					}
-					m_doc->m_Selection->setGroupRect();
 					double gx, gy, gh, gw;
+					m_doc->m_Selection->setGroupRect();
 					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					int dX=qRound(newX-Mxp), dY=qRound(newY-Myp);
 					erf = true;
@@ -1113,6 +1113,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 						dY+=dragConstrainInitPtY-qRound(gy);
 					}
 					m_doc->moveGroup(dX, dY, false);
+					m_doc->m_Selection->setGroupRect();
+					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					if (m_doc->SnapGuides)
 					{
 						double nx = gx;
