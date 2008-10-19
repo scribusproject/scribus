@@ -283,6 +283,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	oldRot = Rot = 0;
 	fillColorVal = fill;
 	lineColorVal = m_ItemType == PageItem::TextFrame ? fill : outline;
+	gXpos = gYpos = 0;
+	gWidth = gHeight = 0;
 	GrType = 0;
 	GrStartX = 0;
 	GrStartY = 0;
