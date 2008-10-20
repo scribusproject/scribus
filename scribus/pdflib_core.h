@@ -95,9 +95,9 @@ private:
 
 	bool       EncodeArrayToStream(const QByteArray& in, int ObjNum);
 
-	int     WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray);
-	int     WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, bool cmyk, bool gray, bool sameFile);
-	int     WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray);
+	int     WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray, bool precal);
+	int     WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, bool cmyk, bool gray, bool sameFile, bool precal);
+	int     WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray, bool precal);
 
 	void    CalcOwnerKey(const QString & Owner, const QString & User);
 	void    CalcUserKey(const QString & User, int Permission);
@@ -212,6 +212,7 @@ private:
 	struct ICCD
 	{
 		int ResNum;
+		int components;
 		QString ResName;
 		QString ICCArray;
 	};

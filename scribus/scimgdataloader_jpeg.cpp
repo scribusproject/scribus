@@ -83,6 +83,8 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 				m_profileComponents = 3;
 			if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
 				m_profileComponents = 4;
+			if (static_cast<int>(cmsGetColorSpace(prof)) == icSigGrayData)
+				m_profileComponents = 1;
 			m_embeddedProfile = QByteArray((const char*) EmbedBuffer, EmbedLen);
 		}
 		cmsCloseProfile(prof);

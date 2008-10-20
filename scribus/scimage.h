@@ -81,7 +81,7 @@ public:
 	void convertToGray(void);
 
 	bool writeRGBDataToFilter(ScStreamFilter* filter);
-	bool writeGrayDataToFilter(ScStreamFilter* filter);
+	bool writeGrayDataToFilter(ScStreamFilter* filter, bool precal);
 	bool writeCMYKDataToFilter(ScStreamFilter* filter);
 
 	bool writePSImageToFilter(ScStreamFilter* filter, int pl);

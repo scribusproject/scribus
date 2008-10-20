@@ -56,6 +56,8 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn, int /*page*/)
 					m_profileComponents = 3;
 				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigCmykData)
 					m_profileComponents = 4;
+				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigGrayData)
+					m_profileComponents = 1;
 				m_embeddedProfile = QByteArray((const char*) EmbedBuffer, EmbedLen);
 			}
 			cmsCloseProfile(tiffProf);
@@ -700,6 +702,11 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 						isCMYK = true;
 						m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 					}
+					else if (samplesperpixel == 1)
+					{
+						m_imageInfoRecord.colorspace = ColorSpaceGray;
+						isCMYK = false;
+					}
 					else
 						m_imageInfoRecord.colorspace = ColorSpaceRGB;
 					if (bitspersample == 1)
@@ -898,7 +905,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 				if (!failedPS)
 				{
 					int chans = 4;
-					bilevel = false;
+//					bilevel = false;
 					PSDHeader fakeHeader;
 					fakeHeader.width = widtht;
 					fakeHeader.height = heightt;
@@ -908,6 +915,12 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 					{
 						isCMYK = true;
 						fakeHeader.color_mode = CM_CMYK;
+						chans = 5;
+					}
+					else if (samplesperpixel == 1)
+					{
+						fakeHeader.color_mode = CM_GRAYSCALE;
+						isCMYK = false;
 						chans = 5;
 					}
 					else
@@ -1043,7 +1056,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 		}
 		if (isCMYK)
 			m_imageInfoRecord.colorspace = ColorSpaceCMYK;
-		else if (bilevel)
+		else if (samplesperpixel == 1)
 			m_imageInfoRecord.colorspace = ColorSpaceGray;
 		else
 			m_imageInfoRecord.colorspace = ColorSpaceRGB;
@@ -1103,7 +1116,14 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 				count--;
 				if ((header.color_mode == CM_CMYK) && (component < 4))
 					cbyte = 255 - cbyte;
-				ptr[component] = cbyte;
+				if ((header.color_mode == CM_GRAYSCALE) && (component != 3))
+				{
+					ptr[0] = cbyte;
+					ptr[1] = cbyte;
+					ptr[2] = cbyte;
+				}
+				else
+					ptr[component] = cbyte;
 				if (count == 0)
 					break;
 				ptr += tmpImg.channels();
@@ -1141,7 +1161,16 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 						{
 							if ((header.color_mode == CM_CMYK) && (component < 4))
 								cbyte = 255 - cbyte;
-							*ptr = cbyte;
+							if ((header.color_mode == CM_GRAYSCALE) && (component != 3))
+							{
+								ptr -= component;
+								ptr[0] = cbyte;
+								ptr[1] = cbyte;
+								ptr[2] = cbyte;
+								ptr += component;
+							}
+							else
+								*ptr = cbyte;
 						}
 						ptr += tmpImg.channels();
 						len--;
@@ -1161,7 +1190,18 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 					while( len != 0 )
 					{
 						if (ptr < ptr2)
-							*ptr = val;
+						{
+							if ((header.color_mode == CM_GRAYSCALE) && (component != 3))
+							{
+								ptr -= component;
+								ptr[0] = val;
+								ptr[1] = val;
+								ptr[2] = val;
+								ptr += component;
+							}
+							else
+								*ptr = val;
+						}
 						ptr += tmpImg.channels();
 						len--;
 					}
@@ -1241,7 +1281,12 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 				if (channel_num == 5)
 					components[channel] = channel_num-2;
 				else
-					components[channel] = channel_num-1;
+				{
+					if (header.color_mode == CM_GRAYSCALE)
+						components[channel] = 3;
+					else
+						components[channel] = channel_num-1;
+				}
 			}
 			hasAlpha = true;
 			break;

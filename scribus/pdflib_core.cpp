@@ -446,7 +446,7 @@ bool PDFLibCore::EncodeArrayToStream(const QByteArray& in, int ObjNum)
 	return (outStream.status() == QDataStream::Ok);
 }
 
-int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray)
+int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray, bool precal)
 {
 	bool succeed = false;
 	int  bytesWritten = 0;
@@ -457,7 +457,7 @@ int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool g
 		if (rc4Encode.openFilter())
 		{
 			if (gray)
-				succeed = image.writeGrayDataToFilter(&rc4Encode);
+				succeed = image.writeGrayDataToFilter(&rc4Encode, precal);
 			else if (cmyk)
 				succeed = image.writeCMYKDataToFilter(&rc4Encode);
 			else
@@ -472,7 +472,7 @@ int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool g
 		if (nullEncode.openFilter())
 		{
 			if (gray)
-				succeed = image.writeGrayDataToFilter(&nullEncode);
+				succeed = image.writeGrayDataToFilter(&nullEncode, precal);
 			else if (cmyk)
 				succeed = image.writeCMYKDataToFilter(&nullEncode);
 			else
@@ -485,7 +485,7 @@ int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool g
 }
 
 int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, bool cmyk, 
-										bool gray, bool sameFile)
+										bool gray, bool sameFile, bool precal)
 {
 	bool succeed = true;
 	int  bytesWritten = 0;
@@ -497,7 +497,7 @@ int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int Ob
 	else
 	{
 		tmpFile  = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
-		if (gray)
+		if ((gray) && (!precal))
 			image.convertToGray();
 		if (image.Convert2JPG(tmpFile, Options.Quality, cmyk, gray))
 			jpgFileName = tmpFile;
@@ -527,7 +527,7 @@ int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int Ob
 	return (succeed ? bytesWritten : 0);
 }
 
-int PDFLibCore::WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray)
+int PDFLibCore::WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray, bool precal)
 {
 	bool succeed = false;
 	int  bytesWritten = 0;
@@ -539,7 +539,7 @@ int PDFLibCore::WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, b
 		if (flateEncode.openFilter())
 		{
 			if (gray)
-				succeed = image.writeGrayDataToFilter(&flateEncode);
+				succeed = image.writeGrayDataToFilter(&flateEncode, precal);
 			else if (cmyk)
 				succeed = image.writeCMYKDataToFilter(&flateEncode);
 			else
@@ -554,7 +554,7 @@ int PDFLibCore::WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, b
 		if (flateEncode.openFilter())
 		{
 			if (gray)
-				succeed = image.writeGrayDataToFilter(&flateEncode);
+				succeed = image.writeGrayDataToFilter(&flateEncode, precal);
 			else if (cmyk)
 				succeed = image.writeCMYKDataToFilter(&flateEncode);
 			else
@@ -1629,6 +1629,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		dataD.ResName = ResNam+QString::number(ResCount);
 		dataD.ICCArray = "[ /ICCBased "+QString::number(iccProfileObject)+" 0 R ]";
 		dataD.ResNum = iccColorspace;
+		dataD.components = Options.SComp;
 		ICCProfiles[Options.SolidProf] = dataD;
 		PutDoc("[ /ICCBased "+QString::number(iccProfileObject)+" 0 R ]\n");
 		PutDoc("endobj\n");
@@ -6590,6 +6591,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	bool   realCMYK = false;
 	bool   bitmapFromGS = false;
 	bool   isEmbeddedPDF = false;
+	bool   hasGrayProfile = false;
+	QString profInUse = Profil;
 	int    afl = Options.Resolution;
 	double ax, ay, a2, a1;
 	int    origWidth = 1;
@@ -6804,6 +6807,21 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				}
 				ImInfo.reso = 1;
 			}
+			bool hasColorEffect = false;
+			if (c->effectsInUse.count() != 0)
+			{
+				for (int a = 0; a < c->effectsInUse.count(); ++a)
+				{
+					if (c->effectsInUse.at(a).effectCode == ScImage::EF_COLORIZE)
+						hasColorEffect = true;
+					if (c->effectsInUse.at(a).effectCode == ScImage::EF_DUOTONE)
+						hasColorEffect = true;
+					if (c->effectsInUse.at(a).effectCode == ScImage::EF_TRITONE)
+						hasColorEffect = true;
+					if (c->effectsInUse.at(a).effectCode == ScImage::EF_QUADTONE)
+						hasColorEffect = true;
+				}
+			}
 			if ((doc.HasCMS) && (Options.UseProfiles2))
 			{
 				if (!ICCProfiles.contains(Profil))
@@ -6816,17 +6834,23 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					struct ICCD dataD;
 					if ((Embedded) && (!Options.EmbeddedI))
 						img3.getEmbeddedProfile(fn, &dataP, &components);
-					if (dataP.isEmpty())
+					if ((dataP.isEmpty()) || ((img.imgInfo.colorspace == ColorSpaceGray) && (hasColorEffect) && (components == 1)))
 					{
 						if (img.imgInfo.colorspace == ColorSpaceCMYK)
 						{
 							QString profilePath;
 							if (Embedded && ScCore->InputProfilesCMYK.contains(Options.ImageProf))
+							{
 								profilePath = ScCore->InputProfilesCMYK[Options.ImageProf];
+								profInUse = Options.ImageProf;
+							}
 							else if (ScCore->InputProfilesCMYK.contains(Profil))
 								profilePath = ScCore->InputProfilesCMYK[Profil];
 							else
+							{
 								profilePath = ScCore->InputProfilesCMYK[c->doc()->CMSSettings.DefaultImageCMYKProfile];
+								profInUse = c->doc()->CMSSettings.DefaultImageCMYKProfile;
+							}
 							loadRawBytes(profilePath, dataP);
 							components = 4;
 						}
@@ -6834,11 +6858,17 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 						{
 							QString profilePath;
 							if (Embedded && ScCore->InputProfiles.contains(Options.ImageProf))
+							{
 								profilePath = ScCore->InputProfiles[Options.ImageProf];
+								profInUse = Options.ImageProf;
+							}
 							else if (ScCore->InputProfiles.contains(Profil))
 								profilePath = ScCore->InputProfiles[Profil];
 							else
+							{
 								profilePath = ScCore->InputProfiles[c->doc()->CMSSettings.DefaultImageRGBProfile];
+								profInUse = c->doc()->CMSSettings.DefaultImageRGBProfile;
+							}
 							loadRawBytes(profilePath, dataP);
 							components = 3;
 						}
@@ -6863,10 +6893,60 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					dataD.ResName = ResNam+QString::number(ResCount);
 					dataD.ICCArray = "[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]";
 					dataD.ResNum = profileResource;
-					ICCProfiles[Profil] = dataD;
+					dataD.components = components;
+					ICCProfiles[profInUse] = dataD;
 					PutDoc("[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]\n");
 					PutDoc("endobj\n");
 					ResCount++;
+					if (components == 1)
+						hasGrayProfile = true;
+				}
+				else
+				{
+					if (ICCProfiles[Profil].components == 1)
+					{
+						if ((img.imgInfo.colorspace == ColorSpaceGray) && (hasColorEffect))
+						{
+							profInUse = c->doc()->CMSSettings.DefaultImageRGBProfile;
+							if (!ICCProfiles.contains(Profil))
+							{
+								int components = 3;
+								uint embeddedProfile = newObject();
+								StartObj(embeddedProfile);
+								QByteArray dataP;
+								struct ICCD dataD;
+								loadRawBytes(ScCore->InputProfiles[c->doc()->CMSSettings.DefaultImageRGBProfile], dataP);
+								components = 3;
+								PutDoc("<<\n");
+								if ((Options.CompressMethod != PDFOptions::Compression_None) && Options.Compress)
+								{
+									QByteArray compData = CompressArray(dataP);
+									if (compData.size() > 0)
+									{
+										PutDoc("/Filter /FlateDecode\n");
+										dataP = compData;
+									}
+								}
+								PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
+								PutDoc("/N "+QString::number(components)+"\n");
+								PutDoc(">>\nstream\n");
+								EncodeArrayToStream(dataP, embeddedProfile);
+								PutDoc("\nendstream\nendobj\n");
+								uint profileResource = newObject();
+								StartObj(profileResource);
+								dataD.ResName = ResNam+QString::number(ResCount);
+								dataD.ICCArray = "[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]";
+								dataD.ResNum = profileResource;
+								dataD.components = components;
+								ICCProfiles[profInUse] = dataD;
+								PutDoc("[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]\n");
+								PutDoc("endobj\n");
+								ResCount++;
+							}
+						}
+						else
+							hasGrayProfile = true;
+					}
 				}
 			}
 			QByteArray im2;
@@ -6954,7 +7034,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			PutDoc("/Height "+QString::number(img.height())+"\n");
 			if ((doc.HasCMS) && (Options.UseProfiles2))
 			{
-				PutDoc("/ColorSpace "+ICCProfiles[Profil].ICCArray+"\n");
+				PutDoc("/ColorSpace "+ICCProfiles[profInUse].ICCArray+"\n");
 				PutDoc("/Intent /");
 				int inte2 = Intent;
 				if (Options.EmbeddedI)
@@ -7060,12 +7140,14 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					PutDoc("/Mask "+QString::number(maskObj)+" 0 R\n");
 			}
 			PutDoc(">>\nstream\n");
+			if ((hasGrayProfile) && (doc.HasCMS) && (Options.UseProfiles2) && (!hasColorEffect))
+				exportToGrayscale = true;
 			if (cm == PDFOptions::Compression_JPEG)
-				bytesWritten = WriteJPEGImageToStream(img, fn, imageObj, exportToCMYK, exportToGrayscale, jpegUseOriginal);
+				bytesWritten = WriteJPEGImageToStream(img, fn, imageObj, exportToCMYK, exportToGrayscale, jpegUseOriginal, (!hasColorEffect && hasGrayProfile));
 			else if (cm == PDFOptions::Compression_ZIP)
-				bytesWritten = WriteFlateImageToStream(img, imageObj, exportToCMYK, exportToGrayscale);
+				bytesWritten = WriteFlateImageToStream(img, imageObj, exportToCMYK, exportToGrayscale, (!hasColorEffect && hasGrayProfile));
 			else
-				bytesWritten = WriteImageToStream(img, imageObj, exportToCMYK, exportToGrayscale);
+				bytesWritten = WriteImageToStream(img, imageObj, exportToCMYK, exportToGrayscale, (!hasColorEffect && hasGrayProfile));
 			PutDoc("\nendstream\nendobj\n");
 			if (bytesWritten <= 0)
 			{

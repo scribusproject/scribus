@@ -1363,7 +1363,7 @@ bool ScImage::writeRGBDataToFilter(ScStreamFilter* filter)
 	return success;
 }
 
-bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter)
+bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter, bool precal)
 {
 	QRgb r, *s;
 	QByteArray buffer;
@@ -1379,12 +1379,25 @@ bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter)
 	for( int yi=0; yi < h; ++yi )
 	{
 		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		if (precal) // image data is already grayscale, no need for weighted conversion
 		{
-			r = *s;
-			k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
-			buffer[pending++] = k;
-			s++;
+			for( int xi=0; xi < w; ++xi )
+			{
+				r = *s;
+				k = qRed(r);
+				buffer[pending++] = k;
+				s++;
+			}
+		}
+		else
+		{
+			for( int xi=0; xi < w; ++xi )
+			{
+				r = *s;
+				k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+				buffer[pending++] = k;
+				s++;
+			}
 		}
 		if (pending >= bufferSize)
 		{
@@ -1915,6 +1928,8 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 					*components = 3;
 				if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
 					*components = 4;
+				if (static_cast<int>(cmsGetColorSpace(prof)) == icSigGrayData)
+					*components = 1;
 				*profile = embeddedProfile;
 			}
 			cmsCloseProfile(prof);
