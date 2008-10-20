@@ -25,7 +25,7 @@ static FPoint currentPoint;
 void scribus_curve(FPointArray *cr, Geom::Curve const& c);
 void geomPath2FPointArray(FPointArray *p, Geom::Path &pp);
 void Piecewise2FPointArray(FPointArray *p, Geom::Piecewise<Geom::D2<Geom::SBasis> > &pp);
-void D2sb2d2FPointArray(FPointArray* cr, Geom::D2<Geom::SBasis2d> const &sb2, Geom::Point dir, double width);
+void D2sb2d2FPointArray(FPointArray* cr, Geom::D2<Geom::SBasis2d> const &sb2, int num, double width);
 std::vector<Geom::Path> FPointArray2geomPath(FPointArray &p, bool closed);
 Geom::Piecewise<Geom::D2<Geom::SBasis> > FPointArray2Piecewise(FPointArray &p, bool closed);
 
@@ -33,7 +33,7 @@ Geom::Piecewise<Geom::D2<Geom::SBasis> > FPointArray2Piecewise(FPointArray &p, b
 void arthur_curve(QPainterPath *cr, Geom::Curve const& c);
 void geomPath2QPainterPath(QPainterPath *p, Geom::Path &pp);
 void Piecewise2QPainterPath(QPainterPath *p, Geom::Piecewise<Geom::D2<Geom::SBasis> > &pp);
-void D2sb2d2QPainterPath(QPainterPath* cr, Geom::D2<Geom::SBasis2d> const &sb2, Geom::Point dir, double width);
+void D2sb2d2QPainterPath(QPainterPath* cr, Geom::D2<Geom::SBasis2d> const &sb2, int num, double width);
 std::vector<Geom::Path> QPainterPath2geomPath(QPainterPath &p, bool closed);
 Geom::Piecewise<Geom::D2<Geom::SBasis> > QPainterPath2Piecewise(QPainterPath &p, bool closed);
 

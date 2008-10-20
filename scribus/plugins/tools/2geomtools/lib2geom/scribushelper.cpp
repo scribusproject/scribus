@@ -72,12 +72,12 @@ void Piecewise2FPointArray(FPointArray *p, Geom::Piecewise<Geom::D2<Geom::SBasis
 	}
 }
 
-void D2sb2d2FPointArray(FPointArray* cr, Geom::D2<Geom::SBasis2d> const &sb2, Geom::Point dir, double width)
+void D2sb2d2FPointArray(FPointArray* cr, Geom::D2<Geom::SBasis2d> const &sb2, int num, double width)
 {
 	Geom::D2<Geom::SBasis> B;
-	for(int ui = 0; ui <= 10; ui++)
+	for(int ui = 0; ui <= num; ui++)
 	{
-		double u = ui/10.;
+		double u = ui / static_cast<double>(num);
 		B[0] = extract_u(sb2[0], u);// + Linear(u);
 		B[1] = extract_u(sb2[1], u);
 		for(unsigned i = 0; i < 2; i ++)
@@ -88,9 +88,9 @@ void D2sb2d2FPointArray(FPointArray* cr, Geom::D2<Geom::SBasis2d> const &sb2, Ge
 		geomPath2FPointArray(cr, pp);
 		cr->setMarker();
 	}
-	for(int vi = 0; vi <= 10; vi++)
+	for(int vi = 0; vi <= num; vi++)
 	{
-		double v = vi/10.;
+		double v = vi / static_cast<double>(num);
 		B[1] = extract_v(sb2[1], v);// + Linear(v);
 		B[0] = extract_v(sb2[0], v);
 		for(unsigned i = 0; i < 2; i ++)
@@ -223,12 +223,12 @@ void Piecewise2QPainterPath(QPainterPath *p, Geom::Piecewise<Geom::D2<Geom::SBas
 	}
 }
 
-void D2sb2d2QPainterPath(QPainterPath* cr, Geom::D2<Geom::SBasis2d> const &sb2, Geom::Point dir, double width)
+void D2sb2d2QPainterPath(QPainterPath* cr, Geom::D2<Geom::SBasis2d> const &sb2, int num, double width)
 {
 	Geom::D2<Geom::SBasis> B;
-	for(int ui = 0; ui <= 10; ui++)
+	for(int ui = 0; ui <= num; ui++)
 	{
-		double u = ui/10.;
+		double u = ui / static_cast<double>(num);
 		B[0] = extract_u(sb2[0], u);// + Linear(u);
 		B[1] = extract_u(sb2[1], u);
 		for(unsigned i = 0; i < 2; i ++)
@@ -239,9 +239,9 @@ void D2sb2d2QPainterPath(QPainterPath* cr, Geom::D2<Geom::SBasis2d> const &sb2, 
 		geomPath2QPainterPath(cr, pp);
 //		cr->setMarker();
 	}
-	for(int vi = 0; vi <= 10; vi++)
+	for(int vi = 0; vi <= num; vi++)
 	{
-		double v = vi/10.;
+		double v = vi / static_cast<double>(num);
 		B[1] = extract_v(sb2[1], v);// + Linear(v);
 		B[0] = extract_v(sb2[0], v);
 		for(unsigned i = 0; i < 2; i ++)

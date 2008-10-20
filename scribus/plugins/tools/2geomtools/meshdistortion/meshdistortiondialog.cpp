@@ -308,14 +308,14 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 						if(vi == 0 && ui == 0)
 							base = Geom::Point(w4, w4);
 						double dl = dot((handles[corner+4*i] - base), dir)/dot(dir,dir);
-						sb2[dim][i][corner] = dl/(ww/2)*pow(4.0f,((int)(ui+vi)));
+						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0f,((int)(ui+vi)));
 					}
 				}
 			}
 		}
 	}
 	QPainterPath pathG;
-	D2sb2d2QPainterPath(&pathG, sb2, dir*0.1, ww);
+	D2sb2d2QPainterPath(&pathG, sb2, 9, ww);
 	pItemG = new QGraphicsPathItem(pathG);
 	pItemG->setPen(QPen(Qt::black));
 	pItemG->setBrush(Qt::NoBrush);
@@ -424,7 +424,7 @@ void MeshDistortionDialog::updateMesh(bool gridOnly)
 						if(vi == 0 && ui == 0)
 							base = Geom::Point(w4, w4);
 						double dl = dot((handles[corner+4*i] - base), dir)/dot(dir,dir);
-						sb2[dim][i][corner] = dl/(ww/2)*pow(4.0f,((int)(ui+vi)));
+						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0f,((int)(ui+vi)));
 					}
 				}
 			}
@@ -444,8 +444,8 @@ void MeshDistortionDialog::updateMesh(bool gridOnly)
 				D2<SBasis> B = path_a_pw[i];
 				B *= (2./ww);
 				D2<SBasis> tB = compose_each(sb2, B);
-				B = B*(ww/2) + Geom::Point(w4, w4);
-				tB = tB*(ww/2) + Geom::Point(w4, w4);
+				B = B*(ww/2.0) + Geom::Point(w4, w4);
+				tB = tB*(ww/2.0) + Geom::Point(w4, w4);
 				output.concat(Piecewise<D2<SBasis> >(tB));
 			}
 			QPainterPath pathP;
@@ -457,7 +457,7 @@ void MeshDistortionDialog::updateMesh(bool gridOnly)
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	QPainterPath pathG;
-	D2sb2d2QPainterPath(&pathG, sb2, dir*0.1, ww);
+	D2sb2d2QPainterPath(&pathG, sb2, 9, ww);
 	pItemG->setPath(pathG);
 }
 
