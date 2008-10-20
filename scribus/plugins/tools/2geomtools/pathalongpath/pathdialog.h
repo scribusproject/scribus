@@ -38,7 +38,7 @@ class PLUGIN_API PathDialog : public QDialog, Ui::PathDialogBase
 	Q_OBJECT
 
 public:
-	PathDialog(QWidget* parent, int unitIndex, bool group);
+	PathDialog(QWidget* parent, int unitIndex, double len, bool group);
 	~PathDialog() {};
 	int effectType;
 	double offset;

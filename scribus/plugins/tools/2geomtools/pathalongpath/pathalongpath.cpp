@@ -209,7 +209,8 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 				originalRotG.append(bxi->rotation());
 				patternItemG.append(bxi);
 			}
-			PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex(), true);
+			QPainterPath tmpPath = effectPath.toQPainterPath(false);
+			PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex(), tmpPath.length(), true);
 			connect(dia, SIGNAL(updateValues(int, double, double, double, int)), this, SLOT(updateEffectG(int, double, double, double, int)));
 			if (dia->exec())
 			{
@@ -240,7 +241,8 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 			originalXPos = patternItem->xPos();
 			originalYPos = patternItem->yPos();
 			originalRot = patternItem->rotation();
-			PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex(), false);
+			QPainterPath tmpPath = effectPath.toQPainterPath(false);
+			PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex(), tmpPath.length(), false);
 			connect(dia, SIGNAL(updateValues(int, double, double, double, int)), this, SLOT(updateEffect(int, double, double, double, int)));
 			if (dia->exec())
 			{

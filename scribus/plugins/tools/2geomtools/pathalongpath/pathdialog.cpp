@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "pathdialog.h"
 
-PathDialog::PathDialog(QWidget* parent, int unitIndex, bool group) : QDialog(parent)
+PathDialog::PathDialog(QWidget* parent, int unitIndex, double len, bool group) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
@@ -35,10 +35,12 @@ PathDialog::PathDialog(QWidget* parent, int unitIndex, bool group) : QDialog(par
 	offset = 0.0;
 	offsetY = 0.0;
 	rotate = 0;
+	offsetYSpin->setMinimum(-len);
+	offsetYSpin->setMaximum(len);
+	offsetXSpin->setMinimum(-len);
+	offsetXSpin->setMaximum(len);
 	offsetXSpin->setNewUnit(unitIndex);
 	offsetYSpin->setNewUnit(unitIndex);
-	offsetYSpin->setMinimum(-1000);
-	offsetYSpin->setMaximum(1000);
 	gapSpin->setNewUnit(unitIndex);
 	if (group)
 	{
