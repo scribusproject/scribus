@@ -728,6 +728,7 @@ void Cpalette::ChooseGrad(int number)
 
 	if (number > 0)
 	{
+		blendMode->setEnabled(false);
 		if (number == 8)
 		{
 			PM1->setEnabled(false);
@@ -765,6 +766,7 @@ void Cpalette::ChooseGrad(int number)
 	}
 	else
 	{
+		blendMode->setEnabled(true);
 		PM1->setEnabled(true);
 		patternFrame->hide();
 		patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
