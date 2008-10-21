@@ -232,6 +232,7 @@ public:
 	void parsePA( SvgStyle *obj, const QString &command, const QString &params );
 	void parseStyle( SvgStyle *obj, const QDomElement &e );
 	void parseColorStops(GradientHelper *gradient, const QDomElement &e);
+	void parsePattern(const QDomElement &b);
 	void parseGradient( const QDomElement &e );
 	FPoint GetMaxClipO(FPointArray Clip);
 	FPoint GetMinClipO(FPointArray Clip);
@@ -256,7 +257,7 @@ public:
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
 	QStringList importedColors;
-//	void getNodes(const QDomNode &e, QList<QDomNode> &l);
+	QStringList importedPatterns;
 };
 
 #endif

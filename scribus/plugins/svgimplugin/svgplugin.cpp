@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QRegExp>
 #include <cmath>
-
+#include <QDebug>
 #include "color.h"
 #include "commonstrings.h"
 #include "customfdialog.h"
@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scconfig.h"
 #include "scgzfile.h"
+#include "scpattern.h"
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusXml.h"
@@ -201,6 +202,7 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, int flags ) :
 	importFailed = false;
 	importCanceled = true;
 	importedColors.clear();
+	importedPatterns.clear();
 	docDesc = "";
 	docTitle = "";
 	groupLevel = 0;
@@ -336,6 +338,13 @@ void SVGPlug::convert(int flags)
 			for (int cd = 0; cd < importedColors.count(); cd++)
 			{
 				m_Doc->PageColors.remove(importedColors[cd]);
+			}
+		}
+		if (importedPatterns.count() != 0)
+		{
+			for (int cd = 0; cd < importedPatterns.count(); cd++)
+			{
+				m_Doc->docPatterns.remove(importedPatterns[cd]);
 			}
 		}
 	}
@@ -477,6 +486,20 @@ void SVGPlug::convert(int flags)
 //			m_Doc->view()->setCanvasOrigin(cOrigin.x(), cOrigin.y());
 			m_Doc->view()->updatesOn(true);
 //			m_Doc->view()->updateCanvas();
+			if (importedColors.count() != 0)
+			{
+				for (int cd = 0; cd < importedColors.count(); cd++)
+				{
+					m_Doc->PageColors.remove(importedColors[cd]);
+				}
+			}
+			if (importedPatterns.count() != 0)
+			{
+				for (int cd = 0; cd < importedPatterns.count(); cd++)
+				{
+					m_Doc->docPatterns.remove(importedPatterns[cd]);
+				}
+			}
 			m_Doc->m_Selection->delaySignalsOff();
 			const QPixmap& dragCursor = loadIcon("DragPix.xpm");
 			dr->setDragCursor(dragCursor, Qt::CopyAction);
@@ -609,58 +632,66 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 	item->DashValues = gc->dashArray;
 	if (gc->Gradient != 0)
 	{
-		if (gc->GradCo.Stops() > 1)
+		if (gc->Gradient == 8)
 		{
-			item->fill_gradient = gc->GradCo;
-			if (!gc->CSpace)
-			{
-				item->GrStartX = gc->GX1 * item->width();
-				item->GrStartY = gc->GY1 * item->height();
-				item->GrEndX = gc->GX2 * item->width();
-				item->GrEndY = gc->GY2 * item->height();
-				double angle1 = atan2(gc->GY2-gc->GY1,gc->GX2-gc->GX1)*(180.0/M_PI);
-				double angle2 = atan2(item->GrEndY - item->GrStartX, item->GrEndX - item->GrStartX)*(180.0/M_PI);
-				double dx = item->GrStartX + (item->GrEndX - item->GrStartX) / 2.0;
-				double dy = item->GrStartY + (item->GrEndY - item->GrStartY) / 2.0;
-				QMatrix mm, mm2;
-				if ((gc->GY1 < gc->GY2) && (gc->GX1 < gc->GX2))
-				{
-					mm.rotate(-angle2);
-					mm2.rotate(angle1);
-				}
-				FPointArray gra;
-				gra.setPoints(2, item->GrStartX-dx, item->GrStartY-dy, item->GrEndX-dx, item->GrEndY-dy);
-				gra.map(mm*mm2);
-				gra.translate(dx, dy);
-				item->GrStartX = gra.point(0).x();
-				item->GrStartY = gra.point(0).y();
-				item->GrEndX = gra.point(1).x();
-				item->GrEndY = gra.point(1).y();
-			}
-			else
-			{
-				QMatrix mm = gc->matrix;
-				mm = gc->matrixg * mm;
-				FPointArray gra;
-				gra.setPoints(2, gc->GX1, gc->GY1, gc->GX2, gc->GY2);
-				gra.map(mm);
-				gc->GX1 = gra.point(0).x();
-				gc->GY1 = gra.point(0).y();
-				gc->GX2 = gra.point(1).x();
-				gc->GY2 = gra.point(1).y();
-				item->GrStartX = gc->GX1 - item->xPos() + BaseX;
-				item->GrStartY = gc->GY1 - item->yPos() + BaseY;
-				item->GrEndX = gc->GX2 - item->xPos() + BaseX;
-				item->GrEndY = gc->GY2 - item->yPos() + BaseY;
-			}
 			item->GrType = gc->Gradient;
+			item->setPattern(gc->GCol1);
 		}
 		else
 		{
-			item->GrType = 0;
-			QList<VColorStop*> cstops = gc->GradCo.colorStops();
-			item->setFillColor(cstops.at(0)->name);
-			item->setFillShade(cstops.at(0)->shade);
+			if (gc->GradCo.Stops() > 1)
+			{
+				item->fill_gradient = gc->GradCo;
+				if (!gc->CSpace)
+				{
+					item->GrStartX = gc->GX1 * item->width();
+					item->GrStartY = gc->GY1 * item->height();
+					item->GrEndX = gc->GX2 * item->width();
+					item->GrEndY = gc->GY2 * item->height();
+					double angle1 = atan2(gc->GY2-gc->GY1,gc->GX2-gc->GX1)*(180.0/M_PI);
+					double angle2 = atan2(item->GrEndY - item->GrStartX, item->GrEndX - item->GrStartX)*(180.0/M_PI);
+					double dx = item->GrStartX + (item->GrEndX - item->GrStartX) / 2.0;
+					double dy = item->GrStartY + (item->GrEndY - item->GrStartY) / 2.0;
+					QMatrix mm, mm2;
+					if ((gc->GY1 < gc->GY2) && (gc->GX1 < gc->GX2))
+					{
+						mm.rotate(-angle2);
+						mm2.rotate(angle1);
+					}
+					FPointArray gra;
+					gra.setPoints(2, item->GrStartX-dx, item->GrStartY-dy, item->GrEndX-dx, item->GrEndY-dy);
+					gra.map(mm*mm2);
+					gra.translate(dx, dy);
+					item->GrStartX = gra.point(0).x();
+					item->GrStartY = gra.point(0).y();
+					item->GrEndX = gra.point(1).x();
+					item->GrEndY = gra.point(1).y();
+				}
+				else
+				{
+					QMatrix mm = gc->matrix;
+					mm = gc->matrixg * mm;
+					FPointArray gra;
+					gra.setPoints(2, gc->GX1, gc->GY1, gc->GX2, gc->GY2);
+					gra.map(mm);
+					gc->GX1 = gra.point(0).x();
+					gc->GY1 = gra.point(0).y();
+					gc->GX2 = gra.point(1).x();
+					gc->GY2 = gra.point(1).y();
+					item->GrStartX = gc->GX1 - item->xPos() + BaseX;
+					item->GrStartY = gc->GY1 - item->yPos() + BaseY;
+					item->GrEndX = gc->GX2 - item->xPos() + BaseX;
+					item->GrEndY = gc->GY2 - item->yPos() + BaseY;
+				}
+				item->GrType = gc->Gradient;
+			}
+			else
+			{
+				item->GrType = 0;
+				QList<VColorStop*> cstops = gc->GradCo.colorStops();
+				item->setFillColor(cstops.at(0)->name);
+				item->setFillShade(cstops.at(0)->shade);
+			}
 		}
 	}
 }
@@ -812,6 +843,8 @@ void SVGPlug::parseDefs(const QDomElement &e)
 			parseGradient( b );
 		else if (STag2 == "clipPath")
 			parseClipPath(b);
+		else if (STag2 == "pattern")
+			parsePattern(b);
 		else if ( b.hasAttribute("id") )
 		{
 			QString id = b.attribute("id");
@@ -1929,44 +1962,58 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			unsigned int start = params.indexOf("#") + 1;
 			unsigned int end = params.lastIndexOf(")");
 			QString key = params.mid(start, end - start);
+			obj->Gradient = 0;
 			while (!m_gradients[key].reference.isEmpty())
 			{
 				QString key2 = m_gradients[key].reference;
 				if (m_gradients[key2].typeValid)
 					obj->Gradient = m_gradients[key2].Type;
-				if (m_gradients[key2].gradientValid)
-					obj->GradCo = m_gradients[key2].gradient;
-				if (m_gradients[key2].cspaceValid)
-					obj->CSpace = m_gradients[key2].CSpace;
-				if (m_gradients[key2].x1Valid)
-					obj->GX1 = m_gradients[key2].X1;
-				if (m_gradients[key2].y1Valid)
-					obj->GY1 = m_gradients[key2].Y1;
-				if (m_gradients[key2].x2Valid)
-					obj->GX2 = m_gradients[key2].X2;
-				if (m_gradients[key2].y2Valid)
-					obj->GY2 = m_gradients[key2].Y2;
-				if (m_gradients[key2].matrixValid)
-					obj->matrixg = m_gradients[key2].matrix;
+				if (obj->Gradient != 8)
+				{
+					if (m_gradients[key2].gradientValid)
+						obj->GradCo = m_gradients[key2].gradient;
+					if (m_gradients[key2].cspaceValid)
+						obj->CSpace = m_gradients[key2].CSpace;
+					if (m_gradients[key2].x1Valid)
+						obj->GX1 = m_gradients[key2].X1;
+					if (m_gradients[key2].y1Valid)
+						obj->GY1 = m_gradients[key2].Y1;
+					if (m_gradients[key2].x2Valid)
+						obj->GX2 = m_gradients[key2].X2;
+					if (m_gradients[key2].y2Valid)
+						obj->GY2 = m_gradients[key2].Y2;
+					if (m_gradients[key2].matrixValid)
+						obj->matrixg = m_gradients[key2].matrix;
+				}
+				else
+					obj->GCol1 = key2;
 				key = m_gradients[key].reference;
 			}
-			key = params.mid(start, end - start);
-			if (m_gradients[key].typeValid)
-				obj->Gradient = m_gradients[key].Type;
-			if (m_gradients[key].gradientValid)
-				obj->GradCo = m_gradients[key].gradient;
-			if (m_gradients[key].cspaceValid)
-				obj->CSpace = m_gradients[key].CSpace;
-			if (m_gradients[key].x1Valid)
-				obj->GX1 = m_gradients[key].X1;
-			if (m_gradients[key].y1Valid)
-				obj->GY1 = m_gradients[key].Y1;
-			if (m_gradients[key].x2Valid)
-				obj->GX2 = m_gradients[key].X2;
-			if (m_gradients[key].y2Valid)
-				obj->GY2 = m_gradients[key].Y2;
-			if (m_gradients[key].matrixValid)
-				obj->matrixg = m_gradients[key].matrix;
+			if (obj->Gradient != 8)
+			{
+				key = params.mid(start, end - start);
+				if (m_gradients[key].typeValid)
+					obj->Gradient = m_gradients[key].Type;
+				if (obj->Gradient != 8)
+				{
+					if (m_gradients[key].gradientValid)
+						obj->GradCo = m_gradients[key].gradient;
+					if (m_gradients[key].cspaceValid)
+						obj->CSpace = m_gradients[key].CSpace;
+					if (m_gradients[key].x1Valid)
+						obj->GX1 = m_gradients[key].X1;
+					if (m_gradients[key].y1Valid)
+						obj->GY1 = m_gradients[key].Y1;
+					if (m_gradients[key].x2Valid)
+						obj->GX2 = m_gradients[key].X2;
+					if (m_gradients[key].y2Valid)
+						obj->GY2 = m_gradients[key].Y2;
+					if (m_gradients[key].matrixValid)
+						obj->matrixg = m_gradients[key].matrix;
+				}
+				else
+					obj->GCol1 = key;
+			}
 			obj->FillCol = CommonStrings::None;
 		}
 		else
@@ -2219,6 +2266,56 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 	}
 	if (gradient->gradientValid)
 		gradient->gradient.filterStops();
+}
+
+void SVGPlug::parsePattern(const QDomElement &b)
+{
+	GradientHelper gradhelper;
+	QString href = b.attribute("xlink:href").mid(1);
+	if (!href.isEmpty())
+	{
+		if (m_gradients.contains(href))
+		{
+			gradhelper.Type = m_gradients[href].Type;
+			gradhelper.gradientValid = m_gradients[href].gradientValid;
+			gradhelper.typeValid = m_gradients[href].typeValid;
+		}
+		gradhelper.reference = href;
+	}
+	QString id = b.attribute("id", "");
+	if (!id.isEmpty())
+	{
+		int ac = m_Doc->Items->count();
+		QList<PageItem*> GElements;
+		GElements = parseGroup( b );
+		int ae = m_Doc->Items->count();
+		if (GElements.count() > 0)
+		{
+			ScPattern pat = ScPattern();
+			pat.setDoc(m_Doc);
+			PageItem* currItem = GElements.at(0);
+			m_Doc->DoDrawing = true;
+			pat.pattern = currItem->DrawObj_toImage();
+			m_Doc->DoDrawing = false;
+			pat.width = currItem->gWidth;
+			pat.height = currItem->gHeight;
+			for (int as = ac; as < ae; ++as)
+			{
+				PageItem* Neu = m_Doc->Items->takeAt(ac);
+				Neu->ItemNr = pat.items.count();
+				pat.items.append(Neu);
+			}
+			m_Doc->addPattern(id, pat);
+			importedPatterns.append(id);
+		}
+		m_nodeMap.insert(id, b);
+		gradhelper.gradientValid = true;
+		gradhelper.gradient.clearStops();
+		gradhelper.gradient.setRepeatMethod( VGradient::none );
+		gradhelper.Type = 8;
+		gradhelper.typeValid = true;
+		m_gradients.insert(id, gradhelper);
+	}
 }
 
 void SVGPlug::parseGradient( const QDomElement &e )
