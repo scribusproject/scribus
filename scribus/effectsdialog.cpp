@@ -539,7 +539,12 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 		if (effectsList.at(a).effectCode == ScImage::EF_BLUR)
 		{
 			usedEffects->addItem( tr("Blur"));
-			effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(a).effectParameters);
+			QString tmpstr = effectsList.at(a).effectParameters;
+			double radius;
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> radius;
+			blRadius->setValue(radius / imageScale);
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), QString("%1 1.0").arg(radius / imageScale));
 		}
 		if (effectsList.at(a).effectCode == ScImage::EF_SOLARIZE)
 		{
@@ -773,7 +778,10 @@ void EffectsDialog::saveValues(bool final)
 		if (usedEffects->item(e)->text() == tr("Blur"))
 		{
 			ef.effectCode = ScImage::EF_BLUR;
-			ef.effectParameters = effectValMap[usedEffects->item(e)];
+			if (final)
+				ef.effectParameters = QString("%1 1.0").arg(blRadius->value() * imageScale);
+			else
+				ef.effectParameters = QString("%1 1.0").arg(blRadius->value());
 		}
 		if (usedEffects->item(e)->text() == tr("Posterize"))
 		{
@@ -817,6 +825,7 @@ void EffectsDialog::selectAvailEffectDbl(QListWidgetItem* c)
 
 void EffectsDialog::moveToEffects()
 {
+	disconnect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 	usedEffects->addItem(availableEffects->currentItem()->text());
 	if (availableEffects->currentItem()->text() == tr("Invert"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
@@ -878,7 +887,6 @@ void EffectsDialog::moveToEffects()
 	}
 	if (availableEffects->currentItem()->text() == tr("Curves"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "2 0.0 0.0 1.0 1.0 0");
-	disconnect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 	usedEffects->setCurrentItem(usedEffects->item(usedEffects->count()-1));
 	selectEffect(usedEffects->item(usedEffects->count()-1));
 	connect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
@@ -1267,12 +1275,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 		{
 			disconnect( blRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
-			double radius, sigma;
+			double radius;
 			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> radius;
-			fp >> sigma;
 			blRadius->setValue(radius);
-			//			blValue->setValue(sigma);
 			optionStack->setCurrentIndex(5);
 			connect( blRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 		}
@@ -1388,10 +1394,10 @@ void EffectsDialog::selectEffectHelper(bool final)
 		{
 			QString efval = "";
 			QString tmp;
-			if (final)
+			if (!final)
 				tmp.setNum(blRadius->value());
 			else
-				tmp.setNum(blRadius->value()/imageScale);
+				tmp.setNum(blRadius->value()*imageScale);
 			efval += tmp;
 			tmp.setNum(1.0);
 			efval += " "+tmp;
