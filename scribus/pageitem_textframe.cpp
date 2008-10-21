@@ -2564,7 +2564,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			p->setFillMode(0);
 // Ugly Hack to fix rendering problems with cairo-1.5.10 and up follows
 #ifdef HAVE_CAIRO
-	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)
+	#if ((CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)) || (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 8, 0)))
 			p->setupPolygon(&PoLine, false);
 	#else
 			p->setupPolygon(&PoLine);
@@ -2579,7 +2579,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			p->setPen(Qt::lightGray, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 // Ugly Hack to fix rendering problems with cairo-1.5.10 and up follows
 #ifdef HAVE_CAIRO
-	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)
+	#if ((CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)) || (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 8, 0)))
 			p->setupPolygon(&ContourLine, false);
 	#else
 			p->setupPolygon(&ContourLine);
