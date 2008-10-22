@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 #define TORGB( red, green, blue ) \
 { \
 	r = red; \
-	b = blue; \
 	g = green; \
+	b = blue; \
 	return; \
 }
 

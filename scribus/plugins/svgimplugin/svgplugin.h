@@ -258,6 +258,9 @@ public:
 	Selection* tmpSel;
 	QStringList importedColors;
 	QStringList importedPatterns;
+	QMap<QString, QString> importedPattTrans;
+	double inGroupXOrigin;
+	double inGroupYOrigin;
 };
 
 #endif

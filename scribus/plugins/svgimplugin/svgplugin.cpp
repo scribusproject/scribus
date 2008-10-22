@@ -605,6 +605,9 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 //				item->setPolyClip(qRound(qMax(item->lineWidth() / 2.0, 1)));
 //			else
 //				item->Clip = FlattenPath(item->PoLine, item->Segments);
+			FPoint wx = getMinClipF(&item->PoLine);
+			inGroupXOrigin = qMin(inGroupXOrigin, wx.x());
+			inGroupYOrigin = qMin(inGroupYOrigin, wx.y());
 			m_Doc->AdjustItemSize(item);
 			break;
 		}
@@ -635,7 +638,11 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 		if (gc->Gradient == 8)
 		{
 			item->GrType = gc->Gradient;
-			item->setPattern(gc->GCol1);
+			item->setPattern(importedPattTrans[gc->GCol1]);
+			QMatrix mm = gc->matrixg;
+			double patDx = mm.dx() * mm.m11(); // - (item->xPos() - BaseX);
+			double patDy = mm.dy() * mm.m22(); // - (item->yPos() - BaseY);
+			item->setPatternTransform(mm.m11() * 100.0, mm.m22() * 100.0, 0, 0, 0);
 		}
 		else
 		{
@@ -1012,9 +1019,17 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
 		neu->AutoName = false;
 		neu->setFillTransparency(1 - gc->Opacity);
+		neu->gXpos = neu->xPos() - gx;
+		neu->gYpos = neu->yPos() - gy;
+		neu->gWidth = gw;
+		neu->gHeight = gh;
 		for (int gr = 0; gr < gElements.count(); ++gr)
 		{
 			gElements.at(gr)->Groups.push(m_Doc->GroupCounter);
+			gElements.at(gr)->gXpos = gElements.at(gr)->xPos() - gx;
+			gElements.at(gr)->gYpos = gElements.at(gr)->yPos() - gy;
+			gElements.at(gr)->gWidth = gw;
+			gElements.at(gr)->gHeight = gh;
 			GElements.append(gElements.at(gr));
 		}
 		neu->setRedrawBounding();
@@ -1963,6 +1978,9 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			unsigned int end = params.lastIndexOf(")");
 			QString key = params.mid(start, end - start);
 			obj->Gradient = 0;
+			obj->matrixg = QMatrix();
+			if (m_gradients[key].matrixValid)
+				obj->matrixg = m_gradients[key].matrix;
 			while (!m_gradients[key].reference.isEmpty())
 			{
 				QString key2 = m_gradients[key].reference;
@@ -1986,7 +2004,11 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 						obj->matrixg = m_gradients[key2].matrix;
 				}
 				else
+				{
 					obj->GCol1 = key2;
+					if (m_gradients[key2].matrixValid)
+						obj->matrixg *= m_gradients[key2].matrix;
+				}
 				key = m_gradients[key].reference;
 			}
 			if (obj->Gradient != 8)
@@ -2012,7 +2034,11 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 						obj->matrixg = m_gradients[key].matrix;
 				}
 				else
+				{
 					obj->GCol1 = key;
+					if (m_gradients[key].matrixValid)
+						obj->matrixg = m_gradients[key].matrix;
+				}
 			}
 			obj->FillCol = CommonStrings::None;
 		}
@@ -2279,12 +2305,19 @@ void SVGPlug::parsePattern(const QDomElement &b)
 			gradhelper.Type = m_gradients[href].Type;
 			gradhelper.gradientValid = m_gradients[href].gradientValid;
 			gradhelper.typeValid = m_gradients[href].typeValid;
+			gradhelper.matrix = m_gradients[href].matrix;
+			gradhelper.matrixValid = m_gradients[href].matrixValid;
 		}
 		gradhelper.reference = href;
 	}
 	QString id = b.attribute("id", "");
+	QString origName = id;
 	if (!id.isEmpty())
 	{
+		inGroupXOrigin = 999999;
+		inGroupYOrigin = 999999;
+		double wpat = parseUnit(b.attribute("width", "0"));
+		double hpat = parseUnit(b.attribute("height", "0"));
 		int ac = m_Doc->Items->count();
 		QList<PageItem*> GElements;
 		GElements = parseGroup( b );
@@ -2296,25 +2329,45 @@ void SVGPlug::parsePattern(const QDomElement &b)
 			PageItem* currItem = GElements.at(0);
 			m_Doc->DoDrawing = true;
 			pat.pattern = currItem->DrawObj_toImage();
+			pat.pattern = pat.pattern.copy(-inGroupXOrigin, -inGroupYOrigin, wpat, hpat);
+			pat.xoffset = inGroupXOrigin;
+			pat.yoffset = inGroupYOrigin;
 			m_Doc->DoDrawing = false;
-			pat.width = currItem->gWidth;
-			pat.height = currItem->gHeight;
+			pat.width = qMin(currItem->gWidth, wpat);
+			pat.height = qMin(currItem->gHeight, hpat);
+			bool more = false;
 			for (int as = ac; as < ae; ++as)
 			{
 				PageItem* Neu = m_Doc->Items->takeAt(ac);
+				if (more)
+				{
+					Neu->moveBy(inGroupXOrigin, inGroupYOrigin, true);
+					Neu->gXpos += inGroupXOrigin;
+					Neu->gYpos += inGroupYOrigin;
+				}
+				more = true;
 				Neu->ItemNr = pat.items.count();
 				pat.items.append(Neu);
 			}
 			m_Doc->addPattern(id, pat);
 			importedPatterns.append(id);
+			importedPattTrans.insert(origName, id);
 		}
-		m_nodeMap.insert(id, b);
+		m_nodeMap.insert(origName, b);
+		QString transf = b.attribute("patternTransform");
+		if( !transf.isEmpty() )
+		{
+			gradhelper.matrix = parseTransform( b.attribute("patternTransform") );
+			gradhelper.matrixValid = true;
+		}
+		else
+			gradhelper.matrixValid = false;
 		gradhelper.gradientValid = true;
 		gradhelper.gradient.clearStops();
 		gradhelper.gradient.setRepeatMethod( VGradient::none );
 		gradhelper.Type = 8;
 		gradhelper.typeValid = true;
-		m_gradients.insert(id, gradhelper);
+		m_gradients.insert(origName, gradhelper);
 	}
 }
 
