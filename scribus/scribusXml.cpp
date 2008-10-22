@@ -1451,24 +1451,27 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 	double  patScaleY = attrAsDbl(attrs, "scaleY", 0.0);
 	double  patWidth  = attrAsDbl(attrs, "width", 0.0);
 	double  patHeight = attrAsDbl(attrs, "height", 0.0);
+	double  patxoffset  = attrAsDbl(attrs, "xoffset", 0.0);
+	double  patyoffset = attrAsDbl(attrs, "yoffset", 0.0);
 	int     patOwnLink = 0;
-	int     groupsLastItem = 0, x;
+	int     groupsLastItem = 0;
+	int x = doc->GroupCounter;
 	uint    ac = doc->Items->count();
-	QString patText    = reader.readElementText();
 	QString fileDir    = QDir::homePath();
 	StoryText  storyText;
 	LastStyles lastStyles;
-
-	QXmlStreamReader sReader(patText);
-	while(!sReader.atEnd() && !sReader.hasError())
+	int LatexDPI;
+	bool LatexPream;
+	QString LatexConfig;
+	while(!reader.atEnd() && !reader.hasError())
 	{
-		sReader.readNext();
-		if (sReader.hasError())
+		reader.readNext();
+		if (reader.hasError())
 			break;
-		QString tagName1 = sReader.name().toString();
-		QXmlStreamAttributes attrs1 = sReader.attributes();
+		QString tagName1 = reader.name().toString();
+		QXmlStreamAttributes attrs1 = reader.attributes();
 		
-		if (tagName1 == "PatternItem" && sReader.isStartElement())
+		if (tagName1 == "PatternItem" && reader.isStartElement())
 		{
 			loadRequests.clear();
 			imageEffects.clear();
@@ -1499,36 +1502,39 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			OB.LayerNr  = 0;
 			OB.Language = attrAsString(attrs1, "LANGUAGE", doc->Language);
 			tmp = "";
-			if ( (!attrs1.value("GROUPS").isEmpty()) && (attrAsInt(attrs1, "GROUSPS", 0) != 0))
+			int numGroup = attrAsInt(attrs1, "NUMGROUP", 0);
+			if ((!attrs1.value("GROUPS").isEmpty()) && (numGroup > 0))
 			{
 				tmp = attrAsString(attrs1, "GROUPS", "");
 				QTextStream fg(&tmp, QIODevice::ReadOnly);
 				OB.Groups.clear();
-				int numGroups = attrAsInt(attrs1, "NUMGROUP", 0);
-				for (int cx = 0; cx < numGroups; ++cx)
+				for (int cx = 0; cx < numGroup; ++cx)
 				{
 					fg >> x;
 					OB.Groups.push(x+doc->GroupCounter);
 					GrMax = qMax(GrMax, x+doc->GroupCounter);
 				}
-				tmp.clear();
+				tmp = "";
 			}
 			else
 				OB.Groups.clear();
 			tmp.clear();
+			LatexDPI = attrAsInt (attrs1, "LatexDpi", 0);
+			LatexPream = attrAsBool(attrs1, "LatexUsePreamble", true);
+			LatexConfig = attrAsString(attrs1, "LatexConfig", "");
 		}
-		if (tagName1 == "ITEXT" && sReader.isStartElement())
+		if (tagName1 == "ITEXT" && reader.isStartElement())
 		{
-			GetItemText(sReader.attributes(), storyText, doc, &lastStyles, styleFound, true);
+			GetItemText(reader.attributes(), storyText, doc, &lastStyles, styleFound, true);
 		}
-		if (tagName1 == "ImageEffect" && sReader.isStartElement())
+		if (tagName1 == "ImageEffect" && reader.isStartElement())
 		{
 			struct ImageEffect ef;
 			ef.effectParameters = attrAsString(attrs1, "Param", "");
 			ef.effectCode       = attrAsInt(attrs1, "Code");
 			imageEffects.append(ef);
 		}
-		if (tagName1 == "PSDLayer" && sReader.isStartElement())
+		if (tagName1 == "PSDLayer" && reader.isStartElement())
 		{
 			struct ImageLoadRequest loadingInfo;
 			loadingInfo.blend   = attrAsString(attrs1, "Blend", "");
@@ -1537,7 +1543,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			loadingInfo.useMask = attrAsBool(attrs, "useMask", true);
 			loadRequests.insert( attrAsInt(attrs1, "Layer"), loadingInfo);
 		}
-		if (tagName1 == "CSTOP" && sReader.isStartElement())
+		if (tagName1 == "CSTOP" && reader.isStartElement())
 		{
 			QString name = attrs1.value("NAME").toString();
 			double ramp  = attrAsDbl(attrs1, "RAMP", 0.0);
@@ -1547,7 +1553,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			OB.GrColor   = "";
 			OB.GrColor2  = "";
 		}
-		if (tagName1=="Tabs" && sReader.isStartElement())
+		if (tagName1=="Tabs" && reader.isStartElement())
 		{
 			ParagraphStyle::TabRecord tb;
 			tb.tabPosition  = attrAsDbl(attrs1, "Pos");
@@ -1583,7 +1589,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 				OB.Pfile3 = pfi2.absoluteFilePath();
 			}
 		}
-		if (tagName1 == "PatternItem" && sReader.isEndElement())
+		if (tagName1 == "PatternItem" && reader.isEndElement())
 		{
 			LastStyles lastStyle;
 			view->PasteItem(&OB, true, true, false);
@@ -1605,6 +1611,13 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 				cl.scale(Neu->imageXScale(), Neu->imageYScale());
 				Neu->imageClip.map(cl);
 			}
+			if (Neu->asLatexFrame())
+			{
+				PageItem_LatexFrame *latexitem = Neu->asLatexFrame();
+				latexitem->setConfigFile(LatexConfig);
+				latexitem->setDpi(LatexDPI);
+				latexitem->setUsePreamble(LatexPream);
+			}
 			if (Neu->isTableItem)
 			{
 				TableItems.append(Neu);
@@ -1618,6 +1631,21 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			imageEffects.clear();
 			loadRequests.clear();
 		}
+		if (tagName1 == "Pattern" && reader.isEndElement())
+			break;
+	}
+	if (groupID.count() != 0)
+	{
+		QMap<PageItem*, int>::Iterator it;
+		for (it = groupID.begin(); it != groupID.end(); ++it)
+		{
+			if (it.value() >= doc->Items->count())
+			{
+				it.key()->isGroupControl = false;
+				continue;
+			}
+			it.key()->groupsLastItem = doc->Items->at(it.value());
+		}
 	}
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
@@ -1627,19 +1655,27 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 		pat.setDoc(doc);
 		PageItem* currItem = doc->Items->at(ac);
 		pat.pattern = currItem->DrawObj_toImage();
-		for (uint as = ac; as < ae; ++as)
-		{
-			PageItem* Neu = doc->Items->takeAt(ac);
-			Neu->ItemNr = pat.items.count();
-			pat.items.append(Neu);
-		}
 		pat.scaleX = patScaleX;
 		pat.scaleY = patScaleY;
 		pat.width  = patWidth;
 		pat.height = patHeight;
+		pat.xoffset = patxoffset;
+		pat.yoffset = patyoffset;
+		pat.pattern = pat.pattern.copy(-patxoffset, -patyoffset, pat.width, pat.height);
+		for (uint as = ac; as < ae; ++as)
+		{
+			PageItem* Neu = doc->Items->takeAt(ac);
+			Neu->moveBy(pat.xoffset, pat.yoffset, true);
+			Neu->gXpos += pat.xoffset;
+			Neu->gYpos += pat.yoffset;
+			Neu->ItemNr = pat.items.count();
+			pat.items.append(Neu);
+		}
 		if (!doc->docPatterns.contains(patName))
 			doc->docPatterns.insert(patName, pat);
 	}
+	groupID.clear();
+	doc->GroupCounter = GrMax + 1;
 }
 
 QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* selection)
@@ -1888,7 +1924,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			}
 		}
 	}
-	QStringList patterns = doc->getUsedPatternsSelection();
+	QStringList patterns = doc->getUsedPatternsSelection(selection);
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern& pa = doc->docPatterns[patterns[c]];
@@ -1898,6 +1934,8 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		writer.writeAttribute ("scaleY", pa.scaleY);
 		writer.writeAttribute("width" , pa.width);
 		writer.writeAttribute ("height", pa.height);
+		writer.writeAttribute("xoffset", pa.xoffset);
+		writer.writeAttribute("yoffset", pa.yoffset);
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			QDir::setCurrent(QDir::homePath());

@@ -853,6 +853,8 @@ void Scribus134Format::writePatterns(ScXmlStreamWriter & docu, const QString& ba
 		docu.writeAttribute("height", pa.height);
 		docu.writeAttribute("scaleX", pa.scaleX);
 		docu.writeAttribute("scaleY", pa.scaleY);
+		docu.writeAttribute("xoffset", pa.xoffset);
+		docu.writeAttribute("yoffset", pa.yoffset);
 		WriteObjects(m_Doc, docu, baseDir, 0, 0, ItemSelectionPattern, &pa.items);
 		docu.writeEndElement();
 	}	

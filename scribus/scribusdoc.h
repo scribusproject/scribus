@@ -530,7 +530,7 @@ public:
 	* @brief Builds a QStringList of the patterns used within the document
 	*/
 	QStringList getUsedPatterns();
-	QStringList getUsedPatternsSelection();
+	QStringList getUsedPatternsSelection(Selection* customSelection);
 	QStringList getUsedPatternsHelper(QString pattern, QStringList &results);
 	/**
 	 * @brief Set and get the document's unit index

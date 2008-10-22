@@ -2643,15 +2643,15 @@ QStringList ScribusDoc::getUsedPatterns()
 }
 
 
-QStringList ScribusDoc::getUsedPatternsSelection()
+QStringList ScribusDoc::getUsedPatternsSelection(Selection* customSelection)
 {
 	QStringList results;
-	uint selectedItemCount=m_Selection->count();
+	uint selectedItemCount = customSelection->count();
 	if (selectedItemCount != 0)
 	{
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
-			PageItem *currItem = m_Selection->itemAt(a);
+			PageItem *currItem = customSelection->itemAt(a);
 			if (currItem->GrType == 8)
 			{
 				const QString& pat = currItem->pattern();

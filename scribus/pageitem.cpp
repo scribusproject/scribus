@@ -4204,7 +4204,9 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	double miny = 99999.9;
 	double maxx = -99999.9;
 	double maxy = -99999.9;
-	double extraSpace = m_lineWidth / 2.0;
+	double extraSpace = 0.0;
+	if (lineColor() != CommonStrings::None)
+		extraSpace = m_lineWidth / 2.0;
 	if (Rot != 0)
 	{
 		FPointArray pb;

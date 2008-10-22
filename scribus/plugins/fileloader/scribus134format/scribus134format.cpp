@@ -1351,18 +1351,24 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->SnapGuides = savedAlignGuides;
 				uint ae = m_Doc->Items->count();
 				pat.setDoc(m_Doc);
-				PageItem* currItem = m_Doc->Items->at(ac);
-				pat.pattern = currItem->DrawObj_toImage();
-				for (uint as = ac; as < ae; ++as)
-				{
-					Neu = m_Doc->Items->takeAt(ac);
-					Neu->ItemNr = pat.items.count();
-					pat.items.append(Neu);
-				}
 				pat.width = pg.attribute("width", "0").toDouble();
 				pat.height = pg.attribute("height", "0").toDouble();
 				pat.scaleX = pg.attribute("scaleX", "0").toDouble();
 				pat.scaleY = pg.attribute("scaleY", "0").toDouble();
+				pat.xoffset = pg.attribute("xoffset", "0").toDouble();
+				pat.yoffset = pg.attribute("yoffset", "0").toDouble();
+				PageItem* currItem = m_Doc->Items->at(ac);
+				pat.pattern = currItem->DrawObj_toImage();
+				pat.pattern = pat.pattern.copy(-pat.xoffset, -pat.yoffset, pat.width, pat.height);
+				for (uint as = ac; as < ae; ++as)
+				{
+					Neu = m_Doc->Items->takeAt(ac);
+					Neu->moveBy(pat.xoffset, pat.yoffset, true);
+					Neu->gXpos += pat.xoffset;
+					Neu->gYpos += pat.yoffset;
+					Neu->ItemNr = pat.items.count();
+					pat.items.append(Neu);
+				}
 				m_Doc->docPatterns.insert(pg.attribute("Name"), pat);
 			}
 			PAGE=PAGE.nextSibling();

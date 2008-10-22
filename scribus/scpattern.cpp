@@ -37,6 +37,8 @@ ScPattern::ScPattern()
 	scaleY = 1.0;
 	width = 0.0;
 	height = 0.0;
+	xoffset = 0.0;
+	yoffset = 0.0;
 };
 
 void ScPattern::setDoc(ScribusDoc *doc)

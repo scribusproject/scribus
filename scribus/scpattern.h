@@ -45,6 +45,8 @@ public:
 	double scaleY;
 	double height;
 	double width;
+	double xoffset;
+	double yoffset;
 	QList<PageItem*> items;
 	ScribusDoc *m_doc;
 	QImage pattern;
