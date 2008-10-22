@@ -356,7 +356,7 @@ void PrintDialog::SelFile()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("printdir", ".");
-	CustomFDialog dia(this, wdir, tr("Save as"), tr("PostScript Files (*.ps);;All Files (*)"), fdNone | fdHidePreviewCheckBox);
+	CustomFDialog dia(this, wdir, tr("Save As"), tr("PostScript Files (*.ps);;All Files (*)"), fdNone | fdHidePreviewCheckBox);
 	if (!LineEdit1->text().isEmpty())
 		dia.setSelection(LineEdit1->text());
 	if (dia.exec() == QDialog::Accepted)

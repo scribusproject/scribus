@@ -5510,7 +5510,7 @@ void ScribusMainWindow::SaveText()
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("save_text", prefsDocDir);
 	else
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("save_text", ".");
-	QString fn = CFileDialog( wdir, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), "", fdShowCodecs);
+	QString fn = CFileDialog( wdir, tr("Save As"), tr("Text Files (*.txt);;All Files(*)"), "", fdShowCodecs);
 	if (!fn.isEmpty())
 	{
 		prefsManager->prefsFile->getContext("dirs")->set("save_text", fn.left(fn.lastIndexOf("/")));
@@ -7886,7 +7886,7 @@ void ScribusMainWindow::reallySaveAsEps()
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("eps", prefsDocDir);
 	else
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("eps", ".");
-	QString fn = CFileDialog( wdir, tr("Save as"), tr("%1;;All Files (*)").arg(formatsManager->extensionsForFormat(FormatsManager::EPS)), fna, fdHidePreviewCheckBox | fdNone);
+	QString fn = CFileDialog( wdir, tr("Save As"), tr("%1;;All Files (*)").arg(formatsManager->extensionsForFormat(FormatsManager::EPS)), fna, fdHidePreviewCheckBox | fdNone);
 	if (!fn.isEmpty())
 	{
 		prefsManager->prefsFile->getContext("dirs")->set("eps", fn.left(fn.lastIndexOf("/")));

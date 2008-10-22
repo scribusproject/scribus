@@ -105,7 +105,7 @@ bool ScPrintEngine_GDI::print( ScribusDoc& doc, PrintOptions& options )
 			docDir = dirs->get("winprn", prefsDocDir);
 		else
 			docDir = ".";
-		CustomFDialog dia( doc.scMW()->view, docDir, QObject::tr("Save as"), "Spool Files (*.prn *.ps);;All Files (*)", fdNone);
+		CustomFDialog dia( doc.scMW()->view, docDir, QObject::tr("Save As"), "Spool Files (*.prn *.ps);;All Files (*)", fdNone);
 		dia.setSelection( diaSelection );
 		if (dia.exec() == QDialog::Accepted)
 		{
