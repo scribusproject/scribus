@@ -49,7 +49,7 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	fromDocLabel->setBuddy( fromDocData );
 	fromInfoLayout->addWidget( fromDocLabel, 0, 0 );
 	fromInfoLayout->addWidget( fromDocData, 0, 1 );
-	changeButton = new QPushButton( tr( "Chan&ge..." ), this );
+	changeButton = new QPushButton( tr( "&Select..." ), this );
 	changeButton->setAutoDefault( false );
 	fromInfoLayout->addWidget( changeButton, 0, 2 );
 	importPageLabel = new QLabel( tr( "&Import Page(s):" ), this );
