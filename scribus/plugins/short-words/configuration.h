@@ -36,6 +36,8 @@ public:
 	uint action;
 	//*! \brief UI checkbox */
 	//uint userConfig;
+	bool useStyle;
+	int currentLanguage;
 
 	/*! \brief Returns all options for specified language.
 	\param lang language of the ext frame */
@@ -43,6 +45,7 @@ public:
 	/*! \brief available configs for UI about.
 	\retval QString with languages in the configuration. */
 	static QString getAvailableLanguages();
+	static QStringList getAvailableLanguagesList();
 	/*! \brief get lang code (en, cs, pl) from Scribus hyphenator configuration structure.
 	\param hyphenCode code of the language.
 	\retval QString full named language. */
@@ -61,7 +64,7 @@ private:
 	/*! \brief getAvailableLanguages use this one. available config in the specified file for UI about
 	\param filename config file
 	\retval QString all supported languages in one string */
-	static QString getAvailableLanguagesFromFile(QString filename);
+	static QStringList getAvailableLanguagesFromFile(QString filename);
 	/*! \brief returns full lang name by lang code (en -> English)
 	\param code language code
 	\retval QString full named language */

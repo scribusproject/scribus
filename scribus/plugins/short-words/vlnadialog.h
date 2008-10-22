@@ -18,15 +18,16 @@ or documentation
 #ifndef _SHORTWORDSDIALOG_H
 #define _SHORTWORDSDIALOG_H
 
-#include <QDialog>
+// #include <QDialog>
+#include "ui_swdialog.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
-class QGroupBox;
-class QRadioButton;
-class QPushButton;
-class QLabel;
+// class QVBoxLayout;
+// class QHBoxLayout;
+// class QGridLayout;
+// class QGroupBox;
+// class QRadioButton;
+// class QPushButton;
+// class QLabel;
 
 class SWConfig;
 
@@ -34,45 +35,35 @@ class SWConfig;
 Generated from Qt designer UI file. Later changes by my hands :)
 \author Petr Vanek <petr@yarpen.cz>
 */
-class SWDialog : public QDialog
+class SWDialog : public QDialog, public Ui::SWDialog
 {
 	Q_OBJECT
 
-public:
-	SWDialog(QWidget* parent = 0);
-	~SWDialog();
+	public:
+		SWDialog(QWidget* parent = 0);
+		~SWDialog();
 
-	//! reference on the config structure
-	SWConfig *cfg;
+		int actionSelected();
+		bool useStyleLang();
+		QString lang();
 
-	QGroupBox* buttonGroup;
-	QRadioButton* frameRadio;
-	QRadioButton* pageRadio;
-	QRadioButton* allRadio;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
-	/*! \brief 1-3 integer - value of the radio button group transformed */
-	int actionSelected;
+	protected slots:
+		virtual void languageChange();
 
-	/*! \brief  from config file */
-	void selectAction(int aAction);
+	private:
+		//! reference on the config structure
+		SWConfig *cfg;
 
-public slots:
-	/*! \brief  run shorts processing */
-	virtual void okButton_pressed();
-	/*! \brief  cancel and quit */
-	virtual void cancelButton_pressed();
+		/*! \brief  from config file */
+		void selectAction(int aAction);
 
-protected:
-	QGridLayout* SWDialogLayout;
-	QVBoxLayout* layout4;
-	QHBoxLayout* layout3;
-	QVBoxLayout* layout2;
-	QVBoxLayout* layout1;
+		void savePrefs();
 
-protected slots:
-	virtual void languageChange();
-
+	private slots:
+		/*! \brief  run shorts processing */
+		virtual void okButton_pressed();
+		/*! \brief  cancel and quit */
+		virtual void cancelButton_pressed();
 };
 
 #endif // SWDialog_H

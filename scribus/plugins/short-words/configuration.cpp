@@ -38,6 +38,8 @@ SWConfig::SWConfig()
 	action = prefs->getUInt("action", 0);
 	//userConfig = prefs->getUInt("userConfig", 0);
 	//editor = prefs->get("editor", "");
+	useStyle = prefs->getBool("useStyle", true);
+	currentLanguage = prefs->getInt("currentLanguage", 0);
 }
 
 void SWConfig::saveConfig()
@@ -45,6 +47,8 @@ void SWConfig::saveConfig()
 	prefs->set("action", action);
 	//prefs->set("userConfig", userConfig);
 	//prefs->set("editor", editor);
+	prefs->set("useStyle", useStyle);
+	prefs->set("currentLanguage", currentLanguage);
 }
 
 QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
@@ -96,7 +100,7 @@ QStringList SWConfig::getShortWords(QString lang)
 	return allShorts + getShortWordsFromFile(lang, RC_PATH);*/
 }
 
-QString SWConfig::getAvailableLanguagesFromFile(QString filename)
+QStringList SWConfig::getAvailableLanguagesFromFile(QString filename)
 {
 	QStringList langs;
 	QStringList nations;
@@ -119,21 +123,37 @@ QString SWConfig::getAvailableLanguagesFromFile(QString filename)
 	}
 	else
 	{
-		return QString();
+		return QStringList();
 	}
-	if (filename == RC_PATH_USR)
-		return QObject::tr("Custom (optional) configuration: ", "short words plugin") + " " + nations.join(", ");
-	if (filename == RC_PATH)
-		return QObject::tr("Standard configuration: ", "short words plugin") + " " + nations.join(", ");
-	return nations.join(", "); // save return only
+// 	if (filename == RC_PATH_USR)
+// 		return QObject::tr("Custom (optional) configuration: ", "short words plugin") + " " + nations.join(", ");
+// 	if (filename == RC_PATH)
+// 		return QObject::tr("Standard configuration: ", "short words plugin") + " " + nations.join(", ");
+	return nations; //.join(", "); // save return only
+}
+
+QStringList SWConfig::getAvailableLanguagesList()
+{
+	QStringList allConfig;
+	
+	if (QFile::exists(RC_PATH_USR))
+		allConfig << getAvailableLanguagesFromFile(RC_PATH_USR);
+	else
+		allConfig << getAvailableLanguagesFromFile(RC_PATH);
+	return allConfig;
 }
 
 QString SWConfig::getAvailableLanguages()
 {
-	QString allConfig = getAvailableLanguagesFromFile(RC_PATH);
+	QStringList allConfig;
+	allConfig << QObject::tr("Standard configuration: ", "short words plugin") << "<p>";
+	allConfig << getAvailableLanguagesFromFile(RC_PATH).join(", ");
 	if (QFile::exists(RC_PATH_USR))
-		allConfig += "<br>" + getAvailableLanguagesFromFile(RC_PATH_USR) + "";
-	return  allConfig;
+	{
+		allConfig << "<p>" << QObject::tr("Custom (optional) configuration: ", "short words plugin") << "<p>";
+		allConfig << getAvailableLanguagesFromFile(RC_PATH_USR).join(", ");
+	}
+	return  allConfig.join("");
 }
 
 QString SWConfig::getLangCodeFromHyph(QString hyphenCode)

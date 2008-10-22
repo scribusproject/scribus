@@ -34,6 +34,9 @@ public:
 	/*! \brief count of the changes (one frame = one change) */
 	uint modify;
 
+	//! language of the frame used
+	QString lang;
+
 	/*! \brief process one frame - base method!
 	Replacing strings via regular expressions. See detailed
 	description in the code of this method.

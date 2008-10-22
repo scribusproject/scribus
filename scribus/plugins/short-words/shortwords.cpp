@@ -121,8 +121,13 @@ bool ShortWordsPlugin::run(ScribusDoc* doc, QString target)
 	if (dlg->exec() == QDialog::Accepted) {
 		SWParse *parse = new SWParse();
 		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
+		if (!dlg->useStyleLang())
+			parse->lang = dlg->lang();
+		else
+			parse->lang = ""; // get it from style
+
 		doc->scMW()->setStatusBarInfoText(QObject::tr("Short Words processing. Wait please...", "short words plugin"));
-		switch (dlg->actionSelected) {
+		switch (dlg->actionSelected()) {
 			case 0:
 				parse->parseSelection(doc);
 				break;

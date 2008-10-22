@@ -38,8 +38,6 @@ void SWParse::parseItem(PageItem *aFrame)
 	// the content of the frame - text itself
 	QString content = QString();
 	int changes = 0;
-	// language of the frame
-	QString lang;
 	// list of the short words
 	QStringList shorts;
 	// text with special space
@@ -54,11 +52,19 @@ void SWParse::parseItem(PageItem *aFrame)
 		return;
 
 	// an ugly hack to get the language code from the item language property
-	lang = aFrame->itemText.charStyle(0).language();
+	if (lang.isNull() || lang.isEmpty())
+	{
+		lang = aFrame->itemText.charStyle(0).language();
+		if (lang.isNull() || lang.isEmpty())
+			qDebug("SWParse::parseItem - variable lang is still empty. No changes are made.");
+	}
+
+	QString langCode;
 	if (aFrame->doc()->scMW()->Sprachen.contains(lang))
-		lang = cfg->getLangCodeFromHyph(aFrame->doc()->scMW()->Sprachen[lang]);
+		langCode = cfg->getLangCodeFromHyph(aFrame->doc()->scMW()->Sprachen[lang]);
+
 	// apply spaces after shorts
-	shorts = cfg->getShortWords(lang);
+	shorts = cfg->getShortWords(langCode);
 	if (shorts.count()==0)
 		return; // no changes
 
@@ -118,6 +124,8 @@ void SWParse::parseItem(PageItem *aFrame)
 void SWParse::parseSelection(ScribusDoc* doc)
 {
 	uint docSelectionCount = doc->m_Selection->count();
+	if (docSelectionCount == 0)
+		return;
 	doc->scMW()->mainWindowProgressBar->setMaximum(docSelectionCount);
 	for (uint i=0; i < docSelectionCount; ++i)
 	{
@@ -137,6 +145,9 @@ void SWParse::parsePage(ScribusDoc* doc, int page)
 {
 	uint cnt = 0;
 	uint docItemsCount=doc->Items->count();
+	if (docItemsCount == 0)
+		return;
+
 	for (uint a = 0; a < docItemsCount; ++a)
 	{
 		PageItem* b = doc->Items->at(a);

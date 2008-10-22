@@ -37,78 +37,26 @@ or documentation
 
 SWDialog::SWDialog(QWidget* parent) : QDialog(parent)
 {
-	setModal(true);
+	setupUi(this);
+
 	cfg = new SWConfig();
 
-	SWDialogLayout = new QGridLayout(this);
-	SWDialogLayout->setMargin(10);
-	SWDialogLayout->setSpacing(5);
-
-	layout4 = new QVBoxLayout;
-	layout4->setMargin(0);
-	layout4->setSpacing(5);
-
-	layout3 = new QHBoxLayout;
-	layout3->setMargin(0);
-	layout3->setSpacing(5);
-
-	buttonGroup = new QGroupBox(this);
-
-	QGridLayout *gridLayout = new QGridLayout(buttonGroup);
-	gridLayout->setSpacing(5);
-	gridLayout->setMargin(10);
-	
-	QVBoxLayout *vboxLayout = new QVBoxLayout;
-	vboxLayout->setSpacing(5);
-	vboxLayout->setMargin(0);
-
-	frameRadio = new QRadioButton(buttonGroup);
-	vboxLayout->addWidget(frameRadio);
-
-	pageRadio = new QRadioButton(buttonGroup);
-	vboxLayout->addWidget(pageRadio);
-
-	allRadio = new QRadioButton(buttonGroup);
-	vboxLayout->addWidget(allRadio);
-
-	gridLayout->addLayout(vboxLayout, 0, 0);
-//	buttonGroup->setMinimumWidth(250); // these Germans withe their long words...
-	buttonGroup->adjustSize();
-
-	layout3->addWidget(buttonGroup);
-
-	layout2 = new QVBoxLayout;
-	layout2->setMargin(0);
-	layout2->setSpacing(5);
-	QSpacerItem* spacer = new QSpacerItem(2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	layout2->addItem(spacer);
-
-	layout1 = new QVBoxLayout;
-	layout1->setMargin(0);
-	layout1->setSpacing(5);
-
-	okButton = new QPushButton(this);
-	okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
-	layout1->addWidget(okButton);
-
-	cancelButton = new QPushButton(this);
-	cancelButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
-	layout1->addWidget(cancelButton);
-
-	layout2->addLayout(layout1);
-	layout3->addLayout(layout2);
-	layout4->addLayout(layout3);
-
-	SWDialogLayout->addLayout(layout4, 0, 0);
+	languageComboBox->addItems(cfg->getAvailableLanguagesList());
 
 	languageChange();
 	resize(minimumSizeHint());
 
-	selectAction(cfg->action);
-
 	// signals and slots connections
-	connect(okButton, SIGNAL(clicked()), this, SLOT(okButton_pressed()));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_pressed()));
+	connect(buttonBox->button(QDialogButtonBox::Ok), SIGNAL(clicked()),
+			 this, SLOT(okButton_pressed()));
+	connect(buttonBox->button(QDialogButtonBox::Cancel), SIGNAL(clicked()),
+			 this, SLOT(cancelButton_pressed()));
+	connect(styleCheckBox, SIGNAL(toggled(bool)),
+			 languageComboBox, SLOT(setDisabled(bool)));
+
+	selectAction(cfg->action);
+	styleCheckBox->setChecked(cfg->useStyle);
+	languageComboBox->setCurrentIndex(cfg->currentLanguage);
 }
 
 /*
@@ -116,7 +64,34 @@ SWDialog::SWDialog(QWidget* parent) : QDialog(parent)
  */
 SWDialog::~SWDialog()
 {
-	cfg->action = actionSelected;
+}
+
+int SWDialog::actionSelected()
+{
+	if (frameRadio->isChecked())
+		return 0;
+	else if (pageRadio->isChecked())
+		return 1;
+	else if (allRadio->isChecked())
+		return 2;
+	return 0;
+}
+
+bool SWDialog::useStyleLang()
+{
+	return styleCheckBox->isChecked();
+}
+
+QString SWDialog::lang()
+{
+	return languageComboBox->currentText();
+}
+
+void SWDialog::savePrefs()
+{
+	cfg->action = actionSelected();
+	cfg->useStyle = styleCheckBox->isChecked();
+	cfg->currentLanguage = languageComboBox->currentIndex();
 	cfg->saveConfig();
 }
 
@@ -131,8 +106,8 @@ void SWDialog::languageChange()
 	frameRadio->setText( tr("&Selected frames", "short words plugin"));
 	pageRadio->setText( tr("Active &page", "short words plugin"));
 	allRadio->setText( tr("&All items", "short words plugin"));
-	okButton->setText(CommonStrings::tr_OK);
-	cancelButton->setText(CommonStrings::tr_Cancel);
+// 	okButton->setText(CommonStrings::tr_OK);
+// 	cancelButton->setText(CommonStrings::tr_Cancel);
 	frameRadio->setToolTip( tr("Only selected frames processed.", "short words plugin"));
 	pageRadio->setToolTip( tr("Only actual page processed.", "short words plugin"));
 	allRadio->setToolTip( tr("All items in document processed.", "short words plugin"));
@@ -140,17 +115,13 @@ void SWDialog::languageChange()
 
 void SWDialog::okButton_pressed()
 {
-	if (frameRadio->isChecked())
-		actionSelected = 0;
-	else if (pageRadio->isChecked())
-		actionSelected = 1;
-	else if (allRadio->isChecked())
-		actionSelected = 2;
+	savePrefs();
 	accept();
 }
 
 void SWDialog::cancelButton_pressed()
 {
+	savePrefs();
 	reject();
 }
 
