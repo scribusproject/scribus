@@ -1515,11 +1515,13 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					if (frameResizeHandle <= 0 || m->modifiers() != Qt::NoModifier)
 					{
 						m_doc->m_Selection->delaySignalsOn();
+						m_view->updatesOn(false);
 						SeleItem(m); //Where we send the mouse press event to select an item
 						if (GetItem(&currItem))
 							frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 						else
 							frameResizeHandle = 0;
+						m_view->updatesOn(true);
 						m_doc->m_Selection->delaySignalsOff();
 					}
 					if (currItem && !currItem->locked() && frameResizeHandle > 0)
