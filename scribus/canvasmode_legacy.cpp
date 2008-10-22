@@ -1488,7 +1488,11 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 							 (frameResizeHandle == Canvas::INSIDE && m->modifiers() != Qt::NoModifier))
 					{
 						frameResizeHandle = 0;
+						m_doc->m_Selection->delaySignalsOn();
+						m_view->updatesOn(false);
 						shiftSel = SeleItem(m);
+						m_view->updatesOn(true);
+						m_doc->m_Selection->delaySignalsOff();
 					}
 					if (((m_doc->m_Selection->count() == 0) || (!shiftSel)) && (m->modifiers() == Qt::ShiftModifier))
 					{
