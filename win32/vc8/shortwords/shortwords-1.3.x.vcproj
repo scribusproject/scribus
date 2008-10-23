@@ -4,6 +4,7 @@
 	Version="8,00"
 	Name="shortwords-1.3.5.x"
 	ProjectGUID="{F54F5827-D95E-4CCE-856B-394C16BB7C83}"
+	RootNamespace="shortwords-1.3.5.x"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -661,6 +662,67 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\plugins\short-words\moc_vlnadialog.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Form Files"
+			Filter="ui"
+			>
+			<File
+				RelativePath="..\..\..\scribus\plugins\short-words\swdialog.ui"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
+						Outputs="$(InputDir)\ui_$(InputName).h"
+					/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Generated Form Files"
+			>
+			<File
+				RelativePath="..\..\..\scribus\plugins\short-words\ui_swdialog.h"
 				>
 			</File>
 		</Filter>
