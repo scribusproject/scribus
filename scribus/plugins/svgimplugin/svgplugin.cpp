@@ -380,7 +380,7 @@ void SVGPlug::convert(int flags)
 				lowestItem = qMin(lowestItem, currItem->ItemNr);
 				highestItem = qMax(highestItem, currItem->ItemNr);
 				double x1, x2, y1, y2;
-				currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 				minx = qMin(minx, x1);
 				miny = qMin(miny, y1);
 				maxx = qMax(maxx, x2);
@@ -608,6 +608,9 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 			FPoint wx = getMinClipF(&item->PoLine);
 			inGroupXOrigin = qMin(inGroupXOrigin, wx.x());
 			inGroupYOrigin = qMin(inGroupYOrigin, wx.y());
+//			double frameX = currItem->xPos() - currItem->visualXPos();
+//			double frameY = currItem->yPos() - currItem->visualYPos();
+//			qDebug() << frameX << frameY;
 			m_Doc->AdjustItemSize(item);
 			break;
 		}
@@ -640,9 +643,11 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 			item->GrType = gc->Gradient;
 			item->setPattern(importedPattTrans[gc->GCol1]);
 			QMatrix mm = gc->matrixg;
-			double patDx = mm.dx() * mm.m11(); // - (item->xPos() - BaseX);
-			double patDy = mm.dy() * mm.m22(); // - (item->yPos() - BaseY);
-			item->setPatternTransform(mm.m11() * 100.0, mm.m22() * 100.0, 0, 0, 0);
+			double rot = getRotationFromMatrix(mm, 0.0) * 180 / M_PI;
+			mm.rotate(rot);
+			double patDx = (item->xPos() - BaseX) - mm.dx();
+			double patDy = (item->yPos() - BaseY) - mm.dy();
+			item->setPatternTransform(mm.m11() * 100.0, mm.m22() * 100.0, patDx, patDy, -rot);
 		}
 		else
 		{
@@ -957,7 +962,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		{
 			PageItem* currItem = gElements.at(gr);
 			double x1, x2, y1, y2;
-			currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+			currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 			minx = qMin(minx, x1);
 			miny = qMin(miny, y1);
 			maxx = qMax(maxx, x2);
@@ -1979,8 +1984,12 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			QString key = params.mid(start, end - start);
 			obj->Gradient = 0;
 			obj->matrixg = QMatrix();
+			bool firstMatrixValid = false;
 			if (m_gradients[key].matrixValid)
+			{
+				firstMatrixValid = true;
 				obj->matrixg = m_gradients[key].matrix;
+			}
 			while (!m_gradients[key].reference.isEmpty())
 			{
 				QString key2 = m_gradients[key].reference;
@@ -2006,7 +2015,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 				else
 				{
 					obj->GCol1 = key2;
-					if (m_gradients[key2].matrixValid)
+					if ((m_gradients[key2].matrixValid) && (!firstMatrixValid))
 						obj->matrixg *= m_gradients[key2].matrix;
 				}
 				key = m_gradients[key].reference;
@@ -2329,9 +2338,16 @@ void SVGPlug::parsePattern(const QDomElement &b)
 			PageItem* currItem = GElements.at(0);
 			m_Doc->DoDrawing = true;
 			pat.pattern = currItem->DrawObj_toImage();
-			pat.pattern = pat.pattern.copy(-inGroupXOrigin, -inGroupYOrigin, wpat, hpat);
-			pat.xoffset = inGroupXOrigin;
-			pat.yoffset = inGroupYOrigin;
+			double xOrg = 0.0;
+			double yOrg = 0.0;
+			if (inGroupXOrigin < 0.0)
+				xOrg = inGroupXOrigin;
+			if (inGroupYOrigin < 0.0)
+				yOrg = inGroupYOrigin;
+			if ((xOrg != 0.0) || (yOrg != 0.0))
+				pat.pattern = pat.pattern.copy(-xOrg, -yOrg, wpat, hpat);
+			pat.xoffset = xOrg;
+			pat.yoffset = yOrg;
 			m_Doc->DoDrawing = false;
 			pat.width = qMin(currItem->gWidth, wpat);
 			pat.height = qMin(currItem->gHeight, hpat);
@@ -2341,9 +2357,9 @@ void SVGPlug::parsePattern(const QDomElement &b)
 				PageItem* Neu = m_Doc->Items->takeAt(ac);
 				if (more)
 				{
-					Neu->moveBy(inGroupXOrigin, inGroupYOrigin, true);
-					Neu->gXpos += inGroupXOrigin;
-					Neu->gYpos += inGroupYOrigin;
+					Neu->moveBy(xOrg, yOrg, true);
+					Neu->gXpos += xOrg;
+					Neu->gYpos += yOrg;
 				}
 				more = true;
 				Neu->ItemNr = pat.items.count();
