@@ -63,6 +63,13 @@ GuideManager::GuideManager(QWidget* parent) :
 	connect(delHorButton, SIGNAL(clicked()), this, SLOT(delHorButton_clicked()));
 	connect(addVerButton, SIGNAL(clicked()), this, SLOT(addVerButton_clicked()));
 	connect(delVerButton, SIGNAL(clicked()), this, SLOT(delVerButton_clicked()));
+	connect(horizontalView->selectionModel(),
+			 SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
+			 this, SLOT(forceDrawGuides(const QItemSelection &, const QItemSelection &)));
+	connect(verticalView->selectionModel(),
+			 SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
+			 this, SLOT(forceDrawGuides(const QItemSelection &, const QItemSelection &)));
+
 	connect(applyToAllStdButton, SIGNAL(clicked()),
 			this, SLOT(applyToAllStdButton_clicked()));
 	connect(horizontalAutoCountSpin, SIGNAL(valueChanged(int)),
@@ -290,7 +297,15 @@ void GuideManager::unitChange()
 
 void GuideManager::delHorButton_clicked()
 {
-	horizontalModel->removeRows(horizontalView->currentIndex().row(), 1);
+	QModelIndexList indexes = horizontalView->selectionModel()->selectedRows(0);
+	QModelIndex ix;
+	Guides v;
+
+	foreach(ix, indexes)
+		v.append(horizontalModel->data(ix, Qt::DisplayRole).toDouble());
+
+	horizontalModel->removeValues(v);
+
 	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
 	currentPage->guides.addHorizontals(horizontalModel->values(), GuideManagerCore::Standard);
 	drawGuides();
@@ -298,7 +313,15 @@ void GuideManager::delHorButton_clicked()
 
 void GuideManager::delVerButton_clicked()
 {
-	verticalModel->removeRows(verticalView->currentIndex().row(), 1);
+	QModelIndexList indexes = verticalView->selectionModel()->selectedRows(0);
+	QModelIndex ix;
+	Guides v;
+
+	foreach(ix, indexes)
+		v.append(verticalModel->data(ix, Qt::DisplayRole).toDouble());
+
+	verticalModel->removeValues(v);
+
 	currentPage->guides.clearVerticals(GuideManagerCore::Standard);
 	currentPage->guides.addVerticals(verticalModel->values(), GuideManagerCore::Standard);
 	drawGuides();
@@ -437,6 +460,11 @@ Guides GuideManager::selectedVerticals()
 		ret.append(curr.at(i.row()));
 	}
 	return ret;
+}
+
+void GuideManager::forceDrawGuides(const QItemSelection &, const QItemSelection &)
+{
+	drawGuides();
 }
 
 void GuideManager::drawGuides()

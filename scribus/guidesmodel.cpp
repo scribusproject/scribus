@@ -76,35 +76,48 @@ QVariant GuidesModel::headerData(int /*section*/, Qt::Orientation orientation, i
 	return "";
 }
 
-bool GuidesModel::removeRows(int row, int count, const QModelIndex & parent)
+void GuidesModel::removeValues(const Guides & v)
 {
-	if(count <= 0 || row < 0 || (row + count) > rowCount(parent))
-		return false;
-
-	beginRemoveRows(parent, row, row + count - 1);
-	for (int i = 0; i < count; ++i)
-		m_values.removeAt(row);
-	endRemoveRows();
-	return true;
+	foreach(double i, v)
+		m_values.removeAll(i);
+	reset();
 }
 
-bool GuidesModel::insertRows( int row, int count, const QModelIndex & parent)
-{
-	beginInsertRows(parent, row, row + count - 1);
-	for (int i = 0; i < count; ++i)
-		m_values.insert(row + count, 0.0);
-	endInsertRows();
-	return true;
-}
+// bool GuidesModel::removeRows(int row, int count, const QModelIndex & parent)
+// {
+// 	if (count <= 0 || row < 0 || (row + count - 1) > m_values.count())
+// 		return false;
+// 
+// 	beginRemoveRows(parent, row, row + count - 1);
+// 	for (int i = 0; i < count; ++i)
+// 		m_values.removeAt(row);
+// 	endRemoveRows();
+// 	return true;
+// }
+
+// bool GuidesModel::insertRows( int row, int count, const QModelIndex & parent)
+// {
+// 	beginInsertRows(parent, row, row + count - 1);
+// 	for (int i = 0; i < count; ++i)
+// 		m_values.insert(row + count, 0.0);
+// 	endInsertRows();
+// 	return true;
+// }
 
 void GuidesModel::insertRow()
 {
-	insertRows(rowCount(), 1);
+// 	insertRows(rowCount(), 1);
+	if (m_values.contains(0.0))
+		return;
+	m_values.append(0.0);
+	qSort(m_values);
+	reset();
 }
 
 void GuidesModel::setValues(Guides values)
 {
 	m_values = values;
+	qSort(m_values);
 	reset();
 }
 
@@ -120,6 +133,7 @@ void GuidesModel::unitChange(int docUnitIndex, int docUnitDecimals)
 	reset();
 }
 
+#if 0
 // debug
 #include <QtDebug>
 void GuidesModel::printValues()
@@ -129,3 +143,4 @@ void GuidesModel::printValues()
 		qDebug() << "GuidesModel dump: " << m_values[i];
 	qDebug() << "GuidesModel end of dump";
 }
+#endif

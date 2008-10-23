@@ -130,7 +130,9 @@ private:
 	int verticalRefer();
 	void languageChange();
 
-protected slots:
+private slots:
+	//! Wrapper slot for drawGuides()
+	void forceDrawGuides(const QItemSelection &, const QItemSelection &);
 	void verticalModel_valueChanged();
 	void horizontalModel_valueChanged();
 	void addHorButton_clicked();
