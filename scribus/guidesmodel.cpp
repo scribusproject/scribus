@@ -4,6 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <QLocale>
+
 #include "guidesmodel.h"
 #include "units.h"
 
@@ -41,8 +43,11 @@ QVariant GuidesModel::data(const QModelIndex & index, int role) const
 		return QVariant();
 	if (role == Qt::DisplayRole || role == Qt::EditRole)
 	{
-		QString s;
-		return QVariant(s.setNum(pts2value(m_values.at(index.row()), m_docUnitIndex), 'f', m_docUnitDecimals));
+		QLocale l;
+		return QVariant(l.toString(pts2value(m_values.at(index.row()),
+											  m_docUnitIndex), 'f',
+											  m_docUnitDecimals)
+						);
 	}
 	if (role == Qt::BackgroundColorRole && m_values.at(index.row()) == 0.0)
 		return QVariant(Qt::red);
