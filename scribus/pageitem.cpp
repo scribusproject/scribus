@@ -1527,8 +1527,8 @@ QImage PageItem::DrawObj_toImage()
 		for (int em = 0; em < emG.count(); ++em)
 		{
 			PageItem* currItem = emG.at(em);
-			currItem->gXpos = currItem->visualXPos() - minx;
-			currItem->gYpos = currItem->visualYPos() - miny;
+			currItem->gXpos = currItem->xPos() - minx;
+			currItem->gYpos = currItem->yPos() - miny;
 			currItem->gWidth = maxx - minx;
 			currItem->gHeight = maxy - miny;
 		}

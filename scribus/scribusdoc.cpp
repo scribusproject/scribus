@@ -9716,7 +9716,7 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 				}
 			}
 		}
-		itemSelection->getGroupRect(&x, &y, &w, &h);
+		itemSelection->getVisualGroupRect(&x, &y, &w, &h);
 		uint lowestItem = 999999;
 		uint highestItem = 0;
 		for (uint a=0; a<selectedItemCount; ++a)
@@ -9737,7 +9737,7 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 		{
 			PageItem* currItem = itemSelection->itemAt(ep);
 			double x1, x2, y1, y2;
-			currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+			currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 			minx = qMin(minx, x1);
 			miny = qMin(miny, y1);
 			maxx = qMax(maxx, x2);
