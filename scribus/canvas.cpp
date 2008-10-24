@@ -2097,7 +2097,7 @@ void Canvas::calculateFrameLinkPoints(PageItem *pi1, PageItem *pi2, FPoint & sta
 
 void Canvas::displayXYHUD(QPoint m)
 {
-	if (!PrefsManager::instance()->appPrefs.showToolTips)
+	if (!PrefsManager::instance()->appPrefs.showMouseCoordinates)
 		return;
 	double gx, gy, gh, gw, r;
 	if (m_doc->m_Selection->isMultipleSelection())
@@ -2143,6 +2143,8 @@ void Canvas::displayXYHUD(QPoint m)
 
 void Canvas::displayCorrectedXYHUD(QPoint m, double x, double y)
 {
+	if (!PrefsManager::instance()->appPrefs.showMouseCoordinates)
+		return;
 	double gx = x;
 	double gy = y;
 	if (m_doc->guidesSettings.rulerMode)
@@ -2157,12 +2159,14 @@ void Canvas::displayCorrectedXYHUD(QPoint m, double x, double y)
 
 void Canvas::displayXYHUD(QPoint m, double x, double y)
 {
+	if (!PrefsManager::instance()->appPrefs.showMouseCoordinates)
+		return;
 	QToolTip::showText(m + QPoint(5, 5), tr("X: %1\nY: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, m_doc->unitIndex(), true, true)), this);
 }
 
 void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
 {
-	if (!PrefsManager::instance()->appPrefs.showToolTips)
+	if (!PrefsManager::instance()->appPrefs.showMouseCoordinates)
 		return;
 	if (isLine)
 		QToolTip::showText(m + QPoint(5, 5), tr("Length: %1\nAngle: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, SC_DEGREES, true, true)), this);

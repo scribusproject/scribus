@@ -583,6 +583,8 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="viewShowContextMenu";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="showMouseCoordinates";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 //	scrActions->insert("viewNewView", new ScrAction("", defaultKey(name), mainWindow));
 
 	(*scrActions)["viewFitPreview"]->setToggleAction(true);
@@ -601,6 +603,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewRulerMode"]->setToggleAction(true);
 	(*scrActions)["viewSnapToGrid"]->setToggleAction(true);
 	(*scrActions)["viewSnapToGuides"]->setToggleAction(true);
+	(*scrActions)["showMouseCoordinates"]->setToggleAction(true);
 
 	(*scrActions)["viewFitPreview"]->setChecked(false);
 	(*scrActions)["viewShowMargins"]->setChecked(true);
@@ -612,6 +615,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewShowColumnBorders"]->setChecked(false);
 	(*scrActions)["viewShowRulers"]->setChecked(true);
 	(*scrActions)["viewRulerMode"]->setChecked(true);
+	(*scrActions)["showMouseCoordinates"]->setChecked(true);
 
 	connect( (*scrActions)["viewFitInWindow"], SIGNAL(triggeredData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFitWidth"], SIGNAL(triggeredData(double)), mainWindow, SLOT(slotZoom(double)) );
@@ -635,6 +639,7 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewRulerMode"], SIGNAL(triggered()), mainWindow, SLOT(ToggleRulerMode()) );
 	connect( (*scrActions)["viewSnapToGrid"], SIGNAL(triggered()), mainWindow, SLOT(ToggleURaster()) );
 	connect( (*scrActions)["viewSnapToGuides"], SIGNAL(triggered()), mainWindow, SLOT(ToggleUGuides()) );
+	connect( (*scrActions)["showMouseCoordinates"], SIGNAL(triggered()), mainWindow, SLOT(ToggleMouseTips()) );
 //	connect( (*scrActions)["viewNewView"], SIGNAL(triggered()), mainWindow, SLOT(newView()) );
 
 }
@@ -1467,6 +1472,7 @@ void ActionManager::languageChange()
 	(*scrActions)["helpAboutPlugins"]->setTexts( tr("&About Plugins"));
 	(*scrActions)["helpAboutQt"]->setTexts( tr("About &Qt"));
 	(*scrActions)["helpTooltips"]->setTexts( tr("Toolti&ps"));
+	(*scrActions)["showMouseCoordinates"]->setTexts( tr("Move/Resize value indicator"));
 	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Manual..."));
 	(*scrActions)["helpOnlineWWW"]->setTexts( tr("Scribus Homepage"));
 	(*scrActions)["helpOnlineDocs"]->setTexts( tr("Scribus Online Documentation"));
@@ -1782,7 +1788,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "pageInsert" << "pageImport" << "pageDelete" << "pageCopy" << "pageMove" << "pageApplyMasterPage" << "pageCopyToMasterPage" << "pageManageGuides" << "pageManageMargins" << "viewSnapToGrid" << "viewSnapToGuides";
 	//View
 	++itmenu;
-	itmenu->second << "viewFitWidth" << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFit400" << "viewFitPreview" << "viewShowMargins" << "viewShowBleeds" << "viewShowFrames" << "viewShowLayerMarkers" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowColumnBorders" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode";
+	itmenu->second << "viewFitWidth" << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFit400" << "viewFitPreview" << "viewShowMargins" << "viewShowBleeds" << "viewShowFrames" << "viewShowLayerMarkers" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowColumnBorders" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode" << "showMouseCoordinates";
 	//Extras
 	++itmenu;
 	itmenu->second << "extrasManageImages" << "extrasHyphenateText" << "extrasDeHyphenateText" << "extrasGenerateTableOfContents";

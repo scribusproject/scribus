@@ -261,6 +261,7 @@ struct ApplicationPrefs
 	bool askBeforeSubstituite;
 	bool haveStylePreview;
 	bool showToolTips;
+	bool showMouseCoordinates;
 	// lorem ipsum
 	bool useStandardLI;
 	int paragraphsLI;

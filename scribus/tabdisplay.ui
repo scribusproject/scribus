@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>623</width>
-    <height>620</height>
+    <height>505</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -27,68 +27,44 @@
       <number>0</number>
      </property>
      <widget class="QWidget" name="displayGeneral" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>595</width>
-        <height>568</height>
-       </rect>
-      </property>
       <attribute name="title" >
        <string>General</string>
       </attribute>
-      <layout class="QGridLayout" >
+      <layout class="QGridLayout" name="gridLayout" >
        <item rowspan="2" row="0" column="0" >
         <widget class="QGroupBox" name="groupBox3" >
          <property name="title" >
           <string>Page Display</string>
          </property>
-         <layout class="QGridLayout" >
-          <property name="margin" >
-           <number>10</number>
-          </property>
+         <layout class="QVBoxLayout" name="verticalLayout" >
           <property name="spacing" >
            <number>5</number>
           </property>
-          <item row="7" column="0" >
-           <widget class="QCheckBox" name="checkBleed" >
+          <property name="margin" >
+           <number>10</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="checkPictures" >
             <property name="text" >
-             <string>Show Bleed Area</string>
+             <string>Show Images</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="0" >
-           <widget class="QCheckBox" name="checkUnprintable" >
+          <item>
+           <widget class="QCheckBox" name="checkControl" >
             <property name="text" >
-             <string>Display &amp;Unprintable Area in Margin Color</string>
-            </property>
-            <property name="shortcut" >
-             <string>Alt+U</string>
+             <string>Show Text Control Characters</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="0" >
-           <widget class="QCheckBox" name="checkLayerM" >
+          <item>
+           <widget class="QCheckBox" name="checkRuler" >
             <property name="text" >
-             <string>Show Layer Indicators</string>
-            </property>
-            <property name="shortcut" >
-             <string/>
+             <string>Rulers Relative to Page</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="0" >
-           <widget class="QCheckBox" name="checkFrame" >
-            <property name="text" >
-             <string>Show Frames</string>
-            </property>
-            <property name="shortcut" >
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0" >
+          <item>
            <widget class="QCheckBox" name="checkLink" >
             <property name="text" >
              <string>Show Text Chains</string>
@@ -98,28 +74,44 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0" >
-           <widget class="QCheckBox" name="checkRuler" >
+          <item>
+           <widget class="QCheckBox" name="checkFrame" >
             <property name="text" >
-             <string>Rulers Relative to Page</string>
+             <string>Show Frames</string>
+            </property>
+            <property name="shortcut" >
+             <string/>
             </property>
            </widget>
           </item>
-          <item row="1" column="0" >
-           <widget class="QCheckBox" name="checkControl" >
+          <item>
+           <widget class="QCheckBox" name="checkLayerM" >
             <property name="text" >
-             <string>Show Text Control Characters</string>
+             <string>Show Layer Indicators</string>
+            </property>
+            <property name="shortcut" >
+             <string/>
             </property>
            </widget>
           </item>
-          <item row="0" column="0" >
-           <widget class="QCheckBox" name="checkPictures" >
+          <item>
+           <widget class="QCheckBox" name="checkUnprintable" >
             <property name="text" >
-             <string>Show Images</string>
+             <string>Display &amp;Unprintable Area in Margin Color</string>
+            </property>
+            <property name="shortcut" >
+             <string>Alt+U</string>
             </property>
            </widget>
           </item>
-          <item row="8" column="0" >
+          <item>
+           <widget class="QCheckBox" name="checkBleed" >
+            <property name="text" >
+             <string>Show Bleed Area</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QCheckBox" name="checkShowPageShadow" >
             <property name="toolTip" >
              <string/>
@@ -365,14 +357,6 @@
       </layout>
      </widget>
      <widget class="QWidget" name="displayColors" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>595</width>
-        <height>568</height>
-       </rect>
-      </property>
       <attribute name="title" >
        <string>Colors</string>
       </attribute>

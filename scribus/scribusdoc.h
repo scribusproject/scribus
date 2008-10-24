@@ -1035,7 +1035,6 @@ public:
 	QString Language;
 	bool Automatic;
 	bool AutoCheck;
-	
 	PDFOptions PDF_Options;
 	PrintOptions Print_Options;
 	bool RePos;

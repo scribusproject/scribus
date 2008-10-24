@@ -363,6 +363,7 @@ public slots:
 	void slotOnlineHelp();
 	void slotOnlineHelpClosed();
 	void ToggleTips();
+	void ToggleMouseTips();
 	/** \brief Erzeugt eine neue Seite */
 	void slotNewPageP(int wo, QString templ);
 	void slotNewPageM();

@@ -226,6 +226,7 @@ void PrefsManager::initDefaults()
 	appPrefs.GUI = "";
 	appPrefs.grayscaleIcons = false; // can be a little slower on startup.. but its a nice effect to play with
 	appPrefs.showToolTips = true;
+	appPrefs.showMouseCoordinates = true;
 	appPrefs.moveTimeout = 150;
 	appPrefs.stickyTools = false;
 	//FIXME
@@ -1252,6 +1253,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("StartUp", static_cast<int>(appPrefs.showStartupDialog));
 	dc.setAttribute("UseSmallWidgets", static_cast<int>(appPrefs.useSmallWidgets));
 	dc.setAttribute("ToolTips", static_cast<int>(appPrefs.showToolTips));
+	dc.setAttribute("showMouseCoordinates", static_cast<int>(appPrefs.showMouseCoordinates));
 	dc.setAttribute("stickyTools", static_cast<int>(appPrefs.stickyTools));
 	elem.appendChild(dc);
 	QDomElement dc1=docu.createElement("GRID");
@@ -1767,6 +1769,7 @@ bool PrefsManager::ReadPref(QString ho)
 			if (dc.hasAttribute("STEFONT"))
 				appPrefs.STEfont = dc.attribute("STEFONT");
 			appPrefs.showToolTips = static_cast<bool>(dc.attribute("ToolTips", "1").toInt());
+			appPrefs.showMouseCoordinates = static_cast<bool>(dc.attribute("showMouseCoordinates", "1").toInt());
 			appPrefs.stickyTools = static_cast<bool>(dc.attribute("stickyTools", "0").toInt());
 		}
 		if (dc.tagName()=="GRID")

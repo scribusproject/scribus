@@ -350,8 +350,10 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	initScrapbook();
 
 	scrActions["helpTooltips"]->setChecked(prefsManager->appPrefs.showToolTips);
+	scrActions["showMouseCoordinates"]->setChecked(prefsManager->appPrefs.showMouseCoordinates);
 	scrActions["stickyTools"]->setChecked(prefsManager->appPrefs.stickyTools);
 	ToggleTips();
+	ToggleMouseTips();
 	propertiesPalette->setFontSize();
 	if (scrActions["SaveAsDocumentTemplate"])
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
@@ -899,6 +901,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["viewShowTextControls"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowRulers"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewRulerMode"], "View");
+	scrMenuMgr->addMenuItem(scrActions["showMouseCoordinates"], "View");
 
 	scrActions["viewShowRulers"]->setEnabled(false);
 
@@ -5497,8 +5500,12 @@ void ScribusMainWindow::slotOnlineHelpClosed()
 
 void ScribusMainWindow::ToggleTips()
 {
-	//qt4 consume in event filter QToolTip::setGloballyEnabled(scrActions["helpTooltips"]->isChecked());
 	prefsManager->appPrefs.showToolTips = scrActions["helpTooltips"]->isChecked();
+}
+
+void ScribusMainWindow::ToggleMouseTips()
+{
+	prefsManager->appPrefs.showMouseCoordinates = scrActions["showMouseCoordinates"]->isChecked();
 }
 
 void ScribusMainWindow::SaveText()
