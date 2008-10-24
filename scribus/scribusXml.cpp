@@ -884,7 +884,8 @@ void ScriXmlDoc::GetStyle(QXmlStreamReader &reader, ParagraphStyle &vg, StyleSet
 		QList<ParagraphStyle::TabRecord> tbs;
 		while (!reader.atEnd() && !reader.hasError())
 		{
-			QXmlStreamReader::TokenType tType = reader.readNext();
+//			QXmlStreamReader::TokenType tType = reader.readNext();
+			reader.readNext();
 			QString tagName = reader.name().toString();
 			if (tagName == "STYLE" && reader.isEndElement()) 
 				break;
@@ -2397,7 +2398,8 @@ void ScriXmlDoc::ReadPStyle(QXmlStreamReader& reader, ParagraphStyle &style, Scr
 	QList<ParagraphStyle::TabRecord> tabs;
 	while (!reader.atEnd() && !reader.hasError())
 	{
-		QXmlStreamReader::TokenType tType = reader.readNext();
+//		QXmlStreamReader::TokenType tType = reader.readNext();
+		reader.readNext();
 		QString tagName = reader.name().toString();
 		if (tagName == "PARA" && reader.isEndElement()) 
 			break;
