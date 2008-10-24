@@ -5,14 +5,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>209</width>
-    <height>228</height>
+    <width>142</width>
+    <height>207</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Distances</string>
   </property>
-  <layout class="QGridLayout" >
+  <layout class="QGridLayout" name="gridLayout" >
    <item row="0" column="0" >
     <widget class="QLabel" name="x1Label" >
      <property name="text" >
@@ -27,22 +27,6 @@
      </property>
      <property name="alignment" >
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2" >
-    <widget class="QComboBox" name="unitSwitchX1" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumContentsLength" >
-      <number>3</number>
-     </property>
-     <property name="frame" >
-      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -63,19 +47,6 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="2" >
-    <widget class="QComboBox" name="unitSwitchY1" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumContentsLength" >
-      <number>0</number>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="0" >
     <widget class="QLabel" name="x2Label" >
      <property name="text" >
@@ -90,19 +61,6 @@
      </property>
      <property name="alignment" >
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="2" >
-    <widget class="QComboBox" name="unitSwitchX2" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumContentsLength" >
-      <number>0</number>
      </property>
     </widget>
    </item>
@@ -123,19 +81,6 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="2" >
-    <widget class="QComboBox" name="unitSwitchY2" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumContentsLength" >
-      <number>0</number>
-     </property>
-    </widget>
-   </item>
    <item row="4" column="0" >
     <widget class="QLabel" name="lengthLabel" >
      <property name="text" >
@@ -150,19 +95,6 @@
      </property>
      <property name="alignment" >
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="2" >
-    <widget class="QComboBox" name="unitSwitchLength" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumContentsLength" >
-      <number>0</number>
      </property>
     </widget>
    </item>
@@ -183,19 +115,6 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="2" >
-    <widget class="QComboBox" name="unitSwitchDX" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumContentsLength" >
-      <number>0</number>
-     </property>
-    </widget>
-   </item>
    <item row="6" column="0" >
     <widget class="QLabel" name="dyLabel" >
      <property name="text" >
@@ -213,19 +132,6 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="2" >
-    <widget class="QComboBox" name="unitSwitchDY" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumContentsLength" >
-      <number>0</number>
-     </property>
-    </widget>
-   </item>
    <item row="7" column="0" >
     <widget class="QLabel" name="angleLabel" >
      <property name="text" >
@@ -240,6 +146,29 @@
      </property>
      <property name="alignment" >
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Unit:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1" >
+    <widget class="QComboBox" name="unitSwitch" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumContentsLength" >
+      <number>3</number>
+     </property>
+     <property name="frame" >
+      <bool>true</bool>
      </property>
     </widget>
    </item>

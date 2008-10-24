@@ -28,29 +28,11 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	textWidth = fontMetrics().width("mmm")+12;
 	for (int i = 0; i <= maxUindex; ++i)
 	{
-		unitSwitchX1->addItem(unitGetStrFromIndex(i));
-		unitSwitchY1->addItem(unitGetStrFromIndex(i));
-		unitSwitchX2->addItem(unitGetStrFromIndex(i));
-		unitSwitchY2->addItem(unitGetStrFromIndex(i));
-		unitSwitchLength->addItem(unitGetStrFromIndex(i));
-		unitSwitchDX->addItem(unitGetStrFromIndex(i));
-		unitSwitchDY->addItem(unitGetStrFromIndex(i));
-		unitSwitchX1->setMinimumSize(textWidth, 12);
-		unitSwitchY1->setMinimumSize(textWidth, 12);
-		unitSwitchX2->setMinimumSize(textWidth, 12);
-		unitSwitchY2->setMinimumSize(textWidth, 12);
-		unitSwitchLength->setMinimumSize(textWidth, 12);
-		unitSwitchDX->setMinimumSize(textWidth, 12);
-		unitSwitchDY->setMinimumSize(textWidth, 12);
+		unitSwitch->addItem(unitGetStrFromIndex(i));
+		unitSwitch->setMinimumSize(textWidth, 12);
 	}
 	resize(minimumSizeHint());
-	connect(unitSwitchX1, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
-	connect(unitSwitchY1, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
-	connect(unitSwitchX2, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
-	connect(unitSwitchY1, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
-	connect(unitSwitchDX, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
-	connect(unitSwitchDY, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
-	connect(unitSwitchLength, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
+	connect(unitSwitch, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
 }
 
 void Measurements::setValues(double x1, double y1, double x2, double y2, double angle, double len)
@@ -73,20 +55,14 @@ void Measurements::setValues(double x1, double y1, double x2, double y2, double 
 void Measurements::unitChanged()
 {
 	QString tmp;
-	int uInd = unitSwitchX1->currentIndex();
-	x1Data->setText(tmp.setNum(qRound(mX1*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
-	uInd = unitSwitchY1->currentIndex();
-	y1Data->setText(tmp.setNum(qRound(mY1*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
-	uInd = unitSwitchX1->currentIndex();
-	x2Data->setText(tmp.setNum(qRound(mX2*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
-	uInd = unitSwitchY2->currentIndex();
-	y2Data->setText(tmp.setNum(qRound(mY2*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
-	uInd = unitSwitchDX->currentIndex();
-	dXData->setText(tmp.setNum(qRound(mDX*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
-	uInd = unitSwitchDY->currentIndex();
-	dYData->setText(tmp.setNum(qRound(mDY*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
-	uInd = unitSwitchLength->currentIndex();
-	lengthData->setText(tmp.setNum(qRound(mLength*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)));
+	int uInd = unitSwitch->currentIndex();
+	x1Data->setText(tmp.setNum(qRound(mX1*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
+	y1Data->setText(tmp.setNum(qRound(mY1*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
+	x2Data->setText(tmp.setNum(qRound(mX2*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
+	y2Data->setText(tmp.setNum(qRound(mY2*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
+	dXData->setText(tmp.setNum(qRound(mDX*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
+	dYData->setText(tmp.setNum(qRound(mDY*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
+	lengthData->setText(tmp.setNum(qRound(mLength*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
 }
 
 void Measurements::changeEvent(QEvent *e)
