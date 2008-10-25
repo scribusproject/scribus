@@ -55,7 +55,8 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	killed = false;
 	
 	config = 0;
-	setConfigFile(PrefsManager::instance()->latexConfigs()[0]);
+	if (PrefsManager::instance()->latexConfigs().count() > 0)
+		setConfigFile(PrefsManager::instance()->latexConfigs()[0]);
 
 	latex = new QProcess();
 	connect(latex, SIGNAL(finished(int, QProcess::ExitStatus)),
@@ -212,6 +213,12 @@ void PageItem_LatexFrame::runApplication()
 	
 	static bool firstWarningTmpfile = true;
 	static bool firstWarningLatexMissing = true;
+
+	if (!config)
+	{
+		qCritical() << "RENDER FRAME:" << tr("No configuration defined to run the application!");
+		return;
+	}
 	
 	QFile tempfile(tempFileBase);
 	if (!tempfile.open(QIODevice::Truncate|QIODevice::WriteOnly)) {
@@ -397,7 +404,7 @@ void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 
 QString PageItem_LatexFrame::application() const
 {
-	return config->executable();
+	return config ? config->executable() : tr("No application defined");
 }
 
 QString PageItem_LatexFrame::configFile() const
@@ -423,8 +430,8 @@ void PageItem_LatexFrame::setConfigFile(QString newConfig)
 {
 	if (configFilename == newConfig) return;
 	
-	bool unchanged = false;
-	if (formulaText.isEmpty() || formulaText == config->emptyFrameText()) {
+	bool unchanged = formulaText.isEmpty();
+	if (config && (formulaText == config->emptyFrameText())) {
 		unchanged = true;
 	}
 	
