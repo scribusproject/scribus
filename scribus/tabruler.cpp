@@ -767,18 +767,18 @@ void Tabruler::setTabType(int t)
 
 void Tabruler::setType()
 {
-	disconnect(TypeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
+	TypeCombo->blockSignals(true);
 	ruler->changeTab(TypeCombo->currentIndex());
-	connect(TypeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
+	TypeCombo->blockSignals(false);
 	emit tabrulerChanged();
 	emit tabsChanged();
 }
 
 void Tabruler::setTabData(double t)
 {
-	disconnect(tabData, SIGNAL(valueChanged(double)), this, SLOT(setTab()));
+	tabData->blockSignals(true);
 	tabData->setValue(t * docUnitRatio);
-	connect(tabData, SIGNAL(valueChanged(double)), this, SLOT(setTab()));
+	tabData->blockSignals(false);
 	if (!ruler->mousePressed)
 	{
 		emit tabrulerChanged();
@@ -795,9 +795,9 @@ void Tabruler::setTab()
 
 void Tabruler::setFirstLineData(double t)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(setFirstLine()));
+	firstLineData->blockSignals(true);
 	firstLineData->setValue(t * docUnitRatio);
-	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(setFirstLine()));
+	firstLineData->blockSignals(false);
 	if (!ruler->mousePressed)
 	{
 		emit tabrulerChanged();
@@ -820,9 +820,9 @@ void Tabruler::setFirstLine()
 
 void Tabruler::setLeftIndentData(double t)
 {
-	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(setLeftIndent()));
+	leftIndentData->blockSignals(true);
 	leftIndentData->setValue(t * docUnitRatio);
-	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(setLeftIndent()));
+	leftIndentData->blockSignals(false);
 	if (!ruler->mousePressed)
 	{
 		emit tabrulerChanged();
@@ -860,9 +860,9 @@ double Tabruler::getLeftIndent()
 
 void Tabruler::setRightIndentData(double t)
 {
-	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(setRightIndent()));
+	rightIndentData->blockSignals(true);
 	rightIndentData->setValue(t * docUnitRatio);
-	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(setRightIndent()));
+	rightIndentData->blockSignals(false);
 	if (!ruler->mousePressed)
 	{
 		emit tabrulerChanged();
