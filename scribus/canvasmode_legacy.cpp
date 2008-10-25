@@ -292,14 +292,16 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 	}
 	if (GetItem(&currItem))
 	{
-		if (currItem->asLatexFrame()) {
+		if (currItem->asLatexFrame()) 
+		{
 			if ((currItem->locked()) || (!currItem->ScaleType))
 			{
 				return;
 			}
 			if (currItem->imageShown())
 				m_view->requestMode(modeEdit);
-		} else if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
+		} 
+		else if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
 		{
 			if ((currItem->locked()) || (!currItem->ScaleType))
 			{
@@ -322,63 +324,62 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 			else
 				m_view->requestMode(modeEditClip);				
 		}
-		else
-			if (currItem->itemType() == PageItem::TextFrame)
+		else if (currItem->itemType() == PageItem::TextFrame)
+		{
+			//CB old code
+			//emit currItem->isAnnotation() ? AnnotProps() : Amode(modeEdit);
+			//mousePressEvent(m);
+			//CB if annotation, open the annotation dialog
+			if (currItem->isAnnotation())
 			{
-				//CB old code
-				//emit currItem->isAnnotation() ? AnnotProps() : Amode(modeEdit);
+				m_view->requestMode(submodeAnnotProps);
 				//mousePressEvent(m);
-				//CB if annotation, open the annotation dialog
-				if (currItem->isAnnotation())
-				{
-					m_view->requestMode(submodeAnnotProps);
-					//					mousePressEvent(m);
-				}
-				//else if not in mode edit, set mode edit
-				else if (m_doc->appMode != modeEdit)
-				{
-					m_view->requestMode(modeEdit);
-					m_view->slotSetCurs(m->x(), m->y());
-					//CB ignore the double click and go with a single one
-					//if we werent in mode edit before.
-					//unsure if this is correct, but its ok given we had no
-					//double click select until now.
-//					mousePressEvent(m);
-				}
-				//otherwise, select between the whitespace
-				else
-				{	//Double click in a frame to select a word
-					PageItem_TextFrame *cItem=currItem->asTextFrame();
-					bool inText = m_view->slotSetCurs(m->x(), m->y());
-					if (!inText)
-					{
-						m_view->Deselect(true);
-//						m_view->slotDoCurs(true);
-						m_view->requestMode(modeNormal);
-						return;
-					}
-					int a=cItem->CPos;
-					while(a>0)
-					{
-						if (cItem->itemText.text(a-1).isLetterOrNumber())
-							--a;
-						else
-							break;
-					}
-					int b=cItem->CPos;
-					while(b<cItem->itemText.length())
-					{
-						if (cItem->itemText.text(b).isLetterOrNumber())
-							++b;
-						else
-							break;
-					}
-					oldCp = a;
-					cItem->CPos=b;
-					cItem->ExpandSel(1, oldCp);
-//					m_view->slotDoCurs(true);
-				}
 			}
+			//else if not in mode edit, set mode edit
+			else if (m_doc->appMode != modeEdit)
+			{
+				m_view->requestMode(modeEdit);
+				m_view->slotSetCurs(m->x(), m->y());
+				//CB ignore the double click and go with a single one
+				//if we werent in mode edit before.
+				//unsure if this is correct, but its ok given we had no
+				//double click select until now.
+//				mousePressEvent(m);
+			}
+			//otherwise, select between the whitespace
+			else
+			{	//Double click in a frame to select a word
+				PageItem_TextFrame *cItem=currItem->asTextFrame();
+				bool inText = m_view->slotSetCurs(m->x(), m->y());
+				if (!inText)
+				{
+					m_view->Deselect(true);
+//					m_view->slotDoCurs(true);
+					m_view->requestMode(modeNormal);
+					return;
+				}
+				int a=cItem->CPos;
+				while(a>0)
+				{
+					if (cItem->itemText.text(a-1).isLetterOrNumber())
+						--a;
+					else
+						break;
+				}
+				int b=cItem->CPos;
+				while(b<cItem->itemText.length())
+				{
+					if (cItem->itemText.text(b).isLetterOrNumber())
+						++b;
+					else
+						break;
+				}
+				oldCp = a;
+				cItem->CPos=b;
+				cItem->ExpandSel(1, oldCp);
+//				m_view->slotDoCurs(true);
+			}
+		}
 	}
 }
 
@@ -2473,8 +2474,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				m_canvas->m_viewMode.operItemResizing = false;
 				m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 			}
-			else
-				currItem->emitAllToGUI();
+			/*else
+				currItem->emitAllToGUI();*/
 		}
 	}
 	if (m_doc->appMode == modeMagnifier)
