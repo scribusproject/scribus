@@ -682,8 +682,7 @@ void Tabruler::lastTabRemoved()
 
 void Tabruler::setFillChar()
 {
-	disconnect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
-	disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
+	tabFillCombo->blockSignals(true);
 	QChar ret;
 	switch (tabFillCombo->currentIndex())
 	{
@@ -710,20 +709,21 @@ void Tabruler::setFillChar()
 	}
 	if (tabFillCombo->currentIndex() != 4)
 		ruler->changeTabChar(ret);
-	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
-	connect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	tabFillCombo->blockSignals(false);
+	emit tabrulerChanged();
+	emit tabsChanged();
 }
 
 void Tabruler::setCustomFillChar(const QString &txt)
 {
 	if (txt == CommonStrings::trCustomTabFill)
 		return;
-	disconnect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
-	disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
-	QChar ret = txt[txt.length()-1];
+	tabFillCombo->blockSignals(true);
+	QChar ret = (txt.length() > 0) ? txt[txt.length()-1] : QChar::Null;
 	ruler->changeTabChar(ret);
-	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
-	connect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	tabFillCombo->blockSignals(false);
+	emit tabrulerChanged();
+	emit tabsChanged();
 }
 
 void Tabruler::setTabFillChar(QChar t)
