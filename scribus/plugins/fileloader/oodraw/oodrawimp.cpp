@@ -447,35 +447,11 @@ bool OODPlug::convert(int flags)
 				lowestItem = qMin(lowestItem, currItem->ItemNr);
 				highestItem = qMax(highestItem, currItem->ItemNr);
 				double x1, x2, y1, y2;
-				currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 				minx = qMin(minx, x1);
 				miny = qMin(miny, y1);
 				maxx = qMax(maxx, x2);
 				maxy = qMax(maxy, y2);
-/*				double lw = currItem->lineWidth() / 2.0;
-				if (currItem->rotation() != 0)
-				{
-					FPointArray pb;
-					pb.resize(0);
-					pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
-					pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-					pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-					pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-					for (uint pc = 0; pc < 4; ++pc)
-					{
-						minx = qMin(minx, pb.point(pc).x());
-						miny = qMin(miny, pb.point(pc).y());
-						maxx = qMax(maxx, pb.point(pc).x());
-						maxy = qMax(maxy, pb.point(pc).y());
-					}
-				}
-				else
-				{
-					minx = qMin(minx, currItem->xPos()-lw);
-					miny = qMin(miny, currItem->yPos()-lw);
-					maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-					maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-				} */
 			}
 			double gx = minx;
 			double gy = miny;
@@ -545,15 +521,7 @@ bool OODPlug::convert(int flags)
 // see #2196, #2526
 			m_Doc->itemSelection_DeleteItem(tmpSel);
 #endif
-//			m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
-//			m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
-//			m_Doc->minCanvasCoordinate = minSize;
-//			m_Doc->maxCanvasCoordinate = maxSize;
-//			m_Doc->view()->adjustCanvas(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()), 0, 0);
-//			m_Doc->adjustCanvas(minSize, maxSize, true);
-//			m_Doc->view()->setCanvasOrigin(cOrigin.x(), cOrigin.y());
 			m_Doc->view()->updatesOn(true);
-//			m_Doc->view()->updateCanvas();
 			m_Doc->m_Selection->delaySignalsOff();
 			const QPixmap& dragCursor = loadIcon("DragPix.xpm");
 			dr->setDragCursor(dragCursor, Qt::CopyAction);
@@ -636,35 +604,11 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 		{
 			PageItem* currItem = cElements.at(gr);
 			double x1, x2, y1, y2;
-			currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+			currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 			minx = qMin(minx, x1);
 			miny = qMin(miny, y1);
 			maxx = qMax(maxx, x2);
 			maxy = qMax(maxy, y2);
-/*			double lw = currItem->lineWidth() / 2.0;
-			if (currItem->rotation() != 0)
-			{
-				FPointArray pb;
-				pb.resize(0);
-				pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
-				pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-				pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-				pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-				for (uint pc = 0; pc < 4; ++pc)
-				{
-					minx = qMin(minx, pb.point(pc).x());
-					miny = qMin(miny, pb.point(pc).y());
-					maxx = qMax(maxx, pb.point(pc).x());
-					maxy = qMax(maxy, pb.point(pc).y());
-				}
-			}
-			else
-			{
-				minx = qMin(minx, currItem->xPos()-lw);
-				miny = qMin(miny, currItem->yPos()-lw);
-				maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-				maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-			} */
 		}
 		double gx = minx;
 		double gy = miny;

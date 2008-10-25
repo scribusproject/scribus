@@ -226,7 +226,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 					lowestItem = qMin(lowestItem, currItem->ItemNr);
 					highestItem = qMax(highestItem, currItem->ItemNr);
 					double x1, x2, y1, y2;
-					currItem->getBoundingRect(&x1, &y1, &x2, &y2);
+					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 					minx = qMin(minx, x1);
 					miny = qMin(miny, y1);
 					maxx = qMax(maxx, x2);
@@ -298,15 +298,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 #else
 				qDebug("psimport: leaving items on page");
 #endif
-//				m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
-//				m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
-//				m_Doc->minCanvasCoordinate = minSize;
-//				m_Doc->maxCanvasCoordinate = maxSize;
-//				m_Doc->view()->adjustCanvas(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()), 0, 0);
-//				m_Doc->adjustCanvas(minSize, maxSize, true);
-//				m_Doc->view()->setCanvasOrigin(cOrigin.x(), cOrigin.y());
 				m_Doc->view()->updatesOn(true);
-//				m_Doc->view()->updateCanvas();
 				m_Doc->m_Selection->delaySignalsOff();
 				const QPixmap& dragCursor = loadIcon("DragPix.xpm");
 				dr->setDragCursor(dragCursor, Qt::CopyAction);

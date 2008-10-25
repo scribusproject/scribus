@@ -385,30 +385,6 @@ void SVGPlug::convert(int flags)
 				miny = qMin(miny, y1);
 				maxx = qMax(maxx, x2);
 				maxy = qMax(maxy, y2);
-/*				double lw = currItem->lineWidth() / 2.0;
-				if (currItem->rotation() != 0)
-				{
-					FPointArray pb;
-					pb.resize(0);
-					pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
-					pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-					pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-					pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-					for (uint pc = 0; pc < 4; ++pc)
-					{
-						minx = qMin(minx, pb.point(pc).x());
-						miny = qMin(miny, pb.point(pc).y());
-						maxx = qMax(maxx, pb.point(pc).x());
-						maxy = qMax(maxy, pb.point(pc).y());
-					}
-				}
-				else
-				{
-					minx = qMin(minx, currItem->xPos()-lw);
-					miny = qMin(miny, currItem->yPos()-lw);
-					maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-					maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-				} */
 			}
 			double gx = minx;
 			double gy = miny;
@@ -477,15 +453,7 @@ void SVGPlug::convert(int flags)
 // see #2526
 			m_Doc->itemSelection_DeleteItem(tmpSel);
 #endif
-//			m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
-//			m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
-//			m_Doc->minCanvasCoordinate = minSize;
-//			m_Doc->maxCanvasCoordinate = maxSize;
-//			m_Doc->view()->adjustCanvas(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()), 0, 0);
-//			m_Doc->adjustCanvas(minSize, maxSize, true);
-//			m_Doc->view()->setCanvasOrigin(cOrigin.x(), cOrigin.y());
 			m_Doc->view()->updatesOn(true);
-//			m_Doc->view()->updateCanvas();
 			if (importedColors.count() != 0)
 			{
 				for (int cd = 0; cd < importedColors.count(); cd++)
@@ -608,9 +576,6 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 			FPoint wx = getMinClipF(&item->PoLine);
 			inGroupXOrigin = qMin(inGroupXOrigin, wx.x());
 			inGroupYOrigin = qMin(inGroupYOrigin, wx.y());
-//			double frameX = currItem->xPos() - currItem->visualXPos();
-//			double frameY = currItem->yPos() - currItem->visualYPos();
-//			qDebug() << frameX << frameY;
 			m_Doc->AdjustItemSize(item);
 			break;
 		}
@@ -967,30 +932,6 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			miny = qMin(miny, y1);
 			maxx = qMax(maxx, x2);
 			maxy = qMax(maxy, y2);
-/*			double lw = currItem->lineWidth() / 2.0;
-			if (currItem->rotation() != 0)
-			{
-				FPointArray pb;
-				pb.resize(0);
-				pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
-				pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-				pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-				pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-				for (uint pc = 0; pc < 4; ++pc)
-				{
-					minx = qMin(minx, pb.point(pc).x());
-					miny = qMin(miny, pb.point(pc).y());
-					maxx = qMax(maxx, pb.point(pc).x());
-					maxy = qMax(maxy, pb.point(pc).y());
-				}
-			}
-			else
-			{
-				minx = qMin(minx, currItem->xPos()-lw);
-				miny = qMin(miny, currItem->yPos()-lw);
-				maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-				maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-			} */
 		}
 		double gx = minx;
 		double gy = miny;
@@ -1001,7 +942,6 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		if (clipPath.size() != 0)
 		{
 			QMatrix mm = gc->matrix;
-			//mm.translate(-gx + BaseX, -gy + BaseY);
 			neu->PoLine = clipPath.copy();
 			neu->PoLine.map(mm);
 			neu->PoLine.translate(-gx + BaseX, -gy + BaseY);
