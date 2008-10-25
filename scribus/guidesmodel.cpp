@@ -41,7 +41,11 @@ QVariant GuidesModel::data(const QModelIndex & index, int role) const
 {
 	if (!index.isValid())
 		return QVariant();
-	if (role == Qt::DisplayRole || role == Qt::EditRole)
+	// DisplayRole and EditRole *must* be splitted. There is rounding
+	// in pts2value(), toString() sequence. It disallows to compare
+	// these values with m_data list.
+	// Call it with EditRole when you need exact value.
+	if (role == Qt::DisplayRole)
 	{
 		QLocale l;
 		return QVariant(l.toString(pts2value(m_values.at(index.row()),
@@ -49,6 +53,9 @@ QVariant GuidesModel::data(const QModelIndex & index, int role) const
 											  m_docUnitDecimals)
 						);
 	}
+	if (role == Qt::EditRole)
+		return pts2value(m_values.at(index.row()), m_docUnitIndex);
+
 	if (role == Qt::BackgroundColorRole && m_values.at(index.row()) == 0.0)
 		return QVariant(Qt::red);
 	return QVariant();
@@ -84,7 +91,7 @@ QVariant GuidesModel::headerData(int /*section*/, Qt::Orientation orientation, i
 void GuidesModel::removeValues(const Guides & v)
 {
 	foreach(double i, v)
-		m_values.removeAll(i);
+		m_values.removeAll(value2pts(i, m_docUnitIndex));
 	reset();
 }
 
