@@ -91,20 +91,16 @@ void PathDialog::newGap(double val)
 
 void PathDialog::newType(int val)
 {
-	bool setter = true;
 	effectType = val;
 	if (previewCheck->isChecked())
 		emit updateValues(effectType, offset, offsetY, gap, rotate);
-	if (effectType < 2)
-		setter = false;
+	bool setter = (effectType < 2) ? false : true;
 	label_3->setEnabled(setter);
 	gapSpin->setEnabled(setter);
 }
 
 void PathDialog::togglePreview()
 {
-	if (previewCheck->isChecked())
-		emit updateValues(effectType, offset, offsetY, gap, rotate);
-	else
-		emit updateValues(-1, offset, offsetY, gap, rotate);
+	int t = (previewCheck->isChecked()) ? effectType : -1;
+	emit updateValues(t, offset, offsetY, gap, rotate);
 }
