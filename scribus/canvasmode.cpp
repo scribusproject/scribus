@@ -23,6 +23,7 @@
 #include "canvasmode_legacy.h"
 #include "canvasmode_measurements.h"
 #include "canvasmode_nodeedit.h"
+#include "canvasmode_normal.h"
 #include "canvasmode_rotate.h"
 #include "selection.h"
 #include "scribusview.h"
@@ -60,6 +61,9 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 	
 	switch (appMode)
 	{
+		case modeNormal:
+			result = new CanvasMode_Normal(view);
+			break;
 		case modeEditClip:
 			result = new CanvasMode_NodeEdit(view);
 			break;

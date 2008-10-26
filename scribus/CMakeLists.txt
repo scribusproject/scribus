@@ -89,8 +89,9 @@ SET(SCRIBUS_MOC_CLASSES
   buttonicon.h
   canvas.h
   canvasgesture_rulermove.h
-  canvasmode_measurements.h
   canvasmode_legacy.h
+  canvasmode_measurements.h
+  canvasmode_normal.h
   charselect.h
   charselectenhanced.h
   chartablemodel.h
@@ -317,6 +318,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_legacy.cpp
   canvasmode_measurements.cpp
   canvasmode_nodeedit.cpp
+  canvasmode_normal.cpp
   canvasmode_rotate.cpp
   charselect.cpp
   charselectenhanced.cpp
