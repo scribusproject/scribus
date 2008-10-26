@@ -221,7 +221,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 		if (m_Doc->m_Selection->findItem(ite)!=-1)
 		{
 			if (m_Doc->appMode == modeEdit)
-				m_Doc->scMW()->setAppMode(modeNormal);
+				m_Doc->view()->requestMode(modeNormal);
 			m_Doc->m_Selection->removeItem(ite);
 		}
 		m_Doc->view()->Deselect(true);
@@ -269,7 +269,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 		if (m_Doc->m_Selection->findItem(ite)!=-1)
 		{
 			if (m_Doc->appMode == modeEdit)
-				m_Doc->scMW()->setAppMode(modeNormal);
+				m_Doc->view()->requestMode(modeNormal);
 			m_Doc->m_Selection->removeItem(ite);
 		}
 		Selection tempSelection(m_Doc, false);

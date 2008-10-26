@@ -3346,7 +3346,7 @@ void PageItem::restoreType(SimpleState *state, bool isUndo)
 		case Polygon: view->ToPolyFrame(); break;
 		case PolyLine: view->ToBezierFrame(); break;
 	}
-	m_Doc->scMW()->setAppMode(modeNormal);
+	view->requestMode(modeNormal);
 }
 
 void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
