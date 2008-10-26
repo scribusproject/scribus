@@ -8893,7 +8893,7 @@ void ScribusMainWindow::initHyphenator()
 				for (QMap<QString, QStringList>::Iterator it=InstLang.begin(); it!=InstLang.end(); ++it)
 				{
 					translatedLang="";
-					translatedLang = trans->translate("ScribusMainWindow", it.key().toLocal8Bit().data(), "");
+					translatedLang = trans->translate("QObject", it.key().toLocal8Bit().data(), "");
 					if (!translatedLang.isEmpty())
 						it.value().append(translatedLang);
 				}
@@ -8933,12 +8933,8 @@ QString ScribusMainWindow::GetLang(QString inLang)
 	QMap<QString, QStringList>::Iterator itlend=InstLang.end();
  	for (QMap<QString, QStringList>::Iterator itl = InstLang.begin(); itl != itlend; ++itl)
 	{
-		QStringList::Iterator itlrend=itl.value().end();
-		for (QStringList::Iterator itlr = itl.value().begin(); itlr != itlrend; ++itlr)
-		{
-			if ((*itlr) == inLang)
-				return itl.key();
-		}
+		if (itl.value().contains(inLang))
+			return itl.key();
 	}
 	return inLang;
 }
