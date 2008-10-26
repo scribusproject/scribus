@@ -20,6 +20,7 @@
 #include "canvasmode_create.h"
 #include "canvasmode_drawbezier.h"
 #include "canvasmode_drawfreehand.h"
+#include "canvasmode_editgradient.h"
 #include "canvasmode_legacy.h"
 #include "canvasmode_measurements.h"
 #include "canvasmode_nodeedit.h"
@@ -66,6 +67,9 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			break;
 		case modeEditClip:
 			result = new CanvasMode_NodeEdit(view);
+			break;
+		case modeEditGradientVectors:
+			result = new CanvasMode_EditGradient(view);
 			break;
 		case modeDrawBezierLine:
 			result = new BezierMode(view);

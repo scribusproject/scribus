@@ -315,6 +315,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_create.cpp
   canvasmode_drawbezier.cpp
   canvasmode_drawfreehand.cpp
+  canvasmode_editgradient.cpp
   canvasmode_legacy.cpp
   canvasmode_measurements.cpp
   canvasmode_nodeedit.cpp
