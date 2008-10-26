@@ -1055,19 +1055,19 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		for (int c = 0; c < doc->FrameItems.count(); ++c)
 		{
 			pgit = doc->FrameItems.at(c);
-			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
 				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 		}
 		for (int c = 0; c < doc->MasterItems.count(); ++c)
 		{
 			pgit = doc->MasterItems.at(c);
-			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
 				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 		}
 		for (int c = 0; c < doc->DocItems.count(); ++c)
 		{
 			pgit = doc->DocItems.at(c);
-			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
 				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 		}
 		QMap<QString,int>::const_iterator it;

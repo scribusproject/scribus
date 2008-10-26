@@ -906,8 +906,11 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			{
 				if (pgit->annotation().Type() == 4)
 					StdFonts.insert("/ZapfDingbats", "");
-				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-				ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+				if (pgit->itemText.length() > 0)
+				{
+					StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+					ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+				}
 			}
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
@@ -924,8 +927,11 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			{
 				if (pgit->annotation().Type() == 4)
 					StdFonts.insert("/ZapfDingbats", "");
-				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-				ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+				if (pgit->itemText.length() > 0)
+				{
+					StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+					ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+				}
 			}
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
@@ -942,8 +948,11 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			{
 				if (pgit->annotation().Type() == 4)
 					StdFonts.insert("/ZapfDingbats", "");
-				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-				ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+				if (pgit->itemText.length() > 0)
+				{
+					StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+					ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+				}
 			}
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
@@ -968,8 +977,11 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				{
 					if (pgit->annotation().Type() == 4)
 						StdFonts.insert("/ZapfDingbats", "");
-					StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
-					ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+					if (pgit->itemText.length() > 0)
+					{
+						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+						ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+					}
 				}
 				for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 				{
