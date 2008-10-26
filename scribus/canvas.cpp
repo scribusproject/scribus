@@ -1058,7 +1058,7 @@ void Canvas::drawControlsHighlightRect(QPainter* pp)
  */
 void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 {
-	psx->resetMatrix();
+//	psx->resetMatrix();
 //	QPoint out = contentsToViewport(QPoint(0, 0));
 //	psx->translate(out.x(), out.y());
 //	psx->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
