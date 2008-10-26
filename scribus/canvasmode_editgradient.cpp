@@ -61,7 +61,6 @@
 CanvasMode_EditGradient::CanvasMode_EditGradient(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
 }
 
 inline bool CanvasMode_EditGradient::GetItem(PageItem** pi)
@@ -108,7 +107,6 @@ void CanvasMode_EditGradient::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
 	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
 	setModeCursor();
 	if (fromGesture)
 	{
@@ -211,8 +209,6 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Dxp = mousePointDoc.x(); //m->x();
-	Dyp = mousePointDoc.y(); //m->y();
 	Mxp = mousePointDoc.x(); //m->x();
 	Myp = mousePointDoc.y(); //m->y();
 	if (m->button() == Qt::MidButton)

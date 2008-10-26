@@ -51,7 +51,7 @@ public:
 private:
 	inline bool GetItem(PageItem** pi);
 
-	double Mxp, Myp, Dxp, Dyp;
+	double Mxp, Myp;
 	ScribusMainWindow* m_ScMW;
 	bool m_cursorVisible;
 	bool m_lastPosWasOverGuide;
