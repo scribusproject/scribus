@@ -1580,7 +1580,7 @@ void PropertiesPalette::closeEvent(QCloseEvent *closeEvent)
 		{
 			if (Cpal->gradEditButton->isChecked())
 			{
-				m_ScMW->setAppMode(modeNormal);
+				m_ScMW->view->requestMode(modeNormal);
 				m_ScMW->view->RefreshGradient(CurItem);
 			}
 		}
@@ -4295,9 +4295,9 @@ void PropertiesPalette::toggleGradientEdit()
 	if ((HaveDoc) && (HaveItem))
 	{
 		if (Cpal->gradEditButton->isChecked())
-			m_ScMW->setAppMode(modeEditGradientVectors);
+			m_ScMW->view->requestMode(modeEditGradientVectors);
 		else
-			m_ScMW->setAppMode(modeNormal);
+			m_ScMW->view->requestMode(modeNormal);
 		m_ScMW->view->RefreshGradient(CurItem);
 	}
 }
