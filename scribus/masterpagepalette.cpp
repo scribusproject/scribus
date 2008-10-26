@@ -105,9 +105,15 @@ void MasterPagesPalette::deleteMasterPage()
 {
 	if ((sMuster == CommonStrings::masterPageNormal) || (sMuster == CommonStrings::trMasterPageNormal) || (sMuster == CommonStrings::trMasterPageNormalLeft) || (sMuster == CommonStrings::trMasterPageNormalMiddle) || (sMuster == CommonStrings::trMasterPageNormalRight))
 		return;
+	QString extraWarn = "";
+	for (int i=0; i < currentDoc->DocPages.count(); ++i )
+	{
+		if (currentDoc->DocPages[i]->MPageNam == sMuster)
+			extraWarn = tr("This master page is used at least once in the document.");
+	}
 	int exit = QMessageBox::warning(this,
 	                              CommonStrings::trWarning,
-	                              tr("Do you really want to delete this master page?"),
+	                              tr("Do you really want to delete this master page?")+"\n"+extraWarn,
 	                              QMessageBox::Yes | QMessageBox::No);
 	if (exit == QMessageBox::Yes)
 	{

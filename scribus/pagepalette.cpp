@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QMenu>
 #include <QMimeData>
+#include <QMessageBox>
 
 
 #include "commonstrings.h"
@@ -616,38 +617,51 @@ void PagePalette::deleteMasterPage(QString tmp)
 {
 	if (tmp == CommonStrings::trMasterPageNormal)
 		return;
-	int Nr = currView->Doc->MasterNames[tmp];
-	Page* Seite = currView->Doc->MasterPages.takeAt(Nr);
-	delete Seite;
-	currView->Doc->MasterNames.clear();
-
-	for (int aa=0; aa < currView->Doc->MasterPages.count(); ++aa)
+	QString extraWarn = "";
+	for (int i=0; i < currView->Doc->DocPages.count(); ++i )
 	{
-		Seite = currView->Doc->MasterPages.at(aa);
-		Seite->setPageNr(aa);
-		if (currView->Doc->currentPageLayout == doublePage)
-		{
-			Seite->Margins.Left = Seite->LeftPg ? currView->Doc->pageMargins.Right : currView->Doc->pageMargins.Left;
-			Seite->Margins.Right= Seite->LeftPg? currView->Doc->pageMargins.Left : currView->Doc->pageMargins.Right;
-		}
-		else
-		{
-			Seite->Margins.Right = currView->Doc->pageMargins.Right;
-			Seite->Margins.Left = currView->Doc->pageMargins.Left;
-		}
-		Seite->Margins.Top = currView->Doc->pageMargins.Top;
-		Seite->Margins.Bottom = currView->Doc->pageMargins.Bottom;
-		currView->Doc->MasterNames[Seite->pageName()] = aa;
+		if (currView->Doc->DocPages[i]->MPageNam == tmp)
+			extraWarn = tr("This master page is used at least once in the document.");
 	}
-	for (int b=0; b<currView->Doc->DocPages.count(); ++b)
+	int exit = QMessageBox::warning(this,
+	                              CommonStrings::trWarning,
+	                              tr("Do you really want to delete this master page?")+"\n"+extraWarn,
+	                              QMessageBox::Yes | QMessageBox::No);
+	if (exit == QMessageBox::Yes)
 	{
-		if (currView->Doc->DocPages.at(b)->MPageNam == tmp)
-			currView->Doc->DocPages.at(b)->MPageNam = CommonStrings::masterPageNormal;
+		int Nr = currView->Doc->MasterNames[tmp];
+		Page* Seite = currView->Doc->MasterPages.takeAt(Nr);
+		delete Seite;
+		currView->Doc->MasterNames.clear();
+	
+		for (int aa=0; aa < currView->Doc->MasterPages.count(); ++aa)
+		{
+			Seite = currView->Doc->MasterPages.at(aa);
+			Seite->setPageNr(aa);
+			if (currView->Doc->currentPageLayout == doublePage)
+			{
+				Seite->Margins.Left = Seite->LeftPg ? currView->Doc->pageMargins.Right : currView->Doc->pageMargins.Left;
+				Seite->Margins.Right= Seite->LeftPg? currView->Doc->pageMargins.Left : currView->Doc->pageMargins.Right;
+			}
+			else
+			{
+				Seite->Margins.Right = currView->Doc->pageMargins.Right;
+				Seite->Margins.Left = currView->Doc->pageMargins.Left;
+			}
+			Seite->Margins.Top = currView->Doc->pageMargins.Top;
+			Seite->Margins.Bottom = currView->Doc->pageMargins.Bottom;
+			currView->Doc->MasterNames[Seite->pageName()] = aa;
+		}
+		for (int b=0; b<currView->Doc->DocPages.count(); ++b)
+		{
+			if (currView->Doc->DocPages.at(b)->MPageNam == tmp)
+				currView->Doc->DocPages.at(b)->MPageNam = CommonStrings::masterPageNormal;
+		}
+		currView->DrawNew();
+		rebuildMasters();
+		rebuildPages();
+		currView->Doc->setModified(true);
 	}
-	currView->DrawNew();
-	rebuildMasters();
-	rebuildPages();
-	currView->Doc->setModified(true);
 }
 
 void PagePalette::pageView_movePage(int r, int c)
