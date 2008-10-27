@@ -25,8 +25,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QApplication>
 #include <QCursor>
-#include <QDebug>
-#include <QMouseEvent>
+#include <QMenu>
 #include <QPixmap>
 #include <QPalette>
 
@@ -45,7 +44,6 @@ RulerMover::RulerMover(ScribusView *pa) : QWidget(pa)
 	palette.setBrush(QPalette::Window, QColor(255, 255, 255));
 	palette.setBrush(backgroundRole(), QBrush(loadIcon("mover.png")));
 	setPalette(palette);
-//	setErasePixmap(loadIcon("mover.png"));
 	currView = pa;
 	rulerGesture = new RulerGesture(currView, RulerGesture::ORIGIN);
 	Mpressed = false;
@@ -60,8 +58,12 @@ void RulerMover::mouseDoubleClickEvent(QMouseEvent *)
 
 void RulerMover::mousePressEvent(QMouseEvent *m)
 {
-	Mpressed = true;
-	currView->startGesture(rulerGesture);
+	if (m->button() == Qt::LeftButton)
+	{
+		Mpressed = true;
+		currView->startGesture(rulerGesture);
+	}
+	QWidget::mousePressEvent(m);
 }
 
 void RulerMover::mouseReleaseEvent(QMouseEvent *m)
@@ -72,17 +74,69 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 		rulerGesture->mouseReleaseEvent(m);
 		Mpressed = false;
 	}
+	else if (m->button() == Qt::RightButton)
+	{
+		QMenu *pmen = new QMenu();
+		QMenu *pmen2;
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		pmen->addAction( tr("Reset Rulers"), this, SLOT(resetRulers()));
+		if (currView->Doc->guidesSettings.rulerMode)
+		{
+			pmen2 = new QMenu();
+			pmen2->setTitle( tr("Move on current Page"));
+			pmen2->addAction( tr("Origin at Top Left"), this, SLOT(resetRulers()));
+			pmen2->addAction( tr("Origin at Top Right"), this, SLOT(moveRulerTopRight()));
+			pmen2->addAction( tr("Origin at Bottom Left"), this, SLOT(moveRulerBottomLeft()));
+			pmen2->addAction( tr("Origin at Bottom Right"), this, SLOT(moveRulerBottomRight()));
+			pmen2->addAction( tr("Origin at Center"), this, SLOT(moveRulerCenter()));
+			pmen->addMenu(pmen2);
+		}
+		pmen->exec(QCursor::pos());
+		delete pmen;
+		if (currView->Doc->guidesSettings.rulerMode)
+			delete pmen2;
+	}
+	QWidget::mouseReleaseEvent(m);
 }
 
 void RulerMover::mouseMoveEvent(QMouseEvent *m)
 {
 	if (Mpressed)
-	{
 		rulerGesture->mouseMoveEvent(m);
-	}
+	QWidget::mouseMoveEvent(m);
 }
 
-
-void RulerMover::paintEvent(QPaintEvent* e)
+void RulerMover::resetRulers()
 {
+	currView->Doc->rulerXoffset = 0;
+	currView->Doc->rulerYoffset = 0;
+	currView->DrawNew();
+}
+
+void RulerMover::moveRulerTopRight()
+{
+	currView->Doc->rulerXoffset = currView->Doc->currentPage()->width();
+	currView->Doc->rulerYoffset = 0;
+	currView->DrawNew();
+}
+
+void RulerMover::moveRulerBottomLeft()
+{
+	currView->Doc->rulerXoffset = 0;
+	currView->Doc->rulerYoffset = currView->Doc->currentPage()->height();
+	currView->DrawNew();
+}
+
+void RulerMover::moveRulerBottomRight()
+{
+	currView->Doc->rulerXoffset = currView->Doc->currentPage()->width();
+	currView->Doc->rulerYoffset = currView->Doc->currentPage()->height();
+	currView->DrawNew();
+}
+
+void RulerMover::moveRulerCenter()
+{
+	currView->Doc->rulerXoffset = currView->Doc->currentPage()->width() / 2.0;
+	currView->Doc->rulerYoffset = currView->Doc->currentPage()->height() / 2.0;
+	currView->DrawNew();
 }

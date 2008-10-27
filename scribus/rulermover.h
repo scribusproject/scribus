@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 #define RULERMOVER_H
 
 #include <QWidget>
-//Added by qt3to4:
 #include <QMouseEvent>
 
 #include "scribusapi.h"
@@ -39,13 +38,18 @@ class SCRIBUS_API RulerMover : public QWidget
 public:
 	RulerMover(ScribusView *pa);
 	~RulerMover() {};
-	 void mouseDoubleClickEvent(QMouseEvent *);
+	void mouseDoubleClickEvent(QMouseEvent *);
 	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *m);
 	void mouseMoveEvent(QMouseEvent *m);
-	void paintEvent(QPaintEvent *e);
 	bool Mpressed;
 
+private slots:
+	void resetRulers();
+	void moveRulerTopRight();
+	void moveRulerBottomLeft();
+	void moveRulerBottomRight();
+	void moveRulerCenter();
 private: // Private attributes
 	ScribusView *currView;
 	RulerGesture* rulerGesture;
