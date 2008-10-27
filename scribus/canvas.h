@@ -172,6 +172,7 @@ public:
 	virtual void paintEvent ( QPaintEvent * p );
 	void displayXYHUD(QPoint m);
 	void displayCorrectedXYHUD(QPoint m, double x, double y);
+	void displayCorrectedSingleHUD(QPoint m, double val, bool isX);
 	void displayXYHUD(QPoint m, double x, double y);
 	void displaySizeHUD(QPoint m, double x, double y, bool isLine = false);
 	

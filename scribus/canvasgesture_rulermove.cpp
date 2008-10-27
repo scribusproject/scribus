@@ -163,6 +163,7 @@ void RulerGesture::movePoint(QMouseEvent* m)
 	{
 		case ORIGIN:
 			m_canvas->repaint();
+			m_canvas->displayCorrectedXYHUD(m->globalPos(), mousePointDoc.x(), mousePointDoc.y());
 			break;
 		case HORIZONTAL:
 			if (!m_ScMW->doc->guidesSettings.guidesShown)
@@ -200,6 +201,7 @@ void RulerGesture::movePoint(QMouseEvent* m)
 					m_haveGuide = false;
 				}
 			}
+			m_canvas->displayCorrectedSingleHUD(m->globalPos(), mousePointDoc.y(), false);
 			break;
 		case VERTICAL:
 			if (!m_ScMW->doc->guidesSettings.guidesShown)
@@ -237,6 +239,7 @@ void RulerGesture::movePoint(QMouseEvent* m)
 					m_haveGuide = false;
 				}
 			}
+			m_canvas->displayCorrectedSingleHUD(m->globalPos(), mousePointDoc.x(), true);
 			break;
 	}
 	m_xy = newMousePoint;
