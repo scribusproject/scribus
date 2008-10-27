@@ -4679,10 +4679,6 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
 		m_canvasMode->mouseReleaseEvent(m);
 		m_canvas->m_viewMode.m_MouseButtonPressed = false;
-/*		if (m->button() == Qt::MidButton)
-		{
-			DrawNew();
-		} */
 		return true;
 	}
 	else if (obj == widget() && event->type() == QEvent::MouseButtonPress)
