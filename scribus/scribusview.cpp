@@ -3734,93 +3734,69 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	}
 }
 
-//CB get this out of here, remove the need completely if possible. Used for cpal on mpalette
-/*
-void ScribusView::QueryFarben()
-{
-	PageItem *currItem;
-	if (GetItem(&currItem))
-	{
-		emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
-		emit ItemGradient(currItem->GrType);
-		emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
-		emit ItemBlend(currItem->fillBlendmode(), currItem->lineBlendmode());
-	}
-}
-*/
 void ScribusView::ToPicFrame()
 {
 	Selection tempSelection(*Doc->m_Selection);
+	Doc->m_Selection->delaySignalsOn();
+	updatesOn(false);
 	Deselect(true);
-	Doc->itemSelection_convertItemsTo(PageItem::ImageFrame, &tempSelection);
-	/*
-	PageItem *currItem = Doc->m_Selection->itemAt(0);
-	Deselect(true);
-	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::ImageFrame);
-	newItem->update();
-	SelectItem(newItem);
-	emit DocChanged();
-	*/
+	Selection restoreSelection(this);
+	Doc->itemSelection_convertItemsTo(PageItem::ImageFrame, &restoreSelection, &tempSelection);
+	Doc->m_Selection->copy(restoreSelection, true);
+	updatesOn(true);
+	Doc->m_Selection->delaySignalsOff();
 }
 
 void ScribusView::ToPolyFrame()
 {
 	Selection tempSelection(*Doc->m_Selection);
+	Doc->m_Selection->delaySignalsOn();
+	updatesOn(false);
 	Deselect(true);
-	Doc->itemSelection_convertItemsTo(PageItem::Polygon, &tempSelection);
-	/*
-	PageItem *currItem = Doc->m_Selection->itemAt(0);
-	Deselect(true);
-	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
-	newItem->update();
-	SelectItem(newItem);
-	emit DocChanged();
-	*/
+	Selection restoreSelection(this);
+	Doc->itemSelection_convertItemsTo(PageItem::Polygon, &restoreSelection, &tempSelection);
+	Doc->m_Selection->copy(restoreSelection, true);
+	updatesOn(true);
+	Doc->m_Selection->delaySignalsOff();
 }
 
 void ScribusView::ToTextFrame()
 {
 	Selection tempSelection(*Doc->m_Selection);
+	Doc->m_Selection->delaySignalsOn();
+	updatesOn(false);
 	Deselect(true);
-	Doc->itemSelection_convertItemsTo(PageItem::TextFrame, &tempSelection);
-	/*
-	PageItem *currItem = Doc->m_Selection->itemAt(0);
-	Deselect(true);
-	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);
-	newItem->update();
-	SelectItem(newItem);
-	emit DocChanged();
-	*/
+	Selection restoreSelection(this);
+	Doc->itemSelection_convertItemsTo(PageItem::TextFrame, &restoreSelection, &tempSelection);
+	Doc->m_Selection->copy(restoreSelection, true);
+	updatesOn(true);
+	Doc->m_Selection->delaySignalsOff();
 }
 
 void ScribusView::ToBezierFrame()
 {
 	Selection tempSelection(*Doc->m_Selection);
+	Doc->m_Selection->delaySignalsOn();
+	updatesOn(false);
 	Deselect(true);
-	Doc->itemSelection_convertItemsTo(PageItem::PolyLine, &tempSelection);
-	/*
-	PageItem *currItem = Doc->m_Selection->itemAt(0);
-	Deselect(true);
-	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PolyLine);
-	newItem->update();
-	SelectItem(newItem);
-	emit DocChanged();
-	*/
+	Selection restoreSelection(this);
+	Doc->itemSelection_convertItemsTo(PageItem::PolyLine, &restoreSelection, &tempSelection);
+	Doc->m_Selection->copy(restoreSelection, true);
+	updatesOn(true);
+	Doc->m_Selection->delaySignalsOff();
 }
 
 void ScribusView::Bezier2Poly()
 {
 	Selection tempSelection(*Doc->m_Selection);
+	Doc->m_Selection->delaySignalsOn();
+	updatesOn(false);
 	Deselect(true);
-	Doc->itemSelection_convertItemsTo(PageItem::Polygon, &tempSelection);
-	/*
-	PageItem *currItem = Doc->m_Selection->itemAt(0);
-	Deselect(true);
-	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
-	newItem->update();
-	SelectItem(newItem);
-	emit DocChanged();
-	*/
+	Selection restoreSelection(this);
+	Doc->itemSelection_convertItemsTo(PageItem::Polygon, &restoreSelection, &tempSelection);
+	Doc->m_Selection->copy(restoreSelection, true);
+	updatesOn(true);
+	Doc->m_Selection->delaySignalsOff();
 }
 
 void ScribusView::ToPathText()

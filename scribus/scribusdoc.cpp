@@ -9953,7 +9953,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 	regionsChanged()->update(QRectF());
 }
 
-void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, Selection* customSelection)
+void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, Selection* restoredSelection, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
@@ -9977,7 +9977,11 @@ void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, 
 		{
 			PageItem* newItem=convertItemTo(currItem, newType);
 			if (newItem)
+			{
 				newItem->update();
+				if (restoredSelection)
+					restoredSelection->addItem(newItem);
+			}
 		}
 	}
 	if (convertTransaction)

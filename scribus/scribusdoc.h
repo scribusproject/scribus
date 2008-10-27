@@ -794,7 +794,7 @@ public:
 
 	void itemSelection_GroupObjects  (bool changeLock, bool lock, Selection* customSelection=0);
 	void itemSelection_UnGroupObjects(Selection* customSelection=0);
-	void itemSelection_convertItemsTo(const PageItem::ItemType newType, Selection* customSelection=0);
+	void itemSelection_convertItemsTo(const PageItem::ItemType newType, Selection* restoredSelection=0, Selection* customSelection=0);
 
 	void itemSelection_ApplyParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection=0);
 	void itemSelection_SetParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection=0);
