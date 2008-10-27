@@ -576,6 +576,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasmode_edit.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasmode_editgradient.cpp"
 				>
 			</File>
@@ -2743,6 +2747,54 @@
 			<File
 				RelativePath="..\..\scribus\canvasmode_drawfreehand.h"
 				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasmode_edit.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_editgradient.h"
@@ -13284,6 +13336,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_canvasgesture_rulermove.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_canvasmode_edit.cpp"
 				>
 			</File>
 			<File

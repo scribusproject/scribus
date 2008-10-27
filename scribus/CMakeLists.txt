@@ -89,6 +89,7 @@ SET(SCRIBUS_MOC_CLASSES
   buttonicon.h
   canvas.h
   canvasgesture_rulermove.h
+  canvasmode_edit.h
   canvasmode_legacy.h
   canvasmode_measurements.h
   canvasmode_normal.h
@@ -315,6 +316,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_create.cpp
   canvasmode_drawbezier.cpp
   canvasmode_drawfreehand.cpp
+  canvasmode_edit.cpp
   canvasmode_editgradient.cpp
   canvasmode_legacy.cpp
   canvasmode_measurements.cpp

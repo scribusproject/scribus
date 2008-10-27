@@ -20,6 +20,7 @@
 #include "canvasmode_create.h"
 #include "canvasmode_drawbezier.h"
 #include "canvasmode_drawfreehand.h"
+#include "canvasmode_edit.h"
 #include "canvasmode_editgradient.h"
 #include "canvasmode_legacy.h"
 #include "canvasmode_measurements.h"
@@ -64,6 +65,9 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 	{
 		case modeNormal:
 			result = new CanvasMode_Normal(view);
+			break;
+		case modeEdit:
+			result = new CanvasMode_Edit(view);
 			break;
 		case modeEditClip:
 			result = new CanvasMode_NodeEdit(view);
