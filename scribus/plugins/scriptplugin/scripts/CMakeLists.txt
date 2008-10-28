@@ -4,11 +4,14 @@ INCLUDE_DIRECTORIES(
 
 INSTALL(FILES
 CalendarWizard.py
+ColorChart.py
 FontSample.py
 InfoBox.py
 ChangeLog
 NEWS
 ReadMe
 TODO
+color2csv.py
+csv2color.py
   DESTINATION ${SCRIPTSDIR}
 )
