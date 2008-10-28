@@ -14,5 +14,8 @@ ChangeLog
 NEWS
 ReadMe
 TODO
+color2csv.py
+csv2color.py
+ColorChart.py
   DESTINATION ${SCRIPTSDIR}
 )

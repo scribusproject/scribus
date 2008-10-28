@@ -14,6 +14,9 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/FontSample.py $(prefix)/share/scribus/scripts/FontSample.py
 	$(INSTALL_DATA) $(srcdir)/InfoBox.py $(prefix)/share/scribus/scripts/InfoBox.py
 	$(INSTALL_DATA) $(srcdir)/UnflipContent.py $(prefix)/share/scribus/scripts/UnflipContent.py
+	$(INSTALL_DATA) $(srcdir)/ColorChart.py $(prefix)/share/scribus/scripts/ColorChart.py
+	$(INSTALL_DATA) $(srcdir)/color2csv.py $(prefix)/share/scribus/scripts/color2csv.py
+	$(INSTALL_DATA) $(srcdir)/csv2color.py $(prefix)/share/scribus/scripts/csv2color.py
 	
 
 
@@ -30,3 +33,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/scripts/FontSample.py
 	-rm -f $(prefix)/share/scribus/scripts/InfoBox.py
 	-rm -f $(prefix)/share/scribus/scripts/UnflipContent.py
+	-rm -f $(prefix)/share/scribus/scripts/ColorChart.py
+	-rm -f $(prefix)/share/scribus/scripts/color2csv.py
+	-rm -f $(prefix)/share/scribus/scripts/csv2color.py
+
