@@ -894,7 +894,7 @@ void PageItem_TextFrame::layout()
 				opticalMargins = style.opticalMargins();
 			
 //			qDebug(QString("style pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent()));
-			const CharStyle& charStyle =  (chstr[0] != SpecialChars::PARSEP? itemText.charStyle(a) : itemText.paragraphStyle(a).charStyle());
+			const CharStyle& charStyle =  (hl->ch != SpecialChars::PARSEP? itemText.charStyle(a) : itemText.paragraphStyle(a).charStyle());
 			if (!charStyle.parent().isEmpty())
 			{
 //				qDebug(QString("charstyle pos %1: %2 (%3 %4 %5 %6 %7 %8 %9)").arg(a).arg(charStyle.parent())
