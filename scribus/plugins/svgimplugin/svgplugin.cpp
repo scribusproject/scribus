@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QPainterPath>
 #include <QRegExp>
+// #include <QTemporaryFile>
 #include <cmath>
 #include <QDebug>
 #include "color.h"
@@ -28,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scconfig.h"
 #include "scgzfile.h"
+#include "scpaths.h"
 #include "scpattern.h"
 #include "scraction.h"
 #include "scribus.h"
@@ -206,6 +208,7 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, int flags ) :
 	docDesc = "";
 	docTitle = "";
 	groupLevel = 0;
+	imgNum = 0;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 //	m_gc.setAutoDelete( true );
 }
@@ -217,6 +220,8 @@ bool SVGPlug::import(QString fname, int flags)
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fname);
 	QDir::setCurrent(efp.path());
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/"+efp.baseName()));
+	imgNum = 0;
 	convert(flags);
 	QDir::setCurrent(CurDirP);
 	return true;
@@ -539,12 +544,24 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 	{
 	case PageItem::ImageFrame:
 		{
+			item->ClipEdited = true;
+			item->FrameType = 3;
 			QMatrix mm = gc->matrix;
-			item->moveBy(mm.dx(), mm.dy());
-			item->setWidthHeight(item->width() * mm.m11(), item->height() * mm.m22());
+			item->PoLine.map(mm);
 			item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
+			FPoint wh = getMaxClipF(&item->PoLine);
+			item->setWidthHeight(wh.x(), wh.y());
+			m_Doc->AdjustItemSize(item);
+//			item->moveBy(mm.dx(), mm.dy());
+//			item->setWidthHeight(item->width() * mm.m11(), item->height() * mm.m22());
+//			item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
 			if (item->PicAvail)
-				item->setImageXYScale(item->width() / item->pixm.width(), item->height() / item->pixm.height());
+			{
+				item->setImageXYOffset(0.0, 0.0);
+				item->setImageXYScale(item->width() / (item->pixm.width() * (item->pixm.imgInfo.xres / 72.0)),
+									  item->height() / (item->pixm.height() * (item->pixm.imgInfo.yres / 72.0)));
+				item->setImageScalingMode(false, false); // fit to frame
+			}
 			break;
 		}
 	case PageItem::TextFrame:
@@ -862,6 +879,29 @@ void SVGPlug::parseClipPath(const QDomElement &e)
 void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
 {
 	clipPath.resize(0);
+	if (e.hasAttribute("style"))
+	{
+		QString style = e.attribute( "style" ).simplified();
+		QStringList substyles = style.split(';', QString::SkipEmptyParts);
+		for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
+		{
+			QStringList substyle = (*it).split(':', QString::SkipEmptyParts);
+			QString command(substyle[0].trimmed());
+			QString params(substyle[1].trimmed());
+			if (command == "clip-path")
+			{
+				if (params.startsWith( "url("))
+				{
+					unsigned int start = params.indexOf("#") + 1;
+					unsigned int end = params.lastIndexOf(")");
+					QString key = params.mid(start, end - start);
+					QMap<QString, FPointArray>::iterator it = m_clipPaths.find(key);
+					if (it != m_clipPaths.end())
+						clipPath = it.value().copy();
+				}
+			}
+		}
+	}
 	if (e.hasAttribute("clip-path"))
 	{
 		QString attr = e.attribute("clip-path");
@@ -894,7 +934,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		if( b.isNull() || isIgnorableNode(b) )
 			continue;
 		SvgStyle svgStyle;
-		parseStyle( &svgStyle, b );
+		parseStyle( &svgStyle, b);
 		if (!svgStyle.Display) 
 			continue;
 		QList<PageItem*> el = parseElement(b);
@@ -1032,6 +1072,8 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 		if (groupLevel == 1)
 			docTitle = e.text();
 	}
+	else if( STag == "image" )
+		GElements = parseImage(e);
 /*	else if( STag == "i:pgf" )
 	{
 		QByteArray cdat;
@@ -1176,7 +1218,32 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 	parseClipPathAttr(e, clipPath);
 	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, m_Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 	if (!fname.isEmpty())
-		m_Doc->LoadPict(fname, z);
+	{
+		if (!fname.startsWith("data:"))
+			m_Doc->LoadPict(fname, z);
+		else
+		{
+			int startData = fname.indexOf(",");
+			QString dataType = fname.left(startData);
+			fname.remove(0, startData+1);
+			QByteArray ba;
+			ba.append(fname);
+			if (dataType.contains("base64"))
+				ba = QByteArray::fromBase64(ba);
+/*			QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svg_XXXXXX");
+			tempfile->open();
+			QString fileName = getLongPathName(tempfile->fileName());
+			tempfile->setAutoRemove(false);
+			tempfile->close();
+			delete tempfile; */
+			QString imgName = baseFile + QString("-Img-%1").arg(imgNum) + ".png";
+			QImage img;
+			img.loadFromData(ba);
+			img.save(imgName, "PNG");
+			m_Doc->LoadPict(imgName, z);
+			imgNum++;
+		}
+	}
 	PageItem* ite = m_Doc->Items->at(z);
 	if (clipPath.size() != 0)
 		ite->PoLine = clipPath.copy();
