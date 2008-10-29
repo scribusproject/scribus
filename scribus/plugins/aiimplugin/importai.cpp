@@ -39,7 +39,6 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scpaths.h"
 #include "scpattern.h"
-#include "scpattern.h"
 #include "scribus.h"
 #include "scribusXml.h"
 #include "scribuscore.h"
@@ -1668,6 +1667,8 @@ void AIPlug::processData(QString data)
 		}
 		else if (command == "[")
 		{
+			Coords.resize(0);
+			Coords.svgInit();
 			int an = Cdata.indexOf("(");
 			int en = Cdata.lastIndexOf(")");
 			if ((an != -1) && (en != -1))
@@ -1803,9 +1804,15 @@ void AIPlug::processPattern(QDataStream &ts)
 					//			pat.height = currItem->gHeight;
 					pat.width = patternX2 - patternX1;
 					pat.height = patternY2 - patternY1;
+					pat.xoffset = -patternX1;
+					pat.yoffset = -patternY1;
 					for (int as = 0; as < tmpSel->count(); ++as)
 					{
-						pat.items.append(tmpSel->itemAt(as));
+						PageItem* Neu = tmpSel->itemAt(as);
+						Neu->moveBy(-patternX1, -patternY1, true);
+						Neu->gXpos -= patternX1;
+						Neu->gYpos -= patternY1;
+						pat.items.append(Neu);
 					}
 					m_Doc->itemSelection_DeleteItem(tmpSel);
 					m_Doc->addPattern(currentPatternDefName, pat);
