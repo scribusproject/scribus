@@ -511,6 +511,7 @@ SET(SCRIBUS_SOURCES
   scprintengine_ps.cpp
   scraction.cpp
   scrapbookpalette.cpp
+  scresizecursor.cpp
   scribus.cpp
   scribusXml.cpp
   scribusapp.cpp

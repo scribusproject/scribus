@@ -53,7 +53,7 @@ public:
 	virtual void drawControls(QPainter* p);
 
 protected:
-	void setResizeCursor(int);
+	void setResizeCursor(int how, double rot = 0.0);
 
 private:
 	inline bool GetItem(PageItem** pi);
