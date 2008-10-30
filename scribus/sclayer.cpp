@@ -448,27 +448,29 @@ bool ScLayers::removeLayerByLevel(int level)
 bool ScLayers::raiseLayer(int nr)
 {
 	ScLayer* clyr = byNumber(nr);
+	if (!clyr)
+		return false;
 	ScLayer* alyr = above(clyr->LNr);
-	if (clyr && (clyr != alyr))
-	{
-		clyr->LNr += 1;
-		alyr->LNr -= 1;
-		return true;
-	}
-	return false;
+	if ((!alyr) || (clyr == alyr))
+		return false;
+	
+	clyr->LNr += 1;
+	alyr->LNr -= 1;
+	return true;
 }
 
 bool ScLayers::lowerLayer(int nr)
 {
 	ScLayer* clyr = byNumber(nr);
+	if (!clyr)
+		return false;
 	ScLayer* blyr = below(clyr->LNr);
-	if (clyr && (clyr != blyr))
-	{
-		clyr->LNr -= 1;
-		blyr->LNr += 1;
-		return true;
-	}
-	return false;
+	if (!blyr || (clyr == blyr))
+		return false;
+
+	clyr->LNr -= 1;
+	blyr->LNr += 1;
+	return true;
 }
 
 void ScLayers::sort(void)
