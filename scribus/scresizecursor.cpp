@@ -18,15 +18,11 @@
 
 #define SCCURSORMAXANGLE 360
 
-/**
- * comment
- */
-
 QMap<unsigned int, QCursor> ScResizeCursor::cdb;
 
-void ScResizeCursor::initCursorDb()
+void ScResizeCursor::initCursorDb(int idx)
 {
-	if(cdb.count() > 0)
+	if(cdb.contains(idx))
 		return;
 	
 	QRect rect(0,0,32,32);
@@ -58,8 +54,9 @@ void ScResizeCursor::initCursorDb()
 	path.lineTo(-pint*uu,-pext*uu);
 	path.lineTo( 0, -sext*uu);
 	
-	for(unsigned int rot(0); rot < SCCURSORMAXANGLE; ++rot)
-	{
+// 	for(unsigned int rot(0); rot < SCCURSORMAXANGLE; ++rot)
+// 	{
+	int rot(idx);
 		QPixmap pxm(rect.size());
 		pxm.fill(QColor (255, 255, 255, 0 ));
 		
@@ -72,19 +69,19 @@ void ScResizeCursor::initCursorDb()
 		painter.drawPath(path);
 		
 		cdb[rot] = QCursor ( pxm, ww/2, hh/2 );
-	}
+// 	}
 
 }
 
 ScResizeCursor::ScResizeCursor(double rotation)
 {
-	initCursorDb();
 	int irot(qRound(rotation));
 	if(irot < 0)
 		cIdx = SCCURSORMAXANGLE + (irot % SCCURSORMAXANGLE);
 	else
 		cIdx = irot % SCCURSORMAXANGLE ;
 	
+	initCursorDb(cIdx);
 }
 
 ScResizeCursor::operator const QCursor &()

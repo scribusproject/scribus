@@ -16,12 +16,32 @@
 #include <QCursor>
 #include <QMap>
 
+/**
+* This class provides a custom Size_ cursor which can be rotated
+* to adjust with the rotation of a frame.
+*
+* It maintains a database of pre-rotated cursors so user is not 
+* expected to cache cursors.
+*
+* It provides a cast operator to QCursor& so you can use it directly
+* where reference to QCursor are required.
+* example:
+ * QApplication::setOverrideCursor(ScResizeCursor(19.76));
+*
+* Note that rotation is rounded (with qRound()) in order to save memory usage.
+*/
+
 class ScResizeCursor
 {
-	void initCursorDb();
+	void initCursorDb(int idx);
 	static QMap<unsigned int, QCursor> cdb;
 	int cIdx;
 	public:
+		/**
+		* Build a new ScResizeCursor
+		* rotation is in degrees and clockwise
+		* initial position of the cursor is vertical, corresponding to Qt::SizeVerCursor
+		*/
 		ScResizeCursor(double rotation = 0.0);
 		~ScResizeCursor() {}
 		
