@@ -203,8 +203,8 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tabLayout_2->setSpacing( 6 );
 	tabLayout_2->setMargin( 10 );
 	textView2 = new ScTextBrowser( tab_3);
-	LanguageManager langmgr;
-	langmgr.init(false);
+// 	LanguageManager langmgr;
+// 	langmgr.init(false);
 
 	/*! TRANSLATION tab */
 	// /usr/local/scribus14/share/doc/scribus-1.3.5svn/TRANSLATION
@@ -464,8 +464,8 @@ QString About::parseTranslationFile(QString fileName)
 		QString code;
 		QString name;
 		QString contact;
-		LanguageManager langmgr;
-		langmgr.init(false);
+// 		LanguageManager langmgr;
+// 		langmgr.init(false);
 		bool isSectionTitle = true;
 		bool isTitle = false;
 		bool startText = false;
@@ -496,7 +496,7 @@ QString About::parseTranslationFile(QString fileName)
 					{
 						code.replace("(", "");
 						code.replace(")", "");
-						code = langmgr.getLangFromAbbrev(code).toLocal8Bit();
+						code = LanguageManager::instance()->getLangFromAbbrev(code).toLocal8Bit();
 					}
 					result += "<tr><td><b>"+code+"</b></td><td></td></tr>";
 					isTitle = false;

@@ -225,7 +225,7 @@ public:
 	AlignDistributePalette *alignDistributePalette;
 	StoryEditor* storyEditor;
 	StoryEditor* CurrStED;
-	QMap<QString,QString> Sprachen;
+// 	QMap<QString,QString> Sprachen; // <language not translated, file name>
 	QWorkspace *wsp;
 	ScribusWin* ActWin;
 	QClipboard *ClipB;

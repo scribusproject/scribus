@@ -195,8 +195,8 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	QFileInfoList list = d.entryInfoList();
 	QListIterator<QFileInfo> it(list);
 	QFileInfo fi;
-	langmgr = new LanguageManager();
-	langmgr->init(false);
+	LanguageManager * langmgr( LanguageManager::instance() );
+// 	langmgr->init(false);
 
 	while (it.hasNext())
 	{
@@ -229,7 +229,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	resize( QSize(320, 340).expandedTo(minimumSizeHint()) );
 	QList<QTreeWidgetItem *> defItem;
 	defItem.clear();
-	defItem = loremList->findItems(m_Doc->Language, Qt::MatchExactly);
+	defItem = loremList->findItems(langmgr->getTransLangFromLang(m_Doc->Language), Qt::MatchExactly);
 	if (defItem.count() == 0)
 		defItem = loremList->findItems(standardloremtext, Qt::MatchExactly);
 	if (defItem.count() != 0)
@@ -246,7 +246,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 
 LoremManager::~LoremManager()
 {
-	delete langmgr;
+// 	delete langmgr;
 }
 
 void LoremManager::changeEvent(QEvent *e)
@@ -285,7 +285,7 @@ void LoremManager::okButton_clicked()
 	if (li->text(0)==standardloremtext)
 		name="la";
 	else
-		name=langmgr->getAbbrevFromLang(li->text(0), true, false);
+		name=LanguageManager::instance()->getAbbrevFromLang(li->text(0), true, false);
 		
 	insertLoremIpsum(availableLorems[name], paraBox->value(), randomCheckBox->isChecked());
 	accept();

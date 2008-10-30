@@ -27,7 +27,7 @@ class SCRIBUS_API TabGeneral : public QWidget, public Ui::TabGeneral
 		~TabGeneral(){};
 		void restoreDefaults(struct ApplicationPrefs *prefsData);
 
-		LanguageManager langMgr;
+// 		LanguageManager langMgr;
 		QString selectedGUILang;
 
 	private slots:

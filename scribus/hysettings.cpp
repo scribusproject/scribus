@@ -6,22 +6,30 @@ for which a new license (GPL+exception) is in place.
 */
 #include "hysettings.h"
 #include "hyphenator.h"
+#include "langmgr.h"
 #include "scribusdoc.h"
 #include "util_icon.h"
 #include "util.h"
 #include "QHeaderView"
 #include <QInputDialog>
 
-HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidget( parent )
+HySettings::HySettings( QWidget* parent/*, QMap<QString,QString>* langs*/ ) : QWidget( parent )
 {
-	langsMap = *langs;
+// 	langsMap = *langs;
 	setupUi(this);
-	QMap<QString,QString>::Iterator it;
-	QStringList lada;
-	for (it = langs->begin(); it != langs->end(); ++it)
-		lada.append(it.value());
-	lada.sort();
-	language->addItems(lada);
+// 	QMap<QString,QString>::Iterator it;
+// 	QStringList lada;
+// 	for (it = langs->begin(); it != langs->end(); ++it)
+// 		lada.append(it.value());
+// 	lada.sort();
+// 	language->addItems(lada);
+	LanguageManager *lmg(LanguageManager::instance());
+	language->setInsertPolicy(QComboBox::InsertAlphabetically);
+	foreach(QString hlang, lmg->hyphLangs())
+	{
+		language->addItem( lmg->getLangFromAbbrev(hlang), lmg->getLangFromAbbrev(hlang,false) );
+	}
+	
 	buttonExceptAdd->setIcon(QIcon(loadIcon("16/list-add.png")));
 	buttonExceptEdit->setEnabled(false);
 	buttonExceptRemove->setIcon(QIcon(loadIcon("16/list-remove.png")));
@@ -44,7 +52,7 @@ void HySettings::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	verbose->setChecked(!prefsData->Automatic);
 	input->setChecked(prefsData->AutoCheck);
-	setCurrentComboItem(language, langsMap[prefsData->Language]);
+	setCurrentComboItem(language, LanguageManager::instance()->getTransLangFromLang(prefsData->Language));
 	wordLen->setValue(prefsData->MinWordLen);
 	maxCount->setValue(prefsData->HyCount);
 	ignoreList->addItems(prefsData->ignoredWords.toList());
@@ -57,7 +65,7 @@ void HySettings::restoreDefaults(ScribusDoc *prefsData)
 {
 	verbose->setChecked(!prefsData->Automatic);
 	input->setChecked(prefsData->AutoCheck);
-	setCurrentComboItem(language, langsMap[prefsData->Language]);
+	setCurrentComboItem(language, LanguageManager::instance()->getTransLangFromLang(prefsData->Language));
 	wordLen->setValue(prefsData->MinWordLen);
 	maxCount->setValue(prefsData->HyCount);
 	ignoreList->addItems(prefsData->docHyphenator->ignoredWords.toList());
@@ -170,7 +178,7 @@ bool HySettings::getInput()
 
 QString HySettings::getLanguage()
 {
-	return language->currentText();
+	return language->itemData(language->currentIndex()).toString();
 }
 
 QSet<QString> HySettings::getIgnoreList()

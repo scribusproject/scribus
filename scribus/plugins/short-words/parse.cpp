@@ -27,6 +27,7 @@ or documentation
 #include "page.h"
 #include "pageitem.h"
 #include "selection.h"
+#include "langmgr.h"
 
 SWParse::SWParse()
 {
@@ -60,8 +61,8 @@ void SWParse::parseItem(PageItem *aFrame)
 	}
 
 	QString langCode;
-	if (aFrame->doc()->scMW()->Sprachen.contains(lang))
-		langCode = cfg->getLangCodeFromHyph(aFrame->doc()->scMW()->Sprachen[lang]);
+// 	if (aFrame->doc()->scMW()->Sprachen.contains(lang))
+		langCode = cfg->getLangCodeFromHyph(LanguageManager::instance()->getHyphFilename(lang,false));
 
 	// apply spaces after shorts
 	shorts = cfg->getShortWords(langCode);

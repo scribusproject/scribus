@@ -30,9 +30,9 @@ TabGeneral::TabGeneral(QWidget* parent, const char* name)
 	setupUi(this);
 	setObjectName(name);
 	// languages
-	langMgr.init();
+// 	langMgr.init();
 	QStringList languageList;
-	langMgr.fillInstalledStringList(&languageList, true);
+	LanguageManager::instance()->fillInstalledStringList(&languageList, true);
 	languageList.sort();
 	guiLangCombo->addItems( languageList );
 
@@ -72,7 +72,7 @@ TabGeneral::TabGeneral(QWidget* parent, const char* name)
 void TabGeneral::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	selectedGUILang = prefsData->guiLanguage;
-	setCurrentComboItem(guiLangCombo, langMgr.getLangFromAbbrev(selectedGUILang));
+	setCurrentComboItem(guiLangCombo, LanguageManager::instance()->getLangFromAbbrev(selectedGUILang));
 	setCurrentComboItem(GUICombo, prefsData->GUI);
 	GFsize->setValue( prefsData->AppFontSize );
 	GTFsize->setValue( prefsData->PaletteFontSize); // temp solution
@@ -90,7 +90,7 @@ void TabGeneral::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void TabGeneral::setSelectedGUILang( const QString &newLang )
 {
-	selectedGUILang = langMgr.getAbbrevFromLang(newLang);
+	selectedGUILang = LanguageManager::instance()->getAbbrevFromLang(newLang);
 }
 
 void TabGeneral::changeDocs()

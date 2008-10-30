@@ -20,7 +20,7 @@ class SCRIBUS_API HySettings : public QWidget, Ui::hysettingsBase
 	Q_OBJECT
 
 public:
-	HySettings( QWidget* parent, QMap<QString,QString>* langs);
+	HySettings( QWidget* parent/*, QMap<QString,QString>* langs*/);
 	~HySettings() {};
 	void restoreDefaults(struct ApplicationPrefs *prefsData);
 	void restoreDefaults(ScribusDoc *prefsData);
@@ -42,8 +42,8 @@ private slots:
 	void removeExceptListEntry();
 	void enableExceptButtons();
 
-protected:
-	QMap<QString,QString> langsMap;
+// protected:
+// 	QMap<QString,QString> langsMap;
 };
 
 #endif // HYSETTINGS_H

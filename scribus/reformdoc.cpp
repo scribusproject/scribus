@@ -81,7 +81,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabTools = new TabTools( prefsWidgets, &doc->toolSettings, docUnitIndex, doc);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
-	tabHyphenator = new HySettings(prefsWidgets, &ScMW->LangTransl);
+	tabHyphenator = new HySettings(prefsWidgets/*, &ScMW->LangTransl*/);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 
 	tabFonts = new FontPrefs(prefsWidgets, true, PrefsManager::instance()->preferencesLocation(), doc);
@@ -436,6 +436,8 @@ void ReformDoc::updateDocumentSettings()
 /*	FIXME: scribus determines dict by charstyle now, so this setting should go into the doc's default charstyle
 		currDoc->docHyphenator->slotNewDict(ScMW->GetLang(tabHyphenator->language->currentText()));
 */
+	currDoc->Language = tabHyphenator->getLanguage();
+	
 	currDoc->docHyphenator->slotNewSettings(tabHyphenator->getWordLen(),
 											!tabHyphenator->getVerbose(),
 											tabHyphenator->getInput(),

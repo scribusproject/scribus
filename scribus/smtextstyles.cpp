@@ -212,6 +212,7 @@ QString SMParagraphStyle::newStyle()
 	ParagraphStyle p;
 	p.setDefaultStyle(false);
 	p.setName(s);
+	p.charStyle().setLanguage(doc_->Language);
 	tmpStyles_.create(p);
 	return s;
 }
@@ -1382,6 +1383,8 @@ QString SMCharacterStyle::newStyle()
 	CharStyle c;
 	c.setDefaultStyle(false);
 	c.setName(s);
+	// #7360  - rather here than in CharStyle constructor as we have a pointer to doc.
+	c.setLanguage(doc_->Language);
 	tmpStyles_.create(c);
 	return s;
 }

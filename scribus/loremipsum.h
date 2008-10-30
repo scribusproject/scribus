@@ -35,7 +35,7 @@ class QTreeWidget;
 class QVBoxLayout;
 
 class ScribusDoc;
-class LanguageManager;
+// class LanguageManager;
 
 
 /*! \brief XML parser for Lorem Ipsum file.
@@ -119,7 +119,7 @@ protected:
 	QSpacerItem* paraSpacer;
 	QHBoxLayout* layout1;
 	QSpacerItem* buttonSpacer;
-	LanguageManager* langmgr;
+// 	LanguageManager* langmgr;
 	QString standardloremtext;
 
 protected slots:

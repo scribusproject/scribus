@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <utility>
 
 #include <QString>
+#include <QStringList>
 #include "scribusapi.h"
 
 typedef std::pair<QString, QString> langPair;
@@ -34,20 +35,29 @@ typedef std::pair<QString, QString> langPair;
 
 class SCRIBUS_API LanguageManager
 {
-public:
+	static LanguageManager* m_instance;
 	LanguageManager() {};
 	~LanguageManager();
 	void init(bool generateInstalledList = true);
+	
+public:
+	static LanguageManager* instance();
+	
 	const QString getLangFromAbbrev(QString, bool getTranslated=true);
 	const QString getAbbrevFromLang(QString, bool getFromTranslated=true, bool useInstalled=true);
 	const QString getTransLangFromLang(QString lang);
 	void fillInstalledStringList(QStringList *stringListToFill, bool addDefaults);
 	void printInstalledList();
 	QString numericSequence(QString seq);
+	
+	void addHyphLang(const QString& lang, const QString& filename);
+	const QString getHyphFilename(const QString& lang, bool langIsAbbreviated = true);
+	const QStringList hyphLangs();
 
 private:
 	QMap<QString, langPair > langList;
 	QMap<QString, QString> installedLangList;
+	QMap<QString, QString> hyphLangList; // <lang abbreviated, dict filename>
 
 	void generateLangList();
 	void generateInstalledLangList();

@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include <cstdlib>
 #include <string>
+#include "langmgr.h"
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "prefsfile.h"
@@ -52,14 +53,16 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok) : QObject( parent ),
 {
 		//FIXME:av pick up language from charstyle
 	QString pfad = ScPaths::instance().dictDir();
-	if (ScCore->primaryMainWindow()->Sprachen.contains(doc->Language))
+	LanguageManager * lmgr(LanguageManager::instance());
+	if (!lmgr->getHyphFilename(doc->Language, false).isEmpty() )
 		Language = doc->Language;
 	else
 	{
 		Language = PrefsManager::instance()->appPrefs.Language;
 		doc->Language = Language;
 	}
-	pfad += ScCore->primaryMainWindow()->Sprachen[Language];
+// 	pfad += ScCore->primaryMainWindow()->Sprachen[Language];
+	pfad += lmgr->getHyphFilename( doc->Language, false );
 	QFile f(pfad);
 	if (f.open(QIODevice::ReadOnly))
 	{
@@ -92,9 +95,11 @@ Hyphenator::~Hyphenator()
 
 void Hyphenator::NewDict(const QString& name)
 {
-	if (!ScCore->primaryMainWindow()->Sprachen.contains(name))
+// 	if (!ScCore->primaryMainWindow()->Sprachen.contains(name))
+// 		return;
+	if( LanguageManager::instance()->getHyphFilename(name, false).isEmpty() )
 		return;
-
+		
 	if (Language != name) 
 	{
 		Language = name;
@@ -105,7 +110,7 @@ void Hyphenator::NewDict(const QString& name)
 		if (hdict != NULL)
 			hnj_hyphen_free(hdict);
 
-		pfad += ScCore->primaryMainWindow()->Sprachen[Language];
+		pfad +=  LanguageManager::instance()->getHyphFilename(Language, false) ;
 		QFile f(pfad);
 		if (f.open(QIODevice::ReadOnly))
 		{

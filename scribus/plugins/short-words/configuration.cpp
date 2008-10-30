@@ -166,7 +166,7 @@ QString SWConfig::getLangFromCode(QString code)
 {
 	QMap<QString,QString>::Iterator it;
 	QString lang;
-	LanguageManager langmgr;
-	langmgr.init(false);
-	return langmgr.getLangFromAbbrev(code, true);
+// 	LanguageManager langmgr;
+// 	langmgr.init(false);
+	return LanguageManager::instance()->getLangFromAbbrev(code, true);
 }

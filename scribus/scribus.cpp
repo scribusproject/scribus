@@ -343,7 +343,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		ScCore->setSplashStatus( tr("Initializing Hyphenator") );
 	QString preLang = prefsManager->appPrefs.Language;
 	initHyphenator();
-	if (Sprachen.contains(preLang))
+	if (!LanguageManager::instance()->getHyphFilename( preLang, false ).isEmpty() )
 		prefsManager->appPrefs.Language = preLang;
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Reading Scrapbook") );
@@ -8863,14 +8863,14 @@ void ScribusMainWindow::initHyphenator()
 	QDir hyphDir(hyphDirName, "*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((hyphDir.exists()) && (hyphDir.count() != 0))
 	{
-		LanguageManager langmgr;
-		langmgr.init(false);
+// 		LanguageManager langmgr;
+// 		langmgr.init(false);
 		QString languageOfHyphFile;
 		for (uint dc = 0; dc < hyphDir.count(); ++dc)
 		{
 			QFileInfo fi(hyphDir[dc]);
 			QString fileLangAbbrev=fi.baseName().section('_', 1);
-			languageOfHyphFile = langmgr.getLangFromAbbrev(fileLangAbbrev, false);
+			languageOfHyphFile = LanguageManager::instance()->getLangFromAbbrev(fileLangAbbrev, false);
 			InstLang.insert(languageOfHyphFile, QStringList());
 		}
 	}
@@ -8907,18 +8907,19 @@ void ScribusMainWindow::initHyphenator()
 	prefsManager->appPrefs.Language = "English";
 	if ((hyphDir.exists()) && (hyphDir.count() != 0))
 	{
-		LanguageManager langmgr;
-		langmgr.init(false);
+		LanguageManager *langmgr(LanguageManager::instance());
+// 		langmgr.init(false);
 		QString datein = "";
 		for (uint dc = 0; dc < hyphDir.count(); ++dc)
 		{
 			QFileInfo fi(hyphDir[dc]);
 			QString fileLangAbbrev=fi.baseName().section('_', 1);
-			datein = langmgr.getLangFromAbbrev(fileLangAbbrev);
+			datein = langmgr->getLangFromAbbrev(fileLangAbbrev);
 			QString tDatein = datein;
 			datein = GetLang(datein);
 			LangTransl.insert(datein, tDatein);
-			Sprachen.insert(datein, hyphDir[dc]);
+			langmgr->addHyphLang(fileLangAbbrev, hyphDir[dc]);
+// 			Sprachen.insert(datein, hyphDir[dc]);
 			if (fileLangAbbrev == lang)
 				prefsManager->appPrefs.Language = datein;
 		}

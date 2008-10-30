@@ -31,6 +31,18 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "scpaths.h"
 
+LanguageManager * LanguageManager::m_instance = 0;
+LanguageManager * LanguageManager::instance()
+{
+	if(!m_instance)
+	{
+		m_instance = new LanguageManager;
+		Q_ASSERT(m_instance);
+		m_instance->init();
+	}
+	return m_instance;
+}
+
 void LanguageManager::init(bool generateInstalledList)
 {
 	//generateUntranslatedLangList();
@@ -41,6 +53,8 @@ void LanguageManager::init(bool generateInstalledList)
 
 void LanguageManager::generateLangList()
 {
+	// TODO get rid of the redundant key, the english name.
+	// So internally language would always be manipulated as a code and otherwise presented translated.
 	langList.insert("af",       langPair("Afrikaans",           QObject::tr( "Afrikaans" )) );
 	langList.insert("ar",       langPair("Arabic",              QObject::tr( "Arabic" )) );
 	langList.insert("sq",       langPair("Albanian",            QObject::tr( "Albanian" )) );
@@ -188,7 +202,11 @@ const QString LanguageManager::getAbbrevFromLang(QString lang, bool getFromTrans
 const QString LanguageManager::getTransLangFromLang(QString lang)
 {
 	QMap<QString, langPair>::Iterator it;
-	if (lang == "English" || lang == QObject::tr( "English"))
+	// Seems something is missing here!
+	QString enLang(QObject::tr( "English"));
+	if ((lang == "English") || (lang == enLang))
+		return enLang;
+	
 	for (it=langList.begin();it!=langList.end();++it)
 	{
 		if (it.value().first==lang)
@@ -272,5 +290,27 @@ LanguageManager::~LanguageManager()
 {
 	langList.clear();
 	installedLangList.clear();
+	hyphLangList.clear();
 }
+
+void LanguageManager::addHyphLang(const QString & lang, const QString & filename)
+{
+	hyphLangList[lang] = filename;
+}
+
+const QString LanguageManager::getHyphFilename(const QString & lang, bool langIsAbbreviated)
+{
+	if(langIsAbbreviated)
+		return hyphLangList.value(lang);
+	return hyphLangList.value(getAbbrevFromLang(lang, false));
+}
+
+const QStringList LanguageManager::hyphLangs()
+{
+	return hyphLangList.keys();
+}
+
+
+
+
 

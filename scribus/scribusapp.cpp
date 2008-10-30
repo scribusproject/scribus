@@ -436,9 +436,9 @@ void ScribusQApp::showAvailLangs()
 	ts << tr("Installed interface languages for Scribus are as follows:"); endl(ts);
 	endl(ts);
 
-	LanguageManager langMgr;
-	langMgr.init();
-	langMgr.printInstalledList();
+// 	LanguageManager langMgr;
+// 	langMgr.init();
+	LanguageManager::instance()->printInstalledList();
 
 	endl(ts);
 	ts << tr("To override the default language choice:"); endl(ts);
