@@ -1813,10 +1813,14 @@ int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 int ScribusDoc::addLayer(const QString& layerName, const bool activate)
 {
 	int lnr = Layers.addLayer(layerName);
+	if (lnr==-1)
+		return -1;
 	if (activate)
 		setActiveLayer(lnr);
 	const ScLayer* ll = Layers.layerByNumber(lnr);
-
+	if (!ll)
+		qWarning() << "Layer added without undo, could not get layer back for undo action creation";
+	else
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::AddLayer, "", Um::ICreate);
