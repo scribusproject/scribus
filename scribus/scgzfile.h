@@ -26,7 +26,6 @@ protected:
 
 	bool    gzFileOpen(QString fileName, ScGzFileDataPrivate* data, QIODevice::OpenMode mode);
 	
-	virtual bool   atEnd();
 	virtual qint64 readData  (char * data, qint64 maxSize);
 	virtual qint64 writeData (const char * data, qint64 maxSize);
 
@@ -36,6 +35,7 @@ public:
 
 	static const int gzipExpansionFactor;
 	
+	virtual bool atEnd() const;
 	virtual bool open(QIODevice::OpenMode mode);
 	virtual void close();
 

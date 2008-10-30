@@ -142,7 +142,7 @@ bool ScGzFile::reset(void)
 	return (res == 0);
 }
 
-bool ScGzFile::atEnd()
+bool ScGzFile::atEnd() const
 {
 	if (m_data)
 	{
