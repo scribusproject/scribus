@@ -1436,6 +1436,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\scresizecursor.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\scribus.cpp"
 				>
 			</File>
@@ -9647,6 +9651,10 @@
 						Outputs="..\..\scribus\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scresizecursor.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\scribus.h"
