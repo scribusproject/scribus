@@ -294,15 +294,17 @@ int ColorWheel::valueFromPoint(const QPoint & p) const
 	if ( a < M_PI/-2 )
 		a = a + M_PI * 2;
 
-	int dist = 0;
+//	CB: DEADCODE detected by Coverity, unused dist
+// 	int dist = 0;
 	int minv = 0, maxv = 359;
 	int r = maxv - minv;
 	int val;
 
 	val = (int)(0.5 + minv + r * (M_PI * 3/2 -a) / (2 * M_PI));
 
-	if ( dist > 0 )
-		val -= dist;
+//	CB: DEADCODE detected by Coverity, dist=0 from above
+//	if ( dist > 0 )
+//		val -= dist;
 
 	return val;
 }
