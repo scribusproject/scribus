@@ -2023,7 +2023,8 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		currItem = doc->Items->at(z);
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
-		if (currItem->asLatexFrame()) {
+		if (currItem->asLatexFrame())
+		{
 			PageItem_LatexFrame *latexitem = currItem->asLatexFrame();
 			IT = obj->firstChild();
 			while(!IT.isNull())
@@ -2035,22 +2036,49 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 					latexitem->setDpi(it.attribute("DPI").toInt());
 					latexitem->setUsePreamble(static_cast<bool>(it.attribute("USE_PREAMBLE").toInt()));
 					QDomElement property = it.firstChildElement("PROPERTY");
-					while (!property.isNull()) {
+					while (!property.isNull())
+					{
 						QString name = property.attribute("name");
 						QString value = property.attribute("value");
 						property = property.nextSiblingElement("PROPERTY");
 						if (name.isEmpty()) continue;
 						latexitem->editorProperties[name] = value;
-					} 
-					
+					}
 					QString temp = it.text();
 					latexitem->setFormula(temp, false);
 					
 				}
 				IT=IT.nextSibling();
 			}
-		} else {
-			currItem->Pfile = Relative2Path(obj->attribute("PFILE"), baseDir);
+		}
+		else
+		{
+			bool inlineF = static_cast<bool>(obj->attribute("isInlineImage", "0").toInt());
+			QString dat = obj->attribute("ImageData", "");
+			QByteArray inlineImageData;
+			inlineImageData.append(dat);
+			QString inlineImageExt = obj->attribute("inlineImageExt", "");
+			if (inlineF)
+			{
+				if (inlineImageData.size() > 0)
+				{
+					currItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineImageExt);
+					currItem->tempImageFile->open();
+					QString fileName = getLongPathName(currItem->tempImageFile->fileName());
+					currItem->tempImageFile->close();
+					inlineImageData = qUncompress(QByteArray::fromBase64(inlineImageData));
+					QFile outFil(fileName);
+					if (outFil.open(QIODevice::WriteOnly))
+					{
+						outFil.write(inlineImageData);
+						outFil.close();
+						currItem->isInlineImage = true;
+						currItem->Pfile = fileName;
+					}
+				}
+			}
+			else
+				currItem->Pfile = Relative2Path(obj->attribute("PFILE"), baseDir);
 		}
 		currItem->IProfile  = obj->attribute("PRFILE","");
 		currItem->EmProfile = obj->attribute("EPROF","");

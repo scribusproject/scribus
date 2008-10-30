@@ -1419,7 +1419,24 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	docu.writeAttribute("REXTRA",item->textToFrameDistRight());
 	docu.writeAttribute("FLOP",item->firstLineOffset()); // here I think this FLOP "cher à mon cœur" is legitimate!
 	if (((item->asImageFrame() && !item->asLatexFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
-		docu.writeAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
+	{
+		if (item->isInlineImage)
+		{
+			docu.writeAttribute("PFILE", "");
+			docu.writeAttribute("isInlineImage", static_cast<int>(item->isInlineImage));
+			QFileInfo inlFi(item->Pfile);
+			docu.writeAttribute("inlineImageExt", inlFi.suffix());
+			QFile inFil(item->Pfile);
+			if (inFil.open(QIODevice::ReadOnly))
+			{
+				QByteArray ba = qCompress(inFil.readAll()).toBase64();
+				docu.writeAttribute("ImageData", QString(ba));
+				inFil.close();
+			}
+		}
+		else
+			docu.writeAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
+	}
 	else
 		docu.writeAttribute("PFILE","");
 	if (!item->Pfile2.isEmpty())

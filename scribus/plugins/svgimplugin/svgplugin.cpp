@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QPainterPath>
 #include <QRegExp>
-// #include <QTemporaryFile>
+#include <QTemporaryFile>
 #include <cmath>
 #include <QDebug>
 #include "color.h"
@@ -208,7 +208,6 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, int flags ) :
 	docDesc = "";
 	docTitle = "";
 	groupLevel = 0;
-	imgNum = 0;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 //	m_gc.setAutoDelete( true );
 }
@@ -220,8 +219,6 @@ bool SVGPlug::import(QString fname, int flags)
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fname);
 	QDir::setCurrent(efp.path());
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/"+efp.baseName()));
-	imgNum = 0;
 	convert(flags);
 	QDir::setCurrent(CurDirP);
 	return true;
@@ -1217,6 +1214,7 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 	setupNode(e);
 	parseClipPathAttr(e, clipPath);
 	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, m_Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+	PageItem* ite = m_Doc->Items->at(z);
 	if (!fname.isEmpty())
 	{
 		if (!fname.startsWith("data:"))
@@ -1230,21 +1228,17 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 			ba.append(fname);
 			if (dataType.contains("base64"))
 				ba = QByteArray::fromBase64(ba);
-/*			QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svg_XXXXXX");
-			tempfile->open();
-			QString fileName = getLongPathName(tempfile->fileName());
-			tempfile->setAutoRemove(false);
-			tempfile->close();
-			delete tempfile; */
-			QString imgName = baseFile + QString("-Img-%1").arg(imgNum) + ".png";
+			ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svg_XXXXXX.png");
+			ite->tempImageFile->open();
+			QString fileName = getLongPathName(ite->tempImageFile->fileName());
+			ite->tempImageFile->close();
+			ite->isInlineImage = true;
 			QImage img;
 			img.loadFromData(ba);
-			img.save(imgName, "PNG");
-			m_Doc->LoadPict(imgName, z);
-			imgNum++;
+			img.save(fileName, "PNG");
+			m_Doc->LoadPict(fileName, z);
 		}
 	}
-	PageItem* ite = m_Doc->Items->at(z);
 	if (clipPath.size() != 0)
 		ite->PoLine = clipPath.copy();
 	clipPath.resize(0);

@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPolygon>
 #include <QTextStream>
 #include <QPixmap>
+#include <QTemporaryFile>
 #include <cmath>
 #include <cstdlib>
 
@@ -76,6 +77,16 @@ QPixmap ScPreview::createPreview(QString data)
 	{
 		QPixmap tmp = QPixmap(0, 0);
 		return tmp;
+	}
+	if (elem.hasAttribute("previewData"))
+	{
+		QString dat = elem.attribute("previewData", "");
+		QByteArray inlineImageData;
+		inlineImageData.append(dat);
+		inlineImageData = QByteArray::fromBase64(inlineImageData);
+		QImage tmp;
+		tmp.loadFromData(inlineImageData);
+		return QPixmap::fromImage(tmp);
 	}
 	double GrX = elem.attribute("XP").toDouble();
 	double GrY = elem.attribute("YP").toDouble();
@@ -602,6 +613,52 @@ QPixmap ScPreview::createPreview(QString data)
 						QImage img(pixm.qImage());
 						pS->drawImage(&img);
 						pS->restore();
+					}
+				}
+				else
+				{
+					if (static_cast<bool>(pg.attribute("isInlineImage", "0").toInt()))
+					{
+						QByteArray inlineImageData;
+						QString dat = pg.attribute("ImageData", "");
+						inlineImageData.append(dat);
+						QString inlineImageExt = pg.attribute("inlineImageExt", "");
+						if (inlineImageData.size() > 0)
+						{
+							QTemporaryFile *tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineImageExt);
+							tempImageFile->open();
+							QString fileName = getLongPathName(tempImageFile->fileName());
+							tempImageFile->close();
+							inlineImageData = qUncompress(QByteArray::fromBase64(inlineImageData));
+							QFile outFil(fileName);
+							if (outFil.open(QIODevice::WriteOnly))
+							{
+								outFil.write(inlineImageData);
+								outFil.close();
+								pS->setupPolygon(&OB.PoLine);
+								pS->setClipPath();
+								pS->save();
+								if (OB.flippedH)
+								{
+									pS->translate(OB.Width, 0);
+									pS->scale(-1, 1);
+								}
+								if (OB.flippedV)
+								{
+									pS->translate(0, OB.Height);
+									pS->scale(1, -1);
+								}
+								ScImage pixm;
+								CMSettings cms(0, "", 0);
+								pixm.LoadPicture(fileName, 1, cms, false, false, ScImage::RGBData, 72); //FIXME: OB doesnt know about pagenr
+								pS->scale(OB.LocalScX, OB.LocalScY);
+								pS->translate(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY));
+								QImage img(pixm.qImage());
+								pS->drawImage(&img);
+								pS->restore();
+							}
+							delete tempImageFile;
+						}
 					}
 				}
 				break;

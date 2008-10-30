@@ -189,20 +189,23 @@ void CollectForOutput::processItem(PageItem *ite)
 	if (ite->asImageFrame())
 	{
 		/* hack for subsequent c4o "./" -> "/doc/full/path" */
-		QString ofName(ite->Pfile);
-		QFileInfo itf = QFileInfo(ofName);
-		if (!itf.exists())
+		if (!ite->isInlineImage)
 		{
-			ofName = QDir::convertSeparators(PrefsManager::instance()->documentDir() + "/" + ofName);
-			itf.setFile(ofName);
-		}
+			QString ofName(ite->Pfile);
+			QFileInfo itf = QFileInfo(ofName);
+			if (!itf.exists())
+			{
+				ofName = QDir::convertSeparators(PrefsManager::instance()->documentDir() + "/" + ofName);
+				itf.setFile(ofName);
+			}
 		// end of hack
-		if (itf.exists())
-		{
-			QString oldFile = ofName;
-			ite->Pfile = collectFile(oldFile, itf.fileName());
-			ScCore->fileWatcher->removeFile(oldFile);
-			ScCore->fileWatcher->addFile(ite->Pfile);
+			if (itf.exists())
+			{
+				QString oldFile = ofName;
+				ite->Pfile = collectFile(oldFile, itf.fileName());
+				ScCore->fileWatcher->removeFile(oldFile);
+				ScCore->fileWatcher->addFile(ite->Pfile);
+			}
 		}
 	}
 	if (ite->asTextFrame())
@@ -212,13 +215,16 @@ void CollectForOutput::processItem(PageItem *ite)
 			QFileInfo itf;
 			if (!ite->Pfile.isEmpty())
 			{
-				itf = QFileInfo(ite->Pfile);
-				if (itf.exists())
+				if (!ite->isInlineImage)
 				{
-					QString oldFile = ite->Pfile;
-					ite->Pfile = collectFile(oldFile, itf.fileName());
-					ScCore->fileWatcher->removeFile(oldFile);
-					ScCore->fileWatcher->addFile(ite->Pfile);
+					itf = QFileInfo(ite->Pfile);
+					if (itf.exists())
+					{
+						QString oldFile = ite->Pfile;
+						ite->Pfile = collectFile(oldFile, itf.fileName());
+						ScCore->fileWatcher->removeFile(oldFile);
+						ScCore->fileWatcher->addFile(ite->Pfile);
+					}
 				}
 			}
 			if (!ite->Pfile2.isEmpty())

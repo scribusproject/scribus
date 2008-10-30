@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRect>
 #include <QRectF>
 #include <QVector>
+#include <QTemporaryFile>
 
 #include "scribusapi.h"
 #include "annotation.h"
@@ -193,7 +194,11 @@ protected:
 	
 public:
 	PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline);
-	~PageItem() {};
+	~PageItem()
+	{
+		if (tempImageFile != NULL)
+			delete tempImageFile;
+	}
 
 	static const Xml_string saxxDefaultElem;
 	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);
@@ -1254,6 +1259,10 @@ public:
 	 /** Line width */
 	double m_lineWidth;
 	double Oldm_lineWidth;
+
+	/** Inline Image */
+	bool isInlineImage;
+	QTemporaryFile *tempImageFile;
 	
 signals:
 	//Frame signals

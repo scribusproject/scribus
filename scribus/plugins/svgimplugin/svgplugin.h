@@ -261,8 +261,6 @@ public:
 	QMap<QString, QString> importedPattTrans;
 	double inGroupXOrigin;
 	double inGroupYOrigin;
-	QString baseFile;
-	int imgNum;
 };
 
 #endif

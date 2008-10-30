@@ -167,7 +167,24 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 		latexframe = dynamic_cast<const PageItem_LatexFrame*>(item);
 	
 	if ((item->itemType()==PageItem::ImageFrame || item->itemType()==PageItem::TextFrame) && (!item->externalFile().isEmpty()) && !latexframe)
-		result.insert("image-file", Path2Relative(item->externalFile(), QDir::homePath()));
+	{
+		if (item->isInlineImage)
+		{
+			result.insert("image-file", "");
+			result.insert("isInlineImage", toXMLString(item->isInlineImage));
+			QFileInfo inlFi(item->Pfile);
+			result.insert("inlineImageExt", inlFi.suffix());
+			QFile inFil(item->Pfile);
+			if (inFil.open(QIODevice::ReadOnly))
+			{
+				QByteArray ba = qCompress(inFil.readAll()).toBase64();
+				result.insert("ImageData", QString(ba));
+				inFil.close();
+			}
+		}
+		else
+			result.insert("image-file", Path2Relative(item->externalFile(), QDir::homePath()));
+	}
 	if (!item->fileIconPressed().isEmpty())
 		result.insert("icon-pressed-file", Path2Relative(item->fileIconPressed(), QDir::homePath()));
 	if (!item->fileIconRollover().isEmpty())

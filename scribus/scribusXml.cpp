@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QtAlgorithms>
 #include <QApplication>
 #include <QByteArray>
+#include <QBuffer>
 #include <QCursor>
 #include <QDir>
 #include <QFile>
@@ -51,6 +52,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "scpattern.h"
 #include "scxmlstreamwriter.h"
+#include "scpainter.h"
 
 using namespace std;
 
@@ -720,7 +722,24 @@ void ScriXmlDoc::SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIt
 	writer.writeAttribute("REXTRA"   , item->textToFrameDistRight());
 	writer.writeAttribute("FLOP"	,item->firstLineOffset());
 	if (((item->asImageFrame() && !item->asLatexFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
-		writer.writeAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
+	{
+		if (item->isInlineImage)
+		{
+			writer.writeAttribute("PFILE", "");
+			writer.writeAttribute("isInlineImage", static_cast<int>(item->isInlineImage));
+			QFileInfo inlFi(item->Pfile);
+			writer.writeAttribute("inlineImageExt", inlFi.suffix());
+			QFile inFil(item->Pfile);
+			if (inFil.open(QIODevice::ReadOnly))
+			{
+				QByteArray ba = qCompress(inFil.readAll()).toBase64();
+				writer.writeAttribute("ImageData", QString(ba));
+				inFil.close();
+			}
+		}
+		else
+			writer.writeAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
+	}
 	if (!item->Pfile2.isEmpty())
 		writer.writeAttribute("PFILE2",Path2Relative(item->Pfile2, baseDir));
 	else
@@ -1205,6 +1224,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	int LatexDPI;
 	bool LatexPream;
 	QString LatexConfig;
+	bool inlineF;
+	QByteArray inlineImageData;
+	QString inlineImageExt;
 	while(!sReader.atEnd() && !sReader.hasError())
 	{
 		sReader.readNext();
@@ -1228,6 +1250,11 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			groupsLastItem     = attrAsInt (attrs, "groupsLastItem", 0);
 			itemOwnLink        = attrAsInt (attrs, "OwnLINK", 0);
 			itemClip           = attrAsString(attrs, "ImageClip", "");
+			inlineF = attrAsBool(attrs, "isInlineImage", false);
+			inlineImageData.resize(0);
+			QString dat = attrAsString(attrs, "ImageData", "");
+			inlineImageData.append(dat);
+			inlineImageExt = attrAsString(attrs, "inlineImageExt", "");
 			if (!doc->MLineStyles.contains(OB.NamedLStyle))
 				OB.NamedLStyle = "";
 			OB.itemText        = "";
@@ -1356,6 +1383,37 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				latexitem->setDpi(LatexDPI);
 				latexitem->setUsePreamble(LatexPream);
 			}
+			if (Neu->asImageFrame() && inlineF)
+			{
+				if (inlineImageData.size() > 0)
+				{
+					Neu->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineImageExt);
+					Neu->tempImageFile->open();
+					QString fileName = getLongPathName(Neu->tempImageFile->fileName());
+					Neu->tempImageFile->close();
+					Neu->isInlineImage = true;
+					Neu->Pfile = fileName;
+					inlineImageData = qUncompress(QByteArray::fromBase64(inlineImageData));
+					QFile outFil(fileName);
+					if (outFil.open(QIODevice::WriteOnly))
+					{
+						outFil.write(inlineImageData);
+						outFil.close();
+						Neu->setImageXYScale(OB.LocalScX, OB.LocalScY);
+						Neu->setImageXYOffset(OB.LocalX, OB.LocalY);
+						Neu->IProfile = OB.IProfile;
+						Neu->EmProfile = OB.EmProfile;
+						Neu->IRender = OB.IRender;
+						Neu->UseEmbedded = OB.UseEmbedded;
+						if (!Neu->Pfile.isEmpty())
+							doc->LoadPict(Neu->Pfile, doc->Items->count()-1);
+						Neu->setImageXYScale(OB.LocalScX, OB.LocalScY);
+						Neu->setImageShown(OB.PicArt);
+						Neu->ScaleType = OB.ScaleType;
+						Neu->AspectRatio = OB.AspectRatio;
+					}
+				}
+			}
 			Neu->itemText = storyText;
 			Neu->effectsInUse = imageEffects;
 			Neu->pixm.imgInfo.RequestProps = loadRequests;
@@ -1464,6 +1522,9 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 	int LatexDPI;
 	bool LatexPream;
 	QString LatexConfig;
+	bool inlineF;
+	QByteArray inlineImageData;
+	QString inlineImageExt;
 	while(!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
@@ -1480,6 +1541,11 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			lastStyles = LastStyles();
 			GetItemProps(attrs1, &OB, fileDir, newVersion);
 			patClipPath    = attrs1.value("ImageClip").toString();
+			inlineF = attrAsBool(attrs, "isInlineImage", false);
+			inlineImageData.resize(0);
+			QString dat = attrAsString(attrs, "ImageData", "");
+			inlineImageData.append(dat);
+			inlineImageExt = attrAsString(attrs, "inlineImageExt", "");
 			patOwnLink     = attrAsInt(attrs1, "OwnLINK", 0);
 			isGroupControl = attrAsBool(attrs1, "isGroupControl", false);
 			groupsLastItem = attrAsInt(attrs1, "groupsLastItem", 0);
@@ -1598,6 +1664,37 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 			Neu->setXYPos(Neu->xPos() - doc->currentPage()->xOffset(), Neu->yPos() - doc->currentPage()->yOffset(), true);
 			storyText.setDefaultStyle(Neu->itemText.defaultStyle());
 			Neu->itemText = storyText;
+			if (Neu->asImageFrame() && inlineF)
+			{
+				if (inlineImageData.size() > 0)
+				{
+					Neu->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineImageExt);
+					Neu->tempImageFile->open();
+					QString fileName = getLongPathName(Neu->tempImageFile->fileName());
+					Neu->tempImageFile->close();
+					inlineImageData = qUncompress(QByteArray::fromBase64(inlineImageData));
+					QFile outFil(fileName);
+					if (outFil.open(QIODevice::WriteOnly))
+					{
+						outFil.write(inlineImageData);
+						outFil.close();
+						Neu->isInlineImage = true;
+						Neu->Pfile = fileName;
+						Neu->setImageXYScale(OB.LocalScX, OB.LocalScY);
+						Neu->setImageXYOffset(OB.LocalX, OB.LocalY);
+						Neu->IProfile = OB.IProfile;
+						Neu->EmProfile = OB.EmProfile;
+						Neu->IRender = OB.IRender;
+						Neu->UseEmbedded = OB.UseEmbedded;
+						if (!Neu->Pfile.isEmpty())
+							doc->LoadPict(Neu->Pfile, doc->Items->count()-1);
+						Neu->setImageXYScale(OB.LocalScX, OB.LocalScY);
+						Neu->setImageShown(OB.PicArt);
+						Neu->ScaleType = OB.ScaleType;
+						Neu->AspectRatio = OB.AspectRatio;
+					}
+				}
+			}
 			Neu->effectsInUse = imageEffects;
 			Neu->pixm.imgInfo.RequestProps = loadRequests;
 			Neu->pixm.imgInfo.isRequest    = (loadRequests.count() > 0);
@@ -1694,8 +1791,13 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	//QDomElement elem=docu.documentElement();
 	item = selection->itemAt(0);
 	QList<uint> ELL;
+	QList<PageItem*> emG;
+	emG.clear();
 	for (int cor=0; cor<selection->count(); ++cor)
+	{
 		ELL.append(selection->itemAt(cor)->ItemNr);
+		emG.append(selection->itemAt(cor));
+	}
 	qSort(ELL);
 	documentStr.reserve(524288);
 	ScXmlStreamWriter writer(&documentStr);
@@ -1703,6 +1805,8 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 //	don't use that function here, as it inserts an unneeded version info into that xml, which
 //	breaks our reading code at several places.
 	writer.writeStartElement("SCRIBUSELEMUTF8");
+	double selectionWidth = 0;
+	double selectionHeight = 0;
 	if (selection->isMultipleSelection())
 	{
 		double gx, gy, gw, gh;
@@ -1711,6 +1815,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		yp = gy - doc->currentPage()->yOffset();
 		writer.writeAttribute("W", gw);
 		writer.writeAttribute("H", gh);
+		selection->getVisualGroupRect(&gx, &gy, &selectionWidth, &selectionHeight);
 	}
 	else
 	{
@@ -1742,6 +1847,8 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			writer.writeAttribute("W", item->width());
 			writer.writeAttribute("H", item->height());
 		}
+		selectionWidth = item->visualWidth();
+		selectionHeight = item->visualHeight();
 		xp = item->xPos() - doc->currentPage()->xOffset();
 		yp = item->yPos() - doc->currentPage()->yOffset();
 	}
@@ -1749,6 +1856,55 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	writer.writeAttribute("YP", yp);
 	writer.writeAttribute("COUNT",   selection->count());
 	writer.writeAttribute("Version", QString(VERSION));
+
+	double scaleI = 50.0 / qMax(selectionWidth, selectionHeight);
+	QImage retImg = QImage(50, 50, QImage::Format_ARGB32);
+	retImg.fill( qRgba(0, 0, 0, 0) );
+	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
+	painter->setZoomFactor(scaleI);
+	QStack<PageItem*> groupStack;
+	for (int em = 0; em < emG.count(); ++em)
+	{
+		PageItem* embedded = emG.at(em);
+		if (embedded->isGroupControl)
+		{
+			painter->save();
+			FPointArray cl = embedded->PoLine.copy();
+			QMatrix mm;
+			mm.translate(embedded->gXpos, embedded->gYpos);
+			mm.rotate(embedded->rotation());
+			cl.map( mm );
+			painter->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
+			groupStack.push(embedded->groupsLastItem);
+			continue;
+		}
+		painter->save();
+		double x = embedded->xPos();
+		double y = embedded->yPos();
+		embedded->setXYPos(embedded->xPos()- doc->currentPage()->xOffset() - xp, embedded->yPos()- doc->currentPage()->yOffset() - yp, true);
+		embedded->invalid = true;
+		embedded->DrawObj(painter, QRectF());
+		embedded->setXYPos(x, y, true);
+		painter->restore();
+		if (groupStack.count() != 0)
+		{
+			while (embedded == groupStack.top())
+			{
+				painter->endLayer();
+				painter->restore();
+				groupStack.pop();
+				if (groupStack.count() == 0)
+					break;
+			}
+		}
+	}
+	QBuffer buffer;
+	buffer.open(QIODevice::WriteOnly);
+	retImg.save(&buffer, "PNG");
+	QByteArray ba = buffer.buffer().toBase64();
+	buffer.close();
+	writer.writeAttribute("previewData", QString(ba));
+
 	QMap<QString,int>::Iterator itf;
 	for (itf = doc->UsedFonts.begin(); itf != doc->UsedFonts.end(); ++itf)
 	{

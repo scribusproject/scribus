@@ -3834,7 +3834,13 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool show
 	if (!reload)
 	{
 		if ((ScCore->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PicAvail))
+		{
 			ScCore->fileWatcher->removeFile(pageItem->Pfile);
+			if (pageItem->tempImageFile != NULL)
+				delete pageItem->tempImageFile;
+			pageItem->tempImageFile = NULL;
+			pageItem->isInlineImage = false;
+		}
 	}
 	if(!pageItem->loadImage(fn, reload, -1, showMsg))
 	{
@@ -7169,6 +7175,8 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 				target = Pages->at(0);
 			undoManager->action(target, is, currItem->getUPixmap());
 		}
+		else
+			delete currItem;
 	}
 	itemSelection->delaySignalsOff();
 	updateFrameItems();

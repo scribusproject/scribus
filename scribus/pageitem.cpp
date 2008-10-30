@@ -67,6 +67,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_math.h"
 #include "util_text.h"
+#include "util_file.h"
 #ifdef HAVE_CAIRO
 	#include <cairo.h>
 #endif
@@ -245,6 +246,23 @@ PageItem::PageItem(const PageItem & other)
 	AnName += tmp.setNum(m_Doc->TotalItems);
 	uniqueNr = m_Doc->TotalItems;
 	invalid = true;
+	if (other.isInlineImage)
+	{
+		QFileInfo inlFi(Pfile);
+		QString ext = inlFi.suffix();
+		tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
+		tempImageFile->open();
+		QString fileName = getLongPathName(tempImageFile->fileName());
+		tempImageFile->close();
+		copyFile(Pfile, fileName);
+		Pfile = fileName;
+		isInlineImage = true;
+	}
+	else
+	{
+		tempImageFile = NULL;
+		isInlineImage = false;
+	}
 }
 
 
@@ -502,6 +520,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			)
 			pageItemAttributes.append(*objAttrIt);
 	}
+	tempImageFile = NULL;
+	isInlineImage = false;
 }
 
 void PageItem::setXPos(const double newXPos, bool drawingOnly)

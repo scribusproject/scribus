@@ -235,7 +235,27 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 	for (it = names.begin(); it != names.end(); ++it)
 		doc->patterns[*it].saxx(handler);
 */
-	
+/*
+	QStringList patterns = doc->getUsedPatternsSelection((Selection*)&selection);
+	for (int c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern& pa = doc->docPatterns[patterns[c]];
+		Xml_attr cattr;
+		cattr["Name"] = patterns[c];
+		cattr["scaleX"] = toXMLString(pa.scaleX);
+		cattr["scaleY"] = toXMLString(pa.scaleY);
+		cattr["width"] = toXMLString(pa.width);
+		cattr["height"] = toXMLString(pa.height);
+		cattr["xoffset"] = toXMLString(pa.xoffset);
+		cattr["yoffset"] = toXMLString(pa.yoffset);
+		handler.begin("Pattern", cattr);
+		for (int o = 0; o < pa.items.count(); o++)
+		{
+			pa.items.at(o)->saxx(handler);
+		}
+		handler.end("Pattern");
+	}
+*/
 	for (int i=0; i < doc->Items->count(); ++i)
 	{
 		int k = selection.findItem(doc->Items->at(i));
