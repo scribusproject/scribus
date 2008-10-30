@@ -375,7 +375,7 @@ void PluginManager::enablePluginActionsForSelection(ScribusMainWindow* mw)
 	if (!doc)
 		return;
 
-	ScActionPlugin* ixplug;
+	ScActionPlugin* ixplug = 0;
 	ScrAction* pluginAction = 0;
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
@@ -383,14 +383,17 @@ void PluginManager::enablePluginActionsForSelection(ScribusMainWindow* mw)
 		{
 			ixplug = dynamic_cast<ScActionPlugin*>(it.value().plugin);
 			Q_ASSERT(ixplug);
-			ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
-			pluginAction = mw->scrActions[ai.name];
-			if (pluginAction != 0)
+			if (ixplug)
 			{
-				if (doc->m_Selection->count() != 0)
-					pluginAction->setEnabled(ixplug->handleSelection(doc, doc->m_Selection->itemAt(0)->itemType()));
-				else
-					pluginAction->setEnabled(ixplug->handleSelection(doc));
+				ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
+				pluginAction = mw->scrActions[ai.name];
+				if (pluginAction != 0)
+				{
+					if (doc->m_Selection->count() != 0)
+						pluginAction->setEnabled(ixplug->handleSelection(doc, doc->m_Selection->itemAt(0)->itemType()));
+					else
+						pluginAction->setEnabled(ixplug->handleSelection(doc));
+				}
 			}
 		}
 	}
