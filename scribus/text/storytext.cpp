@@ -253,7 +253,7 @@ void StoryText::insertParSep(int pos)
 		it->parstyle = new ParagraphStyle(paragraphStyle(pos+1));
 		it->parstyle->setContext( & d->pstyleContext);
 		// #7432 : when inserting a paragraph separator, apply/erase the trailing Style
-		if (pos >= (d->len - 1))
+		if (pos >= signed(d->len - 1))
 		{
 			applyStyle(pos, d->trailingStyle);
 			d->trailingStyle.erase();
@@ -1268,8 +1268,7 @@ FRect StoryText::boundingBox(int pos, uint len) const
 			return result;
 		}
 	}
-
-	const ParagraphStyle& pstyle(paragraphStyle(pos));
+	const ParagraphStyle& pstyle(paragraphStyle(qMin(pos, length()))); // rather the trailing style than a segfault.
 	if (lines() > 0)
 	{
 		ls = line(lines()-1);		

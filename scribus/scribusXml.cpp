@@ -1940,7 +1940,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		{
 			item = doc->Items->at(ELL[co]);
 			int parstyle = findParagraphStyle(doc, item->itemText.defaultStyle());
-			if (parstyle > 4)
+			if (parstyle > 4) // ???
 			{
 				vg = item->itemText.defaultStyle();
 				UsedStyles[parstyle] = vg;
@@ -2252,14 +2252,17 @@ void ScriXmlDoc::WriteITEXTs(ScXmlStreamWriter &writer, ScribusDoc *doc, PageIte
 		pstylename = QString();
 		if (ch == SpecialChars::PARSEP)
 			pstylename = item->itemText.paragraphStyle(k).parent();
-		if ((style != lastStyle || ch == SpecialChars::PARSEP) && (k - lastPos > 0))
+		if ((style != lastStyle || ch == SpecialChars::PARSEP) /*&& (k - lastPos > 0)*/)
 		{
-			text = item->itemText.text(lastPos, k - lastPos);
-			writer.writeEmptyElement("ITEXT");
-			writer.writeAttribute("CH"     ,text);
-			WriteLegacyCStyle(writer, lastStyle);
-			writer.writeAttribute("PSTYLE" ,pstylename);
-			lastPos = k;
+			if(k - lastPos > 0)
+			{
+				text = item->itemText.text(lastPos, k - lastPos);
+				writer.writeEmptyElement("ITEXT");
+				writer.writeAttribute("CH"     ,text);
+				WriteLegacyCStyle(writer, lastStyle);
+				writer.writeAttribute("PSTYLE" ,pstylename);
+				lastPos = k;
+			}
 			lastStyle = style;
 		}
 		if (ch == SpecialChars::PARSEP)
@@ -2278,7 +2281,7 @@ void ScriXmlDoc::WriteITEXTs(ScXmlStreamWriter &writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("PSTYLE" ,pstylename);
 	}
 	// paragraphstyle for trailing chars
-	if (item->itemText.length() > 0 && item->itemText.text(item->itemText.length()-1) != SpecialChars::PARSEP)
+	if ((item->itemText.length() > 0) && (item->itemText.text(item->itemText.length()-1) != SpecialChars::PARSEP) )
 		WritePStyle(writer, item->itemText.paragraphStyle(item->itemText.length()), "PARA");
 }
 

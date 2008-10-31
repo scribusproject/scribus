@@ -1648,7 +1648,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 
 			if (currItem->itemText.length() > 0)
 			{
-				int b=currItem->CPos-1;
+				int b=qMin(currItem->CPos-1, currItem->itemText.length());
 				if (b<0)
 					b=0;
 				Doc->currentStyle.charStyle() = currItem->itemText.charStyle(b);

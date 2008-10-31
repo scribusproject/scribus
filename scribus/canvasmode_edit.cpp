@@ -110,6 +110,7 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 void CanvasMode_Edit::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
 {
 	int x, y, y1;
+// 	qDebug()<<"textframe->CPos"<<textframe->CPos<<textframe->itemText.length()<<textframe->lastInFrame();
 	if (textframe->CPos > textframe->itemText.length())
 	{
 		textframe->CPos = textframe->itemText.length();
@@ -122,7 +123,7 @@ void CanvasMode_Edit::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
 		y1 = static_cast<int>(textframe->itemText.defaultStyle().charStyle().fontSize() / 10);
 	}
 	else if ( textframe->CPos > textframe->itemText.endOfItem(textframe->lastInFrame())
-			  || (textframe->CPos >= textframe->itemText.length() && textframe->itemText.text(textframe->itemText.length()-1) != SpecialChars::PARSEP) )
+			  || ((textframe->CPos >= textframe->itemText.length()) && (textframe->itemText.text(textframe->itemText.length()-1) != SpecialChars::PARSEP)) )
 	{
 		FRect bbox = textframe->itemText.boundingBox(qMax(0,qMin(textframe->lastInFrame(), textframe->itemText.length()-1)));
 		x = static_cast<int>(bbox.x() + bbox.width());
@@ -135,7 +136,11 @@ void CanvasMode_Edit::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
 	}
 	else
 	{
-		FRect bbox = textframe->itemText.boundingBox(qMax(0,qMin(textframe->CPos, textframe->itemText.length())));
+		// qDebug()<<textframe->CPos; // ??? if the qDebug is active, it prevents a segfault 
+		// where qMin(textframe->CPos, textframe->itemText.length()-1) returns something unitilialized (like "157286912")
+		// an intermediate var fixes it as well, weird.
+		int minIdx(qMin(textframe->CPos, textframe->itemText.length()-1));
+		FRect bbox = textframe->itemText.boundingBox(qMax(0,minIdx));
 		x = static_cast<int>(bbox.x());
 		y = static_cast<int>(bbox.y());
 		if (bbox.height() <= 2) 
@@ -812,8 +817,9 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	bool inText;
 	double Rxp = 0;
 	double Ryp = 0;
-	double Rxpd = 0;
-	double Rypd = 0;
+// 	Not used said gcc
+// 	double Rxpd = 0;
+// 	double Rypd = 0;
 	PageItem *currItem;
 	QPainter p;
 	m_canvas->PaintSizeRect(QRect());
