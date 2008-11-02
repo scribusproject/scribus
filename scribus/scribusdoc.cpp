@@ -1864,12 +1864,11 @@ bool ScribusDoc::itemsUseColor(QPtrList<PageItem>& itemList, const QString& colo
 			for (uint a = 0; a < ite->effectsInUse.count() && !found; ++a)
 			{
 				struct ScImage::imageEffect& imgeffect = (*ite->effectsInUse.at(a));
-				QString tmpstr = imgeffect.effectParameters;
-				QTextStream fp(&tmpstr, IO_ReadOnly);
 				if (imgeffect.effectCode == ScImage::EF_COLORIZE)
 				{
-					QString col = CommonStrings::None;
+					QString tmpstr = imgeffect.effectParameters;
 					QTextStream fp(&tmpstr, IO_ReadOnly);
+					QString col = CommonStrings::None;
 					fp >> col;
 					if (col == colorName)
 						found = true;
