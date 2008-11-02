@@ -6920,7 +6920,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 						if ((img.imgInfo.colorspace == ColorSpaceGray) && (hasColorEffect))
 						{
 							profInUse = c->doc()->CMSSettings.DefaultImageRGBProfile;
-							if (!ICCProfiles.contains(Profil))
+							if (!ICCProfiles.contains(profInUse))
 							{
 								int components = 3;
 								uint embeddedProfile = newObject();
