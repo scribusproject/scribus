@@ -1859,6 +1859,23 @@ bool ScribusDoc::itemsUseColor(QPtrList<PageItem>& itemList, const QString& colo
 					found = true;
 			}
 		}
+		if ((ite->itemType() == PageItem::ImageFrame) && !found)
+		{
+			for (uint a = 0; a < ite->effectsInUse.count() && !found; ++a)
+			{
+				struct ScImage::imageEffect& imgeffect = (*ite->effectsInUse.at(a));
+				QString tmpstr = imgeffect.effectParameters;
+				QTextStream fp(&tmpstr, IO_ReadOnly);
+				if (imgeffect.effectCode == ScImage::EF_COLORIZE)
+				{
+					QString col = CommonStrings::None;
+					QTextStream fp(&tmpstr, IO_ReadOnly);
+					fp >> col;
+					if (col == colorName)
+						found = true;
+				}
+			}
+		}
 		/* PFJ - 29.02.04 - merged if's to one line */
 		if ((colorName == ite->fillColor()) || (colorName == ite->lineColor()))
 			found = true;

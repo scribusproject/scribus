@@ -953,26 +953,43 @@ void ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
 	delete [] row_pointer[0];
 }
 
-QString ScImage::ImageToTxt()
+QString ScImage::ImageToTxt(bool gray)
 {
 	int i = 0;
 	int h = height();
 	int w = width();
 	unsigned char u;
 	QString ImgStr = "";
-	ImgStr.reserve(3 * h * w);
-	for( int yi=0; yi < h; ++yi )
+	if (gray)
 	{
-		QRgb * s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		ImgStr.reserve(h * w);
+		for (int yi=0; yi < h; ++yi )
 		{
-			QRgb r=*s++;
-			u=qRed(r);
-			ImgStr[i++] = u;
-			u=qGreen(r);
-			ImgStr[i++] = u;
-			u=qBlue(r);
-			ImgStr[i++] = u;
+			QRgb * s = (QRgb*)(scanLine( yi ));
+			for( int xi=0; xi < w; ++xi )
+			{
+				QRgb r=*s++;
+				u=qRed(r);
+				ImgStr[i++] = u;
+			}
+		}
+	}
+	else
+	{
+		ImgStr.reserve(3 * h * w);
+		for( int yi=0; yi < h; ++yi )
+		{
+			QRgb * s = (QRgb*)(scanLine( yi ));
+			for( int xi=0; xi < w; ++xi )
+			{
+				QRgb r=*s++;
+				u=qRed(r);
+				ImgStr[i++] = u;
+				u=qGreen(r);
+				ImgStr[i++] = u;
+				u=qBlue(r);
+				ImgStr[i++] = u;
+			}
 		}
 	}
 	return ImgStr;
@@ -3431,6 +3448,8 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 						*components = 3;
 					if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigCmykData)
 						*components = 4;
+					if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigGrayData)
+						*components = 1;
 					for (uint el = 0; el < icclen; ++el)
 						*profile += iccbuf[el];
 				}
@@ -3459,6 +3478,8 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 						*components = 3;
 					if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigCmykData)
 						*components = 4;
+					if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigGrayData)
+						*components = 1;
 					for (uint el = 0; el < EmbedLen; ++el)
 						*profile += EmbedBuffer[el];
 				}
@@ -3501,6 +3522,8 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 					*components = 3;
 				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigCmykData)
 					*components = 4;
+				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigGrayData)
+					*components = 1;
 				for (uint el = 0; el < EmbedLen; ++el)
 					*profile += EmbedBuffer[el];
 			}
@@ -3961,7 +3984,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			}
 			if (isCMYK)
 				imgInfo.colorspace = 1;
-			else if (bilevel)
+			else if (samplesperpixel == 1)
 				imgInfo.colorspace = 2;
 			else
 				imgInfo.colorspace = 0;

@@ -1243,6 +1243,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		dataD.ResName = ResNam+QString::number(ResCount);
 		dataD.ICCArray = "[ /ICCBased "+QString::number(ObjCounter-1)+" 0 R ]";
 		dataD.ResNum = ObjCounter;
+		dataD.components = Options.SComp;
 		ICCProfiles[Options.SolidProf] = dataD;
 		PutDoc("[ /ICCBased "+QString::number(ObjCounter-1)+" 0 R ]\n");
 		PutDoc("endobj\n");
@@ -5215,6 +5216,8 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 	bool found = false;
 	bool alphaM = false;
 	bool realCMYK = false;
+	bool hasGrayProfile = false;
+	QString profInUse = Profil;
 	int afl = Options.Resolution;
 	double x2, ax, ay, a2, a1;
 	double sxn = 0;
@@ -5397,6 +5400,15 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			}
 			aufl = 1;
 		}
+		bool hasColorEffect = false;
+		for (uint a = 0; a < c->effectsInUse.count(); ++a)
+		{
+			if ((*c->effectsInUse.at(a)).effectCode == ScImage::EF_COLORIZE)
+			{
+				hasColorEffect = true;
+				break;
+			}
+		}
 #ifdef HAVE_CMS
 		if ((CMSuse) && (Options.UseProfiles2))
 		{
@@ -5409,31 +5421,43 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				QString dataP = "";
 				struct ICCD dataD;
 				if ((Embedded) && (!Options.EmbeddedI))
-				{
 					img3.getEmbeddedProfile(fn, &dataP, &components);
-					if (dataP.isEmpty())
-					{
-						if (img.imgInfo.colorspace == 1)
-						{
-							loadText((Embedded ? ScMW->InputProfilesCMYK[Options.ImageProf] : ScMW->InputProfilesCMYK[Profil]), &dataP);
-							components = 4;
-						}
-						else
-						{
-							loadText((Embedded ? ScMW->InputProfiles[Options.ImageProf] : ScMW->InputProfiles[Profil]), &dataP);
-							components = 3;
-						}
-					}
-				}
-				else
+				if ((dataP.isEmpty()) || ((img.imgInfo.colorspace == 2) && (hasColorEffect) && (components == 1)))
 				{
+					dataP.setLength(0);
 					if (img.imgInfo.colorspace == 1)
 					{
-						loadText((Embedded ? ScMW->InputProfilesCMYK[Options.ImageProf] : ScMW->InputProfilesCMYK[Profil]), &dataP);
+						QString profilePath;
+						if (Embedded && ScMW->InputProfilesCMYK.contains(Options.ImageProf))
+						{
+							profilePath = ScMW->InputProfilesCMYK[Options.ImageProf];
+							profInUse = Options.ImageProf;
+						}
+						else if (ScMW->InputProfilesCMYK.contains(Profil))
+							profilePath = ScMW->InputProfilesCMYK[Profil];
+						else
+						{
+							profilePath = ScMW->InputProfilesCMYK[c->document()->CMSSettings.DefaultImageCMYKProfile];
+							profInUse = c->document()->CMSSettings.DefaultImageCMYKProfile;
+						}
+						loadText(profilePath, &dataP);
 						components = 4;
 					}
 					else
 					{
+						QString profilePath;
+						if (Embedded && ScMW->InputProfiles.contains(Options.ImageProf))
+						{
+							profilePath = ScMW->InputProfiles[Options.ImageProf];
+							profInUse = Options.ImageProf;
+						}
+						else if (ScMW->InputProfiles.contains(Profil))
+							profilePath = ScMW->InputProfiles[Profil];
+						else
+						{
+							profilePath = ScMW->InputProfiles[c->document()->CMSSettings.DefaultImageRGBProfile];
+							profInUse = c->document()->CMSSettings.DefaultImageRGBProfile;
+						}
 						loadText((Embedded ? ScMW->InputProfiles[Options.ImageProf] : ScMW->InputProfiles[Profil]), &dataP);
 						components = 3;
 					}
@@ -5451,11 +5475,54 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				dataD.ResName = ResNam+QString::number(ResCount);
 				dataD.ICCArray = "[ /ICCBased "+QString::number(ObjCounter-1)+" 0 R ]";
 				dataD.ResNum = ObjCounter;
-				ICCProfiles[Profil] = dataD;
+				dataD.components = components;
+				ICCProfiles[profInUse] = dataD;
 				PutDoc("[ /ICCBased "+QString::number(ObjCounter-1)+" 0 R ]\n");
 				PutDoc("endobj\n");
 				ResCount++;
 				ObjCounter++;
+				hasGrayProfile = (components == 1);
+			}
+			else
+			{
+				if (ICCProfiles[Profil].components == 1)
+				{
+					if ((img.imgInfo.colorspace == 2) && (hasColorEffect))
+					{
+						profInUse = c->document()->CMSSettings.DefaultImageRGBProfile;
+						if (!ICCProfiles.contains(profInUse))
+						{
+							int components = 3;
+							StartObj(ObjCounter);
+							ObjCounter++;
+							QString dataP = "";
+							struct ICCD dataD;
+							loadText(ScMW->InputProfiles[c->document()->CMSSettings.DefaultImageRGBProfile], &dataP);
+							components = 3;
+							PutDoc("<<\n");
+							if ((Options.CompressMethod != 3) && (CompAvail) && Options.Compress)
+							{
+								PutDoc("/Filter /FlateDecode\n");
+								dataP = CompressStr(&dataP);
+							}
+							PutDoc("/Length "+QString::number(dataP.length()+1)+"\n");
+							PutDoc("/N "+QString::number(components)+"\n");
+							PutDoc(">>\nstream\n"+EncStream(dataP, ObjCounter-1)+"\nendstream\nendobj\n");
+							StartObj(ObjCounter);
+							dataD.ResName = ResNam+QString::number(ResCount);
+							dataD.ICCArray = "[ /ICCBased "+QString::number(ObjCounter-1)+" 0 R ]";
+							dataD.ResNum = ObjCounter;
+							dataD.components = components;
+							ICCProfiles[profInUse] = dataD;
+							PutDoc("[ /ICCBased "+QString::number(ObjCounter-1)+" 0 R ]\n");
+							PutDoc("endobj\n");
+							ResCount++;
+							ObjCounter++;
+						}
+					}
+					else
+						hasGrayProfile = true;
+				}
 			}
 		}
 #endif
@@ -5515,6 +5582,9 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			Seite.ImgObjects[ResNam+QString::number(ResCount)] = ObjCounter-1;
 			ResCount++;
 		}
+		bool exportToGrayscale = Options.isGrayscale;
+		if ((hasGrayProfile) && (doc.HasCMS) && (Options.UseProfiles2) && (!hasColorEffect))
+			exportToGrayscale = true;
 		if (Options.UseRGB)
 			im = img.ImageToTxt();
 		else
@@ -5525,7 +5595,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			{
 #ifdef HAVE_CMS
 				if ((CMSuse) && (Options.UseProfiles2) && (!realCMYK))
-					im = img.ImageToTxt();
+					im = img.ImageToTxt((hasGrayProfile) && (!hasColorEffect));
 				else
 #endif
 				im = img.ImageToCMYK_PDF(true);
@@ -5541,7 +5611,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 #ifdef HAVE_CMS
 		if ((CMSuse) && (Options.UseProfiles2))
 		{
-			PutDoc("/ColorSpace "+ICCProfiles[Profil].ICCArray+"\n");
+			PutDoc("/ColorSpace "+ICCProfiles[profInUse].ICCArray+"\n");
 			PutDoc("/Intent /");
 			int inte2 = Intent;
 			if (Options.EmbeddedI)
@@ -5587,7 +5657,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				{
 					QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.jpg");
 					if ((Options.UseRGB) || (Options.UseProfiles2) && (!realCMYK))
-						img.Convert2JPG(tmpFile, Options.Quality, false, false);
+						img.Convert2JPG(tmpFile, Options.Quality, false, (hasGrayProfile) && (!hasColorEffect));
 					else
 					{
 						if (Options.isGrayscale)
@@ -5613,7 +5683,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			{
 				QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.jpg");
 				if ((Options.UseRGB) || (Options.UseProfiles2) && (!realCMYK))
-					img.Convert2JPG(tmpFile, Options.Quality, false, false);
+					img.Convert2JPG(tmpFile, Options.Quality, false, (hasGrayProfile) && (!hasColorEffect));
 				else
 				{
 					if (Options.isGrayscale)

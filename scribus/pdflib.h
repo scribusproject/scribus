@@ -184,6 +184,7 @@ private:
 	struct ICCD
 	{
 		int ResNum;
+		int components;
 		QString ResName;
 		QString ICCArray;
 	};

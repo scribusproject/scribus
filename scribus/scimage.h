@@ -94,7 +94,7 @@ public:
 	void initialize();
 
 	// Routines for PDF/PS output of images
-	QString ImageToTxt();
+	QString ImageToTxt(bool gray = false);
 	QString ImageToGray();
 	QString ImageToCMYK_PS(int pl, bool pre);
 	QString ImageToCMYK_PDF(bool pre);
