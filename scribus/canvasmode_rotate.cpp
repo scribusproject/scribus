@@ -478,28 +478,28 @@ void CanvasMode_Rotate::createContextMenu(PageItem* currItem, double mx, double 
 	delete cmen;
 }
 
-void CanvasMode_Rotate::setResizeCursor(int how)
-{
-	switch (how)
-	{
-		case 1:
-		case 2:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
-			break;
-		case 3:
-		case 4:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
-			break;
-		case 5:
-		case 8:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeVerCursor));
-			break;
-		case 6:
-		case 7:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-			break;
-		default:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-			break;
-	}
-}
+// void CanvasMode_Rotate::setResizeCursor(int how)
+// {
+// 	switch (how)
+// 	{
+// 		case 1:
+// 		case 2:
+// 			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+// 			break;
+// 		case 3:
+// 		case 4:
+// 			qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
+// 			break;
+// 		case 5:
+// 		case 8:
+// 			qApp->changeOverrideCursor(QCursor(Qt::SizeVerCursor));
+// 			break;
+// 		case 6:
+// 		case 7:
+// 			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+// 			break;
+// 		default:
+// 			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+// 			break;
+// 	}
+// }

@@ -28,6 +28,7 @@
 #include "canvasmode_normal.h"
 #include "canvasmode_rotate.h"
 #include "selection.h"
+#include "scresizecursor.h"
 #include "scribusview.h"
 #include "util_icon.h"
 
@@ -489,3 +490,30 @@ void CanvasMode::clearPixmapCache()
 }
 
 
+
+
+void CanvasMode::setResizeCursor(int how, double rot)
+{
+	switch (how)
+	{
+		case 1:
+		case 2:
+			qApp->changeOverrideCursor(ScResizeCursor(135 + rot));// Qt::SizeFDiagCursor
+			break;
+		case 3:
+		case 4:
+			qApp->changeOverrideCursor(ScResizeCursor(45 + rot));// Qt::SizeBDiagCursor
+			break;
+		case 5:
+		case 8:
+			qApp->changeOverrideCursor(ScResizeCursor(0 + rot));// Qt::SizeVerCursor
+			break;
+		case 6:
+		case 7:
+			qApp->changeOverrideCursor(ScResizeCursor(90 + rot));// Qt::SizeHorCursor
+			break;
+		default:
+			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+			break;
+	}
+}

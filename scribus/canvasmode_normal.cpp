@@ -51,7 +51,7 @@
 #include "prefsmanager.h"
 #include "propertiespalette.h"
 // #include "scraction.h"
-#include "scresizecursor.h"
+// #include "scresizecursor.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -1746,31 +1746,31 @@ int CanvasMode_Normal::HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m
 }
 
 
-void CanvasMode_Normal::setResizeCursor(int how, double rot )
-{
-	switch (how)
-	{
-		case 1:
-		case 2:
-			qApp->changeOverrideCursor(/*QCursor(Qt::SizeFDiagCursor)*/ScResizeCursor(135 + rot));
-			break;
-		case 3:
-		case 4:
-			qApp->changeOverrideCursor(/*QCursor(Qt::SizeBDiagCursor)*/ScResizeCursor(45 + rot));
-			break;
-		case 5:
-		case 8:
-			qApp->changeOverrideCursor(/*QCursor(Qt::SizeVerCursor)*/ScResizeCursor(0 + rot));
-			break;
-		case 6:
-		case 7:
-			qApp->changeOverrideCursor(/*QCursor(Qt::SizeHorCursor)*/ScResizeCursor(90 + rot));
-			break;
-		default:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-			break;
-	}
-}
+// void CanvasMode_Normal::setResizeCursor(int how, double rot )
+// {
+// 	switch (how)
+// 	{
+// 		case 1:
+// 		case 2:
+// 			qApp->changeOverrideCursor(/*QCursor(Qt::SizeFDiagCursor)*/ScResizeCursor(135 + rot));
+// 			break;
+// 		case 3:
+// 		case 4:
+// 			qApp->changeOverrideCursor(/*QCursor(Qt::SizeBDiagCursor)*/ScResizeCursor(45 + rot));
+// 			break;
+// 		case 5:
+// 		case 8:
+// 			qApp->changeOverrideCursor(/*QCursor(Qt::SizeVerCursor)*/ScResizeCursor(0 + rot));
+// 			break;
+// 		case 6:
+// 		case 7:
+// 			qApp->changeOverrideCursor(/*QCursor(Qt::SizeHorCursor)*/ScResizeCursor(90 + rot));
+// 			break;
+// 		default:
+// 			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+// 			break;
+// 	}
+// }
 
 void CanvasMode_Normal::importToPage()
 {

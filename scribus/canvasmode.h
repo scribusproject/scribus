@@ -132,6 +132,8 @@ protected:
 	Canvas * const m_canvas;
 	ScribusDoc * const m_doc;
 	
+	void setResizeCursor(int how, double rot = 0.0);
+	
 	private:
 		QMap<QString,QPen> m_pen;
 		QMap<QString,QBrush> m_brush;

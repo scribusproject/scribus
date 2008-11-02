@@ -4974,31 +4974,31 @@ int LegacyMode::HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m)
 }
 
 
-void LegacyMode::setResizeCursor(int how)
-{
-	switch (how)
-	{
-		case 1:
-		case 2:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
-			break;
-		case 3:
-		case 4:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
-			break;
-		case 5:
-		case 8:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeVerCursor));
-			break;
-		case 6:
-		case 7:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-			break;
-		default:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-			break;
-	}
-}
+// void LegacyMode::setResizeCursor(int how)
+// {
+// 	switch (how)
+// 	{
+// 		case 1:
+// 		case 2:
+// 			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+// 			break;
+// 		case 3:
+// 		case 4:
+// 			qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
+// 			break;
+// 		case 5:
+// 		case 8:
+// 			qApp->changeOverrideCursor(QCursor(Qt::SizeVerCursor));
+// 			break;
+// 		case 6:
+// 		case 7:
+// 			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+// 			break;
+// 		default:
+// 			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+// 			break;
+// 	}
+// }
 
 void LegacyMode::importToPage()
 {

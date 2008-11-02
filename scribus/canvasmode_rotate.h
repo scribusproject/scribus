@@ -54,7 +54,7 @@ private:
 	void   createContextMenu(PageItem *currItem, double mx, double my);
 	void   drawItemOutlines(QPainter*);
 	void   getNewItemPosition(PageItem* item, FPoint& pos, double& rotation);
-	void   setResizeCursor(int how);
+// 	void   setResizeCursor(int how);
 
 	bool   m_inItemRotation;
 

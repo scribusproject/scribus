@@ -777,12 +777,18 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 						if (currItem->asImageFrame())
 							qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
 						if (!currItem->sizeLocked())
-							m_view->HandleCurs(currItem, mpo);
+						{
+// 							m_view->HandleCurs(currItem, mpo);
+							int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
+							if (how > 0)
+								setResizeCursor(how, currItem->rotation());
+						}
 					}
 				}
 				else
 				{
-//					setModeCursor();
+// 					setModeCursor();
+					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				}
 			}
 		}
@@ -1389,31 +1395,31 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 	return false;
 }
 
-void CanvasMode_Edit::setResizeCursor(int how)
-{
-	switch (how)
-	{
-		case 1:
-		case 2:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
-			break;
-		case 3:
-		case 4:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
-			break;
-		case 5:
-		case 8:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeVerCursor));
-			break;
-		case 6:
-		case 7:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-			break;
-		default:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-			break;
-	}
-}
+// void CanvasMode_Edit::setResizeCursor(int how, double rot)
+// {
+// 	switch (how)
+// 	{
+// 		case 1:
+// 		case 2:
+// 			qApp->changeOverrideCursor(ScResizeCursor(135 + rot));
+// 			break;
+// 		case 3:
+// 		case 4:
+// 			qApp->changeOverrideCursor(ScResizeCursor(45 + rot));
+// 			break;
+// 		case 5:
+// 		case 8:
+// 			qApp->changeOverrideCursor(ScResizeCursor(0 + rot));
+// 			break;
+// 		case 6:
+// 		case 7:
+// 			qApp->changeOverrideCursor(ScResizeCursor(90 + rot));
+// 			break;
+// 		default:
+// 			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+// 			break;
+// 	}
+// }
 
 void CanvasMode_Edit::createContextMenu(PageItem* currItem, double mx, double my)
 {

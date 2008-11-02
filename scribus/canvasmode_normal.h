@@ -52,8 +52,8 @@ public:
 	virtual void mousePressEvent(QMouseEvent *m);
 	virtual void drawControls(QPainter* p);
 
-protected:
-	void setResizeCursor(int how, double rot = 0.0);
+// protected:
+// 	void setResizeCursor(int how, double rot = 0.0);
 
 private:
 	inline bool GetItem(PageItem** pi);
