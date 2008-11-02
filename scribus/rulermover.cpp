@@ -77,23 +77,26 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 	else if (m->button() == Qt::RightButton)
 	{
 		QMenu *pmen = new QMenu();
-		QMenu *pmen2;
+		QMenu *pmen2 = NULL;
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		pmen->addAction( tr("Reset Rulers"), this, SLOT(resetRulers()));
 		if (currView->Doc->guidesSettings.rulerMode)
 		{
 			pmen2 = new QMenu();
-			pmen2->setTitle( tr("Move on current Page"));
-			pmen2->addAction( tr("Origin at Top Left"), this, SLOT(resetRulers()));
-			pmen2->addAction( tr("Origin at Top Right"), this, SLOT(moveRulerTopRight()));
-			pmen2->addAction( tr("Origin at Bottom Left"), this, SLOT(moveRulerBottomLeft()));
-			pmen2->addAction( tr("Origin at Bottom Right"), this, SLOT(moveRulerBottomRight()));
-			pmen2->addAction( tr("Origin at Center"), this, SLOT(moveRulerCenter()));
-			pmen->addMenu(pmen2);
+			if (pmen2)
+			{
+				pmen2->setTitle( tr("Move on current Page"));
+				pmen2->addAction( tr("Origin at Top Left"), this, SLOT(resetRulers()));
+				pmen2->addAction( tr("Origin at Top Right"), this, SLOT(moveRulerTopRight()));
+				pmen2->addAction( tr("Origin at Bottom Left"), this, SLOT(moveRulerBottomLeft()));
+				pmen2->addAction( tr("Origin at Bottom Right"), this, SLOT(moveRulerBottomRight()));
+				pmen2->addAction( tr("Origin at Center"), this, SLOT(moveRulerCenter()));
+				pmen->addMenu(pmen2);
+			}
 		}
 		pmen->exec(QCursor::pos());
 		delete pmen;
-		if (currView->Doc->guidesSettings.rulerMode)
+		if (pmen2)
 			delete pmen2;
 	}
 	QWidget::mouseReleaseEvent(m);
