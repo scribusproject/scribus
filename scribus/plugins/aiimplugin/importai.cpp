@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include <QStack>
 #include <QTextStream>
+#include <QTemporaryFile>
 #include <QDebug>
 
 #include <cmath>
@@ -116,8 +117,6 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 		if (tempBuf.startsWith("%AI12_CompressedData"))
 			decompressAIData(fName);
 	}
-	QFileInfo bF(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(bF.absolutePath()+"/"+bF.baseName()));
 	if ( showProgress )
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
@@ -523,8 +522,6 @@ bool AIPlug::decompressAIData(QString &fName)
 		QFile::remove(fName);
 		fName = f2;
 	}
-	QFileInfo bF(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(bF.absolutePath()+"/"+bF.baseName()));
 	return true;
 }
 
@@ -1612,46 +1609,52 @@ void AIPlug::processData(QString data)
 		}
 		else if (command == "TO")
 		{
-			QPointF pos = QPointF(textMatrix.dx(), textMatrix.dy());
-			pos += QPointF(m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
-			pos += QPointF(0.0, textSize / 10.0 + 2.0);
-			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
-			ite = m_Doc->Items->at(z);
-			ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
-			ite->itemText.append(textData);
-			double xpos = ite->xPos();
-			double ypos = ite->yPos();
-			ite->setWidthHeight(qMax(ite->width(), maxWidth), qMax(ite->height(), maxHeight));
-			double xoffset = 0.0, yoffset = 0.0;
-			double rotation = getRotationFromMatrix(textMatrix, 0.0);
-			if (rotation != 0.0)
+			if (textData.length() > 0)
 			{
-				double temp = textSize / 10.0 + 2.0;
-				xoffset = sin(rotation) * temp;
-				yoffset = cos(rotation) * temp;
+				if (!((textData.length() == 1) && (textData.text(0) == SpecialChars::PARSEP)))
+				{
+					QPointF pos = QPointF(textMatrix.dx(), textMatrix.dy());
+					pos += QPointF(m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
+					pos += QPointF(0.0, textSize / 10.0 + 2.0);
+					z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+					ite = m_Doc->Items->at(z);
+					ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
+					ite->itemText.append(textData);
+					double xpos = ite->xPos();
+					double ypos = ite->yPos();
+					ite->setWidthHeight(qMax(ite->width(), maxWidth), qMax(ite->height(), maxHeight));
+					double xoffset = 0.0, yoffset = 0.0;
+					double rotation = getRotationFromMatrix(textMatrix, 0.0);
+					if (rotation != 0.0)
+					{
+						double temp = textSize / 10.0 + 2.0;
+						xoffset = sin(rotation) * temp;
+						yoffset = cos(rotation) * temp;
+					}
+					ite->setXPos(xpos + xoffset);
+					ite->setYPos(ypos + yoffset);
+					ite->setRotation(rotation * 180 / M_PI);
+					ite->SetRectFrame();
+					m_Doc->setRedrawBounding(ite);
+					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+					ite->setTextFlowMode(PageItem::TextFlowDisabled);
+					ite->setFillShade(CurrFillShade);
+					ite->setLineShade(CurrStrokeShade);
+					ite->setFillEvenOdd(fillRule);
+					ite->setFillTransparency(1.0 - Opacity);
+					ite->setLineTransparency(1.0 - Opacity);
+					ite->setLineEnd(CapStyle);
+					ite->setLineJoin(JoinStyle);
+					if (importerFlags & LoadSavePlugin::lfCreateDoc)
+						ite->setLocked(itemLocked);
+					if (patternMode)
+						PatternElements.append(ite);
+					else
+						Elements.append(ite);
+					if (groupStack.count() != 0)
+						groupStack.top().append(ite);
+				}
 			}
-			ite->setXPos(xpos + xoffset);
-			ite->setYPos(ypos + yoffset);
-			ite->setRotation(rotation * 180 / M_PI);
-			ite->SetRectFrame();
-			m_Doc->setRedrawBounding(ite);
-			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-			ite->setTextFlowMode(PageItem::TextFlowDisabled);
-			ite->setFillShade(CurrFillShade);
-			ite->setLineShade(CurrStrokeShade);
-			ite->setFillEvenOdd(fillRule);
-			ite->setFillTransparency(1.0 - Opacity);
-			ite->setLineTransparency(1.0 - Opacity);
-			ite->setLineEnd(CapStyle);
-			ite->setLineJoin(JoinStyle);
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
-				ite->setLocked(itemLocked);
-			if (patternMode)
-				PatternElements.append(ite);
-			else
-				Elements.append(ite);
-			if (groupStack.count() != 0)
-				groupStack.top().append(ite);
 		}
 /* End Text commands */
 /* Start special Commands */
@@ -1937,9 +1940,33 @@ void AIPlug::processRaster(QDataStream &ts)
 		psdata.resize(dataSize);
 		ts.readRawData(psdata.data(), dataSize);
 	}
+	QMatrix imgMatrix = QMatrix(m1, m2, m3, m4, m5, m6);
+	QPointF pos = QPointF(imgMatrix.dx(), imgMatrix.dy());
+	pos += QPointF(m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
+	pos += QPointF(baseX, -baseY);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CurrColorFill, CurrColorStroke, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	ite->setWidthHeight(w * m1, h * m4);
+	double rotation = getRotationFromMatrix(imgMatrix, 0.0);
+	ite->setRotation(rotation * 180 / M_PI);
+	ite->SetRectFrame();
+	m_Doc->setRedrawBounding(ite);
+	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+	ite->setTextFlowMode(PageItem::TextFlowDisabled);
+	ite->setFillShade(CurrFillShade);
+	ite->setLineShade(CurrStrokeShade);
+	ite->setFillEvenOdd(fillRule);
+	ite->setFillTransparency(1.0 - Opacity);
+	ite->setLineTransparency(1.0 - Opacity);
+	ite->setLineEnd(CapStyle);
+	ite->setLineJoin(JoinStyle);
 	uchar *p;
 	uint yCount = 0;
-	QString imgName = baseFile + QString("-Img-%1").arg(imgNum) + ".tif";
+	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_ai_XXXXXX.tif");
+	ite->tempImageFile->open();
+	QString imgName = getLongPathName(ite->tempImageFile->fileName());
+	ite->tempImageFile->close();
+	ite->isInlineImage = true;
 	TIFF* tif = TIFFOpen(imgName.toLocal8Bit().data(), "w");
 	if (tif)
 	{
@@ -1984,41 +2011,17 @@ void AIPlug::processRaster(QDataStream &ts)
 		}
 		TIFFClose(tif);
 	}
-	QMatrix imgMatrix = QMatrix(m1, m2, m3, m4, m5, m6);
-	QPointF pos = QPointF(imgMatrix.dx(), imgMatrix.dy());
-	pos += QPointF(m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
-	pos += QPointF(baseX, -baseY);
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CurrColorFill, CurrColorStroke, true);
-	PageItem* ite = m_Doc->Items->at(z);
-	ite->setWidthHeight(w * m1, h * m4);
-	double rotation = getRotationFromMatrix(imgMatrix, 0.0);
-	ite->setRotation(rotation * 180 / M_PI);
-	ite->SetRectFrame();
-	m_Doc->setRedrawBounding(ite);
-	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	ite->setFillShade(CurrFillShade);
-	ite->setLineShade(CurrStrokeShade);
-	ite->setFillEvenOdd(fillRule);
-	ite->setFillTransparency(1.0 - Opacity);
-	ite->setLineTransparency(1.0 - Opacity);
-	ite->setLineEnd(CapStyle);
-	ite->setLineJoin(JoinStyle);
 	m_Doc->LoadPict(imgName, z);
 	if (ite->PicAvail)
 		ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 		ite->setLocked(itemLocked);
-					if (patternMode)
-						PatternElements.append(ite);
-					else
-	Elements.append(ite);
-//	if (importerFlags & LoadSavePlugin::lfCreateDoc)
-//	{
-		if (groupStack.count() != 0)
-			groupStack.top().append(ite);
-//	}
-	imgNum++;
+	if (patternMode)
+		PatternElements.append(ite);
+	else
+		Elements.append(ite);
+	if (groupStack.count() != 0)
+		groupStack.top().append(ite);
 }
 
 void AIPlug::processComment(QDataStream &ts, QString comment)
@@ -2201,7 +2204,6 @@ bool AIPlug::convert(QString fn)
 	currentPatternRotation = 0.0;
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
-	imgNum = 0;
 	commandList << "m" << "l" << "L" << "c" << "C" << "v" << "V" << "y" << "Y";		// Path construction
 	commandList << "b" << "B" << "f" << "F" << "s" << "S" << "*u" << "*U";			// Object creation
 	commandList << "u" << "U" << "W" << "q" << "Q";									// Object creation

@@ -159,8 +159,6 @@ private:
 	double textScaleV;
 	int startCurrentTextRange;
 	int endCurrentTextRange;
-	int imgNum;
-	QString baseFile;
 
 public slots:
 	void cancelRequested() { cancel = true; }
