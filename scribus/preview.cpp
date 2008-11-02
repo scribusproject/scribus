@@ -81,7 +81,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	QString caption = tr("Print Preview");
 #ifdef _WIN32
 	if (postscriptPreview)
-		caption += " (Postscript)";
+		caption += " (PostScript)";
 	else
 		caption += " (GDI)";
 #endif

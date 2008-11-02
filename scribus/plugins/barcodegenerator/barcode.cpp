@@ -36,8 +36,8 @@ const ScActionPlugin::AboutData* Barcode::getAboutData() const
 	AboutData* about = new AboutData;
 	Q_CHECK_PTR(about);
 	about->authors = QString::fromUtf8("Terry Burton - <tez@terryburton.co.uk>, Petr Van\xc4\x9bk <petr@scribus.info>");
-	about->shortDescription = tr("Scribus frontend for Pure Postscript Barcode Writer");
-	about->description = "Barcode Writer in Pure Postscript is an award-winning open source barcode maker, as used by NASA, that facilitates the printing of all major barcode symbologies entirely within level 2 PostScript, ideal for variable data printing. The complete process of generating printed barcodes is performed entirely within the printer (or print system) so that it is no longer the responsibility of your application or a library. There is no need for any barcode fonts and the flexibility offered by direct PostScript means you can avoid re-implementing barcode generator code, or migrating to new libraries, whenever your project language needs change.\nhttp://www.terryburton.co.uk/barcodewriter/";
+	about->shortDescription = tr("Scribus frontend for Pure PostScript Barcode Writer");
+	about->description = "Barcode Writer in Pure PostScript is an award-winning open source barcode maker, as used by NASA, that facilitates the printing of all major barcode symbologies entirely within level 2 PostScript, ideal for variable data printing. The complete process of generating printed barcodes is performed entirely within the printer (or print system) so that it is no longer the responsibility of your application or a library. There is no need for any barcode fonts and the flexibility offered by direct PostScript means you can avoid re-implementing barcode generator code, or migrating to new libraries, whenever your project language needs change.\nhttp://www.terryburton.co.uk/barcodewriter/";
 	about->version = "Backend: 2006-01-17";
 	// about->releaseDate
 	about->copyright = QString::fromUtf8("Backend: Copyright (c) 2005 Terry Burton - tez@terryburton.co.uk\nFrontend: Copyright (c) 2005 Petr Van\xc4\x9bk - petr@scribus.info");

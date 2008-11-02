@@ -7703,7 +7703,7 @@ void ScribusMainWindow::doPrintPreview()
 		PrintEngine currentEngine = (PrintEngine) prefs->get("CurrentPrnEngine", "3").toInt();
 		if ( PPreview::usePostscriptPreview(currentPrinter, currentEngine) && ( !ScCore->haveGS() ) )
 		{
-			QString mess = tr("Ghostscript is missing : Postscript Print Preview is not available")+"\n\n";
+			QString mess = tr("Ghostscript is missing : PostScript Print Preview is not available")+"\n\n";
 			QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
 			return;
 		}

@@ -357,7 +357,7 @@ Note: PDF Forms will not be exported.</string>
           <item>
            <widget class="QCheckBox" name="devPar" >
             <property name="toolTip" >
-             <string>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</string>
+             <string>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</string>
             </property>
             <property name="text" >
              <string>Set Media Size</string>
@@ -383,7 +383,7 @@ Note: PDF Forms will not be exported.</string>
           <item>
            <widget class="QCheckBox" name="GcR" >
             <property name="toolTip" >
-             <string>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</string>
+             <string>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</string>
             </property>
             <property name="text" >
              <string>Apply Under Color Removal</string>

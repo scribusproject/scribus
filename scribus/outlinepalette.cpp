@@ -138,7 +138,7 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScrPaletteBase( parent, "Tree
  
 	filterEdit = new QLineEdit;
 	filterEdit->setToolTip( tr("Enter a keyword or regular expression to filter the outline.") );
-	QShortcut* filterShortcut = new QShortcut( QKeySequence( tr( "Ctrl+f", "Filter the Outline using a keyword" ) ), this );
+	QShortcut* filterShortcut = new QShortcut( QKeySequence( tr( "Ctrl+F", "Filter the Outline using a keyword" ) ), this );
 	filterLabel = new QLabel( tr("Filter:") );
 	filterLabel->setBuddy( filterEdit );
 
