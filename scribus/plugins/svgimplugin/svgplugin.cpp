@@ -876,7 +876,7 @@ void SVGPlug::parseClipPath(const QDomElement &e)
 void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
 {
 	clipPath.resize(0);
-	if (e.hasAttribute("style"))
+/*	if (e.hasAttribute("style"))
 	{
 		QString style = e.attribute( "style" ).simplified();
 		QStringList substyles = style.split(';', QString::SkipEmptyParts);
@@ -898,7 +898,7 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
 				}
 			}
 		}
-	}
+	} */
 	if (e.hasAttribute("clip-path"))
 	{
 		QString attr = e.attribute("clip-path");
@@ -940,6 +940,11 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 	}
 	groupLevel--;
 	SvgStyle *gc = m_gc.top();
+	if (clipPath.size() == 0)
+	{
+		if (gc->clipPath.size() != 0)
+			clipPath = gc->clipPath.copy();
+	}
 	if (gElements.count() == 0 || (gElements.count() < 2 && (clipPath.size() == 0) && (gc->Opacity == 1.0)))
 	{
 		m_Doc->Items->takeAt(z);
@@ -2184,8 +2189,23 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 #endif
 	else if( command == "text-anchor" )
 		obj->textAnchor = params;
+	else if (command == "clip-path")
+	{
+		if (params.startsWith( "url("))
+		{
+			unsigned int start = params.indexOf("#") + 1;
+			unsigned int end = params.lastIndexOf(")");
+			QString key = params.mid(start, end - start);
+			QMap<QString, FPointArray>::iterator it = m_clipPaths.find(key);
+			if (it != m_clipPaths.end())
+				obj->clipPath = it.value().copy();
+		}
+	}
 	else if( !isIgnorableNodeName(command) )
+	{
+		qDebug(QString("unsupported SVG feature: %1").arg(command).toLocal8Bit().constData());
 		unsupported = true;
+	}
 }
 
 void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )

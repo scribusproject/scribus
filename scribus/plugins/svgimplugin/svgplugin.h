@@ -119,6 +119,7 @@ public:
 		FontStretch("normal"),
 		FontSize(12),
 		FillCol("Black"),
+		fillRule("nonzero"),
 		GCol1("Black"),
 		GCol2("Black"),
 		GradCo(VGradient::linear),
@@ -138,7 +139,8 @@ public:
 		Opacity(1.0),
 		FillOpacity(1.0),
 		StrokeOpacity(1.0),
-		textAnchor("start")
+		textAnchor("start"),
+		clipPath()
 		{
 		}
 	bool Display;
@@ -173,6 +175,7 @@ public:
 	double FillOpacity;
 	double StrokeOpacity;
 	QString textAnchor;
+	FPointArray clipPath;
 };
 
 class SVGPlug : public QObject
