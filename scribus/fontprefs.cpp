@@ -382,10 +382,10 @@ void FontPrefs::rebuildDialog()
 		tWidgetItem->setFlags(tWidgetItem->flags() & ~Qt::ItemIsEditable);
 		Table3->setItem(a, 0, tWidgetItem);
 		ScComboBox *item = new ScComboBox(Table3);
-		item->setEditable(false);
-		item->addItems(UsedFonts);
-		setCurrentComboItem(item, itfsu.value());
 		Table3->setCellWidget(a, 1, item);
+		item->setEditable(false);
+		item->addItem(itfsu.value());
+		setCurrentComboItem(item, itfsu.value());
 		FlagsRepl.append(item);
 		a++;
 	}
