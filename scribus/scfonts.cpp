@@ -116,13 +116,13 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 	if (path.isEmpty())
 		return;
 	FT_Library library = NULL;
-	QString pathfile;
+	QString pathfile, fullpath;
 	bool error;
 	error = FT_Init_FreeType( &library );
 	QString pathname(path);
 	if ( !pathname.endsWith("/") )
 		pathname += "/";
-	pathname=QDir::convertSeparators(pathname);
+	pathname=QDir::toNativeSeparators(pathname);
 	QDir d(pathname, "*", QDir::Name, QDir::Dirs | QDir::Files | QDir::Readable);
 	if ((d.exists()) && (d.count() != 0))
 	{
@@ -132,13 +132,15 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 			// over. Skip 'em.
 			if (d[dc] == "." || d[dc] == "..")
 				continue;
-			QFileInfo fi(pathname+d[dc]);
+			fullpath = pathname+d[dc];
+			QFileInfo fi(fullpath);
 			if (!fi.exists())      // Sanity check for broken Symlinks
 				continue;
 			
 			qApp->processEvents();
 			
-			if (fi.isSymLink())
+			bool symlink = fi.isSymLink();
+			if (symlink)
 			{
 				QFileInfo fi3(fi.readLink());
 				if (fi3.isRelative())
@@ -147,10 +149,24 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 					pathfile = fi3.absoluteFilePath();
 			}
 			else
-				pathfile = pathname+d[dc];
+				pathfile = fullpath;
 			QFileInfo fi2(pathfile);
 			if (fi2.isDir()) 
 			{
+				if (symlink)
+				{
+					// Check if symlink points to a parent directory
+					// in order to avoid infinite recursion
+					QString fullpath2 = fullpath, pathfile2 = pathfile;
+					if (ScCore->isWinGUI())
+					{
+						// Ensure both path use same separators on Windows
+						fullpath2 = QDir::toNativeSeparators(fullpath2.toLower());
+						pathfile2 = QDir::toNativeSeparators(pathfile2.toLower());
+					}
+					if (fullpath2.startsWith(pathfile2))
+						continue;
+				}
 				if (DocName.isEmpty())
 					AddScalableFonts(pathfile);
 				continue;
