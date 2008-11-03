@@ -45,9 +45,9 @@ GuideManager::GuideManager(QWidget* parent) :
 	setupUi(this);
 	tabWidget->setEnabled(false);
 	horizontalAutoGapSpin->setMinimum(0.0);
-	horizontalAutoGapSpin->setMaximum(100.0);
+	horizontalAutoGapSpin->setMaximum(10000.0);
 	verticalAutoGapSpin->setMinimum(0.0);
-	verticalAutoGapSpin->setMaximum(100.0);
+	verticalAutoGapSpin->setMaximum(10000.0);
 
 	// MVC
 	horizontalModel = new GuidesModel(this);
@@ -282,10 +282,9 @@ void GuideManager::unitChange()
 	int docUnitDecimals = unitGetPrecisionFromIndex(docUnitIndex);
 
 	suffix = unitGetSuffixFromIndex(docUnitIndex);
-	horizontalAutoGapSpin->setSuffix(suffix);
-	verticalAutoGapSpin->setSuffix(suffix);
-	horizontalAutoGapSpin->setDecimals(docUnitDecimals);
-	verticalAutoGapSpin->setDecimals(docUnitDecimals);
+	horizontalAutoGapSpin->setNewUnit(docUnitIndex);
+	verticalAutoGapSpin->setNewUnit(docUnitIndex);
+
 	horizontalGroupBox->setTitle(horizontalGroupBox->title() + " ("+suffix.trimmed()+")");
 	verticalGroupBox->setTitle(verticalGroupBox->title() + " ("+suffix.trimmed()+")");
 	// models display
@@ -398,7 +397,7 @@ void GuideManager::horizontalAutoGapCheck_stateChanged( int )
 	if (horizontalAutoGapCheck->isChecked())
 		currentPage->guides.setHorizontalAutoGap(value2pts(horizontalAutoGapSpin->value(), docUnitIndex));
 	else
-		currentPage->guides.setHorizontalAutoGap(value2pts(0.0, docUnitIndex));
+		currentPage->guides.setHorizontalAutoGap(0.0);
 	drawGuides();
 }
 
@@ -426,7 +425,7 @@ void GuideManager::verticalAutoGapCheck_stateChanged( int )
 	if (verticalAutoGapCheck->isChecked())
 		currentPage->guides.setVerticalAutoGap(value2pts(verticalAutoGapSpin->value(), docUnitIndex));
 	else
-		currentPage->guides.setVerticalAutoGap(value2pts(0.0, docUnitIndex));
+		currentPage->guides.setVerticalAutoGap(0.0);
 	drawGuides();
 }
 
@@ -571,18 +570,18 @@ Guides GuideManager::getAutoVerticals()
 		}
 	}
 
-	if (verticalAutoGapSpin->value() > 0.0 && verticalAutoGapCheck->isChecked())
-		columnSize = (newPageWidth - (value - 1) * verticalAutoGapSpin->value()) / value;
+	if (currentPage->guides.verticalAutoGap() > 0.0 && verticalAutoGapCheck->isChecked())
+		columnSize = (newPageWidth - (value - 1) * currentPage->guides.verticalAutoGap()) / value;
 	else
 		columnSize = newPageWidth / value;
 
 	for (int i = 1, gapCount = 0; i < value; ++i)
 	{
-		if (verticalAutoGapSpin->value() > 0.0 && verticalAutoGapCheck->isChecked())
+		if (currentPage->guides.verticalAutoGap() > 0.0 && verticalAutoGapCheck->isChecked())
 		{
-			retval.append(offset + i * columnSize + gapCount * verticalAutoGapSpin->value());
+			retval.append(offset + i * columnSize + gapCount * currentPage->guides.verticalAutoGap());
 			++gapCount;
-			retval.append(offset + i * columnSize + gapCount * verticalAutoGapSpin->value());
+			retval.append(offset + i * columnSize + gapCount * currentPage->guides.verticalAutoGap());
 		}
 		else
 			retval.append(offset + columnSize * i);
@@ -616,18 +615,18 @@ Guides GuideManager::getAutoHorizontals()
 		}
 	}
 
-	if (horizontalAutoGapSpin->value() > 0.0 && horizontalAutoGapCheck->isChecked())
-		rowSize = (newPageHeight - (value - 1) * horizontalAutoGapSpin->value()) / value;
+	if (currentPage->guides.horizontalAutoGap() > 0.0 && horizontalAutoGapCheck->isChecked())
+		rowSize = (newPageHeight - (value - 1) * currentPage->guides.horizontalAutoGap()) / value;
 	else
 		rowSize = newPageHeight / value;
 
 	for (int i = 1, gapCount = 0; i < value; ++i)
 	{
-		if (horizontalAutoGapSpin->value() > 0.0&& horizontalAutoGapCheck->isChecked())
+		if (currentPage->guides.horizontalAutoGap() > 0.0&& horizontalAutoGapCheck->isChecked())
 		{
-			retval.append(offset + i * rowSize + gapCount * horizontalAutoGapSpin->value());
+			retval.append(offset + i * rowSize + gapCount * currentPage->guides.horizontalAutoGap());
 			++gapCount;
-			retval.append(offset + i * rowSize + gapCount * horizontalAutoGapSpin->value());
+			retval.append(offset + i * rowSize + gapCount * currentPage->guides.horizontalAutoGap());
 		}
 		else
 			retval.append(offset + rowSize * i);
