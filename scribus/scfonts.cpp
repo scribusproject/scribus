@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #ifdef Q_WS_X11
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -630,7 +631,7 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 	if (path.isEmpty())
 		return;
 	FT_Library library = NULL;
-	QString pathfile;
+	QString pathfile, fullpath;
 	bool error;
 	error = FT_Init_FreeType( &library );
 	QString pathname(path);
@@ -646,13 +647,15 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 			// over. Skip 'em.
 			if (d[dc] == "." || d[dc] == "..")
 				continue;
+			fullpath = pathname+d[dc];
 			QFileInfo fi(pathname+d[dc]);
 			if (!fi.exists())      // Sanity check for broken Symlinks
 				continue;
 			
 			qApp->processEvents();
 			
-			if (fi.isSymLink())
+			bool symlink = fi.isSymLink();
+			if (symlink)
 			{
 				QFileInfo fi3(fi.readLink());
 				if (fi3.isRelative())
@@ -661,10 +664,25 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 					pathfile = fi3.absFilePath();
 			}
 			else
-				pathfile = pathname+d[dc];
+				pathfile = fullpath;
 			QFileInfo fi2(pathfile);
 			if (fi2.isDir()) 
 			{
+				if (symlink)
+				{
+					// Check if symlink points to a parent directory
+					// in order to avoid infinite recursion
+					QString fullpath2 = fullpath, pathfile2 = pathfile;
+					if (ScQApp->isWinGUI())
+					{
+						// Ensure both path use same separators on Windows
+						// Arghhh!!! in Qt3 QFileInfo::absFilePath() may return old DOS-style paths
+						fullpath2 = getShortPathName( QDir::convertSeparators(fullpath2) ).lower();
+						pathfile2 = getShortPathName( QDir::convertSeparators(pathfile2) ).lower();
+					}
+					if (fullpath2.startsWith(pathfile2))
+						continue;
+				}
 				if (DocName.isEmpty())
 					AddScalableFonts(pathfile);
 				continue;
