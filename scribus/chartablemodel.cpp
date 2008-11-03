@@ -39,15 +39,23 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 		return QVariant();
 
 	int ix = index.row() * m_cols + index.column();
-	int currentChar = -1;
+	int currentChar;
 	if (ix < m_characters.count())
 		currentChar = m_characters[ix];
-	if (currentChar == -1)
+	else
 		return QVariant();
 
 	// for mimeData()
 	if (role == Qt::AccessibleTextRole)
 		return m_characters[ix];
+
+	// tooltip
+	if (role == Qt::ToolTipRole)
+	{
+		QString tmp;
+		tmp.sprintf("%04X", currentChar);
+		return "Unicode:\n0x"+tmp;
+	}
 
 	// pixmap
 	if (role == Qt::DecorationRole)
