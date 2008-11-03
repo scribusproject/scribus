@@ -45,6 +45,7 @@
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "propertiespalette.h"
+#include "sccolorengine.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -64,7 +65,7 @@ CanvasMode_Edit::CanvasMode_Edit(ScribusView* view) : CanvasMode(view), m_ScMW(v
 	oldCp = Cp = -1;
 	frameResizeHandle = -1;
 	resizeGesture = NULL;
-	m_blinker = new QTimer(view);
+	m_blinker = new QTimer(view);	
 	connect(m_blinker, SIGNAL(timeout()), this, SLOT(blinkTextCursor()));
 }
 
@@ -174,7 +175,11 @@ void CanvasMode_Edit::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
 	{
 		int p1 = qMin(qMax(y,0),static_cast<int>(textframe->height()));
 		int p2 = qMin(qMax(y1,0),static_cast<int>(textframe->height()));
+		QPen cPen(ScColorEngine::getRGBColor(m_doc->PageColors[textframe->itemText.charStyle(textframe->CPos).fillColor()], m_doc ), 1.2 );
+		p->setPen(cPen);
+		p->setRenderHint(QPainter::Antialiasing, true);
 		p->drawLine(x, p1, x, p2);
+		
 	}
 	p->restore();
 }
