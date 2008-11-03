@@ -220,7 +220,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 			QFileInfo cfi(Cpfad);
 			if (cfi.exists())
 			{
-				Swatches->addItem(Cust[m]);
+				Swatches->addItem(cfi.baseName());
 				realEx.append(Cust[m]);
 			}
 		}
@@ -613,6 +613,7 @@ void CMYKChoose::SelSwatch(int n)
 		else
 		{
 			pfadC2 = Cpfad;
+			pfadC2 += ".xml";
 			cus = true;
 		}
 		if (n != 0)
