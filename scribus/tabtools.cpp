@@ -825,8 +825,8 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	maximumZoom->setValue(prefsData->magMax);
 	zoomStep->setValue( prefsData->magStep );
 
-	genDispX->setValue(prefsData->dispX);
-	genDispY->setValue(prefsData->dispY);
+	genDispX->setValue(prefsData->dispX * unitRatio);
+	genDispY->setValue(prefsData->dispY * unitRatio);
 	genDispX->setNewUnit(unitIndex);
 	genDispY->setNewUnit(unitIndex);
 	genRot->setValue(prefsData->constrain);
