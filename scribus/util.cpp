@@ -34,7 +34,10 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 
 #include <signal.h>
+
+#ifndef _WIN32
 #include <execinfo.h>
+#endif
 
 using namespace std;
 
@@ -914,7 +917,7 @@ void getDashArray(int dashtype, double linewidth, QVector<double> &m_array)
 	}
 }
 
-
+#ifndef _WIN32
 /**
  * Print a backtrace
  * Please never commit code that uses it, it, by design, looses memory.
@@ -939,3 +942,5 @@ void printBacktrace(int nFrames)
 		 }
 	 
 }
+#endif
+
