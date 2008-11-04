@@ -216,11 +216,13 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 		realEx.clear();
 		for (int m = 0; m < Cust.count(); ++m)
 		{
-			QString Cpfad = QDir::convertSeparators( ScPaths::getApplicationDataDir() +Cust[m]);
+			QString Cpfad = QDir::convertSeparators( ScPaths::getApplicationDataDir() + Cust[m]);
 			QFileInfo cfi(Cpfad);
 			if (cfi.exists())
 			{
-				Swatches->addItem(cfi.baseName());
+				QString setName = cfi.baseName();
+				setName.replace("_", " ");
+				Swatches->addItem(setName);
 				realEx.append(Cust[m]);
 			}
 		}
@@ -598,23 +600,16 @@ void CMYKChoose::SelSwatch(int n)
 		TabStack->setCurrentIndex(0);
 	else
 	{
-		bool cus = false;
 		CurrSwatch.clear();
-		QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir() + Swatches->currentText());
-		QString pfadC = ScPaths::instance().libDir()+"swatches/";
-		QString pfadC2 = pfadC + "Scribus_Basic.txt";
-		if (n<customSetStartIndex)
-		{
-			QString listText=Swatches->itemText(n);
-			if (listText=="Scribus OpenOffice")
-				cus=true;
-			pfadC2 = csm.paletteFileFromName(listText);
-		}
+		QString pfadC2 = "";
+		if (n < customSetStartIndex)
+			pfadC2 = csm.paletteFileFromName(Swatches->itemText(n));
 		else
 		{
-			pfadC2 = Cpfad;
-			pfadC2 += ".xml";
-			cus = true;
+			QString listText = Swatches->itemText(n);
+			listText.replace(" ", "_");
+			listText += ".xml";
+			pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir() + listText);
 		}
 		if (n != 0)
 		{

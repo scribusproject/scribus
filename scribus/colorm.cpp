@@ -242,12 +242,9 @@ void ColorManager::saveDefaults()
 void ColorManager::loadDefaults(const QString &txt)
 {
 	int c = LoadColSet->currentIndex();
-	bool cus = false;
 	setCurrentComboItem(LoadColSet, txt);
 	EditColors.clear();
-	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir()+txt);
-	QString pfadC = ScPaths::instance().libDir()+"swatches/";
-	QString pfadC2 = pfadC + "Scribus_Basic.txt";
+	QString pfadC2 = "";
 	if (txt == "Scribus Small")
 	{
 		setCurrentComboItem(LoadColSet, "Scribus Small");
@@ -266,19 +263,13 @@ void ColorManager::loadDefaults(const QString &txt)
 	else
 	{
 		if ( c < customSetStartIndex)
-		{
-			QString listText = txt;
-			if (listText == "Scribus OpenOffice")
-				cus=true;
-			pfadC2 = csm.paletteFileFromName(listText);
-		}
+			pfadC2 = csm.paletteFileFromName(txt);
 		else
 		{
 			QString Fname = txt;
 			Fname.replace(" ", "_");
 			Fname += ".xml";
 			pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir()+Fname);
-			cus = true;
 		}
 	}
 	if (txt != "Scribus Small")
