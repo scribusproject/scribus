@@ -183,7 +183,7 @@ void GuideManager::setupGui()
 			this, SLOT(verticalAutoGapCheck_stateChanged(int)));
 
 	m_drawGuides = true;
-	drawGuides();
+// 	drawGuides(); let Canvas::DrawPageMarks take care of it and avoid a costly ScribusView::DrawNew()
 }
 
 void GuideManager::storePageValues(Page *page)

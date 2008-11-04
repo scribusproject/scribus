@@ -894,6 +894,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 {
+// 	qDebug("CanvasMode_Normal::mousePressEvent");
 // 	const double mouseX = m->globalX();
 // 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
@@ -904,7 +905,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	double Rypd = 0;
 	PageItem *currItem;
 	QPainter p;
-	m_canvas->PaintSizeRect(QRect());
+// 	m_canvas->PaintSizeRect(QRect());
 	FPoint npf, npf2;
 	QRect tx;
 	QMatrix pm;
@@ -1103,12 +1104,14 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	{
 		m_view->startDragTimer();
 	}
+	m_canvas->PaintSizeRect(QRect());
 }
 
 
 
 void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 {
+// 	qDebug("CanvasMode_Normal::mouseReleaseEvent");
 	clearPixmapCache();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	PageItem *currItem;
@@ -1147,6 +1150,16 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		}
 		if (m_canvas->m_viewMode.operItemMoving)
 		{
+			// we want to invalidate all frames under the moved frame
+			PageItem* underItem(currItem);
+			while(underItem = m_canvas->itemUnderItem(underItem))
+			{
+				if(underItem->asTextFrame())
+					underItem->asTextFrame()->invalidateLayout();
+				else
+					underItem->invalidateLayout();
+			}
+			
 			m_view->updatesOn(false);
 			if (m_doc->m_Selection->isMultipleSelection())
 			{
@@ -1463,7 +1476,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(unsigned(pgNum)));
 				m_view->setMenTxt(unsigned(pgNum));
-				m_view->DrawNew();
+// 				m_view->DrawNew();
 			}
 		}
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
@@ -1561,14 +1574,21 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			}
 		}
 
-		currItem->update();
+// 		currItem->update(); Why do you want to update it now ?
+		// At least avoid it when it could lead to a huge overhead
+		if(!currItem->asTextFrame())
+		{
+			currItem->update();
+		}
 		m_doc->m_Selection->delaySignalsOff();
 		if (m_doc->m_Selection->count() > 1)
 		{
 			for (int aa = 0; aa < m_doc->m_Selection->count(); ++aa)
 			{
 				PageItem *bb = m_doc->m_Selection->itemAt(aa);
-				bb->update();
+// 				bb->update(); // erk, we just updated at least the first item
+				if( (bb != currItem) && (!bb->asTextFrame()) )
+					bb->update();
 			}
 			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;

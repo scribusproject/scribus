@@ -431,6 +431,27 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 	return NULL;
 }
 
+PageItem * Canvas::itemUnderItem(PageItem * item) const
+{
+	// first gather all frames on the same page which have a zindex =< to item
+	QList<PageItem*> pList;
+	
+	for(int idx =  m_doc->Items->indexOf(item)-1; idx >= 0 ; --idx)
+	{
+		PageItem* ti(m_doc->Items->at(idx));
+		if(ti->OwnPage == item->OwnPage)
+			pList << ti;
+	}
+	
+	QRectF baseRect(item->getBoundingRect());
+	for(int idx(0); idx < pList.count(); ++idx)
+	{
+		QRectF uRect(pList.at(idx)->getBoundingRect());
+		if(baseRect.intersects(uRect))
+			return pList.at(idx);
+	}
+	return NULL;
+}
 
 // __________________
 // Buffered rendering:
@@ -631,6 +652,7 @@ bool Canvas::adjustBuffer()
 
 void Canvas::fillBuffer(QPaintDevice* buffer, QPoint bufferOrigin, QRect clipRect)
 {
+// 	qDebug()<<"Canvas::fillBuffer"<<clipRect;
 	QPainter painter(buffer);
 	painter.translate(-bufferOrigin.x(), -bufferOrigin.y());
 	drawContents(&painter, clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
@@ -646,6 +668,7 @@ void Canvas::fillBuffer(QPaintDevice* buffer, QPoint bufferOrigin, QRect clipRec
 */
 void Canvas::paintEvent ( QPaintEvent * p )
 {
+// 	qDebug("Canvas::paintEvent");
 	QTime t;
 	if (m_doc->isLoading())
 		return;
@@ -1380,6 +1403,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
  */
 void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 {
+// 	qDebug()<<"Canvas::DrawPageItems"<<m_viewMode.forceRedraw;
 	m_viewMode.linkedFramesToShow.clear();
 	FPoint orig = localToCanvas(clip.topLeft());
 	QRectF cullingArea = QRectF(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
@@ -2187,3 +2211,5 @@ void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
 	else
 		QToolTip::showText(m + QPoint(5, 5), tr("Width: %1\nHeight: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, m_doc->unitIndex(), true, true)), this);
 }
+
+

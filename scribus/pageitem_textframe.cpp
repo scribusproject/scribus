@@ -745,6 +745,8 @@ static double opticalRightMargin(const StoryText& itemText, const LineSpec& line
 
 void PageItem_TextFrame::layout() 
 {
+// 	qDebug("Layout==");
+// 	printBacktrace(8);
 	if (BackBox != NULL && BackBox->invalid) {
 //		qDebug("textframe: len=%d, going back", itemText.length());
 		invalid = false;
@@ -2226,6 +2228,8 @@ NoRoom:
 
 void PageItem_TextFrame::invalidateLayout()
 {
+// 	printBacktrace(8);
+// 	qDebug("PageItem_TextFrame::invalidateLayout");
 	const bool wholeChain = true;
 	this->invalid = true;
 	if (wholeChain)
@@ -2247,7 +2251,9 @@ void PageItem_TextFrame::invalidateLayout()
 
 void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc)
 {
-	layout();
+// 	qDebug()<<"PageItem_TextFrame::DrawObj_Item"<<this<<invalid;
+	if(invalid)
+		layout();
 	if (invalid)
 		return;
 	QMatrix pf2;

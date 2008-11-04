@@ -468,7 +468,7 @@ void ScribusView::changed(QRectF re)
 	}
 	if (!Doc->isLoading() && !m_ScMW->ScriptRunning)
 	{
-//		qDebug() << "ScribusView-changed(): changed region:" << re;
+// 		qDebug() << "ScribusView-changed(): changed region:" << re;
 		m_canvas->m_viewMode.forceRedraw = true;
 		updateCanvas(re);
 	}
@@ -489,7 +489,7 @@ void ScribusView::startGesture(CanvasGesture* gesture)
 
 void ScribusView::stopGesture()
 {
-//	qDebug() << "stop gesture" << typeid(*m_canvasMode).name() << (m_canvasMode->delegate() != 0);
+// 	qDebug() << "stop gesture" << typeid(*m_canvasMode).name() << (m_canvasMode->delegate() != 0);
 	if (m_canvasMode->delegate())
 	{
 		m_canvasMode->deactivate(false);
@@ -2232,6 +2232,7 @@ void ScribusView::PasteToPage()
 
 void ScribusView::resizeEvent ( QResizeEvent * event )
 {
+// 	qDebug("ScribusView::resizeEvent");
 	QScrollArea::resizeEvent(event);
 	horizRuler->setGeometry(m_vhRulerHW, 1, width()-m_vhRulerHW-1, m_vhRulerHW);
 	vertRuler->setGeometry(1, m_vhRulerHW, m_vhRulerHW, height()-m_vhRulerHW-1);
@@ -2703,6 +2704,8 @@ FPoint ScribusView::translateToViewport(FPoint in) // deprecated
 
 void ScribusView::DrawNew()
 {
+// 	qDebug("ScribusView::DrawNew");
+// 	printBacktrace(24);
 	if (m_ScMW->ScriptRunning)
 		return;
 	m_canvas->m_viewMode.forceRedraw = true;

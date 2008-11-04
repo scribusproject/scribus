@@ -33,6 +33,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scpainter.h"
 
+#include <signal.h>
+#include <execinfo.h>
+
 using namespace std;
 
 void sDebug(QString message)
@@ -909,4 +912,30 @@ void getDashArray(int dashtype, double linewidth, QVector<double> &m_array)
 		default:
 			break;
 	}
+}
+
+
+/**
+ * Print a backtrace
+ * Please never commit code that uses it, it, by design, looses memory.
+ * @param nFrames specify how much frames you want to be printed
+ */
+void printBacktrace(int nFrames)
+{
+		 void ** trace = new void*[nFrames + 1];
+		 char **messages = ( char ** ) NULL;
+		 int i, trace_size = 0;
+
+		 trace_size = backtrace ( trace, nFrames + 1);
+		 messages = backtrace_symbols ( trace, trace_size );
+		 if(messages)
+		 {
+			for ( i=1; i < trace_size; ++i )
+			{
+				QString bts("[ScBT] %1");
+				qDebug (  bts.arg(messages[i]).toUtf8() );
+			}
+			
+		 }
+	 
 }

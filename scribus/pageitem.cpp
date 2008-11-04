@@ -556,6 +556,7 @@ void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
 {
 	if (dX==0.0 && dY==0.0)
 		return;
+	invalid = true;
 	if (dX!=0.0)
 		Xpos+=dX;
 	if (dY!=0.0)
@@ -701,8 +702,10 @@ bool PageItem::frameOverflows() const
 #ifndef NLS_PROTO
 	// Fix #6991 : "Text overflow" warning when there is a text underflow in fact
 	/*return NextBox == NULL && itemText.length() > static_cast<int>(MaxChars);*/
-	return (NextBox == NULL) && (static_cast<int>(firstChar) < itemText.length()) && (firstChar < MaxChars)
-		&& (itemText.length() > static_cast<int>(MaxChars));
+	return ( NextBox == NULL )
+	       && ( static_cast<int> ( firstChar ) < itemText.length() )
+	       && ( firstChar < MaxChars )
+	       && ( itemText.length() > static_cast<int> ( MaxChars ) );
 #else
 	return false; // FIXME:NLS
 #endif
@@ -949,6 +952,7 @@ void PageItem::setCornerRadius(double newRadius)
  */
 void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 {
+// 	qDebug("PageItem::DrawObj");
 	double sc;
 	if (!m_Doc->DoDrawing)
 	{
