@@ -367,6 +367,21 @@ void AspellPluginImpl::on_flistDicts_activated()
 		fsuggest->resetConfig( fields[1].toAscii().data(), fields[2].toAscii().data() );
 		// FIXME: Handle encodings other than UTF-8.
 		setPreferences( fields[1], fields[2], Speller::Aspell::Suggest::kDEF_ENCODING, value );
+
+		// PV - 7523: In the spell checker, the only option to change
+		// the dictionary is to open the spell checker dialog. However,
+		// changing the dictionary does not recheck first word
+		// --- ask user if he wants to restart spellchecker with new lang
+		if (QMessageBox::question(this,
+								  tr("Spell Checker"),
+								  tr("Do you want start from the beginning of the selection "
+								     "with new language selected?"),
+								  QMessageBox::Yes | QMessageBox::No)
+			== QMessageBox::Yes)
+		{
+			fpos = 0;
+			parseSelection();
+		}
 	}
 }
 //__________________________________________________________________________
