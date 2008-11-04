@@ -1809,7 +1809,7 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     </message>
     <message>
         <source>Tango Project Icons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikony z projektu Tango:</translation>
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
@@ -1817,11 +1817,11 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     </message>
     <message>
         <source>Developer Blog</source>
-        <translation type="unfinished"></translation>
+        <translation>Blog vývojárov</translation>
     </message>
     <message>
         <source>Mailing Lists</source>
-        <translation type="unfinished"></translation>
+        <translation>E-mailová konferencia</translation>
     </message>
 </context>
 <context>
@@ -2815,7 +2815,7 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     </message>
     <message>
         <source>S&amp;tyles...</source>
-        <translation type="unfinished"></translation>
+        <translation>Š&amp;týly...</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
@@ -2833,7 +2833,7 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">&amp;Zmazať</translation>
+        <translation>&amp;Zmazať</translation>
     </message>
     <message>
         <source>Show Text Frame Columns</source>
@@ -2841,11 +2841,11 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     </message>
     <message>
         <source>&amp;400%</source>
-        <translation type="unfinished">&amp;400%</translation>
+        <translation>&amp;400%</translation>
     </message>
     <message>
         <source>&amp;Manage Images</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Správa obrázkov</translation>
     </message>
 </context>
 <context>
@@ -3812,7 +3812,7 @@ akcie</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation type="unfinished">&amp;Typ:</translation>
+        <translation>&amp;Typ:</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
@@ -3852,7 +3852,7 @@ akcie</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Farby</translation>
+        <translation>Farby</translation>
     </message>
     <message>
         <source>&amp;Background</source>
@@ -10326,43 +10326,43 @@ v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže z
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pridať</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Kopírovať</translation>
+        <translation>&amp;Kopírovať</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Odstrániť</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">&amp;Zmazať</translation>
+        <translation>&amp;Zmazať</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+Z</translation>
+        <translation>Alt+Z</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Zrušiť</translation>
+        <translation>&amp;Zrušiť</translation>
     </message>
 </context>
 <context>
@@ -14101,7 +14101,7 @@ Externé odkazy
     <name>SMLineStyle</name>
     <message>
         <source>Properties</source>
-        <translation type="unfinished">Vlastnosti</translation>
+        <translation>Vlastnosti</translation>
     </message>
     <message>
         <source>Lines</source>
@@ -14248,53 +14248,53 @@ konvertuje ich vektorové dáta na Scribus objekty.</translation>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">Krátke slová</translation>
+        <translation>Krátke slová</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">Použiť nezalomiteľnú medzeru na:</translation>
+        <translation>Použiť nezalomiteľnú medzeru na:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;Zvolené rámce</translation>
+        <translation>&amp;Zvolené rámce</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">Aktívna st&amp;rana</translation>
+        <translation>Aktívna st&amp;rana</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">Všetky str&amp;any</translation>
+        <translation>Všetky str&amp;any</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">Spracovať iba označené rámce.</translation>
+        <translation>Spracovať iba označené rámce.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">Spracovať iba aktuálnu stranu.</translation>
+        <translation>Spracovať iba aktuálnu stranu.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">Všetky položky dokumentu boli spracované.</translation>
+        <translation>Všetky položky dokumentu boli spracované.</translation>
     </message>
 </context>
 <context>
     <name>SWPrefsGui</name>
     <message>
         <source>User settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Používateľské nastavenia</translation>
     </message>
     <message>
         <source>System wide configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Celosystémové nastavenia</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -14404,31 +14404,31 @@ konvertuje ich vektorové dáta na Scribus objekty.</translation>
     <name>ScToolBar</name>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Hore</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished">Vpravo</translation>
+        <translation>Vpravo</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Dole</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished">Vľavo</translation>
+        <translation>Vľavo</translation>
     </message>
     <message>
         <source>Allow Docking To...</source>
-        <translation type="unfinished"></translation>
+        <translation>Povoliť dokovanie do...</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished">Vodorovne</translation>
+        <translation>Vodorovne</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished">Zvisle</translation>
+        <translation>Zvisle</translation>
     </message>
     <message>
         <source>Floating Orientation...</source>
@@ -15051,15 +15051,15 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation type="unfinished">Skutočne chcete odstrániť celý text?</translation>
+        <translation>Skutočne chcete odstrániť celý text?</translation>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation type="unfinished">Nie je možné zmazať používanú položku</translation>
+        <translation>Nie je možné zmazať používanú položku</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation type="unfinished">Položka %1 práve upravovaná v Story Editore. Operácia odstránenie bola zrušená</translation>
+        <translation>Položka %1 práve upravovaná v Story Editore. Operácia odstránenie bola zrušená</translation>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
@@ -15278,7 +15278,7 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
-        <translation type="unfinished">Niektoré ICC profily použité v tomto dokumente neboli nainštalované:</translation>
+        <translation>Niektoré ICC profily použité v tomto dokumente neboli nainštalované:</translation>
     </message>
     <message>
         <source> was replaced by: </source>
@@ -15320,7 +15320,7 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus našiel nejaké chyby. Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
@@ -15404,7 +15404,7 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation type="unfinished">Ghostscript : Nemôžete používať EPS obrázky alebo tlačiť náhľad</translation>
+        <translation>Ghostscript : Nemôžete používať EPS obrázky alebo tlačiť náhľad</translation>
     </message>
     <message>
         <source>All</source>
@@ -15413,7 +15413,7 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     <message>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
-        <translation type="unfinished">Scribus našiel nejaké chyby.
+        <translation>Scribus našiel nejaké chyby.
 Skúste použiť Predletovú kontrolu na ich opravu.</translation>
     </message>
     <message>
@@ -15522,11 +15522,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished">Obsahy</translation>
+        <translation>Obsahy</translation>
     </message>
     <message>
         <source>Liga&amp;ture</source>
-        <translation type="unfinished"></translation>
+        <translation>Liga&amp;túra</translation>
     </message>
     <message>
         <source>Your document was saved to a temporary file and could not be moved: 
@@ -15538,23 +15538,23 @@ Vertical shift: %3</source>
     <name>ScribusQApp</name>
     <message>
         <source>Invalid argument: </source>
-        <translation type="unfinished"> Neplatný argument:</translation>
+        <translation> Neplatný argument:</translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation type="unfinished">Súbor %1 neexistuje, končím.</translation>
+        <translation>Súbor %1 neexistuje, končím.</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation type="unfinished">Použitie: scribus [možnosti ...] [súbor]</translation>
+        <translation>Použitie: scribus [možnosti ...] [súbor]</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished">Možnosti:</translation>
+        <translation>Možnosti:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation type="unfinished">Vytlačiť pomocníka (táto správa) a skončiť</translation>
+        <translation>Vytlačiť pomocníka (táto správa) a skončiť</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
@@ -15562,19 +15562,19 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation type="unfinished">Zoznam aktuálne nainštalovaných jazykových rozhraní</translation>
+        <translation>Zoznam aktuálne nainštalovaných jazykových rozhraní</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation type="unfinished">Zobraziť informácie na konzole, keď budú načítané písma</translation>
+        <translation>Zobraziť informácie na konzole, keď budú načítané písma</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation type="unfinished">Nezobraziť úvodnú obrazovku pri spúšťaní</translation>
+        <translation>Nezobraziť úvodnú obrazovku pri spúšťaní</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation type="unfinished">Vytlačiť informácie o verzií a skončiť</translation>
+        <translation>Vytlačiť informácie o verzií a skončiť</translation>
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
@@ -15582,7 +15582,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>filename</source>
-        <translation type="unfinished"></translation>
+        <translation>názov súboru</translation>
     </message>
     <message>
         <source>Use filename as path for user given preferences</source>
@@ -15590,35 +15590,35 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation type="unfinished">Nainštalované jazykové rozhrania pre Scribus sú tieto:</translation>
+        <translation>Nainštalované jazykové rozhrania pre Scribus sú tieto:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation type="unfinished">Prepísať štandardnú voľbu jazyka:</translation>
+        <translation>Prepísať štandardnú voľbu jazyka:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation type="unfinished">scribus -l xx alebo scribus --lang xx, kde xx je zvolený jazyk.</translation>
+        <translation>scribus -l xx alebo scribus --lang xx, kde xx je zvolený jazyk.</translation>
     </message>
     <message>
         <source>Scribus Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus verzia</translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation type="unfinished">Scribus, Open Source Desktop Publishing</translation>
+        <translation>Scribus, Open Source Desktop Publishing</translation>
     </message>
     <message>
         <source>Homepage</source>
-        <translation type="unfinished">Domovská stránka</translation>
+        <translation>Domovská stránka</translation>
     </message>
     <message>
         <source>Documentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentácia</translation>
     </message>
     <message>
         <source>Wiki</source>
-        <translation type="unfinished">Wiki</translation>
+        <translation>Wiki</translation>
     </message>
     <message>
         <source>Issues</source>
@@ -15797,30 +15797,30 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished">Obsahy</translation>
+        <translation>Obsahy</translation>
     </message>
     <message>
         <source>Export: </source>
-        <translation type="unfinished"></translation>
+        <translation>Export:</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation type="unfinished">Obrázok</translation>
+        <translation>Obrázok</translation>
     </message>
 </context>
 <context>
     <name>ScribusWin</name>
     <message>
         <source>&amp;Leave Anyway</source>
-        <translation type="obsolete">Zaho&amp;diť</translation>
+        <translation>Zaho&amp;diť</translation>
     </message>
     <message>
         <source>C&amp;lose Anyway</source>
-        <translation type="obsolete">&amp;Zavrieť</translation>
+        <translation>&amp;Zavrieť</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="obsolete">Varovanie</translation>
+        <translation>Varovanie</translation>
     </message>
     <message>
         <source>Document:</source>
@@ -15832,11 +15832,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Save Now</source>
-        <translation type="obsolete">&amp;Uložiť</translation>
+        <translation>Teraz &amp;uložiť</translation>
     </message>
     <message>
         <source>&amp;Discard</source>
-        <translation>Za&amp;hodiť</translation>
+        <translation>&amp;Zrušiť</translation>
     </message>
 </context>
 <context>
@@ -16213,7 +16213,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
-        <translation type="unfinished"></translation>
+        <translation>Špeciálny modul pre pridávanie nezalomiteľných medzier pred a za krátke slová. Dostupný je pre nasledovné jazyky:</translation>
     </message>
 </context>
 <context>
@@ -16733,7 +16733,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Table of Contents %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Obsah %1</translation>
     </message>
 </context>
 <context>
@@ -17800,7 +17800,7 @@ spĺňať špecifikáciu PDF/X-3. Doporučujeme použiť názov dokumentu.</tran
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished">Jednoduchá strana</translation>
+        <translation>Jedna strana</translation>
     </message>
     <message>
         <source>Continuous</source>
