@@ -9863,8 +9863,6 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		ss->set("UNGROUP", "ungroup");
 		ss->set("itemcount", docSelectionCount);
 		QString tooltip = Um::ItemsInvolved + "\n";
-		emit docChanged();
-		m_ScMW->HaveNewSel(itemSelection->itemAt(0)->itemType());
 		itemSelection->connectItemToGUI();
 		for (uint a=0; a<docSelectionCount; ++a)
 		{
@@ -9878,6 +9876,8 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
 		double x, y, w, h;
 		itemSelection->getGroupRect(&x, &y, &w, &h);
+		emit docChanged();
+		m_ScMW->HaveNewSel(itemSelection->itemAt(0)->itemType());
 		regionsChanged()->update(QRectF(x-5, y-5, w+10, h+10));
 	}
 }

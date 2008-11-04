@@ -2173,7 +2173,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 			if (CurItem->isGroupControl)
 				NameEdit->setEnabled(true);
 		}
-		if (CurItem->Groups.count() != 0)
+		if ((CurItem->Groups.count() != 0) && (isGroup))
 			DoUnGroup->setEnabled(true);
 	}
 	updateSpinBoxConstants();
