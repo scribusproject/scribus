@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <signal.h>
 
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(Q_OS_MAC) 
 #include <execinfo.h>
 #endif
 
@@ -917,7 +917,7 @@ void getDashArray(int dashtype, double linewidth, QVector<double> &m_array)
 	}
 }
 
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(Q_OS_MAC)
 /**
  * Print a backtrace
  * Please never commit code that uses it, it, by design, looses memory.
