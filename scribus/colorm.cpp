@@ -345,7 +345,7 @@ void ColorManager::deleteUnusedColors()
 	if (hasReg)
 		EditColors.insert(regName, regColor);
 	updateCList();
-	updateButtons();
+//	updateButtons();
 }
 
 void ColorManager::duplicateColor()
@@ -355,32 +355,41 @@ void ColorManager::duplicateColor()
 	sColor = nam;
 	editColor();
 	updateCList();
-	updateButtons();
+//	updateButtons();
 }
 
 void ColorManager::newColor()
 {
 	ScColor tmpColor = ScColor(0, 0, 0, 0);
 	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpColor, tr("New Color"), &EditColors, customColSet, true);
-	int newItemIndex=0;
-	int colCount=0;
+//	int newItemIndex=0;
+//	int colCount=0;
 	if (dia->exec())
 	{
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
-		ColorList::Iterator itnew=EditColors.insert(dia->Farbname->text(), dia->Farbe);
-		ColorList::Iterator it;
-		for (it = EditColors.begin(); it != EditColors.end(); ++it)
-		{
-			if (it==itnew)
-				newItemIndex=colCount;
-			++colCount;
-		}
+		sColor = dia->Farbname->text();
+		EditColors.insert(sColor, dia->Farbe);
+//		ColorList::Iterator itnew=EditColors.insert(dia->Farbname->text(), dia->Farbe);
+//		ColorList::Iterator it;
+//		for (it = EditColors.begin(); it != EditColors.end(); ++it)
+//		{
+//			if (it==itnew)
+//				newItemIndex=colCount;
+//			++colCount;
+//		}
 		updateCList();
 	}
 	delete dia;
-	colorListBox->item(newItemIndex)->setSelected(true);
-	colorListBox->setCurrentRow(newItemIndex);
-	sColor = colorListBox->item(newItemIndex)->text();
+	QList<QListWidgetItem *> insList = colorListBox->findItems(sColor, Qt::MatchExactly);
+	if (insList.count() > 0)
+	{
+		insList[0]->setSelected(true);
+		int newItemIndex = colorListBox->row(insList[0]);
+		colorListBox->setCurrentRow(newItemIndex);
+	}
+//	colorListBox->item(newItemIndex)->setSelected(true);
+//	colorListBox->setCurrentRow(newItemIndex);
+//	sColor = colorListBox->item(newItemIndex)->text();
 	updateButtons();
 }
 
