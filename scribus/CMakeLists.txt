@@ -316,9 +316,11 @@ SET(SCRIBUS_SOURCES
   canvasmode_create.cpp
   canvasmode_drawbezier.cpp
   canvasmode_drawfreehand.cpp
+  canvasmode_framelinks.cpp
   canvasmode_edit.cpp
   canvasmode_editgradient.cpp
   canvasmode_legacy.cpp
+  canvasmode_magnifier.cpp
   canvasmode_measurements.cpp
   canvasmode_nodeedit.cpp
   canvasmode_normal.cpp
