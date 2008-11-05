@@ -129,8 +129,6 @@ void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 	
 	m_lastPosWasOverGuide = false;
 	double newX, newY;
-	QPoint np, np2, mop;
-	bool erf = false;
 	m->accept();
 //	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
 //	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
