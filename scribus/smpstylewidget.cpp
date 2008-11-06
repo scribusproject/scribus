@@ -42,11 +42,15 @@ SMPStyleWidget::SMPStyleWidget() : QWidget()
 	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
 	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
 	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
-	optMarginCombo->addItem(tr("Left HangingPunct"), ParagraphStyle::OM_LeftHangingPunct);
-	optMarginCombo->addItem(tr("Right HangingPunct"), ParagraphStyle::OM_RightHangingPunct);
+	optMarginCombo->addItem(tr("Left Hanging Punctuation"), ParagraphStyle::OM_LeftHangingPunct);
+	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
 	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
 
 	dropCapOffset_->setSuffix(unitGetSuffixFromIndex(0));
+	
+	minSpaceSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
+	minGlyphExtSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
+	maxGlyphExtSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
 }
 
 void SMPStyleWidget::slotLineSpacingModeChanged(int i)
@@ -91,6 +95,14 @@ void SMPStyleWidget::languageChange()
 	tabList_->right_->setToolTip( tr("Right Indent"));
 	//CB Unneeded, gets in the way of single widget tooltips
 	//tabList_->setToolTip(         tr("Tabulators"));
+	
+	minSpaceSpin->setToolTip(tr("Maximum white space compression allowed.\nExpressed as a percentage of the current white space value."));
+	minSpaceLabel->setToolTip(minSpaceSpin->toolTip());
+	minGlyphExtSpin->setToolTip(tr("Maximum compression of glyphs"));
+	minGlyphExtLabel->setToolTip(minGlyphExtSpin->toolTip());
+	maxGlyphExtSpin->setToolTip(tr("Maximum extension of glyphs"));
+	maxGlyphExtLabel->setToolTip(maxGlyphExtSpin->toolTip());
+	
 
 /***********************************/
 /*      End Tooltips               */
@@ -100,6 +112,15 @@ void SMPStyleWidget::languageChange()
 	lineSpacingMode_->addItem( tr("Fixed Linespacing"));
 	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
         lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
+	
+	optMarginCombo->clear();
+	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
+	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
+	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
+	optMarginCombo->addItem(tr("Left Hanging Punctuation"), ParagraphStyle::OM_LeftHangingPunct);
+	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
+	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
+	
         optMarginLabel->setText(tr("Optical Margins"));
 	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
@@ -110,6 +131,10 @@ void SMPStyleWidget::languageChange()
 	tabsBox->setTitle( tr("Tabulators and Indentation"));
 	tabWidget->setTabText(0, tr("Properties"));
 	tabWidget->setTabText(1, tr("Character Style"));
+	
+	minSpaceLabel->setText(tr("Min. space width"));
+	minGlyphExtLabel->setText(tr("Max. glyph comp."));
+	maxGlyphExtLabel->setText(tr("Max. glyph ext."));
 }
 
 void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
@@ -132,6 +157,18 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
 	lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
 	
+	optMarginCombo->clear();
+	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
+	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
+	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
+	optMarginCombo->addItem(tr("Left Hanging Punctuation"), ParagraphStyle::OM_LeftHangingPunct);
+	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
+	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
+	
+	// One could think it’s too much (aesthetic) or not enough (freedom)!
+	minSpaceSpin->setRange(1.0,100.0);
+	minGlyphExtSpin->setRange(90.0,100.0);
+	maxGlyphExtSpin->setRange(100.0,110.0);
 	
 
 	if (hasParent_)
@@ -141,6 +178,13 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		
 		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins(),  pstyle->isInhOpticalMargins() );
 		optMarginCombo->setParentItem(optMarginCombo->getItemIndexForData( parent->opticalMargins()));
+		
+		minSpaceSpin->setValue(pstyle->minWordTracking() * 100.0,  pstyle->isInhMinWordTracking());
+		minSpaceSpin->setParentValue(parent->minWordTracking());
+		minGlyphExtSpin->setValue(pstyle->minGlyphExtension() * 100.0,  pstyle->isInhMinGlyphExtension());
+		minGlyphExtSpin->setParentValue(parent->minGlyphExtension());
+		maxGlyphExtSpin->setValue(pstyle->maxGlyphExtension() * 100.0,  pstyle->isInhMaxGlyphExtension());
+		maxGlyphExtSpin->setParentValue(parent->maxGlyphExtension());
 
 		lineSpacing_->setValue(pstyle->lineSpacing(), pstyle->isInhLineSpacing());
 		lineSpacing_->setParentValue(parent->lineSpacing());
@@ -195,6 +239,9 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		spaceAbove_->setValue(pstyle->gapBefore());
 		spaceBelow_->setValue(pstyle->gapAfter());
 		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins() );
+		minSpaceSpin->setValue(pstyle->minWordTracking() * 100.0);
+		minGlyphExtSpin->setValue(pstyle->minGlyphExtension() * 100.0);
+		maxGlyphExtSpin->setValue(pstyle->maxGlyphExtension() * 100.0);
 		dropCapsBox->setChecked(pstyle->hasDropCap());
 		parentDropCapButton->hide();
 		disconnect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
@@ -206,6 +253,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		tabList_->setLeftIndentValue(pstyle->leftMargin() * unitRatio);
 		tabList_->setFirstLineValue(pstyle->firstIndent() * unitRatio);
 		tabList_->setRightIndentValue(pstyle->rightMargin() * unitRatio);
+		
 	}
 
 	lineSpacing_->setEnabled(pstyle->lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
@@ -257,6 +305,10 @@ void SMPStyleWidget::show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle>
 		showSpaceAB(pstyles, unitIndex);
 		showDropCap(pstyles, unitIndex);
 		showAlignment(pstyles);
+		showOpticalMargin(pstyles);
+		showMinSpace(pstyles);
+		showMinGlyphExt(pstyles);
+		showMaxGlyphExt(pstyles);
 		showTabs(pstyles, unitIndex);
 		showCStyle(pstyles, cstyles, defLang, unitIndex);
 		showParent(pstyles);
@@ -432,6 +484,15 @@ void SMPStyleWidget::showOpticalMargin(QList< ParagraphStyle * > & pstyles)
 		qDebug()<<"Warning showOpticalMargin called with an empty list of styles";
 		return;
 	}
+	
+	optMarginCombo->clear();
+	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
+	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
+	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
+	optMarginCombo->addItem(tr("Left Hanging Punctuation"), ParagraphStyle::OM_LeftHangingPunct);
+	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
+	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
+	
 	// the static cast should not be required if opticalMargins() would return OpticalMarginType. Why it does not? mystery
 	ParagraphStyle::OpticalMarginType o( static_cast<ParagraphStyle::OpticalMarginType>(pstyles[0]->opticalMargins()) );
 	for (int i = 0; i < pstyles.count(); ++i)
@@ -444,6 +505,67 @@ void SMPStyleWidget::showOpticalMargin(QList< ParagraphStyle * > & pstyles)
 	}
 	optMarginCombo->setCurrentItemByData(o);
 }
+
+void SMPStyleWidget::showMinSpace(QList< ParagraphStyle * > & pstyles)
+{
+	if(pstyles.isEmpty())
+	{
+		qDebug()<<"Warning showMinSpace called with an empty list of styles";
+		return;
+	}
+	
+	double ms(pstyles[0]->minWordTracking());
+	for (int i = 0; i < pstyles.count(); ++i)
+	{
+		if (ms != pstyles[i]->minWordTracking())
+		{
+			minSpaceSpin->setValue(100.0);
+			return;
+		}
+	}
+	minSpaceSpin->setValue(ms * 100.0);
+}
+
+void SMPStyleWidget::showMinGlyphExt(QList< ParagraphStyle * > & pstyles)
+{
+	if(pstyles.isEmpty())
+	{
+		qDebug()<<"Warning showMinGlyphExt called with an empty list of styles";
+		return;
+	}
+	
+	double mge(pstyles[0]->minGlyphExtension());
+	for (int i = 0; i < pstyles.count(); ++i)
+	{
+		if (mge != pstyles[i]->minGlyphExtension())
+		{
+			minGlyphExtSpin->setValue(100.0);
+			return;
+		}
+	}
+	minGlyphExtSpin->setValue(mge * 100.0);
+}
+
+void SMPStyleWidget::showMaxGlyphExt(QList< ParagraphStyle * > & pstyles)
+{
+	if(pstyles.isEmpty())
+	{
+		qDebug()<<"Warning showMaxGlyphExt called with an empty list of styles";
+		return;
+	}
+	
+	double mge(pstyles[0]->maxGlyphExtension());
+	for (int i = 0; i < pstyles.count(); ++i)
+	{
+		if (mge != pstyles[i]->maxGlyphExtension())
+		{
+			maxGlyphExtSpin->setValue(100.0);
+			return;
+		}
+	}
+	maxGlyphExtSpin->setValue(mge * 100.0);
+}
+
 
 void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 {
@@ -596,5 +718,6 @@ SMPStyleWidget::~SMPStyleWidget()
 {
 	
 }
+
 
 

@@ -42,6 +42,9 @@ private:
 	void showDropCap(QList<ParagraphStyle*> &pstyles, int unitIndex);
 	void showAlignment(QList<ParagraphStyle*> &pstyles);
 	void showOpticalMargin(QList<ParagraphStyle*> &pstyles);
+	void showMinSpace(QList<ParagraphStyle*> &pstyles);
+	void showMinGlyphExt(QList<ParagraphStyle*> &pstyles);
+	void showMaxGlyphExt(QList<ParagraphStyle*> &pstyles);
 	void showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex);
 	void showCStyle(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
 	void showParent(QList<ParagraphStyle*> &pstyles);

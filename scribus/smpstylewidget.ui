@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>634</width>
-    <height>487</height>
+    <width>605</width>
+    <height>534</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
@@ -75,6 +75,9 @@
               <property name="text" >
                <string>TextLabel</string>
               </property>
+              <property name="buddy" >
+               <cstring>lineSpacingMode_</cstring>
+              </property>
              </widget>
             </item>
             <item>
@@ -125,6 +128,9 @@
               <property name="text" >
                <string>TextLabel</string>
               </property>
+              <property name="buddy" >
+               <cstring>spaceAbove_</cstring>
+              </property>
              </widget>
             </item>
             <item>
@@ -161,6 +167,9 @@
               </property>
               <property name="text" >
                <string>TextLabel</string>
+              </property>
+              <property name="buddy" >
+               <cstring>spaceBelow_</cstring>
               </property>
              </widget>
             </item>
@@ -202,10 +211,17 @@
               <property name="text" >
                <string>TextLabel</string>
               </property>
+              <property name="buddy" >
+               <cstring>optMarginCombo</cstring>
+              </property>
              </widget>
             </item>
             <item>
-             <widget class="SMScComboBox" name="optMarginCombo" />
+             <widget class="SMScComboBox" name="optMarginCombo" >
+              <property name="sizeAdjustPolicy" >
+               <enum>QComboBox::AdjustToContents</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -248,6 +264,64 @@
              <size>
               <width>272</width>
               <height>41</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2" >
+        <widget class="QGroupBox" name="tabsBox" >
+         <property name="sizePolicy" >
+          <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title" >
+          <string>Tabulators and Indentation</string>
+         </property>
+         <layout class="QVBoxLayout" >
+          <item>
+           <layout class="QHBoxLayout" >
+            <item>
+             <widget class="SMTabruler" native="1" name="tabList_" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0" >
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType" >
+             <enum>QSizePolicy::MinimumExpanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0" >
+             <size>
+              <width>20</width>
+              <height>16</height>
              </size>
             </property>
            </spacer>
@@ -310,6 +384,9 @@
                     <property name="text" >
                      <string>Distance from Text:</string>
                     </property>
+                    <property name="buddy" >
+                     <cstring>dropCapOffset_</cstring>
+                    </property>
                    </widget>
                   </item>
                   <item>
@@ -361,71 +438,127 @@
           </widget>
          </item>
          <item>
+          <widget class="QGroupBox" name="groupBox_2" >
+           <property name="enabled" >
+            <bool>true</bool>
+           </property>
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Minimum" hsizetype="Preferred" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize" >
+            <size>
+             <width>0</width>
+             <height>163</height>
+            </size>
+           </property>
+           <property name="title" >
+            <string>Advanced settings</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout" >
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout" >
+              <property name="sizeConstraint" >
+               <enum>QLayout::SetDefaultConstraint</enum>
+              </property>
+              <property name="topMargin" >
+               <number>0</number>
+              </property>
+              <property name="bottomMargin" >
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="minSpaceLabel" >
+                <property name="text" >
+                 <string>TextLabel</string>
+                </property>
+                <property name="buddy" >
+                 <cstring>minSpaceSpin</cstring>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="SMScrSpinBox" name="minSpaceSpin" >
+                <property name="minimumSize" >
+                 <size>
+                  <width>0</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <property name="baseSize" >
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2" >
+              <item>
+               <widget class="QLabel" name="minGlyphExtLabel" >
+                <property name="text" >
+                 <string>TextLabel</string>
+                </property>
+                <property name="buddy" >
+                 <cstring>minGlyphExtSpin</cstring>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="SMScrSpinBox" name="minGlyphExtSpin" >
+                <property name="minimumSize" >
+                 <size>
+                  <width>0</width>
+                  <height>32</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_3" >
+              <item>
+               <widget class="QLabel" name="maxGlyphExtLabel" >
+                <property name="text" >
+                 <string>TextLabel</string>
+                </property>
+                <property name="buddy" >
+                 <cstring>maxGlyphExtSpin</cstring>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="SMScrSpinBox" name="maxGlyphExtSpin" >
+                <property name="minimumSize" >
+                 <size>
+                  <width>0</width>
+                  <height>32</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
           <widget class="QToolButton" name="parentDropCapButton" >
+           <property name="enabled" >
+            <bool>true</bool>
+           </property>
            <property name="text" >
             <string>Parent's Drop Cap Status</string>
            </property>
           </widget>
          </item>
         </layout>
-       </item>
-       <item row="2" column="0" colspan="2" >
-        <widget class="QGroupBox" name="tabsBox" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="title" >
-          <string>Tabulators and Indentation</string>
-         </property>
-         <layout class="QVBoxLayout" >
-          <item>
-           <layout class="QHBoxLayout" >
-            <item>
-             <widget class="SMTabruler" native="1" name="tabList_" >
-              <property name="sizePolicy" >
-               <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0" >
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeType" >
-             <enum>QSizePolicy::MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0" >
-             <size>
-              <width>20</width>
-              <height>16</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
        </item>
       </layout>
      </widget>
