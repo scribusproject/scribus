@@ -477,6 +477,7 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->alignement_->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	connect(pwidget_->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	connect(pwidget_->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(pwidget_->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
 
 	connect(pwidget_, SIGNAL(useParentDropCap()), this, SLOT(slotParentDropCap()));
 	connect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
@@ -539,7 +540,8 @@ void SMParagraphStyle::removeConnections()
 	disconnect(pwidget_->alignement_->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	disconnect(pwidget_->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	disconnect(pwidget_->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-
+	disconnect(pwidget_->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
+	
 	disconnect(pwidget_, SIGNAL(useParentDropCap()), this, SLOT(slotParentDropCap()));
 	disconnect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	disconnect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
@@ -678,6 +680,23 @@ void SMParagraphStyle::slotAlignment()
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->setAlignment(style);
 
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotOpticalMargin(int i)
+{
+	ParagraphStyle::OpticalMarginType omt( static_cast<ParagraphStyle::OpticalMarginType>(pwidget_->optMarginCombo->itemData(i).toInt()));
+	if (pwidget_->optMarginCombo->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetOpticalMargins();
+	else 
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setOpticalMargins(omt);
+	
 	if (!selectionIsDirty_)
 	{
 		selectionIsDirty_ = true;
@@ -2070,4 +2089,6 @@ SMCharacterStyle::~SMCharacterStyle()
 	page_ = 0;
 	widget_ = 0;
 }
+
+
 

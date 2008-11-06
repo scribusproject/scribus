@@ -78,6 +78,7 @@ private slots:
 	void slotSpaceAbove();
 	void slotSpaceBelow();
 	void slotAlignment();
+	void slotOpticalMargin(int i);
 	void slotTabRuler();
 	void slotLeftIndent();
 	void slotRightIndent();

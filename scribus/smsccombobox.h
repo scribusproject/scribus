@@ -19,7 +19,18 @@ public:
 
 	void setCurrentItem(int i);
 	void setCurrentItem(int i, bool isParentValue);
-
+	
+	// Set the current index of a combobox according to the value
+	// stored into the data associated to items. Thus, allowing 
+	// separation between presentation and data.Isn’t that cool? ;-)
+	void setCurrentItemByData(int i);
+	void setCurrentItemByData(int i, bool isParentValue);
+	void setCurrentItemByData(double d);
+	void setCurrentItemByData(double d, bool isParentValue);
+	
+	int getItemIndexForData(int i);
+	int getItemIndexForData(double d);
+	
 	void setParentItem(int i);
 
 	bool useParentValue();

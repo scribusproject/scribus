@@ -37,7 +37,14 @@ SMPStyleWidget::SMPStyleWidget() : QWidget()
 
 	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
-	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
+        spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
+
+	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
+	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
+	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
+	optMarginCombo->addItem(tr("Left HangingPunct"), ParagraphStyle::OM_LeftHangingPunct);
+	optMarginCombo->addItem(tr("Right HangingPunct"), ParagraphStyle::OM_RightHangingPunct);
+	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
 
 	dropCapOffset_->setSuffix(unitGetSuffixFromIndex(0));
 }
@@ -71,7 +78,9 @@ void SMPStyleWidget::languageChange()
 	spaceBelow_->setToolTip(      tr("Space Below"));
 	lineSpacingLabel->setToolTip(lineSpacing_->toolTip());
 	spaceAboveLabel->setToolTip(spaceAbove_->toolTip());
-	spaceBelowLabel->setToolTip(spaceBelow_->toolTip());
+        spaceBelowLabel->setToolTip(spaceBelow_->toolTip());
+        optMarginCombo->setToolTip(tr("Activate an optical margins layout"));
+        optMarginLabel->setToolTip(optMarginCombo->toolTip());
 	//CB Unneeded, gets in the way of single widget tooltips
 	//dropCapsBox->setToolTip(      tr("Enable or disable drop cap"));
 	dropCapLines_->setToolTip(    tr("Drop Cap Lines"));
@@ -90,7 +99,8 @@ void SMPStyleWidget::languageChange()
 	lineSpacingMode_->clear();
 	lineSpacingMode_->addItem( tr("Fixed Linespacing"));
 	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
-	lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
+        lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
+        optMarginLabel->setText(tr("Optical Margins"));
 	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
@@ -121,11 +131,16 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	lineSpacingMode_->addItem( tr("Fixed Linespacing"));
 	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
 	lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
+	
+	
 
 	if (hasParent_)
 	{
 		lineSpacingMode_->setCurrentItem(pstyle->lineSpacingMode(), pstyle->isInhLineSpacingMode());
 		lineSpacingMode_->setParentItem(parent->lineSpacingMode());
+		
+		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins(),  pstyle->isInhOpticalMargins() );
+		optMarginCombo->setParentItem(optMarginCombo->getItemIndexForData( parent->opticalMargins()));
 
 		lineSpacing_->setValue(pstyle->lineSpacing(), pstyle->isInhLineSpacing());
 		lineSpacing_->setParentValue(parent->lineSpacing());
@@ -179,6 +194,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		lineSpacing_->setValue(pstyle->lineSpacing());
 		spaceAbove_->setValue(pstyle->gapBefore());
 		spaceBelow_->setValue(pstyle->gapAfter());
+		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins() );
 		dropCapsBox->setChecked(pstyle->hasDropCap());
 		parentDropCapButton->hide();
 		disconnect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
@@ -409,6 +425,26 @@ void SMPStyleWidget::showAlignment(QList<ParagraphStyle*> &pstyles)
 	alignement_->setStyle(a);
 }
 
+void SMPStyleWidget::showOpticalMargin(QList< ParagraphStyle * > & pstyles)
+{
+	if(pstyles.isEmpty())
+	{
+		qDebug()<<"Warning showOpticalMargin called with an empty list of styles";
+		return;
+	}
+	// the static cast should not be required if opticalMargins() would return OpticalMarginType. Why it does not? mystery
+	ParagraphStyle::OpticalMarginType o( static_cast<ParagraphStyle::OpticalMarginType>(pstyles[0]->opticalMargins()) );
+	for (int i = 0; i < pstyles.count(); ++i)
+	{
+		if (o != pstyles[i]->opticalMargins())
+		{
+			optMarginCombo->setCurrentItem(0);
+			return;
+		}
+	}
+	optMarginCombo->setCurrentItemByData(o);
+}
+
 void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 {
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
@@ -560,4 +596,5 @@ SMPStyleWidget::~SMPStyleWidget()
 {
 	
 }
+
 

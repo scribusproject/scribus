@@ -42,6 +42,104 @@ void SMScComboBox::setCurrentItem(int i, bool isParentValue)
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 }
 
+void SMScComboBox::setCurrentItemByData(int i)
+{
+	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	setFont(false);
+	hasParent_ = false;
+	pItem_ = 0;
+	for(int idx(0); idx < count(); ++idx)
+	{
+		if(itemData(idx).toInt() == i)
+			ScComboBox::setCurrentIndex(idx);
+	}
+	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+}
+
+void SMScComboBox::setCurrentItemByData(int i, bool isParentValue)
+{
+	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	hasParent_ = true;
+	setFont(!isParentValue);
+	if (!isParentValue)
+	{
+		useParentValue_ = true;
+		addItem( tr("Use Parent Value"));
+	}
+
+	for(int idx(0); idx < count(); ++idx)
+	{
+		if(itemData(idx).toInt() == i)
+		{
+			ScComboBox::setCurrentIndex(idx);
+			pItem_ = idx;
+		}
+	}
+	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+}
+
+void SMScComboBox::setCurrentItemByData(double d)
+{
+	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	setFont(false);
+	hasParent_ = false;
+	pItem_ = 0;
+	for(int idx(0); idx < count(); ++idx)
+	{
+		if(itemData(idx).toDouble() == d)
+			ScComboBox::setCurrentIndex(idx);
+	}
+	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+}
+
+void SMScComboBox::setCurrentItemByData(double d, bool isParentValue)
+{
+	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	hasParent_ = true;
+	setFont(!isParentValue);
+	if (!isParentValue)
+	{
+		useParentValue_ = true;
+		addItem( tr("Use Parent Value"));
+	}
+
+	for(int idx(0); idx < count(); ++idx)
+	{
+		if(itemData(idx).toDouble() == d)
+		{
+			ScComboBox::setCurrentIndex(idx);
+			pItem_ = idx;
+		}
+	}
+	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+}
+
+int SMScComboBox::getItemIndexForData(int i)
+{
+	for(int idx(0); idx < count(); ++idx)
+	{
+		if(itemData(idx).toInt() == i)
+		{
+			return idx;
+		}
+	}
+	return 0;
+}
+
+int SMScComboBox::getItemIndexForData(double d)
+{
+	for(int idx(0); idx < count(); ++idx)
+	{
+		if(itemData(idx).toDouble() == d)
+		{
+			return idx;
+		}
+	}
+	return 0;
+}
+
+
+
 void SMScComboBox::setParentItem(int i)
 {
 	hasParent_ = true;
@@ -83,3 +181,6 @@ void SMScComboBox::currentChanged()
 		useParentValue_ = true;
 	}
 }
+
+
+

@@ -16,14 +16,6 @@
       <number>0</number>
      </property>
      <widget class="QWidget" name="tab" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>614</width>
-        <height>440</height>
-       </rect>
-      </property>
       <attribute name="title" >
        <string>Properties</string>
       </attribute>
@@ -195,6 +187,29 @@
            </layout>
           </item>
           <item>
+           <layout class="QHBoxLayout" name="optMarginLayout" >
+            <property name="sizeConstraint" >
+             <enum>QLayout::SetDefaultConstraint</enum>
+            </property>
+            <property name="topMargin" >
+             <number>0</number>
+            </property>
+            <property name="rightMargin" >
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="optMarginLabel" >
+              <property name="text" >
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SMScComboBox" name="optMarginCombo" />
+            </item>
+           </layout>
+          </item>
+          <item>
            <layout class="QHBoxLayout" >
             <item>
              <widget class="SMAlignSelect" native="1" name="alignement_" >
@@ -257,7 +272,7 @@
             <bool>true</bool>
            </property>
            <property name="checked" >
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <layout class="QVBoxLayout" >
             <item>
@@ -415,14 +430,6 @@
       </layout>
      </widget>
      <widget class="QWidget" name="TabPage" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>614</width>
-        <height>440</height>
-       </rect>
-      </property>
       <attribute name="title" >
        <string>Ch&amp;aracter Style</string>
       </attribute>
