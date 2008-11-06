@@ -920,27 +920,27 @@ void getDashArray(int dashtype, double linewidth, QVector<double> &m_array)
 #if !defined(_WIN32) && !defined(Q_OS_MAC)
 /**
  * Print a backtrace
- * Please never commit code that uses it, it, by design, looses memory.
+ * Please never commit code that uses it.
  * @param nFrames specify how much frames you want to be printed
  */
 void printBacktrace(int nFrames)
 {
-		 void ** trace = new void*[nFrames + 1];
-		 char **messages = ( char ** ) NULL;
-		 int i, trace_size = 0;
+	void ** trace = new void*[nFrames + 1];
+	char **messages = ( char ** ) NULL;
+	int i, trace_size = 0;
 
-		 trace_size = backtrace ( trace, nFrames + 1);
-		 messages = backtrace_symbols ( trace, trace_size );
-		 if(messages)
-		 {
-			for ( i=1; i < trace_size; ++i )
-			{
-				QString bts("[ScBT] %1");
-				qDebug (  bts.arg(messages[i]).toUtf8() );
-			}
-			
-		 }
-	 
+	trace_size = backtrace ( trace, nFrames + 1);
+	messages = backtrace_symbols ( trace, trace_size );
+	if(messages)
+	{
+		for ( i=1; i < trace_size; ++i )
+		{
+			QString bts("[ScBT] %1");
+			qDebug (  bts.arg(messages[i]).toUtf8() );
+		}
+		free(messages);
+	}
+	delete[] trace;
 }
 #endif
 
