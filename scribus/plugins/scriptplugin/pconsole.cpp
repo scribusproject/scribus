@@ -300,12 +300,12 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 	foreach (HighlightingRule rule, highlightingRules)
 	{
 		QRegExp expression(rule.pattern);
-		int index = text.indexOf(expression);
+		int index = expression.indexIn(text);
 		while (index >= 0)
 		{
 			int length = expression.matchedLength();
 			setFormat(index, length, rule.format);
-			index = text.indexOf(expression, index + length);
+			index = expression.indexIn(text, index + length);
 		}
 	}
 	setCurrentBlockState(0);
