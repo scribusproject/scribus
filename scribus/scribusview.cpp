@@ -729,10 +729,10 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 		text = e->mimeData()->text();
 		double gx, gy, gw, gh;
 		QUrl ur(text);
-		QFileInfo fi = QFileInfo(ur.path());
+		QFileInfo fi = QFileInfo(ur.toLocalFile());
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		if (fi.exists())
-			text = ur.path();
+			text = ur.toLocalFile();
 		if(ss->ReadElemHeader(text,fi.exists(), &gx, &gy, &gw, &gh))
 		{
 			FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
@@ -783,7 +783,7 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 //			return;
 		}
 /*		QUrl ur(text);
-		QFileInfo fi = QFileInfo(ur.path());
+		QFileInfo fi = QFileInfo(ur.toLocalFile());
 		QString ext = fi.extension(false).toUpper();
 		QStrList imfo = QImageIO::inputFormats();
 		if (ext == "JPG")
@@ -921,7 +921,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->toolSettings.dWidth, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 			PageItem *b = Doc->Items->at(z);
 			b->LayerNr = Doc->activeLayer();
-			Doc->LoadPict(url.path(), b->ItemNr);
+			Doc->LoadPict(url.toLocalFile(), b->ItemNr);
 			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
 			b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
 			b->OldB2 = b->width();
@@ -939,7 +939,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			if (b->itemType() == PageItem::ImageFrame)
 			{
 				if ((fi.exists()) && (img))
-					Doc->LoadPict(url.path(), b->ItemNr);
+					Doc->LoadPict(url.toLocalFile(), b->ItemNr);
 			}
 			else if (b->itemType() == PageItem::TextFrame)
 			{
@@ -948,7 +948,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					QByteArray file;
 					QTextCodec *codec = QTextCodec::codecForLocale();
 					// TODO create a Dialog for selecting the codec
-					if (loadRawText(url.path(), file))
+					if (loadRawText(url.toLocalFile(), file))
 					{
 						QString txt = codec->toUnicode( file.data() );
 						txt.replace(QRegExp("\r"), QChar(13));
