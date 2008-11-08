@@ -85,15 +85,19 @@ for which a new license (GPL+exception) is in place.
 class StyledTextMimeData : public QMimeData
 {
 protected:
-	StoryText m_styledText;
+	StoryText   m_styledText;
+	ScGuardedPtr<ScribusDoc> m_styledTextDoc;
 
 public:
-	const StoryText& styledText(void) const { return m_styledText; }
-	void  setStyledText(const StoryText& text)
+	const StoryText&  styledText(void) const { return m_styledText; }
+	const ScribusDoc* document(void)   const { return m_styledTextDoc; }
+
+	void  setStyledText(const StoryText& text, ScribusDoc* doc)
 	{
 		QByteArray styledTextData (sizeof(void*), 0);
 		m_styledText.clear();
 		m_styledText.insert(0, text, true);
+		m_styledTextDoc = doc->guardedPtr();
 		styledTextData.setNum((quintptr)((quintptr*) &m_styledText));
 		setData("application/x-scribus-styledtext", styledTextData);
 	};
@@ -879,12 +883,17 @@ void SEditor::cut()
 void SEditor::paste()
 {
 	emit SideBarUp(false);
-	QString data = "";
-	int newParaCount, lengthLastPara;
-	int advanceLen = 0;
-	int pos = textCursor().hasSelection() ? textCursor().selectionStart() : textCursor().position();
+	bool useMimeStyledText = false;
+	int  newParaCount, lengthLastPara, advanceLen = 0;
+	int  pos = textCursor().hasSelection() ? textCursor().selectionStart() : textCursor().position();
 	const QMimeData* mimeData = QApplication::clipboard()->mimeData(QClipboard::Clipboard);
 	if (mimeData->hasFormat("application/x-scribus-styledtext"))
+	{
+		const StyledTextMimeData* styledData = dynamic_cast<const StyledTextMimeData*>(mimeData);
+		if (styledData)
+			useMimeStyledText = (styledData->document() == doc);
+	}
+	if (useMimeStyledText)
 	{
 		const StyledTextMimeData* styledData = dynamic_cast<const StyledTextMimeData*>(mimeData);
 		if (styledData)
@@ -896,9 +905,7 @@ void SEditor::paste()
 	}
 	else
 	{
-//		QString data = QApplication::clipboard()->text(QClipboard::Selection);
-//		if (data.isNull())
-		data = QApplication::clipboard()->text(QClipboard::Clipboard);
+		QString data = QApplication::clipboard()->text(QClipboard::Clipboard);
 		if (!data.isEmpty())
 		{
 			data.replace(QRegExp("\r"), "");
@@ -951,7 +958,7 @@ QMimeData* SEditor::createMimeDataFromSelection () const
 	StoryText* that = const_cast<StoryText*> (&StyledText);
 	that->select(start, end-start);
 	mimeData->setText(textCursor().selectedText());
-	mimeData->setStyledText(*that);
+	mimeData->setStyledText(*that, doc);
 	return mimeData;
 }
 
