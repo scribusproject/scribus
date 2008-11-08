@@ -103,13 +103,29 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 	// main "loop"
 	if (dia->exec()==QDialog::Accepted)
 	{
-		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 		std::vector<int> pageNs;
 		ex->pageDPI = dia->DPIBox->value();
 		ex->enlargement = dia->enlargementBox->value();
 		ex->quality     = dia->qualityBox->value();
 		ex->exportDir   = QDir::fromNativeSeparators(dia->outputDirectory->text());
 		ex->bitmapType  = dia->bitmapType->currentText();
+
+		// check availability of the destination
+		QFileInfo fi(ex->exportDir);
+		if (!fi.isDir())
+		{
+			QMessageBox::warning(doc->scMW(), tr("Save as Image"),
+			                     tr("The target location %1 must be an existing directory").arg(ex->exportDir));
+			return false;
+		}
+		if (!fi.isWritable())
+		{
+			QMessageBox::warning(doc->scMW(), tr("Save as Image"),
+			                     tr("The target location %1 must be writable").arg(ex->exportDir));
+			return false;
+		}
+
+		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 		doc->scMW()->mainWindowProgressBar->reset();
 		bool res;
 		if (dia->onePageRadio->isChecked())
