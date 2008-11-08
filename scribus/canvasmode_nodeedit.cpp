@@ -612,112 +612,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		}
 		return;
 	}
-/* 
-	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP) && (m_doc->appMode == modeNormal))
-	{
-		QMenu *pmen = new QMenu();
-		if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT")) || (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0))
-		{
-			Mxp = m->x();
-			Myp = m->y();
-			if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT")))
-				pmen->addAction( ScribusView::tr("&Paste") , m_view, SLOT(PasteToPage()));
-			if (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0)
-			{
-				pmen3 = new QMenu();
-				QMap<QString,BibView::Elem>::Iterator it;
-				it = m_ScMW->scrapbookPalette->tempBView->objectMap.end();
-				it--;
-				for (int m = 0; m < m_ScMW->scrapbookPalette->tempBView->objectMap.count(); ++m)
-				{
-					QString strippedName = it.key();
-					QPixmap pm = it.value().Preview;
-					pmen3->addAction(pm, strippedName);
-					it--;
-				}
-				QObject::connect(pmen3, SIGNAL(activated(int)), m_view, SLOT(PasteRecentToPage(int)));
-				QAction *act = pmen->addMenu(pmen3);
-				act->setText( ScribusView::tr("Paste Recent"));
-			}
-			pmen->addSeparator();
-		}
-		m_view->setObjectUndoMode();
-		pmen->addAction(m_ScMW->scrActions["editUndoAction"]);
-		pmen->addAction(m_ScMW->scrActions["editRedoAction"]);
-		pmen->addSeparator();
-		pmen->addAction(m_ScMW->scrActions["viewShowMargins"]);
-		pmen->addAction(m_ScMW->scrActions["viewShowFrames"]);
-		pmen->addAction(m_ScMW->scrActions["viewShowLayerMarkers"]);
-		pmen->addAction(m_ScMW->scrActions["viewShowImages"]);
-		pmen->addAction(m_ScMW->scrActions["viewShowGrid"]);
-		pmen->addAction(m_ScMW->scrActions["viewShowGuides"]);
-		pmen->addAction(m_ScMW->scrActions["viewShowBaseline"]);
-		pmen->addAction(m_ScMW->scrActions["viewShowTextChain"]);
-		pmen->addAction(m_ScMW->scrActions["viewRulerMode"]);
-		pmen->addSeparator();
-		pmen->addAction(m_ScMW->scrActions["viewSnapToGrid"]);
-		pmen->addAction(m_ScMW->scrActions["viewSnapToGuides"]);
-		int pgNum = -1;
-		int docPageCount = static_cast<int>(m_doc->Pages->count() - 1);
-		double bleedRight = 0.0;
-		double bleedLeft = 0.0;
-		double bleedBottom = 0.0;
-		double bleedTop = 0.0;
-		bool drawBleed = false;
-		int x2 = static_cast<int>(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		int y2 = static_cast<int>(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-		if (((m_doc->bleeds.Bottom != 0.0) || (m_doc->bleeds.Top != 0.0) || (m_doc->bleeds.Left != 0.0) || (m_doc->bleeds.Right != 0.0)) && (m_doc->guidesSettings.showBleed))
-			drawBleed = true;
-		for (int a = docPageCount; a > -1; a--)
-		{
-			if (drawBleed)
-				m_doc->getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
-			int x = static_cast<int>(m_doc->Pages->at(a)->xOffset() - bleedLeft);
-			int y = static_cast<int>(m_doc->Pages->at(a)->yOffset() - bleedTop);
-			int w = static_cast<int>(m_doc->Pages->at(a)->width() + bleedLeft + bleedRight);
-			int h = static_cast<int>(m_doc->Pages->at(a)->height() + bleedBottom + bleedTop);
-			if (QRect(x, y, w, h).contains(x2, y2))
-			{
-				pgNum = static_cast<int>(a);
-				if (drawBleed)  // check again if its really on the correct page
-				{
-					for (int a2 = docPageCount; a2 > -1; a2--)
-					{
-						int xn = static_cast<int>(m_doc->Pages->at(a2)->xOffset());
-						int yn = static_cast<int>(m_doc->Pages->at(a2)->yOffset());
-						int wn = static_cast<int>(m_doc->Pages->at(a2)->width());
-						int hn = static_cast<int>(m_doc->Pages->at(a2)->height());
-						if (QRect(xn, yn, wn, hn).contains(x2, y2))
-						{
-							pgNum = static_cast<int>(a2);
-							break;
-						}
-					}
-				}
-				break;
-			}
-		}
-		if (pgNum != -1)
-		{
-			pmen->addSeparator();
-			pmen->addAction(m_ScMW->scrActions["pageApplyMasterPage"]);
-			pmen->addAction(m_ScMW->scrActions["pageManageGuides"]);
-			pmen->addAction(m_ScMW->scrActions["pageManageMargins"]);
-			pmen->addSeparator();
-			pmen->addAction(m_ScMW->scrActions["pageDelete"]);
-		}
-		pmen->exec(QCursor::pos());
-		m_view->setGlobalUndoMode();
-		delete pmen;
-		pmen=NULL;
-		if (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0)
-		{
-			delete pmen3;
-			pmen3=NULL;
-		}
-		return;
-	}
-*/
+
 	m_canvas->setRenderModeUseBuffer(false);
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
@@ -1395,4 +1290,5 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_doc->regionsChanged()->update(QRectF());
 }
+
 
