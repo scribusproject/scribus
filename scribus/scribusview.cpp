@@ -977,18 +977,20 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					QString data;
 					if (fi.suffix().toLower() == "sml")
 					{
-						QString f = "";
-						loadText(url.path(), &f);
+						QByteArray cf;
+						loadRawText(url.toLocalFile(), cf);
 						StencilReader *pre = new StencilReader();
+						QString f = QString::fromUtf8(cf.data());
 						data = pre->createObjects(f);
 						delete pre;
 						emit LoadElem(data, dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
 					}
 					else if (fi.suffix().toLower() == "shape")
 					{
-						QString f = "";
-						loadText(url.path(), &f);
+						QByteArray cf;
+						loadRawText(url.toLocalFile(), cf);
 						StencilReader *pre = new StencilReader();
+						QString f = QString::fromUtf8(cf.data());
 						data = pre->createShape(f);
 						delete pre;
 						emit LoadElem(data, dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
