@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scconfig.h"
 #include "scgzfile.h"
+#include "scmimedata.h"
 #include "scpaths.h"
 #include "scpattern.h"
 #include "scraction.h"
@@ -447,8 +448,8 @@ void SVGPlug::convert(int flags)
 			}
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			tmpSel->setGroupRect();
-			QMimeData* md = new QMimeData();
-			md->setText(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
+			ScElemMimeData* md = new ScElemMimeData();
+			md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
 			QDrag* dr = new QDrag(m_Doc->view()->viewport());
 			dr->setMimeData(md);
 #ifndef QT_WS_MAC

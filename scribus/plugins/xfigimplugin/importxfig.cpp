@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "rawimage.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
+#include "scmimedata.h"
 #include "scpaths.h"
 #include "scpattern.h"
 #include "scpattern.h"
@@ -324,8 +325,8 @@ bool XfigPlug::import(QString fNameIn, int flags, bool showProgress)
 				}
 				tmpSel->setGroupRect();
 				ScriXmlDoc *ss = new ScriXmlDoc();
-				QMimeData* md = new QMimeData();
-				md->setText(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
+				ScElemMimeData* md = new ScElemMimeData();
+				md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
 				QDrag* dr = new QDrag(m_Doc->view()->viewport());
 				dr->setMimeData(md);
 #ifndef Q_WS_MAC

@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefstable.h"
 #include "propertiespalette.h"
 #include "sccolorengine.h"
+#include "scmimedata.h"
 #include "scraction.h"
 #include "scribusXml.h"
 #include "scribuscore.h"
@@ -513,8 +514,8 @@ bool OODPlug::convert(int flags)
 			tmpSel->setGroupRect();
 			//CB keep for reference conversion for now
 			//Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel), m_Doc->view()->viewport());
-			QMimeData* md = new QMimeData();
-			md->setText(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
+			ScElemMimeData* md = new ScElemMimeData();
+			md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
 			QDrag* dr = new QDrag(m_Doc->view()->viewport());
 			dr->setMimeData(md);
 #ifndef QT_WS_MAC

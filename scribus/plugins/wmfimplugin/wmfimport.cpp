@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "menumanager.h"
 #include "prefsmanager.h"
 #include "pageitem.h"
+#include "scmimedata.h"
 #include "scraction.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -693,8 +694,8 @@ bool WMFImport::importWMF(int flags)
 			}
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			m_tmpSel->setGroupRect();
-			QMimeData* md = new QMimeData();
-			md->setText(ss->WriteElem(m_Doc, m_Doc->view(), m_tmpSel));
+			ScElemMimeData* md = new ScElemMimeData();
+			md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), m_tmpSel));
 			QDrag* dr = new QDrag(m_Doc->view()->viewport());
 			dr->setMimeData(md);
 #ifndef QT_MAC

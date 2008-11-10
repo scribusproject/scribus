@@ -188,10 +188,8 @@ public:
 	void restoreDeletePage(SimpleState *state, bool isUndo);
 	struct CopyPasteBuffer Buffer;
 	struct CopyContentsBuffer contentsBuffer;
-	QString Buffer2;
-	bool BuFromApp;
 	bool internalCopy;
-	int HaveDoc;
+	int  HaveDoc;
 	PrefsContext* dirs;
 	/** \brief view is the main widget which represents your working area. The View
 	 * class should handle all events of the view widget.  It is kept empty so

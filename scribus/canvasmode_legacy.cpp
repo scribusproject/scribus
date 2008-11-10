@@ -39,18 +39,15 @@
 #include "customfdialog.h"
 #include "fpoint.h"
 #include "fpointarray.h"
-// #include "hruler.h"
-// #include "vruler.h"
 #include "hyphenator.h"
 #include "insertTable.h"
-// #include "oneclick.h"
 #include "pageitem_textframe.h"
 #include "pageselector.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "propertiespalette.h"
-// #include "scraction.h"
+#include "scmimedata.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -587,8 +584,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					m_doc->DragElements.append(m_doc->m_Selection->itemAt(dre)->ItemNr);
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				//Q_3DragObject *dr = new Q_3TextDrag(ss->WriteElem(Doc, this, m_doc->m_Selection), this);
-				QMimeData* md = new QMimeData();
-				md->setText(ss->WriteElem(m_doc, m_view, m_doc->m_Selection));
+				ScElemMimeData* md = new ScElemMimeData();
+				md->setScribusElem(ss->WriteElem(m_doc, m_view, m_doc->m_Selection));
 				QDrag* dr = new QDrag(m_view);
 				dr->setMimeData(md);
 				const QPixmap& pm = loadIcon("DragPix.xpm");
@@ -1840,7 +1837,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 							}
 							else
 							{
-								if (m_ScMW->Buffer2.startsWith("<SCRIBUSTEXT"))
+								if (ScMimeData::clipboardHasScribusText())
 									m_ScMW->slotEditPaste();
 							}
 							currItem->update();

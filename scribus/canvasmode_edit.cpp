@@ -46,6 +46,7 @@
 #include "prefsmanager.h"
 #include "propertiespalette.h"
 #include "sccolorengine.h"
+#include "scmimedata.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -949,7 +950,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				}
 				else
 				{
-					if (m_ScMW->Buffer2.startsWith("<SCRIBUSTEXT"))
+					if (ScMimeData::clipboardHasScribusText())
 						m_ScMW->slotEditPaste();
 				}
 				currItem->update();

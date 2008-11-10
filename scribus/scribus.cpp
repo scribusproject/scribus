@@ -168,6 +168,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "scgtplugin.h"
 #include "scmessagebox.h"
+#include "scmimedata.h"
 #include "scpaths.h"
 #include "scprintengine_ps.h"
 #include "scraction.h"
@@ -305,8 +306,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 	qApp->processEvents();
 
-	BuFromApp = false;
-
 	actionManager = new ActionManager(this);
 	actionManager->init(this);
 //	if (primaryMainWindow)
@@ -419,7 +418,6 @@ void ScribusMainWindow::initDefaultValues()
 	ScriptRunning = false;
 	view = NULL;
 	doc = NULL;
-	Buffer2 = "";
 	DocNr = 1;
 	PrinterUsed = false;
 	PDef.Pname = "";
@@ -2627,7 +2625,7 @@ void ScribusMainWindow::HaveNewDoc()
 
 	scrActions["editCut"]->setEnabled(false);
 	scrActions["editCopy"]->setEnabled(false);
-	scrActions["editPaste"]->setEnabled((!Buffer2.isEmpty()) || (scrapbookPalette->tempBView->objectMap.count() > 0));
+	scrActions["editPaste"]->setEnabled((ScMimeData::clipboardHasScribusData()) || (scrapbookPalette->tempBView->objectMap.count() > 0));
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() > 0);
 	scrMenuMgr->setMenuEnabled("EditContents", false);
 	scrActions["editCopyContents"]->setEnabled(false);
@@ -3463,9 +3461,10 @@ void ScribusMainWindow::importVectorFile()
 		QString suffix = fi.suffix().toLower();
 		if ((suffix == "sce") || (suffix == "sml") || (suffix == "shape"))
 		{
+			QList<QUrl> urls;
 			QMimeData* md = new QMimeData();
-			QUrl ur = QUrl::fromLocalFile(fileName);
-			md->setText(ur.toString());
+			urls.append( QUrl::fromLocalFile(fileName) );
+			md->setUrls(urls);
 			QDrag* dr = new QDrag(this);
 			dr->setMimeData(md);
 			const QPixmap& dragCursor = loadIcon("DragPix.xpm");
@@ -4753,7 +4752,6 @@ void ScribusMainWindow::slotEditCut()
 				activeTransaction = new UndoTransaction(undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::Cut, "", Um::ICut));
 			}
 		}
-		Buffer2 = "<SCRIBUSTEXT>";
 		currItem = doc->m_Selection->itemAt(0);
 		if (doc->appMode == modeEdit)
 		{
@@ -4763,71 +4761,18 @@ void ScribusMainWindow::slotEditCut()
 			itemText.setDefaultStyle(currItem->itemText.defaultStyle());
 			itemText.insert(0, currItem->itemText, true);
 
-			BufferI = itemText.text(0, itemText.length());
-
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
 			xmlStream.beginDoc();
 			itemText.saxx(xmlStream, "SCRIBUSTEXT");
 			xmlStream.endDoc();
 			std::string xml(xmlString.str());
-			Buffer2 = QString::fromUtf8(xml.c_str(), xml.length());
 
-			/*			PageItem *nextItem = currItem;
-			while (nextItem != 0)
-			{
-				if (nextItem->prevInChain() != 0)
-					nextItem = nextItem->prevInChain();
-				else
-					break;
-			}
-			if (nextItem != 0)
-			{
-				for (a = 0; a < nextItem->itemText.length(); ++a)
-				{
-					if (nextItem->itemText.selected(a))
-					{
-						if (nextItem->itemText.text(a) == QChar(13))
-						{
-							Buffer2 += QChar(5);
-							BufferI += QChar(10);
-						}
-						else if (nextItem->itemText.text(a) == QChar(9))
-						{
-							Buffer2 += QChar(4);
-							BufferI += QChar(9);
-						}
-						else
-						{
-							Buffer2 += nextItem->itemText.text(a);
-							BufferI += nextItem->itemText.text(a);
-						}
-						Buffer2 += "\t";
-						Buffer2 += nextItem->itemText.charStyle(a).font().scName()+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).fontSize())+"\t";
-						Buffer2 += nextItem->itemText.charStyle(a).fillColor()+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).tracking())+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).fillShade())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).effects())+'\t';
-						Buffer2 += QString::number(findParagraphStyle(doc, nextItem->itemText.paragraphStyle(a)))+'\t';
-						Buffer2 += nextItem->itemText.charStyle(a).strokeColor()+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).strokeShade())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).scaleH())+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).scaleV())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).baselineOffset())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).shadowXOffset())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).shadowYOffset())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).outlineWidth())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).underlineOffset())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).underlineWidth())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).strikethruOffset())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).strikethruWidth())+'\n';
-					}
-				}
-				dynamic_cast<PageItem_TextFrame*>(nextItem)->deleteSelectedTextFromFrame();
-				nextItem = nextItem->nextInChain();
-			}
-			*/
+			ScTextMimeData* mimeData = new ScTextMimeData();
+			mimeData->setScribusText (QByteArray(xml.c_str(), xml.length()));
+			mimeData->setText( itemText.text(0, itemText.length()) ) ;
+			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
+
 			dynamic_cast<PageItem_TextFrame*>(currItem)->deleteSelectedTextFromFrame();
 			currItem->update();
 		}
@@ -4835,10 +4780,6 @@ void ScribusMainWindow::slotEditCut()
 		{
 			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
-
-			// old version:
-			/*ScriXmlDoc ss;
-			Buffer2 = ss.WriteElem(doc, view, doc->m_Selection);*/
 
 			// new version:
 			std::ostringstream xmlString;
@@ -4851,11 +4792,16 @@ void ScribusMainWindow::slotEditCut()
 			if (prefsManager->appPrefs.doCopyToScrapbook)
 			{
 				ScriXmlDoc ss;
-				Buffer2 = ss.WriteElem(doc, view, doc->m_Selection);
-				scrapbookPalette->ObjFromCopyAction(Buffer2, currItem->itemName());
+				QString buffer = ss.WriteElem(doc, view, doc->m_Selection);
+				scrapbookPalette->ObjFromCopyAction(buffer, currItem->itemName());
 				rebuildRecentPasteMenu();
 			}
-			Buffer2 = BufferI;
+
+			ScFragmentMimeData* mimeData = new ScFragmentMimeData();
+			mimeData->setScribusFragment ( QByteArray(xml.c_str(), xml.length()) );
+			mimeData->setText( QString::fromUtf8(xml.c_str(), xml.length()) );
+			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
+
 			for (int i=0; i < doc->m_Selection->count(); ++i)
 			{
 				PageItem* frame = doc->m_Selection->itemAt(i);
@@ -4865,8 +4811,6 @@ void ScribusMainWindow::slotEditCut()
 			doc->itemSelection_DeleteItem();
 		}
 		slotDocCh();
-		BuFromApp = true;
-		ClipB->setText(BufferI);
 		scrActions["editPaste"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
 		if (activeTransaction)
@@ -4886,7 +4830,6 @@ void ScribusMainWindow::slotEditCopy()
 	QString BufferI = "";
 	if ((HaveDoc) && (doc->m_Selection->count() != 0))
 	{
-		Buffer2 = "<SCRIBUSTEXT/>";
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		if ((doc->appMode == modeEdit) && (currItem->HasSel))
 		{
@@ -4902,63 +4845,11 @@ void ScribusMainWindow::slotEditCopy()
 			itemText.saxx(xmlStream, "SCRIBUSTEXT");
 			xmlStream.endDoc();
 			std::string xml(xmlString.str());
-			Buffer2 = QString::fromUtf8(xml.c_str(), xml.length());
-//			qDebug(Buffer2);
 
-/*			PageItem *nextItem = currItem;
-			while (nextItem != 0)
-			{
-				if (nextItem->prevInChain() != 0)
-					nextItem = nextItem->prevInChain();
-				else
-					break;
-			}
-			if (nextItem != 0)
-			{
-				for (a = 0; a < nextItem->itemText.length(); ++a)
-				{
-					if (nextItem->itemText.selected(a))
-					{
-						if (nextItem->itemText.text(a) == SpecialChars::PARSEP)
-						{
-							Buffer2 += QChar(5);
-							BufferI += QChar(10);
-						}
-						else if (nextItem->itemText.text(a) == SpecialChars::TAB)
-						{
-							Buffer2 += QChar(4);
-							BufferI += QChar(9);
-						}
-						else
-						{
-							Buffer2 += nextItem->itemText.text(a);
-							BufferI += nextItem->itemText.text(a);
-						}
-						Buffer2 += "\t";
-						Buffer2 += nextItem->itemText.charStyle(a).font().scName()+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).fontSize())+"\t";
-						Buffer2 += nextItem->itemText.charStyle(a).fillColor()+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).tracking())+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).fillShade())+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).effects())+"\t";
-						Buffer2 += QString::number(findParagraphStyle(doc, nextItem->itemText.paragraphStyle(a)))+"\t";
-						Buffer2 += nextItem->itemText.charStyle(a).strokeColor()+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).strokeShade())+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).scaleH())+"\t";
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).scaleV())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).baselineOffset())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).shadowXOffset())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).shadowYOffset())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).outlineWidth())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).underlineOffset())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).underlineWidth())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).strikethruOffset())+'\t';
-						Buffer2 += QString::number(nextItem->itemText.charStyle(a).strikethruWidth())+'\n';
-					}
-				}
-				nextItem = nextItem->nextInChain();
-			}
-			*/
+			ScTextMimeData* mimeData = new ScTextMimeData();
+			mimeData->setScribusText( QByteArray(xml.c_str(), xml.length()) );
+			mimeData->setText( itemText.text(0, itemText.length()) );
+			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
 		}
 		else
 		{
@@ -4970,7 +4861,6 @@ void ScribusMainWindow::slotEditCopy()
 			SaxXML xmlStream(xmlString);
 			Serializer::serializeObjects(*doc->m_Selection, xmlStream);
 			std::string xml(xmlString.str());
-			BufferI = QString::fromUtf8(xml.c_str(), xml.length());
 
 #ifdef DESAXE_DEBUG
 			// debug:
@@ -4987,14 +4877,16 @@ void ScribusMainWindow::slotEditCopy()
 			if ((prefsManager->appPrefs.doCopyToScrapbook) && (!internalCopy))
 			{
 				ScriXmlDoc ss;
-				Buffer2 = ss.WriteElem(doc, view, doc->m_Selection);
-				scrapbookPalette->ObjFromCopyAction(Buffer2, currItem->itemName());
+				QString buffer = ss.WriteElem(doc, view, doc->m_Selection);
+				scrapbookPalette->ObjFromCopyAction(buffer, currItem->itemName());
 				rebuildRecentPasteMenu();
 			}
-			Buffer2 = BufferI;
+
+			ScFragmentMimeData* mimeData = new ScFragmentMimeData();
+			mimeData->setScribusFragment( QByteArray(xml.c_str(), xml.length()) );
+			mimeData->setText( QString::fromUtf8(xml.c_str(), xml.length()) );
+			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
 		}
-		BuFromApp = true;
-		ClipB->setText(BufferI);
 		scrActions["editPaste"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
 	}
@@ -5007,7 +4899,7 @@ void ScribusMainWindow::slotEditPaste()
 	if (HaveDoc)
 	{
 		UndoTransaction* activeTransaction = NULL;
-		if (Buffer2.isEmpty())
+		if (!ScMimeData::clipboardHasScribusData())
 			return;
 		if (UndoManager::undoEnabled())
 			activeTransaction = new UndoTransaction(undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste));
@@ -5023,14 +4915,14 @@ void ScribusMainWindow::slotEditPaste()
 			if (currItem->CPos > currItem->itemText.length())
 				currItem->CPos = currItem->itemText.length();
 
-			if (hasXMLRootElem(Buffer2, "<SCRIBUSTEXT"))
+			if (ScMimeData::clipboardHasScribusText())
 			{
 				Serializer dig(*doc);
 				dig.store<ScribusDoc>("<scribusdoc>", doc);
 				StoryText::desaxeRules("/", dig, "SCRIBUSTEXT");
 				dig.addRule("/SCRIBUSTEXT", desaxe::Result<StoryText>());
 
-				QByteArray xml( Buffer2.toUtf8() );
+				QByteArray xml = ScMimeData::clipboardScribusText();
 				dig.parseMemory(xml, xml.length());
 
 				StoryText* story = dig.result<StoryText>();
@@ -5039,91 +4931,8 @@ void ScribusMainWindow::slotEditPaste()
 				currItem->CPos += story->length();
 
 				delete story;
-
-/*				QString Buf = Buffer2.mid(13);
-				QTextStream t(&Buf, IO_ReadOnly);
-				QString cc;
-				while (!t.atEnd())
-				{
-					cc = t.readLine();
-					QStringList wt;
-					QStringList::Iterator it;
-					wt = QStringList::split("\t", cc);
-					it = wt.begin();
-					CharStyle nstyle;
-					QString ch = (*it);
-					if (ch == QChar(5))
-						ch = SpecialChars::PARSEP;
-					if (ch == QChar(4))
-						ch = SpecialChars::TAB;
-						Don't copy inline frames for now, as this is a very complicated thing.
-						We need to figure out a good way to copy inline frames, this must
-						be able to preserve them across documents. No idea how to solve
-						that yet. *--/
-					if (ch == SpecialChars::OBJECT)
-						ch = QChar(32);
-					it++;
-					nstyle.setFont((*doc->AllFonts)[*it]);
-					it++;
-					nstyle.setFontSize((*it).toInt());
-					it++;
-					nstyle.setFillColor(*it);
-					it++;
-					nstyle.setTracking((*it).toInt());
-					it++;
-					nstyle.setFillShade((*it).toInt());
-					it++;
-					nstyle.setFeatures(static_cast<StyleFlag>((*it).toInt()).featureList());
-					it++;
-					int cab = (*it).toInt();
-					it++;
-					if (it == NULL)
-						nstyle.setStrokeColor(CommonStrings::None);
-					else
-						nstyle.setStrokeColor(*it);
-					it++;
-					if (it == NULL)
-						nstyle.setStrokeShade(100);
-					else
-						nstyle.setStrokeShade((*it).toInt());
-					it++;
-					if (it == NULL)
-						nstyle.setScaleH(1000);
-					else
-						nstyle.setScaleH((*it).toInt());
-					it++;
-					if (it == NULL)
-						nstyle.setScaleV(1000);
-					else
-						nstyle.setScaleV(qMin(qMax((*it).toInt(), 100), 4000));
-					it++;
-					nstyle.setBaselineOffset(it == NULL ? 0 : (*it).toInt());
-					it++;
-					nstyle.setShadowXOffset(it == NULL ? 50 : (*it).toInt());
-					it++;
-					nstyle.setShadowYOffset(it == NULL ? -50 : (*it).toInt());
-					it++;
-					nstyle.setOutlineWidth(it == NULL ? 10 : (*it).toInt());
-					it++;
-					nstyle.setUnderlineOffset(it == NULL ? -1 : (*it).toInt());
-					it++;
-					nstyle.setUnderlineWidth(it == NULL ? -1 : (*it).toInt());
-					it++;
-					nstyle.setStrikethruOffset(it == NULL ? -1 : (*it).toInt());
-					it++;
-					nstyle.setStrikethruWidth(it == NULL ? -1 : (*it).toInt());
-					currItem->itemText.insertChars(currItem->CPos, ch);
-					if (ch == SpecialChars::PARSEP) {
-						currItem->itemText.applyStyle(currItem->CPos, doc->paragraphStyles()[cab]);
-					}
-					else {
-						currItem->itemText.applyCharStyle(currItem->CPos, 1, nstyle);
-					}
-					currItem->CPos += 1;
-				}
-*/
 			}
-			else if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM") || hasXMLRootElem(Buffer2, "<SCRIBUSFRAGMENT"))
+			else if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment())
 			{
 				bool savedAlignGrid = doc->useRaster;
 				bool savedAlignGuides = doc->SnapGuides;
@@ -5138,10 +4947,16 @@ void ScribusMainWindow::slotEditPaste()
 				// if embedded item is deleted, undo system will not be aware of its deletion => crash - JG
 				undoManager->setUndoEnabled(false);
 
-				if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM"))
-					slotElemRead(Buffer2, 0, 0, false, true, doc, view);
+				if (ScMimeData::clipboardHasScribusElem())
+				{
+					QString buffer  = ScMimeData::clipboardScribusElem();
+					slotElemRead(buffer, 0, 0, false, true, doc, view);
+				}
 				else
-					Serializer(*doc).deserializeObjects(Buffer2.toUtf8());
+				{
+					QByteArray fragment = ScMimeData::clipboardScribusFragment();
+					Serializer(*doc).deserializeObjects(fragment);
+				}
 
 				// update style lists:
 				styleManager->setDoc(doc);
@@ -5202,7 +5017,8 @@ void ScribusMainWindow::slotEditPaste()
 			else
 			{
 				// K.I.S.S.:
-				QString text = Buffer2.replace("\r\n", SpecialChars::PARSEP);
+				QString text = QApplication::clipboard()->text(QClipboard::Clipboard);
+				text = text.replace("\r\n", SpecialChars::PARSEP);
 				text = text.replace('\n', SpecialChars::PARSEP);
 				currItem->itemText.insertChars(currItem->CPos, text, true);
 			}
@@ -5210,7 +5026,7 @@ void ScribusMainWindow::slotEditPaste()
 		}
 		else
 		{
-			if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM") || hasXMLRootElem(Buffer2, "<SCRIBUSFRAGMENT"))
+			if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment())
 			{
 				view->Deselect(true);
 				uint ac = doc->Items->count();
@@ -5218,12 +5034,15 @@ void ScribusMainWindow::slotEditPaste()
 				bool savedAlignGuides = doc->SnapGuides;
 				doc->useRaster = false;
 				doc->SnapGuides = false;
-//				qDebug(Buffer2);
-				if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM"))
-					slotElemRead(Buffer2, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+				if (ScMimeData::clipboardHasScribusElem())
+				{
+					QString buffer  = ScMimeData::clipboardScribusElem();
+					slotElemRead(buffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+				}
 				else
 				{
-					Selection pastedObjects = Serializer(*doc).deserializeObjects(Buffer2.toUtf8());
+					QByteArray fragment = ScMimeData::clipboardScribusFragment();
+					Selection pastedObjects = Serializer(*doc).deserializeObjects(fragment);
 					for (int i=0; i < pastedObjects.count(); ++i)
 						pastedObjects.itemAt(i)->LayerNr = doc->activeLayer();
 
@@ -5435,17 +5254,8 @@ void ScribusMainWindow::deselectAll()
 
 void ScribusMainWindow::ClipChange()
 {
-	QString cc = ClipB->text(QClipboard::Clipboard);
-	if (!cc.isNull())
-	{
-		if (!BuFromApp)
-			Buffer2 = cc;
-		BuFromApp = false;
-	}
-	scrActions["editPaste"]->setEnabled(HaveDoc &&
-										(hasXMLRootElem(Buffer2, "<SCRIBUSELEM")
-										 || hasXMLRootElem(Buffer2, "<SCRIBUSFRAGMENT")
-										 || doc->appMode == modeEdit));
+	bool hasScribusData = ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment(); 
+	scrActions["editPaste"]->setEnabled(HaveDoc && (hasScribusData || doc->appMode == modeEdit));
 }
 
 void ScribusMainWindow::EnableTxEdit()
@@ -6417,11 +6227,10 @@ void ScribusMainWindow::setAppMode(int mode)
 			charPalette->setEnabled(true, currItem);
 			if (currItem!=NULL && currItem->asTextFrame())
 				enableTextActions(&scrActions, true, currItem->currentCharStyle().font().scName());
-			if (!Buffer2.isNull())
+			if (ScMimeData::clipboardHasScribusData())
 			{
 //				if (!hasXMLRootElem(Buffer2, "<SCRIBUSELEM"))
 //				{
-					BuFromApp = false;
 					scrActions["editPaste"]->setEnabled(true);
 //				}
 			}
@@ -8799,7 +8608,7 @@ void ScribusMainWindow::changeLayer(int )
 	view->setLayerMenuText(doc->activeLayerName());
 	view->DrawNew();
 	bool setter = !doc->layerLocked( doc->activeLayer() );
-	scrActions["editPaste"]->setEnabled(((!Buffer2.isEmpty()) || (scrapbookPalette->tempBView->objectMap.count() > 0)) && (setter));
+	scrActions["editPaste"]->setEnabled((ScMimeData::clipboardHasScribusData() || (scrapbookPalette->tempBView->objectMap.count() > 0)) && (setter));
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", ((scrapbookPalette->tempBView->objectMap.count() > 0) && (setter)));
 	scrActions["editSelectAll"]->setEnabled(setter);
 	scrActions["editSelectAllOnLayer"]->setEnabled(setter);

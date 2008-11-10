@@ -101,6 +101,7 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette.h"
 #include "rulermover.h"
 #include "scmessagebox.h"
+#include "scmimedata.h"
 #include "scpainter.h"
 #include "scpaths.h"
 #include "scrapbookpalette.h"
@@ -722,18 +723,27 @@ void ScribusView::leaveEvent(QEvent *e)
 void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 {
 	QString text;
+	bool dataFound = false, fromFile = false;
+	const ScElemMimeData* elemData = dynamic_cast<const ScElemMimeData*>(e->mimeData());
 	e->accept();
-	if (e->mimeData()->hasText())
+	if (elemData)
+		text = elemData->scribusElem();
+	else if (e->mimeData()->hasUrls())
+	{
+		QUrl url = e->mimeData()->urls().at(0);
+		QFileInfo fi(url.toLocalFile());
+		if (fi.exists())
+		{
+			fromFile = true;
+			text = url.toLocalFile();
+		}
+	}
+	if (!text.isEmpty())
 	{
 		e->acceptProposedAction();
-		text = e->mimeData()->text();
 		double gx, gy, gw, gh;
-		QUrl ur(text);
-		QFileInfo fi = QFileInfo(ur.toLocalFile());
 		ScriXmlDoc *ss = new ScriXmlDoc();
-		if (fi.exists())
-			text = ur.toLocalFile();
-		if(ss->ReadElemHeader(text,fi.exists(), &gx, &gy, &gw, &gh))
+		if(ss->ReadElemHeader(text, fromFile, &gx, &gy, &gw, &gh))
 		{
 			FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
 			dragX = dragPosDoc.x(); //e->pos().x() / m_canvas->scale();
@@ -844,7 +854,12 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 //	int ex = qRound(e->pos().x()/m_canvas->scale());// + Doc->minCanvasCoordinate.x());
 //		int ey = qRound(e->pos().y()/m_canvas->scale());// + Doc->minCanvasCoordinate.y());
 
-	if (e->mimeData()->hasText())
+	if (ScMimeData::clipboardHasScribusElem())
+	{
+		text = ScMimeData::clipboardScribusElem();
+		url  = QUrl(text);
+	}
+	else if (e->mimeData()->hasText())
 	{
 		text = e->mimeData()->text();
 		url = QUrl(text);
@@ -2150,11 +2165,12 @@ void ScribusView::PasteToPage()
 	int ac = Doc->Items->count();
 	if (UndoManager::undoEnabled())
 		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste));
-	if (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT"))
+	if (ScMimeData::clipboardHasScribusFragment())
 	{
 		bool savedAlignGrid = Doc->useRaster;
 		bool savedAlignGuides = Doc->SnapGuides;
-		Selection pastedObjects = Serializer(*Doc).deserializeObjects(m_ScMW->Buffer2.toUtf8());
+		QByteArray fragment   = ScMimeData::clipboardScribusFragment();
+		Selection pastedObjects = Serializer(*Doc).deserializeObjects(fragment);
 		Doc->useRaster = savedAlignGrid;
 		Doc->SnapGuides = savedAlignGuides;
 		pastedObjects.setGroupRect();
@@ -2164,7 +2180,10 @@ void ScribusView::PasteToPage()
 		Doc->m_Selection->clear();
 	}
 	else
-		emit LoadElem(m_ScMW->Buffer2, dragX, dragY, false, false, Doc, this);
+	{
+		QString buffer = ScMimeData::clipboardScribusElem();
+		emit LoadElem(buffer, dragX, dragY, false, false, Doc, this);
+	}
 	Doc->DraggedElem = 0;
 	Doc->DragElements.clear();
 	updateContents();

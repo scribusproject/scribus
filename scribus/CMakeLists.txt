@@ -501,6 +501,7 @@ SET(SCRIBUS_SOURCES
   sclayer.cpp
   scmenu.cpp
   scmessagebox.cpp
+  scmimedata.cpp
   scpageoutput.cpp
   scpageoutput_ps2.cpp
   scpainter.cpp

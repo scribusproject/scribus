@@ -23,6 +23,7 @@
 
 #include "contextmenu.h"
 #include "prefsmanager.h"
+#include "scmimedata.h"
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
@@ -355,7 +356,7 @@ void ContextMenu::createMenuItems_Selection()
 		addAction(m_AP->scrActions["editCut"]);
 	if (!(currItem->isSingleSel))
 		addAction(m_AP->scrActions["editCopy"]);
-	if ((m_doc->appMode == modeEdit) && (m_AP->Buffer2.startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?><SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
+	if ((m_doc->appMode == modeEdit) && (ScMimeData::clipboardHasScribusText()) && (currItem->itemType() == PageItem::TextFrame))
 		addAction(m_AP->scrActions["editPaste"]);
 	if (!currItem->locked() && (m_doc->appMode != modeEdit) && (!(currItem->isSingleSel)))
 		addAction(m_AP->scrActions["itemDelete"]);
@@ -392,7 +393,7 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 	if (selectedItemCount!=0)
 		return;
 	
-	if ((m_AP->Buffer2.startsWith("<SCRIBUSELEM")) || (m_AP->Buffer2.contains("<SCRIBUSFRAGMENT")))
+	if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment() )
 	{
 		m_doc->view()->dragX = mx;
 		m_doc->view()->dragY = my;

@@ -1388,6 +1388,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\scmimedata.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\scpageoutput.cpp"
 				>
 			</File>
@@ -9427,6 +9431,10 @@
 						Outputs="..\..\scribus\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\scmimedata.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\scpageoutput.h"
