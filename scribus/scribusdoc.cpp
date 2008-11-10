@@ -9987,12 +9987,17 @@ void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, 
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem)
 		{
-			PageItem* newItem=convertItemTo(currItem, newType);
-			if (newItem)
+			if (currItem->isGroupControl)  // don't convert group control items.
+				restoredSelection->addItem(currItem);
+			else
 			{
-				newItem->update();
-				if (restoredSelection)
-					restoredSelection->addItem(newItem);
+				PageItem* newItem=convertItemTo(currItem, newType);
+				if (newItem)
+				{
+					newItem->update();
+					if (restoredSelection)
+						restoredSelection->addItem(newItem);
+				}
 			}
 		}
 	}

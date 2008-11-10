@@ -70,6 +70,14 @@ PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, doubl
 	unicodeInputString = "";
 }
 
+PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
+{
+	invalid = true;
+	cursorBiasBackward = false;
+	unicodeTextEditMode = false;
+	unicodeInputCount = 0;
+	unicodeInputString = "";
+}
 
 static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 {
