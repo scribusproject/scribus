@@ -16,7 +16,7 @@
 #include "scmimedata.h"
 
 #include <QApplication>
-#include <QClipBoard>
+#include <QClipboard>
 #include <QMimeData>
 
 const QString ScMimeData::ScribusElemMimeType     = "application/x-scribus-elem";
