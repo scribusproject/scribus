@@ -17,6 +17,7 @@
 #include "canvasmode.h"
 
 #include "canvas.h"
+#include "canvasmode_copyproperties.h"
 #include "canvasmode_create.h"
 #include "canvasmode_drawbezier.h"
 #include "canvasmode_drawfreehand.h"
@@ -68,6 +69,9 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 	{
 		case modeNormal:
 			result = new CanvasMode_Normal(view);
+			break;
+		case modeCopyProperties:
+			result = new CanvasMode_CopyProperties(view);
 			break;
 		case modeEdit:
 			result = new CanvasMode_Edit(view);

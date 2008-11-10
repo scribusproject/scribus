@@ -82,6 +82,7 @@ public:
 	
 	friend class ScribusView; // for now...
 	friend class LegacyMode;
+	friend class CanvasMode_CopyProperties;
 	friend class CanvasMode_Edit;
 	friend class CanvasMode_EditGradient;
 	friend class CanvasMode_FrameLinks;

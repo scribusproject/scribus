@@ -564,6 +564,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasmode_copyproperties.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasmode_create.cpp"
 				>
 			</File>
@@ -2750,6 +2754,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasmode_copyproperties.h"
 				>
 			</File>
 			<File

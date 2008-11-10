@@ -313,6 +313,7 @@ SET(SCRIBUS_SOURCES
   canvasgesture_resize.cpp
   canvasgesture_rulermove.cpp
   canvasmode.cpp
+  canvasmode_copyproperties.cpp
   canvasmode_create.cpp
   canvasmode_drawbezier.cpp
   canvasmode_drawfreehand.cpp
