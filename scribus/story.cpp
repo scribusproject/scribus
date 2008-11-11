@@ -162,18 +162,22 @@ void SideBar::paintEvent(QPaintEvent *e)
 	inRep = true;
 	QLabel::paintEvent(e);
 	QList<QRect> paraList;
-	uint paraNumber = editor->StyledText.nrOfParagraphs();
-	for (uint pr = 0; pr < paraNumber; ++pr)
+	uint paraNumber = 0;
+	if (editor != NULL)
 	{
-		int pos = editor->StyledText.startOfParagraph(pr);
-		QTextCursor cur(editor->document());
-		cur.setPosition(pos);
-		QTextBlock tb = cur.block();
-		paraList.append(tb.layout()->boundingRect().toRect());
+		paraNumber=editor->StyledText.nrOfParagraphs();
+		for (uint pr = 0; pr < paraNumber; ++pr)
+		{
+			int pos = editor->StyledText.startOfParagraph(pr);
+			QTextCursor cur(editor->document());
+			cur.setPosition(pos);
+			QTextBlock tb = cur.block();
+			paraList.append(tb.layout()->boundingRect().toRect());
+		}
 	}
 	QPainter p;
 	p.begin(this);
-	if ((editor != 0) && (noUpdt))
+	if ((editor != NULL) && (noUpdt))
 	{
 		int gesY = 0;
 		QString trNoStyle = tr("No Style");
