@@ -375,6 +375,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 //	connect(ClipB, SIGNAL(selectionChanged()), this, SLOT(ClipChange()));
 	setAcceptDrops(true);
 	QCoreApplication::instance()->installEventFilter(this);
+	scrActions["toolsSelect"]->setChecked(true);
 
 	return retVal;
 }
@@ -2449,6 +2450,18 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	}
 	tocGenerator->setDoc(doc);
 	styleManager->setDoc(doc);
+	// Give plugins a chance to react on changing the current document
+	PluginManager& pluginManager(PluginManager::instance());
+	QStringList pluginNames(pluginManager.pluginNames(false));
+	ScPlugin* plugin;
+	QString pName;
+	for (int i = 0; i < pluginNames.count(); ++i)
+	{
+		pName = pluginNames.at(i);
+		plugin = pluginManager.getPlugin(pName, true);
+		Q_ASSERT(plugin); // all the returned names should represent loaded plugins
+		plugin->setDoc(doc);
+	}
 }
 
 void ScribusMainWindow::windowsMenuActivated( int id )
@@ -3273,6 +3286,18 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
+	// Give plugins a chance to react on changes in the current document
+	PluginManager& pluginManager(PluginManager::instance());
+	QStringList pluginNames(pluginManager.pluginNames(false));
+	ScPlugin* plugin;
+	QString pName;
+	for (int i = 0; i < pluginNames.count(); ++i)
+	{
+		pName = pluginNames.at(i);
+		plugin = pluginManager.getPlugin(pName, true);
+		Q_ASSERT(plugin); // all the returned names should represent loaded plugins
+		plugin->changedDoc(doc);
+	}
 }
 
 void ScribusMainWindow::updateRecent(QString fn)
@@ -4535,6 +4560,18 @@ bool ScribusMainWindow::DoFileClose()
 		propertiesPalette->Cpal->ChooseGrad(0);
 		mainWindowStatusLabel->setText( tr("Ready"));
 		PrinterUsed = false;
+	}
+	// Give plugins a chance to react on closing the document
+	PluginManager& pluginManager(PluginManager::instance());
+	QStringList pluginNames(pluginManager.pluginNames(false));
+	ScPlugin* plugin;
+	QString pName;
+	for (int i = 0; i < pluginNames.count(); ++i)
+	{
+		pName = pluginNames.at(i);
+		plugin = pluginManager.getPlugin(pName, true);
+		Q_ASSERT(plugin); // all the returned names should represent loaded plugins
+		plugin->unsetDoc();
 	}
 	QString fName(view->Doc->DocName);
 	view->close();

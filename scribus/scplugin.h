@@ -214,6 +214,11 @@ class SCRIBUS_API ScPlugin : public QObject
 
 		//! \brief Allow plugins to add to a main menu
 		virtual void addToMainWindowMenu(ScribusMainWindow *) = 0;
+
+		//! \brief hooks that plugins can use to detect if the current document was closed etc..
+		virtual void setDoc(ScribusDoc* doc);
+		virtual void unsetDoc();
+		virtual void changedDoc(ScribusDoc* doc);
 	protected:
 		//! \brief Human readable, translated version of last error to occur.
 		QString m_lastError;

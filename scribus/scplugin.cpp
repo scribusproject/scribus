@@ -55,6 +55,18 @@ const QString ScPlugin::pluginTypeName() const
 	}
 }
 
+void ScPlugin::setDoc(ScribusDoc* )
+{
+}
+
+void ScPlugin::unsetDoc()
+{
+}
+
+void ScPlugin::changedDoc(ScribusDoc* )
+{
+}
+
 //=====================================================//
 //                   ScActionPlugin              //
 //=====================================================//
