@@ -1917,8 +1917,11 @@ void ScribusView::Deselect(bool prop)
 		else
 		{
 			currItem = Doc->m_Selection->itemAt(0);
-			currItem->itemText.deselectAll();
-			currItem->HasSel = false;
+			if (currItem != NULL)
+			{
+				currItem->itemText.deselectAll();
+				currItem->HasSel = false;
+			}
 			Doc->m_Selection->clear();
 			if (currItem != NULL)
 				updateContents(currItem->getRedrawBounding(scale));
