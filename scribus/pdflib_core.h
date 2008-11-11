@@ -71,6 +71,8 @@ private:
 		double sya;
 		double xa;
 		double ya;
+		double origXsc;
+		double origYsc;
 	};
 	
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi);

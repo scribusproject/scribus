@@ -6618,37 +6618,15 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	ImInfo.Height = 0;
 	ImInfo.xa = x;
 	ImInfo.ya = y;
-	if ((!SharedImages.contains(fn)) || (fromAN) || (c->effectsInUse.count() != 0))
+	ImInfo.origXsc = c->imageXScale();
+	ImInfo.origYsc = c->imageYScale();
+	ShIm   ImInfo2;
+	ImInfo2.origXsc = c->imageXScale();
+	ImInfo2.origYsc = c->imageYScale();
+	if (SharedImages.contains(fn))
+		ImInfo2 = SharedImages[fn];
+	if ((!SharedImages.contains(fn)) || (fromAN) || (c->effectsInUse.count() != 0) || ((ImInfo2.origXsc != ImInfo.origXsc) || (ImInfo2.origYsc != ImInfo.origYsc)))
 	{
-/*		if ((ext == "pdf") && (Options.Version  >= 14))
-		{
-			StartObj(ObjCounter);
-			PutDoc("<<\n/Type /EmbeddedFile\n");
-			im = "";
-			loadText(fn, &im);
-			if (Options.Compress)
-			{
-				PutDoc("/Filter /FlateDecode\n");
-				im = CompressStr(&im);
-			}
-			PutDoc("/Length "+QString::number(im.length())+"\n");
-			PutDoc(">>\nstream\n"+EncStream(im, ObjCounter)+"\nendstream\nendobj\n");
-			ObjCounter++;
-			StartObj(ObjCounter);
-			PutDoc("<<\n/Type /Filespec\n/F ("+fn+")\n/EF << /F "+QString::number(ObjCounter-1)+" 0 R >>\n");
-			PutDoc(">>\nendobj\n");
-			ObjCounter++;
-			StartObj(ObjCounter);
-			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
-			PutDoc("/BBox [ 0 0 "+FToStr(c->Width)+" "+FToStr(c->Height)+" ]\n");
-			PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]>>\n");
-			PutDoc("/Ref <<\n/Page 1\n/F "+QString::number(ObjCounter-1)+" 0 R\n>>\n");
-			PutDoc("/Length 0\n");
-			PutDoc(">>\nstream\nendstream\nendobj\n");
-			ObjCounter++;
-		}
-		else */
-		
 		bool imageLoaded = false;
 		if ((extensionIndicatesPDF(ext) || ((extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != ImageType7))) && c->effectsInUse.count() == 0)
 		{
@@ -7176,7 +7154,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			ImInfo.xa = sx;
 			ImInfo.ya = sy;
 		} // not embedded PDF
-		if (c->effectsInUse.count() == 0)
+		if ((c->effectsInUse.count() == 0) && (!SharedImages.contains(fn)))
 			SharedImages.insert(fn, ImInfo);
 		ResCount++;
 	}
