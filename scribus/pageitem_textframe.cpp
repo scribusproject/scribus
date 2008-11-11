@@ -2137,7 +2137,7 @@ void PageItem_TextFrame::layout()
 				current.line.y -= adj;
 				current.yPos -= adj;
 			}
-			else if ((!current.startOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
+			else if ((!current.startOfCol) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
 			{
 				double firstasce = style.lineSpacing();
 				double currasce = current.getLineHeight(itemText);
