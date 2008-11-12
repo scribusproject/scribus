@@ -61,7 +61,7 @@ void Scribus134Format::languageChange()
 
 const QString Scribus134Format::fullTrName() const
 {
-	return QObject::tr("Scribus 1.3.4 Support");
+	return QObject::tr("Scribus 1.3.4+ Support");
 }
 
 const ScActionPlugin::AboutData* Scribus134Format::getAboutData() const
@@ -89,7 +89,7 @@ void Scribus134Format::deleteAboutData(const AboutData* about) const
 void Scribus134Format::registerFormats()
 {
 	FileFormat fmt(this);
-	fmt.trName = tr("Scribus 1.3.4 Document");
+	fmt.trName = tr("Scribus 1.3.4+ Document");
 	fmt.formatId = FORMATID_SLA134IMPORT;
 	fmt.load = true;
 	fmt.save = true;
