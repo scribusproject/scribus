@@ -3434,26 +3434,27 @@ void PSLib::SetColor(const ScColor& farb, double shade, int *h, int *s, int *v, 
 void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page* pg, bool sep, bool farb, bool ic, bool master)
 {
 //	qDebug(QString("pslib setTextSt: ownPage=%1 pageNr=%2 OnMasterPage=%3;").arg(ite->OwnPage).arg(pg->pageNr()).arg(ite->OnMasterPage));
+	int tabCc = 0;
 	int savedOwnPage = ite->OwnPage;
+	double tabDist = ite->textToFrameDistLeft();
+	double colLeft = 0.0;
+	QList<ParagraphStyle::TabRecord> tTabValues;
+
 	ite->OwnPage = argh;
 	ite->layout();
 	ite->OwnPage = savedOwnPage;
 #ifndef NLS_PROTO
-	ScText *hl;
-	int tabCc = 0;
-	QList<ParagraphStyle::TabRecord> tTabValues;
-	double tabDist = ite->textToFrameDistLeft();
 	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->lineWidth() / 2.0;
 
 	for (uint ll=0; ll < ite->itemText.lines(); ++ll) {
 		LineSpec ls = ite->itemText.line(ll);
-		tabDist = ls.x;
+		colLeft = tabDist = ls.x;
 		double CurX = ls.x;
 
 		for (int d = ls.firstItem; d <= ls.lastItem; ++d)
 		{
-			hl = ite->itemText.item(d);
+			ScText *hl = ite->itemText.item(d);
 			const CharStyle & cstyle(ite->itemText.charStyle(d));
 			const ParagraphStyle& pstyle(ite->itemText.paragraphStyle(d));
 			
@@ -3466,22 +3467,29 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 				tabCc = 0;
 			if ((hl->ch == SpecialChars::TAB) && (tTabValues.count() != 0))
 			{
-				if ((tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
+				QChar tabFillChar;
+				double tCurX = CurX - colLeft + 1;
+				for (int yg = static_cast<int>(tTabValues.count()-1); yg > -1; yg--)
+				{
+					if (tCurX < tTabValues[yg].tabPosition)
+						tabFillChar = tTabValues[yg].tabFillChar;
+				}
+				if (!tabFillChar.isNull())
 				{
 					ScText hl2;
 					static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 					const GlyphLayout * const gl = hl->glyph.more;
 					double scale = gl ? gl->scaleV : 1.0;
-					double wt    = cstyle.font().charWidth(tTabValues[tabCc].tabFillChar, cstyle.fontSize() * scale / 10.0);
+					double wt    = cstyle.font().charWidth(tabFillChar, cstyle.fontSize() * scale / 10.0);
 					double len   = hl->glyph.xadvance;
 					int coun     = static_cast<int>(len / wt);
 					// JG - #6728 : update code according to fillInTabLeaders() and PageItem::layout()
 					double sPos  = 0.0 /*CurX - len + cstyle.fontSize() / 10.0 * 0.7 + 1*/;
-					hl2.ch = tTabValues[tabCc].tabFillChar;
+					hl2.ch = tabFillChar;
 					hl2.setTracking(0);
 					hl2.setScaleH(1000);
 					hl2.setScaleV(1000);
-					hl2.glyph.glyph   = cstyle.font().char2CMap(tTabValues[tabCc].tabFillChar);
+					hl2.glyph.glyph   = cstyle.font().char2CMap(tabFillChar);
 					hl2.glyph.yoffset = hl->glyph.yoffset;
 					for (int cx = 0; cx < coun; ++cx)
 					{
@@ -3499,12 +3507,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 						}
 						setTextCh(Doc, ite, CurX, ls.y, gcr, argh, d, &hl2, pstyle, pg, sep, farb, ic, master);
 					}
-					tabCc++;
 				}
-				else
-				{
-					tabCc++;
-				}
+				tabCc++;
 			}
 			if (hl->ch == SpecialChars::TAB) {
 				CurX += hl->glyph.wide();

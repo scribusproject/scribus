@@ -4077,15 +4077,15 @@ QString PDFLibCore::setStrokeMulti(struct SingleLine *sl)
 // Return a PDF substring representing a PageItem's text
 QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 {
+	int tabCc = 0;
 	int savedOwnPage = ite->OwnPage;
+	double tabDist = ite->textToFrameDistLeft();
+	double colLeft = 0.0;
+	QString tmp(""), tmp2("");
+	QList<ParagraphStyle::TabRecord> tTabValues;
 	ite->OwnPage = PNr;
 	ite->layout();
 	ite->OwnPage = savedOwnPage;
-	QString tmp("");
-	QString tmp2("");
-	int tabCc = 0;
-	QList<ParagraphStyle::TabRecord> tTabValues;
-	double tabDist=ite->textToFrameDistLeft();
 	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->lineWidth() / 2.0;
 #ifndef NLS_PROTO
@@ -4096,7 +4096,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 		for (uint ll=0; ll < ite->itemText.lines(); ++ll)
 		{
 			LineSpec ls = ite->itemText.line(ll);
-			tabDist = ls.x;
+			colLeft = tabDist = ls.x;
 			double CurX = ls.x;
 			for (int d = ls.firstItem; d <= ls.lastItem; ++d)
 			{
@@ -4113,13 +4113,20 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 					tabCc = 0;
 				if ((ch == SpecialChars::TAB) && (tTabValues.count() != 0))
 				{
-					if ((tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
+					QChar tabFillChar;
+					double tCurX = CurX - colLeft + 1;
+					for (int yg = static_cast<int>(tTabValues.count()-1); yg > -1; yg--)
+					{
+						if (tCurX < tTabValues[yg].tabPosition)
+							tabFillChar = tTabValues[yg].tabFillChar;
+					}
+					if (!tabFillChar.isNull())
 					{
 						ScText hl2;
 						static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 						const GlyphLayout * const gl = hl->glyph.more;
 						double scale = gl ? gl->scaleV : 1.0;
-						double wt    = chstyle.font().charWidth(tTabValues[tabCc].tabFillChar, chstyle.fontSize() * scale / 10.0);
+						double wt    = chstyle.font().charWidth(tabFillChar, chstyle.fontSize() * scale / 10.0);
 						double len   = hl->glyph.xadvance;
 						int coun     = static_cast<int>(len / wt);
 						// #6728 : update code according to fillInTabLeaders() and PageItem::layout() - JG
@@ -4128,7 +4135,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 						hl2.setTracking(0);
 						hl2.setScaleH(1000);
 						hl2.setScaleV(1000);
-						hl2.glyph.glyph   = chstyle.font().char2CMap(tTabValues[tabCc].tabFillChar);
+						hl2.glyph.glyph   = chstyle.font().char2CMap(tabFillChar);
 						hl2.glyph.yoffset = hl->glyph.yoffset;
 						for (int cx = 0; cx < coun; ++cx)
 						{
@@ -4147,12 +4154,8 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 							}
 							setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, &hl2, pstyle, pag);
 						}
-						tabCc++;
 					}
-					else
-					{
-						tabCc++;
-					}
+					tabCc++;
 				}
 				if (ch == SpecialChars::TAB) 
 				{
