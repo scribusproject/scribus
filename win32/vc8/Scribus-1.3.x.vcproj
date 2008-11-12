@@ -1120,6 +1120,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\pageitempointer.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\pagelayout.cpp"
 				>
 			</File>
@@ -6065,9 +6069,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6076,9 +6080,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6087,9 +6091,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6098,9 +6102,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6125,9 +6129,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6136,9 +6140,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6147,9 +6151,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6158,9 +6162,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6173,9 +6177,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6184,9 +6188,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6195,9 +6199,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6206,9 +6210,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6221,9 +6225,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6232,9 +6236,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6243,9 +6247,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6254,9 +6258,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6269,9 +6273,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6280,9 +6284,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6291,9 +6295,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6302,9 +6306,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6317,9 +6321,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6328,9 +6332,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6339,9 +6343,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6350,9 +6354,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6365,9 +6369,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6376,9 +6380,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6387,9 +6391,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6398,9 +6402,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6413,9 +6417,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6424,9 +6428,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6435,9 +6439,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6446,9 +6450,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6461,9 +6465,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6472,9 +6476,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6483,9 +6487,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6494,9 +6498,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6509,9 +6513,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6520,9 +6524,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6531,9 +6535,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6542,9 +6546,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6557,9 +6561,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\ui\$(InputFileName) -o ..\..\scribus\ui\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\ui\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6568,9 +6572,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\ui\$(InputFileName) -o ..\..\scribus\ui\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\ui\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6579,9 +6583,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\ui\$(InputFileName) -o ..\..\scribus\ui\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\ui\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6590,9 +6594,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\ui\$(InputFileName) -o ..\..\scribus\ui\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\ui\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6605,9 +6609,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6616,9 +6620,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6627,9 +6631,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6638,9 +6642,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6653,9 +6657,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6664,9 +6668,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6675,9 +6679,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6686,9 +6690,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6701,9 +6705,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6712,9 +6716,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6723,9 +6727,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6734,9 +6738,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6749,9 +6753,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6760,9 +6764,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6771,9 +6775,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6782,9 +6786,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6797,9 +6801,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6808,9 +6812,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6819,9 +6823,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6830,9 +6834,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6845,9 +6849,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6856,9 +6860,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6867,9 +6871,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6878,9 +6882,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6893,9 +6897,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6904,9 +6908,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6915,9 +6919,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6926,9 +6930,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6941,9 +6945,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6952,9 +6956,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6963,9 +6967,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -6974,9 +6978,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -6989,9 +6993,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7000,9 +7004,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7011,9 +7015,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7022,9 +7026,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7037,9 +7041,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7048,9 +7052,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7059,9 +7063,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7070,9 +7074,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7089,9 +7093,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7100,9 +7104,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7111,9 +7115,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7122,9 +7126,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7137,9 +7141,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7148,9 +7152,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7159,9 +7163,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7170,9 +7174,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7185,9 +7189,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7196,9 +7200,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7207,9 +7211,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7218,9 +7222,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7233,9 +7237,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7244,9 +7248,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7255,9 +7259,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7266,9 +7270,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7281,9 +7285,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7292,9 +7296,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7303,9 +7307,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7314,9 +7318,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7329,9 +7333,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7340,9 +7344,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7351,9 +7355,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7362,9 +7366,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7377,9 +7381,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7388,9 +7392,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7399,9 +7403,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7410,9 +7414,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7425,9 +7429,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7436,9 +7440,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7447,9 +7451,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7458,9 +7462,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7473,9 +7477,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7484,9 +7488,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7495,9 +7499,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7506,9 +7510,57 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\pageitempointer.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
+						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7521,9 +7573,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7532,9 +7584,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7543,9 +7595,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7554,9 +7606,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7569,9 +7621,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7580,9 +7632,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7591,9 +7643,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7602,9 +7654,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7617,9 +7669,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7628,9 +7680,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7639,9 +7691,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7650,9 +7702,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7677,9 +7729,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7688,9 +7740,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7699,9 +7751,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7710,9 +7762,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7725,9 +7777,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7736,9 +7788,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7747,9 +7799,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7758,9 +7810,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7773,9 +7825,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7784,9 +7836,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7795,9 +7847,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7806,9 +7858,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7829,9 +7881,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7840,9 +7892,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7851,9 +7903,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7862,9 +7914,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7877,9 +7929,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\ui\$(InputFileName) -o ..\..\scribus\ui\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\ui\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7888,9 +7940,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\ui\$(InputFileName) -o ..\..\scribus\ui\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\ui\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7899,9 +7951,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\ui\$(InputFileName) -o ..\..\scribus\ui\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\ui\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7910,9 +7962,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\ui\$(InputFileName) -o ..\..\scribus\ui\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\ui\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7925,9 +7977,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7936,9 +7988,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7947,9 +7999,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7958,9 +8010,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -7973,9 +8025,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7984,9 +8036,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -7995,9 +8047,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8006,9 +8058,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8021,9 +8073,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8032,9 +8084,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8043,9 +8095,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8054,9 +8106,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8069,9 +8121,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8080,9 +8132,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8091,9 +8143,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8102,9 +8154,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8117,9 +8169,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8128,9 +8180,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8139,9 +8191,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8150,9 +8202,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8165,9 +8217,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8176,9 +8228,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8187,9 +8239,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8198,9 +8250,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8213,9 +8265,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8224,9 +8276,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8235,9 +8287,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8246,9 +8298,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8261,9 +8313,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8272,9 +8324,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8283,9 +8335,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8294,9 +8346,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8313,9 +8365,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8324,9 +8376,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8335,9 +8387,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8346,9 +8398,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8365,9 +8417,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8376,9 +8428,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8387,9 +8439,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8398,9 +8450,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8413,9 +8465,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8424,9 +8476,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8435,9 +8487,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8446,9 +8498,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8473,9 +8525,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8484,9 +8536,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8495,9 +8547,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8506,9 +8558,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8521,9 +8573,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8532,9 +8584,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8543,9 +8595,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8554,9 +8606,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8569,9 +8621,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8580,9 +8632,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8591,9 +8643,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8602,9 +8654,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8617,9 +8669,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8628,9 +8680,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8639,9 +8691,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8650,9 +8702,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -8665,9 +8717,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8676,9 +8728,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8687,9 +8739,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -8698,9 +8750,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\moc.exe ..\..\scribus\$(InputFileName) -o ..\..\scribus\moc_$(InputName).cpp&#x0D;&#x0A;"
+						CommandLine="$(QT4DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 						AdditionalDependencies="$(QT4DIR)\bin\moc.exe"
-						Outputs="..\..\scribus\moc_$(InputName).cpp"
+						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -13752,6 +13804,10 @@
 			</File>
 			<File
 				RelativePath="..\..\scribus\moc_pageitemattributes.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\scribus\moc_pageitempointer.cpp"
 				>
 			</File>
 			<File
