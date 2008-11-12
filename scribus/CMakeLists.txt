@@ -178,6 +178,7 @@ SET(SCRIBUS_MOC_CLASSES
   pageitem_polyline.h
   pageitem_textframe.h
   pageitemattributes.h
+  pageitempointer.h
   pagelayout.h
   pagepalette.h
   pageselector.h
@@ -440,6 +441,7 @@ SET(SCRIBUS_SOURCES
   pageitem_polyline.cpp
   pageitem_textframe.cpp
   pageitemattributes.cpp
+  pageitempointer.cpp
   pagelayout.cpp
   pagepalette.cpp
   pageselector.cpp

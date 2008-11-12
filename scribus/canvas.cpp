@@ -49,6 +49,7 @@ void CanvasViewMode::init()
 	operItemMoving = false;
 	operItemResizing = false;
 	operItemResizeInEditMode = false;
+	operItemSelecting = false;
 	redrawPolygon.resize(0);
 	linkedFramesToShow.clear();
 	
@@ -56,6 +57,44 @@ void CanvasViewMode::init()
 	drawFramelinksWithContents = false;
 	
 	forceRedraw = false;
+}
+
+QDataStream &operator<< ( QDataStream & ds, const CanvasViewMode & vm )
+{
+	ds << vm.scale
+	<< vm.previewMode
+	<< vm.viewAsPreview
+	<< vm.previewVisual
+	<< vm.m_MouseButtonPressed
+	<< vm.operItemMoving
+	<< vm.operItemResizing
+	<< vm.operItemResizeInEditMode
+	<< vm.operItemSelecting
+	<< vm.redrawPolygon
+	<< vm.linkedFramesToShow
+	<< vm.drawSelectedItemsWithControls
+	<< vm.drawFramelinksWithContents
+	<< vm.forceRedraw;
+	return ds;
+}
+
+QDataStream &operator>> ( QDataStream & ds, CanvasViewMode & vm )
+{
+	ds >> vm.scale
+	>> vm.previewMode
+	>> vm.viewAsPreview
+	>> vm.previewVisual
+	>> vm.m_MouseButtonPressed
+	>> vm.operItemMoving
+	>> vm.operItemResizing
+	>> vm.operItemResizeInEditMode
+	>> vm.operItemSelecting
+	>> vm.redrawPolygon
+	>> vm.linkedFramesToShow
+	>> vm.drawSelectedItemsWithControls
+	>> vm.drawFramelinksWithContents
+	>> vm.forceRedraw;
+	return ds;
 }
 	
 
@@ -668,7 +707,7 @@ void Canvas::fillBuffer(QPaintDevice* buffer, QPoint bufferOrigin, QRect clipRec
 */
 void Canvas::paintEvent ( QPaintEvent * p )
 {
-// 	qDebug("Canvas::paintEvent");
+// 	qDebug()<<"Canvas::paintEvent
 	QTime t;
 	if (m_doc->isLoading())
 		return;
@@ -817,6 +856,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 	qDebug()<<dmode<<t1<<t2<<t3<<t4<<t5<<t6<<"-" <<t1+t2+t3+t4+t5+t6;
 #endif
 	m_viewMode.forceRedraw = false;
+	m_viewMode.operItemSelecting = false;
 }
 
 
@@ -844,6 +884,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	painter->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	painter->setLineWidth(1);
 	painter->setFillMode(ScPainter::Solid);
+	
 //	Tsetup = tim.elapsed();
 	if (!m_doc->masterPageMode())
 	{
@@ -862,7 +903,6 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 		{
 			drawGuides(painter, clipx, clipy, clipw, cliph);
 		}
-//		Tbackground = tim.elapsed();
 		for (uint a = 0; a < docPagesCount; ++a)
 		{
 			DrawMasterItems(painter, m_doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
@@ -1468,6 +1508,11 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						if (((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode || m_viewMode.drawSelectedItemsWithControls) && currItem->isSelected()))
 						{
 //							qDebug() << "skipping pageitem (move/resizeEdit/selected)" << m_viewMode.operItemMoving << m_viewMode.operItemResizeInEditMode << currItem->isSelected();
+						}
+						else if(m_viewMode.operItemSelecting)
+						{
+							currItem->invalid = false;
+							currItem->DrawObj(painter, cullingArea);
 						}
 						else
 						{
@@ -2211,5 +2256,6 @@ void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
 	else
 		QToolTip::showText(m + QPoint(5, 5), tr("Width: %1\nHeight: %2").arg(value2String(x, m_doc->unitIndex(), true, true)).arg(value2String(y, m_doc->unitIndex(), true, true)), this);
 }
+
 
 

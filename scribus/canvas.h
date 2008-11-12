@@ -35,6 +35,7 @@ scribusview.h  -  description
 #include "commonstrings.h"
 #include "fpoint.h"
 #include "fpointarray.h"
+#include "pageitempointer.h"
 
 
 class Page;
@@ -57,8 +58,9 @@ struct CanvasViewMode
 	bool operItemMoving;
 	bool operItemResizing;
 	bool operItemResizeInEditMode;
+	bool operItemSelecting;
 	QPolygon redrawPolygon;
-	QList<PageItem*> linkedFramesToShow;
+	QList<PageItemPointer> linkedFramesToShow;
 	
 	/** if true, selected objects will not be drawn by drawContents() */
 	bool drawSelectedItemsWithControls;
@@ -68,6 +70,9 @@ struct CanvasViewMode
 	// used for buffering:
 	bool forceRedraw;
 };
+
+QDataStream &operator<<(QDataStream & ds, const CanvasViewMode & vm);
+QDataStream &operator>>(QDataStream & ds, CanvasViewMode & vm);
 
 
 class SCRIBUS_API Canvas : public QWidget

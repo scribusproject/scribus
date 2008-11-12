@@ -1147,13 +1147,16 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		if (m_canvas->m_viewMode.operItemMoving)
 		{
 			// we want to invalidate all frames under the moved frame
-			PageItem* underItem(currItem);
-			while(underItem == m_canvas->itemUnderItem(underItem))
+			// hm, I will try to be more explicit :) - pm
+			PageItem* underItem( m_canvas->itemUnderItem(currItem) );
+			while(underItem)
 			{
 				if(underItem->asTextFrame())
 					underItem->asTextFrame()->invalidateLayout();
 				else
 					underItem->invalidateLayout();
+				
+				underItem =  m_canvas->itemUnderItem(underItem);
 			}
 			
 			m_view->updatesOn(false);
@@ -1530,6 +1533,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 //	qDebug() << "item under cursor: " << currItem;
 	if (currItem)
 	{
+		m_canvas->m_viewMode.operItemSelecting = true;
 		m_doc->m_Selection->delaySignalsOn();
 		if (m_doc->m_Selection->containsItem(currItem))
 		{
@@ -1569,22 +1573,15 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 				}
 			}
 		}
-
-// 		currItem->update(); Why do you want to update it now ?
-		// At least avoid it when it could lead to a huge overhead
-		if(!currItem->asTextFrame())
-		{
-			currItem->update();
-		}
+		
+		currItem->update();
 		m_doc->m_Selection->delaySignalsOff();
 		if (m_doc->m_Selection->count() > 1)
 		{
 			for (int aa = 0; aa < m_doc->m_Selection->count(); ++aa)
 			{
 				PageItem *bb = m_doc->m_Selection->itemAt(aa);
-// 				bb->update(); // erk, we just updated at least the first item
-				if( (bb != currItem) && (!bb->asTextFrame()) )
-					bb->update();
+				bb->update();
 			}
 			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
@@ -1687,6 +1684,8 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	m_doc->m_Selection->connectItemToGUI();
 	if ( !(m->modifiers() & SELECT_MULTIPLE))
 		m_view->Deselect(true);
+	m_canvas->m_viewMode.forceRedraw = true;
+	m_canvas->PaintSizeRect(m_canvas->exposedRect());
 	return false;
 }
 
