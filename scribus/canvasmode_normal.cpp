@@ -1388,6 +1388,8 @@ void CanvasMode_Normal::selectPage(QMouseEvent *m)
 //CB-->Doc/Fix
 bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 {
+// 	qDebug()<<"CanvasMode_Normal::SeleItem";
+	m_canvas->m_viewMode.operItemSelecting = true;
 	const unsigned SELECT_IN_GROUP = Qt::AltModifier;
 	const unsigned SELECT_MULTIPLE = Qt::ShiftModifier;
 	const unsigned SELECT_BENEATH = Qt::ControlModifier;
@@ -1421,6 +1423,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 				guideMoveGesture->mouseMoveEvent(m);
 			//m_doc->m_Selection->setIsGUISelection(true);
 				m_doc->m_Selection->connectItemToGUI();
+// 				qDebug()<<"Out Of SeleItem"<<__LINE__;
 				return true;
 			}
 			else
@@ -1432,6 +1435,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			}
 		}
 	}
+	bool pageChanged(false);
 	if (!m_doc->masterPageMode())
 	{
 		int pgNum = -1;
@@ -1475,7 +1479,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(unsigned(pgNum)));
 				m_view->setMenTxt(unsigned(pgNum));
-// 				m_view->DrawNew();
+				pageChanged = true;
 			}
 		}
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
@@ -1533,7 +1537,6 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 //	qDebug() << "item under cursor: " << currItem;
 	if (currItem)
 	{
-		m_canvas->m_viewMode.operItemSelecting = true;
 		m_doc->m_Selection->delaySignalsOn();
 		if (m_doc->m_Selection->containsItem(currItem))
 		{
@@ -1573,8 +1576,14 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 				}
 			}
 		}
+		if(pageChanged)
+		{
+			m_canvas->m_viewMode.forceRedraw = true;
+			m_canvas->update();
+		}
+		else
+			currItem->update();
 		
-		currItem->update();
 		m_doc->m_Selection->delaySignalsOff();
 		if (m_doc->m_Selection->count() > 1)
 		{
@@ -1601,8 +1610,8 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		else
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-			m_canvas->m_viewMode.operItemResizing = false;
 		}
+// 		qDebug()<<"Out Of SeleItem"<<__LINE__;
 		return true;
 	}
 	if ((m_doc->guidesSettings.guidesShown) /*&& (!m_doc->GuideLock)*/ && (m_doc->OnPage(MxpS, MypS) != -1))
@@ -1619,6 +1628,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			guideMoveGesture->mouseMoveEvent(m);
 			//m_doc->m_Selection->setIsGUISelection(true);
 			m_doc->m_Selection->connectItemToGUI();
+// 			qDebug()<<"Out Of SeleItem"<<__LINE__;
 			return true;
 		}
 		else
@@ -1683,9 +1693,16 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	//m_doc->m_Selection->setIsGUISelection(true);
 	m_doc->m_Selection->connectItemToGUI();
 	if ( !(m->modifiers() & SELECT_MULTIPLE))
-		m_view->Deselect(true);
-	m_canvas->m_viewMode.forceRedraw = true;
-	m_canvas->PaintSizeRect(m_canvas->exposedRect());
+	{
+		if(m_doc->m_Selection->isEmpty())
+		{
+			m_canvas->m_viewMode.forceRedraw = true;
+			m_canvas->update();
+		}
+		else
+			m_view->Deselect(true);
+	}
+// 	qDebug()<<"Out Of SeleItem"<<__LINE__;
 	return false;
 }
 

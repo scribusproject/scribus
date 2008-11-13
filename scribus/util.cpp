@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 
 #if !defined(_WIN32) && !defined(Q_OS_MAC) 
 #include <execinfo.h>
+#include <cxxabi.h>
 #endif
 
 using namespace std;
@@ -923,22 +924,40 @@ void getDashArray(int dashtype, double linewidth, QVector<double> &m_array)
  * Please never commit code that uses it.
  * @param nFrames specify how much frames you want to be printed
  */
-void printBacktrace(int nFrames)
+void printBacktrace ( int nFrames )
 {
 	void ** trace = new void*[nFrames + 1];
 	char **messages = ( char ** ) NULL;
 	int i, trace_size = 0;
 
-	trace_size = backtrace ( trace, nFrames + 1);
+	trace_size = backtrace ( trace, nFrames + 1 );
 	messages = backtrace_symbols ( trace, trace_size );
-	if(messages)
+	if ( messages )
 	{
 		for ( i=1; i < trace_size; ++i )
 		{
-			QString bts("[ScBT] %1");
-			qDebug (  bts.arg(messages[i]).toUtf8() );
+			QString msg ( messages[i] );
+			int sep1 ( msg.indexOf ( "(" ) );
+			int sep2 ( msg.indexOf ( "+" ) );
+			QString mName (	msg.mid ( sep1 + 1,sep2-sep1 -1) );
+			
+			QString name;
+			if(mName.startsWith("_Z"))
+			{
+				char* outbuf = 0; 
+				size_t length = 0;
+				int status = 0; 
+				outbuf = abi::__cxa_demangle(mName.trimmed().toAscii().data(), outbuf, &length, &status);
+				name = QString::fromAscii( outbuf,length );
+				if(!status)
+					free(outbuf);
+			}
+			else
+				name = mName;
+			QString bts ( "[ScBT] %1. %2" );
+			qDebug ( bts.arg( i ).arg( name ).toUtf8() );
 		}
-		free(messages);
+		free ( messages );
 	}
 	delete[] trace;
 }

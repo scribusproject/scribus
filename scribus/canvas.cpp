@@ -534,6 +534,7 @@ bool Canvas::adjustBuffer()
 {
 	bool ret = false;
 	QRect viewport(-x(), -y(), m_view->viewport()->width(), m_view->viewport()->height());
+// 	qDebug()<<"Canvas::adjustBuffer"<<viewport<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
 	FPoint minCanvasCoordinate = m_doc->minCanvasCoordinate;
 	if (minCanvasCoordinate != m_oldMinCanvasCoordinate)
 	{
@@ -686,12 +687,13 @@ bool Canvas::adjustBuffer()
 	}
 //	else
 //		qDebug() << "adjustBuffer: reusing" << m_bufferRect;
+// 	qDebug() << "Canvas::adjustBuffer"<<ret;
 	return ret;
 }
 
 void Canvas::fillBuffer(QPaintDevice* buffer, QPoint bufferOrigin, QRect clipRect)
 {
-// 	qDebug()<<"Canvas::fillBuffer"<<clipRect;
+// 	qDebug()<<"Canvas::fillBuffer"<<clipRect<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
 	QPainter painter(buffer);
 	painter.translate(-bufferOrigin.x(), -bufferOrigin.y());
 	drawContents(&painter, clipRect.x(), clipRect.y(), clipRect.width(), clipRect.height());
@@ -707,7 +709,8 @@ void Canvas::fillBuffer(QPaintDevice* buffer, QPoint bufferOrigin, QRect clipRec
 */
 void Canvas::paintEvent ( QPaintEvent * p )
 {
-// 	qDebug()<<"Canvas::paintEvent
+// 	qDebug()<<"Canvas::paintEvent"<<p->rect()<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
+// 	printBacktrace(62);
 	QTime t;
 	if (m_doc->isLoading())
 		return;
@@ -866,7 +869,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 //	Toutlines=0;
 //	QTime tim;
 //	tim.start();
-//	qDebug() << "drawContents" << clipx << clipy << clipw << cliph;
+// 	qDebug() << "Canvas::drawContents" << clipx << clipy << clipw << cliph<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
 	uint docPagesCount=m_doc->Pages->count();
 	ScPainter *painter=0;
 	QImage img = QImage(clipw, cliph, QImage::Format_ARGB32);
@@ -1443,7 +1446,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
  */
 void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 {
-// 	qDebug()<<"Canvas::DrawPageItems"<<m_viewMode.forceRedraw;
+// 	qDebug()<<"Canvas::DrawPageItems"<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
 	m_viewMode.linkedFramesToShow.clear();
 	FPoint orig = localToCanvas(clip.topLeft());
 	QRectF cullingArea = QRectF(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
@@ -1676,6 +1679,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
  */
 void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy, int clipw, int cliph)
 {
+// 	qDebug()<<"Canvas::drawBackgroundPageOutlines"<< clipx<< clipy<< clipw<<cliph;
 	uint docPagesCount=m_doc->Pages->count();
 	if (PrefsManager::instance()->appPrefs.showPageShadow && !m_viewMode.viewAsPreview)
 	{
