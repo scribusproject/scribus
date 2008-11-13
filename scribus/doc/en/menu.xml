@@ -18,10 +18,11 @@
 			<submenuitem text="Debian dpkg Information" file="install-dpkg.html"/>
 		</submenuitem>
 		<submenuitem text="Cross Platform" file="cross-platform.html">
+			<submenuitem text="Mac OSX Readme" file="readme-macosx.html"/>
 			<submenuitem text="Mac OSX/Fink" file="machints1.html"/>
 			<submenuitem text="Mac OSX/Fink &amp; SVN" file="machints2.html"/>
-			<submenuitem text="Windows Readme" file="readme-win32.html"/>
 			<submenuitem text="OS/2 Readme" file="readme-os2.html"/>
+			<submenuitem text="Windows Readme" file="readme-win32.html"/>
 		</submenuitem>
 		<submenuitem text="Setup" file="settings1.html">
 			<submenuitem text="Keyboard Shortcuts" file="keys.html"/>
