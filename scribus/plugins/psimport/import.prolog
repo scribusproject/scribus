@@ -735,7 +735,7 @@ currentpagedevice /HWResolution get aload pop
 			xr yr i_line
 		} for
 	}ifelse
-
+	(cp\n)print
 	(f\n)print			% close polygon
 	end
 } i_shortcutOverload
@@ -782,7 +782,8 @@ currentpagedevice /HWResolution get aload pop
 			xr yr i_line
 		} for
 	}ifelse
-	(n\n)print			% stroke rect
+	(cp\n)print
+	(s\n)print			% stroke rect
 	end
 } i_shortcutOverload
 
