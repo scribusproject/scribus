@@ -556,16 +556,10 @@ void ScriXmlDoc::GetItemText(const QXmlStreamAttributes& attrs, StoryText& story
 	}
 	story.applyCharStyle(last->StyleStart, story.length()-last->StyleStart, last->Style);
 	ParagraphStyle pstyle;
-	if (!last->ParaStyle.isEmpty()) 
-	{
-		pstyle.setParent( last->ParaStyle );
-		story.applyStyle(story.length()-1, pstyle);
-	}
+	pstyle.setParent( last->ParaStyle );
 	if (calign >= 0)
-	{
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
-		story.applyStyle(story.length()-1, pstyle);
-	}
+	story.applyStyle(story.length()-1, pstyle);
 	last->StyleStart = story.length();
 }
 
@@ -1237,7 +1231,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			inItem = true;
 			imageEffects.clear();
 			loadRequests.clear();
-			storyText = StoryText();
+			storyText = StoryText(doc);
 			lastStyles = LastStyles();
 			GetItemProps(attrs, &OB, fileDir, newVersion);
 			OB.Xpos = Xp + attrAsDbl(attrs, "XPOS", 0.0) - GrX;
@@ -1537,7 +1531,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 		{
 			loadRequests.clear();
 			imageEffects.clear();
-			storyText  = StoryText();
+			storyText  = StoryText(doc);
 			lastStyles = LastStyles();
 			GetItemProps(attrs1, &OB, fileDir, newVersion);
 			patClipPath    = attrs1.value("ImageClip").toString();
@@ -1939,11 +1933,10 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		for (int co=0; co < selection->count(); ++co)
 		{
 			item = doc->Items->at(ELL[co]);
-			int parstyle = findParagraphStyle(doc, item->itemText.defaultStyle());
-			if (parstyle > 4) // ???
+			if (item->itemText.defaultStyle().hasParent())
 			{
-				vg = item->itemText.defaultStyle();
-				UsedStyles[parstyle] = vg;
+				int parstyle = findParagraphStyle(doc, item->itemText.defaultStyle().parent());
+				if (parstyle >= 0) UsedStyles[parstyle] = doc->paragraphStyles()[parstyle];
 			}
 			if (((item->asTextFrame()) || (item->asPathText())) && (item->itemText.length() != 0))
 			{
@@ -1953,7 +1946,11 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 					if (item->itemText.text(tx) == SpecialChars::PARSEP)
 					{
 						vg = item->itemText.paragraphStyle(tx);
-						UsedStyles[findParagraphStyle(doc, vg)] = vg;
+						if (vg.hasParent())
+						{
+							int pindex = findParagraphStyle(doc, vg.parent());
+							if (pindex >= 0) UsedStyles[pindex] = doc->paragraphStyles()[pindex];
+						}
 					}
 				}
 #endif
