@@ -344,7 +344,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				m_canvas->m_viewMode.operItemMoving = false;
 				if (m_doc->m_Selection->isMultipleSelection())
 				{
-					qDebug()<<"Resizing multiple selection"<<frameResizeHandle;
+// 					qDebug()<<"Resizing multiple selection"<<frameResizeHandle;
 //					newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 //					newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 					double gx, gy, gh, gw;
@@ -402,7 +402,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				}
 				else
 				{
-					qDebug()<<"frameResizeHandle"<<frameResizeHandle;
+// 					qDebug()<<"frameResizeHandle"<<frameResizeHandle;
 					for (int a = 0; a < m_doc->m_Selection->count(); ++a)
 					{
 						currItem = m_doc->m_Selection->itemAt(0);

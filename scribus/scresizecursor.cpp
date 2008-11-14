@@ -73,6 +73,12 @@ void ScResizeCursor::initCursorDb(int idx)
 
 }
 
+ScResizeCursor::ScResizeCursor()
+{
+	cIdx = 0;
+	initCursorDb(cIdx);
+}
+
 ScResizeCursor::ScResizeCursor(double rotation)
 {
 	int irot(qRound(rotation));

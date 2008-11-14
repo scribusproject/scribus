@@ -42,7 +42,8 @@ class ScResizeCursor
 		* rotation is in degrees and clockwise
 		* initial position of the cursor is vertical, corresponding to Qt::SizeVerCursor
 		*/
-		ScResizeCursor(double rotation = 0.0);
+		ScResizeCursor();
+		ScResizeCursor(double rotation);
 		~ScResizeCursor() {}
 		
 		operator const QCursor& ();

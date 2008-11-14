@@ -110,7 +110,9 @@ void CanvasMode_Normal::enterEvent(QEvent *)
 void CanvasMode_Normal::leaveEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
+	{
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	}
 }
 
 
@@ -235,6 +237,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 {
+// 	qDebug()<<"CanvasMode_Normal::mouseMoveEvent";
 // 	const double mouseX = m->globalX();
 // 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
@@ -370,7 +373,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				m_canvas->m_viewMode.operItemMoving = false;
 				if (m_doc->m_Selection->isMultipleSelection())
 				{
-					qDebug()<<"Resizing multiple selection"<<frameResizeHandle;
+// 					qDebug()<<"Resizing multiple selection"<<frameResizeHandle;
 //					newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 //					newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 					double gx, gy, gh, gw;
@@ -428,7 +431,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				}
 				else
 				{
-					qDebug()<<"frameResizeHandle"<<frameResizeHandle;
+// 					qDebug()<<"frameResizeHandle"<<frameResizeHandle;
 					for (int a = 0; a < m_doc->m_Selection->count(); ++a)
 					{
 						currItem = m_doc->m_Selection->itemAt(0);
@@ -618,6 +621,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				newX = mousePointDoc.x(); //static_cast<int>(m->x()/sc);
 				newY = mousePointDoc.y(); //static_cast<int>(m->y()/sc);
 				m_canvas->m_viewMode.operItemMoving = true;
+				qApp->changeOverrideCursor(Qt::ClosedHandCursor);
 				erf = false;
 				int dX=qRound(newX-Mxp), dY=qRound(newY-Myp);
 				if (!m_doc->m_Selection->isMultipleSelection())
@@ -799,7 +803,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					}
 					else
 					{
-						qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+						qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
 					}
 					if (m_doc->appMode == modeRotation)
 					{
@@ -826,7 +830,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
 					{
-						qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+						qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
 						if (!currItem->sizeLocked())
 							m_view->HandleCurs(currItem, mpo);
 					}
@@ -840,11 +844,18 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			{
 				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 				if (how > 0)
-					setResizeCursor(how, currItem->rotation());
+				{
+					if(currItem->asLine())
+						qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+					else
+						setResizeCursor(how, currItem->rotation());
+				}
 				else if (how == 0)
-					qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+					qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
 				else
+				{
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				}
 			}
 		}
 	}
@@ -965,6 +976,8 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 				return;
 			}
 		}
+		
+		qApp->changeOverrideCursor(Qt::ClosedHandCursor);
 #if 1				
 		if (m_doc->m_Selection->isMultipleSelection())
 		{
@@ -979,7 +992,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 			{
 				if (currItem->sizeLocked())
 				{
-					qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+					qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
 					frameResizeHandle = 0;
 				}
 				m_canvas->m_viewMode.operItemResizing = true;
@@ -1314,6 +1327,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if (GetItem(&currItem))
 	{
+		qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
 		if (m_doc->m_Selection->count() > 1)
 		{
 			m_doc->m_Selection->setGroupRect();
@@ -1601,16 +1615,20 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			//					m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 			//					emit HaveSel(currItem->itemType());
 		}
-		if (m_doc->m_Selection->count() == 1)
-		{
-			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem); // HandleSizer(currItem, mpo.toRect(), m);
-			if ((frameResizeHandle == Canvas::INSIDE) && (!currItem->locked()))
-				qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-		}
-		else
-		{
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-		}
+// 		if (m_doc->m_Selection->count() == 1)
+// 		{
+// 			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem); // HandleSizer(currItem, mpo.toRect(), m);
+// 			if ((frameResizeHandle == Canvas::INSIDE) && (!currItem->locked()))
+// 			{
+// 				qDebug()<<__LINE__<< "QCursor(Qt::OpenHandCursor)"; 
+// 				qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
+// 			}
+// 		}
+// 		else
+// 		{
+// 			qDebug()<<__LINE__<< "QCursor(Qt::OpenHandCursor)";
+// 		        qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
+// 		}
 // 		qDebug()<<"Out Of SeleItem"<<__LINE__;
 		return true;
 	}

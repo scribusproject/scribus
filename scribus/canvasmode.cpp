@@ -227,7 +227,7 @@ void CanvasMode::drawSelection(QPainter* psx)
 				y = -lineAdjust;
 			}
 			w = currItem->visualWidth() ;
-			h = currItem->visualHeight() ;
+			h = (currItem->asLine()) ? currItem->visualHeight() - 1.0 : currItem->visualHeight() ;
 			
 			tt.start();
 			psx->drawRect(QRectF(x, y, w, h));
@@ -236,14 +236,24 @@ void CanvasMode::drawSelection(QPainter* psx)
 			{
 				psx->setBrush(m_brush["handle"]);
 				psx->setPen(m_pen["handle"]);
-				psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
-				psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
-				psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
-				psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
-				psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
-				psx->drawRect(QRectF(x, y, markWidth, markWidth));
-				psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
-				psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
+				if(currItem->asLine())
+				{
+					psx->setRenderHint(QPainter::Antialiasing);
+					psx->drawPie(QRectF(x+w-markWidth, y+h-markWidth,2* markWidth,2* markWidth), 180 * 16, 270 * 16);
+// 					psx->setBrush(Qt::blue); // sometimes we forget which is what :)
+					psx->drawPie(QRectF(x-markWidth, y-markWidth, 2* markWidth, 2* markWidth), 0 * 16, 270 * 16);
+				}
+				else
+				{
+					psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
+					psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
+					psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
+					psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
+					psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
+					psx->drawRect(QRectF(x, y, markWidth, markWidth));
+					psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
+					psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
+				}
 			}
 			
 			psx->restore();
