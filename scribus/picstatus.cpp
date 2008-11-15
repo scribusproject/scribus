@@ -123,8 +123,13 @@ void PicStatus::fillTable()
 	{
 		item = m_Doc->MasterItems.at(i);
 		QFileInfo fi = QFileInfo(item->Pfile);
+		QString Iname = "";
+		if (item->isInlineImage)
+			Iname = tr("Embedded Image");
+		else
+			Iname = fi.fileName();
 		if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()))
-			tempItem = new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
+			tempItem = new PicItem(imageViewArea, Iname, createImgIcon(item), item);
 		if (firstItem == 0)
 			firstItem = tempItem;
 	}
@@ -133,8 +138,13 @@ void PicStatus::fillTable()
 	{
 		item = m_Doc->Items->at(i);
 		QFileInfo fi = QFileInfo(item->Pfile);
+		QString Iname = "";
+		if (item->isInlineImage)
+			Iname = tr("Embedded Image");
+		else
+			Iname = fi.fileName();
 		if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()))
-			tempItem = new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
+			tempItem = new PicItem(imageViewArea, Iname, createImgIcon(item), item);
 		// if an image is selected in a doc, Manage Pictures should
 		// display the selected image and its values
 		if (firstItem == 0 || item->isSelected())
@@ -249,8 +259,18 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 		{
 			QFileInfo fi = QFileInfo(currItem->Pfile);
 			QString ext = fi.suffix().toLower();
-			displayName->setText(fi.fileName());
-			displayPath->setText(QDir::convertSeparators(fi.path()));
+			if (currItem->isInlineImage)
+			{
+				displayName->setText( tr("Embedded Image"));
+				displayPath->setText("");
+				searchButton->setEnabled(false);
+			}
+			else
+			{
+				displayName->setText(fi.fileName());
+				displayPath->setText(QDir::convertSeparators(fi.path()));
+				searchButton->setEnabled(true);
+			}
 			QString format = "";
 			switch (currItem->pixm.imgInfo.type)
 			{
@@ -296,7 +316,6 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 			buttonEdit->setEnabled(currItem->isRaster);
 			effectsButton->setEnabled(currItem->isRaster);
 			buttonLayers->setEnabled(currItem->pixm.imgInfo.valid);
-			searchButton->setEnabled(true);
 		}
 		else
 		{

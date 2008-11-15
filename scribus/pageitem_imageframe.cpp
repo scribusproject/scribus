@@ -262,7 +262,10 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 		QFileInfo fi = QFileInfo(Pfile);
 		fileCT->setText( ScribusView::tr("File: "));
 		infoGroupLayout->addWidget( fileCT, 1, 0, Qt::AlignRight );
-		fileT->setText(fi.fileName());
+		if (isInlineImage)
+			fileT->setText( tr("Embedded Image"));
+		else
+			fileT->setText(fi.fileName());
 		infoGroupLayout->addWidget( fileT, 1, 1 );
 		
 		oPpiCT->setText( ScribusView::tr("Original PPI: "));
