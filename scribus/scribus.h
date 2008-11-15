@@ -294,6 +294,7 @@ public slots:
 
 	void slotGetContent();
 	void slotGetContent2(); // kk2006
+	void slotGetClipboardImage();
 	/*!
 	\author Franz Schmid
 	\brief Appends a Textfile to the Text in the selected Textframe at the Cursorposition

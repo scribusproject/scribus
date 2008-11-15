@@ -175,6 +175,13 @@ void ContextMenu::createMenuItems_Selection()
 		addSeparator();
 		if (m_actionList.contains("fileImportImage"))
 			addAction(m_AP->scrActions["fileImportImage"]);
+		if (selectedItemCount==1 && currItem->asImageFrame())
+		{
+			if (QApplication::clipboard()->mimeData()->hasImage())
+			{
+				addAction( tr("Paste Image from Clipboard"), m_AP, SLOT(slotGetClipboardImage()));
+			}
+		}
 		if (m_actionList.contains("itemAdjustFrameToImage"))
 			addAction(m_AP->scrActions["itemAdjustFrameToImage"]);
 		if (m_actionList.contains("itemAdjustImageToFrame"))

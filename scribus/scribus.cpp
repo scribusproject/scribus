@@ -4213,6 +4213,49 @@ void ScribusMainWindow::slotGetContent2() // kk2006
 	slotDocCh();
 }
 
+void ScribusMainWindow::slotGetClipboardImage()
+{
+	if ((doc->m_Selection->count() != 0) && (QApplication::clipboard()->mimeData()->hasImage()))
+	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		if (currItem->itemType() == PageItem::ImageFrame)
+		{
+			int t = QMessageBox::Yes;
+			if (currItem->PicAvail)
+				t = QMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to replace your existing image?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+			if (t == QMessageBox::Yes)
+			{
+				QImage img = QApplication::clipboard()->image();
+				if (!img.isNull())
+				{
+					currItem->EmProfile = "";
+					currItem->pixm.imgInfo.isRequest = false;
+					currItem->UseEmbedded = true;
+					currItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
+					currItem->IRender = doc->CMSSettings.DefaultIntentImages;
+					qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
+					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+					currItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX.png");
+					currItem->tempImageFile->open();
+					QString fileName = getLongPathName(currItem->tempImageFile->fileName());
+					currItem->tempImageFile->close();
+					currItem->isInlineImage = true;
+					currItem->Pfile = fileName;
+					img.save(fileName, "PNG");
+					doc->LoadPict(fileName, currItem->ItemNr, false, true);
+					currItem->AdjustPictScale();
+					propertiesPalette->setScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
+					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+					view->DrawNew();
+					propertiesPalette->updateColorList();
+					propertiesPalette->ShowCMS();
+					currItem->emitAllToGUI();
+				}
+			}
+		}
+	}
+}
+
 void ScribusMainWindow::slotFileAppend()
 {
 	if (doc->m_Selection->count() != 0)
