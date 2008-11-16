@@ -795,9 +795,9 @@ void Tabruler::setTab()
 
 void Tabruler::setFirstLineData(double t)
 {
-	firstLineData->blockSignals(true);
+//	firstLineData->blockSignals(true);
 	firstLineData->setValue(t * docUnitRatio);
-	firstLineData->blockSignals(false);
+//	firstLineData->blockSignals(false);
 	if (!ruler->mousePressed)
 	{
 		emit tabrulerChanged();
@@ -820,9 +820,9 @@ void Tabruler::setFirstLine()
 
 void Tabruler::setLeftIndentData(double t)
 {
-	leftIndentData->blockSignals(true);
+//	leftIndentData->blockSignals(true);
 	leftIndentData->setValue(t * docUnitRatio);
-	leftIndentData->blockSignals(false);
+//	leftIndentData->blockSignals(false);
 	if (!ruler->mousePressed)
 	{
 		emit tabrulerChanged();

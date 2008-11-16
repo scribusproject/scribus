@@ -368,37 +368,37 @@ void SMTabruler::firstDataChanged()
 
 void SMTabruler::firstValueChanged()
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+//	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+//	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+//	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 	double a, b, value;
 	int c;
 	first_->getValues(&a, &b, &c, &value);
 	setFirstLineData(value);
-	setLeftIndent();
 	setFirstLine();
+	setLeftIndent();
 	setRightIndent();
 	isSetupFirst_ = true;
-	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+//	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+//	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+//	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 }
 
 void SMTabruler::leftValueChanged()
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+//	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+//	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
 	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 	double a, b, value;
 	int c;
 	left_->getValues(&a, &b, &c, &value);
 	setLeftIndentData(value);
 	setLeftIndent();
-	setFirstLine();
+//	setFirstLine();
 	setRightIndent();
 	isSetupLeft_ = true;
-	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+//	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+//	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
 	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 }
 
