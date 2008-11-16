@@ -181,6 +181,11 @@ void ParagraphStyle::update(const StyleContext* context)
 
 void ParagraphStyle::applyStyle(const ParagraphStyle& other) 
 {
+	if (other.hasParent() && (other.parent() != Style::INHERIT_PARENT))
+	{
+		setStyle(other);
+		return;
+	}
 	Style::applyStyle(other);
 	cstyle.applyCharStyle(other.charStyle());
 	cstyleContext.invalidate();

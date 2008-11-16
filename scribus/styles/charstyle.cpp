@@ -107,6 +107,11 @@ bool StyleFlag::operator!= (const StyleFlagValue right) const
 
 void CharStyle::applyCharStyle(const CharStyle & other)
 {
+	if (other.hasParent() && (other.parent() != Style::INHERIT_PARENT))
+	{
+		setStyle(other);
+		return;
+	}
 	Style::applyStyle(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if (! other.inh_##attr_NAME) \
