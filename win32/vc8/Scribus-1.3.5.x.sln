@@ -168,14 +168,19 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-lib2geom-1.3.5.x", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pathalongpath-1.3.5.x", "pathalongpath\pathalongpath-1.3.x.vcproj", "{CAF6D555-0E2E-4ABB-9585-00860B8B183E}"
 	ProjectSection(ProjectDependencies) = postProject
-		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD} = {6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "meshdistortion-1.3.5.x", "meshdistortion\meshdistortion-1.3.x.vcproj", "{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}"
 	ProjectSection(ProjectDependencies) = postProject
-		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 		{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD} = {6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pathconnect-1.3.5.x", "pathconnect\pathconnect-1.3.x.vcproj", "{EDE59DB3-794A-4E3F-942A-98189DF6DCE2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
 Global
@@ -482,6 +487,14 @@ Global
 		{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
 		{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{2B610023-D3A6-4EC3-B7D5-868ED3B9321E}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
+		{EDE59DB3-794A-4E3F-942A-98189DF6DCE2}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{EDE59DB3-794A-4E3F-942A-98189DF6DCE2}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
+		{EDE59DB3-794A-4E3F-942A-98189DF6DCE2}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{EDE59DB3-794A-4E3F-942A-98189DF6DCE2}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
+		{EDE59DB3-794A-4E3F-942A-98189DF6DCE2}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{EDE59DB3-794A-4E3F-942A-98189DF6DCE2}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
+		{EDE59DB3-794A-4E3F-942A-98189DF6DCE2}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{EDE59DB3-794A-4E3F-942A-98189DF6DCE2}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
