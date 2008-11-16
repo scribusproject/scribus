@@ -2132,6 +2132,8 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 	writer.writeAttribute("doOverprint", item->doOverprint ? "1" : "0");
 	writer.writeAttribute("ImageClip"  , item->pixm.imgInfo.usedPath);
 
+/*  Code below is no longer needed since WriteElem adds now a preview image
+    thus ScPreview no longer needs to render this stuff.
 	writer.writeAttribute("NUMTEXT", item->itemText.length());
 	QString txnu = "";
 	for(int kt = 0; kt < item->itemText.length(); ++kt)
@@ -2141,6 +2143,7 @@ void ScriXmlDoc::WriteObject(ScXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		txnu += "0 0 ";
 #endif
 	writer.writeAttribute("TEXTCOOR", txnu);
+*/
 	writer.writeAttribute("BACKITEM", "-1");
 	writer.writeAttribute("BACKPAGE", "-1");
 	writer.writeAttribute("NEXTITEM", "-1");
