@@ -201,7 +201,18 @@ void SMParagraphStyle::toSelection(const QString &styleName) const
 	if (!doc_)
 		return; // nowhere to apply or no doc
 
-	doc_->itemSelection_SetNamedParagraphStyle(styleName);
+	QString realName = styleName;
+	int styleIndex = tmpStyles_.find(styleName);
+	if (styleIndex < 0 && (styleName == CommonStrings::trDefaultParagraphStyle))
+	{
+		styleIndex = tmpStyles_.find(CommonStrings::DefaultParagraphStyle);
+		if (styleIndex >= 0)
+			realName = CommonStrings::DefaultParagraphStyle;
+	}
+	if (styleIndex >= 0)
+	{
+		doc_->itemSelection_SetNamedParagraphStyle(realName);
+	}
 }
 
 QString SMParagraphStyle::newStyle()
@@ -1457,7 +1468,18 @@ void SMCharacterStyle::toSelection(const QString &styleName) const
 	if (!doc_)
 		return; // nowhere to apply or no doc
 
-	doc_->itemSelection_SetNamedCharStyle(styleName);
+	QString realName = styleName;
+	int styleIndex = tmpStyles_.find(styleName);
+	if (styleIndex < 0 && (styleName == CommonStrings::trDefaultCharacterStyle))
+	{
+		styleIndex = tmpStyles_.find(CommonStrings::DefaultCharacterStyle);
+		if (styleIndex >= 0)
+			realName = CommonStrings::DefaultCharacterStyle;
+	}
+	if (styleIndex >= 0)
+	{
+		doc_->itemSelection_SetNamedCharStyle(realName);
+	}
 }
 
 QString SMCharacterStyle::newStyle()
