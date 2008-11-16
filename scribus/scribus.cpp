@@ -2023,9 +2023,12 @@ void ScribusMainWindow::startUpDialog()
 			}
 			else
 			{
-				QString fileName(dia->recentDocListBox->currentItem()->text());
-				if (!fileName.isEmpty())
-					loadRecent(QDir::fromNativeSeparators(fileName));
+				if (dia->recentDocListBox->currentItem() != NULL)
+				{
+					QString fileName(dia->recentDocListBox->currentItem()->text());
+					if (!fileName.isEmpty())
+						loadRecent(QDir::fromNativeSeparators(fileName));
+				}
 			}
 		}
 	}
