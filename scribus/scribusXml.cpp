@@ -400,11 +400,13 @@ void ScriXmlDoc::GetItemText(const QXmlStreamAttributes& attrs, StoryText& story
 	tmp2.replace(QRegExp("\r"), QChar(5));
 	tmp2.replace(QRegExp("\n"), QChar(5));
 	tmp2.replace(QRegExp("\t"), QChar(4));
+	bool hasFont = attrHasValue(attrs, "CFONT");
 	tmpf = attrAsString(attrs, "CFONT", doc->toolSettings.defFont);
 	bool unknown = false;
 
 	ScFace dummy = ScFace::none();
-	if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
+	ApplicationPrefs& appPrefs = prefsManager->appPrefs;
+	if (hasFont && ((!appPrefs.AvailFonts.contains(tmpf)) || (!appPrefs.AvailFonts[tmpf].usable())))
 	{
 		bool isThere = false;
 		for (int dl = 0; dl < dummyScFaces.count(); ++dl)
@@ -418,20 +420,20 @@ void ScriXmlDoc::GetItemText(const QXmlStreamAttributes& attrs, StoryText& story
 		}
 		if (!isThere)
 		{
-//FIXME			dummy = new ScFace(tmpf, "", tmpf, "", "", 1, false);
+			//FIXME	dummy = new ScFace(tmpf, "", tmpf, "", "", 1, false);
 			dummyScFaces.append(dummy);
 		}
 		unknown = true;
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
+		if ((!appPrefs.GFontSub.contains(tmpf)) || (!appPrefs.AvailFonts[appPrefs.GFontSub[tmpf]].usable()))
 		{
 			newReplacement = true;
-			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
+			ReplacedFonts.insert(tmpf, appPrefs.toolSettings.defFont);
 		}
 		else
-			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
+			ReplacedFonts.insert(tmpf, appPrefs.GFontSub[tmpf]);
 //		tmpf = ReplacedFonts[tmpf];
 	}
-	else
+	else if (hasFont)
 	{
 		if (!doc->UsedFonts.contains(tmpf))
 		{
@@ -441,10 +443,13 @@ void ScriXmlDoc::GetItemText(const QXmlStreamAttributes& attrs, StoryText& story
 		}
 	}
 
-	if (unknown)
-		newStyle.setFont(dummy);
-	else
-		newStyle.setFont((*doc->AllFonts)[tmpf]);
+	if (hasFont)
+	{
+		if (unknown)
+			newStyle.setFont(dummy);
+		else
+			newStyle.setFont((*doc->AllFonts)[tmpf]);
+	}
 	
 	if (attrHasValue(attrs, "CSIZE"))
 		newStyle.setFontSize( qRound(attrAsDbl(attrs, "CSIZE") * 10) );
