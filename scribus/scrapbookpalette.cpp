@@ -103,7 +103,7 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 	mimeData->setText(dt);
 	QDrag *drag = new QDrag(this);
 	drag->setMimeData(mimeData);
-	drag->setPixmap(objectMap[currentItem()->text()].Preview);
+	drag->setDragCursor(objectMap[currentItem()->text()].Preview, Qt::CopyAction);
 	drag->exec(Qt::CopyAction);
 	clearSelection();
  }
