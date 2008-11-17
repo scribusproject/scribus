@@ -10,9 +10,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_barcodegenerator.h"
 
-class QColor;
-class QLabel;
-class QString;
+#include <QColor>
+#include <QDialog>
+#include <QLabel>
+#include <QString>
 
 
 /*! \brief One Barcode Entity.

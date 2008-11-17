@@ -28,6 +28,11 @@ for which a new license (GPL+exception) is in place.
 #define TRANSFORMDIALOG_H
 
 #include <QDialog>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QMatrix>
+#include <QMenu>
+#include <QString>
 #include "ui_transformdialogbase.h"
 #include "pluginapi.h"
 #include "scribusdoc.h"

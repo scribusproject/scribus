@@ -8,11 +8,14 @@ ${CMAKE_SOURCE_DIR}/scribus
 
 SET(SCRIBUS_SCRSPINBOX_PLUGIN_MOC_CLASSES
 scrspinboxplugin.h
+../commonstrings.h
 ../scrspinbox.h
 )
 
 SET(SCRIBUS_SCRSPINBOX_PLUGIN_SOURCES
 scrspinboxplugin.cpp
+../commonstrings.cpp
+../fparser.cpp
 ../scrspinbox.cpp
 ../units.cpp
 )
@@ -30,11 +33,13 @@ sctablewidgetplugin.cpp
 SET(SCRIBUS_SCTEXTBROWSER_PLUGIN_MOC_CLASSES
 sctextbrowserplugin.h
 ../sctextbrowser.h
+../urllauncher.h
 )
 
 SET(SCRIBUS_SCTEXTBROWSER_PLUGIN_SOURCES
 sctextbrowserplugin.cpp
 ../sctextbrowser.cpp
+../urllauncher.cpp
 )
 
 SET(SCRIBUS_SCRSPINBOX_PLUGIN "scribus_scrspinbox")
