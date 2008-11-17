@@ -78,7 +78,7 @@ void gtFileDialog::loadSettings(void)
 		QString filter = context->get("filter");
 		QStringList filters = fileWidget->filters();
 		if (!filter.isEmpty() && filters.contains(filter))
-			fileWidget->setFilter(filter);
+			fileWidget->selectNameFilter(filter);
 	}
 	if (context->contains("importer"))
 	{
