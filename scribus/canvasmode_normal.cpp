@@ -1340,6 +1340,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		else
 			currItem->emitAllToGUI();
 	}
+	else
+		m_view->Deselect(true);
 	m_canvas->setRenderModeUseBuffer(false);
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
