@@ -99,7 +99,9 @@ void SeList::mouseMoveEvent(QMouseEvent* e)
 			mimeData->setText("1"+i->text());
 			QDrag *dr = new QDrag(this);
 			dr->setMimeData(mimeData);
-			dr->setPixmap(loadIcon("doc.png"));
+			const QPixmap& pm = loadIcon("doc.png");
+			dr->setDragCursor(pm, Qt::CopyAction);
+			dr->setDragCursor(pm, Qt::MoveAction);
 			dr->exec(Qt::CopyAction | Qt::MoveAction);
 			QApplication::setOverrideCursor(Qt::ArrowCursor);
 		}
@@ -201,7 +203,9 @@ void SeView::mouseMoveEvent(QMouseEvent* e)
 					mimeData->setText("2 "+tmp.setNum(p)+" "+str);
 					QDrag *dr = new QDrag(this);
 					dr->setMimeData(mimeData);
-					dr->setPixmap(loadIcon("doc.png"));
+					const QPixmap& pm = loadIcon("doc.png");
+					dr->setDragCursor(pm, Qt::CopyAction);
+					dr->setDragCursor(pm, Qt::MoveAction);
 					dr->exec(Qt::CopyAction | Qt::MoveAction);
 					QApplication::setOverrideCursor(Qt::ArrowCursor);
 				}
