@@ -1965,6 +1965,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
 	QChar tc;
 	QString profileName = "";
+	bool hasEmbeddedProfile = false;
 //	bool found = false;
 
 	if (ext.isEmpty())
@@ -2000,11 +2001,11 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		imgInfo = pDataLoader->imageInfoRecord();
 		if (requestType == Thumbnail)
 			reqType = RGBData;
-		if (!cmSettings.useColorManagement() || !useProf)
-		{
-			imgInfo.isEmbedded = false;
-			imgInfo.profileName = "";
-		}
+	//	if (!cmSettings.useColorManagement() || !useProf)
+	//	{
+	//		imgInfo.isEmbedded = false;
+	//		imgInfo.profileName = "";
+	//	}
 		if (imgInfo.colorspace == ColorSpaceCMYK)
 		{
 			isCMYK = true;
@@ -2146,8 +2147,10 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(false));
 					profileName = imgInfo.profileName;
+					hasEmbeddedProfile = imgInfo.isEmbedded;
 					imgInfo = pDataLoader->imageInfoRecord();
 					imgInfo.profileName = profileName;
+					imgInfo.isEmbedded = hasEmbeddedProfile;
 					// JG : this line overwrite image profile info and should not be needed here!!!!
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
@@ -2182,8 +2185,10 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			{
 				QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
 				profileName = imgInfo.profileName;
+				hasEmbeddedProfile = imgInfo.isEmbedded;
 				imgInfo = pDataLoader->imageInfoRecord();
 				imgInfo.profileName = profileName;
+				imgInfo.isEmbedded = hasEmbeddedProfile;
 				// JG : this line overwrite image profile info and should not be needed here!!!!
 				// imgInfo = pDataLoader->imageInfoRecord();
 			}
@@ -2195,8 +2200,10 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			{
 				QImage::operator=(QImage(pDataLoader->r_image.width(), pDataLoader->r_image.height(), QImage::Format_ARGB32));
 				profileName = imgInfo.profileName;
+				hasEmbeddedProfile = imgInfo.isEmbedded;
 				imgInfo = pDataLoader->imageInfoRecord();
 				imgInfo.profileName = profileName;
+				imgInfo.isEmbedded = hasEmbeddedProfile;
 				// JG : this line overwrite image profile info and should not be needed here!!!!
 				// imgInfo = pDataLoader->imageInfoRecord();
 			}
@@ -2315,8 +2322,10 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(false));
 					profileName = imgInfo.profileName;
+					hasEmbeddedProfile = imgInfo.isEmbedded;
 					imgInfo = pDataLoader->imageInfoRecord();
 					imgInfo.profileName = profileName;
+					imgInfo.isEmbedded = hasEmbeddedProfile;
 					// JG : this line overwrite image profile info and should not be needed here!!!!
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
@@ -2341,8 +2350,10 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
 					profileName = imgInfo.profileName;
+					hasEmbeddedProfile = imgInfo.isEmbedded;
 					imgInfo = pDataLoader->imageInfoRecord();
 					imgInfo.profileName = profileName;
+					imgInfo.isEmbedded = hasEmbeddedProfile;
 					// JG : this line overwrite image profile info and should not be needed here!!!!
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
@@ -2357,8 +2368,10 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(true));
 					profileName = imgInfo.profileName;
+					hasEmbeddedProfile = imgInfo.isEmbedded;
 					imgInfo = pDataLoader->imageInfoRecord();
 					imgInfo.profileName = profileName;
+					imgInfo.isEmbedded = hasEmbeddedProfile;
 					// JG : this line overwrite image profile info and should not be needed here!!!!
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
@@ -2386,8 +2399,10 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(false));
 					profileName = imgInfo.profileName;
+					hasEmbeddedProfile = imgInfo.isEmbedded;
 					imgInfo = pDataLoader->imageInfoRecord();
 					imgInfo.profileName = profileName;
+					imgInfo.isEmbedded = hasEmbeddedProfile;
 					// JG : this line overwrite image profile info and should not be needed here!!!!
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
@@ -2398,8 +2413,10 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
 					profileName = imgInfo.profileName;
+					hasEmbeddedProfile = imgInfo.isEmbedded;
 					imgInfo = pDataLoader->imageInfoRecord();
 					imgInfo.profileName = profileName;
+					imgInfo.isEmbedded = hasEmbeddedProfile;
 					// JG : this line overwrite image profile info and should not be needed here!!!!
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
