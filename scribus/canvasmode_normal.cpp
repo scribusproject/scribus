@@ -392,7 +392,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					QMatrix pm;
 					switch (frameResizeHandle)
 					{
-					case 1:
+					case Canvas::SOUTHEAST:
 						if (m->modifiers() & Qt::ControlModifier)
 							np2 = FPoint(qRound(newX), qRound(gy+(gh * ((newX-gx) / gw))));
 						else
@@ -404,25 +404,25 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						np2 = FPoint(qRound(nx*sc), qRound(ny*sc));
 						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(gx*sc), qRound(gy*sc)), QPoint(qRound(np2.x()), qRound(np2.y())))));
 						break;
-					case 2:
+					case Canvas::NORTHWEST:
 						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), qRound(np2.y())), QPoint(ox2,oy2))));
 						break;
-					case 3:
+					case Canvas::NORTHEAST:
 						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), qRound(np2.y())), QPoint(ox1, oy2))));
 						break;
-					case 4:
+					case Canvas::SOUTHWEST:
 						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), qRound(np2.y())), QPoint(ox2, oy1))));
 						break;
-					case 5:
+					case Canvas::SOUTH:
 						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(ox1, oy1), QPoint(ox2, qRound(np2.y())))));
 						break;
-					case 6:
+					case Canvas::EAST:
 						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), oy2), QPoint(ox1,oy1))));
 						break;
-					case 7:
+					case Canvas::WEST:
 						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), oy1), QPoint(ox2, oy2))));
 						break;
-					case 8:
+					case Canvas::NORTH:
 						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(ox1, qRound(qRound(np2.y()))), QPoint(ox2, oy2))));
 						break;
 					}
@@ -436,12 +436,12 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					{
 						currItem = m_doc->m_Selection->itemAt(0);
 						double nh = currItem->height();
-						if ((frameResizeHandle == 1) || (frameResizeHandle == 2))
+						if ((frameResizeHandle == Canvas::SOUTHEAST) || (frameResizeHandle == Canvas::NORTHWEST))
 						{
 							QMatrix mp;
 							switch (frameResizeHandle)
 							{
-							case 1:
+							case Canvas::SOUTHEAST:
 //								mp.translate(-m_doc->minCanvasCoordinate.x() * m_canvas->scale(),-m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 								m_canvas->Transform(currItem, mp);
 								//Shift proportional square resize
@@ -532,7 +532,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 									m_view->updateContents(QRect(pm.map(QPoint(0, 0)), pm.map(QPoint(qRound(currItem->width()), qRound(currItem->height())))).normalized().adjusted(-10, -10, 20, 20));
 								}
 								break;
-							case 2:
+							case Canvas::NORTHWEST:
 								if (currItem->asLine())
 								{
 									double sav = m_doc->SnapGuides;
@@ -584,24 +584,24 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							m_canvas->Transform(currItem, pm);
 							switch (frameResizeHandle)
 							{
-							case 0:
+							case Canvas::INSIDE:
 								break;
-							case 3:
+							case Canvas::NORTHEAST:
 								m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(np2, QPoint(0, qRound(currItem->height())))));
 								break;
-							case 4:
+							case Canvas::SOUTHWEST:
 								m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(np2, QPoint(qRound(currItem->width()), 0))));
 								break;
-							case 5:
+							case Canvas::SOUTH:
 								m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(0, 0), QPoint(qRound(currItem->width()), np2.y()))));
 								break;
-							case 6:
+							case Canvas::EAST:
 								m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(0, 0), QPoint(np2.x(), qRound(currItem->height())))));
 								break;
-							case 7:
+							case Canvas::WEST:
 								m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(np2.x(), 0), QPoint(qRound(currItem->width()), qRound(currItem->height())))));
 								break;
-							case 8:
+							case Canvas::NORTH:
 								m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(0, np2.y()), QPoint(qRound(currItem->width()), qRound(currItem->height())))));
 								break;
 							}
@@ -1337,8 +1337,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			m_canvas->m_viewMode.operItemResizing = false;
 			m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 		}
-		else
-			currItem->emitAllToGUI();
+		/*else
+			currItem->emitAllToGUI();*/
 	}
 	else
 		m_view->Deselect(true);
