@@ -178,6 +178,7 @@ UnicodeSearch::UnicodeSearch( QWidget* parent)
 	tableView->verticalHeader()->hide();
 	tableView->setModel(m_proxyModel);
 	tableView->resizeColumnsToContents();
+	tableView->setColumnWidth(0, tableView->fontMetrics().maxWidth()*4);
 
 	connect(searchEdit, SIGNAL(returnPressed()),
 			this, SLOT(searchEdit_returnPressed()));
@@ -213,7 +214,6 @@ void UnicodeSearch::searchEdit_returnPressed()
 					   QRegExp::Wildcard);
 		m_proxyModel->setFilterRegExp(regExp);
 	}
-	tableView->resizeColumnsToContents();
 	tableView->setFocus(Qt::OtherFocusReason);
 	tableView->selectRow(0);
 	QApplication::changeOverrideCursor(Qt::ArrowCursor);
