@@ -606,6 +606,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 			{
 				z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 				m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
+				m_doc->AdjustItemSize(m_doc->Items->at(z));
 				m_doc->setRedrawBounding(m_doc->Items->at(z));
 				m_doc->Items->at(z)->FrameType = createObjectSubMode + 2;
 			}
@@ -614,6 +615,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 				m_doc->ApplyGuides(&Rxp, &Ryp);
 				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 				m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
+				m_doc->AdjustItemSize(m_doc->Items->at(z));
 				m_doc->setRedrawBounding(m_doc->Items->at(z));
 				m_doc->Items->at(z)->FrameType = createObjectSubMode + 2;
 			}
