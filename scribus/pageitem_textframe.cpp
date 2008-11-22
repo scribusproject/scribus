@@ -2061,14 +2061,14 @@ void PageItem_TextFrame::layout()
 			}
 			
 			OFs = 0;
-			if (style.alignment() == 2)
+			if (style.alignment() == ParagraphStyle::Rightaligned)
 				OFs = current.line.width - current.line.naturalWidth;
-			if (style.alignment() == 1)
+			if (style.alignment() == ParagraphStyle::Centered)
 				OFs = (current.line.width - current.line.naturalWidth) / 2;
-			if (style.alignment() == 3)
+			if (style.alignment() == ParagraphStyle::Justified)
 				OFs = 0;
-			if (style.alignment() == 4
-				|| (style.alignment() == 3 
+			if (style.alignment() == ParagraphStyle::Extended
+				|| (style.alignment() == ParagraphStyle::Justified 
 					&&  (hl->ch == SpecialChars::LINEBREAK ||
 						 hl->ch == SpecialChars::FRAMEBREAK ||
 						 hl->ch == SpecialChars::COLBREAK)
