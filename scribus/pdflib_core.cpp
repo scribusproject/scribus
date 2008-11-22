@@ -717,31 +717,31 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	BookMinUse = false;
 	UsedFontsP.clear();
 	UsedFontsF.clear();
-	if ((Options.Version == 15) && (Options.useLayers))
+	if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 		ObjCounter = 10;
 	else
 		ObjCounter = 9;
 	switch (Options.Version)
 	{
-		case 12:
-		case 13:
+		case PDFOptions::PDFVersion_X3:
+		case PDFOptions::PDFVersion_13:
 			PutDoc("%PDF-1.3\n");
 			break;
-		case 14:
+		case PDFOptions::PDFVersion_14:
 			PutDoc("%PDF-1.4\n");
 			break;
-		case 15:
+		case PDFOptions::PDFVersion_15:
 			PutDoc("%PDF-1.5\n");
 			break;
 	}
-	if (Options.Version == 12)
+	if (Options.Version == PDFOptions::PDFVersion_X3)
 		ObjCounter++;
 	PutDoc("%\xc7\xec\x8f\xa2\n");
 	StartObj(1);
 	PutDoc("<<\n/Type /Catalog\n/Outlines 3 0 R\n/Pages 4 0 R\n/Dests 5 0 R\n/AcroForm 6 0 R\n/Names 7 0 R\n/Threads 8 0 R\n");
-	if ((Options.Version == 15) && (Options.useLayers))
+	if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 		PutDoc("/OCProperties 9 0 R\n");
-	if (Options.Version == 12)
+	if (Options.Version == PDFOptions::PDFVersion_X3)
 		PutDoc("/OutputIntents [ "+QString::number(ObjCounter-1)+" 0 R ]\n");
 	PutDoc("/PageLayout ");
 	switch (Options.PageLayout)
@@ -765,7 +765,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		PutDoc("/PageMode /FullScreen\n");
 	else if (Options.displayThumbs)
 		PutDoc("/PageMode /UseThumbs\n");
-	else if ((Options.Version == 15) && (Options.displayLayers))
+	else if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.displayLayers))
 			PutDoc("/PageMode /UseOC\n");
 	if (!Options.openAction.isEmpty())
 	{
@@ -834,7 +834,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	FileID = ComputeMD5(IDg);
 	if (Options.Encrypt)
 	{
-		if ((Options.Version == 14) || (Options.Version == 15))
+		if ((Options.Version == PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_15))
 			KeyLen = 16;
 		else
 			KeyLen = 5;
@@ -859,7 +859,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	PutDoc("<<\n/Creator "+EncString("(Scribus "+QString(VERSION)+")",2)+"\n");
 	PutDoc("/Producer "+EncString("(Scribus PDF Library "+QString(VERSION)+")",2)+"\n");
 	QString docTitle = doc.documentInfo.getTitle();
-	if ((Options.Version == 12) && (docTitle.isEmpty()))
+	if ((Options.Version == PDFOptions::PDFVersion_X3) && (docTitle.isEmpty()))
 		PutDoc("/Title "+EncStringUTF16("("+doc.DocName+")",2)+"\n");
 	else
 		PutDoc("/Title "+EncStringUTF16("("+doc.documentInfo.getTitle()+")",2)+"\n");
@@ -867,14 +867,14 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	PutDoc("/Keywords "+EncStringUTF16("("+doc.documentInfo.getKeywords()+")",2)+"\n");
 	PutDoc("/CreationDate "+EncString("("+Datum+")",2)+"\n");
 	PutDoc("/ModDate "+EncString("("+Datum+")",2)+"\n");
-	if (Options.Version == 12)
+	if (Options.Version == PDFOptions::PDFVersion_X3)
 		PutDoc("/GTS_PDFXVersion (PDF/X-3:2002)\n");
 	PutDoc("/Trapped /False\n>>\nendobj\n");
 	for (int t = 0; t < 6; ++t)
 		XRef.append(bytesWritten());
-	if ((Options.Version == 15) && (Options.useLayers))
+	if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 		XRef.append(bytesWritten());
-	if (Options.Version == 12)
+	if (Options.Version == PDFOptions::PDFVersion_X3)
 		XRef.append(bytesWritten());
 	if (Options.Encrypt)
 	{
@@ -1704,7 +1704,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		spotMapReg.insert("Register", spotD);
 		spotCount++;
 	}
-	if ((Options.Version == 15) && (Options.useLayers))
+	if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 	{
 		ScLayer ll;
 		struct OCGInfo ocg;
@@ -1763,9 +1763,9 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 	{
 		doc.Layers.levelToLayer(ll, Lnr);
 		PItems = doc.MasterItems;
-		if ((ll.isPrintable) || ((Options.Version == 15) && (Options.useLayers)))
+		if ((ll.isPrintable) || ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers)))
 		{
-			if ((Options.Version == 15) && (Options.useLayers))
+			if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 				PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
 			for (int a = 0; a < PItems.count(); ++a)
 			{
@@ -1871,7 +1871,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 					case PageItem::ImageFrame:
 					case PageItem::LatexFrame: 
 						// Same functions as for ImageFrames work for LatexFrames too
-						if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= 14))
+						if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 							PutPage(PDF_TransparenzFill(ite));
 						if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
 						{
@@ -1908,7 +1908,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 						PutPage("Q\n");
 						if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 						{
-							if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= 14))
+							if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 								PutPage(PDF_TransparenzStroke(ite));
 							if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 							{
@@ -1933,7 +1933,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 					case PageItem::TextFrame:
 						break;
 					case PageItem::Line:
-						if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= 14))
+						if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 							PutPage(PDF_TransparenzStroke(ite));
 						if (ite->NamedLStyle.isEmpty())
 						{
@@ -1963,7 +1963,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 							arrowTrans.scale(-1,1);
 							arrow.map(arrowTrans);
-							if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
+							if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 							{
 								QString ShName = ResNam+QString::number(ResCount);
 								ResCount++;
@@ -1984,7 +1984,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							arrowTrans.translate(ite->width(), 0);
 							arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 							arrow.map(arrowTrans);
-							if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
+							if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 							{
 								QString ShName = ResNam+QString::number(ResCount);
 								ResCount++;
@@ -2002,7 +2002,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 					case PageItem::ItemType1:
 					case PageItem::ItemType3:
 					case PageItem::Polygon:
-						if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= 14))
+						if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 							PutPage(PDF_TransparenzFill(ite));
 						if (ite->GrType != 0)
 						{
@@ -2020,7 +2020,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 						}
 						if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 						{
-							if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= 14))
+							if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 								PutPage(PDF_TransparenzStroke(ite));
 							if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 							{
@@ -2045,7 +2045,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 					case PageItem::PolyLine:
 						if (ite->PoLine.size() > 4) // && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
 						{
-							if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= 14))
+							if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 								PutPage(PDF_TransparenzFill(ite));
 							if (ite->GrType != 0)
 							{
@@ -2064,7 +2064,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 						}
 						if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 						{
-							if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= 14))
+							if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 								PutPage(PDF_TransparenzStroke(ite));
 							if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 							{
@@ -2100,7 +2100,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 									arrow.map(arrowTrans);
-									if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
+									if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 									{
 										QString ShName = ResNam+QString::number(ResCount);
 										ResCount++;
@@ -2132,7 +2132,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 									arrow.map(arrowTrans);
-									if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
+									if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 									{
 										QString ShName = ResNam+QString::number(ResCount);
 										ResCount++;
@@ -2158,7 +2158,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								PutPage("q\n");
 								if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 								{
-									if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= 14))
+									if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 										PutPage(PDF_TransparenzStroke(ite));
 									if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 									{
@@ -2182,7 +2182,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 								PutPage("Q\n");
 							}
 						}
-						if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= 14))
+						if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 							PutPage(PDF_TransparenzFill(ite));
 						PutPage(setTextSt(ite, pag->pageNr(), pag));
 						break;
@@ -2292,7 +2292,7 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 				QString name = QString("master_page_obj_%1_%2").arg(pIndex).arg(ite->ItemNr);
 				Seite.XObjects[name] = templateObject;
 				}
-				if ((Options.Version == 15) && (Options.useLayers))
+				if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 					PutPage("EMC\n");
 			}
 		Lnr++;
@@ -2583,11 +2583,11 @@ void PDFLibCore::PDF_End_Page()
 	PutDoc("/BleedBox ["+FToStr(markOffs)+" "+FToStr(markOffs)+" "+FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY-markOffs)+"]\n");
 	PutDoc("/CropBox [0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+"]\n");
 	PutDoc("/TrimBox ["+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.Bottom+markOffs)+" "+FToStr(maxBoxX-bleedRight-markOffs)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+"]\n");
-	if (Options.Version >= 13) // PDF/X forbids having both art and trim box!
+	if (Options.Version >= PDFOptions::PDFVersion_13) // PDF/X forbids having both art and trim box!
 		PutDoc("/ArtBox ["+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.Bottom+markOffs)+" "+FToStr(maxBoxX-bleedRight-markOffs)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+"]\n");
 	PutDoc("/Rotate "+QString::number(Options.RotateDeg)+"\n");
 	PutDoc("/Contents "+QString::number(Seite.ObjNum)+" 0 R\n");
-	if (Options.Version >= 14) // && (Transpar.count() != 0))
+	if (Options.Version >= PDFOptions::PDFVersion_14) // && (Transpar.count() != 0))
 		PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
 	if (Options.Thumbnails)
 		PutDoc("/Thumb "+QString::number(Seite.Thumb)+" 0 R\n");
@@ -2848,9 +2848,9 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 			{
 				doc.Layers.levelToLayer(ll, Lnr);
 				Lnr++;
-				if ((ll.isPrintable) || ((Options.Version == 15) && (Options.useLayers)))
+				if ((ll.isPrintable) || ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers)))
 				{
-					if ((Options.Version == 15) && (Options.useLayers))
+					if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 						PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
 					for (int am = 0; am < pag->FromMaster.count() && !abortExport; ++am)
 					{
@@ -2928,7 +2928,7 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						ite->BoundingX = OldBX;
 						ite->BoundingY = OldBY;
 					}
-					if ((Options.Version == 15) && (Options.useLayers))
+					if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 						PutPage("EMC\n");
 				}
 			}
@@ -2945,10 +2945,10 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	for (int la = 0; la < doc.Layers.count() && !abortExport; ++la)
 	{
 		doc.Layers.levelToLayer(ll, Lnr);
-		if ((ll.isPrintable) || ((Options.Version == 15) && (Options.useLayers)))
+		if ((ll.isPrintable) || ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers)))
 		{
 			QString inh = "";
-			if ((Options.Version == 15) && (Options.useLayers))
+			if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 				PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
 			for (int a = 0; a < PItems.count() && !abortExport; ++a)
 			{
@@ -2975,7 +2975,7 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					grcon += "h W* n\n";
 					groupStack.push(ite->groupsLastItem);
 					groupStackS.push(ite);
-					if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= 14))
+					if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 					{
 						inh += grcon;
 						groupDataStack.push(inh);
@@ -2992,7 +2992,7 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				}
 				if (!PDF_ProcessItem(output, ite, pag, PNr))
 					return false;
-				if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= 14))
+				if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 					inh += output;
 				else
 					PutPage(output);
@@ -3002,11 +3002,11 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					{
 						QString tmpData;
 						PageItem *controlItem = groupStackS.pop();
-						if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= 14))
+						if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 						{
 							tmpData = inh;
 							inh = groupDataStack.pop();
-							if (Options.Version >= 14)
+							if (Options.Version >= PDFOptions::PDFVersion_14)
 								inh += Write_TransparencyGroup(controlItem->fillTransparency(), controlItem->fillBlendmode(), tmpData);
 							else
 								inh += tmpData;
@@ -3016,7 +3016,7 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						{
 							tmpData = Content;
 							Content = groupDataStack.pop();
-							if (Options.Version >= 14)
+							if (Options.Version >= PDFOptions::PDFVersion_14)
 								Content += Write_TransparencyGroup(controlItem->fillTransparency(), controlItem->fillBlendmode(), tmpData);
 							else
 								Content += tmpData;
@@ -3057,12 +3057,12 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					continue;
 				if (!ite->printEnabled())
 					continue;
-				if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= 14))
+				if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 					inh += PDF_ProcessTableItem(ite, pag);
 				else
 					PutPage(PDF_ProcessTableItem(ite, pag));
 			}
-			if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= 14))
+			if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 			{
 				int Gobj = newObject();
 				StartObj(Gobj);
@@ -3122,7 +3122,7 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				PutPage("/"+name+" Do\n");
 				PutPage("Q\n");
 			}
-			if ((Options.Version == 15) && (Options.useLayers))
+			if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 				PutPage("EMC\n");
 		}
 		Lnr++;
@@ -3210,11 +3210,11 @@ QString PDFLibCore::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
 									   "/OPM 1\n");
 		tmp += "/"+ShName+" gs\n";
 	}
-//	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
+//	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 //		tmp += PDF_Transparenz(ite);
 //	if (ite->fillColor() != CommonStrings::None)
 //		tmp += putColor(ite->fillColor(), ite->fillShade(), true);
-	if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= 14))
+	if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 		tmp += PDF_TransparenzStroke(ite);
 	if (ite->lineColor() != CommonStrings::None)
 		tmp += putColor(ite->lineColor(), ite->lineShade(), false);
@@ -3334,7 +3334,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 									   "/OPM 1\n");
 		tmp += "/"+ShName+" gs\n";
 	}
-//	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
+//	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 //		tmp += PDF_Transparenz(ite);
 	if ((ite->isBookmark) && (Options.Bookmarks))
 		PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
@@ -3416,7 +3416,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
 			// Same functions as for ImageFrames work for LatexFrames too
-			if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= 14))
+			if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 				tmp += PDF_TransparenzFill(ite);
 			if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
 			{
@@ -3453,7 +3453,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			tmp += "Q\n";
 			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 			{
-				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= 14))
+				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 					tmp += PDF_TransparenzStroke(ite);
 				if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 				{
@@ -3477,14 +3477,14 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			break;
 		case PageItem::TextFrame:
 //			qDebug("case TextFrame");
-			if ((ite->isAnnotation()) && (Options.Version != 12))
+			if ((ite->isAnnotation()) && (Options.Version != PDFOptions::PDFVersion_X3))
 			{
 //				qDebug("Annotation");
 				if (!PDF_Annotation(ite, PNr))
 					return false;
 				break;
 			}
-			if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= 14))
+			if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 				tmp += PDF_TransparenzFill(ite);
 			if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
 			{
@@ -3509,7 +3509,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			tmp += "Q\n";
 			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 			{
-				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= 14))
+				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 					tmp += PDF_TransparenzStroke(ite);
 				if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 				{
@@ -3532,7 +3532,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			}
 			break;
 		case PageItem::Line:
-			if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= 14))
+			if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 				tmp += PDF_TransparenzStroke(ite);
 			if (ite->NamedLStyle.isEmpty())
 			{
@@ -3562,7 +3562,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 				arrowTrans.scale(-1,1);
 				arrow.map(arrowTrans);
-				if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
+				if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 				{
 					QString ShName = ResNam+QString::number(ResCount);
 					ResCount++;
@@ -3583,7 +3583,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				arrowTrans.translate(ite->width(), 0);
 				arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 				arrow.map(arrowTrans);
-				if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
+				if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 				{
 					QString ShName = ResNam+QString::number(ResCount);
 					ResCount++;
@@ -3601,7 +3601,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 		case PageItem::ItemType1:
 		case PageItem::ItemType3:
 		case PageItem::Polygon:
-			if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= 14))
+			if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 				tmp += PDF_TransparenzFill(ite);
 			if (ite->GrType != 0)
 			{
@@ -3622,7 +3622,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			}
 			if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 			{
-				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= 14))
+				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 					tmp += PDF_TransparenzStroke(ite);
 				if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 				{
@@ -3647,7 +3647,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 		case PageItem::PolyLine:
 			if (ite->PoLine.size() > 4)  // && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
 			{
-				if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= 14))
+				if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 					tmp += PDF_TransparenzFill(ite);
 				if (ite->GrType != 0)
 				{
@@ -3666,7 +3666,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			}
 			if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 			{
-				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= 14))
+				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 					tmp += PDF_TransparenzStroke(ite);
 				if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 				{
@@ -3702,7 +3702,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 						arrowTrans.rotate(r);
 						arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 						arrow.map(arrowTrans);
-						if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
+						if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 						{
 							QString ShName = ResNam+QString::number(ResCount);
 							ResCount++;
@@ -3734,7 +3734,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 						arrowTrans.rotate(r);
 						arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 						arrow.map(arrowTrans);
-						if ((ite->lineTransparency() != 0) && (Options.Version >= 14))
+						if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 						{
 							QString ShName = ResNam+QString::number(ResCount);
 							ResCount++;
@@ -3760,7 +3760,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					tmp += "q\n";
 					if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()))
 					{
-						if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= 14))
+						if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 							tmp += PDF_TransparenzStroke(ite);
 						if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 						{
@@ -3784,7 +3784,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					tmp += "Q\n";
 				}
 			}
-			if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= 14))
+			if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 				tmp += PDF_TransparenzFill(ite);
 			tmp += setTextSt(ite, PNr, pag);
 			break;
@@ -4416,7 +4416,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 											"/OPM 1\n");
 				tmp2 += "/"+ShName+" gs\n";
 			}
-			if (((embedded->lineTransparency() != 0) || (embedded->lineBlendmode() != 0)) && (Options.Version >= 14))
+			if (((embedded->lineTransparency() != 0) || (embedded->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 				tmp2 += PDF_TransparenzStroke(embedded);
 			if (embedded->lineColor() != CommonStrings::None)
 				tmp2 += putColor(embedded->lineColor(), embedded->lineShade(), false);
@@ -5104,7 +5104,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 											"/OPM 1\n");
 				tmp2 += "/"+ShName+" gs\n";
 			}
-			if (((item->lineTransparency() != 0) || (item->lineBlendmode() != 0)) && (Options.Version >= 14))
+			if (((item->lineTransparency() != 0) || (item->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 				tmp2 += PDF_TransparenzStroke(item);
 			if (item->lineColor() != CommonStrings::None)
 				tmp2 += putColor(item->lineColor(), item->lineShade(), false);
@@ -5359,7 +5359,7 @@ QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, Q
 		QString spot1 = colorNames[c].simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
 		QString spot2 = colorNames[c+1].simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
 		QString TRes("");
-		if ((Options.Version >= 14) && ((Trans.at(c+1) != 1) || (Trans.at(c) != 1)))
+		if ((Options.Version >= PDFOptions::PDFVersion_14) && ((Trans.at(c+1) != 1) || (Trans.at(c) != 1)))
 		{
 			uint shadingObject = newObject();
 			StartObj(shadingObject);
@@ -5617,7 +5617,7 @@ QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, Q
 			PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream\nendobj\n");
 		}
 		tmp += "q\n";
-		if ((Options.Version >= 14) && ((Trans.at(c+1) != 1) || (Trans.at(c) != 1)))
+		if ((Options.Version >= PDFOptions::PDFVersion_14) && ((Trans.at(c+1) != 1) || (Trans.at(c) != 1)))
 			tmp += "/"+TRes+" gs\n";
 		tmp += SetClipPath(currItem);
 		tmp += "h\nW* n\n";
@@ -5736,7 +5736,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 				cnx += "/"+StdFonts["/ZapfDingbats"];
 			else
 			{
-				if (Options.Version < 14)
+				if (Options.Version < PDFOptions::PDFVersion_14)
 					cnx += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 				else
 					cnx += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()];
@@ -5750,7 +5750,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 			cnx += ")";
 			PutDoc("/DA "+EncString(cnx,annotationObj)+"\n");
 			int flg = ite->annotation().Flag();
-			if (Options.Version == 13)
+			if (Options.Version == PDFOptions::PDFVersion_13)
 				flg = flg & 522247;
 			PutDoc("/Ff "+QString::number(flg)+"\n");
 			QString xs[] = {"N", "I", "O", "P"};
@@ -6007,7 +6007,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 		cc += "/Tx BMC\nBT\n";
 		if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 			cc += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
-		if (Options.Version < 14)
+		if (Options.Version < PDFOptions::PDFVersion_14)
 			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
 			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()];
@@ -6049,7 +6049,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nS\n";
 		cc += "/Tx BMC\nq\nBT\n";
 		cc += "0 g\n";
-		if (Options.Version < 14)
+		if (Options.Version < PDFOptions::PDFVersion_14)
 			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
 			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()];
@@ -6638,7 +6638,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.pdf");
 				QStringList opts;
 				opts.append("-dEPSCrop");
-				if (Options.Version >= 14)
+				if (Options.Version >= PDFOptions::PDFVersion_14)
 					opts.append( "-dCompatibilityLevel=1.4" );
 				else
 					opts.append( "-dCompatibilityLevel=1.3" );
@@ -6954,7 +6954,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			else
 			{
 				bool gotAlpha = false;
-				bool pdfVer14 = (Options.Version >= 14);
+				bool pdfVer14 = (Options.Version >= PDFOptions::PDFVersion_14);
 				gotAlpha = img2.getAlpha(fn, c->pixm.imgInfo.actualPageNumber, im2, true, pdfVer14, afl, img.width(), img.height());
 				if (!gotAlpha)
 				{
@@ -6997,7 +6997,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 						compAlphaAvail = true;
 					}
 				}
-				if (Options.Version >= 14)
+				if (Options.Version >= PDFOptions::PDFVersion_14)
 				{
 					PutDoc("/Width "+QString::number(origWidth)+"\n");
 					PutDoc("/Height "+QString::number(origHeight)+"\n");
@@ -7127,7 +7127,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 //				PutDoc("/Decode [1 0 1 0 1 0 1 0]\n");
 			if (alphaM)
 			{
-				if (Options.Version >= 14)
+				if (Options.Version >= PDFOptions::PDFVersion_14)
 					PutDoc("/SMask "+QString::number(maskObj)+" 0 R\n");
 				else
 					PutDoc("/Mask "+QString::number(maskObj)+" 0 R\n");
@@ -7349,7 +7349,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		}
 		PutDoc(">>\n");
 	}
-	if ((Options.Version == 15) && (Options.useLayers))
+	if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 	{
 		PutDoc("/Properties <<\n");
 		ScLayer ll;
@@ -7522,7 +7522,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 	for (int th = 0; th < Threads.count(); ++th)
 		PutDoc(QString::number(Threads[th])+" 0 R ");
 	PutDoc("]\nendobj\n");
-	if ((Options.Version == 15) && (Options.useLayers))
+	if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 	{
 		XRef[8] = bytesWritten();
 		QStringList lay;
@@ -7572,7 +7572,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		PutDoc("]\n");
 		PutDoc(">>\nendobj\n");
 	}
-	if (Options.Version == 12)
+	if (Options.Version == PDFOptions::PDFVersion_X3)
 	{
 		StartObj(ObjCounter);
 		ObjCounter++;
