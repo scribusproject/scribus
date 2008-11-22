@@ -1644,6 +1644,20 @@ QFont SVGPlug::getFontFromStyle(SvgStyle& style)
 		else if (style.FontStretch == "wider")
 			font.setStretch(QFont::SemiExpanded);
 	}
+	if (!style.textDecoration.isEmpty())
+	{
+		bool underline = false, overline  = false;
+		bool strikeOut = false;
+		if (style.textDecoration == "underline")
+			underline = true;
+		else if (style.textDecoration == "overline")
+			overline = true;
+		else if (style.textDecoration == "line-through")
+			strikeOut = true;
+		font.setUnderline(underline);
+		font.setOverline(overline);
+		font.setStrikeOut(strikeOut);
+	}
 	font.setPointSize(style.FontSize / 10);
 	return font;
 }
@@ -2157,6 +2171,8 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		obj->FontSize = static_cast<int>(parseFontSize(params) * 10.0);
 	else if( command == "text-anchor" )
 		obj->textAnchor = params;
+	else if( command == "text-decoration" )
+		obj->textDecoration = params;
 	else if (command == "clip-path")
 	{
 		if (params.startsWith( "url("))
@@ -2226,6 +2242,8 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 		parsePA( obj, "font-size", e.attribute( "font-size" ) );
 	if( !e.attribute( "text-anchor" ).isEmpty() )
 		parsePA( obj, "text-anchor", e.attribute( "text-anchor" ) );
+	if( !e.attribute( "text-decoration" ).isEmpty() )
+		parsePA( obj, "text-decoration", e.attribute( "text-decoration" ) );
 	QString style = e.attribute( "style" ).simplified();
 	QStringList substyles = style.split(';', QString::SkipEmptyParts);
 	for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )

@@ -175,6 +175,7 @@ public:
 	double FillOpacity;
 	double StrokeOpacity;
 	QString textAnchor;
+	QString textDecoration;
 	FPointArray clipPath;
 };
 
