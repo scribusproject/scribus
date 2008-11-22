@@ -176,6 +176,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("POLYC", m_Doc->toolSettings.polyC);
 	docu.writeAttribute("POLYF", m_Doc->toolSettings.polyF);
 	docu.writeAttribute("POLYR", m_Doc->toolSettings.polyR);
+	docu.writeAttribute("POLYCUR", m_Doc->toolSettings.polyCurvature);
 	docu.writeAttribute("POLYFD", m_Doc->toolSettings.polyFd);
 	docu.writeAttribute("POLYS", static_cast<int>(m_Doc->toolSettings.polyS));
 	docu.writeAttribute("AutoSave", static_cast<int>(m_Doc->AutoSave));

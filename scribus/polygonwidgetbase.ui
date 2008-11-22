@@ -1,0 +1,243 @@
+<ui version="4.0" >
+ <class>PolygonWidgetBase</class>
+ <widget class="QWidget" name="PolygonWidgetBase" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>443</width>
+    <height>278</height>
+   </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="Maximum" hsizetype="Maximum" >
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_3" >
+   <item row="0" column="0" >
+    <layout class="QGridLayout" name="gridLayout" >
+     <property name="spacing" >
+      <number>5</number>
+     </property>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="label" >
+       <property name="text" >
+        <string>Corn&amp;ers:</string>
+       </property>
+       <property name="buddy" >
+        <cstring>Ecken</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="QSpinBox" name="Ecken" >
+       <property name="toolTip" >
+        <string>Number of corners for polygons</string>
+       </property>
+       <property name="minimum" >
+        <number>3</number>
+       </property>
+       <property name="maximum" >
+        <number>999</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QLabel" name="label_2" >
+       <property name="text" >
+        <string>&amp;Rotation:</string>
+       </property>
+       <property name="buddy" >
+        <cstring>Faktor2</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" >
+      <widget class="QSpinBox" name="Faktor2" >
+       <property name="toolTip" >
+        <string>Degrees of rotation for polygons</string>
+       </property>
+       <property name="minimum" >
+        <number>-180</number>
+       </property>
+       <property name="maximum" >
+        <number>180</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="2" >
+      <widget class="QSlider" name="Slider2" >
+       <property name="toolTip" >
+        <string>Degrees of rotation for polygons</string>
+       </property>
+       <property name="minimum" >
+        <number>-180</number>
+       </property>
+       <property name="maximum" >
+        <number>180</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="tickPosition" >
+        <enum>QSlider::TicksBelow</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item rowspan="2" row="0" column="1" >
+    <widget class="QLabel" name="Preview" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize" >
+      <size>
+       <width>260</width>
+       <height>260</height>
+      </size>
+     </property>
+     <property name="maximumSize" >
+      <size>
+       <width>260</width>
+       <height>260</height>
+      </size>
+     </property>
+     <property name="sizeIncrement" >
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="toolTip" >
+      <string>Sample Polygon</string>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::Panel</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <property name="lineWidth" >
+      <number>2</number>
+     </property>
+     <property name="text" >
+      <string/>
+     </property>
+     <property name="alignment" >
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" >
+    <widget class="QGroupBox" name="Konvex" >
+     <property name="toolTip" >
+      <string>Apply Convex/Concave Factor to change shape of Polygons</string>
+     </property>
+     <property name="title" >
+      <string>Apply &amp;Factor</string>
+     </property>
+     <property name="checkable" >
+      <bool>true</bool>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2" >
+      <property name="margin" >
+       <number>10</number>
+      </property>
+      <property name="spacing" >
+       <number>5</number>
+      </property>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label_3" >
+        <property name="text" >
+         <string>&amp;Factor:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>Faktor</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QSpinBox" name="Faktor" >
+        <property name="toolTip" >
+         <string>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</string>
+        </property>
+        <property name="suffix" >
+         <string> %</string>
+        </property>
+        <property name="minimum" >
+         <number>-100</number>
+        </property>
+        <property name="maximum" >
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2" >
+       <widget class="QSlider" name="Slider1" >
+        <property name="toolTip" >
+         <string>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</string>
+        </property>
+        <property name="minimum" >
+         <number>-100</number>
+        </property>
+        <property name="maximum" >
+         <number>100</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition" >
+         <enum>QSlider::TicksBelow</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QLabel" name="label_5" >
+        <property name="text" >
+         <string>C&amp;urvature:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>CurvatureSpin</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QSpinBox" name="CurvatureSpin" >
+        <property name="suffix" >
+         <string> %</string>
+        </property>
+        <property name="maximum" >
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2" >
+       <widget class="QSlider" name="CurvatureSlider" >
+        <property name="maximum" >
+         <number>100</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition" >
+         <enum>QSlider::TicksBelow</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

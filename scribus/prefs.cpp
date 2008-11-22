@@ -392,7 +392,12 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.persistentScrapbook = tabScrapbook->persistentScrapbook->isChecked();
 	prefsManager->appPrefs.numScrapbookCopies = tabScrapbook->numScrapCopies->value();
 
-	tabTools->polyWidget->getValues(&prefsManager->appPrefs.toolSettings.polyC, &prefsManager->appPrefs.toolSettings.polyFd, &prefsManager->appPrefs.toolSettings.polyF, &prefsManager->appPrefs.toolSettings.polyS, &prefsManager->appPrefs.toolSettings.polyR);
+	tabTools->polyWidget->getValues(&prefsManager->appPrefs.toolSettings.polyC,
+									&prefsManager->appPrefs.toolSettings.polyFd,
+									&prefsManager->appPrefs.toolSettings.polyF,
+									&prefsManager->appPrefs.toolSettings.polyS,
+									&prefsManager->appPrefs.toolSettings.polyR,
+									&prefsManager->appPrefs.toolSettings.polyCurvature);
 
 	prefsManager->appPrefs.pageSize = tabDocument->prefsPageSizeName;
 	prefsManager->appPrefs.pageOrientation = tabDocument->pageOrientationComboBox->currentIndex();

@@ -44,6 +44,7 @@ SET(SCRIBUS_UI_SRC
   picsearchoptions.ui
   picstatus.ui
   pluginmanagerprefsgui.ui
+  polygonwidgetbase.ui
   printdialogbase.ui
   replacecolors.ui
   replaceonecolor.ui

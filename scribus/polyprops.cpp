@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "util_icon.h"
 
-PolygonProps::PolygonProps(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR) : QDialog( parent )
+PolygonProps::PolygonProps(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR, double polyCurvature) : QDialog( parent )
 {
 	setModal(true);
 	setWindowTitle( tr( "Polygon Properties" ) );
@@ -22,7 +22,7 @@ PolygonProps::PolygonProps(QWidget* parent, int polyC, int polyFd, double polyF,
 	PolygonPropsLayout = new QVBoxLayout( this );
 	PolygonPropsLayout->setMargin(10);
 	PolygonPropsLayout->setSpacing(5);
-	polyWidget = new PolygonWidget(this, polyC, polyFd, polyF, polyS, polyR);
+	polyWidget = new PolygonWidget(this, polyC, polyFd, polyF, polyS, polyR, polyCurvature);
 	PolygonPropsLayout->addWidget( polyWidget );
 	Layout1 = new QHBoxLayout;
 	Layout1->setMargin(0);
@@ -42,7 +42,7 @@ PolygonProps::PolygonProps(QWidget* parent, int polyC, int polyFd, double polyF,
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
-void PolygonProps::getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR)
+void PolygonProps::getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR, double* polyCurvature)
 {
-	polyWidget->getValues(polyC, polyFd, polyF, polyS, polyR);
+	polyWidget->getValues(polyC, polyFd, polyF, polyS, polyR, polyCurvature);
 }

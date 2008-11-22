@@ -425,7 +425,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	polygonHeadLine = new QLabel( tr( "Regular Polygons" ), subTabPolygon);
 	polygonHeadLine->setFont(f);
 	subTabPolygonLayout->addWidget( polygonHeadLine, 0, 0, Qt::AlignHCenter | Qt::AlignTop );
-	polyWidget = new PolygonWidget(subTabPolygon, prefsData->polyC, prefsData->polyFd, prefsData->polyF, prefsData->polyS, prefsData->polyR);
+	polyWidget = new PolygonWidget(subTabPolygon, prefsData->polyC, prefsData->polyFd, prefsData->polyF, prefsData->polyS, prefsData->polyR, prefsData->polyCurvature);
 	subTabPolygonLayout->addWidget( polyWidget, 1, 0 );
 	subStackTools->addWidget( subTabPolygon );
 

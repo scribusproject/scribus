@@ -103,17 +103,7 @@ void CreateMode::drawControls(QPainter* p)
 		}
 		else if (createObjectMode == modeDrawRegularPolygon)
 		{
-			FPointArray cli = RegularPolygonF(localRect.width(), localRect.height(), m_doc->toolSettings.polyC, m_doc->toolSettings.polyS, m_doc->toolSettings.polyF, m_doc->toolSettings.polyR);
-			FPoint np(cli.point(0));
-			QPainterPath path;
-			path.moveTo(np.x(), np.y());
-			for (uint ax = 1; ax < cli.size(); ++ax)
-			{
-				np = FPoint(cli.point(ax));
-				path.lineTo(np.x(), np.y());
-			}
-			np = FPoint(cli.point(0));
-			path.lineTo(np.x(), np.y());
+			QPainterPath path = RegularPolygon(localRect.width(), localRect.height(), m_doc->toolSettings.polyC, m_doc->toolSettings.polyS, m_doc->toolSettings.polyF, m_doc->toolSettings.polyR, m_doc->toolSettings.polyCurvature);
 			p->translate(localRect.left(), localRect.top());
 			p->drawPath(path);
 		}
@@ -684,18 +674,9 @@ PageItem* CreateMode::doCreateNewObject(void)
 				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 			}
 			currItem = m_doc->Items->at(z);
-			FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), m_doc->toolSettings.polyC, m_doc->toolSettings.polyS, m_doc->toolSettings.polyF, m_doc->toolSettings.polyR);
-			FPoint np(cli.point(0));
-			currItem->PoLine.resize(2);
-			currItem->PoLine.setPoint(0, np);
-			currItem->PoLine.setPoint(1, np);
-			for (uint ax = 1; ax < cli.size(); ++ax)
-			{
-				np = FPoint(cli.point(ax));
-				currItem->PoLine.putPoints(currItem->PoLine.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
-			}
-			np = FPoint(cli.point(0));
-			currItem->PoLine.putPoints(currItem->PoLine.size(), 2, np.x(), np.y(), np.x(), np.y());
+			QPainterPath path = RegularPolygon(currItem->width(), currItem->height(), m_doc->toolSettings.polyC, m_doc->toolSettings.polyS, m_doc->toolSettings.polyF, m_doc->toolSettings.polyR, m_doc->toolSettings.polyCurvature);
+			currItem->PoLine.fromQPainterPath(path);
+			m_doc->AdjustItemSize(currItem);
 			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 			/*
 			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));

@@ -282,7 +282,8 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.polyF = 0.5;
 	appPrefs.toolSettings.polyS = false;
 	appPrefs.toolSettings.polyFd = 0;
-	appPrefs.toolSettings.polyR = 0;
+	appPrefs.toolSettings.polyR = 0.0;
+	appPrefs.toolSettings.polyCurvature = 0.0;
 //	appPrefs.PSize = 40;
 	appPrefs.ClipMargin = false;
 	appPrefs.GCRMode = false;
@@ -1347,6 +1348,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc9.setAttribute("POLYF", appPrefs.toolSettings.polyF);
 	dc9.setAttribute("POLYR", appPrefs.toolSettings.polyR);
 	dc9.setAttribute("POLYFD", appPrefs.toolSettings.polyFd);
+	dc9.setAttribute("POLYCUR", appPrefs.toolSettings.polyCurvature);
 	dc9.setAttribute("POLYS", static_cast<int>(appPrefs.toolSettings.polyS));
 	dc9.setAttribute("PSCALE", static_cast<int>(appPrefs.toolSettings.scaleType));
 	dc9.setAttribute("PASPECT", static_cast<int>(appPrefs.toolSettings.aspectRatio));
@@ -1875,6 +1877,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.toolSettings.polyC = dc.attribute("POLYC", "4").toInt();
 			appPrefs.toolSettings.polyF = dc.attribute("POLYF", "0.5").toDouble();
 			appPrefs.toolSettings.polyR = dc.attribute("POLYR", "0").toDouble();
+			appPrefs.toolSettings.polyCurvature = dc.attribute("POLYCUR", "0").toDouble();
 			appPrefs.toolSettings.polyFd = dc.attribute("POLYFD", "0").toInt();
 			appPrefs.toolSettings.polyS = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
 			appPrefs.toolSettings.dStartArrow = dc.attribute("StartArrow", "0").toInt();

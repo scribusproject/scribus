@@ -2032,18 +2032,8 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				}
 				currItem = m_doc->Items->at(z);
-				FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), m_doc->toolSettings.polyC, m_doc->toolSettings.polyS, m_doc->toolSettings.polyF, m_doc->toolSettings.polyR);
-				FPoint np(cli.point(0));
-				currItem->PoLine.resize(2);
-				currItem->PoLine.setPoint(0, np);
-				currItem->PoLine.setPoint(1, np);
-				for (uint ax = 1; ax < cli.size(); ++ax)
-				{
-					np = FPoint(cli.point(ax));
-					currItem->PoLine.putPoints(currItem->PoLine.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
-				}
-				np = FPoint(cli.point(0));
-				currItem->PoLine.putPoints(currItem->PoLine.size(), 2, np.x(), np.y(), np.x(), np.y());
+				QPainterPath path = RegularPolygon(currItem->width(), currItem->height(), m_doc->toolSettings.polyC, m_doc->toolSettings.polyS, m_doc->toolSettings.polyF, m_doc->toolSettings.polyR, m_doc->toolSettings.polyCurvature);
+				currItem->PoLine.fromQPainterPath(path);
 				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 				qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
 				m_doc->m_Selection->delaySignalsOn();

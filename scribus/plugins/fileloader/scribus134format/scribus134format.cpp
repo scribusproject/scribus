@@ -352,6 +352,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->toolSettings.polyC = dc.attribute("POLYC", "4").toInt();
 		m_Doc->toolSettings.polyF = dc.attribute("POLYF", "0.5").toDouble();
 		m_Doc->toolSettings.polyR = dc.attribute("POLYR", "0").toDouble();
+		m_Doc->toolSettings.polyCurvature = dc.attribute("POLYCUR", "0").toDouble();
 		m_Doc->toolSettings.polyFd = dc.attribute("POLYFD", "0").toInt();
 		m_Doc->toolSettings.polyS = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
 		m_Doc->AutoSave = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());

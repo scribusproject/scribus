@@ -65,36 +65,7 @@ uint getDouble(QString in, bool raw)
 	return ret;
 }
 
-QPolygon RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)
-{
-	uint cx = star ? c * 2 : c;
-	double seg = 360.0 / cx;
-	double sc = rota + 180.0;
-	double di = factor;
-	int mx = 0;
-	int my = 0;
-	QPolygon pts(cx);
-	for (uint x = 0; x < cx; ++x)
-	{
-		sc = seg * x + 180.0 + rota;
-		if (star)
-		{
-			double wf = x % 2 == 0 ? w / 2.0 : w / 2.0 * di;
-			double hf = x % 2 == 0 ? h / 2.0 : h / 2.0 * di;
-			mx = qRound(sin(sc / 180.0 * M_PI) * (wf) + (w/2.0));
-			my = qRound(cos(sc / 180.0 * M_PI) * (hf) + (h/2.0));
-		}
-		else
-		{
-			mx = qRound(sin(sc / 180.0 * M_PI) * (w/2.0) + (w/2.0));
-			my = qRound(cos(sc / 180.0 * M_PI) * (h/2.0) + (h/2.0));
-		}
-		pts.setPoint(x, mx, my);
-	}
-	return pts;
-}
-
-FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota)
+QPainterPath RegularPolygon(double w, double h, uint c, bool star, double factor, double rota, double factor2)
 {
 	uint cx = star ? c * 2 : c;
 	double seg = 360.0 / cx;
@@ -102,24 +73,70 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 	double di = factor;
 	double mx = 0;
 	double my = 0;
-	FPointArray pts(cx);
+	bool first = true;
+	double trueLength = sqrt(pow(sin(seg / 180.0 * M_PI) * (w / 2.0), 2) + pow(cos(seg / 180.0 * M_PI) * (h / 2.0) + (h/2.0) - h, 2));
+	QPainterPath pts;
 	for (uint x = 0; x < cx; ++x)
 	{
 		sc = seg * x + 180.0 + rota;
 		if (star)
 		{
-			double wf = x % 2 == 0 ? w / 2.0 : w / 2.0 * di;
-			double hf = x % 2 == 0 ? h / 2.0 : h / 2.0 * di;
+			double wf = w / 2.0;
+			double hf = h / 2.0;
+			if (x % 2 != 0)
+			{
+				wf *= di;
+				hf *= di;
+			}
 			mx = sin(sc / 180.0 * M_PI) * (wf) + (w/2.0);
 			my = cos(sc / 180.0 * M_PI) * (hf) + (h/2.0);
+			if (first)
+				pts.moveTo(mx, my);
+			else
+			{
+				if (factor2 != 0.0)
+				{
+					if (x % 2 != 0)
+					{
+						QPointF curr = pts.currentPosition();
+						double mxc = sin((sc + 90.0) / 180.0 * M_PI) * (-trueLength * factor2) + mx;
+						double myc = cos((sc + 90.0) / 180.0 * M_PI) * (-trueLength * factor2) + my;
+						pts.cubicTo(curr, QPointF(mxc, myc), QPointF(mx, my));
+					}
+					else
+					{
+						QPointF curr = pts.currentPosition();
+						double mxc = sin((sc - seg + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + curr.x();
+						double myc = cos((sc - seg + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + curr.y();
+						pts.cubicTo(QPointF(mxc, myc), QPointF(mx, my), QPointF(mx, my));
+					}
+				}
+				else
+					pts.lineTo(mx, my);
+			}
 		}
 		else
 		{
 			mx = sin(sc / 180.0 * M_PI) * (w/2.0) + (w/2.0);
 			my = cos(sc / 180.0 * M_PI) * (h/2.0) + (h/2.0);
+			if (first)
+				pts.moveTo(mx, my);
+			else
+				pts.lineTo(mx, my);
 		}
-		pts.setPoint(x, mx, my);
+		first = false;
 	}
+	if ((star) && (factor2 != 0.0))
+	{
+		sc = 360.0 + 180.0 + rota;
+		mx = sin(sc / 180.0 * M_PI) * (w / 2.0) + (w/2.0);
+		my = cos(sc / 180.0 * M_PI) * (h / 2.0) + (h/2.0);
+		QPointF curr = pts.currentPosition();
+		double mxc = sin((sc - seg + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + curr.x();
+		double myc = cos((sc - seg + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + curr.y();
+		pts.cubicTo(QPointF(mxc, myc), QPointF(mx, my), QPointF(mx, my));
+	}
+	pts.closeSubpath();
 	return pts;
 }
 

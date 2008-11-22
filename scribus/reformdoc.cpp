@@ -425,7 +425,12 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->toolSettings.dispX = tabTools->genDispX->value();
 	currDoc->toolSettings.dispY = tabTools->genDispY->value();
 	currDoc->toolSettings.constrain = tabTools->genRot->value();
-	tabTools->polyWidget->getValues(&currDoc->toolSettings.polyC, &currDoc->toolSettings.polyFd, &currDoc->toolSettings.polyF, &currDoc->toolSettings.polyS, &currDoc->toolSettings.polyR);
+	tabTools->polyWidget->getValues(&currDoc->toolSettings.polyC,
+									&currDoc->toolSettings.polyFd,
+									&currDoc->toolSettings.polyF,
+									&currDoc->toolSettings.polyS,
+									&currDoc->toolSettings.polyR,
+									&currDoc->toolSettings.polyCurvature);
 	currDoc->AutoSave = tabPage->GroupAS->isChecked();
 	currDoc->AutoSaveTime = tabPage->ASTime->value() * 60 * 1000;
 	if (currDoc->AutoSave)

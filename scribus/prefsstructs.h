@@ -130,6 +130,7 @@ struct toolPrefs
 	double polyF;
 	bool polyS;
 	double polyR;
+	double polyCurvature;
 	/* Picture Tool */
 	QString dBrushPict;
 	int shadePict;

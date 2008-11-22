@@ -261,6 +261,7 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	currDoc->toolSettings.polyC = prefsManager->appPrefs.toolSettings.polyC;
 	currDoc->toolSettings.polyF = prefsManager->appPrefs.toolSettings.polyF;
 	currDoc->toolSettings.polyR = prefsManager->appPrefs.toolSettings.polyR;
+	currDoc->toolSettings.polyCurvature = prefsManager->appPrefs.toolSettings.polyCurvature;
 	currDoc->toolSettings.polyFd = prefsManager->appPrefs.toolSettings.polyFd;
 	currDoc->toolSettings.polyS = prefsManager->appPrefs.toolSettings.polyS;
 	currDoc->AutoSave = prefsManager->appPrefs.AutoSave;
