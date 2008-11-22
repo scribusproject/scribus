@@ -29,6 +29,7 @@ class MultiProgressDialog;
 class ScText;
 
 #include "scribusstructs.h"
+#include "scimagestructs.h"
 
 #ifdef HAVE_PODOFO
 #include <podofo/podofo.h>
@@ -73,6 +74,7 @@ private:
 		double ya;
 		double origXsc;
 		double origYsc;
+		QMap<int, ImageLoadRequest> RequestProps;
 	};
 	
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi);

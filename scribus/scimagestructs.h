@@ -21,6 +21,10 @@ struct ImageLoadRequest
 	bool useMask;
 	ushort opacity;
 	QString blend;
+	bool operator==(const ImageLoadRequest &rhs) const
+	{
+		return visible == rhs.visible && useMask == rhs.useMask && opacity == rhs.opacity && blend == rhs.blend;
+	}
 };
 
 struct ImageEffect

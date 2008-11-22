@@ -6628,7 +6628,11 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	ImInfo2.origYsc = c->imageYScale();
 	if (SharedImages.contains(fn))
 		ImInfo2 = SharedImages[fn];
-	if ((!SharedImages.contains(fn)) || (fromAN) || (c->effectsInUse.count() != 0) || ((ImInfo2.origXsc != ImInfo.origXsc) || (ImInfo2.origYsc != ImInfo.origYsc)))
+	if ((!SharedImages.contains(fn))
+		 || (fromAN)
+		 || (c->effectsInUse.count() != 0)
+		 || ((ImInfo2.origXsc != ImInfo.origXsc) || (ImInfo2.origYsc != ImInfo.origYsc))
+		 || (ImInfo2.RequestProps != c->pixm.imgInfo.RequestProps))
 	{
 		bool imageLoaded = false;
 		if ((extensionIndicatesPDF(ext) || ((extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != ImageType7))) && c->effectsInUse.count() == 0)
@@ -7156,6 +7160,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			ImInfo.Height = img.height();
 			ImInfo.xa = sx;
 			ImInfo.ya = sy;
+			ImInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 		} // not embedded PDF
 		if ((c->effectsInUse.count() == 0) && (!SharedImages.contains(fn)))
 			SharedImages.insert(fn, ImInfo);
