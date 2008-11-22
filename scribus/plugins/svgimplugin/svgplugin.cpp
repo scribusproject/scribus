@@ -2145,49 +2145,16 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	}
 	else if( command == "stroke-dashoffset" )
 		obj->dashOffset = params.toDouble();
-#if defined(IMPORT_TEXT_AS_VECTOR) && IMPORT_TEXT_AS_VECTOR
 	else if( command == "font-family" )
 		obj->FontFamily = params;
-#else
-	else if( command == "font-family" )
-	{
-		QString family = params;
-		QString ret = "";
-		family.replace( QRegExp( "'" ) , QChar( ' ' ) );
-		obj->FontFamily = m_Doc->toolSettings.defFont; // family;
-		bool found = false;
-		SCFontsIterator it(PrefsManager::instance()->appPrefs.AvailFonts);
-		for ( ; it.hasNext(); it.next())
-		{
-			QString fam;
-			QString fn = it.current().scName();
-			int	pos=fn.indexOf(" ");
-			fam = fn.left(pos);
-			if (fam == family)
-			{
-				found = true;
-				ret = fn;
-			}
-		}
-		if (found)
-			obj->FontFamily = ret;
-		else
-			obj->FontFamily = m_Doc->toolSettings.defFont;
-	}
-#endif
 	else if( command == "font-style" )
 		obj->FontStyle = params;
 	else if( command == "font-weight" )
 		obj->FontWeight = params;
 	else if( command == "font-stretch" )
 		obj->FontStretch = params;
-#if defined(IMPORT_TEXT_AS_VECTOR) && IMPORT_TEXT_AS_VECTOR
 	else if( command == "font-size" )
 		obj->FontSize = static_cast<int>(parseFontSize(params) * 10.0);
-#else
-	else if( command == "font-size" )
-		obj->FontSize = static_cast<int>(parseUnit(params) * 10.0);
-#endif
 	else if( command == "text-anchor" )
 		obj->textAnchor = params;
 	else if (command == "clip-path")
