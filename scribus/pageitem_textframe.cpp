@@ -408,7 +408,7 @@ struct LineControl {
 			maxShrink += (1 - style.minGlyphExtension()) * wide;
 		}
 		maxStretch += (style.maxGlyphExtension() - 1) * wide;
-        }
+	}
 
 	/// called when a possible break is passed
 	void rememberBreak(int index, double pos)
