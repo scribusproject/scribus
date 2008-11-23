@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 
 
 ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, bool modal, Qt::WFlags f)
-: QDialog ( parent, f | Qt::Tool | Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint | Qt::WindowSystemMenuHint ),
+: QDialog ( parent, f | Qt::Tool | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint | Qt::WindowSystemMenuHint ),
 palettePrefs(0),
 prefsContextName(QString::null),
 visibleOnStartup(false)
