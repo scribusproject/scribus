@@ -96,6 +96,44 @@ void gtAction::clearFrame()
 	textFrame->CPos = 0;
 }
 
+void gtAction::writeUnstyled(const QString& text)
+{
+	if (isFirstWrite)
+	{
+		if (!doAppend)
+		{
+			if (it->nextInChain() != 0)
+			{
+				PageItem *nextItem = it->nextInChain();
+				while (nextItem != 0)
+				{
+					nextItem->itemText.clear();
+					nextItem->CPos = 0;
+					nextItem = nextItem->nextInChain();
+				}
+			}
+			it->itemText.clear();
+			it->CPos = 0;
+		}
+	}
+
+	QChar ch0(0), ch5(5), ch10(10), ch13(13); 
+	for (int a = 0; a < text.length(); ++a)
+	{
+		if ((text.at(a) == ch0) || (text.at(a) == ch13))
+			continue;
+		QChar ch = text.at(a);
+		if ((ch == ch10) || (ch == ch5))
+			ch = ch13;
+		
+		int pos = it->itemText.length();
+		it->itemText.insertChars(pos, QString(ch));
+	}
+	
+	lastCharWasLineChange = text.right(1) == "\n";
+	isFirstWrite = false;
+}
+
 void gtAction::write(const QString& text, gtStyle *style)
 {
 	if (isFirstWrite)
@@ -135,7 +173,6 @@ void gtAction::write(const QString& text, gtStyle *style)
 	if ((inPara) && (!lastCharWasLineChange) && (text.left(1) != "\n") && (lastParagraphStyle != -1))
 		paragraphStyle = lastParagraphStyle;
 
-
 	if (paragraphStyle == -1)
 		paragraphStyle = 0; //::findParagraphStyle(textFrame->doc(), textFrame->doc()->currentStyle);
 
@@ -143,47 +180,24 @@ void gtAction::write(const QString& text, gtStyle *style)
 
 	gtFont* font = style->getFont();
 	QString fontName = validateFont(font).scName();
-	gtFont font2(*font);
-	font2.setName(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().font().scName());
-	QString fontName2 = validateFont(&font2).scName();
-	CharStyle lastStyle;
+	CharStyle lastStyle, newStyle;
 	int lastStyleStart = 0;
-
-	CharStyle newStyle;
+	
 	if ((inPara) && (!overridePStyleFont))
 	{
-		if (textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().font().isNone())
+		if (paraStyle.charStyle().font().isNone())
+		{
+			gtFont font2(*font);
+			font2.setName(paraStyle.charStyle().font().scName());
+			QString fontName2 = validateFont(&font2).scName();
 			newStyle.setFont((*textFrame->doc()->AllFonts)[fontName2]);
-		else
-			newStyle.setFont(paraStyle.charStyle().font());
-		newStyle.setFontSize(paraStyle.charStyle().fontSize());
-		newStyle.setFillColor(paraStyle.charStyle().fillColor());
-		newStyle.setFillShade(paraStyle.charStyle().fillShade());
-		newStyle.setStrokeColor(paraStyle.charStyle().strokeColor());
-		newStyle.setStrokeShade(paraStyle.charStyle().strokeShade());
-		newStyle.setFeatures(paraStyle.charStyle().features());
+		}
 	}
 	else
 	{
-		newStyle.setFont((*textFrame->doc()->AllFonts)[fontName]);
-		newStyle.setFontSize(font->getSize());
-		newStyle.setFillColor(parseColor(font->getColor()));
-		newStyle.setFillShade(font->getShade());
-		newStyle.setStrokeColor(parseColor(font->getStrokeColor()));
-		newStyle.setStrokeShade(font->getStrokeShade());
-		newStyle.setFeatures(static_cast<StyleFlag>(font->getEffectsValue()).featureList());
+		setCharStyleAttributes(font, newStyle);
 	}
-	newStyle.setScaleH(font->getHscale());
-	newStyle.setScaleV(1000);
-	newStyle.setBaselineOffset(0);
-	newStyle.setShadowXOffset(50);
-	newStyle.setShadowYOffset(-50);
-	newStyle.setOutlineWidth(10);
-	newStyle.setUnderlineOffset(-1);
-	newStyle.setUnderlineWidth(-1);
-	newStyle.setStrikethruOffset(-1);
-	newStyle.setStrikethruWidth(-1);
-	newStyle.setTracking(font->getKerning());
+	/*newStyle.eraseCharStyle(paraStyle.charStyle());*/
 
 	lastStyle = newStyle;
 	lastStyleStart = it->itemText.length();
@@ -199,12 +213,27 @@ void gtAction::write(const QString& text, gtStyle *style)
 		
 		int pos = it->itemText.length();
 		it->itemText.insertChars(pos, QString(ch));
-		if (ch == SpecialChars::PARSEP) {
-			it->itemText.applyStyle(pos, paraStyle);
+		if (ch == SpecialChars::PARSEP) 
+		{
+			if (paraStyle.hasName())
+			{
+				ParagraphStyle pstyle;
+				pstyle.setParent(paraStyle.name());
+				it->itemText.applyStyle(pos, pstyle);
+			}
+			else
+				it->itemText.applyStyle(pos, paraStyle);
 		}
 	}
 	it->itemText.applyCharStyle(lastStyleStart, it->itemText.length()-lastStyleStart, lastStyle);
-	it->itemText.applyStyle(qMax(0,it->itemText.length()-1), paraStyle);
+	if (paraStyle.hasName())
+	{
+		ParagraphStyle pStyle;
+		pStyle.setParent(paraStyle.name());
+		it->itemText.applyStyle(qMax(0,it->itemText.length()-1), pStyle);
+	}
+	else
+		it->itemText.applyStyle(qMax(0,it->itemText.length()-1), paraStyle);
 	
 	lastCharWasLineChange = text.right(1) == "\n";
 	inPara = style->target() == "paragraph";
@@ -297,13 +326,20 @@ void gtAction::getFrameFont(gtFont *font)
 {
 	const CharStyle& style(textFrame->itemText.defaultStyle().charStyle());
 	
-	font->setName(style.font().scName());
-	font->setSize(style.fontSize());
-	font->setColor(style.fillColor());
-	font->setShade(qRound(style.fillShade()));
-	font->setStrokeColor(style.strokeColor());
-	font->setStrokeShade(qRound(style.strokeShade()));
-	font->setHscale(qRound(style.scaleH()));
+	if (!style.isInhFont())
+		font->setName(style.font().scName());
+	if (!style.isInhFontSize())
+		font->setSize(style.fontSize());
+	if (!style.isInhFillColor())
+		font->setColor(style.fillColor());
+	if (!style.isInhFillShade())
+		font->setShade(qRound(style.fillShade()));
+	if (!style.isInhStrokeColor())
+		font->setStrokeColor(style.strokeColor());
+	if (!style.isInhStrokeShade())
+		font->setStrokeShade(qRound(style.strokeShade()));
+	if (!style.isInhScaleH())
+		font->setHscale(qRound(style.scaleH()));
 	font->setKerning(0);
 }
 
@@ -317,14 +353,22 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 	const ParagraphStyle& vg(textFrame->itemText.defaultStyle());
 	fstyle->setName(vg.name());
 	fstyle->setLineSpacing(vg.lineSpacing());
-	fstyle->setAlignment(vg.alignment());
-	fstyle->setIndent(vg.leftMargin());
-	fstyle->setFirstLineIndent(vg.firstIndent());
-	fstyle->setSpaceAbove(vg.gapBefore());
-	fstyle->setSpaceBelow(vg.gapAfter());
-	fstyle->setDropCap(vg.hasDropCap());
-	fstyle->setDropCapHeight(vg.dropCapLines());
 	fstyle->setAdjToBaseline(vg.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing);
+
+	if (!vg.isInhAlignment())
+		fstyle->setAlignment(vg.alignment());
+	if (!vg.isInhLeftMargin())
+		fstyle->setIndent(vg.leftMargin());
+	if (!vg.isInhFirstIndent())
+		fstyle->setFirstLineIndent(vg.firstIndent());
+	if (!vg.isInhGapBefore())
+		fstyle->setSpaceAbove(vg.gapBefore());
+	if (!vg.isInhGapAfter())
+		fstyle->setSpaceBelow(vg.gapAfter());
+	if (!vg.isInhHasDropCap())
+		fstyle->setDropCap(vg.hasDropCap());
+	if (!vg.isInhDropCapLines())
+		fstyle->setDropCapHeight(vg.dropCapLines());
 
 	gtFont font;
 	getFrameFont(&font);
@@ -341,32 +385,13 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 			return;
 	}
 	gtFont* font = pstyle->getFont();
+	
 	ParagraphStyle vg;
-	vg.setName(pstyle->getName());
-	double linesp;
-	if (pstyle->getAutoLineSpacing())
-		linesp = getLineSpacing(pstyle->getFont()->getSize());
-	else
-		linesp = pstyle->getLineSpacing();
-	vg.setLineSpacingMode(pstyle->isAdjToBaseline() ? ParagraphStyle::BaselineGridLineSpacing : ParagraphStyle::FixedLineSpacing);
-	vg.setLineSpacing(linesp);
-	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pstyle->getAlignment()));
-	vg.setLeftMargin(pstyle->getIndent());
-	vg.setFirstIndent(pstyle->getFirstLineIndent());
-	vg.setGapBefore(pstyle->getSpaceAbove());
-	vg.setGapAfter(pstyle->getSpaceBelow());
-	vg.charStyle().setFont(validateFont(font));
-	vg.charStyle().setFontSize(font->getSize());
-	vg.setTabValues(*pstyle->getTabValues());
-	vg.setHasDropCap(pstyle->hasDropCap());
-	vg.setDropCapLines(pstyle->getDropCapHeight());
-	vg.setDropCapOffset(0);
-	vg.charStyle().setFeatures(static_cast<StyleFlag>(font->getEffectsValue()).featureList());
-	vg.charStyle().setFillColor(parseColor(font->getColor()));
-	vg.charStyle().setFillShade(font->getShade());
-	vg.charStyle().setStrokeColor(parseColor(font->getStrokeColor()));
-	vg.charStyle().setStrokeShade(font->getStrokeShade());
-	vg.charStyle().setShadowXOffset(50);
+	setParaStyleAttributes(pstyle, vg);
+	setCharStyleAttributes(font, vg.charStyle());
+
+	// Maybe set those attributes when target is the frame
+	/*vg.charStyle().setShadowXOffset(50);
 	vg.charStyle().setShadowYOffset(-50);
 	vg.charStyle().setOutlineWidth(10);
 	vg.charStyle().setScaleH(1000);
@@ -376,13 +401,71 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.charStyle().setUnderlineOffset(textFrame->doc()->typographicSettings.valueUnderlinePos);
 	vg.charStyle().setUnderlineWidth(textFrame->doc()->typographicSettings.valueUnderlineWidth);
 	vg.charStyle().setStrikethruOffset(textFrame->doc()->typographicSettings.valueStrikeThruPos);
-	vg.charStyle().setStrikethruWidth(textFrame->doc()->typographicSettings.valueStrikeThruPos);
+	vg.charStyle().setStrikethruWidth(textFrame->doc()->typographicSettings.valueStrikeThruPos);*/
 
 	StyleSet<ParagraphStyle> tmp;
 	tmp.create(vg);
 	textFrame->doc()->redefineStyles(tmp, false);
 	
 	m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
+}
+
+void gtAction:: setCharStyleAttributes(gtFont *font, CharStyle& style)
+{
+	int flags = font->getFlags();
+	style.erase();
+
+	if ((flags & gtFont::familyWasSet) || (flags & gtFont::weightWasSet))
+		style.setFont(validateFont(font));
+	if (flags & gtFont::sizeWasSet)
+		style.setFontSize(font->getSize());
+	if (flags & gtFont::effectWasSet)
+		style.setFeatures(static_cast<StyleFlag>(font->getEffectsValue()).featureList());
+	if (flags & gtFont::fillColorWasSet)
+		style.setFillColor(parseColor(font->getColor()));
+	if (flags & gtFont::fillShadeWasSet)
+		style.setFillShade(font->getShade());
+	if (flags & gtFont::strokeColorWasSet)
+		style.setStrokeColor(parseColor(font->getStrokeColor()));
+	if (flags & gtFont::strokeShadeWasSet)
+		style.setStrokeShade(font->getStrokeShade());
+	if (flags & gtFont::hscaleWasSet)
+		style.setScaleH(font->getHscale());
+	if (flags & gtFont::kerningWasSet)
+		style.setTracking(font->getKerning());
+}
+
+void gtAction::setParaStyleAttributes(gtParagraphStyle *pstyle, ParagraphStyle& style)
+{
+	double linesp;
+	int flags = pstyle->getFlags();
+	style.erase();
+
+	style.setName(pstyle->getName());
+	if (pstyle->getAutoLineSpacing())
+		linesp = getLineSpacing(pstyle->getFont()->getSize());
+	else
+		linesp = pstyle->getLineSpacing();
+	style.setLineSpacingMode(pstyle->isAdjToBaseline() ? ParagraphStyle::BaselineGridLineSpacing : ParagraphStyle::FixedLineSpacing);
+	style.setLineSpacing(linesp);
+
+	if (flags & gtParagraphStyle::alignmentWasSet)
+		style.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pstyle->getAlignment()));
+	if (flags & gtParagraphStyle::indentWasSet)
+		style.setLeftMargin(pstyle->getIndent());
+	if (flags & gtParagraphStyle::firstIndentWasSet)
+		style.setFirstIndent(pstyle->getFirstLineIndent());
+	if (flags & gtParagraphStyle::spaceAboveWasSet)
+		style.setGapBefore(pstyle->getSpaceAbove());
+	if (flags & gtParagraphStyle::spaceBelowWasSet)
+		style.setGapAfter(pstyle->getSpaceBelow());
+	if (flags & gtParagraphStyle::tabValueWasSet)
+		style.setTabValues(*pstyle->getTabValues());
+	if (flags & gtParagraphStyle::dropCapWasSet)
+		style.setHasDropCap(pstyle->hasDropCap());
+	if (flags & gtParagraphStyle::dropCapHeightWasSet)
+		style.setDropCapLines(pstyle->getDropCapHeight());
+	/*vg.setDropCapOffset(0);*/
 }
 
 void gtAction::removeParagraphStyle(const QString& name)
@@ -410,31 +493,12 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 {
 	gtFont* font = pstyle->getFont();
 	ParagraphStyle vg;
-	vg.setName(pstyle->getName());
-	double linesp;
-	if (pstyle->getAutoLineSpacing())
-		linesp = getLineSpacing(pstyle->getFont()->getSize());
-	else
-		linesp = pstyle->getLineSpacing();
-	vg.setLineSpacingMode(pstyle->isAdjToBaseline() ? ParagraphStyle::BaselineGridLineSpacing : ParagraphStyle::FixedLineSpacing);
-	vg.setLineSpacing(linesp);
-	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pstyle->getAlignment()));
-	vg.setLeftMargin(pstyle->getIndent());
-	vg.setFirstIndent(pstyle->getFirstLineIndent());
-	vg.setGapBefore(pstyle->getSpaceAbove());
-	vg.setGapAfter(pstyle->getSpaceBelow());
-	vg.charStyle().setFont(validateFont(font));
-	vg.charStyle().setFontSize(font->getSize());
-	vg.setTabValues(*pstyle->getTabValues());
-	vg.setHasDropCap(pstyle->hasDropCap());
-	vg.setDropCapLines(pstyle->getDropCapHeight());
-	vg.setDropCapOffset(0);
-	vg.charStyle().setFeatures(static_cast<StyleFlag>(font->getEffectsValue()).featureList());
-	vg.charStyle().setFillColor(parseColor(font->getColor()));
-	vg.charStyle().setFillShade(font->getShade());
-	vg.charStyle().setStrokeColor(parseColor(font->getStrokeColor()));
-	vg.charStyle().setStrokeShade(font->getStrokeShade());
-	vg.charStyle().setShadowXOffset(50);
+
+	setParaStyleAttributes(pstyle, vg);
+	setCharStyleAttributes(font, vg.charStyle());
+
+	// Maybe set those attributes when target is the frame
+	/*vg.charStyle().setShadowXOffset(50);
 	vg.charStyle().setShadowYOffset(-50);
 	vg.charStyle().setOutlineWidth(10);
 	vg.charStyle().setScaleH(1000);
@@ -444,7 +508,8 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.charStyle().setUnderlineOffset(textFrame->doc()->typographicSettings.valueUnderlinePos);
 	vg.charStyle().setUnderlineWidth(textFrame->doc()->typographicSettings.valueUnderlineWidth);
 	vg.charStyle().setStrikethruOffset(textFrame->doc()->typographicSettings.valueStrikeThruPos);
-	vg.charStyle().setStrikethruWidth(textFrame->doc()->typographicSettings.valueStrikeThruPos);
+	vg.charStyle().setStrikethruWidth(textFrame->doc()->typographicSettings.valueStrikeThruPos);*/
+
 	StyleSet<ParagraphStyle> tmp;
 	tmp.create(vg);
 	textFrame->doc()->redefineStyles(tmp, false);

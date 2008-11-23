@@ -57,6 +57,7 @@ public:
 	void append(const QString& text); // Use the styles set beforehand
 	void append(const QString& text, gtStyle *style); // Use the style provided as a parameter
 	void append(const QString& text, gtStyle *style, bool updatePStyle);
+	void appendUnstyled(const QString& text); // Do not apply any formatting
 	double getFrameWidth();
 	QString getFrameName();
 	bool getUpdateParagraphStyles();

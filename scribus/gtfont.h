@@ -91,6 +91,7 @@ enum FontWidth {
 class SCRIBUS_API gtFont
 {
 private:
+	int     setflags;
 	QString name;
 	QString family;
 	QString weight;
@@ -123,13 +124,33 @@ private:
 	void parseWidth();
 	void parseFamily();
 	int  find(const QString& where, const QString& what);
+
 public:
+
+	typedef enum
+	{
+		familyWasSet = 1,
+		weightWasSet = 2,
+		slantWasSet = 4,
+		widthWasSet = 8,
+		sizeWasSet  = 16,
+		effectWasSet = 32,
+		fillColorWasSet = 64,
+		fillShadeWasSet = 128,
+		strokeColorWasSet = 256,
+		strokeShadeWasSet = 512,
+		hscaleWasSet  = 1024,
+		kerningWasSet = 2048
+	} wasSetFlags;
+
 	static const QString fontWeights[];
 	static const QString fontSlants[];
 	static const QString fontWidths[];
+
 	void    noEffects();
 	bool    isToggled(FontEffect fe);
 	bool    toggleEffect(FontEffect fe);
+	int     getFlags();
 	int     getEffectsValue();
 	void	setName(QString newName);
 	void    setFamily(QString newFamily);
@@ -159,7 +180,7 @@ public:
 	int     getStrokeShade();
 	int     getHscale();
 	void    setHscale(int newHscale);
-	int  getKerning();
+	int     getKerning();
 	void    setKerning(int newKerning);
 	gtFont();
 	gtFont(const gtFont& f);

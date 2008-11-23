@@ -102,7 +102,7 @@ double gtWriter::getPreferredLineSpacing(double fontSize)
 
 void gtWriter::append(const QString& text)
 {
-	if (text.isNull())
+	if (text.isEmpty())
 		return;
 	if (text.length() == 0)
 		return;
@@ -118,6 +118,15 @@ void gtWriter::append(const QString& text)
 	{
 		action->write(text, frameStyle);
 	}
+}
+
+void gtWriter::appendUnstyled(const QString& text)
+{
+	if (text.isEmpty())
+		return;
+	if (text.length() == 0)
+		return;
+	action->writeUnstyled(text);
 }
 
 double gtWriter::getFrameWidth()

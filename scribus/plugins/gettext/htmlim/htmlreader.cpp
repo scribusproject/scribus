@@ -272,7 +272,7 @@ bool HTMLReader::characters(const QString &ch)
 		}
 
 		if (noFormatting)
-			writer->append(tmp);
+			writer->appendUnstyled(tmp);
 		else if (inP)
 			writer->append(tmp, pstylep);
 		else if (inLI)

@@ -44,7 +44,7 @@ TxtIm::TxtIm(const QString& fname, const QString& enc, bool textO, gtWriter *w)
 
 void TxtIm::write()
 {
-	writer->append(text);
+	writer->appendUnstyled(text);
 }
 
 void TxtIm::loadText()

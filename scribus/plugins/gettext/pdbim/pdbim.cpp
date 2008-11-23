@@ -71,10 +71,12 @@ void PdbIm::write()
 	else
 		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
 	data = codec->toUnicode(data.toLocal8Bit());
-	gtParagraphStyle *pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+	// Applying default style is of very limited use with 135svn style system
+	/*gtParagraphStyle *pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
 	pstyle->setName(writer->getFrameName() + "-" + QObject::tr("PDB_data", "PDB Importer"));
 	writer->append(data, pstyle);
-	delete pstyle;
+	delete pstyle;*/
+	writer->appendUnstyled(data);
 }
 
 void PdbIm::loadFile(QString fname)

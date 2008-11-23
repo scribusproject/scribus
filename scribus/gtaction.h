@@ -42,6 +42,8 @@ class ScFace;
 #include "gtstyle.h"
 #include "scribusapi.h"
 
+class CharStyle;
+class ParagraphStyle;
 class ScribusDoc;
 class ScribusMainWindow;
 
@@ -65,14 +67,16 @@ private:
 	bool overridePStyleFont;
 	QString currentFrameStyle;
 	FontFamilyMap families;
+
 	int findParagraphStyle(const QString& name);
 	int findParagraphStyle(gtParagraphStyle* pstyle);
 	int applyParagraphStyle(gtParagraphStyle* pstyle);
-	ScFace validateFont(gtFont* font);
+
+	ScFace  validateFont(gtFont* font);
 	QString findFontName(gtFont* font);
-	void updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle);
+	void    updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle);
 	QString parseColor(const QString &s);
-	QColor parseColorN(const QString &rgbColor);
+	QColor  parseColorN(const QString &rgbColor);
 	void finalize();
 	PrefsManager *prefsManager;
 public:
@@ -88,8 +92,11 @@ public:
 	void getFrameFont(gtFont *font);
 	void getFrameStyle(gtFrameStyle *fstyle);
 	void write(const QString& text, gtStyle *style);
+	void writeUnstyled(const QString& text);
 	void applyFrameStyle(gtFrameStyle* fstyle);
 	void createParagraphStyle(gtParagraphStyle* pstyle);
+	void setCharStyleAttributes(gtFont *font, CharStyle& style);
+	void setParaStyleAttributes(gtParagraphStyle *gtstyle, ParagraphStyle& style);
 	void updateParagraphStyle(const QString& pstyleName, gtParagraphStyle* pstyle);
 	void removeParagraphStyle(const QString& name);
 	void removeParagraphStyle(int index);

@@ -69,6 +69,7 @@ const QString gtFont::fontWidths[FontWidthMAX] =
 
 gtFont::gtFont()
 {
+	setflags = 0;
 	noEffects();
 	name        = "";
 	family      = "";
@@ -127,6 +128,12 @@ gtFont::gtFont(const gtFont& f)
 	fontEffects[SUPERSCRIPT]   = f.fontEffects[SUPERSCRIPT];
 	fontEffects[SUBSCRIPT]     = f.fontEffects[SUBSCRIPT];
 	fontEffects[OUTLINE]       = f.fontEffects[OUTLINE];
+	setflags = f.setflags;
+}
+
+int gtFont::getFlags()
+{
+	return setflags;
 }
 
 bool gtFont::isToggled(FontEffect fe)
@@ -163,6 +170,7 @@ bool gtFont::toggleEffect(FontEffect fe)
 			if (fontEffects[fe])
 				fontEffects[NORMAL] = false;
 	}
+	setflags |= effectWasSet;
 	return fontEffects[fe];
 }
 
@@ -194,12 +202,14 @@ void gtFont::setName(QString newName)
 	setWidth(NO_WIDTH);
 	parseName();
 	useFullName = true;
+	setflags |= familyWasSet;
 }
 
 void gtFont::setFamily(QString newFamily)
 {
 	family = newFamily;
 	useFullName = false;
+	setflags |= familyWasSet;
 }
 
 QString gtFont::getFamily()
@@ -211,10 +221,12 @@ void gtFont::setWeight(FontWeight newWeight)
 {
 	weight = fontWeights[newWeight];
 	useFullName = false;
+	setflags |= weightWasSet;
 	if ((newWeight == ROMAN) || (newWeight == REGULAR))
 	{
 		setSlant(NO_SLANT);
 		setWidth(NO_WIDTH);
+		setflags &= ~weightWasSet;
 	}
 	if (weightIndex < 0)
 	{
@@ -228,11 +240,13 @@ void gtFont::setWeight(QString newWeight)
 {
 	weight = newWeight;
 	useFullName = false;
+	setflags |= weightWasSet;
 	if ((newWeight == fontWeights[ROMAN]) || 
 		(newWeight == fontWeights[REGULAR]))
 	{
 		setSlant(NO_SLANT);
 		setWidth(NO_WIDTH);
+		setflags |= ~weightWasSet;
 	}
 	if (weightIndex < 0)
 	{
@@ -251,12 +265,14 @@ void gtFont::setSlant(FontSlant newSlant)
 {
 	slant = fontSlants[newSlant];
 	useFullName = false;
+	setflags &= ~slantWasSet;
 	if (newSlant != NO_SLANT)
 	{
 		if (weight == fontWeights[REGULAR])
 			setWeight(NO_WEIGHT);
 		else if (weight == fontWeights[ROMAN])
 			setWeight(NO_WEIGHT);
+		setflags |= slantWasSet;
 	}
 	if (slantIndex < 0)
 	{
@@ -270,12 +286,14 @@ void gtFont::setSlant(QString newSlant)
 {
 	slant = newSlant;
 	useFullName = false;
+	setflags &= ~slantWasSet;
 	if (!newSlant.isEmpty())
 	{
 		if (weight == fontWeights[REGULAR])
 			setWeight(NO_WEIGHT);
 		else if (weight == fontWeights[ROMAN])
 			setWeight(NO_WEIGHT);
+		setflags |= slantWasSet;
 	}
 	if (slantIndex < 0)
 	{
@@ -294,12 +312,14 @@ void gtFont::setWidth(FontWidth newWidth)
 {
 	width = fontWidths[newWidth];
 	useFullName = false;
+	setflags &= ~widthWasSet;
 	if (newWidth != NO_WIDTH)
 	{
 		if (weight == fontWeights[REGULAR])
 			setWeight(NO_WEIGHT);
 		else if (weight == fontWeights[ROMAN])
 			setWeight(NO_WEIGHT);
+		setflags |= widthWasSet;
 	}
 	if (widthIndex < 0)
 	{
@@ -313,12 +333,14 @@ void gtFont::setWidth(QString newWidth)
 {
 	width = newWidth;
 	useFullName = false;
+	setflags &= ~widthWasSet;
 	if (!newWidth.isEmpty())
 	{
 		if (weight == fontWeights[REGULAR])
 			setWeight(NO_WEIGHT);
 		else if (weight == fontWeights[ROMAN])
 			setWeight(NO_WEIGHT);
+		setflags |= widthWasSet;
 	}
 	if (widthIndex < 0)
 	{
@@ -336,31 +358,37 @@ QString gtFont::getWidth()
 void gtFont::setSize(int newSize)
 {
 	size = newSize;
+	setflags |= sizeWasSet;
 }
 
 void gtFont::setSize(double newSize)
 {
 	size = static_cast<int>(newSize);
+	setflags |= sizeWasSet;
 }
 
 void gtFont::setColor(QString newColor)
 {
 	color = newColor;
+	setflags |= fillColorWasSet;
 }
 
 void gtFont::setShade(int newShade)
 {
 	shade = newShade;
+	setflags |= fillShadeWasSet;
 }
 
 void gtFont::setStrokeColor(QString newColor)
 {
 	strokeColor = newColor;
+	setflags |= strokeColorWasSet;
 }
 
 void gtFont::setStrokeShade(int newShade)
 {
 	strokeShade = newShade;
+	setflags |= strokeShadeWasSet;
 }
 
 QString gtFont::getName()
@@ -484,6 +512,7 @@ void gtFont::noEffects()
 	fontEffects[SUPERSCRIPT]   = false;
 	fontEffects[SUBSCRIPT]     = false;
 	fontEffects[OUTLINE]       = false;
+	setflags &= ~effectWasSet;
 }
 
 int gtFont::getHscale()
@@ -491,9 +520,10 @@ int gtFont::getHscale()
 	return hscale;
 }
 
-void    gtFont::setHscale(int newHscale)
+void gtFont::setHscale(int newHscale)
 {
 	hscale = newHscale;
+	setflags |= hscaleWasSet;
 }
 
 int gtFont::getKerning()
@@ -504,6 +534,7 @@ int gtFont::getKerning()
 void gtFont::setKerning(int newKerning)
 {
 	kerning = newKerning;
+	setflags |= kerningWasSet;
 }
 
 void gtFont::parseName()
@@ -518,8 +549,6 @@ void gtFont::parseName()
 	parseSlant();
 	parseWidth();
 	parseFamily();
-
-
 }
 
 void gtFont::parseWeight()

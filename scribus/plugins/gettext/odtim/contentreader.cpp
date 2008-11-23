@@ -266,7 +266,7 @@ void ContentReader::write(const QString& text)
 	if (!inNote && !inNoteBody) // Disable notes import for now
 	{
 		if (importTextOnly)
-			writer->append(text);
+			writer->appendUnstyled(text);
 		else if (inSpan)
 			writer->append(text, currentStyle, false);
 		else

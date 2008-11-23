@@ -166,7 +166,7 @@ bool DocIm::isRunning()
 void DocIm::write()
 {
 	if (!failed)
-		writer->append(text);
+		writer->appendUnstyled(text);
 	else
 		QMessageBox::information(0, tr("Importing failed"),
 		                         tr("Importing Word document failed \n%1").arg(error),

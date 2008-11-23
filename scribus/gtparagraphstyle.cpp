@@ -46,6 +46,7 @@ gtParagraphStyle::gtParagraphStyle(const gtParagraphStyle& p) : gtStyle(p)
 	adjToBaseline   = p.adjToBaseline;
 	autoLineSpacing = p.autoLineSpacing;
 	isVisible       = p.isVisible;
+	flags           = p.flags;
 }
 
 gtParagraphStyle::gtParagraphStyle(const gtStyle& s) : gtStyle(s)
@@ -67,11 +68,17 @@ void gtParagraphStyle::init()
 	adjToBaseline   = false;
 	autoLineSpacing = false;
 	isVisible       = true;
+	flags           = 0;
 }
 
 QString gtParagraphStyle::target()
 {
 	return QString("paragraph");
+}
+
+int gtParagraphStyle::getFlags()
+{
+	return flags;
 }
 
 bool gtParagraphStyle::isDefaultStyle()
@@ -92,6 +99,7 @@ double gtParagraphStyle::getLineSpacing()
 void gtParagraphStyle::setLineSpacing(double newLineSpacing)
 {
 	lineSpacing = newLineSpacing;
+	flags |= lineSpacingWasSet;
 }
 
 bool gtParagraphStyle::getAutoLineSpacing()
@@ -102,6 +110,7 @@ bool gtParagraphStyle::getAutoLineSpacing()
 void gtParagraphStyle::setAutoLineSpacing(bool newALS)
 {
 	autoLineSpacing = newALS;
+	flags |= autoLineSpacingWasSet;
 }
 
 int gtParagraphStyle::getAlignment()
@@ -112,12 +121,16 @@ int gtParagraphStyle::getAlignment()
 void gtParagraphStyle::setAlignment(Alignment newAlignment)
 {
 	alignment = newAlignment;
+	flags |= alignmentWasSet;
 }
 
 void gtParagraphStyle::setAlignment(int newAlignment)
 {
 	if ((newAlignment > -1) && (newAlignment < AlignmentMAX))
+	{
 		alignment = newAlignment;
+		flags |= alignmentWasSet;
+	}
 }
 
 double gtParagraphStyle::getIndent()
@@ -128,6 +141,7 @@ double gtParagraphStyle::getIndent()
 void gtParagraphStyle::setIndent(double newIndent)
 {
 	indent = newIndent;
+	flags |= indentWasSet;
 }
 
 double gtParagraphStyle::getFirstLineIndent()
@@ -138,6 +152,7 @@ double gtParagraphStyle::getFirstLineIndent()
 void gtParagraphStyle::setFirstLineIndent(double newFirstLineIndent)
 {
 	firstLineIndent = newFirstLineIndent;
+	flags |= firstIndentWasSet;
 }
 
 double gtParagraphStyle::getSpaceAbove()
@@ -148,6 +163,7 @@ double gtParagraphStyle::getSpaceAbove()
 void gtParagraphStyle::setSpaceAbove(double newSpaceAbove)
 {
 	spaceAbove = newSpaceAbove;
+	flags |= spaceAboveWasSet;
 }
 
 double gtParagraphStyle::getSpaceBelow()
@@ -158,6 +174,7 @@ double gtParagraphStyle::getSpaceBelow()
 void gtParagraphStyle::setSpaceBelow(double newSpaceBelow)
 {
 	spaceBelow = newSpaceBelow;
+	flags |= spaceBelowWasSet;
 }
 
 QList<ParagraphStyle::TabRecord>* gtParagraphStyle::getTabValues()
@@ -172,6 +189,7 @@ void gtParagraphStyle::setTabValue(double newTabValue, TabType ttype)
 	tb.tabType = ttype;
 	tb.tabFillChar =  QChar();
 	tabValues.append(tb);
+	flags |= tabValueWasSet;
 }
 
 bool gtParagraphStyle::hasDropCap()
@@ -182,12 +200,14 @@ bool gtParagraphStyle::hasDropCap()
 void gtParagraphStyle::setDropCap(bool newDropCap)
 {
 	dropCap = newDropCap;
+	flags |= dropCapWasSet;
 }
 
 void gtParagraphStyle::setDropCap(int newHeight)
 {
 	setDropCap(true);
 	dropCapHeight = newHeight;
+	flags |= dropCapHeightWasSet;
 }
 
 int gtParagraphStyle::getDropCapHeight()
@@ -198,6 +218,7 @@ int gtParagraphStyle::getDropCapHeight()
 void   gtParagraphStyle::setDropCapHeight(int newHeight)
 {
 	dropCapHeight = newHeight;
+	flags |= dropCapHeightWasSet;
 }
 
 bool gtParagraphStyle::isAdjToBaseline()
@@ -208,6 +229,7 @@ bool gtParagraphStyle::isAdjToBaseline()
 void gtParagraphStyle::setAdjToBaseline(bool newAdjToBaseline)
 {
 	adjToBaseline = newAdjToBaseline;
+	flags |= adjToBaselineWasSet;
 }
 
 void gtParagraphStyle::getStyle(gtStyle* style)
