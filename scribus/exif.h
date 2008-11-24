@@ -28,6 +28,7 @@ typedef enum {
 
 //--------------------------------------------------------------------------
 // This structure is used to store jpeg file sections in memory.
+/*
 typedef struct
 {
 	uchar *  Data;
@@ -35,7 +36,7 @@ typedef struct
 	unsigned Size;
 }
 Section_t;
-
+*/
 typedef unsigned char uchar;
 
 class TagTable
@@ -51,7 +52,7 @@ class TagTable
 
 class ExifData
 {
-		Section_t Sections[MAX_SECTIONS];
+//		Section_t Sections[MAX_SECTIONS];
 		QString CameraMake;
 		QString CameraModel;
 		QString DateTime;
@@ -75,6 +76,11 @@ class ExifData
 		QString UserComment;
 		QString Comment;
 		int recurseLevel;
+		unsigned char * LastExifRefd;
+		int ExifSettingsLength;
+		double FocalplaneXRes;
+		double FocalplaneUnits;
+		int MotorolaOrder;
 
 		int getch ( QFile &infile );
 		int ReadJpegSections ( QFile & infile, ReadMode_t ReadMode );

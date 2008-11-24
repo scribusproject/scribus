@@ -17,15 +17,6 @@ for which a new license (GPL+exception) is in place.
 #include "exif.h"
 #include <QMatrix>
 
-
-static unsigned char * LastExifRefd;
-static int ExifSettingsLength;
-static double FocalplaneXRes;
-static double FocalplaneUnits;
-static int MotorolaOrder = 0;
-static int SectionsRead;
-//static int HaveAll;
-
 //--------------------------------------------------------------------------
 // Table of Jpeg encoding process names
 
@@ -228,6 +219,7 @@ int ExifData::getch ( QFile &infile )
 int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 {
 	int a;
+	int SectionsRead;
 
 	a = getch ( infile );
 
@@ -236,7 +228,7 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 		SectionsRead = 0;
 		return false;
 	}
-	for ( SectionsRead = 0; SectionsRead < MAX_SECTIONS-1; )
+	for ( SectionsRead = 0; SectionsRead < MAX_SECTIONS-1; SectionsRead++ )
 	{
 		int marker = 0;
 		int got;
@@ -247,42 +239,20 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 		for ( a=0;a<7;a++ )
 		{
 			marker = getch ( infile );
-			if ( marker != 0xff ) break;
-
+			if ( marker != 0xff )
+				break;
 			if ( a >= 6 )
-			{
-
-//				qDebug ( "too many padding bytes" );
 				return false;
-
-			}
 		}
-
 		if ( marker == 0xff )
-		{
-			// 0xff is legal padding, but if we get that many, something's wrong.
 			return false;
-//            throw FatalError("too many padding bytes!");
-		}
-
-		Sections[SectionsRead].Type = marker;
-
 		// Read the length of the section.
 		lh = ( uchar ) getch ( infile );
 		ll = ( uchar ) getch ( infile );
-
 		itemlen = ( lh << 8 ) | ll;
-
 		if ( itemlen < 2 )
-		{
 			return false;
-//           throw FatalError("invalid marker");
-		}
-
-		Sections[SectionsRead].Size = itemlen;
-
 		Data = ( uchar * ) malloc ( itemlen+1 ); // Add 1 to allow sticking a 0 at the end.
-		Sections[SectionsRead].Data = Data;
 
 		// Store first two pre-read bytes.
 		Data[0] = ( uchar ) lh;
@@ -291,45 +261,19 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 		got = infile.read ( ( char* ) Data+2, itemlen-2 ); // Read the whole section.
 		if ( ( unsigned ) got != itemlen-2 )
 		{
+			free(Data);
 			return false;
-//            throw FatalError("reading from file");
 		}
-		SectionsRead++;
 
 		switch ( marker )
 		{
 
 			case M_SOS:   // stop before hitting compressed data
-				// If reading entire image is requested, read the rest of the data.
-				if ( ReadMode & READ_IMAGE )
-				{
-					unsigned long size;
-
-					size = qMax ( 0ll, infile.size()-infile.pos() );
-					Data = ( uchar * ) malloc ( size );
-					if ( Data == NULL )
-					{
-						return false;
-//                        throw FatalError("could not allocate data for entire image");
-					}
-
-					got = infile.read ( ( char* ) Data,  size );
-					if ( ( unsigned ) got != size )
-					{
-						return false;
-//                       throw FatalError("could not read the rest of the image");
-					}
-
-					Sections[SectionsRead].Data = Data;
-					Sections[SectionsRead].Size = size;
-					Sections[SectionsRead].Type = PSEUDO_IMAGE_MARKER;
-					SectionsRead ++;
-					//HaveAll = 1;
-				}
+				free(Data);
 				return true;
 
 			case M_EOI:   // in case it's a tables-only JPEG stream
-//				qDebug ( "No image in jpeg!" );
+				free(Data);
 				return false;
 
 			case M_COM: // Comment section
@@ -344,7 +288,6 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 				// marker instead, althogh ACDsee will write images with both markers.
 				// this program will re-create this marker on absence of exif marker.
 				// hence no need to keep the copy from the file.
-				free ( Sections[--SectionsRead].Data );
 				break;
 
 			case M_EXIF:
@@ -358,12 +301,12 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 					// above only checks for itemlen < 2.
 					exifDataValid = true;
 				}
-				else
-				{
-					// Discard this section.
-					free ( Sections[--SectionsRead].Data );
+//				else
+//				{
+//					// Discard this section.
+//					free ( Sections[--SectionsRead].Data );
 //                    return false;
-				}
+//				}
 				break;
 
 			case M_SOF0:
@@ -386,6 +329,7 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 			default:
 				break;
 		}
+		free(Data);
 	}
 	return true;
 }
@@ -396,9 +340,9 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 //--------------------------------------------------------------------------
 void ExifData::DiscardData ( void )
 {
-	for ( int a=0; a < SectionsRead; a++ )
-		free ( Sections[a].Data );
-	SectionsRead = 0;
+//	for ( int a=0; a < SectionsRead; a++ )
+//		free ( Sections[a].Data );
+//	SectionsRead = 0;
 }
 
 //--------------------------------------------------------------------------
@@ -748,7 +692,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 		{
 			unsigned char * SubdirStart;
 			SubdirStart = OffsetBase + Get32u ( ValuePtr );
-			if ( SubdirStart < OffsetBase || SubdirStart > OffsetBase+ExifLength )
+			if ( (SubdirStart < OffsetBase) || (SubdirStart > OffsetBase+ExifLength) )
 			{
 				return ;
 //                throw FatalError("Illegal subdirectory link");
@@ -841,13 +785,9 @@ void ExifData::process_SOFn ( const uchar * Data, int marker )
 	num_components = Data[7];
 
 	if ( num_components == 3 )
-	{
 		ExifData::IsColor = 1;
-	}
 	else
-	{
 		ExifData::IsColor = 0;
-	}
 
 	ExifData::Process = marker;
 
@@ -875,45 +815,28 @@ void ExifData::process_EXIF ( unsigned char * CharBuf, unsigned int length )
 	ExifImageWidth = 0;
 	ExifImageLength = 0;
 
-	{   // Check the EXIF header component
-		static const uchar ExifHeader[] = "Exif\0\0";
-		if ( memcmp ( CharBuf+2, ExifHeader,6 ) )
-		{
-			return ;
-//            throw FatalError("Incorrect Exif header");
-		}
-	}
+// Check the EXIF header component
+	static const uchar ExifHeader[] = "Exif\0\0";
+	if ( memcmp ( CharBuf+2, ExifHeader,6 ) )
+		return ;
 
 	if ( memcmp ( CharBuf+8,"II",2 ) == 0 )
-	{
-		// printf("Exif section in Intel order\n");
 		MotorolaOrder = 0;
-	}
 	else
 	{
 		if ( memcmp ( CharBuf+8,"MM",2 ) == 0 )
-		{
-			// printf("Exif section in Motorola order\n");
 			MotorolaOrder = 1;
-		}
 		else
-		{
 			return ;
-//            throw FatalError("Invalid Exif alignment marker.");
-		}
 	}
 
 	// Check the next two values for correctness.
 	if ( Get16u ( CharBuf+10 ) != 0x2a || Get32u ( CharBuf+12 ) != 0x08 )
-	{
 		return ;
-//        throw FatalError("Invalid Exif start (1)");
-	}
 	long IFDoffset = Get32u(CharBuf+12);
 	LastExifRefd = CharBuf;
 
 	// First directory starts 16 bytes in.  Offsets start at 8 bytes in.
-//	ProcessExifDir ( CharBuf+16, CharBuf+8, length-6 );
 	ProcessExifDir(&CharBuf[8+IFDoffset], CharBuf+8, length-6);
 	recurseLevel--;
 	// This is how far the interesting (non thumbnail) part of the exif went.
@@ -987,25 +910,13 @@ bool ExifData::scan ( const QString & path )
 	QFile f ( path );
 	if ( !f.open ( QIODevice::ReadOnly ) )
 		return false;
-
-//    try {
-	// Scan the JPEG headers.
 	ret = ReadJpegSections ( f, READ_EXIF );
-	/*    }
-	    catch (FatalError& e) {
-	        e.debug_print();
-	        f.close();
-	        return false;
-	    }
-	*/
 	if ( ret == false )
 	{
-		DiscardData();
 		f.close();
 		return false;
 	}
 	f.close();
-	DiscardData();
 
 	//now make the strings clean,
 	// for exmaple my Casio is a "QV-4000   "
