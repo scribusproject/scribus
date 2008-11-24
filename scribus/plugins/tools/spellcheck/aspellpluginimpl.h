@@ -84,7 +84,8 @@ private:
 	QStringList fwordlist;
 	/*! \brief Pointer to current frame. */
 	PageItem* fFrame;
-	/*! \brief Model for list of dictionaries. */
+	//! \brief Internal error message
+	QString m_errorMessage;
 
 protected:
 	/*!
@@ -149,6 +150,13 @@ protected:
 	*/
 	void spellCheckDone();
 
+	/*! \brief Sets the dict configuration based on given dictFullName
+	or in the constructor. See on_flistDicts_activated().
+	\param dictFullName a full dictionary name taken e.g. from flistDicts.
+	\author Petr Vanek <petr@scribus.info>
+	*/
+	bool handleSpellConfig(const QString & dictFullName);
+
 public:
 	/*!
 	  \author Gora Mohanty <gora@srijan.in>
@@ -165,6 +173,11 @@ public:
 	  \retval None
 	*/
 	~AspellPluginImpl();
+
+	/*! \brief Returns a error message for caller.
+	It should disable the plugin then
+	*/
+	QString errorMessage() { return m_errorMessage; } ;
 
 public slots:
 	/*!

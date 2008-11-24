@@ -18,7 +18,8 @@ const QString AspellPluginImpl::kDEF_ASPELL_ENTRY =
 
 // Initialize members here, if any
 AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
-	QDialog( parent ), fdoc( doc ), fpos(0), fidx(0)
+	QDialog( parent ), fdoc( doc ), fpos(0), fidx(0),
+	m_errorMessage("")
 {
 	// Constructor.
 	setupUi( this );
@@ -48,8 +49,28 @@ AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
 		{
 			// FIXME: Handle encodings other than UTF-8.
 			flistDicts->addItem(i->c_str());
+// 			qDebug() << i->c_str();
 		}
-		setCurrentComboItem(flistDicts, fentry);
+		// check the availability of any dict. If == 0 then the plugin
+		// is disabled in all GUI.
+		if (flistDicts->count() == 0)
+			m_errorMessage = tr("No available Aspell dictionaries found. Install some, please.");
+		// use dict for system local if there are no preferences set before
+		QString locale(QLocale::system().name().left(2));
+		if (fentry.isEmpty())
+		{
+			int ix = flistDicts->findText(locale, Qt::MatchStartsWith);
+			if (ix != -1)
+				flistDicts->setCurrentIndex(ix);
+			else
+			{
+				fentry = kDEF_ASPELL_ENTRY;
+				setCurrentComboItem(flistDicts, fentry);
+			}
+		}
+		else
+			setCurrentComboItem(flistDicts, fentry);
+		handleSpellConfig(flistDicts->currentText());
 	}
 	catch( const std::invalid_argument& err )
 	{
@@ -348,26 +369,34 @@ void AspellPluginImpl::on_flistReplacements_itemActivated()
 	// of the selected item. 
 	fcurrWord->setText( flistReplacements->currentItem()->text() );
 }
+
+bool AspellPluginImpl::handleSpellConfig(const QString & dictFullName)
+{
+	QString entry(dictFullName);
+	QStringList fields = entry.split( Speller::Aspell::Suggest::kDICT_DELIM );
+	// Ensure that we have at least the right no.of fields.
+	if( fields.size() == 4 )
+	{
+		QString value =
+		fields[0] + Speller::Aspell::Suggest::kDICT_DELIM +
+		fields[1] + Speller::Aspell::Suggest::kDICT_DELIM +
+		fields[2] + Speller::Aspell::Suggest::kDICT_DELIM +
+		fields[3];
+		fsuggest->resetConfig( fields[1].toAscii().data(), fields[2].toAscii().data() );
+		// FIXME: Handle encodings other than UTF-8.
+		setPreferences( fields[1], fields[2], Speller::Aspell::Suggest::kDEF_ENCODING, value );
+		return true;
+	}
+	return false;
+}
 //__________________________________________________________________________
 void AspellPluginImpl::on_flistDicts_activated()
 {
 	// Called when an item in the list of available aspell dictionaries is
 	// selected, i.e., by double-clicking, or pressing enter. Resets
 	// aspell configuration to use the selected dictionary.
-	QString entry = flistDicts->currentText();
-	QStringList fields = entry.split( Speller::Aspell::Suggest::kDICT_DELIM );
-	// Ensure that we have at least the right no.of fields.
-	if( fields.size() == 4 )
+	if (handleSpellConfig(flistDicts->currentText()))
 	{
-		QString value =
-			fields[0] + Speller::Aspell::Suggest::kDICT_DELIM +
-			fields[1] + Speller::Aspell::Suggest::kDICT_DELIM +
-			fields[2] + Speller::Aspell::Suggest::kDICT_DELIM +
-			fields[3];
-		fsuggest->resetConfig( fields[1].toAscii().data(), fields[2].toAscii().data() );
-		// FIXME: Handle encodings other than UTF-8.
-		setPreferences( fields[1], fields[2], Speller::Aspell::Suggest::kDEF_ENCODING, value );
-
 		// PV - 7523: In the spell checker, the only option to change
 		// the dictionary is to open the spell checker dialog. However,
 		// changing the dictionary does not recheck first word
@@ -393,7 +422,9 @@ void AspellPluginImpl::getPreferences()
 	fjargon = fprefs->get( "jargon", Speller::Aspell::Suggest::kDEF_JARGON );
 	// FIXME: Handle encodings other than UTF-8.
 	fencoding = fprefs->get( "encoding", Speller::Aspell::Suggest::kDEF_ENCODING );
-	fentry = fprefs->get( "entry", kDEF_ASPELL_ENTRY );
+	// Don't use kDEF_ASPELL_ENTRY here. It's checked
+	// against system locale later when there is no preferences for it.
+	fentry = fprefs->get( "entry", "");//kDEF_ASPELL_ENTRY );
 }
 //__________________________________________________________________________
 void AspellPluginImpl::setPreferences(const QString& lang,

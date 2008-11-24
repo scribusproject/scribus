@@ -4,6 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include "scraction.h"
 #include "aspellplugin.h"
 #include "aspellpluginimpl.h"
 
@@ -80,9 +81,20 @@ void AspellPlugin::deleteAboutData(const AboutData* about) const
 
 bool AspellPlugin::run(ScribusDoc* doc, QString target)
 {
-  AspellPluginImpl *myPluginImpl = new AspellPluginImpl( doc );
+	AspellPluginImpl *myPluginImpl = new AspellPluginImpl( doc );
 	Q_CHECK_PTR(myPluginImpl);
-	myPluginImpl->exec();
+	// The spellcheck is disabled when there are no available
+	// dictionaries.
+	if (myPluginImpl->errorMessage().isEmpty())
+		myPluginImpl->exec();
+	else
+	{
+		doc->scMW()->scrActions[m_actionInfo.name]->setEnabled(false);
+		doc->scMW()->scrActions[m_actionInfo.name]->setVisible(false);
+		QMessageBox::warning(doc->scMW(),
+							 tr("Aspell Plugin Error"),
+							 myPluginImpl->errorMessage());
+	}
 	delete myPluginImpl;
 	return true;
 }
