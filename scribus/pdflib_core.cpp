@@ -2832,9 +2832,10 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 		PutPage("1 0 0 -1 0 "+FToStr(ActPageP->height())+" cm\n");
 	if (clip)
 	{
-		double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
-		double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
-		PutPage(FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" re W n\n");
+		double maxBoxX = ActPageP->width() - ActPageP->Margins.Right - ActPageP->Margins.Left;
+		double maxBoxY = ActPageP->height() - ActPageP->Margins.Top - ActPageP->Margins.Bottom;
+		PutPage(FToStr(ActPageP->Margins.Left)+" "+FToStr(ActPageP->Margins.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" re W n\n");
+	//	PutPage("0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" re W n\n");
 	}
 	if (!pag->MPageNam.isEmpty())
 	{

@@ -239,7 +239,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	MirrorVert = new QCheckBox( tr( "Mirror Page(s) Vertical" ), jobTitle );
 	Layout1->addWidget( MirrorVert );
 
-	ClipMarg = new QCheckBox( tr( "Clip to Page Margins" ), jobTitle );
+	ClipMarg = new QCheckBox( tr( "Clip to Printer Margins" ), jobTitle );
 	Layout1->addWidget( ClipMarg );
 
 	useGray = new QCheckBox( tr("Print in Grayscale"), jobTitle);

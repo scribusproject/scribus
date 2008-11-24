@@ -634,8 +634,6 @@ void PSLib::PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping)
 	PutStream("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.Bottom+markOffs)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs*2.0)+"\n");
 	PutStream("Scribusdict begin\n");
 	PutStream("save\n");
-	if (Clipping)
-		PutStream(PDev);
   	PutStream("/DeviceCMYK setcolorspace\n");
 	if ((Art) && (Options.setDevParam))
   	{
@@ -650,6 +648,7 @@ void PSLib::PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping)
 		PDev += ToStr(pg->width() - Ma->Right) + " " + ToStr(Ma->Bottom) + " li\n";
 		PDev += ToStr(pg->width() - Ma->Right) + " " + ToStr(pg->height() - Ma->Top) + " li\n";
 		PDev += ToStr(Ma->Left) + " " + ToStr(pg->height() - Ma->Top) + " li cl clip newpath\n";
+		PutStream(PDev);
 	}
 }
 

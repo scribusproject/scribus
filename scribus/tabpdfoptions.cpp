@@ -302,7 +302,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	MirrorV->setCheckable( true );
 	Layout11a->addWidget( MirrorV, 0, 1 );
 	RangeGroupLayout->addLayout( Layout11a );
-	ClipMarg = new QCheckBox( tr( "Clip to Page Margins" ), RangeGroup );
+	ClipMarg = new QCheckBox( tr( "Clip to Printer Margins" ), RangeGroup );
 	RangeGroupLayout->addWidget( ClipMarg );
 	Layout13->addWidget( RangeGroup );
 

@@ -266,7 +266,7 @@ a range of pages or a single page number.</string>
    <item>
     <widget class="QTabWidget" name="printOptions" >
      <property name="currentIndex" >
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
@@ -367,7 +367,7 @@ Note: PDF Forms will not be exported.</string>
           <item>
            <widget class="QCheckBox" name="ClipMarg" >
             <property name="text" >
-             <string>Clip to Page Margins</string>
+             <string>Clip to Printer Margins</string>
             </property>
            </widget>
           </item>
