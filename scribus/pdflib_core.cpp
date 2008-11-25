@@ -908,7 +908,8 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 					StdFonts.insert("/ZapfDingbats", "");
 				if (pgit->itemText.length() > 0)
 				{
-					StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+					if (Options.Version < PDFOptions::PDFVersion_14)
+						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 					ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
 				}
 			}
@@ -929,7 +930,8 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 					StdFonts.insert("/ZapfDingbats", "");
 				if (pgit->itemText.length() > 0)
 				{
-					StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+					if (Options.Version < PDFOptions::PDFVersion_14)
+						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 					ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
 				}
 			}
@@ -950,7 +952,8 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 					StdFonts.insert("/ZapfDingbats", "");
 				if (pgit->itemText.length() > 0)
 				{
-					StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+					if (Options.Version < PDFOptions::PDFVersion_14)
+						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 					ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
 				}
 			}
@@ -979,7 +982,8 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						StdFonts.insert("/ZapfDingbats", "");
 					if (pgit->itemText.length() > 0)
 					{
-						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+						if (Options.Version < PDFOptions::PDFVersion_14)
+							StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 						ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
 					}
 				}
