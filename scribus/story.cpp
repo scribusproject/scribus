@@ -274,6 +274,16 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	if (k->modifiers() & Qt::AltModifier)
 		keyMod |= Qt::ALT;
 
+	QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
+	QKeySequence uniKeySeq  = doc->scMW()->scrActions["specialUnicodeSequenceBegin"]->shortcut();
+	if(currKeySeq.matches(uniKeySeq)==QKeySequence::ExactMatch)
+	{
+		unicodeTextEditMode = true;
+		unicodeInputCount = 0;
+		unicodeInputString = "";
+		return;
+	}
+
 	QString uc = k->text();
 	if ((k->modifiers() == Qt::ControlModifier) ||
 		(k->modifiers() == (Qt::ControlModifier | Qt::ShiftModifier)) ||
@@ -363,12 +373,6 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 			case Qt::Key_Control:
 			case Qt::Key_Alt:
 				wasMod = true;
-				break;
-			case Qt::Key_F12:
-				unicodeTextEditMode = true;
-				unicodeInputCount = 0;
-				unicodeInputString = "";
-				return;
 				break;
 			case Qt::Key_Return:
 			case Qt::Key_Enter:
