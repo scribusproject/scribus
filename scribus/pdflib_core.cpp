@@ -1511,8 +1511,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 					toUnicodeMapStream += "CMapName currentdict /CMap defineresource pop\n";
 					toUnicodeMapStream += "end\n";
 					toUnicodeMapStream += "end\n";
-					WritePDFStream(toUnicodeMapStream);
-					uint fontToUnicode2 = ObjCounter;
+					uint fontToUnicode2 = WritePDFStream(toUnicodeMapStream);
 					uint fontObject2 = newObject();
 					StartObj(fontObject2);
 					PutDoc("<<\n/Type /Font\n/Subtype ");
