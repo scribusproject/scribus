@@ -805,10 +805,6 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					{
 						qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
 					}
-					if (m_doc->appMode == modeRotation)
-					{
-						qApp->changeOverrideCursor(QCursor(loadIcon("Rotieren2.png")));
-					}
 				}
 				else
 				{
@@ -864,10 +860,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
 		{
 			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-			if (m_doc->appMode == modeMagnifier)
-				newY = qRound(Myp + ((SeRx - Mxp) * m_view->visibleHeight()) / m_view->visibleWidth());
-			else
-				newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 			if (m_doc->appMode == modeDrawTable)
 			{
 				FPoint np2 = m_doc->ApplyGridF(FPoint(newX, newY));
@@ -1131,8 +1124,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
 	if (m_doc->appMode == modePanning)
 	{
-		if ((m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
-			m_ScMW->setAppMode(modeNormal);
+		m_ScMW->setAppMode(modeNormal);
 		return;
 	}
 	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
