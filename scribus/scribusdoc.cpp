@@ -4805,7 +4805,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 					if (m_Selection->count() != 0)
 					{
 						ScriXmlDoc *ss = new ScriXmlDoc();
-						ss->ReadElem(ss->WriteElem(this, view(), m_Selection), prefsData.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view());
+						ss->ReadElemToLayer(ss->WriteElem(this, view(), m_Selection), prefsData.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view(),(*it).LNr);
 						m_Selection->clear();
 						delete ss;
 					}

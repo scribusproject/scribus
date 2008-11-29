@@ -1023,6 +1023,11 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 
 bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view)
 {
+	return ReadElemToLayer(fileName,avail,doc,Xp,Yp,Fi,loc,FontSub,view,0);
+}
+
+bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view, int toLayer)
+{
 	QString ff;
 	struct CopyPasteBuffer OB;
 	ParagraphStyle vg;

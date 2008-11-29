@@ -52,6 +52,7 @@ public:
 	*/
 	bool    ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
 	bool    ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view);
+	bool    ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view, int toLayer);
 	QString WriteElem(ScribusDoc *doc, ScribusView *view, Selection *selection);
 
 	ColorList Farben;
