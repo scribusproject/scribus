@@ -17,8 +17,9 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList>
 #include <QTextCodec>
 
-#if defined(_WIN32)
+#if defined(_WIN32) && !defined(usleep)
 #include <windows.h>
+#define usleep(t) Sleep((t > 1000) ? (t / 1000) : 1)
 #endif
 
 bool hasAntiword()
@@ -37,11 +38,7 @@ bool hasAntiword()
 	{
 		found = true;
 		test->terminate();
-#ifndef _WIN32
 		usleep(5000);
-#else
-		Sleep(5);
-#endif
 		test->kill();	
 	}
 	delete test;
@@ -73,11 +70,7 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 	DocIm *dim = new DocIm(filename, encoding, textOnly, writer);
 	while (dim->isRunning())
 	{
-#ifndef _WIN32
 		usleep(5000);
-#else
-		Sleep(5);
-#endif
 	}
 	delete dim;
 }
@@ -139,13 +132,9 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 					error += QString(be);
 			}
 			else
-				{
-				#ifndef _WIN32
-					usleep(5000);
-				#else
-					Sleep(5);
-				#endif
-				}
+			{
+				usleep(5000);
+			}
 		}
 	}
 
