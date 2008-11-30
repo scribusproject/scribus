@@ -1,5 +1,281 @@
 
 Scribus - 1.3.5svn
+- 0007577: [PDF] Scribus PDF with embedded font breaks GPL Ghostscript 8.62 (jghali) - resolved.
+- 0006489: [PDF] Adding weblinks as PDF Annotations adds Helvetica to the PDF (fschmid) - resolved.
+- 0007352: [Graphics / Image Frames] All layers are on (fschmid) - resolved.
+- 0007602: [Graphics / Image Frames] Image downsampling on PDF export may be wrong when the same image is used several times (fschmid) - resolved.
+- 0007353: [Graphics / Image Frames] Grayscale image with embedded profile not handled correctly on PDF export (fschmid) - resolved.
+- 0007500: [PDF] Documents with Render Frames Result in PDF Files With Invalid Closepath Operators (fschmid) - resolved.
+- 0007290: [Import / Export] Scribus reduces equation scale on export when setting up manually dpi (fschmid) - resolved.
+- 0007479: [Graphics / Image Frames] links to non existing images are deleted (fschmid) - resolved.
+- 0007401: [Story Editor / Text Frames] Line following a hyphen is overlapping when in Automatic linespacing mode (jghali) - resolved.
+- 0004880: [User Interface] Changing the values for bleed switches first page on canvas (cbradney) - resolved.
+- 0005575: [Story Editor / Text Frames] text frames can't be placed as inline objects (fschmid) - resolved.
+- 0007091: [PDF] Mauvais affichage image .psd avec transparence dans le fichier .PDF généré. (fschmid) - resolved.
+- 0007631: [General] Object layers info not preserved when copying a page (fschmid) - closed.
+- 0007633: [Translation] Polish translation update for 1.3.5svn (plinnell) - closed.
+- 0007635: [Translation] Tr strings X-Pos and Y-Pos not translated on startup (jghali) - closed.
+- 0004714: [General] More types of text distribution on paths (fschmid) - closed.
+- 0007568: [PDF] Objects that are (partially) outside a page are cut and placed on the next page in PDF export (fschmid) - closed.
+- 0007361: [General] Spellchecker should pick up UI language setting for new docs (subik) - closed.
+- 0007627: [Usability] No close button on the Window Gabarit (fschmid) - closed.
+- 0007467: [Shape Drawing] add a feature of curveing of polygon to Insert Polygon (fschmid) - closed.
+- 0007015: [Usability] Manage guides will not accept manually input units if I press <TAB> (jghali) - closed.
+- 0007560: [User Interface] Guide manager issue: Guide position modification discarded (jghali) - closed.
+- 0007349: [Import / Export] Imported eps exported to SVG looks rasterized (fschmid) - closed.
+- 0006405: [Story Editor / Text Frames] Pasting text in frames results in red squares (jghali) - closed.
+- 0005663: [Graphics / Image Frames] Pasting Images From Clipboard (fschmid) - closed.
+- 0007621: [User Interface] Wrong column width in Unicode Symbol Search dialog (subik) - closed.
+- 0007622: [Translation] Polish translation update for 1.3.5svn (cbradney) - closed.
+- 0007607: [Import / Export] Scribus can't import Gimp color palette files (fschmid) - closed.
+- 0007619: [Undo/Redo] Redo an object creation crashes the program (jghali) - closed.
+- 0007616: [Translation] Galician translation update (jghali) - closed.
+- 0007615: [Scrapbook] Memory corruption in Scrapbook drag preview (fschmid) - closed.
+- 0007611: [Styles] Scribus hangs when "first line indent" has negative value below certain value (fschmid) - closed.
+- 0007614: [Story Editor / Text Frames] Load Text - fileFialog: filter for filename extensions not changeable after changing once (jghali) - closed.
+- 0007543: [User Interface] Copying a page or adding it to the Scrapbook changes the first letter of each paragraph back to the default font in text frames (jghali) - closed.
+- 0007487: [Styles] Text frame looses style after editing (jghali) - closed.
+- 0007491: [Styles] Cant remove style from paragraph in story editor (jghali) - closed.
+- 0007503: [Import / Export] text and superscript placement (jghali) - closed.
+- 0007596: [Color Management] Segfault on new color from Scribus SVG palette (fschmid) - closed.
+- 0006728: [Story Editor / Text Frames] Tabs arent applied to first line in Text frame/ PDF export messes up fill chars in tabs (jghali) - closed.
+- 0007580: [Typography] First character wrapped VERY prematurely when using a large font (jghali) - closed.
+- 0007608: [Canvas] New rotated cursors work well for all objects apart from lines (pierremarchand) - closed.
+- 0007364: [Documentation] Update about1.html (plinnell) - closed.
+- 0007597: [Story Editor / Text Frames] when converting group shapes to text frame, the text is not shown (fschmid) - closed.
+- 0007585: [User Interface] inconsistant color set name (fschmid) - closed.
+- 0007606: [PDF] dotted tabs don't show dots in pdf (jghali) - closed.
+- 0007559: [User Interface] Guide manager: wrong unit conversion (subik) - closed.
+- 0007523: [User Interface] In the spell checker, the only option to change the dictionary is to open the spell checker dialog. However, changing the dictio (subik) - closed.
+- 0007570: [Shape Drawing] Rotated frames placed above other frames show the wrong double-sided arrows (pierremarchand) - closed.
+- 0006903: [Import / Export] Export to Image (png, jpg) doesn't work as expected (subik) - closed.
+- 0007478: [General] Some pdf export preferences settings are not saved. (jghali) - closed.
+- 0007592: [Printing] frame with tif file not printed (jghali) - closed.
+- 0005469: [User Interface] quick character palette UI is not space savvy (subik) - closed.
+- 0007360: [Styles] New styles should pick up hyphenation settings from doc settings if they do not inherit from another style (pierremarchand) - closed.
+- 0007591: [Translation] Sanskrit India Translation Update (jghali) - closed.
+- 0007524: [Canvas] After conversion to another frame type, a frame is no longer selected (works in 1.3.3.12) (cbradney) - closed.
+- 0006842: [Color Management] RFE : color palette sampler (fschmid) - closed.
+- 0006570: [Canvas] magnetic snaping imprecise (jghali) - closed.
+- 0007578: [Scripter] Add Scribus Color Script Collection to distribution (subik) - closed.
+- 0007432: [Typography] Incorrect style assignment when loading 1.3.3.x files (jghali) - closed.
+- 0005576: [Graphics / Image Frames] Default directory for images is the root directory (cbradney) - closed.
+- 0007177: [Import / Export] unable to export PDF to a network share (jghali) - closed.
+- 0007154: [Story Editor / Text Frames] Double spaces at end of sentence can line break between the two spaces (jghali) - closed.
+- 0007497: [User Interface] The offset values for patterns in the Colour tab of the PP should use the document values. Currently it's always pt. (fschmid) - closed.
+- 0007372: [Graphics / Image Frames] Bad display of .eps images (fschmid) - closed.
+- 0005936: [User Interface] preview problem for Screen blend mode (jghali) - closed.
+- 0007429: [Graphics / Image Frames] Properties palette shows wrong image settings (scale etc.) when object is reselected (fschmid) - closed.
+- 0007496: [User Interface] In the Path along Path dialog, Gap between Objects should be greyed out if a Single..." effect has been selected (fschmid) - closed.
+- 0006143: [Styles] "Points de conduite" not functionnal (jghali) - closed.
+- 0007558: [Canvas] Assert fault when creating a Latex frame (jghali) - closed.
+- 0007421: [Language Tools] Can't set the text box language (subik) - closed.
+- 0003360: [User Interface] guides cursor shows up even when guides are in background and objects are placed in front of guides (cbradney) - closed.
+- 0003594: [User Interface] Guides: possible to create new guides when guides are disabled (subik) - closed.
+- 0007536: [Story Editor / Text Frames] If the fill character for a tabulator has been changed, the change is not applied to a text frame. (jghali) - closed.
+- 0007549: [User Interface] Master Pages can be deleted even if they are used. There should at least be a warning if one tries to delete a used page. (fschmid) - closed.
+- 0007561: [User Interface] Guide manager issue: Guides cannot be deleted at all (subik) - closed.
+- 0007495: [Canvas] Selection redraw issue with multiple items selected (jghali) - closed.
+- 0007542: [User Interface] In the guide manager it's possible to select multiple guides, but clicking Delete will only remove a single guide (subik) - closed.
+- 0007541: [User Interface] There should be only one dropdown dialog for units in the measurement palette (fschmid) - closed.
+- 0007538: [User Interface] There's no way to switch off the new cursor measurement indicator (perhaps an option for the Display tab of Doc Setup/Prefs? (fschmid) - closed.
+- 0007555: [Qt4 Port] Guide positions shown with dot instead of decimal comma with german locale (subik) - closed.
+- 0007030: [Story Editor / Text Frames] Incorrect semi-manual hyphenation (jghali) - closed.
+- 0007522: [User Interface] It's possible to enter text into spin boxes and the page selector (status bar). While the result in spinboxes is resetting the v (cbradney) - closed.
+- 0007547: [User Interface] In the Page > Import dialog replace Change with Select or something similar, as there is no default choice the could be changed (cbradney) - closed.
+- 0006971: [Canvas] Faint diagonal line appearing when in edit mode of text frame (fschmid) - closed.
+- 0007525: [User Interface] Control points in the Mesh Distortion dialog don't coincide with the grid of the dialog (fschmid) - closed.
+- 0007031: [Story Editor / Text Frames] infinite loop in PageItem_TextFrame::layout() (jghali) - closed.
+- 0007310: [Story Editor / Text Frames] Auto Line Spacing Doesn't seem to work (jghali) - closed.
+- 0007519: [Translation] Bengali India Translation Update (plinnell) - closed.
+- 0007494: [Canvas] The constraint in rotation with Ctrl doesn't work anymore. (jghali) - closed.
+- 0007447: [General] Set default line width to 0 if not a line (pierremarchand) - closed.
+- 0007521: [Language Tools] Measurements Palette does not change name after language change (cbradney) - closed.
+- 0007485: [Plug-ins] Crash with aspell (cbradney) - closed.
+- 0007520: [Canvas] Measurements Palette shows wrong dy value (jghali) - closed.
+- 0007517: [Documentation] Missing plugin license info for older plugins (cbradney) - closed.
+- 0007499: [Canvas] Shift Click has stopped working (for creating items between the margins) (jghali) - closed.
+- 0007493: [User Interface] Mesh distortion doesn't work for rotated objects, as the mesh doesn't cover the object anymore after the rotation (fschmid) - closed.
+- 0007492: [Import / Export] svg import inaccurate with sgv-compliant file from plplot (cbradney) - closed.
+- 0007323: [General] Plantage lors de la réalisation de dégradé. (jghali) - closed.
+- 0007430: [Story Editor / Text Frames] Selection in Text Frame with "Right To Left Writing" is inverted (jghali) - closed.
+- 0007419: [Canvas] Rotation can be extremly slow (jghali) - closed.
+- 0005226: [Usability] ESC key commits instead of cancels mouse operations (avox) - closed.
+- 0007299: [User Interface] Missing tooltips in the Layers dialog: Blend Mode, Opacity (fschmid) - closed.
+- 0007305: [User Interface] Missing tooltips in Boolean Path Operations dialog: Under Operation: no tooltips for any of the buttons; Under Options: no toolt (fschmid) - closed.
+- 0004837: [Undo/Redo] changes on rotation of bezier curves are not recorded by the undo system correctly (jghali) - closed.
+- 0007365: [User Interface] Underline and Underline Words, Strikethrough all are at 100% by default (fschmid) - closed.
+- 0007474: [User Interface] Insert Glyph palette display issue (subik) - closed.
+- 0007480: [Win32] Compilation of 2geomtools under Visual C++ (jghali) - closed.
+- 0007475: [Printing] no printer displayed in printer margins dialog (jghali) - closed.
+- 0007459: [General] Problem with adding Text/ Pictures... on Pages above 39 (fschmid) - closed.
+- 0007201: [Graphics / Image Frames] Loading eps files gives and error about missing fonts, but the text displays correctly. (fschmid) - closed.
+- 0007471: [Graphics / Image Frames] edit the nodes of a path (fschmid) - closed.
+- 0007435: [User Interface] The feature to insert a glyph by its Unicode value has disappeared from the Insert > Glyph dialog (subik) - closed.
+- 0007453: [User Interface] Guide selection over item issue (pierremarchand) - closed.
+- 0006502: [Canvas] canvas preview mode isn't updated correctly -- problème affichage lors de bascule "affichage déficiences visuelles" (avox) - closed.
+- 0007369: [PDF] Export to PDF of text with numbers wrong (numbers replaced by other numbers or letters) [TC] (pierremarchand) - closed.
+- 0004596: [User Interface] Different file dialogs (cbradney) - closed.
+- 0006746: [Story Editor / Text Frames] double linespacing with text flows around frame and align to baseline grid (avox) - closed.
+- 0007445: [User Interface] Render frame window issues (Herm) - closed.
+- 0007409: [Printing] Generation of incorrect pdfmarks in PostScript output (fschmid) - closed.
+- 0007422: [User Interface] New Document "Show Settings After Creatio" (note the "n" for Creation is missing). (cbradney) - closed.
+- 0007427: [General] Contents of Latex Frames can get mixed up because of non-unique temp file names (Herm) - closed.
+- 0007216: [Win32] Render Frame configuration files' path settings (Herm) - closed.
+- 0007443: [Documentation] The pagenumber.html file is missing in the de and fr doc directories, which results in the display of index.html instead (cbradney) - closed.
+- 0006797: [Canvas] Selection with the mouse broken with certain text frames (pierremarchand) - closed.
+- 0007436: [User Interface] Remove the preview option from the import dialog for colours (unnecessary and doesn't work anyway) (cbradney) - closed.
+- 0002777: [Usability] Better Selection of Items for Copying (cbradney) - closed.
+- 0003755: [Styles] Edit/Paragraph Styles: "lock to baseline grid" is hidden and doesn't work as expected (cbradney) - closed.
+- 0007444: [Documentation] The links to images are broken in the German toolbox files (cbradney) - closed.
+- 0007434: [User Interface] "First Line Offset" in the PP > Text tab needs tooltips (cbradney) - closed.
+- 0007440: [Documentation] install3.html and toolbox4.html aren't displayed in the help browser (cbradney) - closed.
+- 0007437: [User Interface] In DocSetup/Prefs the order of steps with the tab key is wrong (from bottom to top, not top to bottom) (cbradney) - closed.
+- 0007438: [User Interface] In DocSetup/Prefs > General, moving with the tab key between fields doesn't take into account Time before a Move or Resize start (cbradney) - closed.
+- 0006769: [Undo/Redo] Crash when cancelling item creation and pressing escape, and repeating this multiple times (jghali) - closed.
+- 0007452: [User Interface] Move Render Frame icon and menu item (cbradney) - closed.
+- 0007450: [User Interface] Tab order in ToC setup (cbradney) - closed.
+- 0007451: [User Interface] Tab order in Keyboard Shortcuts prefs (cbradney) - closed.
+- 0007455: [Documentation] Updated pagenumber documentation files (christoph_s) - closed.
+- 0007441: [Documentation] The "Acrobat Reader" entry in the menu.xml file should be changed to "Adobe Reader" (cbradney) - closed.
+- 0007433: [User Interface] The tooltip for the glyph palette needs a line break (cbradney) - closed.
+- 0003754: [Usability] dropdown menu options for leading (text properties pallette) do not work (Tsoots) - closed.
+- 0005197: [User Interface] Enlarge the Group Box for the "Document Layout" (cbradney) - closed.
+- 0005152: [User Interface] Guide lines cannot be set precisely (cbradney) - closed.
+- 0005056: [General] Unpredictable default values for page margins (cbradney) - closed.
+- 0007378: [PDF] Rotated PDFs are not handled correctly when embedded (fschmid) - closed.
+- 0005284: [General] Deselection feature (pierremarchand) - closed.
+- 0006296: [Story Editor / Text Frames] Importing styles from another document may lose dependency information (cbradney) - closed.
+- 0007358: [Translation] German Translation Update (cbradney) - closed.
+- 0006607: [Undo/Redo] ISBN barcode does not resize (fschmid) - closed.
+- 0006214: [Story Editor / Text Frames] re-link textframes causes problems (avox) - closed.
+- 0007194: [General] Align and Distribute doesn't allow using Guides (pierremarchand) - closed.
+- 0003113: [Shape Drawing] Color substitution. (fschmid) - closed.
+- 0007405: [General] Crashes at launch (cbradney) - closed.
+- 0006549: [Story Editor / Text Frames] Unable to enter text in Documents. (cbradney) - closed.
+- 0005591: [Story Editor / Text Frames] new since 1.3.3.6--sample text is always black and gets confused if prefs don't contain black (cbradney) - closed.
+- 0006361: [Story Editor / Text Frames] cursor in text box is four lines higher than the click point (avox) - closed.
+- 0007418: [Import / Export] Scribus keeps freezing when opening large .wmf files (jghali) - closed.
+- 0005814: [Undo/Redo] Give barcode creator unique name for undo actions (subik) - closed.
+- 0003518: [Story Editor / Text Frames] Copy/Paste dont work with select all (jghali) - closed.
+- 0006991: [Story Editor / Text Frames] "Text overflow" warning when there is a text underflow in fact (jghali) - closed.
+- 0007084: [PPCOSX] Startup Crash in OS X due to lack of Python (cbradney) - closed.
+- 0007408: [User Interface] Field next to Linespacing icon is showing "Auto" when set to "Lock to Baseline Grid" (cbradney) - closed.
+- 0007412: [Usability] Paint overflow sign [X] in selected frame color (fschmid) - closed.
+- 0007417: [User Interface] Adjust margins and column resizability in Extended Image Properties dialog (cbradney) - closed.
+- 0007395: [Translation] I would like to open Scribus 1.35svn korean translation file for everyone (cbradney) - closed.
+- 0005216: [PDF] international characters in filenames are not printed in "crop mark" area (ringerc) - closed.
+- 0006986: [PDF] Inverted images in PDF caused by incorrect handling of DecodeArray by some rips/softs (fschmid) - closed.
+- 0007085: [PDF] Path tools, Boolean path operations, operation N°5 (fschmid) - closed.
+- 0007126: [User Interface] [PATCH] Add keyword/regexp filter to the Outline palette (fschmid) - closed.
+- 0007318: [User Interface] Importing many styles lets the SM grow, ie. the more styles one imports, the more vertical space is used by the SM on canvas. (cbradney) - closed.
+- 0007133: [Styles] Wrong default values (cbradney) - closed.
+- 0007138: [User Interface] naming menu item (cbradney) - closed.
+- 0007144: [General] Doesn't show files/folders with non-ascii characters (jghali) - closed.
+- 0005622: [Styles] Styles in imported odt and sxw files aren't listed in the style manager (pierremarchand) - closed.
+- 0007118: [Graphics / Image Frames] Lose track of image with names including accent (jghali) - closed.
+- 0007387: [Usability] Limit of position field of guide line (subik) - closed.
+- 0007316: [User Interface] If a number of styles is imported from another SLA file, the last one is not shown in the list to import from. (pierremarchand) - closed.
+- 0007384: [Styles] Importing Default Styles is allowed where they shouldnt be (pierremarchand) - closed.
+- 0007315: [User Interface] If a number of styles is imported from another SLA file, the last one in the list is displayed with bold glyphs. (cbradney) - closed.
+- 0007385: [Styles] After style import, the style manager is in edit mode (cbradney) - closed.
+- 0006674: [Usability] Layers blocks navigation between pages (jghali) - closed.
+- 0007029: [Styles] strange style selection (pierremarchand) - closed.
+- 0007377: [Translation] Slovak Translation Update (cbradney) - closed.
+- 0007301: [User Interface] Missing tooltips in the Font Preview dialog: Set button (subik) - closed.
+- 0007363: [Documentation] GS fonts page isn't displayed in the help browser - check tags (cbradney) - closed.
+- 0007374: [Translation] updated RU translation (cbradney) - closed.
+- 0007296: [User Interface] Add warning to colour edit dialog when user attempts to edit the registration colour (fschmid) - closed.
+- 0007166: [User Interface] About.cpp using Tables for Author credits? (ale) - closed.
+- 0007362: [General] Add Elvis Stansvik (elvstone@gmail.com) to the list of contributors (he wrote the search and regexp enhancement to the document (cbradney) - closed.
+- 0007300: [User Interface] Missing tooltips in the Arrange pages dialog: Document layout area (cbradney) - closed.
+- 0007304: [User Interface] Missing tooltips in Lens Effects: No tooltips at al (fschmid) - closed.
+- 0007306: [User Interface] Missing tooltips in the Mesh Distortion dialog: No tooltips at all. (fschmid) - closed.
+- 0007236: [Shape Drawing] Add new start and end arrow. (fschmid) - closed.
+- 0007243: [Canvas] Need option to remove drop shadow behind page (cbradney) - closed.
+- 0007294: [User Interface] In the Print Preview, there's no space between the Close and Print buttons and the border of the dialog (cbradney) - closed.
+- 0007292: [User Interface] The search feature in the Document Outline is case sensitive, which is inconsistent with other dialogs (jghali) - closed.
+- 0007325: [User Interface] HSV colour map selector/pointer movement is erratic (jghali) - closed.
+- 0007313: [User Interface] Allow drag n drop of PDF/EPS/PS onto image frames for rendered image (fschmid) - closed.
+- 0007303: [User Interface] Missing tooltips in the Spell checker dialog and non standard button names (cbradney) - closed.
+- 0007307: [User Interface] Missing tooltips in Advanced Select All: no tooltips at all. (cbradney) - closed.
+- 0007291: [User Interface] The default in the Convert to Master Page dialog is always Right Page. (cbradney) - closed.
+- 0007314: [User Interface] UCP palettes in the Insert > Glyphs dialog aren't saved with a ucp extension (cbradney) - closed.
+- 0007311: [User Interface] In the New > From Template dialog, replace the Image caption with Preview. (cbradney) - closed.
+- 0007317: [User Interface] Importing all styles from another document can be a chore if one wants to import all styles. There should be an option to import (cbradney) - closed.
+- 0007298: [User Interface] Missing tooltips in Manage images dialog (cbradney) - closed.
+- 0007295: [User Interface] Fix English in the dialog for editing colours, we have HSV-Colourmap (cbradney) - closed.
+- 0007302: [User Interface] Missing tooltips in the Insert Frame dialog (cbradney) - closed.
+- 0006956: [Story Editor / Text Frames] scribus crashes when i try to mark some text (cbradney) - closed.
+- 0007209: [Translation] Chinese (Traditional) translation update (jghali) - closed.
+- 0006190: [Story Editor / Text Frames] Error occured when I try to autohyphen text in linked text boxes (avox) - closed.
+- 0007125: [Build System] Incompatibilité installation entre release et svn (malex) - closed.
+- 0007179: [Styles] Translation of Default Style names still not consistent (cbradney) - closed.
+- 0007186: [Graphics / Image Frames] Align and Distribute's Relative To First/Last Selection needs swapping around.... (cbradney) - closed.
+- 0007195: [Translation] Japanese Translation Update (jghali) - closed.
+- 0002250: [User Interface] Paragraph styles UI needs work (cbradney) - closed.
+- 0003698: [Import / Export] Latex import (Herm) - closed.
+- 0006062: [Scripter] setStyle problem (avox) - closed.
+- 0007167: [Translation] Chinese (Traditional) translation update (jghali) - closed.
+- 0003867: [Graphics / Image Frames] CMYK Image rendering / output (fschmid) - closed.
+- 0007163: [Translation] Japanese Translation Update (jghali) - closed.
+- 0005506: [Internal] Layer duplicate uses copy paste buffer which doesnt copy all paragraph attributes (pierremarchand) - closed.
+- 0006663: [General] Multiple duplicate groups groups together (fschmid) - closed.
+- 0007123: [Story Editor / Text Frames] Text Frames: Context menu Convert > Outlines disregards text modifiers (jghali) - closed.
+- 0007132: [Translation] Chinese (Traditional) translation (cbradney) - closed.
+- 0007134: [Translation] Galician translation update (trunk) (cbradney) - closed.
+- 0006897: [Build System] Plugin load fails with undefined symbols (for all plugins) (cbradney) - closed.
+- 0004625: [User Interface] Enable identical margins for single pages (as in bleed) (cbradney) - closed.
+- 0003727: [General] group resize disables corner rounding option (cbradney) - closed.
+- 0004294: [Usability] Arrange pages dialog: Improve deleting pages (cbradney) - closed.
+- 0006090: [General] Snapping doesn't work for intersections of grid lines - closed.
+- 0004344: [User Interface] Wrong cursor displayed: Double arrow while it should be a crossed arrows (avox) - closed.
+- 0002363: [User Interface] unreadable rulers if zoom percentage < 30 % (cbradney) - closed.
+- 0006407: [Story Editor / Text Frames] Pos1-key moves cursor to the end of the previous line (avox) - closed.
+- 0005149: [Story Editor / Text Frames] Text properties: Font selection with arrow keys loses focus (cbradney) - closed.
+- 0007113: [Translation] Updated Slovenian translation for trunk (cbradney) - closed.
+- 0005635: [Story Editor / Text Frames] Add in "Link to existing frame" to Insert Frame dialog (cbradney) - closed.
+- 0005956: [General] Wrong values for preset layout in Doc Setup/Preferences (cbradney) - closed.
+- 0005836: [Import / Export] importing eps file shows progress bar but nothing on the page after import (cbradney) - closed.
+- 0005257: [General] Scaling diagonal lines then undoing changes puts lines horizontally (avox) - closed.
+- 0006295: [Story Editor / Text Frames] New styles window shows standard character and paragraph style in different languages (cbradney) - closed.
+- 0004874: [General] Switching UI language creates new default styles (cbradney) - closed.
+- 0005732: [User Interface] ctrl+w should close windows (cbradney) - closed.
+- 0005853: [Usability] Multiple duplicate of group requires negative gap (cbradney) - closed.
+- 0005886: [PPCOSX] Assigning a new font in styles does not work (cbradney) - closed.
+- 0006219: [General] Objects stop snapping to guides when rotated (avox) - closed.
+- 0004755: [Documentation] Really outdated informations in the help files (plinnell) - closed.
+- 0006437: [General] Impossible to apply colours to texts that have been converted to outlines (fschmid) - closed.
+- 0005927: [General] Preset layouts in Preferences are ignored (fschmid) - closed.
+- 0007116: [Build System] Errors building (jghali) - closed.
+- 0007107: [Usability] Unusable options in text property dialog (fschmid) - closed.
+- 0007105: [Translation] Update Korean Translation (cbradney) - closed.
+- 0007087: [General] Select font size with the mouse gives a bad value (cbradney) - closed.
+- 0007099: [Build System] Compilation errors (import 1.3 (jghali) - closed.
+- 0006944: [Import / Export] AI file import causes system freeze (fschmid) - closed.
+- 0007009: [Canvas] Outline window not refreshed (cbradney) - closed.
+- 0005213: [Styles] Paragraph indent is not saved in Style Manager (jghali) - closed.
+- 0007076: [Build System] Cannot link an executable while compiling without -fPIC flag. (cbradney) - closed.
+- 0006929: [General] Picas behave as points in New Document (cbradney) - closed.
+- 0006332: [Story Editor / Text Frames] Text frames can't be unlinked (cbradney) - closed.
+- 0007073: [Translation] Korean translation for scribus (cbradney) - closed.
+- 0004535: [User Interface] Missing tooltips in 1.3.3.x (cbradney) - closed.
+- 0001699: [Import / Export] Enhance PDF exporter to enabled embedding PDF within PDF for PDF 1.4+ (avox) - closed.
+- 0006503: [Styles] Bad alignment when using tabs in paragraph styles (jghali) - closed.
+- 0007027: [Plug-ins] The translation of Item > Path Tools doesn't switch unless one restarts Scribus (fschmid) - closed.
+- 0006980: [Story Editor / Text Frames] The alignment of the last paragraph is used for the whole text in the SE (jghali) - closed.
+- 0005889: [General] Make automatic frame creation with Shift+click less responsive to mouse movements (cbradney) - closed.
+- 0007028: [User Interface] "Item->Send to Layer" should be disabled when there is only one layer (fschmid) - closed.
+- 0005145: [User Interface] wrong cursor when a line is snapped to a guide (avox) - closed.
+- 0007007: [Plug-ins] Cannot insert barcode onto objects (fschmid) - closed.
+- 0007046: [Undo/Redo] Crash after selecting "Initial State" and "Show selected Object only" in "Action History" (jghali) - closed.
+- 0006594: [General] Text frames lose alignment when sent to the Scrapbook (jghali) - closed.
+- 0007025: [Shape Drawing] Link Buttons in the Transform Tool do not work (fschmid) - closed.
+- 0007022: [Import / Export] incorrect handling of transparency in tiff file (jghali) - closed.
+- 0006560: [User Interface] incorrect icon for paragraph alignment in SE (jghali) - closed.
+- 0007058: [Story Editor / Text Frames] Story Editor / File / Load from File: first two characters cut off (jghali) - closed.
+- 0006950: [Import / Export] Crash after selecting AI file in the file dialog (fschmid) - closed.
+- 0005405: [Import / Export] SXD/ODF/SVG import : text alignement not correct when importing file in a new doc (jghali) - closed.
 - 0004709: [General] Attach text to multiple paths (fschmid) - resolved.
 - 0007046: [Undo/Redo] Crash after selecting "Initial State" and "Show selected Object only" in "Action History" (jghali) - resolved.
 - 0006560: [User Interface] incorrect icon for paragraph alignment in SE (jghali) - resolved.

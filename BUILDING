@@ -39,15 +39,14 @@ Recommended:
 	CUPS
 	Fontconfig >= 2.0
 	LibXML2 >= 2.6.0
-	GhostScript >= 8.0 (8.56 or greater preferred)
+	GhostScript >= 8.0 (8.6+ or greater preferred)
 	Python >= 2.3
 	tkinter for the font sampler script
 	python-imaging for the font sampler preview
 	pkgconfig (to assist finding other libraries)
 	apspell for the spell checker
-	podofo - 0.5.0 for enhanced Illustrator AI/EPS import, svn versions
-	after 0.5.0 have a different API and Scribus will not compile using
-	newer versions currently
+	podofo - 0.5.0+ for enhanced Illustrator AI/EPS import, svn versions
+	
 
 
 If any recommended libraries (and their dev/devel packages or headers) are not
@@ -96,8 +95,8 @@ search path is the PATH environment variable.
 REQUIREMENTS - DETAILS
 ======================
 
-Qt 4.3 is now the *minimum*. Older versions of Qt are *not* supported. 
-If you build Qt from sources, the recommended ./configure switches are the
+Qt 4.4 is now the *minimum*. Older versions of Qt are *not* supported. 
+If you build Qt from sources, the recommended ./configure/cmake switches are the
  same as used by KDE. Use of other switches aside from those used by distro
 packages can make trouble shooting
 issues very difficult at times.
@@ -109,7 +108,7 @@ package for your distro.
 
 It is strongly recommended that you install the CUPS development packages if
 you are compiling Scribus. Without CUPS, Scribus will have significantly
-reduced printing functionality, and building without CUPS is poorly tested.
+reduced printing functionality and building without CUPS is poorly tested.
 
 Fontconfig, if installed, will let Scribus find fonts using the same method as
 most other major desktop applications such as all KDE and GNOME applications.
@@ -261,7 +260,7 @@ Recommended packages for compiling from source on SuSE 10.x:
 	aspell-devel
 
 You can install these packages using YaST. You may find it difficult to compile
-Scribus 1.3.5+ on anything older than Suse 10.0. 
+Scribus 1.3.5+ on anything older than Suse 10.3. 
 
 Please note we do provide frequently updated packages including debuginfo rpms
 on the Suse Build Server. at http//software.opensuse.org .
