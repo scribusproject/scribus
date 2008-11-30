@@ -6795,7 +6795,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     <message>
         <location filename="../scribus/scribus/actionmanager.cpp" line="1478"/>
         <source>Scribus Online Documentation</source>
-        <translation>Dokumentacja On-line</translation>
+        <translation>Dokumentacja online</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/actionmanager.cpp" line="1479"/>
@@ -6880,7 +6880,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     <message>
         <location filename="../scribus/scribus/actionmanager.cpp" line="1475"/>
         <source>Move/Resize value indicator</source>
-        <translation type="unfinished"></translation>
+        <translation>Wskażnik przemieszczania/zmiany rozmiaru</translation>
     </message>
 </context>
 <context>
@@ -8514,7 +8514,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="13"/>
         <source>Spell Check</source>
-        <translation>Sprawdzenie Pisowni</translation>
+        <translation>Sprawdzanie Pisowni</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="49"/>
@@ -8524,7 +8524,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="118"/>
         <source>Replacement:</source>
-        <translation>Zamiana:</translation>
+        <translation>Zastąp przez:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="140"/>
@@ -8546,7 +8546,7 @@ osobisty</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="306"/>
         <source>&amp;Change</source>
-        <translation>&amp;Zmień</translation>
+        <translation>&amp;Zastąp</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="266"/>
@@ -8621,7 +8621,7 @@ osobisty</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="303"/>
         <source>Change the current word that was not found to that shown in the replacement entry field</source>
-        <translation type="unfinished"></translation>
+        <translation>Zastąp aktualne słowo, którego nie znaleziono w słowniku, słowem znajdującym się w polu propozycji zamiennika</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="331"/>
@@ -8631,7 +8631,7 @@ osobisty</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="334"/>
         <source>Change A&amp;ll</source>
-        <translation>Zamień &amp;wszystkie</translation>
+        <translation>Zastąp &amp;wszystkie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/spellcheck/aspellpluginbase.ui" line="372"/>
@@ -10987,7 +10987,8 @@ Wysokość: %2</translation>
         <location filename="../scribus/scribus/charselectenhanced.ui" line="77"/>
         <source>You can see a thumbnail if you press and hold down the right mouse button.
 The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
-        <translation type="unfinished"></translation>
+        <translation>Możesz wyświetlić miniaturę, jeśli wciśniesz prawy przycisk myszy. Klawisz Insert 
+dołącza glif do listy wybranych znaków znajdujących się poniżej, klawisz Delete usuwa ostatni glif z listy</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/charselectenhanced.ui" line="96"/>
@@ -11476,7 +11477,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../scribus/scribus/colorm.cpp" line="173"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeśli włączone jest zarządzanie kolorem, trójkątny wskaźnik ostrzegawczy informuje, że wybrany kolor może znajdować się poza przestrzenią kolorów wybranego profilu drukarki. Oznacza to, że wybrany kolor może wyglądać na wydruki inaczej niż na ekranie. Kolory dodatkowe są oznaczane czerwonym kółkiem. Więcej wskazówek na temat ostrzerzeń związanych z przestrzenią kolorów znajdziesz pod Zarządzaniem Kolorami. Kolor znaczników oznaczony jest symbolem znacznika znajdującym się obok koloru. Stosuj kolor znacznika tylko do znaczników cięcia i znaczników drukarskich.</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/colorm.cpp" line="311"/>
@@ -12343,7 +12344,7 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../scribus/scribus/commonstrings.cpp" line="274"/>
         <source>Multiple</source>
         <comment>Multiple frame types</comment>
-        <translation type="unfinished"></translation>
+        <translation>Różne</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/commonstrings.cpp" line="275"/>
@@ -12605,22 +12606,22 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../scribus/scribus/cpalette.cpp" line="1021"/>
         <source>Darken</source>
-        <translation>Przyciemnij</translation>
+        <translation>Przyciemnianie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/cpalette.cpp" line="1022"/>
         <source>Lighten</source>
-        <translation>Rozjaśnij</translation>
+        <translation>Rozjaśnianie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/cpalette.cpp" line="1023"/>
         <source>Multiply</source>
-        <translation>Klonuj</translation>
+        <translation>Mnożenie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/cpalette.cpp" line="1024"/>
         <source>Screen</source>
-        <translation>Widok</translation>
+        <translation>Mnożenie odwrotności</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/cpalette.cpp" line="1025"/>
@@ -12650,17 +12651,17 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../scribus/scribus/cpalette.cpp" line="1030"/>
         <source>Color Dodge</source>
-        <translation>Rozjaśnianie koloru</translation>
+        <translation>Rozcieńczenie koloru</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/cpalette.cpp" line="1031"/>
         <source>Color Burn</source>
-        <translation>Ściemnianie koloru</translation>
+        <translation>Dosycenie koloru</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/cpalette.cpp" line="1032"/>
         <source>Hue</source>
-        <translation>Odcień</translation>
+        <translation>Barwa</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/cpalette.cpp" line="1033"/>
@@ -12695,7 +12696,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../scribus/scribus/cpalette.cpp" line="993"/>
         <source>Scaling</source>
-        <translation>Rozmiar</translation>
+        <translation>Skalowanie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/cpalette.cpp" line="998"/>
@@ -13280,7 +13281,7 @@ This can be set in the Preferences.</source>
     <message>
         <location filename="../scribus/scribus/customfdialog.cpp" line="275"/>
         <source>Show a preview and information for the selected file</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj podgląd i informację o wybranym pliku</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/customfdialog.cpp" line="342"/>
@@ -14178,7 +14179,7 @@ nie powiodła się!</translation>
     <message>
         <location filename="../scribus/scribus/plugins/psimport/importps.cpp" line="863"/>
         <source>Converting of %1 images failed!</source>
-        <translation>Konwersja % obrazków nie powiodła się!</translation>
+        <translation>Konwersja %1 obrazków nie powiodła się!</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/psimport/importps.cpp" line="730"/>
@@ -14957,17 +14958,17 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../scribus/scribus/extimageprops.cpp" line="103"/>
         <source>Darken</source>
-        <translation>Przyciemnij</translation>
+        <translation>Przyciemnianie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/extimageprops.cpp" line="104"/>
         <source>Lighten</source>
-        <translation>Rozjaśnij</translation>
+        <translation>Rozjaśnianie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/extimageprops.cpp" line="105"/>
         <source>Hue</source>
-        <translation>Odcień</translation>
+        <translation>Barwa</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/extimageprops.cpp" line="106"/>
@@ -14987,17 +14988,17 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../scribus/scribus/extimageprops.cpp" line="109"/>
         <source>Multiply</source>
-        <translation>Klonuj</translation>
+        <translation>Mnożenie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/extimageprops.cpp" line="110"/>
         <source>Screen</source>
-        <translation>Widok</translation>
+        <translation>Mnożenie odwrotności</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/extimageprops.cpp" line="111"/>
         <source>Dissolve</source>
-        <translation>Znikanie</translation>
+        <translation>Rozpuszczanie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/extimageprops.cpp" line="112"/>
@@ -15027,12 +15028,12 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <location filename="../scribus/scribus/extimageprops.cpp" line="117"/>
         <source>Color Dodge</source>
-        <translation>Rozjaśnianie koloru</translation>
+        <translation>Rozcieńczenie koloru</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/extimageprops.cpp" line="118"/>
         <source>Color Burn</source>
-        <translation>Ściemnianie koloru</translation>
+        <translation>Dosycenie koloru</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/extimageprops.cpp" line="98"/>
@@ -17750,22 +17751,22 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../scribus/scribus/insertaframe.ui" line="149"/>
         <source>Insert the frame on the current page only</source>
-        <translation type="unfinished"></translation>
+        <translation>Wstaw ramkę tylko na aktualnej stronie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/insertaframe.ui" line="159"/>
         <source>Insert one frame for each existing page</source>
-        <translation type="unfinished"></translation>
+        <translation>Wstaw jedną ramkę na każdej istniejącej stronie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/insertaframe.ui" line="169"/>
         <source>Insert frames on a range of pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Wstaw ramki na zakresie stron</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/insertaframe.ui" line="187"/>
         <source>Range of pages to insert frames on</source>
-        <translation type="unfinished"></translation>
+        <translation>Zakres stron do wstawienia ramek</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/insertaframe.ui" line="222"/>
@@ -17780,7 +17781,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../scribus/scribus/insertaframe.ui" line="247"/>
         <source>Insert the frame at the top left of the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Wstaw ramkę w górnym lewym rogu strony</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/insertaframe.ui" line="257"/>
@@ -17830,12 +17831,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../scribus/scribus/insertaframe.ui" line="502"/>
         <source>Width of the inserted frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Szerokość wstawianej ramki</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/insertaframe.ui" line="509"/>
         <source>Height of the inserted frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Wysokość wstawianej ramki</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/insertaframe.ui" line="601"/>
@@ -18598,22 +18599,22 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="564"/>
         <source>Darken</source>
-        <translation>Przyciemnij</translation>
+        <translation>Przyciemnianie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="565"/>
         <source>Lighten</source>
-        <translation>Rozjaśnij</translation>
+        <translation>Rozjaśnianie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="566"/>
         <source>Multiply</source>
-        <translation>Klonuj</translation>
+        <translation>Mnożenie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="567"/>
         <source>Screen</source>
-        <translation>Widok</translation>
+        <translation>Mnożenie odwrotności</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="568"/>
@@ -18643,12 +18644,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="573"/>
         <source>Color Dodge</source>
-        <translation>Rozjaśnianie koloru</translation>
+        <translation>Rozcieńczenie koloru</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="574"/>
         <source>Color Burn</source>
-        <translation>Ściemnianie koloru</translation>
+        <translation>Dosycenie koloru</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="572"/>
@@ -18658,7 +18659,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="575"/>
         <source>Hue</source>
-        <translation>Odcień</translation>
+        <translation>Barwa</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="576"/>
@@ -18678,7 +18679,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="598"/>
         <source>Print Layer - Uncheck to disable printing. </source>
-        <translation>Drukuj warstwę - odkreśl, aby wyłączyć drukowanie. </translation>
+        <translation>Drukuj warstwę. Brak zakreślenia oznacza wyłączenie drukowania. </translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="590"/>
@@ -18688,32 +18689,32 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="596"/>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
-        <translation>Wskaźnik koloru warstwy - Każda warstwa ma przypisany kolor, który wyświetlany jest na kanwie jeśli wskaźnik warstwy został włączony. Możesz kliknąć dwukrotnie by zmienić kolor. </translation>
+        <translation>Koloru znacznika warstwy . Każdej warstwie przyporządkowany jest kolor, który zostanie wyświetlony na obszarze roboczym,  jeśli zostaną włączone znaczniki  warstw. Dwuklik, aby zmienić kolor. </translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="597"/>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
-        <translation>Włącz widoczność warstwy - odznacz aby wyłączyć wyświetlanie warstwy </translation>
+        <translation>Włącz widoczność warstwy. Brak zakreślenia oznacza wyłączenie wyświetlania warstwy</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="599"/>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
-        <translation>Zablokuj lub odblokuj warstwę - odznaczony oznacza odblokowanie warstwy</translation>
+        <translation>Zabezpiecz lub odbezpiecz warstwę. Brak zakreślenia oznacza  odbezpieczenie warstwy</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="600"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation>Tekst opływa obiekty na niższych warstwach - Włączenie tej opcji powoduje, że ramki tekstowe opływają także obiekty z warstw niższych</translation>
+        <translation>Tekst opływa obiekty na niższych warstwach. Włączenie tej opcji spowoduje, że ramki tekstowe będą opływały także obiekty położone na niższych warstwach</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="601"/>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
-        <translation>Tryb Szkieletowy - Przełącza wyświetlanie obiektów w tryb szkieletowy, w celu przyśpieszenia wyświetlania skomplikowanych obiektów.</translation>
+        <translation>Tryb szkieletowy.  Przełącza on wyświetlanie obiektów na tryb szkieletowy  w celu przyśpieszenia wyświetlania skomplikowanych obiektów.</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="602"/>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
-        <translation>Nazwa warstwy - Kliknij dwa razy by zmienić nazwę</translation>
+        <translation>Nazwa warstwy. Dwuklik, aby zmienić nazwę</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/layers.cpp" line="594"/>
@@ -21005,12 +21006,12 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <location filename="../scribus/scribus/nodeeditpalette.cpp" line="909"/>
         <source>Set Shape to Image Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrównaj figurę ze ściężką odcięcia</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/nodeeditpalette.cpp" line="939"/>
         <source>Set the Shape to the Clipping Path of the Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrównaj figurę ze ściężką odcięcia obrazka</translation>
     </message>
 </context>
 <context>
@@ -21220,7 +21221,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <location filename="../scribus/scribus/outlinepalette.cpp" line="907"/>
         <source>Outline</source>
-        <translation>Szkielet</translation>
+        <translation>Struktura</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/outlinepalette.cpp" line="140"/>
@@ -21385,7 +21386,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <location filename="../scribus/scribus/pdflib_core.cpp" line="7664"/>
         <source>A write error occured, please check available disk space</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastąpił błąd zapisu, proszę sprawdzić ilość miejsca dostępnego na dysku</translation>
     </message>
 </context>
 <context>
@@ -22290,7 +22291,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/pageitem_latexframe.cpp" line="391"/>
         <source>The application &quot;%1&quot; failed to start!</source>
-        <translation type="unfinished"></translation>
+        <translation>Uruchamianie aplikacji &quot;%1&quot;  nie powiodło się</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/pageitem_latexframe.cpp" line="395"/>
@@ -22320,7 +22321,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/pageitem_latexframe.cpp" line="48"/>
         <source>Render</source>
-        <translation>Renderuj</translation>
+        <translation>Render</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/pageitem_latexframe.cpp" line="253"/>
@@ -22841,17 +22842,17 @@ a oba punkty końcowe muszą znajdować się na zewnątrz wielokąta</translatio
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="41"/>
         <source>First source shape.</source>
-        <translation>Pierwsza figura źródłowa</translation>
+        <translation>Pierwsza figura źródłowa.</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="139"/>
         <source>Second source shape.</source>
-        <translation>Druga figura źródłowa</translation>
+        <translation>Druga figura źródłowa.</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="234"/>
         <source>The resulting shape.</source>
-        <translation>Figura wynikowa</translation>
+        <translation>Figura wynikowa.</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="286"/>
@@ -22861,12 +22862,12 @@ a oba punkty końcowe muszą znajdować się na zewnątrz wielokąta</translatio
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="305"/>
         <source>Substrats the second shape from the first shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Odejmuje drugą figurę od pierwszej figury</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="321"/>
         <source>Intersection of the shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Przecięcie figur</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="337"/>
@@ -22887,7 +22888,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="418"/>
         <source>Result gets Color from:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wynik przejmuje kolor od:</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="437"/>
@@ -22912,7 +22913,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="478"/>
         <source>Select stroke color.</source>
-        <translation>Wybierz kolor obrysu</translation>
+        <translation>Wybierz kolor obrysu.</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="488"/>
@@ -23264,7 +23265,8 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <location filename="../scribus/scribus/picsearchoptions.cpp" line="103"/>
         <source>Base directory for search does not exist.
 Please choose another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Katalog do przeszukiwania nie istnieje.
+Proszę wybrać inny.</translation>
     </message>
 </context>
 <context>
@@ -23660,12 +23662,12 @@ Please choose another one.</source>
     <message>
         <location filename="../scribus/scribus/picstatus.ui" line="177"/>
         <source>Location where the image file is stored</source>
-        <translation type="unfinished"></translation>
+        <translation>Miejsce, w którym zostanie zapisany obrazek</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/picstatus.ui" line="195"/>
         <source>Search for a missing image</source>
-        <translation type="unfinished"></translation>
+        <translation>Szukaj brakującego obrazka</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/picstatus.ui" line="240"/>
@@ -23690,7 +23692,7 @@ Please choose another one.</source>
     <message>
         <location filename="../scribus/scribus/picstatus.ui" line="345"/>
         <source>Height and width of the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Wysokość i szerokość obrazka</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/picstatus.ui" line="374"/>
@@ -23700,7 +23702,7 @@ Please choose another one.</source>
     <message>
         <location filename="../scribus/scribus/picstatus.ui" line="409"/>
         <source>Size of the image when printed</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozmiar obrazka w druku</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/picstatus.ui" line="449"/>
@@ -26127,7 +26129,7 @@ Note: PDF Forms will not be exported.</source>
     <message>
         <location filename="../scribus/scribus/printdialogbase.ui" line="326"/>
         <source>Include PDF Annotations and Links</source>
-        <translation type="unfinished"></translation>
+        <translation>Dołącz adnotacje PDF i dowiązania</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/printdialogbase.ui" line="360"/>
@@ -27076,22 +27078,22 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="4847"/>
         <source>Darken</source>
-        <translation>Przyciemnij</translation>
+        <translation>Przyciemnianie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="4848"/>
         <source>Lighten</source>
-        <translation>Rozjaśnij</translation>
+        <translation>Rozjaśnianie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="4849"/>
         <source>Multiply</source>
-        <translation>Klonuj</translation>
+        <translation>Mnożenie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="4850"/>
         <source>Screen</source>
-        <translation>Widok</translation>
+        <translation>Mnożenie odwrotności</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="4851"/>
@@ -27121,17 +27123,17 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="4856"/>
         <source>Color Dodge</source>
-        <translation>Rozjaśnianie koloru</translation>
+        <translation>Rozcieńczenie koloru</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="4857"/>
         <source>Color Burn</source>
-        <translation>Ściemnianie koloru</translation>
+        <translation>Dosycenie koloru</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="4858"/>
         <source>Hue</source>
-        <translation>Odcień</translation>
+        <translation>Barwa</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="4860"/>
@@ -27176,7 +27178,7 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="4879"/>
         <source>Skew</source>
-        <translation>Skośna</translation>
+        <translation>Odchylenie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="4882"/>
@@ -27246,17 +27248,17 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="5171"/>
         <source>Use the clipping path of the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Użyj ścieżki odcięcia obrazka</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="5197"/>
         <source>Minimal width of spaces between words</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimalna szerokość odstępów pomiędzy słowami</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="5198"/>
         <source>Normal width of spaces between words</source>
-        <translation type="unfinished"></translation>
+        <translation>Normalna szerokość odstępów pomiędzy słowami</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="5199"/>
@@ -27301,7 +27303,7 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="4922"/>
         <source>First Line Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie pierwszego wiersza</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="901"/>
@@ -27341,7 +27343,7 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="5186"/>
         <source>Select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz tryb interlinii.</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/propertiespalette.cpp" line="5193"/>
@@ -30226,7 +30228,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../scribus/scribus/scimgdataloader_tiff.cpp" line="957"/>
         <source>%1 may be corrupted : missing resolution tags</source>
-        <translation>% może być uszkodzony: brak znaczników rozdzielczości</translation>
+        <translation>%1 może być uszkodzony: brak znaczników rozdzielczości</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/fonts/ftface.cpp" line="177"/>
@@ -30262,12 +30264,12 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../scribus/scribus/styles/charstyle.cpp" line="181"/>
         <source>+tracking %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>+podcięcie %1</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/styles/charstyle.cpp" line="183"/>
         <source>+baseline %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>+linia pisma %1</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/langmgr.cpp" line="63"/>
@@ -30282,7 +30284,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../scribus/scribus/scimgdataloader_jpeg.cpp" line="314"/>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 może być uszkodzony: brak albo wadliwe znaczniki rozdzielczości</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/langmgr.cpp" line="76"/>
@@ -30422,12 +30424,12 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../scribus/scribus/scdocoutput_ps2.cpp" line="107"/>
         <source>An error occurred while initializing icc transforms</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastąpił błąd podczas inicjalizacji przekształceń ICC</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/scdocoutput_ps2.cpp" line="134"/>
         <source>Output profile is not supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Profil wyjściowy nie jest wspierany</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/wmfimplugin/wmfimportplugin.cpp" line="89"/>
@@ -30544,7 +30546,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../scribus/scribus/latexeditor.cpp" line="363"/>
         <source>Configfile %1 not found or the file is not readable</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie znaleziono pliku konfiguracyjnego %1 lub brak uprawnień do odczytu</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/scriptplugin/cmdpage.cpp" line="386"/>
@@ -30596,12 +30598,12 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathcut/pathcut.cpp" line="91"/>
         <source>PathCutter</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozcinanie ścieżek</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathfinder/pathfinder.cpp" line="95"/>
         <source>PathFinder</source>
-        <translation type="unfinished"></translation>
+        <translation>Poszukiwanie ścieżek</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/pathstroker/pathstroker.cpp" line="85"/>
@@ -30616,7 +30618,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../scribus/scribus/plugins/tools/subdivide/subdivide.cpp" line="79"/>
         <source>Subdivide</source>
-        <translation type="unfinished"></translation>
+        <translation>Podziel</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/xfigimplugin/importxfigplugin.cpp" line="71"/>
@@ -30647,7 +30649,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformeffect.cpp" line="78"/>
         <source>Transform Effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Efekt przekształcenia</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/units.cpp" line="161"/>
@@ -32113,7 +32115,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <location filename="../scribus/scribus/smpstylewidget.cpp" line="93"/>
         <source>First Line Indent</source>
-        <translation>Wcięcie pierwszej linii</translation>
+        <translation>Wcięcie pierwszego wiersza</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/smpstylewidget.cpp" line="94"/>
@@ -32204,17 +32206,17 @@ Expressed as a percentage of the current white space value.</source>
     <message>
         <location filename="../scribus/scribus/smpstylewidget.cpp" line="135"/>
         <source>Min. space width</source>
-        <translation type="unfinished"></translation>
+        <translation>Min. szerokość odstępu</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/smpstylewidget.cpp" line="136"/>
         <source>Max. glyph comp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Maks. kompresja glifu.</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/smpstylewidget.cpp" line="137"/>
         <source>Max. glyph ext.</source>
-        <translation type="unfinished"></translation>
+        <translation>Maks. rozciągnięcie glifu</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/smpstylewidget.ui" line="458"/>
@@ -32561,7 +32563,7 @@ Expressed as a percentage of the current white space value.</source>
     <message>
         <location filename="../scribus/scribus/plugins/svgexplugin/svgexplugin.cpp" line="135"/>
         <source>Save Images inline</source>
-        <translation>Zapisz zawarte obrazki bitmapowe</translation>
+        <translation>Zapisz dołączone obrazki bitmapowe</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/svgexplugin/svgexplugin.cpp" line="136"/>
@@ -32784,7 +32786,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../scribus/scribus/plugins/short-words/swprefsgui.cpp" line="112"/>
         <source>User configuration exists already. Do you really want to overwrite it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustawienia użytkownika już istnieją. Czy zastąpić je nowym plikiem?</translation>
     </message>
 </context>
 <context>
@@ -34099,17 +34101,20 @@ Odstęp w pionie: %3</translation>
 Horizontal shift: %2
 Vertical shift: %3
 Rotation: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Ilość kopii: %1
+Przesunięcie w poziomie: %2
+Przesunięcie w pionie: %3
+Obrót: %4</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/scribusdoc.cpp" line="5764"/>
         <source>remove direct paragraph formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>usuń bezpośrednie formatowanie akapitu</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/scribusdoc.cpp" line="6010"/>
         <source>remove direct char formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>usuń bezpośrednie formatowanie znaków</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/scribusdoc.cpp" line="9795"/>
@@ -34119,13 +34124,13 @@ Rotation: %4</source>
     <message>
         <location filename="../scribus/scribus/scribusdoc.cpp" line="2578"/>
         <source>Copy_of_</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopia</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/scribusdoc.cpp" line="1203"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zaimportowany</translation>
     </message>
 </context>
 <context>
@@ -34773,7 +34778,7 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <location filename="../scribus/scribus/scribus.cpp" line="3931"/>
         <source>Some color profiles used by this document are not installed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Niektóre profile kolorów używane przez ten dokument nie są zainstalowane:</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/scribus.cpp" line="7896"/>
@@ -34783,12 +34788,12 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <location filename="../scribus/scribus/scribus.cpp" line="321"/>
         <source>Applying User Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Przypisywanie skrótów klawiaturowych</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/scribus.cpp" line="2470"/>
         <source>Updating Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizacja obrazków</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/scribus.cpp" line="4308"/>
@@ -34814,7 +34819,7 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <location filename="../scribus/scribus/scribus.cpp" line="7706"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak Ghostscriptu: podgląd wydruku w Postscripcie jest niedostępny</translation>
     </message>
 </context>
 <context>
@@ -35320,7 +35325,7 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <location filename="../scribus/scribus/scribusview.cpp" line="361"/>
         <source>Configure CMS...</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguracja zarządzania kolorami...</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/scribusview.cpp" line="351"/>
@@ -35622,7 +35627,7 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <location filename="../scribus/scribus/pagepalette.cpp" line="118"/>
         <source>Are you sure you want to delete this master page?</source>
-        <translation type="unfinished"></translation>
+        <translation>Naprawdę usunąć tę stronę wzorcową?</translation>
     </message>
 </context>
 <context>
@@ -35640,7 +35645,7 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <location filename="../scribus/scribus/pagepalette.cpp" line="385"/>
         <source>Are you sure you want to delete this page?</source>
-        <translation type="unfinished"></translation>
+        <translation>Naprawdę usunąć tę stronę?</translation>
     </message>
 </context>
 <context>
@@ -36778,7 +36783,7 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/subdivide/subdivide.cpp" line="66"/>
         <source>Subdivide Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Podziel ścieżkę</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/subdivide/subdivide.cpp" line="70"/>
@@ -36788,12 +36793,12 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/subdivide/subdivide.cpp" line="87"/>
         <source>Subdivide</source>
-        <translation type="unfinished"></translation>
+        <translation>Podziel</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/subdivide/subdivide.cpp" line="88"/>
         <source>Subdivide selected Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Podziel zaznaczoną ścieżkę</translation>
     </message>
 </context>
 <context>
@@ -36984,7 +36989,7 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <location filename="../scribus/scribus/tocindexprefs.ui" line="115"/>
         <source>Page Number Placement:</source>
-        <translation type="unfinished"></translation>
+        <translation>Położenie numerów stron:</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tocindexprefs.cpp" line="116"/>
@@ -37958,7 +37963,7 @@ połączeń między ramkami.</translation>
     <message>
         <location filename="../scribus/scribus/tabexternaltoolswidget.cpp" line="158"/>
         <source>Locate a Configuration file</source>
-        <translation type="unfinished"></translation>
+        <translation>Położenie pliku konfiguracyjnego</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabexternaltoolswidget.cpp" line="160"/>
@@ -37993,7 +37998,7 @@ połączeń między ramkami.</translation>
     <message>
         <location filename="../scribus/scribus/tabexternaltoolswidget.ui" line="255"/>
         <source>Render Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Ramki renderowane</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabexternaltoolswidget.ui" line="338"/>
@@ -38309,7 +38314,7 @@ połączeń między ramkami.</translation>
     <message>
         <location filename="../scribus/scribus/tabgeneral.ui" line="196"/>
         <source>Use Small Widgets in Palettes</source>
-        <translation type="unfinished"></translation>
+        <translation>Małe elementy sterujące w paletach</translation>
     </message>
 </context>
 <context>
@@ -39363,7 +39368,7 @@ połączeń między ramkami.</translation>
     <message>
         <location filename="../scribus/scribus/tabpdfoptions.cpp" line="1543"/>
         <source>Dissolve</source>
-        <translation>Znikanie</translation>
+        <translation>Rozpuszczanie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabpdfoptions.cpp" line="1544"/>
@@ -40373,12 +40378,12 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     <message>
         <location filename="../scribus/scribus/tabpdfoptions.cpp" line="925"/>
         <source>Display the bookmarks upon opening</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj zakładki podczas otwierania</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabpdfoptions.cpp" line="926"/>
         <source>Display the page thumbnails upon opening</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj miniatury stron podcza otwierania</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabpdfoptions.cpp" line="927"/>
@@ -40438,7 +40443,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     <message>
         <location filename="../scribus/scribus/tabpdfoptions.cpp" line="992"/>
         <source>Add registration marks to each separation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj pasery  na wszystkich separacjach</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabpdfoptions.cpp" line="763"/>
@@ -40468,27 +40473,27 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     <message>
         <location filename="../scribus/scribus/tabpdfoptions.cpp" line="1549"/>
         <source>Push</source>
-        <translation>Wciśnięty</translation>
+        <translation>Przesuwanie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabpdfoptions.cpp" line="1550"/>
         <source>Cover</source>
-        <translation type="unfinished"></translation>
+        <translation>Przykrywanie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabpdfoptions.cpp" line="1551"/>
         <source>Uncover</source>
-        <translation type="unfinished"></translation>
+        <translation>Odkrywanie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabpdfoptions.cpp" line="1552"/>
         <source>Fade</source>
-        <translation type="unfinished"></translation>
+        <translation>Zanikanie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabpdfoptions.cpp" line="353"/>
         <source>Embed PDF &amp;&amp; EPS files (EXPERIMENTAL)</source>
-        <translation type="unfinished"></translation>
+        <translation>Osadzanie plików PDF &amp;i EPS (eksperymentalne)</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabpdfoptions.cpp" line="772"/>
@@ -41539,12 +41544,12 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/tabtools.cpp" line="557"/>
         <source>Horizontal displacement of page items</source>
-        <translation type="unfinished"></translation>
+        <translation>Poziome przesunięcie elementów strony</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabtools.cpp" line="558"/>
         <source>Vertical displacement of page items</source>
-        <translation type="unfinished"></translation>
+        <translation>Pionowe przesunięcie elementów strony</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabtools.cpp" line="559"/>
@@ -41755,7 +41760,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/tabruler.cpp" line="597"/>
         <source>Indentation for first line of the paragraph</source>
-        <translation>Wcięcie pierszego wiersza akapitu</translation>
+        <translation>Wcięcie pierwszego wiersza akapitu</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/tabruler.cpp" line="598"/>
@@ -41851,7 +41856,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/tabruler.cpp" line="490"/>
         <source>Period</source>
-        <translation type="unfinished"></translation>
+        <translation>Kropka</translation>
     </message>
 </context>
 <context>
@@ -41877,12 +41882,12 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialog.cpp" line="47"/>
         <source>Scaling</source>
-        <translation>Rozmiar</translation>
+        <translation>Skalowanie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialog.cpp" line="48"/>
         <source>Translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialog.cpp" line="49"/>
@@ -41892,7 +41897,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialog.cpp" line="50"/>
         <source>Skewing</source>
-        <translation>Pochylenie</translation>
+        <translation>Odchylenie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialog.cpp" line="88"/>
@@ -41907,12 +41912,12 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialog.cpp" line="97"/>
         <source>Translate</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesuń</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialog.cpp" line="225"/>
         <source>Translate H = %1%2 V = %3%4</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie  Poz. = %1%2 Pion. = %3%4</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialog.cpp" line="106"/>
@@ -41927,12 +41932,12 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialog.cpp" line="115"/>
         <source>Skew</source>
-        <translation>Skośna</translation>
+        <translation>Odchylenie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialog.cpp" line="268"/>
         <source>Skew H = %1%2 V = %3%4</source>
-        <translation type="unfinished"></translation>
+        <translation>Odchylenie Poz. = %1%2 Pion. = %3%4</translation>
     </message>
 </context>
 <context>
@@ -41940,7 +41945,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialogbase.ui" line="19"/>
         <source>Transform</source>
-        <translation type="unfinished"></translation>
+        <translation>Przekształcenie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialogbase.ui" line="40"/>
@@ -41955,17 +41960,17 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialogbase.ui" line="76"/>
         <source>u</source>
-        <translation type="unfinished"></translation>
+        <translation>g</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialogbase.ui" line="92"/>
         <source>d</source>
-        <translation type="unfinished"></translation>
+        <translation>d</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialogbase.ui" line="133"/>
         <source>Scaling</source>
-        <translation>Rozmiar</translation>
+        <translation>Skalowanie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialogbase.ui" line="355"/>
@@ -41985,7 +41990,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialogbase.ui" line="253"/>
         <source>Translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialogbase.ui" line="306"/>
@@ -42000,7 +42005,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialogbase.ui" line="345"/>
         <source>Skew</source>
-        <translation>Skośna</translation>
+        <translation>Odchylenie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformdialogbase.ui" line="426"/>
@@ -42018,17 +42023,17 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformeffect.cpp" line="66"/>
         <source>Transform...</source>
-        <translation type="unfinished"></translation>
+        <translation>Przekształć...</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformeffect.cpp" line="86"/>
         <source>Transform Effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Efekt przekształcenia</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/plugins/tools/transform/transformeffect.cpp" line="87"/>
         <source>Apply multiple transformations at once</source>
-        <translation type="unfinished"></translation>
+        <translation>Zastosuj wiele przekształceń jednocześnie</translation>
     </message>
 </context>
 <context>
@@ -42936,7 +42941,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../scribus/scribus/undomanager.cpp" line="858"/>
         <source>Render frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Ramka renderowana</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/undomanager.cpp" line="866"/>
@@ -43029,7 +43034,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../scribus/scribus/unicodesearch.ui" line="39"/>
         <source>Enter the search phrase. Then press Enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wpisz poszukiwany zwrot i naciśnij na Enter:</translation>
     </message>
 </context>
 <context>
@@ -43579,7 +43584,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../scribus/scribus/plugins/xfigimplugin/importxfig.cpp" line="1552"/>
         <source>Generating Items</source>
-        <translation>Generewanie obiektów</translation>
+        <translation>Generowanie obiektów</translation>
     </message>
 </context>
 <context>
@@ -43701,7 +43706,7 @@ i nie pytaj więcej, jakiego importera używać dla tego typu pliku.</translatio
     <message>
         <location filename="../scribus/scribus/hysettingsBase.ui" line="81"/>
         <source>Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation>Zachowanie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/hysettingsBase.ui" line="105"/>
@@ -43721,7 +43726,7 @@ i nie pytaj więcej, jakiego importera używać dla tego typu pliku.</translatio
     <message>
         <location filename="../scribus/scribus/hysettingsBase.ui" line="138"/>
         <source>Chars</source>
-        <translation type="unfinished"></translation>
+        <translation>Znaki</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/hysettingsBase.ui" line="145"/>
@@ -43966,7 +43971,7 @@ Menu podręczne z opcją usunięcia jest dostępne jedynie, gdy posiadasz prawa 
     <message>
         <location filename="../scribus/scribus/replacecolors.cpp" line="53"/>
         <source>Replacement</source>
-        <translation>Font zastępczy</translation>
+        <translation>Kolor zastępczy</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/replacecolors.ui" line="13"/>
@@ -44118,7 +44123,7 @@ Menu podręczne z opcją usunięcia jest dostępne jedynie, gdy posiadasz prawa 
     <message>
         <location filename="../scribus/scribus/selectobjects.ui" line="142"/>
         <source>Render Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Ramka renderowana</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/selectobjects.ui" line="153"/>
@@ -44158,22 +44163,22 @@ Menu podręczne z opcją usunięcia jest dostępne jedynie, gdy posiadasz prawa 
     <message>
         <location filename="../scribus/scribus/selectobjects.ui" line="261"/>
         <source>Resizeable</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmiana rozmiaru dozwolona</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/selectobjects.ui" line="46"/>
         <source>Select all items on the current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybiera wszystkie elementy na aktualnej stronie</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/selectobjects.ui" line="59"/>
         <source>Select all items on the current layer on all pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybiera wszystkie elementy na aktualnej warstwie na wszystkich stronach</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/selectobjects.ui" line="69"/>
         <source>Select all items not on a page</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybiera wszystkie elementy znajdujące się poza stroną</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/selectobjects.ui" line="82"/>
@@ -44183,7 +44188,7 @@ Menu podręczne z opcją usunięcia jest dostępne jedynie, gdy posiadasz prawa 
     <message>
         <location filename="../scribus/scribus/selectobjects.ui" line="85"/>
         <source>With the Following Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>O następujących atrybutach</translation>
     </message>
     <message>
         <location filename="../scribus/scribus/selectobjects.ui" line="103"/>
