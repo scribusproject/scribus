@@ -1281,15 +1281,35 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 {
 	Q_ASSERT(!parent.isNull());
 
+	bool  loop = false, parentLoop = false;
+	const Style* parentStyle = (!parent.isEmpty()) ? tmpStyles_.resolve(parent) : NULL;
 	QStringList sel;
 
 	for (int i = 0; i < selection_.count(); ++i)
 	{
-		selection_[i]->erase(); // reset everything to NOVALUE
-		selection_[i]->setParent(parent);
-		selection_[i]->charStyle().setParent("");
+		loop = false;
+		// Check if setting parent won't create a loop
+		const Style* pStyle = parentStyle;
+		while (pStyle)
+		{
+			if (pStyle->hasParent() && (pStyle->parent() == selection_[i]->name()))
+			{
+				loop = parentLoop = true;
+				break;
+			}
+			pStyle = pStyle->hasParent() ? pStyle->parentStyle() : NULL;
+		}
+		if (!loop)
+		{
+			selection_[i]->erase(); // reset everything to NOVALUE
+			selection_[i]->setParent(parent);
+			selection_[i]->charStyle().setParent("");
+		}
 		sel << selection_[i]->name();
 	}
+
+	if (parentLoop)
+		QMessageBox::warning(this->widget(), CommonStrings::trWarning, tr("Setting that style as parent would create an infinite loop."), CommonStrings::tr_OK);
 
 	selected(sel);
 
@@ -2160,14 +2180,34 @@ void SMCharacterStyle::slotParentChanged(const QString &parent)
 {
 	Q_ASSERT(!parent.isNull());
 
-	QStringList sel;
+	bool  loop = false, parentLoop = false;
+	const Style* parentStyle = (!parent.isEmpty()) ? tmpStyles_.resolve(parent) : NULL;
+	QStringList  sel;
 
 	for (int i = 0; i < selection_.count(); ++i)
 	{
-		selection_[i]->erase();
-		selection_[i]->setParent(parent);
+		loop = false;
+		// Check if setting parent won't create a loop
+		const Style* pStyle = parentStyle;
+		while (pStyle)
+		{
+			if (pStyle->hasParent() && (pStyle->parent() == selection_[i]->name()))
+			{
+				loop = parentLoop = true;
+				break;
+			}
+			pStyle = pStyle->hasParent() ? pStyle->parentStyle() : NULL;
+		}
+		if (!loop)
+		{
+			selection_[i]->erase();
+			selection_[i]->setParent(parent);
+		}
 		sel << selection_[i]->name();
 	}
+
+	if (parentLoop)
+		QMessageBox::warning(this->widget(), CommonStrings::trWarning, tr("Setting that style as parent would create an infinite loop."), CommonStrings::tr_OK);
 
 	selected(sel);
 
