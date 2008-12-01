@@ -4922,6 +4922,7 @@ void PropertiesPalette::languageChange()
 	flopItem->setText(0, tr("First Line Offset"));
 	DistanceItem->setText(0, tr("Distance of Text"));
 	Distance2Item->setText(0, tr("Path Text Properties"));
+	imagePageNumberLabel = setText( tr("&Page Number:"));
 	FreeScale->setText( tr("&Free Scaling"));
 	imgDPIXLabel->setText( tr("Actual X-DPI:"));
 	imgDPIYLabel->setText( tr("Actual Y-DPI:"));
