@@ -76,7 +76,7 @@ public:
 	//virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;
 	//virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
 	
-	void setDefaultStyle(bool ids)       { m_isDefaultStyle = ids; }
+	void setDefaultStyle(bool ids);
 	bool isDefaultStyle() const      { return m_isDefaultStyle; }
 	
 	QString name() const             { return m_name; }
@@ -93,7 +93,7 @@ public:
 	}*/
 	
 	QString parent() const           { return m_parent; }
-	void setParent(const QString& p) { if (m_parent != p) m_contextversion = -1; m_parent = p.isEmpty()? "" : p; }
+	void setParent(const QString& p);
 	bool hasParent() const           { return ! m_parent.isEmpty(); }
 	const Style* parentStyle() const;
 	

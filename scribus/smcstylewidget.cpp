@@ -155,7 +155,7 @@ void SMCStyleWidget::fillColorCombo(ColorList &colors)
 void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex)
 {
 	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
-	parentCombo->setEnabled(true);
+	parentCombo->setEnabled(!cstyle->isDefaultStyle());
 	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle->parentStyle());
 	bool hasParent =  cstyle->hasParent() && parent != 0 && parent->hasName() && cstyle->parent() != "";
 	if (hasParent)

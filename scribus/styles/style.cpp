@@ -13,6 +13,7 @@
 *                                                                         *
 ***************************************************************************/
 
+#include <QDebug>
 
 #include "style.h"
 #include "desaxe/digester.h"
@@ -31,6 +32,24 @@ void Style::setContext(const StyleContext* context)
 	//qDebug(QString("setContext of %2 context %1").arg(reinterpret_cast<uint>(m_context),16).arg(reinterpret_cast<uint>(this),16));
 }
 
+void Style::setDefaultStyle(bool ids)
+{ 
+	if (ids && hasParent())
+		setParent(QString(""));
+	m_isDefaultStyle = ids; 
+}
+
+void Style::setParent(const QString& p) 
+{ 
+	if (m_isDefaultStyle && !p.isEmpty())
+	{
+		qDebug() << "A default style cannot have a parent";
+		return;
+	}
+	if (m_parent != p) 
+		m_contextversion = -1; 
+	m_parent = p.isEmpty()? "" : p;
+}
 
 void Style::update(const StyleContext* b)
 {
@@ -52,6 +71,8 @@ void Style::validate() const
 const Style* Style::parentStyle() const 
 { 
 	//qDebug(QString("follow %1").arg(reinterpret_cast<uint>(m_context),16));
+	if (m_isDefaultStyle)
+		return NULL;
 	const Style * par = m_context ? m_context->resolve(m_parent) : NULL;
 	if (par == this) return NULL; else return par;
 }

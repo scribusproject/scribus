@@ -148,7 +148,7 @@ void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
 void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
 {
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
-	parentCombo->setEnabled(true);
+	parentCombo->setEnabled(!pstyle->isDefaultStyle());
 	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle->parentStyle());
 	hasParent_ = pstyle->hasParent() && parent != NULL && parent->hasName() && pstyle->parent() != "";
 
