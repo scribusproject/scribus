@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
 ****************************************************************************/
 
 #include "pathstroker.h"
+#include "pageitem_polygon.h"
+#include "commonstrings.h"
 #include "scribuscore.h"
 #include "scribusstructs.h"
 #include "util.h"
@@ -120,79 +122,220 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 			pp = path.toQPainterPath(false);
 		else
 			pp = path.toQPainterPath(true);
-		QPainterPathStroker stroke;
-		stroke.setCapStyle(currItem->lineEnd());
-		stroke.setJoinStyle(currItem->lineJoin());
-		if (currItem->lineStyle() == Qt::SolidLine)
-			stroke.setDashPattern(currItem->lineStyle());
+		if (currItem->NamedLStyle.isEmpty())
+		{
+			QPainterPathStroker stroke;
+			stroke.setCapStyle(currItem->lineEnd());
+			stroke.setJoinStyle(currItem->lineJoin());
+			if (currItem->lineStyle() == Qt::SolidLine)
+				stroke.setDashPattern(currItem->lineStyle());
+			else
+			{
+				getDashArray(currItem->lineStyle(), 1, m_array);
+				stroke.setDashPattern(m_array);
+			}
+			stroke.setWidth(currItem->lineWidth());
+			QPainterPath result = stroke.createStroke(pp);
+			if (currItem->startArrowIndex() != 0)
+			{
+				FPoint Start = currItem->PoLine.point(0);
+				for (uint xx = 1; xx < currItem->PoLine.size(); xx += 2)
+				{
+					FPoint Vector = currItem->PoLine.point(xx);
+					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+					{
+						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+						QMatrix arrowTrans;
+						FPointArray arrow = currDoc->arrowStyles.at(currItem->startArrowIndex()-1).points.copy();
+						arrowTrans.translate(Start.x(), Start.y());
+						arrowTrans.rotate(r);
+						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
+						arrow.map(arrowTrans);
+						result.addPath(arrow.toQPainterPath(true));
+						break;
+					}
+				}
+			}
+			if (currItem->endArrowIndex() != 0)
+			{
+				FPoint End = currItem->PoLine.point(currItem->PoLine.size()-2);
+				for (uint xx = currItem->PoLine.size()-1; xx > 0; xx -= 2)
+				{
+					FPoint Vector = currItem->PoLine.point(xx);
+					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+					{
+						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+						QMatrix arrowTrans;
+						FPointArray arrow = currDoc->arrowStyles.at(currItem->endArrowIndex()-1).points.copy();
+						arrowTrans.translate(End.x(), End.y());
+						arrowTrans.rotate(r);
+						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
+						arrow.map(arrowTrans);
+						result.addPath(arrow.toQPainterPath(true));
+						break;
+					}
+				}
+			}
+			currDoc->m_Selection->clear();
+			PageItem* newItem = currDoc->convertItemTo(currItem, PageItem::Polygon);
+			newItem->setLineWidth(0);
+			newItem->setLineStyle(Qt::SolidLine);
+			newItem->setFillColor(newItem->lineColor());
+			newItem->setFillShade(newItem->lineShade());
+			newItem->setFillTransparency(newItem->lineTransparency());
+			newItem->setFillBlendmode(newItem->lineBlendmode());
+			FPointArray points;
+			points.fromQPainterPath(result);
+			newItem->PoLine = points;
+			newItem->Frame = false;
+			newItem->ClipEdited = true;
+			newItem->FrameType = 3;
+			currDoc->AdjustItemSize(newItem);
+			newItem->OldB2 = newItem->width();
+			newItem->OldH2 = newItem->height();
+			newItem->updateClip();
+			newItem->ContourLine = newItem->PoLine.copy();
+			newItem->setFillEvenOdd(false);
+			currDoc->m_Selection->addItem(newItem);
+		}
 		else
 		{
-			getDashArray(currItem->lineStyle(), 1, m_array);
-			stroke.setDashPattern(m_array);
-		}
-		stroke.setWidth(currItem->lineWidth());
-		QPainterPath result = stroke.createStroke(pp);
-		if (currItem->startArrowIndex() != 0)
-		{
-			FPoint Start = currItem->PoLine.point(0);
-			for (uint xx = 1; xx < currItem->PoLine.size(); xx += 2)
+			currDoc->m_Selection->clear();
+			multiLine ml = currDoc->MLineStyles[currItem->NamedLStyle];
+			bool first = true;
+			for (int it = ml.size()-1; it > -1; it--)
 			{
-				FPoint Vector = currItem->PoLine.point(xx);
-				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 				{
-					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-					QMatrix arrowTrans;
-					FPointArray arrow = currDoc->arrowStyles.at(currItem->startArrowIndex()-1).points.copy();
-					arrowTrans.translate(Start.x(), Start.y());
-					arrowTrans.rotate(r);
-					arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
-					arrow.map(arrowTrans);
-					result.addPath(arrow.toQPainterPath(true));
-					break;
+					QPainterPathStroker stroke;
+					stroke.setCapStyle(static_cast<Qt::PenCapStyle>(ml[it].LineEnd));
+					stroke.setJoinStyle(static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+					if (static_cast<Qt::PenStyle>(ml[it].Dash) == Qt::SolidLine)
+						stroke.setDashPattern(static_cast<Qt::PenStyle>(ml[it].Dash));
+					else
+					{
+						getDashArray(static_cast<Qt::PenStyle>(ml[it].Dash), 1, m_array);
+						stroke.setDashPattern(m_array);
+					}
+					stroke.setWidth(ml[it].Width);
+					QPainterPath result = stroke.createStroke(pp);
+					PageItem* newItem;
+					if (first)
+					{
+						newItem = currDoc->convertItemTo(currItem, PageItem::Polygon);
+					}
+					else
+					{
+						newItem = new PageItem_Polygon(*currItem);
+						currDoc->Items->append(newItem);
+					}
+					first = false;
+					newItem->ItemNr = currDoc->Items->count()-1;
+					newItem->setLineStyle(Qt::SolidLine);
+					newItem->setFillColor(ml[it].Color);
+					newItem->setFillShade(ml[it].Shade);
+					newItem->setFillTransparency(newItem->lineTransparency());
+					newItem->setFillBlendmode(newItem->lineBlendmode());
+					newItem->setLineColor(CommonStrings::None);
+					newItem->setCustomLineStyle("");
+					FPointArray points;
+					points.fromQPainterPath(result);
+					newItem->PoLine = points;
+					newItem->Frame = false;
+					newItem->ClipEdited = true;
+					newItem->FrameType = 3;
+					currDoc->AdjustItemSize(newItem);
+					newItem->OldB2 = newItem->width();
+					newItem->OldH2 = newItem->height();
+					newItem->updateClip();
+					newItem->ContourLine = newItem->PoLine.copy();
+					newItem->setFillEvenOdd(false);
+					currDoc->m_Selection->addItem(newItem);
 				}
 			}
-		}
-		if (currItem->endArrowIndex() != 0)
-		{
-			FPoint End = currItem->PoLine.point(currItem->PoLine.size()-2);
-			for (uint xx = currItem->PoLine.size()-1; xx > 0; xx -= 2)
+			if (currItem->startArrowIndex() != 0)
 			{
-				FPoint Vector = currItem->PoLine.point(xx);
-				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+				FPoint Start = currItem->PoLine.point(0);
+				for (uint xx = 1; xx < currItem->PoLine.size(); xx += 2)
 				{
-					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-					QMatrix arrowTrans;
-					FPointArray arrow = currDoc->arrowStyles.at(currItem->endArrowIndex()-1).points.copy();
-					arrowTrans.translate(End.x(), End.y());
-					arrowTrans.rotate(r);
-					arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
-					arrow.map(arrowTrans);
-					result.addPath(arrow.toQPainterPath(true));
-					break;
+					FPoint Vector = currItem->PoLine.point(xx);
+					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+					{
+						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+						QMatrix arrowTrans;
+						FPointArray arrow = currDoc->arrowStyles.at(currItem->startArrowIndex()-1).points.copy();
+						arrowTrans.translate(Start.x(), Start.y());
+						arrowTrans.rotate(r);
+						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
+						arrow.map(arrowTrans);
+						PageItem* newItem = new PageItem_Polygon(*currItem);
+						currDoc->Items->append(newItem);
+						newItem->ItemNr = currDoc->Items->count()-1;
+						newItem->setLineWidth(0);
+						newItem->setLineStyle(Qt::SolidLine);
+						newItem->setCustomLineStyle("");
+						newItem->setFillColor(newItem->lineColor());
+						newItem->setFillShade(newItem->lineShade());
+						newItem->setFillTransparency(newItem->lineTransparency());
+						newItem->setFillBlendmode(newItem->lineBlendmode());
+						newItem->PoLine = arrow;
+						newItem->Frame = false;
+						newItem->ClipEdited = true;
+						newItem->FrameType = 3;
+						currDoc->AdjustItemSize(newItem);
+						newItem->OldB2 = newItem->width();
+						newItem->OldH2 = newItem->height();
+						newItem->updateClip();
+						newItem->ContourLine = newItem->PoLine.copy();
+						newItem->setFillEvenOdd(false);
+						currDoc->m_Selection->addItem(newItem);
+						break;
+					}
 				}
 			}
+			if (currItem->endArrowIndex() != 0)
+			{
+				FPoint End = currItem->PoLine.point(currItem->PoLine.size()-2);
+				for (uint xx = currItem->PoLine.size()-1; xx > 0; xx -= 2)
+				{
+					FPoint Vector = currItem->PoLine.point(xx);
+					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+					{
+						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+						QMatrix arrowTrans;
+						FPointArray arrow = currDoc->arrowStyles.at(currItem->endArrowIndex()-1).points.copy();
+						arrowTrans.translate(End.x(), End.y());
+						arrowTrans.rotate(r);
+						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
+						arrow.map(arrowTrans);
+						PageItem* newItem = new PageItem_Polygon(*currItem);
+						currDoc->Items->append(newItem);
+						newItem->ItemNr = currDoc->Items->count()-1;
+						newItem->setLineWidth(0);
+						newItem->setLineStyle(Qt::SolidLine);
+						newItem->setCustomLineStyle("");
+						newItem->setFillColor(newItem->lineColor());
+						newItem->setFillShade(newItem->lineShade());
+						newItem->setFillTransparency(newItem->lineTransparency());
+						newItem->setFillBlendmode(newItem->lineBlendmode());
+						newItem->PoLine = arrow;
+						newItem->Frame = false;
+						newItem->ClipEdited = true;
+						newItem->FrameType = 3;
+						currDoc->AdjustItemSize(newItem);
+						newItem->OldB2 = newItem->width();
+						newItem->OldH2 = newItem->height();
+						newItem->updateClip();
+						newItem->ContourLine = newItem->PoLine.copy();
+						newItem->setFillEvenOdd(false);
+						currDoc->m_Selection->addItem(newItem);
+						break;
+					}
+				}
+			}
+			if (currDoc->m_Selection->count() > 1)
+				currDoc->itemSelection_GroupObjects(false, false);
 		}
-		currDoc->m_Selection->clear();
-		PageItem* newItem = currDoc->convertItemTo(currItem, PageItem::Polygon);
-		newItem->setLineWidth(0);
-		newItem->setLineStyle(Qt::SolidLine);
-		newItem->setFillColor(newItem->lineColor());
-		newItem->setFillShade(newItem->lineShade());
-		newItem->setFillTransparency(newItem->lineTransparency());
-		newItem->setFillBlendmode(newItem->lineBlendmode());
-		FPointArray points;
-		points.fromQPainterPath(result);
-		newItem->PoLine = points;
-		newItem->Frame = false;
-		newItem->ClipEdited = true;
-		newItem->FrameType = 3;
-		currDoc->AdjustItemSize(newItem);
-		newItem->OldB2 = newItem->width();
-		newItem->OldH2 = newItem->height();
-		newItem->updateClip();
-		newItem->ContourLine = newItem->PoLine.copy();
-		newItem->setFillEvenOdd(false);
-		currDoc->m_Selection->addItem(newItem);
 		currDoc->changed();
 	}
 	return true;
