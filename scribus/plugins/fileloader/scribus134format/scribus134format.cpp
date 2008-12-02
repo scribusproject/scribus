@@ -1630,6 +1630,8 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 		newStyle.setParent(it->attribute("CPARENT"));
 	if (it->hasAttribute("DefaultStyle"))
 		newStyle.setDefaultStyle(it->attribute("DefaultStyle").toInt());
+	else if (newStyle.name() == CommonStrings::DefaultCharacterStyle || newStyle.name() == CommonStrings::trDefaultCharacterStyle)
+		newStyle.setDefaultStyle(true);
 	else
 		newStyle.setDefaultStyle(false);
 	if (it->hasAttribute("FONT"))
@@ -1893,6 +1895,8 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 	vg.setParent(pg.attribute("PARENT", ""));
 	if (pg.hasAttribute("DefaultStyle"))
 		vg.setDefaultStyle(pg.attribute("DefaultStyle").toInt());
+	else if (vg.name() == CommonStrings::DefaultParagraphStyle || vg.name() == CommonStrings::trDefaultParagraphStyle)
+		vg.setDefaultStyle(true);
 	else
 		vg.setDefaultStyle(false);
 	if (pg.hasAttribute("LINESPMode"))
