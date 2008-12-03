@@ -195,7 +195,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 			newItem->OldH2 = newItem->height();
 			newItem->updateClip();
 			newItem->ContourLine = newItem->PoLine.copy();
-			newItem->setFillEvenOdd(false);
+			newItem->setFillEvenOdd(true);
 			currDoc->m_Selection->addItem(newItem);
 		}
 		else
@@ -227,6 +227,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 					else
 					{
 						newItem = new PageItem_Polygon(*currItem);
+						newItem->convertTo(PageItem::Polygon);
 						currDoc->Items->append(newItem);
 					}
 					first = false;
@@ -249,7 +250,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 					newItem->OldH2 = newItem->height();
 					newItem->updateClip();
 					newItem->ContourLine = newItem->PoLine.copy();
-					newItem->setFillEvenOdd(false);
+					newItem->setFillEvenOdd(true);
 					currDoc->m_Selection->addItem(newItem);
 				}
 			}
@@ -287,7 +288,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						newItem->OldH2 = newItem->height();
 						newItem->updateClip();
 						newItem->ContourLine = newItem->PoLine.copy();
-						newItem->setFillEvenOdd(false);
+						newItem->setFillEvenOdd(true);
 						currDoc->m_Selection->addItem(newItem);
 						break;
 					}
@@ -327,7 +328,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						newItem->OldH2 = newItem->height();
 						newItem->updateClip();
 						newItem->ContourLine = newItem->PoLine.copy();
-						newItem->setFillEvenOdd(false);
+						newItem->setFillEvenOdd(true);
 						currDoc->m_Selection->addItem(newItem);
 						break;
 					}
@@ -335,6 +336,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 			}
 			if (currDoc->m_Selection->count() > 1)
 				currDoc->itemSelection_GroupObjects(false, false);
+			currDoc->m_Selection->itemAt(0)->emitAllToGUI();
 		}
 		currDoc->changed();
 	}
