@@ -7860,7 +7860,8 @@ void ScribusMainWindow::doSaveAsPDF()
 	}
 /*	if (bookmarkPalette->BView->childCount() == 0)
 		doc->PDF_Options.Bookmarks = false; */
-// 	doc->reorganiseFonts();
+// reenabling the following line fixes Bug #7630, not sure why this line was commented out.
+ 	doc->reorganiseFonts();
 	QMap<QString, int> ReallyUsed = doc->UsedFonts;
 	if (doc->PDF_Options.EmbedList.count() != 0)
 	{
