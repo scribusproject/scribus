@@ -83,9 +83,10 @@ void TabPrinter::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 
-	int selectedDest = prefs->getInt("PrintDest", 0);
-	if ((selectedDest > -1) && (selectedDest < defaultPrinter->count()))
-		defaultPrinter->setCurrentIndex(selectedDest);
+	QString selectedDest = prefs->get("CurrentPrn", "");
+	int prnIndex = defaultPrinter->findText(selectedDest);
+	if ((prnIndex > -1) && (prnIndex < defaultPrinter->count()))
+		defaultPrinter->setCurrentIndex(prnIndex);
 	useAltPrintCommand->setChecked(prefs->getBool("OtherCom", false));
 	if (useAltPrintCommand->isChecked())
 	{
@@ -129,7 +130,6 @@ void TabPrinter::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void TabPrinter::storeValues()
 {
-	prefs->set("PrintDest", defaultPrinter->currentIndex());
 	prefs->set("CurrentPrn", defaultPrinter->currentText());
 	prefs->set("OtherCom", useAltPrintCommand->isChecked());
 	prefs->set("Command", printerCommand->text());

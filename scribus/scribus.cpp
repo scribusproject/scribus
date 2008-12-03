@@ -4693,7 +4693,7 @@ void ScribusMainWindow::slotReallyPrint()
 	mainWindowStatusLabel->setText( tr("Printing..."));
 	if (doc->Print_Options.firstUse)
 	{
-		doc->Print_Options.printer = "";
+		doc->Print_Options.printer = QString();
 		if (!doc->DocName.startsWith( tr("Document")))
 		{
 			QFileInfo fi(doc->DocName);

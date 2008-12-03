@@ -418,7 +418,7 @@ void PrintDialog::storeValues()
 #ifdef HAVE_CUPS
 	m_doc->Print_Options.printerOptions = PrinterOpts;
 #else
-	m_doc->Print_Options.printerOptions = QString("");
+	m_doc->Print_Options.printerOptions = QString();
 #endif
 	m_doc->Print_Options.devMode = DevMode;
 }
@@ -439,7 +439,7 @@ void PrintDialog::getDefaultPrintOptions(PrintOptions& options, bool gcr)
 {
 	QStringList spots;
 	options.firstUse = true;
-	options.printer  = prefs->getInt("PrintDest", 0);
+	options.printer  = prefs->get("CurrentPrn", "");
 	options.useAltPrintCommand = prefs->getBool("OtherCom", false);
 	options.printerCommand = prefs->get("Command", "");
 	options.outputSeparations = prefs->getInt("Separations", 0);
