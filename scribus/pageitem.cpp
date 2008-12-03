@@ -4229,8 +4229,18 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	double maxx = -99999.9;
 	double maxy = -99999.9;
 	double extraSpace = 0.0;
-	if (lineColor() != CommonStrings::None)
-		extraSpace = m_lineWidth / 2.0;
+	if (NamedLStyle.isEmpty())
+	{
+		if (lineColor() != CommonStrings::None)
+			extraSpace = m_lineWidth / 2.0;
+	}
+	else
+	{
+		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+		struct SingleLine& sl = ml[ml.size()-1];
+		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+			extraSpace = sl.Width / 2.0;
+	}
 	if (Rot != 0)
 	{
 		FPointArray pb;
@@ -4255,8 +4265,8 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	{
 		*x1 = visualXPos();
 		*y1 = visualYPos();
-		*x2 = *x1 + qMax(visualWidth(), m_lineWidth);
-		*y2 = *y1 + qMax(visualHeight(), m_lineWidth);
+		*x2 = *x1 + qMax(visualWidth(), extraSpace);
+		*y2 = *y1 + qMax(visualHeight(), extraSpace);
 	}
 	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0)
@@ -4328,23 +4338,75 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 }
 
 double PageItem::visualXPos() const
-{ 
-	return (lineColor() != CommonStrings::None) ? Xpos - (m_lineWidth / 2.0) : Xpos;
+{
+	double extraSpace = 0.0;
+	if (NamedLStyle.isEmpty())
+	{
+		if (lineColor() != CommonStrings::None)
+			extraSpace = m_lineWidth / 2.0;
+	}
+	else
+	{
+		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+		struct SingleLine& sl = ml[ml.size()-1];
+		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+			extraSpace = sl.Width / 2.0;
+	}
+	return Xpos - extraSpace;
 }
 
 double PageItem::visualYPos() const
 {
-	return (lineColor() != CommonStrings::None) ? Ypos - (m_lineWidth / 2.0) : Ypos;
+	double extraSpace = 0.0;
+	if (NamedLStyle.isEmpty())
+	{
+		if (lineColor() != CommonStrings::None)
+			extraSpace = m_lineWidth / 2.0;
+	}
+	else
+	{
+		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+		struct SingleLine& sl = ml[ml.size()-1];
+		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+			extraSpace = sl.Width / 2.0;
+	}
+	return Ypos - extraSpace;
 }
 
 double PageItem::visualWidth() const
 {
-	return (lineColor() != CommonStrings::None) ? Width + m_lineWidth : Width;
+	double extraSpace = 0.0;
+	if (NamedLStyle.isEmpty())
+	{
+		if (lineColor() != CommonStrings::None)
+			extraSpace = m_lineWidth;
+	}
+	else
+	{
+		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+		struct SingleLine& sl = ml[ml.size()-1];
+		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+			extraSpace = sl.Width;
+	}
+	return Width + extraSpace;
 }
 
 double PageItem::visualHeight() const
 {
-	return (lineColor() != CommonStrings::None) ? Height + m_lineWidth : Height;
+	double extraSpace = 0.0;
+	if (NamedLStyle.isEmpty())
+	{
+		if (lineColor() != CommonStrings::None)
+			extraSpace = m_lineWidth;
+	}
+	else
+	{
+		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+		struct SingleLine& sl = ml[ml.size()-1];
+		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+			extraSpace = sl.Width;
+	}
+	return Height + extraSpace;
 }
 
 bool PageItem::pointWithinItem(const int x, const int y) const
