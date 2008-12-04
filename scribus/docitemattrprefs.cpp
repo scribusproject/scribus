@@ -123,6 +123,7 @@ void DocumentItemAttributes::updateTable()
 		//Type
 		QComboBox *item2 = new QComboBox();
 		item2->addItems(types);
+/* <<7636
 		int listIndex=types.indexOf((*it).type);
 		if (listIndex!=-1)
 			item2->setCurrentIndex(listIndex);
@@ -131,6 +132,15 @@ void DocumentItemAttributes::updateTable()
 			item2->setCurrentIndex(0);
 			item2->setItemText(0,(*it).type);
 		}
+ >>7636 */
+		int listIndex=typesData.indexOf((*it).type);
+		if (listIndex==-1)
+		{
+			(*it).type="none";
+			listIndex=0;
+		}
+		item2->setCurrentIndex(listIndex);
+
 		item2->setEditable(true);
 		attributesTable->setCellWidget(row, i++, item2);
 		//Default Value
