@@ -73,9 +73,10 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void writeHyphenatorLists(ScXmlStreamWriter& docu);
 		void writePStyles(ScXmlStreamWriter& docu);
 		void writeCStyles(ScXmlStreamWriter& docu);
-		void putPStyle(ScXmlStreamWriter& fo, const ParagraphStyle & style, const QString &nodeName);
-		void putCStylePT(ScXmlStreamWriter& fo, const CharStyle & style);
-		void putCStyle(ScXmlStreamWriter& fo, const CharStyle & style);
+		void putPStyle(ScXmlStreamWriter& docu, const ParagraphStyle & style, const QString &nodeName);
+		void putCStylePT(ScXmlStreamWriter& docu, const CharStyle & style);
+		void putCStyle(ScXmlStreamWriter& docu, const CharStyle & style);
+		void putNamedCStyle(ScXmlStreamWriter& docu, const CharStyle & style);
 		void writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter&, PageItem* item);
 		void writeLayers(ScXmlStreamWriter& docu);
 		void writePrintOptions(ScXmlStreamWriter& docu);

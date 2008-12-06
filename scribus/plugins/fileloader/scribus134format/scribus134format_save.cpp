@@ -499,7 +499,7 @@ void Scribus134Format::writeCStyles(ScXmlStreamWriter & docu)
 	for (int ff = 0; ff < m_Doc->charStyles().count(); ++ff)
 	{
 		docu.writeStartElement("CHARSTYLE");
-		putCStyle(docu, m_Doc->charStyles()[ff]);
+		putNamedCStyle(docu, m_Doc->charStyles()[ff]);
 		docu.writeEndElement();
 	}
 }
@@ -532,12 +532,8 @@ void Scribus134Format::putCStylePT(ScXmlStreamWriter & docu, const CharStyle & s
 
 void Scribus134Format::putCStyle(ScXmlStreamWriter & docu, const CharStyle & style)
 {
-	if ( ! style.name().isEmpty() )
-		docu.writeAttribute("CNAME", style.name());
 	if ( ! style.parent().isEmpty() )
 		docu.writeAttribute("CPARENT", style.parent());
-	if ( style.isDefaultStyle())
-		docu.writeAttribute("DefaultStyle", style.isDefaultStyle());	
 	if ( ! style.isInhFont())	
 		docu.writeAttribute("FONT", style.font().scName());
 	if ( ! style.isInhFontSize())
@@ -578,6 +574,15 @@ void Scribus134Format::putCStyle(ScXmlStreamWriter & docu, const CharStyle & sty
 		docu.writeAttribute("wordTrack", style.wordTracking());
 	if ( ! style.shortcut().isEmpty() )
 		docu.writeAttribute("SHORTCUT", style.shortcut()); // shortcuts won't be inherited
+}
+
+void Scribus134Format::putNamedCStyle(ScXmlStreamWriter& docu, const CharStyle & style)
+{
+	if ( ! style.name().isEmpty() )
+		docu.writeAttribute("CNAME", style.name());
+	if ( style.hasName() && style.isDefaultStyle())
+		docu.writeAttribute("DefaultStyle", style.isDefaultStyle());
+	putCStyle(docu, style);
 }
 
 void Scribus134Format::writeLayers(ScXmlStreamWriter & docu) 
@@ -986,9 +991,9 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 			if  (k - lastPos > 0)
 			{
 				docu.writeEmptyElement("ITEXT");
-				if (item->asPathText())
+				/*if (item->asPathText()) // seems to cause problems when loading pathtext elements
 					putCStylePT(docu, lastStyle);
-				else
+				else*/
 					putCStyle(docu, lastStyle);
 				docu.writeAttribute("CH", textWithSmartHyphens(item->itemText, lastPos, k));
 			}
@@ -1000,9 +1005,9 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 		{
 			// each obj in its own ITEXT for now
 			docu.writeEmptyElement("ITEXT");
-			if (item->asPathText())
+			/*if (item->asPathText()) // seems to cause problems when loading pathtext elements
 				putCStylePT(docu, lastStyle);
-			else
+			else*/
 				putCStyle(docu, lastStyle);
 			docu.writeAttribute("CH", QString(ch));
 			docu.writeAttribute("COBJ", item->itemText.object(k)->ItemNr);		
@@ -1057,9 +1062,9 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 	if ( item->itemText.length() - lastPos > 0)
 	{
 		docu.writeEmptyElement("ITEXT");
-		if (item->asPathText())
+		/*if (item->asPathText())
 			putCStylePT(docu, lastStyle);
-		else
+		else*/
 			putCStyle(docu, lastStyle);
 		docu.writeAttribute("CH", textWithSmartHyphens(item->itemText, lastPos, item->itemText.length()));
 	}

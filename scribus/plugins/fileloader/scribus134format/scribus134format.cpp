@@ -1628,7 +1628,7 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 		newStyle.setName(it->attribute("CNAME"));
 	if (it->hasAttribute("CPARENT"))
 		newStyle.setParent(it->attribute("CPARENT"));
-	if (it->hasAttribute("DefaultStyle"))
+	if (newStyle.hasName() && it->hasAttribute("DefaultStyle"))
 		newStyle.setDefaultStyle(it->attribute("DefaultStyle").toInt());
 	else if (newStyle.name() == CommonStrings::DefaultCharacterStyle || newStyle.name() == CommonStrings::trDefaultCharacterStyle)
 		newStyle.setDefaultStyle(true);
