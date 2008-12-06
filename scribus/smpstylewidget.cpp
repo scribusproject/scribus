@@ -268,15 +268,19 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	cpage->show(&pstyle->charStyle(), cstyles, defLang, unitIndex);
 
 	parentCombo->clear();
-	parentCombo->addItem("");
-
-	for (int i = 0; i < pstyles.count(); ++i)
+	parentCombo->addItem( pstyle->isDefaultStyle()? tr("A default style cannot be assigned a parent style") : "");
+	if (!pstyle->isDefaultStyle())
 	{
-		if (pstyles[i].hasName() && pstyles[i].name() != pstyle->name())
-			parentCombo->addItem(pstyles[i].name());
+		for (int i = 0; i < pstyles.count(); ++i)
+		{
+			if (pstyles[i].hasName() && pstyles[i].name() != pstyle->name())
+				parentCombo->addItem(pstyles[i].name());
+		}
 	}
 
-	if (hasParent_)
+	if (pstyle->isDefaultStyle() || !hasParent_)
+		parentCombo->setCurrentIndex(0);
+	else
 	{
 		int index = 0;
 		for (int i = 0; i < parentCombo->count(); ++i)
@@ -289,8 +293,6 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		}
 		parentCombo->setCurrentIndex(index);
 	}
-	else
-		parentCombo->setCurrentIndex(0);
 
 	connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 }

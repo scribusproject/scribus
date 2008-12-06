@@ -218,14 +218,19 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 	slotColorChange();
 
 	parentCombo->clear();
-	parentCombo->addItem("");
-	for (int i = 0; i < cstyles.count(); ++i)
+	parentCombo->addItem( cstyle->isDefaultStyle()? tr("A default style cannot be assigned a parent style") : "");
+	if (!cstyle->isDefaultStyle())
 	{
-		if (cstyles[i].name() != cstyle->name())
-			parentCombo->addItem(cstyles[i].name());
+		for (int i = 0; i < cstyles.count(); ++i)
+		{
+			if (cstyles[i].name() != cstyle->name())
+				parentCombo->addItem(cstyles[i].name());
+		}
 	}
 
-	if (hasParent)
+	if (cstyle->isDefaultStyle() || !hasParent)
+		parentCombo->setCurrentIndex(0);
+	else if (hasParent)
 	{
 		int index = 0;
 		for (int i = 0; i < parentCombo->count(); ++i)
@@ -238,8 +243,6 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 		}
 		parentCombo->setCurrentIndex(index);
 	}
-	else
-		parentCombo->setCurrentIndex(0);
 
 	QString clang = cstyle->language().isNull() || cstyle->language().isEmpty() ?
 	                                      defLang : cstyle->language();
