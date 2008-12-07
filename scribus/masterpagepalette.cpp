@@ -247,7 +247,14 @@ void MasterPagesPalette::newMasterPage()
 		if (currentDoc->appMode == modeEditClip)
 			currentView->requestMode(submodeEndNodeEdit);
 		MasterPageName = dia->Answer->text();
-		while (currentDoc->MasterNames.contains(MasterPageName) || ((MasterPageName == CommonStrings::masterPageNormal) || (MasterPageName == CommonStrings::trMasterPageNormal) || (MasterPageName == CommonStrings::trMasterPageNormalLeft) || (MasterPageName == CommonStrings::trMasterPageNormalMiddle) || (MasterPageName == CommonStrings::trMasterPageNormalRight)))
+		bool MasterPageNameWrong = currentDoc->MasterNames.contains(MasterPageName);
+		MasterPageNameWrong |= (MasterPageName == CommonStrings::masterPageNormal);
+		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormal);
+		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalLeft);
+		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalMiddle);
+		MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalRight);
+		MasterPageNameWrong |=  MasterPageName.isEmpty();
+		while (MasterPageNameWrong)
 		{
 			if (!dia->exec())
 			{
@@ -255,6 +262,13 @@ void MasterPagesPalette::newMasterPage()
 				return;
 			}
 			MasterPageName = dia->Answer->text();
+			MasterPageNameWrong = currentDoc->MasterNames.contains(MasterPageName);
+			MasterPageNameWrong |= (MasterPageName == CommonStrings::masterPageNormal);
+			MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormal);
+			MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalLeft);
+			MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalMiddle);
+			MasterPageNameWrong |= (MasterPageName == CommonStrings::trMasterPageNormalRight);
+			MasterPageNameWrong |=  MasterPageName.isEmpty();
 		}
 		currentDoc->setCurrentPage(currentDoc->addMasterPage(nr, MasterPageName));
 		if (currentDoc->currentPageLayout != singlePage)
