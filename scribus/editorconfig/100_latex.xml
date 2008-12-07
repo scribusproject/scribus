@@ -44,6 +44,19 @@
 				devient
 				\[J = \int r^2 \mathrm{d}m\]
 			</fr>
+			<pl>
+				\section*{Wstęp}
+				Jeśli możesz przeczytać ten tekst, to znaczy, że ramki typu \LaTeX są prawidłowo skonfigurowane.
+				Wstawianie własnych wzorów jest bardzo proste:
+				Kliknij prawym przyciskiem myszy na tę ramkę $\Rightarrow$ Edycja pliku źródłowego\\
+				Następnie zastąp ten tekst twoim własnym:\\
+				Na przykład:
+				\begin{verbatim}
+				\[J = \int r^2 \mathrm{d}m\]
+				\end{verbatim}
+				zostanie zastąpione przez
+				\[J = \int r^2 \mathrm{d}m\]
+			</pl>
 		</i18n>
 	</empty-frame-text>
 	<preamble>
@@ -67,17 +80,20 @@
 				<en>Fonts/Headers</en>
 				<de>Schriften/Header</de>
 				<fr>Polices/En-tête</fr>
+				<pl>Fonty/Nagłówki</pl>
 		</i18n></title>
 		<comment><i18n>
 			<en>Fonts only work when installed on your computer!</en>
 			<de>Schriften funktionieren nur, wenn sie auch auf dem Computer installiert sind.</de>
 			<fr>Les polices fonctionnent uniquement lorsqu'elles sont installées sur votre ordinateur !</fr>
+			<pl>Fonty muszą być zainstalowane na twoim komputerze!</pl>
 		</i18n></comment>
 		<list name="font" default="">
 			<title><i18n>
 				<en>Font:</en>
 				<de>Schrift:</de>
 				<fr>Police :</fr>
+				<pl>Font:</pl>
 			</i18n></title>
 			<option value="">Computer Modern</option>
 			<option value="\usepackage{ccfonts}">Concrete</option>
@@ -88,12 +104,14 @@
 		<comment><i18n>
 			<en>Note: You have to include \sf at the beginning of your text for Helvetica and \tt for Courier!</en>
 			<de>Hinweis: Am Anfang des Textes muss zusätzlich \sf für Helvetica und \tt für Courier stehen!</de>
+			<pl>Uwaga: Na początku tekstu należy dodatkowo umieścić \sf dla fontu Helvetica i \tt dla fontu Courier!</pl>
 		</i18n></comment>
 		<list name="fontsize" default="11pt">
 			<title><i18n>
 					<en>Fontsize:</en>
 					<de>Schriftgröße:</de>
 					<fr>Taille police :</fr>
+					<pl>Stopień pisma:</pl>
 			</i18n></title>
 			<option value="8pt">8pt</option>
 			<option value="9pt">9pt</option>
@@ -119,6 +137,7 @@
 			<en>Additional Headers:</en>
 			<de>Zusätzliche Header:</de>
 			<fr>En-tête additionnel :</fr>
+			<pl>Dodatkowe nagłówki:</pl>
 		</i18n></text>
 	</tab>
 	<tab type="items">
@@ -126,6 +145,7 @@
 				<en>Relation symbols</en>
 				<fr>Symboles et opérateurs</fr>
 				<de>Verhältnissymbole</de>
+				<pl>Symbole relacji</pl>
 		</i18n></title>
 		<item value="\pm"  image="pm.png" />
 		<item value="\cap"  image="cap.png" />
@@ -362,6 +382,7 @@
 				<en>Arrows</en>
 				<de>Pfeile</de>
 				<fr>Flèches</fr>
+				<pl>Strzałki</pl>
 		</i18n></title>
 		<item value="\leftarrow"  image="leftarrow.png" />
 		<item value="\longleftarrow"  image="longleftarrow.png" />
@@ -438,6 +459,7 @@
 				<en>Miscellaneous symbols</en>
 				<de>Verschiedenes</de>
 				<fr>Symboles divers</fr>
+				<pl>Różne symbole</pl>
 		</i18n></title>
 		<item value="\ldots"  image="ldots.png" />
 		<item value="\cdots"  image="cdots.png" />
@@ -504,6 +526,7 @@
 				<en>Delimiters</en>
 				<de>Trenner</de>
 				<fr>Délimiteurs</fr>
+				<pl>Znaki rozdzielające</pl>
 		</i18n></title>
 		<item value="\vert"  image="vert.png" />
 		<item value="\Vert"  image="v_ert.png" />
@@ -543,6 +566,7 @@
 				<en>Greek Alphabet</en>
 				<de>Griechisches Alphabet</de>
 				<fr>Alphabet Grec</fr>
+				<pl>Alfabet grecki</pl>
 		</i18n></title>
 		<item value="\alpha"  image="alpha.png" />
 		<item value="\beta"  image="beta.png" />
@@ -590,6 +614,7 @@
 			<en>Math alphabets</en>
 			<de>Mathe-Alphabete</de>
 			<fr>Alphabet Math</fr>
+			<pl>Alfabet matematyczny</pl>
 		</i18n></title>
 		<item value="\mathcal{A}"  image="mathcala_.png" />
 		<item value="\mathcal{B}"  image="mathcalb_.png" />
@@ -769,6 +794,7 @@
 				<en>Regular text</en>
 				<de>Normaler Text</de>
 				<fr>Texte normal</fr>
+				<pl>Zwykły tekst</pl>
 			</i18n>
 		</item>
 	</tab>
@@ -777,6 +803,7 @@
 			<en>Math accents</en>
 			<de>Mathe-Akzente</de>
 			<fr>Accents Math</fr>
+			<pl>Akcenty matematyczne</pl>
 		</i18n></title>
 		<item value="\bar{a}"  image="bara.png" />
 		<item value="\vec{a}"  image="veca.png" />
