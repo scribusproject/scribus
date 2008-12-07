@@ -271,7 +271,7 @@ void MasterPagesPalette::newMasterPage()
 	{
 		ScMW->NoFrameEdit();
 		MasterPageName = dia->Answer->text();
-		while (currentDoc->MasterNames.contains(MasterPageName) || (MasterPageName == "Normal"))
+		while (currentDoc->MasterNames.contains(MasterPageName) || (MasterPageName == "Normal") || MasterPageName.isEmpty())
 		{
 			if (!dia->exec())
 			{
