@@ -514,9 +514,10 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 						prefsManager->appPrefs.GFontSub[itfsu.key()] = itfsu.value();
 				}
 				currDoc->AllFonts->setSubstitutions(ReplacedFonts, currDoc);
-				//ResourceCollection repl;
-				//repl.mapFonts(ReplacedFonts);
-				//currDoc->replaceNamedResources(repl);
+				ResourceCollection repl;
+				repl.availableFonts = currDoc->AllFonts;
+				repl.mapFonts(ReplacedFonts);
+				currDoc->replaceNamedResources(repl);
 				return true;
 			}
 			else
