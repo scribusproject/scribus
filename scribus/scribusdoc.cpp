@@ -70,7 +70,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuswin.h"
 #include "selection.h"
 #include "serializer.h"
-#include "story.h"
+#include "storyeditor.h"
 #include "text/nlsconfig.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -7106,7 +7106,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 			offs++;
 			continue;
 		}
-		//CB FIXME remove this and include of story.h too
+		//CB FIXME remove this and include of storyeditor.h too
 		if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==m_ScMW->storyEditor->currentItem() && this==m_ScMW->storyEditor->currentDocument())
 		{
 			if (forceDeletion)

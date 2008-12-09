@@ -73,7 +73,7 @@ for which a new license (GPL+exception) is in place.
 #include "serializer.h"
 #include "shadebutton.h"
 #include "spalette.h"
-#include "story.h"
+#include "storyeditor.h"
 #include "styleitem.h"
 #include "stylemanager.h"
 #include "styleselect.h"

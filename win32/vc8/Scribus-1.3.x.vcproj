@@ -1648,7 +1648,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\story.cpp"
+				RelativePath="..\..\scribus\storyeditor.cpp"
 				>
 			</File>
 			<File
@@ -11525,7 +11525,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\story.h"
+				RelativePath="..\..\scribus\storyeditor.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -14111,7 +14111,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\scribus\moc_story.cpp"
+				RelativePath="..\..\scribus\moc_storyeditor.cpp"
 				>
 			</File>
 			<File

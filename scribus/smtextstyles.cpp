@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "smspinbox.h"
 #include "smtabruler.h"
 #include "smtextstyles.h"
-#include "story.h"
+#include "storyeditor.h"
 #include "style.h"
 #include "styleselect.h"
 #include "tabruler.h"

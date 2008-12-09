@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          story.h    -  description
+                          storyeditor.h    -  description
                              -------------------
     begin                : Tue Nov 11 2003
     copyright            : (C) 2003 by Franz Schmid
@@ -21,8 +21,8 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#ifndef STORY_H
-#define STORY_H
+#ifndef STORYEDITOR_H
+#define STORYEDITOR_H
 
 // #include <Q3PopupMenu>
 #include <QTextEdit>

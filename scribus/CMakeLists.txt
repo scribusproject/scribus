@@ -253,7 +253,7 @@ SET(SCRIBUS_MOC_CLASSES
   smtabruler.h
   smtextstyles.h
   spalette.h
-  story.h
+  storyeditor.h
   styleitem.h
   stylemanager.h
   styleselect.h
@@ -564,7 +564,7 @@ SET(SCRIBUS_SOURCES
   spalette.cpp
   splash.cpp
   stencilreader.cpp
-  story.cpp
+  storyeditor.cpp
   styleitem.cpp
   stylemanager.cpp
   styleselect.cpp

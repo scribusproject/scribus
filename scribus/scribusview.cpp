@@ -109,7 +109,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "serializer.h"
 #include "stencilreader.h"
-#include "story.h"
+#include "storyeditor.h"
 #include "text/nlsconfig.h"
 #include "undomanager.h"
 #include "units.h"

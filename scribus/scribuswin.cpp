@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageselector.h"
 #include "scribus.h"
 #include "scribuswin.h"
-#include "story.h"
+#include "storyeditor.h"
 #include "util.h"
 #include "util_file.h"
 #include "util_icon.h"

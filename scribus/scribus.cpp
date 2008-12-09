@@ -186,7 +186,7 @@ for which a new license (GPL+exception) is in place.
 #include "smtextstyles.h"
 #include "splash.h"
 #include "stencilreader.h"
-#include "story.h"
+#include "storyeditor.h"
 #include "stylemanager.h"
 #include "tabcheckdoc.h"
 #include "tabguides.h"
