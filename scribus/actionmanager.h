@@ -63,6 +63,7 @@ class SCRIBUS_API ActionManager : public QObject
 		static void createDefaultMenus();
 		static void createDefaultMenuNames();
 		static void createDefaultNonMenuActions();
+		static void createDefaultNonMenuNames();
 		static QVector< QPair<QString, QStringList> >* defaultMenuNames() {return &defMenuNames;};
 		static QVector< QPair<QString, QStringList> >* defaultNonMenuNames() {return &defNonMenuNames;};
 		static QString defaultMenuNameEntryTranslated(const QString& index);

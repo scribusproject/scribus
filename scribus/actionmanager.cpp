@@ -1248,6 +1248,7 @@ void ActionManager::changeEvent(QEvent *e)
 void ActionManager::languageChange()
 {
 	createDefaultMenuNames();
+	createDefaultNonMenuNames();
 
 	//File Menu
 	(*scrActions)["fileNew"]->setTexts( tr("&New"));
@@ -1858,8 +1859,8 @@ void ActionManager::createDefaultMenus()
 // 	itmenu->second << "";
 }
 
-void ActionManager::createDefaultNonMenuActions()
-{   //CB TODO use this to also create the menus
+void ActionManager::createDefaultNonMenuNames()
+{
 	defNonMenuNames.clear();
 
 	defNonMenuNames.append(QPair<QString, QStringList>("Plugin Menu Items", QStringList()));
@@ -1873,7 +1874,13 @@ void ActionManager::createDefaultNonMenuActions()
 	++itNonMenuNames;
 	itNonMenuNames->second << tr("Unicode Characters") << "Unicode Characters" << tr("Unicode Characters");
 	++itNonMenuNames;
+}
 
+void ActionManager::createDefaultNonMenuActions()
+{   //CB TODO use this to also create the menus
+
+	if (defNonMenuNames.size()==0)
+		createDefaultNonMenuNames();
 
 	defNonMenuActions.clear();
 	for (int i = 0; i < defNonMenuNames.size(); ++i)
