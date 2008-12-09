@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>410</width>
-    <height>354</height>
+    <height>364</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -57,10 +57,10 @@
        <item>
         <widget class="QCheckBox" name="keepSource1" >
          <property name="toolTip" >
-          <string>Keep a copy of the original Item after applying the operation</string>
+          <string>Keep a copy of the original item after applying the operation</string>
          </property>
          <property name="text" >
-          <string>keep</string>
+          <string>Keep</string>
          </property>
         </widget>
        </item>
@@ -155,10 +155,10 @@
        <item>
         <widget class="QCheckBox" name="keepSource2" >
          <property name="toolTip" >
-          <string>Keep a copy of the original Item after applying the operation</string>
+          <string>Keep a copy of the original item after applying the operation</string>
          </property>
          <property name="text" >
-          <string>keep</string>
+          <string>Keep</string>
          </property>
         </widget>
        </item>
@@ -302,7 +302,7 @@
           <item>
            <widget class="QToolButton" name="opSubtraction" >
             <property name="toolTip" >
-             <string>Substrats the second shape from the first shape</string>
+             <string>Subtracts the second shape from the first shape</string>
             </property>
             <property name="text" >
              <string>...</string>
@@ -375,7 +375,7 @@ The result is a combination of "Intersection" and "Exclusion"</string>
          <item>
           <widget class="QPushButton" name="swapShapes" >
            <property name="toolTip" >
-            <string>Exchange the source shapes.</string>
+            <string>Exchange the Source Shapes</string>
            </property>
            <property name="text" >
             <string>Swap Shapes</string>
@@ -415,16 +415,16 @@ The result is a combination of "Intersection" and "Exclusion"</string>
      <item>
       <widget class="QGroupBox" name="optionGroup" >
        <property name="title" >
-        <string>Result gets Color from:</string>
+        <string>Result takes color from:</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_2" >
         <item row="0" column="0" >
          <widget class="QRadioButton" name="targetGetsSource1Color" >
           <property name="toolTip" >
-           <string>The resulting shape gets the color of the first source shape.</string>
+           <string>The resulting shape uses the color of the first source shape</string>
           </property>
           <property name="text" >
-           <string>first Shape</string>
+           <string>First Shape</string>
           </property>
           <property name="checked" >
            <bool>true</bool>
@@ -434,17 +434,17 @@ The result is a combination of "Intersection" and "Exclusion"</string>
         <item row="1" column="0" >
          <widget class="QRadioButton" name="targetGetsSource2Color" >
           <property name="toolTip" >
-           <string>The resulting shape gets the color of the first source shape.</string>
+           <string>The resulting shape uses the color of the second source shape</string>
           </property>
           <property name="text" >
-           <string>second Shape</string>
+           <string>Second Shape</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0" >
          <widget class="QRadioButton" name="targetGetsOtherColor" >
           <property name="toolTip" >
-           <string>The resulting shape gets the colors listed below.</string>
+           <string>The resulting shape uses the colors listed below</string>
           </property>
           <property name="text" >
            <string>Custom Colors</string>
@@ -475,7 +475,7 @@ The result is a combination of "Intersection" and "Exclusion"</string>
              </sizepolicy>
             </property>
             <property name="toolTip" >
-             <string>Select stroke color.</string>
+             <string>Stroke Color</string>
             </property>
            </widget>
           </item>
@@ -495,7 +495,7 @@ The result is a combination of "Intersection" and "Exclusion"</string>
              <bool>false</bool>
             </property>
             <property name="toolTip" >
-             <string>Select fill color.</string>
+             <string>Fill Color</string>
             </property>
            </widget>
           </item>

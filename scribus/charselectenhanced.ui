@@ -103,7 +103,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
      <item>
       <widget class="QLineEdit" name="hexLineEdit" >
        <property name="toolTip" >
-        <string>Type in a four digit unicode value directly here</string>
+        <string>Type in a four digit Unicode value directly here</string>
        </property>
        <property name="maxLength" >
         <number>32767</number>
