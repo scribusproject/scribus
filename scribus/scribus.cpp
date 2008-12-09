@@ -590,8 +590,7 @@ bool ScribusMainWindow::warningVersion(QWidget *parent)
 void ScribusMainWindow::initMenuBar()
 {
 	RecentDocs.clear();
-
-	scrMenuMgr->createMenu("File", tr("&File"));
+	scrMenuMgr->createMenu("File", ActionManager::defaultMenuNameEntryTranslated("File"));
 	scrMenuMgr->addMenuItem(scrActions["fileNew"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileOpen"], "File");
 	recentFileMenuName="FileOpenRecent";
@@ -642,7 +641,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["filePrint"]->setEnabled(false);
 	scrActions["PrintPreview"]->setEnabled(false);
 
-	scrMenuMgr->createMenu("Edit", tr("&Edit"));
+	scrMenuMgr->createMenu("Edit", ActionManager::defaultMenuNameEntryTranslated("Edit"));
 	scrMenuMgr->addMenuItem(scrActions["editUndoAction"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editRedoAction"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editActionMode"], "Edit");
@@ -699,7 +698,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["editEditRenderSource"]->setEnabled(false);
 
 	//Item Menu
-	scrMenuMgr->createMenu("Item", tr("&Item"));
+	scrMenuMgr->createMenu("Item", ActionManager::defaultMenuNameEntryTranslated("Item"));
 	scrMenuMgr->addMenuItem(scrActions["itemDuplicate"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemMulDuplicate"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemDelete"], "Item");
@@ -771,7 +770,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["itemConvertToTextFrame"]->setEnabled(false);
 
 	//Insert menu
-	scrMenuMgr->createMenu("Insert", tr("I&nsert"));
+	scrMenuMgr->createMenu("Insert", ActionManager::defaultMenuNameEntryTranslated("Insert"));
 	scrMenuMgr->addMenuItem(scrActions["insertFrame"], "Insert");
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertTextFrame"], "Insert");
@@ -859,7 +858,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["insertFrame"]->setEnabled(false);
 
 	//Page menu
-	scrMenuMgr->createMenu("Page", tr("&Page"));
+	scrMenuMgr->createMenu("Page", ActionManager::defaultMenuNameEntryTranslated("Page"));
 	scrMenuMgr->addMenuItem(scrActions["pageInsert"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageImport"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageDelete"], "Page");
@@ -876,7 +875,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["pageMove"]->setEnabled(false);
 
 	//View menu
-	scrMenuMgr->createMenu("View", tr("&View"));
+	scrMenuMgr->createMenu("View", ActionManager::defaultMenuNameEntryTranslated("View"));
 	scrMenuMgr->addMenuItem(scrActions["viewFitInWindow"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewFitWidth"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewFit50"], "View");
@@ -926,7 +925,7 @@ void ScribusMainWindow::initMenuBar()
 	//scrActions["toolsPreflightVerifier"]->setEnabled(false);*/
 
 	//Extra menu
-	scrMenuMgr->createMenu("Extras", tr("E&xtras"));
+	scrMenuMgr->createMenu("Extras", ActionManager::defaultMenuNameEntryTranslated("Extras"));
 	scrMenuMgr->addMenuItem(scrActions["extrasManageImages"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasHyphenateText"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasDeHyphenateText"], "Extras");
@@ -938,12 +937,12 @@ void ScribusMainWindow::initMenuBar()
 	connect(scrMenuMgr->getLocalPopupMenu("Extras"), SIGNAL(aboutToShow()), this, SLOT(extrasMenuAboutToShow()));
 
 	//Window menu
-	 scrMenuMgr->createMenu("Windows", tr("&Windows"), QString::null, true);
+	 scrMenuMgr->createMenu("Windows", ActionManager::defaultMenuNameEntryTranslated("Windows"), QString::null, true);
 	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
 	addDefaultWindowMenuItems();
 
 	//Help menu
-	scrMenuMgr->createMenu("Help", tr("&Help"));
+	scrMenuMgr->createMenu("Help", ActionManager::defaultMenuNameEntryTranslated("Help"));
 	scrMenuMgr->addMenuItem(scrActions["helpManual"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpManual2"], "Help");
 	scrMenuMgr->addMenuSeparator("Help");
@@ -9236,14 +9235,14 @@ void ScribusMainWindow::languageChange()
 		//Update menu texts
 		if (scrMenuMgr!=NULL && !scrMenuMgr->empty())
 		{
-			scrMenuMgr->setText("File", tr("&File"));
+			scrMenuMgr->setText("File", ActionManager::defaultMenuNameEntryTranslated("File"));
 			scrMenuMgr->setText(recentFileMenuName, tr("Open &Recent"));
 			scrMenuMgr->setText(recentPasteMenuName, tr("Paste Recent"));
 			scrMenuMgr->setText("FileImport", tr("&Import"));
 			scrMenuMgr->setText("FileExport", tr("&Export"));
-			scrMenuMgr->setText("Edit", tr("&Edit"));
+			scrMenuMgr->setText("Edit", ActionManager::defaultMenuNameEntryTranslated("Edit"));
 			scrMenuMgr->setText("EditContents", tr("Contents"));
-			scrMenuMgr->setText("Item", tr("&Item"));
+			scrMenuMgr->setText("Item", ActionManager::defaultMenuNameEntryTranslated("Item"));
 			scrMenuMgr->setText("ItemLevel", tr("&Level"));
 			scrMenuMgr->setText("ItemLayer", tr("Send to Layer"));
 			scrMenuMgr->setText("ItemPreviewSettings", tr("Previe&w Settings"));
@@ -9251,17 +9250,17 @@ void ScribusMainWindow::languageChange()
 			//scrMenuMgr->setText("ItemShapes", tr("&Shape"));
 			scrMenuMgr->setText("ItemConvertTo", tr("C&onvert To"));
 //			scrMenuMgr->setText("ItemPathOps", tr("Path Tools"));
-			scrMenuMgr->setText("Insert", tr("I&nsert"));
+			scrMenuMgr->setText("Insert", ActionManager::defaultMenuNameEntryTranslated("Insert"));
 			scrMenuMgr->setText("InsertChar", tr("Character"));
 			scrMenuMgr->setText("InsertQuote", tr("Quote"));
 			scrMenuMgr->setText("InsertSpace", tr("Space"));
 			scrMenuMgr->setText("InsertLigature", tr("Liga&ture"));
-			scrMenuMgr->setText("Page", tr("&Page"));
-			scrMenuMgr->setText("View", tr("&View"));
-			scrMenuMgr->setText("Tools", tr("&Tools"));
-			scrMenuMgr->setText("Extras", tr("E&xtras"));
-			scrMenuMgr->setText("Windows", tr("&Windows"));
-			scrMenuMgr->setText("Help", tr("&Help"));
+			scrMenuMgr->setText("Page", ActionManager::defaultMenuNameEntryTranslated("Page"));
+			scrMenuMgr->setText("View", ActionManager::defaultMenuNameEntryTranslated("View"));
+// 			scrMenuMgr->setText("Tools", tr("&Tools"));
+			scrMenuMgr->setText("Extras", ActionManager::defaultMenuNameEntryTranslated("Extras"));
+			scrMenuMgr->setText("Windows", ActionManager::defaultMenuNameEntryTranslated("Windows"));
+			scrMenuMgr->setText("Help", ActionManager::defaultMenuNameEntryTranslated("Help"));
 			scrMenuMgr->setText("Alignment", tr("&Alignment"));
 			scrMenuMgr->setText("HelpOnlineTutorials", tr("Online &Tutorials"));
 		}

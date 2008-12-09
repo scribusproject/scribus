@@ -32,7 +32,9 @@ for which a new license (GPL+exception) is in place.
 
 
 QMap<QString, QKeySequence> ActionManager::defKeys;
+QVector< QPair<QString, QStringList> > ActionManager::defMenuNames;
 QVector< QPair<QString, QStringList> > ActionManager::defMenus;
+QVector< QPair<QString, QStringList> > ActionManager::defNonMenuNames;
 QVector< QPair<QString, QStringList> > ActionManager::defNonMenuActions;
 
 ActionManager::ActionManager ( QObject * parent ) :
@@ -70,6 +72,8 @@ void ActionManager::init(ScribusMainWindow *mw)
 #endif
 
 	createActions();
+	createDefaultMenus();
+	createDefaultNonMenuActions();
 	languageChange();
 }
 
@@ -1243,6 +1247,8 @@ void ActionManager::changeEvent(QEvent *e)
 
 void ActionManager::languageChange()
 {
+	createDefaultMenuNames();
+
 	//File Menu
 	(*scrActions)["fileNew"]->setTexts( tr("&New"));
 	(*scrActions)["fileOpen"]->setTexts( tr("&Open..."));
@@ -1659,9 +1665,57 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("SaveAsDocumentTemplate", Qt::CTRL+Qt::ALT+Qt::Key_S);
 }
 
+void ActionManager::createDefaultMenuNames()
+{
+	defMenuNames.clear();
+
+	defMenuNames.append(QPair<QString, QStringList>("File", QStringList()));
+	defMenuNames.append(QPair<QString, QStringList>("Edit", QStringList()));
+	defMenuNames.append(QPair<QString, QStringList>("Style", QStringList()));
+	defMenuNames.append(QPair<QString, QStringList>("Item", QStringList()));
+	defMenuNames.append(QPair<QString, QStringList>("Insert", QStringList()));
+	defMenuNames.append(QPair<QString, QStringList>("Page", QStringList()));
+	defMenuNames.append(QPair<QString, QStringList>("View", QStringList()));
+	defMenuNames.append(QPair<QString, QStringList>("Extras", QStringList()));
+	defMenuNames.append(QPair<QString, QStringList>("Windows", QStringList()));
+	defMenuNames.append(QPair<QString, QStringList>("Help", QStringList()));
+
+	QVector< QPair<QString, QStringList> >::Iterator itMenuNames = defMenuNames.begin();
+	itMenuNames->second << tr("File") << "&File" << tr("&File");
+	++itMenuNames;
+	itMenuNames->second << tr("Edit") << "&Edit" << tr("&Edit");
+	++itMenuNames;
+	itMenuNames->second << tr("Style") << "&Style" << tr("&Style");
+	++itMenuNames;
+	itMenuNames->second << tr("Item") << "&Item" << tr("&Item");
+	++itMenuNames;
+	itMenuNames->second << tr("Insert") << "I&nsert" << tr("I&nsert");
+	++itMenuNames;
+	itMenuNames->second << tr("Page") << "&Page" << tr("&Page");
+	++itMenuNames;
+	itMenuNames->second << tr("View") << "&View" << tr("&View");
+	++itMenuNames;
+	itMenuNames->second << tr("Extras") << "E&xtras" << tr("E&xtras");
+	++itMenuNames;
+	itMenuNames->second << tr("Windows") << "&Windows" << tr("&Windows");
+	++itMenuNames;
+	itMenuNames->second << tr("Help") << "&Help" << tr("&Help");
+	++itMenuNames;
+}
+
 void ActionManager::createDefaultMenus()
 {   //CB TODO use this to also create the menus
+
+	if (defMenuNames.size()==0)
+		createDefaultMenuNames();
+
 	defMenus.clear();
+	for (int i = 0; i < defMenuNames.size(); ++i)
+	{
+		if (!defMenuNames.at(i).second.isEmpty())
+			defMenus.append(QPair<QString, QStringList>(defMenuNames.at(i).second.at(0), QStringList()));
+	}
+/*
 	defMenus.append(QPair<QString, QStringList>("File", QStringList()));
 	defMenus.append(QPair<QString, QStringList>("Edit", QStringList()));
 	defMenus.append(QPair<QString, QStringList>("Style", QStringList()));
@@ -1672,6 +1726,7 @@ void ActionManager::createDefaultMenus()
 	defMenus.append(QPair<QString, QStringList>("Extras", QStringList()));
 	defMenus.append(QPair<QString, QStringList>("Window", QStringList()));
 	defMenus.append(QPair<QString, QStringList>("Help", QStringList()));
+*/
 // 	defMenus.append(QPair<QString, QStringList>("Other", QStringList()));
 	
 	QVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus.begin();
@@ -1805,11 +1860,32 @@ void ActionManager::createDefaultMenus()
 
 void ActionManager::createDefaultNonMenuActions()
 {   //CB TODO use this to also create the menus
+	defNonMenuNames.clear();
+
+	defNonMenuNames.append(QPair<QString, QStringList>("Plugin Menu Items", QStringList()));
+	defNonMenuNames.append(QPair<QString, QStringList>("Others", QStringList()));
+	defNonMenuNames.append(QPair<QString, QStringList>("Unicode Characters", QStringList()));
+
+	QVector< QPair<QString, QStringList> >::Iterator itNonMenuNames = defNonMenuNames.begin();
+	itNonMenuNames->second << tr("Plugin Menu Items") << "Plugin Menu Items" << tr("Plugin Menu Items");
+	++itNonMenuNames;
+	itNonMenuNames->second << tr("Others") << "Others" << tr("Others");
+	++itNonMenuNames;
+	itNonMenuNames->second << tr("Unicode Characters") << "Unicode Characters" << tr("Unicode Characters");
+	++itNonMenuNames;
+
+
 	defNonMenuActions.clear();
+	for (int i = 0; i < defNonMenuNames.size(); ++i)
+	{
+		if (!defNonMenuNames.at(i).second.isEmpty())
+			defNonMenuActions.append(QPair<QString, QStringList>(defNonMenuNames.at(i).second.at(0), QStringList()));
+	}
+/*
 	defNonMenuActions.append(QPair<QString, QStringList>("Plugin Menu Items", QStringList()));
 	defNonMenuActions.append(QPair<QString, QStringList>("Others", QStringList()));
 	defNonMenuActions.append(QPair<QString, QStringList>("Unicode Characters", QStringList()));
-
+*/
 
 	QVector< QPair<QString, QStringList> >::Iterator itnmenua = defNonMenuActions.begin();
 	//Plugins
@@ -1925,4 +2001,15 @@ QKeySequence ActionManager::defaultKey(const QString & actionName)
 	if (defKeys.contains(actionName))
 		return defKeys.value(actionName);
 	return QKeySequence();
+}
+
+
+QString ActionManager::defaultMenuNameEntryTranslated(const QString& index)
+{
+	for (int i = 0; i < defMenuNames.size(); ++i)
+	{
+		if (defMenuNames.at(i).first == index)
+			return defMenuNames.at(i).second.at(2);
+	}
+	return QString::null;
 }

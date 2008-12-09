@@ -61,7 +61,11 @@ class SCRIBUS_API ActionManager : public QObject
 		static void createDefaultShortcuts();
 		static QMap<QString, QKeySequence>* defaultShortcuts() {return &defKeys;};
 		static void createDefaultMenus();
+		static void createDefaultMenuNames();
 		static void createDefaultNonMenuActions();
+		static QVector< QPair<QString, QStringList> >* defaultMenuNames() {return &defMenuNames;};
+		static QVector< QPair<QString, QStringList> >* defaultNonMenuNames() {return &defNonMenuNames;};
+		static QString defaultMenuNameEntryTranslated(const QString& index);
 		static QVector< QPair<QString, QStringList> >* defaultMenus() {return &defMenus;};
 		static QVector< QPair<QString, QStringList> >* defaultNonMenuActions() {return &defNonMenuActions;};
 		void createActions();
@@ -112,7 +116,9 @@ class SCRIBUS_API ActionManager : public QObject
 		QStringList *nonEditActionNames;
 		QStringList *unicodeCharActionNames;
 		static QMap<QString, QKeySequence> defKeys;
+		static QVector< QPair<QString, QStringList> > defMenuNames;
 		static QVector< QPair<QString, QStringList> > defMenus;
+		static QVector< QPair<QString, QStringList> > defNonMenuNames;
 		static QVector< QPair<QString, QStringList> > defNonMenuActions;
 };
 

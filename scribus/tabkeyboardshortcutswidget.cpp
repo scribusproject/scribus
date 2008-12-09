@@ -60,8 +60,8 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 {
 	setupUi(this);
 	setObjectName(name);
-	ActionManager::createDefaultMenus();
-	ActionManager::createDefaultNonMenuActions();
+// 	ActionManager::createDefaultMenus();
+// 	ActionManager::createDefaultNonMenuActions();
 	defMenus=ActionManager::defaultMenus();
 	defNonMenuActions=ActionManager::defaultNonMenuActions();
 
