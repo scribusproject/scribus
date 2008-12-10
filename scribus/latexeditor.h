@@ -45,6 +45,7 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 	public:
 		LatexEditor(PageItem_LatexFrame *);
 		~LatexEditor();
+		virtual void changeEvent(QEvent *e);
 		void startEditor();
 		void exitEditor();
 		void revert();

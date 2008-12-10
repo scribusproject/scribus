@@ -110,6 +110,17 @@ LatexEditor::~LatexEditor()
 	delete highlighter;
 }
 
+void LatexEditor::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		retranslateUi(this);
+		loadSettings();
+	}
+	else
+		QWidget::changeEvent(e);
+}
+
 void LatexEditor::startEditor()
 {
 	revert();
