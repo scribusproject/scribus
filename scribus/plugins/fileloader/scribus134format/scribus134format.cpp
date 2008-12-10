@@ -2031,6 +2031,8 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		if (currItem->asLatexFrame())
 		{
 			PageItem_LatexFrame *latexitem = currItem->asLatexFrame();
+			currItem->PicAvail = true;
+			currItem->invalid = true;
 			IT = obj->firstChild();
 			while(!IT.isNull())
 			{
@@ -2110,7 +2112,13 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		currItem->EmProfile = obj->attribute("EPROF","");
 		currItem->IRender = obj->attribute("IRENDER", "1").toInt();
 		currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
-		currItem->setImageXYScale(scx, scy);
+		if (currItem->asLatexFrame())
+		{
+			currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble() * scx, obj->attribute("LOCALY").toDouble() * scy);
+			currItem->setImageXYScale(1.0, 1.0);
+		}
+		else
+			currItem->setImageXYScale(scx, scy);
 		clPath = obj->attribute("ImageClip", "");
 		if (currItem->pixm.imgInfo.PDSpathData.contains(clPath))
 		{
