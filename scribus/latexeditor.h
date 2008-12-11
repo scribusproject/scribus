@@ -41,24 +41,24 @@ class FileWatcher;
 
 class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 {
-	Q_OBJECT
+		Q_OBJECT
 	public:
-		LatexEditor(PageItem_LatexFrame *);
+		LatexEditor ( PageItem_LatexFrame * );
 		~LatexEditor();
-		virtual void changeEvent(QEvent *e);
+		virtual void changeEvent ( QEvent *e );
 		void startEditor();
 		void exitEditor();
 		void revert();
-		void apply(bool force=false);
+		void apply ( bool force=false );
 		void initialize();
-		static QIcon icon(QString config, QString fn);
-		static QString iconFile(QString config);
+		static QIcon icon ( QString config, QString fn );
+		static QString iconFile ( QString config );
 	protected:
 		PageItem_LatexFrame *frame;
 		LatexHighlighter *highlighter;
 		void loadSettings();
-		void createNewSettingsTab(I18nXmlStreamReader *xml);
-		void createNewItemsTab(I18nXmlStreamReader *xml);
+		void createNewSettingsTab ( I18nXmlStreamReader *xml );
+		void createNewItemsTab ( I18nXmlStreamReader *xml );
 		QMap<QString, XmlWidget *> widgetMap;
 		QString currentConfigFile, currentIconFile;
 		/*External Editor*/
@@ -68,22 +68,23 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 		QProcess *extEditor;
 		FileWatcher *fileWatcher;
 	protected slots:
-		void extEditorFinished(int exitCode, QProcess::ExitStatus exitStatus);
-		void extEditorFileChanged(QString filename);
-		void extEditorError(QProcess::ProcessError error);
+		void extEditorFinished ( int exitCode, QProcess::ExitStatus exitStatus );
+		void extEditorFileChanged ( QString filename );
+		void extEditorError ( QProcess::ProcessError error );
 	public slots:
 		void okClicked();
 		void cancelClicked();
-		void updateClicked(bool);
-		void revertClicked(bool);
-		void formulaChanged(QString, QString);
+		void updateClicked ( bool );
+		void revertClicked ( bool );
+		void formulaChanged ( QString, QString );
+		void applicationChanged();
 		void latexFinished();
-		void stateChanged(QProcess::ProcessState);
+		void stateChanged ( QProcess::ProcessState );
 		//Slots for the dynamic interface
-		void tagButtonClicked(QString);
-		void insertButtonClicked(QObject *);
-		void newItemSelected(QListWidgetItem *, QListWidgetItem *);
-		void itemDoubleClicked(QListWidgetItem *);
+		void tagButtonClicked ( QString );
+		void insertButtonClicked ( QObject * );
+		void newItemSelected ( QListWidgetItem *, QListWidgetItem * );
+		void itemDoubleClicked ( QListWidgetItem * );
 		void updateConfigFile();
 		void extEditorClicked();
 };
@@ -91,53 +92,60 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 
 class SCRIBUS_API DataPushButton : public QPushButton
 {
-	Q_OBJECT
+		Q_OBJECT
 	public:
-		DataPushButton(QString caption, QObject *data, bool deleteOnDestroy=false):
-			QPushButton(caption), data(data), del(deleteOnDestroy) {
-				connect(this, SIGNAL(clicked(bool)), this, SLOT(buttonClicked(bool)));}
-		~DataPushButton() {
-			if (del) delete data;
+		DataPushButton ( QString caption, QObject *data, bool deleteOnDestroy=false ) :
+				QPushButton ( caption ), data ( data ), del ( deleteOnDestroy )
+		{
+			connect ( this, SIGNAL ( clicked ( bool ) ), this, SLOT ( buttonClicked ( bool ) ) );
+		}
+		~DataPushButton()
+		{
+			if ( del ) delete data;
 		}
 	protected:
 		QObject *data;
 		bool del;
 	private slots:
-		void buttonClicked(bool checked) {
-			emit clickedWithData(data);
+		void buttonClicked ( bool checked )
+		{
+			emit clickedWithData ( data );
 		}
 	signals:
-		void clickedWithData(QObject *data);
+		void clickedWithData ( QObject *data );
 };
 
 class SCRIBUS_API StringPushButton : public QPushButton
 {
-	Q_OBJECT
+		Q_OBJECT
 	public:
-		StringPushButton(QString caption, QString data):
-			QPushButton(caption), data(data) {
-			connect(this, SIGNAL(clicked(bool)), this, SLOT(buttonClicked(bool)));}
+		StringPushButton ( QString caption, QString data ) :
+				QPushButton ( caption ), data ( data )
+		{
+			connect ( this, SIGNAL ( clicked ( bool ) ), this, SLOT ( buttonClicked ( bool ) ) );
+		}
 	protected:
 		QString data;
 	private slots:
-		void buttonClicked(bool checked) {
-			emit clickedWithData(data);
+		void buttonClicked ( bool checked )
+		{
+			emit clickedWithData ( data );
 		}
 	signals:
-		void clickedWithData(QString data);
+		void clickedWithData ( QString data );
 };
 
 class SCRIBUS_API XmlWidget
 {
 	public:
-		static XmlWidget *fromXml(I18nXmlStreamReader *xml);
-		XmlWidget(I18nXmlStreamReader *xml, bool readDescription=true);
+		static XmlWidget *fromXml ( I18nXmlStreamReader *xml );
+		XmlWidget ( I18nXmlStreamReader *xml, bool readDescription=true );
 		virtual ~XmlWidget() {};
 		QString name() const { return m_name; }
 		QString description() const { return m_description; }
 		QString defaultValue() const { return m_defaultValue; }
 		virtual QString toString() const { return ""; }
-		virtual void fromString(QString str){};
+		virtual void fromString ( QString str ) {};
 	protected:
 		QString m_name;
 		QString m_description;
@@ -149,8 +157,8 @@ class SCRIBUS_API IconBuffer
 	public:
 		IconBuffer() { len = 0; basePos = 0; file = 0; }
 		static IconBuffer *instance();
-		void loadFile(QString filename);
-		QIcon *icon(QString filename, QString name);
+		void loadFile ( QString filename );
+		QIcon *icon ( QString filename, QString name );
 	protected:
 		QFile *file;
 		QMap<QString, QIcon> icons;

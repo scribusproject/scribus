@@ -43,44 +43,34 @@ LatexEditor::LatexEditor(PageItem_LatexFrame *frame):QDialog(), frame(frame)
 	//Fill application list
 	programComboBox->clear();
 	QStringList configs = PrefsManager::instance()->latexConfigs();
-	foreach (QString config, configs) {
+	foreach (QString config, configs)
+	{
 		QString name = LatexConfigCache::instance()->parser(config)->description();
 		programComboBox->addItem(name, config);
 		QString iconname = LatexConfigCache::instance()->parser(config)->icon();
-		if (!iconname.isEmpty()) {
-			programComboBox->setItemIcon(programComboBox->count()-1,
-				icon(config, iconname));
+		if (!iconname.isEmpty())
+		{
+			programComboBox->setItemIcon(programComboBox->count()-1, icon(config, iconname));
 		}
 	}
 	
 	highlighter = new LatexHighlighter(sourceTextEdit->document());
-	connect(buttonBox, SIGNAL(accepted()), 
-			this, SLOT(okClicked()));
-	connect(buttonBox, SIGNAL(rejected()), 
-			this, SLOT(cancelClicked()));
-	connect(updatePushButton, SIGNAL(clicked(bool)), 
-			this, SLOT(updateClicked(bool)));
-	connect(revertPushButton, SIGNAL(clicked(bool)), 
-			this, SLOT(revertClicked(bool)));
-	connect(killPushButton, SIGNAL(clicked(bool)), 
-			frame, SLOT(killProcess()));
-	connect(externalEditorPushButton, SIGNAL(clicked(bool)), 
-			this, SLOT(extEditorClicked()));
-	connect(frame, SIGNAL(formulaAutoUpdate(QString, QString)), 
-			this, SLOT(formulaChanged(QString, QString)));
-	connect(frame, SIGNAL(latexFinished()), 
-			this, SLOT(latexFinished()));
-	connect(frame, SIGNAL(stateChanged(QProcess::ProcessState)), 
-			this, SLOT(stateChanged(QProcess::ProcessState)));
-	connect(frame, SIGNAL(applicationChanged()),
-			this, SLOT(updateConfigFile()));
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(okClicked()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(cancelClicked()));
+	connect(updatePushButton, SIGNAL(clicked(bool)), this, SLOT(updateClicked(bool)));
+	connect(revertPushButton, SIGNAL(clicked(bool)), this, SLOT(revertClicked(bool)));
+	connect(killPushButton, SIGNAL(clicked(bool)), frame, SLOT(killProcess()));
+	connect(externalEditorPushButton, SIGNAL(clicked(bool)), this, SLOT(extEditorClicked()));
+	connect(frame, SIGNAL(formulaAutoUpdate(QString, QString)), this, SLOT(formulaChanged(QString, QString)));
+	connect(frame, SIGNAL(latexFinished()), this, SLOT(latexFinished()));
+	connect(frame, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(stateChanged(QProcess::ProcessState)));
+//	connect(frame, SIGNAL(applicationChanged()), this, SLOT(updateConfigFile()));
+	connect(programComboBox, SIGNAL(activated(int)), this, SLOT(applicationChanged()));
 	updateConfigFile();
 	
 	extEditor = new QProcess();
-	connect(extEditor, SIGNAL(finished(int, QProcess::ExitStatus)), 
-		this, SLOT(extEditorFinished(int, QProcess::ExitStatus)));
-	connect(extEditor, SIGNAL(error(QProcess::ProcessError)), 
-		this, SLOT(extEditorError(QProcess::ProcessError)));	
+	connect(extEditor, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(extEditorFinished(int, QProcess::ExitStatus)));
+	connect(extEditor, SIGNAL(error(QProcess::ProcessError)), this, SLOT(extEditorError(QProcess::ProcessError)));	
 	extEditor->setProcessChannelMode(QProcess::MergedChannels);
 	
 	fileWatcher = new FileWatcher(this);
@@ -285,6 +275,17 @@ void LatexEditor::apply(bool force)
 	}
 	
 	if (changed || force) {
+		frame->rerunApplication(true);
+	}
+}
+
+void LatexEditor::applicationChanged()
+{	
+	QString newConfig = programComboBox->itemData(programComboBox->currentIndex()).toString();
+	if (newConfig != frame->configFile())
+	{
+		frame->setConfigFile(newConfig);
+		updateConfigFile();
 		frame->rerunApplication(true);
 	}
 }
