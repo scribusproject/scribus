@@ -1,0 +1,36 @@
+<editorsettings icon="povray_32.png" description="POV-Ray" >
+	<executable command="povray -D +W$scribus_width_px$ +H$scribus_height_px$ +I%file" />
+  	<imagefile extension=".png" />
+	<empty-frame-text>
+global_settings { assumed_gamma 2.2 }
+camera
+{
+   location  &lt;0, 0, -8&gt;
+   direction &lt;0, 0, 1.2071&gt;
+   look_at   &lt;0, 0, 0&gt;
+}
+
+sphere { &lt;0.0, 0.0, 0.0&gt;, 2
+   finish {
+      ambient 0.2
+      diffuse 0.8
+      phong 1
+   }
+   pigment { color red 1 green 0 blue 0 }
+}
+
+box { &lt;-2.0, -0.2, -2.0&gt;, &lt;2.0, 0.2, 2.0&gt;
+    finish {
+       ambient 0.2
+       diffuse 0.8
+    }
+    pigment { color red 1 green 0 blue 1 }
+
+    rotate &lt;-20, 30, 0&gt;
+}
+
+light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
+</empty-frame-text>
+  <preamble/>
+  <postamble/>
+</editorsettings>
