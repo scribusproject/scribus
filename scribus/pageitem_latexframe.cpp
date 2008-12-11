@@ -271,6 +271,12 @@ void PageItem_LatexFrame::runApplication()
 		commands_args.replaceInStrings("%dir", QDir::toNativeSeparators(QDir::tempPath()));
 	}
 	latex->setWorkingDirectory(QDir::tempPath());
+
+	double lDpi = realDpi()/72.0;
+	if (full_command.contains("$scribus_height_px$"))
+		commands_args.replaceInStrings(QString("$scribus_height_px$"), QString::number(qRound(Height*lDpi)));
+	if (full_command.contains("$scribus_width_px$"))
+		commands_args.replaceInStrings(QString("$scribus_width_px$"), QString::number(qRound(Width*lDpi)));
 	
 	imageFile = tempFileBase + config->imageExtension();
 
