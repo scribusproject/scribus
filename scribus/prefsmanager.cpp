@@ -2102,22 +2102,21 @@ bool PrefsManager::ReadPref(QString ho)
 			setImageEditorExecutable(dc.attribute("GIMP", "gimp"));
 			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
-			QStringList configs;
+			QStringList configs = LatexConfigCache::defaultConfigs();
 			QDomNodeList configNodes = dc.elementsByTagName("LatexConfig");
 			bool validConfFound = false;
-			for (int i=0; i < configNodes.size(); i++) {
+			for (int i=0; i < configNodes.size(); i++)
+			{
 				QString confFile = configNodes.at(i).toElement().attribute("file", "");
 				if (!validConfFound && !confFile.isEmpty())
-				{
-					validConfFound = QFile::exists(confFile); 
-				}
-				configs.append(confFile);
+					validConfFound = QFile::exists(confFile);
+				if (!configs.contains(confFile) && QFile::exists(confFile))
+					configs.append(confFile);
 			}
-			if (!configs.isEmpty() && validConfFound) {
+			if (!configs.isEmpty() && validConfFound)
 				setLatexConfigs(configs);
-			} else {
+			else
 				setLatexConfigs(LatexConfigCache::defaultConfigs());
-			}
 		}
 		if (dc.tagName()=="HYPHEN")
 		{
