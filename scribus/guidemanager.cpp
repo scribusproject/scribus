@@ -718,7 +718,15 @@ void GuideManager::slotDrawPreview()
 	verList->sort();
 	// load the page only at the first time
 	if (previewPixmap.isNull())
-		previewPixmap = ScMW->view->PageToPixmap(ScMW->doc->currentPageNumber(), size);
+	{
+		if (ScMW->doc->masterPageMode())
+		{
+			QString pageName = ScMW->doc->MasterPages.at(ScMW->doc->currentPageNumber())->pageName();
+			previewPixmap = ScMW->view->MPageToPixmap(pageName, size);
+		}
+		else
+			previewPixmap = ScMW->view->PageToPixmap(ScMW->doc->currentPageNumber(), size);
+	}
 
 	pm = previewPixmap;
 	p->begin(&pm);
