@@ -1,5 +1,5 @@
 <editorsettings icon="povray_32.png" description="POV-Ray" >
-	<executable command="povray -D +W$scribus_width_px$ +H$scribus_height_px$ +I%file" />
+	<executable command="povray +WL0 -D +W$scribus_width_px$ +H$scribus_height_px$ +Q$scribus_quality$ $scribus_antialias$$scribus_aathres$ +R$scribus_aadepth$ +I%file" />
   	<imagefile extension=".png" />
 	<empty-frame-text>
 global_settings { assumed_gamma 2.2 }
@@ -33,4 +33,49 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 </empty-frame-text>
   <preamble/>
   <postamble/>
+  <tab type="settings">
+	  <title>
+		  <i18n>
+			  <en>Render Options</en>
+			  <de>Render Optionen</de>
+		  </i18n>
+	  </title>
+	  <list name="quality" default="11">
+		<title>
+			<i18n>
+				  <en>Quality:</en>
+				  <de>Qualität:</de>
+			</i18n>
+		</title>
+		<option value="1">Just show quick colors</option>
+		<option value="3">Show specified diffuse and ambient light</option>
+		<option value="4">Render shadows, but no extended lights</option>
+		<option value="5">Render shadows, including extended lights</option>
+		<option value="7">Compute texture patterns and photons</option>
+		<option value="8">Compute reflections and refractions</option>
+		<option value="11">Compute media and radiosity</option>
+	</list>
+	<list name="antialias" default="+A">
+		<title>
+			<i18n>
+				<en>Antialiasing:</en>
+				<de>Antialiasing:</de>
+			</i18n>
+		</title>
+		<option value="+A">On</option>
+		<option value="-A">Off</option>
+	</list>
+	<spinbox name="aathres" type="double" min="0.0" max="3.0" step="0.1" default="0.3">
+		<i18n>
+			<en>Antialiasing Threshold:</en>
+			<de>Antialiasing Schwellwert:</de>
+		</i18n>
+	</spinbox>
+	<spinbox name="aadepth" type="short" min="1" max="9" step="1" default="3">
+		<i18n>
+			<en>Antialiasing Depth:</en>
+			<de>Antialiasing Rekursion:</de>
+		</i18n>
+	</spinbox>
+	</tab>
 </editorsettings>
