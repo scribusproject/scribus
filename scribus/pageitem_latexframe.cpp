@@ -277,6 +277,13 @@ void PageItem_LatexFrame::runApplication()
 		commands_args.replaceInStrings(QString("$scribus_height_px$"), QString::number(qRound(Height*lDpi)));
 	if (full_command.contains("$scribus_width_px$"))
 		commands_args.replaceInStrings(QString("$scribus_width_px$"), QString::number(qRound(Width*lDpi)));
+	QMapIterator<QString, QString> i(editorProperties);
+	while (i.hasNext())
+	{
+		i.next();
+		if (full_command.contains(QString("$scribus_")+i.key()+"$"))
+			commands_args.replaceInStrings(QString("$scribus_"+i.key()+"$"), i.value());
+	}
 	
 	imageFile = tempFileBase + config->imageExtension();
 
