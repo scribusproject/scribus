@@ -2125,20 +2125,35 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 			setter = CurItem->ScaleType;
 			FreeScale->setChecked(setter);
 			FrameScale->setChecked(!setter);
+			if (CurItem->asLatexFrame())
+			{
+				FreeScale->setEnabled(false);
+				FrameScale->setEnabled(false);
+				Aspect->setEnabled(false);
+				imageXScaleSpinBox->setEnabled(false);
+				imageYScaleSpinBox->setEnabled(false);
+				imgDpiX->setEnabled(false);
+				imgDpiY->setEnabled(false);
+			}
+			else
+			{
+				imageXScaleSpinBox->setEnabled(setter);
+				imageYScaleSpinBox->setEnabled(setter);
+				imgDpiX->setEnabled(setter);
+				imgDpiY->setEnabled(setter);
+				Aspect->setEnabled(!setter);
+				Aspect->setChecked(CurItem->AspectRatio);
+				FreeScale->setEnabled(true);
+				FrameScale->setEnabled(true);
+			}
 //CB Why do we need this? Setting it too much here
 // 			if (setter == true)
 // 			{
 // 				keepImageWHRatioButton->setChecked(setter);
 // 				keepImageDPIRatioButton->setChecked(setter);
 // 			}
-			Aspect->setEnabled(!setter);
-			Aspect->setChecked(CurItem->AspectRatio);
 			imageXOffsetSpinBox->setEnabled(setter);
 			imageYOffsetSpinBox->setEnabled(setter);
-			imageXScaleSpinBox->setEnabled(setter);
-			imageYScaleSpinBox->setEnabled(setter);
-			imgDpiX->setEnabled(setter);
-			imgDpiY->setEnabled(setter);
 		}
 	}
 	setXY(CurItem->xPos(), CurItem->yPos());
@@ -2818,7 +2833,7 @@ void PropertiesPalette::setScaleAndOffset(double scx, double scy, double x, doub
 	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	disconnect(keepImageWHRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKette()));
 	disconnect(keepImageDPIRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKetteD()));
-	if (scx != scy)
+	if (fabs(scx - scy) > 0.0002)
 	{
 		keepImageWHRatioButton->setChecked(false);
 		keepImageDPIRatioButton->setChecked(false);
