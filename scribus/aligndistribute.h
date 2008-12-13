@@ -48,6 +48,9 @@ class ScribusDoc;
 class UndoManager;
 struct AlignObjs;
 
+
+/*! \brief Align/Distribute palette.
+*/
 class SCRIBUS_API AlignDistributePalette : public ScrPaletteBase, Ui::AlignDistribute
 {
 	Q_OBJECT
