@@ -502,7 +502,7 @@ public:
 	 * @brief TODO: Reorganise the fonts.. how? Moved from scribus.cpp
 	 * CB: almost the same as getUsedFonts???
 	 */
-	void reorganiseFonts();
+	QMap<QString,int> reorganiseFonts();
 	/*!
 	 * @brief Returns a qmap of the fonts and  their glyphs used within the document
 	 */

@@ -2700,10 +2700,10 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 	return pats;
 }
 
-void ScribusDoc::reorganiseFonts()
+QMap<QString,int> ScribusDoc::reorganiseFonts()
 {
-	QTime t;
-	t.start();
+//	QTime t;
+//	t.start();
 	QMap<QString,int> Really;
 	//QMap<QString,QFont> DocF;
 	//DocF = UsedFonts;
@@ -2737,10 +2737,10 @@ void ScribusDoc::reorganiseFonts()
 					it = FrameItems.at(d);
 					break;
 			}
-			QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());
-			Really.insert(fontName, UsedFonts[fontName]);
 			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
+				QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());
+				Really.insert(fontName, UsedFonts[fontName]);
 				uint itemTextCount=it->itemText.length();
 				for (uint e = 0; e < itemTextCount; ++e)
 				{
@@ -2763,7 +2763,8 @@ void ScribusDoc::reorganiseFonts()
 	PrefsManager* prefsManager=PrefsManager::instance();
 	AddFont(prefsManager->appPrefs.toolSettings.defFont);//, prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.toolSettings.defFont]->Font);
 	AddFont(toolSettings.defFont);//, prefsManager->appPrefs.AvailFonts[toolSettings.defFont]->Font);
-	qDebug( "Time elapsed: %d ms", t.elapsed() );
+//	qDebug( "Time elapsed: %d ms", t.elapsed() );
+	return Really;
 }
 
 void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
