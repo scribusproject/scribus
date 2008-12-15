@@ -452,7 +452,7 @@ void SVGPlug::convert(int flags)
 			md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
 			QDrag* dr = new QDrag(m_Doc->view()->viewport());
 			dr->setMimeData(md);
-#ifndef QT_WS_MAC
+#ifndef Q_WS_MAC
 // see #2526
 			m_Doc->itemSelection_DeleteItem(tmpSel);
 #endif
