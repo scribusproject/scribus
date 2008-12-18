@@ -78,6 +78,7 @@ public:
 	virtual void drawPolyLine();
 	virtual void drawLine(FPoint start, FPoint end);
 	virtual void drawRect(double, double, double, double);
+	virtual void drawText(QRectF area, QString text);
 
 	// pen + brush
 	virtual QColor pen();

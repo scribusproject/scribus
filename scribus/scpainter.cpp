@@ -1297,15 +1297,44 @@ void ScPainter::drawRect(double x, double y, double w, double h)
 {
 	newPath();
 #ifdef HAVE_CAIRO
-	moveTo( x, y );
-	lineTo( x+w, y );
-	lineTo( x+w, y+h );
-	lineTo( x, y+h );
-	lineTo( x, y );
-	cairo_close_path( m_cr );
+	cairo_rectangle(m_cr, x, y, w, h);
+//	moveTo( x, y );
+//	lineTo( x+w, y );
+//	lineTo( x+w, y+h );
+//	lineTo( x, y+h );
+//	lineTo( x, y );
+//	cairo_close_path( m_cr );
 #else
 	m_path.addRect(x, y, w, h);
 #endif
 	fillPath();
 	strokePath();
+}
+
+void ScPainter::drawText(QRectF area, QString text)
+{
+#ifdef HAVE_CAIRO
+	cairo_text_extents_t extents;
+	double x,y;
+	double r, g, b;
+	cairo_select_font_face(m_cr, m_font.family().toLatin1(), CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+	cairo_set_font_size(m_cr, m_font.pointSizeF());
+	cairo_text_extents (m_cr, text.toUtf8(), &extents);
+	x = area.center().x() - (extents.width / 2.0 + extents.x_bearing);
+	y = area.center().y() - (extents.height / 2.0 + extents.y_bearing);
+	m_fill.getRgbF(&r, &g, &b);
+	cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
+	cairo_new_path( m_cr );
+	cairo_rectangle(m_cr, x, y - extents.height, extents.width, extents.height + m_font.pointSizeF() * 0.2);
+	cairo_fill( m_cr );
+	cairo_new_path( m_cr );
+	cairo_move_to (m_cr, x, y);
+	m_stroke.getRgbF(&r, &g, &b);
+	cairo_set_source_rgba( m_cr, r, g, b, stroke_trans );
+	cairo_show_text (m_cr, text.toUtf8());
+#else
+	painter.setFont(m_font);
+	painter.setPen(m_stroke);
+	painter.drawText(area, text);
+#endif
 }

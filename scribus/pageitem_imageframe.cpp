@@ -89,9 +89,13 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/, double sc)
 				{
 					if ((Frame) && (m_Doc->guidesSettings.framesShown))
 					{
+						p->setBrush(Qt::white);
 						p->setPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 						p->drawLine(FPoint(0, 0), FPoint(Width, Height));
 						p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+						p->setFont(QApplication::font());
+						QFileInfo fi = QFileInfo(Pfile);
+						p->drawText(QRectF(0.0, 0.0, Width, Height), fi.fileName());
 					}
 				}
 				else
@@ -288,9 +292,26 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 			cSpace=colorSpaceText(pixm.imgInfo.colorspace);
 		colT->setText(cSpace);
 		infoGroupLayout->addWidget( colT, 4, 1 );
-	} else {
-		fileCT->setText( ScribusView::tr("No Image Loaded"));
-		infoGroupLayout->addWidget( fileCT, 1, 0, 1, 2, Qt::AlignHCenter );
+	}
+	else
+	{
+		if (!Pfile.isEmpty())
+		{
+			QFileInfo fi = QFileInfo(Pfile);
+			fileCT->setText( ScribusView::tr("File: "));
+			infoGroupLayout->addWidget( fileCT, 1, 0, Qt::AlignRight );
+			fileT = new QLabel(infoGroup);
+			if (isInlineImage)
+				fileT->setText( tr("Embedded Image missing"));
+			else
+				fileT->setText(fi.fileName() + " " + tr("missing"));
+			infoGroupLayout->addWidget( fileT, 1, 1 );
+		}
+		else
+		{
+			fileCT->setText( ScribusView::tr("No Image Loaded"));
+			infoGroupLayout->addWidget( fileCT, 1, 0, 1, 2, Qt::AlignHCenter );
+		}
 	}
 	return true;
 }
@@ -413,7 +434,10 @@ QString PageItem_ImageFrame::infoDescription()
 	if (PicAvail)
 	{
 		QFileInfo fi = QFileInfo(Pfile);
-		htmlText.append(ScribusView::tr("File: ") + fi.fileName() + "<br/>");
+		if (isInlineImage)
+			htmlText.append( tr("Embedded Image") + "<br/>");
+		else
+			htmlText.append(ScribusView::tr("File: ") + fi.fileName() + "<br/>");
 		htmlText.append(ScribusView::tr("Original PPI: ") + QString::number(qRound(pixm.imgInfo.xres))+" x "+QString::number(qRound(pixm.imgInfo.yres)) + "<br/>");
 		htmlText.append(ScribusView::tr("Actual PPI: ") + QString::number(qRound(72.0 / imageXScale()))+" x "+ QString::number(qRound(72.0 / imageYScale())) + "<br/>");
 		htmlText.append(ScribusView::tr("Colorspace: "));
@@ -434,7 +458,16 @@ QString PageItem_ImageFrame::infoDescription()
 	}
 	else
 	{
-		htmlText.append(ScribusView::tr("No Image Loaded") + "<br/>");
+		if (!Pfile.isEmpty())
+		{
+			QFileInfo fi = QFileInfo(Pfile);
+			if (isInlineImage)
+				htmlText.append( tr("Embedded Image missing") + "<br/>");
+			else
+				htmlText.append(ScribusView::tr("File: ") + fi.fileName() + " " + tr("missing") + "<br/>");
+		}
+		else
+			htmlText.append(ScribusView::tr("No Image Loaded") + "<br/>");
 	}
 	htmlText.append(PageItem::infoDescription());
 	return htmlText;

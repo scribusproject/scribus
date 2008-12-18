@@ -125,16 +125,25 @@ void PageItem_LatexFrame::deleteImageFile()
 void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e, double sc)
 {
 	layout();
-	if (!imgValid && !err) {
+	if (!imgValid && !err)
+	{
 		//Draw indicator that latex is running
+		p->setBrush(Qt::white);
 		p->setPen(Qt::green, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-	} else if (err) {
+		p->drawText(QRectF(0.0, 0.0, Width, Height), tr("Rendering..."));
+	}
+	else if (err)
+	{
 		//Draw error indicator
+		p->setBrush(Qt::white);
 		p->setPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->drawLine(FPoint(0, 0), FPoint(Width, Height));
 		p->drawLine(FPoint(0, Height), FPoint(Width, 0));
-	} else {
+		p->drawText(QRectF(0.0, 0.0, Width, Height), tr("Render Error"));
+	}
+	else
+	{
 		//Just pass it to ImageFrame
 		PageItem_ImageFrame::DrawObj_Item(p, e, sc);
 	}
