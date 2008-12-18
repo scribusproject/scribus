@@ -45,16 +45,22 @@
 				\[J = \int r^2 \mathrm{d}m\]
 			</fr>
 			<pl>
-				\section*{Wstęp}
-				Jeśli możesz przeczytać ten tekst, to znaczy, że ramki typu \LaTeX są prawidłowo skonfigurowane.
-				Wstawianie własnych wzorów jest bardzo proste:
-				Kliknij prawym przyciskiem myszy na tę ramkę $\Rightarrow$ Edycja pliku źródłowego\\
-				Następnie zastąp ten tekst twoim własnym:\\
-				Na przykład:
+				\section*{Wprowadzenie}
+				Gdy widzisz ten tekst w ramce renderowanej, to znaczy, ze \LaTeX jest 
+				obslugiwany na twoim systemie i w ramkach renderowanych Scribusa.\\
+				Aby dodac obsluge polskich znakow diakrytycznych, nalezy kliknac na 
+				zakladke "Fonty/Naglowki" w edytorze kodu zrodlowego ramki i w polu 
+				"Dodatkowe naglowki" dodac nastepujace polecenia:\\
+				\begin{verbatim}
+				\usepackage[utf8]{inputenc}
+				\usepackage{polski}
+				\end{verbatim}
+				Wstawianie wzorow jest tez bardzo proste:\\
+				Na przyklad zapis:\\
 				\begin{verbatim}
 				\[J = \int r^2 \mathrm{d}m\]
 				\end{verbatim}
-				zostanie zastąpione przez
+				zostanie zamieniony na wzor:
 				\[J = \int r^2 \mathrm{d}m\]
 			</pl>
 		</i18n>
@@ -126,11 +132,13 @@
 				<en>Fontcolor</en>
 				<de>Textfarbe</de>
 				<fr>Couleur police</fr>
+				<pl>Kolor fontu</pl>
 			</i18n></color>
 		<color name="bg"><i18n>
 				<en>Backgroundcolor</en>
 				<de>Hintergrundfarbe</de>
 				<fr>Couleur de fond</fr>
+				<pl>Kolor tła</pl>
 			</i18n></color>
 		-->
 		<text name="additionalheaders" type="long" default="\usepackage{amsmath}"><i18n>
