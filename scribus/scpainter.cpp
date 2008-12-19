@@ -1315,26 +1315,43 @@ void ScPainter::drawText(QRectF area, QString text)
 {
 #ifdef HAVE_CAIRO
 	cairo_text_extents_t extents;
-	double x,y;
+	cairo_font_extents_t extentsF;
+	double x = area.center().x();
+	double y;
+	double ww = 0;
+	double hh = 0;
 	double r, g, b;
 	cairo_select_font_face(m_cr, m_font.family().toLatin1(), CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
 	cairo_set_font_size(m_cr, m_font.pointSizeF());
-	cairo_text_extents (m_cr, text.toUtf8(), &extents);
-	x = area.center().x() - (extents.width / 2.0 + extents.x_bearing);
-	y = area.center().y() - (extents.height / 2.0 + extents.y_bearing);
+	cairo_font_extents (m_cr, &extentsF);
+	QStringList textList = text.split("\n");
+	for (int a = 0; a < textList.count(); ++a)
+	{
+		cairo_text_extents (m_cr, textList[a].toUtf8(), &extents);
+		x = qMin(area.center().x() - (extents.width / 2.0 + extents.x_bearing), x);
+		ww = qMax(ww, extents.width);
+	}
+	hh = extentsF.height * textList.count();
+	y = area.center().y() - ((extentsF.height * textList.count()) / 2.0);
 	m_fill.getRgbF(&r, &g, &b);
 	cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
 	cairo_new_path( m_cr );
-	cairo_rectangle(m_cr, x, y - extents.height, extents.width, extents.height + m_font.pointSizeF() * 0.2);
+	cairo_rectangle(m_cr, x, y, ww, hh);
 	cairo_fill( m_cr );
 	cairo_new_path( m_cr );
+	y += extentsF.ascent;
 	cairo_move_to (m_cr, x, y);
 	m_stroke.getRgbF(&r, &g, &b);
 	cairo_set_source_rgba( m_cr, r, g, b, stroke_trans );
-	cairo_show_text (m_cr, text.toUtf8());
+	for (int a = 0; a < textList.count(); ++a)
+	{
+		cairo_show_text (m_cr, textList[a].toUtf8());
+		y += extentsF.height;
+		cairo_move_to (m_cr, x, y);
+	}
 #else
 	painter.setFont(m_font);
 	painter.setPen(m_stroke);
-	painter.drawText(area, text);
+	painter.drawText(area, text, QTextOption(Qt::AlignCenter));
 #endif
 }
