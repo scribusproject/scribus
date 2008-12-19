@@ -1394,6 +1394,7 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			handler.begin("p", empty);
 			paragraphStyle(i+1).saxx(handler);
 			handler.begin("span", empty);
+			lastStyle.erase();
 		}
 		else if (curr == SpecialChars::OBJECT && object(i) != NULL)
 		{
