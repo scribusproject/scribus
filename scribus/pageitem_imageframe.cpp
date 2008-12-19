@@ -90,12 +90,43 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/, double sc)
 					if ((Frame) && (m_Doc->guidesSettings.framesShown))
 					{
 						p->setBrush(Qt::white);
-						p->setPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+						QString htmlText = "";
+						QFileInfo fi = QFileInfo(Pfile);
+						if (PicAvail)
+						{
+							p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+							if (isInlineImage)
+								htmlText.append( tr("Embedded Image") + "\n");
+							else
+								htmlText.append( tr("File:") + " " + fi.fileName() + "\n");
+							htmlText.append( tr("Original PPI:") + " " + QString::number(qRound(pixm.imgInfo.xres))+" x "+QString::number(qRound(pixm.imgInfo.yres)) + "\n");
+							htmlText.append( tr("Actual PPI:") + " " + QString::number(qRound(72.0 / imageXScale()))+" x "+ QString::number(qRound(72.0 / imageYScale())) + "\n");
+							htmlText.append( tr("Size:") + " " + QString::number(OrigW) + " x " + QString::number(OrigH) + "\n");
+							htmlText.append( tr("Colorspace:") + " ");
+							QString cSpace;
+							QString ext = fi.suffix().toLower();
+							if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != ImageType7))
+								htmlText.append( tr("Unknown"));
+							else
+								htmlText.append(colorSpaceText(pixm.imgInfo.colorspace));
+							if (pixm.imgInfo.numberOfPages > 1)
+							{
+								htmlText.append("\n");
+								if (pixm.imgInfo.actualPageNumber > 0)
+									htmlText.append( tr("Page:") + " " + QString::number(pixm.imgInfo.actualPageNumber) + "/" + QString::number(pixm.imgInfo.numberOfPages));
+								else
+									htmlText.append( tr("Pages:") + " " + QString::number(pixm.imgInfo.numberOfPages));
+							}
+						}
+						else
+						{
+							p->setPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+							htmlText = fi.fileName();
+						}
 						p->drawLine(FPoint(0, 0), FPoint(Width, Height));
 						p->drawLine(FPoint(0, Height), FPoint(Width, 0));
 						p->setFont(QApplication::font());
-						QFileInfo fi = QFileInfo(Pfile);
-						p->drawText(QRectF(0.0, 0.0, Width, Height), fi.fileName());
+						p->drawText(QRectF(0.0, 0.0, Width, Height), htmlText);
 					}
 				}
 				else
@@ -251,7 +282,7 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 	infoCT = new QLabel(infoGroup);
 	fileCT = new QLabel(infoGroup);
 	
-	infoCT->setText(tr("Image"));
+	infoCT->setText( tr("Image"));
 	infoGroupLayout->addWidget( infoCT, 0, 0, 1, 2, Qt::AlignHCenter );
 	
 	if (PicAvail)
@@ -264,7 +295,7 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 		colT = new QLabel(infoGroup);
 		colCT = new QLabel(infoGroup);
 		QFileInfo fi = QFileInfo(Pfile);
-		fileCT->setText( ScribusView::tr("File: "));
+		fileCT->setText( tr("File:"));
 		infoGroupLayout->addWidget( fileCT, 1, 0, Qt::AlignRight );
 		if (isInlineImage)
 			fileT->setText( tr("Embedded Image"));
@@ -272,22 +303,22 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 			fileT->setText(fi.fileName());
 		infoGroupLayout->addWidget( fileT, 1, 1 );
 		
-		oPpiCT->setText( ScribusView::tr("Original PPI: "));
+		oPpiCT->setText( tr("Original PPI:"));
 		infoGroupLayout->addWidget( oPpiCT, 2, 0, Qt::AlignRight );
 		oPpiT->setText(QString::number(qRound(pixm.imgInfo.xres))+" x "+QString::number(qRound(pixm.imgInfo.yres)));
 		infoGroupLayout->addWidget( oPpiT, 2, 1 );
 		
-		aPpiCT->setText( ScribusView::tr("Actual PPI: "));
+		aPpiCT->setText( tr("Actual PPI:"));
 		infoGroupLayout->addWidget( aPpiCT, 3, 0, Qt::AlignRight );
 		aPpiT->setText(QString::number(qRound(72.0 / imageXScale()))+" x "+ QString::number(qRound(72.0 / imageYScale())));
 		infoGroupLayout->addWidget( aPpiT, 3, 1 );
 		
-		colCT->setText( ScribusView::tr("Colorspace: "));
+		colCT->setText( tr("Colorspace:"));
 		infoGroupLayout->addWidget( colCT, 4, 0, Qt::AlignRight );
 		QString cSpace;
 		QString ext = fi.suffix().toLower();
 		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != ImageType7))
-			cSpace = ScribusView::tr("Unknown");
+			cSpace = tr("Unknown");
 		else
 			cSpace=colorSpaceText(pixm.imgInfo.colorspace);
 		colT->setText(cSpace);
@@ -298,7 +329,7 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 		if (!Pfile.isEmpty())
 		{
 			QFileInfo fi = QFileInfo(Pfile);
-			fileCT->setText( ScribusView::tr("File: "));
+			fileCT->setText( tr("File:"));
 			infoGroupLayout->addWidget( fileCT, 1, 0, Qt::AlignRight );
 			fileT = new QLabel(infoGroup);
 			if (isInlineImage)
@@ -309,7 +340,7 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 		}
 		else
 		{
-			fileCT->setText( ScribusView::tr("No Image Loaded"));
+			fileCT->setText( tr("No Image Loaded"));
 			infoGroupLayout->addWidget( fileCT, 1, 0, 1, 2, Qt::AlignHCenter );
 		}
 	}
@@ -360,7 +391,7 @@ bool PageItem_ImageFrame::createContextMenu(QMenu *menu, int step)
 //			}
 			menuResolution = new QMenu();
 			act = menu->addMenu(menuResolution);
-			act->setText(tr("Preview Settings"));
+			act->setText( tr("Preview Settings"));
 			menuResolution->addAction(actions["itemImageIsVisible"]);
 			menuResolution->addSeparator();
 			menuResolution->addAction(actions["itemPreviewLow"]);
@@ -429,7 +460,7 @@ void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 QString PageItem_ImageFrame::infoDescription()
 {
 	QString htmlText;
-	htmlText.append(tr("Image") + "<br/>");
+	htmlText.append( tr("Image") + "<br/>");
 	
 	if (PicAvail)
 	{
@@ -437,23 +468,23 @@ QString PageItem_ImageFrame::infoDescription()
 		if (isInlineImage)
 			htmlText.append( tr("Embedded Image") + "<br/>");
 		else
-			htmlText.append(ScribusView::tr("File: ") + fi.fileName() + "<br/>");
-		htmlText.append(ScribusView::tr("Original PPI: ") + QString::number(qRound(pixm.imgInfo.xres))+" x "+QString::number(qRound(pixm.imgInfo.yres)) + "<br/>");
-		htmlText.append(ScribusView::tr("Actual PPI: ") + QString::number(qRound(72.0 / imageXScale()))+" x "+ QString::number(qRound(72.0 / imageYScale())) + "<br/>");
-		htmlText.append(ScribusView::tr("Colorspace: "));
+			htmlText.append( tr("File:") + " " + fi.fileName() + "<br/>");
+		htmlText.append( tr("Original PPI:") + " " + QString::number(qRound(pixm.imgInfo.xres))+" x "+QString::number(qRound(pixm.imgInfo.yres)) + "<br/>");
+		htmlText.append( tr("Actual PPI:") + " " + QString::number(qRound(72.0 / imageXScale()))+" x "+ QString::number(qRound(72.0 / imageYScale())) + "<br/>");
+		htmlText.append( tr("Colorspace:") + " ");
 		QString cSpace;
 		QString ext = fi.suffix().toLower();
 		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != ImageType7))
-			htmlText.append(ScribusView::tr("Unknown"));
+			htmlText.append( tr("Unknown"));
 		else
 			htmlText.append(colorSpaceText(pixm.imgInfo.colorspace));
 		htmlText.append("<br/>");
 		if (pixm.imgInfo.numberOfPages > 1)
 		{
 			if (pixm.imgInfo.actualPageNumber > 0)
-				htmlText.append(ScribusView::tr("Page: ") + QString::number(pixm.imgInfo.actualPageNumber) + "/" + QString::number(pixm.imgInfo.numberOfPages)+ "<br/>");
+				htmlText.append( tr("Page:") + " " + QString::number(pixm.imgInfo.actualPageNumber) + "/" + QString::number(pixm.imgInfo.numberOfPages)+ "<br/>");
 			else
-				htmlText.append(ScribusView::tr("Pages: ") + QString::number(pixm.imgInfo.numberOfPages)+ "<br/>");
+				htmlText.append( tr("Pages:") + " " + QString::number(pixm.imgInfo.numberOfPages)+ "<br/>");
 		}
 	}
 	else
@@ -464,10 +495,10 @@ QString PageItem_ImageFrame::infoDescription()
 			if (isInlineImage)
 				htmlText.append( tr("Embedded Image missing") + "<br/>");
 			else
-				htmlText.append(ScribusView::tr("File: ") + fi.fileName() + " " + tr("missing") + "<br/>");
+				htmlText.append( tr("File:") + " " + fi.fileName() + " " + tr("missing") + "<br/>");
 		}
 		else
-			htmlText.append(ScribusView::tr("No Image Loaded") + "<br/>");
+			htmlText.append( tr("No Image Loaded") + "<br/>");
 	}
 	htmlText.append(PageItem::infoDescription());
 	return htmlText;
