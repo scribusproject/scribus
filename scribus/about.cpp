@@ -113,7 +113,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "10";
+	QString BUILD_DAY = "20";
 	QString BUILD_MONTH = CommonStrings::december;
 	QString BUILD_YEAR = "2008";
 	QString BUILD_TIME = "";
@@ -315,8 +315,10 @@ QString About::trAuthorTitle(QString title)
 	else if ( title == "Tango Project Icons:" )
 		result = tr("Tango Project Icons:");
 	else
+	{
 		std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trAuthorTitle()" << std::endl;
 		result = title;
+	}
 	return result;
 }
 QString About::trTranslationTitle(QString title)
@@ -327,8 +329,10 @@ QString About::trTranslationTitle(QString title)
 	else if ( title == "Previous Translation Contributors:" )
 		result = tr("Previous Translation Contributors:");
 	else
+	{
 		std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trAuthorTitle()" << std::endl;
 		result = title;
+	}
 	return result;
 }
 
@@ -349,8 +353,10 @@ QString About::trLinksTitle(QString title)
 	else if ( title == "Mailing List" )
 		result = tr("Mailing List");
 	else
+	{
 		std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trLinksTitle()" << std::endl;
 		result = title;
+	}
 	return result;
 }
 
@@ -370,7 +376,7 @@ QString About::parseAuthorFile(QString fileName)
 	if (authorsFile.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
 		QTextStream inTS(&authorsFile);
-		inTS.setCodec("UTF-8");
+//		inTS.setCodec("UTF-8");
 		QString lineTS;
 		QStringList fieldTS;
 		QString name;
@@ -458,7 +464,6 @@ QString About::parseTranslationFile(QString fileName)
 	if (translationFile.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
 		QTextStream inTS(&translationFile);
-		inTS.setCodec("UTF-8");
 		QString lineTS;
 		QStringList fieldTS;
 		QString code;
@@ -496,7 +501,7 @@ QString About::parseTranslationFile(QString fileName)
 					{
 						code.replace("(", "");
 						code.replace(")", "");
-						code = LanguageManager::instance()->getLangFromAbbrev(code).toLocal8Bit();
+						code = LanguageManager::instance()->getLangFromAbbrev(code);
 					}
 					result += "<tr><td><b>"+code+"</b></td><td></td></tr>";
 					isTitle = false;
