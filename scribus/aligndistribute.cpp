@@ -65,7 +65,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	alignGuideLabel->setBuddy( alignGuideLineEdit );
 	distributeDistLabel->setBuddy( distributeDistSpinBox );
 	
-// 	resize( QSize(100, 100).expandedTo(minimumSizeHint()) );
+	resize( QSize(100, 100).expandedTo(minimumSizeHint()) );
 	languageChange();
 	init();
 	setDoc(NULL);
@@ -88,8 +88,8 @@ void AlignDistributePalette::changeEvent(QEvent *e)
 void AlignDistributePalette::languageChange()
 {
 	setWindowTitle( tr( "Align and Distribute" ) );
-	alignGroupBox->setTitle(tr( "Align"));
-	distributeGroupBox->setTitle(tr( "Distribute"));
+	tabWidget->setTabText(0, tr( "Align"));
+	tabWidget->setTabText(1, tr( "Distribute"));
 	alignRelativeToLabel->setText( tr( "&Relative to:" ) );
 	int alignComboValue=alignRelativeToCombo->currentIndex();
 	alignRelativeToCombo->clear();
@@ -97,7 +97,7 @@ void AlignDistributePalette::languageChange()
 	alignRelativeToCombo->addItem( tr( "Last Selected" ) );
 	alignRelativeToCombo->addItem( tr( "Page" ) );
 	alignRelativeToCombo->addItem( tr( "Margins" ) );
-	alignRelativeToCombo->addItem( tr( "Guide" ) );
+	alignRelativeToCombo->addItem( tr( "Guide" ) );		
 	alignRelativeToCombo->addItem( tr( "Selection" ) );
 	alignRelativeToCombo->setCurrentIndex(alignComboValue);
 	alignRelativeToCombo->setToolTip( tr( "<qt>Align relative to the:<ul><li>First selected item</li><li>Second Selected Item</li><li>The current page</li><li>The margins of the current page</li><li>A Guide</li><li>The selection</ul></qt>" ) );

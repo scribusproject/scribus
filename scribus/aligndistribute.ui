@@ -1,6 +1,6 @@
 <ui version="4.0" >
  <class>AlignDistribute</class>
- <widget class="ScrPaletteBase" name="AlignDistribute" >
+ <widget class="ScrPaletteBase" native="1" name="AlignDistribute" >
   <property name="enabled" >
    <bool>true</bool>
   </property>
@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>160</width>
-    <height>367</height>
+    <width>251</width>
+    <height>218</height>
    </rect>
   </property>
   <property name="minimumSize" >
@@ -18,306 +18,536 @@
     <height>0</height>
    </size>
   </property>
-  <layout class="QGridLayout" name="gridLayout_3" >
+  <layout class="QVBoxLayout" >
    <property name="margin" >
-    <number>0</number>
+    <number>6</number>
    </property>
    <property name="spacing" >
-    <number>0</number>
+    <number>5</number>
    </property>
-   <item row="0" column="0" >
-    <widget class="QGroupBox" name="alignGroupBox" >
-     <property name="title" >
-      <string>Align</string>
+   <item>
+    <widget class="QTabWidget" name="tabWidget" >
+     <property name="currentIndex" >
+      <number>0</number>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2" >
-      <property name="margin" >
-       <number>0</number>
-      </property>
-      <property name="spacing" >
-       <number>0</number>
-      </property>
-      <item row="0" column="0" colspan="5" >
-       <widget class="QLabel" name="alignRelativeToLabel" >
-        <property name="text" >
-         <string>&amp;Relative To:</string>
-        </property>
-        <property name="wordWrap" >
-         <bool>false</bool>
-        </property>
-        <property name="buddy" >
-         <cstring>alignRelativeToCombo</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="5" >
-       <widget class="QComboBox" name="alignRelativeToCombo" />
-      </item>
-      <item row="2" column="0" colspan="5" >
-       <widget class="QLabel" name="alignGuideLabel" >
-        <property name="text" >
-         <string>&amp;Selected Guide:</string>
-        </property>
-        <property name="wordWrap" >
-         <bool>false</bool>
-        </property>
-        <property name="buddy" >
-         <cstring>alignGuideLineEdit</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="5" >
-       <widget class="QLineEdit" name="alignGuideLineEdit" />
-      </item>
-      <item row="4" column="0" >
-       <widget class="QToolButton" name="alignLeftOutToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1" >
-       <widget class="QToolButton" name="alignLeftInToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2" >
-       <widget class="QToolButton" name="alignCenterHorToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="3" >
-       <widget class="QToolButton" name="alignRightInToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="4" >
-       <widget class="QToolButton" name="alignRightOutToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0" >
-       <widget class="QToolButton" name="alignTopOutToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1" >
-       <widget class="QToolButton" name="alignTopInToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="2" >
-       <widget class="QToolButton" name="alignCenterVerToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="3" >
-       <widget class="QToolButton" name="alignBottomInToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="4" >
-       <widget class="QToolButton" name="alignBottomOutToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0" >
-    <widget class="QGroupBox" name="distributeGroupBox" >
-     <property name="title" >
-      <string>Distribute</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout" >
-      <property name="margin" >
-       <number>0</number>
-      </property>
-      <property name="spacing" >
-       <number>0</number>
-      </property>
-      <item row="0" column="0" >
-       <widget class="QToolButton" name="distributeLeftToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" >
-       <widget class="QToolButton" name="distributeCenterHToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2" >
-       <widget class="QToolButton" name="distributeRightToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3" >
-       <widget class="QToolButton" name="distributeDistHToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" >
-       <widget class="QToolButton" name="distributeBottomToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="QToolButton" name="distributeCenterVToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" >
-       <widget class="QToolButton" name="distributeTopToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3" >
-       <widget class="QToolButton" name="distributeDistVToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" >
-       <widget class="QToolButton" name="distributeAcrossPageToolButton" >
-        <property name="enabled" >
-         <bool>true</bool>
-        </property>
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" >
-       <widget class="QToolButton" name="distributeDownPageToolButton" >
-        <property name="enabled" >
-         <bool>true</bool>
-        </property>
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2" >
-       <widget class="QToolButton" name="distributeAcrossMarginsToolButton" >
-        <property name="enabled" >
-         <bool>true</bool>
-        </property>
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="3" >
-       <widget class="QToolButton" name="distributeDownMarginsToolButton" >
-        <property name="enabled" >
-         <bool>true</bool>
-        </property>
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" >
-       <widget class="QToolButton" name="toolButtonDummy1" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" >
-       <widget class="QToolButton" name="distributeDistValueHToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2" >
-       <widget class="QToolButton" name="distributeDistValueVToolButton" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="3" >
-       <widget class="QToolButton" name="toolButtonDummy2" >
-        <property name="text" >
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0" colspan="4" >
-       <widget class="QLabel" name="distributeDistLabel" >
-        <property name="text" >
-         <string>&amp;Distance:</string>
-        </property>
-        <property name="wordWrap" >
-         <bool>false</bool>
-        </property>
-        <property name="indent" >
-         <number>-1</number>
-        </property>
-        <property name="buddy" >
-         <cstring>distributeDistSpinBox</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0" colspan="4" >
-       <widget class="ScrSpinBox" name="distributeDistSpinBox" >
-        <property name="minimumSize" >
-         <size>
-          <width>50</width>
-          <height>24</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1" colspan="2" >
-       <spacer name="verticalSpacer" >
-        <property name="orientation" >
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0" >
-         <size>
-          <width>20</width>
-          <height>2</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
+     <widget class="QWidget" name="tabAlign" >
+      <attribute name="title" >
+       <string>Align</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType" >
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QGridLayout" >
+           <property name="margin" >
+            <number>0</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <item row="1" column="0" >
+            <widget class="QLabel" name="alignGuideLabel" >
+             <property name="text" >
+              <string>&amp;Selected Guide:</string>
+             </property>
+             <property name="wordWrap" >
+              <bool>false</bool>
+             </property>
+             <property name="buddy" >
+              <cstring>alignGuideLineEdit</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" >
+            <widget class="QLabel" name="alignRelativeToLabel" >
+             <property name="text" >
+              <string>&amp;Relative To:</string>
+             </property>
+             <property name="wordWrap" >
+              <bool>false</bool>
+             </property>
+             <property name="buddy" >
+              <cstring>alignRelativeToCombo</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1" >
+            <widget class="QLineEdit" name="alignGuideLineEdit" />
+           </item>
+           <item row="0" column="1" >
+            <widget class="QComboBox" name="alignRelativeToCombo" />
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType" >
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType" >
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QGridLayout" >
+           <property name="margin" >
+            <number>0</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <item row="1" column="3" >
+            <widget class="QToolButton" name="alignBottomInToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1" >
+            <widget class="QToolButton" name="alignTopInToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" >
+            <widget class="QToolButton" name="alignLeftInToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3" >
+            <widget class="QToolButton" name="alignRightInToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="4" >
+            <widget class="QToolButton" name="alignBottomOutToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" >
+            <widget class="QToolButton" name="alignTopOutToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2" >
+            <widget class="QToolButton" name="alignCenterVerToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" >
+            <widget class="QToolButton" name="alignLeftOutToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4" >
+            <widget class="QToolButton" name="alignRightOutToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2" >
+            <widget class="QToolButton" name="alignCenterHorToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType" >
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType" >
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabDistribute" >
+      <attribute name="title" >
+       <string>Distribute</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType" >
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>63</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QGridLayout" >
+           <property name="margin" >
+            <number>0</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <item row="0" column="3" >
+            <widget class="QToolButton" name="distributeDistHToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2" >
+            <widget class="QToolButton" name="distributeTopToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1" >
+            <widget class="QToolButton" name="distributeCenterVToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2" >
+            <widget class="QToolButton" name="distributeRightToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" >
+            <widget class="QToolButton" name="toolButtonDummy1" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2" >
+            <widget class="QToolButton" name="distributeAcrossMarginsToolButton" >
+             <property name="enabled" >
+              <bool>true</bool>
+             </property>
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" >
+            <widget class="QToolButton" name="distributeLeftToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" >
+            <widget class="QToolButton" name="distributeAcrossPageToolButton" >
+             <property name="enabled" >
+              <bool>true</bool>
+             </property>
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1" >
+            <widget class="QToolButton" name="distributeDistValueHToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3" >
+            <widget class="QToolButton" name="distributeDownMarginsToolButton" >
+             <property name="enabled" >
+              <bool>true</bool>
+             </property>
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" >
+            <widget class="QToolButton" name="distributeCenterHToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3" >
+            <widget class="QToolButton" name="toolButtonDummy2" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1" >
+            <widget class="QToolButton" name="distributeDownPageToolButton" >
+             <property name="enabled" >
+              <bool>true</bool>
+             </property>
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2" >
+            <widget class="QToolButton" name="distributeDistValueVToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3" >
+            <widget class="QToolButton" name="distributeDistVToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" >
+            <widget class="QToolButton" name="distributeBottomToolButton" >
+             <property name="text" >
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType" >
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>62</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType" >
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" >
+           <property name="margin" >
+            <number>0</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="distributeDistLabel" >
+             <property name="text" >
+              <string>&amp;Distance:</string>
+             </property>
+             <property name="wordWrap" >
+              <bool>false</bool>
+             </property>
+             <property name="indent" >
+              <number>-1</number>
+             </property>
+             <property name="buddy" >
+              <cstring>distributeDistSpinBox</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="ScrSpinBox" name="distributeDistSpinBox" >
+             <property name="minimumSize" >
+              <size>
+               <width>50</width>
+               <height>24</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType" >
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType" >
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>16</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
