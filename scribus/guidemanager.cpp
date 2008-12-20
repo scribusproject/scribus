@@ -333,11 +333,15 @@ void GuideManager::delVerButton_clicked()
 void GuideManager::addHorButton_clicked()
 {
 	horizontalModel->insertRow();
+	horizontalView->setCurrentIndex(horizontalModel->index(0, 0, QModelIndex()));
+	horizontalView->edit(horizontalView->currentIndex());
 }
 
 void GuideManager::addVerButton_clicked()
 {
 	verticalModel->insertRow();
+	verticalView->setCurrentIndex(verticalModel->index(0, 0, QModelIndex()));
+	verticalView->edit(verticalView->currentIndex());
 }
 
 void GuideManager::lockCheck_stateChanged( int )
