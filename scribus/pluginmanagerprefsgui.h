@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefspanel.h"
 #include "ui_pluginmanagerprefsgui.h"
+#include "scribus.h"
 
 
 /*! \brief A GUI preferences interface for enabling/disabling plugins. */
@@ -17,7 +18,7 @@ class PluginManagerPrefsGui : public PrefsPanel, public Ui::PluginManagerPrefsGu
 	Q_OBJECT
 
 	public:
-		PluginManagerPrefsGui(QWidget * parent);
+		PluginManagerPrefsGui(QWidget * parent, ScribusMainWindow* scMW);
 		~PluginManagerPrefsGui();
 
 	public slots:

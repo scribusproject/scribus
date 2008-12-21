@@ -6,13 +6,15 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QCheckBox>
 
+#include "menumanager.h"
 #include "pluginmanagerprefsgui.h"
 #include "pluginmanager.h"
+#include "scraction.h"
 #include "scplugin.h"
 #include "commonstrings.h"
 
 
-PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
+PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent, ScribusMainWindow* scMW)
 	: PrefsPanel(parent)	
 {
 	setupUi(this);
@@ -42,7 +44,15 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 			Q_ASSERT(ixplug);
 			ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
 			// menu path
-			i1->setText(QString("%1 %2").arg(ai.menu).arg(ai.menuAfterName));
+			QString men = "";
+			if (!ai.parentMenu.isEmpty())
+			{
+				if (scMW->scrMenuMgr->menuExists(ai.parentMenu))
+					men = scMW->scrMenuMgr->getLocalPopupMenu(ai.parentMenu)->title().remove(QRegExp("&(?!&)")) + " -> ";
+			}
+			if (scMW->scrMenuMgr->menuExists(ai.menu))
+				men += scMW->scrMenuMgr->getLocalPopupMenu(ai.menu)->title().remove(QRegExp("&(?!&)")) + " -> ";
+			i1->setText(men + QString("%1").arg(scMW->scrActions[ai.name]->text().remove(QRegExp("&(?!&)"))));
 		}
 		pluginTable->setItem(i, 1, i1);
 

@@ -144,7 +144,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	addItem(  tr("Miscellaneous"), loadIcon("misc.png"), tabMiscellaneous);
 
 	// plugin manager. pv.
-	pluginManagerPrefsGui = new PluginManagerPrefsGui(prefsWidgets);
+	pluginManagerPrefsGui = new PluginManagerPrefsGui(prefsWidgets, ap);
 	addItem( tr("Plugins"), loadIcon("plugins.png"), pluginManagerPrefsGui );
 
 	setupGui();
