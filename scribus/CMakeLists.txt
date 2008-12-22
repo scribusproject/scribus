@@ -327,6 +327,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_measurements.cpp
   canvasmode_nodeedit.cpp
   canvasmode_normal.cpp
+  canvasmode_objimport.cpp
   canvasmode_rotate.cpp
   charselect.cpp
   charselectenhanced.cpp

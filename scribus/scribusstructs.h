@@ -422,7 +422,8 @@ enum AppMode
 	modeEyeDropper,
 	modeCopyProperties,
 	modeEditClip,
-	modeDrawLatex
+	modeDrawLatex,
+	modeImportObject
 };
 
 struct AlignObjs

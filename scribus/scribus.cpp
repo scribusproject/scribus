@@ -1268,6 +1268,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case modeCopyProperties:
 					view->Deselect(false);
 				case modeEyeDropper:
+				case modeImportObject:
 				case modePanning:
 					view->requestMode(modeNormal);
 					break;

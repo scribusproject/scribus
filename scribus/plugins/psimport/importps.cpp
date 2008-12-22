@@ -50,8 +50,9 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 EPSPlug::EPSPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel=new Selection(this, false);
-	m_Doc=doc;
+	tmpSel = new Selection(this, false);
+	m_Doc  = doc;
+	progressDialog = NULL;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 }
 
@@ -291,43 +292,16 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				ScElemMimeData* md = new ScElemMimeData();
 				md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
-				QDrag* dr = new QDrag(m_Doc->view()->viewport());
-				dr->setMimeData(md);
-#ifndef Q_WS_MAC
+				delete ss;
+/*#ifndef Q_WS_MAC*/
 // see #2196
 				m_Doc->itemSelection_DeleteItem(tmpSel);
-#else
+/*#else
 				qDebug("psimport: leaving items on page");
-#endif
+#endif*/
 				m_Doc->view()->updatesOn(true);
 				m_Doc->m_Selection->delaySignalsOff();
-				const QPixmap& dragCursor = loadIcon("DragPix.xpm");
-				dr->setDragCursor(dragCursor, Qt::CopyAction);
-				dr->setDragCursor(dragCursor, Qt::MoveAction);
-				dr->setDragCursor(dragCursor, Qt::LinkAction);
-				dr->exec();
-#if 0
-			qDebug("psimport: data");
-			QString data(dr->encodedData("text/plain"));
-			for (uint i=0; i <= data.length() / 4000; i++) {
-				qDebug(data.mid(i*4000, 4000));
-			}
-			qDebug("psimport: enddata");
-			qDebug(QString("psimport: drag type %1").arg(dr->format()));
-#endif
-				/* JG : incorrect, see the Qt Reference: "The function returns TRUE if the caller should 
-				delete the original copy of the dragged data */
-				/*if (!dr->drag())
-				{
-					if (importedColors.count() != 0)
-					{
-						for (int cd = 0; cd < importedColors.count(); cd++)
-						{
-							m_Doc->PageColors.remove(importedColors[cd]);
-						}
-					}
-				}*/
-				delete ss;
+				m_Doc->view()->handleObjectImport(md);
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = 0;
 				m_Doc->DragElements.clear();

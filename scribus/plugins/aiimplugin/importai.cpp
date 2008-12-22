@@ -309,22 +309,16 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				ScElemMimeData* md = new ScElemMimeData();
 				md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
-				QDrag* dr = new QDrag(m_Doc->view()->viewport());
-				dr->setMimeData(md);
-#ifndef Q_WS_MAC
+				delete ss;
+/*#ifndef Q_WS_MAC*/
 // see #2196
 				m_Doc->itemSelection_DeleteItem(tmpSel);
-#else
+/*#else
 				qDebug("aiimport: leaving items on page");
-#endif
+#endif*/
 				m_Doc->view()->updatesOn(true);
 				m_Doc->m_Selection->delaySignalsOff();
-				const QPixmap& dragCursor = loadIcon("DragPix.xpm");
-				dr->setDragCursor(dragCursor, Qt::CopyAction);
-				dr->setDragCursor(dragCursor, Qt::MoveAction);
-				dr->setDragCursor(dragCursor, Qt::LinkAction);
-				dr->exec();
-				delete ss;
+				m_Doc->view()->handleObjectImport(md);
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = 0;
 				m_Doc->DragElements.clear();

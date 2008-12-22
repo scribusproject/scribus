@@ -58,6 +58,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 
 class QEvent;
+class QMimeData;
 
 // application specific includes
 #include "observable.h"
@@ -100,6 +101,7 @@ public:
 	friend class CanvasMode_Magnifier;
 	friend class CanvasMode_NodeEdit;
 	friend class CanvasMode_Normal;
+	friend class CanvasMode_ObjImport;
 	friend class CanvasMode_Rotate;
 	
 	void requestMode(int appMode);
@@ -364,6 +366,8 @@ public:
 	inline void stopDragTimer();
 	inline void resetDragTimer();
 	inline bool dragTimerElapsed();
+
+	bool handleObjectImport(QMimeData* mimeData);
 
 protected: // Protected methods
 	virtual void enterEvent(QEvent *);

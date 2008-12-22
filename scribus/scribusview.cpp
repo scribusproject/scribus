@@ -75,6 +75,7 @@ for which a new license (GPL+exception) is in place.
 #include "canvas.h"
 #include "canvasgesture.h"
 #include "canvasmode.h"
+#include "canvasmode_objimport.h"
 #include "actionmanager.h"
 #include "adjustcmsdialog.h"
 #include "commonstrings.h"
@@ -473,6 +474,19 @@ void ScribusView::changed(QRectF re)
 		m_canvas->m_viewMode.forceRedraw = true;
 		updateCanvas(re);
 	}
+}
+
+bool ScribusView::handleObjectImport(QMimeData* mimeData)
+{
+	requestMode(modeImportObject);
+	CanvasMode_ObjImport* objImport = dynamic_cast<CanvasMode_ObjImport*>(m_canvasMode);
+	if (objImport)
+	{
+		objImport->setMimeData(mimeData);
+		return true;
+	}
+	delete mimeData;
+	return false;
 }
 
 void ScribusView::startGesture(CanvasGesture* gesture)

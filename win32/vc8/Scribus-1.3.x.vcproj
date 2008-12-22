@@ -612,6 +612,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\scribus\canvasmode_objimport.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\scribus\canvasmode_rotate.cpp"
 				>
 			</File>
@@ -2983,6 +2987,10 @@
 						Outputs="$(InputDir)\moc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\scribus\canvasmode_objimport.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\scribus\canvasmode_rotate.h"
@@ -15400,7 +15408,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
 						Outputs="$(InputDir)\ui_$(InputName).h"
 					/>
@@ -15411,7 +15419,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
 						Outputs="$(InputDir)\ui_$(InputName).h"
 					/>
@@ -15422,7 +15430,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
 						Outputs="$(InputDir)\ui_$(InputName).h"
 					/>
@@ -15433,7 +15441,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)"
-						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
+						CommandLine="$(QT4DIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)\ui_$(InputName).h&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QT4DIR)\bin\uic.exe"
 						Outputs="$(InputDir)\ui_$(InputName).h"
 					/>

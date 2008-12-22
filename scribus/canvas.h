@@ -93,6 +93,7 @@ public:
 	friend class CanvasMode_FrameLinks;
 	friend class CanvasMode_Magnifier;
 	friend class CanvasMode_NodeEdit;
+	friend class CanvasMode_ObjImport;
 	friend class CanvasMode_Normal;
 	friend class CanvasMode_Rotate;
 	friend class FreehandMode;

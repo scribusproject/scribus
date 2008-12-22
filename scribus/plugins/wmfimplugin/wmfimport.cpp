@@ -696,20 +696,14 @@ bool WMFImport::importWMF(int flags)
 			m_tmpSel->setGroupRect();
 			ScElemMimeData* md = new ScElemMimeData();
 			md->setScribusElem(ss->WriteElem(m_Doc, m_Doc->view(), m_tmpSel));
-			QDrag* dr = new QDrag(m_Doc->view()->viewport());
-			dr->setMimeData(md);
-#ifndef QT_MAC
+			delete ss;
+/*#ifndef QT_MAC*/
 // see #2526
 			m_Doc->itemSelection_DeleteItem(m_tmpSel);
-#endif
+/*#endif*/
 			m_Doc->view()->updatesOn(true);
 			m_Doc->m_Selection->delaySignalsOff();
-			const QPixmap& dragCursor = loadIcon("DragPix.xpm");
-			dr->setDragCursor(dragCursor, Qt::CopyAction);
-			dr->setDragCursor(dragCursor, Qt::MoveAction);
-			dr->setDragCursor(dragCursor, Qt::LinkAction);
-			dr->exec();
-			delete ss;
+			m_Doc->view()->handleObjectImport(md);
 			m_Doc->DragP = false;
 			m_Doc->DraggedElem = 0;
 			m_Doc->DragElements.clear();

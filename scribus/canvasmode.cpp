@@ -27,6 +27,7 @@
 #include "canvasmode_legacy.h"
 #include "canvasmode_magnifier.h"
 #include "canvasmode_measurements.h"
+#include "canvasmode_objimport.h"
 #include "canvasmode_nodeedit.h"
 #include "canvasmode_normal.h"
 #include "canvasmode_rotate.h"
@@ -113,6 +114,9 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			break;
 		case modeMeasurementTool:
 			result = new MeasurementsMode(view);
+			break;
+		case modeImportObject:
+			result = new CanvasMode_ObjImport(view);
 			break;
 		case modeRotation:
 			result = new CanvasMode_Rotate(view);
@@ -469,6 +473,9 @@ void CanvasMode::setModeCursor()
 			break;
 		case modeDrawFreehandLine:
 			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
+			break;
+		case modeImportObject:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DragPix.xpm")));
 			break;
 		case modeMagnifier:
 			if (m_view->Magnify)
