@@ -964,7 +964,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	TabsButton = new QToolButton( Distance );
 	TabsButton->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 	DistanceLayout->addWidget( TabsButton, 7, 0, 1, 2 );
-	DistanceItem = TextTree->addWidget( tr("Distance of Text"), Distance);
+    DistanceItem = TextTree->addWidget( tr("Columns & Text Distances"), Distance);
 
 	Distance2 = new QFrame();
 	Distance2->setFrameStyle(QFrame::Box | QFrame::Plain);
@@ -4874,7 +4874,6 @@ void PropertiesPalette::languageChange()
 	blendMode->addItem( tr("Saturation"));
 	blendMode->addItem( tr("Color"));
 	rndcornersLabel->setText( tr("R&ound\nCorners:"));
-//	Distance->setTitle( tr("Distance of Text"));
 	columnsLabel->setText( tr("Colu&mns:"));
 	int oldcolgapLabel = colgapLabel->currentIndex();
 	colgapLabel->clear();
@@ -4935,7 +4934,7 @@ void PropertiesPalette::languageChange()
 	advancedWidgetsItem->setText(0, tr("Advanced Settings"));
 	styleWidgetsItem->setText(0, tr("Style Settings"));
 	flopItem->setText(0, tr("First Line Offset"));
-	DistanceItem->setText(0, tr("Distance of Text"));
+    DistanceItem->setText(0, tr("Columns & Text Distances"));
 	Distance2Item->setText(0, tr("Path Text Properties"));
 	imagePageNumberLabel->setText( tr("&Page Number:"));
 	FreeScale->setText( tr("&Free Scaling"));
