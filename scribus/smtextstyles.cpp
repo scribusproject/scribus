@@ -1005,7 +1005,10 @@ void SMParagraphStyle::slotEffects(int e)
 
 		for (int i = 0; i < selection_.count(); ++i)
 		{
-			selection_[i]->charStyle().setFeatures(s.featureList());
+			QStringList feList = s.featureList();
+			feList.removeAll(CharStyle::INHERIT);
+			selection_[i]->charStyle().setFeatures(feList);
+//			selection_[i]->charStyle().setFeatures(s.featureList());
 			selection_[i]->charStyle().setShadowXOffset(qRound(sxo));
 			selection_[i]->charStyle().setShadowYOffset(qRound(syo));
 			selection_[i]->charStyle().setOutlineWidth(qRound(olw));
@@ -1896,7 +1899,10 @@ void SMCharacterStyle::slotEffects(int e)
 
 		for (int i = 0; i < selection_.count(); ++i)
 		{
-			selection_[i]->setFeatures(s.featureList());
+			QStringList feList = s.featureList();
+			feList.removeAll(CharStyle::INHERIT);
+			selection_[i]->setFeatures(feList);
+//			selection_[i]->setFeatures(s.featureList());
 			selection_[i]->setShadowXOffset(qRound(sxo));
 			selection_[i]->setShadowYOffset(qRound(syo));
 			selection_[i]->setOutlineWidth(qRound(olw));
