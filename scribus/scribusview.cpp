@@ -737,7 +737,7 @@ void ScribusView::leaveEvent(QEvent *e)
 void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 {
 	QString text;
-	bool dataFound = false, fromFile = false;
+	bool /* dataFound = false, */ fromFile = false;
 	const ScElemMimeData* elemData = dynamic_cast<const ScElemMimeData*>(e->mimeData());
 	e->accept();
 	if (elemData)

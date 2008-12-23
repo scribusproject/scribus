@@ -90,7 +90,7 @@ ScElemMimeData::ScElemMimeData(void) : QMimeData()
 
 bool ScElemMimeData::hasFormat (const QString & mimeType) const
 {
-	bool hasFmt = false;
+//	bool hasFmt = false;
 	if (mimeType == ScMimeData::ScribusElemMimeType)
 	{
 		if (!m_scribusElemData.isEmpty())

@@ -144,8 +144,8 @@ void CanvasMode_CopyProperties::mouseMoveEvent(QMouseEvent *m)
 	}
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
-		double newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		double newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+//		double newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
+//		double newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 		QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
 		m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
 		if (!m_view->redrawMarker->isVisible())
@@ -252,7 +252,7 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
 	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
-	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
+//	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	m_doc->nodeEdit.deselect();
