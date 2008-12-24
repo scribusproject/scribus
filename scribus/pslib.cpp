@@ -3519,7 +3519,21 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 				static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 				hl2.ch = hl->ch;
 				hl2.glyph.glyph = hl->glyph.glyph;
+				const GlyphLayout *gl1 = &hl->glyph;
+				GlyphLayout	*gl2 = &hl2.glyph;
+				while (gl1->more)
+				{
+					gl2->more = new GlyphLayout(*gl1->more);
+					gl2->more->yoffset -= (cstyle.fontSize() * cstyle.shadowYOffset() / 10000.0);
+					gl2->more->xoffset += (cstyle.fontSize() * cstyle.shadowXOffset() / 10000.0);
+					gl2->more->more = NULL;
+					gl1 = gl1->more;
+					gl2 = gl2->more;
+				}
 				hl2.setFillColor(cstyle.strokeColor());
+				hl2.setFillShade(cstyle.strokeShade());
+				hl2.glyph.xadvance = hl->glyph.xadvance;
+				hl2.glyph.yadvance = hl->glyph.yadvance;
 				hl2.glyph.yoffset = hl->glyph.yoffset - (cstyle.fontSize() * cstyle.shadowYOffset() / 10000.0);
 				hl2.glyph.xoffset = hl->glyph.xoffset + (cstyle.fontSize() * cstyle.shadowXOffset() / 10000.0);
 				hl2.glyph.scaleH = hl->glyph.scaleH;

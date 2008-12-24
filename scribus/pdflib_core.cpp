@@ -4171,9 +4171,22 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 					ScText hl2;
 					hl2.ch = ch;
 					hl2.glyph.glyph = hl->glyph.glyph;
+					const GlyphLayout *gl1 = &hl->glyph;
+					GlyphLayout	*gl2 = &hl2.glyph;
+					while (gl1->more)
+					{
+						gl2->more = new GlyphLayout(*gl1->more);
+						gl2->more->yoffset -= (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
+						gl2->more->xoffset += (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
+						gl2->more->more = NULL;
+						gl1 = gl1->more;
+						gl2 = gl2->more;
+					}
 					static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 					hl2.setFillColor(hl->strokeColor());
 					hl2.setFillShade(hl->strokeShade());
+					hl2.glyph.xadvance = hl->glyph.xadvance;
+					hl2.glyph.yadvance = hl->glyph.yadvance;
 					hl2.glyph.yoffset = hl->glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
 					hl2.glyph.xoffset = hl->glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
 					hl2.glyph.scaleH = hl->glyph.scaleH;
