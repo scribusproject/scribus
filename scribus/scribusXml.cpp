@@ -1225,10 +1225,10 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 	QString itemClip;
 	StoryText  storyText;
 	LastStyles lastStyles;
-	int LatexDPI;
-	bool LatexPream;
+	int LatexDPI = 0;
+	bool LatexPream = true;
 	QString LatexConfig;
-	bool inlineF;
+	bool inlineF = false;
 	QByteArray inlineImageData;
 	QString inlineImageExt;
 	while(!sReader.atEnd() && !sReader.hasError())
@@ -1523,10 +1523,10 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 	QString fileDir    = QDir::homePath();
 	StoryText  storyText;
 	LastStyles lastStyles;
-	int LatexDPI;
-	bool LatexPream;
+	int LatexDPI = 0;
+	bool LatexPream = true;
 	QString LatexConfig;
-	bool inlineF;
+	bool inlineF = false;
 	QByteArray inlineImageData;
 	QString inlineImageExt;
 	while(!reader.atEnd() && !reader.hasError())
