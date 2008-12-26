@@ -76,7 +76,7 @@ class LatexConfigParser
 	public:
 		LatexConfigParser() {};
 		bool parseConfigFile(QString fn);
-		QString executable() const { return m_executable; }
+		QString executable() const;
 		QString imageExtension() const { return m_imageExtension; }
 		/** Returns the path to the highlighter definition.
 		 * The different options are handled in this function

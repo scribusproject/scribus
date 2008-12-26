@@ -324,7 +324,7 @@
         <item>
          <widget class="QPushButton" name="latexChangePathButton" >
           <property name="text" >
-           <string>Change Path...</string>
+           <string>Change Command...</string>
           </property>
          </widget>
         </item>

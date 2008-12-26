@@ -126,11 +126,13 @@ public:
 	void setImageEditorExecutable(const QString&);
 	void setExtBrowserExecutable(const QString&);
 	void setLatexConfigs(const QStringList&);
+	void setLatexCommands(const QMap<QString, QString>& commands) { appPrefs.latexCommands=commands; }
 	void setLatexEditorExecutable(const QString&);
 	QString ghostscriptExecutable() const {return appPrefs.gs_exe;};
 	QString imageEditorExecutable() const {return appPrefs.imageEditorExecutable;};
 	QString extBrowserExecutable() const {return appPrefs.extBrowserExecutable;};
 	QStringList latexConfigs() const {return appPrefs.latexConfigs;}
+	QMap<QString, QString> latexCommands() const {return appPrefs.latexCommands;}
 	QString latexEditorExecutable() const {return appPrefs.latexEditorExecutable;}
 	bool latexStartWithEmptyFrames() const {return appPrefs.latexStartWithEmptyFrames;}
 	//! \brief Get the users preferred preview resolution

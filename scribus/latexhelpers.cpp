@@ -312,6 +312,16 @@ void LatexConfigParser::ignoreList()
 	}
 }
 
+QString LatexConfigParser::executable() const
+{
+	QString command = PrefsManager::instance()->latexCommands()[m_filename];
+	if (command.isEmpty()) {
+		return m_executable;
+	} else {
+		return command;
+	}
+}
+
 QString I18nXmlStreamReader::readI18nText(bool unindent)
 {
 	QString language = PrefsManager::instance()->guiLanguage();
@@ -418,6 +428,7 @@ LatexConfigParser* LatexConfigCache::parser(QString filename, bool warnOnError)
 	return parsers[filename];
 }
 
+
 void LatexConfigCache::createParser(QString filename, bool warnOnError)
 {
 	LatexConfigParser *parser = new LatexConfigParser();
@@ -443,8 +454,6 @@ bool LatexConfigCache::hasError(QString filename)
 
 QStringList LatexConfigCache::defaultConfigs()
 {
-	//QStringList fileList;
-	
 	QString base = ScPaths::instance().shareDir()+"/editorconfig/";
 	QDir dir(base);
 	QStringList files;

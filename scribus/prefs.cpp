@@ -427,6 +427,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.latexForceDpi = tabExtTools->newLatexForceDpi();
 	prefsManager->appPrefs.latexStartWithEmptyFrames = tabExtTools->newLatexStartWithEmptyFrames();
 	prefsManager->setLatexConfigs(tabExtTools->newLatexConfigs());
+	prefsManager->setLatexCommands(tabExtTools->newLatexCommands());
 	prefsManager->setLatexEditorExecutable(tabExtTools->newLatexEditor());
 
 	prefsManager->appPrefs.guidesSettings.before = tabGuides->inBackground->isChecked();

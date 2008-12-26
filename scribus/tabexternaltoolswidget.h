@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 
 struct ApplicationPrefs;
+class QListWidgetItem;
 
 class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsWidget
 {
@@ -46,6 +47,7 @@ class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsW
 		const QString newExtBrowserTool() const;
 		const QString newLatexEditor() const;
 		const QStringList newLatexConfigs() const;
+		const QMap<QString, QString> newLatexCommands() const;
 		bool newAntialiasText() const { return psAntialiasTextCheckBox->isChecked();}
 		bool newAntialiasGraphics() const { return psAntialiasGraphicsCheckBox->isChecked();}
 		int newPSToolResolution() const { return psResolutionSpinBox->value();}
@@ -56,7 +58,8 @@ class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsW
 	protected:
 		bool fileInPath(QString file);
 		void insertConfigItem(QString config, int row = -1);
-		
+		void setConfigItemText(QListWidgetItem *item);
+		QMap<QString, QString> commands;
 	public slots:
 		void changePostScriptTool();
 		void changeImageTool();

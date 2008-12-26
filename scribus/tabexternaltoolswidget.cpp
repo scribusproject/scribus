@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "tabexternaltoolswidget.h"
 #include <QFileDialog>
+#include <QInputDialog>
 #include <QProcess>
 #include "util_ghostscript.h"
 #include "scpaths.h"
@@ -100,6 +101,7 @@ void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 	latexEmptyFrameCheckBox->setCheckState(prefsData->latexStartWithEmptyFrames?Qt::Checked:Qt::Unchecked);
 	latexConfigsListWidget->clear();
 	QStringList configs = prefsData->latexConfigs;
+	commands = prefsData->latexCommands;
 	foreach (QString config, configs) {
 		insertConfigItem(config);
 	}
@@ -140,16 +142,15 @@ void TabExternalToolsWidget::changeLatexEditor()
 
 void TabExternalToolsWidget::insertConfigItem(QString config, int row)
 {
-	QListWidgetItem *widget = new QListWidgetItem(
-			QString("%1 (%2)").arg(LatexConfigCache::instance()->parser(config)->description()).
-			arg(QDir::toNativeSeparators(QDir::cleanPath(config))));
-	widget->setData(Qt::UserRole, config);
+	QListWidgetItem *item = new QListWidgetItem();
+	item->setData(Qt::UserRole, config);
+	setConfigItemText(item);
 	if (row == -1) {
-		latexConfigsListWidget->addItem(widget);
+		latexConfigsListWidget->addItem(item);
 	} else {
-		latexConfigsListWidget->insertItem(row, widget);
+		latexConfigsListWidget->insertItem(row, item);
 	}
-	latexConfigsListWidget->setCurrentItem(widget);
+	latexConfigsListWidget->setCurrentItem(item);
 }
 
 void TabExternalToolsWidget::addConfig()
@@ -255,5 +256,37 @@ void TabExternalToolsWidget::rescanForTools()
 
 void TabExternalToolsWidget::changePath()
 {
-	//TODO
+	QListWidgetItem *item = latexConfigsListWidget->currentItem();
+	QString config = item->data(Qt::UserRole).toString();
+	bool ok;
+	//TODO: Better dialog
+	QString oldCommand = commands[config];
+	if (oldCommand.isEmpty()) {
+		oldCommand = LatexConfigCache::instance()->parser(config)->executable();
+	}
+	QString newCommand = QInputDialog::getText(this, tr("Change Command"),
+		tr("Enter new command: (leave empty to reset to default command; use quotes around arguments with spaces)"), QLineEdit::Normal, oldCommand, &ok);
+	if (ok) {
+		commands[config] = newCommand;
+		setConfigItemText(item);
+	}
+}
+
+void TabExternalToolsWidget::setConfigItemText(QListWidgetItem *item)
+{
+	QString config = item->data(Qt::UserRole).toString();
+	QString description = LatexConfigCache::instance()->parser(config)->description();
+	QString command = commands[config];
+	if (command.isEmpty()) {
+		item->setText(description);
+	} else {
+		item->setText(QString("%1 (" + tr("Command: ") + "%2)" ).
+			arg(description).
+			arg(QDir::toNativeSeparators(QDir::cleanPath(command))));
+	}
+}
+
+const QMap<QString, QString> TabExternalToolsWidget::newLatexCommands() const
+{
+	return commands;
 }

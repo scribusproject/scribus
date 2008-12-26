@@ -344,6 +344,7 @@ void PrefsManager::initDefaults()
 	appPrefs.imageEditorExecutable = "gimp";
 	appPrefs.extBrowserExecutable = "";
 	appPrefs.latexConfigs = LatexConfigCache::defaultConfigs();
+	appPrefs.latexCommands.clear();
 	appPrefs.latexEditorExecutable = "";
 	appPrefs.latexResolution = 72;
 	appPrefs.latexForceDpi = true;
@@ -1497,6 +1498,7 @@ bool PrefsManager::WritePref(QString ho)
 	foreach (QString config, configs) {
 		QDomElement domConfig = docu.createElement("LatexConfig");
 		domConfig.setAttribute("file", config);
+		domConfig.setAttribute("command", appPrefs.latexCommands[config]);
 		dc8Ex.appendChild(domConfig);
 	}
 	elem.appendChild(dc8Ex);
@@ -1724,6 +1726,7 @@ bool PrefsManager::ReadPref(QString ho)
 	if (elem.tagName() != "SCRIBUSRC")
 		return false;
 	appPrefs.DColors.clear();
+	appPrefs.latexCommands.clear();
 	ScColor lf = ScColor();
 	QDomNode DOC=elem.firstChild();
 	if (!DOC.namedItem("CheckProfile").isNull())
@@ -2102,21 +2105,26 @@ bool PrefsManager::ReadPref(QString ho)
 			setImageEditorExecutable(dc.attribute("GIMP", "gimp"));
 			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
-			QStringList configs = LatexConfigCache::defaultConfigs();
+			QStringList configs;
 			QDomNodeList configNodes = dc.elementsByTagName("LatexConfig");
 			bool validConfFound = false;
 			for (int i=0; i < configNodes.size(); i++)
 			{
 				QString confFile = configNodes.at(i).toElement().attribute("file", "");
+				QString command  = configNodes.at(i).toElement().attribute("command", "");
 				if (!validConfFound && !confFile.isEmpty())
 					validConfFound = QFile::exists(confFile);
-				if (!configs.contains(confFile) && QFile::exists(confFile))
+				if (!configs.contains(confFile) && QFile::exists(confFile)) {
 					configs.append(confFile);
+					appPrefs.latexCommands[confFile] = command;
+				}
 			}
-			if (!configs.isEmpty() && validConfFound)
+			if (!configs.isEmpty() && validConfFound) {
 				setLatexConfigs(configs);
-			else
+			} else {
+				qWarning() << tr("No valid renderframe config found. Using defaults!");
 				setLatexConfigs(LatexConfigCache::defaultConfigs());
+			}
 		}
 		if (dc.tagName()=="HYPHEN")
 		{

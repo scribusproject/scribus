@@ -244,6 +244,7 @@ struct ApplicationPrefs
 	QString imageEditorExecutable;
 	QString extBrowserExecutable;
 	QStringList latexConfigs;
+	QMap<QString, QString> latexCommands;
 	QString latexEditorExecutable;
 	int latexResolution;
 	bool latexForceDpi;
