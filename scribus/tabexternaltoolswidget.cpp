@@ -136,8 +136,12 @@ void TabExternalToolsWidget::changeLatexEditor()
 {
 	QFileInfo fi(latexEditorLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate your editor"), fi.path());
-	if (!s.isEmpty())
-		latexEditorLineEdit->setText( QDir::convertSeparators(s) );
+	if (!s.isEmpty()) {
+		s = QDir::convertSeparators(s);
+		if (s.contains(' ') && !s.contains('"'))
+			s = QString("\"%1\"").arg(s);
+		latexEditorLineEdit->setText(s);
+	}
 }
 
 void TabExternalToolsWidget::insertConfigItem(QString config, int row)
@@ -213,7 +217,7 @@ bool TabExternalToolsWidget::fileInPath(QString file)
 		}
 	}
 	QStringList splitpath;
-	//TODO: Check this again! OS2?
+	//TODO: Check this again! OS2? MacOS?
 	#ifdef _WIN32
 		splitpath = path.split(';', QString::SkipEmptyParts);
 	#else

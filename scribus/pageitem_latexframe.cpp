@@ -25,10 +25,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDebug>
 #include <QTemporaryFile>
-#include <QGridLayout>
-#include <QLabel>
-#include <QImage>
-#include <QPoint>
 
 #include "prefsmanager.h"
 #include "scpainter.h"
@@ -232,6 +228,7 @@ void PageItem_LatexFrame::runApplication()
 	QFile tempfile(tempFileBase);
 	if (!tempfile.open(QIODevice::Truncate|QIODevice::WriteOnly)) {
 		err = 0xffff;
+		update(); //Show error marker
 		if (firstWarningTmpfile)
 		{
 			QMessageBox::critical(0, tr("Error"), "<qt>" +
@@ -248,13 +245,14 @@ void PageItem_LatexFrame::runApplication()
 		firstWarningTmpfile = true;
 	}
 	
-	QString full_command = config->executable().replace(
-			"%dpi", QString::number(realDpi()));
+	QString full_command = config->executable();
 	
 	if (full_command.isEmpty()) {
+		err = 0xffff;
+		update(); //Show error marker
 		if (firstWarningLatexMissing)
 		{
-			QMessageBox::information(0, tr("Information"),
+			QMessageBox::critical(0, tr("Error"),
 									 "<qt>" + tr("The config file didn't specify a executable path!") +
 									 "</qt>",1, 0, 0);
 			firstWarningLatexMissing = false;
@@ -267,31 +265,23 @@ void PageItem_LatexFrame::runApplication()
 		firstWarningLatexMissing = true;
 	}
 
-	QStringList commands_args = full_command.split(' ', QString::SkipEmptyParts);
-	QString     prog_name = commands_args.first();
-	commands_args.removeFirst();
-	
+	full_command.replace("%dpi", QString::number(realDpi()));
 	if (full_command.contains("%file")) {
-		commands_args.replaceInStrings("%file", QDir::toNativeSeparators(tempFileBase));
+		full_command.replace("%file", QString("\"%1\"").arg(QDir::toNativeSeparators(tempFileBase)));
 	} else {
-		commands_args.append(QDir::toNativeSeparators(tempFileBase));
+		full_command = full_command + QString(" \"%1\"").arg(QDir::toNativeSeparators(tempFileBase));
 	}
-	if (full_command.contains("%dir")) {
-		commands_args.replaceInStrings("%dir", QDir::toNativeSeparators(QDir::tempPath()));
-	}
+	full_command.replace("%dir", QString("\"%1\"").arg(QDir::toNativeSeparators(QDir::tempPath())));
 	latex->setWorkingDirectory(QDir::tempPath());
 
 	double lDpi = realDpi()/72.0;
-	if (full_command.contains("$scribus_height_px$"))
-		commands_args.replaceInStrings(QString("$scribus_height_px$"), QString::number(qRound(Height*lDpi)));
-	if (full_command.contains("$scribus_width_px$"))
-		commands_args.replaceInStrings(QString("$scribus_width_px$"), QString::number(qRound(Width*lDpi)));
+	full_command.replace("$scribus_height_px$", QString::number(qRound(Height*lDpi)));
+	full_command.replace("$scribus_width_px$",  QString::number(qRound(Width*lDpi)));
 	QMapIterator<QString, QString> i(editorProperties);
 	while (i.hasNext())
 	{
 		i.next();
-		if (full_command.contains(QString("$scribus_")+i.key()+"$"))
-			commands_args.replaceInStrings(QString("$scribus_"+i.key()+"$"), i.value());
+		full_command.replace("$scribus_"+i.key()+"$", i.value());
 	}
 	
 	imageFile = tempFileBase + config->imageExtension();
@@ -299,7 +289,8 @@ void PageItem_LatexFrame::runApplication()
 	writeFileContents(&tempfile);
 	tempfile.close();
 	
-	latex->start(prog_name, commands_args);
+	qDebug() << full_command;
+	latex->start(full_command);
 	emit stateChanged(QProcess::Starting);
 }
 
@@ -398,6 +389,8 @@ bool PageItem_LatexFrame::setFormula(QString formula, bool undoable)
 
 void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 {
+	err = 0xffff;
+	update(); //Show error marker
 	static bool firstWarning = true;
 	if (killed) {
 		killed = false;

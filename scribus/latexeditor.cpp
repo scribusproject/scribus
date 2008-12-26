@@ -126,8 +126,6 @@ void LatexEditor::extEditorClicked()
 		"</qt>", 1, 0, 0);
 		return;
 	}
-	externalEditorPushButton->setEnabled(false);
-	externalEditorPushButton->setText(tr("Editor running!"));
 	
 	QString full_command = PrefsManager::instance()->latexEditorExecutable();
 	if (full_command.isEmpty()) {
@@ -136,19 +134,23 @@ void LatexEditor::extEditorClicked()
 		"</qt>",1, 0, 0);
 		return;
 	}
-	
-	writeExternalEditorFile(); //This command must be at this position, because it sets editorFile
+
+	writeExternalEditorFile(); //Don't move this command! It sets extEditorFile
 	
 	QString editorFilePath = QString("\"%1\"").arg(extEditorFile);
-	QString tempFilePath   = getLongPathName(QDir::tempPath());
+	QString tempFilePath   = QString("\"%1\"").arg(getLongPathName(QDir::tempPath()));
 	if (full_command.contains("%file")) {
 		full_command.replace("%file", QDir::toNativeSeparators(editorFilePath));
 	} else {
 		full_command += " " + QDir::toNativeSeparators(editorFilePath);
 	}
 	full_command.replace("%dir", QDir::toNativeSeparators(tempFilePath));
-	extEditor->setWorkingDirectory(QDir::tempPath());
 
+	extEditor->setWorkingDirectory(QDir::tempPath());
+	
+	externalEditorPushButton->setEnabled(false);
+	externalEditorPushButton->setText(tr("Editor running!"));
+	
 	extEditor->start(full_command);
 }
 
