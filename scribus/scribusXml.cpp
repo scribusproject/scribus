@@ -1299,6 +1299,19 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			GetItemText(sReader.attributes(), storyText, doc, &lastStyles, VorLFound, true);
 //			continue;
 		}
+		if (inItem && sReader.isStartElement() && tagName == "var")
+		{
+			QString varName=attrAsString(attrs, "name", "");
+			if (varName == "pgno")
+				storyText.insertChars(storyText.length(), SpecialChars::PAGENUMBER);
+			else
+				storyText.insertChars(storyText.length(), SpecialChars::PAGECOUNT);
+			CharStyle newStyle;
+			ReadCStyle(sReader, newStyle, doc);
+			storyText.setCharStyle(storyText.length()-1, 1, newStyle);
+			lastStyles.StyleStart = storyText.length()-1;
+			lastStyles.Style = newStyle;
+		}
 		if (inItem && sReader.isStartElement() && tagName == "PARA")
 		{
 			storyText.insertChars(storyText.length(), SpecialChars::PARSEP);
@@ -2262,7 +2275,9 @@ void ScriXmlDoc::WriteITEXTs(ScXmlStreamWriter &writer, ScribusDoc *doc, PageIte
 		pstylename = QString();
 		if (ch == SpecialChars::PARSEP)
 			pstylename = item->itemText.paragraphStyle(k).parent();
-		if ((style != lastStyle || ch == SpecialChars::PARSEP) /*&& (k - lastPos > 0)*/)
+		if (style != lastStyle || ch == SpecialChars::PARSEP ||
+			ch == SpecialChars::PAGENUMBER ||
+			ch == SpecialChars::PAGECOUNT)
 		{
 			if(k - lastPos > 0)
 			{
@@ -2278,6 +2293,20 @@ void ScriXmlDoc::WriteITEXTs(ScXmlStreamWriter &writer, ScribusDoc *doc, PageIte
 		if (ch == SpecialChars::PARSEP)
 		{
 			WritePStyle(writer, item->itemText.paragraphStyle(k), "PARA");
+			lastPos = k + 1;
+		}
+		else if (ch == SpecialChars::PAGENUMBER) 
+		{
+			writer.writeEmptyElement("var");
+			writer.writeAttribute("name", "pgno");
+			WriteLegacyCStyle(writer, lastStyle);
+			lastPos = k + 1;
+		}
+		else if (ch == SpecialChars::PAGECOUNT) 
+		{
+			writer.writeEmptyElement("var");
+			writer.writeAttribute("name", "pgco");
+			WriteLegacyCStyle(writer, lastStyle);
 			lastPos = k + 1;
 		}
 	}
