@@ -2039,7 +2039,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 				QDomElement it = IT.toElement();
 				if (it.tagName()=="LATEX")
 				{
-					latexitem->setConfigFile(it.attribute("ConfigFile"));
+					latexitem->setConfigFile(it.attribute("ConfigFile"), true);
 					latexitem->setDpi(it.attribute("DPI").toInt());
 					latexitem->setUsePreamble(static_cast<bool>(it.attribute("USE_PREAMBLE").toInt()));
 					QDomElement property = it.firstChildElement("PROPERTY");

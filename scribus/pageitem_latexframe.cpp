@@ -448,8 +448,20 @@ void PageItem_LatexFrame::setDpi(int newDpi)
 	m_dpi = newDpi;
 }
 
-void PageItem_LatexFrame::setConfigFile(QString newConfig)
+void PageItem_LatexFrame::setConfigFile(QString newConfig, bool relative)
 {
+	if (relative) {
+		QFileInfo fi;
+		QStringList configs = PrefsManager::instance()->latexConfigs();
+		foreach (QString config, configs) {
+			fi.setFile(config);
+			if (newConfig == fi.fileName()) {
+				newConfig = config;
+				break;
+			}
+		}
+	}
+
 	if (configFilename == newConfig) return;
 	
 	bool unchanged = formulaText.isEmpty();

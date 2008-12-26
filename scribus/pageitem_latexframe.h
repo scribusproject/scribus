@@ -78,7 +78,7 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		void rerunApplication(bool updateDisplay=false);
 		
 		QString configFile() const;
-		void setConfigFile(QString newConfig);
+		void setConfigFile(QString newConfig, bool relative=false);
 		QString application() const;
 		bool usePreamble() const { return m_usePreamble; }
 		int dpi() const { return m_dpi; }

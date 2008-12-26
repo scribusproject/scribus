@@ -1230,7 +1230,8 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		{
 			docu.writeStartElement("LATEX");
 			PageItem_LatexFrame *latexitem = item->asLatexFrame();
-			docu.writeAttribute("ConfigFile", latexitem->configFile());
+			QFileInfo fi(latexitem->configFile());
+			docu.writeAttribute("ConfigFile", fi.fileName());
 			docu.writeAttribute("DPI", latexitem->dpi());
 			docu.writeAttribute("USE_PREAMBLE", latexitem->usePreamble());
 			QMapIterator<QString, QString> i(latexitem->editorProperties);
