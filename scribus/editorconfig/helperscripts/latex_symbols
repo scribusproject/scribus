@@ -611,12 +611,14 @@ Greek Alphabet
 \vec{a}
 \dot{a}
 \ddot{a}
+\dddot{a}
 \hat{a}
 \check{a}
 \breve{a}
 \tilde{a}
 \acute{a}
 \grave{a}
+\overleftrightarrow{a}
 
 #Additional symbols as requested by bug #7244
 \not\subset

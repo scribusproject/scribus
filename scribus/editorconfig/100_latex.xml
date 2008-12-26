@@ -813,15 +813,17 @@
 			<fr>Accents Math</fr>
 			<pl>Akcenty matematyczne</pl>
 		</i18n></title>
-		<item value="\bar{a}"  image="bara.png" />
-		<item value="\vec{a}"  image="veca.png" />
-		<item value="\dot{a}"  image="dota.png" />
-		<item value="\ddot{a}"  image="ddota.png" />
-		<item value="\hat{a}"  image="hata.png" />
-		<item value="\check{a}"  image="checka.png" />
-		<item value="\breve{a}"  image="brevea.png" />
-		<item value="\tilde{a}"  image="tildea.png" />
-		<item value="\acute{a}"  image="acutea.png" />
-		<item value="\grave{a}"  image="gravea.png" />
+		<item value="\bar{}"  image="bara.png" />
+		<item value="\vec{}"  image="veca.png" />
+		<item value="\dot{}"  image="dota.png" />
+		<item value="\ddot{}"  image="ddota.png" />
+		<item value="\dddot{}"  image="dddota.png" />
+		<item value="\hat{}"  image="hata.png" />
+		<item value="\check{}"  image="checka.png" />
+		<item value="\breve{}"  image="brevea.png" />
+		<item value="\tilde{}"  image="tildea.png" />
+		<item value="\acute{}"  image="acutea.png" />
+		<item value="\grave{}"  image="gravea.png" />
+		<item value="\overleftrightarrow{}" image="overleftrightarrowa.png" />
 	</tab>
 </editorsettings>
