@@ -80,7 +80,8 @@ protected:
 	void GetStyle(QXmlStreamReader& reader, ParagraphStyle &vg, StyleSet<ParagraphStyle>* tempStyles, ScribusDoc* doc, bool fl);
 
 	void ReadPattern(QXmlStreamReader& reader, ScribusDoc* doc, ScribusView *view, const QString& fileName, int& GrMax, bool styleFound, bool newVersion);
-	void ReadCStyle (QXmlStreamReader& reader, CharStyle& style, ScribusDoc* doc);
+	void ReadLegacyCStyle (const QXmlStreamAttributes& attrs, CharStyle& style, ScribusDoc* doc);
+	void ReadCStyle (const QXmlStreamAttributes& attrs, CharStyle& style, ScribusDoc* doc);
 	void ReadPStyle (QXmlStreamReader& reader, ParagraphStyle &style, ScribusDoc* doc);
 
 	void SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem* item, const QString& baseDir, bool newFormat);

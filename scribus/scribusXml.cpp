@@ -400,118 +400,8 @@ void ScriXmlDoc::GetItemText(const QXmlStreamAttributes& attrs, StoryText& story
 	tmp2.replace(QRegExp("\r"), QChar(5));
 	tmp2.replace(QRegExp("\n"), QChar(5));
 	tmp2.replace(QRegExp("\t"), QChar(4));
-	bool hasFont = attrHasValue(attrs, "CFONT");
-	tmpf = attrAsString(attrs, "CFONT", doc->toolSettings.defFont);
-	bool unknown = false;
 
-	ScFace dummy = ScFace::none();
-	ApplicationPrefs& appPrefs = prefsManager->appPrefs;
-	if (hasFont && ((!appPrefs.AvailFonts.contains(tmpf)) || (!appPrefs.AvailFonts[tmpf].usable())))
-	{
-		bool isThere = false;
-		for (int dl = 0; dl < dummyScFaces.count(); ++dl)
-		{
-			if (dummyScFaces.at(dl).scName() == tmpf)
-			{
-				isThere = true;
-				dummy = dummyScFaces.at(dl);
-				break;
-			}
-		}
-		if (!isThere)
-		{
-			//FIXME	dummy = new ScFace(tmpf, "", tmpf, "", "", 1, false);
-			dummyScFaces.append(dummy);
-		}
-		unknown = true;
-		if ((!appPrefs.GFontSub.contains(tmpf)) || (!appPrefs.AvailFonts[appPrefs.GFontSub[tmpf]].usable()))
-		{
-			newReplacement = true;
-			ReplacedFonts.insert(tmpf, appPrefs.toolSettings.defFont);
-		}
-		else
-			ReplacedFonts.insert(tmpf, appPrefs.GFontSub[tmpf]);
-//		tmpf = ReplacedFonts[tmpf];
-	}
-	else if (hasFont)
-	{
-		if (!doc->UsedFonts.contains(tmpf))
-		{
-//			QFont fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
-//			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-			doc->AddFont(tmpf);
-		}
-	}
-
-	if (hasFont)
-	{
-		if (unknown)
-			newStyle.setFont(dummy);
-		else
-			newStyle.setFont((*doc->AllFonts)[tmpf]);
-	}
-	
-	if (attrHasValue(attrs, "CSIZE"))
-		newStyle.setFontSize( qRound(attrAsDbl(attrs, "CSIZE") * 10) );
-
-	if (attrHasValue(attrs, "CCOLOR"))
-		newStyle.setFillColor( attrAsString(attrs, "CCOLOR", CommonStrings::None) );
-
-	if (attrHasValue(attrs, "CSHADE"))
-		newStyle.setFillShade( attrAsInt(attrs, "CSHADE") );
-
-	if (attrHasValue(attrs, "CEXTRA"))
-		newStyle.setTracking( qRound(attrAsDbl(attrs, "CEXTRA") / attrAsDbl(attrs, "CSIZE", 1.0) * 1000.0) );
-	else if (attrHasValue(attrs, "CKERN"))
-		newStyle.setTracking( attrAsInt(attrs, "CKERN") );
-
-	if (attrHasValue(attrs, "CSTROKE"))
-		newStyle.setStrokeColor( attrAsString(attrs, "CSTROKE", CommonStrings::None) );
-
-	if (attrHasValue(attrs, "CSHADE2"))
-		newStyle.setStrokeShade( attrAsInt(attrs, "CSHADE2", 100) );
-
-	if (attrHasValue(attrs, "CSCALE"))
-	{
-		int scaleh = qRound(attrAsDbl(attrs, "CSCALE", 100.0) * 10);
-		newStyle.setScaleH(qMin(qMax(scaleh, 100), 4000));
-	}
-
-	if (attrHasValue(attrs, "CSCALEV"))
-	{
-		int scalev = qRound(attrAsDbl(attrs, "CSCALEV", 100.0) * 10);
-		newStyle.setScaleV(qMin(qMax(scalev, 100), 4000));
-	}
-
-	if (attrHasValue(attrs, "CBASE"))
-		newStyle.setBaselineOffset( qRound(attrAsDbl(attrs, "CBASE", 0.0) * 10) );
-
-	if (attrHasValue(attrs, "CSHX"))
-		newStyle.setShadowXOffset( qRound(attrAsDbl(attrs, "CSHX", 5.0) * 10) );
-
-	if (attrHasValue(attrs, "CSHY"))
-		newStyle.setShadowYOffset( qRound(attrAsDbl(attrs, "CSHY", -5.0) * 10) );
-
-	if (attrHasValue(attrs, "COUT"))
-		newStyle.setOutlineWidth( qRound(attrAsDbl(attrs, "COUT", 1.0) * 10) );
-
-	if (attrHasValue(attrs, "CULP"))
-		newStyle.setUnderlineOffset( qRound(attrAsDbl(attrs, "CULP", -0.1) * 10) );
-
-	if (attrHasValue(attrs, "CULW"))
-		newStyle.setUnderlineWidth( qRound(attrAsDbl(attrs, "CULW", -0.1) * 10) );
-
-	if (attrHasValue(attrs, "CSTP"))
-		newStyle.setStrikethruOffset( qRound(attrAsDbl(attrs, "CSTP", -0.1) * 10) );
-
-	if (attrHasValue(attrs, "CSTW"))
-		newStyle.setStrikethruWidth( qRound(attrAsDbl(attrs, "CSTW", -0.1) * 10) );
-
-	if (attrHasValue(attrs, "CSTYLE"))
-	{
-		int cstyle = attrAsInt(attrs, "CSTYLE") & 2047;
-		newStyle.setFeatures(static_cast<StyleFlag>(cstyle).featureList());
-	}
+	ReadLegacyCStyle(attrs, newStyle, doc);
 	
 	QString pstyleName = attrAsString(attrs, "PSTYLE", "");
 	int calign = attrAsInt(attrs, "CALIGN", -1);	
@@ -1307,7 +1197,7 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 			else
 				storyText.insertChars(storyText.length(), SpecialChars::PAGECOUNT);
 			CharStyle newStyle;
-			ReadCStyle(sReader, newStyle, doc);
+			ReadLegacyCStyle(attrs, newStyle, doc);
 			storyText.setCharStyle(storyText.length()-1, 1, newStyle);
 			lastStyles.StyleStart = storyText.length()-1;
 			lastStyles.Style = newStyle;
@@ -2471,10 +2361,124 @@ void ScriXmlDoc::WritePStyle (ScXmlStreamWriter& writer, const ParagraphStyle& s
 	writer.writeEndElement();
 }
 
-void ScriXmlDoc::ReadCStyle(QXmlStreamReader& reader, CharStyle & newStyle, ScribusDoc *doc)
+void ScriXmlDoc::ReadLegacyCStyle (const QXmlStreamAttributes& attrs, CharStyle& newStyle, ScribusDoc* doc)
 {
-	QXmlStreamAttributes attrs = reader.attributes();
+	bool hasFont = attrHasValue(attrs, "CFONT");
+	QString tmpf = attrAsString(attrs, "CFONT", doc->toolSettings.defFont);
+	bool unknown = false;
 
+	ScFace dummy = ScFace::none();
+	ApplicationPrefs& appPrefs = prefsManager->appPrefs;
+	if (hasFont && ((!appPrefs.AvailFonts.contains(tmpf)) || (!appPrefs.AvailFonts[tmpf].usable())))
+	{
+		bool isThere = false;
+		for (int dl = 0; dl < dummyScFaces.count(); ++dl)
+		{
+			if (dummyScFaces.at(dl).scName() == tmpf)
+			{
+				isThere = true;
+				dummy = dummyScFaces.at(dl);
+				break;
+			}
+		}
+		if (!isThere)
+		{
+			//FIXME	dummy = new ScFace(tmpf, "", tmpf, "", "", 1, false);
+			dummyScFaces.append(dummy);
+		}
+		unknown = true;
+		if ((!appPrefs.GFontSub.contains(tmpf)) || (!appPrefs.AvailFonts[appPrefs.GFontSub[tmpf]].usable()))
+		{
+			newReplacement = true;
+			ReplacedFonts.insert(tmpf, appPrefs.toolSettings.defFont);
+		}
+		else
+			ReplacedFonts.insert(tmpf, appPrefs.GFontSub[tmpf]);
+//		tmpf = ReplacedFonts[tmpf];
+	}
+	else if (hasFont)
+	{
+		if (!doc->UsedFonts.contains(tmpf))
+		{
+//			QFont fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
+//			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+			doc->AddFont(tmpf);
+		}
+	}
+
+	if (hasFont)
+	{
+		if (unknown)
+			newStyle.setFont(dummy);
+		else
+			newStyle.setFont((*doc->AllFonts)[tmpf]);
+	}
+	
+	if (attrHasValue(attrs, "CSIZE"))
+		newStyle.setFontSize( qRound(attrAsDbl(attrs, "CSIZE") * 10) );
+
+	if (attrHasValue(attrs, "CCOLOR"))
+		newStyle.setFillColor( attrAsString(attrs, "CCOLOR", CommonStrings::None) );
+
+	if (attrHasValue(attrs, "CSHADE"))
+		newStyle.setFillShade( attrAsInt(attrs, "CSHADE") );
+
+	if (attrHasValue(attrs, "CEXTRA"))
+		newStyle.setTracking( qRound(attrAsDbl(attrs, "CEXTRA") / attrAsDbl(attrs, "CSIZE", 1.0) * 1000.0) );
+	else if (attrHasValue(attrs, "CKERN"))
+		newStyle.setTracking( attrAsInt(attrs, "CKERN") );
+
+	if (attrHasValue(attrs, "CSTROKE"))
+		newStyle.setStrokeColor( attrAsString(attrs, "CSTROKE", CommonStrings::None) );
+
+	if (attrHasValue(attrs, "CSHADE2"))
+		newStyle.setStrokeShade( attrAsInt(attrs, "CSHADE2", 100) );
+
+	if (attrHasValue(attrs, "CSCALE"))
+	{
+		int scaleh = qRound(attrAsDbl(attrs, "CSCALE", 100.0) * 10);
+		newStyle.setScaleH(qMin(qMax(scaleh, 100), 4000));
+	}
+
+	if (attrHasValue(attrs, "CSCALEV"))
+	{
+		int scalev = qRound(attrAsDbl(attrs, "CSCALEV", 100.0) * 10);
+		newStyle.setScaleV(qMin(qMax(scalev, 100), 4000));
+	}
+
+	if (attrHasValue(attrs, "CBASE"))
+		newStyle.setBaselineOffset( qRound(attrAsDbl(attrs, "CBASE", 0.0) * 10) );
+
+	if (attrHasValue(attrs, "CSHX"))
+		newStyle.setShadowXOffset( qRound(attrAsDbl(attrs, "CSHX", 5.0) * 10) );
+
+	if (attrHasValue(attrs, "CSHY"))
+		newStyle.setShadowYOffset( qRound(attrAsDbl(attrs, "CSHY", -5.0) * 10) );
+
+	if (attrHasValue(attrs, "COUT"))
+		newStyle.setOutlineWidth( qRound(attrAsDbl(attrs, "COUT", 1.0) * 10) );
+
+	if (attrHasValue(attrs, "CULP"))
+		newStyle.setUnderlineOffset( qRound(attrAsDbl(attrs, "CULP", -0.1) * 10) );
+
+	if (attrHasValue(attrs, "CULW"))
+		newStyle.setUnderlineWidth( qRound(attrAsDbl(attrs, "CULW", -0.1) * 10) );
+
+	if (attrHasValue(attrs, "CSTP"))
+		newStyle.setStrikethruOffset( qRound(attrAsDbl(attrs, "CSTP", -0.1) * 10) );
+
+	if (attrHasValue(attrs, "CSTW"))
+		newStyle.setStrikethruWidth( qRound(attrAsDbl(attrs, "CSTW", -0.1) * 10) );
+
+	if (attrHasValue(attrs, "CSTYLE"))
+	{
+		int cstyle = attrAsInt(attrs, "CSTYLE") & 2047;
+		newStyle.setFeatures(static_cast<StyleFlag>(cstyle).featureList());
+	}
+}
+
+void ScriXmlDoc::ReadCStyle(const QXmlStreamAttributes& attrs, CharStyle & newStyle, ScribusDoc *doc)
+{
 	if ( attrHasValue(attrs, "CNAME"))
 		newStyle.setName(attrAsString(attrs, "CNAME", ""));
 	if ( attrHasValue(attrs, "CPARENT"))
@@ -2591,7 +2595,7 @@ void ScriXmlDoc::ReadPStyle(QXmlStreamReader& reader, ParagraphStyle &style, Scr
 	if ( attrHasValue(attrs, "MaxGlyphExtend"))
 		style.setMaxGlyphExtension(attrAsDbl(attrs, "MaxGlyphExtend"));
 
-	ReadCStyle(reader, style.charStyle(), doc);
+	ReadCStyle(attrs, style.charStyle(), doc);
 
 	QList<ParagraphStyle::TabRecord> tabs;
 	while (!reader.atEnd() && !reader.hasError())
