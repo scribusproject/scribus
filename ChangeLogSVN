@@ -1,0 +1,25 @@
+Scribus - 1.3.3.13svn
+=====================
+- 0007151: [Story Editor / Text Frames] Story editor mess up when inserting characters from menu or character palette (jghali) - resolved.
+- 0007141: [Import / Export] png export depends on the preview resolution (fschmid) - resolved.
+- 0007641: [General] Error when loading file (jghali) - closed.
+- 0007649: [General] Crashes when trying to edit guides while editing masterpages (jghali) - closed.
+- 0007583: [Graphics / Image Frames] Grayscale pictures with embedd profile do not export correctly (jghali) - closed.
+- 0007208: [Releases] GNOME launcher category (malex) - closed.
+- 0007590: [Mac OS] Scribus.app stuck at "Creating Font Cache" (looping infinitely) (jghali) - closed.
+- 0007324: [General] crash when saving object to scrapbook (jghali) - closed.
+- 0007588: [Translation] Update of Slovak translation (subik) - closed.
+- 0007490: [Canvas] Items rotated by 90 degrees and have horizontal gradient lose the gradient (jghali) - closed.
+- 0007203: [Translation] Slovak Translation Update (scribus 133x) (jghali) - closed.
+- 0007196: [Translation] Japanese Translation Update (jghali) - closed.
+- 0007192: [Translation] Scribus 1.3.3.12 translated to Basque lang (jghali) - closed.
+- 0007178: [Scripter] New features added to InfoBox.py (jghali) - closed.
+- 0007161: [Translation] Japanese Translation Update (jghali) - closed.
+- 0007136: [PDF] No warning when disk full (jghali) - closed.
+- 0007135: [Translation] Thai translation update (plinnell) - closed.
+- 0007114: [Translation] Updated Slovenian translation for 1.3.3.x (cbradney) - closed.
+- 0007117: [Scripter] Add set-/getTextDistances() to Scripter API (jghali) - closed.
+- 0007119: [General] Strange view if "Simulate printer on Screen" is activated. (jghali) - closed.
+- 0007110: [Build System] Add in cmake-configure acript to 1.3.3.13svn and configure script to 1.3.5svn to hint to users to move to CMake (cbradney) - closed.
+- 0007104: [Translation] Spanish (Spain) Translation Update (cbradney) - closed.
+
