@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Scribus
-Type=MimeType;
+Type=Application
 MimeType=application/vnd.scribus;
 Icon=scribus
 Comment=Page Layout and Publication (Stable)
