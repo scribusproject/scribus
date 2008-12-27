@@ -29,38 +29,26 @@ copyright            : Scribus Team
 #include <QObject>
 #include <QPointer>
 
+class LatexHighlighterRule
+{
+	public:
+		LatexHighlighterRule(){multiline=false;}
+		QRegExp regex;
+		QTextCharFormat format;
+		bool multiline;
+};
+
 class LatexHighlighter : public QSyntaxHighlighter
 {
 	Q_OBJECT
 
 	public:
-		enum Construct {
-			Math,
-			Command,
-			ScribusSpecial,
-			BlockName,
-			Comment,
-			LastConstruct = Comment
-		};
-
 		LatexHighlighter(QTextDocument *document);
-
-		void setFormatFor(Construct construct,
-						  const QTextCharFormat &format);
-		QTextCharFormat formatFor(Construct construct) const
-		{ return m_formats[construct]; }
-    
+		void setConfig(QList<LatexHighlighterRule *> *config) { rules = config; rehighlight();}
 	protected:
-		enum State {
-			NormalState = -1,
-			InDisplayMath,
-			InMath,
-		};
-    
 		void highlightBlock(const QString &text);
-    
 	private:
-		QTextCharFormat m_formats[LastConstruct + 1];
+		QList<LatexHighlighterRule *> *rules;
 };
 
 class I18nXmlStreamReader : public QXmlStreamReader
@@ -78,11 +66,6 @@ class LatexConfigParser
 		bool parseConfigFile(QString fn);
 		QString executable() const;
 		QString imageExtension() const { return m_imageExtension; }
-		/** Returns the path to the highlighter definition.
-		 * The different options are handled in this function
-		 * so the caller doesn't have to care about.
-		 */
-		QString highlighter() const; //TODO
 		QString emptyFrameText() const { return m_emptyFrameText; }
 		QString preamble() const { return m_preamble; }
 		QString postamble() const { return m_postamble; }
@@ -91,16 +74,19 @@ class LatexConfigParser
 		QString icon() const { return m_icon; }
 		QString filename() const { return m_filename; }
 		QMap<QString,QString> properties;
+		QList<LatexHighlighterRule *> highlighterRules;
 	protected:
 		QString m_error;
 		QString m_description, m_executable, m_imageExtension, m_emptyFrameText;
-		QString m_preamble, m_postamble, m_highlight_kate, m_highlight_file, m_icon;
+		QString m_preamble, m_postamble, m_icon;
 		QString m_filename;
 		I18nXmlStreamReader xml;
 		void formatError(QString message);
 		void parseElements();
 		void parseTab();
+		void parseHighlighter();
 		void ignoreList();
+		bool StrRefToBool(const QStringRef &str) const;
 };
 
 class LatexConfigCache;

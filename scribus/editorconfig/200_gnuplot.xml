@@ -1,7 +1,11 @@
 <editorsettings description="Gnuplot" icon="gnuplot.png">
 	<executable command="gnuplot" />
 	<imagefile extension=".png"/>
-	<!--<highlighter kate="latex"/>-->
+	<highlighter>
+		<rule name="commands" regex="bind|call|cd|clear|exit|fit|help|history|if|load|lower|pause|plot|print|pwd|quit|raise|replot|reread|reset|save|set|shell|show|splot|system|test|undefine|unset|update" bold="true"/>
+		<rule name="set" regex="angles|arrow|autoscale|bars|bmargin|border|boxwidth|cbdata|cbdtics|cblabel|cbmtics|cbrange|cbtics|clabel|clip|cntrparam|colorbox|contour|datafile|date_specifiers|decimalsign|dgrid3d|dummy|encoding|fit|fontpath|format|grid|hidden3d|historysize|isosamples|key|label|lmargin|loadpath|locale|log|logscale|macros|mapping|margin|missing|mouse|multiplot|mx2tics|mxtics|my2tics|mytics|mztics|object|offsets|origin|output|palette|parametric|pm3d|pointsize|polar|print|rmargin|rrange|samples|size|style|surface|table|term|terminal|termoption|tics|ticscale|ticslevel|time_specifiers|timefmt|timestamp|title|tmargin|trange|urange|view|vrange|x2data|x2dtics|x2label|x2mtics|x2range|x2tics|x2zeroaxis|xdata|xdtics|xlabel|xmtics|xrange|xtics|xyplane|xzeroaxis|y2data|y2dtics|y2label|y2mtics|y2range|y2tics|y2zeroaxis|ydata|ydtics|ylabel|ymtics|yrange|ytics|yzeroaxis|zdata|zdtics|zero|zeroaxis|zlabel|zmtics|zrange|ztics|zzeroaxis" italic="true"/>
+		<rule name="filename" regex="&quot;[^&quot;]+&quot;" color="red" />
+	</highlighter>
 	<empty-frame-text>
 		plot sin(x), (cos(x))**2
 	</empty-frame-text>
@@ -17,9 +21,6 @@
 		$scribus_zeroaxis$
 	</preamble>
 	<postamble></postamble>
-	
-	
-	
 	<tab type="settings">
 		<title><i18n>
 			<en>Ranges</en>

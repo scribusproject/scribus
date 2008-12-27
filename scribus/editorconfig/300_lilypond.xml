@@ -1,7 +1,6 @@
 <editorsettings description="LilyPond" icon="lilypond.png">
 	<executable command="lilypond --png" />
 	<imagefile extension=".png"/>
-	<!--<highlighter kate="lilypond"/>-->
 	<empty-frame-text>
 		{
 		c' e' g' e'

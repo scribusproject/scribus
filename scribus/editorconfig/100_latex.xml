@@ -1,9 +1,14 @@
 <editorsettings description="LaTeX" icon="alpha.png">
 	<executable command="pdflatex --interaction nonstopmode" />
 	<imagefile extension=".pdf"/>
-	<highlighter kate="latex"/>
-	<!-- highlighter file="latex.highlighter" -->
-	<!-- WARNING: If you indent <empty-frame-text> that indention will also be visible in the editor. -->
+	<highlighter>
+		<rule name="Math" regex="\\\[.*\\\]" color="#00a000"/>
+		<rule name="Command" regex="\\[a-zA-Z@*]+" color="#800000"/>
+		<rule name="Command argument" regex="\\[a-zA-Z@*]+\{([^\}]*)\}" color="blue"/>
+		<rule name="Section commands" regex="\\(?:section|subsection|subsubsection|paragraph|subparagraph)(?:[*]?)\{([^\}]*)\}" color="black" bold="true"/>
+		<rule name="Scribus specials" regex="\$scribus_([^$]*)\$" color="#FF00FF"/>
+		<rule name="Comments" regex="(?:(?:^|[^\\])(?:\\\\)*)(%.*)" color="#808080" italic="true"/>
+	</highlighter>
 	<empty-frame-text>
 		<i18n>
 			<en>

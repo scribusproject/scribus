@@ -289,7 +289,6 @@ void PageItem_LatexFrame::runApplication()
 	writeFileContents(&tempfile);
 	tempfile.close();
 	
-	qDebug() << full_command;
 	latex->start(full_command);
 	emit stateChanged(QProcess::Starting);
 }

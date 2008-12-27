@@ -33,141 +33,26 @@ copyright            : Scribus Team
 LatexHighlighter::LatexHighlighter(QTextDocument *document)
 	: QSyntaxHighlighter(document)
 {
-	QTextCharFormat mathFormat;
-	mathFormat.setForeground(QColor(0, 128, 0));
-	mathFormat.setFontWeight(QFont::Bold);
-	setFormatFor(Math, mathFormat);
-
-	QTextCharFormat commandFormat;
-	commandFormat.setForeground(QColor(255, 0, 0));
-	setFormatFor(Command, commandFormat);
-	
-	QTextCharFormat blockNameFormat;
-	blockNameFormat.setForeground(QColor(0, 0, 255));
-	setFormatFor(BlockName, blockNameFormat);
-	
-	QTextCharFormat scribusFormat;
-	scribusFormat.setForeground(QColor(192, 16, 112));
-	scribusFormat.setFontWeight(QFont::Bold);
-	setFormatFor(ScribusSpecial, scribusFormat);
-
-	QTextCharFormat commentFormat;
-	commentFormat.setForeground(QColor(128, 128, 128));
-	commentFormat.setFontItalic(true);
-	setFormatFor(Comment, commentFormat);
+	rules = 0;
 }
-
-void LatexHighlighter::setFormatFor(Construct construct, const QTextCharFormat &format)
-{
-	m_formats[construct] = format;
-	rehighlight();
-}
-
 
 void LatexHighlighter::highlightBlock(const QString &text)
 {
-	int state = previousBlockState();
-	int len = text.length();
-	int start = 0;
-	int pos = 0;
-	while (pos < len) {
-		switch (state) {
-			case NormalState:
-			default:
-				while (pos < len) {
-					QChar ch = text.at(pos);
-					if (ch == '%') {
-						//Comment
-						setFormat(pos, len - pos, m_formats[Comment]);
-						pos = len; //Do not handle other formats in comments
-						break;
-					} else if (ch == '\\') {
-						start = pos;
-						pos++;
-						if (pos >= len) break;
-						ch = text.at(pos);
-						if (ch == '[') {
-							state = InMath;
-							break;
-						} else if ((text.mid(pos, 5) == "begin") || (text.mid(pos, 3) == "end")) {
-							int saved_pos = pos;
-							if (text.at(pos) == 'b') {
-								setFormat(pos-1, 6, m_formats[Command]);
-								pos += 5;
-							} else {
-								setFormat(pos-1, 4, m_formats[Command]);
-								pos += 3;
-							}
-							
-							while (pos < len && text.at(pos++).isSpace()) /*Skip over whitespace */;
-							if (text.at(pos-1) == '{') {
-								start = pos;
-								while (pos < len && text.at(pos++) != '}') /*Do nothing */;
-								pos--;
-								setFormat(start, pos - start, m_formats[BlockName]);
-							} else {
-								pos = saved_pos;
-							}
-						} else {
-							while (pos < len) {
-								ch = text.at(pos++);
-								//Allowed chars are A-Za-z@
-								if (!(((ch >= 'A') && (ch <= 'Z')) ||
-									((ch >= 'a') && (ch <= 'z')) || (ch == '@'))) break;
-							}
-							if ((pos - start) == 2) {
-								//Special char
-								setFormat(start, pos - start, m_formats[ScribusSpecial]);
-							} else {
-								setFormat(start, pos - start -1, m_formats[Command]);
-							}
-						}
-						break;
-					} else if (ch == '$') {
-						if (text.mid(pos, 9) == "$scribus_") {
-							//Scribus special code
-							start = pos;
-							pos++;
-							while (pos < len && text.at(pos++) != '$') /*Do nothing */;
-							setFormat(start, pos - start, m_formats[ScribusSpecial]);
-						} else {
-							state = InDisplayMath;
-							pos++;
-							break;
-						}
-					}
-					pos++;
-				}
-				break;
-			case InDisplayMath:
-				start = pos;
-				if (start > 0) start--;
-				while (pos < len) {
-					if (text.at(pos) == '$') {
-						pos++;
-						state = NormalState;
-						break;
-					}
-					pos++;
-				}
-				setFormat(start, pos - start, m_formats[Math]);
-				break;
-			case InMath:
-				start = pos;
-				if (start > 0) start--;
-				while (pos < len) {
-					if (text.mid(pos,2) == "\\]" ) {
-						pos += 2;
-						state = NormalState;
-						break;
-					}
-					pos++;
-				}
-				setFormat(start, pos - start, m_formats[Math]);
-				break;
+	if (!rules) return;
+	foreach (LatexHighlighterRule *rule, *rules) {
+		int index = text.indexOf(rule->regex);
+		while (index >= 0) {
+			int length;
+			if (rule->regex.numCaptures() == 0) {
+				length = rule->regex.matchedLength();
+			} else {
+				length = rule->regex.cap(1).length();
+				index = rule->regex.pos(1);
+			}
+			setFormat(index, length, rule->format);
+			index = text.indexOf(rule->regex, index + length);
 		}
 	}
-	setCurrentBlockState(state);
 }
 
 //TODO: Pass this information to LatexEditor, so the second parser can be removed
@@ -221,8 +106,7 @@ void LatexConfigParser::parseElements()
 		} else if (xml.name() == "imagefile") {
 			m_imageExtension = xml.attributes().value("extension").toString();
 		} else if (xml.name() == "highlighter") {
-			m_highlight_kate = xml.attributes().value("kate").toString();
-			m_highlight_file = xml.attributes().value("file").toString();
+			parseHighlighter();
 		} else if (xml.name() == "empty-frame-text") {
 			m_emptyFrameText = xml.readI18nText(true);
 		} else if (xml.name() == "preamble") {
@@ -244,6 +128,54 @@ void LatexConfigParser::formatError(QString message)
 	qWarning() << m_filename << new_error;
 	m_error += new_error + "\n";
 }
+
+bool LatexConfigParser::StrRefToBool(const QStringRef &str) const
+{
+	if (str == "1" || str == "true") return true;
+	if (str == "0" || str == "false" || str.isEmpty()) return false;
+	qWarning() << "Invalid bool string:" << str.toString();
+	return false;
+}
+
+void LatexConfigParser::parseHighlighter()
+{
+	foreach (LatexHighlighterRule *rule, highlighterRules) {
+		delete rule;
+	}
+	highlighterRules.clear();
+	while (!xml.atEnd()) {
+		xml.readNext();
+		if (xml.isWhitespace() || xml.isComment()) continue;
+		if (xml.isEndElement() && xml.name() == "highlighter") break;
+		if (xml.isEndElement() && xml.name() == "rule") continue;
+		if (!xml.isStartElement() || xml.name() != "rule") {
+			formatError("Unexpected element in <highlighter>: "+
+				xml.name().toString()+", Token String: "+
+				xml.tokenString());
+			continue;
+		}
+		QString regex = xml.attributes().value("regex").toString();
+		bool bold = StrRefToBool(xml.attributes().value("bold"));
+		bool italic = StrRefToBool(xml.attributes().value("italic"));
+		bool underline = StrRefToBool(xml.attributes().value("underline"));
+		QString colorStr = xml.attributes().value("color").toString();
+		QColor color(colorStr);
+		if (!color.isValid()) {
+			color.fromRgb(0, 0, 0); //Black
+			qWarning() << "Invalid color:" << colorStr;
+		}
+		LatexHighlighterRule *newRule = new LatexHighlighterRule();
+		newRule->format.setForeground(color);
+		newRule->format.setFontItalic(italic);
+		if (bold) {
+			newRule->format.setFontWeight(QFont::Bold);
+		}
+		newRule->format.setFontUnderline(underline);
+		newRule->regex.setPattern(regex);
+		highlighterRules.append(newRule);
+	}
+}
+
 
 void LatexConfigParser::parseTab()
 {

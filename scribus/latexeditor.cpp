@@ -64,7 +64,6 @@ LatexEditor::LatexEditor(PageItem_LatexFrame *frame):QDialog(), frame(frame)
 	connect(frame, SIGNAL(formulaAutoUpdate(QString, QString)), this, SLOT(formulaChanged(QString, QString)));
 	connect(frame, SIGNAL(latexFinished()), this, SLOT(latexFinished()));
 	connect(frame, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(stateChanged(QProcess::ProcessState)));
-//	connect(frame, SIGNAL(applicationChanged()), this, SLOT(updateConfigFile()));
 	connect(programComboBox, SIGNAL(activated(int)), this, SLOT(applicationChanged()));
 	updateConfigFile();
 	
@@ -93,7 +92,6 @@ LatexEditor::~LatexEditor()
 	if (!extEditorFile.isEmpty() && !dir.remove(extEditorFile)) {
 		qCritical() << "RENDER FRAME: Failed to remove editorfile" << qPrintable(extEditorFile);
 	}
-	
 	
 	buttonBox->disconnect();
 	exitEditor();
@@ -389,6 +387,7 @@ void LatexEditor::updateConfigFile()
 			value->fromString(frame->editorProperties[key]);
 		}
 	}
+	highlighter->setConfig(&LatexConfigCache::instance()->parser(currentConfigFile)->highlighterRules);
 }
 
 #define xmlError() qWarning() << "XML-ERROR:" << xml->lineNumber() \
