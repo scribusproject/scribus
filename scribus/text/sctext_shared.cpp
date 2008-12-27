@@ -46,6 +46,13 @@ ScText_Shared::ScText_Shared(const ScText_Shared& other) : QList<ScText*>(),
 //		qDebug(QString("ScText_Shared(%2) %1").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
 }
 
+void ScText_Shared::clear()
+{
+	while(!this->isEmpty())
+		delete this->takeFirst(); 
+	QList<ScText*>::clear();
+}
+
 ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other) 
 {
 	if (this != &other) 

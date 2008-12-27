@@ -29,6 +29,8 @@ public:
 	ScText_Shared& operator= (const ScText_Shared& other);
 
 	~ScText_Shared();
+
+	void clear();
 	
 	/**
 	   A char's stylecontext is the containing paragraph's style, 
