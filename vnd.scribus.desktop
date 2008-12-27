@@ -1,6 +1,7 @@
 [Desktop Entry]
-Type=MimeType
-MimeType=application/vnd.scribus
+Name=Scribus
+Type=MimeType;
+MimeType=application/vnd.scribus;
 Icon=scribus
 Comment=Page Layout and Publication (Stable)
 Comment[ar]=سكريبس
