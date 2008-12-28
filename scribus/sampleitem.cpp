@@ -354,7 +354,11 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	// cleanups and resets
 	if (!previouslyUsedFont)
-		m_Doc->UsedFonts.remove(tmpStyle.charStyle().font().scName());
+	{
+		QString fontName = tmpStyle.charStyle().font().scName();
+		(*m_Doc->AllFonts)[fontName].decreaseUsage(); // was increased by AddFont()
+		m_Doc->UsedFonts.remove(fontName);
+	}
 	if (m_Doc->view() != NULL)
 		m_Doc->view()->setScale(sca);
 	m_Doc->appMode = userAppMode;

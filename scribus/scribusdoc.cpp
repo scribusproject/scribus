@@ -487,9 +487,6 @@ ScribusDoc::~ScribusDoc()
 {
 	m_guardedObject.nullify();
 	CloseCMSProfiles();
-//	DocItems.setAutoDelete(true);
-//	FrameItems.setAutoDelete(true);
-//	DocItems.clear();
 	while (!DocItems.isEmpty())
 	{
 		delete DocItems.takeFirst();
@@ -504,12 +501,6 @@ ScribusDoc::~ScribusDoc()
 	{
 		delete DocPages.takeFirst();
 	}
-// 	MasterPages.setAutoDelete(true);
-// 	DocPages.setAutoDelete(true);
-// 	MasterPages.clear();
-// 	DocPages.clear();
-//	MasterItems.setAutoDelete(true);
-//	MasterItems.clear();
 	while (!MasterItems.isEmpty())
 	{
 		delete MasterItems.takeFirst();
@@ -522,6 +513,8 @@ ScribusDoc::~ScribusDoc()
 		else
 			(*AllFonts)[it3.key()].decreaseUsage();
 	}
+	if (docHyphenator)
+		delete docHyphenator;
 }
 
 
