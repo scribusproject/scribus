@@ -1,6 +1,15 @@
 <editorsettings icon="povray_32.png" description="POV-Ray" >
 	<executable command="povray +WL0 -D +W$scribus_width_px$ +H$scribus_height_px$ +Q$scribus_quality$ $scribus_antialias$$scribus_aathres$ +R$scribus_aadepth$ +I%file" />
   	<imagefile extension=".png" />
+	<highlighter>
+		<rule regex="global_settings|sphere|box|light_source|camera" color="#800000" />
+		<rule regex="[\d+.-]+" color="blue" />
+		<rule regex="&lt;[ \d+.-]*,[ \d+.-]*,[ \d+.-]*&gt;" color="#008080" />
+		<rule regex="assumed_gamma|location|direction|look_at|finish|ambient|diffuse|phong|pigment|color|rotate" color="#000080" />
+		<rule regex="red" color="red"/>
+		<rule regex="green" color="green"/>
+		<rule regex="blue" color="blue"/>
+	</highlighter>
 	<empty-frame-text>
 global_settings { assumed_gamma 2.2 }
 camera
