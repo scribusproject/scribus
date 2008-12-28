@@ -2,11 +2,11 @@
 	<executable command="pdflatex --interaction nonstopmode" />
 	<imagefile extension=".pdf"/>
 	<highlighter>
-		<rule name="Math" regex="\\\[.*\\\]" color="#00a000"/>
+		<rule name="Math" regex="(\\\[.*\\\]|\$.*\$|\\begin\{equation\}(.*)\\end\{equation\})" color="#00a000" minimal="true"/>
 		<rule name="Command" regex="\\[a-zA-Z@*]+" color="#800000"/>
 		<rule name="Command argument" regex="\\[a-zA-Z@*]+\{([^\}]*)\}" color="blue"/>
 		<rule name="Section commands" regex="\\(?:section|subsection|subsubsection|paragraph|subparagraph)(?:[*]?)\{([^\}]*)\}" color="black" bold="true"/>
-		<rule name="Scribus specials" regex="\$scribus_([^$]*)\$" color="#FF00FF"/>
+		<rule name="Scribus specials" regex="\$scribus_(.*)\$" color="#FF00FF" minimal="true"/>
 		<rule name="Comments" regex="(?:(?:^|[^\\])(?:\\\\)*)(%.*)" color="#808080" italic="true"/>
 	</highlighter>
 	<empty-frame-text>
