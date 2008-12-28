@@ -49,6 +49,10 @@ void LatexHighlighter::highlightBlock(const QString &text)
 				length = rule->regex.cap(1).length();
 				index = rule->regex.pos(1);
 			}
+			if (length == 0) {
+				qWarning() << "Highlighter pattern" << rule->regex.pattern() << "matched a zero length string. This would lead to an infinite loop. Aborting. Please fix this pattern!";
+				break;
+			}
 			setFormat(index, length, rule->format);
 			index = text.indexOf(rule->regex, index + length);
 		}
@@ -158,11 +162,13 @@ void LatexConfigParser::parseHighlighter()
 		bool bold = StrRefToBool(xml.attributes().value("bold"));
 		bool italic = StrRefToBool(xml.attributes().value("italic"));
 		bool underline = StrRefToBool(xml.attributes().value("underline"));
+		bool minimal = StrRefToBool(xml.attributes().value("minimal"));
 		QString colorStr = xml.attributes().value("color").toString();
 		QColor color(colorStr);
 		if (!color.isValid()) {
 			color.fromRgb(0, 0, 0); //Black
-			qWarning() << "Invalid color:" << colorStr;
+			if (!colorStr.isEmpty())
+				qWarning() << "Invalid color:" << colorStr;
 		}
 		LatexHighlighterRule *newRule = new LatexHighlighterRule();
 		newRule->format.setForeground(color);
@@ -172,6 +178,7 @@ void LatexConfigParser::parseHighlighter()
 		}
 		newRule->format.setFontUnderline(underline);
 		newRule->regex.setPattern(regex);
+		newRule->regex.setMinimal(minimal);
 		highlighterRules.append(newRule);
 	}
 }
