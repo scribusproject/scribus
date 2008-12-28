@@ -328,6 +328,8 @@ ScribusDoc::~ScribusDoc()
 		if (!(*AllFonts)[it3.key()]->PrivateFont.isEmpty())
 			(*AllFonts).removeFont(it3.key());
 	}
+	if (docHyphenator)
+		delete docHyphenator;
 	FT_Done_FreeType( library );
 }
 
