@@ -102,26 +102,23 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 	{
 		if (PoShow)
 		{
-			if (lineColor() != CommonStrings::None && PoShow)
+			p->setupPolygon(&PoLine, false);
+			if (NamedLStyle.isEmpty())
 			{
-				p->setupPolygon(&PoLine, false);
-				p->strokePath();
+				if (lineColor() != CommonStrings::None)
+					p->strokePath();
 			}
 			else
 			{
-				if (NamedLStyle.isEmpty())
-					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
-				else
+				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+				QColor tmp;
+				for (int it = ml.size()-1; it > -1; it--)
 				{
-					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-					for (int it = ml.size()-1; it > -1; it--)
+					if (ml[it].Color != CommonStrings::None) // && (ml[it].Width != 0))
 					{
-						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-						{
-							SetQColor(&tmp, ml[it].Color, ml[it].Shade);
-							p->setPen(tmp, ml[it].Width, static_cast<Qt::PenStyle>(ml[it].Dash), static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-							p->drawLine(FPoint(0, 0), FPoint(Width, 0));
-						}
+						SetQColor(&tmp, ml[it].Color, ml[it].Shade);
+						p->setPen(tmp, ml[it].Width, static_cast<Qt::PenStyle>(ml[it].Dash), static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+						p->strokePath();
 					}
 				}
 			}
