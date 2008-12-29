@@ -121,7 +121,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 {
 	QPoint globalPos = m->globalPos();
 	QPoint viewPos   = editor->viewport()->mapFromGlobal(globalPos);
-	int p = editor->cursorForPosition(QPoint(2, viewPos.y()/*+offs*/)).position();
+	int p = editor->cursorForPosition(QPoint(2, viewPos.y())).position();
 	CurrentPar = editor->StyledText.nrOfParagraph(p);
 	int pos = editor->StyledText.startOfParagraph(p);
 
@@ -160,47 +160,76 @@ void SideBar::setPStyle(const QString& name)
 void SideBar::paintEvent(QPaintEvent *e)
 {
 	inRep = true;
+	typedef struct { int start; int end; } paraStruct;
+	paraStruct paraInfo;
 	QLabel::paintEvent(e);
-	QList<QRect> paraList;
+	QList<paraStruct> paraList;
 	uint paraNumber = 0;
 	if (editor != NULL)
 	{
-		paraNumber=editor->StyledText.nrOfParagraphs();
-		for (uint pr = 0; pr < paraNumber; ++pr)
+		QRect  edRect = editor->viewport()->rect();
+		QPoint pt1 = edRect.topLeft(), pt2 = edRect.bottomRight();
+		QTextCursor cur1 = editor->cursorForPosition(pt1);
+		QTextCursor cur2 = editor->cursorForPosition(pt2);
+		int pos1 = cur1.position(), pos2 = cur2.position();
+		pos1 = editor->StyledText.prevParagraph(pos1);
+		pos1 = (pos1 == 0) ? 0 : (pos1 + 1);
+		pos2 = editor->StyledText.nextParagraph(pos2);
+		while ((pos1 <= pos2) && (pos1 < editor->StyledText.length()))
 		{
-			int pos = editor->StyledText.startOfParagraph(pr);
-			QTextCursor cur(editor->document());
-			cur.setPosition(pos);
-			QTextBlock tb = cur.block();
-			paraList.append(tb.layout()->boundingRect().toRect());
+			paraInfo.start = pos1;
+			if (editor->StyledText.item(pos1)->ch == SpecialChars::PARSEP)
+			{
+				paraInfo.end = pos1;
+				pos1 += 1;
+			}
+			else
+			{
+				pos1 = editor->StyledText.nextParagraph(pos1) + 1;
+				paraInfo.end = qMax(0, qMin(pos1 - 1, editor->StyledText.length() - 1));
+			}
+			paraList.append(paraInfo);
 		}
 	}
 	QPainter p;
 	p.begin(this);
 	if ((editor != NULL) && (noUpdt))
 	{
-		int gesY = 0;
 		QString trNoStyle = tr("No Style");
-		for (uint pa = 0; pa < paraNumber; ++pa)
+		for (int pa = 0; pa < paraList.count(); ++pa)
 		{
-			QRect re = paraList[pa];
-			if (!re.isValid())
-				break;
-			int hh = re.height();
-			re.setWidth(width()-5);
-			re.setHeight(re.height()-2);
-			re.translate(5, 2);
-			if (((re.y()+re.height())-offs + gesY < height()) && ((re.y()+re.height())-offs + gesY >= 0))
-				p.drawLine(0, (re.y()+re.height())-offs + gesY, width()-1, (re.y()+re.height())-offs + gesY);
-			if ((re.y()-offs + gesY < height()) && (re.y()-offs + gesY >= 0))
+			paraStruct paraInfo = paraList[pa];
+			// Draw paragraph style name first
+			QTextCursor cur(editor->document());
+			cur.setPosition(paraInfo.start);
+			QTextBlock blockStart = cur.block();
+			QTextLine  lineStart  = blockStart.layout()->lineForTextPosition(paraInfo.start - blockStart.position());
+			if (lineStart.isValid())
 			{
-				re.moveTop(gesY-offs+2);
-				QString parname = editor->StyledText.paragraphStyle(editor->StyledText.startOfParagraph(pa)).parent();
-				if (parname.isEmpty())
-					parname = trNoStyle;
-				p.drawText(re, Qt::AlignLeft | Qt::AlignTop, parname);
+				QPointF blockPos = blockStart.layout()->position();
+				QRect re = lineStart.rect().translated(0, blockPos.y()).toRect();
+				re.setWidth(width()-5);
+				re.setHeight(re.height()-2);
+				re.translate(5, 2-offs);
+				if ((re.top() < height()) && (re.top() >= 0))
+				{
+					QString parname = editor->StyledText.paragraphStyle(paraInfo.start).parent();
+					if (parname.isEmpty())
+						parname = trNoStyle;
+					p.drawText(re, Qt::AlignLeft | Qt::AlignTop, parname);
+				}
 			}
-			gesY += hh;
+			// Draw paragraph separation line
+			cur.setPosition(paraInfo.end);
+			QTextBlock blockEnd = cur.block();
+			QTextLine  lineEnd  = blockEnd.layout()->lineForTextPosition(paraInfo.end - blockEnd.position());
+			if (lineEnd.isValid())
+			{
+				QPointF blockPos = blockEnd.layout()->position();
+				QRect re = lineEnd.rect().translated(0, 2 + blockPos.y()).toRect();
+				if ((re.bottom() - offs < height()) && (re.bottom() - offs >= 0))
+					p.drawLine(0, re.bottom()-offs, width()-1, re.bottom() - offs);
+			}
 		}
 	}
 	p.end();
