@@ -1045,13 +1045,12 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 	StoryText& itemText = item->itemText;
 	if (item->pathTextShowFrame())
 	{
-		if (item->lineColor() != CommonStrings::None)
+		painter->setupPolygon(&item->PoLine, false);
+		if (item->NamedLStyle.isEmpty())
 		{
-			painter->setupPolygon(&item->PoLine, false);
-			painter->strokePath();
+			if (item->lineColor() != CommonStrings::None)
+				painter->strokePath();
 		}
-		else if (item->NamedLStyle.isEmpty())
-			painter->drawLine(FPoint(0, 0), FPoint(item->width(), 0));
 		else
 		{
 			multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
