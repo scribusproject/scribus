@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <QKeyEvent>
 #include <QLabel>
 #include <QList>
+#include <QPair>
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QPalette>
@@ -160,11 +161,9 @@ void SideBar::setPStyle(const QString& name)
 void SideBar::paintEvent(QPaintEvent *e)
 {
 	inRep = true;
-	typedef struct { int start; int end; } paraStruct;
-	paraStruct paraInfo;
 	QLabel::paintEvent(e);
-	QList<paraStruct> paraList;
-	uint paraNumber = 0;
+	QPair<int, int> paraInfo;
+	QList< QPair<int,int> > paraList;
 	if (editor != NULL)
 	{
 		QRect  edRect = editor->viewport()->rect();
@@ -177,16 +176,16 @@ void SideBar::paintEvent(QPaintEvent *e)
 		pos2 = editor->StyledText.nextParagraph(pos2);
 		while ((pos1 <= pos2) && (pos1 < editor->StyledText.length()))
 		{
-			paraInfo.start = pos1;
+			paraInfo.first = pos1;
 			if (editor->StyledText.item(pos1)->ch == SpecialChars::PARSEP)
 			{
-				paraInfo.end = pos1;
+				paraInfo.second = pos1;
 				pos1 += 1;
 			}
 			else
 			{
 				pos1 = editor->StyledText.nextParagraph(pos1) + 1;
-				paraInfo.end = qMax(0, qMin(pos1 - 1, editor->StyledText.length() - 1));
+				paraInfo.second = qMax(0, qMin(pos1 - 1, editor->StyledText.length() - 1));
 			}
 			paraList.append(paraInfo);
 		}
@@ -198,12 +197,12 @@ void SideBar::paintEvent(QPaintEvent *e)
 		QString trNoStyle = tr("No Style");
 		for (int pa = 0; pa < paraList.count(); ++pa)
 		{
-			paraStruct paraInfo = paraList[pa];
+			QPair<int,int> paraInfo = paraList[pa];
 			// Draw paragraph style name first
 			QTextCursor cur(editor->document());
-			cur.setPosition(paraInfo.start);
+			cur.setPosition(paraInfo.first);
 			QTextBlock blockStart = cur.block();
-			QTextLine  lineStart  = blockStart.layout()->lineForTextPosition(paraInfo.start - blockStart.position());
+			QTextLine  lineStart  = blockStart.layout()->lineForTextPosition(paraInfo.first - blockStart.position());
 			if (lineStart.isValid())
 			{
 				QPointF blockPos = blockStart.layout()->position();
@@ -213,16 +212,16 @@ void SideBar::paintEvent(QPaintEvent *e)
 				re.translate(5, 2-offs);
 				if ((re.top() < height()) && (re.top() >= 0))
 				{
-					QString parname = editor->StyledText.paragraphStyle(paraInfo.start).parent();
+					QString parname = editor->StyledText.paragraphStyle(paraInfo.first).parent();
 					if (parname.isEmpty())
 						parname = trNoStyle;
 					p.drawText(re, Qt::AlignLeft | Qt::AlignTop, parname);
 				}
 			}
 			// Draw paragraph separation line
-			cur.setPosition(paraInfo.end);
+			cur.setPosition(paraInfo.second);
 			QTextBlock blockEnd = cur.block();
-			QTextLine  lineEnd  = blockEnd.layout()->lineForTextPosition(paraInfo.end - blockEnd.position());
+			QTextLine  lineEnd  = blockEnd.layout()->lineForTextPosition(paraInfo.second - blockEnd.position());
 			if (lineEnd.isValid())
 			{
 				QPointF blockPos = blockEnd.layout()->position();
