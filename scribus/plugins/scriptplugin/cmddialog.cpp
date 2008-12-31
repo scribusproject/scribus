@@ -100,7 +100,7 @@ PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
 		return NULL;
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	QString txt = QInputDialog::getText(ScCore->primaryMainWindow(),
-										QString::fromUtf8(message),
+										QString::fromUtf8(caption),
 										QString::fromUtf8(message),
 										QLineEdit::Normal,
 										QString::fromUtf8(value));
