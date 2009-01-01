@@ -353,6 +353,8 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	QToolTip::add( Name, "<qt>" + tr( "Name of your paragraph style" ) + "</qt>" );
 	QToolTip::add( FontC, "<qt>" + tr( "Font of selected text or object" ) + "</qt>" );
 	QToolTip::add( SizeC, "<qt>" + tr( "Font Size" ) + "</qt>" );
+	QToolTip::add( fontHScale, "<qt>" + tr( "Scaling width of characters" ) + "</qt>" );
+	QToolTip::add( fontVScale, "<qt>" + tr( "Scaling height of characters" ) + "</qt>" );
 	QToolTip::add( TxFill, "<qt>" + tr( "Color of text fill" ) + "</qt>" );
 	QToolTip::add( TxStroke, "<qt>" + tr( "Color of text stroke" ) + "</qt>" );
 	//	QToolTip::add( DropCaps, "<qt>" + tr( "Provides an oversized first letter for a paragraph. Used for stylistic effect" ) + "</qt>" );
@@ -364,13 +366,13 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	QToolTip::add( fontKern, tr("Manual Tracking"));
 	QToolTip::add( fontBase, tr("Offset to baseline of characters"));
 	QToolTip::add( LineSpVal, "<qt>" + tr( "Line Spacing" ) + "</qt>" );
-	QToolTip::add(linespacingButton, "<qt>" + tr("Click and hold down to select the line spacing mode.") + "</qt>" );
-	QToolTip::add( previewText, "<qt>" + tr( "Toggles sample text of this paragraph style" ) + "</qt>");
+	QToolTip::add( linespacingButton, "<qt>" + tr("Click and hold down to select the line spacing mode.") + "</qt>" );
+	QToolTip::add( previewCaption, "<qt>" + tr( "Toggles sample text of this paragraph style" ) + "</qt>");
 
 	// signals and slots connections
-	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( OkButton, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
-	connect( DropCaps, SIGNAL( toggled(bool) ), this, SLOT( updatePreview() ) );
+	connect(Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect(OkButton, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
+	connect(DropCaps, SIGNAL( toggled(bool) ), this, SLOT( updatePreview() ) );
 	connect(SizeC, SIGNAL(valueChanged(int)), this, SLOT(FontChange()));
 	connect(fontVScale, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(fontHScale, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
