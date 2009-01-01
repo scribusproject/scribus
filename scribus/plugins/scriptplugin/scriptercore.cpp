@@ -289,6 +289,9 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		qDebug("Failed to get __main__ - aborting script");
 	else
 	{
+		// Path separators need to be escaped on Windows
+		QString escapedAbsPath  = QDir::toNativeSeparators(fi.absolutePath()).replace("\\", "\\\\");
+		QString escapedFileName = QDir::toNativeSeparators(fileName).replace("\\", "\\\\");
 		// FIXME: If filename contains chars outside 7bit ascii, might be problems
 		PyObject* globals = PyModule_GetDict(m);
 		// Build the Python code to run the script
@@ -299,12 +302,12 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		 * for output settings. I use ugly hack to stop freezing calling help()
 		 * in script. pv. */
 		cm        += QString("import os\nos.environ['PAGER'] = '/bin/false'\n"); // HACK
-		cm        += QString("sys.path[0] = \"%1\"\n").arg(fi.absolutePath());
+		cm        += QString("sys.path[0] = \"%1\"\n").arg(escapedAbsPath);
 		// Replace sys.stdin with a dummy StringIO that always returns
 		// "" for read
 		cm        += QString("sys.stdin = cStringIO.StringIO()\n");
 		cm        += QString("try:\n");
-		cm        += QString("    execfile(\"%1\")\n").arg(fileName);
+		cm        += QString("    execfile(\"%1\")\n").arg(escapedFileName);
 		cm        += QString("except SystemExit:\n");
 		cm        += QString("    pass\n");
 		// Capture the text of any other exception that's raised by the interpreter
