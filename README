@@ -1,4 +1,4 @@
-This is Scribus Version 1.3.3.12, the fifteenth release of the 1.3.x development
+This is Scribus Version 1.3.3.13, the sixteenth release of the 1.3.x development
 series. We have stablized 1.3.3.x and now consider his our stable release. 
 Scribus 1.2.x is deprecated.
 
@@ -95,10 +95,10 @@ The cairo build option is optional, has not received all the needed
  regression tests and requires cairo 1.2.x+ or greater. 
 Cario 1.2.x+ is strongly recommended. 
 
-Our experimental Cairo build does not have these issues.  We encourage those
- willing to test the Cairo backend builds and report issues to the mailing 
+Our Cairo build does not have these issues.  We encourage those
+willing to test the Cairo backend builds and report issues to the mailing 
 list and/IRC. We *know* the Cairo enabled build is slower, but are encouraged
- by the on-going development by the Cairo team.
+by the on-going development by the Cairo team.
 
 FONT ISSUES
 ===========
@@ -166,27 +166,23 @@ front-ends.
 
 Also see the section entitled `GHOSTSCRIPT'.
 
-SuSE 9.x/10.0
+SuSE 10.x
 ========
 
-1)The littlecms libs 1.10, which shipped with 9.0 does not offer complete 
-  support for all the the latest CMS features in Scribus 1.2+. There are updated
-  SuSE 9.x RPM's available on the Scribus.net site. We also recommend using the 
-  latest version of lcms. 
-
-2)If you are using Qt 3.3.x, please ensure you are using the latest Qt 3.3.x
+1)If you are using Qt 3.3.x, please ensure you are using the latest Qt 3.3.x
   rpms. 
 
-3)To enable direct CUPS support which recommended, make sure both cups-devel
+2)To enable direct CUPS support which recommended, make sure both cups-devel
   and openssl-devel are installed. Suse enables ssl support in CUPS. The
   current Scribus config checks do not test for this. See the BUILDING file
   for details.
- 
 
-Red Hat / Fedora
+
+
+Red Hat / Fedora / CentOS
 ================
 
-Fedora/RH users are recommended to have at least Qt 3.3.2-6. These have
+Fedora/RH/CentOS users are recommended to have at least Qt 3.3.2-6. These have
 important fixes for Scribus. The Scribus RPMS in Fedora Extras are of very high
 quality and have been created with close cooperation from Fedora maintainers
 and the Scribus Team. We recommend them for most users as they will ensure
@@ -213,7 +209,8 @@ There is also information about building and using Scribus on Mac OS X on the
 Scribus wiki: http://wiki.scribus.net/ .
 
 A Mac OS X native Aqua port is in early testing. More information can be found
-on http://aqua.scribus.net/ .
+on http://aqua.scribus.net/ Note owning to performance regressions in qt3 on OSX,
+the Qt4 port of Scribus 1.3.5svn is recommended for use. 
 
 Microsoft Windows
 =================
@@ -236,4 +233,4 @@ the Scribus community so special.
 For the Scribus Team,
 Craig Ringer
 Peter Linnell
-in June 8 2008
+in Jan 01 2009
