@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QFile>
 #include <QXmlStreamReader>
-#include <scgzfile.h>
+#include "scgzfile.h"
 
 void ScSlaInfoReader::resetFileInfos(void)
 {

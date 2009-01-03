@@ -1479,7 +1479,7 @@ void ActionManager::languageChange()
 	(*scrActions)["helpAboutPlugins"]->setTexts( tr("&About Plugins"));
 	(*scrActions)["helpAboutQt"]->setTexts( tr("About &Qt"));
 	(*scrActions)["helpTooltips"]->setTexts( tr("Toolti&ps"));
-	(*scrActions)["showMouseCoordinates"]->setTexts( tr("Move/Resize value indicator"));
+	(*scrActions)["showMouseCoordinates"]->setTexts( tr("Move/Resize Value Indicator"));
 	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Manual..."));
 	(*scrActions)["helpOnlineWWW"]->setTexts( tr("Scribus Homepage"));
 	(*scrActions)["helpOnlineDocs"]->setTexts( tr("Scribus Online Documentation"));
