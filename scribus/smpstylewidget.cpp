@@ -37,7 +37,7 @@ SMPStyleWidget::SMPStyleWidget() : QWidget()
 
 	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
-        spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
+	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
 
 	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
 	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
@@ -82,9 +82,9 @@ void SMPStyleWidget::languageChange()
 	spaceBelow_->setToolTip(      tr("Space Below"));
 	lineSpacingLabel->setToolTip(lineSpacing_->toolTip());
 	spaceAboveLabel->setToolTip(spaceAbove_->toolTip());
-        spaceBelowLabel->setToolTip(spaceBelow_->toolTip());
-        optMarginCombo->setToolTip(tr("Activate an optical margins layout"));
-        optMarginLabel->setToolTip(optMarginCombo->toolTip());
+	spaceBelowLabel->setToolTip(spaceBelow_->toolTip());
+	optMarginCombo->setToolTip(tr("Activate an optical margins layout"));
+	optMarginLabel->setToolTip(optMarginCombo->toolTip());
 	//CB Unneeded, gets in the way of single widget tooltips
 	//dropCapsBox->setToolTip(      tr("Enable or disable drop cap"));
 	dropCapLines_->setToolTip(    tr("Drop Cap Lines"));
@@ -121,7 +121,7 @@ void SMPStyleWidget::languageChange()
 	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
 	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
 	
-        optMarginLabel->setText(tr("Optical Margins"));
+	optMarginLabel->setText(tr("Optical Margins:"));
 	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
@@ -132,9 +132,9 @@ void SMPStyleWidget::languageChange()
 	tabWidget->setTabText(0, tr("Properties"));
 	tabWidget->setTabText(1, tr("Character Style"));
 	
-	minSpaceLabel->setText(tr("Min. space width"));
-	minGlyphExtLabel->setText(tr("Max. glyph comp."));
-	maxGlyphExtLabel->setText(tr("Max. glyph ext."));
+	minSpaceLabel->setText(tr("Min. Space Width:"));
+	minGlyphExtLabel->setText(tr("Max. Glyph Compression:"));
+	maxGlyphExtLabel->setText(tr("Max. Glyph Extension:"));
 }
 
 void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
