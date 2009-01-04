@@ -115,14 +115,18 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 		}
 		currentStyle = sreader->getStyle(QString(currentList + "_%1").arg(listLevel));
 		currentListStyle = sreader->getList(currentList);
-		currentListStyle->setLevel(listLevel);
+		if (currentListStyle)
+			currentListStyle->setLevel(listLevel);
 		styleNames.clear();
 		styleNames.push_back(QString(currentList + "_%1").arg(listLevel));
 	}
 	else if (name == "text:list-item")
 	{
-		currentListStyle->advance();
-		write(currentListStyle->bullet());
+		if (currentListStyle)
+		{
+			currentListStyle->advance();
+			write(currentListStyle->bullet());
+		}
 	}
 	else if (name == "text:note")
 		inNote = true;
@@ -247,9 +251,11 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 		{
 			currentStyle = sreader->getStyle(QString(currentList + "_%1").arg(listLevel));
 			styleNames.push_back(QString(currentList + "_%1").arg(listLevel));
-			currentListStyle->resetLevel();
+			if (currentListStyle)
+				currentListStyle->resetLevel();
 			currentListStyle = sreader->getList(currentList);
-			currentListStyle->setLevel(listLevel);
+			if (currentListStyle)
+				currentListStyle->setLevel(listLevel);
 		}
 	}
 	else if ((name == "style:style") && (inT))
