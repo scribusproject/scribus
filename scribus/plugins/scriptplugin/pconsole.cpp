@@ -145,6 +145,9 @@ void PythonConsole::parsePythonString()
 		commandEdit->selectAll();
 		m_command = commandEdit->textCursor().selectedText();
 	}
+	// Per Qt doc, "If the selection obtained from an editor spans a line break, the text 
+	// will contain a Unicode U+2029 paragraph separator character instead of a newline"
+	m_command.replace(QChar(0x2029), QChar('\n'));
 	// prevent user's wrong selection
 	m_command += '\n';
 }
