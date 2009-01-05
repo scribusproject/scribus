@@ -6289,7 +6289,9 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 	try
 	{
 		PoDoFo::PdfError::EnableDebug( false );
+#if (PODOFO_VERSION == 0 && PODOFO_MINOR > 6)
 		PoDoFo::PdfError::EnableLogging( false );
+#endif
 #if (PODOFO_VERSION == 0 && PODOFO_MINOR == 5 && PODOFO_REVISION == 99) || PODOFO_MINOR > 5
 		PoDoFo::PdfMemDocument doc( fn.toLocal8Bit().data() );
 #else
