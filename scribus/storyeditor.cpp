@@ -993,7 +993,9 @@ QMimeData* SEditor::createMimeDataFromSelection () const
 		return mimeData;
 	StoryText* that = const_cast<StoryText*> (&StyledText);
 	that->select(start, end-start);
-	mimeData->setText(textCursor().selectedText());
+	QString selectedText = textCursor().selectedText();
+	selectedText.replace(QChar(0x2029), QChar('\n'));
+	mimeData->setText(selectedText);
 	mimeData->setStyledText(*that, doc);
 	return mimeData;
 }
