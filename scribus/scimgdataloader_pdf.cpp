@@ -54,12 +54,14 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int page, int gsRes, bo
 #ifdef HAVE_PODOFO
 	try
 	{
+		PoDoFo::PdfError::EnableDebug( false );
+		PoDoFo::PdfError::EnableLogging( false );
 #if (PODOFO_VERSION == 0 && PODOFO_MINOR == 5 && PODOFO_REVISION == 99) || PODOFO_MINOR > 5
 		PoDoFo::PdfMemDocument doc( fn.toLocal8Bit().data() );
 #else
 		PoDoFo::PdfDocument doc( fn.toLocal8Bit().data() );
 #endif
-	m_imageInfoRecord.numberOfPages = doc.GetPageCount();
+		m_imageInfoRecord.numberOfPages = doc.GetPageCount();
 	}
 	catch(PoDoFo::PdfError& e)
 	{
