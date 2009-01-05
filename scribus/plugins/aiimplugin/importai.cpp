@@ -366,7 +366,9 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 	try
 	{
 		PoDoFo::PdfError::EnableDebug( false );
+#if (PODOFO_VERSION == 0 && PODOFO_MINOR > 6)
 		PoDoFo::PdfError::EnableLogging( false );
+#endif
 #if (PODOFO_VERSION == 0 && PODOFO_MINOR == 5 && PODOFO_REVISION == 99) || PODOFO_MINOR > 5
 		PoDoFo::PdfMemDocument doc( infile.toLocal8Bit().data() );
 #else
