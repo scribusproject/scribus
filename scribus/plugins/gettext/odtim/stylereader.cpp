@@ -64,17 +64,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	         name == "style:list-level-properties")
  		styleProperties(attrs);
  	else if (name == "style:style")
- 	{
-		/*if (!defaultStyleCreated)
-		{
-			gtParagraphStyle* pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
-			pstyle->setDefaultStyle(true);
-			currentStyle = dynamic_cast<gtStyle*>(pstyle);
-			currentStyle->setName("default-style");
-			defaultStyleCreated = true;
-		}*/
  		styleStyle(attrs);
- 	}
  	else if (name == "style:tab-stop")
  		tabStop(attrs);
  	else if (name == "text:list-style")
@@ -115,7 +105,16 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  				}
  				gtParagraphStyle *pstyle;
  				if (plist == NULL)
- 					plist = new gtStyle(*(styles["default-style"]));
+				{
+					if (styles.contains("default-style"))
+ 						plist = new gtStyle(*(styles["default-style"]));
+					else
+					{
+						gtParagraphStyle* pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+						pstyle->setDefaultStyle(true);
+						plist = dynamic_cast<gtStyle*>(pstyle);
+					}
+				}
  
  				if (plist->target() == "paragraph")
  				{
