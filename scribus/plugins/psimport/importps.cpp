@@ -44,6 +44,9 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
+#ifdef HAVE_PODOFO
+	#include <podofo/podofo.h>
+#endif
 
 
 extern SCRIBUS_API ScribusQApp * ScQApp;
@@ -138,6 +141,33 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		}
 		importColorsFromFile(fName, CustColors);
 	}
+#ifdef HAVE_PODOFO
+	else if (extensionIndicatesPDF(ext))
+	{
+		try
+		{
+			PoDoFo::PdfError::EnableDebug( false );
+			PoDoFo::PdfError::EnableLogging( false );
+#if (PODOFO_VERSION == 0 && PODOFO_MINOR == 5 && PODOFO_REVISION == 99) || PODOFO_MINOR > 5
+			PoDoFo::PdfMemDocument doc( fName.toLocal8Bit().data() );
+#else
+			PoDoFo::PdfDocument doc( fName.toLocal8Bit().data() );
+#endif
+			PoDoFo::PdfPage *curPage = doc.GetPage(0);
+			if (curPage != NULL)
+			{
+				PoDoFo::PdfRect rect = curPage->GetMediaBox();
+				b = rect.GetWidth() - rect.GetLeft();
+				h = rect.GetHeight() - rect.GetBottom();
+			}
+		}
+		catch(PoDoFo::PdfError& e)
+		{
+			qDebug("PoDoFo error while reading page size!");
+			e.PrintErrorMsg();
+		}
+	}
+#endif
 	baseX = 0;
 	baseY = 0;
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
@@ -619,6 +649,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setLineTransparency(1.0 - Opacity);
 						m_Doc->AdjustItemSize(ite);
+						ite->setLineWidth(LineW);
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						if (groupStack.count() != 0)
 						{
