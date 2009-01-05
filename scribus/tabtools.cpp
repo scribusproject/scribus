@@ -270,6 +270,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	lineWidthShape = new ScrSpinBox( 0, 36, subTabShape, 1 );
 	lineWidthShape->setDecimals(1);
 	lineWidthShape->setSuffix( tr( " pt" ) );
+	lineWidthShape->setSpecialValueText( tr("Hairline"));
 
 	subTabShapeLayout->addWidget( lineWidthShape, 6, 1, Qt::AlignLeft );
 	textLabel12b = new QLabel(tr( "Line &Width:" ), subTabShape);
@@ -322,6 +323,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	lineWidthLine = new ScrSpinBox( 0, 36, subTabLine, 1 );
 	lineWidthLine->setDecimals(1);
 	lineWidthLine->setSuffix( tr( " pt" ) );
+	lineWidthLine->setSpecialValueText( tr("Hairline"));
 
 	subTabLineLayout->addWidget( lineWidthLine, 6, 1, Qt::AlignLeft );
 	textLabel16b = new QLabel(tr("Line &Width:"), subTabLine);

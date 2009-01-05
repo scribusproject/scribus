@@ -617,7 +617,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			{
 				if (Coords.size() != 0)
 				{
-					LineW = qMax(LineW, 0.01); // Set Linewidth to be a least 0.01 pts, a Stroke without a Linewidth makes no sense
+				//	LineW = qMax(LineW, 0.01); // Set Linewidth to be a least 0.01 pts, a Stroke without a Linewidth makes no sense
 					if ((Elements.count() != 0) && (lastPath == currPath))
 					{
 						ite = Elements.at(Elements.count()-1);

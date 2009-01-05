@@ -806,8 +806,8 @@ void ScPainter::fillTextPath()
 
 void ScPainter::strokeTextPath()
 {
-	if( LineWidth == 0 )
-		return;
+//	if( LineWidth == 0 )
+//		return;
 	drawVPath( 1 );
 }
 
@@ -819,8 +819,8 @@ void ScPainter::fillPath()
 
 void ScPainter::strokePath()
 {
-	if( LineWidth == 0 )
-		return;
+//	if( LineWidth == 0 )
+//		return;
 	drawVPath( 1 );
 }
 
@@ -1006,7 +1006,10 @@ void ScPainter::drawVPath( int mode )
 	}
 	else
 	{
-		cairo_set_line_width( m_cr, LineWidth );
+		if( LineWidth == 0 )
+			cairo_set_line_width( m_cr, 1.0 / m_zoomFactor );
+		else
+			cairo_set_line_width( m_cr, LineWidth );
 		if( m_array.count() > 0 )
 			cairo_set_dash( m_cr, m_array.data(), m_array.count(), m_offset);
 		else
@@ -1114,13 +1117,16 @@ void ScPainter::drawVPath(int mode)
 		}
 		else
 		{
+			double lw = LineWidth;
+			if( LineWidth == 0 )
+				lw = 1.0 / m_zoomFactor;
 			QVector<qreal> dashes;
 			for (int a = 0; a < m_array.count(); a++)
 			{
-				dashes.append(m_array[a] / LineWidth);
+				dashes.append(m_array[a] / lw);
 			}
 			pen.setDashPattern(dashes);
-			pen.setDashOffset(m_offset / LineWidth);
+			pen.setDashOffset(m_offset / lw);
 			pen.setColor(paint);
 			pen.setWidthF(LineWidth);
 			pen.setCapStyle(PLineEnd);

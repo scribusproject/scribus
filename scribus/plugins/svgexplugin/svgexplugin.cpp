@@ -411,12 +411,12 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 		case PageItem::Polygon:
 		case PageItem::PolyLine:
 			ob = processPolyItem(Item, trans, fill, stroke);
-			if (((Item->lineColor() != CommonStrings::None) && (Item->lineWidth() != 0)) && ((Item->startArrowIndex() != 0) || (Item->endArrowIndex() != 0)))
+			if ((Item->lineColor() != CommonStrings::None) && ((Item->startArrowIndex() != 0) || (Item->endArrowIndex() != 0)))
 				ob = processArrows(Item, ob, trans);
 			break;
 		case PageItem::Line:
 			ob = processLineItem(Item, trans, stroke);
-			if (((Item->lineColor() != CommonStrings::None) && (Item->lineWidth() != 0)) && ((Item->startArrowIndex() != 0) || (Item->endArrowIndex() != 0)))
+			if ((Item->lineColor() != CommonStrings::None) && ((Item->startArrowIndex() != 0) || (Item->endArrowIndex() != 0)))
 				ob = processArrows(Item, ob, trans);
 			break;
 		case PageItem::ImageFrame:
@@ -1120,12 +1120,12 @@ QDomElement SVGExPlug::processInlineItem(double xpos, double ypos, QMatrix &fina
 			case PageItem::Polygon:
 			case PageItem::PolyLine:
 				obE = processPolyItem(embedded, trans, fill, stroke);
-				if (((embedded->lineColor() != CommonStrings::None) && (embedded->lineWidth() != 0)) && ((embedded->startArrowIndex() != 0) || (embedded->endArrowIndex() != 0)))
+				if ((embedded->lineColor() != CommonStrings::None) && ((embedded->startArrowIndex() != 0) || (embedded->endArrowIndex() != 0)))
 					obE = processArrows(embedded, obE, trans);
 				break;
 			case PageItem::Line:
 				obE = processLineItem(embedded, trans, stroke);
-				if (((embedded->lineColor() != CommonStrings::None) && (embedded->lineWidth() != 0)) && ((embedded->startArrowIndex() != 0) || (embedded->endArrowIndex() != 0)))
+				if ((embedded->lineColor() != CommonStrings::None) && ((embedded->startArrowIndex() != 0) || (embedded->endArrowIndex() != 0)))
 					obE = processArrows(embedded, obE, trans);
 				break;
 			case PageItem::ImageFrame:
@@ -1231,7 +1231,8 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 		if (Item->itemType() == PageItem::Line)
 		{
 			arrowTrans.translate(0, 0);
-			arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
+			if (Item->lineWidth() != 0.0)
+				arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
 			arrowTrans.scale(-1,1);
 		}
 		else
@@ -1245,7 +1246,8 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
-					arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
+					if (Item->lineWidth() != 0.0)
+						arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
 					break;
 				}
 			}
@@ -1267,7 +1269,8 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 		if (Item->itemType() == PageItem::Line)
 		{
 			arrowTrans.translate(Item->width(), 0);
-			arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
+			if (Item->lineWidth() != 0.0)
+				arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
 		}
 		else
 		{
@@ -1280,7 +1283,8 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
-					arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
+					if (Item->lineWidth() != 0.0)
+						arrowTrans.scale(Item->lineWidth(), Item->lineWidth());
 					break;
 				}
 			}
@@ -1483,7 +1487,10 @@ QString SVGExPlug::getStrokeStyle(PageItem *Item)
 		stroke = "stroke:"+SetColor(Item->lineColor(), Item->lineShade())+";";
 		if (Item->lineTransparency() != 0)
 			stroke += " stroke-opacity:"+FToStr(1.0 - Item->lineTransparency())+";";
-		stroke += " stroke-width:"+FToStr(Item->lineWidth())+";";
+		if (Item->lineWidth() != 0.0)
+			stroke += " stroke-width:"+FToStr(Item->lineWidth())+";";
+		else
+			stroke += " stroke-width:1px;";
 		stroke += " stroke-linecap:";
 		switch (Item->PLineEnd)
 		{

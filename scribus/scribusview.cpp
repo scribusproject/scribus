@@ -3008,7 +3008,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 				for (int it = 0; it < Doc->Items->count(); ++it)
 				{
 					currItem = Doc->Items->at(it);
-					if (cullingArea.intersects(currItem->getBoundingRect()))
+					if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
 					{
 						if (currItem->asImageFrame())
 						{

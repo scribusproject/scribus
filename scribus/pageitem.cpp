@@ -570,6 +570,7 @@ void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
 void PageItem::setWidth(const double newWidth)
 {
 	Width = newWidth;
+	updateConstants();
 	checkChanges();
 	emit widthAndHeight(Width, Height);
 }
@@ -577,6 +578,7 @@ void PageItem::setWidth(const double newWidth)
 void PageItem::setHeight(const double newHeight)
 {
 	Height = newHeight;
+	updateConstants();
 	checkChanges();
 	emit widthAndHeight(Width, Height);
 }
@@ -585,6 +587,7 @@ void PageItem::setWidthHeight(const double newWidth, const double newHeight, boo
 {
 	Width = newWidth;
 	Height = newHeight;
+	updateConstants();
 	if (drawingOnly)
 		return;
 	checkChanges();
@@ -595,6 +598,7 @@ void PageItem::setWidthHeight(const double newWidth, const double newHeight)
 {
 	Width = newWidth;
 	Height = newHeight;
+	updateConstants();
 	checkChanges();
 	emit widthAndHeight(Width, Height);
 }
@@ -607,6 +611,7 @@ void PageItem::resizeBy(const double dH, const double dW)
 		Width+=dH;
 	if (dW!=0.0)
 		Height+=dW;
+	updateConstants();
 	checkChanges();
 	emit widthAndHeight(Width, Height);
 }
@@ -1078,14 +1083,14 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 		}
 		if (lineColor() != CommonStrings::None)
 		{
-			if ((m_lineWidth == 0) && ! asLine())
-				p->setLineWidth(0);
-			else
-			{
+//			if ((m_lineWidth == 0) && ! asLine())
+//				p->setLineWidth(0);
+//			else
+//			{
 				p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
 				if (DashValues.count() != 0)
 					p->setDash(DashValues, DashOffset);
-			}
+//			}
 		}
 		else
 			p->setLineWidth(0);
@@ -1145,20 +1150,28 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			{
 				if (lineBlendmode() != 0)
 					p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
-				if (lineColor() != CommonStrings::None)
-				{
-					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
-					if (DashValues.count() != 0)
-						p->setDash(DashValues, DashOffset);
-				}
-				else
-					p->setLineWidth(0);
+//				if (lineColor() != CommonStrings::None)
+//				{
+//					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+//					if (DashValues.count() != 0)
+//						p->setDash(DashValues, DashOffset);
+//				}
+//				else
+//					p->setLineWidth(0);
 				if (!isTableItem)
 				{
 					if ((itemType() == LatexFrame) || (itemType() == ImageFrame))
 						p->setupPolygon(&PoLine);
 					if (NamedLStyle.isEmpty())
-						p->strokePath();
+					{
+						if (lineColor() != CommonStrings::None)
+						{
+							p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+							if (DashValues.count() != 0)
+								p->setDash(DashValues, DashOffset);
+							p->strokePath();
+						}
+					}
 					else
 					{
 						multiLine ml = m_Doc->MLineStyles[NamedLStyle];
@@ -1167,7 +1180,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 						{
 							struct SingleLine& sl = ml[it];
 							// Qt4 if ((!sl.Color != CommonStrings::None) && (sl.Width != 0))
-							if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+							if (sl.Color != CommonStrings::None) // && (sl.Width != 0))
 							{
 								SetQColor(&tmp, sl.Color, sl.Shade);
 								p->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash), static_cast<Qt::PenCapStyle>(sl.LineEnd), static_cast<Qt::PenJoinStyle>(sl.LineJoin));

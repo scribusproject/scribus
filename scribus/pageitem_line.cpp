@@ -57,14 +57,17 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 		else
 		{
 			if (NamedLStyle.isEmpty())
-				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+			{
+				if (lineColor() != CommonStrings::None)
+					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+			}
 			else
 			{
 				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 				QColor tmp;
 				for (int it = ml.size()-1; it > -1; it--)
 				{
-					if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+					if (ml[it].Color != CommonStrings::None) // && (ml[it].Width != 0))
 					{
 						SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 						p->setPen(tmp, ml[it].Width, static_cast<Qt::PenStyle>(ml[it].Dash), static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
@@ -78,7 +81,8 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 			QMatrix arrowTrans;
 			FPointArray arrow = m_Doc->arrowStyles.at(m_startArrowIndex-1).points.copy();
 			arrowTrans.translate(0, 0);
-			arrowTrans.scale(m_lineWidth, m_lineWidth);
+			if (m_lineWidth != 0.0)
+				arrowTrans.scale(m_lineWidth, m_lineWidth);
 			arrowTrans.scale(-1,1);
 			arrow.map(arrowTrans);
 			p->setupPolygon(&arrow);
@@ -98,7 +102,8 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 			QMatrix arrowTrans;
 			FPointArray arrow = m_Doc->arrowStyles.at(m_endArrowIndex-1).points.copy();
 			arrowTrans.translate(Width, 0);
-			arrowTrans.scale(m_lineWidth, m_lineWidth);
+			if (m_lineWidth != 0.0)
+				arrowTrans.scale(m_lineWidth, m_lineWidth);
 			arrow.map(arrowTrans);
 			p->setupPolygon(&arrow);
 			if (m_Doc->layerOutline(LayerNr))

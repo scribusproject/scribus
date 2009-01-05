@@ -5037,6 +5037,7 @@ void PropertiesPalette::languageChange()
 	QString ein = (HaveDoc) ? unitGetSuffixFromIndex(doc->unitIndex()) : ptSuffix;
 
 	LSize->setSuffix(ein);
+	LSize->setSpecialValueText( tr("Hairline"));
 	Xpos->setSuffix(ein);
 	Ypos->setSuffix(ein);
 	Width->setSuffix(ein);
@@ -5276,12 +5277,11 @@ void PropertiesPalette::updateSpinBoxConstants()
 		return;
 	if(doc->m_Selection->count()==0)
 		return;
-/*qt4
-	Width->setConstants(doc->constants());
-	Height->setConstants(doc->constants());
-	Xpos->setConstants(doc->constants());
-	Ypos->setConstants(doc->constants());
-*/
+	Width->setConstants(&doc->constants());
+	Height->setConstants(&doc->constants());
+	Xpos->setConstants(&doc->constants());
+	Ypos->setConstants(&doc->constants());
+
 }
 
 UserActionSniffer::UserActionSniffer(QObject* parent) : QObject (parent)

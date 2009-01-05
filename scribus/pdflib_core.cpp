@@ -1963,7 +1963,8 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							QMatrix arrowTrans;
 							FPointArray arrow = doc.arrowStyles.at(ite->startArrowIndex()-1).points.copy();
 							arrowTrans.translate(0, 0);
-							arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
+							if (ite->lineWidth() != 0.0)
+								arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 							arrowTrans.scale(-1,1);
 							arrow.map(arrowTrans);
 							if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
@@ -1985,7 +1986,8 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 							QMatrix arrowTrans;
 							FPointArray arrow = doc.arrowStyles.at(ite->endArrowIndex()-1).points.copy();
 							arrowTrans.translate(ite->width(), 0);
-							arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
+							if (ite->lineWidth() != 0.0)
+								arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 							arrow.map(arrowTrans);
 							if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 							{
@@ -2101,7 +2103,8 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 									FPointArray arrow = doc.arrowStyles.at(ite->startArrowIndex()-1).points.copy();
 									arrowTrans.translate(Start.x(), Start.y());
 									arrowTrans.rotate(r);
-									arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
+									if (ite->lineWidth() != 0.0)
+										arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 									arrow.map(arrowTrans);
 									if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 									{
@@ -2133,7 +2136,8 @@ bool PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 									FPointArray arrow = doc.arrowStyles.at(ite->endArrowIndex()-1).points.copy();
 									arrowTrans.translate(End.x(), End.y());
 									arrowTrans.rotate(r);
-									arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
+									if (ite->lineWidth() != 0.0)
+										arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 									arrow.map(arrowTrans);
 									if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 									{
@@ -3051,8 +3055,8 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				double ilw=ite->lineWidth();
 				double x2 = ite->BoundingX - ilw / 2.0;
 				double y2 = ite->BoundingY - ilw / 2.0;
-				double w2 = ite->BoundingW + ilw;
-				double h2 = ite->BoundingH + ilw;
+				double w2 = qMax(ite->BoundingW + ilw, 1.0);
+				double h2 = qMax(ite->BoundingH + ilw, 1.0);
 				if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 					continue;
 				if (ite->ChangedMasterItem)
@@ -3303,8 +3307,8 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 	double ilw=ite->lineWidth();
 	double x2 = ite->BoundingX - ilw / 2.0;
 	double y2 = ite->BoundingY - ilw / 2.0;
-	double w2 = ite->BoundingW + ilw;
-	double h2 = ite->BoundingH + ilw;
+	double w2 = qMax(ite->BoundingW + ilw, 1.0);
+	double h2 = qMax(ite->BoundingH + ilw, 1.0);
 	output.resize(0);
 	if (!pattern)
 	{
@@ -3459,17 +3463,20 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			{
 				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 					tmp += PDF_TransparenzStroke(ite);
-				if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
+				if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 				{
-					tmp += SetClipPath(ite);
-					tmp += "h\nS\n";
+					if (ite->lineColor() != CommonStrings::None)
+					{
+						tmp += SetClipPath(ite);
+						tmp += "h\nS\n";
+					}
 				}
 				else
 				{
 					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 						{
 							tmp += setStrokeMulti(&ml[it]);
 							tmp += SetClipPath(ite);
@@ -3515,17 +3522,20 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			{
 				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 					tmp += PDF_TransparenzStroke(ite);
-				if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
+				if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 				{
-					tmp += SetClipPath(ite);
-					tmp += "h\nS\n";
+					if (ite->lineColor() != CommonStrings::None)
+					{
+						tmp += SetClipPath(ite);
+						tmp += "h\nS\n";
+					}
 				}
 				else
 				{
 					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 						{
 							tmp += setStrokeMulti(&ml[it]);
 							tmp += SetClipPath(ite);
@@ -3540,16 +3550,19 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				tmp += PDF_TransparenzStroke(ite);
 			if (ite->NamedLStyle.isEmpty())
 			{
-				tmp += "0 0 m\n";
-				tmp += FToStr(ite->width())+" 0 l\n";
-				tmp += "S\n";
+				if (ite->lineColor() != CommonStrings::None)
+				{
+					tmp += "0 0 m\n";
+					tmp += FToStr(ite->width())+" 0 l\n";
+					tmp += "S\n";
+				}
 			}
 			else
 			{
 				multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 				for (int it = ml.size()-1; it > -1; it--)
 				{
-					if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 					{
 						tmp += setStrokeMulti(&ml[it]);
 						tmp += "0 0 m\n";
@@ -3563,7 +3576,8 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				QMatrix arrowTrans;
 				FPointArray arrow = doc.arrowStyles.at(ite->startArrowIndex()-1).points.copy();
 				arrowTrans.translate(0, 0);
-				arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
+				if (ite->lineWidth() != 0.0)
+					arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 				arrowTrans.scale(-1,1);
 				arrow.map(arrowTrans);
 				if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
@@ -3585,7 +3599,8 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 				QMatrix arrowTrans;
 				FPointArray arrow = doc.arrowStyles.at(ite->endArrowIndex()-1).points.copy();
 				arrowTrans.translate(ite->width(), 0);
-				arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
+				if (ite->lineWidth() != 0.0)
+					arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 				arrow.map(arrowTrans);
 				if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 				{
@@ -3628,17 +3643,20 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			{
 				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 					tmp += PDF_TransparenzStroke(ite);
-				if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
+				if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 				{
-					tmp += SetClipPath(ite);
-					tmp += "h\nS\n";
+					if (ite->lineColor() != CommonStrings::None)
+					{
+						tmp += SetClipPath(ite);
+						tmp += "h\nS\n";
+					}
 				}
 				else
 				{
 					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 						{
 							tmp += setStrokeMulti(&ml[it]);
 							tmp += SetClipPath(ite);
@@ -3672,17 +3690,20 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			{
 				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 					tmp += PDF_TransparenzStroke(ite);
-				if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
+				if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 				{
-					tmp += SetClipPath(ite, false);
-					tmp += "S\n";
+					if (ite->lineColor() != CommonStrings::None)
+					{
+						tmp += SetClipPath(ite, false);
+						tmp += "S\n";
+					}
 				}
 				else
 				{
 					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 						{
 							tmp += setStrokeMulti(&ml[it]);
 							tmp += SetClipPath(ite, false);
@@ -3704,7 +3725,8 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 						FPointArray arrow = doc.arrowStyles.at(ite->startArrowIndex()-1).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
-						arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
+						if (ite->lineWidth() != 0.0)
+							arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 						arrow.map(arrowTrans);
 						if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 						{
@@ -3736,7 +3758,8 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 						FPointArray arrow = doc.arrowStyles.at(ite->endArrowIndex()-1).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
-						arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
+						if (ite->lineWidth() != 0.0)
+							arrowTrans.scale(ite->lineWidth(), ite->lineWidth());
 						arrow.map(arrowTrans);
 						if ((ite->lineTransparency() != 0) && (Options.Version >= PDFOptions::PDFVersion_14))
 						{
@@ -3766,17 +3789,20 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 					{
 						if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 							tmp += PDF_TransparenzStroke(ite);
-						if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
+						if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 						{
-							tmp += SetClipPath(ite, false);
-							tmp += "S\n";
+							if (ite->lineColor() != CommonStrings::None)
+							{
+								tmp += SetClipPath(ite, false);
+								tmp += "S\n";
+							}
 						}
 						else
 						{
 							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
-								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+								if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 								{
 									tmp += setStrokeMulti(&ml[it]);
 									tmp += SetClipPath(ite, false);
@@ -6262,6 +6288,8 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 #ifdef HAVE_PODOFO
 	try
 	{
+		PoDoFo::PdfError::EnableDebug( false );
+		PoDoFo::PdfError::EnableLogging( false );
 #if (PODOFO_VERSION == 0 && PODOFO_MINOR == 5 && PODOFO_REVISION == 99) || PODOFO_MINOR > 5
 		PoDoFo::PdfMemDocument doc( fn.toLocal8Bit().data() );
 #else

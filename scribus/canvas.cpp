@@ -1297,7 +1297,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							painter->save();
 							currItem->savedOwnPage = currItem->OwnPage;
 							currItem->OwnPage = page->pageNr();
-							if ((cullingArea.intersects(currItem->getBoundingRect())) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
+							if ((cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
 								currItem->DrawObj(painter, cullingArea);
 							FPointArray cl = currItem->PoLine.copy();
 							QMatrix mm;
@@ -1321,7 +1321,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						currItem->OwnPage = page->pageNr();
 //FIXME						if (!evSpon || forceRedraw)
 		//					currItem->invalid = true;
-						if (cullingArea.intersects(currItem->getBoundingRect()))
+						if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
 						{
 							if (!((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode) && (currItem->isSelected())))
 							{
@@ -1358,7 +1358,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 									cite->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 									cite->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 								}
-								if ((cullingArea.intersects(cite->getBoundingRect())) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
+								if ((cullingArea.intersects(cite->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0))) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
 									cite->DrawObj(painter, cullingArea);
 								cite->OwnPage = cite->savedOwnPage;
 								if (!currItem->ChangedMasterItem)
@@ -1400,7 +1400,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 						}
-						if (cullingArea.intersects(currItem->getBoundingRect()))
+						if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
 						{
 							painter->save();
 							painter->translate(currItem->xPos(), currItem->yPos());
@@ -1504,7 +1504,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						groupStack2.push(currItem);
 						continue;
 					}
-					if (cullingArea.intersects(currItem->getBoundingRect()))
+					if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
 					{
 //FIXME						if (!evSpon || forceRedraw) 
 		//					currItem->invalid = true;
@@ -1596,7 +1596,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						continue;
 					if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
 						continue;
-					if (cullingArea.intersects(currItem->getBoundingRect()))
+					if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
 					{
 						painter->save();
 						painter->translate(currItem->xPos(), currItem->yPos());

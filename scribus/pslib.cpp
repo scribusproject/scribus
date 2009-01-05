@@ -1907,8 +1907,8 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 						double ilw = it->lineWidth();
 						double x2 = it->BoundingX - ilw / 2.0;
 						double y2 = it->BoundingY - ilw / 2.0;
-						double w2 = it->BoundingW + ilw;
-						double h2 = it->BoundingH + ilw;
+						double w2 = qMax(it->BoundingW + ilw, 1.0);
+						double h2 = qMax(it->BoundingH + ilw, 1.0);
 						if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 							continue;
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->pageNr())) && (it->OwnPage != -1))
@@ -2064,7 +2064,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 								setTextSt(Doc, ite, gcr, a, mPage, sep, farb, Ic, true);
 								if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 								{
-									if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
+									if (ite->NamedLStyle.isEmpty()) // && (ite->lineWidth() != 0.0))
 									{
 										SetColor(ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
 										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -2080,7 +2080,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 										multiLine ml = Doc->MLineStyles[ite->NamedLStyle];
 										for (int it = ml.size()-1; it > -1; it--)
 										{
-											if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+											if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 											{
 												SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 												PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -2286,7 +2286,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			PS_restore();
 			if (((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty())) && (!c->isTableItem))
 			{
-				if ((c->NamedLStyle.isEmpty()) && (c->lineWidth() != 0.0))
+				if (c->NamedLStyle.isEmpty()) // && (c->lineWidth() != 0.0))
 				{
 					SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -2302,7 +2302,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						if (ml[it].Color != CommonStrings::None) // && (ml[it].Width != 0))
 						{
 							SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -2386,7 +2386,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 						{
 							SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -2402,18 +2402,21 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			break;
 		case PageItem::Line:
-			if ((c->NamedLStyle.isEmpty()) && (c->lineWidth() != 0.0))
+			if (c->NamedLStyle.isEmpty()) // && (c->lineWidth() != 0.0))
 			{
-				PS_moveto(0, 0);
-				PS_lineto(c->width(), 0);
-				putColor(c->lineColor(), c->lineShade(), false);
+				if (c->lineColor() != CommonStrings::None)
+				{
+					PS_moveto(0, 0);
+					PS_lineto(c->width(), 0);
+					putColor(c->lineColor(), c->lineShade(), false);
+				}
 			}
 			else
 			{
 				multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 				for (int it = ml.size()-1; it > -1; it--)
 				{
-					if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 					{
 						SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -2431,7 +2434,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				QMatrix arrowTrans;
 				FPointArray arrow = Doc->arrowStyles.at(c->startArrowIndex()-1).points.copy();
 				arrowTrans.translate(0, 0);
-				arrowTrans.scale(c->lineWidth(), c->lineWidth());
+				if (c->lineWidth() != 0.0)
+					arrowTrans.scale(c->lineWidth(), c->lineWidth());
 				arrowTrans.scale(-1,1);
 				arrow.map(arrowTrans);
 				SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
@@ -2446,7 +2450,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				QMatrix arrowTrans;
 				FPointArray arrow = Doc->arrowStyles.at(c->endArrowIndex()-1).points.copy();
 				arrowTrans.translate(c->width(), 0);
-				arrowTrans.scale(c->lineWidth(), c->lineWidth());
+				if (c->lineWidth() != 0.0)
+					arrowTrans.scale(c->lineWidth(), c->lineWidth());
 				arrow.map(arrowTrans);
 				SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -2475,18 +2480,21 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			if ((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()))
 			{
-				if ((c->NamedLStyle.isEmpty()) && (c->lineWidth() != 0.0))
+				if (c->NamedLStyle.isEmpty()) //&& (c->lineWidth() != 0.0))
 				{
-					SetClipPath(&c->PoLine);
-					PS_closepath();
-					putColor(c->lineColor(), c->lineShade(), false);
+					if (c->lineColor() != CommonStrings::None)
+					{
+						SetClipPath(&c->PoLine);
+						PS_closepath();
+						putColor(c->lineColor(), c->lineShade(), false);
+					}
 				}
 				else
 				{
 					multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 						{
 							SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -2514,17 +2522,20 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			if ((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()))
 			{
-				if ((c->NamedLStyle.isEmpty()) && (c->lineWidth() != 0.0))
+				if (c->NamedLStyle.isEmpty()) //&& (c->lineWidth() != 0.0))
 				{
-					SetClipPath(&c->PoLine, false);
-					putColor(c->lineColor(), c->lineShade(), false);
+					if (c->lineColor() != CommonStrings::None)
+					{
+						SetClipPath(&c->PoLine, false);
+						putColor(c->lineColor(), c->lineShade(), false);
+					}
 				}
 				else
 				{
 					multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 						{
 							SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -2550,7 +2561,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						FPointArray arrow = Doc->arrowStyles.at(c->startArrowIndex()-1).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
-						arrowTrans.scale(c->lineWidth(), c->lineWidth());
+						if (c->lineWidth() != 0.0)
+							arrowTrans.scale(c->lineWidth(), c->lineWidth());
 						arrow.map(arrowTrans);
 						SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 						PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -2575,7 +2587,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						FPointArray arrow = Doc->arrowStyles.at(c->endArrowIndex()-1).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
-						arrowTrans.scale(c->lineWidth(), c->lineWidth());
+						if (c->lineWidth() != 0.0)
+							arrowTrans.scale(c->lineWidth(), c->lineWidth());
 						arrow.map(arrowTrans);
 						SetColor(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 						PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -2594,17 +2607,20 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				if (c->PoLine.size() > 3)
 				{
 					PS_save();
-					if ((c->NamedLStyle.isEmpty()) && (c->lineWidth() != 0.0))
+					if (c->NamedLStyle.isEmpty()) //&& (c->lineWidth() != 0.0))
 					{
-						SetClipPath(&c->PoLine, false);
-						putColor(c->lineColor(), c->lineShade(), false);
+						if (c->lineColor() != CommonStrings::None)
+						{
+							SetClipPath(&c->PoLine, false);
+							putColor(c->lineColor(), c->lineShade(), false);
+						}
 					}
 					else
 					{
 						multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 						for (int it = ml.size()-1; it > -1; it--)
 						{
-							if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+							if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 							{
 								SetColor(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -3130,8 +3146,8 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				double ilw = c->lineWidth();
 				double x2 = c->BoundingX - ilw / 2.0;
 				double y2 = c->BoundingY - ilw / 2.0;
-				double w2 = c->BoundingW + ilw;
-				double h2 = c->BoundingH + ilw;
+				double w2 = qMax(c->BoundingW + ilw, 1.0);
+				double h2 = qMax(c->BoundingH + ilw, 1.0);
 				if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 					continue;
 				if (c->ChangedMasterItem)
@@ -3183,15 +3199,15 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 			double ilw=c->lineWidth();
 			double x2 = c->BoundingX - ilw / 2.0;
 			double y2 = c->BoundingY - ilw / 2.0;
-			double w2 = c->BoundingW + ilw;
-			double h2 = c->BoundingH + ilw;
+			double w2 = qMax(c->BoundingW + ilw, 1.0);
+			double h2 = qMax(c->BoundingH + ilw, 1.0);
 			if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 				continue;
 			if (c->ChangedMasterItem)
 				continue;
 			if (!c->isTableItem)
 				continue;
-			if ((c->lineColor() == CommonStrings::None) || (c->lineWidth() == 0.0))
+			if (c->lineColor() == CommonStrings::None) //|| (c->lineWidth() == 0.0))
 				continue;
 			if ((!a->pageName().isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
 				continue;
