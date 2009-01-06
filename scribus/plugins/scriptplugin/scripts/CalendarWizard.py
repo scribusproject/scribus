@@ -68,6 +68,17 @@ except ImportError:
 
 
 localization = {
+'Catalan' :
+    [['Gener', 'Febrer', 'Març', 'Abril', 'Maig',
+      'Juny', 'Juliol', 'Agost', 'Setembre',
+      'Octubre', 'Novembre', 'Desembre'],
+     ['Dilluns', 'Dimarts', 'Dimecres', 'Dijous', 'Divendres', 'Dissabte', 'Diumenge']],
+'Catalan-short' :
+    [['Gener', 'Febrer', 'Març', 'Abril', 'Maig',
+      'Juny', 'Juliol', 'Agost', 'Setembre',
+      'Octubre', 'Novembre', 'Desembre'],
+     ['Dl', 'Dm', 'Dc', 'Dj', 'Dv', 'Ds', 'Dg']],
+# Catalan by "Cesc Morata" <atarom@gmail.com>
 'Czech' :
     [['Leden', 'Únor', 'Březen', 'Duben', 'Květen',
         'Červen', 'Červenec', 'Srpen', 'Září',
