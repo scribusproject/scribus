@@ -385,6 +385,7 @@ protected:
 	QHBoxLayout* wordTrackingHLayout;
 	QHBoxLayout* glyphExtensionHLayout;
 	QGridLayout* flopLayout;
+	QVBoxLayout* OptMarginsLayout;
 	
 	NameWidget* NameEdit;
 	
@@ -450,7 +451,6 @@ protected:
 	QLabel* endArrowText;
 	QLabel* TransTxt;
 	QLabel* TransTxt2;
-	QLabel* optMarginLabel;
 	QLabel* wordTrackingLabel;
 	QLabel* minWordTrackingLabel;
 	QLabel* normWordTrackingLabel;
@@ -534,7 +534,12 @@ protected:
 	QComboBox* LEndStyle;
 	ColorCombo* TxFill;
 	ScComboBox* blendMode;
-	QComboBox *optMarginCombo;
+//	QComboBox *optMarginCombo;
+	QCheckBox *optMarginCheckLeftProtruding;
+	QCheckBox *optMarginCheckRightProtruding;
+	QCheckBox *optMarginCheckLeftHangPunct;
+	QCheckBox *optMarginCheckRightHangPunct;
+	QPushButton *optMarginResetButton;
 
 	QListWidget* StyledLine;
 
@@ -621,6 +626,8 @@ protected:
 	QTreeWidgetItem* DistanceItem;
 	QFrame* Distance2;
 	QTreeWidgetItem* Distance2Item;
+	QFrame* OptMargins;
+	QTreeWidgetItem* OptMarginsItem;
 
 	bool _userActionOn;
 	UserActionSniffer *userActionSniffer;

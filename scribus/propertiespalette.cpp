@@ -793,75 +793,6 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	layout41c->addLayout( Layout1, 2, 0, 1, 4 );
 	colorWidgetsItem = TextTree->addWidget( tr("Color & Effects"), colorWidgets);
 
-	advancedWidgets = new QFrame();
-	advancedWidgets->setFrameStyle(QFrame::Box | QFrame::Plain);
-	advancedWidgets->setLineWidth(1);
-	layout41a = new QGridLayout(advancedWidgets);
-	layout41a->setSpacing( 3 );
-	layout41a->setMargin( 3 );
-	layout41a->setAlignment( Qt::AlignLeft );
-	ChBase = new ScrSpinBox( -100, 100, advancedWidgets, 0 );
-	ChBase->setValue( 0 );
-	ChBaseTxt = new QLabel("", advancedWidgets );
-	ChBaseTxt->setPixmap(loadIcon("textbase.png"));
-	layout41a->addWidget( ChBaseTxt, 0, 0 );
-	layout41a->addWidget( ChBase, 0, 1 );
-	Extra = new ScrSpinBox( advancedWidgets, 0 );
-	layout41a->addWidget( Extra, 0, 3 );
-	trackingLabel = new QLabel( "", advancedWidgets );
-	trackingLabel->setText("");
-	trackingLabel->setPixmap(loadIcon("textkern.png"));
-	layout41a->addWidget( trackingLabel, 0, 2 );
-	ChScale = new ScrSpinBox( 10, 400, advancedWidgets, 0 );
-	ChScale->setValue( 100 );
-	ScaleTxt = new QLabel("", advancedWidgets );
-	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
-	layout41a->addWidget( ScaleTxt, 1, 0 );
-	layout41a->addWidget( ChScale, 1 , 1 );
-	ChScaleV = new ScrSpinBox( 10, 400, advancedWidgets, 0 );
-	ChScaleV->setValue( 100 );
-	ScaleTxtV = new QLabel("", advancedWidgets );
-	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
-	layout41a->addWidget( ScaleTxtV, 1, 2 );
-	layout41a->addWidget( ChScaleV, 1, 3 );
-
-	wordTrackingLabel = new QLabel( "Word Spacing", advancedWidgets );
-	layout41a->addWidget( wordTrackingLabel, 2, 0, 1, 4 );
-	wordTrackingHLayout = new QHBoxLayout;
-	wordTrackingHLayout->setSpacing( 3 );
-	wordTrackingHLayout->setMargin( 0 );
-	wordTrackingHLayout->setAlignment(Qt::AlignLeft);
-	minWordTrackingSpinBox = new ScrSpinBox( 1, 200, advancedWidgets, 0 );
-	minWordTrackingLabel = new QLabel( "Min:", advancedWidgets );
-	minWordTrackingLabel->setBuddy(minWordTrackingSpinBox);
-	wordTrackingHLayout->addWidget(minWordTrackingLabel);
-	wordTrackingHLayout->addWidget(minWordTrackingSpinBox);
-	normWordTrackingSpinBox = new ScrSpinBox( 1, 200, advancedWidgets, 0 );
-	normWordTrackingLabel = new QLabel( "Norm:", advancedWidgets );
-	normWordTrackingLabel->setBuddy(normWordTrackingSpinBox);
-	wordTrackingHLayout->addWidget(normWordTrackingLabel);
-	wordTrackingHLayout->addWidget(normWordTrackingSpinBox);
-	layout41a->addLayout(wordTrackingHLayout, 3, 0, 1, 4);
-	
-	glyphExtensionLabel = new QLabel( "Glyph Extension", advancedWidgets );
-	layout41a->addWidget( glyphExtensionLabel, 4, 0, 1, 4 );
-	glyphExtensionHLayout = new QHBoxLayout;
-	glyphExtensionHLayout->setSpacing( 3 );
-	glyphExtensionHLayout->setMargin( 0 );
-	glyphExtensionHLayout->setAlignment(Qt::AlignLeft);
-	minGlyphExtSpinBox = new ScrSpinBox( 90, 110, advancedWidgets, 0 );
-	minGlyphExtensionLabel = new QLabel( "Min:", advancedWidgets );
-	minGlyphExtensionLabel->setBuddy(minGlyphExtSpinBox);
-	glyphExtensionHLayout->addWidget(minGlyphExtensionLabel);
-	glyphExtensionHLayout->addWidget(minGlyphExtSpinBox);
-	maxGlyphExtSpinBox = new ScrSpinBox( 90, 110, advancedWidgets, 0 );
-	maxGlyphExtensionLabel = new QLabel( "Max:", advancedWidgets );
-	maxGlyphExtensionLabel->setBuddy(maxGlyphExtSpinBox);
-	glyphExtensionHLayout->addWidget(maxGlyphExtensionLabel);
-	glyphExtensionHLayout->addWidget(maxGlyphExtSpinBox);
-	layout41a->addLayout(glyphExtensionHLayout, 5, 0, 1, 4);
-
-	advancedWidgetsItem = TextTree->addWidget( tr("Advanced Settings"), advancedWidgets);
 
 	styleWidgets = new QFrame();
 	styleWidgets->setFrameStyle(QFrame::Box | QFrame::Plain);
@@ -955,16 +886,130 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	DistanceLayout->addWidget( rightLabel, 5, 0 );
 	DistanceLayout->addWidget( DRight, 5, 1 );
 
-	optMarginCombo = new QComboBox(Distance);
-	optMarginLabel = new QLabel( "Optical Margins:", Distance );
-	optMarginLabel->setBuddy(optMarginCombo);
-	DistanceLayout->addWidget( optMarginLabel, 6, 0 );
-	DistanceLayout->addWidget( optMarginCombo, 6, 1 );
+//	optMarginCombo = new QComboBox(Distance);
+//	optMarginLabel = new QLabel( "Optical Margins:", Distance );
+//	optMarginLabel->setBuddy(optMarginCombo);
+//	DistanceLayout->addWidget( optMarginLabel, 6, 0 );
+//	DistanceLayout->addWidget( optMarginCombo, 6, 1 );
 
 	TabsButton = new QToolButton( Distance );
 	TabsButton->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 	DistanceLayout->addWidget( TabsButton, 7, 0, 1, 2 );
     DistanceItem = TextTree->addWidget( tr("Columns & Text Distances"), Distance);
+
+
+	//<< Optical Margins
+
+	OptMargins = new QFrame();
+	OptMargins->setFrameStyle(QFrame::Box | QFrame::Plain);
+	OptMargins->setLineWidth(1);
+	OptMarginsLayout = new QVBoxLayout( OptMargins );
+	OptMarginsLayout->setSpacing( 2 );
+	OptMarginsLayout->setMargin( 5 );
+	OptMarginsLayout->setAlignment( Qt::AlignTop );
+
+//	optMarginCombo = new QComboBox(OptMargins);
+//	OptMarginsLayout->addWidget( optMarginCombo);
+
+	optMarginCheckLeftProtruding = new QCheckBox(OptMargins);
+	optMarginCheckLeftProtruding->setObjectName(QString::fromUtf8("optMarginCheckLeftProtruding"));
+	optMarginCheckRightProtruding = new QCheckBox(OptMargins);
+	optMarginCheckRightProtruding->setObjectName(QString::fromUtf8("optMarginCheckRightProtruding"));
+	optMarginCheckLeftHangPunct = new QCheckBox(OptMargins);
+	optMarginCheckLeftHangPunct->setObjectName(QString::fromUtf8("optMarginCheckLeftHangPunct"));
+	optMarginCheckRightHangPunct = new QCheckBox(OptMargins);
+	optMarginCheckRightHangPunct->setObjectName(QString::fromUtf8("optMarginCheckRightHangPunct"));
+	optMarginResetButton = new QPushButton(OptMargins);
+	optMarginResetButton->setObjectName(QString::fromUtf8("optMarginResetButton"));
+
+	optMarginCheckLeftProtruding->setText( tr("Left Protruding") );
+	optMarginCheckRightProtruding->setText( tr("Right Protruding") );
+	optMarginCheckLeftHangPunct->setText( tr("Left Hanging Punctuation") );
+	optMarginCheckRightHangPunct->setText( tr("Right Hanging Punctuation") );
+	optMarginResetButton->setText( tr("Reset") );
+
+	OptMarginsLayout->addWidget(optMarginCheckLeftProtruding);
+	OptMarginsLayout->addWidget(optMarginCheckRightProtruding);
+	OptMarginsLayout->addWidget(optMarginCheckLeftHangPunct);
+	OptMarginsLayout->addWidget(optMarginCheckRightHangPunct);
+	OptMarginsLayout->addWidget(optMarginResetButton);
+
+	OptMarginsItem = TextTree->addWidget( tr("Optical Margins"), OptMargins);
+
+	//>> Optical Margins
+
+	//<<Advanced Settings
+	advancedWidgets = new QFrame();
+	advancedWidgets->setFrameStyle(QFrame::Box | QFrame::Plain);
+	advancedWidgets->setLineWidth(1);
+	layout41a = new QGridLayout(advancedWidgets);
+	layout41a->setSpacing( 3 );
+	layout41a->setMargin( 3 );
+	layout41a->setAlignment( Qt::AlignLeft );
+	ChBase = new ScrSpinBox( -100, 100, advancedWidgets, 0 );
+	ChBase->setValue( 0 );
+	ChBaseTxt = new QLabel("", advancedWidgets );
+	ChBaseTxt->setPixmap(loadIcon("textbase.png"));
+	layout41a->addWidget( ChBaseTxt, 0, 0 );
+	layout41a->addWidget( ChBase, 0, 1 );
+	Extra = new ScrSpinBox( advancedWidgets, 0 );
+	layout41a->addWidget( Extra, 0, 3 );
+	trackingLabel = new QLabel( "", advancedWidgets );
+	trackingLabel->setText("");
+	trackingLabel->setPixmap(loadIcon("textkern.png"));
+	layout41a->addWidget( trackingLabel, 0, 2 );
+	ChScale = new ScrSpinBox( 10, 400, advancedWidgets, 0 );
+	ChScale->setValue( 100 );
+	ScaleTxt = new QLabel("", advancedWidgets );
+	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
+	layout41a->addWidget( ScaleTxt, 1, 0 );
+	layout41a->addWidget( ChScale, 1 , 1 );
+	ChScaleV = new ScrSpinBox( 10, 400, advancedWidgets, 0 );
+	ChScaleV->setValue( 100 );
+	ScaleTxtV = new QLabel("", advancedWidgets );
+	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
+	layout41a->addWidget( ScaleTxtV, 1, 2 );
+	layout41a->addWidget( ChScaleV, 1, 3 );
+
+	wordTrackingLabel = new QLabel( "Word Spacing", advancedWidgets );
+	layout41a->addWidget( wordTrackingLabel, 2, 0, 1, 4 );
+	wordTrackingHLayout = new QHBoxLayout;
+	wordTrackingHLayout->setSpacing( 3 );
+	wordTrackingHLayout->setMargin( 0 );
+	wordTrackingHLayout->setAlignment(Qt::AlignLeft);
+	minWordTrackingSpinBox = new ScrSpinBox( 1, 200, advancedWidgets, 0 );
+	minWordTrackingLabel = new QLabel( "Min:", advancedWidgets );
+	minWordTrackingLabel->setBuddy(minWordTrackingSpinBox);
+	wordTrackingHLayout->addWidget(minWordTrackingLabel);
+	wordTrackingHLayout->addWidget(minWordTrackingSpinBox);
+	normWordTrackingSpinBox = new ScrSpinBox( 1, 200, advancedWidgets, 0 );
+	normWordTrackingLabel = new QLabel( "Norm:", advancedWidgets );
+	normWordTrackingLabel->setBuddy(normWordTrackingSpinBox);
+	wordTrackingHLayout->addWidget(normWordTrackingLabel);
+	wordTrackingHLayout->addWidget(normWordTrackingSpinBox);
+	layout41a->addLayout(wordTrackingHLayout, 3, 0, 1, 4);
+
+	glyphExtensionLabel = new QLabel( "Glyph Extension", advancedWidgets );
+	layout41a->addWidget( glyphExtensionLabel, 4, 0, 1, 4 );
+	glyphExtensionHLayout = new QHBoxLayout;
+	glyphExtensionHLayout->setSpacing( 3 );
+	glyphExtensionHLayout->setMargin( 0 );
+	glyphExtensionHLayout->setAlignment(Qt::AlignLeft);
+	minGlyphExtSpinBox = new ScrSpinBox( 90, 110, advancedWidgets, 0 );
+	minGlyphExtensionLabel = new QLabel( "Min:", advancedWidgets );
+	minGlyphExtensionLabel->setBuddy(minGlyphExtSpinBox);
+	glyphExtensionHLayout->addWidget(minGlyphExtensionLabel);
+	glyphExtensionHLayout->addWidget(minGlyphExtSpinBox);
+	maxGlyphExtSpinBox = new ScrSpinBox( 90, 110, advancedWidgets, 0 );
+	maxGlyphExtensionLabel = new QLabel( "Max:", advancedWidgets );
+	maxGlyphExtensionLabel->setBuddy(maxGlyphExtSpinBox);
+	glyphExtensionHLayout->addWidget(maxGlyphExtensionLabel);
+	glyphExtensionHLayout->addWidget(maxGlyphExtSpinBox);
+	layout41a->addLayout(glyphExtensionHLayout, 5, 0, 1, 4);
+
+	advancedWidgetsItem = TextTree->addWidget( tr("Advanced Settings"), advancedWidgets);
+
+	//>>Advanced Settings
 
 	Distance2 = new QFrame();
 	Distance2->setFrameStyle(QFrame::Box | QFrame::Plain);
@@ -1546,7 +1591,14 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(setGroupTransparency(int)));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
 	connect(DoGroup, SIGNAL(clicked()), this, SLOT(doGrouping()) );
-	connect(optMarginCombo, SIGNAL(activated(int)), this, SLOT(setOpticalMargins(int)) );
+//	connect(optMarginCombo, SIGNAL(activated(int)), this, SLOT(setOpticalMargins(int)) );
+	connect(optMarginCheckLeftProtruding, SIGNAL(stateChanged(int)), this, SLOT(setOpticalMargins(int)) );
+	connect(optMarginCheckRightProtruding, SIGNAL(stateChanged(int)), this, SLOT(setOpticalMargins(int)) );
+	connect(optMarginCheckLeftHangPunct, SIGNAL(stateChanged(int)), this, SLOT(setOpticalMargins(int)) );
+	connect(optMarginCheckRightHangPunct, SIGNAL(stateChanged(int)), this, SLOT(setOpticalMargins(int)) );
+//	connect(optMarginResetButton, SIGNAL(activated(int)), this, SLOT(setOpticalMargins(int)) );
+
+
 	connect(minWordTrackingSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setMinWordTracking()) );
 	connect(normWordTrackingSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setNormWordTracking()) );
 	connect(minGlyphExtSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setMinGlyphExtension()) );
@@ -3049,7 +3101,13 @@ void PropertiesPalette::setOpticalMargins(int i)
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	doc->itemSelection_SetOpticalMargins(i==0 ? ParagraphStyle::OM_None : ParagraphStyle::OM_Default);
+	int omt(ParagraphStyle::OM_None);
+	if (optMarginCheckLeftProtruding->isChecked()) omt+=ParagraphStyle::OM_LeftProtruding;
+	if (optMarginCheckRightProtruding->isChecked()) omt+=ParagraphStyle::OM_RightProtruding;
+	if (optMarginCheckLeftHangPunct->isChecked()) omt+=ParagraphStyle::OM_LeftHangingPunct;
+	if (optMarginCheckRightHangPunct->isChecked()) omt+=ParagraphStyle::OM_RightHangingPunct;
+
+	doc->itemSelection_SetOpticalMargins(omt);
 }
 
 void PropertiesPalette::setMinWordTracking()
@@ -4913,17 +4971,21 @@ void PropertiesPalette::languageChange()
 	textFlowUsesImageClipping2->setText( tr("Use Image Clip Path"));
 	paraStyleLabel->setText( tr("Paragraph St&yle:"));
 	charStyleLabel->setText( tr("Character St&yle:"));
-	optMarginLabel->setText( tr("Optical Margins:"));
-	int c=optMarginCombo->currentIndex();
-	optMarginCombo->clear();
-	optMarginCombo->addItem( CommonStrings::trOpticalMarginsNone );
-//	Out for 1.3.4
-// 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsLeftProtruding );
-// 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsRightProtruding );
-// 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsLeftHangPunct );
-// 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsRightHangPunct );
-	optMarginCombo->addItem( CommonStrings::trOpticalMarginsDefault );
-	optMarginCombo->setCurrentIndex(c);
+//	int c=optMarginCombo->currentIndex();
+//	optMarginCombo->clear();
+//	optMarginCombo->addItem( CommonStrings::trOpticalMarginsNone );
+////	Out for 1.3.4
+//// 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsLeftProtruding );
+//// 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsRightProtruding );
+//// 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsLeftHangPunct );
+//// 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsRightHangPunct );
+//	optMarginCombo->addItem( CommonStrings::trOpticalMarginsDefault );
+//	optMarginCombo->setCurrentIndex(c);
+	optMarginCheckLeftProtruding->setText( tr("Left Protruding") );
+	optMarginCheckRightProtruding->setText( tr("Right Protruding") );
+	optMarginCheckLeftHangPunct->setText( tr("Left Hanging Punctuation") );
+	optMarginCheckRightHangPunct->setText( tr("Right Hanging Punctuation") );
+	optMarginResetButton->setText( tr("Reset") );
 	wordTrackingLabel->setText( tr("Word Tracking"));
 	minWordTrackingLabel->setText( tr("Min:"));
 	normWordTrackingLabel->setText( tr("Norm:"));
@@ -5214,7 +5276,7 @@ void PropertiesPalette::languageChange()
 	normWordTrackingSpinBox->setToolTip( tr("Normal width of spaces between words"));
 	minGlyphExtSpinBox->setToolTip( tr("Minimal shrinkage of glyphs for justification"));
 	maxGlyphExtSpinBox->setToolTip( tr("Maximal extension of glyphs for justification"));
-	optMarginCombo->setToolTip( tr("Uses hanging punctuation and margin kerning to achieve nicer looking columns"));
+//	optMarginCombo->setToolTip( tr("Uses hanging punctuation and margin kerning to achieve nicer looking columns"));
 
 	LineMode->setToolTip( tr("Change settings for left or end points"));
 	LStyle->setToolTip( tr("Pattern of line"));

@@ -493,7 +493,12 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->alignement_->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	connect(pwidget_->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	connect(pwidget_->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(pwidget_->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
+//	connect(pwidget_->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
+	connect(pwidget_->optMarginCheckLeftProtruding , SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
+	connect(pwidget_->optMarginCheckRightProtruding, SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
+	connect(pwidget_->optMarginCheckLeftHangPunct, SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
+	connect(pwidget_->optMarginCheckRightHangPunct, SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
+	connect(pwidget_, SIGNAL(useParentOptMargins()), this, SLOT(slotParentOpticalMargin()));
 	
 	connect(pwidget_->minSpaceSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinSpace()));
 	connect(pwidget_->minGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinGlyphExt()));
@@ -560,7 +565,11 @@ void SMParagraphStyle::removeConnections()
 	disconnect(pwidget_->alignement_->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	disconnect(pwidget_->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	disconnect(pwidget_->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(pwidget_->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
+//	disconnect(pwidget_->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
+	disconnect(pwidget_->optMarginCheckLeftProtruding , SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
+	disconnect(pwidget_->optMarginCheckRightProtruding, SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
+	disconnect(pwidget_->optMarginCheckLeftHangPunct, SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
+	disconnect(pwidget_->optMarginCheckRightHangPunct, SIGNAL(stateChanged(int)), this, SLOT(slotOpticalMarginSelector(int)));
 	
 	disconnect(pwidget_->minSpaceSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinSpace()));
 	disconnect(pwidget_->minGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinGlyphExt()));
@@ -713,14 +722,49 @@ void SMParagraphStyle::slotAlignment()
 
 void SMParagraphStyle::slotOpticalMargin(int i)
 {
-	ParagraphStyle::OpticalMarginType omt( static_cast<ParagraphStyle::OpticalMarginType>(pwidget_->optMarginCombo->itemData(i).toInt()));
-	if (pwidget_->optMarginCombo->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetOpticalMargins();
-	else 
+//	ParagraphStyle::OpticalMarginType omt( static_cast<ParagraphStyle::OpticalMarginType>(pwidget_->optMarginCombo->itemData(i).toInt()));
+//	if (pwidget_->optMarginCombo->useParentValue())
+//		for (int i = 0; i < selection_.count(); ++i)
+//			selection_[i]->resetOpticalMargins();
+//	else
+//		for (int i = 0; i < selection_.count(); ++i)
+//			selection_[i]->setOpticalMargins(omt);
+//
+//	if (!selectionIsDirty_)
+//	{
+//		selectionIsDirty_ = true;
+//		emit selectionDirty();
+//	}
+}
+
+void SMParagraphStyle::slotOpticalMarginSelector(int i)
+{
+	int omt(ParagraphStyle::OM_None);
+	if (false)//(pwidget_->optMarginCombo->useParentValue())
+	{
+	}
+	else
+	{
+		if (pwidget_->optMarginCheckLeftProtruding->isChecked()) omt+=ParagraphStyle::OM_LeftProtruding;
+		if (pwidget_->optMarginCheckRightProtruding->isChecked()) omt+=ParagraphStyle::OM_RightProtruding;
+		if (pwidget_->optMarginCheckLeftHangPunct->isChecked()) omt+=ParagraphStyle::OM_LeftHangingPunct;
+		if (pwidget_->optMarginCheckRightHangPunct->isChecked()) omt+=ParagraphStyle::OM_RightHangingPunct;
+
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->setOpticalMargins(omt);
-	
+	}
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotParentOpticalMargin()
+{
+	for (int i = 0; i < selection_.count(); ++i)
+		selection_[i]->resetOpticalMargins();
+
 	if (!selectionIsDirty_)
 	{
 		selectionIsDirty_ = true;

@@ -48,6 +48,7 @@ private:
 	void showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex);
 	void showCStyle(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
 	void showParent(QList<ParagraphStyle*> &pstyles);
+	void setOpticalMargins(int o, bool inhO=false, const ParagraphStyle *parent=NULL);
 
 	friend class SMParagraphStyle;
 
@@ -55,9 +56,14 @@ private slots:
 	void slotLineSpacingModeChanged(int);
 	void slotDropCap(bool isOn);
 	void slotParentDropCap();
+	void slotDefaultOpticalMargins();
+	void slotParentOpticalMargins();
+//	void slotUpdateOpticalMarginsFromCheckBoxes(int);
+
 
 signals:
 	void useParentDropCap();
+	void useParentOptMargins();
 };
 
 #endif

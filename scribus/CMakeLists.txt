@@ -237,6 +237,7 @@ SET(SCRIBUS_MOC_CLASSES
   shadebutton.h
   shortcutwidget.h
   smalignselect.h
+  smcheckbox.h
   smcolorcombo.h
   smcstylewidget.h
   smfontcomboh.h
@@ -547,6 +548,7 @@ SET(SCRIBUS_SOURCES
   shadebutton.cpp
   shortcutwidget.cpp
   smalignselect.cpp
+  smcheckbox.cpp
   smcolorcombo.cpp
   smcstylewidget.cpp
   smfontcomboh.cpp

@@ -39,18 +39,21 @@ SMPStyleWidget::SMPStyleWidget() : QWidget()
 	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
 
-	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
-	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
-	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
-	optMarginCombo->addItem(tr("Left Hanging Punctuation"), ParagraphStyle::OM_LeftHangingPunct);
-	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
-	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
+//	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
+//	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
+//	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
+//	optMarginCombo->addItem(tr("Left Hanging Punctuation"), ParagraphStyle::OM_LeftHangingPunct);
+//	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
+//	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
 
 	dropCapOffset_->setSuffix(unitGetSuffixFromIndex(0));
 	
 	minSpaceSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
 	minGlyphExtSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
 	maxGlyphExtSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
+
+	connect(optMarginDefaultButton, SIGNAL(clicked()), this, SLOT(slotDefaultOpticalMargins()));
+
 }
 
 void SMPStyleWidget::slotLineSpacingModeChanged(int i)
@@ -83,8 +86,8 @@ void SMPStyleWidget::languageChange()
 	lineSpacingLabel->setToolTip(lineSpacing_->toolTip());
 	spaceAboveLabel->setToolTip(spaceAbove_->toolTip());
 	spaceBelowLabel->setToolTip(spaceBelow_->toolTip());
-	optMarginCombo->setToolTip(tr("Activate an optical margins layout"));
-	optMarginLabel->setToolTip(optMarginCombo->toolTip());
+//	optMarginCombo->setToolTip(tr("Activate an optical margins layout"));
+//	optMarginLabel->setToolTip(optMarginCombo->toolTip());
 	//CB Unneeded, gets in the way of single widget tooltips
 	//dropCapsBox->setToolTip(      tr("Enable or disable drop cap"));
 	dropCapLines_->setToolTip(    tr("Drop Cap Lines"));
@@ -111,17 +114,17 @@ void SMPStyleWidget::languageChange()
 	lineSpacingMode_->clear();
 	lineSpacingMode_->addItem( tr("Fixed Linespacing"));
 	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
-        lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
+	lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
 	
-	optMarginCombo->clear();
-	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
-	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
-	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
-	optMarginCombo->addItem(tr("Left Hanging Punctuation"), ParagraphStyle::OM_LeftHangingPunct);
-	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
-	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
-	
-	optMarginLabel->setText(tr("Optical Margins:"));
+//	optMarginCombo->clear();
+//	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
+//	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
+//	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
+//	optMarginCombo->addItem(tr("Left Hanging Punctuation"), ParagraphStyle::OM_LeftHangingPunct);
+//	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
+//	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
+//
+//	optMarginLabel->setText(tr("Optical Margins:"));
 	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
@@ -157,13 +160,13 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
 	lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
 	
-	optMarginCombo->clear();
-	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
-	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
-	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
-	optMarginCombo->addItem(tr("Left Hanging Punctuation"), ParagraphStyle::OM_LeftHangingPunct);
-	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
-	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
+//	optMarginCombo->clear();
+//	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
+//	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
+//	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
+//	optMarginCombo->addItem(tr("Left Hanging Punctuation"), ParagraphStyle::OM_LeftHangingPunct);
+//	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
+//	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
 	
 	// One could think it’s too much (aesthetic) or not enough (freedom)!
 	minSpaceSpin->setRange(1.0,100.0);
@@ -176,8 +179,10 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		lineSpacingMode_->setCurrentItem(pstyle->lineSpacingMode(), pstyle->isInhLineSpacingMode());
 		lineSpacingMode_->setParentItem(parent->lineSpacingMode());
 		
-		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins(),  pstyle->isInhOpticalMargins() );
-		optMarginCombo->setParentItem(optMarginCombo->getItemIndexForData( parent->opticalMargins()));
+//		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins(),  pstyle->isInhOpticalMargins() );
+//		optMarginCombo->setParentItem(optMarginCombo->getItemIndexForData( parent->opticalMargins()));
+		setOpticalMargins(pstyle->opticalMargins(), pstyle->isInhOpticalMargins(), parent);
+		connect(optMarginParentButton, SIGNAL(clicked()), this, SLOT(slotParentOpticalMargins()));
 		
 		minSpaceSpin->setValue(pstyle->minWordTracking() * 100.0,  pstyle->isInhMinWordTracking());
 		minSpaceSpin->setParentValue(parent->minWordTracking());
@@ -238,7 +243,9 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		lineSpacing_->setValue(pstyle->lineSpacing());
 		spaceAbove_->setValue(pstyle->gapBefore());
 		spaceBelow_->setValue(pstyle->gapAfter());
-		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins() );
+//		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins() );
+		setOpticalMargins(pstyle->opticalMargins());
+		optMarginParentButton->hide();
 		minSpaceSpin->setValue(pstyle->minWordTracking() * 100.0);
 		minGlyphExtSpin->setValue(pstyle->minGlyphExtension() * 100.0);
 		maxGlyphExtSpin->setValue(pstyle->maxGlyphExtension() * 100.0);
@@ -487,25 +494,26 @@ void SMPStyleWidget::showOpticalMargin(QList< ParagraphStyle * > & pstyles)
 		return;
 	}
 	
-	optMarginCombo->clear();
-	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
-	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
-	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
-	optMarginCombo->addItem(tr("Left Hanging Punctuation"), ParagraphStyle::OM_LeftHangingPunct);
-	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
-	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
-	
-	// the static cast should not be required if opticalMargins() would return OpticalMarginType. Why it does not? mystery
-	ParagraphStyle::OpticalMarginType o( static_cast<ParagraphStyle::OpticalMarginType>(pstyles[0]->opticalMargins()) );
-	for (int i = 0; i < pstyles.count(); ++i)
-	{
-		if (o != pstyles[i]->opticalMargins())
-		{
-			optMarginCombo->setCurrentItem(0);
-			return;
-		}
-	}
-	optMarginCombo->setCurrentItemByData(o);
+//	optMarginCombo->clear();
+//	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
+//	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
+//	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
+//	optMarginCombo->addItem(tr("Left Hanging Punctuation"), ParagraphStyle::OM_LeftHangingPunct);
+//	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
+//	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
+//
+//	// the static cast should not be required if opticalMargins() would return OpticalMarginType. Why it does not? mystery
+//	ParagraphStyle::OpticalMarginType o( static_cast<ParagraphStyle::OpticalMarginType>(pstyles[0]->opticalMargins()) );
+//	for (int i = 0; i < pstyles.count(); ++i)
+//	{
+//		if (o != pstyles[i]->opticalMargins())
+//		{
+//			optMarginCombo->setCurrentItem(0);
+//			return;
+//		}
+//	}
+//	optMarginCombo->setCurrentItemByData(o);
+	setOpticalMargins(pstyles[0]->opticalMargins());
 }
 
 void SMPStyleWidget::showMinSpace(QList< ParagraphStyle * > & pstyles)
@@ -680,6 +688,75 @@ void SMPStyleWidget::showParent(QList<ParagraphStyle*> &pstyles)
 // 	}
 // 	else
 // 		parentCombo->setCurrentItem(0);
+}
+
+void SMPStyleWidget::setOpticalMargins(int o, bool inhO, const ParagraphStyle *parent)
+{
+	ParagraphStyle::OpticalMarginType om( static_cast<ParagraphStyle::OpticalMarginType>(o) );
+
+	if (parent==NULL)
+	{
+		optMarginCheckLeftProtruding->setChecked(om & ParagraphStyle::OM_LeftProtruding);
+		optMarginCheckRightProtruding->setChecked(om & ParagraphStyle::OM_RightProtruding);
+		optMarginCheckLeftHangPunct->setChecked(om & ParagraphStyle::OM_LeftHangingPunct);
+		optMarginCheckRightHangPunct->setChecked(om & ParagraphStyle::OM_RightHangingPunct);
+	}
+	else
+	{
+		optMarginParentButton->setShown(!inhO);
+
+		optMarginCheckLeftProtruding->setChecked(om & ParagraphStyle::OM_LeftProtruding, (om & ParagraphStyle::OM_LeftProtruding)==(parent->opticalMargins() & ParagraphStyle::OM_LeftProtruding));
+		optMarginCheckRightProtruding->setChecked(om & ParagraphStyle::OM_RightProtruding, (om & ParagraphStyle::OM_RightProtruding)==(parent->opticalMargins() & ParagraphStyle::OM_RightProtruding));
+		optMarginCheckLeftHangPunct->setChecked(om & ParagraphStyle::OM_LeftHangingPunct, (om & ParagraphStyle::OM_LeftHangingPunct)==(parent->opticalMargins() & ParagraphStyle::OM_LeftHangingPunct));
+		optMarginCheckRightHangPunct->setChecked(om & ParagraphStyle::OM_RightHangingPunct, (om & ParagraphStyle::OM_RightHangingPunct)==(parent->opticalMargins() & ParagraphStyle::OM_RightHangingPunct));
+
+		optMarginCheckLeftProtruding->setParentValue(parent->opticalMargins() & ParagraphStyle::OM_LeftProtruding);
+		optMarginCheckRightProtruding->setParentValue(parent->opticalMargins() & ParagraphStyle::OM_RightProtruding);
+		optMarginCheckLeftHangPunct->setParentValue(parent->opticalMargins() & ParagraphStyle::OM_LeftHangingPunct);
+		optMarginCheckRightHangPunct->setParentValue(parent->opticalMargins() & ParagraphStyle::OM_RightHangingPunct);
+//		optMarginCheckLeftProtruding->setFont(false);
+//		optMarginCheckRightProtruding->setFont(false);
+//		optMarginCheckLeftHangPunct->setFont(false);
+//		optMarginCheckRightHangPunct->setFont(false);
+//
+//		if ((om & ParagraphStyle::OM_LeftProtruding)!=(parent->opticalMargins() & ParagraphStyle::OM_LeftProtruding))
+//		{
+//			optMarginCheckLeftProtruding->setFont(true);
+//		}
+//		if ((om & ParagraphStyle::OM_RightProtruding)!=(parent->opticalMargins() & ParagraphStyle::OM_RightProtruding))
+//		{
+//			optMarginCheckRightProtruding->setFont(true);
+//		}
+//		if ((om & ParagraphStyle::OM_LeftHangingPunct)!=(parent->opticalMargins() & ParagraphStyle::OM_LeftHangingPunct))
+//		{
+//			optMarginCheckLeftHangPunct->setFont(true);
+//		}
+//		if ((om & ParagraphStyle::OM_RightHangingPunct)!=(parent->opticalMargins() & ParagraphStyle::OM_LeftProtruding))
+//		{
+//			optMarginCheckRightHangPunct->setFont(true);
+//		}
+	}
+}
+
+void SMPStyleWidget::slotDefaultOpticalMargins()
+{
+	optMarginCheckLeftProtruding->setChecked(false);
+	optMarginCheckRightProtruding->setChecked(true);
+	optMarginCheckLeftHangPunct->setChecked(true);
+	optMarginCheckRightHangPunct->setChecked(true);
+	if (hasParent_)
+		optMarginParentButton->show();
+}
+
+void SMPStyleWidget::slotParentOpticalMargins()
+{
+	disconnect(optMarginParentButton, SIGNAL(clicked()), this, SLOT(slotParentOpticalMargins()));
+//	disconnect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
+	optMarginParentButton->hide();
+//	dropCapsBox->setChecked(parentDropCap_);
+	emit useParentOptMargins();
+	connect(optMarginParentButton, SIGNAL(clicked()), this, SLOT(slotParentOpticalMargins()));
+//	connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 }
 
 void SMPStyleWidget::clearAll()
