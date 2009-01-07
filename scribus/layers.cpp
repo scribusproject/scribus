@@ -152,7 +152,7 @@ void LayerPalette::ClearInhalt()
 {
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
-	disconnect(Table, SIGNAL(cellActivated(int, int)), this, SLOT(setActiveLayer(int)));
+	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
 	disconnect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
 	Table->clearContents();
 	Table->setRowCount(0);
@@ -168,7 +168,7 @@ void LayerPalette::setDoc(ScribusDoc* doc)
 	m_Doc=doc;
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
-	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int)));
+	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
 	disconnect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
 	if (!m_Doc)
 	{
@@ -188,7 +188,7 @@ void LayerPalette::setDoc(ScribusDoc* doc)
 	duplicateLayerButton->setEnabled(true);
 
 	connect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
-	connect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int)));
+	connect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 }
@@ -197,7 +197,7 @@ void LayerPalette::rebuildList()
 {
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
-	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int)));
+	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
 	disconnect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
 	QString tmp;
 	ScLayers::iterator it;
@@ -247,7 +247,7 @@ void LayerPalette::rebuildList()
 		Table->setItem(row, 6, new QTableWidgetItem(m_Doc->layerName(layerNumber)));
 	}
 	connect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
-	connect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int)));
+	connect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 }
@@ -354,7 +354,7 @@ void LayerPalette::visibleLayer()
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
 		m_Doc->setLayerVisible(layerNumber,((QCheckBox*)(senderBox))->isChecked());
-		setActiveLayer(Table->currentRow());
+		setActiveLayer(Table->currentRow(), -1);
 		emit LayerChanged();
 	}
 }
@@ -369,7 +369,7 @@ void LayerPalette::printLayer()
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
 		m_Doc->setLayerPrintable(layerNumber,((QCheckBox*)(senderBox))->isChecked());
-		setActiveLayer(Table->currentRow());
+		setActiveLayer(Table->currentRow(), -1);
 	}
 }
 
@@ -384,7 +384,7 @@ void LayerPalette::lockLayer()
 	{
 		m_Doc->setLayerLocked(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 		deleteLayerButton->setEnabled(!((QCheckBox*)(senderBox))->isChecked());
-		setActiveLayer(Table->currentRow());
+		setActiveLayer(Table->currentRow(), -1);
 	}
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 }
@@ -397,8 +397,10 @@ void LayerPalette::flowToggleLayer()
 		return;
 	const QObject* senderBox=sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
+	{
 		m_Doc->setLayerFlow(layerNumber,((QCheckBox*)(senderBox))->isChecked());
-		setActiveLayer(Table->currentRow());
+		setActiveLayer(Table->currentRow(), -1);
+	}
 }
 
 void LayerPalette::outlineToggleLayer()
@@ -412,7 +414,7 @@ void LayerPalette::outlineToggleLayer()
 	{
 		m_Doc->setLayerOutline(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 		emit LayerChanged();
-		setActiveLayer(Table->currentRow());
+		setActiveLayer(Table->currentRow(), -1);
 	}
 }
 
@@ -474,7 +476,7 @@ void LayerPalette::markLayer()
 			m_Doc->setLayerMarker(layerNumber,neu);
 			emit LayerChanged();
 		}
-		setActiveLayer(Table->currentRow());
+		setActiveLayer(Table->currentRow(), -1);
 	}
 }
 
@@ -494,7 +496,7 @@ void LayerPalette::markActiveLayer(int layerNumber)
 {
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
-	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int)));
+	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
 	int layerToMark=layerNumber;
 	if (layerNumber==-1)
 		layerToMark=m_Doc->activeLayer();
@@ -513,13 +515,18 @@ void LayerPalette::markActiveLayer(int layerNumber)
 		raiseLayerButton->setEnabled(false);
 		lowerLayerButton->setEnabled(false);
 	}
-	connect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int)));
+	connect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 }
 
-void LayerPalette::setActiveLayer(int row)
+void LayerPalette::setActiveLayer(int row, int col)
 {
+	if (col != 6)
+	{
+		markActiveLayer(-1);
+		return;
+	}
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	int layerNumber=m_Doc->layerNumberFromLevel(m_Doc->layerCount()-1-row);
