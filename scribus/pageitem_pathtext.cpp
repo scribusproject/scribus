@@ -348,6 +348,7 @@ bool PageItem_PathText::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGrou
 	return true;
 }
 
+/*
 bool PageItem_PathText::createContextMenu(QMenu *menu, int step)
 {
 	QMap<QString, QPointer<ScrAction> > actions = doc()->scMW()->scrActions;
@@ -367,6 +368,7 @@ bool PageItem_PathText::createContextMenu(QMenu *menu, int step)
 	}
 	return true;
 }
+*/
 
 void PageItem_PathText::applicableActions(QStringList & actionList)
 {

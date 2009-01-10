@@ -57,6 +57,7 @@ void PageItem_Polygon::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 	}
 }
 
+/*
 bool PageItem_Polygon::createContextMenu(QMenu *menu, int step)
 {
 	QMap<QString, QPointer<ScrAction> > actions = doc()->scMW()->scrActions;
@@ -74,6 +75,7 @@ bool PageItem_Polygon::createContextMenu(QMenu *menu, int step)
 	}
 	return true;
 }
+*/
 
 void PageItem_Polygon::applicableActions(QStringList & actionList)
 {

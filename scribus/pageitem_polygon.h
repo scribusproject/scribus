@@ -41,7 +41,7 @@ public:
 	~PageItem_Polygon() {};
 
 	virtual PageItem_Polygon * asPolygon() { return this; }
-	virtual bool createContextMenu(QMenu *, int);
+//	virtual bool createContextMenu(QMenu *, int);
 	virtual void applicableActions(QStringList& actionList);
 	virtual QString infoDescription();
 	

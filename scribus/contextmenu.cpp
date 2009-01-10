@@ -132,7 +132,7 @@ void ContextMenu::createMenuItems_Selection()
 			menuInfo->addAction(MenAct);
 	
 	// Qt4				menuInfo->insertItem(infoGroup);
-			currItem->createContextMenu(menuInfo, 5);
+//			currItem->createContextMenu(menuInfo, 5);
 			QAction *act = addMenu(menuInfo);
 			act->setText( ScribusView::tr("In&fo"));
 		} else	{

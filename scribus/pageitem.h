@@ -244,7 +244,7 @@ public:
 	void setObjectAttributes(ObjAttrVector*);
 	
 	virtual bool createInfoGroup(QFrame *, QGridLayout *) {return false;}
-	virtual bool createContextMenu(QMenu *, int step) {return false;}
+//	virtual bool createContextMenu(QMenu *, int step) {return false;}
 	
   /** Zeichnet das Item */
 	void paintObj(QPainter *p);

@@ -3457,6 +3457,7 @@ bool PageItem_TextFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGro
 	return true;
 }
 
+/*
 bool PageItem_TextFrame::createContextMenu(QMenu *menu, int step)
 {
 	static QMenu *menuPDF = 0;
@@ -3518,6 +3519,7 @@ bool PageItem_TextFrame::createContextMenu(QMenu *menu, int step)
 	}
 	return true;
 }
+*/
 
 void PageItem_TextFrame::applicableActions(QStringList & actionList)
 {

@@ -347,7 +347,7 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 	return true;
 }
 
-
+/*
 bool PageItem_ImageFrame::createContextMenu(QMenu *menu, int step)
 {
 	QMap<QString, QPointer<ScrAction> > actions = doc()->scMW()->scrActions;
@@ -420,6 +420,7 @@ bool PageItem_ImageFrame::createContextMenu(QMenu *menu, int step)
 	}
 	return true;
 }
+*/
 
 void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 {
