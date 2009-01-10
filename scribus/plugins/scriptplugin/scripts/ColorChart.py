@@ -302,7 +302,7 @@ def createChart():
 def main(argv):
     """just invokes createChart() and displays a message after the chart is finished."""
     createChart()
-    scribus.messageBox("ColorChart Script by Sebastian Stetter", "Your chart has been created, but not saved, yet!\nThank's for using ColorChart and Scribus!")
+	scribus.messageBox("ColorChart Script by Sebastian Stetter", "Your chart has been created, but not saved, yet!\nThanks for using ColorChart and Scribus!")
 
     
 
