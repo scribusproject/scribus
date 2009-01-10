@@ -235,7 +235,7 @@ void PatternDialog::loadPattern()
 	allFormats += "*.sml *.SML ";
 	formats += "Scribus Objects (*.sce *.SCE);;";
 	formats += "Dia Shapes (*.shape *.SHAPE);;";
-	formats += "Kivio Stencils (*.sml *.SML)";
+	formats += "Kivio Stencils (*.sml *.SML);;";
 	QString form1 = "";
 	QString form2 = "";
 	QStringList imgFormats;
