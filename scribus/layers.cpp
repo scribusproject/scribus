@@ -593,11 +593,11 @@ void LayerPalette::languageChange()
 	lowerLayerButton->setToolTip("");
 	blendMode->setToolTip("");
 	opacitySpinBox->setToolTip("");
-	newLayerButton->setToolTip( tr( "Add a new layer" ) );
-	duplicateLayerButton->setToolTip( tr( "Duplicates the current layer" ) );
-	deleteLayerButton->setToolTip( tr( "Delete layer" ) );
-	raiseLayerButton->setToolTip( tr( "Raise layer" ) );
-	lowerLayerButton->setToolTip( tr( "Lower layer" ) );
+	newLayerButton->setToolTip( tr( "Add a New Layer" ) );
+	duplicateLayerButton->setToolTip( tr( "Duplicate the Current Layer" ) );
+	deleteLayerButton->setToolTip( tr( "Delete Layer" ) );
+	raiseLayerButton->setToolTip( tr( "Raise Layer" ) );
+	lowerLayerButton->setToolTip( tr( "Lower Layer" ) );
 	blendMode->setToolTip( tr("Selects the Blendmode, works only in PDF 1.4"));
 	opacitySpinBox->setToolTip( tr("Layer Transparency, works only in PDF 1.4 and SVG"));
 	Table->horizontalHeaderItem(0)->setToolTip("<qt>" + tr("Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. ") + "</qt>");
@@ -606,7 +606,7 @@ void LayerPalette::languageChange()
 	Table->horizontalHeaderItem(3)->setToolTip("<qt>" + tr("Lock or Unlock Layer - Unchecked is unlocked ") + "</qt>" );
 	Table->horizontalHeaderItem(4)->setToolTip("<qt>" + tr("Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below") + "</qt>" );
 	Table->horizontalHeaderItem(5)->setToolTip("<qt>" + tr("Outline Mode - Toggles the 'wireframe' display of objects to speed the display of very complex objects.") + "</qt>" ) ;
-	Table->horizontalHeaderItem(6)->setToolTip("<qt>" + tr("Name of the Layer - Double clicking on the name of a layer enabled editing") + "</qt>" );
+	Table->horizontalHeaderItem(6)->setToolTip("<qt>" + tr("Name of the Layer - Double click on the name of a layer to edit the name") + "</qt>" );
 }
 
 

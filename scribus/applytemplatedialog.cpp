@@ -266,16 +266,16 @@ void ApplyMasterPageDialog::languageChange()
 {
 	setWindowTitle( tr( "Apply Master Page" ) );
 	masterPageLabel->setText( tr( "&Master Page:" ) );
-	applyToPageButtonGroup->setTitle( tr( "Apply To" ) );
-	currentPageRadioButton->setText( tr( "Current &page" ) );
+	applyToPageButtonGroup->setTitle( tr( "Apply to" ) );
+	currentPageRadioButton->setText( tr( "Current &Page" ) );
 	currentPageRadioButton->setShortcut( QKeySequence( tr( "Alt+P" ) ) );
-	evenPagesRadioButton->setText( tr( "&Even pages" ) );
+	evenPagesRadioButton->setText( tr( "&Even Pages" ) );
 	evenPagesRadioButton->setShortcut( QKeySequence( tr( "Alt+E" ) ) );
-	oddPagesRadioButton->setText( tr( "O&dd pages" ) );
+	oddPagesRadioButton->setText( tr( "O&dd Pages" ) );
 	oddPagesRadioButton->setShortcut( QKeySequence( tr( "Alt+D" ) ) );
-	allPagesRadioButton->setText( tr( "&All pages" ) );
+	allPagesRadioButton->setText( tr( "&All Pages" ) );
 	allPagesRadioButton->setShortcut( QKeySequence( tr( "Alt+A" ) ) );
-	useRangeCheckBox->setText( tr( "&Within range" ) );
+	useRangeCheckBox->setText( tr( "&Within Range" ) );
 	useRangeCheckBox->setShortcut( QKeySequence( tr( "Alt+W" ) ) );
 	useRangeCheckBox->setToolTip( "<qt>" + tr( "Apply the selected master page to even, odd or all pages within the following range") + "</qt>" );
 	toPageLabel->setText( tr( "to" ) );

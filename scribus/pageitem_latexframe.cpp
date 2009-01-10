@@ -532,6 +532,7 @@ void PageItem_LatexFrame::layout()
 
 void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 {
+	actionList << "itemImageIsVisible";
 	actionList << "itemPreviewFull";
 	actionList << "itemPreviewLow";
 	actionList << "itemPreviewNormal";

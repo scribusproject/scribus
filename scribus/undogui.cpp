@@ -306,7 +306,7 @@ void UndoPalette::changeEvent(QEvent *e)
 void UndoPalette::languageChange()
 {
 	setWindowTitle( tr("Action History"));
-	objectBox->setText( tr("Show selected object only"));
+	objectBox->setText( tr("Show Selected Object Only"));
 	undoButton->setText( tr("&Undo"));
 	redoButton->setText( tr("&Redo"));
 	

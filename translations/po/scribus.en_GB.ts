@@ -10756,7 +10756,7 @@ Please give it a name</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="54"/>
         <source>Result Colors</source>
-        <translation>Result Colors</translation>
+        <translation>Result Colours</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="311"/>
@@ -18503,7 +18503,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/preview.cpp" line="331"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation>Allows you to embed color profiles in the print stream when color management is enabled</translation>
+        <translation>Allows you to embed colour profiles in the print stream when colour management is enabled</translation>
     </message>
     <message>
         <location filename="../../scribus/preview.cpp" line="242"/>
@@ -22405,7 +22405,7 @@ Corners:</translation>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4995"/>
         <source>Color &amp; Effects</source>
-        <translation>Color &amp; Effects</translation>
+        <translation>Colour &amp; Effects</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4996"/>
@@ -28058,7 +28058,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="422"/>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
-        <translation>CMS is active. Therefore the color display may not match the perception by visually impaired</translation>
+        <translation>CMS is active. Therefore the colour display may not match the perception by visually impaired</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_legacy.cpp" line="2847"/>

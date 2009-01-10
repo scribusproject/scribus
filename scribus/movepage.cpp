@@ -55,7 +55,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	}
 	else
 	{
-		numberOfCopiesLabel = new QLabel( tr("Number of copies:"), this );
+		numberOfCopiesLabel = new QLabel( tr("Number of Copies:"), this );
 		numberOfCopiesData = new QSpinBox(this );
 		numberOfCopiesData->setMinimum(1);
 		numberOfCopiesData->setMaximum(999);

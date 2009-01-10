@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>410</width>
-    <height>364</height>
+    <height>368</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -415,7 +415,7 @@ The result is a combination of "Intersection" and "Exclusion"</string>
      <item>
       <widget class="QGroupBox" name="optionGroup" >
        <property name="title" >
-        <string>Result takes color from:</string>
+        <string>Result Takes Color from:</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_2" >
         <item row="0" column="0" >

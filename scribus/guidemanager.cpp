@@ -238,8 +238,8 @@ void GuideManager::languageChange()
 	textLabel1_2->setText( tr("Nu&mber:") );
 	horizontalAutoGapCheck->setText( tr("U&se Gap:") );
 	verticalAutoGapCheck->setText( tr("Use &Gap:") );
-	groupBox->setTitle( tr("Refer To") );
-	groupBox_2->setTitle( tr("Refer To") );
+	groupBox->setTitle( tr("Refer to") );
+	groupBox_2->setTitle( tr("Refer to") );
 	horizontalPageAutoButton->setText( tr("&Page") );
 	horizontalMarginsAutoButton->setText( tr("M&argins") );
 	horizontalSelectionAutoButton->setText( tr("S&election") );
