@@ -68,16 +68,16 @@
 CanvasMode_Normal::CanvasMode_Normal(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	GxM = GyM = -1;
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
 	MoveGX = MoveGY = false;
-	oldCp = Cp = -1;
 	frameResizeHandle = -1;
 	shiftSelItems = false;
-	FirstPoly = true;
 	resizeGesture = NULL;
 	lineMoveGesture = NULL;
 	guideMoveGesture = NULL;
+	m_mousePressPoint.setXY(0, 0);
+	m_mouseCurrentPoint.setXY(0, 0);
+	m_mouseSavedPoint.setXY(0, 0);
+	m_objectDeltaPos.setXY(0,0 );
 }
 
 inline bool CanvasMode_Normal::GetItem(PageItem** pi)
@@ -91,7 +91,7 @@ void CanvasMode_Normal::drawControls(QPainter* p)
 //	qDebug() << "CanvasMode_Normal::drawControls";
 	if (m_canvas->m_viewMode.operItemMoving)
 	{
-		drawOutline(p);
+		drawOutline(p, 1.0, 1.0, m_objectDeltaPos.x(), m_objectDeltaPos.y());
 	}
 	else
 	{
@@ -126,14 +126,14 @@ void CanvasMode_Normal::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
+	m_mousePressPoint.setXY(0, 0);
+	m_mouseCurrentPoint.setXY(0, 0);
+	m_mouseSavedPoint.setXY(0, 0);
+	m_objectDeltaPos.setXY(0,0 );
 	GxM = GyM = -1;
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
 	MoveGX = MoveGY = false;
-	oldCp = Cp = -1;
 	frameResizeHandle = -1;
 	shiftSelItems = false;
-	FirstPoly = true;
 	setModeCursor();
 	if (fromGesture)
 	{
@@ -244,12 +244,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	
 	m_lastPosWasOverGuide = false;
 	double newX, newY;
-	double nx, ny;
 	PageItem *currItem;
-	QPoint np, np2, mop;
-	FPoint npf, npf2;
-	QPainter p;
-	QRect tx;
 	bool erf = false;
 	m->accept();
 //	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
@@ -263,15 +258,13 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modePanning))
 	{
 		double sc = m_canvas->scale();
-		int scroX = qRound((mousePointDoc.x() - Mxp) * sc);
-		int scroY = qRound((mousePointDoc.y() - Myp) * sc);
+		int scroX = qRound((mousePointDoc.x() - m_mouseCurrentPoint.x()) * sc);
+		int scroY = qRound((mousePointDoc.y() - m_mouseCurrentPoint.y()) * sc);
 		m_view->scrollBy(-scroX, -scroY);
-//		Mxp = static_cast<int>((m->x()-scroX)/sc);
-//		Myp = static_cast<int>((m->y()-scroY)/sc);
-		Mxp = mousePointDoc.x();
-		Myp = mousePointDoc.y();
+		m_mouseCurrentPoint = mousePointDoc;
 		return;
 	}
+	m_mouseCurrentPoint = mousePointDoc;
 	if ((m_doc->guidesSettings.guidesShown) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) )
 	{
 		if( ((m_doc->guidesSettings.before) && (m_canvas->itemUnderCursor(m->globalPos()))) == false )
@@ -314,7 +307,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		{
 			// start drag
 			m_view->stopDragTimer();
-			if ((fabs(Dxp - newX) > 10) || (fabs(Dyp - newY) > 10))
+			if ((fabs(m_mousePressPoint.x() - newX) > 10) || (fabs(m_mousePressPoint.y() - newY) > 10))
 			{
 				m_canvas->setRenderMode(Canvas::RENDER_NORMAL);
 				m_view->resetDragTimer();
@@ -325,9 +318,10 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				for (int dre=0; dre<m_doc->m_Selection->count(); ++dre)
 					m_doc->DragElements.append(m_doc->m_Selection->itemAt(dre)->ItemNr);
 				ScriXmlDoc *ss = new ScriXmlDoc();
-				//Q_3DragObject *dr = new Q_3TextDrag(ss->WriteElem(Doc, this, m_doc->m_Selection), this);
 				ScElemMimeData* md = new ScElemMimeData();
 				md->setScribusElem(ss->WriteElem(m_doc, m_view, m_doc->m_Selection));
+				delete ss;
+				ss = NULL;
 				QDrag* dr = new QDrag(m_view);
 				dr->setMimeData(md);
 				const QPixmap& pm = loadIcon("DragPix.xpm");
@@ -335,19 +329,6 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				dr->setDragCursor(pm, Qt::MoveAction);
 				dr->setDragCursor(pm, Qt::LinkAction);
 				dr->exec();
-//				QImage drImg = currItem->DrawObj_toImage();
-//				QPixmap pm;
-//				pm.convertFromImage(drImg);
-//				dr->setPixmap(pm);
-//				dr->setPixmap(loadIcon("DragPix.xpm"));
-//				dr->drag();
-//				if (!dr->drag())
-//					qDebug("ScribusView::contentsMouseMoveEvent: couldn't start drag operation!");
-/* commented out the code above as the debug message is incorrect,
-   see the Qt Reference: "The function returns TRUE if the caller should delete the original copy
-    of the dragged data (but see target()); otherwise returns FALSE." */
-				delete ss;
-				ss=NULL;
 				m_doc->DragP = false;
 				m_doc->leaveDrag = false;
 				m_canvas->m_viewMode.m_MouseButtonPressed = false;
@@ -366,255 +347,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			((m_doc->appMode == modeNormal)) && (!currItem->locked()))
 		{
 			m_view->stopDragTimer();
-			if (m_canvas->m_viewMode.operItemResizing)
-			{
-//				newX = static_cast<int>(m->x()/sc);
-//				newY = static_cast<int>(m->y()/sc);
-				m_canvas->m_viewMode.operItemMoving = false;
-				if (m_doc->m_Selection->isMultipleSelection())
-				{
-// 					qDebug()<<"Resizing multiple selection"<<frameResizeHandle;
-//					newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-//					newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-					double gx, gy, gh, gw;
-					m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-					const double sc=1;
-					int ox1 = qRound(gx*sc);
-					int oy1 = qRound(gy*sc);
-					int ox2 = qRound((gx+gw)*sc);
-					int oy2 = qRound((gy+gh)*sc);
-					FPoint np2 = FPoint(newX, newY);
-					np2 = m_doc->ApplyGridF(mousePointDoc);
-					double nx = np2.x();
-					double ny = np2.y();
-					m_doc->ApplyGuides(&nx, &ny);
-					np2 = FPoint(qRound(nx*sc), qRound(ny*sc));
-					QMatrix pm;
-					switch (frameResizeHandle)
-					{
-					case Canvas::SOUTHEAST:
-						if (m->modifiers() & Qt::ControlModifier)
-							np2 = FPoint(qRound(newX), qRound(gy+(gh * ((newX-gx) / gw))));
-						else
-							np2 = FPoint(qRound(newX), qRound(newY));
-						np2 = m_doc->ApplyGridF(np2);
-						nx = np2.x();
-						ny = np2.y();
-						m_doc->ApplyGuides(&nx, &ny);
-						np2 = FPoint(qRound(nx*sc), qRound(ny*sc));
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(gx*sc), qRound(gy*sc)), QPoint(qRound(np2.x()), qRound(np2.y())))));
-						break;
-					case Canvas::NORTHWEST:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), qRound(np2.y())), QPoint(ox2,oy2))));
-						break;
-					case Canvas::NORTHEAST:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), qRound(np2.y())), QPoint(ox1, oy2))));
-						break;
-					case Canvas::SOUTHWEST:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), qRound(np2.y())), QPoint(ox2, oy1))));
-						break;
-					case Canvas::SOUTH:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(ox1, oy1), QPoint(ox2, qRound(np2.y())))));
-						break;
-					case Canvas::EAST:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), oy2), QPoint(ox1,oy1))));
-						break;
-					case Canvas::WEST:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), oy1), QPoint(ox2, oy2))));
-						break;
-					case Canvas::NORTH:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(ox1, qRound(qRound(np2.y()))), QPoint(ox2, oy2))));
-						break;
-					}
-					Mxp = qRound(np2.x());
-					Myp = qRound(np2.y());
-				}
-				else
-				{
-// 					qDebug()<<"frameResizeHandle"<<frameResizeHandle;
-					for (int a = 0; a < m_doc->m_Selection->count(); ++a)
-					{
-						currItem = m_doc->m_Selection->itemAt(0);
-						double nh = currItem->height();
-						if ((frameResizeHandle == Canvas::SOUTHEAST) || (frameResizeHandle == Canvas::NORTHWEST))
-						{
-							QMatrix mp;
-							switch (frameResizeHandle)
-							{
-							case Canvas::SOUTHEAST:
-//								mp.translate(-m_doc->minCanvasCoordinate.x() * m_canvas->scale(),-m_doc->minCanvasCoordinate.y() * m_canvas->scale());
-								m_canvas->Transform(currItem, mp);
-								//Shift proportional square resize
-								if ((m->modifiers() & Qt::ShiftModifier) && (!(m->modifiers() & Qt::ControlModifier)))
-								{
-									QMatrix ma;
-									ma.translate(currItem->xPos(), currItem->yPos());
-									ma.rotate(currItem->rotation());
-									ma = ma.inverted();
-									nh = ma.m11() * newX + ma.m21() * newY + ma.dx();
-									mop = QPoint(m->x(), m->y());
-								}
-								else
-								{
-									//Control proportional resize
-									if ((m->modifiers() & Qt::ControlModifier) && (!(m->modifiers() & Qt::ShiftModifier)))
-									{
-										QMatrix ma;
-										ma.translate(currItem->xPos(), currItem->yPos());
-										ma.rotate(currItem->rotation());
-										ma = ma.inverted();
-										double nX = ma.m11() * newX + ma.m21() * newY + ma.dx();
-										nh = nX / currItem->OldB2 * currItem->OldH2;
-										mop = QPoint(m->x(), m->y());
-									}
-									else
-										mop = QPoint(m->x(), m->y());
-								}
-								np = mop * mp.inverted();
-								nx = np.x();
-								ny = np.y();
-								if (!currItem->asLine())
-								{
-									if ((m_doc->useRaster) && (m_doc->OnPage(currItem) != -1))
-									{
-										nx += currItem->xPos();
-										ny += currItem->yPos();
-										npf = m_doc->ApplyGridF(FPoint(nx, ny));
-										nx = npf.x() - currItem->xPos();
-										ny = npf.y() - currItem->yPos();
-									}
-									if (m_doc->SnapGuides)
-									{
-										nx += currItem->xPos();
-										ny += currItem->yPos();
-										m_doc->ApplyGuides(&nx, &ny);
-										nx -= currItem->xPos();
-										ny -= currItem->yPos();
-									}
-									if ((m->modifiers() & Qt::ControlModifier) || ((m->modifiers() & Qt::ShiftModifier)))
-										erf = m_doc->SizeItem(nx, nh, currItem->ItemNr);
-									else
-										erf = m_doc->SizeItem(nx, ny, currItem->ItemNr);
-									QMatrix mp;
-									mp.translate(currItem->xPos(),// - m_doc->minCanvasCoordinate.x(), 
-												 currItem->yPos());// - m_doc->minCanvasCoordinate.y());
-									mp.rotate(currItem->rotation());
-									np2 = QPoint(qRound(nx), qRound(ny));
-									QMatrix pm;
-									m_canvas->Transform(currItem, pm);
-									m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(0, 0), np2)));
-								}
-								else
-								{
-									double rba = currItem->rotation();
-									currItem->setRotation(0.0);
-									QMatrix mp;
-									m_canvas->Transform(currItem, mp);
-//									mp.translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
-									np = QPoint(m->x(), m->y()) * mp.inverted();
-									double sizeItemX=np.x(), sizeItemY=np.y();
-									//Constrain rotation angle, when the mouse is moving the non-origin point of a line
-									if (m->modifiers() & Qt::ControlModifier)
-									{
-										double newRot=xy2Deg(np.x(), np.y());
-										rba=constrainAngle(newRot, m_doc->toolSettings.constrain);
-										double hlen=sqrt(pow(newX - currItem->xPos(),2)+pow(newY - currItem->yPos(),2));
-										sizeItemX = hlen * cos(rba/(180.0/M_PI));
-										sizeItemY = hlen * sin(rba/(180.0/M_PI));
-									}
-									currItem->setRotation(rba);
-									np = m_doc->ApplyGrid(np);
-									erf = m_doc->SizeItem(sizeItemX, sizeItemY, currItem->ItemNr);
-									QMatrix pm;
-//									pm.translate(-m_doc->minCanvasCoordinate.x() * m_canvas->scale(),-m_doc->minCanvasCoordinate.y() * m_canvas->scale());
-									m_canvas->Transform(currItem, pm);
-									m_canvas->newRedrawPolygon() << pm.map(QPoint(0, 0)) << pm.map(QPoint(qRound(currItem->width()), qRound(currItem->height())));
-									m_view->updateContents(QRect(pm.map(QPoint(0, 0)), pm.map(QPoint(qRound(currItem->width()), qRound(currItem->height())))).normalized().adjusted(-10, -10, 20, 20));
-								}
-								break;
-							case Canvas::NORTHWEST:
-								if (currItem->asLine())
-								{
-									double sav = m_doc->SnapGuides;
-									npf2 = FPoint(newX-Mxp, newY-Myp);
-									//Constrain rotation on left point move, disabled for now in movesizeitem
-									erf = m_doc->MoveSizeItem(npf2, FPoint(0, 0), currItem->ItemNr, false, (m->modifiers() & Qt::ControlModifier));
-									m_doc->SnapGuides = sav;
-									if (sav)
-										currItem->Sizing = true;
-									QMatrix pm;
-//									pm.translate(-m_doc->minCanvasCoordinate.x() * m_canvas->scale(),-m_doc->minCanvasCoordinate.y() * m_canvas->scale());
-									m_canvas->Transform(currItem, pm);
-									m_canvas->newRedrawPolygon() << pm.map(QPoint(0, 0)) << pm.map(QPoint(qRound(currItem->width()), qRound(currItem->height())));
-									m_view->updateContents(QRect(pm.map(QPoint(0, 0)), pm.map(QPoint(qRound(currItem->width()), qRound(currItem->height())))).normalized().adjusted(-10, -10, 20, 20));
-								}
-								else
-								{
-									newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-									newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-//									np2 = QPoint(newX, newY);
-									FPoint newP = m_doc->ApplyGridF(FPoint(newX, newY));
-									double nx = newP.x();
-									double ny = newP.y();
-									m_doc->ApplyGuides(&nx, &ny);
-									QMatrix mp;
-//									mp.translate(currItem->xPos() - m_doc->minCanvasCoordinate.x(), currItem->yPos() - m_doc->minCanvasCoordinate.y());
-									mp.rotate(currItem->rotation());
-									np2 = QPoint(qRound(nx), qRound(ny)) * mp.inverted();
-									QMatrix pm;
-									m_canvas->Transform(currItem, pm);
-									m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(np2, QPoint(qRound(currItem->width()), qRound(currItem->height())))));
-//									p.end();
-								}
-								break;
-							}
-						}
-						else
-						{
-//							np2 = QPoint(newX, newY);
-							FPoint newP = m_doc->ApplyGridF(FPoint(newX, newY));
-							double nx = newP.x();
-							double ny = newP.y();
-							m_doc->ApplyGuides(&nx, &ny);
-							QMatrix mp;
-//							mp.translate(currItem->xPos() - m_doc->minCanvasCoordinate.x(), currItem->yPos() - m_doc->minCanvasCoordinate.y());
-							mp.rotate(currItem->rotation());
-							np2 = QPoint(qRound(nx), qRound(ny)) * mp.inverted();
-							QMatrix pm;
-							m_canvas->Transform(currItem, pm);
-							switch (frameResizeHandle)
-							{
-							case Canvas::INSIDE:
-								break;
-							case Canvas::NORTHEAST:
-								m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(np2, QPoint(0, qRound(currItem->height())))));
-								break;
-							case Canvas::SOUTHWEST:
-								m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(np2, QPoint(qRound(currItem->width()), 0))));
-								break;
-							case Canvas::SOUTH:
-								m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(0, 0), QPoint(qRound(currItem->width()), np2.y()))));
-								break;
-							case Canvas::EAST:
-								m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(0, 0), QPoint(np2.x(), qRound(currItem->height())))));
-								break;
-							case Canvas::WEST:
-								m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(np2.x(), 0), QPoint(qRound(currItem->width()), qRound(currItem->height())))));
-								break;
-							case Canvas::NORTH:
-								m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(0, np2.y()), QPoint(qRound(currItem->width()), qRound(currItem->height())))));
-								break;
-							}
-						}
-					}
-				}
-				if ((erf) || (frameResizeHandle > 1))
-				{
-					Mxp = newX;
-					Myp = newY;
-				}
-			}
-			else
+			if (!m_canvas->m_viewMode.operItemResizing)
 			{
 				//Dragging an item (plus more?)
 				QRectF newPlace;
@@ -623,7 +356,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				m_canvas->m_viewMode.operItemMoving = true;
 				qApp->changeOverrideCursor(Qt::ClosedHandCursor);
 				erf = false;
-				int dX=qRound(newX-Mxp), dY=qRound(newY-Myp);
+				int dX = qRound(newX - m_mousePressPoint.x()), dY = qRound(newY - m_mousePressPoint.y());
 				if (!m_doc->m_Selection->isMultipleSelection())
 				{
 					erf=true;
@@ -650,32 +383,29 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						}
 						if (!(currItem->isTableItem && currItem->isSingleSel))
 						{
-							if (!m_view->groupTransactionStarted())
-							{
-								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
-							}
 							double gx, gy, gh, gw;
-							m_doc->moveGroup(dX, dY, false);
+							m_objectDeltaPos.setXY(dX, dY);
 							m_doc->m_Selection->setGroupRect();
 							m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 							if (m_doc->SnapGuides)
 							{
-								double nx = gx;
-								double ny = gy;
+								double nx = gx + m_objectDeltaPos.x();
+								double ny = gy + m_objectDeltaPos.y();
+								double nxo = nx, nyo = ny;
 								m_doc->ApplyGuides(&nx, &ny);
-								m_doc->moveGroup(nx-gx, ny-gy, false);
-								m_doc->m_Selection->setGroupRect();
-								m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-								nx = gx+gw;
-								ny = gy+gh;
+								m_objectDeltaPos += FPoint(nx - nxo, ny - nyo);
+								nx = nxo = gx + gw + m_objectDeltaPos.x();
+								ny = nyo = gy + gh + m_objectDeltaPos.y();
 								m_doc->ApplyGuides(&nx, &ny);
-								m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+								m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
 							}
 							if (m_doc->useRaster)
 							{
 								m_doc->m_Selection->setGroupRect();
 								double gx, gy, gh, gw, gxo, gyo;
 								m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+								gx += m_objectDeltaPos.x();
+								gy += m_objectDeltaPos.y();
 								gxo = gx;
 								gyo = gy;
 								FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
@@ -688,22 +418,18 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 									gy = npw.y() - gh;
 								else
 									gy = npx.y();
-								if ((fabs(gx - gxo) < (m_doc->guidesSettings.guideRad / 2.0) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesSettings.guideRad / 2.0) / m_canvas->scale()))
-									m_doc->moveGroup(gx-gxo, gy-gyo, false);
+								if ((fabs(gx - gxo) < (m_doc->guidesSettings.guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesSettings.guideRad) / m_canvas->scale()))
+									m_objectDeltaPos += FPoint(gx-gxo, gy-gyo);
 							}
 						}
 					}
 				}
 				else
 				{
-					if (!m_view->groupTransactionStarted())
-					{
-						m_view->startGroupTransaction(Um::Move, "", Um::IMove);
-					}
 					double gx, gy, gh, gw;
 					m_doc->m_Selection->setGroupRect();
 					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-					int dX=qRound(newX-Mxp), dY=qRound(newY-Myp);
+					int dX=qRound(newX - m_mousePressPoint.x()), dY=qRound(newY - m_mousePressPoint.y());
 					erf = true;
 					if (m->modifiers() & Qt::ControlModifier)
 					{
@@ -716,28 +442,26 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						dX+=dragConstrainInitPtX-qRound(gx);
 						dY+=dragConstrainInitPtY-qRound(gy);
 					}
-					m_doc->moveGroup(dX, dY, false);
-					m_doc->m_Selection->setGroupRect();
-					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+					m_objectDeltaPos.setXY(dX, dY);
 					if (m_doc->SnapGuides)
 					{
-						double nx = gx;
-						double ny = gy;
-						m_doc->ApplyGuides(&nx, &ny);
-						m_doc->moveGroup(nx-gx, ny-gy, false);
-						m_doc->m_Selection->setGroupRect();
 						m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-						nx = gx+gw;
-						ny = gy+gh;
+						double nx = gx + m_objectDeltaPos.x();
+						double ny = gy + m_objectDeltaPos.y();
+						double nxo = nx, nyo = ny;
 						m_doc->ApplyGuides(&nx, &ny);
-						m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+						m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
+						nx = nxo = gx + gw + m_objectDeltaPos.x();
+						ny = nyo = gy + gh + m_objectDeltaPos.y();
+						m_doc->ApplyGuides(&nx, &ny);
+						m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
 					}
-					m_doc->m_Selection->setGroupRect();
 					if (m_doc->useRaster)
 					{
-						m_doc->m_Selection->setGroupRect();
 						double gx, gy, gh, gw, gxo, gyo;
 						m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+						gx += m_objectDeltaPos.x();
+						gy += m_objectDeltaPos.y();
 						gxo = gx;
 						gyo = gy;
 						FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
@@ -750,15 +474,13 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							gy = npw.y() - gh;
 						else
 							gy = npx.y();
-						if ((fabs(gx - gxo) < (m_doc->guidesSettings.guideRad / 2.0) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesSettings.guideRad / 2.0) / m_canvas->scale()))
-							m_doc->moveGroup(gx-gxo, gy-gyo, false);
-						m_doc->m_Selection->setGroupRect();
+						if ((fabs(gx - gxo) < (m_doc->guidesSettings.guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesSettings.guideRad) / m_canvas->scale()))
+							m_objectDeltaPos += FPoint(gx-gxo, gy-gyo);
 					}
 				}
 				if (erf)
 				{
-					Mxp = newX;
-					Myp = newY;
+					m_mouseCurrentPoint.setXY(newX, newY);
 				}
 				
 				{
@@ -823,7 +545,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 //				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo)))
 				{
-					tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
+					QRect tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
 					{
 						qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
@@ -861,26 +583,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		{
 			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-			if (m_doc->appMode == modeDrawTable)
-			{
-				FPoint np2 = m_doc->ApplyGridF(FPoint(newX, newY));
-				double nx = np2.x();
-				double ny = np2.y();
-				m_doc->ApplyGuides(&nx, &ny);
-				newX = qRound(nx);
-				newY = qRound(ny);
-				GyM = -1;
-				GxM = -1;
-			}
-			SeRx = newX;
-			SeRy = newY;
-			/*
-			if (m_doc->appMode == modeDrawTable)
-				m_view->redrawMarker->setGeometry(QRect(Dxp, Dyp, m->globalPos().x() - Dxp, m->globalPos().y() - Dyp).normalized());
-			else
-				m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
-			*/
-			QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
+			m_mouseSavedPoint.setXY(newX, newY);
+			QPoint startP = m_canvas->canvasToGlobal(m_mousePressPoint);
 			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
 			if (!m_view->redrawMarker->isVisible())
 				m_view->redrawMarker->show();
@@ -888,48 +592,28 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			return;
 		}
 	}
-		
-	
 }
 
 void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 {
 // 	qDebug("CanvasMode_Normal::mousePressEvent");
-// 	const double mouseX = m->globalX();
-// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-
-	double Rxp = 0;
-	double Ryp = 0;
-	double Rxpd = 0;
-	double Rypd = 0;
 	PageItem *currItem;
-	QPainter p;
-// 	m_canvas->PaintSizeRect(QRect());
-	FPoint npf, npf2;
-	QRect tx;
-	QMatrix pm;
+
+	m_objectDeltaPos  = FPoint(0, 0);
+	m_mousePressPoint = m_mouseCurrentPoint = mousePointDoc;
+	m_mouseSavedPoint = mousePointDoc;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	MoveGX = MoveGY = false;
-//	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
-	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
-	Rxpd = Mxp - Rxp;
-	Mxp = qRound(Rxp);
-	Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
-	Rypd = Myp - Ryp;
-	Myp = qRound(Ryp);
-	SeRx = Mxp;
-	SeRy = Myp;
+
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
@@ -937,12 +621,6 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		return;
 	}
 
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale());
-	SeRx = Mxp;
-	SeRy = Myp;
-	Dxp = Mxp;
-	Dyp = Myp;
 	if ((GetItem(&currItem)) && (!m_lastPosWasOverGuide))
 	{
 		if ((currItem->asLine()) && (!m_doc->m_Selection->isMultipleSelection()))
@@ -981,17 +659,8 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 			dragConstrainInitPtX = qRound(gx);
 			dragConstrainInitPtY = qRound(gy);
 			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
-			if (frameResizeHandle > 0)
-			{
-				if (currItem->sizeLocked())
-				{
-					qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
-					frameResizeHandle = 0;
-				}
-				m_canvas->m_viewMode.operItemResizing = true;
-			}
-			else if (frameResizeHandle == Canvas::OUTSIDE ||
-					 (frameResizeHandle == Canvas::INSIDE && m->modifiers() != Qt::NoModifier))
+			if (frameResizeHandle == Canvas::OUTSIDE ||
+				(frameResizeHandle == Canvas::INSIDE && m->modifiers() != Qt::NoModifier))
 			{
 				frameResizeHandle = 0;
 				m_doc->m_Selection->delaySignalsOn();
@@ -1003,12 +672,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 			if (((m_doc->m_Selection->count() == 0) || (!shiftSel)) && (m->modifiers() == Qt::ShiftModifier))
 			{
 				shiftSelItems = true;
-				Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-				Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-				SeRx = Mxp;
-				SeRy = Myp;
-				Dxp = Mxp;
-				Dyp = Myp;
+				m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
 			}
 			else
 				shiftSelItems = false;
@@ -1034,35 +698,9 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 				m_view->updatesOn(true);
 				m_doc->m_Selection->delaySignalsOff();
 			}
-			if (currItem && !currItem->locked() && frameResizeHandle > 0)
+			if ((currItem && !currItem->locked() && frameResizeHandle > 0) == false)
 			{
-				if (!currItem->asLine())
-					currItem->Sizing = true;
-				m_canvas->m_viewMode.operItemResizing = true;
-			}
-			/*
-			if (m_doc->m_Selection->count() != 0)
-			{
-				currItem = m_doc->m_Selection->itemAt(0);
-				if (!currItem->locked())
-				{
-					frameResizeHandle = m_canvas->frameHitTest(mousePointDoc, currItem); // HandleSizer(currItem, mpo, m);
-					if (frameResizeHandle != 0)
-					{
-						if (!currItem->asLine())
-							currItem->Sizing = true;
-						m_canvas->m_viewMode.operItemResizing = true;
-					}
-				}
-			}*/
-			else
-			{
-				Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-				Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-				SeRx = Mxp;
-				SeRy = Myp;
-				Dxp = Mxp;
-				Dyp = Myp;
+				m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
 			}
 		}
 		m_canvas->setRenderModeFillBuffer();
@@ -1073,23 +711,16 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		SeleItem(m);
 		if (m_doc->m_Selection->count() == 0)
 		{
-			Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-			Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-			SeRx = Mxp;
-			SeRy = Myp;
+			m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
 			m_view->redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
 			m_view->redrawMarker->show();
-//					Mxp = m->globalPos().x();
-//					Myp = m->globalPos().y();
-			Dxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-			Dyp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 		}
 		else
 		{
 			m_canvas->setRenderModeFillBuffer();
 		}
 	}
-/*			if (m->button() == MidButton)
+/*	if (m->button() == MidButton)
 	{
 		MidButt = true;
 		if (m_doc->m_Selection->count() != 0)
@@ -1099,8 +730,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	if ((m_doc->m_Selection->count() != 0) && (m->button() == Qt::RightButton))
 	{
 		m_canvas->m_viewMode.m_MouseButtonPressed = true;
-		Dxp = Mxp;
-		Dyp = Myp;
+		m_mousePressPoint = m_mouseCurrentPoint;
 	}
 	if ((m_doc->m_Selection->count() != 0) && (m->button() == Qt::LeftButton) && (frameResizeHandle == 0))
 	{
@@ -1167,12 +797,13 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			}
 			
 			m_view->updatesOn(false);
+			if (!m_view->groupTransactionStarted())
+			{
+				m_view->startGroupTransaction(Um::Move, "", Um::IMove);
+			}
 			if (m_doc->m_Selection->isMultipleSelection())
 			{
-				if (!m_view->groupTransactionStarted())
-				{
-					m_view->startGroupTransaction(Um::Move, "", Um::IMove);
-				}
+				m_doc->moveGroup(m_objectDeltaPos.x(), m_objectDeltaPos.y());
 				m_doc->m_Selection->setGroupRect();
 				double gx, gy, gh, gw;
 				m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -1203,6 +834,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			else
 			{
 				currItem = m_doc->m_Selection->itemAt(0);
+				m_doc->MoveItem(m_objectDeltaPos.x(), m_objectDeltaPos.y(), currItem);
 				if (m_doc->useRaster)
 				{
 					double nx = currItem->xPos();
@@ -1210,23 +842,28 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 					if (!m_doc->ApplyGuides(&nx, &ny))
 					{
 						m_doc->m_Selection->setGroupRect();
-						double gx, gy, gh, gw;
+						double gx, gy, gh, gw, gxo, gyo;
 						m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+						gxo = gx;
+						gyo = gy;
 						FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
 						FPoint npw = m_doc->ApplyGridF(FPoint(gx+gw, gy+gh));
 						if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
-							nx = npw.x() - gw;
+							gx = npw.x() - gw;
 						else
-							nx = npx.x();
+							gx = npx.x();
 						if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
-							ny = npw.y() - gh;
+							gy = npw.y() - gh;
 						else
-							ny = npx.y();
+							gy = npx.y();
+						if ((fabs(gx - gxo) < (m_doc->guidesSettings.guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesSettings.guideRad) / m_canvas->scale()))
+						{
+							nx += (gx - gxo);
+							ny += (gy - gyo);
+						}
 					}
 					m_doc->MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
 				}
-				else
-					m_doc->MoveItem(0, 0, currItem, false);
 			}
 			m_canvas->m_viewMode.operItemMoving = false;
 			if (m_doc->m_Selection->isMultipleSelection())
@@ -1257,7 +894,9 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	//CB Drag selection performed here
 	if (((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt)) || ((shiftSelItems) && (m_view->HaveSelRect) && (!m_view->MidButt)))
 	{
-		QRectF Sele = QRectF(Dxp, Dyp, SeRx-Dxp, SeRy-Dyp).normalized();
+		double dx = m_mouseSavedPoint.x() - m_mousePressPoint.y();
+		double dy = m_mouseSavedPoint.y() - m_mousePressPoint.y();
+		QRectF Sele = QRectF(m_mousePressPoint.x(), m_mousePressPoint.y(), dx, dy).normalized();
 		if (!m_doc->masterPageMode())
 		{
 			uint docPagesCount=m_doc->Pages->count();
@@ -1366,35 +1005,6 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	}
 }
 
-
-void CanvasMode_Normal::selectPage(QMouseEvent *m)
-{
-	m_canvas->m_viewMode.m_MouseButtonPressed = true;
-	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
-	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
-//	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
-	m_doc->nodeEdit.deselect();
-	m_view->Deselect(false);
-	if (!m_doc->masterPageMode())
-	{
-		int i = m_doc->OnPage(Mxp, Myp);
-		if (i!=-1)
-		{
-			uint docCurrPageNo=m_doc->currentPageNumber();
-			uint j=static_cast<uint>(i);
-			if (docCurrPageNo != j)
-			{
-				m_doc->setCurrentPage(m_doc->Pages->at(j));
-				m_view->setMenTxt(j);
-				m_view->DrawNew();
-			}
-		}
-		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
-	}
-}
-
 //CB-->Doc/Fix
 bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 {
@@ -1404,19 +1014,17 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	const unsigned SELECT_MULTIPLE = Qt::ShiftModifier;
 	const unsigned SELECT_BENEATH = Qt::ControlModifier;
 	QMatrix p;
-	QRectF tx, mpo;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
+	m_mouseCurrentPoint  = mousePointDoc;
 	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	mpo = QRectF(Mxp-grabRadius, Myp-grabRadius, grabRadius*2, grabRadius*2);
+	QRectF mpo(m_mouseCurrentPoint.x()-grabRadius, m_mouseCurrentPoint.y()-grabRadius, grabRadius*2, grabRadius*2);
 //	mpo.translate(m_doc->minCanvasCoordinate.x() * m_canvas->scale(), m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 	m_doc->nodeEdit.deselect();
-// 	int a;
+
 	if(!m_doc->guidesSettings.before) // guides are on foreground and want to be processed first
 	{
 		if ((m_doc->guidesSettings.guidesShown) /*&& (!m_doc->GuideLock)*/ && (m_doc->OnPage(MxpS, MypS) != -1))
@@ -1431,7 +1039,6 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			{
 				m_view->startGesture(guideMoveGesture);
 				guideMoveGesture->mouseMoveEvent(m);
-			//m_doc->m_Selection->setIsGUISelection(true);
 				m_doc->m_Selection->connectItemToGUI();
 // 				qDebug()<<"Out Of SeleItem"<<__LINE__;
 				return true;
@@ -1720,104 +1327,6 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	return false;
 }
 
-//CB Fix item->old* stuff
-int CanvasMode_Normal::HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m)
-{
-	currItem->OldB = currItem->width();
-	currItem->OldH = currItem->height();
-	currItem->OldB2 = currItem->width();
-	currItem->OldH2 = currItem->height();
-	frameResizeHandle = 0;
-	if (currItem->sizeLocked())
-		return 0;
-	m_canvas->PaintSizeRect(QRect());
-	double d1;
-	QMap<double,int> distance;
-	FPoint n1(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-	//	n1 -= QPoint(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
-	d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-	if (d1 < m_doc->guidesSettings.grabRad)
-		distance.insert(d1, 1);
-	n1 = FPoint(0, 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-	//	n1 -= QPoint(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
-	d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-	if (d1 < m_doc->guidesSettings.grabRad)
-		distance.insert(d1, 2);
-	if (!currItem->asLine())
-	{
-		QPoint docMinCanvasCoordinate(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
-		n1 = FPoint(currItem->width(), 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-		//		n1 -= docMinCanvasCoordinate;
-		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < m_doc->guidesSettings.grabRad)
-			distance.insert(d1, 3);
-		n1 = FPoint(0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-		//		n1 -= docMinCanvasCoordinate;
-		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < m_doc->guidesSettings.grabRad)
-			distance.insert(d1, 4);
-		n1 = FPoint(currItem->width()/2, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-		//		n1 -= docMinCanvasCoordinate;
-		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < m_doc->guidesSettings.grabRad)
-			distance.insert(d1, 5);
-		n1 = FPoint(currItem->width(), currItem->height()/2, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-		//		n1 -= docMinCanvasCoordinate;
-		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < m_doc->guidesSettings.grabRad)
-			distance.insert(d1, 6);
-		n1 = FPoint(0, currItem->height()/2, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-		//		n1 -= docMinCanvasCoordinate;
-		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < m_doc->guidesSettings.grabRad)
-			distance.insert(d1, 7);
-		n1 = FPoint(currItem->width()/2, 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-		//		n1 -= docMinCanvasCoordinate;
-		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < m_doc->guidesSettings.grabRad)
-			distance.insert(d1, 8);
-	}
-	QList<int> result = distance.values();
-	if (result.count() != 0)
-		frameResizeHandle = result[0];
-	//	mpo.moveBy(qRound(-m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
-	m_view->HandleCurs(currItem, mpo);
-	if (frameResizeHandle != 0)
-	{
-		if (!currItem->asLine())
-			currItem->Sizing = true;
-		m_canvas->m_viewMode.operItemResizing = true;
-	}
-	return frameResizeHandle;
-}
-
-
-// void CanvasMode_Normal::setResizeCursor(int how, double rot )
-// {
-// 	switch (how)
-// 	{
-// 		case 1:
-// 		case 2:
-// 			qApp->changeOverrideCursor(/*QCursor(Qt::SizeFDiagCursor)*/ScResizeCursor(135 + rot));
-// 			break;
-// 		case 3:
-// 		case 4:
-// 			qApp->changeOverrideCursor(/*QCursor(Qt::SizeBDiagCursor)*/ScResizeCursor(45 + rot));
-// 			break;
-// 		case 5:
-// 		case 8:
-// 			qApp->changeOverrideCursor(/*QCursor(Qt::SizeVerCursor)*/ScResizeCursor(0 + rot));
-// 			break;
-// 		case 6:
-// 		case 7:
-// 			qApp->changeOverrideCursor(/*QCursor(Qt::SizeHorCursor)*/ScResizeCursor(90 + rot));
-// 			break;
-// 		default:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-// 			break;
-// 	}
-// }
-
 void CanvasMode_Normal::importToPage()
 {
 	QString fileName;
@@ -1882,9 +1391,9 @@ void CanvasMode_Normal::importToPage()
 		m_doc->useRaster = false;
 		m_doc->SnapGuides = false;
 		if (fi.suffix().toLower() == "sce")
-			m_ScMW->slotElemRead(fileName, Mxp, Myp, true, false, m_doc, m_doc->view());
+			m_ScMW->slotElemRead(fileName, m_mouseCurrentPoint.x(), m_mouseCurrentPoint.y(), true, false, m_doc, m_doc->view());
 		else if ((fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sml"))
-			m_ScMW->slotElemRead(fileName, Mxp, Myp, false, true, m_doc, m_doc->view());
+			m_ScMW->slotElemRead(fileName, m_mouseCurrentPoint.x(), m_mouseCurrentPoint.y(), false, true, m_doc, m_doc->view());
 		else
 		{
 			FileLoader *fileLoader = new FileLoader(fileName);
@@ -1900,7 +1409,7 @@ void CanvasMode_Normal::importToPage()
 			{
 				double x2, y2, w, h;
 				m_doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-				m_doc->moveGroup(Mxp - x2, Myp - y2);
+				m_doc->moveGroup(m_mouseCurrentPoint.x() - x2, m_mouseCurrentPoint.y() - y2);
 				m_ScMW->propertiesPalette->updateColorList();
 				m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
 				m_ScMW->propertiesPalette->charStyleCombo->updateFormatList();
@@ -1929,8 +1438,7 @@ void CanvasMode_Normal::createContextMenu(PageItem* currItem, double mx, double 
 	ContextMenu* cmen=NULL;
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
-	Mxp = mx;
-	Myp = my;
+	m_mouseCurrentPoint.setXY(mx, my);
 	if(currItem!=NULL)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 	else

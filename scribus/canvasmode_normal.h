@@ -52,29 +52,25 @@ public:
 	virtual void mousePressEvent(QMouseEvent *m);
 	virtual void drawControls(QPainter* p);
 
-// protected:
-// 	void setResizeCursor(int how, double rot = 0.0);
-
 private:
 	inline bool GetItem(PageItem** pi);
-	void selectPage(QMouseEvent *m);
 	bool SeleItem(QMouseEvent *m);
 	void createContextMenu(PageItem *currItem, double mx, double my);
-	int HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
 
-	int Cp, oldCp;
-	bool shiftSelItems, FirstPoly;
-	int frameResizeHandle;
-	int dragConstrainInitPtX, dragConstrainInitPtY;
-	double Mxp, Myp, Dxp, Dyp;
-	int GxM, GyM;
-	double SeRx, SeRy;
+	FPoint m_mousePressPoint;
+	FPoint m_mouseCurrentPoint;
+	FPoint m_mouseSavedPoint;
+	FPoint m_objectDeltaPos;
+
+	bool shiftSelItems;
 	bool MoveGX, MoveGY;
+	int  frameResizeHandle;
+	int  dragConstrainInitPtX, dragConstrainInitPtY;
+	int  GxM, GyM;
 	ScribusMainWindow* m_ScMW;
 	ResizeGesture* resizeGesture;
 	LineMove* lineMoveGesture;
 	RulerGesture* guideMoveGesture;
-	bool m_cursorVisible;
 	bool m_lastPosWasOverGuide;
 
 public slots:
