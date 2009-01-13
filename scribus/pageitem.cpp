@@ -1589,11 +1589,16 @@ QImage PageItem::DrawObj_toImage()
 
 QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 {
-	QImage retImg = QImage(qRound(gWidth), qRound(gHeight), QImage::Format_ARGB32);
+	double canvaScale(1.0);
+	// Nothing clear but I feel a doc could not to be bound to a view - pm
+	if( m_Doc->view() )
+		canvaScale = qMin(m_Doc->view()->scale() , 6.0);
+	qDebug() << "CanvaScale" << canvaScale <<"gWidth x gHeight"<<qRound(gWidth * canvaScale) << qRound(gHeight* canvaScale) <<"T"<<(gWidth * canvaScale*gHeight* canvaScale) / 1024;
+	QImage retImg = QImage(qRound(gWidth * canvaScale), qRound(gHeight * canvaScale), QImage::Format_ARGB32);
 //	retImg.fill( qRgba(255, 255, 255, 0) );
 	retImg.fill( qRgba(0, 0, 0, 0) );
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
-	painter->setZoomFactor(1.0);
+	painter->setZoomFactor( canvaScale );
 	QStack<PageItem*> groupStack;
 	for (int em = 0; em < emG.count(); ++em)
 	{
@@ -1611,16 +1616,18 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 			continue;
 		}
 		painter->save();
-		double x = embedded->xPos();
-		double y = embedded->yPos();
-		embedded->Xpos = embedded->gXpos;
-		embedded->Ypos = embedded->gYpos;
+// 		qDebug()<<embedded<<embedded->xPos()<<embedded->yPos()<<embedded->gXpos<<embedded->gYpos;
+// 		double x = embedded->xPos();
+// 		double y = embedded->yPos();
+// 		embedded->Xpos = embedded->gXpos;
+// 		embedded->Ypos = embedded->gYpos;
+		// Seems to work without all this coordinates mess. To monitor tho
 		painter->translate(embedded->gXpos, embedded->gYpos);
 		embedded->isEmbedded = true;
 		embedded->invalid = true;
 		embedded->DrawObj(painter, QRectF());
-		embedded->Xpos = x;
-		embedded->Ypos = y;
+// 		embedded->Xpos = x;
+// 		embedded->Ypos = y;
 		embedded->isEmbedded = false;
 		painter->restore();
 		if (groupStack.count() != 0)
@@ -1641,10 +1648,10 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 		if (!embedded->isTableItem)
 			continue;
 		painter->save();
-		double x = embedded->xPos();
-		double y = embedded->yPos();
-		embedded->Xpos = embedded->gXpos;
-		embedded->Ypos = embedded->gYpos;
+// 		double x = embedded->xPos();
+// 		double y = embedded->yPos();
+// 		embedded->Xpos = embedded->gXpos;
+// 		embedded->Ypos = embedded->gYpos;
 		painter->translate(embedded->gXpos, embedded->gYpos);
 		painter->rotate(embedded->rotation());
 		embedded->isEmbedded = true;
@@ -1667,8 +1674,8 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 			}
 		}
 		embedded->isEmbedded = false;
-		embedded->Xpos = x;
-		embedded->Ypos = y;
+// 		embedded->Xpos = x;
+// 		embedded->Ypos = y;
 		painter->restore();
 	}
 	painter->end();

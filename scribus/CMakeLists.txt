@@ -90,6 +90,7 @@ SET(SCRIBUS_MOC_CLASSES
   buttonicon.h
   canvas.h
   canvasgesture_rulermove.h
+  canvasmode.h
   canvasmode_edit.h
   canvasmode_legacy.h
   canvasmode_measurements.h
@@ -669,6 +670,11 @@ IF(HAVE_PODOFO)
     )
 ENDIF(HAVE_PODOFO)
 
+IF(GESTURE_FRAME_PREVIEW)
+   MESSAGE(STATUS "Enable gesture frame preview [experimental]")
+   SET(GESTURE_FRAME_PREVIEW_SOURCES  pageitempreview.cpp)
+   ADD_DEFINITIONS(-DGESTURE_FRAME_PREVIEW)
+ENDIF(GESTURE_FRAME_PREVIEW)
 
 IF(APPLEBUNDLE)
   SET(EXE_NAME "Scribus${TAG_VERSION}" CACHE TYPE STRING)
@@ -690,6 +696,7 @@ ADD_EXECUTABLE(${EXE_NAME}
   ${SCRIBUS_FONTS_SOURCES}
   ${SCRIBUS_DESAXE_SOURCES}
   ${SCRIBUS_WIN32_ONLY_SOURCES}
+  ${GESTURE_FRAME_PREVIEW_SOURCES}
 )
 
 IF(WIN32)

@@ -40,6 +40,7 @@ struct CanvasViewMode;
 class  ScribusDoc;
 class  ScribusView;
 class  PageItem;
+class PageItemPreview;
 
 /** These aren't real appmodes but open a new window or override behaviour for a short time */
 enum SubMode
@@ -112,13 +113,14 @@ public:
 	void drawSelection(QPainter* psx);
 	/** Draws an outline of selected items */
 	void drawOutline(QPainter* p, double scalex=1.0, double scaley=1.0, double deltax=0.0, double deltay=0.0);
+#ifdef GESTURE_FRAME_PREVIEW
 	// I don’t know why the methods above have been implemented here and left non-virtual.
 	// I need to setup some companion members - pm
 	private:
-	QMap<PageItem*, QImage*> m_pixmapCache;
+	QMap<PageItem*, PageItemPreview*> m_pixmapCache;
 	public:
 	void clearPixmapCache();
-	
+#endif // GESTURE_FRAME_PREVIEW
 	void setModeCursor();
 	
 	/** main canvas modes dont have a delegate */
