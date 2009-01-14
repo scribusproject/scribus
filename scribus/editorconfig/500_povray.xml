@@ -47,6 +47,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 		  <i18n>
 			  <en>Render Options</en>
 			  <de>Render Optionen</de>
+			  <ru>Параметры визуализации</ru>
 		  </i18n>
 	  </title>
 	  <list name="quality" default="11">
@@ -54,6 +55,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 			<i18n>
 				  <en>Quality:</en>
 				  <de>Qualität:</de>
+				  <ru>Качество:</ru>
 			</i18n>
 		</title>
 		<option value="1">Just show quick colors</option>
@@ -69,6 +71,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 			<i18n>
 				<en>Antialiasing:</en>
 				<de>Antialiasing:</de>
+				<ru>Сглаживание:</ru>
 			</i18n>
 		</title>
 		<option value="+A">On</option>
@@ -78,12 +81,14 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 		<i18n>
 			<en>Antialiasing Threshold:</en>
 			<de>Antialiasing Schwellwert:</de>
+			<ru>Порог сглаживания:</ru>
 		</i18n>
 	</spinbox>
 	<spinbox name="aadepth" type="short" min="1" max="9" step="1" default="3">
 		<i18n>
 			<en>Antialiasing Depth:</en>
 			<de>Antialiasing Rekursion:</de>
+			<ru>Глубина сглаживания:</ru>
 		</i18n>
 	</spinbox>
 	</tab>

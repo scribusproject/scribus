@@ -29,28 +29,34 @@
 			<de>Bereiche</de>
 			<fr>Rangées</fr>
 			<pl>Zakresy</pl>
+			<ru>Диапазоны</ru>
 		</i18n></title>
 		<comment><i18n>
 			<en>Enter asterisk (*) for autoscale!</en>
 			<de>Stern (*) für automatische Skalierung eingeben!</de>
 			<fr>Entrez une astérisque (*) pour ajuster automatiquement !</fr>
 			<pl>Wpisz asterisk (*) dla automatycznego skalowania!</pl>
+			<ru>Enter asterisk (*) for autoscale!</ru>
 		</i18n></comment>
 		<spinbox name="xmin" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
 			<en>X Min:</en>
 			<pl>Min X:</pl>
+			<ru>Минимум по X:</ru>
 		</i18n></spinbox>
 		<spinbox name="xmax" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
 			<en>X Max:</en>
 			<pl>Maks. X:</pl>
+			<ru>Максимум по X:</ru>
 		</i18n></spinbox>
 		<spinbox name="ymin" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
 			<en>Y Min:</en>
 			<pl>Min Y:</pl>
+			<ru>Минимум по Y:</ru>
 		</i18n></spinbox>
 		<spinbox name="ymax" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
 			<en>Y Max:</en>
 			<pl>Maks. Y:</pl>
+			<ru>Максимум по Y:</ru>
 		</i18n></spinbox>
 	</tab>
 	<tab type="settings">
@@ -59,39 +65,53 @@
 			<de>Beschriftungen</de>
 			<fr>Étiquettes</fr>
 			<pl>Etykiety</pl>
+			<ru>Метки</ru>
 		</i18n></title>
 		<text name="title" type="short" default=""><i18n>
 			<en>Title:</en>
 			<de>Titel:</de>
 			<fr>Titre :</fr>
 			<pl>Tytuł:</pl>
+			<ru>Название:</ru>
 		</i18n></text>
-		<text name="xlabel" type="short" default="">X-Label:</text>
-		<text name="ylabel" type="short" default="">Y-Label:</text>
+		<text name="xlabel" type="short" default=""><i18n>
+			<en>X-Label:</en>
+			<de>X-Beschriftung:</de>
+			<ru>Метка оси X:</ru>
+		</i18n></text>
+		<text name="ylabel" type="short" default=""><i18n>
+			<en>Y-Label:</en>
+			<de>Y-Beschriftung:</de>
+			<ru>Метка оси Y:</ru>
+		</i18n></text>
 		<list name="grid" default="#">
 			<title><i18n>
 				<en>Grid:</en>
 				<de>Gitter:</de>
 				<fr>Grille :</fr>
 				<pl>Siatka:</pl>
+				<ru>Сетка:</ru>
 			</i18n></title>
 			<option value="#"><i18n>
 				<en>No Grid</en>
 				<de>Kein Gitter</de>
 				<fr>Pas de Grille</fr>
 				<pl>Bez siatki</pl>
+				<ru>Без сетки</ru>
 			</i18n></option>
 			<option value="set grid xtics ytics"><i18n>
 				<en>Major ticks only</en>
 				<de>Nur Hauptstriche</de>
 				<fr>Seulement les coches majeures</fr>
 				<pl>Tylko główne linie</pl>
+				<ru>Только основные линии</ru>
 			</i18n></option>
 			<option value="set grid xtics ytics mxtics mytics"><i18n>
 				<en>Major and minor ticks</en>
 				<de>Alle Stiche</de>
 				<fr>Coches majeures et mineures</fr>
 				<pl>Wszystkie linie</pl>
+				<ru>Основные и вторичные линии</ru>
 			</i18n></option>
 		</list>
 		<list name="gridlayer" default="back">
@@ -100,18 +120,21 @@
 				<de>Gitterebene:</de>
 				<fr>Niveau de la grille :</fr>
 				<pl>Warstwa siatki:</pl>
+				<ru>Слой сетки:</ru>
 			</i18n></title>
 			<option value="back"><i18n>
 				<en>Back</en>
 				<de>Hinten</de>
 				<fr>Arrière</fr>
 				<pl>Na spodzie</pl>
+				<ru>Позади</ru>
 			</i18n></option>
 			<option value="front"><i18n>
 				<en>Front</en>
 				<de>Vorne</de>
 				<fr>A l'avant</fr>
 				<pl>Na wierzchu</pl>
+				<ru>Впереди</ru>
 			</i18n></option>
 		</list>
 		<list name="zeroaxis" default="">
@@ -120,30 +143,35 @@
 				<de>Null-Achse:</de>
 				<fr>Axe Zero :</fr>
 				<pl>Oś zerowa:</pl>
+				<ru>Начало координат:</ru>
 			</i18n></title>
 			<option value=""><i18n>
 				<en>None</en>
 				<de>Keine</de>
 				<fr>Aucun</fr>
 				<pl>Brak</pl>
+				<ru>Нет</ru>
 			</i18n></option>
 			<option value="set xzeroaxis"><i18n>
 				<en>X axis</en>
 				<de>X-Achse</de>
 				<fr>Axe des X</fr>
 				<pl>Oś X</pl>
+				<ru>Для оси X</ru>
 			</i18n></option>
 			<option value="set yzeroaxis"><i18n>
 				<en>Y axis</en>
 				<de>Y-Achse</de>
 				<fr>Axe des Y</fr>
 				<pl>Oś Y</pl>
+				<ru>Для оси Y</ru>
 			</i18n></option>
 			<option value="set zeroaxis"><i18n>
 				<en>Both</en>
 				<de>Beide</de>
 				<fr>Les deux</fr>
 				<pl>Obie</pl>
+				<ru>Для обеих осей</ru>
 			</i18n></option>
 		</list>
 	</tab>

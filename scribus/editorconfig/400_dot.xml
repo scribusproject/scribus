@@ -16,6 +16,7 @@
 		C -> "Gnuplot"
 		C -> "LilyPond"
 		C -> "Dot"
+		C -> "POV-Ray"
     </en>
     <de>
 		ratio="fill";
@@ -31,6 +32,7 @@
 		C -> "Gnuplot"
 		C -> "LilyPond"
 		C -> "Dot"
+		C -> "POV-Ray"
     </de>
     <fr>
 		ratio="fill";
@@ -46,6 +48,7 @@
 		C -> "Gnuplot"
 		C -> "LilyPond"
 		C -> "Dot"
+		C -> "POV-Ray"
     </fr>
     <pl>
 	    ratio="fill";
@@ -61,7 +64,24 @@
 	    C -> "Gnuplot"
 	    C -> "LilyPond"
 	    C -> "Dot"
+	    C -> "POV-Ray"
     </pl>
+    <ru>
+		ratio="fill";
+		edge [color ="blue"];
+		S [label="Scribus", color="#f94949", style=filled];
+		node [shape="box", color="#6767ed", style=filled];
+		S -> "Текстовые блоки";
+		S -> "Блоки изображений";	
+		C [label="Блоки команд"];
+		S -> C
+		node [shape="box", color="#82ec80", style=filled]
+		C -> "LaTeX"
+		C -> "Gnuplot"
+		C -> "LilyPond"
+		C -> "Dot"
+		C -> "POV-Ray"
+    </ru>
     </i18n>
 	</empty-frame-text>
 	<preamble>
