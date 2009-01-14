@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="gl_ES">
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -9,7 +10,7 @@
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-        <translation type="unfinished">getColorNames() -&gt; lista
+        <translation>getColorNames() -&gt; lista
 
 Devolve unha lista que contén os nomes de todas as cores definidas no documento.
 Se non hai nengún documento aberto, devolve unha lista das cores do documento padrón.
@@ -26,14 +27,15 @@ the value of the named color from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">getColor(&quot;nome&quot;) -&gt; valores
+        <translation>getColor(&quot;nome&quot;) -&gt; valores
 
 Devolve catro valores (C, M, Y, K) que conteñen os catro componentes de cor
 da cor &quot;nome&quot; do documento actual. Se non hai nengún documento aberto,
 devolve o valor da cor nomeada das cores do documento padrón.
 
 Pode provocar un NotFoundError se non se atopou a cor nomeada.
-Pode provocar un ValueError se se especifica un nome de cor non válido.</translation>
+Pode provocar un ValueError se se especifica un nome de cor non válido.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.h" line="50"/>
@@ -47,12 +49,13 @@ from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">getColorAsRGB(&quot;nome&quot;) -&gt; tres valores
+        <translation>getColorAsRGB(&quot;nome&quot;) -&gt; tres valores
 
 Devolve tres valores (R,G,B) que conteñen as tres componentes de cor da
 cor &quot;nome&quot; do documento actual, convertidas no espazo de cores RGB.
 Se non hai un documento aberto, devolve o valor da cor dese nome
-das cores do documento por omisión.</translation>
+das cores do documento por omisión.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.h" line="64"/>
@@ -65,14 +68,15 @@ Color components should be in the range from 0 to 255.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">changeColor(&quot;nome&quot;, c, m, y, k)
+        <translation>changeColor(&quot;nome&quot;, c, m, y, k)
 
 Muda a cor &quot;nome&quot; ao valor CMYK especificado. O valor da cor defínese mediante
 catro componentes c = Cián, m = Maxenta, y = Amarelo e k = Negro.
 As componentes das cores deberían estar no intervalo entre 0 e 255.
 
 Pode provocar un NotFoundError se non se atopou a cor nomeada.
-Pode provocar un ValueError se se especifica un nome de cor non válido.</translation>
+Pode provocar un ValueError se se especifica un nome de cor non válido.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.h" line="77"/>
@@ -84,13 +88,14 @@ the range from 0 to 255.
 
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">defineColor(&quot;nome&quot;, c, m, y, k)
+        <translation>defineColor(&quot;nome&quot;, c, m, y, k)
 
 Define un novo &quot;nome&quot; de cor. O Valor da cor defínese mediante catro componentes:
 c = Cián, m = Maxenta, y = Amarelo e k = Negro.
 As componentes das cores deberían estar no intervalo entre 0 e 255.
 
-Pode provocar un ValueError se se especifica un nome de cor non válido.</translation>
+Pode provocar un ValueError se se especifica un nome de cor non válido.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.h" line="94"/>
@@ -106,7 +111,7 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">deleteColor(&quot;nome&quot;,&quot;substituta&quot;)
+        <translation>deleteColor(&quot;nome&quot;,&quot;substituta&quot;)
 
 Limpa o &quot;nome&quot; da cor. Toda aparición da cor substituése pola &quot;substituta&quot;.
 Se non se especifica, &quot;substituta&quot; pasa a ser a cor &quot;Nengunha&quot; - transparente.
@@ -115,7 +120,8 @@ deleteColor funciona sobre as cores por omisión do documento se non hai
 nengún documento aberto. Nese caso, se se especifica &quot;substituta&quot;, esta non ten efecto.
 
 Pode provocar un NotFoundError se non se atopou a cor nomeada.
-Pode provocar un ValueError se se especifica un nome de cor non válido.</translation>
+Pode provocar un ValueError se se especifica un nome de cor non válido.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.h" line="106"/>
@@ -126,12 +132,13 @@ Every occurence of the color &quot;name&quot; is replaced by the color &quot;rep
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished">replaceColor(&quot;name&quot;, &quot;substituta&quot;)
+        <translation>replaceColor(&quot;name&quot;, &quot;substituta&quot;)
 
 Toda aparición da cor &quot;nome&quot; substitúese pola cor &quot;substituta&quot;.
 
 Pode provocar un NotFoundError se non se atopou a cor nomeada.
-Pode provocar un ValueError se se especifica un nome de cor non válido.</translation>
+Pode provocar un ValueError se se especifica un nome de cor non válido.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddialog.h" line="22"/>
@@ -141,7 +148,7 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-        <translation type="unfinished">newDocDialog() -&gt; lóxica
+        <translation>newDocDialog() -&gt; lóxica
 
 Mostra o diálogo &quot;Documento Novo&quot;. Crea un documento novo se o usuario
 acepta a configuración. Non crea un documento se o usuario preme sobre Cancelar.
@@ -169,7 +176,7 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
-        <translation type="unfinished">fileDialog(&quot;rótulo&quot;, [&quot;filtro&quot;, &quot;nomeporomisión&quot;, tenvistaprevia, égardar, édirectorio]) -&gt; cadea con nome de ficheiro
+        <translation>fileDialog(&quot;rótulo&quot;, [&quot;filtro&quot;, &quot;nomeporomisión&quot;, tenvistaprevia, égardar, édirectorio]) -&gt; cadea con nome de ficheiro
 
 Mostra unha caixa de diálogo Abrir Ficheiro co rótulo &quot;rótulo&quot;. Os fichiros fíltranse
 coa cadea de filtro &quot;filtro&quot;. Tamén se pode fornecer un nome de ficheiro ou camiño ao
@@ -223,7 +230,7 @@ BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
 BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
 ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
 </source>
-        <translation type="unfinished">messageBox(&quot;lexenda&quot;, &quot;mensaxe&quot;,
+        <translation>messageBox(&quot;lexenda&quot;, &quot;mensaxe&quot;,
     icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
     button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; inteiro
 
@@ -264,12 +271,13 @@ Parameters: window title, text in the window and optional &apos;default&apos; va
 
 Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
 </source>
-        <translation type="unfinished">valueDialog(lexenda, mensaxe [,valorporomisión]) -&gt; cadea
+        <translation>valueDialog(lexenda, mensaxe [,valorporomisión]) -&gt; cadea
 
 Mostra o diálogo común &apos;Pedir unha cadea&apos; e devolve o seu valor como cadea.
 Parámetros: título da xanela, texto na xanela e valor &apos;por omisión&apos; opcional.
 
-Exemplo: valueDialog(&apos;título&apos;, &apos;texto na xanela&apos;, &apos;opcional&apos;)</translation>
+Exemplo: valueDialog(&apos;título&apos;, &apos;texto na xanela&apos;, &apos;opcional&apos;)
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddialog.h" line="111"/>
@@ -278,10 +286,11 @@ Exemplo: valueDialog(&apos;título&apos;, &apos;texto na xanela&apos;, &apos;opc
 Shows &apos;Create new paragraph style&apos; dialog. Function returns real
 style name or None when user cancels the dialog.
 </source>
-        <translation type="unfinished">newStyleDialog() -&gt; string
+        <translation>newStyleDialog() -&gt; string
 
 Mostra o diálogo &quot;Crear novo estilo de parágrafo&quot;. A función devolve un
-nome de estilo real ou Nengún cando o utilizador cancela o diálogo.</translation>
+nome de estilo real ou Nengún cando o utilizador cancela o diálogo.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="55"/>
@@ -325,7 +334,7 @@ PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="unfinished">newDocument(tamaño, marxes, orientación, númeroPrimeiraPáxina,
+        <translation>newDocument(tamaño, marxes, orientación, númeroPrimeiraPáxina,
                         unidade, tipoPáxinas, ordePrimeiraPáxina, númeroPáxinas) -&gt; lóxica
 
 Crea un documento novo e devolve verdadeiro se o logra. Os parámetros teñen
@@ -402,7 +411,7 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished">newDoc(tamaño, marxes, orientación, númeroPrimeiraPáxina,
+        <translation>newDoc(tamaño, marxes, orientación, númeroPrimeiraPáxina,
                    unidade, páxinasEnfrontadas, primeiraPáxinaEsquerda) -&gt; booleano
 
 ADVERTENCIA: Procedemento obsoleto! Utilice newDocument no seu lugar.
@@ -446,11 +455,12 @@ Closes the current document without prompting to save.
 
 May throw NoDocOpenError if there is no document to close
 </source>
-        <translation type="unfinished">closeDoc()
+        <translation>closeDoc()
 
 Fecha o documento actual sen pedir se se ha de gardar.
 
-Pode mandar un NoDocOpenError se non hai un documento que fechar</translation>
+Pode mandar un NoDocOpenError se non hai un documento que fechar
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="117"/>
@@ -458,9 +468,10 @@ Pode mandar un NoDocOpenError se non hai un documento que fechar</translation>
 
 Returns true if there is a document open.
 </source>
-        <translation type="unfinished">haveDoc() -&gt; bool
+        <translation>haveDoc() -&gt; bool
 
-Devolve verdadeiro se hai un documento aberto.</translation>
+Devolve verdadeiro se hai un documento aberto.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="128"/>
@@ -470,11 +481,12 @@ Opens the document &quot;name&quot;.
 
 May raise ScribusError if the document could not be opened.
 </source>
-        <translation type="unfinished">openDoc(&quot;nome)
+        <translation>openDoc(&quot;nome)
 
 Abre o documento &quot;nome&quot;.
 
-Pode provocar un ScribusError se non se puido abrir o documento.</translation>
+Pode provocar un ScribusError se non se puido abrir o documento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="141"/>
@@ -486,13 +498,14 @@ save file dialog.
 
 If the save fails, there is currently no way to tell.
 </source>
-        <translation type="unfinished">saveDoc()
+        <translation>saveDoc()
 
 Salva o documento actual co seu nome actual; devolve verdadeiro se se logrou.
 Se o documento ainda non se salvou, pode activar un diálogo interactivo
 para gardalo.
 
-Se falla o gardado non hai maneira de sabelo de momento.</translation>
+Se falla o gardado non hai maneira de sabelo de momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="152"/>
@@ -503,12 +516,13 @@ relative path).
 
 May raise ScribusError if the save fails.
 </source>
-        <translation type="unfinished">saveDocAs(&quot;nome&quot;)
+        <translation>saveDocAs(&quot;nome&quot;)
 
 Salva o documento actual co novo nome &quot;nome&quot; (que pode ser un
 camiño completo ou relativo).
 
-Pode provocar un ScribusError se non se puido gardar.</translation>
+Pode provocar un ScribusError se non se puido gardar.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="162"/>
@@ -517,10 +531,11 @@ Pode provocar un ScribusError se non se puido gardar.</translation>
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation type="unfinished">setInfo(&quot;autor&quot;, &quot;info&quot;, &quot;descrición&quot;) -&gt; booleano
+        <translation>setInfo(&quot;autor&quot;, &quot;info&quot;, &quot;descrición&quot;) -&gt; booleano
 
 Consigna a información do documento. &quot;Autor&quot;, &quot;Info&quot;, &quot;Descrición&quot; son
-cadeas.</translation>
+cadeas.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="173"/>
@@ -530,9 +545,10 @@ Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockT
 margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
 constants.
 </source>
-        <translation type="unfinished">setMargins(lr, rr, tr, br)(new line)(new line)
+        <translation>setMargins(lr, rr, tr, br)(new line)(new line)
 Configura as marxesdo documento, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockTop(tr) e Qt::DockBottom(br)(new line)
-as marxes danse nas unidades de medida do documento - consulte as constantes UNIT_&lt;type&gt;.</translation>
+as marxes danse nas unidades de medida do documento - consulte as constantes UNIT_&lt;type&gt;.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="185"/>
@@ -543,10 +559,11 @@ defined as constants UNIT_&lt;type&gt;.
 
 May raise ValueError if an invalid unit is passed.
 </source>
-        <translation type="unfinished">setUnit(tipo)
+        <translation>setUnit(tipo)
 
 Muda as unidades de medida do documento. Os valores posíbeis para &quot;unidade&quot;
-son definidas como constantes UNIT_&lt;tipo&gt;.</translation>
+son definidas como constantes UNIT_&lt;tipo&gt;.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="196"/>
@@ -556,11 +573,12 @@ Returns the measurement units of the document. The returned value will be one
 of the UNIT_* constants:
 UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 </source>
-        <translation type="unfinished">getUnit() -&gt; inteiro (Constante da unidade de Scribus)
+        <translation>getUnit() -&gt; inteiro (Constante da unidade de Scribus)
 
 Devolve as unidades de medida do documento. O valor de retorno será unha
 das constantes UNIT_*:
-UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</translation>
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="206"/>
@@ -569,10 +587,11 @@ UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</translation>
 Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
 current document.
 </source>
-        <translation type="unfinished">loadStylesFromFile(&quot;nomedeficheiro&quot;)
+        <translation>loadStylesFromFile(&quot;nomedeficheiro&quot;)
 
 Carrega estilos de parágrafo desde o documento de Scribus en &quot;nomedodocumento&quot;
-no documento actual.</translation>
+no documento actual.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="218"/>
@@ -583,12 +602,13 @@ FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
 to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
 a right page use FIRSTPAGERIGHT.
 </source>
-        <translation type="unfinished">setDocType(páxinasEnfrentadas, primeiraPáxinaEsquerda)
+        <translation>setDocType(páxinasEnfrentadas, primeiraPáxinaEsquerda)
 
 Indica o tipo de documento. Para obter páxinas enfrendas, fixe o primeiro parámetro en
 FACINGPAGES; para non as ter use NOFACINGPAGES. Se quer ter a primeira páxina
 á esquerda, fixe o segundo parámetro en FIRSTPAGELEFT; para que sexa a esquerda
-use FIRSTPAGERIGHT.</translation>
+use FIRSTPAGERIGHT.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="226"/>
@@ -597,10 +617,11 @@ use FIRSTPAGERIGHT.</translation>
 Closes the currently active master page, if any, and returns editing
 to normal. Begin editing with editMasterPage().
 </source>
-        <translation type="unfinished">closeMasterPage()
+        <translation>closeMasterPage()
 
 Fecha a páxina mestra activa, de habela, e volve á edición normal.
-Comece a editar con editMasterPage().</translation>
+Comece a editar con editMasterPage().
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="233"/>
@@ -608,9 +629,10 @@ Comece a editar con editMasterPage().</translation>
 
 Returns a list of the names of all master pages in the document.
 </source>
-        <translation type="unfinished">masterPageNames()
+        <translation>masterPageNames()
 
-Devolve unha lista cos nomes de todas as páxinas mestras do documento.</translation>
+Devolve unha lista cos nomes de todas as páxinas mestras do documento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="241"/>
@@ -619,10 +641,11 @@ Devolve unha lista cos nomes de todas as páxinas mestras do documento.</transla
 Enables master page editing and opens the named master page
 for editing. Finish editing with closeMasterPage().
 </source>
-        <translation type="unfinished">editMasterPage(pageName)
+        <translation>editMasterPage(pageName)
 
 Permite a edición da páxina mestra e abre para edición a páxina mestra
-dese nome. Remate a edición con closeMasterPage().</translation>
+dese nome. Remate a edición con closeMasterPage().
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="249"/>
@@ -631,9 +654,10 @@ dese nome. Remate a edición con closeMasterPage().</translation>
 Creates a new master page named pageName and opens it for
 editing.
 </source>
-        <translation type="unfinished">createMasterPage(nomePáxina)
+        <translation>createMasterPage(nomePáxina)
 
-Crea unha páxina mestra nova chamada nomePáxina e ábrea para editar.</translation>
+Crea unha páxina mestra nova chamada nomePáxina e ábrea para editar.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.h" line="256"/>
@@ -641,9 +665,10 @@ Crea unha páxina mestra nova chamada nomePáxina e ábrea para editar.</transla
 
 Delete the named master page.
 </source>
-        <translation type="unfinished">deleteMasterPage(nomePáxina)
+        <translation>deleteMasterPage(nomePáxina)
 
-Elimina a páxina mestra con ese nome.</translation>
+Elimina a páxina mestra con ese nome.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="21"/>
@@ -652,7 +677,7 @@ Elimina a páxina mestra con ese nome.</translation>
 Returns the name of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getFillColor([&quot;nome&quot;]) -&gt; cadea
+        <translation>getFillColor([&quot;nome&quot;]) -&gt; cadea
 
 Devolve o nome da cor de enchido do obxecto &quot;nome&quot;.
 Se non se fornece un &quot;nome&quot;, úsase o elemento seleccionado nese momento.
@@ -665,10 +690,11 @@ Se non se fornece un &quot;nome&quot;, úsase o elemento seleccionado nese momen
 Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished">getFillTransparency([&quot;nome&quot;]) -&gt; float
+        <translation>getFillTransparency([&quot;nome&quot;]) -&gt; float
 
 Devolve a transparencia de recheo do obxecto &quot;nome&quot;.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="41"/>
@@ -677,10 +703,11 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished">getFillBlendmode([&quot;nome&quot;]) -&gt; inteiro
+        <translation>getFillBlendmode([&quot;nome&quot;]) -&gt; inteiro
 
 devolve o modo de fusión de recheo do obxecto &quot;nome&quot;.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="51"/>
@@ -689,10 +716,11 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Returns the name of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getLineColor([&quot;nome&quot;]) -&gt; cadea
+        <translation>getLineColor([&quot;nome&quot;]) -&gt; cadea
 
 Devolve o nome da cor da liña do obxecto &quot;nome&quot;.
-Se non se fornece un &quot;nome&quot;, úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot;, úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="61"/>
@@ -701,10 +729,11 @@ Se non se fornece un &quot;nome&quot;, úsase o elemento seleccionado nese momen
 Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished">getLineTransparency([&quot;nome&quot;]) -&gt; float
+        <translation>getLineTransparency([&quot;nome&quot;]) -&gt; float
 
 Devolve a transparencia da liña do obxecto &quot;nome&quot;.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="71"/>
@@ -713,7 +742,7 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished">getLineBlendmode([&quot;nome&quot;]) -&gt; inteiro
+        <translation>getLineBlendmode([&quot;nome&quot;]) -&gt; inteiro
 
 Devolve o modo de fusión da liña do obxecto &quot;nome&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
@@ -725,7 +754,7 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished">getLineWidth([&quot;nome&quot;]) -&gt;inteiro
+        <translation>getLineWidth([&quot;nome&quot;]) -&gt;inteiro
 
 Devolve a largura da liña do obxecto &quot;nome&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
@@ -738,10 +767,11 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Returns the shading value of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getLineShade([&quot;nome&quot;]) -&gt;inteiro
+        <translation>getLineShade([&quot;nome&quot;]) -&gt;inteiro
 
 Devolve o valor de saturación da liña do obxecto &quot;nome&quot;.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="102"/>
@@ -751,11 +781,12 @@ Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; 
 the currently selected item is used.  The join types are:
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
-        <translation type="unfinished">getLineJoin([&quot;nome&quot;]) -&gt; enteiro (ver constantes)
+        <translation>getLineJoin([&quot;nome&quot;]) -&gt; enteiro (ver constantes)
 
 Devolve o estilo de xunta do obxecto &quot;nome&quot;. Se non se fornece un &quot;nome&quot;
 emprégase o elemento seleccionado nese momento. Os tipos de xunta son:
-JOIN_BEVEL (biselado), JOIN_MITTER (en inglete), JOIN_ROUND￼ (arredondada)</translation>
+JOIN_BEVEL (biselado), JOIN_MITTER (en inglete), JOIN_ROUND￼ (arredondada)
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="113"/>
@@ -765,12 +796,13 @@ Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; i
 currently selected item is used. The cap types are:
 CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </source>
-        <translation type="unfinished">getLineEnd([&quot;nome&quot;]) -&gt;inteiro (ver as constantes)
+        <translation>getLineEnd([&quot;nome&quot;]) -&gt;inteiro (ver as constantes)
 
 Devolve o estilo de terminación do obxecto &quot;nome&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 Os estilos de terminación son:
-CAP_FLAT, CAP_ROUND, CAP_SQUARE</translation>
+CAP_FLAT, CAP_ROUND, CAP_SQUARE
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="124"/>
@@ -780,12 +812,13 @@ Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is no
 currently selected item is used. Line style constants are:
 LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </source>
-        <translation type="unfinished">getLineStyle([&quot;nome&quot;]) -&gt;inteiro (ver as constantes)
+        <translation>getLineStyle([&quot;nome&quot;]) -&gt;inteiro (ver as constantes)
 
 Devolve o estilo de liña do obxecto &quot;nome&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 As constantes de estilo de liña son:
-LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="134"/>
@@ -794,10 +827,11 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
 Returns the shading value of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getFillShade([&quot;nome&quot;]) -&gt;inteiro
+        <translation>getFillShade([&quot;nome&quot;]) -&gt;inteiro
 
 Devolve o valor de saturación da cor de enchido do obxecto &quot;nome&quot;.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="145"/>
@@ -807,10 +841,11 @@ Returns the corner radius of the object &quot;name&quot;. The radius is
 expressed in points. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">getCornerRadius([&quot;nome&quot;]) -&gt;inteiro
+        <translation>getCornerRadius([&quot;nome&quot;]) -&gt;inteiro
 
 Devolve o radio dos vértices do obxecto &quot;nome&quot;. O radio exprésase en puntos.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="155"/>
@@ -819,10 +854,11 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Returns a (x, y) tuple containing the scaling values of the image frame
 &quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getLineShade([&quot;nome&quot;]) -&gt;(x,y)
+        <translation>getLineShade([&quot;nome&quot;]) -&gt;(x,y)
 
 Devolve un par (x, y) que contén os valores de ampliación da moldura de imaxe
-&quot;nome&quot;. Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+&quot;nome&quot;. Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="165"/>
@@ -831,10 +867,11 @@ Devolve un par (x, y) que contén os valores de ampliación da moldura de imaxe
 Returns the filename for the image in the image frame. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished">getImageName([&quot;nome&quot;]) -&gt;cadea
+        <translation>getImageName([&quot;nome&quot;]) -&gt;cadea
 
 Devolve o nome do ficheiro da imaxe que está na moldura de imaxe.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="177"/>
@@ -845,12 +882,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 The position is expressed in the actual measurement unit of the document
 - see UNIT_&lt;type&gt; for reference.
 </source>
-        <translation type="unfinished">getPosition([&quot;nome&quot;]) -&gt;inteiro
+        <translation>getPosition([&quot;nome&quot;]) -&gt;inteiro
 
 Devolve un par (x, y) coa posición do obxecto &quot;nome&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 A posición exprésase na unidade de medida real do documento
-- ver UNIT_&lt;tipo&gt; para máis referencias.</translation>
+- ver UNIT_&lt;tipo&gt; para máis referencias.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="189"/>
@@ -861,7 +899,7 @@ If &quot;name&quot; is not given the currently selected item is used. The size i
 expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
 for reference.
 </source>
-        <translation type="unfinished">getSize([&quot;nome&quot;[) -&gt;(largura,altura)
+        <translation>getSize([&quot;nome&quot;[) -&gt;(largura,altura)
 
 Devolve un par (largura, altura) co tamaño do obxecto &quot;nome&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
@@ -877,11 +915,12 @@ Returns the rotation of the object &quot;name&quot;. The value is expressed in d
 and clockwise is positive. If &quot;name&quot; is not given the currently selected item
 is used.
 </source>
-        <translation type="unfinished">getRotation([&quot;nome&quot;[) -&gt;inteiro
+        <translation>getRotation([&quot;nome&quot;[) -&gt;inteiro
 
 Devolve o valor da rotación do obxecto &quot;nome&quot;. O valor exprésase en graus,
 e o sentido das agulLas do reloxio é positivo.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.h" line="209"/>
@@ -889,9 +928,10 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 
 Returns a list containing the names of all objects on the current page.
 </source>
-        <translation type="unfinished">getAllObjects() -&gt; lista
+        <translation>getAllObjects() -&gt; lista
 
-Devolve unha lista que contén os nomes de todos os obxectos da páxina actual.</translation>
+Devolve unha lista que contén os nomes de todos os obxectos da páxina actual.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetsetprop.h" line="83"/>
@@ -902,10 +942,11 @@ for details of arguments.
 
 If `includesuper&apos; is true, search inherited properties too.
 </source>
-        <translation type="unfinished">getPropertyCType(obxecto, propiedade, includesuper=True)
+        <translation>getPropertyCType(obxecto, propiedade, includesuper=True)
 
 Devolve o nome do tipo C da &quot;propiedade&quot; de &quot;obxecto&quot;. Vexa getProperty()
-para detalles sobre os argumentos.</translation>
+para detalles sobre os argumentos.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetsetprop.h" line="101"/>
@@ -915,11 +956,12 @@ Return a list of property names supported by `object&apos;.
 If `includesuper&apos; is true, return properties supported
 by parent classes as well.
 </source>
-        <translation type="unfinished">getPropertyNames(obxecto, includesuper=True)
+        <translation>getPropertyNames(obxecto, includesuper=True)
 
 Devolve unha lista de nomes de propiedades utilizábeis por &quot;obxecto&quot;.
 Se &quot;includesuper&quot; é verdadeiro, devolve tamén as propiedades
-utilizábeis polas clases pai.</translation>
+utilizábeis polas clases pai.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetsetprop.h" line="135"/>
@@ -936,7 +978,7 @@ to look up on `object&apos;.
 
 The return value varies depending on the type of the property.
 </source>
-        <translation type="unfinished">getProperty(obxecto, propiedade)
+        <translation>getProperty(obxecto, propiedade)
 
 Devolver o valor da propiedade &quot;propiedade&quot; do &quot;obxecto&quot; pasado.
 
@@ -947,7 +989,8 @@ a calquer instancia C++ QObject.
 O argumento &quot;propiedade&quot; debe ser unha cadea e é o nome da propiedade que
 se ha de consultar sobre &quot;obxecto&quot;.
 
-O valor de retorno varía dependendo no tipo de propiedade.</translation>
+O valor de retorno varía dependendo no tipo de propiedade.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetsetprop.h" line="165"/>
@@ -959,13 +1002,14 @@ also be raised if the underlying setter fails.
 
 See getProperty() for more information.
 </source>
-        <translation type="unfinished">setProperty(obxecto, propiedade, valor)
+        <translation>setProperty(obxecto, propiedade, valor)
 
 Asigne &quot;propiedade&quot; de &quot;obxecto&quot; a &quot;valor&quot;. Se &quot;valor&quot; non se pode converter nun tipo
 compatíbel co tipo de &quot;propiedade&quot; provócase unha excepción. Tamén se pode provocar
 unha excepción se falla un designador subxacente.
 
-Vexa getProperty() para máis información.</translation>
+Vexa getProperty() para máis información.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="23"/>
@@ -976,7 +1020,7 @@ distances are expressed in the current measurement unit of the document (see
 UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
 If the object &quot;name&quot; belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished">moveObject(dx, dy [, &quot;nome&quot;])
+        <translation>moveObject(dx, dy [, &quot;nome&quot;])
 
 Move o obxecto &quot;nome&quot; en dx e dy relativos á súa posición actual.
 As distancias expesanse na unidade de medida actual do documento
@@ -993,12 +1037,13 @@ the current measurement unit of the document (see UNIT constants).  If &quot;nam
 is not given the currently selected item is used.  If the object &quot;name&quot;
 belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished">moveObjectAbs(x, y [, &quot;nome&quot;])
+        <translation>moveObjectAbs(x, y [, &quot;nome&quot;])
 
 Move o obxecto &quot;nome&quot; a unha localización nova. As coordenadas exprésanse na
 unidade de medida actual do documento (ver as constantes UNIT).
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
-Se o obxecto &quot;nome&quot; pertence a un grupo, móvese o grupo inteiro.</translation>
+Se o obxecto &quot;nome&quot; pertence a un grupo, móvese o grupo inteiro.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="48"/>
@@ -1010,7 +1055,7 @@ default, the top left vertex at zero rotation. Positive values mean counter
 clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished">rotateObject(rot [, &quot;nome&quot;])
+        <translation>rotateObject(rot [, &quot;nome&quot;])
 
 Xira o obxecto &quot;nome&quot; &quot;rot&quot; graos relativos. O obxecto xira
 polo vértice que está seleccionado nese momento como punto de rotación -
@@ -1027,11 +1072,12 @@ Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive va
 mean counter clockwise rotation. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">rotateObjectAbs(rot [, &quot;nome&quot;])
+        <translation>rotateObjectAbs(rot [, &quot;nome&quot;])
 
 Fixa a rotación do obxecto &quot;nome&quot; en &quot;rot&quot;. Os valores positivos
 significan rotación anti-reloxio. 
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="69"/>
@@ -1040,7 +1086,7 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">sizeObject(Largura, altura[, &quot;nome&quot;])
+        <translation>sizeObject(Largura, altura[, &quot;nome&quot;])
 
 Modifica o tamaño do obxecto &quot;nome&quot; para a largura e altura dadas.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
@@ -1054,11 +1100,12 @@ Returns the name of the selected object. &quot;nr&quot; if given indicates the n
 of the selected object, e.g. 0 means the first selected object, 1 means the
 second selected Object and so on.
 </source>
-        <translation type="unfinished">getSelectedObject([nr]) -&gt; cadea
+        <translation>getSelectedObject([nr]) -&gt; cadea
 
 Devolve o nome do obxecto seleccionado. &quot;nr&quot;, de se fornecer, indica o número
 de obxectos seleccionados; p.ex. 0 significa o primeiro obxecto seleccionado,
-1 significa o segundo Obxecto seleccionado, e así.</translation>
+1 significa o segundo Obxecto seleccionado, e así.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="89"/>
@@ -1066,9 +1113,10 @@ de obxectos seleccionados; p.ex. 0 significa o primeiro obxecto seleccionado,
 
 Returns the number of selected objects.
 </source>
-        <translation type="unfinished">selectionCount() -&gt; inteiro
+        <translation>selectionCount() -&gt; inteiro
 
-Devolve o número de obxectos seleccionados.</translation>
+Devolve o número de obxectos seleccionados.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="98"/>
@@ -1076,9 +1124,10 @@ Devolve o número de obxectos seleccionados.</translation>
 
 Selects the object with the given &quot;name&quot;.
 </source>
-        <translation type="unfinished">selectObject(&quot;nome&quot;)
+        <translation>selectObject(&quot;nome&quot;)
 
-Selecciona o obxecto co &quot;nome&quot; dado.</translation>
+Selecciona o obxecto co &quot;nome&quot; dado.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="107"/>
@@ -1086,9 +1135,10 @@ Selecciona o obxecto co &quot;nome&quot; dado.</translation>
 
 Deselects all objects in the whole document.
 </source>
-        <translation type="unfinished">deselectAll()
+        <translation>deselectAll()
 
-De-selecciona todos os obxectos do documento.</translation>
+De-selecciona todos os obxectos do documento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="118"/>
@@ -1098,21 +1148,21 @@ Groups the objects named in &quot;list&quot; together. &quot;list&quot; must con
 of the objects to be grouped. If &quot;list&quot; is not given the currently selected
 items are used.
 </source>
-        <translation type="unfinished">groupObjects(lista)
+        <translation>groupObjects(lista)
 
 Agrupa xuntas os obxectos enunciados na &quot;lista&quot;. &quot;lista&quot; debe conter os nomes
 dos obxectos que se han de agrupar. 
-Se non se fornece unha &quot;lista&quot; úsanse os elementos seleccionados nese momento.</translation>
+Se non se fornece unha &quot;lista&quot; úsanse os elementos seleccionados nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="126"/>
         <source>unGroupObjects(&quot;name&quot;)
 
 Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
-        <translation type="unfinished">unGroupObjects(&quot;name&quot;)
+        <translation>unGroupObjects(&quot;name&quot;)
 
-Destrúe o grupo ao que pertence o obecto &quot;nome&quot;.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Destrúe o grupo ao que pertence o obecto &quot;nome&quot;. Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="141"/>
@@ -1126,7 +1176,7 @@ to 150 % of its original size.  The value for &quot;factor&quot; must be greater
 
 May raise ValueError if an invalid scale factor is passed.
 </source>
-        <translation type="unfinished">scaleGroup(factor [, &quot;nome&quot;})
+        <translation>scaleGroup(factor [, &quot;nome&quot;})
 
 Escala o grupo ao que pertence o obxecto &quot;nome&quot;. Os valores maiores de 1 aumentan
 o grupo; os valores menores de 1 reducen o tamaño do grupo. Por exemplo, un valor
@@ -1134,7 +1184,8 @@ de 0.5 reduce o grupo ao 50% do seu tamaño orixinal, un valor de 1.5 aumenta o 
 do grupo a un 150% do seu tamaño orixinal. O valor de &quot;factor&quot; debe ser maior de 0.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 
-Pode provocar un ValueError se se lle pasa un factor de escala non válido.</translation>
+Pode provocar un ValueError se se lle pasa un factor de escala non válido.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="153"/>
@@ -1145,12 +1196,13 @@ not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished">loadImage(&quot;nomedeficheiro&quot; [, &quot;nome&quot;])
+        <translation>loadImage(&quot;nomedeficheiro&quot; [, &quot;nome&quot;])
 
 Carrega a imaxe &quot;imaxe&quot; na moldura de imaxe &quot;nome&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 
-Pode provocar un WrongFrameTypeError se a moldura de destino non é unha moldura de imaxe</translation>
+Pode provocar un WrongFrameTypeError se a moldura de destino non é unha moldura de imaxe
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="166"/>
@@ -1162,13 +1214,14 @@ means 100 %.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished">scaleImaxe(x, y [, &quot;nome&quot;])
+        <translation>scaleImaxe(x, y [, &quot;nome&quot;])
 
 Fixa os factores de escala para a imaxe da moldura de imaxe &quot;nome&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 O número 1 indica 100%.
 
-Pode provocar un WrongFrameTypeError se a moldura de destino non é unha moldura de imaxe</translation>
+Pode provocar un WrongFrameTypeError se a moldura de destino non é unha moldura de imaxe
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="177"/>
@@ -1178,11 +1231,12 @@ Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;
 If &quot;name&quot; is not given the currently selected item is used. Returns true
 if locked.
 </source>
-        <translation type="unfinished">lockObject([&quot;nome&quot;]) -&gt; bool
+        <translation>lockObject([&quot;nome&quot;]) -&gt; bool
 
 Bloquea o obxecto &quot;nome&quot; se está desbloqueado ou desbloquéao se está bloqueado.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
-Devolve verdadeiro se está bloqueado.</translation>
+Devolve verdadeiro se está bloqueado.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="187"/>
@@ -1191,10 +1245,11 @@ Devolve verdadeiro se está bloqueado.</translation>
 Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished">isLocked([&quot;nome&quot;]) -&gt; bool
+        <translation>isLocked([&quot;nome&quot;]) -&gt; bool
 
 Devolve verdadeiro se o obxecto &quot;nome&quot; está bloqueado.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.h" line="199"/>
@@ -1206,13 +1261,14 @@ Both `scaletoframe&apos; and `proportional&apos; are boolean.
 
 May raise WrongFrameTypeError.
 </source>
-        <translation type="unfinished">setScaleImageToFrame(escalaamoldura, proporcional=None, nome=&lt;selección&gt;)
+        <translation>setScaleImageToFrame(escalaamoldura, proporcional=None, nome=&lt;selección&gt;)
 
 Indica que a escala á moldura na imaxe seleccionada ou especificada será &quot;escalaamoldura&quot;.
 De especificarse &quot;proporcional&quot;, a ampliación de aspecto fixo será &quot;proporcional&quot;.
 Tanto &quot;escalaamoldura&quot; como &quot;proporcional&quot; son booleanas.
 
-Pode provocar un erro WrongFrameTypeError.</translation>
+Pode provocar un erro WrongFrameTypeError.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="24"/>
@@ -1222,7 +1278,7 @@ Disables page redraw when bool = False, otherwise redrawing is enabled.
 This change will persist even after the script exits, so make sure to call
 setRedraw(True) in a finally: clause at the top level of your script.
 </source>
-        <translation type="unfinished">setRedraw(bool)
+        <translation>setRedraw(bool)
 
 Desactiva o redeseñado da páxina se bool = False e, se non, permite o redeseñado.
 Esta modificación persistirá mesmo despois de sair o guión, de maneira que deberá
@@ -1235,9 +1291,10 @@ asegurarse de chamar setRedraw(True) nunha cláusula finally: no nível superior
 
 Returns a list with the names of all available fonts.
 </source>
-        <translation type="unfinished">getFontNames() -&gt; list
+        <translation>getFontNames() -&gt; list
 
-Devolve unha lista cos nomes das fontes disponíbeis.</translation>
+Devolve unha lista cos nomes das fontes disponíbeis.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="43"/>
@@ -1246,10 +1303,11 @@ Devolve unha lista cos nomes das fontes disponíbeis.</translation>
 Returns a larger font info. It&apos;s a list of the tuples with:
 [ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
 </source>
-        <translation type="unfinished">getXFontNames() -&gt; lista de valores
+        <translation>getXFontNames() -&gt; lista de valores
 
 Devolve información ampliada sobre a fonte. É unha lista de valores con:
-[ (Nome Scribus, Familia, Nome real, subgrupo (1|0), embed PS (1|0), ficheiro da fonte), (...), ...]</translation>
+[ (Nome Scribus, Familia, Nome real, subgrupo (1|0), embed PS (1|0), ficheiro da fonte), (...), ...]
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="62"/>
@@ -1264,7 +1322,7 @@ by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation type="unfinished">renderFont(&quot;nome&quot;, &quot;nomedeficheiro&quot;, &quot;exemplo&quot;, tamaño, formato=&quot;PPM&quot;) -&gt; booleano
+        <translation>renderFont(&quot;nome&quot;, &quot;nomedeficheiro&quot;, &quot;exemplo&quot;, tamaño, formato=&quot;PPM&quot;) -&gt; booleano
 
 Crea unha vista previa gráfica da fonte &quot;nome&quot; co texto &quot;exemplo&quot; e o tamaño.
 Se o &quot;nomedeficheiro&quot; non é &quot;&quot;, a imaxe sálvase en &quot;nomedeficheiro&quot;. Do contrario,
@@ -1273,7 +1331,8 @@ os datos de imaxe devólvense como unha cadea. O argumento opcional
 permitido por QPixmap.save(). Formatos habituais son PPM, JPEG, PNG e XPM.
 
 Pode provocar un NotFoundError se non se atopa a fonte especificada.
-Pode provocar un ValueError se se lle pasar un exemplo ou nome de ficheiro vacíos.</translation>
+Pode provocar un ValueError se se lle pasar un exemplo ou nome de ficheiro vacíos.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="71"/>
@@ -1281,9 +1340,10 @@ Pode provocar un ValueError se se lle pasar un exemplo ou nome de ficheiro vací
 
 Returns a list with the names of all defined layers.
 </source>
-        <translation type="unfinished">getLayers() -&gt; lista
+        <translation>getLayers() -&gt; lista
 
-Devolve unha lista cos nomes das capas definidas.</translation>
+Devolve unha lista cos nomes das capas definidas.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="83"/>
@@ -1294,12 +1354,13 @@ Sets the active layer to the layer named &quot;name&quot;.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">secActiveLayer(&quot;nome&quot;)
+        <translation>secActiveLayer(&quot;nome&quot;)
 
 Fixa a capa activa na capa de nome &quot;nome&quot;.
 
 Pode provocar un NotFoundError se non se atopa a capa.
-Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="92"/>
@@ -1307,9 +1368,10 @@ Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
 
 Returns the name of the current active layer.
 </source>
-        <translation type="unfinished">getActiveLayer() -&gt; string
+        <translation>getActiveLayer() -&gt; string
 
-Devolve o nome da capa activa actual.</translation>
+Devolve o nome da capa activa actual.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="105"/>
@@ -1321,13 +1383,14 @@ If &quot;name&quot; is not given the currently selected item is used.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">sentToLayer(&quot;capa&quot;[ &quot;nome&quot;])
+        <translation>sentToLayer(&quot;capa&quot;[ &quot;nome&quot;])
 
 Envía o obxecto &quot;nome&quot; para a capa &quot;capa&quot;. A capa debe existir.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 
 Pode provocar un NotFoundError se non se atopa a capa.
-Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="118"/>
@@ -1339,13 +1402,14 @@ the layer is invisible.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerVisible(&quot;capa&quot;, visible)
+        <translation>setLayerVisible(&quot;capa&quot;, visible)
 
 Fixa a capa &quot;capa&quot; como visíbel ou non. Se visíbel está fixado como false
 a capa é invisíbel.
 
 Pode provocar un NotFoundError se non se atopa a capa.
-Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="131"/>
@@ -1357,7 +1421,7 @@ printable set to false the layer won&apos;t be printed.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerPrintable(&quot;capa&quot;, printable)
+        <translation>setLayerPrintable(&quot;capa&quot;, printable)
 
 Fixa a capa &quot;capa&quot; como imprimíbel ou non. Se printable
 é falso non se imprimirá a capa.
@@ -1376,13 +1440,14 @@ true the layer will be locked.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerLocked(&quot;capa&quot;, bloqueado)
+        <translation>setLayerLocked(&quot;capa&quot;, bloqueado)
 
 Fixa a capa &quot;capa&quot; como bloqueada ou non. Se bloqueado é
 verdadeiro, a capa estará bloqueada.
 
 Pode provocar un erro NotFoundError se non se atopa a capa.
-Pode provocar un erro ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un erro ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="157"/>
@@ -1394,13 +1459,14 @@ true the layer will be displayed outlined.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerOutlined(&quot;capa&quot;, outline)
+        <translation>setLayerOutlined(&quot;capa&quot;, outline)
 
 Fixa a capa &quot;capa&quot; como bloqueada ou non. Se o esquema se fixa
 como verdadeiro, a capa mostrarase esquematizada.
 
 Pode provocar un erro NotFoundError se non se atopa a capa.
-Pode provocar un erro ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un erro ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="170"/>
@@ -1412,13 +1478,14 @@ true text in layers above this one will flow around objects on this layer.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerFlow(&quot;capa&quot;, flow)
+        <translation>setLayerFlow(&quot;capa&quot;, flow)
 
 Fixa o control de fluxo da &quot;capa&quot; a fluxo. Se o fluxo é verdadeiro, o texto das
 capas por riba desta fluirá arredor dos obxectos desta capa.
 
 Pode provocar un erro NotFoundError se non se atopa a capa.
-Pode provocar un erro ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un erro ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="182"/>
@@ -1429,12 +1496,13 @@ Sets the layers &quot;layer&quot;  blendmode to blend.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerblendmode(&quot;capa&quot;, blend)
+        <translation>setLayerblendmode(&quot;capa&quot;, blend)
 
 Fixa o modo de fusión das capas &quot;capa&quot; como fusionado.
 
 Pode provocar un erro NotFoundError se non se atopa a capa.
-Pode provocar un erro ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un erro ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="194"/>
@@ -1445,12 +1513,13 @@ Sets the layers &quot;layer&quot;  transparency to trans.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerTransparenci(&quot;capa&quot;, trans)
+        <translation>setLayerTransparenci(&quot;capa&quot;, trans)
 
 Fixa a transparencia das capas &quot;capa&quot; como trans.
 
 Pode provocar un erro NotFoundError se non se atopa a capa.
-Pode provocar un erro ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un erro ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="208"/>
@@ -1463,14 +1532,15 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">isLayerVisible(&quot;capa&quot;) -&gt; booleano
+        <translation>isLayerVisible(&quot;capa&quot;) -&gt; booleano
 
 Devolve se a capa &quot;capa&quot; é visíbel ou non; un valor de Verdadeiro significa
 que a capa &quot;capa&quot; é visíbel; un valor de Falso significa que a capa
 &quot;capa&quot; é invisíbel.
 
 Pode provocar un NotFoundError se non se dá atopada a capa.
-Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="222"/>
@@ -1483,14 +1553,15 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">isLayerPrintable(&quot;capa&quot;) -&gt; booleano
+        <translation>isLayerPrintable(&quot;capa&quot;) -&gt; booleano
 
 devolve se a capa &quot;capa&quot; é imprimíbel ou non; o valor Verdadeiro significa
 que a capa &quot;capa&quot; pódese imprimir, o valor Falso significa que foi deshabilitada
 a impresión da capa &quot;capa&quot;.
 
 Pode provocar un NotfoundError se non se atopa a capa.
-Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="236"/>
@@ -1503,14 +1574,15 @@ that the layer &quot;layer&quot; is editable, a value of False means that the la
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">isLayerLocked(&quot;capa&quot;) -&gt; booleano
+        <translation>isLayerLocked(&quot;capa&quot;) -&gt; booleano
 
 Devolve se a capa &quot;capa&quot; está bloqueada ou non. O Valor Verdadeiro significa
 que a capa &quot;capa&quot; é editábel, o valor Falso significa que a capa
 &quot;capa&quot; está bloqueada.
 
 Pode provocar un erro NotFoundError se non se atopa a capa.
-Pode provocar un erro ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un erro ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="250"/>
@@ -1523,14 +1595,15 @@ that the layer &quot;layer&quot; is outlined, a value of False means that the la
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">isLayerOutlined(&quot;capa&quot;) -&gt; booleano
+        <translation>isLayerOutlined(&quot;capa&quot;) -&gt; booleano
 
 Devolve se a capa &quot;capa&quot; está esquematizada ou non. O valor Verdadeiro significa
 que a capa &quot;capa&quot; está esquematizada, o valor Falso significa que a capa
 &quot;capa&quot; é normal.
 
 Pode provocar un erro NotFoundError se non se atopa a capa.
-Pode provocar un erro ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un erro ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="263"/>
@@ -1542,13 +1615,14 @@ that text flows around, a value of False means that the text does not flow aroun
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">isLayerFlow(&quot;capa&quot;) -&gt; booleano
+        <translation>isLayerFlow(&quot;capa&quot;) -&gt; booleano
 
 Devolve se o texto flúe arredor dos obxectos da capa &quot;capa&quot;. O valor Verdadeiro significa
 que o texto flúe arredor, o valor Falso significa que o texto non flúe arredor.
 
 Pode provocar un erro NotFoundError se non se atopa a capa.
-Pode provocar un erro ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un erro ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="275"/>
@@ -1559,12 +1633,13 @@ Returns the &quot;layer&quot; layer blendmode,
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">getLayerblendmode(&quot;layer&quot;) -&gt; inteiro
+        <translation>getLayerblendmode(&quot;layer&quot;) -&gt; inteiro
 
 Devolve o modo de fusión da capa &quot;capa&quot;.
 
 Pode provocar un erro NotFoundError se non se atopa a capa.
-Pode provocar un erro ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un erro ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="287"/>
@@ -1575,12 +1650,13 @@ Returns the &quot;layer&quot; layer transparency,
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">getLayerTransparency(&quot;capa&quot;) -&gt; float
+        <translation>getLayerTransparency(&quot;capa&quot;) -&gt; float
 
 Devolve a transparencia da capa &quot;capa&quot;,
 
 Pode provocar un erro NotFoundError se non se atopa a capa.
-Pode provocar un erro ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un erro ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="300"/>
@@ -1592,12 +1668,13 @@ exists or if it&apos;s the only layer in the document.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">deleteLayer(&quot;layer&quot;)
+        <translation>deleteLayer(&quot;layer&quot;)
 
 Eliminar a capa de nome &quot;capa&quot;. Non acontece nada se a capa non existe
 ou se é a única capa do documento.
 Pode provocar un NotFoundError se non se atopa a capa.
-Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="311"/>
@@ -1607,10 +1684,11 @@ Creates a new layer with the name &quot;name&quot;.
 
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">createLayer(capa)
+        <translation>createLayer(capa)
 
 Crea unha capa nova co nome &quot;nome&quot;.
-Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+Pode provocar un ValueError se o nome da capa non é aceptábel.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="320"/>
@@ -1618,9 +1696,10 @@ Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
 
 Returns a string with the -lang value.
 </source>
-        <translation type="unfinished">getGuiLanguage() -&gt; string
+        <translation>getGuiLanguage() -&gt; string
 
-Devolve unha cadea co valor -lang.</translation>
+Devolve unha cadea co valor -lang.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.h" line="329"/>
@@ -1628,7 +1707,7 @@ Devolve unha cadea co valor -lang.</translation>
 
 Moves current selection to front.
 </source>
-        <translation type="unfinished">moveSelectionToFront()
+        <translation>moveSelectionToFront()
 
 Move a selección actual cara a frente.
 </translation>
@@ -1639,7 +1718,7 @@ Move a selección actual cara a frente.
 
 Moves current selection to back.
 </source>
-        <translation type="unfinished">moveSelectionToFront()￼
+        <translation>moveSelectionToFront()￼
 
 Move a selección actual cara tras.
 </translation>
@@ -1656,7 +1735,7 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createRect(x, y, largura, altura, [&quot;nome&quot;]) -&gt; cadea
+        <translation>createRect(x, y, largura, altura, [&quot;nome&quot;]) -&gt; cadea
 
 Crea un rectángulo novo na páxina actual e devolve o seu nome.
 As coordenadas danse nas unidades de medida actuais do documento
@@ -1679,7 +1758,7 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createEllipse(x, y,largura, altura, [&quot;nome&quot;]) -&gt; cadea
+        <translation>createEllipse(x, y,largura, altura, [&quot;nome&quot;]) -&gt; cadea
 
 Crea unha elipse nova na páxina actual e devolve o seu nome.
 As coordenadas fornécense nas unidades de medida do documento
@@ -1702,7 +1781,7 @@ create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createImage(x, y, largura, altura, [&quot;nome&quot;]) -&gt; cadea
+        <translation>createImage(x, y, largura, altura, [&quot;nome&quot;]) -&gt; cadea
 
 Crea unha molura de imaxe nova na páxina actual e devolve o seu nome.
 As coordenadas fornécense nas unidades de medida do documento
@@ -1725,7 +1804,7 @@ given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createText(x, y, largura, altura, [&quot;nome&quot;]) -&gt; cadea
+        <translation>createText(x, y, largura, altura, [&quot;nome&quot;]) -&gt; cadea
 
 Crea unha moldura de texto nova na páxina actual e devolve o seu nome.
 As coordenadas fornécense nas unidades de medida do documento
@@ -1748,7 +1827,7 @@ object because you need this name for further access to that object. If
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createLine(x1, y1, x2, y2, [&quot;nome&quot;]) -&gt; cadea
+        <translation>createLine(x1, y1, x2, y2, [&quot;nome&quot;]) -&gt; cadea
 
 Crea unha liña nova desde o punto(x1, y1) ao punto(x2, y2) e devolve o seu nome.
 As coordenadas fornécense nas unidades de medida do documento
@@ -1756,7 +1835,8 @@ As coordenadas fornécense nas unidades de medida do documento
 porque precisará deste nome para posteriores referencias a ese obxecto.
 Se non se fornece un &quot;nome&quot; Scribus creará un por vostede.
 
-Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.</translation>
+Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.h" line="108"/>
@@ -1773,7 +1853,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished">createPolyLine(lista, [&quot;nome&quot;]) -&gt; cadea
+        <translation>createPolyLine(lista, [&quot;nome&quot;]) -&gt; cadea
 
 Crea unha poli-liña nova e devolve o seu nome. Os puntos da poli-liña
 armacénanse na lista &quot;lista&quot; na orde seguinte: [x1, y1, x2, y2...xn, yn].
@@ -1784,7 +1864,8 @@ Se non se fornece un &quot;nome&quot; Scribus creará un por vostede.
 
 Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.
 Pode provocar un ValueError se se lle pasa un número insuficiente de puntos ou se
-o número de valores que se lle pasan non se agrupan en puntos sen sobrantes.</translation>
+o número de valores que se lle pasan non se agrupan en puntos sen sobrantes.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.h" line="128"/>
@@ -1803,7 +1884,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished">createPolyLigon(lista, [&quot;nome&quot;]) -&gt; cadea
+        <translation>createPolyLigon(lista, [&quot;nome&quot;]) -&gt; cadea
 
 Crea un polígono novo e devolve o seu nome. Os puntos do polígono
 armacénanse na lista &quot;lista&quot; na orde seguinte: [x1, y1, x2, y2...xn. yn].
@@ -1817,7 +1898,8 @@ Se non se fornece un &quot;nome&quot; Scribus creará un por vostede.
 
 Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.
 Pode provocar un ValueError se se lle pasa un número insuficiente de puntos ou se
-o número de valores que se lle pasan non se agrupan en puntos sen sobrantes.</translation>
+o número de valores que se lle pasan non se agrupan en puntos sen sobrantes.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.h" line="149"/>
@@ -1837,7 +1919,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished">createBezierLine(lista, [&quot;nome&quot;]) -&gt; cadea
+        <translation>createBezierLine(lista, [&quot;nome&quot;]) -&gt; cadea
 
 Crea unha curva de Bézier nova e devolve o seu nome. Os puntos da curva de Bézier
 armacénanse na lista &quot;lista&quot; na orde seguinte: [x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn].
@@ -1849,7 +1931,8 @@ Se non se fornece un &quot;nome&quot; Scribus creará un por vostede.
 
 Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.
 Pode provocar un ValueError se se lle pasa un número insuficiente de puntos ou se
-o número de valores que se lle pasan non se agrupan en puntos sen sobrantes.</translation>
+o número de valores que se lle pasan non se agrupan en puntos sen sobrantes.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.h" line="165"/>
@@ -1864,7 +1947,7 @@ to that object. If &quot;name&quot; is not given Scribus will create one for you
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 May raise NotFoundError if one or both of the named base object don&apos;t exist.
 </source>
-        <translation type="unfinished">createTrazoDeTexto(x, y, &quot;caixadetexto&quot;, &quot;curvadeBézier&quot;, [&quot;nome&quot;]) -&gt; cadea
+        <translation>createTrazoDeTexto(x, y, &quot;caixadetexto&quot;, &quot;curvadeBézier&quot;, [&quot;nome&quot;]) -&gt; cadea
 
 Crea un TrazoDeTexto novo unindo os dous obxectos &quot;caixadetexto&quot; e
 &quot;curvadeBézier&quot; e devolve o seu nome. 
@@ -1874,7 +1957,8 @@ porque precisará deste nome para posteriores referencias a ese obxecto.
 Se non se fornece un &quot;nome&quot; Scribus creará un por vostede.
 
 Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.
-Pode provocar un NotFoundError se un ou os dous obxectos de base nomeados non existe.</translation>
+Pode provocar un NotFoundError se un ou os dous obxectos de base nomeados non existe.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.h" line="177"/>
@@ -1883,7 +1967,7 @@ Pode provocar un NotFoundError se un ou os dous obxectos de base nomeados non ex
 Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
 selected item is deleted.
 </source>
-        <translation type="unfinished">newPage(where [,&quot;modelo&quot;])
+        <translation>newPage(where [,&quot;modelo&quot;])
 
 Crea unha páxina nova. Se &quot;where&quot; é -1, a Páxina nova adiciónaselle ao
 documento; se non, a páxina nova insírese antes do &quot;where&quot;. Os números de
@@ -1891,7 +1975,8 @@ páxina cóntanse a partir do 1, sen importar cal sexa o número da primeir páx
 do seu documento. O parámetro opcional &quot;modelo&quot; especifica o nome do
 modelo de páxina para a páxina nova.
 
-Pode causar un IndexError se o número de páxina está fora do intervalo.</translation>
+Pode causar un IndexError se o número de páxina está fora do intervalo.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.h" line="193"/>
@@ -1905,7 +1990,7 @@ Setting &quot;state&quot; to 2 will make text flow around bounding box.
 Setting &quot;state&quot; to 3 will make text flow around contour line.
 If &quot;state&quot; is not passed, text flow is toggled.
 </source>
-        <translation type="unfinished">textFlowMode(&quot;nome&quot; [, estado])
+        <translation>textFlowMode(&quot;nome&quot; [, estado])
 
 Activa/Desactiva a opción &quot;O Texto Flúe Arredor da Moldura&quot; para o obxecto &quot;nome.
 Chámase con nome de cadea de parámetros e o &quot;estado&quot; opcional enteiro (0 &lt;= estado &lt;=3).
@@ -1913,7 +1998,8 @@ Se se configura &quot;estado&quot; como 0 desactívase o fluxo do texto.
 Se se configura &quot;estado&quot; como 1 fará que o texto flúa arredor da moldura obxecto.
 Se se configura &quot;estado&quot; como 2 fará que o texto flúa arredor da caixa delimitadora.
 Se se configura &quot;estado&quot; como 3 fará que o texto flúa arredor da liña de contorno.
-Se non se pasa &quot;estado&quot;, altérnase o fluxo do texto.</translation>
+Se non se pasa &quot;estado&quot;, altérnase o fluxo do texto.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.h" line="211"/>
@@ -1923,11 +2009,12 @@ Test if an object with specified name really exists in the document.
 The optional parameter is the object name. When no object name is given,
 returns True if there is something selected.
 </source>
-        <translation type="unfinished">objectExists([&quot;nome&quot;]) -&gt; bool
+        <translation>objectExists([&quot;nome&quot;]) -&gt; bool
 
 Comproba se existe un obxecto co nome especificado no documento.
 O parámetro opcional é o nome do obxecto. Se non se lle fornece o nome dun
-obxecto devolve Verdadeiro se hai algo seleccionado.</translation>
+obxecto devolve Verdadeiro se hai algo seleccionado.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.h" line="227"/>
@@ -1936,10 +2023,11 @@ obxecto devolve Verdadeiro se hai algo seleccionado.</translation>
 Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
 given, it&apos;s applied on the selected object.
 </source>
-        <translation type="unfinished">setStyle(&quot;estilo&quot; [, &quot;nome&quot;])
+        <translation>setStyle(&quot;estilo&quot; [, &quot;nome&quot;])
 
 Aplica o &quot;estilo&quot; nomeado ao obxecto chamado &quot;nome&quot;. Se non se lle fornece
-un nome de obxecto aplícase ao obxecto seleccionado.</translation>
+un nome de obxecto aplícase ao obxecto seleccionado.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.h" line="240"/>
@@ -1947,9 +2035,10 @@ un nome de obxecto aplícase ao obxecto seleccionado.</translation>
 
 Return a list of the names of all paragraph styles in the current document.
 </source>
-        <translation type="unfinished">getAllStyles() -&gt; lista
+        <translation>getAllStyles() -&gt; lista
 
-Devolve unha lista dos nomes de todos os estilos de parágrafo do documento actual.</translation>
+Devolve unha lista dos nomes de todos os estilos de parágrafo do documento actual.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.h" line="252"/>
@@ -1957,9 +2046,10 @@ Devolve unha lista dos nomes de todos os estilos de parágrafo do documento actu
 
 creates a Duplicate of the selected Object (or Selection Group).
 </source>
-        <translation type="unfinished">duplicateObject([&quot;nome&quot;]) -&gt; cadea
+        <translation>duplicateObject([&quot;nome&quot;]) -&gt; cadea
 
-crea un Duplicado do Obxecto seleccionado (ou Grupo de Selección).</translation>
+crea un Duplicado do Obxecto seleccionado (ou Grupo de Selección).
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.h" line="26"/>
@@ -1973,7 +2063,7 @@ master page for the new page.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished">newPage(where[.&quot;páxinamestra&quot;])
+        <translation>newPage(where[.&quot;páxinamestra&quot;])
 
 Crea unha páxina nova. Se &quot;where&quot; é -1 a Páxina nova adiciónase ao documento.
 Se non, a páxina nova insírese antes de &quot;where&quot;. Os números de páxina
@@ -1991,10 +2081,11 @@ Pode provocar un IndexError se o número da páxina está fora do intervalo
 Returns the number of the current working page. Page numbers are counted from 1
 upwards, no matter what the displayed first page number of your document is.
 </source>
-        <translation type="unfinished">currentPage() -&gt; inteiro
+        <translation>currentPage() -&gt; inteiro
 
 Devolve o núemro da páxina de traballo actual. Os números de páxina cóntanse desde o 1,
-sen importar cal sexa o número que se mostra na primeira páxina do seu documento.</translation>
+sen importar cal sexa o número que se mostra na primeira páxina do seu documento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.h" line="45"/>
@@ -2002,9 +2093,10 @@ sen importar cal sexa o número que se mostra na primeira páxina do seu documen
 
 Redraws all pages.
 </source>
-        <translation type="unfinished">redrawAll()
+        <translation>redrawAll()
 
-Redeseña todas as páxinas.</translation>
+Redeseña todas as páxinas.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.h" line="54"/>
@@ -2012,7 +2104,7 @@ Redeseña todas as páxinas.</translation>
 
 Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page
 </source>
-        <translation type="unfinished">getPageType() -&gt; inteiro
+        <translation>getPageType() -&gt; inteiro
 
 Devolve o tipo de Páxina; 0 significa Páxina esquerda, 1 é unha Páxina central e 2 é unha Páxina dereita
 </translation>
@@ -2025,11 +2117,12 @@ Saves the current page as an EPS to the file &quot;name&quot;.
 
 May raise ScribusError if the save failed.
 </source>
-        <translation type="unfinished">savePageAsEPS(&quot;nome&quot;)
+        <translation>savePageAsEPS(&quot;nome&quot;)
 
 Salva a páxina actual como un EPS no ficheiro &quot;nome&quot;.
 
-Pode provocar un ScribusError se non se pode gravar.</translation>
+Pode provocar un ScribusError se non se pode gravar.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.h" line="78"/>
@@ -2041,7 +2134,7 @@ page number is.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished">deletePage(nr)
+        <translation>deletePage(nr)
 
 Elimina a páxina dada. Non fai nada se o documento só contén unha páxina.
 Os números de páxina cóntanse a partir do 1, sen importar cal é o número
@@ -2060,7 +2153,7 @@ just sets the page that script commands will operates on.
 
 May raise IndexError if the page number is out of range.
 </source>
-        <translation type="unfinished">gotoPage(nr)
+        <translation>gotoPage(nr)
 
 Móvese á páxina &quot;nr&quot; (isto é, fai que &quot;nr&quot; sexa a páxina actual). Téñase en conta
 que gotoPaxe non muda (na actualidade) a páxina que mostra a vista do usuario,
@@ -2075,9 +2168,10 @@ Pode provocar un erro IndexErro se o número de páxina está fora do intervalo.
 
 Returns the number of pages in the document.
 </source>
-        <translation type="unfinished">pageCount() -&gt; inteiro
+        <translation>pageCount() -&gt; inteiro
 
-Devolve o número de páxinas do documento.</translation>
+Devolve o número de páxinas do documento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.h" line="110"/>
@@ -2086,10 +2180,11 @@ Devolve o número de páxinas do documento.</translation>
 Returns a list containing positions of the horizontal guides. Values are in the
 document&apos;s current units - see UNIT_&lt;type&gt; constants.
 </source>
-        <translation type="unfinished">getHGuides() -&gt; lista
+        <translation>getHGuides() -&gt; lista
 
 Devolve unha lista coas posicións das guías horizontais. Os valores están
-nas unidades actuais do documento - ver as constantes UNIT_&lt;tipo&gt;.</translation>
+nas unidades actuais do documento - ver as constantes UNIT_&lt;tipo&gt;.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.h" line="123"/>
@@ -2101,13 +2196,14 @@ measured in the current document units - see UNIT_&lt;type&gt; constants.
 Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
          setHGuides([90,250]) # replace current guides entirely
 </source>
-        <translation type="unfinished">setHGuides() -&gt; lista
+        <translation>setHGuides() -&gt; lista
 
 Fixa as guías horizontais. O parámetro de entrada debe ser unha lista de posicións de guías
 medidas nas nidades do documento actual - ver as constantes UNIT_&lt;tipo&gt;
 
 Exemplo: setHGuides(getHGuides() + [200.0, 210.0] # adicionar guías novas sen perder nengunha
-         setHGuides([90,250]) # substituir completamente as guías actuais</translation>
+         setHGuides([90,250]) # substituir completamente as guías actuais
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.h" line="132"/>
@@ -2115,9 +2211,10 @@ Exemplo: setHGuides(getHGuides() + [200.0, 210.0] # adicionar guías novas sen p
 
 See getHGuides.
 </source>
-        <translation type="unfinished">getVGuides() -&gt; lista
+        <translation>getVGuides() -&gt; lista
 
-ver getHGuides.</translation>
+ver getHGuides.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.h" line="141"/>
@@ -2125,7 +2222,8 @@ ver getHGuides.</translation>
 
 See setHGuides.
 </source>
-        <translation type="unfinished">Ver setHGuides.</translation>
+        <translation>Ver setHGuides.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.h" line="151"/>
@@ -2134,10 +2232,11 @@ See setHGuides.
 Returns a tuple with page dimensions measured in the document&apos;s current units.
 See UNIT_&lt;type&gt; constants and getPageMargins()
 </source>
-        <translation type="unfinished">getPageSize() -&gt; valores
+        <translation>getPageSize() -&gt; valores
 
 Devolve uns valores coas dimensións da páxina medidas nas unidades actuais do documento.
-Ver as constantes UNIT_&lt;tipo&gt; e getPageMargins()</translation>
+Ver as constantes UNIT_&lt;tipo&gt; e getPageMargins()
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.h" line="167"/>
@@ -2148,12 +2247,13 @@ Returns a list of tuples with items on the current page. The tuple is:
 means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
 the page...
 </source>
-        <translation type="unfinished">getPageItems() -&gt; lista
+        <translation>getPageItems() -&gt; lista
 
 Devolve unha lista de valores con elementos da páxina actual. Os valores son:
 (nome, tipoDeObxecto, orde). Por exemplo [(&apos;Texto1&apos;, 4, 0), (&apos;Imaxe1&apos;, 2, 1)]
 significa que o obxecto chamado &apos;Texto1&apos; é unha moldura de texto (tipo 4) e que
-é o primeiro na páxina...</translation>
+é o primeiro na páxina...
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.h" line="181"/>
@@ -2162,7 +2262,7 @@ significa que o obxecto chamado &apos;Texto1&apos; é unha moldura de texto (tip
 Returns the page margins as a (top, left, right, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished">getPageMargins()
+        <translation>getPageMargins()
 
 Devolve as marxes da páxina como un conxunto de catro valores (arriba, esquerda, dereita, abaixo)
 nas unidades actuais. Ver as constantes UNIT_&lt;tipo&gt; e getPageSize().
@@ -2179,7 +2279,7 @@ create: number; 0 to replace existing pages, 1 (default) to insert new pages
 importWhere: number; the page number (of the current document) at which import the pages
 importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document
 </source>
-        <translation type="unfinished">importPage(&quot;desdeDoc&quot;, (listaPáxinas), [crear, importaronde, importarOndePáxina])
+        <translation>importPage(&quot;desdeDoc&quot;, (listaPáxinas), [crear, importaronde, importarOndePáxina])
 
 Importa un conxunto de páxinas (dadas como par de valores) desde un documento existente (hai que dar o nome do ficheiro). Esta función mapea a función do menú despregábel &quot;Páxina-&gt;Importar&quot;.
 desdeDoc: cadea; o nome do ficheiro co documento desde o que se han de importar as páxinas
@@ -2196,7 +2296,7 @@ Sets the gradient fill of the object &quot;name&quot; to type. Color description
 the same as for setFillColor() and setFillShade(). See the constants for
 available types (FILL_&lt;type&gt;).
 </source>
-        <translation type="unfinished">setGradientFill(tipo, &quot;cor1&quot;, saturación1, &quot;co2&quot;, saturación2, [&quot;nome&quot;])
+        <translation>setGradientFill(tipo, &quot;cor1&quot;, saturación1, &quot;co2&quot;, saturación2, [&quot;nome&quot;])
 
 Fixa o gradiente de enchido do obxecto &quot;nome&quot; nese tipo. As descricións
 de cores son as mesmas que para setFillColor() and setFillShade().
@@ -2211,11 +2311,12 @@ Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished">setFillColor(&quot;cor&quot;, [&quot;nome&quot;])
+        <translation>setFillColor(&quot;cor&quot;, [&quot;nome&quot;])
 
 Fixa a cor de enchido do obxecto &quot;nome&quot; para a cor &quot;cor&quot;.
 &quot;cor&quot; é o nome dunha das cores definidas. Se non se fornece un &quot;nome&quot;
-úsase o elemento seleccionado nese momento.</translation>
+úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="43"/>
@@ -2224,10 +2325,11 @@ Fixa a cor de enchido do obxecto &quot;nome&quot; para a cor &quot;cor&quot;.
 Sets the fill transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">setFillTransparency(transparency, [&quot;nome&quot;])
+        <translation>setFillTransparency(transparency, [&quot;nome&quot;])
 
 Fixa a transparencia de recheo do obxecto &quot;nome&quot; como transparencia.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="53"/>
@@ -2236,10 +2338,11 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Sets the fill blendmode of the object &quot;name&quot; to blendmode
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">setFillBlendmode(blendmode, [&quot;nome&quot;])
+        <translation>setFillBlendmode(blendmode, [&quot;nome&quot;])
 
 Fixa o modo de fusión do recheo do obxecto &quot;nome&quot; como blendmode.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="63"/>
@@ -2248,10 +2351,11 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">setFillColor(&quot;cor&quot;, [&quot;nome&quot;])
+        <translation>setFillColor(&quot;cor&quot;, [&quot;nome&quot;])
 
 Fixa a cor da liña do obxecto &quot;nome&quot; para a cor &quot;cor&quot;.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="73"/>
@@ -2260,7 +2364,7 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Sets the line transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">setLineTransparency(transparency, [&quot;nome&quot;])
+        <translation>setLineTransparency(transparency, [&quot;nome&quot;])
 
 Fixa a transparencia de liña do obxecto &quot;nome&quot; como transparencia
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
@@ -2273,7 +2377,7 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Sets the line blendmode of the object &quot;name&quot; to blendmode
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">setLineBlendmode(blendmode, [&quot;nome&quot;])
+        <translation>setLineBlendmode(blendmode, [&quot;nome&quot;])
 
 Fixa o modo de fusión da liña do obxecto &quot;nome&quot; como modo de fusión
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
@@ -2289,7 +2393,7 @@ given the currently selected item is used.
 
 May raise ValueError if the line width is out of bounds.
 </source>
-        <translation type="unfinished">setLineWidth(largura, [&quot;nome&quot;])
+        <translation>setLineWidth(largura, [&quot;nome&quot;])
 
 Fixa a largura da liña do obxecto &quot;nome&quot; en &quot;largura&quot;.
 &quot;largura&quot; debe estar no intervalo entre 0,0 e 12,0 incluídos e mídese en puntos.
@@ -2309,14 +2413,15 @@ is used.
 
 May raise ValueError if the line shade is out of bounds.
 </source>
-        <translation type="unfinished">setLineShade(saturación, [&quot;nome&quot;])
+        <translation>setLineShade(saturación, [&quot;nome&quot;])
 
 Fixa a saturación da cor da liña do obxecto &quot;nome&quot; en &quot;saturación&quot;.
 &quot;saturación&quot; debe ser un valor inteiro no intervalo de 0 (menor) a 100
 (intensidade de cor total). Se non se fornece un &quot;nome&quot;
 úsase o elemento seleccionado nese momento.
 
-Pode provocar un ValueError se a saturación da liña está fora de limites.</translation>
+Pode provocar un ValueError se a saturación da liña está fora de limites.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="121"/>
@@ -2326,11 +2431,12 @@ Sets the line join style of the object &quot;name&quot; to the style &quot;join&
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for join - JOIN_&lt;type&gt;.
 </source>
-        <translation type="unfinished">setLineJoin(borde, [&quot;nome&quot;])
+        <translation>setLineJoin(borde, [&quot;nome&quot;])
 
 Fixa o estilo do borde da liña do obxecto &quot;nome&quot; no estilo &quot;borde&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
-Existen unhas constantes pré-definidas para o borde - JOIN_&lt;tipo&gt;.</translation>
+Existen unhas constantes pré-definidas para o borde - JOIN_&lt;tipo&gt;.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="132"/>
@@ -2340,11 +2446,12 @@ Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&qu
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
 </source>
-        <translation type="unfinished">setLineExtremo(extremo, [&quot;nome&quot;])
+        <translation>setLineExtremo(extremo, [&quot;nome&quot;])
 
 Fixa o estilo do extremo da liña do obxecto &quot;nome&quot; no estilo &quot;extremo&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
-Existen unhas constantes pré-definidas para extremo - CAP_&lt;tipo&gt;.</translation>
+Existen unhas constantes pré-definidas para extremo - CAP_&lt;tipo&gt;.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="143"/>
@@ -2354,11 +2461,12 @@ Sets the line style of the object &quot;name&quot; to the style &quot;style&quot
 is not given the currently selected item is used. There are predefined
 constants for &quot;style&quot; - LINE_&lt;style&gt;.
 </source>
-        <translation type="unfinished">setLineStyle(estilo, [&quot;nome&quot;])
+        <translation>setLineStyle(estilo, [&quot;nome&quot;])
 
 Fixa o estilo da liña do obxecto &quot;nome&quot; para o estilo &quot;estilo&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
-Existen constantes pré-definidas para o &quot;estilo&quot; - LINE_&lt;estilo&gt;.</translation>
+Existen constantes pré-definidas para o &quot;estilo&quot; - LINE_&lt;estilo&gt;.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="157"/>
@@ -2371,14 +2479,15 @@ Item is used.
 
 May raise ValueError if the fill shade is out of bounds.
 </source>
-        <translation type="unfinished">setFillShade(saturación, [&quot;nome&quot;])
+        <translation>setFillShade(saturación, [&quot;nome&quot;])
 
 Fixa a saturación da cor de enchido do obxecto &quot;nome&quot; en &quot;saturación&quot;.
 &quot;saturación&quot; debe ser un valor inteiro no intervalo de 0 (menor) a 100
 (intensidade de cor total). Se non se fornece un &quot;nome&quot;
 úsase o elemento seleccionado nese momento.
 
-Pode provocar un ValueError se a saturación da liña está fora de limites.</translation>
+Pode provocar un ValueError se a saturación da liña está fora de limites.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="169"/>
@@ -2389,12 +2498,13 @@ in points. If &quot;name&quot; is not given the currently selected item is used.
 
 May raise ValueError if the corner radius is negative.
 </source>
-        <translation type="unfinished">setCornerRadius(radio, [&quot;nome&quot;])
+        <translation>setCornerRadius(radio, [&quot;nome&quot;])
 
 Fixa o radio da esquina do obxecto &quot;nome&quot;. O radio exprésase en puntos.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 
-Pode provocar un ValueError se a saturación da liña está fora de limites.</translation>
+Pode provocar un ValueError se a saturación da liña está fora de limites.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.h" line="181"/>
@@ -2405,12 +2515,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise NotFoundError if the line style doesn&apos;t exist.
 </source>
-        <translation type="unfinished">setMultiLine(&quot;nomeDeEstilo&quot;, [&quot;nome&quot;])
+        <translation>setMultiLine(&quot;nomeDeEstilo&quot;, [&quot;nome&quot;])
 
 Fixa o estilo de liña do obxecto &quot;nome&quot; para o estilo de nome &quot;nomeDeEstilo&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 
-Pode provocar un ValueError se a saturación da liña está fora de limites.</translation>
+Pode provocar un ValueError se a saturación da liña está fora de limites.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.h" line="43"/>
@@ -2457,7 +2568,7 @@ dropcapoffset [optional] -&gt; offset of the caps if used
 &quot;charstyle&quot; [optional] -&gt; char style to use
 
 </source>
-        <translation type="unfinished">createParagraphStyle(...)￼
+        <translation>createParagraphStyle(...)￼
 
 Crea un parágrafo de estilo. Esta función toma os seguintes parámetros chave:
 
@@ -2557,7 +2668,7 @@ tracking [optional] -&gt; tracking of the text
 &quot;language&quot; [optional] -&gt; language code
 
 </source>
-        <translation type="unfinished">createCharStyle(...)￼
+        <translation>createCharStyle(...)￼
 
 Crea un estilo de carácter. Esta función toma os seguintes parámetros chave:
 
@@ -2607,7 +2718,9 @@ scaleh [opcional], scalev [opcional] -&gt; escala dos caracteres
 
 ￼tracking [opcional] -&gt; tracking do texto
 ￼
-&quot;language&quot; [opcional] -&gt; código da lingua￼</translation>
+&quot;language&quot; [opcional] -&gt; código da lingua￼
+
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="23"/>
@@ -2618,7 +2731,7 @@ frame has some text selected the value assigned to the first character of
 the selection is returned.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getFontSize([&quot;nome&quot;]) -&gt; float
+        <translation>getFontSize([&quot;nome&quot;]) -&gt; float
 
 Devolve o tamaño da fonte en puntos para a moldura de texto &quot;nome&quot;.
 Se esta moldura de texto tiver texto seleccionado, devólvese o valor asignado
@@ -2635,12 +2748,13 @@ has some text selected the value assigned to the first character
 of the selection is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">getFont([&quot;nome&quot;]) -&gt; cadea
+        <translation>getFont([&quot;nome&quot;]) -&gt; cadea
 
 Devolve o nome da fonte da moldura de texto &quot;nome&quot;. Se esta
 moldura de texto ten algún texto seleccionado, devólvese o valor
 asignado ao primeiro carácter da selección.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="45"/>
@@ -2649,10 +2763,11 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Returns the length of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getTextLength([&quot;nome&quot;])
+        <translation>getTextLength([&quot;nome&quot;])
 
 Devolve a lonxitude do texto da moldura de texto &quot;nome&quot;.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="55"/>
@@ -2661,7 +2776,7 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Returns the number of lines of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getTextLines([&quot;nome&quot;]) -&gt; inteiro
+        <translation>getTextLines([&quot;nome&quot;]) -&gt; inteiro
 
 Devolve o número de liñas de texto na moldura de texto &quot;nome&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
@@ -2676,12 +2791,13 @@ selected, the selected text is returned. All text in the frame, not just
 currently visible text, is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">getText([&quot;nome&quot;]) -&gt; cadea
+        <translation>getText([&quot;nome&quot;]) -&gt; cadea
 
 Devolve o texto da moldura de texto &quot;nome&quot;. Se a moldura de texto ten algún
 texto selecconado, devólvese o texto seleccionado. Devólvese todo todo o texto
 da moldura, non só o texto que se pode ver actualmente. 
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="79"/>
@@ -2692,12 +2808,13 @@ linked with this frame. If this textframe has some text selected, the selected
 text is returned. If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished">getAllText([&quot;nome&quot;]) -&gt; cadea
+        <translation>getAllText([&quot;nome&quot;]) -&gt; cadea
 
 Devolve o texto da moldura de texto &quot;nome&quot; e de todas as molduras que están
 vinculadas con esta moldura. Se a moldura de texto ten algún
 texto selecconado, devólvese o texto seleccionado.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="89"/>
@@ -2706,10 +2823,11 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
 points. If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getLineSpacing([&quot;nome&quot;]) -&gt; float
+        <translation>getLineSpacing([&quot;nome&quot;]) -&gt; float
 
 Devolve o interliñado da moldura de texto &quot;nome&quot; expresado en puntos.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="100"/>
@@ -2719,7 +2837,7 @@ Returns the text distances of the text frame &quot;name&quot; expressed in point
 distances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getTextDistances([&quot;nome&quot;]) -&gt; catro valores
+        <translation>getTextDistances([&quot;nome&quot;]) -&gt; catro valores
 
 Devolve as distancias do texto da moldura de texto &quot;nome&quot; expresadas en puntos. As
 distancias devólvense como catro valores (esquerda, dereita, superior, inferior). Se non
@@ -2733,10 +2851,11 @@ se fornece un nome emprégase o elemento seleccionado.
 Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
 &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getColumnGap([&quot;nome&quot;]) -&gt; float
+        <translation>getColumnGap([&quot;nome&quot;]) -&gt; float
 
 Devolve o tamaño da distancia entre as columnas  da moldura de texto &quot;nome&quot; expresado en puntos.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="120"/>
@@ -2745,10 +2864,11 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished">getColumns([&quot;nome&quot;]) -&gt; inteiro
+        <translation>getColumns([&quot;nome&quot;]) -&gt; inteiro
 
 Devolve o número de columnas da moldura de texto &quot;nome&quot;.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="132"/>
@@ -2759,12 +2879,13 @@ Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See 
 for more details. If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished">setText(&quot;text&quot;, [&quot;nome&quot;])
+        <translation>setText(&quot;text&quot;, [&quot;nome&quot;])
 
 Fixa o texto da moldura de texto &quot;nome&quot; para o texto da cadea &quot;texto&quot;.
 O texto debe estar codificado en UTF8 - usar, p.ex. unicode(text, &apos;iso-8850-2&apos;).
 Ver as FAQ para máis detalles. Se non se fornece un &quot;nome&quot; úsase o elemento
-seleccionado nese momento.</translation>
+seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="146"/>
@@ -2777,7 +2898,7 @@ not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation type="unfinished">insertText(&quot;texto&quot;, posición, [&quot;nome&quot;])
+        <translation>insertText(&quot;texto&quot;, posición, [&quot;nome&quot;])
 
 Insire o texto &quot;texto&quot; na posición &quot;posición&quot; na moldura de texto &quot;nome&quot;.
 O texto ha de estar codificado en UTF (ver setText() como referencia). O primeiro carácter
@@ -2797,13 +2918,14 @@ currently selected item is used.
 
 May throw ValueError if the font cannot be found.
 </source>
-        <translation type="unfinished">setFont(&quot;fonte&quot;, [&quot;nome&quot;])
+        <translation>setFont(&quot;fonte&quot;, [&quot;nome&quot;])
 
 Fixa a fonte da moldura de texto &quot;nome&quot; en &quot;fonte&quot;. Se hai texto
 seleccionado só se modifica o texto seleccionado. Se non se fornece
 un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 
-Pode devolver un ValueError se non se atopa a fonte.</translation>
+Pode devolver un ValueError se non se atopa a fonte.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="173"/>
@@ -2816,14 +2938,15 @@ currently selected item is used.
 
 May throw ValueError for a font size that&apos;s out of bounds.
 </source>
-        <translation type="unfinished">setFontSize(tamaño, [&quot;nome&quot;])
+        <translation>setFontSize(tamaño, [&quot;nome&quot;])
 
 Fixa o tamaño da fonte da moldura de texto &quot;nome&quot; en &quot;tamaño&quot;.
 &quot;tamaño&quot; trátase como un valor en puntos. Se hai texto seleccionado só se
 modifica o texto seleccionado. &quot;tamaño&quot; debe estar no intervalo entre 1 e 512.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 
-Pode provocar un ValueError por un tamaño de fonte que está fora dos limites.</translation>
+Pode provocar un ValueError por un tamaño de fonte que está fora dos limites.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="186"/>
@@ -2835,13 +2958,14 @@ item is used.
 
 May throw ValueError if the line spacing is out of bounds.
 </source>
-        <translation type="unfinished">setLineSpacing(tamaño, [&quot;nome&quot;])
+        <translation>setLineSpacing(tamaño, [&quot;nome&quot;])
 
 Fixa o interliñado da moldura de texto &quot;nome&quot; en &quot;tamaño&quot;.
 &quot;tamaño&quot; é un valor en puntos. Se non se fornece
 un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 
-Pode provocar un ValueError se o espaciamento de liña está fora de limites.</translation>
+Pode provocar un ValueError se o espaciamento de liña está fora de limites.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="199"/>
@@ -2853,7 +2977,7 @@ selected item is used.
 
 May throw ValueError if any of the distances are out of bounds (must be positive).
 </source>
-        <translation type="unfinished">setTextDistances(esquerda, dereita, superior, inferior, [&quot;nome&quot;])
+        <translation>setTextDistances(esquerda, dereita, superior, inferior, [&quot;nome&quot;])
 
 Asigna as distancias ao texto da moldura de texto &quot;nome&quot; aos valores &quot;esquerda&quot;
 &quot;dereita&quot;, &quot;superior&quot; e &quot;inferior&quot;. Se non se fornece un nome emprégase
@@ -2871,12 +2995,13 @@ Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&q
 
 May throw ValueError if the column gap is out of bounds (must be positive).
 </source>
-        <translation type="unfinished">setColumnGap(tamaño, [&quot;nome&quot;])
+        <translation>setColumnGap(tamaño, [&quot;nome&quot;])
 
 Fixa a distancia entre columnas da moldura de texto &quot;nome&quot; en &quot;tamaño&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 
-Pode provocar un ValueError se a distancia entre columnas está fora de limites.</translation>
+Pode provocar un ValueError se a distancia entre columnas está fora de limites.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="223"/>
@@ -2887,12 +3012,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May throw ValueError if number of columns is not at least one.
 </source>
-        <translation type="unfinished">setColumn(nr, [&quot;nome&quot;])
+        <translation>setColumn(nr, [&quot;nome&quot;])
 
 Fixa o número de columnas da moldura de texto &quot;nome&quot; en &quot;tamaño&quot; no inteiro &quot;nr&quot;.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 
-Pode provocar un ValueError se o número de columnas está fora de limites.</translation>
+Pode provocar un ValueError se o número de columnas está fora de limites.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="236"/>
@@ -2904,14 +3030,15 @@ be one of the ALIGN_ constants defined in this module - see dir(scribus).
 
 May throw ValueError for an invalid alignment constant.
 </source>
-        <translation type="unfinished">setTextAlignment(aliñamento, [&quot;nome&quot;])
+        <translation>setTextAlignment(aliñamento, [&quot;nome&quot;])
 
 Fixa o aliñamento da moldura de texto &quot;nome&quot; no aliñamento especificado.
 Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
 &quot;aliñamento&quot; debería ser unha das constantes ALIGN_constantes definidas
 neste módulo - ver dir(Scribus).
 
-Pode provocar un ValueError se o número de columnas está fora de limites.</translation>
+Pode provocar un ValueError se o número de columnas está fora de limites.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="250"/>
@@ -2924,14 +3051,15 @@ selected item is used.
 
 May throw IndexError if the selection is outside the bounds of the text.
 </source>
-        <translation type="unfinished">selectText(inicio,conta, [&quot;nome&quot;])
+        <translation>selectText(inicio,conta, [&quot;nome&quot;])
 
 Selecciona &quot;conta&quot; caracteres de texto na moldura de texto &quot;nome&quot; a partir
 do carácter &quot;inicio&quot;. A conta de caracteres comeza no 0. Se &quot;conta&quot; é cero,
 elimínase calquer selección de texto. Se non se fornece un &quot;nome&quot;
 úsase o elemento seleccionado nese momento.
 
-Pode provocar un IndexError se a selección está fora dos limites do texto.</translation>
+Pode provocar un IndexError se a selección está fora dos limites do texto.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="261"/>
@@ -2941,11 +3069,12 @@ Deletes any text in the text frame &quot;name&quot;. If there is some text selec
 only the selected text will be deleted. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">deleteText([&quot;nome&quot;])
+        <translation>deleteText([&quot;nome&quot;])
 
 Limpa todo o texto da moldura de texto &quot;nome&quot;. Se hai texto seleccionado
 só se limpará o texto seleccionado. Se non se fornece un &quot;nome&quot;
-úsase o elemento seleccionado nese momento.</translation>
+úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="272"/>
@@ -2955,11 +3084,12 @@ Sets the text color of the text frame &quot;name&quot; to the color &quot;color&
 is some text selected only the selected text is changed. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished">setTextColor(&quot;cor&quot;, [&quot;nome&quot;])
+        <translation>setTextColor(&quot;cor&quot;, [&quot;nome&quot;])
 
 Fixa a cor do texto da moldura de texto &quot;nome&quot; na cor &quot;cor&quot;.
 Se hai texto seleccionado só se modificará o texto seleccionado.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="282"/>
@@ -2968,10 +3098,11 @@ Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese moment
 Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">setTextStroke(&quot;cor&quot;, [&quot;nome&quot;])
+        <translation>setTextStroke(&quot;cor&quot;, [&quot;nome&quot;])
 
 Fixa a cor do trazo do texto.
-Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="295"/>
@@ -2983,12 +3114,13 @@ be an integer value in the range from 0 (lightest) to 100 (full color
 intensity). If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished">setTextShade(&quot;saturación&quot;, [&quot;nome&quot;])
+        <translation>setTextShade(&quot;saturación&quot;, [&quot;nome&quot;])
 
 Fixa a saturación da cor do texto do obxecto &quot;nome&quot; en &quot;saturación&quot;.
 Se hai texto seleccionado só se modificará o texto seleccionado.
 &quot;saturación&quot; debe ser un valor inteiro no intervalo de 0 (menor) a 100 (intensidade
-total da cor). Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+total da cor). Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="308"/>
@@ -3000,11 +3132,12 @@ and must not link to or be linked from any other frames already.
 
 May throw ScribusException if linking rules are violated.
 </source>
-        <translation type="unfinished">linkTextFrames(&quot;denome&quot;, &quot;anome&quot;)
+        <translation>linkTextFrames(&quot;denome&quot;, &quot;anome&quot;)
 
 Vincula dúas molduras de texto. A moldura de nome &quot;denome&quot; vincúlase á
 moldura chamada &quot;anome&quot;. A moldura de destino debe ser unha moldura
-de texto baleira e non debe vincularse ou estar vinculada xa a outras molduras.</translation>
+de texto baleira e non debe vincularse ou estar vinculada xa a outras molduras.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="325"/>
@@ -3016,14 +3149,15 @@ connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unl
 
 May throw ScribusException if linking rules are violated.
 </source>
-        <translation type="unfinished">unlinkTextFrames(&quot;nome&quot;)
+        <translation>unlinkTextFrames(&quot;nome&quot;)
 
 Eliminar o obxecto (con nome) especificado do fluxo/vinculación de moldura
 de texto. Se a moldura estaba no medio dunha cadea, conectaranse as molduras
 anterior e seguinte, p.ex. &apos;a-&gt;b-&gt;c&apos; convírtese en &apos;a-&gt;c&apos; cando se fai
 unlinkTextFrames(b)
 
-Pode provocar unha ScribusException se se violan as regras de vinculación.</translation>
+Pode provocar unha ScribusException se se violan as regras de vinculación.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="338"/>
@@ -3031,7 +3165,7 @@ Pode provocar unha ScribusException se se violan as regras de vinculación.</tra
 
 Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
 currently selected item is used.</source>
-        <translation type="unfinished">traceText([&quot;nome&quot;])
+        <translation>traceText([&quot;nome&quot;])
 
 Convirte a moldura de texto &quot;nome&quot; en siluetas. Se non se fornece un &quot;nome&quot;
 úsase o elemento seleccionado nese momento.</translation>
@@ -3046,13 +3180,14 @@ use text frame linking. Without this parameter it search all linking chain.
 
 May raise WrongFrameTypeError if the target frame is not an text frame
 </source>
-        <translation type="unfinished">textOverflows([&quot;nome&quot;, nolinks]) -&gt; inteiro
+        <translation>textOverflows([&quot;nome&quot;, nolinks]) -&gt; inteiro
 
 Devolve o número real de caracteres de desborde na moldura de texto &quot;nome&quot;.
 Se nolinks ten un valor distinto de cero entón só colle unha moldura - non
 utiliza vinculación entre molduras. Sen este parámetro procura todas as cadeas de vínculos.
 
-Pode provocar un WrongFrameTypeError se a moldura de destino non é de texto</translation>
+Pode provocar un WrongFrameTypeError se a moldura de destino non é de texto
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.h" line="365"/>
@@ -3063,7 +3198,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished">hyphenateText([&quot;nome&quot;]) -&gt; lóxica
+        <translation>hyphenateText([&quot;nome&quot;]) -&gt; lóxica
 
 Separa con guións na moldura chamada &quot;nome&quot;.
 Se non se fornece un &quot;nome&quot; emprégase o elemento seleccionado nese momento.
@@ -3080,7 +3215,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished">dehyphenateText([&quot;name&quot;]) -&gt; lóxica
+        <translation>dehyphenateText([&quot;name&quot;]) -&gt; lóxica
 
 Retira os guións da moldura de texto chamada &quot;nome&quot;.
 Se non se fornece un &quot;nome&quot; emprégase o elemento seleccionado nese momento.￼
@@ -3097,7 +3232,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished">setPDFBookmark(&quot;alternar&quot;, [&quot;nome&quot;])
+        <translation>setPDFBookmark(&quot;alternar&quot;, [&quot;nome&quot;])
 
 Configura se (alternar=1) a moldura de texto &quot;nome&quot; é un marcador ou non.
 Se non se fornece un &quot;nome&quot; emprégase o elelemento seleccionado nese momento.
@@ -3114,12 +3249,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished">isPDFBookmark([&quot;nome&quot;]) -&gt; booleano
+        <translation>isPDFBookmark([&quot;nome&quot;]) -&gt; booleano
 
 Devolve verdadeiro se a moldura de texto &quot;nome&quot; é un marcador de PDF.
 Se non se dá un &quot;nome&quot; utilízase o elemento seleccionado nese momento.
 
-Pode provocar un WrongFrameTypeErro se a moldura de destino non é unha moldura de texto</translation>
+Pode provocar un WrongFrameTypeErro se a moldura de destino non é unha moldura de texto
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/guiapp.h" line="21"/>
@@ -3128,7 +3264,7 @@ Pode provocar un WrongFrameTypeErro se a moldura de destino non é unha moldura 
 Writes the &quot;string&quot; into the Scribus message bar (status line). The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
-        <translation type="unfinished">messagebarText(&quot;cadea&quot;)
+        <translation>messagebarText(&quot;cadea&quot;)
 
 Escrebe a &quot;cadea&quot; na barra de mensaxes de Scribus (liña de estado).
 O texto debe estar codificado en UTF8 ou ser unha cadea &apos;unicode&apos; (recomendado).
@@ -3141,10 +3277,11 @@ O texto debe estar codificado en UTF8 ou ser unha cadea &apos;unicode&apos; (rec
 Cleans up the Scribus progress bar previous settings. It is called before the
 new progress bar use. See progressSet.
 </source>
-        <translation type="unfinished">progressReset()
+        <translation>progressReset()
 
 Limpa a configuración anterior da barra de progreso de Scribus. Chámase antes de
-usasr a nova barra de progreso. Ver progressSet.</translation>
+usasr a nova barra de progreso. Ver progressSet.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/guiapp.h" line="47"/>
@@ -3153,10 +3290,11 @@ usasr a nova barra de progreso. Ver progressSet.</translation>
 Sets the progress bar&apos;s maximum steps value to the specified number.
 See progressSet.
 </source>
-        <translation type="unfinished">progressTotal(max)
+        <translation>progressTotal(max)
 
 Fixa o valor de paso máximo da barra de paso no número especificado.
-Ver progressSet.</translation>
+Ver progressSet.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/guiapp.h" line="61"/>
@@ -3170,7 +3308,7 @@ total number of steps with progressTotal(). The current number of steps is set
 with progressSet(). The progress bar can be rewound to the beginning with
 progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
 </source>
-        <translation type="unfinished">progressSet(nr)
+        <translation>progressSet(nr)
 
 Fixa a posición da barra de progreso en &quot;nr&quot;, un valor relativo ao progressTotal
 fixado anteriormente. A barra de progreso usa o concepto de pasos; dáselle o
@@ -3178,7 +3316,8 @@ número total de pasos e o número de pasos xa completado e mostra a percentaxe
 de pasos xa completados. Pódese especcificar o número total de pasos con
 progressTotal(). O número actual de pasos fíxase con progressSet(). Pódese facer
 retornar a barra de progreso ao principio con progressReset(). [basado en información
-obtida dos documentos do Qt da Trolltech]</translation>
+obtida dos documentos do Qt da Trolltech]
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/guiapp.h" line="69"/>
@@ -3186,9 +3325,10 @@ obtida dos documentos do Qt da Trolltech]</translation>
 
 [UNSUPPORTED!] This might break things, so steer clear for now.
 </source>
-        <translation type="unfinished">setCursor()
+        <translation>setCursor()
 
-[NON ACEPTADO!] Isto podería foder as cousas, así que non o toques de momento.</translation>
+[NON ACEPTADO!] Isto podería foder as cousas, así que non o toques de momento.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/guiapp.h" line="83"/>
@@ -3198,12 +3338,13 @@ Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos
 useful to call this procedure when you&apos;re changing the document, because Scribus
 won&apos;t automatically notice when you change the document using a script.
 </source>
-        <translation type="unfinished">docChanged(bool)
+        <translation>docChanged(bool)
 
 Des/Habilita o icone de gardar na barra de icones de Scribus e o elemento do
 menú Gardar. É útil chamar por este procedimento cando está a modificar o documento
 porque Scribus non perceberá automaticamente cando se modifica o documento
-por medio dun guión.</translation>
+por medio dun guión.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/guiapp.h" line="95"/>
@@ -3212,10 +3353,11 @@ por medio dun guión.</translation>
 Zoom the document in main GUI window. Actions have whole number
 values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
-        <translation type="unfinished">zoomDocument(dobre)
+        <translation>zoomDocument(dobre)
 
 Amplía o documento na xanela principal. As accións teñen valores redondos
-como 20.0, 100.0, etc. Ampliar até Axustar utiliza -100 como marcador.</translation>
+como 20.0, 100.0, etc. Ampliar até Axustar utiliza -100 como marcador.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/guiapp.h" line="106"/>
@@ -3223,7 +3365,7 @@ como 20.0, 100.0, etc. Ampliar até Axustar utiliza -100 como marcador.</transla
 
 Scroll the document in main GUI window by x and y.
 </source>
-        <translation type="unfinished">scrollDocument(x,y)
+        <translation>scrollDocument(x,y)
 
 Desprazar o documento a xanela principal unha distancia x e b.
 </translation>
@@ -3237,7 +3379,7 @@ x and y specify the coordinate of the topleft corner of the SVG placed on the pa
 
 If loading was successful, the selection contains the imported SVG
 </source>
-        <translation type="unfinished">placeSVG(&quot;nome_de_ficheiro&quot;, x, y)
+        <translation>placeSVG(&quot;nome_de_ficheiro&quot;, x, y)
 
 Coloca o &quot;nome_de_ficheiro&quot; SVG na páxina actual;
 x e y especifican a coordenada da esquina superior esquerda do SVG colocado na páxina.
@@ -3254,7 +3396,7 @@ x and y specify the coordinate of the topleft corner of the EPS placed on the pa
 
 If loading was successful, the selection contains the imported EPS
 </source>
-        <translation type="unfinished">placeEPS(&quot;nome_de_ficheiro&quot;, x, y)
+        <translation>placeEPS(&quot;nome_de_ficheiro&quot;, x, y)
 
 Coloca o &quot;nome de ficheiro&quot; EPS na páxina actual,
 x e y indican a coordenada da esquina superior esqeurda do EPS colocado na páxina
@@ -3271,12 +3413,13 @@ x and y specify the coordinate of the topleft corner of the SXD placed on the pa
 
 If loading was successful, the selection contains the imported SXD
 </source>
-        <translation type="unfinished">placeSXD(&quot;nome_de_ficheiro&quot;, x, y)
+        <translation>placeSXD(&quot;nome_de_ficheiro&quot;, x, y)
 
 Coloca o &quot;nome de ficheiro&quot; SXD na páxina actual,
 x e y indican a coordenada da esquina superior esqeurda do SXD colocado na páxina
 
-Se se logra cargar, a selección contén o SXD importado</translation>
+Se se logra cargar, a selección contén o SXD importado
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/svgimport.h" line="57"/>
@@ -3287,12 +3430,13 @@ x and y specify the coordinate of the topleft corner of the ODG placed on the pa
 
 If loading was successful, the selection contains the imported ODG
 </source>
-        <translation type="unfinished">placeODG(&quot;nome_de_ficheiro&quot;, x, y)
+        <translation>placeODG(&quot;nome_de_ficheiro&quot;, x, y)
 
 Coloca o &quot;nome de ficheiro&quot; ODG na páxina actual,
 x e y indican a coordenada da esquina superior esqeurda do ODG colocado na páxina
 
-Se se logra cargar, a selección contén o ODG importado</translation>
+Se se logra cargar, a selección contén o ODG importado
+</translation>
     </message>
 </context>
 <context>
@@ -3326,7 +3470,6 @@ Devolve verdadeiro se se creou un documento novo.
 </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>newDoc(size, margins, orientation, firstPageNumber,
                    unit, facingPages, firstSideLeft) -&gt; bool
 
@@ -3462,7 +3605,6 @@ Pode provocar un NameExistsError se pasar explicitamente un nome que xa exista.
 </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>newPage(where [,&quot;template&quot;])
 
 Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
@@ -3529,7 +3671,6 @@ O texto debe estar codificado en UTF8 ou ser unha cadea &apos;unicode&apos; (rec
 </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>register_macro_callable(name, callable, accel=&apos;&apos;)
 
 Create a macro called &quot;name&quot; with the existing callable object &quot;callable&quot;.
@@ -3571,7 +3712,6 @@ Os detalles sobre as excepcións que pode provocar cada función fornécense na
 documentación de cada función.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>newDoc(size, margins, orientation, firstPageNumber,
                    unit, facingPages, firstSideLeft) -&gt; bool
 
@@ -3661,7 +3801,6 @@ Pode provocar un IndexError se o número da páxina está fora do intervalo
 </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>importSVG(&quot;string&quot;)
 
 The &quot;string&quot; must be a valid filename for a SVG image. The text
@@ -3673,7 +3812,6 @@ A &quot;cadea&quot; debe ser un número de ficheiro válido para unha imaxe SVG.
 O texto debe ir codificado en UTF8 ou ser unha cadea &quot;unicode&quot; (o que se recomenda).</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>newDocument(size, margins, orientation, firstPageNumber,
                         unit, pagesType, firstPageOrder) -&gt; bool
 
@@ -3949,7 +4087,6 @@ Pode provocar un NotFoundError se non se atopou a cor nomeada.
 Pode provocar un ValueError se se especifica un nome de cor non válido.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
 
 Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
@@ -4142,7 +4279,6 @@ camiño completo ou relativo).
 Pode provocar un ScribusError se non se puido gardar.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
 
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
@@ -4154,7 +4290,6 @@ Consigna a información do documento. &quot;Autor&quot;, &quot;Información&quot
 son cadeas.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>setMargins(lr, rr, tr, br)
 
 Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
@@ -4644,7 +4779,6 @@ Devolve información ampliada sobre a fonte. É unha lista de valores con:
 [ (Nome Scribus, Familia, Nome real, subgrupo (1|0), embed PS (1|0), ficheiro da fonte), (...), ...]</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
 
 Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
@@ -4734,7 +4868,6 @@ Pode provocar un NotFoundError se non se atopa a capa.
 Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>setLayerPrintable(&quot;layer&quot;, printable)
 
 Sets the layer &quot;layer&quot; to be printable or not. If is the printable set to
@@ -4752,7 +4885,6 @@ Pode provocar un NotFoundError se non se atopa a capa.
 Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
 Returns wether the Layer &quot;layer&quot; is visible or not, a value of True means
@@ -4772,7 +4904,6 @@ Pode provocar un NotFoundError se non se atopa a capa.
 Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
 Returns wether the layer &quot;layer&quot; is printable or not, a value of True means
@@ -5058,7 +5189,6 @@ modelo de páxina para a páxina nova.
 Pode causar un IndexError se o número de páxina está fora do intervalo.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>textFlowsAroundFrame(&quot;name&quot; [, state])
 
 Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
@@ -5267,7 +5397,6 @@ significa que o obxecto chamado &apos;Texto1&apos; é unha moldura de texto (tip
 é o primeiro na páxina...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>getPageMargins()
 
 Returns the page margins as a (left, right, top, bottom) tuple in the current
@@ -5550,7 +5679,6 @@ Ver as FAQ para máis detalles. Se non se fornece un &quot;nome&quot; úsase o e
 seleccionado nese momento.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
 
 Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
@@ -5888,7 +6016,6 @@ Tanto &quot;escalaamoldura&quot; como &quot;proporcional&quot; son booleanas.
 Pode provocar un erro WrongFrameTypeError.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>selectText(start, count, [&quot;name&quot;])
 
 Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
@@ -5909,7 +6036,6 @@ nese momento.
 Pode provocar un IndexError se a selección está fora dos limites do texto.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>register_macro_code(name, sourcetext, accel=&apos;&apos;)
 
 Create a macro named &quot;name&quot; by evaluating the the source code &quot;sourcetext&quot;.
@@ -5949,7 +6075,6 @@ Pode provocar un NotFoundError se non se atopa a fonte especificada.
 Pode provocar un ValueError se se lle pasar un exemplo ou nome de ficheiro vacíos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
 Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
@@ -5989,7 +6114,6 @@ Pode provocar un NotfoundError se non se atopa a capa.
 Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>getColorAsRGB(&quot;name&quot;) -&gt; tuple
 
 Returns a tuple (R,G,B) containing the three color components of the
@@ -6076,7 +6200,6 @@ nas unidades actuais. Ver as constantes UNIT_&lt;tipo&gt; e getPageSize().
 </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
 
 Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
@@ -6116,7 +6239,6 @@ Se non hai un documento aberto, devolve o valor da cor dese nome
 das cores do documento por omisión.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>defineColor(&quot;name&quot;, c, m, y, k)
 
 Defines a new color &quot;name&quot;. The color Value is defined via four components:
@@ -6183,7 +6305,6 @@ Mostra o diálogo &quot;Crear novo estilo de parágrafo&quot;. A función devolv
 nome de estilo real ou Nengún cando o utilizador cancela o diálogo.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
 
 Returns the corner radius of the object &quot;name&quot;. The radius isexpressed in points. If &quot;name&quot; is not given the currentlyselected item is used.
@@ -6193,7 +6314,6 @@ Returns the corner radius of the object &quot;name&quot;. The radius isexpressed
 Devolve o radio da esquina do obxecto &quot;nome&quot;. O radio exprésase en puntos. Se non se dá un &quot;nome&quot; utilízase o elemento seleccionado.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
 
 Returns a (x, y) tuple with the position of the object &quot;name&quot;.
@@ -6313,7 +6433,6 @@ a procura aos fillos do tipo de nome &quot;declase&quot;. Se &quot;recursivo&quo
 procurar recursivamente através dos fillos, netos, etc.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>rotateObjectAbs(rot [, &quot;name&quot;])
 
 Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positve values
@@ -6327,7 +6446,6 @@ significan rotación contraria á das agullas do reloxio. Se non se dá &quot;no
 utilízase o elemento seleccionado nese momento.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
 
 Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
@@ -6936,7 +7054,6 @@ x e y indican a coordenada da esquina superior esqeurda do ODG colocado na páxi
 Se se logra cargar, a selección contén o ODG importado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Copy #%1 of </source>
         <translation type="obsolete">Copia nº%1 de </translation>
     </message>
@@ -7390,7 +7507,7 @@ Pode devolver un erro ValueErro se algunha das distancias está fora de límites
     <message>
         <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="127"/>
         <source>Analyzing File:</source>
-        <translation>A Analizar Ficheiro:</translation>
+        <translation>A analizar ficheiro:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="264"/>
@@ -7400,35 +7517,30 @@ Pode devolver un erro ValueErro se algunha das distancias está fora de límites
     <message>
         <location filename="../../scribus/plugins/aiimplugin/importai.cpp" line="2226"/>
         <source>Generating Items</source>
-        <translation>A Xerar Elementos</translation>
+        <translation>A xerar elementos</translation>
     </message>
 </context>
 <context>
     <name>About</name>
     <message>
-        <location filename="" line="0"/>
         <source>About Scribus%1%2</source>
         <translation type="obsolete">Acerca de Scribus%1%2</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>%1. %2 %3 </source>
         <translation type="obsolete">%1. %2 %3 </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus Version %1
 %2 %3</source>
         <translation type="obsolete">Scribus, Versión %1
 %2 %3</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Build-ID:</source>
         <translation type="obsolete">ID da compilación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Programming:</source>
         <translation type="obsolete">Programación:</translation>
     </message>
@@ -7438,142 +7550,114 @@ Pode devolver un erro ValueErro se algunha das distancias está fora de límites
         <translation>Aportacións de:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Windows port:</source>
         <translation type="obsolete">Portaxe a Windows:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documentation:</source>
         <translation type="obsolete">Documentación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>German:</source>
         <translation type="obsolete">Alemán:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>French:</source>
         <translation type="obsolete">Francés:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Spanish and Catalan:</source>
         <translation type="obsolete">Español e Catalán:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Italian:</source>
         <translation type="obsolete">Italiano:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Hungarian:</source>
         <translation type="obsolete">Húngaro:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ukrainian:</source>
         <translation type="obsolete">Ucraniano:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Bulgarian:</source>
         <translation type="obsolete">Búlgaro:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Galician:</source>
         <translation type="obsolete">Galego:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Turkish:</source>
         <translation type="obsolete">Turco:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Lithuanian:</source>
         <translation type="obsolete">Lituano:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Polish:</source>
         <translation type="obsolete">Polonés:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Czech:</source>
         <translation type="obsolete">Checo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Slovak:</source>
         <translation type="obsolete">Eslovaco:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Danish:</source>
         <translation type="obsolete">Dinamarqués:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Norwegian:</source>
         <translation type="obsolete">Noruegués:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>English:</source>
         <translation type="obsolete">Inglés:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Welsh:</source>
         <translation type="obsolete">Galés:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Russian:</source>
         <translation type="obsolete">Ruso:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Brazilian:</source>
         <translation type="obsolete">Portugués do Brasil:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Finnish:</source>
         <translation type="obsolete">Finlandés:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Homepage and online reference</source>
         <translation type="obsolete">Sitio web e referencia en liña</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mailing list</source>
         <translation type="obsolete">Lista de corrreo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Bugs and feature requests</source>
         <translation type="obsolete">Erros e propostas de funcionalidades</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Basque:</source>
         <translation type="obsolete">Basco:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Slovenian:</source>
         <translation type="obsolete">Esloveno:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This panel shows the version, build date and
  compiled in library support in Scribus
 The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
@@ -7634,37 +7718,30 @@ Se falta o soporte dunha libraría, indícase con *</translation>
         <translation>Traducións e Tradutores Oficiais:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Catalan:</source>
         <translation type="obsolete">Catalán:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>English (British):</source>
         <translation type="obsolete">Inglés (británico):</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Esperanto:</source>
         <translation type="obsolete">Esperanto:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Korean:</source>
         <translation type="obsolete">Coreano:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Serbian:</source>
         <translation type="obsolete">Serbio:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Spanish:</source>
         <translation type="obsolete">Español:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Swedish:</source>
         <translation type="obsolete">Sueco:</translation>
     </message>
@@ -7694,7 +7771,6 @@ Se falta o soporte dunha libraría, indícase con *</translation>
         <translation>Lista de Correo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This panel shows the version, build date and
  compiled in library support in Scribus
 The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
@@ -7705,49 +7781,40 @@ C-C-T significa apoio a C=littlecms C=CUPS T=TIFF.
 A ausencia de apoio a librarías indícase cun *</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Portugese (Brazilian):</source>
         <translation type="obsolete">Portugués (Brasileiro):</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>%1 %2 %3 </source>
         <translation type="obsolete">%1 %2 %3 </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Afrikaans:</source>
         <translation type="obsolete">Africaner:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Portuguese (Brazilian):</source>
         <translation type="obsolete">Portugués do Brasil:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Using GhostScript version %1</source>
         <translation type="obsolete">Utilizando a versión %1 de GhostScript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>No GS version available</source>
         <translation type="obsolete">Non hai unha versión de GS disponíbel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus Version %1
 %2 %3 (%4)</source>
         <translation type="obsolete">Scribus Versión %1
 %2 %3 (%4)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mac OSX Aqua Port:</source>
         <translation type="obsolete">Portaxe ao Aqua de Mac OSX:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Windows Port:</source>
         <translation type="obsolete">Portaxe a Windows:</translation>
     </message>
@@ -7757,7 +7824,6 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>Wiki</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation type="obsolete">Este painel mostra a versión, data de compilación e suporte de librarías compiladas en Scribus. C-C-T-F significa que se acepta C=littlecms C=CUPS T=TIFF F=Fontconfig. A última letra é o motor C=cairo ou A=libart. Se se aceptan librarías ausentes indícase cun *. Isto tamén indica a versión de Ghostscript detectada por Scribus.</translation>
     </message>
@@ -7782,7 +7848,6 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>Non se dispón dunha versión do Ghostscript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;b&gt;Scribus Version %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</source>
         <translation type="obsolete">&lt;b&gt;Versión %1 de Scribus&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</translation>
     </message>
@@ -7792,7 +7857,6 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>ID da Compilación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation type="obsolete">Este painel mostra a versión, data da compilación e soporte de librarías compiladas en Scribus. C-C-T-F equivale a C=littlecms C=CUPS T=soporta TIFF  F=soporta Fontconfig. A derradeira letra é o visualizador C=cairo ou A=libart. Se falla o soporte de librarías indícase cun *. Isto tamén indica a versión de Ghostscript detectada por Scribus.</translation>
     </message>
@@ -7807,7 +7871,6 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>Windows&amp;#174; Port:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>March</source>
         <translation type="obsolete">Marzo</translation>
     </message>
@@ -7827,7 +7890,6 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation type="obsolete">Comprobar se hai Act&amp;ualizacións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected. The Windows version does not use fontconfig or CUPS libraries.</source>
         <translation type="obsolete">Este painel mostra a versión, data de compilación e soporte de librarías compiladas en Scribus. C-C-T-F significa C=littlecms, C=CUPS, T=soporte TIFF, F soporte Fontconfig. A última letra é o renderizador C=cairo ou A=libart. Se falta soporte dalgunha libraría indícase cun *. Isto tamén indica a versión de Ghostscript detectado por Scribus. A versión para Windows non emprega librarías fontconfig ou CUPS.</translation>
     </message>
@@ -7920,12 +7982,10 @@ A ausencia de apoio a librarías indícase cun *</translation>
 <context>
     <name>AboutPlugins</name>
     <message>
-        <location filename="" line="0"/>
         <source>Yes</source>
         <translation type="obsolete">Si</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>No</source>
         <translation type="obsolete">Non</translation>
     </message>
@@ -7978,57 +8038,46 @@ A ausencia de apoio a librarías indícase cun *</translation>
 <context>
     <name>AboutPluginsBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus: About Plug-ins</source>
         <translation type="obsolete">Scribus: Acerca das Extensións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>File Name:</source>
         <translation type="obsolete">Nome do Ficheiro:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Version:</source>
         <translation type="obsolete">Versión:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enabled:</source>
         <translation type="obsolete">Habilitado:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Release Date:</source>
         <translation type="obsolete">Data de Publicación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Copyright:</source>
         <translation type="obsolete">Copyright:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Author(s):</source>
         <translation type="obsolete">Autor/es:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Description:</source>
         <translation type="obsolete">Descrición:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>License:</source>
         <translation type="obsolete">Licenza:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Close</source>
         <translation type="obsolete">&amp;Fechar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
@@ -8091,7 +8140,6 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>Salvar &amp;Texto...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save Page as &amp;EPS...</source>
         <translation type="obsolete">Salvar Páxina como &amp;EPS...</translation>
     </message>
@@ -8151,7 +8199,6 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>&amp;Pegar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;lear Contents</source>
         <translation type="obsolete">&amp;Limpar o Contido</translation>
     </message>
@@ -8181,12 +8228,10 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>C&amp;ores...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Paragraph Styles...</source>
         <translation type="obsolete">Estilos de &amp;Parágrafo...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Line Styles...</source>
         <translation type="obsolete">Estilos de &amp;Liña...</translation>
     </message>
@@ -8286,7 +8331,6 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>Su&amp;bíndice</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Outline</source>
         <translation type="obsolete">&amp;Esquema</translation>
     </message>
@@ -8461,7 +8505,6 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>Moldura de &amp;Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Outlines</source>
         <translation type="obsolete">C&amp;ontornos</translation>
     </message>
@@ -8531,7 +8574,6 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>Xerir as Propiedades da Páxina...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Fit in window</source>
         <translation type="obsolete">A&amp;xustar á xanela</translation>
     </message>
@@ -8556,7 +8598,6 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>&amp;200%</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Thumbnails</source>
         <translation type="obsolete">&amp;Miniaturas</translation>
     </message>
@@ -8921,97 +8962,78 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>Guión para diálogos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apostrophe</source>
         <translation type="obsolete">Apóstrofe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Straight Double</source>
         <translation type="obsolete">Rectas Dobres</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Single Left</source>
         <translation type="obsolete">Simple Esquerda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Single Right</source>
         <translation type="obsolete">Simple Dereita</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Double Left</source>
         <translation type="obsolete">Dobre Esquerda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Double Right</source>
         <translation type="obsolete">Dobre Dereita</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Single Reversed</source>
         <translation type="obsolete">Simple Invertida</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Double Reversed</source>
         <translation type="obsolete">Dobre Invertida</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Single Left Guillemet</source>
         <translation type="obsolete">Latina Simple Esquerda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Single Right Guillemet</source>
         <translation type="obsolete">Latina Simple Dereita</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Double Left Guillemet</source>
         <translation type="obsolete">Latina Dobre Esquerda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Double Right Guillemet</source>
         <translation type="obsolete">Latina Dobre Dereita</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Low Single Comma</source>
         <translation type="obsolete">Vírgula Baixa Simple</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Low Double Comma</source>
         <translation type="obsolete">Vírgula Baixa Dobre</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Double Turned Comma</source>
         <translation type="obsolete">Aspas dobres</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>CJK Single Left</source>
         <translation type="obsolete">Aspas chinesas (CJK) Sinxelas Esquerdas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>CJK Single Right</source>
         <translation type="obsolete">Aspas chinesas (CJK) Sinxelas Dereitas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>CJK Double Left</source>
         <translation type="obsolete">Aspas chinesas (CJK) Dobres Esquerdas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>CJK Double Right</source>
         <translation type="obsolete">Aspas chinesas (CJK) Dobres Dereitas</translation>
     </message>
@@ -9031,12 +9053,10 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>Máis información...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Copy Contents</source>
         <translation type="obsolete">Copiar o Contido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Paste Contents</source>
         <translation type="obsolete">Pegar o Contido</translation>
     </message>
@@ -9162,7 +9182,6 @@ A ausencia de apoio a librarías indícase cun *</translation>
         <translation>st</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Paste Contents (Absolute)</source>
         <translation type="obsolete">Pegar o Contido (Absoluto)</translation>
     </message>
@@ -9481,7 +9500,7 @@ efecto de tipo</translation>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1479"/>
         <source>&amp;About Plugins</source>
-        <translation>&amp;Acerca das Extensións</translation>
+        <translation>&amp;Acerca dos engadidos</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1493"/>
@@ -9536,122 +9555,122 @@ efecto de tipo</translation>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1685"/>
         <source>File</source>
-        <translation type="unfinished">Ficheiro</translation>
+        <translation>Ficheiro</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1685"/>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;Ficheiro</translation>
+        <translation>&amp;Ficheiro</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1687"/>
         <source>Edit</source>
-        <translation type="unfinished">Modificar</translation>
+        <translation>Modificar</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1687"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Modificar</translation>
+        <translation>&amp;Modificar</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1689"/>
         <source>Style</source>
-        <translation type="unfinished">Estilo</translation>
+        <translation>Estilo</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1689"/>
         <source>&amp;Style</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;stilo</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1691"/>
         <source>Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Elemento</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1691"/>
         <source>&amp;Item</source>
-        <translation type="unfinished">&amp;Elemento</translation>
+        <translation>&amp;Elemento</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1693"/>
         <source>Insert</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserir</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1693"/>
         <source>I&amp;nsert</source>
-        <translation type="unfinished">I&amp;nserir</translation>
+        <translation>I&amp;nserir</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1695"/>
         <source>Page</source>
-        <translation type="unfinished">Páxina</translation>
+        <translation>Páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1695"/>
         <source>&amp;Page</source>
-        <translation type="unfinished">&amp;Páxina</translation>
+        <translation>&amp;Páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1697"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1697"/>
         <source>&amp;View</source>
-        <translation type="unfinished">&amp;Vista</translation>
+        <translation>&amp;Vista</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1699"/>
         <source>Extras</source>
-        <translation type="unfinished"></translation>
+        <translation>Extras</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1699"/>
         <source>E&amp;xtras</source>
-        <translation type="unfinished">E&amp;xtras</translation>
+        <translation>E&amp;xtras</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1701"/>
         <source>Windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Xanelas</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1701"/>
         <source>&amp;Windows</source>
-        <translation type="unfinished">&amp;Xanelas</translation>
+        <translation>&amp;Xanelas</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1703"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Axuda</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1703"/>
         <source>&amp;Help</source>
-        <translation type="unfinished">&amp;Axuda</translation>
+        <translation>&amp;Axuda</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1871"/>
         <source>Plugin Menu Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Elementos do menú do engadido</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1873"/>
         <source>Others</source>
-        <translation type="unfinished"></translation>
+        <translation>Outro</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1875"/>
         <source>Unicode Characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Caracteres Unicode</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1482"/>
         <source>Move/Resize Value Indicator</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover/Modificar o tamaño do indicador do valor</translation>
     </message>
 </context>
 <context>
@@ -9665,76 +9684,62 @@ efecto de tipo</translation>
 <context>
     <name>AdvOptions</name>
     <message>
-        <location filename="" line="0"/>
         <source>Advanced Options</source>
         <translation type="obsolete">Opcións avanzadas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Creates PostScript Level 3</source>
         <translation type="obsolete">Crea PostScript Nível 3</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Creates PostScript Level 2 only, beware,
 this can create huge files</source>
         <translation type="obsolete">Crea só PostScript Nível 2. Atención: 
 pódense crear ficheiros enormes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Creates PostScript Level 1 only, beware,
 this can create huge files</source>
         <translation type="obsolete">Crea só PostScript Nível 1. Atención: 
 pódense crear ficheiros enormes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mirror Page(s) &amp;Horizontal</source>
         <translation type="obsolete">Reflexar a(s) Páxina(s) na &amp;Horizontal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mirror Page(s) &amp;Vertical</source>
         <translation type="obsolete">Reflexar a(s) Páxina(s) na &amp;Vertical</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply &amp;ICC Profiles</source>
         <translation type="obsolete">Aplicar os Perfís &amp;ICC</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PostScript Level &amp;1</source>
         <translation type="obsolete">PostScript Nível &amp;1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PostScript Level &amp;2</source>
         <translation type="obsolete">PostScript Nível &amp;2</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PostScript Level &amp;3</source>
         <translation type="obsolete">PostScript Nível &amp;3</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply Under Color &amp;Removal</source>
         <translation type="obsolete">Aplicar UC&amp;R</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A way of switching off some of the gray shades which are composed
 of cyan, yellow and magenta and using black instead.
 UCR most affects parts of images which are neutral and/or dark tones
@@ -9749,12 +9754,10 @@ ainda que é preciso experimentar segundo cada caso.
 O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Set Media Size</source>
         <translation type="obsolete">Indicar o Tamaño do Medio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This enables you to explicitely set,
 the media size of the postscript file.
 Not recommended unless
@@ -9768,132 +9771,106 @@ que llo pida o seu impresor.</translation>
 <context>
     <name>Align</name>
     <message>
-        <location filename="" line="0"/>
         <source>Distribute/Align</source>
         <translation type="obsolete">Distribuir/Aliñar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Align</source>
         <translation type="obsolete">Aliñar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Horizontal</source>
         <translation type="obsolete">Horizontal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Left Sides</source>
         <translation type="obsolete">Lados Esquerdos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Middles</source>
         <translation type="obsolete">Medios</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Right Sides</source>
         <translation type="obsolete">Lados Direitos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Vertical</source>
         <translation type="obsolete">Vertical</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Top Sides</source>
         <translation type="obsolete">Lados Superiores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Bottom Sides</source>
         <translation type="obsolete">Lados Inferiores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete">mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete">in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Apply</source>
         <translation type="obsolete">&amp;Aplicar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Between:</source>
         <translation type="obsolete">&amp;Entre:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A&amp;lign</source>
         <translation type="obsolete">A&amp;liñar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Di&amp;splacement</source>
         <translation type="obsolete">De&amp;sprazamento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distribute &amp;Evenly</source>
         <translation type="obsolete">Distribuir &amp;Uniformemente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Bet&amp;ween:</source>
         <translation type="obsolete">Ent&amp;re:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do &amp;Not Change</source>
         <translation type="obsolete">&amp;Non Modificar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Al&amp;ign</source>
         <translation type="obsolete">Al&amp;iñar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Dis&amp;placement</source>
         <translation type="obsolete">Des&amp;prazamento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distribute E&amp;venly</source>
         <translation type="obsolete">Distribuir U&amp;niformemente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Do Not Change</source>
         <translation type="obsolete">N&amp;on Modificar</translation>
     </message>
@@ -9934,37 +9911,30 @@ que llo pida o seu impresor.</translation>
 <context>
     <name>AlignDistributeBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Align and Distribute</source>
         <translation type="obsolete">Aliñar e Distribuir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Align</source>
         <translation type="obsolete">Aliñar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Selected Guide:</source>
         <translation type="obsolete">Guía &amp;Seleccionada:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Relative To:</source>
         <translation type="obsolete">&amp;Relativa A:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>...</source>
         <translation type="obsolete">...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distribute</source>
         <translation type="obsolete">Distribuir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Distance:</source>
         <translation type="obsolete">&amp;Distancia:</translation>
     </message>
@@ -10017,12 +9987,10 @@ que llo pida o seu impresor.</translation>
         <translation>Selección</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Align right sides of objects to left side of anchor</source>
         <translation type="obsolete">Aliñar os lados direitos dos obxectso ao lado esquerdo da áncora</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Align left sides of objects to right side of anchor</source>
         <translation type="obsolete">Aliñar os lados esquerdos dos obxectos ao lado direito da áncora</translation>
     </message>
@@ -10037,7 +10005,6 @@ que llo pida o seu impresor.</translation>
         <translation>Aliñar os lados direitos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Align tops of objects to bottom of anchor</source>
         <translation type="obsolete">Aliñar as partes superiores dos obxectos á parte inferior da áncora</translation>
     </message>
@@ -10057,7 +10024,6 @@ que llo pida o seu impresor.</translation>
         <translation>centrar no eixo horizontal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Align bottoms of objects to top of anchor</source>
         <translation type="obsolete">Aliñar as partes inferiores dos obxectos á parte superior da áncora</translation>
     </message>
@@ -10077,12 +10043,10 @@ que llo pida o seu impresor.</translation>
         <translation>Distribuir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Make horizontal gaps between objects equal</source>
         <translation type="obsolete">Facer que as distancias horizontais entre os obxectos sexa iguais</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Make horizontal gaps between objects equal to the value specified</source>
         <translation type="obsolete">Facer que as distancias horizontais entre os obxectos sexa iguais ao valor indicado</translation>
     </message>
@@ -10102,12 +10066,10 @@ que llo pida o seu impresor.</translation>
         <translation>Distribuir os centros equidistantes na horizontal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Make vertical gaps between objects equal</source>
         <translation type="obsolete">Facer que as distancias verticais entre os obxectos sexan iguais</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Make vertical gaps between objects equal to the value specified</source>
         <translation type="obsolete">Facer que as distancias verticais entre os obxectos sexan iguais ao valor indicado</translation>
     </message>
@@ -10142,17 +10104,14 @@ que llo pida o seu impresor.</translation>
         <translation>Nengunha Seleccionada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Some objects are locked.</source>
         <translation type="obsolete">Algúns obxectos están bloqueadas.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Unlock All</source>
         <translation type="obsolete">&amp;Desbloquealo Todo</translation>
     </message>
@@ -10313,7 +10272,6 @@ que llo pida o seu impresor.</translation>
         <translation>Nome:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Tool-Tip:</source>
         <translation type="obsolete">Suxestión:</translation>
     </message>
@@ -10403,7 +10361,6 @@ que llo pida o seu impresor.</translation>
         <translation>Necesario</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Don&apos;t Export Value</source>
         <translation type="obsolete">Non Exportar o Valor</translation>
     </message>
@@ -10578,7 +10535,6 @@ que llo pida o seu impresor.</translation>
         <translation>Opcións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Java Script</source>
         <translation type="obsolete">Java Script</translation>
     </message>
@@ -10903,7 +10859,6 @@ que llo pida o seu impresor.</translation>
         <translation>Abrir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
         <translation type="obsolete">Imaxes (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Todos (*)</translation>
     </message>
@@ -10938,7 +10893,6 @@ que llo pida o seu impresor.</translation>
         <translation>JavaScript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
         <translation type="obsolete">Imaxes (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Todos os Ficheiros (*)</translation>
     </message>
@@ -10990,7 +10944,6 @@ resalte</translation>
         <translation>Propiedades das Anotacións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Type:</source>
         <translation type="obsolete">Tipo:</translation>
     </message>
@@ -11020,17 +10973,14 @@ resalte</translation>
         <translation>Destino</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Change...</source>
         <translation type="obsolete">Modificar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page:</source>
         <translation type="obsolete">Páxina:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>X-Pos:</source>
         <translation type="obsolete">Posición X:</translation>
     </message>
@@ -11040,17 +10990,14 @@ resalte</translation>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Y-Pos:</source>
         <translation type="obsolete">Posición Y:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">Dacordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cancel</source>
         <translation type="obsolete">Cancelar</translation>
     </message>
@@ -11090,12 +11037,10 @@ resalte</translation>
         <translation>Pos-&amp;Y:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -11113,7 +11058,6 @@ resalte</translation>
 <context>
     <name>ApplyMasterPageDialog</name>
     <message>
-        <location filename="" line="0"/>
         <source>Normal</source>
         <translation type="obsolete">Normal</translation>
     </message>
@@ -11183,7 +11127,6 @@ resalte</translation>
         <translation>Alt+W</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Apply the selected template to even, odd or all pages within the following range&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Aplicar o modelo seleccionado ás páxinas pares, impares ou a todas dentro do rango seguinte&lt;/qt&gt;</translation>
     </message>
@@ -11216,52 +11159,42 @@ resalte</translation>
 <context>
     <name>ApplyT</name>
     <message>
-        <location filename="" line="0"/>
         <source>Apply Template</source>
         <translation type="obsolete">Aplicar un Modelo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Normal</source>
         <translation type="obsolete">Normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Template:</source>
         <translation type="obsolete">&amp;Modelo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply to &amp;Current Page</source>
         <translation type="obsolete">Aplicar á Páxina &amp;Actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply from &amp;Page:</source>
         <translation type="obsolete">Aplicar desde a &amp;Páxina:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>To:</source>
         <translation type="obsolete">Á:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply to all &amp;even Pages</source>
         <translation type="obsolete">Aplicar a todas as Páxinas p&amp;ares</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply to all &amp;odd Pages</source>
         <translation type="obsolete">Aplicar a todas as Páxinas &amp;impares</translation>
     </message>
@@ -11269,7 +11202,6 @@ resalte</translation>
 <context>
     <name>ArrowChooser</name>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
@@ -11299,7 +11231,7 @@ resalte</translation>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellplugin.cpp" line="95"/>
         <source>Aspell Plugin Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro do engadido Aspell</translation>
     </message>
 </context>
 <context>
@@ -11452,12 +11384,12 @@ Persoal</translation>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="79"/>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in aspell speller configuration.</source>
-        <translation>extensión aspell (AspellPluginImpl::AspellPluginImpl): Erro na configuración de corrección de aspell.</translation>
+        <translation>engadido aspell (AspellPluginImpl::AspellPluginImpl): Erro na configuración de corrección de aspell.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="86"/>
         <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating aspell speller.</source>
-        <translation>extensión aspell (AspellPluginImpl::AspellPluginImpl): Erro ao crear o corrector aspell.</translation>
+        <translation>engadido aspell (AspellPluginImpl::AspellPluginImpl): Erro ao crear o corrector aspell.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="217"/>
@@ -11502,12 +11434,12 @@ Persoal</translation>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="57"/>
         <source>No available Aspell dictionaries found. Install some, please.</source>
-        <translation type="unfinished"></translation>
+        <translation>Non se atoparon dicionarios disponíbeis para Aspell. Instale algún.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="407"/>
         <source>Do you want start from the beginning of the selection with new language selected?</source>
-        <translation type="unfinished"></translation>
+        <translation>Quere comezar desde o principio da selección coa nova lingua seleccionada?</translation>
     </message>
 </context>
 <context>
@@ -11558,7 +11490,7 @@ Persoal</translation>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="39"/>
         <source>Scribus frontend for Pure PostScript Barcode Writer</source>
-        <translation type="unfinished"></translation>
+        <translation>Interface do Scribus para o Escritor de Códigos de Barras en PostScript Puro</translation>
     </message>
 </context>
 <context>
@@ -11599,7 +11531,6 @@ Persoal</translation>
         <translation>2 díxitos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>9 or 10 digits separated appropriately with dashes</source>
         <translation type="obsolete">9 ou 10 díxitos separados adecuadamente por guións</translation>
     </message>
@@ -11782,7 +11713,6 @@ Persoal</translation>
         <translation>Antevisión do resultado. Mostra a 72dpi.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Make check digit visible in text</source>
         <translation type="obsolete">Facer que o código de control se vexa no texto</translation>
     </message>
@@ -11840,7 +11770,6 @@ Persoal</translation>
         <translation>Porta-retallos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scrapbooks (*.scs);;All Files (*)</source>
         <translation type="obsolete">Porta-retallos (*.scs);;Todos (*)</translation>
     </message>
@@ -11865,69 +11794,56 @@ Persoal</translation>
         <translation>Mudar o Nome</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
         <translation type="obsolete">O nome &quot;%1&quot; non é único.
 Escolla outro.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;New</source>
         <translation type="obsolete">&amp;Novo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Load...</source>
         <translation type="obsolete">&amp;Carregar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Save</source>
         <translation type="obsolete">&amp;Gardar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save &amp;As...</source>
         <translation type="obsolete">Gardar &amp;Como...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Close</source>
         <translation type="obsolete">&amp;Fechar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Small</source>
         <translation type="obsolete">&amp;Pequena</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Medium</source>
         <translation type="obsolete">&amp;Mediana</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Large</source>
         <translation type="obsolete">&amp;Grande</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;File</source>
         <translation type="obsolete">&amp;Ficheiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Preview</source>
         <translation type="obsolete">&amp;Vista Previa</translation>
     </message>
@@ -12186,7 +12102,6 @@ Escolla outro.</translation>
 <context>
     <name>CMSPrefs</name>
     <message>
-        <location filename="" line="0"/>
         <source>Color Management Settings</source>
         <translation type="obsolete">Configuración da Xestión das Cores</translation>
     </message>
@@ -12221,12 +12136,10 @@ Escolla outro.</translation>
         <translation>Colorimétrico absoluto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default color profile for imported images</source>
         <translation type="obsolete">Perfil de cores por omisión para as imaxes importadas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default color profile for solid colors on the page</source>
         <translation type="obsolete">Perfil de cores por omisión para as cores sólidas na páxina</translation>
     </message>
@@ -12252,14 +12165,12 @@ It is recommended that you enable this if you have photos in your document.</sou
 Recoméndase que a permita se ten fotos no seu documento.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation type="obsolete">Exhibición por omisión para o seu monitor. De non ter unha boa razón para mudala,
 limítese a escoller Colorimétrica Relativa ou Perceptual.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation type="obsolete">Exhibición por omisión para a súa impresora. De non ter unha boa razón para mudala,
@@ -12285,12 +12196,10 @@ Isto require perfís moi exactos e só serve como advertencia.</translation>
         <translation type="obsolete">&amp;Activar a Xestión das Cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Pictures:</source>
         <translation type="obsolete">&amp;Imaxes:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Solid Colors:</source>
         <translation type="obsolete">Cores &amp;Sólidas:</translation>
     </message>
@@ -12305,12 +12214,10 @@ Isto require perfís moi exactos e só serve como advertencia.</translation>
         <translation type="obsolete">Im&amp;resora:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>M&amp;onitor:</source>
         <translation type="obsolete">M&amp;onitor:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Pr&amp;inter:</source>
         <translation type="obsolete">Impres&amp;ora:</translation>
     </message>
@@ -12330,12 +12237,10 @@ Isto require perfís moi exactos e só serve como advertencia.</translation>
         <translation type="obsolete">Usar a Compensación de Punto &amp;Negro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -12623,7 +12528,6 @@ Recoméndase que a permita se hai fotos no documento.</translation>
         <translation>Vella</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
@@ -12678,12 +12582,10 @@ Recoméndase que a permita se hai fotos no documento.</translation>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name of the Color is not unique</source>
         <translation type="obsolete">O nome da Cor non é único</translation>
     </message>
@@ -12703,22 +12605,18 @@ Recoméndase que a permita se hai fotos no documento.</translation>
         <translation>&amp;Modelo de Cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>You cannot create a color named &quot;%1&quot;.
 It&apos;s a reserved name for transparent color</source>
         <translation type="obsolete">Non pode crear unha cor chamada &quot;%1&quot;.
@@ -12742,7 +12640,6 @@ It is a reserved name for transparent color</source>
 É un nome reservado para a cor transparente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name of the color is not unique</source>
         <translation type="obsolete">O nome da cor non é único</translation>
     </message>
@@ -12752,7 +12649,6 @@ It is a reserved name for transparent color</source>
         <translation type="obsolete">Se escolle isto poderá imprimir isto en todos os tinteiros. As cores do rexistro empréganse para marcas de impresión como marcas de recorte, marcas de rexistro, etc. Nada disto se emprega normalmente no deseño mesmo.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation type="obsolete">Se se activa a xestión de cores, aparecerá un triángulo indicador de aviso de que a cor pode estar fora da gama de cores do perfil da impresiora actual seleccionado. Isto significa que a cor pode non imprimirse exactamente tal e como se ve na pantalla. Atopará máis explicacións acerca de avisos sobre a gama na axuda en liña en Xestión da Cor.</translation>
     </message>
@@ -12817,27 +12713,22 @@ Delle un nome</translation>
 <context>
     <name>CStylePBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Form1</source>
         <translation type="obsolete">Formulario1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Based On:</source>
         <translation type="obsolete">Baseado En:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Basic Formatting</source>
         <translation type="obsolete">Formato Básico</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Advanced Formatting</source>
         <translation type="obsolete">Formato Avanzado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Colors</source>
         <translation type="obsolete">Cores</translation>
     </message>
@@ -12845,27 +12736,22 @@ Delle un nome</translation>
 <context>
     <name>CWDialog</name>
     <message>
-        <location filename="" line="0"/>
         <source>Normal Vision</source>
         <translation type="obsolete">Visión Normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Protanopia (Red)</source>
         <translation type="obsolete">Protanopia (Vermello)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Deuteranopia (Green)</source>
         <translation type="obsolete">Deuteranopia (Verde)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Tritanopia (Blue)</source>
         <translation type="obsolete">Tritanopia (Azul)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Full Color Blindness</source>
         <translation type="obsolete">Cegueira Total para a Cor</translation>
     </message>
@@ -13103,197 +12989,158 @@ Delle un nome</translation>
 <context>
     <name>CWDialogBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Color Wheel</source>
         <translation type="obsolete">Roda de Cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
         <translation type="obsolete">Clique na roda para obte a cor básica. Este modelo de cor depende da pestana escollida.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>CMYK</source>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C:</source>
         <translation type="obsolete">Cián[C]:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>M:</source>
         <translation type="obsolete">Max.[M]:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Y:</source>
         <translation type="obsolete">Ama.[Y]:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>K:</source>
         <translation type="obsolete">Neg.[K]:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>RGB:</source>
         <translation type="obsolete">RGB:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>RGB</source>
         <translation type="obsolete">RGB</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>R:</source>
         <translation type="obsolete">Vm:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>G:</source>
         <translation type="obsolete">Vd:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>B:</source>
         <translation type="obsolete">Az:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>CMYK:</source>
         <translation type="obsolete">CMYK:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Document</source>
         <translation type="obsolete">Documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
         <translation type="obsolete">Escolla un dos métodos para crear un esquema de cores. Consulte a documentación para máis información.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Angle:</source>
         <translation type="obsolete">Ángulo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
         <translation type="obsolete">Diferenza entre o valor seleccionado e os contados. Consulte a documentación para máis información.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Preview:</source>
         <translation type="obsolete">Antevisión:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Vision Defect Type:</source>
         <translation type="obsolete">Tipo de Defecto da Visión:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sample color scheme.</source>
         <translation type="obsolete">Esquema de cores de mostra.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Colors of your chosen color scheme.</source>
         <translation type="obsolete">Cores do esquema de cores escollido.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Merge</source>
         <translation type="obsolete">&amp;Mesclar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+M</source>
         <translation type="obsolete">Alt+M</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Merge created colors into the document colors</source>
         <translation type="obsolete">Xuntar as cores creadas coas cores do documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Replace</source>
         <translation type="obsolete">&amp;Substituir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+R</source>
         <translation type="obsolete">Alt+R</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Replace created colors in the document colors</source>
         <translation type="obsolete">Substituir as cores creadas nas cores do documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Leave colors untouched</source>
         <translation type="obsolete">Deixar sen tocar as cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Simulate common vision defects here. Select type of the defect.</source>
         <translation type="obsolete">Simular aquí deficiencias de visión frecuentes. Escolla o tipo de deficiencia.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color Scheme Method</source>
         <translation type="obsolete">Método de Esquema de Cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> %</source>
         <translation type="obsolete"> %</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>HSV:</source>
         <translation type="obsolete">HSV:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>HSV</source>
         <translation type="obsolete">HSV</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>H:</source>
         <translation type="obsolete">H:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>S:</source>
         <translation type="obsolete">S:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>V:</source>
         <translation type="obsolete">V:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Result Colors</source>
         <translation type="obsolete">Cores Resultantes</translation>
     </message>
@@ -13304,29 +13151,32 @@ Delle un nome</translation>
         <location filename="../../scribus/canvas.cpp" line="2252"/>
         <source>X: %1
 Y: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1
+Y: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2243"/>
         <source>X: %1</source>
-        <translation type="unfinished">X: %1</translation>
+        <translation>X: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2245"/>
         <source>Y: %1</source>
-        <translation type="unfinished">Y: %1</translation>
+        <translation>Y: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2260"/>
         <source>Length: %1
 Angle: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Lonxitude: %1
+Ángulo: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2262"/>
         <source>Width: %1
 Height: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Anchura: %1
+Altura: %2</translation>
     </message>
 </context>
 <context>
@@ -13334,18 +13184,17 @@ Height: %2</source>
     <message>
         <location filename="../../scribus/canvasmode_normal.cpp" line="1822"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Todos os Formatos Coñecidos</translation>
+        <translation>Todos os formatos admitidos</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_normal.cpp" line="1852"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir</translation>
     </message>
 </context>
 <context>
     <name>ChTable</name>
     <message>
-        <location filename="" line="0"/>
         <source>You can see a thumbnail if you press
 and hold down the right mouse button
 
@@ -13358,7 +13207,6 @@ A tecla Inserir insire un Glifo na Selección de abaixo
 e a tecla Eliminar elimina o último que se inseriu</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
         <translation type="obsolete">Pode ver unha miniatura se preme e mantén o botón dereito do rato. A tecla Inserir insire un Glifo na Selección de embaixo e a tecla Eliminar elimina o último que se inseriu</translation>
     </message>
@@ -13366,7 +13214,6 @@ e a tecla Eliminar elimina o último que se inseriu</translation>
 <context>
     <name>CharSelect</name>
     <message>
-        <location filename="" line="0"/>
         <source>Select Character:</source>
         <translation type="obsolete">Escoller Carácter:</translation>
     </message>
@@ -13391,7 +13238,6 @@ e a tecla Eliminar elimina o último que se inseriu</translation>
         <translation type="obsolete">&amp;Limpar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Close</source>
         <translation type="obsolete">&amp;Fechar</translation>
     </message>
@@ -13406,7 +13252,6 @@ e a tecla Eliminar elimina o último que se inseriu</translation>
         <translation type="obsolete">Eliminar a(s) selección(s) actual/is.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Close this dialog and return to text editing.</source>
         <translation type="obsolete">Fechar este diálogo e voltar á edición de texto.</translation>
     </message>
@@ -13551,17 +13396,14 @@ e a tecla Eliminar elimina o último que se inseriu</translation>
         <translation type="obsolete">Hebreu</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Insert Code:</source>
         <translation type="obsolete">&amp;Inserir Código:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Close this dialog and return to text editing</source>
         <translation type="obsolete">Fechar este diálogo e voltar á edición de texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Type in a four digit unicode value directly here</source>
         <translation type="obsolete">Introduza un valor unicode de catro díxitos aquí directamente</translation>
     </message>
@@ -13668,169 +13510,169 @@ A tecla Inserir coloca un glifo na Selección de embaixo e a tecla Suprimir elim
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="205"/>
         <source>Full Character Set</source>
-        <translation type="unfinished">Conxunto de Caracteres Completo</translation>
+        <translation>Conxunto de caracteres completo</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="210"/>
         <source>Basic Latin</source>
-        <translation type="unfinished">Latín Básico</translation>
+        <translation>Latín básico</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="216"/>
         <source>Latin-1 Supplement</source>
-        <translation type="unfinished">Latín-1 Suplementario</translation>
+        <translation>Latín-1 suplementario</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="222"/>
         <source>Latin Extended-A</source>
-        <translation type="unfinished">Latín Extendido-A</translation>
+        <translation>Latín extendido-A</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="228"/>
         <source>Latin Extended-B</source>
-        <translation type="unfinished">Latín Extendido-B</translation>
+        <translation>Latín extendido-B</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="234"/>
         <source>General Punctuation</source>
-        <translation type="unfinished">Puntuación Xeral</translation>
+        <translation>Puntuación xeral</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="240"/>
         <source>Super- and Subscripts</source>
-        <translation type="unfinished">Superíndices e Subíndices</translation>
+        <translation>Superíndices e subíndices</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="246"/>
         <source>Currency Symbols</source>
-        <translation type="unfinished">Símbolos de Moeda</translation>
+        <translation>Símbolos de moeda</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="252"/>
         <source>Letterlike Symbols</source>
-        <translation type="unfinished">Símbolos parecidos a Letras</translation>
+        <translation>Símbolos parecidos a letras</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="258"/>
         <source>Number Forms</source>
-        <translation type="unfinished">Formas de Números</translation>
+        <translation>Formas de números</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="264"/>
         <source>Arrows</source>
-        <translation type="unfinished">Frechas</translation>
+        <translation>Frechas</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="270"/>
         <source>Mathematical Operators</source>
-        <translation type="unfinished">Operadores matemáticos</translation>
+        <translation>Operadores matemáticos</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="276"/>
         <source>Box Drawing</source>
-        <translation type="unfinished">Deseño de Caixas</translation>
+        <translation>Deseño de caixas</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="282"/>
         <source>Block Elements</source>
-        <translation type="unfinished">Elementos de Bloco</translation>
+        <translation>Elementos de bloque</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="288"/>
         <source>Geometric Shapes</source>
-        <translation type="unfinished">Formas Xeométricas</translation>
+        <translation>Formas xeométricas</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="294"/>
         <source>Miscellaneous Symbols</source>
-        <translation type="unfinished">Símbolos Diversos</translation>
+        <translation>Símbolos diversos</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="300"/>
         <source>Dingbats</source>
-        <translation type="unfinished">Debuxiños</translation>
+        <translation>Debuxiños</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="306"/>
         <source>Small Form Variants</source>
-        <translation type="unfinished">Variantes Pequenas de Formas</translation>
+        <translation>Variantes pequenas de formas</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="312"/>
         <source>Ligatures</source>
-        <translation type="unfinished">Ligaturas</translation>
+        <translation>Ligaturas</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="318"/>
         <source>Specials</source>
-        <translation type="unfinished">Especiais</translation>
+        <translation>Especiais</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="324"/>
         <source>Greek</source>
-        <translation type="unfinished">Grego</translation>
+        <translation>Grego</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="330"/>
         <source>Greek Extended</source>
-        <translation type="unfinished">Grego Extendido</translation>
+        <translation>Grego extendido</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="336"/>
         <source>Cyrillic</source>
-        <translation type="unfinished">Cirílico</translation>
+        <translation>Cirílico</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="342"/>
         <source>Cyrillic Supplement</source>
-        <translation type="unfinished">Cirílico Suplementario</translation>
+        <translation>Cirílico suplementario</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="348"/>
         <source>Arabic</source>
-        <translation type="unfinished">Árabe</translation>
+        <translation>Árabe</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="354"/>
         <source>Arabic Extended A</source>
-        <translation type="unfinished">Árabe Extendido A</translation>
+        <translation>Árabe extendido A</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="360"/>
         <source>Arabic Extended B</source>
-        <translation type="unfinished">Árabe Extendido B</translation>
+        <translation>Árabe extendido B</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.cpp" line="366"/>
         <source>Hebrew</source>
-        <translation type="unfinished">Hebreu</translation>
+        <translation>Hebreu</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="13"/>
         <source>Enhanced Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Paleta de caracteres mellorada</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="19"/>
         <source>&amp;Font:</source>
-        <translation type="unfinished">&amp;Fonte:</translation>
+        <translation>&amp;Fonte:</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="45"/>
         <source>C&amp;haracter Class:</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;lase de carácter:</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="77"/>
         <source>You can see a thumbnail if you press and hold down the right mouse button.
 The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
-        <translation type="unfinished">Pódese ver unha miniatura premendo e mantendo premido o botón dereito do rato.
+        <translation>Pódese ver unha miniatura premendo e mantendo premido o botón dereito do rato.
 A tecla Inserir coloca un glifo na Selección de embaixo e a tecla Suprimir elimina o último que se inseriu</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="96"/>
         <source>Insert &amp;Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserir &amp;código:</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="106"/>
@@ -13840,32 +13682,32 @@ A tecla Inserir coloca un glifo na Selección de embaixo e a tecla Suprimir elim
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="131"/>
         <source>Glyphs to Insert</source>
-        <translation type="unfinished"></translation>
+        <translation>Glifos para inserir</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="171"/>
         <source>Insert the characters at the cursor in the text</source>
-        <translation type="unfinished">Inserir os caracteres no texto na posición do cursor</translation>
+        <translation>Inserir os caracteres no texto na posición do cursor</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="174"/>
         <source>&amp;Insert</source>
-        <translation type="unfinished">&amp;Inserir</translation>
+        <translation>&amp;Inserir</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="181"/>
         <source>Delete the current selection(s).</source>
-        <translation type="unfinished">Eliminar a(s) selección(s) actual/is.</translation>
+        <translation>Eliminar a(s) selección(s) actual/is.</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="184"/>
         <source>C&amp;lear</source>
-        <translation type="unfinished">&amp;Limpar</translation>
+        <translation>&amp;Limpar</translation>
     </message>
     <message>
         <location filename="../../scribus/charselectenhanced.ui" line="106"/>
         <source>Type in a four digit Unicode value directly here</source>
-        <translation type="unfinished"></translation>
+        <translation>Escriba directamente aquí un valor Unicode de catro díxitos</translation>
     </message>
 </context>
 <context>
@@ -13879,7 +13721,6 @@ A tecla Inserir coloca un glifo na Selección de embaixo e a tecla Suprimir elim
 <context>
     <name>CharTable</name>
     <message>
-        <location filename="" line="0"/>
         <source>Delete</source>
         <translation type="obsolete">Eliminar</translation>
     </message>
@@ -13915,7 +13756,6 @@ A tecla Inserir coloca un glifo na Selección de embaixo e a tecla Suprimir elim
         <translation>Falta a Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Image has a DPI-Value less than %1 DPI</source>
         <translation type="obsolete">A imaxe ten un Valor de DPI menor de %1 DPI</translation>
     </message>
@@ -14053,22 +13893,18 @@ A tecla Inserir coloca un glifo na Selección de embaixo e a tecla Suprimir elim
 <context>
     <name>ChooseStyles</name>
     <message>
-        <location filename="" line="0"/>
         <source>Choose Styles</source>
         <translation type="obsolete">Escolla Estilos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Available Styles</source>
         <translation type="obsolete">Estilos Disponíbeis</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cancel</source>
         <translation type="obsolete">Cancelar</translation>
     </message>
@@ -14086,7 +13922,6 @@ A tecla Inserir coloca un glifo na Selección de embaixo e a tecla Suprimir elim
         <translation>Recollendo...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
@@ -14213,17 +14048,14 @@ A tecla Inserir coloca un glifo na Selección de embaixo e a tecla Suprimir elim
         <translation>Escolla un Nome</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Open</source>
         <translation type="obsolete">Abrir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.sla.gz *.scd *.scd.gz);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.scd);;Todos os Ficheiros (*)</translation>
     </message>
@@ -14392,242 +14224,194 @@ Consulte a sección Editar Cores da documentación para máis detalles.</transla
 <context>
     <name>ColorWheelDialog</name>
     <message>
-        <location filename="" line="0"/>
         <source>Normal Vision</source>
         <translation type="obsolete">Visión Normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Protanopia (red)</source>
         <translation type="obsolete">Protanopia (vermello)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Deuteranopia (green)</source>
         <translation type="obsolete">Deuteranopia (verde)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Tritanopia (blue)</source>
         <translation type="obsolete">Tritanopia (azul)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Full Color Blindness</source>
         <translation type="obsolete">Cegueira Total para a Cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Vision Defect:</source>
         <translation type="obsolete">Defecto de Visión:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color Wheel</source>
         <translation type="obsolete">Roda de Cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color</source>
         <translation type="obsolete">Cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name</source>
         <translation type="obsolete">Nome</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C</source>
         <translation type="obsolete">C</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>M</source>
         <translation type="obsolete">M</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Y</source>
         <translation type="obsolete">Y</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>K</source>
         <translation type="obsolete">K</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select Method:</source>
         <translation type="obsolete">Método de Selección:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Angle (0 - 90 degrees):</source>
         <translation type="obsolete">Ángulo (0 - 90 graos):</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Merge Colors</source>
         <translation type="obsolete">&amp;Xuntar Cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Replace Colors</source>
         <translation type="obsolete">Substitui&amp;r Cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Merge created colors into the document colors</source>
         <translation type="obsolete">xuntar as cores creadas nas cores do documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Replace created colors in the document colors</source>
         <translation type="obsolete">Substituir as cores creadas nas cores do documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Leave colors untouched</source>
         <translation type="obsolete">Deixar sen tocar as cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Merging colors</source>
         <translation type="obsolete">A mesclar as cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Error: </source>
         <translation type="obsolete">Erro:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Now opening the color manager.</source>
         <translation type="obsolete">Estáse a abrir o xestor de cores.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color Merging</source>
         <translation type="obsolete">Mescla de Cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cr&amp;eate color...</source>
         <translation type="obsolete">Cr&amp;ear cor...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Import existing color...</source>
         <translation type="obsolete">&amp;Importar cor existente...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Merge colors</source>
         <translation type="obsolete">&amp;Mesclar cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Replace colors</source>
         <translation type="obsolete">Substitui&amp;r cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>E&amp;xit</source>
         <translation type="obsolete">Sa&amp;ir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;olor</source>
         <translation type="obsolete">C&amp;or</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Saturation:</source>
         <translation type="obsolete">Saturación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Value:</source>
         <translation type="obsolete">Valor:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
         <translation type="obsolete">Diferenza entre o valor seleccionado e o contados. Consulte a documentación para máis información.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Saturation component in HSV mode</source>
         <translation type="obsolete">Comonente de saturación en modo HSV</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Value component in HSV mode</source>
         <translation type="obsolete">Componente de valor en modo HSV</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
         <translation type="obsolete">Faga clic na roda para obter a cor base. É ton no modo HSV.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sample color scheme</source>
         <translation type="obsolete">Esquema de cor de mostra</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
         <translation type="obsolete">Escolla un dos métodos para crear un esquema de cores. Consulte a documentación para máis información.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Colors of your chosen color scheme</source>
         <translation type="obsolete">Cores do esquema de cores escollido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Simulate common vision defects here. Select type of the defect.</source>
         <translation type="obsolete">Simular aquí deficiencias de visión frecuentes. Escolla o tipo de deficiencia.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>New Color</source>
         <translation type="obsolete">Cor Nova</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation type="obsolete">Foi imposíbel atopar a cor solicitada. Posibelmente escolleu negro, gris ou branco. Non hai maneira de procesar esta cor.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;olor Components...</source>
         <translation type="obsolete">Componentes da C&amp;or...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Protanopia (Red)</source>
         <translation type="obsolete">Protanopia (Vermello)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Deuteranopia (Green)</source>
         <translation type="obsolete">Deuteranopia (Verde)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Tritanopia (Blue)</source>
         <translation type="obsolete">Tritanopia (Azul)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color %1 exists already!</source>
         <translation type="obsolete">Xa existe a cor %1!</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color %1 appended.</source>
         <translation type="obsolete">Adicionouse a cor %1.</translation>
     </message>
@@ -14717,27 +14501,22 @@ CommonStrings, tamaño personalizado da páxina</translation>
         <translation>Catro caras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Left Page</source>
         <translation type="obsolete">Páxina Esquerda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Middle</source>
         <translation type="obsolete">Medio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Middle Left</source>
         <translation type="obsolete">Medio Esquerda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Middle Right</source>
         <translation type="obsolete">Medio Dereita</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Right Page</source>
         <translation type="obsolete">Páxina Dereita</translation>
     </message>
@@ -14857,7 +14636,6 @@ CommonStrings, tamaño personalizado da páxina</translation>
         <translation>&amp;Non</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Normal</source>
         <translation type="obsolete">Normal</translation>
     </message>
@@ -15007,7 +14785,6 @@ CommonStrings, tamaño personalizado da páxina</translation>
         <translation>Puntuación Colgante á Dereita</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Both sides</source>
         <comment>Optical Margin Setting</comment>
         <translation type="obsolete">Ambos os dous lados</translation>
@@ -15018,7 +14795,6 @@ CommonStrings, tamaño personalizado da páxina</translation>
         <translation>Palabra Mínima para Tracking</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Norm. Word Tracking</source>
         <translation type="obsolete">Palabra Normal para Tracking</translation>
     </message>
@@ -15210,7 +14986,7 @@ CommonStrings, tamaño personalizado da páxina</translation>
     <message>
         <location filename="../../scribus/contextmenu.cpp" line="182"/>
         <source>Paste Image from Clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Apegar imaxe do porta-retallos</translation>
     </message>
 </context>
 <context>
@@ -15282,7 +15058,6 @@ CommonStrings, tamaño personalizado da páxina</translation>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
@@ -15317,7 +15092,6 @@ CommonStrings, tamaño personalizado da páxina</translation>
         <translation>Indicar a transparencia da cor seleccionada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color of selected object</source>
         <translation type="obsolete">Cor do obxecto seleccionado</translation>
     </message>
@@ -15357,17 +15131,14 @@ CommonStrings, tamaño personalizado da páxina</translation>
         <translation type="obsolete">Y2:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete">pl</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
@@ -15432,7 +15203,6 @@ CommonStrings, tamaño personalizado da páxina</translation>
         <translation>Diferenza</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Exlusion</source>
         <translation type="obsolete">Exlusión</translation>
     </message>
@@ -15673,142 +15443,114 @@ CommonStrings, tamaño personalizado da páxina</translation>
 <context>
     <name>CreateRangeBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Create Range</source>
         <translation type="obsolete">Crear Rango</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Number of Pages in Document:</source>
         <translation type="obsolete">Número de Páxinas do Documento:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Doc Page Range</source>
         <translation type="obsolete">Rango de Páxinas do Documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Basic Range Selection</source>
         <translation type="obsolete">Selección Básica de Rango</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Add a Range of Pages</source>
         <translation type="obsolete">Engadir un Rango de Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Consecutive Pages</source>
         <translation type="obsolete">Páxinas Consecutivas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>From:</source>
         <translation type="obsolete">Desde:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>To:</source>
         <translation type="obsolete">Até:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Comma Separated List</source>
         <translation type="obsolete">Lista Separada por Vírgulas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Even Pages</source>
         <translation type="obsolete">Páxinas Pares</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Odd Pages</source>
         <translation type="obsolete">Páxinas Impares</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Add To Range</source>
         <translation type="obsolete">Eng&amp;adir ao Rango</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Range of Pages</source>
         <translation type="obsolete">Rango de Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Move &amp;Up</source>
         <translation type="obsolete">S&amp;ubir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+U</source>
         <translation type="obsolete">Alt+U</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Move &amp;Down</source>
         <translation type="obsolete">Bai&amp;xar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+D</source>
         <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>De&amp;lete</source>
         <translation type="obsolete">El&amp;iminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+L</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Advanced Reordering</source>
         <translation type="obsolete">Reordenación Avanzada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page Group Size:</source>
         <translation type="obsolete">Tamaño do Grupo de Páxinas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sample Page Order:</source>
         <translation type="obsolete">Orde de Páxina de Exemplo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page Order</source>
         <translation type="obsolete">Orde das Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+O</source>
         <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
@@ -15851,7 +15593,6 @@ CommonStrings, tamaño personalizado da páxina</translation>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengún</translation>
     </message>
@@ -15907,12 +15648,10 @@ delimitador</translation>
         <translation>Reflectir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>No</source>
         <translation type="obsolete">Non</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Yes</source>
         <translation type="obsolete">Si</translation>
     </message>
@@ -15947,7 +15686,6 @@ delimitador</translation>
         <translation>Páxinas por Folla</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This panel displays various CUPS options when printing. 
 The exact parameters available will depend on your printer driver.
 You can confirm CUPS support by selecting Help &gt; About.
@@ -15960,12 +15698,10 @@ Procure as liñas C-C-T. Equivalen a se pode aceptar C=CUPS C=littlecms T=TIFF.
 A ausencia de soporte para unha libraría indícase cun *</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -16033,7 +15769,6 @@ A ausencia de soporte para unha libraría indícase cun *</translation>
         <translation>Codificación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
         <translation type="obsolete">Móvese para o seu Directorio de Documentos.
@@ -16088,87 +15823,70 @@ Pódese definir nas Preferencias.</translation>
 <context>
     <name>CwSetColor</name>
     <message>
-        <location filename="" line="0"/>
         <source>Set Color Components</source>
         <translation type="obsolete">Indicar os Componentes da Cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>CMYK</source>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>RGB</source>
         <translation type="obsolete">RGB</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>HSV</source>
         <translation type="obsolete">HSV</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>H:</source>
         <translation type="obsolete">H:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>S:</source>
         <translation type="obsolete">S:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>V:</source>
         <translation type="obsolete">V:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>R:</source>
         <translation type="obsolete">Vm:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>G:</source>
         <translation type="obsolete">Vd:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>B:</source>
         <translation type="obsolete">Az:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C:</source>
         <translation type="obsolete">Cián[C]:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>M:</source>
         <translation type="obsolete">Max.[M]:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Y:</source>
         <translation type="obsolete">Amar.[Y]:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>K:</source>
         <translation type="obsolete">Neg.[K]:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Set &amp;RGB</source>
         <translation type="obsolete">Seleccionar &amp;RGB</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Set C&amp;MYK</source>
         <translation type="obsolete">Seleccionar C&amp;MYK</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Set &amp;HSV</source>
         <translation type="obsolete">Seleccionar &amp;HSV</translation>
     </message>
@@ -16202,42 +15920,34 @@ Pódese definir nas Preferencias.</translation>
         <translation>Eliminar esta Cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>?</source>
         <translation type="obsolete">?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Replace it with:</source>
         <translation type="obsolete">Substituir por:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">Dacordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cancel</source>
         <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Delete color:</source>
         <translation type="obsolete">Eliminar a Cor:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -16260,7 +15970,6 @@ Pódese definir nas Preferencias.</translation>
         <translation>Eliminar Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Delete from:</source>
         <translation type="obsolete">Eliminar desde:</translation>
     </message>
@@ -16270,12 +15979,10 @@ Pódese definir nas Preferencias.</translation>
         <translation>até:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -16288,22 +15995,18 @@ Pódese definir nas Preferencias.</translation>
 <context>
     <name>DelStyle</name>
     <message>
-        <location filename="" line="0"/>
         <source>Delete Style</source>
         <translation type="obsolete">Eliminar o Estilo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Delete Style:</source>
         <translation type="obsolete">Eliminar o Estilo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Replace With:</source>
         <translation type="obsolete">Substituir Por:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>No Style</source>
         <translation type="obsolete">Sen Estilo</translation>
     </message>
@@ -16311,27 +16014,22 @@ Pódese definir nas Preferencias.</translation>
 <context>
     <name>DmF</name>
     <message>
-        <location filename="" line="0"/>
         <source>Missing Font</source>
         <translation type="obsolete">Falta esta Fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The Font %1 is not installed.</source>
         <translation type="obsolete">A Fonte %1 non está instalada.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Use</source>
         <translation type="obsolete">Usar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>instead</source>
         <translation type="obsolete">no seu lugar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
@@ -16434,7 +16132,6 @@ Pódese definir nas Preferencias.</translation>
         <translation>Direito&amp;s:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Document</source>
         <translation type="obsolete">Docu&amp;mento</translation>
     </message>
@@ -16444,28 +16141,24 @@ Pódese definir nas Preferencias.</translation>
         <translation>Máis &amp;Información</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The person or organisation primarily responsible for making the content of the document.
 This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
         <translation type="obsolete">A persoa ou organización responsábel en primeira instáncia de crear o contido do documento.
 Este campo pódese incorporar ao documento de Scribus como referencia, así como nos meta-datos dun PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A name given to the document.
 This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
         <translation type="obsolete">Nome que se lle dá ao documento.
 Este campo pódese incorporar ao documento de Scribus como referencia, así como nos meta-datos dun PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>An account of the content of the document.
 This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
         <translation type="obsolete">Relación do contido do documento.
 Este campo prevese para unha descrición ou resumo breves do documento. Incorpórase ao PDF á hora de exportalo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The topic of the content of the document.
 This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
         <translation type="obsolete">O tema do contido do documento
@@ -16492,7 +16185,6 @@ Este campo prevese para palabras-chave do documento que se queira incluir nun PD
         <translation>A natureza ou xénero do contido do documento, como por exemplo categorías, funcións, xéneros, etc</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
 RFC2045,RFC2046 for MIME types are also useful here</source>
         <translation type="obsolete">A manifestación física ou dixital do documento. Paga a pena anotar o tipo e dimensións.
@@ -16509,7 +16201,6 @@ Tamén resultan de utilidade aquí RFC2045 e RFC2046 para os tipos MIME</transla
         <translation>Unha referencia a un documento do que deriva o documento acutal, como por exemplo o ISBN ou o URI</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The language in which the content of the document is written, usually a ISO-639 language code
 optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
         <translation type="obsolete">O idioma no que está escrito o documento, normalmente un código de idioma ISO-639,
@@ -16531,12 +16222,10 @@ co sufixo opcional dun hífen e un código de país ISO-3166 como, por exemplo e
         <translation>Información sobre os direitos que se posúen sobre o documento, como o copyright, patente ou marca rexistrada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -16687,57 +16376,46 @@ co sufixo opcional dun hífen e un código de país ISO-3166 como, por exemplo e
 <context>
     <name>DocSectionsBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Document Sections</source>
         <translation type="obsolete">Seccións do Documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name</source>
         <translation type="obsolete">Nome</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>From</source>
         <translation type="obsolete">Deste</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>To</source>
         <translation type="obsolete">Até</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Style</source>
         <translation type="obsolete">Estilo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Start</source>
         <translation type="obsolete">Inicio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Add</source>
         <translation type="obsolete">&amp;Adicionar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+D</source>
         <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Shown</source>
         <translation type="obsolete">Mostrados</translation>
     </message>
@@ -16745,7 +16423,6 @@ co sufixo opcional dun hífen e un código de país ISO-3166 como, por exemplo e
 <context>
     <name>DocumentItemAttributes</name>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengún</translation>
     </message>
@@ -16898,82 +16575,66 @@ tipos</translation>
 <context>
     <name>DocumentItemAttributesBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Document Item Attributes</source>
         <translation type="obsolete">Atributos do Elemento do Documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name</source>
         <translation type="obsolete">Nome</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Type</source>
         <translation type="obsolete">Tipo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Value</source>
         <translation type="obsolete">Valor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Parameter</source>
         <translation type="obsolete">Parámetro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Relationship</source>
         <translation type="obsolete">Relación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Relationship To</source>
         <translation type="obsolete">Relación Con</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Auto Add To</source>
         <translation type="obsolete">Adicionar Automaticamente A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Add</source>
         <translation type="obsolete">&amp;Adicionar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Copy</source>
         <translation type="obsolete">&amp;Copiar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+D</source>
         <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;lear</source>
         <translation type="obsolete">&amp;Limpar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+L</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
@@ -16995,7 +16656,6 @@ fallou!</translation>
         <translation>Erro Fatal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Converting Image:
 %1
 failed!</source>
@@ -17037,17 +16697,14 @@ fallou!</translation>
 <context>
     <name>EditMacroDialog</name>
     <message>
-        <location filename="" line="0"/>
         <source>Editing Macro: &lt;b&gt;</source>
         <translation type="obsolete">A editar a Macro: &lt;b&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus - Macro Manager</source>
         <translation type="obsolete">Scribus - Xestor de Macros</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The file &apos;%1&apos; already exists.
 Are you sure you want to overwrite it?
 </source>
@@ -17055,7 +16712,6 @@ Are you sure you want to overwrite it?
 Ten a certeza de querer escreber por riba?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>You have already edited this macro.
 Are you sure you want to discard all your changes?
 </source>
@@ -17063,7 +16719,6 @@ Are you sure you want to discard all your changes?
 Ten a certeza de querer prescindir das modificacións?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A full traceback follows:
 
 %1
@@ -17073,7 +16728,6 @@ Ten a certeza de querer prescindir das modificacións?</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Compilation of the macro failed, so it can not 
 be saved in its current form. The error was:
 %1
@@ -17084,142 +16738,114 @@ O erro foi:
 %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus - New Macro</source>
         <translation type="obsolete">Scribus - Macro Nova</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Este é o diálogo de Modificación de Macro / Macro Nova. Aqui pode modificar o código fonte das macros. Modifíqueo na área de edición de texto baixo a equiqueta &quot;Código Fonte&quot; e prema sobre Aceptar as modificacións para gardar as mudanzas feitas na macro.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Source Code:</source>
         <translation type="obsolete">Código Fonte:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Editing Macro:</source>
         <translation type="obsolete">Modificación da Macro:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The name of the macro being edited.</source>
         <translation type="obsolete">Nome da macro que se está a modificar.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;/qt&gt;This item displays the name of the macro you are currently editing.&lt;qt&gt;</source>
         <translation type="obsolete">&lt;/qt&gt;Este elemento mostra o nome da macro que se está a editar neste momento.&lt;qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Discard all changes and exit.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Rexeitar as mudanzas feitas e sair.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don&apos;t want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Sair do diálogo de modificación, rexeitando todas as modificacións feitas. Se quer sair sen salvar a macro mais non quer perder as mudanzas, garde as modificacións con &quot;Salvar a Fonte Como...&quot;.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Ok</source>
         <translation type="obsolete">&amp;Aceptar as modificacións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+O</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Salvar as modificacións e sair.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Salvar as mudanzas feitas na macro e sair. De haber algún problema coa macro, mostrarase unha mensaxe e o diálogo de modificación non se fechará.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;This text area contains the source code of the macro. If you&apos;re creating a new macro there won&apos;t be anything in it, and if you&apos;re editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Esta área de texto contén o código fonte da macro. Se está a crear unha macro nova non haberá nada nel, mais se está a modificar unha macro xa existente, o código fonte co que se definiu a macro aparecerá aquí.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Load Source ...</source>
         <translation type="obsolete">&amp;Carregar a Fonte...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+L</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Replace the current source code with code from a file.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Substituir o código fonte actual con código dun ficheiro.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Carregar código fonte novo na área de edición desde o &quot;ficheiro&quot;. Calquer código fonte existente na área de modificación será substituído. A fonte carregada debe ser unha función de macro de Scribus. Se carrega calquer outro tipo de guión precisará modificalo para que funcione como unha macro de guión antes de salvalo.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Save Source As...</source>
         <translation type="obsolete">&amp;Salvar a Fonte Como...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+S</source>
         <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Save the source code being edited to a file.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Salvar nun ficheiro o código fonte que se está a modificar.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
         <translation type="obsolete">Modificar o código fonte - o texto - da macro nun ficheiro. Pode modificar a fonte gardada e carregala de novo mediante &quot;Carregar Fonte...&quot;.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Python source files (*.py)</source>
         <translation type="obsolete">Ficheiros fonte de Python (*.py)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save File Dialog</source>
         <translation type="obsolete">Diálogo de Gardar Ficheiros</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save macro source</source>
         <translation type="obsolete">Gardar a fonte da macro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Open File Dialog</source>
         <translation type="obsolete">Diálogo de Abrir Ficheiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select the source file to load</source>
         <translation type="obsolete">Escoller o ficheiro fonte a carregar</translation>
     </message>
@@ -17227,282 +16853,226 @@ O erro foi:
 <context>
     <name>EditStyle</name>
     <message>
-        <location filename="" line="0"/>
         <source>Edit Style</source>
         <translation type="obsolete">Estilo de Edición</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Name:</source>
         <translation type="obsolete">&amp;Nome:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Character</source>
         <translation type="obsolete">Carácter</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Font:</source>
         <translation type="obsolete">&amp;Fonte:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Si&amp;ze:</source>
         <translation type="obsolete">Tama&amp;ño:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Effect:</source>
         <translation type="obsolete">Efecto:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Alignment:</source>
         <translation type="obsolete">&amp;Aliñamento:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Drop Caps</source>
         <translation type="obsolete">&amp;Maiúsculas Capitulares</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Lines:</source>
         <translation type="obsolete">&amp;Liñas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>F&amp;ill Color:</source>
         <translation type="obsolete">C&amp;or de Enchido:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>St&amp;roke Color:</source>
         <translation type="obsolete">Cor do T&amp;razo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Vertical Spaces</source>
         <translation type="obsolete">Espazos verticais</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Adjust to Baseline &amp;Grid</source>
         <translation type="obsolete">Axustar á Liña Base e á &amp;Grella</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line &amp;Spacing:</source>
         <translation type="obsolete">E&amp;spaciamento da Liña:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Abo&amp;ve:</source>
         <translation type="obsolete">Por &amp;encima:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Below:</source>
         <translation type="obsolete">Por &amp;abaixo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Tabulators and Indentation</source>
         <translation type="obsolete">Tabuladores e Indentación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name of your paragraph style</source>
         <translation type="obsolete">Nome do seu estilo de parágrafo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font of selected text or object</source>
         <translation type="obsolete">Fonte do texto ou obxecto seleccionados</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font Size</source>
         <translation type="obsolete">Tamaño da Fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color of text fill</source>
         <translation type="obsolete">Cor do recheo do texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color of text stroke</source>
         <translation type="obsolete">Cor do trazo do texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
         <translation type="obsolete">Fornece unha primeira letra de parágrafo de tamaño máis grande. Úsase como efecto estilístico</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
         <translation type="obsolete">Determina a altura total, en número de liñas, das Maiúsculas Capitulares</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Align text to baseline grid</source>
         <translation type="obsolete">Aliñar o texto coa grella de base</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Spacing above the paragraph</source>
         <translation type="obsolete">Espaciamento por en cima do parágrafo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Spacing below the paragraph</source>
         <translation type="obsolete">Espaciamento por debaixo do parágrafo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line Spacing</source>
         <translation type="obsolete">Interliñado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete">pl</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name of the Style is not unique</source>
         <translation type="obsolete">O nome do Estilo non é único</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> %</source>
         <translation type="obsolete"> %</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distances</source>
         <translation type="obsolete">Distancias</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Fixed Linespacing</source>
         <translation type="obsolete">Espaciado de liña fixo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Automatic Linespacing</source>
         <translation type="obsolete">Espaciado de liña automático</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Align to Baseline Grid</source>
         <translation type="obsolete">Aliñar á Grella Base</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Drop Caps</source>
         <translation type="obsolete">Maiúsculas Capitulares</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance from Text:</source>
         <translation type="obsolete">Distancia ao Texto:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Preview of the Paragraph Style</source>
         <translation type="obsolete">Antevisión do Estilo de Parágrafo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Determines the gap between the DropCaps and the Text</source>
         <translation type="obsolete">Determina a distancia entre as Maiúsculas Capitulares e o Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Toggles sample text of this paragraph style</source>
         <translation type="obsolete">Activa o texto de mostra deste estilo de parágrafo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name of the style is not unique</source>
         <translation type="obsolete">O nome do estilo non é único</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Background</source>
         <translation type="obsolete">Fondo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select for easier reading of light coloured text styles</source>
         <translation type="obsolete">Escolla para unha lectura máis doada dos estilos de textos con pouca cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Manual Tracking</source>
         <translation type="obsolete">Tracking Manual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Offset to baseline of characters</source>
         <translation type="obsolete">Separación dos caracteres da liña base</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Click to select the line spacing mode</source>
         <translation type="obsolete">Clique para escoller o modo de espaciamento de liña</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select for easier reading of light colored text styles</source>
         <translation type="obsolete">Seleccione para unha lectura máis doada dos estilos de texto con cores claras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Auto</source>
         <translation type="obsolete">Auto</translation>
     </message>
@@ -17593,7 +17163,6 @@ O erro foi:
         <translation>&amp;Modificar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Javascripts (*.js);;All Files (*)</source>
         <translation type="obsolete">Javascripts (*.js);;Todos os Ficheiros (*)</translation>
     </message>
@@ -17799,7 +17368,6 @@ O erro foi:
         <translation>xa existe. Sobreescribimos?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>All</source>
         <translation type="obsolete">Todo</translation>
     </message>
@@ -17897,17 +17465,14 @@ O erro foi:
         <translation>Inte&amp;rvalo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C</source>
         <translation type="obsolete">C</translation>
     </message>
@@ -18083,7 +17648,6 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
         <translation>Quimar a cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Exlusion</source>
         <translation type="obsolete">Exlusión</translation>
     </message>
@@ -18108,7 +17672,6 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
         <translation>Nome</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Background</source>
         <translation type="obsolete">Fondo</translation>
     </message>
@@ -18176,17 +17739,14 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
         <translation>DPI</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>RGB</source>
         <translation type="obsolete">RGB</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>CMYK</source>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Grayscale</source>
         <translation type="obsolete">Escala de grises</translation>
     </message>
@@ -18196,7 +17756,6 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
         <translation>Espazo de cores:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Duotone</source>
         <translation type="obsolete">Duotono</translation>
     </message>
@@ -18209,157 +17768,126 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
 <context>
     <name>Farbmanager</name>
     <message>
-        <location filename="" line="0"/>
         <source>Colors</source>
         <translation type="obsolete">Cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Append</source>
         <translation type="obsolete">&amp;Adicionar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;New</source>
         <translation type="obsolete">&amp;Nova</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Edit</source>
         <translation type="obsolete">&amp;Modificar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>D&amp;uplicate</source>
         <translation type="obsolete">D&amp;uplicar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Remove Unused</source>
         <translation type="obsolete">Elimina&amp;r as que Non se usen</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color Sets</source>
         <translation type="obsolete">Paletas de Cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Current Color Set:</source>
         <translation type="obsolete">Paleta de Cores Actual:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Save Color Set</source>
         <translation type="obsolete">&amp;Salvar a Paleta de Cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Choose a color set to load</source>
         <translation type="obsolete">Escolla a paleta de cores a carregar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save the current color set</source>
         <translation type="obsolete">Salvar a paleta de cores actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Remove unused colors from current document&apos;s color set</source>
         <translation type="obsolete">Eliminar as cores que non se usen da paleta de cores do documento actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Append colors to the current set from an existing document</source>
         <translation type="obsolete">Adicionar as cores á paleta actual desde un documento xa existente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Create a new color within the current set</source>
         <translation type="obsolete">Crear unha cor nova dentro da paleta actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Edit the currently selected color</source>
         <translation type="obsolete">Modificar a cor seleccionada agora</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Make a copy of the currently selected color</source>
         <translation type="obsolete">Facer unha copia da cor seleccionada agora</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Delete the currently selected color</source>
         <translation type="obsolete">Eliminar a cor seleccionada agora</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Make the current colorset the default color set</source>
         <translation type="obsolete">Facer que a paleta de cores actual sexa a predeterminada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Name:</source>
         <translation type="obsolete">&amp;Nome:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Choose a Name</source>
         <translation type="obsolete">Escolla un Nome</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Open</source>
         <translation type="obsolete">Abrir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.sla.gz *.scd *.scd.gz);;Todos os ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.scd);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Copy of %1</source>
         <translation type="obsolete">Copiar de %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>New Color</source>
         <translation type="obsolete">Cor Nova</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Import</source>
         <translation type="obsolete">&amp;Importar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import colors to the current set from an existing document</source>
         <translation type="obsolete">Importar cores ao conxunto actual desde un documento existente</translation>
     </message>
@@ -18493,7 +18021,6 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
 <context>
     <name>FontPrefs</name>
     <message>
-        <location filename="" line="0"/>
         <source>Global Font Settings</source>
         <translation type="obsolete">Configuración Global das Fontes</translation>
     </message>
@@ -18513,12 +18040,10 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
         <translation>Rotas adicionais</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Postscript</source>
         <translation type="obsolete">Postscript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Yes</source>
         <translation type="obsolete">Si</translation>
     </message>
@@ -18533,7 +18058,6 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
         <translation type="obsolete">Usar esta Fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Embed in:</source>
         <translation type="obsolete">Embeber en:</translation>
     </message>
@@ -18543,7 +18067,6 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
         <translation type="obsolete">Subconxunto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Type</source>
         <translation type="obsolete">Tipo</translation>
     </message>
@@ -18593,12 +18116,10 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
         <translation>Ro&amp;tas Adicionais</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -18608,13 +18129,11 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
         <translation>Escolla un Directorio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font Name</source>
         <comment>font preview</comment>
         <translation type="obsolete">Nome da Fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Use Font</source>
         <comment>font preview</comment>
         <translation type="obsolete">Usar esta Fonte
@@ -18622,7 +18141,6 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
 antevisión da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Embed in:</source>
         <comment>font preview</comment>
         <translation type="obsolete">Embeber en:
@@ -18630,7 +18148,6 @@ antevisión da fonte</translation>
 antevisión da fonte:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Subset</source>
         <comment>font preview</comment>
         <translation type="obsolete">Subconxunto
@@ -18638,7 +18155,6 @@ antevisión da fonte:</translation>
 antevisión da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Path to Font File</source>
         <comment>font preview</comment>
         <translation type="obsolete">Rota ao Ficheiro da Fonte
@@ -18646,22 +18162,18 @@ antevisión da fonte</translation>
 antevisión da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PostScript</source>
         <translation type="obsolete">PostScript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;As rotas de procura das fontes só se poden indicar nas Preferencias e só cando non hai nengún documento aberto. Feche todos os documentos abertos e vaia a Editar-&gt;Configuración para mudar a rota de procura de fontes.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
         <translation type="obsolete">As rotas de procura de fontes só se poden indicar nas Preferencias, e só cando non hai nengún documento aberto. Feche todos os documentos e vaia entón a Modificar -&gt; Preferencias para mudar a rota de procura de fontes.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Embed in PostScript</source>
         <comment>font preview</comment>
         <translation type="obsolete">Embeber en PostScript</translation>
@@ -18685,17 +18197,14 @@ antevisión da fonte</translation>
         <translation>Antevisión das Fontes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+O</source>
         <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -18705,27 +18214,22 @@ antevisión da fonte</translation>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Append selected font into Style, Font menu</source>
         <translation type="obsolete">Adicionar a fonte seleccionada ao menú Estilo, Fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Leave preview</source>
         <translation type="obsolete">Abandonar a vista previa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Size of the Font</source>
         <translation type="obsolete">Tamaño da Fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation type="obsolete">Se xa o túzaro dicía que mañá quérenllo pór</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font Name</source>
         <comment>font preview</comment>
         <translation type="obsolete">Nome da Fonte
@@ -18733,7 +18237,6 @@ antevisión da fonte</translation>
 antevisión da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Doc</source>
         <comment>font preview</comment>
         <translation type="obsolete">Doc
@@ -18741,7 +18244,6 @@ antevisión da fonte</translation>
 antevisión da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Type</source>
         <comment>font preview</comment>
         <translation type="obsolete">Tipo
@@ -18749,7 +18251,6 @@ antevisión da fonte</translation>
 antevisión da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Subset</source>
         <comment>font preview</comment>
         <translation type="obsolete">Subconxunto
@@ -18757,7 +18258,6 @@ antevisión da fonte</translation>
 antevisión da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Access</source>
         <comment>font preview</comment>
         <translation type="obsolete">Acceso
@@ -18765,12 +18265,10 @@ antevisión da fonte</translation>
 antevisión da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font Size:</source>
         <translation type="obsolete">Tamaño da Fonte:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Fonts Preview</source>
         <comment>font preview</comment>
         <translation type="obsolete">Antevisión das Fontes
@@ -18783,7 +18281,6 @@ antevisión da fonte</translation>
         <translation type="obsolete">&amp;Adicionar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+O</source>
         <comment>font preview</comment>
         <translation type="obsolete">Alt+O
@@ -18791,7 +18288,6 @@ antevisión da fonte</translation>
 antevisión da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Quick Search: </source>
         <translation type="obsolete">Procura Rápida: </translation>
     </message>
@@ -18801,7 +18297,6 @@ antevisión da fonte</translation>
         <translation type="obsolete">&amp;Procurar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Close</source>
         <comment>font preview</comment>
         <translation type="obsolete">&amp;Fechar
@@ -18809,7 +18304,6 @@ antevisión da fonte</translation>
 antevisión da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+C</source>
         <comment>font preview</comment>
         <translation type="obsolete">Alt+C
@@ -18833,7 +18327,6 @@ antevisión da fonte</translation>
 antevisión da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
         <translation type="obsolete">Se se escrebe o texto aquí pódese procurar rapidamente nos nomes das fontes. Por exemplo, &quot;negra&quot; mostra todas as fontes con Negra no nome. Para a pesquisa non importan as maiúsculas ou minúsculas.</translation>
     </message>
@@ -18870,7 +18363,6 @@ antevisión da fonte</translation>
 antevisión da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sample will be shown after key release</source>
         <translation type="obsolete">Mostrarase o exemplo cando solte a tecla</translation>
     </message>
@@ -18983,97 +18475,78 @@ antevisión da fonte</translation>
 <context>
     <name>FontPreviewBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Fonts Preview</source>
         <translation type="obsolete">Antevisión das Fontes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Quick Search:</source>
         <translation type="obsolete">&amp;Procura Rápida:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Search</source>
         <translation type="obsolete">&amp;Procurar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+S</source>
         <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font Name</source>
         <translation type="obsolete">Nome da Fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Doc</source>
         <translation type="obsolete">Doc</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Type</source>
         <translation type="obsolete">Tipo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Subset</source>
         <translation type="obsolete">Subconxunto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Access</source>
         <translation type="obsolete">Acceso</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Font Size:</source>
         <translation type="obsolete">Tamaño da &amp;Fonte:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Text</source>
         <translation type="obsolete">Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sample text to display</source>
         <translation type="obsolete">Texto de exemplo para mostrar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Se&amp;t</source>
         <translation type="obsolete">Conxun&amp;to</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+T</source>
         <translation type="obsolete">Alt+T</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Reset the text</source>
         <translation type="obsolete">Limpar o texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Append</source>
         <translation type="obsolete">&amp;Adicionar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Close</source>
         <translation type="obsolete">&amp;Fechar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
@@ -19154,7 +18627,6 @@ Isto pódese desfacer ou mudar en Modificar &gt; Preferencias &gt; Fontes.</tran
         <translation> %</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Here you can add, change or remove Color-Stops.</source>
         <translation type="obsolete">Aquí pode adicionar, modificar ou eliminar Paradas de Cor.</translation>
     </message>
@@ -19175,37 +18647,30 @@ Isto pódese desfacer ou mudar en Modificar &gt; Preferencias &gt; Fontes.</tran
 <context>
     <name>GuideManager</name>
     <message>
-        <location filename="" line="0"/>
         <source>Manage Guides</source>
         <translation type="obsolete">Xerir as Guías</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete"> pl</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Horizontal Guides</source>
         <translation type="obsolete">Guías Horizontais</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Y-Pos:</source>
         <translation type="obsolete">Pos-&amp;Y:</translation>
     </message>
@@ -19220,12 +18685,10 @@ Isto pódese desfacer ou mudar en Modificar &gt; Preferencias &gt; Fontes.</tran
         <translation>&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Vertical Guides</source>
         <translation type="obsolete">Guías Verticais</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;X-Pos:</source>
         <translation type="obsolete">Pos-&amp;X:</translation>
     </message>
@@ -19245,42 +18708,34 @@ Isto pódese desfacer ou mudar en Modificar &gt; Preferencias &gt; Fontes.</tran
         <translation>B&amp;loquear as Guías</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Rows and Columns - Automatic Guides</source>
         <translation type="obsolete">Fileiras e Columnas - Guías Automáticas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Rows:</source>
         <translation type="obsolete">&amp;Fileiras:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;olumns:</source>
         <translation type="obsolete">C&amp;olumnas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Row &amp;Gap</source>
         <translation type="obsolete">&amp;Distancia entre Fileiras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Colum&amp;n Gap</source>
         <translation type="obsolete">Distancia entre Colum&amp;nas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Refer to:</source>
         <translation type="obsolete">Con referencia a:</translation>
     </message>
@@ -19290,27 +18745,22 @@ Isto pódese desfacer ou mudar en Modificar &gt; Preferencias &gt; Fontes.</tran
         <translation>&amp;Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Margins</source>
         <translation type="obsolete">&amp;Marxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Selection</source>
         <translation type="obsolete">&amp;Selección</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Close</source>
         <translation type="obsolete">&amp;Fechar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Update</source>
         <translation type="obsolete">Act&amp;ualizar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
         <comment>guide manager</comment>
         <translation type="obsolete">Indicar as guías do documento. O xestor de guías ainda está aberto mais as modificación son persistentes
@@ -19318,7 +18768,6 @@ Isto pódese desfacer ou mudar en Modificar &gt; Preferencias &gt; Fontes.</tran
 xestor de guías</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Apply to All Pages</source>
         <translation type="obsolete">&amp;Aplicar a Todas as Páxinas</translation>
     </message>
@@ -19328,17 +18777,14 @@ xestor de guías</translation>
         <translation type="obsolete">Guía</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Unit</source>
         <translation type="obsolete">Unidade</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Preview</source>
         <translation type="obsolete">Antevisión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>There is empty (0.0) guide already</source>
         <translation type="obsolete">Xa existe unha guía baleira (0, 0)</translation>
     </message>
@@ -19586,172 +19032,138 @@ xestor de guías</translation>
 <context>
     <name>GuideManagerBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Manage Guides</source>
         <translation type="obsolete">Xerir as Guías</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Horizontals</source>
         <translation type="obsolete">Horizontais</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Guide</source>
         <translation type="obsolete">Guía</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Unit</source>
         <translation type="obsolete">Unidade</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Add</source>
         <translation type="obsolete">&amp;Adicionar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>D&amp;elete</source>
         <translation type="obsolete">&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+E</source>
         <translation type="obsolete">Alt+E</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Verticals</source>
         <translation type="obsolete">Verticais</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A&amp;dd</source>
         <translation type="obsolete">A&amp;dicionar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+D</source>
         <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>De&amp;lete</source>
         <translation type="obsolete">El&amp;iminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+L</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Lock Guides</source>
         <translation type="obsolete">B&amp;loquear as Guías</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Appl&amp;y to All Pages</source>
         <translation type="obsolete">Apl&amp;icar a Todas as Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+Y</source>
         <translation type="obsolete">Alt+Y</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Number:</source>
         <translation type="obsolete">&amp;Número:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>U&amp;se Gap:</source>
         <translation type="obsolete">U&amp;sar Espazo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+S</source>
         <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Nu&amp;mber:</source>
         <translation type="obsolete">Nú&amp;mero:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Use &amp;Gap:</source>
         <translation type="obsolete">Usar &amp;Espazo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+G</source>
         <translation type="obsolete">Alt+G</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Refer To</source>
         <translation type="obsolete">Referido A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Page</source>
         <translation type="obsolete">&amp;Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+P</source>
         <translation type="obsolete">Alt+P</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>M&amp;argins</source>
         <translation type="obsolete">M&amp;arxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>S&amp;election</source>
         <translation type="obsolete">S&amp;elección</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Misc</source>
         <translation type="obsolete">&amp;Diversos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Delete all guides from the current page</source>
         <translation type="obsolete">Eliminar todas as guías da páxina actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Delete all guides from the current document</source>
         <translation type="obsolete">Elimnar todas as guías do documento actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Single</source>
         <translation type="obsolete">&amp;Simple</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Column/Row</source>
         <translation type="obsolete">&amp;Columna/Fileira</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Delete Guides from Current &amp;Page</source>
         <translation type="obsolete">Eliminar as Guías da &amp;Páxina Actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Delete Guides from &amp;All Pages</source>
         <translation type="obsolete">Eliminar as Guías de Tod&amp;as as Páxinas</translation>
     </message>
@@ -19759,12 +19171,10 @@ xestor de guías</translation>
 <context>
     <name>HelpBrowser</name>
     <message>
-        <location filename="" line="0"/>
         <source>Contents</source>
         <translation type="obsolete">Contido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Link</source>
         <translation type="obsolete">Ligazón</translation>
     </message>
@@ -19779,17 +19189,14 @@ xestor de guías</translation>
         <translation>&amp;Procurar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>S&amp;earch</source>
         <translation type="obsolete">P&amp;rocurar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ctrl+F</source>
         <translation type="obsolete">Ctrl+F</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>F3</source>
         <translation type="obsolete">F3</translation>
     </message>
@@ -19806,7 +19213,6 @@ and www.scribus.net for downloads.</source>
 se hai documentos novos e www.scribus.net para descargas.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>unknown</source>
         <translation type="obsolete">descoñecido</translation>
     </message>
@@ -19836,7 +19242,6 @@ se hai documentos novos e www.scribus.net para descargas.</translation>
         <translation>&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>De&amp;lete All</source>
         <translation type="obsolete">Elimin&amp;alo Todo</translation>
     </message>
@@ -19856,7 +19261,6 @@ se hai documentos novos e www.scribus.net para descargas.</translation>
         <translation type="obsolete">Sa&amp;ir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Searching is case unsensitive</source>
         <translation type="obsolete">Nas pesquisas non importan as maiúsculas e minúsculas</translation>
     </message>
@@ -19911,7 +19315,6 @@ se hai documentos novos e www.scribus.net para descargas.</translation>
         <translation>&amp;Marcadores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Relevance</source>
         <translation type="obsolete">Relevancia</translation>
     </message>
@@ -20040,7 +19443,6 @@ Listaxe a Ignorar</translation>
 <context>
     <name>HySettings</name>
     <message>
-        <location filename="" line="0"/>
         <source>Hyphenator Settings</source>
         <translation type="obsolete">Configuración do Hyphenator</translation>
     </message>
@@ -20070,12 +19472,10 @@ Listaxe a Ignorar</translation>
         <translation type="obsolete">Guións consecutivos &amp;Permitidos:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -20145,12 +19545,10 @@ O valor 0 significa un número ilimitado.</translation>
         <translation>Ten o Perfil Embebido:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Yes</source>
         <translation type="obsolete">Si</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>No</source>
         <translation type="obsolete">Non</translation>
     </message>
@@ -20323,7 +19721,6 @@ converting their vector data into Scribus objects.</source>
 convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PostScript</source>
         <translation type="obsolete">PostScript</translation>
     </message>
@@ -20564,7 +19961,6 @@ p, li { white-space: pre-wrap; }
         <translation>Inserir Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Inserting</source>
         <translation type="obsolete">&amp;Inserindo</translation>
     </message>
@@ -20589,37 +19985,30 @@ p, li { white-space: pre-wrap; }
         <translation>ao Final</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Inserting</source>
         <translation type="obsolete">Inserindo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Template (Left Page):</source>
         <translation type="obsolete">&amp;Modelo (Páxina Esquerda):</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Template:</source>
         <translation type="obsolete">&amp;Modelo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Normal</source>
         <translation type="obsolete">Normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Template (Right Page):</source>
         <translation type="obsolete">Modelo (Páxina Dereita):</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -20649,7 +20038,6 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Tamaño:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Custom</source>
         <translation type="obsolete">Personalizado</translation>
     </message>
@@ -21025,242 +20413,194 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>InsertAFrameBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Insert A Frame</source>
         <translation type="obsolete">Inserir Unha Moldura</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>T&amp;ype</source>
         <translation type="obsolete">T&amp;ipo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Text Frame</source>
         <translation type="obsolete">Moldura de &amp;Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+T</source>
         <translation type="obsolete">Alt+T</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Image Frame</source>
         <translation type="obsolete">Moldura de &amp;Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+I</source>
         <translation type="obsolete">Alt+I</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>T&amp;able</source>
         <translation type="obsolete">T&amp;abela</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Shape</source>
         <translation type="obsolete">Forma</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Polygon</source>
         <translation type="obsolete">Polígono</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Location</source>
         <translation type="obsolete">&amp;Localización</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page Placement</source>
         <translation type="obsolete">Colocación na Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Current Page</source>
         <translation type="obsolete">Páxina Actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Selecting this will place the frame only on the current page.</source>
         <translation type="obsolete">Se escolle isto, colocará a moldura só na páxina actual.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Range of Pages:</source>
         <translation type="obsolete">Rango de Páxinas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Selecting this will place frame on the selected range. </source>
         <translation type="obsolete">Se escolle isto, colocará a moldura no rango seleccionado. </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Position of Frame</source>
         <translation type="obsolete">Posición da Moldura</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Top Left of Page</source>
         <translation type="obsolete">Superior Esquerda da Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Selecting this puts the frame on the top left with postion 0,0</source>
         <translation type="obsolete">Se escolle isto, colocará a moldura na parte superior esquerda con posición 0,0</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Top Left of Margins</source>
         <translation type="obsolete">Superior Esquerda das Marxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Selecting this places the frame in the upper left of the page margins defined in your doc setup.</source>
         <translation type="obsolete">Se escolle isto, colocará a moldura na parte superior esquerda das marxes da páxina definidas na configuración do documento.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Custom Position:</source>
         <translation type="obsolete">Posición Personalizada:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Set the dimensions wished below in the X: Y: dialog below.</source>
         <translation type="obsolete">Indique as dimensións desexadas embaixo no diálogo X: Y:.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>X:</source>
         <translation type="obsolete">X:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Y:</source>
         <translation type="obsolete">Y:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Size</source>
         <translation type="obsolete">Tama&amp;ño</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Same as the Page</source>
         <translation type="obsolete">O mesmo que a Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Same as the Page Margins</source>
         <translation type="obsolete">O mesmo que as Marxes da Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Custom Size:</source>
         <translation type="obsolete">Tamaño Personalizado:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Height:</source>
         <translation type="obsolete">Altura:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Width:</source>
         <translation type="obsolete">Anchura:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Options</source>
         <translation type="obsolete">&amp;Opcións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Source Image:</source>
         <translation type="obsolete">Imaxe Orixinal:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Select File...</source>
         <translation type="obsolete">&amp;Escolla Ficheiro...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+S</source>
         <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>There are no options for this type of frame</source>
         <translation type="obsolete">Non hai opcións para este tipo de moldura</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Source Document:</source>
         <translation type="obsolete">Documento Orixinal:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Columns:</source>
         <translation type="obsolete">Columnas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Gap:</source>
         <translation type="obsolete">Separación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Link Created Frames</source>
         <translation type="obsolete">Ligar as Molduras Creadas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>All Pages</source>
         <translation type="obsolete">Todas as Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>...</source>
         <translation type="obsolete">...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Top Left of Bleed</source>
         <translation type="obsolete">Superior Esquerda do Sangrado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Selecting this places the frame in the upper left of the page bleed defined in your doc setup.</source>
         <translation type="obsolete">Se escolle isto, colocará a moldura na parte superior esquerda do sangrado definido na configuración do documento.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Same as the Bleed</source>
         <translation type="obsolete">A mesma que o Sangrado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Same as the Imported Image</source>
         <translation type="obsolete">A mesma que a Imaxe Importada</translation>
     </message>
@@ -21273,22 +20613,18 @@ p, li { white-space: pre-wrap; }
         <translation>Inserir unha Táboa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Number of Rows:</source>
         <translation type="obsolete">Número de Fileiras:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Number of Columns:</source>
         <translation type="obsolete">Número de Columnas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cancel</source>
         <translation type="obsolete">Cancelar</translation>
     </message>
@@ -21341,22 +20677,18 @@ p, li { white-space: pre-wrap; }
         <translation>Novo Guión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do you really want to delete this Script?</source>
         <translation type="obsolete">Realmente quer eliminar este Guión?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;No</source>
         <translation type="obsolete">&amp;Non</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Yes</source>
         <translation type="obsolete">&amp;Si</translation>
     </message>
@@ -21374,162 +20706,130 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>KeyManager</name>
     <message>
-        <location filename="" line="0"/>
         <source>Manage Keyboard Shortcuts</source>
         <translation type="obsolete">Xerir os Atallos do Teclado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Action</source>
         <translation type="obsolete">Acción</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Current Key</source>
         <translation type="obsolete">Tecla Actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select a Key for this Action</source>
         <translation type="obsolete">Escolla unha Tecla para esta Acción</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;No Key</source>
         <translation type="obsolete">&amp;Nengunha Tecla</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;User Defined Key</source>
         <translation type="obsolete">Tecla Definida polo &amp;Usuario</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>ALT+SHIFT+T</source>
         <translation type="obsolete">ALT+SHIFT+T</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Set &amp;Key</source>
         <translation type="obsolete">Asignar &amp;Tecla</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt</source>
         <translation type="obsolete">Alt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ctrl</source>
         <translation type="obsolete">Ctrl</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Shift</source>
         <translation type="obsolete">Maiúsculas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Shift+</source>
         <translation type="obsolete">Maiúsculas+</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+</source>
         <translation type="obsolete">Alt+</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ctrl+</source>
         <translation type="obsolete">Ctrl+</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This Key Sequence is already in use</source>
         <translation type="obsolete">Esta Secuencia de Teclas xa está collida</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Loadable Shortcut Sets</source>
         <translation type="obsolete">Conxuntos de Atallos Carregábeis</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Load</source>
         <translation type="obsolete">&amp;Carregar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Import...</source>
         <translation type="obsolete">&amp;Importar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Export...</source>
         <translation type="obsolete">&amp;Exportar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Reset</source>
         <translation type="obsolete">Desface&amp;r</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Keyboard shortcut sets available to load</source>
         <translation type="obsolete">Conxuntos de atallos de teclado que se poden carregar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Load the selected shortcut set</source>
         <translation type="obsolete">Carregar o conxunto de atallos seleccionado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import a shortcut set into the current configuration</source>
         <translation type="obsolete">Importar un conxunto de atallos na configuración actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Export the current shortcuts into an importable file</source>
         <translation type="obsolete">Exportar os atallos actuais para un ficheiro importábel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Reload the default Scribus shortcuts</source>
         <translation type="obsolete">Recarregar os atallos pré-definidos de Scribus</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Key Set XML Files (*.ksxml)</source>
         <translation type="obsolete">Conxunto Key de Ficheiros XML (*.ksxml)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This key sequence is already in use</source>
         <translation type="obsolete">Esta secuencia de teclas xa se está a utilizar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Meta</source>
         <translation type="obsolete">Meta</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Meta+</source>
         <translation type="obsolete">Meta+</translation>
     </message>
@@ -21690,7 +20990,6 @@ p, li { white-space: pre-wrap; }
         <translation>Capas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Add a new Layer</source>
         <translation type="obsolete">Adicionar unha Capa nova</translation>
     </message>
@@ -21700,22 +20999,18 @@ p, li { white-space: pre-wrap; }
         <translation>Eliminar unha Capa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Raise Layer</source>
         <translation type="obsolete">Subir a Capa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Lower Layer</source>
         <translation type="obsolete">Eliminar a Capa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>New Layer</source>
         <translation type="obsolete">Capa Nova</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do you want to delete all Objects on this Layer too?</source>
         <translation type="obsolete">Quer eliminar tamén todos os Obxectos desta Capa?</translation>
     </message>
@@ -21810,7 +21105,6 @@ p, li { white-space: pre-wrap; }
         <translation>Diferenza</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Exlusion</source>
         <translation type="obsolete">Exlusión</translation>
     </message>
@@ -21892,12 +21186,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/layers.cpp" line="601"/>
         <source>Selects the Blendmode, works only in PDF 1.4</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona o modo de fusión; só funciona en PDF 1.4</translation>
     </message>
     <message>
         <location filename="../../scribus/layers.cpp" line="602"/>
         <source>Layer Transparency, works only in PDF 1.4 and SVG</source>
-        <translation type="unfinished"></translation>
+        <translation>Transparencia da capa; só funciona en PDF 1.4 e SVG</translation>
     </message>
 </context>
 <context>
@@ -22097,102 +21391,82 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LineFormate</name>
     <message>
-        <location filename="" line="0"/>
         <source>Edit Line Styles</source>
         <translation type="obsolete">Modificar os Estilos de Liña</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Append</source>
         <translation type="obsolete">&amp;Engadir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;New</source>
         <translation type="obsolete">&amp;Novo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Edit</source>
         <translation type="obsolete">&amp;Modificar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>D&amp;uplicate</source>
         <translation type="obsolete">D&amp;uplicar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Save</source>
         <translation type="obsolete">&amp;Gardar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Copy of %1</source>
         <translation type="obsolete">Copiar de %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>New Style</source>
         <translation type="obsolete">Estilo Novo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do you really want to delete this Style?</source>
         <translation type="obsolete">Realmente quer eliminar este Estilo?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;No</source>
         <translation type="obsolete">&amp;Non</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Yes</source>
         <translation type="obsolete">&amp;Si</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Open</source>
         <translation type="obsolete">Abrir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.sla.gz *.scd *.scd.gz);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.scd);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Import</source>
         <translation type="obsolete">&amp;Importar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do you really want to delete this style?</source>
         <translation type="obsolete">Pretende realmente eliminar este estilo?</translation>
     </message>
@@ -22213,17 +21487,14 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LineStyleWBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>LineStyleWBase</source>
         <translation type="obsolete">LineStyleWBase</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>%</source>
         <translation type="obsolete">%</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line Width:</source>
         <translation type="obsolete">Anchura da Liña:</translation>
     </message>
@@ -22266,27 +21537,22 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Xunta arredondada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Solid Line</source>
         <translation type="obsolete">Liña continua</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Dashed Line</source>
         <translation type="obsolete">Liña tracexada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Dotted Line</source>
         <translation type="obsolete">Liña de puntos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Dash Dot Line</source>
         <translation type="obsolete">Liña guión-punto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Dash Dot Dot Line</source>
         <translation type="obsolete">Liña guión-punto-punto</translation>
     </message>
@@ -22341,7 +21607,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="80"/>
         <source>No File Loader Plugins Found</source>
-        <translation>Non se Atoparen Extensións do Carregador de Ficheiros</translation>
+        <translation>Non se atoparon engadidos do carregador de ficheiros</translation>
     </message>
 </context>
 <context>
@@ -22410,42 +21676,34 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MSpinBox</name>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>pt</source>
         <translation type="obsolete">pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>mm</source>
         <translation type="obsolete">mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>in</source>
         <translation type="obsolete">in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>p</source>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete"> in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
@@ -22453,7 +21711,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Macro</name>
     <message>
-        <location filename="" line="0"/>
         <source>Passed object is not callable</source>
         <comment>python error</comment>
         <translation type="obsolete">Ao obxecto que se pasou non se lle pode chamar
@@ -22464,62 +21721,50 @@ erro de python</translation>
 <context>
     <name>MacroManager</name>
     <message>
-        <location filename="" line="0"/>
         <source>Manage Macros</source>
         <translation type="obsolete">Xerir as Macros</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
         <translation type="obsolete">Fai aparecer unha xanela gráfica para crear, eliminar, modificar, salvar e carregar macros.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Create, edit and delete macros</source>
         <translation type="obsolete">Crear, modificar e eliminar macros</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Macro</source>
         <translation type="obsolete">&amp;Macro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus - Macro Manager</source>
         <translation type="obsolete">Scribus - Xestor de Macros</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Unable to open the requested file: %1</source>
         <translation type="obsolete">Non se pode abrir o ficheiro pedido: %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus - Edit Macro</source>
         <translation type="obsolete">Scribus - Modificar Macro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus - New Macro</source>
         <translation type="obsolete">Scribus - Macro Nova</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enter name for new macro: </source>
         <translation type="obsolete">Introduza o nome para a nova macro: </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;The macro name you requested is already taken  by another macro.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;O nome de macro que pide xa está collido por outra macro.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Fallo ao crear a Macro. O xestor de macros non puido preparar a macro.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The macro &apos;%1&apos; has reported a minor error.
 The error is: %2
 A full traceback follows:
@@ -22532,7 +21777,6 @@ O erro é: %2
 %3</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The macro &apos;%1&apos; failed to execute correctly.
 The error is: %2
 A full traceback follows:
@@ -22549,77 +21793,62 @@ Segue a información completa:
 <context>
     <name>ManageMacrosDialog</name>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus Macro Files (*.pymacro)</source>
         <translation type="obsolete">Ficheiros de Macros de Scribus (*.pymacro)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Open File Dialog</source>
         <translation type="obsolete">Diálogo de Abrir Ficheiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select the macro file to load.</source>
         <translation type="obsolete">Escolla o ficheiro coa macro que quer carregar.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save File Dialog</source>
         <translation type="obsolete">Diálogo de Salvar Ficheiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save all macros</source>
         <translation type="obsolete">Salvar todas as macros</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus - Rename Macro</source>
         <translation type="obsolete">Scribus - Mudar o nome da Macro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enter new name: </source>
         <translation type="obsolete">Introduza o novo nome: </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus - Set Macro Shortcut</source>
         <translation type="obsolete">Scribus - Designar un Atallo para a Macro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enter new shortcut: </source>
         <translation type="obsolete">Introduza o novo atallo: </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Yes</source>
         <translation type="obsolete">Si</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>No</source>
         <translation type="obsolete">Non</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus - Macro Manager</source>
         <translation type="obsolete">Scribus - Xestor de Macros</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Renaming the macro failed because the name is already in use.</source>
         <translation type="obsolete">Non se puido modificar o nome da macro porque o nome xa está collido.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus - Manage Macros</source>
         <translation type="obsolete">Scribu - Xestión de Macros</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
 &lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
 The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What&apos;s this&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</source>
@@ -22628,67 +21857,54 @@ The table in the center of the dialog lists what macros are currently loaded and
 A táboa do centro do diálogo lista as macros que están carregadas actualmente e algunha información sobre elas. Use &quot;Que é isto&quot; na táboa para máis información.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;New</source>
         <translation type="obsolete">&amp;Nova</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+N</source>
         <translation type="obsolete">Alt+N</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Create a new macro.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Crear unha macro nova&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Crear unha macro nova pedindo o nome da macro e mostrando a continuación a caixa de diálogo de edición de macros.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Ok</source>
         <translation type="obsolete">&amp;Aceptar as modificacións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+O</source>
         <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Close this dialog</source>
         <translation type="obsolete">Fechar este diálogo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Return to Scribus</source>
         <translation type="obsolete">Voltar a Scribus</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Macro</source>
         <translation type="obsolete">Macro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Edit</source>
         <translation type="obsolete">Modificar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Accel</source>
         <translation type="obsolete">Acelerador</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Description</source>
         <translation type="obsolete">Descrición</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
@@ -22703,42 +21919,34 @@ A táboa do centro do diálogo lista as macros que están carregadas actualmente
 &lt;p&gt;&lt;b&gt;Descrición:&lt;/b&gt; Se a macro contén un &quot;dosctring&quot;, unha cadea especial ao inicio da súa definición que a descrebe, mostrarase aquí. Se o dosctring é longo, só se mostrará o comezo - use &quot;Qué é Isto&quot; na entrada da macro no menú Macro para ver a descrición completa.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Rena&amp;me</source>
         <translation type="obsolete">&amp;Mudar o nome</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+M</source>
         <translation type="obsolete">Alt+M</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Rename the selected macro.</source>
         <translation type="obsolete">Mudarlle o nome á macro seleccionada.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Rename the selected macro. You will be prompted for the new name.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Mudarlle o nome á macro seleccionada. Pediráselle que introduza o novo nome.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Edit...</source>
         <translation type="obsolete">&amp;Modificar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+E</source>
         <translation type="obsolete">Alt+E</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Modificar a fonte da macro seleccionada, se a fonte está disponíbel.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
@@ -22747,104 +21955,84 @@ A táboa do centro do diálogo lista as macros que están carregadas actualmente
 &lt;p&gt;Se Scribus non dispón da fonte, a macro foi probabelmente creada por medio dun guión.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+D</source>
         <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Eliminar a macro seleccionada neste momento.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
         <translation type="obsolete">&lt;p&gt;Eliminar a macro seleccionada. Isto é inmediato e non hai maneira de recuperar a macro unha vez eliminado. Se a macro se creou por medio dun guión de inicio, reaparecerá a próxima vez que inicie Scribus.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Set Accel</source>
         <translation type="obsolete">&amp;Designar un Acelerador</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+S</source>
         <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Designar o atallo de teclado para a macro seleccionada.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
         <translation type="obsolete">&lt;p&gt;Designar a tecla de atallo de teclado (acelerador) para a macro seleccionada. Pediráselle o novo atallo nunha caixa de diálogo.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>E&amp;xport</source>
         <translation type="obsolete">E&amp;xportar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+X</source>
         <translation type="obsolete">Alt+X</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Export macros to a file.</source>
         <translation type="obsolete">Exportar macros a un ficheiro.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
 &lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
         <translation type="obsolete">&lt;p&gt;Exportar macros para un ficheiro externo. O ficheiro consistirá nun guión en Python que conteña os comandos do scripter para recrear as macros. Pódese executar utilizando &lt;tt&gt;Carregar o guión de extensións&lt;/tt&gt; ou o botón Importar do xestor de macros.&lt;/p&gt;
 &lt;p&gt;Se quer unha versión fácil de ler das súas macros, escolla a macro, calquer no botón &lt;tt&gt;Modificar&lt;/tt&gt; e utilice o botón &lt;tt&gt;Salvar a fonte&lt;/tt&gt; do diálogo &lt;tt&gt;Modificar Macro&lt;/tt&gt;. Non poderá carregar esa versión con &lt;tt&gt;Carregar o guión de extensións&lt;/tt&gt; - porén, cre unha nova macro co botón &lt;tt&gt;Novo&lt;/tt&gt; e utilice &lt;tt&gt;Carregar fonte&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Delete &amp;All</source>
         <translation type="obsolete">Eliminalas &amp;Todas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Delete all macros.</source>
         <translation type="obsolete">Eliminar todas as macros.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
         <translation type="obsolete">&lt;p&gt;Eliminar todas as macros rexistradas. Isto é inmediato e non hai maneira de recuperar as macros eliminadas. As macros creadas co seu guión de inicio reaparecerán a próxima vez que lance o Scribus.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Import</source>
         <translation type="obsolete">&amp;Importar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+I</source>
         <translation type="obsolete">Alt+I</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import macros from a file.</source>
         <translation type="obsolete">Importar macros desde un ficheiro.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
         <translation type="obsolete">&lt;p&gt;Carrega macros desde un ficheiro externo.&lt;/p&gt;</translation>
     </message>
@@ -22867,7 +22055,6 @@ A táboa do centro do diálogo lista as macros que están carregadas actualmente
         <translation>&amp;Tamaño:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Custom</source>
         <translation type="obsolete">Personalizado</translation>
     </message>
@@ -22922,7 +22109,6 @@ A táboa do centro do diálogo lista as macros que están carregadas actualmente
         <translation>Páxina Mestra:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Normal</source>
         <translation type="obsolete">Normal</translation>
     </message>
@@ -22990,14 +22176,12 @@ A táboa do centro do diálogo lista as macros que están carregadas actualmente
         <translation>Distancia entre a guía da marxe inferior e o bordo da páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="obsolete">Distancia entre a guía da marxe esquerda e o bordo da páxina.
 Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obter as marxes adecuadas para a encuadernación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="obsolete">Distancia entre a guía da marxe direita e o bordo da páxina.
@@ -23014,7 +22198,6 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
         <translation>&amp;Fora:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply margin settings to all pages</source>
         <translation type="obsolete">Aplicar a configuración de marxes a todas as páxinas</translation>
     </message>
@@ -23024,12 +22207,10 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
         <translation>Aplicar as modificacións nas marxes a todas as páxinas existentes do documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="obsolete">Distancia entre a guía da marxe esquerda e o bordo da páxina. Se se escolleron Páxinas Enfrontadas, este espazo de marxe pódese utilizar para obter as marxes adecuadas para encuadernar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="obsolete">Distancia entre a guía da marxe dereita e o bordo da páxina. Se se escolleron Páxinas Enfrontadas, este espazo de marxe pódese utlizar para lograr as marxes adecuadas para encuadernar</translation>
     </message>
@@ -23142,27 +22323,22 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
         <translation>Modificar as Páxinas Mestras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Duplicates the selected master page</source>
         <translation type="obsolete">Duplica a páxina mestra seleccionada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Deletes the selected master page</source>
         <translation type="obsolete">Elimina a páxina mestra seleccionada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Adds a new master page</source>
         <translation type="obsolete">Adiciona unha nova páxina mestra</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Imports master pages from another document</source>
         <translation type="obsolete">Importa as páxinas mestras doutro documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
@@ -23172,12 +22348,10 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
         <translation>Quer realmente eliminar esta páxina mestra?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;No</source>
         <translation type="obsolete">&amp;Non</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Yes</source>
         <translation type="obsolete">&amp;Si</translation>
     </message>
@@ -23192,7 +22366,6 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
         <translation>Nova Páxina Mestra</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Copy of %1</source>
         <translation type="obsolete">Copiar de %1</translation>
     </message>
@@ -23212,7 +22385,6 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
         <translation>Copiar nº %1 de </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Normal</source>
         <translation type="obsolete">Normal</translation>
     </message>
@@ -23269,58 +22441,48 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
     <message>
         <location filename="../../scribus/masterpagepalette.cpp" line="112"/>
         <source>This master page is used at least once in the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta páxina mestra emprégase ao menos unha vez no documento.</translation>
     </message>
 </context>
 <context>
     <name>Mdup</name>
     <message>
-        <location filename="" line="0"/>
         <source>Multiple Duplicate</source>
         <translation type="obsolete">Duplicados Múltiples</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete"> in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Number of Copies:</source>
         <translation type="obsolete">&amp;Número de Copias:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Horizontal Shift:</source>
         <translation type="obsolete">Desprazamento &amp;Horizontal:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Vertical Shift:</source>
         <translation type="obsolete">Desprazamento &amp;Vertical:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -23373,22 +22535,18 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
         <translation type="obsolete">Lonxitude:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete"> in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
@@ -23458,13 +22616,12 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
     <message>
         <location filename="../../scribus/measurementsbase.ui" line="155"/>
         <source>Unit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Unidade:</translation>
     </message>
 </context>
 <context>
     <name>MergeDoc</name>
     <message>
-        <location filename="" line="0"/>
         <source>Import Template</source>
         <translation type="obsolete">Importar un Modelo</translation>
     </message>
@@ -23474,22 +22631,18 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
         <translation>Importar Páxina(s)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>From Document:</source>
         <translation type="obsolete">Desde o Documento:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Change...</source>
         <translation type="obsolete">Mudar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import Page(s):</source>
         <translation type="obsolete">Importar Páxina(s):</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -23508,27 +22661,22 @@ un rango de páxinas ou un único número de páxina.</translation>
         <translation>Crear Páxina(s)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>before Page</source>
         <translation type="obsolete">antes da Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>after Page</source>
         <translation type="obsolete">após a Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>at End</source>
         <translation type="obsolete">ao Final</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import</source>
         <translation type="obsolete">Importar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cancel</source>
         <translation type="obsolete">Cancelar</translation>
     </message>
@@ -23543,7 +22691,6 @@ un rango de páxinas ou un único número de páxina.</translation>
         <translation>Documentos (*.sla *.sla.gz *.scd *.scd.gz);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.scd);;Todos os Ficheiros (*)</translation>
     </message>
@@ -23605,7 +22752,7 @@ un rango de páxinas ou un único número de páxina.</translation>
     <message>
         <location filename="../../scribus/mergedoc.cpp" line="52"/>
         <source>&amp;Select...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Seleccionar...</translation>
     </message>
 </context>
 <context>
@@ -23730,32 +22877,26 @@ Se non hai nengún seleccionado, reporanse todos.</translation>
         <translation>Mover Páxina(s):</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>to:</source>
         <translation type="obsolete">até:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>before Page</source>
         <translation type="obsolete">antes da Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>after Page</source>
         <translation type="obsolete">após a Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>at End</source>
         <translation type="obsolete">ao Final</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -23793,119 +22934,96 @@ Se non hai nengún seleccionado, reporanse todos.</translation>
 <context>
     <name>MultiLine</name>
     <message>
-        <location filename="" line="0"/>
         <source>Edit Style</source>
         <translation type="obsolete">Modificar o Estilo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Flat Cap</source>
         <translation type="obsolete">Terminación Plana</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Square Cap</source>
         <translation type="obsolete">Terminación cadrada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Round Cap</source>
         <translation type="obsolete">Terminación Arredondada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Miter Join</source>
         <translation type="obsolete">Xunta en inglete</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Bevel Join</source>
         <translation type="obsolete">Xunta biselada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Round Join</source>
         <translation type="obsolete">Xunta arredondada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line Width:</source>
         <translation type="obsolete">Anchura da Liña:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> %</source>
         <translation type="obsolete"> %</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt </source>
         <translation type="obsolete"> pt </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Solid Line</source>
         <translation type="obsolete">Liña continua</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Dashed Line</source>
         <translation type="obsolete">Liña tracexada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Dotted Line</source>
         <translation type="obsolete">Liña de puntos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Dash Dot Line</source>
         <translation type="obsolete">Liña guión-punto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Dash Dot Dot Line</source>
         <translation type="obsolete">Liña guión-punto-punto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
         <translation type="obsolete">O nome &quot;%1&quot; non é único.
 Escolla outro.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation type="obsolete">O nome &quot;%1&quot; non é único.&lt;br/&gt;Escolla outro.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>pt</source>
         <translation type="obsolete">pt</translation>
     </message>
@@ -23936,17 +23054,14 @@ Escolla outro.</translation>
 <context>
     <name>MultiProgressDialogBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Progress</source>
         <translation type="obsolete">Progreso</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Overall Progress:</source>
         <translation type="obsolete">Progreso Total:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -24052,87 +23167,70 @@ Escolla outro.</translation>
 <context>
     <name>MultipleDuplicateBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Multiple Duplicate</source>
         <translation type="obsolete">Duplicados Múltiples</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;By Number of Copies</source>
         <translation type="obsolete">&amp;Por Número de Copias</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Number of Copies:</source>
         <translation type="obsolete">&amp;Número de Copias:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Create &amp;Gap Between Items Of</source>
         <translation type="obsolete">Crear &amp;Separación Entre Elementos De</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+G</source>
         <translation type="obsolete">Alt+G</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Shift Created Items By</source>
         <translation type="obsolete">De&amp;sprazar os Elementos Creados En</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+S</source>
         <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Horizontal Shift:</source>
         <translation type="obsolete">Desprazamento &amp;Horizontal:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Vertical Shift:</source>
         <translation type="obsolete">Desprazamento &amp;Vertical:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>By &amp;Rows &amp;&amp; Columns</source>
         <translation type="obsolete">En &amp;Fileiras e Columnas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Vertical Gap:</source>
         <translation type="obsolete">Separación Vertical:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Horizontal Gap:</source>
         <translation type="obsolete">Separación Horizontal:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Number of Rows:</source>
         <translation type="obsolete">Número de Fileiras:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Number of Columns:</source>
         <translation type="obsolete">Número de Columnas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Rotation:</source>
         <translation type="obsolete">Rotación:</translation>
     </message>
@@ -24140,82 +23238,66 @@ Escolla outro.</translation>
 <context>
     <name>MusterSeiten</name>
     <message>
-        <location filename="" line="0"/>
         <source>Edit Templates</source>
         <translation type="obsolete">Modificar Modelos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Append</source>
         <translation type="obsolete">&amp;Adicionar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;New</source>
         <translation type="obsolete">&amp;Novo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>D&amp;uplicate</source>
         <translation type="obsolete">D&amp;uplicar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Close</source>
         <translation type="obsolete">&amp;Fechar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do you really want to delete this Template?</source>
         <translation type="obsolete">Realmente quer eliminar este Modelo?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;No</source>
         <translation type="obsolete">&amp;Non</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Yes</source>
         <translation type="obsolete">&amp;Si</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Name:</source>
         <translation type="obsolete">&amp;Nome:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>New Template</source>
         <translation type="obsolete">Modelo novo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Copy of %1</source>
         <translation type="obsolete">Copiar de %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name:</source>
         <translation type="obsolete">Nome:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Copy #%1 of </source>
         <translation type="obsolete">Copia nº %1 de</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Normal</source>
         <translation type="obsolete">Normal</translation>
     </message>
@@ -24225,7 +23307,7 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/plugins/myplugin/myplugin.cpp" line="31"/>
         <source>My &amp;Plugin</source>
-        <translation>A miña &amp;Extensión</translation>
+        <translation>O meu en&amp;gadido</translation>
     </message>
 </context>
 <context>
@@ -24233,33 +23315,29 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/plugins/myplugin/mypluginimpl.cpp" line="23"/>
         <source>Scribus - My Plugin</source>
-        <translation>Scribus - A Miña Extensión</translation>
+        <translation>Scribus - O meu engadido</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/myplugin/mypluginimpl.cpp" line="24"/>
         <source>The plugin worked!</source>
-        <translation>A extensión funcionou!</translation>
+        <translation>O engadido funcionou!</translation>
     </message>
 </context>
 <context>
     <name>NewDoc</name>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete"> in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
@@ -24269,7 +23347,6 @@ Escolla outro.</translation>
         <translation>Documento novo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page Size</source>
         <translation type="obsolete">Tamaño da páxina</translation>
     </message>
@@ -24279,37 +23356,30 @@ Escolla outro.</translation>
         <translation>&amp;Tamaño:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Executive</source>
         <translation type="obsolete">Executivo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Folio</source>
         <translation type="obsolete">Folio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ledger</source>
         <translation type="obsolete">Libro contábel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Legal</source>
         <translation type="obsolete">Legal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Letter</source>
         <translation type="obsolete">Carta</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Tabloid</source>
         <translation type="obsolete">Tabloide</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Custom</source>
         <translation type="obsolete">Personalizado</translation>
     </message>
@@ -24339,37 +23409,31 @@ Escolla outro.</translation>
         <translation>&amp;Altura:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Facing Pages</source>
         <translation type="obsolete">Páxinas &amp;Enfrentadas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Left &amp;Page First</source>
         <translation type="obsolete">A Páxina &amp;Esquerda Primeiro</translation>
     </message>
     <message>
         <location filename="../../scribus/newfile.cpp" line="259"/>
         <source>Margin Guides</source>
-        <translation>Guías das Marxes</translation>
+        <translation>Guías das marxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Left:</source>
         <translation type="obsolete">&amp;Esquerda:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Right:</source>
         <translation type="obsolete">&amp;Direita:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Top:</source>
         <translation type="obsolete">&amp;Superior:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Bottom:</source>
         <translation type="obsolete">&amp;Inferior:</translation>
     </message>
@@ -24379,42 +23443,36 @@ Escolla outro.</translation>
         <translation>Opcións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>F&amp;irst Page Number:</source>
         <translation type="obsolete">Pr&amp;imeiro Número de Páxina:</translation>
     </message>
     <message>
         <location filename="../../scribus/newfile.cpp" line="291"/>
         <source>&amp;Default Unit:</source>
-        <translation>Unidade por &amp;Omisión:</translation>
+        <translation>Unidade por &amp;omisión:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Points (pts)</source>
         <translation type="obsolete">Puntos (pts)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Millimetres (mm)</source>
         <translation type="obsolete">Milímetros (mm)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Inches (in)</source>
         <translation type="obsolete">Polgadas (in)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Picas (p)</source>
         <translation type="obsolete">Picas (p)</translation>
     </message>
     <message>
         <location filename="../../scribus/newfile.cpp" line="301"/>
         <source>&amp;Automatic Text Frames</source>
-        <translation>Molduras de Texto &amp;Automáticas</translation>
+        <translation>Molduras de texto &amp;automáticas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Column Guides</source>
         <translation type="obsolete">Guías das Columnas</translation>
     </message>
@@ -24429,12 +23487,10 @@ Escolla outro.</translation>
         <translation>Colu&amp;mnas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -24459,41 +23515,34 @@ Escolla outro.</translation>
         <translation>Largura das páxinas do documentos, modificábel se escolleu un tamaño de páxina personalizado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enable single or spread based layout</source>
         <translation type="obsolete">Permitir a disposición sinxela ou de dobre páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Make the first page the left page of the document</source>
         <translation type="obsolete">Facer que a primeira páxina sexa a páxina esquerda do documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the top margin guide and the edge of the page</source>
         <translation type="obsolete">Distancia entre a guía da marxe superior e o bordo da páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
         <translation type="obsolete">Distancia entre a guía da marxe inferior e o bordo da páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="obsolete">Distancia entre a guía da marxe esquerda e o bordo da páxina.
 Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obter as marxes adecuadas para a encuadernación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="obsolete">Distancia entre a guía da marxe direita e o bordo da páxina.
 Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obter as marxes adecuadas para a encuadernación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>First page number of the document</source>
         <translation type="obsolete">Primeiro número de páxina do documento</translation>
     </message>
@@ -24518,22 +23567,18 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation>Distancia entre columnas creadas automaticamente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Inside:</source>
         <translation type="obsolete">&amp;Dentro:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>O&amp;utside:</source>
         <translation type="obsolete">&amp;Fora:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Open Document</source>
         <translation type="obsolete">Abrir Documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Recent Documents</source>
         <translation type="obsolete">Documentos Recentes</translation>
     </message>
@@ -24550,20 +23595,17 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/newfile.cpp" line="285"/>
         <source>N&amp;umber of Pages:</source>
-        <translation>N&amp;úmero de Páxinas:</translation>
+        <translation>N&amp;úmero de páxinas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
         <translation type="obsolete">Documentos (*.sla *.sla.gz *.scd *.scd.gz);;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.scd);;</source>
         <translation type="obsolete">Documentos (*.sla *.scd);;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>All Files (*)</source>
         <translation type="obsolete">Todos os Ficheiros (*)</translation>
     </message>
@@ -24575,37 +23617,36 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/newfile.cpp" line="110"/>
         <source>&amp;New Document</source>
-        <translation>Documento &amp;Novo</translation>
+        <translation>Documento &amp;novo</translation>
     </message>
     <message>
         <location filename="../../scribus/newfile.cpp" line="112"/>
         <source>Open &amp;Existing Document</source>
-        <translation>Abrir un Documento &amp;Existente</translation>
+        <translation>Abrir un documento &amp;existente</translation>
     </message>
     <message>
         <location filename="../../scribus/newfile.cpp" line="115"/>
         <source>Open Recent &amp;Document</source>
-        <translation>Abrir un &amp;Documento Recente</translation>
+        <translation>Abrir un &amp;documento recente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page Layout</source>
         <translation type="obsolete">Disposición da Páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/newfile.cpp" line="250"/>
         <source>First Page is:</source>
-        <translation>A Primeira Páxina é:</translation>
+        <translation>A primeira páxina é:</translation>
     </message>
     <message>
         <location filename="../../scribus/newfile.cpp" line="323"/>
         <source>Show Document Settings After Creation</source>
-        <translation>Mostrar a Configuración do Documento Depois de Crealo</translation>
+        <translation>Mostrar a configuración do documento depois de crealo</translation>
     </message>
     <message>
         <location filename="../../scribus/newfile.cpp" line="175"/>
         <source>Document Layout</source>
-        <translation>Disposición do Documento</translation>
+        <translation>Disposición do documento</translation>
     </message>
 </context>
 <context>
@@ -24629,22 +23670,18 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
 <context>
     <name>NewTm</name>
     <message>
-        <location filename="" line="0"/>
         <source>Left Page</source>
         <translation type="obsolete">Páxina Esquerda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Right Page</source>
         <translation type="obsolete">Páxina Direita</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -24777,7 +23814,6 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation>Xirar o Trazo no sentido do Reloxio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Reduce the Size of the Path by shown %</source>
         <translation type="obsolete">Reducir o Tamaño do Trazo polo % mostrado</translation>
     </message>
@@ -24792,7 +23828,6 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation>Ángulo de Rotación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>% to Enlarge or Reduce By</source>
         <translation type="obsolete">% polo que Aumentar ou Reducir</translation>
     </message>
@@ -24807,7 +23842,6 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation>Limpar a Liña de Contorno para a Forma Orixinal da Moldura</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>When checked use Coordinates relative to the Page,
 otherwise Coordinates are relative to the Object.</source>
         <translation type="obsolete">Se está seleccionado, úsanse as Coordenadas relativas á Páxina; se non, as Coordenadas son relativas ao Obxecto.</translation>
@@ -24870,12 +23904,12 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="909"/>
         <source>Set Shape to Image Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar a forma á imaxe</translation>
     </message>
     <message>
         <location filename="../../scribus/nodeeditpalette.cpp" line="939"/>
         <source>Set the Shape to the Clipping Path of the Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Axustar a forma ao trazo de pegado da imaxe</translation>
     </message>
 </context>
 <context>
@@ -24899,12 +23933,10 @@ otherwise Coordinates are relative to the Object.</source>
         <translation>Importar do Draw do &amp;OpenOffice.org...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Imports OpenOffice Draw Files</source>
         <translation type="obsolete">Importa Ficheiros do Draw de OpenOffice</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Imports most OpenOffice Draw files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Importa a maioría dos ficheiros do Draw de OpenOffice no documento actual, convertendo os seus datos vectorais en obxectos de Scribus.</translation>
     </message>
@@ -24949,7 +23981,6 @@ otherwise Coordinates are relative to the Object.</source>
         <translation>Opcións do Importador do OpenDocument</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Update paragraph Styles</source>
         <translation type="obsolete">Actualizar os Estilos de parágrafo</translation>
     </message>
@@ -25107,7 +24138,7 @@ otherwise Coordinates are relative to the Object.</source>
         <location filename="../../scribus/outlinepalette.cpp" line="141"/>
         <source>Ctrl+F</source>
         <comment>Filter the Outline using a keyword</comment>
-        <translation type="unfinished">Ctrl+F</translation>
+        <translation>Ctrl+F</translation>
     </message>
 </context>
 <context>
@@ -25126,7 +24157,6 @@ otherwise Coordinates are relative to the Object.</source>
 <context>
     <name>PConsole</name>
     <message>
-        <location filename="" line="0"/>
         <source>Script Console</source>
         <translation type="obsolete">Consola de guións</translation>
     </message>
@@ -25159,7 +24189,6 @@ otherwise Coordinates are relative to the Object.</source>
         <translation>&amp;Gardar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
         <translation type="obsolete">Isto permite exportar un ficheiro PDF con nome individual para cada unha das páxinas do documento. Os números de páxina adiciónanse automaticamente. Isto resulta moi útil para impostar PDF para a impresión comercial.</translation>
     </message>
@@ -25198,7 +24227,7 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <location filename="../../scribus/pdfopts.cpp" line="204"/>
         <source>Save As</source>
-        <translation type="unfinished">Gardar como</translation>
+        <translation>Gardar como</translation>
     </message>
 </context>
 <context>
@@ -25270,602 +24299,482 @@ otherwise Coordinates are relative to the Object.</source>
 <context>
     <name>PDF_Opts</name>
     <message>
-        <location filename="" line="0"/>
         <source>Save as PDF</source>
         <translation type="obsolete">Salvar como PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>O&amp;utput to File:</source>
         <translation type="obsolete">Saída para &amp;Ficheiro:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cha&amp;nge...</source>
         <translation type="obsolete">&amp;Mudar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Export Range</source>
         <translation type="obsolete">Rango de exportación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;All Pages</source>
         <translation type="obsolete">Tod&amp;as as Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;hoose Pages</source>
         <translation type="obsolete">Esco&amp;ller as Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Rotation:</source>
         <translation type="obsolete">&amp;Rotación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>File Options</source>
         <translation type="obsolete">Opcións do Ficheiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Compatibilit&amp;y:</source>
         <translation type="obsolete">Compat&amp;ibilidade:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Binding:</source>
         <translation type="obsolete">&amp;Encadernación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Left Margin</source>
         <translation type="obsolete">Marxe Esquerda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Right Margin</source>
         <translation type="obsolete">Marxe Direita</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Generate &amp;Thumbnails</source>
         <translation type="obsolete">Xerar &amp;Miniaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save &amp;Linked Text Frames as PDF Articles</source>
         <translation type="obsolete">Salvar as Molduras de Texto Vin&amp;culadas como Artigos PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Include Bookmarks</source>
         <translation type="obsolete">&amp;Incluir os Marcadores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> dpi</source>
         <translation type="obsolete"> dpi</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Resolution:</source>
         <translation type="obsolete">&amp;Resolución:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Compress Text and &amp;Vector Graphics</source>
         <translation type="obsolete">Comprimir o Texto e os Gráficos &amp;Vectoriais</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Image Settings</source>
         <translation type="obsolete">Configuración das Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Automatic</source>
         <translation type="obsolete">Automático</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>JPEG</source>
         <translation type="obsolete">JPEG</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Zip</source>
         <translation type="obsolete">Zip</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengún</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Method:</source>
         <translation type="obsolete">&amp;Método:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Quality:</source>
         <translation type="obsolete">&amp;Calidade:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Maximum</source>
         <translation type="obsolete">Máxima</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>High</source>
         <translation type="obsolete">Alta</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Medium</source>
         <translation type="obsolete">Media</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Low</source>
         <translation type="obsolete">Baixa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Minimum</source>
         <translation type="obsolete">Mínima</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Downsample Images to:</source>
         <translation type="obsolete">Re&amp;ducir as Imaxes a:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;General</source>
         <translation type="obsolete">&amp;Xeral</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Embed all Fonts</source>
         <translation type="obsolete">&amp;Embeber todas as Fontes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Subset all Fonts</source>
         <translation type="obsolete">&amp;Subconxunto de todas as Fontes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Embedding</source>
         <translation type="obsolete">Embeber</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Available Fonts:</source>
         <translation type="obsolete">Fontes Disponíbeis:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;&gt;&gt;</source>
         <translation type="obsolete">&amp;&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;&lt;&lt;</source>
         <translation type="obsolete">&amp;&lt;&lt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Fonts to embed:</source>
         <translation type="obsolete">Fontes a embeber:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Fonts to subset:</source>
         <translation type="obsolete">Fontes en subconxunto:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Fonts</source>
         <translation type="obsolete">&amp;Fontes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>En&amp;able Presentation Effects</source>
         <translation type="obsolete">Permitir os &amp;Efectos de Presentación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page</source>
         <translation type="obsolete">Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Page Pre&amp;views</source>
         <translation type="obsolete">Mostrar a Ante&amp;visión das Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Effects</source>
         <translation type="obsolete">Efectos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Display Duration:</source>
         <translation type="obsolete">Duración da E&amp;xhibición:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Effec&amp;t Duration:</source>
         <translation type="obsolete">Duración do Efec&amp;to:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Effect T&amp;ype:</source>
         <translation type="obsolete">T&amp;ipo de Efecto:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Moving Lines:</source>
         <translation type="obsolete">Liñas que se &amp;moven:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>F&amp;rom the:</source>
         <translation type="obsolete">De&amp;sde a:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>D&amp;irection:</source>
         <translation type="obsolete">D&amp;irección:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> sec</source>
         <translation type="obsolete"> seg</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>No Effect</source>
         <translation type="obsolete">Sen Efectos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Blinds</source>
         <translation type="obsolete">Persianas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Box</source>
         <translation type="obsolete">Caixa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Dissolve</source>
         <translation type="obsolete">Disolución</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Glitter</source>
         <translation type="obsolete">Brillos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Split</source>
         <translation type="obsolete">Partir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Wipe</source>
         <translation type="obsolete">Limpar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Horizontal</source>
         <translation type="obsolete">Horizontal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Vertical</source>
         <translation type="obsolete">Vertical</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Inside</source>
         <translation type="obsolete">Dentro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Outside</source>
         <translation type="obsolete">Fora</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Left to Right</source>
         <translation type="obsolete">De Esquerda a Direita</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Top to Bottom</source>
         <translation type="obsolete">De Arriba a Baixo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Bottom to Top</source>
         <translation type="obsolete">De Abaixo a Riba</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Right to Left</source>
         <translation type="obsolete">De Direita a Esquerda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Top-left to Bottom-Right</source>
         <translation type="obsolete">Superior Esquerda a Inferior Direita</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Apply Effect on all Pages</source>
         <translation type="obsolete">&amp;Aplicar o Efecto a todas as áxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Presentation</source>
         <translation type="obsolete">&amp;Presentación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Use Encryption</source>
         <translation type="obsolete">&amp;Usar Encriptación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Passwords</source>
         <translation type="obsolete">Contrasinais</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;User:</source>
         <translation type="obsolete">&amp;Utilizador:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Owner:</source>
         <translation type="obsolete">&amp;Propietario:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Settings</source>
         <translation type="obsolete">Configuración</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Allow &amp;Printing the Document</source>
         <translation type="obsolete">Permitir a Im&amp;presión do Documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Allow &amp;Changing the Document</source>
         <translation type="obsolete">Permitir a &amp;Modificación do Documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Allow Cop&amp;ying Text and Graphics</source>
         <translation type="obsolete">Permitir a Cop&amp;ia de Texto e Gráficos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Allow Adding &amp;Annotations and Fields</source>
         <translation type="obsolete">Permitir Engadir &amp;Anotacións e Campos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>S&amp;ecurity</source>
         <translation type="obsolete">S&amp;eguranza</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>General</source>
         <translation type="obsolete">Xeral</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Output &amp;Intended For:</source>
         <translation type="obsolete">Saída e &amp;Deseñado Para:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Screen / Web</source>
         <translation type="obsolete">Pantalla / Web</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Printer</source>
         <translation type="obsolete">Impresora</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Use Custom Rendering Settings</source>
         <translation type="obsolete">&amp;Usar Configuración Personalizada da Produción</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Rendering Settings</source>
         <translation type="obsolete">Configuración da Produción</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Fre&amp;quency:</source>
         <translation type="obsolete">Fre&amp;cuencia:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Angle:</source>
         <translation type="obsolete">&amp;Ángulo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>S&amp;pot Function:</source>
         <translation type="obsolete">Función P&amp;unto:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Simple Dot</source>
         <translation type="obsolete">Punto simple</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line</source>
         <translation type="obsolete">Liña</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Round</source>
         <translation type="obsolete">Arredondado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ellipse</source>
         <translation type="obsolete">Elipse</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Solid Colors:</source>
         <translation type="obsolete">Cores sólidas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Use ICC Profile</source>
         <translation type="obsolete">Usar o Perfil ICC</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Profile:</source>
         <translation type="obsolete">Perfil:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Rendering-Intent:</source>
         <translation type="obsolete">Propósito da exhibicion:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Perceptual</source>
         <translation type="obsolete">Perceptual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Relative Colorimetric</source>
         <translation type="obsolete">Colorimétrico relativo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Saturation</source>
         <translation type="obsolete">Saturación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Absolute Colorimetric</source>
         <translation type="obsolete">Colorimétrico absoluto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Images:</source>
         <translation type="obsolete">Imaxes:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Don&apos;t use embedded ICC profiles</source>
         <translation type="obsolete">Non usar os perfís ICC embebidos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;olor</source>
         <translation type="obsolete">C&amp;or</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Info String:</source>
         <translation type="obsolete">Cadea &amp;Info:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Output &amp;Profile:</source>
         <translation type="obsolete">&amp;Perfil de Saída:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Trim Box</source>
         <translation type="obsolete">Caixa de Recorte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PDF/X-&amp;3</source>
         <translation type="obsolete">PDF/X-&amp;3</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete"> in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Debe estar habilitada a xestión da cor para poder usar PDF/X-3. Pódea habilitar desde o menú de Configuración.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Recoñécese PDF/X-3 e está habilitado, pero non se pode usar para a versión de PDF seleccionada. Se quer usar PDF/X-3 terá que designar PDF/X-3 como a versión de PDF (nível de compatibilidade).&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Non se recoñece PDF/X-3 nesta edición de Scribus (non está presente CMS).&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Save</source>
         <translation type="obsolete">&amp;Gardar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Export all pages to PDF</source>
         <translation type="obsolete">Exportar todas as páxinas a PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Export a range of pages to PDF</source>
         <translation type="obsolete">Exportar un rango de páxinas a PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -25874,62 +24783,52 @@ un elemento pode ser * para todas as páxinas, 1-5 para
 un rango de páxinas ou un único número de páxina.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation type="obsolete">Determina a compatibilidade de PDF. Por omisión é Acrobat 4.0, que proporciona a maior compatibilidade. Escolla Acrobat 5.0 se o seu ficheiro ten funcionalidades de PDF 1.4 como a transparencia ou se require de encriptación de 128 bits. PDF/X-3 é para exportar o PDF cando quer cor RGB xestionada para a impresión comercial e selecciónase canto ten activada a xestión da cor. Nota: PDF/X-3 convertirá todas as imaxes CMYK a cores RGB baseadas en ICC. Úseo só cando llo recomenden na imprenta ou nalgúns casos en que teña que imprimir nunha impresora laser cor dixital.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation type="obsolete">Determina a encadernación de páxinas no PDF. A non ser que o saiba
 terá que deixar a escolla por omisión: Esquerda.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</source>
         <translation type="obsolete">Xera miniaturas de cada páxina no PDF.
 Algúns visualizadores poden usar as miniaturas para a navegación.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
         <translation type="obsolete">Xerar Artigos PDF, que resultan útiles para navegar por artigos vinculados nun PDF.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
         <translation type="obsolete">Embeber os marcadores que creou no seu documento.
 Resultan útiles para navegar por documentos PDF longos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</source>
         <translation type="obsolete">Exportar a resolución do texto e os gráficos vectoriais.
 Isto non vai afectar a resolución das imaxes bitmap como as fotos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
         <translation type="obsolete"> Compresión sen perdas de texto e gráficos.
 A non ser que teña unha razón, non o seleccione. Isto reduce o tamaño do PDF.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
         <translation type="obsolete">Método de compresión a usar polas imaxes. Automático permite que Scribus escolla o mellor método. ZIP non provoca perdas e é bon para imaxes con cores sólidas. JPEG é mellor en crear ficheiros PDF máis pequenos con moitas fotos (cunha posíbel lixeira perda de calidade). Déixeo en Automático, a non ser que teña unha razón para escoller unha compresión especial.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
         <translation type="obsolete">Níveis de compresión: Mínimo (25%), Baixo (50%), Medio (75%), Alto (85%), Máximo (95%)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
@@ -25938,65 +24837,53 @@ Se non se selecciona mostraranse na súa resolución orixinal.
 Isto pode incrementar o uso da memoria e enlentecer a exportación.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>DPI (Dots Per Inch) for image export.</source>
         <translation type="obsolete">PPP (Puntos Por Pulgada) para a exportación das imaxes.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
         <translation type="obsolete">Embeber as fontes no PDF. Embeber as fontes
 manterá a dispoción e aparencia do seu documento.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
         <translation type="obsolete">Permite os efectos de presentación ao usar Acroba Reader en pantalla completa.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show page previews of each page listed above.</source>
         <translation type="obsolete">Mostrar a antevisión de páxina para cada páxina das que se listan en cima.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
         <translation type="obsolete">Extensión de tempo durante a que se mostra a páxina antes de que a presentación comece na páxina seleccionada.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Length of time the effect runs.
 A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation type="obsolete">Extensión de tempo durante a que dura o efecto. Un tempo menor acelerará o efecto; un maior enlentecerao.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Type of the display effect.</source>
         <translation type="obsolete">Tipo de efecto.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
         <translation type="obsolete">Dirección do efecto de liñas que se moven para os efectos partir e persianas.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Starting position for the box and split effects.</source>
         <translation type="obsolete">Posición inicial para os efectos de caixa e partir.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Direction of the glitter or wipe effects.</source>
         <translation type="obsolete">Dirección dos efectos de brillos e borrado.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply the selected effect to all pages.</source>
         <translation type="obsolete">Aplicar os efectos seleccionados a todas as páxinas.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enable the security features in your exported PDF.
 If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
 If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
@@ -26007,43 +24894,36 @@ Se escolle Acrobat 5.0, o PDF estará protexido por encriptación de 128 bits.
 Advertencia: A encriptación dos PDF non é tan efectiva como a encriptación GPG ou PGP e ten certas limitacións.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Choose a master password which enables or disables all the
 security features in your exported PDF</source>
         <translation type="obsolete">Escolla un contrasinal mestre que permita ou deshabilite todas
 as funcionalidades de seguranza do seu PDF exportado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation type="obsolete">Escolla un contrasinal para que os usuarios poidan ler o seu PDF.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
         <translation type="obsolete">Permite que se imprima o PDF. Se non se selecciona impídese que se imprima.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
         <translation type="obsolete">Permite modificar o PDF. Se non se escolle impídese a modificación do PDF.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Allow copying of text or graphics from the PDF. 
 If un-checked, text and graphics cannot be copied.</source>
         <translation type="obsolete">Permite copiar o texto ou gráficos do PDF.
 Se non se escolle, non se poderán copiar nen o texto nen os gráficos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fields is prevented.</source>
         <translation type="obsolete">Permite engadir anotacións e campos no PDF.
 Se non se selecciona, impídese modificar as anotacións e os campos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
@@ -26052,7 +24932,6 @@ Escolla Pantalla/Web para PDFs que vaian ser mostrados nunha pantalla ou que se 
 Escolla Impresora cando sexan para imprimir nunha impresora de 4 cores CMYK verdadeiros.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled
 when specifically requested by your printer and they have given you the exact details needed.
 Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
@@ -26061,114 +24940,92 @@ cando o indique explicitamente a súa imprenta e lle fornezan da información pr
 Se non, o seu PDF exportado pode non imprimirse correctamente e con certeza non será portábel entre sistemas.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Embed a color profile for solid colors</source>
         <translation type="obsolete">Embeber un perfil de cor para cores sólidas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color profile for solid colors</source>
         <translation type="obsolete">Perfil de cor para cores sólidas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Rendering intent for solid colors</source>
         <translation type="obsolete">Propósito da exhibición para cores sólidas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Embed a color profile for images</source>
         <translation type="obsolete">Embeber un perfil de cor para imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do not use color profiles that are embedded in source images</source>
         <translation type="obsolete">Non usar perfís de cor embebidos en imaxes fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color profile for images</source>
         <translation type="obsolete">Perfil de cor para imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Rendering intent for images</source>
         <translation type="obsolete">Propósito da exhibición para imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
         <translation type="obsolete">Perfil de saída para a impresión. De ser posíbel, solicite orientación na imprenta sobre a selección de perfís.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="obsolete">Cadea obrigatoria para PDF/X-3 ou o PDF fallará
 na conformidade con PDF/X-3. Recomendamos que use o título do documento.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation type="obsolete">Distancia de sangrado desde a parte superior da páxina física</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation type="obsolete">Distancia de sangrado desde a parte inferior da páxina física</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation type="obsolete">Distancia de sangrado desde a esquerda da páxina física</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation type="obsolete">Distancia de sangrado desde a direita da páxina física</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mirror Page(s) horizontally</source>
         <translation type="obsolete">Reflexar a(s) Páxina(s) horizontalmente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mirror Page(s) vertically</source>
         <translation type="obsolete">Reflexar a(s) Páxina(s) verticalmente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PDF security settings</source>
         <translation type="obsolete">Configuración de seguranza do PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PDF/X-3 settings</source>
         <translation type="obsolete">Configuración PDF/X-3</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Non se pode usar seguranza PDF con PDF/X-3. Se quer activar a seguranza, mude de versión de PDF (nível de compatibilidade) para algo distinto de PDF/X-3.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save as</source>
         <translation type="obsolete">Gardar como</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation type="obsolete">Ficheiros PDF (*.pdf);;Todos (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Output one file for eac&amp;h page</source>
         <translation type="obsolete">Producir un ficheiro por ca&amp;da páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
         <translation type="obsolete">Isto permite exportar un ficheiro PDF con nome individual para cada unha das páxinas do documento. Os números de páxina adiciónanse automaticamente. Isto resulta moi útil para impostar PDF para a impresión comercial.</translation>
     </message>
@@ -26176,42 +25033,34 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
 <context>
     <name>PDFlib</name>
     <message>
-        <location filename="" line="0"/>
         <source>Saving PDF</source>
         <translation type="obsolete">A salvar PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Exporting Master Pages:</source>
         <translation type="obsolete">A exportar Páxinas Mestras:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Exporting Pages:</source>
         <translation type="obsolete">A Exportar Páxinas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Exporting Items on Current Page:</source>
         <translation type="obsolete">A exportar Elementos da Páxina Actual:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Exporting Master Page:</source>
         <translation type="obsolete">A exportar Páxina Mestra:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Exporting Page:</source>
         <translation type="obsolete">A exportar Páxina:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page:</source>
         <translation type="obsolete">Páxina:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Date:</source>
         <translation type="obsolete">Data:</translation>
     </message>
@@ -26224,12 +25073,10 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
         <translation>Antevisión da Impresión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Anti-alias &amp;Text</source>
         <translation type="obsolete">&amp;Texto Anti-alias</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Anti-alias &amp;Graphics</source>
         <translation type="obsolete">&amp;Gráficos Anti-alias</translation>
     </message>
@@ -26269,14 +25116,12 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
         <translation>&amp;K</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
         <translation type="obsolete">Proporciona unha visión máis agradábel dos elementos de texto a expensas
 dunha menor velocidade no procesamento. Isto só afecta ás fontes Tipo 1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation type="obsolete">Proporciona unha visión máis agradábel das Fontes Truetype, OpenType, EPS, PDF
@@ -26313,7 +25158,6 @@ e os gráficos de vectores a expensas dunha velocidade menor no procesamento</tr
         <translation>Des/Activar o tinteiro K (Black-Negro)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A way of switching off some of the gray shades which are composed
 of cyan, yellow and magenta and using black instead.
 UCR most affects parts of images which are neutral and/or dark tones
@@ -26368,12 +25212,10 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
         <translation>Imprimir...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
         <translation type="obsolete">Permite unha vista máis cómoda dos elementos de texto no visor a costa dunha exhibición máis lenta. Isto só afecta ás fontes Type 1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation type="obsolete">Permite unha vista máis cómoda das Fontes Truetype, OpenType, EPS, PDF e gráficos vectoriais na antevisión a costa dunha exhibición máis lenta</translation>
     </message>
@@ -26496,18 +25338,16 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/preview.cpp" line="242"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrimar ás marxes da impresora</translation>
     </message>
 </context>
 <context>
     <name>PSLib</name>
     <message>
-        <location filename="" line="0"/>
         <source>Processing Master Pages:</source>
         <translation type="obsolete">A procesar Páxinas Mestras:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Exporting Pages:</source>
         <translation type="obsolete">A exportar Páxinas:</translation>
     </message>
@@ -26588,42 +25428,34 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
 <context>
     <name>PStyleWBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Form1</source>
         <translation type="obsolete">Formulario1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Properties</source>
         <translation type="obsolete">Propiedades</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distances and Alignment</source>
         <translation type="obsolete">Distancias e Aliñamento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Drop Caps</source>
         <translation type="obsolete">Maiúsculas Capitulares</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Parent&apos;s Drop Cap Status</source>
         <translation type="obsolete">Estado das Maiúsculas Capitulares Pai</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Tabulators and Indentation</source>
         <translation type="obsolete">Tabuladores e Indentación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ch&amp;aracter Style</source>
         <translation type="obsolete">Estilo de C&amp;arácter</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Based On:</source>
         <translation type="obsolete">Baseado En:</translation>
     </message>
@@ -26631,357 +25463,286 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
 <context>
     <name>Page</name>
     <message>
-        <location filename="" line="0"/>
         <source>Copy Here</source>
         <translation type="obsolete">Copiar Aquí</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Move Here</source>
         <translation type="obsolete">Mover Aquí</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cancel</source>
         <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Paste</source>
         <translation type="obsolete">&amp;Pegar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show &amp;Margins</source>
         <translation type="obsolete">Mostrar as &amp;Marxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show &amp;Frames</source>
         <translation type="obsolete">Mostrar as &amp;Molduras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show &amp;Images</source>
         <translation type="obsolete">Mostrar as &amp;Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show &amp;Grid</source>
         <translation type="obsolete">Mostrar a &amp;Grella</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show G&amp;uides</source>
         <translation type="obsolete">Mostrar as G&amp;uías</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show &amp;Baseline Grid</source>
         <translation type="obsolete">Mostrar a Grella &amp;Base</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sn&amp;ap to Grid</source>
         <translation type="obsolete">&amp;Agarre</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sna&amp;p to Guides</source>
         <translation type="obsolete">A&amp;garrarse ás Guías</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Picture</source>
         <translation type="obsolete">Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>File: </source>
         <translation type="obsolete">Ficheiro: </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Original PPI: </source>
         <translation type="obsolete">PPI Orixinal:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Actual PPI: </source>
         <translation type="obsolete">PPI Real:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Linked Text</source>
         <translation type="obsolete">Texto Vinculado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Text Frame</source>
         <translation type="obsolete">Moldura de Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Text on a Path</source>
         <translation type="obsolete">Texto nun Trazo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Paragraphs: </source>
         <translation type="obsolete">Parágrafos:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Words: </source>
         <translation type="obsolete">Palabras:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Chars: </source>
         <translation type="obsolete">Caracteres.:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print: </source>
         <translation type="obsolete">Imprimir:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enabled</source>
         <translation type="obsolete">Activado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Disabled</source>
         <translation type="obsolete">Desactivado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>In&amp;fo</source>
         <translation type="obsolete">In&amp;formación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Get Picture...</source>
         <translation type="obsolete">&amp;Ir procurar Imaxe...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>I&amp;mage Visible</source>
         <translation type="obsolete">I&amp;maxe Visíbel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Update Picture</source>
         <translation type="obsolete">Ac&amp;tualizar Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Edit Picture</source>
         <translation type="obsolete">&amp;Modificar Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Adjust Frame to Picture</source>
         <translation type="obsolete">&amp;Axustar a Moldura á Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Get Text...</source>
         <translation type="obsolete">&amp;Ir procurar Texto...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Append Text...</source>
         <translation type="obsolete">&amp;Adicionar Texto...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Edit Text...</source>
         <translation type="obsolete">&amp;Modificar Texto...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Is PDF &amp;Bookmark</source>
         <translation type="obsolete">É &amp;Marcador PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Is PDF A&amp;nnotation</source>
         <translation type="obsolete">É A&amp;notación PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Annotation P&amp;roperties</source>
         <translation type="obsolete">P&amp;ropriedades da Anotación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Field P&amp;roperties</source>
         <translation type="obsolete">P&amp;ropriedades do Campo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;PDF Options</source>
         <translation type="obsolete">Opcións do &amp;PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Edit Text...</source>
         <translation type="obsolete">Modificar Texto...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Lock</source>
         <translation type="obsolete">B&amp;loquear</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Un&amp;lock</source>
         <translation type="obsolete">Desb&amp;loquear</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Lock Object &amp;Size</source>
         <translation type="obsolete">Bloquear o &amp;Tamaño do Obxecto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Unlock Object &amp;Size</source>
         <translation type="obsolete">Desbloquear o &amp;Tamaño do Obxecto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Send to S&amp;crapbook</source>
         <translation type="obsolete">Enviar para o Po&amp;rta-retallos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Send to La&amp;yer</source>
         <translation type="obsolete">Enviar para &amp;Capa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Insert Sample Text</source>
         <translation type="obsolete">&amp;Inserir Texto de Mostra</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Group</source>
         <translation type="obsolete">A&amp;grupar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Un&amp;group</source>
         <translation type="obsolete">Desa&amp;grupar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Le&amp;vel</source>
         <translation type="obsolete">Ní&amp;vel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Send to &amp;Back</source>
         <translation type="obsolete">Enviar para &amp;Tras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Bring to &amp;Front</source>
         <translation type="obsolete">Traer para &amp;Diante</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Lower</source>
         <translation type="obsolete">&amp;Baixar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Raise</source>
         <translation type="obsolete">Subi&amp;r</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Picture Frame</source>
         <translation type="obsolete">Moldura de &amp;Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Pol&amp;ygon</source>
         <translation type="obsolete">Pol&amp;ígono</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Outlines</source>
         <translation type="obsolete">C&amp;ontornos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Text Frame</source>
         <translation type="obsolete">Moldura de &amp;Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Bezier Curve</source>
         <translation type="obsolete">Curva de &amp;Bézier</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Conve&amp;rt to</source>
         <translation type="obsolete">Conve&amp;rtir en</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cu&amp;t</source>
         <translation type="obsolete">Recor&amp;tar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Copy</source>
         <translation type="obsolete">&amp;Copiar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;lear Contents</source>
         <translation type="obsolete">&amp;Limpar o Contido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show P&amp;roperties...</source>
         <translation type="obsolete">Mostrar P&amp;ropriedades...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Hide P&amp;roperties...</source>
         <translation type="obsolete">Agochar as P&amp;ropriedades...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengún</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do you really want to clear all your Text?</source>
         <translation type="obsolete">Realmente quer eliminar todo o Texto?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The Program</source>
         <translation type="obsolete">O Programa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>is missing!</source>
         <translation type="obsolete">falta!</translation>
     </message>
@@ -27027,7 +25788,6 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
 <context>
     <name>PageItemAttributes</name>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengún</translation>
     </message>
@@ -27148,87 +25908,70 @@ relación</translation>
 <context>
     <name>PageItemAttributesBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Page Item Attributes</source>
         <translation type="obsolete">Atributos do Elemento da Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name</source>
         <translation type="obsolete">Nome</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Type</source>
         <translation type="obsolete">Tipo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Value</source>
         <translation type="obsolete">Valor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Parameter</source>
         <translation type="obsolete">Parámetro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Relationship</source>
         <translation type="obsolete">Relación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Relationship To</source>
         <translation type="obsolete">Relación Con</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Add</source>
         <translation type="obsolete">&amp;Adicionar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Copy</source>
         <translation type="obsolete">&amp;Copiar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+D</source>
         <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;lear</source>
         <translation type="obsolete">&amp;Limpar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+L</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -27253,62 +25996,62 @@ relación</translation>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="469"/>
         <source>Embedded Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Imaxe embebida</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="498"/>
         <source>File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ficheiro:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="472"/>
         <source>Original PPI:</source>
-        <translation type="unfinished"></translation>
+        <translation>PPI Orixinal:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="473"/>
         <source>Actual PPI:</source>
-        <translation type="unfinished"></translation>
+        <translation>PPI Real:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="104"/>
         <source>Size:</source>
-        <translation type="unfinished">Tamaño:</translation>
+        <translation>Tamaño:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="474"/>
         <source>Colorspace:</source>
-        <translation type="unfinished">Espazo de cores:</translation>
+        <translation>Espazo de cores:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="478"/>
         <source>Unknown</source>
-        <translation type="unfinished">Descoñecido</translation>
+        <translation>Descoñecido</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="485"/>
         <source>Page:</source>
-        <translation type="unfinished">Páxina:</translation>
+        <translation>Páxina:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="487"/>
         <source>Pages:</source>
-        <translation type="unfinished">Páxinas:</translation>
+        <translation>Páxinas:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="496"/>
         <source>Embedded Image missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Falta a imaxe embebida</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="498"/>
         <source>missing</source>
-        <translation type="unfinished"></translation>
+        <translation>falta</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="501"/>
         <source>No Image Loaded</source>
-        <translation type="unfinished">Non se Carregou nengunha Imaxe</translation>
+        <translation>Non se carregou nengunha imaxe</translation>
     </message>
 </context>
 <context>
@@ -27416,22 +26159,22 @@ relación</translation>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="224"/>
         <source>No configuration defined to run the application!</source>
-        <translation type="unfinished"></translation>
+        <translation>Non se definiu nengunha configuración para executar a aplicación!</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="421"/>
         <source>No application defined</source>
-        <translation type="unfinished"></translation>
+        <translation>Non se definiu ningunha aplicación</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="130"/>
         <source>Rendering...</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizando...</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="139"/>
         <source>Render Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro de renderizado</translation>
     </message>
 </context>
 <context>
@@ -27493,7 +26236,6 @@ relación</translation>
 <context>
     <name>PageLayouts</name>
     <message>
-        <location filename="" line="0"/>
         <source>Page Layout</source>
         <translation type="obsolete">Disposición da Páxina</translation>
     </message>
@@ -27543,7 +26285,6 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
         <translation type="obsolete">Eis todas as páxinas mestras. Para crear unha páxina nova, arrastre unha páxina mestra á vista de páxinas de embaixo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Normal</source>
         <translation type="obsolete">Normal</translation>
     </message>
@@ -27585,28 +26326,25 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="628"/>
         <source>This master page is used at least once in the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta páxina mestra emprégase ao menos unha vez no documento.</translation>
     </message>
     <message>
         <location filename="../../scribus/pagepalette.cpp" line="632"/>
         <source>Do you really want to delete this master page?</source>
-        <translation type="unfinished">Quer realmente eliminar esta páxina mestra?</translation>
+        <translation>Quer realmente eliminar esta páxina mestra?</translation>
     </message>
 </context>
 <context>
     <name>PageSelector</name>
     <message>
-        <location filename="" line="0"/>
         <source>Page </source>
         <translation type="obsolete">Páxina </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> of %1</source>
         <translation type="obsolete"> de %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>%1 of %1</source>
         <translation type="obsolete">%1 de %1</translation>
     </message>
@@ -27619,112 +26357,90 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
 <context>
     <name>PageSize</name>
     <message>
-        <location filename="" line="0"/>
         <source>Quarto</source>
         <translation type="obsolete">Cuarto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Foolscap</source>
         <translation type="obsolete">Prego (43*35cm. aprox.)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Letter</source>
         <translation type="obsolete">Carta</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Government Letter</source>
         <translation type="obsolete">Carta Oficial</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Legal</source>
         <translation type="obsolete">Legal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ledger</source>
         <translation type="obsolete">Libro contábel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Executive</source>
         <translation type="obsolete">Executivo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Post</source>
         <translation type="obsolete">Post</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Crown</source>
         <translation type="obsolete">Coroa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Large Post</source>
         <translation type="obsolete">Posta Grande</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Demy</source>
         <translation type="obsolete">Demy</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Medium</source>
         <translation type="obsolete">Media</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Royal</source>
         <translation type="obsolete">Real</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Elephant</source>
         <translation type="obsolete">Elefante</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Double Demy</source>
         <translation type="obsolete">Dobre Demy</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Quad Demy</source>
         <translation type="obsolete">Quad Demy</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>STMT</source>
         <translation type="obsolete">STMT</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A</source>
         <translation type="obsolete">A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>B</source>
         <translation type="obsolete">B</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C</source>
         <translation type="obsolete">C</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>D</source>
         <translation type="obsolete">D</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>E</source>
         <translation type="obsolete">E</translation>
     </message>
@@ -27757,7 +26473,7 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="97"/>
         <source>This plugin bends a Polygon with the help of a Polyline.</source>
-        <translation>Esta extensión dobra un Polígono con axuda dunha Poli-liña.</translation>
+        <translation>Este engadido dobra un Polígono con axuda dunha Poli-liña.</translation>
     </message>
 </context>
 <context>
@@ -27765,47 +26481,47 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="13"/>
         <source>Connect Paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar trazos</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="19"/>
         <source>Connect first Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar a primeira liña</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="48"/>
         <source>Starting Point</source>
-        <translation type="unfinished"></translation>
+        <translation>Punto de inicio</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="53"/>
         <source>End Point</source>
-        <translation type="unfinished"></translation>
+        <translation>Punto de remate</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="40"/>
         <source>with second Line</source>
-        <translation type="unfinished"></translation>
+        <translation>coa segunda liña</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="61"/>
         <source>with:</source>
-        <translation type="unfinished">por:</translation>
+        <translation>con:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="69"/>
         <source>a straight Line</source>
-        <translation type="unfinished"></translation>
+        <translation>unha liña recta</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="74"/>
         <source>Points moving</source>
-        <translation type="unfinished"></translation>
+        <translation>Puntos en movemento</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="82"/>
         <source>Preview on Canvas</source>
-        <translation type="unfinished">Antevisión na Mesa de Traballo</translation>
+        <translation>Antevisión na Mesa de Traballo</translation>
     </message>
 </context>
 <context>
@@ -27813,17 +26529,17 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="90"/>
         <source>Connect Paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar trazos</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="69"/>
         <source>Path Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Ferramentas de trazado</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="91"/>
         <source>Connect 2 Polylines.</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar 2 poli-liñas.</translation>
     </message>
 </context>
 <context>
@@ -27851,7 +26567,7 @@ Emprégase normalmente para permitir que se coloquen elementos que se extendan e
     <message>
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="119"/>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
-        <translation>Esta extensión require ao menos a versión 4.3.3 da biblioteca Qt</translation>
+        <translation>Este engadido require ao menos a versión 4.3.3 da biblioteca Qt</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="150"/>
@@ -28014,113 +26730,114 @@ os dous extremos deben ficar fóra do polígono</translation>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="41"/>
         <source>First source shape.</source>
-        <translation type="unfinished"></translation>
+        <translation>Primeira forma de orixe.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="139"/>
         <source>Second source shape.</source>
-        <translation type="unfinished"></translation>
+        <translation>Segunda fonte de orixe.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="234"/>
         <source>The resulting shape.</source>
-        <translation type="unfinished"></translation>
+        <translation>A forma resultante.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="286"/>
         <source>Unites the shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Une as formas</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="321"/>
         <source>Intersection of the shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Intersección das formas</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="337"/>
         <source>Result is the area where the two shapes do not intersect</source>
-        <translation type="unfinished"></translation>
+        <translation>O resultado é a área na que non se interseccionan as dúas formas</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="353"/>
         <source>Break apart,
 The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Rachar,
+O resultado é unha combinación de &quot;Intersección&quot; e &quot;Exclusión&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="450"/>
         <source>Custom Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Cores persoais</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="462"/>
         <source>Stroke:</source>
-        <translation type="unfinished"></translation>
+        <translation>Trazo:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="488"/>
         <source>Fill:</source>
-        <translation type="unfinished"></translation>
+        <translation>Enchido:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="158"/>
         <source>Keep a copy of the original item after applying the operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Manter unha copia do elemento orixinal após aplicar a operación</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="161"/>
         <source>Keep</source>
-        <translation type="unfinished"></translation>
+        <translation>Manter</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="305"/>
         <source>Subtracts the second shape from the first shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Resta a segunda forma da primeira</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="378"/>
         <source>Exchange the Source Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Intercambiar as formas das fontes</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="418"/>
         <source>Result takes color from:</source>
-        <translation type="unfinished"></translation>
+        <translation>O resultado toma a cor de:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="424"/>
         <source>The resulting shape uses the color of the first source shape</source>
-        <translation type="unfinished"></translation>
+        <translation>A forma resultante emprega a cor da primeira forma de orixe</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="427"/>
         <source>First Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Primeira forma</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="437"/>
         <source>The resulting shape uses the color of the second source shape</source>
-        <translation type="unfinished"></translation>
+        <translation>A forma resultante emprega a cor da segunda forma de orixe</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="440"/>
         <source>Second Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Segunda forma</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="447"/>
         <source>The resulting shape uses the colors listed below</source>
-        <translation type="unfinished"></translation>
+        <translation>A forma resultante emprega as cores que se enumeran embaixo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="478"/>
         <source>Stroke Color</source>
-        <translation type="unfinished">Cor do Trazo</translation>
+        <translation>Cor do Trazo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="498"/>
         <source>Fill Color</source>
-        <translation type="unfinished">Cor de Enchido</translation>
+        <translation>Cor de Enchido</translation>
     </message>
 </context>
 <context>
@@ -28166,7 +26883,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="123"/>
         <source>This plugin requires at least version 4.3.3 of the Qt library</source>
-        <translation>Esta extensión require ao menos a versión 4.3.3 da biblioteca Qt</translation>
+        <translation>Este engadido require ao menos a versión 4.3.3 da biblioteca Qt</translation>
     </message>
 </context>
 <context>
@@ -28278,12 +26995,10 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <translation>Procurar Resultado para: </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Preview</source>
         <translation type="obsolete">Antevisión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select</source>
         <translation type="obsolete">Seleccionar</translation>
     </message>
@@ -28313,22 +27028,18 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <translation>Descoñecido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>RGB</source>
         <translation type="obsolete">RGB</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>CMYK</source>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Grayscale</source>
         <translation type="obsolete">Escala de grises</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Duotone</source>
         <translation type="obsolete">Duotone</translation>
     </message>
@@ -28361,32 +27072,26 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
 <context>
     <name>PicSearchBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Result</source>
         <translation type="obsolete">Resultado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Search Results for: </source>
         <translation type="obsolete">Procurar Resultado para: </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Preview</source>
         <translation type="obsolete">Vista &amp;Previa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+P</source>
         <translation type="obsolete">Alt+P</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Select</source>
         <translation type="obsolete">&amp;Seleccionar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+S</source>
         <translation type="obsolete">Alt+S</translation>
     </message>
@@ -28469,42 +27174,34 @@ Escolla outro.</translation>
 <context>
     <name>PicSearchOptionsBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Search Images</source>
         <translation type="obsolete">Procurar Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Start at:</source>
         <translation type="obsolete">Iniciar en:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Change...</source>
         <translation type="obsolete">Mudar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Search for:</source>
         <translation type="obsolete">Procurar:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Case insensitive search</source>
         <translation type="obsolete">Pesquisar sen distinguir maiúsculas e minúsculas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Search recursivly</source>
         <translation type="obsolete">Procurar nos directorios inferiores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Searching</source>
         <translation type="obsolete">A procurar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Start Search</source>
         <translation type="obsolete">Iniciar a Procura</translation>
     </message>
@@ -28512,32 +27209,26 @@ Escolla outro.</translation>
 <context>
     <name>PicStatus</name>
     <message>
-        <location filename="" line="0"/>
         <source>Pictures</source>
         <translation type="obsolete">Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name</source>
         <translation type="obsolete">Nome</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Path</source>
         <translation type="obsolete">Rota</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page</source>
         <translation type="obsolete">Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print</source>
         <translation type="obsolete">Imprimir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Status</source>
         <translation type="obsolete">Situación</translation>
     </message>
@@ -28547,32 +27238,26 @@ Escolla outro.</translation>
         <translation type="obsolete">IrA</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Yes</source>
         <translation type="obsolete">Si</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Missing</source>
         <translation type="obsolete">Falta</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Search</source>
         <translation type="obsolete">Procurar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cancel Search</source>
         <translation type="obsolete">Deter a Procura</translation>
     </message>
@@ -28587,7 +27272,6 @@ Escolla outro.</translation>
         <translation>Scribus - Procura de Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The search failed: %1</source>
         <translation type="obsolete">Fallou a pesquisa: %1</translation>
     </message>
@@ -28597,7 +27281,6 @@ Escolla outro.</translation>
         <translation>Non se atoparon imaxes co nome &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select a base directory for search</source>
         <translation type="obsolete">Escolla un directorio base para procurar</translation>
     </message>
@@ -28652,22 +27335,18 @@ Escolla outro.</translation>
         <translation>Descoñecido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>RGB</source>
         <translation type="obsolete">RGB</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>CMYK</source>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Grayscale</source>
         <translation type="obsolete">Escala de grises</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Duotone</source>
         <translation type="obsolete">Duotone</translation>
     </message>
@@ -28939,138 +27618,112 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/picstatus.cpp" line="264"/>
         <source>Embedded Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Imaxe embebida</translation>
     </message>
 </context>
 <context>
     <name>PicStatusBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Manage Pictures</source>
         <translation type="obsolete">Xestionar as Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Information</source>
         <translation type="obsolete">Información</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Path:</source>
         <translation type="obsolete">Rota:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Search...</source>
         <translation type="obsolete">Procurar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name:</source>
         <translation type="obsolete">Nome:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Image</source>
         <translation type="obsolete">Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>DPI:</source>
         <translation type="obsolete">DPI:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Format:</source>
         <translation type="obsolete">Formato:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Colorspace:</source>
         <translation type="obsolete">Espazo de cores:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Size</source>
         <translation type="obsolete">Tamaño</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Pixels:</source>
         <translation type="obsolete">Píxeles:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scale:</source>
         <translation type="obsolete">Escala:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Printed:</source>
         <translation type="obsolete">Impreso:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Layout</source>
         <translation type="obsolete">Disposición</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>On Page:</source>
         <translation type="obsolete">Na Páxina:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Goto</source>
         <translation type="obsolete">IrA</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>eff. DPI:</source>
         <translation type="obsolete">DPI efect.:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Object:</source>
         <translation type="obsolete">Obxecto:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select</source>
         <translation type="obsolete">Seleccionar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Image Tools</source>
         <translation type="obsolete">Ferramentas de Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Layers &amp;&amp; Paths...</source>
         <translation type="obsolete">Capas e Rotas...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Image Visible</source>
         <translation type="obsolete">Imaxe Visíbel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Image Effects...</source>
         <translation type="obsolete">Efectos de Imaxe...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Edit Image...</source>
         <translation type="obsolete">Modificar a Imaxe...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print Image</source>
         <translation type="obsolete">Imprimir a Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Close</source>
         <translation type="obsolete">Fechar</translation>
     </message>
@@ -29095,7 +27748,7 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/plugins/pixmapexport/export.cpp" line="123"/>
         <source>Save as Image</source>
-        <translation type="unfinished">Gardar como Imaxe</translation>
+        <translation>Gardar como imaxe</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="130"/>
@@ -29110,12 +27763,12 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/plugins/pixmapexport/export.cpp" line="118"/>
         <source>The target location %1 must be an existing directory</source>
-        <translation type="unfinished"></translation>
+        <translation>O lugar de destino %1 ha de ser un directorio existente</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/pixmapexport/export.cpp" line="124"/>
         <source>The target location %1 must be writable</source>
-        <translation type="unfinished"></translation>
+        <translation>O lugar de destino %1 hase de poder escribir</translation>
     </message>
 </context>
 <context>
@@ -29124,7 +27777,7 @@ Escolla outro.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="72"/>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
-        <translation>Non se atopou a extensión</translation>
+        <translation>Non se atopou o engadido</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="61"/>
@@ -29154,37 +27807,33 @@ Escolla outro.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="267"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
-        <translation>tipo de extensión descoñecido</translation>
+        <translation>tipo de engadido descoñecido</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="271"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
-        <translation>Extensión: %1 carregado</translation>
+        <translation>Engadido: %1 carregado</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="275"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
-        <translation>Extensión: %1 non se puido carregar: %2</translation>
+        <translation>Engadido: %1 non se puido carregar: %2</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PostScript Files (*.eps *.EPS *.ps *.PS);;</source>
         <translation type="obsolete">Ficheiros PostScript (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>SVG Images (*.svg *.svgz);;</source>
         <translation type="obsolete">Imaxes SVG (*.svg *.svgz);;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>SVG Images (*.svg);;</source>
         <translation type="obsolete">Imaxes SVG (*.svg);;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OpenOffice.org Draw (*.sxd);;</source>
         <translation type="obsolete">Draw do OpenOffice.org (*.sxd);;</translation>
     </message>
@@ -29192,18 +27841,18 @@ Escolla outro.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="341"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
-        <translation>Extensión: %1 inicializada sen problemas </translation>
+        <translation>Engadido: %1 inicializada sen problemas </translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="343"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
-        <translation>Extensión: %1 fallou a post-inicialización</translation>
+        <translation>Engadido: %1 fallou a post-inicialización</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="228"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
-        <translation>Atopouse un problema ao carregar %1 de %2 extensións. %3 Isto débese probabelmente a algún tipo de problema de dependencias con extensións vellas existentes no directorio de instalación. Se limpa o  directorio de instalación e reinstala e ainda así atopa este problema, informe deste problema en bugs.scribus.net.</translation>
+        <translation>Atopouse un problema ao carregar %1 de %2 engadidos. %3 Isto débese probabelmente a algún tipo de problema de dependencias con engadidos vellos existentes no directorio de instalación. Se limpa o  directorio de instalación e reinstala e ainda así atopa este problema, informe deste problema en bugs.scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -29211,12 +27860,12 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/pluginmanagerprefsgui.ui" line="19"/>
         <source>Plugin Manager</source>
-        <translation>Xestor de Extensións</translation>
+        <translation>Xestor de engadidos</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanagerprefsgui.ui" line="35"/>
         <source>Plugin</source>
-        <translation>Extensión</translation>
+        <translation>Engadido</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanagerprefsgui.ui" line="40"/>
@@ -29236,7 +27885,7 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/pluginmanagerprefsgui.ui" line="55"/>
         <source>Plugin ID</source>
-        <translation>ID da Extensión</translation>
+        <translation>ID do engadido</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanagerprefsgui.ui" line="60"/>
@@ -29244,12 +27893,10 @@ Escolla outro.</translation>
         <translation>Ficheiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Yes</source>
         <translation type="obsolete">Si</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>No</source>
         <translation type="obsolete">Non</translation>
     </message>
@@ -29272,62 +27919,50 @@ Escolla outro.</translation>
         <translation>Propiedades do Polígono</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Corn&amp;ers:</source>
         <translation type="obsolete">Esqu&amp;inas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Rotation:</source>
         <translation type="obsolete">&amp;Rotación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply &amp;Factor</source>
         <translation type="obsolete">Aplicar &amp;Factor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> %</source>
         <translation type="obsolete"> %</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Factor:</source>
         <translation type="obsolete">&amp;Factor:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Number of corners for polygons</source>
         <translation type="obsolete">Número de esquinas do polígono</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Degrees of rotation for polygons</source>
         <translation type="obsolete">Graos de rotación do polígono</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
         <translation type="obsolete">Aplicar un Factor de Convexidade/Concavidade para mudar a forma dos Polígonos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sample Polygon</source>
         <translation type="obsolete">Polígono de Mostra</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
         <translation type="obsolete">Un valor negativo fará que o polígono sexa cóncavo (que teña forma de estrela);
@@ -29382,7 +28017,6 @@ un valor positivo farao convexo</translation>
         <translation type="obsolete">Polígono de Mostra</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
         <translation type="obsolete">Un valor negativo fará que o polígono sexa cóncavo (que teña forma de estrela);
@@ -29399,62 +28033,62 @@ un valor positivo farao convexo</translation>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="19"/>
         <source>Form</source>
-        <translation type="unfinished">Formulario</translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="30"/>
         <source>Corn&amp;ers:</source>
-        <translation type="unfinished">Esqu&amp;inas:</translation>
+        <translation>&amp;Esquinas:</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="40"/>
         <source>Number of corners for polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de esquinas dos polígonos</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="53"/>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Rotación:</translation>
+        <translation>&amp;Rotación:</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="76"/>
         <source>Degrees of rotation for polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Graos de rotación dos polígonos</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="121"/>
         <source>Sample Polygon</source>
-        <translation type="unfinished">Polígono de Mostra</translation>
+        <translation>Polígono de mostra</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="143"/>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished">Aplicar un Factor de Convexidade/Concavidade para mudar a forma dos Polígonos</translation>
+        <translation>Aplicar un factor de convexidade/concavidade para mudar a forma dos polígonos</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="146"/>
         <source>Apply &amp;Factor</source>
-        <translation type="unfinished">Aplicar &amp;Factor</translation>
+        <translation>Aplicar &amp;factor</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="161"/>
         <source>&amp;Factor:</source>
-        <translation type="unfinished">&amp;Factor:</translation>
+        <translation>&amp;Factor:</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="187"/>
         <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
-        <translation type="unfinished">Un valor negativo fará que o polígono sexa cóncavo (ou con forma de estrela), un valor positivo faráo convexo</translation>
+        <translation>Un valor negativo fará que o polígono sexa cóncavo (ou con forma de estrela); un valor positivo faráo convexo</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="216"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/polygonwidgetbase.ui" line="206"/>
         <source>C&amp;urvature:</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;urvatura:</translation>
     </message>
 </context>
 <context>
@@ -29505,1093 +28139,877 @@ un valor positivo farao convexo</translation>
         <translation>Ferramentas externas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Misc.</source>
         <translation type="obsolete">Diversos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>GUI</source>
         <translation type="obsolete">Aparencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Theme:</source>
         <translation type="obsolete">&amp;Tema:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Font Size:</source>
         <translation type="obsolete">Tamaño da &amp;Fonte:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Units</source>
         <translation type="obsolete">Unidades</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Points (pt)</source>
         <translation type="obsolete">Puntos (pt)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Millimetres (mm)</source>
         <translation type="obsolete">Milímetros (mm)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Inches (in)</source>
         <translation type="obsolete">Polgadas (in)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Picas (p)</source>
         <translation type="obsolete">Picas (p)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mouse Settings</source>
         <translation type="obsolete">Configuración do Rato</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Wheel Jump:</source>
         <translation type="obsolete">&amp;Salto do Rato:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> px</source>
         <translation type="obsolete"> px</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Grab Radius:</source>
         <translation type="obsolete">Radio de a&amp;garre:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Menus</source>
         <translation type="obsolete">Menús</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Recent Documents:</source>
         <translation type="obsolete">Documentos &amp;Recentes:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Paths</source>
         <translation type="obsolete">Rotas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Documents:</source>
         <translation type="obsolete">&amp;Documentos:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Change...</source>
         <translation type="obsolete">&amp;Mudar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;ICC Profiles:</source>
         <translation type="obsolete">Perfís &amp;ICC:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;hange...</source>
         <translation type="obsolete">&amp;Mudar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Scripts:</source>
         <translation type="obsolete">&amp;Guións:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ch&amp;ange...</source>
         <translation type="obsolete">Mud&amp;ar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>T&amp;emplates:</source>
         <translation type="obsolete">Mod&amp;elos:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cha&amp;nge...</source>
         <translation type="obsolete">Muda&amp;r...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page Size</source>
         <translation type="obsolete">Tamaño da páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Executive</source>
         <translation type="obsolete">Executivo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Folio</source>
         <translation type="obsolete">Folio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ledger</source>
         <translation type="obsolete">Libro contábel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Legal</source>
         <translation type="obsolete">Legal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Letter</source>
         <translation type="obsolete">Carta</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Tabloid</source>
         <translation type="obsolete">Tabloide</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Custom</source>
         <translation type="obsolete">Personalizado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Size:</source>
         <translation type="obsolete">&amp;Tamaño:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Portrait</source>
         <translation type="obsolete">Retrato</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Landscape</source>
         <translation type="obsolete">Apaisado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Orie&amp;ntation:</source>
         <translation type="obsolete">Orie&amp;ntación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Width:</source>
         <translation type="obsolete">&amp;Anchura:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Height:</source>
         <translation type="obsolete">&amp;Altura:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Facing Pages</source>
         <translation type="obsolete">Páxinas &amp;Enfrentadas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Left &amp;Page First</source>
         <translation type="obsolete">A Páxina &amp;Esquerda Primeiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Margin Guides</source>
         <translation type="obsolete">Guías das Marxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Bottom:</source>
         <translation type="obsolete">&amp;Inferior:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Top:</source>
         <translation type="obsolete">&amp;Superior:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Right:</source>
         <translation type="obsolete">Di&amp;reita:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Left:</source>
         <translation type="obsolete">&amp;Esquerda:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Autosave</source>
         <translation type="obsolete">Gardado automático</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Enabled</source>
         <translation type="obsolete">&amp;Activado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>min</source>
         <translation type="obsolete">min</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Interval:</source>
         <translation type="obsolete">&amp;Intervalo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Grid Layout</source>
         <translation type="obsolete">Disposición da Grella</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>M&amp;inor Grid Spacing:</source>
         <translation type="obsolete">Espaciamento da Grella S&amp;ecundaria:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ma&amp;jor Grid Spacing:</source>
         <translation type="obsolete">Espaciamento da Grella Pr&amp;incipal:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Guide &amp;Snap Distance:</source>
         <translation type="obsolete">Di&amp;stancia de Agarre:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Grid Colors</source>
         <translation type="obsolete">Cores da Grella</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Min&amp;or Grid Color:</source>
         <translation type="obsolete">Cor da Grella Secund&amp;oria:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Majo&amp;r Grid Color:</source>
         <translation type="obsolete">Cor da Grella &amp;Principal:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;User Guides Color:</source>
         <translation type="obsolete">Cor das Guías do &amp;Usuario:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Base&amp;line Grid Color:</source>
         <translation type="obsolete">Cor da Grella &amp;Base:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Placing</source>
         <translation type="obsolete">Colocación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>In the &amp;Background</source>
         <translation type="obsolete">No &amp;Fondo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>In the Fore&amp;ground</source>
         <translation type="obsolete">Por &amp;Diante</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Baseline Grid</source>
         <translation type="obsolete">Grella Base</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>O&amp;n</source>
         <translation type="obsolete">&amp;Activada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>O&amp;ff</source>
         <translation type="obsolete">De&amp;sactivada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Subscript</source>
         <translation type="obsolete">Subíndice</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> %</source>
         <translation type="obsolete"> %</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Displacement:</source>
         <translation type="obsolete">&amp;Desprazamento:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Scaling:</source>
         <translation type="obsolete">E&amp;scala:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Superscript</source>
         <translation type="obsolete">Superíndice</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>D&amp;isplacement:</source>
         <translation type="obsolete">D&amp;esprazamento:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>S&amp;caling:</source>
         <translation type="obsolete">Es&amp;cala:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Small Caps</source>
         <translation type="obsolete">Versalitas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sc&amp;aling:</source>
         <translation type="obsolete">Esc&amp;ala:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Other</source>
         <translation type="obsolete">Outra</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Baseline &amp;Grid:</source>
         <translation type="obsolete">&amp;Grella de Base:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Baseline &amp;Offset:</source>
         <translation type="obsolete">Dis&amp;tancia da Grella Base:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Automatic &amp;Line Spacing:</source>
         <translation type="obsolete">Inter&amp;liñado Automático:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default &amp;Font:</source>
         <translation type="obsolete">&amp;Fonte por Omisión:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default &amp;Size:</source>
         <translation type="obsolete">Tama&amp;ño por Omisión:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Text Color:</source>
         <translation type="obsolete">Cor do &amp;Texto:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Colu&amp;mns:</source>
         <translation type="obsolete">Colu&amp;mnas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Gap:</source>
         <translation type="obsolete">&amp;Distancia:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation type="obsolete">Se xa o túzaro dicía que mañá quérenllo pór</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Line Color:</source>
         <translation type="obsolete">Cor da &amp;Liña:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Shading:</source>
         <translation type="obsolete">&amp;Saturación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Fill Color:</source>
         <translation type="obsolete">Cor de &amp;Enchido:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>S&amp;hading:</source>
         <translation type="obsolete">Sa&amp;turación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Type of Line:</source>
         <translation type="obsolete">&amp;Tipo de Liña:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line &amp;Width:</source>
         <translation type="obsolete">&amp;Anchura da Liña:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mi&amp;nimum:</source>
         <translation type="obsolete">Mí&amp;nimo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ma&amp;ximum:</source>
         <translation type="obsolete">Má&amp;ximo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Stepping:</source>
         <translation type="obsolete">&amp;Salto:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Free Scaling</source>
         <translation type="obsolete">Ampliación &amp;Libre</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Horizontal Scaling:</source>
         <translation type="obsolete">Ampliación &amp;Horizontal:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Vertical Scaling:</source>
         <translation type="obsolete">Ampliación &amp;Vertical:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Scale Picture to Frame Size</source>
         <translation type="obsolete">Aco&amp;modar a Imaxe ao Tamaño da Moldura</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Keep Aspect &amp;Ratio</source>
         <translation type="obsolete">Manter a &amp;Proporción</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>F&amp;ill Color:</source>
         <translation type="obsolete">C&amp;or de Enchido:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Corn&amp;ers:</source>
         <translation type="obsolete">Esqu&amp;inas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Rotation:</source>
         <translation type="obsolete">&amp;Rotación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply &amp;Factor</source>
         <translation type="obsolete">Aplicar &amp;Factor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Factor:</source>
         <translation type="obsolete">&amp;Factor:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Other Options</source>
         <translation type="obsolete">Outras Opcións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sa&amp;ve Contents on Changes</source>
         <translation type="obsolete">Sal&amp;var o Contido nos Cambios</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Preview</source>
         <translation type="obsolete">Antevisión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Small</source>
         <translation type="obsolete">Pequena</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Medium</source>
         <translation type="obsolete">Media</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Large</source>
         <translation type="obsolete">Grande</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Display Pages &amp;Side by Side</source>
         <translation type="obsolete">Mostrar as Páxinas &amp;Lado a Lado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page Colors</source>
         <translation type="obsolete">Cores da Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Background:</source>
         <translation type="obsolete">&amp;Fondo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Margins:</source>
         <translation type="obsolete">&amp;Marxes:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Display &amp;Unprintable Area in Margin Color</source>
         <translation type="obsolete">Mostrar a Área &amp;Non Imprimíbel na Cor da Marxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Use PDF 1.4 &amp;Transparency Features</source>
         <translation type="obsolete">Usar a Funcionalidade de &amp;Transparencia de PDF 1.4</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Adjust Display Size</source>
         <translation type="obsolete">&amp;Axustar o Tamaño da Exhibición</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>To adjust the display drag the ruler below with the Slider.</source>
         <translation type="obsolete">Para axustar a exhibición arrastre a regra de embaixo.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Postscript Interpreter</source>
         <translation type="obsolete">Intérprete de Postcript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Name of Executable:</source>
         <translation type="obsolete">&amp;Nome do Executábel:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Antialias &amp;Text</source>
         <translation type="obsolete">&amp;Texto Antialias</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Antialias &amp;Graphics</source>
         <translation type="obsolete">&amp;Gráficos Antialias</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Image Processing Tool</source>
         <translation type="obsolete">Ferramenta de Procesamento de Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name of &amp;Executable:</source>
         <translation type="obsolete">Nome do &amp;Executábel:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Printing</source>
         <translation type="obsolete">Impresión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Clip to Page &amp;Margins</source>
         <translation type="obsolete">Arrimar ás &amp;Marxes da Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply &amp;Under Color Removal</source>
         <translation type="obsolete">Aplicar Eliminación da Cor &amp;Inferior (UCR)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Choose the default window decoration and looks.
 Scribus inherits any available KDE or Qt themes</source>
         <translation type="obsolete">Escolla a decoración e aparencia predeterminadas das xanelas.
 Scribus herda calquer tema disponíbel de KDE ou Qt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default font size for the menus and windows</source>
         <translation type="obsolete">Tamaño por omisión da fonte para os menús e xanelas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default unit of measurement for document editing</source>
         <translation type="obsolete">Unidade de medida por omisión para a edición de documentos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
         <translation type="obsolete">Número de liñas que se desprazará o punteiro a cada movemento da roda do rato</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
         <translation type="obsolete">Radio da área dentro da que Scribus permitirá agarrar os manipuladores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation type="obsolete">Número de documentos editados recentementos que se mostrarán no menú Ficheiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default documents directory</source>
         <translation type="obsolete">Directorio por omisión dos documentos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default ICC profiles directory. This cannot
 be changed with documents open.</source>
         <translation type="obsolete">Directorio por omisión dos perfís ICC. Non se pode mudar co documentos abertos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default Scripter scripts directory</source>
         <translation type="obsolete">Directorio por omisión dos guións do Scripter</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Additional Directory for Document Templates</source>
         <translation type="obsolete">Directorio adicional dos Modelos de Documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default page size, either a standard size or a custom size</source>
         <translation type="obsolete">Tamaño por omisión da páxina, ora un tamaño padrón ou un personalizado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default orientation of document pages</source>
         <translation type="obsolete">Orientación por omisión das páxinas dos documentos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
         <translation type="obsolete">Anchura das páxinas dos documentos, modificábel se escolleu un tamaño de páxina personalizado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
         <translation type="obsolete">Altura das páxinas dos documentos, modificábel se escolleu un tamaño de páxina personalizado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enable single or spread based layout</source>
         <translation type="obsolete">Permitir a disposición sinxela ou de dobre páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Make the first page the left page of a document</source>
         <translation type="obsolete">Facer que a primeira páxina sexa a páxina esquerda do documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the top margin guide and the edge of the page</source>
         <translation type="obsolete">Distancia entre a guía da marxe superior e o bordo da páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
         <translation type="obsolete">Distancia entre a guía da marxe inferior e o bordo da páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="obsolete">Distancia entre a guía da marxe esquerda e o bordo da páxina.
 Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obter as marxes adecuadas para a encuadernación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="obsolete">Distancia entre a guía da marxe direita e o bordo da páxina.
 Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obter as marxes adecuadas para a encuadernación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
 each time the time period elapses</source>
         <translation type="obsolete">Se se activa, Scribus salva unha copia de seguranza do seu ficheiro coa extensión .bak
 cada fracción de tempo determinada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Time period between saving automatically</source>
         <translation type="obsolete">Período de tempo após o que se produce o gardado automático</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the minor grid lines</source>
         <translation type="obsolete">Distancia entre as liñas da grella secundaria</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the major grid lines</source>
         <translation type="obsolete">Distancia entre as liñas da grella principal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance within which an object will snap to your placed guides</source>
         <translation type="obsolete">Distancia á que un obxecto se agarrará ás guías personalizadas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color of the minor grid lines</source>
         <translation type="obsolete">Cor das liñas da grella secundaria</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color of the major grid lines</source>
         <translation type="obsolete">Cor das liñas da grella principal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color of the guide lines you insert</source>
         <translation type="obsolete">Cor das liñas das liñas guía que vaia colocando</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Place the grid behind your page objects</source>
         <translation type="obsolete">Colocar a grella por detrás dos obxectos da páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Place the grid in front of your page objects</source>
         <translation type="obsolete">Colocar a grella por diante dos obxectos da páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Turns on the base grid</source>
         <translation type="obsolete">Activa a grella base</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Turns off the base grid</source>
         <translation type="obsolete">Desactiva a grella base</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Displacement above the baseline of the font on a line</source>
         <translation type="obsolete">Desprazamento da fonte por en cima da liña de base nunha liña</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Relative size of the superscript compared to the normal font</source>
         <translation type="obsolete">Tamaño relativo do superíndice en relación á fonte normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Displacement below the baseline of the normal font on a line</source>
         <translation type="obsolete">Desprazamento da fonte por debaixo da liña de base nunha liña</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Relative size of the subscript compared to the normal font</source>
         <translation type="obsolete">Tamaño relativo do subíndice en relación á fonte normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Relative size of the small caps font compared to the normal font</source>
         <translation type="obsolete">Tamaño relativo das versalitas en relación á fonte normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Percentage increase over the font size for the line spacing</source>
         <translation type="obsolete">Incremento en percentaxe sobre o tamaño da fonte do espaciamento da liña</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Text Frame Properties</source>
         <translation type="obsolete">Propriedades das Molduras de Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Picture Frame Properties</source>
         <translation type="obsolete">Propriedades das Molduras de Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Shape Drawing Properties</source>
         <translation type="obsolete">Propriedades do Deseño de Formas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Magnification Level Defaults</source>
         <translation type="obsolete">Nível Predeterminado de Aumento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line Drawing Properties</source>
         <translation type="obsolete">Propriedades do Deseño de Liñas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Polygon Drawing Properties</source>
         <translation type="obsolete">Propriedades do Deseño de Polígonos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font for new text frames</source>
         <translation type="obsolete">Fonte para as molduras de texto novas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Size of font for new text frames</source>
         <translation type="obsolete">Tamaño da fonte para as molduras de texto novas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color of font</source>
         <translation type="obsolete">Cor da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Number of columns in a text frame</source>
         <translation type="obsolete">Número de columnas nunha moldura de texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Gap between text frame columns</source>
         <translation type="obsolete">Distancia entre as columnas das molduras de texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sample of your font</source>
         <translation type="obsolete">Mostra da súa fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Picture frames allow pictures to scale to any size</source>
         <translation type="obsolete">As molduras de imaxes permiten que as imaxes varíen de escala</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Horizontal scaling of images</source>
         <translation type="obsolete">Modificación do tamaño horizontal das imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Vertical scaling of images</source>
         <translation type="obsolete">Modificación do tamaño vertical das imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Keep horizontal and vertical scaling the same</source>
         <translation type="obsolete">Manter a proporción horizontal e vertical</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
         <translation type="obsolete">As imaxes nas molduras de imaxes acomódansse ao tamaño da moldura</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Automatically scaled pictures keep their original proportions</source>
         <translation type="obsolete">As imaxes cuxo tamaño se modifica automaticamente manteñen a proporcion orixinal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Fill color of picture frames</source>
         <translation type="obsolete">Dor de enchido das molduras de imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Saturation of color of fill</source>
         <translation type="obsolete">Saturación da cor de enchido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line color of shapes</source>
         <translation type="obsolete">Cor da liña das formas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Saturation of color of lines</source>
         <translation type="obsolete">Saturación da cor das liñas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Fill color of shapes</source>
         <translation type="obsolete">Cor de enchido das formas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line style of shapes</source>
         <translation type="obsolete">Estilo de liña das formas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line width of shapes</source>
         <translation type="obsolete">Anchura da liña das formas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Minimum magnification allowed</source>
         <translation type="obsolete">Redución mínima permitida</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Maximum magnification allowed</source>
         <translation type="obsolete">Aumento máximo permitido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Change in magnification for each zoom operation</source>
         <translation type="obsolete">Paso de aumento/redución</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color of lines</source>
         <translation type="obsolete">Cor das liñas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Saturation of color</source>
         <translation type="obsolete">Saturación da cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Style of lines</source>
         <translation type="obsolete">Estilo das liñas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Width of lines</source>
         <translation type="obsolete">Anchura das liñas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Number of corners for polygons</source>
         <translation type="obsolete">Número de esquinas dos polígonos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Degrees of rotation for polygons</source>
         <translation type="obsolete">Graos de rotación dos polígonos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
         <translation type="obsolete">Aplicar un Factor de Convexidade/Concavidade para mudar a forma dos Polígonos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sample Polygon</source>
         <translation type="obsolete">Polígono de Mostra</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
         <translation type="obsolete">Un valor negativo fará que o polígono sexa cóncavo (que teña forma de estrela);
 un valor positivo farao convexo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Choose the size of the preview in the scrapbook palette</source>
         <translation type="obsolete">Escolla o tamaño da antevisión da paleta do porta-retallos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save the scrapbook contents everytime after a change</source>
         <translation type="obsolete">Salvar o contido do porta-retallos depois de cada cambio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>When using facing pages, show the two pages side by side</source>
         <translation type="obsolete">Ao usar páxinas enfrentadas, mostrar as dúas páxinas lado a lado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color for paper</source>
         <translation type="obsolete">Cor do papel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color for the margin lines</source>
         <translation type="obsolete">Cor das liñas das marxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mask the area outside the margins in the margin color</source>
         <translation type="obsolete">Mascarar a área por fora das marxes coa cor das marxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enable transparency features within PDF 1.4 export</source>
         <translation type="obsolete">Permitir a funcionalidade de transparencia ao exportar a PDF 1.4</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Set the default zoom level</source>
         <translation type="obsolete">Asignar un nível de zoom por omisión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>File system location for the Ghostscript interpreter</source>
         <translation type="obsolete">Localización do sistema de ficheiros do intérprete de Ghostscript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation type="obsolete">Texto antialias para a exhibición na pantalla de EPS e PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
         <translation type="obsolete">Gráficos antialias para a exhibición na pantalla de EPS e PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
@@ -30602,12 +29020,10 @@ Se usa o Gimp e a súa distribución o inclúe, recoméndase usar
 xa existente do Gimp.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
         <translation type="obsolete">Non mostrar os obxectos por fora das marxes na páxina impresa ou no ficheiro exportado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A way of switching off some of the gray shades which are composed
 of cyan, yellow and magenta and using black instead.
 UCR most affects parts of images which are neutral and/or dark tones
@@ -30622,57 +29038,46 @@ ainda que é preciso experimentar segundo cada caso.
 O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Choose a Directory</source>
         <translation type="obsolete">Escolla un Directorio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Inside:</source>
         <translation type="obsolete">&amp;Dentro:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>O&amp;utside:</source>
         <translation type="obsolete">&amp;Fora:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete"> in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Language:</source>
         <translation type="obsolete">&amp;Lingua:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Document T&amp;emplates:</source>
         <translation type="obsolete">Mod&amp;elos de Documentos:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Units:</source>
         <translation type="obsolete">Unidades:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Undo/Redo</source>
         <translation type="obsolete">Desfacer/Refacer</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Action history length</source>
         <translation type="obsolete">Tamaño do historial de Accións</translation>
     </message>
@@ -30717,112 +29122,90 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
         <translation>Atallos do teclado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page Display</source>
         <translation type="obsolete">Exhibición da Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color:</source>
         <translation type="obsolete">Cor:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+U</source>
         <translation type="obsolete">Alt+U</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Pictures</source>
         <translation type="obsolete">Mostrar as Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Text Chains</source>
         <translation type="obsolete">Mostrar as Cadeas de Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Text Control Characters</source>
         <translation type="obsolete">Mostrar os Caracteres de Control do Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Frames</source>
         <translation type="obsolete">Mostrar as Molduras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Rulers relative to Page</source>
         <translation type="obsolete">Regras relativas á Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scratch Space</source>
         <translation type="obsolete">Espazo de traballo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Gaps between Pages</source>
         <translation type="obsolete">Distancia entre as Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Horizontal:</source>
         <translation type="obsolete">Horizontal:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Vertical:</source>
         <translation type="obsolete">Vertical:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>To adjust the display drag the ruler below with the slider.</source>
         <translation type="obsolete">Para axustar o que se mostra arrastre a regra de embaixo coa escala.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PostScript Interpreter</source>
         <translation type="obsolete">Intérprete de PostScript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>dpi</source>
         <translation type="obsolete">dpi</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Resolution:</source>
         <translation type="obsolete">Resolución:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Always ask before fonts are replaced when loading a document</source>
         <translation type="obsolete">Perguntar sempre antes de substituir as fontes ao carregar un documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
         <translation type="obsolete">Antevisión do Estilo de Parágrafo actual visíbel ao modificar os Estilos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Startup Dialog</source>
         <translation type="obsolete">Mostrar o Diálogo de Inicio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Lorem Ipsum</source>
         <translation type="obsolete">Lorem Ipsum</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Always use standard Lorem Ipsum</source>
         <translation type="obsolete">Utilizar sempre o Lorem Ipsum normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Count of the Paragraphs:</source>
         <translation type="obsolete">Conta de Parágrafos:</translation>
     </message>
@@ -30834,134 +29217,109 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     <message>
         <location filename="../../scribus/prefs.cpp" line="148"/>
         <source>Plugins</source>
-        <translation>Extensións</translation>
+        <translation>Engadidos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enable or disable  the display of linked frames.</source>
         <translation type="obsolete">Activar ou desactivar  mostrar as molduras vinculadas.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
         <translation type="obsolete">Mostrar os caracteres non imprimíbeis, tais como marcadores de parágrafo, nas molduras de texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Turns the display of frames on or off</source>
         <translation type="obsolete">Activa ou desactiva mostrar as molduras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Turns the display of pictures on or off</source>
         <translation type="obsolete">Activa ou desactiva mostrar as imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
         <translation type="obsolete">Escolla a linguaxe coa que quer utilizar Scribus normalmente. Déixeo en branco para escoller segundo as variábeis do contorno. É posíbel pasar por encima delas pasándolle unha opción na liña de comandos ao iniciar Scribus</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default ICC profiles directory. This cannot
 be changed with a document open.</source>
         <translation type="obsolete">Directorio de perfís ICC por omisión. Isto non se pode
 mudar cun documento aberto.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Additional directory for document templates</source>
         <translation type="obsolete">Directorio adicional para modelos de documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Set the length of the action history in steps.
 If set to 0 infinite amount of actions will be stored.</source>
         <translation type="obsolete">Indicar a lonxitude do historial de accións en número de pasos.
 Se se deixa en 0 armacenarase unha cantidade infinita de accións.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
         <translation type="obsolete">Coloque unha regra contra a pantalla e arrastre a escala para axustar o nível de zoom de maneira que Scribus mostre as páxinas e os obxectos no tamaño correcto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Filesystem location for the Ghostscript interpreter</source>
         <translation type="obsolete">Localización no sistema de ficheiros do intérprete de Ghostscript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation type="obsolete">Define a cantidade de espacio á esquerda da mesa de traballo do documento disponíbel como área libre para crear e modificar elementos e arrastralos para a páxina activa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation type="obsolete">Define a cantidade de espacio á direita da mesa de traballo do documento disponíbel como área libre para crear e modificar elementos e arrastralos para a páxina activa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation type="obsolete">Define a cantidade de espacio por encima da mesa de traballo do documento disponíbel como área libre para crear e modificar elementos e arrastralos para a páxina activa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation type="obsolete">Define a cantidade de espacio por debaixo da mesa de traballo do documento disponíbel como área libre para crear e modificar elementos e arrastralos para a páxina activa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Locate Ghostscript</source>
         <translation type="obsolete">Localizar Ghostscript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Locate your image editor</source>
         <translation type="obsolete">Localizar o seu editor de imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Font Size (Menus):</source>
         <translation type="obsolete">Tamaño da &amp;Fonte (Menús):</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font Size (&amp;Palettes):</source>
         <translation type="obsolete">Tamaño da Fonte (&amp;Paletas):</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
         <translation type="obsolete">Escolla a decoración e aparencia por omisión das xanelas. Scribus herda calquer tema disponíbel para KDE ou Qt se Qt está configurado para procurar os plugins de KDE.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default font size for the tool windows</source>
         <translation type="obsolete">Tamaño de fonte por omisión para as xanelas de ferramentas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
         <translation type="obsolete">  Directorio por omisión dos perfís ICC. Isto non se pode modificar cando un documento está aberto. Por omisión, Scribus procurará baixo os Directorios de Sistema en MacOS X e Windows. En Linux e Unix, Scribus procurará en $home/.color/icc,/usr/share/color/icc e /usr/local/share/color/icc</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
         <translation type="obsolete">Cando está habilitado, Scribus garda unha copia de seguranza do seu ficheiro coa extensión .bak ao transcorrer o periodo de tempo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
         <translation type="obsolete">Indique o tamaño do historial de accións en pasos. Se o deixa en 0 armacenaranse infinitas accións.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
         <translation type="obsolete">Localización do editor de gráficos no sistema de ficheiros. Se utiliza gimp e a súa distribución o inclúe, recomendamos &quot;gimp-remote&quot;, que lle permite modificar a imaxe nunha instancia xa aberta do gimp.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="obsolete">Un xeito de apagar algunhas das sombras en gris compostas de cian, amarelo e maxenta e usar negro no seu lugar.
 A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros perto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes, ainda que é preciso experimentar segundo cada caso. A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
@@ -30980,7 +29338,6 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
         <translation>&amp;Predefinido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save...</source>
         <translation type="obsolete">Salvar...</translation>
     </message>
@@ -31018,47 +29375,38 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="" line="0"/>
         <source>Single Page</source>
         <translation type="obsolete">Páxina Única</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Double sided</source>
         <translation type="obsolete">A dúas caras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Left Page</source>
         <translation type="obsolete">Páxina Esquerda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Right Page</source>
         <translation type="obsolete">Páxina Direita</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>3-Fold</source>
         <translation type="obsolete">Tríptico</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Middle</source>
         <translation type="obsolete">Medio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>4-Fold</source>
         <translation type="obsolete">Catro caras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Middle Left</source>
         <translation type="obsolete">Medio Esquerda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Middle Right</source>
         <translation type="obsolete">Medio Direita</translation>
     </message>
@@ -31105,17 +29453,14 @@ Quéreos migrar para a nova versión de Scribus?</translation>
         <translation>Postscript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PDF 1.3</source>
         <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PDF 1.4</source>
         <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PDF/X-3</source>
         <translation type="obsolete">PDF/X-3</translation>
     </message>
@@ -31143,25 +29488,22 @@ erro da aplicación scribus.</translation>
         <translation>Scribus non puido carregar as súas preferencias:&lt;br&gt;%1&lt;br&gt;Carregarase a configuración por omisión.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PDF 1.5</source>
         <translation type="obsolete">PDF 1.5</translation>
     </message>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="2125"/>
         <source>No valid renderframe config found. Using defaults!</source>
-        <translation type="unfinished"></translation>
+        <translation>Non se atopou a configuración da moldura de renderizado. Emprégase o predefinido!</translation>
     </message>
 </context>
 <context>
     <name>PresetLayout</name>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Book</source>
         <translation type="obsolete">Libro</translation>
     </message>
@@ -31171,7 +29513,6 @@ erro da aplicación scribus.</translation>
         <translation>Revista</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, &apos;Book&apos; sets margins classically (Gutenberg). &apos;Book&apos; is proposed for two-sided documents. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation type="obsolete">Aquí pode escoller a disposición da páxina por omisión. &quot;Nengunha&quot; deixa as marxes como están. &quot;Libro&quot; configura as marxes clásicas (Gutemberg). &quot;Libro&quot; proponse para documentos con dúas páxinas. &quot;Revistas&quot; deixa todas as marxes co mesmo valor. O modelo é o valor Esquerdo/Interior.</translation>
     </message>
@@ -31196,7 +29537,6 @@ erro da aplicación scribus.</translation>
         <translation>Gutenberg</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation type="obsolete">Pode escoller aquí a disposición de páxina predefinida. &quot;Nengunha&quot; deixa as marxes como están. Gutenberg dispón as marxes clásicas. &quot;Revista&quot; dalles a todas as marxes o mesmo valor. O principal é o valor Esquerda/Interior.</translation>
     </message>
@@ -31245,7 +29585,6 @@ erro da aplicación scribus.</translation>
         <translation type="obsolete">Gardar como</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
         <translation type="obsolete">Ficheiros Postscript (*.ps);;Todos (*)</translation>
     </message>
@@ -31334,27 +29673,22 @@ un rango de páxinas ou un único número de páxina.</translation>
         <translation type="obsolete">N&amp;úmero de Copias:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print &amp;Normal</source>
         <translation type="obsolete">Imprimir &amp;Normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print &amp;Separations</source>
         <translation type="obsolete">Imprimir as &amp;Separacións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Pr&amp;int In Color If Available</source>
         <translation type="obsolete">Impr&amp;imir en Cores de ser Posíbel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print In Gra&amp;yscale</source>
         <translation type="obsolete">Imprimir en &amp;Escala de Grises</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ad&amp;vanced Options...</source>
         <translation type="obsolete">Opcións A&amp;vanzadas...</translation>
     </message>
@@ -31364,12 +29698,10 @@ un rango de páxinas ou un único número de páxina.</translation>
         <translation type="obsolete">Im&amp;primir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Use an alternative print manager, such as kprinter or gtklp,
 to utilize additional printing options</source>
         <translation type="obsolete">Usar un xestor de impresión alternativo, tal como kprinter ou gtklp,
@@ -31468,7 +29800,6 @@ para utilizar opcións de impresión adicionais</translation>
 Escoller Nível 1 ou 2 pode crear ficheiros enormes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A way of switching off some of the gray shades which are composed
 of cyan, yellow and magenta and using black instead.
 UCR most affects parts of images which are neutral and/or dark tones
@@ -31519,7 +29850,6 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
         <translation type="obsolete">Arrimar ás Marxes da Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
         <translation type="obsolete">Non mostrar os obxectos por fora das marxes na páxina impresa ou no ficheiro exportado</translation>
     </message>
@@ -31644,7 +29974,6 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
         <translation type="obsolete">Distancia de sangrado desde a direita da páxina física</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
         <translation type="obsolete">Isto crea marcas de recorte no PDF que indican por onde hai que cortar o papel unha vez impreso.</translation>
     </message>
@@ -31681,7 +30010,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/printdialog.cpp" line="359"/>
         <source>Save As</source>
-        <translation type="unfinished">Gardar como</translation>
+        <translation>Gardar como</translation>
     </message>
 </context>
 <context>
@@ -32012,18 +30341,17 @@ Nota: Non se exportan os Formularios PDF.</translation>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="360"/>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Isto permite axustar explicitamente o tamaño do medio do ficheiro PostScript. Non se recomenda a non ser que o pida a imprenta.</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="370"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrimar ás marxes da impresora</translation>
     </message>
     <message>
         <location filename="../../scribus/printdialogbase.ui" line="386"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Un xeito de apagar algunhas das sombras en gris compostas de cian, amarelo e maxenta e usar negro no seu lugar.
-A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros perto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes, ainda que é preciso experimentar segundo cada caso. A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
+        <translation>Un xeito de apagar algunhas das sombras en gris compostas de cian, amarelo e maxenta e usar negro no seu lugar. A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros perto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes, ainda que é preciso experimentar segundo cada caso. A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
     </message>
 </context>
 <context>
@@ -32141,7 +30469,6 @@ Arred&amp;ondadas:</translation>
         <translation>Colu&amp;mnas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Gap:</source>
         <translation type="obsolete">&amp;Distancia:</translation>
     </message>
@@ -32191,7 +30518,6 @@ Arred&amp;ondadas:</translation>
         <translation>Distáncia á Curva:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Text &amp;Flows Around Frame</source>
         <translation type="obsolete">O Texto &amp;Flúe Arredor da Moldura </translation>
     </message>
@@ -32206,7 +30532,6 @@ Arred&amp;ondadas:</translation>
         <translation>&amp;Usar Liña de Contorno</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Font Size:</source>
         <translation type="obsolete">Tamaño da &amp;Fonte:</translation>
     </message>
@@ -32216,32 +30541,26 @@ Arred&amp;ondadas:</translation>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Shade:</source>
         <translation type="obsolete">Saturación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Custom Spacing</source>
         <translation type="obsolete">Distancia personalizado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Trac&amp;king:</source>
         <translation type="obsolete">Trac&amp;king:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>L&amp;ine Spacing:</source>
         <translation type="obsolete">Interl&amp;iñado:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>St&amp;yle:</source>
         <translation type="obsolete">Est&amp;ilo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Lan&amp;guage:</source>
         <translation type="obsolete">Lin&amp;gua:</translation>
     </message>
@@ -32506,17 +30825,14 @@ Arred&amp;ondadas:</translation>
         <translation type="obsolete">Permitir ou impedir que se imprima o obxecto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Make text in lower frames flow around the object shape</source>
         <translation type="obsolete">Facer que o texto das molduras inferiores flúa arredor da silueta do obxecto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
         <translation type="obsolete">Usar a caixa que o rodea, en vez da silueta da moldura, para o fluxo do texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
         <translation type="obsolete">Usar unha ssegunda liña baseada orixinalmente na forma da moldura para o fluxo do texto</translation>
     </message>
@@ -32536,12 +30852,10 @@ Arred&amp;ondadas:</translation>
         <translation>Largura de ampliación dos caracteres</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color of text stroke</source>
         <translation type="obsolete">Cor do trazo do texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color of text fill</source>
         <translation type="obsolete">Cor do enchido do texto</translation>
     </message>
@@ -32571,12 +30885,10 @@ Arred&amp;ondadas:</translation>
         <translation>Interliñado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Style of current paragraph</source>
         <translation type="obsolete">Estilo do parágrafo actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Hyphenation language of frame</source>
         <translation type="obsolete">Lingua da moldura para cortar con guións</translation>
     </message>
@@ -32741,17 +31053,14 @@ Arred&amp;ondadas:</translation>
         <translation>&amp;Y2:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete"> in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
@@ -32761,24 +31070,20 @@ Arred&amp;ondadas:</translation>
         <translation>Largura da columna</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
         <translation type="obsolete">O nome &quot;%1&quot; non é único.
 Escolla outro.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
@@ -32833,12 +31138,10 @@ Escolla outro.</translation>
         <translation>O nome &quot;%1&quot; non é único.&lt;br/&gt;Escolla outro.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
         <translation type="obsolete">Cor do trazo do texto. Só está disponíbel coa decoración de texto &quot;contorno&quot;.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
         <translation type="obsolete">Cor do enchido do texto. Só está disponíbel coa decoración de texto &quot;contorno&quot;.</translation>
     </message>
@@ -33245,47 +31548,47 @@ Escolla outro.</translation>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5001"/>
         <source>&amp;Page Number:</source>
-        <translation type="unfinished"></translation>
+        <translation>Número da &amp;páxina:</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4999"/>
         <source>Columns &amp; Text Distances</source>
-        <translation type="unfinished"></translation>
+        <translation>Columnas e distancias entre os textos</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4984"/>
         <source>Left Protruding</source>
-        <translation type="unfinished">Saliencia Esquerda</translation>
+        <translation>Saliencia esquerda</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4985"/>
         <source>Right Protruding</source>
-        <translation type="unfinished">Saliencia Dereita</translation>
+        <translation>Saliencia dereita</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4986"/>
         <source>Left Hanging Punctuation</source>
-        <translation type="unfinished">Puntuación Colgante á Esquerda</translation>
+        <translation>Puntuación colgante á esquerda</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4987"/>
         <source>Right Hanging Punctuation</source>
-        <translation type="unfinished">Puntuación Colgante á Dereita</translation>
+        <translation>Puntuación colgante á dereita</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="4988"/>
         <source>Reset</source>
-        <translation type="unfinished">Configuración inicial</translation>
+        <translation>Configuración inicial</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="937"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Marxes ópticas</translation>
     </message>
     <message>
         <location filename="../../scribus/propertiespalette.cpp" line="5102"/>
         <source>Hairline</source>
-        <translation type="unfinished"></translation>
+        <translation>Mira</translation>
     </message>
 </context>
 <context>
@@ -33341,7 +31644,6 @@ Escolla outro.</translation>
         <translation>Consola Python de Scribus</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
         <translation type="obsolete">Esta deriva da consola Python normal, así que contén certas limitacións, en particular no caso dos espazos en branco. Consulte o manual de Scribus para máis información.</translation>
     </message>
@@ -33361,12 +31663,10 @@ Escolla outro.</translation>
         <translation>Saída do guión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Python Scripts (*.py)</source>
         <translation type="obsolete">Scripts en Python (*.py)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Open File With Python Commands</source>
         <translation type="obsolete">Abrir Ficheiro Con Comandos en Python</translation>
     </message>
@@ -33376,7 +31676,6 @@ Escolla outro.</translation>
         <translation>Salvar os Comandos en Python nun Ficheiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
@@ -33401,7 +31700,6 @@ Escolla outro.</translation>
         <translation>Guións de Python (*.py *.PY)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line: %1 Column: %2</source>
         <translation type="obsolete">Liña: %1 Columna: %2</translation>
     </message>
@@ -33767,12 +32065,10 @@ do Scripter de Scribus para máis información.</translation>
         <translation>&lt;qt&gt;Realmente quer eliminar %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Yes</source>
         <translation type="obsolete">&amp;Si</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;No</source>
         <translation type="obsolete">&amp;Non</translation>
     </message>
@@ -33971,7 +32267,6 @@ Comprobe a rota e o nome do ficheiro.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="" line="0"/>
         <source>Normal</source>
         <translation type="obsolete">Normal</translation>
     </message>
@@ -34011,7 +32306,6 @@ Comprobe a rota e o nome do ficheiro.</translation>
         <translation>Búlgaro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Brazilian</source>
         <translation type="obsolete">Portugués do Brasil</translation>
     </message>
@@ -34111,7 +32405,6 @@ Comprobe a rota e o nome do ficheiro.</translation>
         <translation>Lituano</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Norwegian (Bokmaal)</source>
         <translation type="obsolete">Noruegués (bokmaal)</translation>
     </message>
@@ -34131,7 +32424,6 @@ Comprobe a rota e o nome do ficheiro.</translation>
         <translation>Polonés</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Portuguese (Brazilian)</source>
         <translation type="obsolete">Portugués do Brasil</translation>
     </message>
@@ -34196,7 +32488,6 @@ Comprobe a rota e o nome do ficheiro.</translation>
         <translation>A inicializar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Document</source>
         <translation type="obsolete">Documento</translation>
     </message>
@@ -34206,7 +32497,6 @@ Comprobe a rota e o nome do ficheiro.</translation>
         <translation>Fondo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
@@ -34226,22 +32516,18 @@ Comprobe a rota e o nome do ficheiro.</translation>
 exportación de páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Fonts Preview</source>
         <translation type="obsolete">Antevisión das &amp;Fontes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Insert Special</source>
         <translation type="obsolete">&amp;Inserir Especial</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>New &amp;from Template...</source>
         <translation type="obsolete">Novo a partir dun &amp;Modelo...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Template: </source>
         <translation type="obsolete">Modelo: </translation>
     </message>
@@ -34361,72 +32647,58 @@ exportación de páxina</translation>
         <translation>Modelos Propios</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save as &amp;Image...</source>
         <translation type="obsolete">Gardar como &amp;Imaxe...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save as Image</source>
         <translation type="obsolete">Gardar como Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Error writting the output file(s).</source>
         <translation type="obsolete">Erro ao escribir o(s) ficheiro(s) de saída.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Error writing the output file(s).</source>
         <translation type="obsolete">Erro ao escribir o(s) ficheiro(s) de saída.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Export successful.</source>
         <translation type="obsolete">Exportación realizada.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>File exists. Overwrite?</source>
         <translation type="obsolete">Xa existe un ficheiro con ese nome. Sobreescribimos?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>exists already. Overwrite?</source>
         <translation type="obsolete">xa existe. Sobreescribimos?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>No</source>
         <translation type="obsolete">Non</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Yes</source>
         <translation type="obsolete">Si</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Yes all</source>
         <translation type="obsolete">Si a todo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print Preview</source>
         <translation type="obsolete">Antevisión da impresión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print Previe&amp;w</source>
         <translation type="obsolete">Ante&amp;visión da Impresión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import &amp;EPS/PS...</source>
         <translation type="obsolete">Importar &amp;EPS/PS...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
         <translation type="obsolete">Todos os Formatos Coñecidos (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
@@ -34436,7 +32708,6 @@ exportación de páxina</translation>
         <translation>AbrirAbrir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save as &amp;Template...</source>
         <translation type="obsolete">Gardar como &amp;Modelo...</translation>
     </message>
@@ -34453,7 +32724,6 @@ exportación de páxina</translation>
         <translation>Non se atopou a cor.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cannot get a colour with an empty name.</source>
         <comment>python error</comment>
         <translation type="obsolete">Non se pode procurar unha cor co nome en branco.
@@ -34461,7 +32731,6 @@ exportación de páxina</translation>
 erro de python.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color not found</source>
         <comment>python error</comment>
         <translation type="obsolete">Non se atopou a cor</translation>
@@ -34503,13 +32772,11 @@ erro de python.</translation>
         <translation>Non se pode substituir unha cor co nome en branco.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Failed to open document</source>
         <comment>python error</comment>
         <translation type="obsolete">Non se puido abrir o documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Failed to save document</source>
         <comment>python error</comment>
         <translation type="obsolete">Non se puido salvar o documento</translation>
@@ -34557,7 +32824,6 @@ erro de python.</translation>
         <translation>Non se pode exhibir unha mostra baleira.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Unable to save pixmap.</source>
         <comment>scripter error</comment>
         <translation type="obsolete">Non se puido salvar a imaxe.
@@ -34589,7 +32855,6 @@ erro do scripter.</translation>
         <translation>Non se pode crear unha capa sen nome.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>An object with the requested name already exists</source>
         <comment>python error</comment>
         <translation type="obsolete">Xa existe un obxecto co nome solicitade.
@@ -34597,7 +32862,6 @@ erro do scripter.</translation>
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Point list must contain at least two points (four values)</source>
         <comment>python error</comment>
         <translation type="obsolete">A lista de puntos debe conter dous puntos como mínimo (catro valores)
@@ -34605,7 +32869,6 @@ erro de python</translation>
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Point list must contain an even number of values</source>
         <comment>python error</comment>
         <translation type="obsolete">A lista de puntos debe conter un número par de valores
@@ -34613,7 +32876,6 @@ erro de python</translation>
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Point list must contain at least three points (six values)</source>
         <comment>python error</comment>
         <translation type="obsolete">A lista de puntos debe conter tres puntos como mínimo (seis valores)
@@ -34621,7 +32883,6 @@ erro de python</translation>
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Point list must contain at least four points (eight values)</source>
         <comment>python error</comment>
         <translation type="obsolete">A lista de puntos debe conter catro puntos como mínimo (oitovalores)
@@ -34629,7 +32890,6 @@ erro de python</translation>
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Point list must have a multiple of six values</source>
         <comment>python error</comment>
         <translation type="obsolete">A lista de puntos debe ter un múltiplo de seis valores
@@ -34637,7 +32897,6 @@ erro de python</translation>
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Object not found</source>
         <comment>python error</comment>
         <translation type="obsolete">Non se atopou o obxecto
@@ -34645,7 +32904,6 @@ erro de python</translation>
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Style not found</source>
         <comment>python error</comment>
         <translation type="obsolete">Non se atopou o estilo
@@ -34653,7 +32911,6 @@ erro de python</translation>
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Can&apos;t set style on a non-text frame</source>
         <comment>python error</comment>
         <translation type="obsolete">Non se pode asignar o estilo a unha moldura que non sexa de texto
@@ -34662,7 +32919,6 @@ erro de python
 </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Failed to save EPS</source>
         <comment>python error</comment>
         <translation type="obsolete">Non se puido salvar o EPS
@@ -34670,7 +32926,6 @@ erro de python
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page number out of range</source>
         <comment>python error</comment>
         <translation type="obsolete">Número de páxinas fora de rango
@@ -34678,7 +32933,6 @@ erro de python</translation>
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>argument is not list: must be list of float values</source>
         <comment>python error</comment>
         <translation type="obsolete">o argumento non é unha lista: debe ser unha lista de valores float
@@ -34686,7 +32940,6 @@ erro de python</translation>
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>argument contains non-numeric values: must be list of float values</source>
         <comment>python error</comment>
         <translation type="obsolete">o argumento contén valores non numéricos; debe ser unha lista de valores float
@@ -34694,7 +32947,6 @@ erro de python</translation>
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
         <comment>python error</comment>
         <translation type="obsolete">Anchura da liña fora de límites, debe ser 0 &lt;= ancho_da_liña &lt;= 12
@@ -34702,7 +32954,6 @@ erro de python</translation>
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
         <translation type="obsolete">Saturación da liña fora de límites; debe ser 0 &lt;= saturación &lt;= 100
@@ -34710,7 +32961,6 @@ erro de python</translation>
 erro de python</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
         <translation type="obsolete">Saturación do enchido fora de límites; debe ser 0 &lt;= saturación &lt;= 100
@@ -34724,7 +32974,6 @@ erro de python</translation>
         <translation>A radio da esquina debe ser un número positivo.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line style not found</source>
         <comment>python error</comment>
         <translation type="obsolete">Non se atopou o estilo de liña
@@ -34900,7 +33149,6 @@ erro de python</translation>
         <translation>Só se poden vincular molduras de texto.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
         <translation type="obsolete">A moldura de destino debe estar baleira.
@@ -34932,7 +33180,6 @@ erro de python.</translation>
         <translation>Non se pode desvincular unha moldura que non sexa de texto.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Object is not a linked text frame, cannot unlink.</source>
         <comment>python error</comment>
         <translation type="obsolete">O obxecto non é unha moldura de texto vinculada; non se pode desvincular.
@@ -34940,7 +33187,6 @@ erro de python.</translation>
 erro de python.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
         <translation type="obsolete">O obxecto é a última moldura dunha serie; non se pode desvincular. Desvincule a moldura anterior en vez desta.
@@ -34966,7 +33212,6 @@ erro de python.</translation>
         <translation>Non se pode obter información dunha moldura que non sexa de texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Tried to set progress &gt; maximum progress</source>
         <translation type="obsolete">Tentouse asignarlle ao progreso &gt;&gt; máximo progreso</translation>
     </message>
@@ -35001,17 +33246,14 @@ erro de python.</translation>
         <translation>Non se logrou exportar a imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>S&amp;cripter Manual...</source>
         <translation type="obsolete">Manual do S&amp;cripter...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Online Reference</source>
         <translation type="obsolete">Referencia en liña</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -35077,7 +33319,6 @@ documentación da función.</translation>
         <translation>Configuración Padrón: </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">A&amp;breviaturas...
@@ -35088,16 +33329,15 @@ extensión de abreviaturas...</translation>
         <location filename="../../scribus/plugins/short-words/shortwords.cpp" line="129"/>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation>A procesar as Palabras Curtas. Agarde un bocadiño...</translation>
+        <translation>A procesar as abreviaturas. Agarde un bocadiño...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/shortwords.cpp" line="148"/>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation>Palabras Curtas procesadas. Feito.</translation>
+        <translation>Abreviaturas procesadas. Feito.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save Page as &amp;SVG...</source>
         <translation type="obsolete">Salvar Páxina como &amp;SVG...</translation>
     </message>
@@ -35112,22 +33352,18 @@ extensión de abreviaturas...</translation>
         <translation type="obsolete">Imaxes SVG (*.svg *.svgz);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>SVG-Images (*.svg);;All Files (*)</source>
         <translation type="obsolete">Imaxes SVG (*.svg);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import &amp;SVG...</source>
         <translation type="obsolete">Importar &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation type="obsolete">Importar do Draw de &amp;OpenOffice.org...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
         <translation type="obsolete">Draw de OpenOffice.org (*.sxd);;Todos os Ficheiros (*)</translation>
     </message>
@@ -35215,7 +33451,6 @@ Vínculos Externos</translation>
         <translation>Ace&amp;ptar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Custom</source>
         <translation type="obsolete">Personalizado</translation>
     </message>
@@ -35364,7 +33599,6 @@ Vínculos Externos</translation>
         <translation>Non se dispón da biblioteca Freetype2</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font %1 is broken, no embedding</source>
         <translation type="obsolete">A fonte %1 está mal, non se vai embeber</translation>
     </message>
@@ -35374,7 +33608,6 @@ Vínculos Externos</translation>
         <translation>A fonte %1 está mal (fluxo de lectura), non se vai embeber</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font %1 is broken (FreeType2), discarding it</source>
         <translation type="obsolete">A fonte %1 está mal (FreeType2), desbótase</translation>
     </message>
@@ -35389,7 +33622,6 @@ Vínculos Externos</translation>
         <translation>A fonte %1 ten mal un glifo %2 (código %3)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font %1 is broken and will be discarded</source>
         <translation type="obsolete">A fonte %1 está mal e vaise desbotar</translation>
     </message>
@@ -35419,7 +33651,6 @@ Vínculos Externos</translation>
         <translation>A carregar a fonte %1 (atopada mediante fontconfig)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
         <translation type="obsolete">A fonte %1 (atopada mediante fontconfig) está mal, desbótase</translation>
     </message>
@@ -35429,12 +33660,10 @@ Vínculos Externos</translation>
         <translation>Non se puido carregar unha fonte - freetype2 non atopou o ficheiro da fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font %1 is broken (FreeType), discarding it</source>
         <translation type="obsolete">A fonte %1 está mal (FreeType), desbótase</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
         <translation type="obsolete">A fonte %1  ten un glifo non válido %2 (código %3), desbótase</translation>
     </message>
@@ -35469,142 +33698,114 @@ Vínculos Externos</translation>
         <translation>Versión de Desenvolvemento de Scribus</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
         <translation type="obsolete">Está a executar unha versión de desenvolvemento de Scribus 1.3.x. O documento actual sobre o que traballa creouse orixinalmente con Scribus 1.2.2 ou anterior. O proceso para salvar fará que este ficheiro non se poida volver a utilizar con Scribus 1.2.2 a non ser que utilice Ficheiro-&gt;Gardar Como. Seguro que quer continuar con esta operación?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Proceed</source>
         <translation type="obsolete">&amp;Continuar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Invalid argument: </source>
         <translation type="obsolete">Argumento non válido: </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>File %1 does not exist, aborting.</source>
         <translation type="obsolete">O ficheiro %1 non existe; interrompemos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Usage: scribus [option ... ] [file]</source>
         <translation type="obsolete">Uso: scribus [opción ... ] [ficheiro]</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Options:</source>
         <translation type="obsolete">Opcións:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print help (this message) and exit</source>
         <translation type="obsolete">Imprimir a axuda (esta mensaxe) e sair</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Uses xx as shortcut for a language</source>
         <translation type="obsolete">Utiliza xx como atallo dunha lingua</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>List the currently installed interface languages</source>
         <translation type="obsolete">Listar as interfaces de idioma instaladas actualmente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show information on the console when fonts are being loaded</source>
         <translation type="obsolete">Mostrar información na consola encanto se carregan as fontes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do not show the splashscreen on startup</source>
         <translation type="obsolete">Non mostrar a pantalla de inicio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Output version information and exit</source>
         <translation type="obsolete">Mostrar información sobre a versión e sair</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Installed interface languages for Scribus are as follows:</source>
         <translation type="obsolete">As interfaces para linguas instaladas para Scribus son as seguintes:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>To override the default language choice:</source>
         <translation type="obsolete">Para ultrapasar a escolla de lingua por omisión:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
         <translation type="obsolete">scribus  -l xx ou scribus --lang xx, onde xx é a lingua escollida.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus Version </source>
         <translation type="obsolete">Scribus, Versión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus, Open Source Desktop Publishing</source>
         <translation type="obsolete">Scribus, Publicación Dixital de Código Aberto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>---------------------------------------</source>
         <translation type="obsolete">---------------------------------------</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Homepage:       http://www.scribus.net </source>
         <translation type="obsolete">Sitio na Web:       http://www.scribus.net</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documentation:  http://docs.scribus.net</source>
         <translation type="obsolete">Documentación:  http://docs.scribus.net</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Wiki:           http://wiki.scribus.net</source>
         <translation type="obsolete">Wiki:           http://wiki.scribus.net</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Issues:         http://bugs.scribus.net</source>
         <translation type="obsolete">Problemas:         http://bugs.scribus.net</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete"> in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> cm</source>
         <translation type="obsolete"> cm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> c</source>
         <translation type="obsolete"> c</translation>
     </message>
@@ -35674,14 +33875,12 @@ Vínculos Externos</translation>
         <translation>O ficheiro xa existe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A file named &apos;%1&apos; already exists.
 Do you want to replace it with the file you are saving?</source>
         <translation type="obsolete">Xa existe un ficheiro de nome &quot;%1&quot;.
 Quéreo substituir co ficheiro que ten para gardar agora?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Replace</source>
         <translation type="obsolete">&amp;Substituir</translation>
     </message>
@@ -35698,7 +33897,7 @@ Quéreo substituir co ficheiro que ten para gardar agora?</translation>
     <message>
         <location filename="../../scribus/plugins/myplugin/myplugin.cpp" line="45"/>
         <source>My Plugin</source>
-        <translation>A Miña Extensión</translation>
+        <translation>O meu engadido</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftemplate.cpp" line="71"/>
@@ -35711,7 +33910,6 @@ Quéreo substituir co ficheiro que ten para gardar agora?</translation>
         <translation>Modelo de Documento: </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Export As Image</source>
         <translation type="obsolete">Exportar Como Imaxe</translation>
     </message>
@@ -35797,7 +33995,6 @@ Quéreo substituir co ficheiro que ten para gardar agora?</translation>
         <translation>Imposíbel gardar a imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>An object with the requested name already exists.</source>
         <comment>python error</comment>
         <translation type="obsolete">Xa existe un obxecto co nome proposto.</translation>
@@ -35911,7 +34108,6 @@ Quéreo substituir co ficheiro que ten para gardar agora?</translation>
         <translation>O obxecto non é unha moldura de texto vinculada, non se pode desvincular.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
         <translation type="obsolete">O obxecto é a última moldura dunha serie, non se pode desvincular. Desvincule a moldura anterior.
@@ -36034,10 +34230,9 @@ debido a excepcións das funcións chamadas.</translation>
     <message>
         <location filename="../../scribus/plugins/short-words/shortwords.cpp" line="84"/>
         <source>Short Words</source>
-        <translation>Palabras Curtas</translation>
+        <translation>Abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Short Words Manual</source>
         <translation type="obsolete">Manual de Abreviaturas</translation>
     </message>
@@ -36092,7 +34287,6 @@ debido a excepcións das funcións chamadas.</translation>
         <translation>A procurar Fontes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
         <translation type="obsolete">Está a executar unha versión de desenvolvemento de Scribus 1.3.x. O documento no que está a traballar creouse con Scribus 1.2.3 ou anterior. O proceso de gardado fará que este ficheiro non se poida ler de novo en Scribus 1.2.3 a non ser que utilice Ficheiro-&gt;Gardar Como. Ten a certeza de querer continuar con esta oepración?</translation>
     </message>
@@ -36194,7 +34388,6 @@ erro de python.</translation>
         <translation>Non se puido abrir o ficheiro %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
         <translation type="obsolete">Probabelmente non se recoñece este ficheiro como un documento PDB. Informe deste erro se ten a certeza de que o é.</translation>
@@ -36546,7 +34739,6 @@ En consecuencia, pode que a imaxe non sexa correcta</translation>
         <translation>Hebreu</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
         <translation type="obsolete">Axuda para Scribus 1.3.0-&gt;1.3.3.7 </translation>
     </message>
@@ -36923,22 +35115,22 @@ En consecuencia, pode que a imaxe non sexa correcta</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="62"/>
         <source>Bengali</source>
-        <translation type="unfinished"></translation>
+        <translation>Bengalí</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="117"/>
         <source>Sanskrit</source>
-        <translation type="unfinished"></translation>
+        <translation>Sánscrito</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="64"/>
         <source>Scribus 1.3.4+ Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Axuda en liña do Scribus 1.3.4+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="82"/>
         <source>PathConnect</source>
-        <translation type="unfinished"></translation>
+        <translation>ConectarTrazos</translation>
     </message>
     <message>
         <location filename="../../scribus/scimgdataloader_ps.cpp" line="502"/>
@@ -36946,17 +35138,20 @@ En consecuencia, pode que a imaxe non sexa correcta</translation>
 %1 are not embedded or available for Scribus.
 They might be replaced by &quot;Courier&quot;, depending how your Ghostscript is configured.
 Therefore the image may be not correct</source>
-        <translation type="unfinished"></translation>
+        <translation>A(s) fonte(s):
+%1 non están embebidas ou disponíbeis para Scribus.
+Poderíanse substituir por &quot;Courier&quot;, dependendo de como estea configurado Ghostscript.
+Polo tanto, a imaxe podería non ser correcta</translation>
     </message>
     <message>
         <location filename="../../scribus/scprintengine_gdi.cpp" line="108"/>
         <source>Save As</source>
-        <translation type="unfinished">Gardar como</translation>
+        <translation>Gardar como</translation>
     </message>
     <message>
         <location filename="../../scribus/scprintengine_gdi.cpp" line="257"/>
         <source>Printing...</source>
-        <translation type="unfinished">A Imprimir...</translation>
+        <translation>A Imprimir...</translation>
     </message>
 </context>
 <context>
@@ -37106,12 +35301,10 @@ Therefore the image may be not correct</source>
 <context>
     <name>Query</name>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -37119,22 +35312,18 @@ Therefore the image may be not correct</source>
 <context>
     <name>ReformDoc</name>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete"> in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
@@ -37144,191 +35333,154 @@ Therefore the image may be not correct</source>
         <translation>Configuración do Documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page Size</source>
         <translation type="obsolete">Tamaño da páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Size:</source>
         <translation type="obsolete">Tamaño:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Custom</source>
         <translation type="obsolete">Personalizado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Orientation:</source>
         <translation type="obsolete">Orientación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Portrait</source>
         <translation type="obsolete">Retrato</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Landscape</source>
         <translation type="obsolete">Apaisado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Width:</source>
         <translation type="obsolete">Anchura:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Height:</source>
         <translation type="obsolete">Altura:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Margin Guides</source>
         <translation type="obsolete">Guías das Marxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Top:</source>
         <translation type="obsolete">&amp;Superior:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Left:</source>
         <translation type="obsolete">&amp;Esquerda:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Bottom:</source>
         <translation type="obsolete">&amp;Inferior:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Right:</source>
         <translation type="obsolete">Di&amp;reita:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Facing Pages</source>
         <translation type="obsolete">Páxinas &amp;Enfrentadas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Left &amp;Page First</source>
         <translation type="obsolete">A Páxina &amp;Esquerda Primeiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>F&amp;irst Page Number:</source>
         <translation type="obsolete">Pr&amp;imeiro Número de Páxina:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enable single or spread based layout</source>
         <translation type="obsolete">Permitir a disposición sinxela ou de dobre páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Make the first page the left page of the document</source>
         <translation type="obsolete">Facer que a primeira páxina sexa a páxina esquerda do documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the top margin guide and the edge of the page</source>
         <translation type="obsolete">Distancia entre a guía da marxe superior e o bordo da páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
         <translation type="obsolete">Distancia entre a guía da marxe inferior e o bordo da páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="obsolete">Distancia entre a guía da marxe esquerda e o bordo da páxina.
 Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obter as marxes adecuadas para a encuadernación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="obsolete">Distancia entre a guía da marxe direita e o bordo da páxina.
 Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obter as marxes adecuadas para a encuadernación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Inside:</source>
         <translation type="obsolete">&amp;Dentro:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Outside:</source>
         <translation type="obsolete">&amp;Fora:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Size:</source>
         <translation type="obsolete">&amp;Tamaño:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Orie&amp;ntation:</source>
         <translation type="obsolete">Orie&amp;ntación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Width:</source>
         <translation type="obsolete">&amp;Anchura:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Height:</source>
         <translation type="obsolete">&amp;Altura:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Unit:</source>
         <translation type="obsolete">&amp;Unidade:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Options</source>
         <translation type="obsolete">Opcións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply size settings to all Pages</source>
         <translation type="obsolete">Aplicar a configuración de tamaño a todas as Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply margin settings to all Pages</source>
         <translation type="obsolete">Aplicar a configuración de marxes a todas as Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Autosave</source>
         <translation type="obsolete">Gardado automático</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>min</source>
         <translation type="obsolete">min</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Interval:</source>
         <translation type="obsolete">&amp;Intervalo:</translation>
     </message>
@@ -37348,67 +35500,54 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation>Guías</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page Display</source>
         <translation type="obsolete">Exhibición da Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color:</source>
         <translation type="obsolete">Cor:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Display &amp;Unprintable Area in Margin Color</source>
         <translation type="obsolete">Mostrar a Área &amp;Non Imprimíbel na Cor da Marxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+U</source>
         <translation type="obsolete">Alt+U</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Pictures</source>
         <translation type="obsolete">Mostrar as Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Text Chains</source>
         <translation type="obsolete">Mostrar as Cadeas de Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Text Control Characters</source>
         <translation type="obsolete">Mostrar os Caracteres de Control do Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Frames</source>
         <translation type="obsolete">Mostrar as Molduras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Rulers relative to Page</source>
         <translation type="obsolete">Regras relativas á Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Minimum Scratch Space</source>
         <translation type="obsolete">Espazo de traballo Mínimo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Gaps between Pages</source>
         <translation type="obsolete">Distancia entre as Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Horizontal:</source>
         <translation type="obsolete">Horizontal:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Vertical:</source>
         <translation type="obsolete">Vertical:</translation>
     </message>
@@ -37463,32 +35602,26 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation>Xestión da Cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enable or disable the display of linked text frames.</source>
         <translation type="obsolete">Activar ou desactivar  mostrar as molduras vinculadas.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
         <translation type="obsolete">Mostrar os caracteres non imprimíbeis, tais como marcadores de parágrafo, nas molduras de texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Turns the display of frames on or off</source>
         <translation type="obsolete">Activa ou desactiva mostrar as molduras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Turns the display of pictures on or off</source>
         <translation type="obsolete">Activa ou desactiva mostrar as imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color for paper</source>
         <translation type="obsolete">Cor do papel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mask the area outside the margins in the margin color</source>
         <translation type="obsolete">Mascarar a área por fora das marxes coa cor das marxes</translation>
     </message>
@@ -37498,7 +35631,6 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation>A axustar as Cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply size settings to all pages</source>
         <translation type="obsolete">Aplicar a configuración de tamaño a todas as páxinas</translation>
     </message>
@@ -37508,7 +35640,6 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation>Seccións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation type="obsolete">Aplicar as modificacións no tamaño da páxina a todas as páxinas existentes do documento</translation>
     </message>
@@ -37518,43 +35649,42 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/rulermover.cpp" line="82"/>
         <source>Reset Rulers</source>
-        <translation type="unfinished"></translation>
+        <translation>Limpar as regras</translation>
     </message>
     <message>
         <location filename="../../scribus/rulermover.cpp" line="88"/>
         <source>Move on current Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover na páxina actual</translation>
     </message>
     <message>
         <location filename="../../scribus/rulermover.cpp" line="89"/>
         <source>Origin at Top Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Orixe arriba á esquerda</translation>
     </message>
     <message>
         <location filename="../../scribus/rulermover.cpp" line="90"/>
         <source>Origin at Top Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Orixe arriba á dereita</translation>
     </message>
     <message>
         <location filename="../../scribus/rulermover.cpp" line="91"/>
         <source>Origin at Bottom Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Orixe abaixo á esquerda</translation>
     </message>
     <message>
         <location filename="../../scribus/rulermover.cpp" line="92"/>
         <source>Origin at Bottom Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Orixe abaixo á dereita</translation>
     </message>
     <message>
         <location filename="../../scribus/rulermover.cpp" line="93"/>
         <source>Origin at Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Orixe no centro</translation>
     </message>
 </context>
 <context>
     <name>RunScriptDialog</name>
     <message>
-        <location filename="" line="0"/>
         <source>Python Scripts (*.py);; All Files (*)</source>
         <translation type="obsolete">Guións en Python (*.py);;Todos os Ficheiros (*)</translation>
     </message>
@@ -37597,17 +35727,14 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
 <context>
     <name>SMBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Style Manager</source>
         <translation type="obsolete">Xestor de Estilos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Column 1</source>
         <translation type="obsolete">Columna 1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Add</source>
         <translation type="obsolete">&amp;Adicionar</translation>
     </message>
@@ -37617,12 +35744,10 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;lone</source>
         <translation type="obsolete">C&amp;lonar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+L</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
@@ -37642,27 +35767,22 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation type="obsolete">Nome:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>O&amp;K</source>
         <translation type="obsolete">De ac&amp;ordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+K</source>
         <translation type="obsolete">Alt+K</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>A&amp;pply</source>
         <translation type="obsolete">&amp;Aplicar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+P</source>
         <translation type="obsolete">Alt+P</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ca&amp;ncel</source>
         <translation type="obsolete">Ca&amp;ncelar</translation>
     </message>
@@ -37730,7 +35850,6 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
 <context>
     <name>SMCStylePage</name>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
@@ -37970,7 +36089,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smcstylewidget.cpp" line="221"/>
         <source>A default style cannot be assigned a parent style</source>
-        <translation type="unfinished"></translation>
+        <translation>A un estilo por omisión non se lle pode asignar un estilo pai</translation>
     </message>
 </context>
 <context>
@@ -38009,7 +36128,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smtextstyles.cpp" line="2260"/>
         <source>Setting that style as parent would create an infinite loop.</source>
-        <translation type="unfinished"></translation>
+        <translation>Asignar ese estilo como pai crearía un bucle infinito.</translation>
     </message>
 </context>
 <context>
@@ -38036,7 +36155,6 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation>Propiedades</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Lines</source>
         <translation type="obsolete">Liñas</translation>
     </message>
@@ -38208,7 +36326,6 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation>Aliñar á Grella Base</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
@@ -38325,22 +36442,22 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="376"/>
         <source>Left Protruding</source>
-        <translation type="unfinished">Saliencia Esquerda</translation>
+        <translation>Saliencia esquerda</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="383"/>
         <source>Right Protruding</source>
-        <translation type="unfinished">Saliencia Dereita</translation>
+        <translation>Saliencia dereita</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="390"/>
         <source>Left Hanging Punctuation</source>
-        <translation type="unfinished">Puntuación Colgante á Esquerda</translation>
+        <translation>Puntuación colgante á esquerda</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="397"/>
         <source>Right Hanging Punctuation</source>
-        <translation type="unfinished">Puntuación Colgante á Dereita</translation>
+        <translation>Puntuación colgante á dereita</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="496"/>
@@ -38351,57 +36468,58 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <location filename="../../scribus/smpstylewidget.cpp" line="102"/>
         <source>Maximum white space compression allowed.
 Expressed as a percentage of the current white space value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Máxima compresión permitida para os espazos en branco.
+Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="104"/>
         <source>Maximum compression of glyphs</source>
-        <translation type="unfinished"></translation>
+        <translation>Compresión máxima para os glifos</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="106"/>
         <source>Maximum extension of glyphs</source>
-        <translation type="unfinished"></translation>
+        <translation>Extensión máxima para os glifos</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="367"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Marxes ópticas</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="278"/>
         <source>A default style cannot be assigned a parent style</source>
-        <translation type="unfinished"></translation>
+        <translation>A un estilo por omisión non se lle pode asignar un estilo pai</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="138"/>
         <source>Min. Space Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Min. anchura espazo:</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="139"/>
         <source>Max. Glyph Compression:</source>
-        <translation type="unfinished"></translation>
+        <translation>Máx. compr. glifos:</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.cpp" line="140"/>
         <source>Max. Glyph Extension:</source>
-        <translation type="unfinished"></translation>
+        <translation>Máx. extensión glifos:</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="413"/>
         <source>Use Parent Value</source>
-        <translation type="unfinished">Usar Valor Pai</translation>
+        <translation>Usar valor pai</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="406"/>
         <source>Reset to Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Volver ao predeterminado</translation>
     </message>
     <message>
         <location filename="../../scribus/smpstylewidget.ui" line="440"/>
         <source>Advanced Settings</source>
-        <translation type="unfinished">Configuración Avanzada</translation>
+        <translation>Configuración avanzada</translation>
     </message>
 </context>
 <context>
@@ -38435,7 +36553,7 @@ Expressed as a percentage of the current white space value.</source>
     <message>
         <location filename="../../scribus/smtextstyles.cpp" line="1359"/>
         <source>Setting that style as parent would create an infinite loop.</source>
-        <translation type="unfinished"></translation>
+        <translation>Asignar ese estilo como pai crearía un bucle infinito.</translation>
     </message>
 </context>
 <context>
@@ -38474,22 +36592,18 @@ Expressed as a percentage of the current white space value.</source>
 <context>
     <name>SMReplaceDiaBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Delete Styles</source>
         <translation type="obsolete">Eliminar Estilos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ca&amp;ncel</source>
         <translation type="obsolete">Ca&amp;ncelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+N</source>
         <translation type="obsolete">Alt+N</translation>
     </message>
@@ -38614,7 +36728,6 @@ Expressed as a percentage of the current white space value.</source>
         <translation>Configuración da Cor de Enchido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
@@ -38637,7 +36750,6 @@ Expressed as a percentage of the current white space value.</source>
         <translation>Configuración da Cor do Trazo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
@@ -38698,12 +36810,10 @@ Expressed as a percentage of the current white space value.</source>
         <translation>Configuración dos caracteres</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Tracking:</source>
         <translation type="obsolete">Tracking:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
@@ -38721,7 +36831,6 @@ Expressed as a percentage of the current white space value.</source>
 <context>
     <name>SVGExportPlugin</name>
     <message>
-        <location filename="" line="0"/>
         <source>Save Page as &amp;SVG...</source>
         <translation type="obsolete">Salvar Páxina como &amp;SVG...</translation>
     </message>
@@ -38743,28 +36852,29 @@ Expressed as a percentage of the current white space value.</source>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="131"/>
         <source>Compress File</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprimir ficheiro</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="135"/>
         <source>Save Images inline</source>
-        <translation type="unfinished"></translation>
+        <translation>Gravar as imaxes na liña</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="136"/>
         <source>Adds all Images on the Page inline to the SVG.
 Caution: this will increase the file size!</source>
-        <translation type="unfinished"></translation>
+        <translation>Engade todas as imaxes da páxina en liña no SVG.
+Precaución: isto incrementa o tamaño do ficheiro!</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="140"/>
         <source>Export Page background</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar o fondo da páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="141"/>
         <source>Adds the Page itself as background to the SVG.</source>
-        <translation type="unfinished"></translation>
+        <translation>Engade a páxina mesma como fondo do SVG.</translation>
     </message>
 </context>
 <context>
@@ -38816,7 +36926,7 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
         <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="104"/>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Palabras Curtas</translation>
+        <translation>Abreviaturas</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/vlnadialog.cpp" line="105"/>
@@ -38863,42 +36973,42 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="14"/>
         <source>Short Words</source>
-        <translation type="unfinished"></translation>
+        <translation>Abreviaturas</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="65"/>
         <source>&amp;Languages:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Linguas:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="20"/>
         <source>Apply Unbreakable Space On:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar un espazo que non se poida rachar en:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="26"/>
         <source>&amp;Selected Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Molduras e&amp;scollidas</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="33"/>
         <source>Active &amp;Page</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Páxina activa</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="40"/>
         <source>&amp;All Items</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Todos os elementos</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="50"/>
         <source>Language Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración da lingua</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="56"/>
         <source>&amp;Use Language from Style Definition</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Utilizar a lingua da definición do estilo</translation>
     </message>
 </context>
 <context>
@@ -38941,7 +37051,7 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="122"/>
         <source>Short Words</source>
-        <translation>Palabras Curtas</translation>
+        <translation>Abreviaturas</translation>
     </message>
     <message>
         <location filename="../plugins/short-words/swprefsgui.cpp" line="112"/>
@@ -38995,7 +37105,6 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
 <context>
     <name>ScActionPlugin</name>
     <message>
-        <location filename="" line="0"/>
         <source>Could not find target file %1: %2</source>
         <comment>plugins</comment>
         <translation type="obsolete">Non se puido atopar o ficheiro destino %1: %2
@@ -39003,7 +37112,6 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
 extensións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Could not open target file %1: %2</source>
         <comment>plugins</comment>
         <translation type="obsolete">Non se puido abrir o ficheiro destino %1: %2
@@ -39061,7 +37169,6 @@ extensións</translation>
         <translation>Persistente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import</source>
         <comment>plugin manager plugin type</comment>
         <translation type="obsolete">Importar
@@ -39069,7 +37176,6 @@ extensións</translation>
 xestor de extensións tipo de extensións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Export</source>
         <comment>plugin manager plugin type</comment>
         <translation type="obsolete">Exportar
@@ -39181,12 +37287,10 @@ xestor de extensións tipo de extensións</translation>
 <context>
     <name>ScriXmlDoc</name>
     <message>
-        <location filename="" line="0"/>
         <source>Copy #%1 of </source>
         <translation type="obsolete">Copiar nº%1 de </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Background</source>
         <translation type="obsolete">Fondo</translation>
     </message>
@@ -39211,12 +37315,12 @@ xestor de extensións tipo de extensións</translation>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="67"/>
         <source>Scribus 1.2.x File Format Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Axuda para o formato de ficheiro do Scribus 1.2.x</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="68"/>
         <source>Allows Scribus to read Scribus 1.2.x formatted files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Permite que o Scribus lea ficheiros formatados para Scribus 1.2.x.</translation>
     </message>
 </context>
 <context>
@@ -39234,17 +37338,17 @@ xestor de extensións tipo de extensións</translation>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="74"/>
         <source>Scribus 1.3.4+ File Format Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Axuda para o formato de ficheiro do Scribus 1.3.4+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="75"/>
         <source>Allows Scribus to read Scribus 1.3.4 and higher formatted files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Permite que o Scribus lea ficheiros formatados para Scribus 1.3.4 e posteriores</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="92"/>
         <source>Scribus 1.3.4+ Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Documento do Scribus 1.3.4+</translation>
     </message>
 </context>
 <context>
@@ -39262,1784 +37366,1432 @@ xestor de extensións tipo de extensións</translation>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="71"/>
         <source>Scribus 1.3.x File Format Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Axuda para o formato de ficheiro do Scribus 1.3.x</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="72"/>
         <source>Allows Scribus to read Scribus 1.3.0-&gt;1.3.3.x formatted files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Permite que o Scribus lea ficheiros formatados para Scribus 1.3.0-&gt;1.3.3.x</translation>
     </message>
 </context>
 <context>
     <name>ScribusApp</name>
     <message>
-        <location filename="" line="0"/>
         <source>File</source>
         <translation type="obsolete">Ficheiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Create a new Document</source>
         <translation type="obsolete">Crear un Documento novo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Open a Document</source>
         <translation type="obsolete">Abrir un Documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save the current Document</source>
         <translation type="obsolete">Salvar o Documento actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Close the current Document</source>
         <translation type="obsolete">Fechar o Documento actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print the current Document</source>
         <translation type="obsolete">Imprimir o Documento actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save the current Document as PDF</source>
         <translation type="obsolete">Salvar o Documento actual como PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Searching for Fonts</source>
         <translation type="obsolete">A procurar as Fontes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>There are no suitable Fonts on your System</source>
         <translation type="obsolete">Non existen Fontes apropiadas no seu Sistema</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Exiting now</source>
         <translation type="obsolete">Saindo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Fatal Error</source>
         <translation type="obsolete">Erro Fatal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font System Initialized</source>
         <translation type="obsolete">Sistema de Fontes inicializado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Smart Hyphen</source>
         <translation type="obsolete">Guión intelixente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Align Left</source>
         <translation type="obsolete">Aliñar á Esquerda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Align Right</source>
         <translation type="obsolete">Aliñar á Direita</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Align Center</source>
         <translation type="obsolete">Centrar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert Page Number</source>
         <translation type="obsolete">Inserir o Número de Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Attach Text to Path</source>
         <translation type="obsolete">Ligar o Texto ao Trazo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Layers</source>
         <translation type="obsolete">Mostrar as Capas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Javascripts...</source>
         <translation type="obsolete">Javascripts...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Undo</source>
         <translation type="obsolete">Desfacer</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Page Palette</source>
         <translation type="obsolete">Mostrar a Paleta da Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Lock/Unlock</source>
         <translation type="obsolete">Des/Bloquear</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Non Breaking Space</source>
         <translation type="obsolete">Espazo que Non Rompe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Reading Preferences</source>
         <translation type="obsolete">Preferencias de Lectura</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Getting ICC Profiles</source>
         <translation type="obsolete">Obtendo os Perfís ICC</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Init Hyphenator</source>
         <translation type="obsolete">Iniciar o Hyphenator</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Setting up Shortcuts</source>
         <translation type="obsolete">A preparar as Abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Reading Scrapbook</source>
         <translation type="obsolete">A ler o Porta-retallos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Initializing Plugins</source>
         <translation type="obsolete">A inicializar as Extensións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;New</source>
         <translation type="obsolete">&amp;Novo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Open...</source>
         <translation type="obsolete">&amp;Abrir...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Open &amp;Recent</source>
         <translation type="obsolete">Abrir &amp;Recente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>New</source>
         <translation type="obsolete">Novo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Open...</source>
         <translation type="obsolete">Abrir...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Close</source>
         <translation type="obsolete">&amp;Fechar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Close</source>
         <translation type="obsolete">Fechar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Save</source>
         <translation type="obsolete">&amp;Gardar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save</source>
         <translation type="obsolete">Salvar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save &amp;As...</source>
         <translation type="obsolete">Gardar &amp;Como...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save as...</source>
         <translation type="obsolete">Gardar Como...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Re&amp;vert to Saved</source>
         <translation type="obsolete">&amp;Volver ao Salvado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Collect for O&amp;utput...</source>
         <translation type="obsolete">Recoller para S&amp;aída...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Get Text/Picture...</source>
         <translation type="obsolete">&amp;Obter Texto/Imaxe...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Append &amp;Text...</source>
         <translation type="obsolete">Adicionar &amp;Texto...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import &amp;Page(s)...</source>
         <translation type="obsolete">Importar &amp;Páxina(s)...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Import</source>
         <translation type="obsolete">&amp;Importar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save &amp;Text...</source>
         <translation type="obsolete">Salvar &amp;Texto...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save Page as &amp;EPS...</source>
         <translation type="obsolete">Salvar Páxina como &amp;EPS...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save as P&amp;DF...</source>
         <translation type="obsolete">Salvar como P&amp;DF...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Export</source>
         <translation type="obsolete">E&amp;xportar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Document &amp;Information...</source>
         <translation type="obsolete">&amp;Información sobre o Documento...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Document Info...</source>
         <translation type="obsolete">Información sobre o Documento...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Document &amp;Setup...</source>
         <translation type="obsolete">&amp;Configuración do Documento...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Document Setup...</source>
         <translation type="obsolete">Configuración do Documento...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Print...</source>
         <translation type="obsolete">Im&amp;primir...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print...</source>
         <translation type="obsolete">Imprimir...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Quit</source>
         <translation type="obsolete">&amp;Sair</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Quit</source>
         <translation type="obsolete">Sair</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Undo</source>
         <translation type="obsolete">&amp;Desfacer</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cu&amp;t</source>
         <translation type="obsolete">Recor&amp;tar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Copy</source>
         <translation type="obsolete">&amp;Copiar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Paste</source>
         <translation type="obsolete">&amp;Pegar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;lear</source>
         <translation type="obsolete">&amp;Limpar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select &amp;All</source>
         <translation type="obsolete">Seleccion&amp;alo Todo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cut</source>
         <translation type="obsolete">Recortar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Copy</source>
         <translation type="obsolete">Copiar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Paste</source>
         <translation type="obsolete">Pegar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Clear</source>
         <translation type="obsolete">Limpar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select all</source>
         <translation type="obsolete">Seleccionalo Todo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Search/Replace...</source>
         <translation type="obsolete">Pr&amp;ocurar/Substituir...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;olors...</source>
         <translation type="obsolete">C&amp;ores...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Colors...</source>
         <translation type="obsolete">Cores...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Paragraph Styles...</source>
         <translation type="obsolete">Estilos de &amp;Parágrafo...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Line Styles...</source>
         <translation type="obsolete">Estilos de &amp;Liña...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Styles...</source>
         <translation type="obsolete">Estilos...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Templates...</source>
         <translation type="obsolete">&amp;Modelos...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Templates...</source>
         <translation type="obsolete">Modelos...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Javascripts...</source>
         <translation type="obsolete">&amp;Javascripts...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select New Font</source>
         <translation type="obsolete">Escoller unha Fonte Nova</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>D&amp;uplicate</source>
         <translation type="obsolete">D&amp;uplicar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Duplicate</source>
         <translation type="obsolete">Duplicar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Multiple Duplicate</source>
         <translation type="obsolete">Duplicados &amp;Múltiples</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Multiple Duplicate</source>
         <translation type="obsolete">Duplicados Múltiples</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Delete</source>
         <translation type="obsolete">Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Group</source>
         <translation type="obsolete">A&amp;grupar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Group</source>
         <translation type="obsolete">Agrupar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Ungroup</source>
         <translation type="obsolete">Desa&amp;grupar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Un-group</source>
         <translation type="obsolete">Desagrupar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Lock</source>
         <translation type="obsolete">B&amp;loquear</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Send to &amp;Back</source>
         <translation type="obsolete">Enviar para &amp;Tras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Send to Back</source>
         <translation type="obsolete">Enviar para Tras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Bring to &amp;Front</source>
         <translation type="obsolete">Traer para &amp;Diante</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Bring to Front</source>
         <translation type="obsolete">Traer para Diante</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Lower</source>
         <translation type="obsolete">&amp;Baixar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Lower</source>
         <translation type="obsolete">Baixar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Raise</source>
         <translation type="obsolete">Subi&amp;r</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Raise</source>
         <translation type="obsolete">Subir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distribute/&amp;Align...</source>
         <translation type="obsolete">Distribuir/&amp;Aliñar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Distribute/Align...</source>
         <translation type="obsolete">Distribuir/Aliñar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Edit Shape</source>
         <translation type="obsolete">&amp;Modificar a Forma</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Shape</source>
         <translation type="obsolete">&amp;Forma</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Attach Text to Path</source>
         <translation type="obsolete">&amp;Ligar o Texto ao Trazo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Detach Text from Path</source>
         <translation type="obsolete">&amp;Desligar o Texto do Trazo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Combine Polygons</source>
         <translation type="obsolete">&amp;Combinar Polígonos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Split &amp;Polygons</source>
         <translation type="obsolete">Partir &amp;Polígonos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;onvert to Outlines</source>
         <translation type="obsolete">C&amp;onvertir a Siluetas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Insert...</source>
         <translation type="obsolete">&amp;Inserir...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert...</source>
         <translation type="obsolete">Inserir...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Delete...</source>
         <translation type="obsolete">&amp;Eliminar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Delete...</source>
         <translation type="obsolete">Eliminar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Move...</source>
         <translation type="obsolete">&amp;Mover...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Move...</source>
         <translation type="obsolete">Mover...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Apply Template...</source>
         <translation type="obsolete">&amp;Aplicar un Modelo...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply Template...</source>
         <translation type="obsolete">Aplicar un Modelo...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Manage &amp;Guides...</source>
         <translation type="obsolete">Xerir as &amp;Guías...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Manage Guides...</source>
         <translation type="obsolete">Xerir as Guías...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Fit in Window</source>
         <translation type="obsolete">&amp;Encaixar na Xanela</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Fit in Window</source>
         <translation type="obsolete">Encaixar na Xanela</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>50%</source>
         <translation type="obsolete">50%</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>75%</source>
         <translation type="obsolete">75%</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;100%</source>
         <translation type="obsolete">&amp;100%</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>100%</source>
         <translation type="obsolete">100%</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>200%</source>
         <translation type="obsolete">200%</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Thumbnails</source>
         <translation type="obsolete">&amp;Miniaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Thumbnails</source>
         <translation type="obsolete">Miniaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show &amp;Margins</source>
         <translation type="obsolete">Mostrar as &amp;Marxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Hide Margins</source>
         <translation type="obsolete">Agochar as Marxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show &amp;Frames</source>
         <translation type="obsolete">Mostrar as &amp;Molduras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Hide Frames</source>
         <translation type="obsolete">Agochar as Molduras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show &amp;Images</source>
         <translation type="obsolete">Mostrar as &amp;Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Hide Images</source>
         <translation type="obsolete">Agochar as Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show &amp;Grid</source>
         <translation type="obsolete">Mostrar a &amp;Grella</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Grid</source>
         <translation type="obsolete">Mostrar a Grella</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show G&amp;uides</source>
         <translation type="obsolete">Mostrar as G&amp;uías</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show &amp;Baseline Grid</source>
         <translation type="obsolete">Mostrar a Grella &amp;Base</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sn&amp;ap to Grid</source>
         <translation type="obsolete">&amp;Agarrar á Grella</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Snap to Grid</source>
         <translation type="obsolete">Agarrar á Grella</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Sna&amp;p to Guides</source>
         <translation type="obsolete">A&amp;garrarse ás Guías</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Properties</source>
         <translation type="obsolete">&amp;Propriedades</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Properties</source>
         <translation type="obsolete">Propriedades</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Outline</source>
         <translation type="obsolete">&amp;Esquema</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Outline</source>
         <translation type="obsolete">Esquema</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Scrapbook</source>
         <translation type="obsolete">&amp;Porta-retallos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scrapbook</source>
         <translation type="obsolete">Porta-retallos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Layers</source>
         <translation type="obsolete">&amp;Capas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>P&amp;age Palette</source>
         <translation type="obsolete">Paleta de P&amp;áxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Bookmarks</source>
         <translation type="obsolete">&amp;Marcadores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Manage Pictures</source>
         <translation type="obsolete">&amp;Xerir as Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Manage Pictures</source>
         <translation type="obsolete">Xerira as Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Hyphenate Text</source>
         <translation type="obsolete">&amp;Cortar as palabras con guións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Hyphenate Text</source>
         <translation type="obsolete">Cortar as palabras con guións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Toolti&amp;ps</source>
         <translation type="obsolete">Su&amp;xestións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Tools</source>
         <translation type="obsolete">&amp;Ferramentas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>P&amp;DF Tools</source>
         <translation type="obsolete">Ferramentas P&amp;DF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Tools</source>
         <translation type="obsolete">Ferramentas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Tooltips</source>
         <translation type="obsolete">Suxestións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>P&amp;references...</source>
         <translation type="obsolete">P&amp;referencias...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Fonts...</source>
         <translation type="obsolete">&amp;Fontes...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Fonts...</source>
         <translation type="obsolete">Fontes...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Color Management...</source>
         <translation type="obsolete">&amp;Xestión das Cores...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Hyphenator...</source>
         <translation type="obsolete">&amp;Hyphenator...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Keyboard Shortcuts...</source>
         <translation type="obsolete">Atallos do &amp;Teclado...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;About Scribus</source>
         <translation type="obsolete">&amp;Acerca do Scribus</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>About Scribus</source>
         <translation type="obsolete">Acerca do Scribus</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>About &amp;Qt</source>
         <translation type="obsolete">Acerca do &amp;Qt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>About Qt</source>
         <translation type="obsolete">Acerca do Qt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus &amp;Manual...</source>
         <translation type="obsolete">&amp;Manual do Scribus...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Online-Help...</source>
         <translation type="obsolete">Axuda na liña...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;File</source>
         <translation type="obsolete">&amp;Ficheiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Edit</source>
         <translation type="obsolete">&amp;Modificar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>St&amp;yle</source>
         <translation type="obsolete">Est&amp;ilo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Item</source>
         <translation type="obsolete">&amp;Elemento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Page</source>
         <translation type="obsolete">&amp;Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;View</source>
         <translation type="obsolete">&amp;Vista</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>E&amp;xtras</source>
         <translation type="obsolete">E&amp;xtras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Settings</source>
         <translation type="obsolete">&amp;Configuración</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Windows</source>
         <translation type="obsolete">&amp;Xanelas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Help</source>
         <translation type="obsolete">&amp;Axuda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Left</source>
         <translation type="obsolete">&amp;Esquerda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Center</source>
         <translation type="obsolete">&amp;Centro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Right</source>
         <translation type="obsolete">Di&amp;reita</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Block</source>
         <translation type="obsolete">B&amp;loquear</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Forced</source>
         <translation type="obsolete">&amp;Forzado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Other...</source>
         <translation type="obsolete">&amp;Outra...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Normal</source>
         <translation type="obsolete">Normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Underline</source>
         <translation type="obsolete">Subliñado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Strikethru</source>
         <translation type="obsolete">Tachado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Small Caps</source>
         <translation type="obsolete">Versalitas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Superscript</source>
         <translation type="obsolete">Superíndice</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Subscript</source>
         <translation type="obsolete">Subíndice</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Outlined</source>
         <translation type="obsolete">Contorno</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>X-Pos:</source>
         <translation type="obsolete">Posición X:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Y-Pos:</source>
         <translation type="obsolete">Posición Y:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete"> in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ready</source>
         <translation type="obsolete">Preparado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cascade</source>
         <translation type="obsolete">&amp;Cascada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Tile</source>
         <translation type="obsolete">&amp;Mosaico</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Get Text/Picture...</source>
         <translation type="obsolete">Obter Texto/Imaxe...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Get Picture...</source>
         <translation type="obsolete">Obter Imaxe...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Color</source>
         <translation type="obsolete">&amp;Cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Invert</source>
         <translation type="obsolete">&amp;Invertir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Get Text...</source>
         <translation type="obsolete">&amp;Obter Texto...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Font</source>
         <translation type="obsolete">&amp;Fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Size</source>
         <translation type="obsolete">Tama&amp;ño</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Effects</source>
         <translation type="obsolete">&amp;Efectos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Alignment</source>
         <translation type="obsolete">&amp;Aliñamento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Shade</source>
         <translation type="obsolete">&amp;Saturación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Tabulators...</source>
         <translation type="obsolete">T&amp;abuladores...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Get Text...</source>
         <translation type="obsolete">Obter Texto...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font</source>
         <translation type="obsolete">Fonte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Size</source>
         <translation type="obsolete">Tamaño</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Style</source>
         <translation type="obsolete">Estilo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color</source>
         <translation type="obsolete">Cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Shade</source>
         <translation type="obsolete">Saturación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Un&amp;lock</source>
         <translation type="obsolete">Desb&amp;loquear</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Open</source>
         <translation type="obsolete">Abrir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.sla.gz *.scd *.scd.gz);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.scd);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Importing Pages...</source>
         <translation type="obsolete">A Importar Páxina(s)...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import Page(s)</source>
         <translation type="obsolete">Importar Páxina(s)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</source>
         <translation type="obsolete">&lt;p&gt;Estás tentando importar máis páxinas das que están disponíbeis no documento actual contando a partir da páxina activa.&lt;/p&gt;Escolle unha das seguintes:
 &lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Crear&lt;/b&gt; as páxinas que faltan&lt;/lil&gt;&lt;li&gt;&lt;b&gt;Importar&lt;/b&gt; páxinas até a derradeira páxina&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancelar&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Create</source>
         <translation type="obsolete">Crear</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import</source>
         <translation type="obsolete">Importar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import done</source>
         <translation type="obsolete">Importado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Found nothing to import</source>
         <translation type="obsolete">Non se atopou nada que importar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>File %1 is not in Scribus format</source>
         <translation type="obsolete">O Ficheiro %1 non está no formato de Scribus</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Loading...</source>
         <translation type="obsolete">A carregar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>All Supported Formats</source>
         <translation type="obsolete">Todos os Formatos Coñecidos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>All Files (*)</source>
         <translation type="obsolete">Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Can&apos;t write the File: 
 %1</source>
         <translation type="obsolete">Non se puido escribir o Ficheiro:
 %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save as</source>
         <translation type="obsolete">Gardar como</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.sla.gz *.scd *.scd.gz);;Todos os ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Saving...</source>
         <translation type="obsolete">A salvar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Printing...</source>
         <translation type="obsolete">A Imprimir...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Document</source>
         <translation type="obsolete">Documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Printing failed!</source>
         <translation type="obsolete">Non se puido Imprimir!</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus Manual</source>
         <translation type="obsolete">Manual do Scribus</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation type="obsolete">Ficheiros de Texto (*.txt);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Size:</source>
         <translation type="obsolete">&amp;Tamaño:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Shade:</source>
         <translation type="obsolete">&amp;Saturación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Hide Baseline Grid</source>
         <translation type="obsolete">Agochar a Grella de Base</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Baseline Grid</source>
         <translation type="obsolete">Mostrar a Grella de Base</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The following Programs are missing:</source>
         <translation type="obsolete">Faltan os Programas seguintes:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ghostscript : You cannot use EPS Images</source>
         <translation type="obsolete">Ghostscript: Non pode usar Imaxes EPS</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>All</source>
         <translation type="obsolete">Todo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>EPS-Files (*.eps);;All Files (*)</source>
         <translation type="obsolete">Ficheiros EPS (*.eps);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>pt</source>
         <translation type="obsolete">pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>mm</source>
         <translation type="obsolete">mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>in</source>
         <translation type="obsolete">in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>p</source>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Some Objects are locked.</source>
         <translation type="obsolete">Algúns Obxectos están bloqueados.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cancel</source>
         <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Lock all</source>
         <translation type="obsolete">Bloquealo todo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Unlock all</source>
         <translation type="obsolete">Desbloquealo todo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Unlock</source>
         <translation type="obsolete">Desbloquear</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Lock</source>
         <translation type="obsolete">Bloquear</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Loading:</source>
         <translation type="obsolete">A carregar:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;A xestión da cor é posíbel pero non está habilitada agora mesmo. Asegúrese de ter instalados os perfís de cor ICC e de que a rota aos perfís nas Preferencias apunta para onde están instalados.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;A xestión da cor non é posíbel nesta edición do Scribus (non se compilou con ela).&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Adjusting Colors</source>
         <translation type="obsolete">A axustar as Cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Undo Delete Object</source>
         <translation type="obsolete">&amp;Desfacer a Eliminación do Obxecto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Undo Object Move</source>
         <translation type="obsolete">&amp;Desfacer Mover Obxecto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Undo Object Change</source>
         <translation type="obsolete">&amp;Desfacer a Modificación do Obxecto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Croatian</source>
         <translation type="obsolete">Croata</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>German</source>
         <translation type="obsolete">Alemán</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Polish</source>
         <translation type="obsolete">Polonés</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>English</source>
         <translation type="obsolete">Inglés</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Spanish</source>
         <translation type="obsolete">Español</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Italian</source>
         <translation type="obsolete">Italiano</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>French</source>
         <translation type="obsolete">Francés</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Russian</source>
         <translation type="obsolete">Ruso</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Danish</source>
         <translation type="obsolete">Dinamarqués</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Slovak</source>
         <translation type="obsolete">Eslovaco</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Hungarian</source>
         <translation type="obsolete">Húngaro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Czech</source>
         <translation type="obsolete">Checo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Dutch</source>
         <translation type="obsolete">Holandés</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Portuguese</source>
         <translation type="obsolete">Portugués</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Portuguese (BR)</source>
         <translation type="obsolete">Portugués do Brasil</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ukrainian</source>
         <translation type="obsolete">Ucraniano</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Greek</source>
         <translation type="obsolete">Grego</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Catalan</source>
         <translation type="obsolete">Catalán</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Finnish</source>
         <translation type="obsolete">Finlandés</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Irish</source>
         <translation type="obsolete">Irlandés</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Lithuanian</source>
         <translation type="obsolete">Lituano</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Swedish</source>
         <translation type="obsolete">Sueco</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Slovenian</source>
         <translation type="obsolete">Esloveno</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Afrikaans</source>
         <translation type="obsolete">Africaner</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Choose a Directory</source>
         <translation type="obsolete">Escolla un Directorio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Invert</source>
         <translation type="obsolete">Invertir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus Crash</source>
         <translation type="obsolete">Fallo Xeral do Scribus</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus crashes due to Signal #%1</source>
         <translation type="obsolete">Scribus falla debido ao Sinal nº%1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation type="obsolete">Dispoñendo os Atallos de Teclado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Initializing Story Editor</source>
         <translation type="obsolete">Iniciando o Editor de Artigos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Reading ICC Profiles</source>
         <translation type="obsolete">A Ler os Perfís ICC</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Initializing Hyphenator</source>
         <translation type="obsolete">A iniciar o Separador de Guións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Edit</source>
         <translation type="obsolete">Modificar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>There are no fonts found on your system.</source>
         <translation type="obsolete">Non se atoparon fontes neste sistema.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Exiting now.</source>
         <translation type="obsolete">A sair agora.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Preview Settings</source>
         <translation type="obsolete">Configuración da Antevisión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Level</source>
         <translation type="obsolete">Nível</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Send to La&amp;yer</source>
         <translation type="obsolete">Enviar para &amp;Capa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;PDF Options</source>
         <translation type="obsolete">Opcións do &amp;PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;onvert To</source>
         <translation type="obsolete">C&amp;onvertir Para</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>I&amp;nsert</source>
         <translation type="obsolete">I&amp;nserir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Character</source>
         <translation type="obsolete">Carácter</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Quote</source>
         <translation type="obsolete">Aspa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Space</source>
         <translation type="obsolete">Espazo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
         <translation type="obsolete">Documentos (*.sla *.sla.gz *.scd *.scd.gz);;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.scd);;</source>
         <translation type="obsolete">Documentos (*.sla *.scd);;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>File %1 is not in an acceptable format</source>
         <translation type="obsolete">O ficheiro %1 non está nun formato aceptábel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PostScript</source>
         <translation type="obsolete">PostScript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Some fonts used by this document have been substituted:</source>
         <translation type="obsolete">Subsituíronse algunhas das fontes utilizadas neste documento:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> was replaced by: </source>
         <translation type="obsolete"> substituíuse por: </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Some ICC profiles used by this document are not installed:</source>
         <translation type="obsolete">Non están instalados algúns perfís ICC utilizados por este documento:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>(converted)</source>
         <translation type="obsolete">(convertido)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cannot write the file: 
 %1</source>
         <translation type="obsolete">Non se pode escribir o ficheiro: 
 %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save As</source>
         <translation type="obsolete">Gardar como</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus has detected some errors.
 Consider using the Pre-flight Checker to correct them</source>
         <translation type="obsolete">Scribus detectou algúns erros.
 Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Abort</source>
         <translation type="obsolete">P&amp;arar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Ignore</source>
         <translation type="obsolete">&amp;Ignorar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cannot Cut In-Use Item</source>
         <translation type="obsolete">Non se pode Recortar un Elemento en Uso</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation type="obsolete">O elemento %1 está a ser modificado no Editor de Artigos. Cancelarase a operación de recordado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name:</source>
         <translation type="obsolete">Nome:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>New Master Page</source>
         <translation type="obsolete">Páxina Mestra Nova</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The following programs are missing:</source>
         <translation type="obsolete">Faltan os programas seguintes:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
         <translation type="obsolete">Ghostscript: Non se poden utilizar imaxes EPS na Antevisión da Impresión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation type="obsolete">Scribus detectou algúns erros.
 Considere utilizar o Comprobador Pré-voo para corrixilos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>EPS Files (*.eps);;All Files (*)</source>
         <translation type="obsolete">Ficheiros EPS (*.eps);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation type="obsolete">Detectáronse algúns erros
 Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>-Page%1</source>
         <translation type="obsolete">-Páxina%1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Some objects are locked.</source>
         <translation type="obsolete">Algúns obxectos están bloqueados.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Lock All</source>
         <translation type="obsolete">B&amp;loquealo Todo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Unlock All</source>
         <translation type="obsolete">&amp;Desbloquealo Todo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Bulgarian</source>
         <translation type="obsolete">Búlgaro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Information</source>
         <translation type="obsolete">Información</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The program %1 is already running!</source>
         <translation type="obsolete">Xa está a correr o programa %1!</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The program %1 is missing!</source>
         <translation type="obsolete">Falta o programa %1!</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
         <translation type="obsolete">A cor seleccionada non existe no conxunto de cores do documento. Introduza outro nome para esta cor nova.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color Not Found</source>
         <translation type="obsolete">Non se Atopou a Cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
         <translation type="obsolete">O nome escollido xa existe. Introduza un nome diferente para esta cor nova.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Level</source>
         <translation type="obsolete">&amp;Nível</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Send to Layer</source>
         <translation type="obsolete">Enviar para Capa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Previe&amp;w Settings</source>
         <translation type="obsolete">Con&amp;figuración da Antevisión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Convert Page to Master Page</source>
         <translation type="obsolete">Converter Páxina a Páxina Mestra</translation>
     </message>
@@ -41047,22 +38799,18 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
 <context>
     <name>ScribusColorList</name>
     <message>
-        <location filename="" line="0"/>
         <source>Sample</source>
         <translation type="obsolete">Mostra</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color</source>
         <translation type="obsolete">Cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Document Colors</source>
         <translation type="obsolete">Cores do Documento</translation>
     </message>
@@ -41072,7 +38820,7 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="170"/>
         <source>Initializing Plugins</source>
-        <translation>A inicializar as Extensións</translation>
+        <translation>A inicializar os engadidos</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="182"/>
@@ -41138,7 +38886,6 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
         <translation type="obsolete">Capa Nova</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Normal</source>
         <translation type="obsolete">Normal</translation>
     </message>
@@ -41178,7 +38925,6 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
         <translation>Produciuse un erro ao abrir os perfís ICC; non se habilitará a xestión da cor.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3</source>
@@ -41211,12 +38957,10 @@ Separación vertical: %3</translation>
         <translation type="obsolete">Estilo de Carácter Predefinido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>remove manual paragraphstyle</source>
         <translation type="obsolete">eliminar o estilo de parágrafo manual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>remove manual charstyle</source>
         <translation type="obsolete">eliminar o estilo de carácter manual</translation>
     </message>
@@ -41261,17 +39005,14 @@ Rotación: %4</translation>
 <context>
     <name>ScribusMainWindow</name>
     <message>
-        <location filename="" line="0"/>
         <source>Initializing Plugins</source>
         <translation type="obsolete">A inicializar as Extensións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation type="obsolete">A inicializar os Atallos de Teclado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Reading Preferences</source>
         <translation type="obsolete">A ler as Preferencias</translation>
     </message>
@@ -41281,7 +39022,6 @@ Rotación: %4</translation>
         <translation>A iniciar o Editor de Artigos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Reading ICC Profiles</source>
         <translation type="obsolete">A Ler os Perfís ICC</translation>
     </message>
@@ -41311,17 +39051,14 @@ Rotación: %4</translation>
         <translation type="obsolete">Modificar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Searching for Fonts</source>
         <translation type="obsolete">A procurar as Fontes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>There are no fonts found on your system.</source>
         <translation type="obsolete">Non se atoparon fontes neste sistema.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Exiting now.</source>
         <translation type="obsolete">A sair agora.</translation>
     </message>
@@ -41331,7 +39068,6 @@ Rotación: %4</translation>
         <translation>Erro Fatal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font System Initialized</source>
         <translation type="obsolete">Sistema de Fontes inicializado</translation>
     </message>
@@ -41516,7 +39252,6 @@ Rotación: %4</translation>
         <translation>A carregar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PostScript</source>
         <translation type="obsolete">PostScript</translation>
     </message>
@@ -41541,7 +39276,6 @@ Rotación: %4</translation>
         <translation>Todos os Formatos Coñecidos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>All Files (*)</source>
         <translation type="obsolete">Todos os Ficheiros (*)</translation>
     </message>
@@ -41553,12 +39287,10 @@ Rotación: %4</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.sla.gz *.scd *.scd.gz);;Todos os ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.scd);;Todos os Ficheiros (*)</translation>
     </message>
@@ -41578,12 +39310,10 @@ Rotación: %4</translation>
         <translation>O Scribus detectou algúns erros. Considere utilizar o Verificador de Pré-Voo para corrixilos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Ignore</source>
         <translation type="obsolete">&amp;Ignorar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Abort</source>
         <translation type="obsolete">P&amp;arar</translation>
     </message>
@@ -41633,7 +39363,6 @@ Rotación: %4</translation>
         <translation>Ficheiros de Texto (*.txt);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Normal</source>
         <translation type="obsolete">Normal</translation>
     </message>
@@ -41787,12 +39516,10 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
         <translation>Posición Y:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Spaces &amp;&amp; Breaks</source>
         <translation type="obsolete">Espazos &amp;&amp; Quebras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ligature</source>
         <translation type="obsolete">Ligatura</translation>
     </message>
@@ -41802,7 +39529,6 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
         <translation type="obsolete">Nova Páxina Mestra %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3</source>
@@ -41866,7 +39592,6 @@ Desprazamento vertical: %3</translation>
         <translation>Documentos  (*.sla *.sla.gz);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Group%1</source>
         <translation type="obsolete">Grupo%1</translation>
     </message>
@@ -41930,7 +39655,7 @@ Desprazamento vertical: %3</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="7598"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Falta o Ghostscript: Non se dispón da Antevisión da Impresión Postscript</translation>
     </message>
 </context>
 <context>
@@ -42079,37 +39804,30 @@ Desprazamento vertical: %3</translation>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Layer</source>
         <translation type="obsolete">Capa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>pt</source>
         <translation type="obsolete">pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>mm</source>
         <translation type="obsolete">mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>in</source>
         <translation type="obsolete">in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>p</source>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>All</source>
         <translation type="obsolete">Todo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Copy of</source>
         <translation type="obsolete">Copiar de</translation>
     </message>
@@ -42239,27 +39957,22 @@ Desprazamento vertical: %3</translation>
         <translation>Vincular as Molduras de Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
         <translation type="obsolete">Pretende vincular a unha moldura chea ou unha moldura consigo mesma.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do you really want to clear all your text?</source>
         <translation type="obsolete">Realmente pretende eliminar todo o texto?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cannot Delete In-Use Item</source>
         <translation type="obsolete">Non se pode Eliminar o Elemento en Uso</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="obsolete">O elemento %1 está a ser modificado no Editor de Artigos. Cancelarase a operación de recordado</translation>
     </message>
@@ -42289,17 +40002,14 @@ Desprazamento vertical: %3</translation>
         <translation type="obsolete">Descoñecido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>RGB</source>
         <translation type="obsolete">RGB</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>CMYK</source>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Grayscale</source>
         <translation type="obsolete">Escala de grises</translation>
     </message>
@@ -42314,7 +40024,6 @@ Desprazamento vertical: %3</translation>
         <translation>Pegar Recente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Duotone</source>
         <translation type="obsolete">Duotono</translation>
     </message>
@@ -42341,27 +40050,22 @@ You can choose between normal and several color blindness forms</source>
 Pode escoller entre normal e varias formas de cegueira para as cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Normal Vision</source>
         <translation type="obsolete">Visión Normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Protanopia (Red)</source>
         <translation type="obsolete">Protanopia (Vermello)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Deuteranopia (Green)</source>
         <translation type="obsolete">Deuteranopia (Verde)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Tritanopia (Blue)</source>
         <translation type="obsolete">Tritanopia (Azul)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Full Color Blindness</source>
         <translation type="obsolete">Cegueira Total para a Cor</translation>
     </message>
@@ -42433,48 +40137,45 @@ Pode escoller entre normal e varias formas de cegueira para as cores</translatio
     <message>
         <location filename="../../scribus/scribusview.cpp" line="353"/>
         <source>Zoom to 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>Ampliar ao 100%</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="354"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Alonxarse polo valor dos pasos das preferencias das Ferramentas</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="355"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Achegarse polo valor dos pasos das preferencias das Ferramentas</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="356"/>
         <source>Current zoom level</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel actual da ampliación</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="359"/>
         <source>Select the current layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar a capa actual</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="360"/>
         <source>Select the current unit</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar a unidade actual</translation>
     </message>
 </context>
 <context>
     <name>ScribusWin</name>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Leave Anyway</source>
         <translation type="obsolete">Sa&amp;ir Igual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;lose Anyway</source>
         <translation type="obsolete">&amp;Fechar Igual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
@@ -42489,17 +40190,14 @@ Pode escoller entre normal e varias formas de cegueira para as cores</translatio
         <translation>mudou desde a última vez que se salvou.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Save Now</source>
         <translation type="obsolete">&amp;Gardar Agora</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Discard</source>
         <translation type="obsolete">&amp;Desbotar</translation>
     </message>
@@ -42520,17 +40218,14 @@ Pode escoller entre normal e varias formas de cegueira para as cores</translatio
 <context>
     <name>ScripterCore</name>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Scribus Scripts</source>
         <translation type="obsolete">&amp;Guións do Scribus</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Execute Script...</source>
         <translation type="obsolete">&amp;Executar Guións...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Run a Python script from a file.</source>
         <comment>scripter</comment>
         <translation type="obsolete">Executar un guión Python desde un ficheiro.
@@ -42538,12 +40233,10 @@ Pode escoller entre normal e varias formas de cegueira para as cores</translatio
 scripter.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Load Extension Script...</source>
         <translation type="obsolete">&amp;Carregar un Guión de Extensión...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
         <comment>scripter</comment>
         <translation type="obsolete">Carregar un guión de Python como extensión. Úsase para carregar macros e para guións Python avanzados que extenden a interface de usuario de Scribus.
@@ -42551,17 +40244,14 @@ scripter.</translation>
 scripter.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Recent Scripts</source>
         <translation type="obsolete">Guións &amp;Recentes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show &amp;Console</source>
         <translation type="obsolete">Mostrar a &amp;Consola</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
         <comment>scripter</comment>
         <translation type="obsolete">Mostrar unha consola de Python interactiva na que pode escribir e executar programas en Python que usen as ferramentas do Scripter.
@@ -42569,17 +40259,14 @@ scripter.</translation>
 scripter.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;About Script...</source>
         <translation type="obsolete">&amp;Acerca de Script...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>S&amp;cript</source>
         <translation type="obsolete">S&amp;cript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scripter &amp;Settings</source>
         <comment>script menu</comment>
         <translation type="obsolete">&amp;Configuración do Scripter
@@ -42587,12 +40274,10 @@ scripter.</translation>
 menú de script</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Open</source>
         <translation type="obsolete">Abrir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Python Scripts (*.py);; All Files (*)</source>
         <translation type="obsolete">Guións en Python (*.py);;Todos os Ficheiros (*)</translation>
     </message>
@@ -42612,12 +40297,10 @@ menú de script</translation>
         <translation>Esta mensaxe tamén está no porta-retallos. Use Ctrl+V para apegala no xestor de erros.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus - Script Plugin</source>
         <translation type="obsolete">Scribus - Extensión de Guións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
 If you just want to run a normal script, you probably want to use
 &apos;Execute Script...&apos; instead.
@@ -42639,12 +40322,10 @@ as extensións do scripter.
 Lea antes a documentación sobre a extensión.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Hide &amp;Console</source>
         <translation type="obsolete">Agochar a &amp;Consola</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>About Script</source>
         <translation type="obsolete">Acerca do Script</translation>
     </message>
@@ -42659,17 +40340,15 @@ Lea antes a documentación sobre a extensión.</translation>
         <translation>Examinar o Guión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Python Scripts (*.py)</source>
         <translation type="obsolete">Guións en Python (*.py)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="590"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
-        <translation>Fallou a configuración da extensión en Python. Enviáronse os detalles á saída normal.</translation>
+        <translation>Fallou a configuración do engadido en Python. Enviáronse os detalles á saída normal.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Python Scripts (*.py);;All Files (*)</source>
         <translation type="obsolete">Guións en Python (*.py);;Todos os Ficheiros (*)</translation>
     </message>
@@ -42697,22 +40376,18 @@ Lea antes a documentación sobre a extensión.</translation>
 <context>
     <name>ScripterPreferences</name>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus - Scripter Preferences</source>
         <translation type="obsolete">Scribus - Preferencias do Scripter</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enable Scripter Extensions</source>
         <translation type="obsolete">Habilitar as Extensións do Scripter</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Turn on extension scripts and macros</source>
         <translation type="obsolete">Activar os guións de extensión e macros</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
 &lt;p&gt;
 Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</source>
@@ -42720,96 +40395,78 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
 &lt;p&gt;Só se deberían utilizar guións escritos como guións de extensión con &lt;tt&gt;Carregar Guión de Extensión&lt;/tt&gt; ou como guións de inicio. Consulte a documentación de scripter para máis información.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Use a Startup Script</source>
         <translation type="obsolete">Usar un Guión de Inicio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;Use a Startup Script&lt;/tt&gt; will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p&gt;&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;&lt;p&gt;Se se activa &lt;tt&gt;Usar un Guión de Inicio&lt;/tt&gt;, Scribus carregará o ficheiro de guión indicado aquí como un guión de extensión ao comezo. É importante que o guión se escriba como un guión de extensión, xa que se non se escribe con coidado pode ocasionar problemas.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;Usar un Guión de Inicio&lt;/tt&gt; deshabilitarase se o están as extensións de scripter, xa que os guións de extensión non se poden carregar sen ter habilitadas as extensións de scripter.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Browse...</source>
         <translation type="obsolete">Examinar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Browse for a new script file</source>
         <translation type="obsolete">Procurar un ficheiro de guión novo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Browse for a new script file&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Procurar un ficheiro de guión novo&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>What script file to load at start-up</source>
         <translation type="obsolete">Que ficheiro de guión se carregará no inicio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
 &lt;p&gt;Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p&gt;&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;&lt;p&gt;O ficheiro que contén o guión en Python que se executará como guión de extensión no inicio.&lt;/p&gt;
 &lt;p&gt;Observe que cando se executa este guión, Scribus ainda non se iniciou de todo e a área de traballo ainda non existe.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Script File:</source>
         <translation type="obsolete">Ficheiro de Guión:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Close without saving changes</source>
         <translation type="obsolete">Fechar sen salvar as mudanzas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Ok</source>
         <translation type="obsolete">&amp;Aceptar as modificacións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+O</source>
         <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save changes and close</source>
         <translation type="obsolete">Salvar as mudanzas e fechar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Advanced Options</source>
         <translation type="obsolete">Opcións avanzadas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import All Names at Startup</source>
         <translation type="obsolete">Importar Todos os Nomes no Inicio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Run &apos;from scribus import *&apos; in the script console at start-up</source>
         <translation type="obsolete">Executar &quot;do importado a Scribus *&quot; na consola de guións no inicio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
 &lt;p&gt;Unchecking this option will prevent the scripter from running its usual &lt;tt&gt;from scribus import *&lt;/tt&gt; command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
@@ -42818,17 +40475,14 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
 &lt;p&gt;Esta opción non é efectiva até que se reinicia o Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enable Legacy Name Aliases</source>
         <translation type="obsolete">Permitir Alias de Nome Anticuados</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Permitir o uso de nomes de función Estilo Vello&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
@@ -42837,17 +40491,14 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
 &lt;p&gt;Esta opción no é efectiva até que se reinicie Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Use Fake Stdin</source>
         <translation type="obsolete">Usar Stdin Falso</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Substituir sys.stdin cun ficheiro falso para evitar que Scribus se colque cando un guión tenta ler desde stdin.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus&apos;s execution, making the app appear to hang - until input arrives on stdin. It&apos;s unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
 &lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</source>
@@ -42864,7 +40515,6 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <translation>Preferencias do Scripter</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Extension Scripts</source>
         <translation type="obsolete">Guións de Extensión</translation>
     </message>
@@ -42874,7 +40524,6 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <translation>Habilitar os Guións de Extensión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Startup Script</source>
         <translation type="obsolete">Guión de Inicio</translation>
     </message>
@@ -42894,43 +40543,36 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <translation>Guión de Inicio:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Errors:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Erros:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Comments:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Comentarios:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Keywords:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Palabras chave:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Signs:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Signos:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Numbers:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Números:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Strings:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Cadeas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Base Texts:</source>
         <comment>syntax highlighting</comment>
         <translation type="obsolete">Textos de Base:</translation>
@@ -43012,12 +40654,10 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
 <context>
     <name>SeView</name>
     <message>
-        <location filename="" line="0"/>
         <source>Show Template Names</source>
         <translation type="obsolete">Mostrar os Nomes dos Modelos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Master Page Names</source>
         <translation type="obsolete">Mostrar os Nomes das Páxinas mestras</translation>
     </message>
@@ -43115,12 +40755,10 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <translation>Forzado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengunha</translation>
     </message>
@@ -43170,7 +40808,6 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <translation>Rematou a pesquisa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
@@ -43213,74 +40850,60 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
 <context>
     <name>SeitenPal</name>
     <message>
-        <location filename="" line="0"/>
         <source>Arrange Pages</source>
         <translation type="obsolete">Dispor as Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Available Templates:</source>
         <translation type="obsolete">Modelos Disponíbeis:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Document Pages:</source>
         <translation type="obsolete">Páxinas do Documento:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Facing Pages</source>
         <translation type="obsolete">Páxinas Enfrentadas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Left Page first</source>
         <translation type="obsolete">A Páxina Esquerda Primeiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
         <translation type="obsolete">Arrastrar as Páxinas ou os Modelos de Páxina para o lixo para eliminalos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Previews all the pages of your document.</source>
         <translation type="obsolete">Antevisión de todas as páxinas do documento.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Here are all your Templates, to create a new Page
 drag a Template to the Pageview below.</source>
         <translation type="obsolete">Eis os seus Modelos. Para crear unha Páxina nova
 arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Normal</source>
         <translation type="obsolete">Normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
         <translation type="obsolete">Arrastrar as páxinas ou páxinas mestras ao lixo para eliminalas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Previews all the pages of your document</source>
         <translation type="obsolete">Antevisión de todas as páxinas do documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
         <translation type="obsolete">Eis todas as páxinas mestras. Para crear unha páxina nova, arrastre unha páxina mestra á vista de páxinas de embaixo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Available Master Pages:</source>
         <translation type="obsolete">Páxinas Mestras Disponíbeis:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Left Page First</source>
         <translation type="obsolete">A Páxina Esquerda Primeiro</translation>
     </message>
@@ -43313,12 +40936,10 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
         <translation>Campos Escollidos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -43370,17 +40991,16 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
     <message>
         <location filename="../../scribus/plugins/short-words/shortwords.cpp" line="164"/>
         <source>Short Words</source>
-        <translation>Palabras Curtas</translation>
+        <translation>Abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
         <translation type="obsolete">Extensión especial para adicionar espazos que non quebran antes ou despóis das chamadas abreviaturas.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/shortwords.cpp" line="99"/>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
-        <translation>Extensión especial para engadir espazos que non quebran antes ou depois das chamadas palabras curtas. Disponíbel nas seguintes linguas: </translation>
+        <translation>Extensión especial para engadir espazos que non quebran antes ou depois das chamadas abreviaturas. Disponíbel nas seguintes linguas: </translation>
     </message>
 </context>
 <context>
@@ -43477,7 +41097,6 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
 <context>
     <name>Spalette</name>
     <message>
-        <location filename="" line="0"/>
         <source>No Style</source>
         <translation type="obsolete">Sen Estilo</translation>
     </message>
@@ -43485,102 +41104,82 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
 <context>
     <name>StilFormate</name>
     <message>
-        <location filename="" line="0"/>
         <source>Edit Styles</source>
         <translation type="obsolete">Modificar os Estilos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Append</source>
         <translation type="obsolete">&amp;Adicionar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;New</source>
         <translation type="obsolete">&amp;Novo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Edit</source>
         <translation type="obsolete">&amp;Modificar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>D&amp;uplicate</source>
         <translation type="obsolete">D&amp;uplicar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Save</source>
         <translation type="obsolete">&amp;Gardar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Copy of %1</source>
         <translation type="obsolete">Copiar de %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>New Style</source>
         <translation type="obsolete">Estilo Novo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do you really want to delete this Style?</source>
         <translation type="obsolete">Realmente quer eliminar este Estilo?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>No</source>
         <translation type="obsolete">Non</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Yes</source>
         <translation type="obsolete">Si</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Open</source>
         <translation type="obsolete">Abrir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.sla.gz *.scd *.scd.gz);;Todos os ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation type="obsolete">Documentos (*.sla *.scd);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Import</source>
         <translation type="obsolete">&amp;Importar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do you really want to delete this style?</source>
         <translation type="obsolete">Pretende realmente eliminar este estilo?</translation>
     </message>
@@ -43658,7 +41257,6 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
         <translation>Pr&amp;ocurar/Substituir...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Insert Special...</source>
         <translation type="obsolete">&amp;Inserir Especial...</translation>
     </message>
@@ -43713,42 +41311,34 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
         <translation>Ficheiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Clear all Text</source>
         <translation type="obsolete">Limpar todo o Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Load Text from File</source>
         <translation type="obsolete">Carregar o Texto desde un Ficheiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Save Text to File</source>
         <translation type="obsolete">Salvar o Texto nun Ficheiro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Update Text Frame and Exit</source>
         <translation type="obsolete">Actualizar a Moldura de Texto e Sair</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Exit Without Updating Text Frame</source>
         <translation type="obsolete">Sair Sen Actualizar a Moldura de Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Reload Text from Frame</source>
         <translation type="obsolete">Recarregar o Texto desde a Moldura</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Update Text Frame</source>
         <translation type="obsolete">Actualizar a Moldura de Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Search/Replace</source>
         <translation type="obsolete">Procurar/Substituir</translation>
     </message>
@@ -43778,7 +41368,6 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
         <translation>Parágrafos: </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
@@ -43788,12 +41377,10 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
         <translation>Quer gravar as súas modificacións?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do you really want to lose all your Changes?</source>
         <translation type="obsolete">Quer perder realmente as súas Modificacións?</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do you really want to clear all your Text?</source>
         <translation type="obsolete">Realmente quer eliminar todo o Texto?</translation>
     </message>
@@ -43894,7 +41481,6 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
 <context>
     <name>StyleManager</name>
     <message>
-        <location filename="" line="0"/>
         <source>More than one item selected</source>
         <translation type="obsolete">Hai máis dun elemento seleccionado</translation>
     </message>
@@ -44107,7 +41693,6 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
 <context>
     <name>StyleSelect</name>
     <message>
-        <location filename="" line="0"/>
         <source>Underline</source>
         <translation type="obsolete">Subliñado</translation>
     </message>
@@ -44127,17 +41712,14 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
         <translation>Superíndice</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Strike Out</source>
         <translation type="obsolete">Tachado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Outline Text</source>
         <translation type="obsolete">Contorno</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Underline Words Only</source>
         <translation type="obsolete">Subliñar Só as Palabras</translation>
     </message>
@@ -44147,17 +41729,14 @@ arrastre un Modelo á Vista da Páxina de embaixo.</translation>
         <translation>Todo en Maiúsculas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Outline</source>
         <translation type="obsolete">Esquema</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Shadow</source>
         <translation type="obsolete">Sombra</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
         <translation type="obsolete">Contorno
@@ -44222,7 +41801,6 @@ Selector de Estilo de Texto</translation>
         <translation>Opcións do Importador do Writer do OpenOffice.org</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Update Paragraph Styles</source>
         <translation type="obsolete">Actualizar os Estilos de Parágrafo</translation>
     </message>
@@ -44380,7 +41958,6 @@ Selector de Estilo de Texto</translation>
         <translation>Moldura de Destino:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Inde&amp;x</source>
         <translation type="obsolete">Índi&amp;ce</translation>
     </message>
@@ -44408,87 +41985,70 @@ Selector de Estilo de Texto</translation>
 <context>
     <name>TOCIndexPrefsBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Table of Contents and Indexes</source>
         <translation type="obsolete">Índice e Índices Analíticos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Table Of Contents</source>
         <translation type="obsolete">Índice</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Add</source>
         <translation type="obsolete">&amp;Adicionar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Delete</source>
         <translation type="obsolete">&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+D</source>
         <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The frame the table of contents will be placed into</source>
         <translation type="obsolete">A moldura na que se colocará o índice</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page Numbers Placed:</source>
         <translation type="obsolete">Números de Páxina Colocados:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Item Attribute Name:</source>
         <translation type="obsolete">Nome do Elemento Atributo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
         <translation type="obsolete">O Atributo do Elemento que se asignará ás molduras utilizadas como base para a creación de entradas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
         <translation type="obsolete">Colocar os números de páxina das entradas no principio ou no final da liña, ou non colocalas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>List Non-Printing Entries</source>
         <translation type="obsolete">Listaxe de Entradas que Non se Imprimen</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Include frames that are set to not print as well</source>
         <translation type="obsolete">Incluir tamén molduras que se indica que non se van imprimir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The paragraph style used for the entry lines</source>
         <translation type="obsolete">O estilo de parágrafo utilizado para as liñas de entrada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Paragraph Style:</source>
         <translation type="obsolete">Estilo de Parágrafo:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Destination Frame:</source>
         <translation type="obsolete">Moldura de Destino:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Inde&amp;x</source>
         <translation type="obsolete">Índi&amp;ce</translation>
     </message>
@@ -44511,7 +42071,6 @@ Selector de Estilo de Texto</translation>
         <translation>Comprobar os glifos que falten</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Check for objects not on a page</source>
         <translation type="obsolete">Comprobar os obxectos que non estexan nunha páxina</translation>
     </message>
@@ -44521,7 +42080,6 @@ Selector de Estilo de Texto</translation>
         <translation>Comprobar se desbordan as molduras de texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Check for transparencies used</source>
         <translation type="obsolete">Comprobar as transparencias utilizadas</translation>
     </message>
@@ -44872,187 +42430,150 @@ Selector de Estilo de Texto</translation>
 <context>
     <name>TabDisplayBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Page Display</source>
         <translation type="obsolete">Exhibición da Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Layer Indicators</source>
         <translation type="obsolete">Mostrar os Indicadores de Capa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Frames</source>
         <translation type="obsolete">Mostrar as Molduras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Text Chains</source>
         <translation type="obsolete">Mostrar as Cadeas de Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Display &amp;Unprintable Area in Margin Color</source>
         <translation type="obsolete">Mostrar a Área &amp;Non Imprimíbel na Cor da Marxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+U</source>
         <translation type="obsolete">Alt+U</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Rulers Relative to Page</source>
         <translation type="obsolete">Regras Relativas á Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Text Control Characters</source>
         <translation type="obsolete">Mostrar os Caracteres de Control do Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Pictures</source>
         <translation type="obsolete">Mostrar as Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color:</source>
         <translation type="obsolete">Cor:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scratch Space</source>
         <translation type="obsolete">Espazo de traballo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Left:</source>
         <translation type="obsolete">&amp;Esquerda:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Right:</source>
         <translation type="obsolete">De&amp;reita:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Bottom:</source>
         <translation type="obsolete">&amp;Inferior:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Top:</source>
         <translation type="obsolete">&amp;Superior:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Gaps Between Pages</source>
         <translation type="obsolete">Separación Entre Páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Horizontal:</source>
         <translation type="obsolete">Horizontal:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Vertical:</source>
         <translation type="obsolete">Vertical:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Adjust Display Size</source>
         <translation type="obsolete">Axustar o Tamaño da Exhibición</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>To adjust the display drag the ruler below with the slider.</source>
         <translation type="obsolete">Para axustar o que se mostra arrastre a regra de embaixo coa escala.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>General</source>
         <translation type="obsolete">Xeral</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Colors</source>
         <translation type="obsolete">Cores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Pages:</source>
         <translation type="obsolete">Páxinas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Fill Color:</source>
         <translation type="obsolete">Cor de Enchido:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Selected Page Border:</source>
         <translation type="obsolete">Bordo de Páxina Seleccionado:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Frames</source>
         <translation type="obsolete">Molduras</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Locked:</source>
         <translation type="obsolete">Bloqueadas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Normal:</source>
         <translation type="obsolete">Normais:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Selected:</source>
         <translation type="obsolete">Seleccionadas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Linked:</source>
         <translation type="obsolete">Ligadas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Grouped:</source>
         <translation type="obsolete">Agrupadas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Annotation:</source>
         <translation type="obsolete">Anotación:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Text:</source>
         <translation type="obsolete">Texto:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Control Characters:</source>
         <translation type="obsolete">Caracteres de Control:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Bleed Area</source>
         <translation type="obsolete">Mostrar Área de Sangrado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>TabDisplayBase</source>
         <translation type="obsolete">PestMostrarBase</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scale%</source>
         <translation type="obsolete">Escala%</translation>
     </message>
@@ -45100,7 +42621,6 @@ Selector de Estilo de Texto</translation>
         <translation>&amp;Altura:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply size settings to all Pages</source>
         <translation type="obsolete">Aplicar a configuración de tamaño a todas as Páxinas</translation>
     </message>
@@ -45430,143 +42950,119 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabexternaltoolswidget.cpp" line="271"/>
         <source>Change Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Mudar o comando</translation>
     </message>
     <message>
         <location filename="../../scribus/tabexternaltoolswidget.cpp" line="272"/>
         <source>Enter new command: (leave empty to reset to default command; use quotes around arguments with spaces)</source>
-        <translation type="unfinished"></translation>
+        <translation>Introducir un comando novo: (deixar baleiro para reiniciar ao comando predefinido; empregar aspas arredor dos argumentos con espazos)</translation>
     </message>
     <message>
         <location filename="../../scribus/tabexternaltoolswidget.cpp" line="287"/>
         <source>Command: </source>
-        <translation type="unfinished"></translation>
+        <translation>Comando:</translation>
     </message>
     <message>
         <location filename="../../scribus/tabexternaltoolswidget.ui" line="327"/>
         <source>Change Command...</source>
-        <translation type="unfinished"></translation>
+        <translation>Mudar o comando...</translation>
     </message>
 </context>
 <context>
     <name>TabExternalToolsWidgetBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>External Tools</source>
         <translation type="obsolete">Ferramentas externas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PostScript Interpreter</source>
         <translation type="obsolete">Intérprete de PostScript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Name of Executable:</source>
         <translation type="obsolete">&amp;Nome do Executábel:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Change..</source>
         <translation type="obsolete">&amp;Mudar..</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Antialias &amp;Text</source>
         <translation type="obsolete">&amp;Texto Antialias</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+T</source>
         <translation type="obsolete">Alt+T</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation type="obsolete">Texto antialias para a exhibición na pantalla de EPS e PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Antialias &amp;Graphics</source>
         <translation type="obsolete">&amp;Gráficos Antialias</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+G</source>
         <translation type="obsolete">Alt+G</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
         <translation type="obsolete">Gráficos antialias para a exhibición na pantalla de EPS e PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Resolution:</source>
         <translation type="obsolete">Resolución:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> dpi</source>
         <translation type="obsolete">  dpi</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Image Processing Tool</source>
         <translation type="obsolete">Ferramenta de Procesamento de Imaxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name of &amp;Executable:</source>
         <translation type="obsolete">Nome do &amp;Executábel:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Change...</source>
         <translation type="obsolete">&amp;Mudar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Rescan</source>
         <translation type="obsolete">&amp;Re-examinar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+R</source>
         <translation type="obsolete">Alt+R</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Engada a rota para o intérprete de Ghostscript. En Windows teña en conta que ten que empregar o programa chamado gswin32c.exe - NON gswin32.exe. Se non, pode que se lle colgue Scribus nada mais comezar.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Localización do editor de gráficos no sistema de ficheiros. Se emprega o gimp e ven incluído coa súa distribución, recomendamos &quot;gimp-remote&quot;, xa que lle permite editar a imaxe nun proceso xa existente.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Web Browser</source>
         <translation type="obsolete">Navegador Web</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Web Browser to launch with links from the Help system</source>
         <translation type="obsolete">Navegador Web que se lanzará desde as hipeligazóns desde o sistema de Axuda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
         <translation type="obsolete">&lt;qt&gt;Localización do navegador web no sistema de ficheiros. Emprégase para os vínculos externos desde o sistema de Axuda.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
         <translation type="obsolete">Volver a procurar ferramentas externas se non existen na localización xa indicada</translation>
     </message>
@@ -45591,7 +43087,7 @@ Selector de Estilo de Texto</translation>
     <message>
         <location filename="../../scribus/tabgeneral.cpp" line="56"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Escolla a decoración e aparencia por omisión das xanelas. Scribus herda calquer tema disponíbel para KDE ou Qt se Qt está configurado para procurar os plugins de KDE.</translation>
+        <translation>Escolla a decoración e aparencia por omisión das xanelas. Scribus herda calquer tema disponíbel para KDE ou Qt se Qt está configurado para procurar os engadidos do KDE.</translation>
     </message>
     <message>
         <location filename="../../scribus/tabgeneral.cpp" line="57"/>
@@ -45772,137 +43268,110 @@ Selector de Estilo de Texto</translation>
 <context>
     <name>TabGeneralBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>GUI</source>
         <translation type="obsolete">Aparencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Language:</source>
         <translation type="obsolete">&amp;Lingua:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Theme:</source>
         <translation type="obsolete">&amp;Tema:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Time before a Move or Resize starts:</source>
         <translation type="obsolete">Tempo antes de que se inicie un Movemento ou Modificación de Tamaño:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> ms</source>
         <translation type="obsolete"> ms</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Font Size (Menus):</source>
         <translation type="obsolete">Tamaño da &amp;Fonte (Menús):</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font Size (&amp;Palettes):</source>
         <translation type="obsolete">Tamaño da Fonte (&amp;Paletas):</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Wheel Jump:</source>
         <translation type="obsolete">&amp;Salto do Rato:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Recent Documents:</source>
         <translation type="obsolete">Documentos &amp;Recentes:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Paths</source>
         <translation type="obsolete">Rotas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Documents:</source>
         <translation type="obsolete">&amp;Documentos:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Change...</source>
         <translation type="obsolete">&amp;Mudar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+M</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;ICC Profiles:</source>
         <translation type="obsolete">Perfís &amp;ICC:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;hange...</source>
         <translation type="obsolete">Mud&amp;ar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+H</source>
         <translation type="obsolete">Alt+H</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Scripts:</source>
         <translation type="obsolete">&amp;Guións:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Ch&amp;ange...</source>
         <translation type="obsolete">Mud&amp;ar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+A</source>
         <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Document &amp;Templates:</source>
         <translation type="obsolete">&amp;Modelos de Documentos:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cha&amp;nge...</source>
         <translation type="obsolete">M&amp;udar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+N</source>
         <translation type="obsolete">Alt+U</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>User Interface</source>
         <translation type="obsolete">Interface do Usuario</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Startup Dialog</source>
         <translation type="obsolete">Mostrar o Diálogo de Inicio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Splashscreen on Startup</source>
         <translation type="obsolete">Mostrar a Pantalla de Inicio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>TabGeneralBase</source>
         <translation type="obsolete">PestanaXeralBase</translation>
     </message>
@@ -46316,132 +43785,106 @@ Selector de Estilo de Texto</translation>
 <context>
     <name>TabKeyboardShortcutsWidgetBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Keyboard Shortcuts</source>
         <translation type="obsolete">Atallos do teclado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Search:</source>
         <translation type="obsolete">Procurar:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Action</source>
         <translation type="obsolete">Acción</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Shortcut</source>
         <translation type="obsolete">Atallo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Shortcut for Selected Action</source>
         <translation type="obsolete">Atallo para a Acción Seleccionada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;No Key</source>
         <translation type="obsolete">&amp;Nengunha Tecla</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+N</source>
         <translation type="obsolete">Alt+N</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;User Defined Key</source>
         <translation type="obsolete">Tecla Definida polo &amp;Usuario</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+U</source>
         <translation type="obsolete">Alt+U</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Set &amp;Key</source>
         <translation type="obsolete">Asignar &amp;Tecla</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+K</source>
         <translation type="obsolete">Alt+K</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>CTRL+ALT+SHIFT+W</source>
         <translation type="obsolete">CTRL+ALT+MAIÚSCULAS+W</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Loadable Shortcut Sets</source>
         <translation type="obsolete">Conxuntos de Atallos Carregábeis</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Keyboard shortcut sets available to load</source>
         <translation type="obsolete">Conxuntos de atallos de teclado que se poden carregar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Load</source>
         <translation type="obsolete">&amp;Carregar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+L</source>
         <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Load the selected shortcut set</source>
         <translation type="obsolete">Carregar o conxunto de atallos seleccionado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Import...</source>
         <translation type="obsolete">&amp;Importar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+I</source>
         <translation type="obsolete">Alt+I</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Import a shortcut set into the current configuration</source>
         <translation type="obsolete">Importar un conxunto de atallos na configuración actual</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Export...</source>
         <translation type="obsolete">&amp;Exportar...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+E</source>
         <translation type="obsolete">Alt+E</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Export the current shortcuts into an importable file</source>
         <translation type="obsolete">Exportar os atallos actuais para un ficheiro importábel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Reset</source>
         <translation type="obsolete">Desface&amp;r</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+R</source>
         <translation type="obsolete">Alt+R</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Reload the default Scribus shortcuts</source>
         <translation type="obsolete">Recarregar os atallos pré-definidos de Scribus</translation>
     </message>
@@ -46454,12 +43897,10 @@ Selector de Estilo de Texto</translation>
         <translation>Xerir as Tabulacións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -46515,37 +43956,30 @@ Selector de Estilo de Texto</translation>
 <context>
     <name>TabMiscellaneousBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Form1</source>
         <translation type="obsolete">Formulario1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Always ask before fonts are replaced when loading a document</source>
         <translation type="obsolete">Perguntar sempre antes de substituir as fontes ao carregar un documento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
         <translation type="obsolete">Antevisión do Estilo de Parágrafo actual visíbel ao modificar os Estilos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Show Startup Dialog</source>
         <translation type="obsolete">Mostrar o Diálogo de Inicio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Lorem Ipsum</source>
         <translation type="obsolete">Lorem Ipsum</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Always use standard Lorem Ipsum</source>
         <translation type="obsolete">Utilizar sempre o Lorem Ipsum normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Count of the Paragraphs:</source>
         <translation type="obsolete">Conta de Parágrafos:</translation>
     </message>
@@ -46613,7 +44047,6 @@ Selector de Estilo de Texto</translation>
         <translation>&amp;Incluir os Marcadores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Include Layers</source>
         <translation type="obsolete">Incluir as Capas</translation>
     </message>
@@ -46633,7 +44066,6 @@ Selector de Estilo de Texto</translation>
         <translation>Com&amp;primir o Texto e os Gráficos Vectoriais</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Image Settings</source>
         <translation type="obsolete">Configuración das Imaxes</translation>
     </message>
@@ -46643,12 +44075,10 @@ Selector de Estilo de Texto</translation>
         <translation>Automática</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>JPEG</source>
         <translation type="obsolete">JPEG</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Zip</source>
         <translation type="obsolete">Zip</translation>
     </message>
@@ -46658,12 +44088,10 @@ Selector de Estilo de Texto</translation>
         <translation>Nengunha</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Method:</source>
         <translation type="obsolete">&amp;Método:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Quality:</source>
         <translation type="obsolete">&amp;Calidade:</translation>
     </message>
@@ -46693,7 +44121,6 @@ Selector de Estilo de Texto</translation>
         <translation>Mínima</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Resample Images to:</source>
         <translation type="obsolete">Reexaminar as Imaxes a:</translation>
     </message>
@@ -46703,12 +44130,10 @@ Selector de Estilo de Texto</translation>
         <translation>&amp;Xeral</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Embed all Fonts</source>
         <translation type="obsolete">&amp;Embeber todas as Fontes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Subset all Fonts</source>
         <translation type="obsolete">&amp;Subconxunto de todas as Fontes</translation>
     </message>
@@ -46723,12 +44148,10 @@ Selector de Estilo de Texto</translation>
         <translation>Fontes Disponíbeis:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;&gt;&gt;</source>
         <translation type="obsolete">&amp;&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;&lt;&lt;</source>
         <translation type="obsolete">&amp;&lt;&lt;</translation>
     </message>
@@ -46738,7 +44161,6 @@ Selector de Estilo de Texto</translation>
         <translation>Fontes a embeber:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Fonts to subset:</source>
         <translation type="obsolete">Fontes en subconxunto:</translation>
     </message>
@@ -47088,24 +44510,20 @@ Selector de Estilo de Texto</translation>
         <translation>&amp;Perfil de Saída:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Trim Box</source>
         <translation type="obsolete">Caixa de Recorte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PDF/X-&amp;3</source>
         <translation type="obsolete">PDF/X-&amp;3</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
         <translation type="obsolete">Embeber as fontes no PDF. Embeber as fontes
 manterá a dispoción e aparencia do seu documento.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
         <translation type="obsolete">Permite os efectos de presentación ao usar Adobe&amp;#174; Reader&amp;#174; na pantalla completa.</translation>
     </message>
@@ -47115,12 +44533,10 @@ manterá a dispoción e aparencia do seu documento.</translation>
         <translation>Mostrar a antevisión de páxina para cada páxina das que se listan en cima.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
         <translation type="obsolete">Extensión de tempo durante a que se mostra a páxina antes de que a presentación comece na páxina seleccionada.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Length of time the effect runs.
 A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation type="obsolete">Extensión de tempo durante a que dura o efecto. Un tempo menor acelerará o efecto; un maior enlentecerao.</translation>
@@ -47161,7 +44577,6 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
         <translation>Exportar a PDF un intervalo de páxinas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -47170,7 +44585,6 @@ un valor pode ser * para todas as páxinas, 1-5 para
 un rango de páxinas ou un único número de páxina.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Determines the PDF compatibility.
 The default is PDF 1.3 which gives the widest compatibility.
 Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.
@@ -47186,14 +44600,12 @@ Utilíceo só cando llo pidan da imprenta ou nalgúns casos nos que vaia imprimi
 </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation type="obsolete">Determina a encadernación de páxinas no PDF. A non ser que o saiba
 terá que deixar a escolla por omisión: Esquerda.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</source>
         <translation type="obsolete">Xera miniaturas de cada páxina no PDF.
@@ -47205,45 +44617,38 @@ Algúns visualizadores poden usar as miniaturas para a navegación.</translation
         <translation>Xerar Artigos PDF, que resultan útiles para navegar por artigos vinculados nun PDF.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Layers in your document are exported to the PDF
 Only available if PDF 1.5 is choosen.</source>
         <translation type="obsolete">As capas do seu documento expórtanse para o PDF.
 Só disponíbel se se escolle PDF 1.5.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
         <translation type="obsolete">Embeber os marcadores que creou no seu documento.
 Resultan útiles para navegar por documentos PDF longos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</source>
         <translation type="obsolete">Exportar a resolución do texto e os gráficos vectoriais.
 Isto non vai afectar a resolución das imaxes bitmap como as fotos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enable lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
         <translation type="obsolete">Permitira a compresión sen perdas de texto e gráficos.
 A non ser que teña unha boa razón, selecciónao. Isto reduce o tamaño do PDF.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
         <translation type="obsolete">Método de compresión a usar polas imaxes. Automático permite que Scribus escolla o mellor método. ZIP non provoca perdas e é bon para imaxes con cores sólidas. JPEG é mellor en crear ficheiros PDF máis pequenos con moitas fotos (cunha posíbel lixeira perda de calidade). Déixeo en Automático, a non ser que teña unha razón para escoller unha compresión especial.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
         <translation type="obsolete">Níveis de compresión: Mínimo (25%), Baixo (50%), Medio (75%), Alto (85%), Máximo (95%)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
@@ -47257,7 +44662,6 @@ Isto pode incrementar o uso da memoria e enlentecer a exportación.</translation
         <translation>PPP (Puntos Por Pulgada) para a exportación das imaxes.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enable the security features in your exported PDF.
 If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.
 If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.
@@ -47268,7 +44672,6 @@ Se escolleu PDF 1.4, o PDF estará protexido con encriptación de 128 bits.
 Descargo de responsabilidade: A encriptación dos PDF non é de tanta fiabilidade como a encriptación con GPG ou PGP e ten certos limites.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Choose a master password which enables or disables all the
 security features in your exported PDF</source>
         <translation type="obsolete">Escolla un contrasinal mestre que permita ou deshabilite todas
@@ -47290,21 +44693,18 @@ as funcionalidades de seguranza do seu PDF exportado</translation>
         <translation>Permite modificar o PDF. Se non se escolle impídese a modificación do PDF.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Allow copying of text or graphics from the PDF. 
 If un-checked, text and graphics cannot be copied.</source>
         <translation type="obsolete">Permite copiar o texto ou gráficos do PDF.
 Se non se escolle, non se poderán copiar nen o texto nen os gráficos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fileds is prevented.</source>
         <translation type="obsolete">Permite engadir anotacións e campos ao PDF.
 Se non se selecciona impedirase a modificación de anotacións e campos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
@@ -47313,7 +44713,6 @@ Escolla Pantalla/Web para PDFs que vaian ser mostrados nunha pantalla ou que se 
 Escolla Impresora cando sexan para imprimir nunha impresora de 4 cores CMYK verdadeiros.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled
 when specifically requested by your printer and they have given you the exact details needed.
 Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
@@ -47362,7 +44761,6 @@ Se non, o seu PDF exportado pode non imprimirse correctamente e con certeza non 
         <translation>Perfil de saída para a impresión. De ser posíbel, solicite orientación na imprenta sobre a selección de perfís.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="obsolete">Cadea obrigatoria para PDF/X-3 ou o PDF fallará
@@ -47404,7 +44802,6 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
         <translation>&amp;Calidade da Compresión:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
         <translation type="obsolete">Níveis de calidade da compresión para métodos de compresión con perda: Mínimo (25%), Medio (75%), Alto (85%), Máximo (95%). Observe que un nível de calidade non determina directamente o tamaño da imaxe resultante - tanto o tamaño como a perda de calidade varían de imaxe en imaxe en calquer nível de calidade dado.</translation>
     </message>
@@ -47434,7 +44831,6 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
         <translation>Méto&amp;do de Compresión:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Resa&amp;mple Images to:</source>
         <translation type="obsolete">Anali&amp;zar as Imaxes a:</translation>
     </message>
@@ -47504,7 +44900,6 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
         <translation>Mostrar a Configuración</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page Layout</source>
         <translation type="obsolete">Disposición da Páxina</translation>
     </message>
@@ -47621,7 +45016,6 @@ ao abrir o documento PDF:</translation>
         <translation>Permite os efectos de presentación ao utilizar o  Adobe&amp;#174; Reader&amp;#174; e outros lectores de PDF que permitan isto en modo a pantalla completa.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation type="obsolete">  Determina a compatibilidade do PDF. Por omisión é PDF 1.3, que permite a maior compatibilidade. Escolla PDF 1.4 se o seu ficheiro utiliza características como a transparencia ou se precisa de encriptación de 128 bits. O PDF 1.5 é necesario para manter obxectos en capas separadas dentro do PDF. PDF/X-3 é para exportar o PDF se quer xestionar cor RGB para a impresión comercial e pódese escoller se ten activada a xestión da cor. Utilíceo só cando llo recomente a súa imprenta ou en determinados casos en que imprima nunha impresora laser en cor dixital.</translation>
     </message>
@@ -47631,12 +45025,10 @@ ao abrir o documento PDF:</translation>
         <translation>As capas do documento expórtanse ao PDF. Só é posíbel se se escolle PDF 1.5.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
         <translation type="obsolete">Método de compresión a utilizar coas imaxes. Permite automaticamente que Scribus escolla o mellor método. ZIP non ten perdas e é bon para imaxes con cores sólidas. JPEG é mellor para crear ficheiros PDF máis pequenos con moitas fotos (cunha posíbel perda lixeira de calidade). Déixeo en Automático a non ser que precise de métodos especiais de compresión. Isto só afecta ás imaxes JPEG</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation type="obsolete">Examinar as imaxes de mapa de bits para a DPI seleccionada. Déixeo sen marcar para mostralas na súa resolución nativa. Se o activa incrementará a utilización da memoria e enlentecerá a exportación.</translation>
     </message>
@@ -47856,7 +45248,6 @@ ao abrir o documento PDF:</translation>
         <translation>Limita a resolución das imaxes de mapas de bits á DPI seleccionada. As imaxes de menor resolución non se tocarán. Se non se selecciona isto, mostraranse na súa resolución orixinal. Se se activa aumentará o uso de memoria e enlentecerá a exportación.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
         <translation type="obsolete">Isto crea marcas de recorte no PDF indicando por onde habería que recortar o papel unha vez impreso.</translation>
     </message>
@@ -47866,7 +45257,6 @@ ao abrir o documento PDF:</translation>
         <translation>Isto crea marcas de sangrado que se indican mediante  _._ e mostran os limites de sangrado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Add registration marks which are added to each separation</source>
         <translation type="obsolete">Engadir marcas de rexistro que se enganden a cada separación</translation>
     </message>
@@ -47963,7 +45353,7 @@ ao abrir o documento PDF:</translation>
     <message>
         <location filename="../../scribus/tabpdfoptions.cpp" line="305"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrimar ás marxes da impresora</translation>
     </message>
 </context>
 <context>
@@ -48259,219 +45649,177 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabprinter.cpp" line="35"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Un xeito de apagar algunhas das sombras en gris compostas de cian, amarelo e maxenta e usar negro no seu lugar.
-A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros perto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes, ainda que é preciso experimentar segundo cada caso. A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
+        <translation>Un xeito de apagar algunhas das sombras en gris compostas de cian, amarelo e maxenta e usar negro no seu lugar. A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros perto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes, ainda que é preciso experimentar segundo cada caso. A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
     </message>
     <message>
         <location filename="../../scribus/tabprinter.ui" line="90"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrimar ás marxes da impresora</translation>
     </message>
 </context>
 <context>
     <name>TabPrinterBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Print Destination</source>
         <translation type="obsolete">Destino da Impresión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alternative Printer Command</source>
         <translation type="obsolete">Comando de Impresión Alternativo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Command:</source>
         <translation type="obsolete">Comando:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Options</source>
         <translation type="obsolete">Opcións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Postscript Options</source>
         <translation type="obsolete">Opcións de Postscript</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Level 1</source>
         <translation type="obsolete">Nivel 1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Level 2</source>
         <translation type="obsolete">Nivel 2</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Level 3</source>
         <translation type="obsolete">Nivel 3</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print in Color if Available</source>
         <translation type="obsolete">Imprimir en Cores de Ser Posíbel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print in Grayscale</source>
         <translation type="obsolete">Impimir en Escala de Grises</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page</source>
         <translation type="obsolete">Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation type="obsolete">Reflexar a(s) Páxina(s) Horizontalmente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Mirror Page(s) Vertical</source>
         <translation type="obsolete">Reflexar a(s) Páxina(s) Verticalmente</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Set Media Size</source>
         <translation type="obsolete">Indicar o Tamaño do Medio</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Clip to Page Margins</source>
         <translation type="obsolete">Arrimar ás Marxes da Páxina</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color</source>
         <translation type="obsolete">Cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply Under Color Removal</source>
         <translation type="obsolete">Aplicar Eliminación da Cor Inferior (UCR)</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation type="obsolete">Converter as Manchas de Cor en Cores Procesadas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Force Overprint Mode</source>
         <translation type="obsolete">Forzar Modo de Sobreimpresión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply ICC Profiles</source>
         <translation type="obsolete">Aplicar Perfís ICC</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>General</source>
         <translation type="obsolete">Xeral</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print Normal</source>
         <translation type="obsolete">Imprimir Normal</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Print Separations</source>
         <translation type="obsolete">Imprimir Separacións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Marks &amp;&amp; Bleeds</source>
         <translation type="obsolete">Marcas e Sangrados</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Printer Marks</source>
         <translation type="obsolete">Marcas de Impresión</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Crop Marks</source>
         <translation type="obsolete">Marcas de Recorte</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Bleed Marks</source>
         <translation type="obsolete">Marcas de Sangrado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Registration Marks</source>
         <translation type="obsolete">Marcas de Rexistro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Offset:</source>
         <translation type="obsolete">Distancia:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Color Bars</source>
         <translation type="obsolete">Barras de Cor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Bleed Settings</source>
         <translation type="obsolete">Configuración de Sangrado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Top:</source>
         <translation type="obsolete">Superior:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Bottom:</source>
         <translation type="obsolete">Inferior:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Left:</source>
         <translation type="obsolete">Esquerda:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Right:</source>
         <translation type="obsolete">Dereita:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>TabPrinterBase</source>
         <translation type="obsolete">PestImpresBase</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation type="obsolete">Isto crea marcas de recorte no PDF que indican por onde hai que cortar o papel unha vez impreso</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation type="obsolete">Isto crea marcas de sangrado que se indican mediante _._ e mostra o limite de sangrado</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Add registration marks which are added to each separation</source>
         <translation type="obsolete">Engadir marcas de rexistro que se engaden con cada separación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>ndicate the distance offset for the registration marks</source>
         <translation type="obsolete">Indicar a distancia de separación das marcas de rexistro</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Add color calibration bars</source>
         <translation type="obsolete">Engadir barras de calibrado</translation>
     </message>
@@ -48512,37 +45860,30 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
 <context>
     <name>TabScrapbookBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Send Copied Items Automatically to Scrapbook</source>
         <translation type="obsolete">Enviar Automaticamente os Elementos Copiados para o Porta-retallos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
         <translation type="obsolete">Isto permite que se empregue o porta-retallos como extensión das memorias de copiado/pegado. Simplemente con copiar un obxecto ou obxecto agrupado, envíanse automaticamente para o Porta-retallos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Keep Copied Items Permanently Across Sessions</source>
         <translation type="obsolete">Manter os Elementos Copiados Permanentemente Entre Sesións</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>This enables copied items to be kept permanently in the scrapbook.</source>
         <translation type="obsolete">Isto permite que os elementos copiados se conserven permanentemente no porta-retallos.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Number of Copied Items to Keep in Scrapbook:</source>
         <translation type="obsolete">Número de Elementos Copiados a Manter no Porta-retallos:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>The minimum number is 1; the maximum us 100.</source>
         <translation type="obsolete">O número mínimo é 1; o máximo é 100.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>TabScrapbookBase</source>
         <translation type="obsolete">PestPorta-retBase</translation>
     </message>
@@ -48905,12 +46246,10 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
         <translation>Largura das liñas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Custom:</source>
         <translation type="obsolete">Personalizado:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Custom: </source>
         <translation type="obsolete">Personalizado: </translation>
     </message>
@@ -49063,7 +46402,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <location filename="../../scribus/tabtools.cpp" line="326"/>
         <source>Hairline</source>
-        <translation type="unfinished"></translation>
+        <translation>Mira</translation>
     </message>
 </context>
 <context>
@@ -49227,12 +46566,10 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
         <translation>&amp;Posición:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>First &amp;Line:</source>
         <translation type="obsolete">Primeira &amp;Liña:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Left Ind&amp;ent:</source>
         <translation type="obsolete">Ind&amp;entado á Esquerda:</translation>
     </message>
@@ -49257,27 +46594,22 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
         <translation>Eliminar todos os Tabuladores</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> pt</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> mm</source>
         <translation type="obsolete"> mm</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> in</source>
         <translation type="obsolete"> in</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source> p</source>
         <translation type="obsolete"> p</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>None</source>
         <translation type="obsolete">Nengún</translation>
     </message>
@@ -49307,12 +46639,10 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
         <translation>Carácter de Enchido:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Custom:</source>
         <translation type="obsolete">Personalizado:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Custom: </source>
         <translation type="obsolete">Personalizado: </translation>
     </message>
@@ -49351,17 +46681,14 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
 <context>
     <name>TextBrowser</name>
     <message>
-        <location filename="" line="0"/>
         <source>Locate your web browser</source>
         <translation type="obsolete">Localizar o navegador</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>External Web Browser Failed to Start</source>
         <translation type="obsolete">Non se Puido Iniciar o Navegador</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences</source>
         <translation type="obsolete">Scribus non foi quen de iniciar a aplicación de navegación web externa %1. Comprobe a configuración nas Preferencias</translation>
     </message>
@@ -49538,44 +46865,36 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
         <translation type="obsolete">Elemento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Type</source>
         <translation type="obsolete">Tipo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Information</source>
         <translation type="obsolete">Información</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Warning</source>
         <translation type="obsolete">Advertencia</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
         <translation type="obsolete">O nome &quot;%1&quot; non é único.
 Escolla outro.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>X:</source>
         <translation type="obsolete">X:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Y:</source>
         <translation type="obsolete">Y:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Font:</source>
         <translation type="obsolete">Fonte:</translation>
     </message>
@@ -49585,37 +46904,30 @@ Escolla outro.</translation>
         <translation type="obsolete">Grupo </translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Image</source>
         <translation type="obsolete">Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Text</source>
         <translation type="obsolete">Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Line</source>
         <translation type="obsolete">Liña</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Polygon</source>
         <translation type="obsolete">Polígono</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Polyline</source>
         <translation type="obsolete">Poli-liña</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>PathText</source>
         <translation type="obsolete">TextoEnTrazo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Page</source>
         <translation type="obsolete">Páxina</translation>
     </message>
@@ -49660,22 +46972,18 @@ Escolla outro.</translation>
         <translation type="obsolete">Descoñecido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>RGB</source>
         <translation type="obsolete">RGB</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>CMYK</source>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Grayscale</source>
         <translation type="obsolete">Escala de grises</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Duotone</source>
         <translation type="obsolete">Duotono</translation>
     </message>
@@ -49780,7 +47088,6 @@ Escolla outro.</translation>
         <translation type="obsolete">Contido</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation type="obsolete">O nome &quot;%1&quot; non é único.&lt;br/&gt;Escolla outro.</translation>
     </message>
@@ -50597,28 +47904,24 @@ destino de desfacer: acción (p.ex. Moldura de Texto: Mudar Tamaño)</translatio
     <message>
         <location filename="../../scribus/unicodesearch.ui" line="39"/>
         <source>Enter the search phrase. Then press Enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduza a frase que queira procurar. Despois prema Intro.</translation>
     </message>
 </context>
 <context>
     <name>UnicodeSearchBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Unicode Search</source>
         <translation type="obsolete">Procura Unicode</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Search:</source>
         <translation type="obsolete">&amp;Procurar:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Hex</source>
         <translation type="obsolete">Hex</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Meaning</source>
         <translation type="obsolete">Significado</translation>
     </message>
@@ -50789,57 +48092,46 @@ Querería empregar o navegador por omisión do sistema no canto do outro?</trans
 <context>
     <name>UsePrinterMarginsDialogBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Use Printer Margins</source>
         <translation type="obsolete">Utilizar as Marxes da Impresora</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select &amp;Printer:</source>
         <translation type="obsolete">Escolla a Im&amp;presora:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Margins</source>
         <translation type="obsolete">Marxes</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Right:</source>
         <translation type="obsolete">Dereita:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Top:</source>
         <translation type="obsolete">&amp;Superior:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Bottom:</source>
         <translation type="obsolete">&amp;Inferior:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Left:</source>
         <translation type="obsolete">&amp;Esquerda:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+O</source>
         <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+C</source>
         <translation type="obsolete">Alt+C</translation>
     </message>
@@ -50847,32 +48139,26 @@ Querería empregar o navegador por omisión do sistema no canto do outro?</trans
 <context>
     <name>ValueDialog</name>
     <message>
-        <location filename="" line="0"/>
         <source>Insert value</source>
         <translation type="obsolete">Insira un valor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enter a value then press OK.</source>
         <translation type="obsolete">Insira un valor e prema De Acordo.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enter a value then press OK</source>
         <translation type="obsolete">Insira un valor e prema De Acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Alt+O</source>
         <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Send your value to the script</source>
         <translation type="obsolete">Envíelle o valor ao guión</translation>
     </message>
@@ -50880,7 +48166,6 @@ Querería empregar o navegador por omisión do sistema no canto do outro?</trans
 <context>
     <name>VlnaDialog</name>
     <message>
-        <location filename="" line="0"/>
         <source>Short Words</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">Abreviaturas
@@ -50888,7 +48173,6 @@ Querería empregar o navegador por omisión do sistema no canto do outro?</trans
 extensión abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">Aplicar un espazo que non se poda rachar en:
@@ -50896,7 +48180,6 @@ extensión abreviaturas</translation>
 extensión abreviaturas:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">Molduras e&amp;scollidas
@@ -50904,7 +48187,6 @@ extensión abreviaturas:</translation>
 extensión abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">&amp;Páxina activa
@@ -50912,7 +48194,6 @@ extensión abreviaturas</translation>
 extensión abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">&amp;Todos os elementos
@@ -50920,7 +48201,6 @@ extensión abreviaturas</translation>
 extensión abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">&amp;De acordo
@@ -50928,7 +48208,6 @@ extensión abreviaturas</translation>
 extensión abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">&amp;Cancelar
@@ -50936,7 +48215,6 @@ extensión abreviaturas</translation>
 extensión abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Info and
 Languages</source>
         <comment>short words plugin</comment>
@@ -50946,7 +48224,6 @@ e Linguas
 extensión abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Replace defaults by user config</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">Substituir o predeterminado pola configuración personalizada
@@ -50954,7 +48231,6 @@ extensión abreviaturas</translation>
 extensión abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>When the user config file exists 
 (%1)
 you can choose if you want to append your config
@@ -50974,7 +48250,6 @@ tamén co botón seleccionado.
 extensión abreviaturas.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">Só procesadas as molduras seleccionadas.
@@ -50982,7 +48257,6 @@ extensión abreviaturas.</translation>
 extensión abreviaturas.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">Só a páxina actual procesada.
@@ -50990,7 +48264,6 @@ extensión abreviaturas.</translation>
 extensión abreviaturas.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">Todos os elementos do documento procesados.
@@ -50998,7 +48271,6 @@ extensión abreviaturas.</translation>
 extensión abreviaturas.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">Abreviaturas para Scribus
@@ -51006,7 +48278,6 @@ extensión abreviaturas.</translation>
 extensión abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">Disponíbel nas seguintes linguas
@@ -51014,7 +48285,6 @@ extensión abreviaturas</translation>
 extensión abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">Acerca de Abreviaturas
@@ -51022,59 +48292,48 @@ extensión abreviaturas</translation>
 extensión abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Edit &amp;system configuration...</source>
         <translation type="obsolete">Modificar a configuración do &amp;sistema...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Edit &amp;user configuration...</source>
         <translation type="obsolete">Modificar a configuración do &amp;usuario...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>S&amp;etup editor...</source>
         <translation type="obsolete">Editor de &amp;Configuración...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Edit</source>
         <translation type="obsolete">&amp;Modificar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Info and Languages...</source>
         <translation type="obsolete">&amp;Información e Linguas...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Help</source>
         <translation type="obsolete">&amp;Axuda</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Short Words</source>
         <translation type="obsolete">Abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>You are starting to edit read-only file.
 %1</source>
         <translation type="obsolete">Comeza a modificar un ficheiro de só lectura.
 %1</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Application &apos;%1&apos; error. Cannot be started.</source>
         <translation type="obsolete">Erro da aplicación &quot;%1%. Non se pode iniciar.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Short Words setup</source>
         <translation type="obsolete">Configuración das Abreviaturas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Enter name of the plain text editor executable:</source>
         <translation type="obsolete">Introduza o nome do executábel do editor de texto simple:</translation>
     </message>
@@ -51125,92 +48384,74 @@ convertendo os seus datos vectoriais en obxectos de Scribus.</translation>
 <context>
     <name>WerkToolB</name>
     <message>
-        <location filename="" line="0"/>
         <source>Tools</source>
         <translation type="obsolete">Ferramentas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Select Items</source>
         <translation type="obsolete">Escoller Elementos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert Text Frame</source>
         <translation type="obsolete">Inserir Moldura de Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert Picture</source>
         <translation type="obsolete">Inserir Imaxe</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert Table</source>
         <translation type="obsolete">Inserir Táboa</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Properties...</source>
         <translation type="obsolete">Propriedades...</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert Polygons</source>
         <translation type="obsolete">Inserir Polígonos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert Lines</source>
         <translation type="obsolete">Inserir Liñas</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert Bezier Curves</source>
         <translation type="obsolete">Inserir Curvas de Bézier</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert Freehand Line</source>
         <translation type="obsolete">Inserir Liña a Man Alzada</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Rotate Item</source>
         <translation type="obsolete">Rotar Elemento</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Zoom in or out</source>
         <translation type="obsolete">Achegarse ou Alonxarse</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Edit Contents of Frame</source>
         <translation type="obsolete">Modificar o Contido da Moldura</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Edit the text with the Story Editor</source>
         <translation type="obsolete">Modificar o texto co Editor de Artigos</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Link Text Frames</source>
         <translation type="obsolete">Vincular as Molduras de Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Unlink Text Frames</source>
         <translation type="obsolete">Desvincular as Molduras de Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Do measurements</source>
         <translation type="obsolete">Medir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Draw various Shapes</source>
         <translation type="obsolete">Deseñar varias Formas</translation>
     </message>
@@ -51218,52 +48459,42 @@ convertendo os seus datos vectoriais en obxectos de Scribus.</translation>
 <context>
     <name>WerkToolBP</name>
     <message>
-        <location filename="" line="0"/>
         <source>PDF Tools</source>
         <translation type="obsolete">Ferramentas PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Button</source>
         <translation type="obsolete">Botón</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Text Field</source>
         <translation type="obsolete">Campo de Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Check Box</source>
         <translation type="obsolete">Caixa de Selección</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Combo Box</source>
         <translation type="obsolete">Caixa de Lista despregábel</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>List Box</source>
         <translation type="obsolete">Caixa de Lista</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert PDF Fields</source>
         <translation type="obsolete">Inserir Campos PDF</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Text</source>
         <translation type="obsolete">Texto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Link</source>
         <translation type="obsolete">Ligazón</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert PDF Annotations</source>
         <translation type="obsolete">Inserir Anotacións PDF</translation>
     </message>
@@ -51294,37 +48525,30 @@ convertendo os seus datos vectoriais en obxectos de Scribus.</translation>
 <context>
     <name>ZAuswahl</name>
     <message>
-        <location filename="" line="0"/>
         <source>Select Character:</source>
         <translation type="obsolete">Escoller Carácter:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Insert</source>
         <translation type="obsolete">&amp;Inserir</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>C&amp;lear</source>
         <translation type="obsolete">&amp;Limpar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Close</source>
         <translation type="obsolete">&amp;Fechar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Insert the characters at the cursor in the text</source>
         <translation type="obsolete">Inserir os caracteres no texto na posición do cursor</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Delete the current selection(s).</source>
         <translation type="obsolete">Eliminar a(s) selección(s) actual/is.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Close this dialog and return to text editing.</source>
         <translation type="obsolete">Fechar este diálogo e voltar á edición de texto.</translation>
     </message>
@@ -51395,7 +48619,6 @@ convertendo os seus datos vectoriais en obxectos de Scribus.</translation>
         <translation>Lembrar a asociación</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Remember the file extension - importer association
 and do not ask again to select an importer for
 files of this type.</source>
@@ -51404,7 +48627,6 @@ e non perguntar máis para escoller un importador
 para ficheiros deste tipo.</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
@@ -51507,12 +48729,10 @@ O valor 0 significa un número ilimitado.</translation>
         <translation>Novo a partir dun Modelo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
@@ -51650,37 +48870,30 @@ O valor 0 significa un número ilimitado.</translation>
 <context>
     <name>patternDialogBase</name>
     <message>
-        <location filename="" line="0"/>
         <source>Patterns</source>
         <translation type="obsolete">Deseños</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Load</source>
         <translation type="obsolete">Carregar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Load Set</source>
         <translation type="obsolete">Carregar Conxunto</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Remove</source>
         <translation type="obsolete">Eliminar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Cancel</source>
         <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Remove All</source>
         <translation type="obsolete">Eliminalo Todo</translation>
     </message>
@@ -51784,17 +48997,14 @@ O valor 0 significa un número ilimitado.</translation>
         <translation>Correo electrónico</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>More Details</source>
         <translation type="obsolete">Máis Detalles</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>OK</source>
         <translation type="obsolete">De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Less Details</source>
         <translation type="obsolete">Menos Detalles</translation>
     </message>
@@ -51854,7 +49064,7 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="72"/>
         <source>on the Scratch Space</source>
-        <translation type="unfinished">do Espazo de Traballo</translation>
+        <translation>do Espazo de Traballo</translation>
     </message>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="91"/>
@@ -52024,17 +49234,17 @@ O valor 0 significa un número ilimitado.</translation>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="34"/>
         <source>Select All Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar todos os elementos</translation>
     </message>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="49"/>
         <source>on Current Page</source>
-        <translation type="unfinished"></translation>
+        <translation>da páxina actual</translation>
     </message>
     <message>
         <location filename="../../scribus/selectobjects.ui" line="62"/>
         <source>on Current Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>da capa actual</translation>
     </message>
 </context>
 <context>
@@ -52070,12 +49280,10 @@ O valor 0 significa un número ilimitado.</translation>
         <translation>Darlle un nome para gardalo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;De acordo</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancelar</translation>
     </message>
