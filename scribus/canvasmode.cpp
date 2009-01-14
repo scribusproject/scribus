@@ -55,12 +55,15 @@ CanvasMode::CanvasMode (ScribusView* view) :
 	m_pen["selection"].setCosmetic(true);
 	m_pen["selection-group"] = QPen(Qt::red, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection-group"].setCosmetic(true);
+	m_pen["selection-group-inside"] = QPen(Qt::red, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection-group-inside"].setCosmetic(true);
 	m_pen["handle"]		= QPen(Qt::red, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["handle"].setCosmetic(true);
 	
 	m_brush["outline"]	= Qt::NoBrush;
 	m_brush["selection"]	= Qt::NoBrush;
-	m_brush["selection-group"] = QColor(255,0,0,22);
+	m_brush["selection-group"] = QColor(255,0,0,10);
+	m_brush["selection-group-inside"] = QColor(0,255,0,10);
 	m_brush["handle"]	= Qt::red;
 }
 
@@ -198,6 +201,43 @@ void CanvasMode::drawSelection(QPainter* psx)
 		}
 		tg=tt.elapsed();
 		psx->restore();
+
+		// items inside a a multi
+		if (m_doc->m_Selection->count() > 1)
+		{
+		    uint docSelectionCount = m_doc->m_Selection->count();
+		    PageItem *currItem;
+		    for (uint a=0; a<docSelectionCount; ++a)
+		    {
+			currItem = m_doc->m_Selection->itemAt(a);
+			psx->save();
+			psx->setPen(m_pen["selection-group-inside"]);
+			psx->setBrush(m_brush["selection-group-inside"]);
+			double lineAdjust(psx->pen().width()/m_canvas->scale());
+			double x, y, w, h;
+			if (currItem->rotation() != 0)
+			{
+				psx->setRenderHint(QPainter::Antialiasing);
+				psx->translate(currItem->xPos(), currItem->yPos());
+				psx->rotate(currItem->rotation());
+				x = currItem->lineWidth()/-2.0;
+				y = currItem->lineWidth()/-2.0;
+			}
+			else
+			{
+				psx->translate(currItem->visualXPos(), currItem->visualYPos());
+				x = -lineAdjust;
+				y = -lineAdjust;
+			}
+			w = currItem->visualWidth() ;
+			h = (currItem->asLine()) ? currItem->visualHeight() - 1.0 : currItem->visualHeight() ;
+
+			psx->drawRect(QRectF(x, y, w, h));
+			psx->drawLine(x,y, x+w,y+h);
+			psx->drawLine(x+w,y, x,y+h);
+			psx->restore();
+		    }
+		}
 	}
 	else if (m_doc->m_Selection->count() != 0)
 	{
