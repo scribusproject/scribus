@@ -1160,7 +1160,8 @@ bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *d
 				OB.IFont = doc->toolSettings.defFont;
 			else
 				OB.IFont = DoFonts[tmf];
-			OB.LayerNr   = 0;
+			// #7725
+			OB.LayerNr   = toLayer;
 			OB.Language  = attrAsString(attrs, "LANGUAGE", doc->Language);
 			tmp = "";
 			int numGroup = attrAsInt(attrs, "NUMGROUP", 0);
@@ -1473,7 +1474,7 @@ void ScriXmlDoc::ReadPattern(QXmlStreamReader &reader, ScribusDoc *doc, ScribusV
 				OB.IFont = doc->toolSettings.defFont;
 			else
 				OB.IFont = DoFonts[tmf];
-			OB.LayerNr  = 0;
+			OB.LayerNr  = attrAsInt(attrs1, "LAYER");
 			OB.Language = attrAsString(attrs1, "LANGUAGE", doc->Language);
 			tmp = "";
 			int numGroup = attrAsInt(attrs1, "NUMGROUP", 0);
