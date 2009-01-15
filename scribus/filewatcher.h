@@ -24,6 +24,8 @@ public:
 	FileWatcher(QObject* parent);
 	~FileWatcher();
 	bool isActive();
+	// Get if file check loop is running
+	void isFileCheckRunning();
 	// Set the timer length in milliseconds
 	void setTimeOut(const int newTimeOut, const bool restartTimer=false);
 	// Get the timer length
@@ -55,12 +57,21 @@ private:
 		bool pending;
 		int refCount;
 	};
+
+	typedef enum
+	{
+		AddRemoveBlocked  = 1,
+		FileCheckRunning  = 2,
+		StopRequested = 4,
+		TimerStopped  = 8,
+		Dying = 16,
+		FileCheckMustStop = 20 //StopRequested + Dying
+	} StateFlags;
+
 	QMap<QString, fileMod> watchedFiles;
 	QTimer* watchTimer;
-	bool blockAddRemove;
-	bool stopped;
-	bool dying;
-	int m_timeOut; // milliseconds
+	int  m_stateFlags;
+	int  m_timeOut; // milliseconds
 
 private slots:
 	void checkFiles();

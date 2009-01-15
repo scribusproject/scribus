@@ -11,9 +11,9 @@ for which a new license (GPL+exception) is in place.
 #include <unistd.h>
 #endif
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(usleep)
 #include <windows.h>
-#include <QList>
+#define usleep(t) Sleep((t > 1000) ? (t / 1000) : 1)
 #endif
 
 #include <QStringList>
@@ -22,23 +22,21 @@ for which a new license (GPL+exception) is in place.
 
 FileWatcher::FileWatcher( QObject* parent) : QObject(parent)
 {
+	m_stateFlags = 0;
 	m_timeOut = 10000;
 	watchedFiles.clear();
 	watchTimer = new QTimer(this);
 	watchTimer->setSingleShot(true);
 	connect(watchTimer, SIGNAL(timeout()), this, SLOT(checkFiles()));
 	watchTimer->start(m_timeOut);
-	blockAddRemove = false;
-	stopped = false;
-	dying = false; 
 }
 
 FileWatcher::~FileWatcher()
 {
-	dying = true;
-	watchTimer->stop();
+	m_stateFlags |= Dying;
+	this->stop();
 	disconnect(watchTimer, SIGNAL(timeout()), this, SLOT(checkFiles()));
-	if (!blockAddRemove)
+	if (!(m_stateFlags & AddRemoveBlocked))
 		watchedFiles.clear();
 	delete watchTimer;
 }
@@ -70,7 +68,7 @@ void FileWatcher::addFile(QString fileName)
 	}
 	else
 		watchedFiles[fileName].refCount++;
-	if (!stopped)
+	if (!(m_stateFlags & TimerStopped))
 		watchTimer->start(m_timeOut);
 }
 
@@ -83,7 +81,7 @@ void FileWatcher::removeFile(QString fileName)
 		if (watchedFiles[fileName].refCount == 0)
 			watchedFiles.remove(fileName);
 	}
-	if (!stopped)
+	if (!(m_stateFlags & TimerStopped))
 		watchTimer->start(m_timeOut);
 }
 
@@ -100,14 +98,18 @@ void FileWatcher::removeDir(QString fileName)
 void FileWatcher::start()
 {
 	watchTimer->stop();
-	stopped = false;
+	m_stateFlags &= ~TimerStopped;
 	watchTimer->start(m_timeOut);
 }
 
 void FileWatcher::stop()
 {
 	watchTimer->stop();
-	stopped = true;
+	m_stateFlags |= StopRequested;
+	while ((m_stateFlags & FileCheckRunning))
+		usleep(100);
+	m_stateFlags &= ~StopRequested;
+	m_stateFlags |= TimerStopped;
 }
 
 void FileWatcher::forceScan()
@@ -117,7 +119,7 @@ void FileWatcher::forceScan()
 
 bool FileWatcher::isActive()
 {
-	return blockAddRemove;
+	return (m_stateFlags & AddRemoveBlocked);
 }
 
 QList<QString> FileWatcher::files()
@@ -127,19 +129,20 @@ QList<QString> FileWatcher::files()
 
 void FileWatcher::checkFiles()
 {
-	blockAddRemove = true;
+	m_stateFlags |= AddRemoveBlocked;
+	m_stateFlags |= FileCheckRunning;
 	watchTimer->stop();
-	stopped = true;
+	m_stateFlags |= TimerStopped;
 	QDateTime time;
 	QStringList toRemove;
 	
 	QMap<QString, fileMod>::Iterator it;
-	for ( it = watchedFiles.begin(); !dying && it != watchedFiles.end(); ++it )
+	for ( it = watchedFiles.begin(); !(m_stateFlags & FileCheckMustStop) && it != watchedFiles.end(); ++it )
 	{
 		it.value().info.refresh();
 		if (!it.value().info.exists())
 		{
-			if (dying)
+			if (m_stateFlags & FileCheckMustStop)
 				break;
 			if (!it.value().pending)
 			{
@@ -162,7 +165,7 @@ void FileWatcher::checkFiles()
 						emit dirDeleted(it.key());
 					else
 						emit fileDeleted(it.key());
-					if (dying)
+					if (m_stateFlags & FileCheckMustStop)
 						break;
 					it.value().refCount--;
 					if (it.value().refCount == 0)
@@ -180,47 +183,40 @@ void FileWatcher::checkFiles()
 				if (it.value().info.isDir())
 				{
 					it.value().timeInfo = time;
-					if (!dying)
+					if (!(m_stateFlags & FileCheckMustStop))
 						emit dirChanged(it.key());
 				}
 				else
 				{
 					uint sizeo = it.value().info.size();
-			#ifndef _WIN32
 					usleep(100);
-			#else
-					Sleep(1);
-			#endif
 					it.value().info.refresh();
 					uint sizen = it.value().info.size();
 					while (sizen != sizeo)
 					{
 						sizeo = sizen;
-				#ifndef _WIN32
 						usleep(100);
-				#else
-						Sleep(1);
-				#endif
 						it.value().info.refresh();
 						sizen = it.value().info.size();
 					}
 					it.value().timeInfo = time;
-					if (dying)
+					if (m_stateFlags & FileCheckMustStop)
 						break;
 					emit fileChanged(it.key());
 				}
 			}
 		}
 	}
-	if (dying)
+	if (m_stateFlags & Dying)
 		watchedFiles.clear();
 	else
 	{
 		for( int i=0; i<toRemove.count(); ++i)
 			watchedFiles.remove(toRemove[i]);
-		blockAddRemove = false;
-		stopped = false;
+		m_stateFlags &= ~AddRemoveBlocked;
+		m_stateFlags &= ~TimerStopped;
 		watchTimer->start(m_timeOut);
 	}
+	m_stateFlags &= ~FileCheckRunning;
 }
 
