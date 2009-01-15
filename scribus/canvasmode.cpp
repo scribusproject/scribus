@@ -63,7 +63,7 @@ CanvasMode::CanvasMode (ScribusView* view) :
 	m_brush["outline"]	= Qt::NoBrush;
 	m_brush["selection"]	= Qt::NoBrush;
 	m_brush["selection-group"] = QColor(255,0,0,10);
-	m_brush["selection-group-inside"] = QColor(0,255,0,10);
+	m_brush["selection-group-inside"] = Qt::NoBrush;
 	m_brush["handle"]	= Qt::red;
 }
 
@@ -210,6 +210,16 @@ void CanvasMode::drawSelection(QPainter* psx)
 		    for (uint a=0; a<docSelectionCount; ++a)
 		    {
 			currItem = m_doc->m_Selection->itemAt(a);
+			if( currItem->Groups.count() > 0)
+				{
+					if(! currItem->controlsGroup() )
+						continue;
+					else
+					{
+						if(currItem->Groups.count() > 1)
+							continue;
+					}
+				}
 			psx->save();
 			psx->setPen(m_pen["selection-group-inside"]);
 			psx->setBrush(m_brush["selection-group-inside"]);
@@ -233,8 +243,7 @@ void CanvasMode::drawSelection(QPainter* psx)
 			h = (currItem->asLine()) ? currItem->visualHeight() - 1.0 : currItem->visualHeight() ;
 
 			psx->drawRect(QRectF(x, y, w, h));
-			psx->drawLine(x,y, x+w,y+h);
-			psx->drawLine(x+w,y, x,y+h);
+
 			psx->restore();
 		    }
 		}
