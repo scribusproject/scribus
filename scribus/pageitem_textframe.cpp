@@ -753,7 +753,7 @@ static double opticalRightMargin(const StoryText& itemText, const LineSpec& line
 
 void PageItem_TextFrame::layout() 
 {
-	qDebug()<<"==Layout==" << itemName() ;
+// 	qDebug()<<"==Layout==" << itemName() ;
 // 	printBacktrace(24);
 	if (BackBox != NULL && BackBox->invalid) {
 //		qDebug("textframe: len=%d, going back", itemText.length());
