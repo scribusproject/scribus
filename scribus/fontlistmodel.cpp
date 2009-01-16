@@ -191,11 +191,11 @@ QVariant FontListModel::data(const QModelIndex & index,
 	}
 
 	if (role == Qt::CheckStateRole && index.column() == FontListModel::FontUsable)
-		return font.usable();
+		return (font.usable() ? Qt::Checked : Qt::Unchecked);
 	if (role == Qt::CheckStateRole && index.column() == FontListModel::FontEmbed)
-		return font.embedPs();
+		return (font.embedPs() ? Qt::Checked : Qt::Unchecked);
 	if (role == Qt::CheckStateRole && index.column() == FontListModel::FontSubset)
-		return font.subset();
+		return (font.subset() ? Qt::Checked : Qt::Unchecked);
 
 	return QVariant();
 }
