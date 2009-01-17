@@ -486,15 +486,17 @@ void TabKeyboardShortcutsWidget::keyPressEvent(QKeyEvent *k)
 	if (setKeyButton->isChecked())
 	{
 		QStringList tl;
+		Part4 = "";
 		if (!keyDisplay->text().isEmpty())
 		{
 			tl = keyDisplay->text().split("+", QString::SkipEmptyParts);
-			Part4 = tl[tl.count()-1];
-			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
-				Part4 = "";
-		}
-		else
-			Part4 = "";
+			if (tl.count() > 0)
+			{
+				Part4 = tl[tl.count()-1];
+				if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
+					Part4 = "";
+			}
+		}		
 		switch (k->key())
 		{
 			case Qt::Key_Meta:
@@ -543,16 +545,18 @@ void TabKeyboardShortcutsWidget::keyReleaseEvent(QKeyEvent *k)
 {
 	if (setKeyButton->isChecked())
 	{
+		Part4 = "";
 		if (!keyDisplay->text().isEmpty())
 		{
 			QStringList tl;
 			tl = keyDisplay->text().split("+", QString::SkipEmptyParts);
-			Part4 = tl[tl.count()-1];
-			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
-				Part4 = "";
+			if (tl.count() > 0)
+			{
+				Part4 = tl[tl.count()-1];
+				if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
+					Part4 = "";
+			}
 		}
-		else
-			Part4 = "";
 		if (k->key() == Qt::Key_Meta)
 		{
 			Part0 = "";
