@@ -257,7 +257,7 @@ bool getNumericGSVersion(const QString& ver, int& major, int& minor)
 
 QString getGSDefaultExeName(void)
 {
-	QString gsName;
+	QString gsName("gs");
 #if defined _WIN32
 	// Set gsName to its default value
 	gsName = "gswin32c.exe";
@@ -286,8 +286,19 @@ QString getGSDefaultExeName(void)
 			}
 		}
 	}
-#else
-	gsName = "gs";
+#endif
+#if defined Q_OS_MAC
+	QStringList gsPaths;
+	gsPaths << "/usr/bin/gs" << "/usr/local/bin/gs" << "/opt/local/bin/gs";
+	for (int i = 0; i < gsPaths.size(); ++i)
+	{
+		QFileInfo fInfo(gsPaths.at(i));
+		if (fInfo.exists())
+		{
+			gsName = gsPaths.at(i);
+			break;
+		}
+	}
 #endif
 	return gsName;
 }
