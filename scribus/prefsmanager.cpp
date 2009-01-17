@@ -183,10 +183,13 @@ void PrefsManager::initDefaults()
 
 	appPrefs.Wheelval = 40;
 	/** Set Default window position and size to sane default values which should work on every screen */
-	appPrefs.mainWinSettings.xPosition = 0;
-	appPrefs.mainWinSettings.yPosition = 0;
+//	appPrefs.mainWinSettings.xPosition = 0;
+//	appPrefs.mainWinSettings.yPosition = 0;
 	appPrefs.mainWinSettings.width = 640;
 	appPrefs.mainWinSettings.height = 480;
+	QDesktopWidget *d = QApplication::desktop();
+	appPrefs.mainWinSettings.xPosition=(d->availableGeometry().width()-appPrefs.mainWinSettings.width)/2;
+	appPrefs.mainWinSettings.yPosition=(d->availableGeometry().height()-appPrefs.mainWinSettings.height)/2;
 	appPrefs.mainWinSettings.maximized = false;
 	appPrefs.mainWinState = QByteArray();
 	appPrefs.guidesSettings.marginsShown = true;
