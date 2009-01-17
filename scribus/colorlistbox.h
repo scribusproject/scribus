@@ -96,6 +96,10 @@ class SCRIBUS_API ColorListBox : public QListWidget
 		\param the pixmap type to use */
 		void insertItems(ColorList& list, ColorListBox::PixmapType type);
 
+		void addItem(ColorPixmapItem* item, ColorListBox::PixmapType type);
+		void addItem(ColorPixmapItem* item);
+		void addItem(QString text);
+
 		/*! \brief Insert ColorSmallPixmapItems into the list
 		\param list a ColorList to present. */
 		void insertSmallPixmapItems(ColorList& list);

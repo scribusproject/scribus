@@ -221,6 +221,29 @@ void ColorListBox::insertItems(ColorList& list, ColorListBox::PixmapType type)
 		insertSmallPixmapItems( list );
 }
 
+void ColorListBox::addItem(ColorPixmapItem* item, ColorListBox::PixmapType type)
+{
+	QListWidget::addItem(item);
+	if (itemDelegate())
+		delete itemDelegate();
+	if (type == ColorListBox::fancyPixmap)
+		setItemDelegate(new ColorFancyItemDelegate());
+	else if (type == ColorListBox::widePixmap)
+		setItemDelegate(new ColorWideItemDelegate());
+	else if (type == ColorListBox::smallPixmap)
+		setItemDelegate(new ColorSmallItemDelegate());
+}
+
+void ColorListBox::addItem(ColorPixmapItem* item)
+{
+	QListWidget::addItem(item);
+}
+
+void ColorListBox::addItem(QString text)
+{
+	QListWidget::addItem(text);
+}
+
 void ColorListBox::insertSmallPixmapItems(ColorList& list)
 {
 	ColorList::Iterator it;

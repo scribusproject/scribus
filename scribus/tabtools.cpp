@@ -652,7 +652,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		colorComboText->insertSmallItem( itc.value(), docu, itc.key() );
+		colorComboText->insertFancyItem( itc.value(), docu, itc.key() );
 		if (itc.key() == prefsData->dPenText)
 			colorComboText->setCurrentIndex(colorComboText->count()-1);
 	}
@@ -666,7 +666,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		colorComboStrokeText->insertSmallItem( itc.value(), docu, itc.key() );
+		colorComboStrokeText->insertFancyItem( itc.value(), docu, itc.key() );
 		if (itc.key() == prefsData->dStrokeText)
 			colorComboStrokeText->setCurrentIndex(colorComboStrokeText->count()-1);
 	}
@@ -679,7 +679,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		colorComboTextBackground->insertSmallItem( itc.value(), docu, itc.key() );
+		colorComboTextBackground->insertFancyItem( itc.value(), docu, itc.key() );
 		if (itc.key() == prefsData->dTextBackGround)
 			colorComboTextBackground->setCurrentIndex(colorComboTextBackground->count()-1);
 	}
@@ -692,7 +692,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		colorComboTextLine->insertSmallItem( itc.value(), docu, itc.key() );
+		colorComboTextLine->insertFancyItem( itc.value(), docu, itc.key() );
 		if (itc.key() == prefsData->dTextLineColor)
 			colorComboTextLine->setCurrentIndex(colorComboTextLine->count()-1);
 	}
@@ -739,7 +739,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		colorComboLineShape->insertSmallItem( itc.value(), docu, itc.key() );
+		colorComboLineShape->insertFancyItem( itc.value(), docu, itc.key() );
 		if (itc.key() == prefsData->dPen)
 			colorComboLineShape->setCurrentIndex(colorComboLineShape->count()-1);
 	}
@@ -752,7 +752,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		comboFillShape->insertSmallItem( itc.value(), docu, itc.key() );
+		comboFillShape->insertFancyItem( itc.value(), docu, itc.key() );
 		if (itc.key() == prefsData->dBrush)
 			comboFillShape->setCurrentIndex(comboFillShape->count()-1);
 	}
@@ -768,7 +768,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		colorComboLine->insertSmallItem( itc.value(), docu, itc.key() );
+		colorComboLine->insertFancyItem( itc.value(), docu, itc.key() );
 		if (itc.key() == prefsData->dPenLine)
 			colorComboLine->setCurrentIndex(colorComboLine->count()-1);
 	}
@@ -803,7 +803,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		comboFillImage->insertSmallItem( itc.value(), docu, itc.key() );
+		comboFillImage->insertFancyItem( itc.value(), docu, itc.key() );
 		if (itc.key() == prefsData->dBrushPict)
 			comboFillImage->setCurrentIndex(comboFillImage->count()-1);
 	}

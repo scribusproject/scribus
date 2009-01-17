@@ -188,7 +188,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 		BorderC->setCurrentIndex(BorderC->count()-1);
 	for (cit = Farben.begin(); cit != Farben.end(); ++cit)
 	{
-		BorderC->insertSmallItem(cit.value(), doc, cit.key());
+		BorderC->insertFancyItem(cit.value(), doc, cit.key());
 		if (cit.key() == item->annotation().borderColor())
 			BorderC->setCurrentIndex(BorderC->count()-1);
 	}

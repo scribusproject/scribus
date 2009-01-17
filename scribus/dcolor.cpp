@@ -48,7 +48,7 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 		colorList.remove(colorName);
 		// 10/26/2004 pv - user can replace deleted color with "None"
 		replacementColData->addItem(CommonStrings::tr_NoneColor);
-		replacementColData->insertItems(colorList, ColorCombo::smallPixmaps);
+		replacementColData->insertItems(colorList, ColorCombo::fancyPixmaps);
 		delColorLayout->addWidget( replacementColData, 1, 1 );
 		replacementColor = replacementColData->itemText(0);
 	}

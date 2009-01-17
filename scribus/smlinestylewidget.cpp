@@ -81,10 +81,7 @@ void SMLineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorLi
 	disconnect(lineStyles, SIGNAL(currentRowChanged(int)), this, SLOT(slotEditNewLine(int)));
 	currentStyle = lineStyle;
 	colorCombo->clear();
-	ColorList::Iterator it;
-	ScribusDoc* doc = colorList.document();
-	for (it = colorList.begin(); it != colorList.end(); ++it)
-		colorCombo->insertWideItem(colorList[it.key()], doc, it.key());
+	colorCombo->updateBox(colorList, ColorCombo::fancyPixmaps, false);
 	colors = colorList;
 	updateLineList();
 	slotEditNewLine(subLine);

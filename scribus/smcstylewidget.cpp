@@ -145,8 +145,8 @@ void SMCStyleWidget::fillColorCombo(ColorList &colors)
 	ScribusDoc* doc = colors.document();
 	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
 	{
-		fillColor_->insertSmallItem(it.value(), doc, it.key());
-		strokeColor_->insertSmallItem(it.value(), doc, it.key());
+		fillColor_->insertFancyItem(it.value(), doc, it.key());
+		strokeColor_->insertFancyItem(it.value(), doc, it.key());
 	}
 	fillColor_->view()->setMinimumWidth(fillColor_->view()->maximumViewportSize().width()+24);
 	strokeColor_->view()->setMinimumWidth(strokeColor_->view()->maximumViewportSize().width()+24);

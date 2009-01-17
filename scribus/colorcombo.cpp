@@ -82,20 +82,20 @@ void ColorCombo::insertSmallItem( const ScColor& col, ScribusDoc* doc, const QSt
 {
 	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
 	if ( clb )
-		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)) );
+		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)), ColorListBox::smallPixmap );
 }
 
 void ColorCombo::insertWideItem ( const ScColor& col, ScribusDoc* doc, const QString& colName )
 {
 	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
 	if ( clb )
-		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)) );
+		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)), ColorListBox::widePixmap );
 }
 
 void ColorCombo::insertFancyItem( const ScColor& col, ScribusDoc* doc, const QString& colName )
 {
 	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
 	if ( clb )
-		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)) );
+		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)), ColorListBox::fancyPixmap );
 }
 

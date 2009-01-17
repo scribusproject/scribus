@@ -99,7 +99,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout17->addWidget( textLabel3 );
 
 	colData = new ColorCombo(false, WStackPage_2);
-	colData->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+	colData->insertItems(doc->PageColors, ColorCombo::fancyPixmaps);
 	layout17->addWidget( colData );
 	WStackPageLayout->addLayout( layout17 );
 
@@ -235,7 +235,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel1d = new QLabel( tr( "Color 1:" ), WStackPage_8 );
 	WStackPage8Layout->addWidget( textLabel1d, 0, 0 );
 	colData1 = new ColorCombo(false, WStackPage_8);
-	colData1->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+	colData1->insertItems(doc->PageColors, ColorCombo::fancyPixmaps);
 	WStackPage8Layout->addWidget( colData1, 0, 1, 1, 2);
 	shade1 = new ShadeButton(WStackPage_8);
 	shade1->setValue(100);
@@ -256,7 +256,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel2d = new QLabel( tr( "Color 2:" ), WStackPage_8 );
 	WStackPage8Layout->addWidget( textLabel2d, 2, 0 );
 	colData2 = new ColorCombo(false, WStackPage_8);
-	colData2->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+	colData2->insertItems(doc->PageColors, ColorCombo::fancyPixmaps);
 	WStackPage8Layout->addWidget( colData2, 2, 1, 1, 2);
 	shade2 = new ShadeButton(WStackPage_8);
 	shade2->setValue(100);
@@ -285,7 +285,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel1t = new QLabel( tr( "Color 1:" ), WStackPage_9 );
 	WStackPage9Layout->addWidget( textLabel1t, 0, 0 );
 	colDatat1 = new ColorCombo(false, WStackPage_9);
-	colDatat1->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+	colDatat1->insertItems(doc->PageColors, ColorCombo::fancyPixmaps);
 	WStackPage9Layout->addWidget( colDatat1, 0, 1, 1, 2 );
 	shadet1 = new ShadeButton(WStackPage_9);
 	shadet1->setValue(100);
@@ -305,7 +305,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel2t = new QLabel( tr( "Color 2:" ), WStackPage_9 );
 	WStackPage9Layout->addWidget( textLabel2t, 2, 0 );
 	colDatat2 = new ColorCombo(false, WStackPage_9);
-	colDatat2->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+	colDatat2->insertItems(doc->PageColors, ColorCombo::fancyPixmaps);
 	WStackPage9Layout->addWidget( colDatat2, 2, 1, 1, 2 );
 	shadet2 = new ShadeButton(WStackPage_9);
 	shadet2->setValue(100);
@@ -325,7 +325,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel3t = new QLabel( tr( "Color 3:" ), WStackPage_9 );
 	WStackPage9Layout->addWidget( textLabel3t, 4, 0 );
 	colDatat3 = new ColorCombo(false, WStackPage_9);
-	colDatat3->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+	colDatat3->insertItems(doc->PageColors, ColorCombo::fancyPixmaps);
 	WStackPage9Layout->addWidget( colDatat3, 4, 1, 1, 2 );
 	shadet3 = new ShadeButton(WStackPage_9);
 	shadet3->setValue(100);
@@ -351,7 +351,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel1q = new QLabel( tr( "Color 1:" ), WStackPage_10 );
 	WStackPage10Layout->addWidget( textLabel1q, 0, 0 );
 	colDataq1 = new ColorCombo(false, WStackPage_10);
-	colDataq1->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+	colDataq1->insertItems(doc->PageColors, ColorCombo::fancyPixmaps);
 	WStackPage10Layout->addWidget( colDataq1, 0, 1, 1, 2 );
 	shadeq1 = new ShadeButton(WStackPage_10);
 	shadeq1->setValue(100);
@@ -371,7 +371,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel2q = new QLabel( tr( "Color 2:" ), WStackPage_10 );
 	WStackPage10Layout->addWidget( textLabel2q, 2, 0 );
 	colDataq2 = new ColorCombo(false, WStackPage_10);
-	colDataq2->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+	colDataq2->insertItems(doc->PageColors, ColorCombo::fancyPixmaps);
 	WStackPage10Layout->addWidget( colDataq2, 2, 1, 1, 2 );
 	shadeq2 = new ShadeButton(WStackPage_10);
 	shadeq2->setValue(100);
@@ -391,7 +391,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel3q = new QLabel( tr( "Color 3:" ), WStackPage_10 );
 	WStackPage10Layout->addWidget( textLabel3q, 4, 0 );
 	colDataqc3 = new ColorCombo(false, WStackPage_10);
-	colDataqc3->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+	colDataqc3->insertItems(doc->PageColors, ColorCombo::fancyPixmaps);
 	WStackPage10Layout->addWidget( colDataqc3, 4, 1, 1, 2 );
 	shadeqc3 = new ShadeButton(WStackPage_10);
 	shadeqc3->setValue(100);
@@ -411,7 +411,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel4q = new QLabel( tr( "Color 4:" ), WStackPage_10 );
 	WStackPage10Layout->addWidget( textLabel4q, 6, 0 );
 	colDataq4 = new ColorCombo(false, WStackPage_10);
-	colDataq4->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+	colDataq4->insertItems(doc->PageColors, ColorCombo::fancyPixmaps);
 	WStackPage10Layout->addWidget( colDataq4, 6, 1, 1, 2 );
 	shadeq4 = new ShadeButton(WStackPage_10);
 	shadeq4->setValue(100);

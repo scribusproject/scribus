@@ -124,7 +124,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SearchLayout->addWidget( SEffVal, 4, 1, Qt::AlignLeft );
 	SFillVal = new ColorCombo( Search );
 	SFillVal->setEditable(false);
-	SFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
+	SFillVal->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
 	SFillVal->setMinimumWidth(SFillVal->view()->maximumViewportSize().width() + 24);
 	setCurrentComboItem(SFillVal, doc->currentStyle.charStyle().fillColor());
 	SFillVal->setEnabled(false);
@@ -134,7 +134,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SearchLayout->addWidget( SFillSVal, 6, 1, Qt::AlignLeft );
 	SStrokeVal = new ColorCombo( Search );
 	SStrokeVal->setEditable(false);
-	SStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
+	SStrokeVal->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
 	SStrokeVal->view()->setMinimumWidth(SStrokeVal->view()->maximumViewportSize().width() + 24);
 	setCurrentComboItem(SStrokeVal, doc->currentStyle.charStyle().strokeColor());
 	SStrokeVal->setEnabled(false);
@@ -211,7 +211,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	ReplaceLayout->addWidget( REffVal, 4, 1, Qt::AlignLeft );
 	RFillVal = new ColorCombo( true, Replace );
 	RFillVal->setEditable(false);
-	RFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
+	RFillVal->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
 	RFillVal->view()->setMinimumWidth(RFillVal->view()->maximumViewportSize().width() + 24);
 	setCurrentComboItem(RFillVal, doc->currentStyle.charStyle().fillColor());
 	RFillVal->setEnabled(false);
@@ -221,7 +221,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	ReplaceLayout->addWidget( RFillSVal, 6, 1, Qt::AlignLeft );
 	RStrokeVal = new ColorCombo( true, Replace );
 	RStrokeVal->setEditable(false);
-	RStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
+	RStrokeVal->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
 	RStrokeVal->view()->setMinimumWidth(RStrokeVal->view()->maximumViewportSize().width() + 24);
 	setCurrentComboItem(RStrokeVal, doc->currentStyle.charStyle().strokeColor());
 	RStrokeVal->setEnabled(false);
