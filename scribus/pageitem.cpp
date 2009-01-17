@@ -1589,16 +1589,11 @@ QImage PageItem::DrawObj_toImage()
 
 QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 {
-	double canvaScale(1.0);
-	// Nothing clear but I feel a doc could not to be bound to a view - pm
-	if( m_Doc->view() )
-		canvaScale = qMin(m_Doc->view()->scale() , 6.0);
-	qDebug() << "CanvaScale" << canvaScale <<"gWidth x gHeight"<<qRound(gWidth * canvaScale) << qRound(gHeight* canvaScale) <<"T"<<(gWidth * canvaScale*gHeight* canvaScale) / 1024;
-	QImage retImg = QImage(qRound(gWidth * canvaScale), qRound(gHeight * canvaScale), QImage::Format_ARGB32);
+	QImage retImg = QImage(qRound(gWidth), qRound(gHeight), QImage::Format_ARGB32);
 //	retImg.fill( qRgba(255, 255, 255, 0) );
 	retImg.fill( qRgba(0, 0, 0, 0) );
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
-	painter->setZoomFactor( canvaScale );
+	painter->setZoomFactor(1.0);
 	QStack<PageItem*> groupStack;
 	for (int em = 0; em < emG.count(); ++em)
 	{
