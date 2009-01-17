@@ -894,9 +894,10 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	//CB Drag selection performed here
 	if (((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt)) || ((shiftSelItems) && (m_view->HaveSelRect) && (!m_view->MidButt)))
 	{
-		double dx = m_mouseSavedPoint.x() - m_mousePressPoint.y();
+		double dx = m_mouseSavedPoint.x() - m_mousePressPoint.x();
 		double dy = m_mouseSavedPoint.y() - m_mousePressPoint.y();
-		QRectF Sele = QRectF(m_mousePressPoint.x(), m_mousePressPoint.y(), dx, dy).normalized();
+		QRectF Sele = QRectF(m_mousePressPoint.x(), m_mousePressPoint.y(), dx, dy);
+		Sele = m_canvas->canvasToLocal(Sele).normalized();
 		if (!m_doc->masterPageMode())
 		{
 			uint docPagesCount=m_doc->Pages->count();
@@ -922,12 +923,12 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			for (int a = 0; a < docItemCount; ++a)
 			{
 				PageItem* docItem = m_doc->Items->at(a);
+				if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
+					continue;
 				QMatrix p;
 				m_canvas->Transform(docItem, p);
 				QRegion apr = QRegion(docItem->Clip * p);
-				QRect apr2(docItem->getRedrawBounding(1.0));
-				if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
-					continue;
+				QRect apr2(docItem->getRedrawBounding(m_canvas->scale()));
 				if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerNr)))
 				{
 					bool redrawSelection=false;
