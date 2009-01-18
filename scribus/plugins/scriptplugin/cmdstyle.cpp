@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "styles/paragraphstyle.h"
 #include "styles/charstyle.h"
+#include "stylemanager.h"
 
 /*! 02.01.2007 - 05.01.2007 : Joachim Neu : Create a paragraph style.
 			Special thanks go to avox for helping me! */
@@ -77,6 +78,11 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 	StyleSet<ParagraphStyle> TmpStyleSet;
 	TmpStyleSet.create(TmpParagraphStyle);
 	ScCore->primaryMainWindow()->doc->redefineStyles(TmpStyleSet, false);
+	// PV - refresh the Style Manager window.
+	// I thought that this can work but it doesn't:
+	// ScCore->primaryMainWindow()->styleMgr()->reloadStyleView();
+	// So the brute force setDoc is called...
+	ScCore->primaryMainWindow()->styleMgr()->setDoc(ScCore->primaryMainWindow()->doc);
 
 	Py_RETURN_NONE;
 }
@@ -150,6 +156,11 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	StyleSet<CharStyle> TmpStyleSet;
 	TmpStyleSet.create(TmpCharStyle);
 	ScCore->primaryMainWindow()->doc->redefineCharStyles(TmpStyleSet, false);
+	// PV - refresh the Style Manager window.
+	// I thought that this can work but it doesn't:
+	// ScCore->primaryMainWindow()->styleMgr()->reloadStyleView();
+	// So the brute force setDoc is called...
+	ScCore->primaryMainWindow()->styleMgr()->setDoc(ScCore->primaryMainWindow()->doc);
 
 	Py_RETURN_NONE;
 }
